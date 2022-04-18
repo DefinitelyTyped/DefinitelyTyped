@@ -146,6 +146,31 @@ declare namespace InfiniteScroll {
 
 declare class InfiniteScroll {
     constructor(selector: string | Element, options: InfiniteScroll.Options);
+
+    /** Load the next page */
+    loadNextPage(): Promise<{
+        /** Reponse returned from `fetch` */
+        response: Response;
+        /** The operative content loaded from the fetch request */
+        body: string | object;
+        /** Appended elements if `append` is `true` in config */
+        items?: NodeList | undefined;
+    }>;
+    /**
+     * Append items to the container.
+     * `appendItems` will load `<script>` within item elements,
+     * which is useful for loading embed scripts
+     * @param items jQuery object, NodeList, or Array of Elements
+     */
+    appendItems(items: JQuery | NodeList | ArrayLike<Element>): void;
+    /** Get the relative URL path for the next page */
+    getPath(): string;
+    /** Get the absolute URL path for the next page */
+    getAbsolutePath(): string;
+    /** Set options after initialization */
+    option(options: InfiniteScroll.Options): void;
+    /** Remove Infinite Scroll functionality completely */
+    destroy(): void;
 }
 
 declare global {
