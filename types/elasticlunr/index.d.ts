@@ -6,12 +6,12 @@
 
 export = elasticlunr;
 
-declare function elasticlunr<T>(
+declare function elasticlunr<T extends {}>(
     config?: (this: elasticlunr.Index<T>, idx: elasticlunr.Index<T>) => void,
 ): elasticlunr.Index<T>;
 
 declare namespace elasticlunr {
-    class Configuration<T> {
+    class Configuration<T extends {}> {
         constructor(config: string, fields: Array<keyof T>);
 
         addAllFields2UserConfig(bool: Bool, expand: boolean, fields: Array<keyof T>): void;
