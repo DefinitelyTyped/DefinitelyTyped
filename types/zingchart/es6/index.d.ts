@@ -383,7 +383,7 @@ declare namespace zingchart {
        */
       open?: any;
     };
-    items?: {
+    items?: Array<{
         /**
          * To specify the font color of the context menu items. 'gray' | '##666699'
          */
@@ -401,7 +401,7 @@ declare namespace zingchart {
        * Use the object to display or remove individual Share Image context menu items: email, facebook, twitter, and linkedin. {...}
        */
       share?: any;
-    }[];
+    }>;
     /**
      * To set the visibility of the object. true | false
      */
@@ -563,7 +563,7 @@ declare namespace zingchart {
        */
       y?: any;
     };
-    'custom-items'?: {
+    'custom-items'?: Array<{
       /**
        * Sets a JavaScript function/portion of code that will be executed when the respective menu item is selected. "doSomething()" | "ale
        * rt(1)" | ...
@@ -577,7 +577,7 @@ declare namespace zingchart {
        * Sets the text for the menu item. "New Menu Item" | ...
        */
       text?: string;
-    }[];
+    }>;
     gear?: {
       /**
        * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -4239,7 +4239,7 @@ declare namespace zingchart {
        * Sets the visibility of the object. true | false
        */
       visible?: boolean;
-      items?: {
+      items?: Array<{
         /**
          * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being co
          * mpletely opaque. Note that values require the leading zero before the decimal. 0.3 | 0.9 | ...
@@ -4260,7 +4260,7 @@ declare namespace zingchart {
          */
         'border-width'?: number | string;
         borderWidth?: number | string;
-      } [];
+      }>;
     };
     item?: {
       /**
@@ -4980,7 +4980,7 @@ declare namespace zingchart {
        */
       visible?: boolean;
     };
-    markers?: {
+    markers?: Array<{
       /**
        * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being co
        * mpletely opaque. Note that the leading zero is required before the decimal. 0.3 | 0.4 | 0.9 | ...
@@ -5135,7 +5135,7 @@ declare namespace zingchart {
          */
         width?: number;
       };
-    }[];
+    }>;
     'minor-guide'?: minorGuide;
     minorGuide?: minorGuide;
     'minor-tick'?: minorTick;
@@ -5174,7 +5174,7 @@ declare namespace zingchart {
        * Sets the size of the object. 30 | '40px' | ...
        */
       size?: number;
-      items?: {
+      items?: Array<{
         /**
          * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being co
          * mpletely opaque. Note that the leading zero is required before the decimal. 0.3 | 0.4 | 0.9 | ...
@@ -5208,7 +5208,7 @@ declare namespace zingchart {
          * Sets the size of the object. 30 | '40px' | ...
          */
         size?: number;
-      }[];
+      }>;
     };
     tick?: {
       /**
@@ -5299,7 +5299,7 @@ declare namespace zingchart {
        * Sets the visibility of the object. true | false
        */
       visible?: boolean;
-      items?: {
+      items?: Array<{
         /**
          * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being co
          * mpletely opaque. Note that values require the leading zero before the decimal. 0.3 | 0.9 | ...
@@ -5309,7 +5309,7 @@ declare namespace zingchart {
          * Sets the background color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
          */
         'background-color'?: string;
-      }[];
+      }>;
     };
     item?: {
       /**
@@ -5774,7 +5774,7 @@ declare namespace zingchart {
        * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
        */
       visible?: boolean;
-      items?: {
+      items?: Array<{
         /**
          * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being co
          * mpletely opaque. Note that values require the leading zero before the decimal. 0.3 | 0.9 | ...
@@ -5794,7 +5794,7 @@ declare namespace zingchart {
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
         'border-width'?: number | string
-      }[];
+      }>;
     };
     item?: {
       /**
@@ -6129,7 +6129,7 @@ declare namespace zingchart {
       'wrap-text'?: boolean;
       wrapText?: boolean;
     };
-    items?: {
+    items?: Array<{
       /**
        * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
        * letely opaque. 0....1
@@ -6461,7 +6461,7 @@ declare namespace zingchart {
        */
       'wrap-text'?: boolean;
       wrapText?: boolean;
-    }[];
+    }>;
     label?: {
       /**
        * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -6800,7 +6800,7 @@ declare namespace zingchart {
       wrapText?: boolean;
     };
     labels?: any;
-    markers?: {
+    markers?: Array<{
       /**
        * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
        * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
@@ -7085,18 +7085,18 @@ declare namespace zingchart {
          */
         width?: number;
       };
-    }[];
+    }>;
     'minor-guide'?: minorGuide;
     minorGuide?: minorGuide;
     'minor-tick'?: minorTick;
     minorTick?: refLine;
     refLine?: refLine;
-    rules?: {
+    rules?: Array<{
       /**
        * Allows you to specify what portions of a chart to apply selected attributes to. '%v > 0' | '%v >= 5' | ...
        */
       rule?: string;
-    }[];
+    }>;
     tick?: {
       /**
        * Sets the transparency of the tick. In the example, the scale-x ticks are vertical lines | in red in between the months. 0.3 | 0.9
@@ -8042,7 +8042,7 @@ declare namespace zingchart {
        * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
        */
       visible?: boolean;
-      items?: {
+      items?: Array<{
         /**
          * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being co
          * mpletely opaque. Note that values require the leading zero before the decimal. 0.3 | 0.9 | ...
@@ -8070,7 +8070,7 @@ declare namespace zingchart {
          */
         'border-radius'?: any;
         borderRadius?: any;
-      }[];
+      }>;
     };
     item?: {
       /**
@@ -8742,7 +8742,7 @@ declare namespace zingchart {
       'wrap-text'?: boolean;
       wrapText?: boolean;
     };
-    markers?: {
+    markers?: Array<{
       /**
        * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
        * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
@@ -9027,19 +9027,19 @@ declare namespace zingchart {
          */
         width?: number;
       };
-    }[];
+    }>;
     'minor-guide'?: minorGuide;
     minorGuide?: minorGuide;
     'minor-tick'?: minorTick;
     minorTick?: minorTick;
     'ref-line'?: refLine;
     refLine?: refLine;
-    rules?: {
+    rules?: Array<{
       /**
        * Allows you to specify what portions of a chart to apply selected attributes to. '%v > 0' | '%v >= 5' | ...
        */
       rule?: string;
-    }[];
+    }>;
     tick?: {
       /**
        * Sets the transparency of the tick. In the example, the scale-x ticks are vertical lines | in red in between the months. 0.3 | 0.9
@@ -10225,7 +10225,7 @@ declare namespace zingchart {
        */
       zoom?: number;
     };
-    arrows?: {
+    arrows?: Array<{
       /**
        * Sets the text's font angle. -45 | 115 | ...
        */
@@ -10471,7 +10471,7 @@ declare namespace zingchart {
          */
         y?: number;
       };
-    }[];
+    }>;
     crosshair?: {
       /**
        * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -11090,7 +11090,7 @@ declare namespace zingchart {
         zIndex?: number;
       };
     };
-    images?: {
+    images?: Array<{
       /**
        * Sets the image source. Source can be the path to a local image file or a web image's location. Acceptable file formats include PNG
        * , GIF, JPEG, and TIFF.
@@ -11355,7 +11355,7 @@ declare namespace zingchart {
        * Sets the z position of the object. Objects with higher z indexes will appear "above" those with lower z index values. 5 | 10 | ...
        */
       'z-index'?: number;
-    }[];
+    }>;
     labels?: label[];
     legend?: {
       /**
@@ -13105,7 +13105,7 @@ declare namespace zingchart {
      */
     'max-trackers'?: number;
     maxTrackers?: number;
-    'media-rules'?: {
+    'media-rules'?: Array<{
       /**
        * Sets the maximum chart height in pixels. 600 | 400 | 300
        */
@@ -13131,7 +13131,7 @@ declare namespace zingchart {
        * breakpoints. true | false
        */
       visible?: boolean;
-    }[];
+    }>;
     'no-data'?: noData;
     noData?: noData;
     options?: {
@@ -13484,7 +13484,7 @@ declare namespace zingchart {
          */
         style?: any;
       };
-      words?: {
+      words?: Array<{
         /**
          * To set the word count. 5 | 20 | 100 | ...
          */
@@ -13493,7 +13493,7 @@ declare namespace zingchart {
          * To set the word. "Flowers" | "Freesia" | "Peony" | ...
          */
         text?: string;
-      }[];
+      }>;
     };
     plot?: {
       /**
@@ -14128,7 +14128,7 @@ declare namespace zingchart {
          */
         size?: any;
       };
-      errors?: {}[];
+      errors?: Array<{}>;
       goal?: {
         /**
          * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -14394,7 +14394,7 @@ declare namespace zingchart {
          */
         type?: string;
       };
-      rules?: {
+      rules?: Array<{
         /**
          * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
          * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
@@ -14403,7 +14403,7 @@ declare namespace zingchart {
          * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
          */
         rule?: string;
-      }[];
+      }>;
       'selected-marker'?: selectedMarker;
       selectedMarker?: selectedMarker;
       'selected-state'?: selectedState;
@@ -15727,7 +15727,7 @@ declare namespace zingchart {
       };
     };
     series?: series[];
-    shapes?: {
+    shapes?: Array<{
       /**
        * Sets the end angle of a pie shape. "10" | "212" | ...
        */
@@ -15961,7 +15961,7 @@ declare namespace zingchart {
        * Sets the z position of the object. Objects with higher z indexes will appear "above" those with lower z index values. 5 | 10 | ...
        */
       'z-index'?: number;
-    }[];
+    }>;
     source?: {
       /**
        * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -19087,7 +19087,7 @@ declare namespace zingchart {
        */
       size?: any;
     };
-    errors?: {}[];
+    errors?: Array<{}>;
     goal?: {
       /**
        * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -19366,7 +19366,7 @@ declare namespace zingchart {
        */
       type?: string;
     };
-    rules?: {
+    rules?: Array<{
       /**
        * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
        * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
@@ -19375,7 +19375,7 @@ declare namespace zingchart {
        * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
        */
       rule?: string;
-    }[];
+    }>;
     'selected-marker'?: selectedMarker;
     selectedMarker?: selectedMarker;
     'selected-state'?: selectedState;
