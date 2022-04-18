@@ -2,7 +2,7 @@
 // Project: http://weixsong.github.io
 // Definitions by: Luis Rodrigues <https://github.com/goblindegook>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 4.1
 
 export = elasticlunr;
 
