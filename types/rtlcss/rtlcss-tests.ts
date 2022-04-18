@@ -15,7 +15,7 @@ rtlcss.process(css, {}, [], {
     },
 });
 
-const config = {
+const options = {
     autoRename: false,
     autoRenameStrict: false,
     blacklist: {},
@@ -37,8 +37,13 @@ const config = {
     useCalc: false,
 };
 
+const config = {
+    options,
+    plugins: [],
+};
+
 // $ExpectType Processor
 rtlcss.configure(config);
 
 // $ExpectType Processor | Plugin
-rtlcss(config);
+rtlcss(options);

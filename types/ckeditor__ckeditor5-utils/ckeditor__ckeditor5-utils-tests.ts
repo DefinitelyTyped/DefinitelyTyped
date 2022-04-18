@@ -894,3 +894,91 @@ isVisible(document.documentElement);
 isVisible(null);
 // $ExpectType boolean
 isVisible();
+
+declare class Foo implements Emitter {
+    on<K extends string>(
+        event: K,
+        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: {
+            priority?: PriorityString | number | undefined;
+        },
+    ): void;
+    on(
+        event: 'init',
+        callback: (this: this, info: EventInfo<this, 'init'>, arg: { init: true }) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<K extends string>(
+        event: K,
+        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: {
+            priority?: PriorityString | number | undefined;
+        },
+    ): void;
+    once(
+        event: 'init',
+        callback: (this: this, info: EventInfo<this, 'init'>, arg: { init: true }) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
+    off(event: 'init', callback?: (this: this, info: EventInfo<this, 'init'>, arg: { init: true }) => void): void;
+    listenTo<P extends string, E extends Emitter>(
+        emitter: E,
+        event: P,
+        callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    stopListening<E extends Emitter, P extends string>(
+        emitter?: E,
+        event?: P,
+        callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+    ): void;
+    fire(eventOrInfo: 'init', arg: { init: true }): unknown;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
+    delegate(...events: string[]): EmitterMixinDelegateChain;
+    stopDelegating(event?: string, emitter?: Emitter): void;
+}
+
+const foo = new Foo();
+
+foo.on('init', (info, arg) => {
+    // $ExpectType EventInfo<Foo, "init">
+    info;
+    // $ExpectType { init: true; }
+    arg;
+});
+
+new Foo().on('foo', (info, ...args) => {
+    // $ExpectType EventInfo<Foo, "foo">
+    info;
+    // $ExpectType any[]
+    args;
+});
+
+foo.once('init', (info, arg) => {
+    // $ExpectType EventInfo<Foo, "init">
+    info;
+    // $ExpectType { init: true; }
+    arg;
+});
+
+new Foo().once('foo', (info, ...args) => {
+    // $ExpectType EventInfo<Foo, "foo">
+    info;
+    // $ExpectType any[]
+    args;
+});
+
+foo.off('init', (info, arg) => {
+    // $ExpectType EventInfo<Foo, "init">
+    info;
+    // $ExpectType { init: true; }
+    arg;
+});
+
+foo.off('foo', (info, ...args) => {
+    // $ExpectType EventInfo<Foo, "foo">
+    info;
+    // $ExpectType any[]
+    args;
+});

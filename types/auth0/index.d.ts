@@ -2032,7 +2032,7 @@ export class DatabaseAuthenticator<A = AppMetadata, U = UserMetadata> {
     signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
 
     signUp(data: SignUpUserData): Promise<User<A, U>>;
-    signIn(data: SignUpUserData, cb: (err: Error, data: User) => void): void;
+    signUp(data: SignUpUserData, cb: (err: Error, data: User) => void): void;
 }
 
 export class OAuthAuthenticator {
