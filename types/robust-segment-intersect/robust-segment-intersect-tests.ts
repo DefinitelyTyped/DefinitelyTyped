@@ -1,4 +1,4 @@
-import crosses from "robust-segment-intersect";
+import crosses = require('robust-segment-intersect');
 type Coordinate = [number, number];
 function robustsegmentintersect(
     a0: Coordinate,
