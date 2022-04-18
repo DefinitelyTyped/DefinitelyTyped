@@ -1,0 +1,162 @@
+// Type definitions for infinite-scroll 4.0
+// Project: https://github.com/metafizzy/infinite-scroll
+// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="jquery" />
+
+import Isotope = require('isotope-layout');
+import Masonry = require('masonry-layout');
+import { Packery } from 'packery';
+
+export as namespace InfiniteScroll;
+
+declare namespace InfiniteScroll {
+    interface Options {
+        /** Log events and state changes to the console */
+        debug?: boolean | undefined;
+
+        // Loading
+        path?: string | (() => string) | undefined;
+        /**
+         * Appends selected elements from loaded page to the container
+         * @default false
+         */
+        append?: string | false | undefined;
+        /**
+         * Checks if Infinite Scroll has reached the last page.
+         * This prevents Infinite Scroll from requesting a non-existent page.
+         * `last` event will be triggered when last page is reached
+         * @default true
+         */
+        checkLastPage?: boolean | undefined;
+        /**
+         * Sets the Response body interface method,
+         * on the response returned from fetch request
+         * @see {@link <https://developer.mozilla.org/en-US/docs/Web/API/Response#Body_Interface_Methods>}
+         * @default 'text'
+         */
+        responseBody?: string | undefined;
+        /**
+         * When enabled parses the response body into a DOM.
+         * Disable to load flat text
+         * @default true
+         */
+        domParseResponse?: boolean | undefined;
+        /**
+         * Sets method, headers, CORS mode, and other options for the fetch request
+         * @see {@link <https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options>}
+         */
+        fetchOptions?: RequestInit | (() => RequestInit) | undefined;
+        /**
+         * Integrates Masonry, Isotope or Packery.
+         * Infinite Scroll will add appended items to the layout
+         */
+        outlayer?: Masonry | Isotope | Packery | undefined;
+        /**
+         * Called on initialization.
+         * Useful for initial binding events with vanilla JS
+         */
+        onInit?: (() => void) | undefined;
+
+        // Scrolling
+        /**
+         * Sets the distance between the viewport to scroll area
+         * for `scrollThreshold` event to be triggered
+         * @default 400
+         */
+        scrollThreshold?: number | false | undefined;
+        /**
+         * Sets scroller to an element for overflow element scrolling.
+         * Disabled by default, `window` is used to scroll.
+         * We recommend disabling `history` with `elementScroll`.
+         *
+         * Set elementScroll to a selector string or element to use a different parent element.
+         * This is useful if a `status` element or `button` is at the bottom of the scroll area
+         */
+        elementScroll?: string | Element | true | undefined;
+        /**
+         * Loads next page when scroll crosses over `scrollThreshold`.
+         * Disable `loadOnScroll` if you do not want to load pages on scroll,
+         * but still want the `scrollThreshold` event triggered
+         * @default true
+         */
+        loadOnScroll?: boolean | undefined;
+
+        // History
+        /**
+         * Changes page URL and browser history.
+         * Default will use `history.replaceState()`
+         * to change the current history entry.
+         * Going back in the browser will return the user to previous site
+         *
+         * Set to `false` to disable
+         *
+         * Set to `'push'` to use `history.pushState()`
+         * to create new history entries for each page change.
+         * Going back in the browser will load the previous page
+         *
+         * @default 'replace'
+         */
+        history?: 'push' | 'replace' | false | undefined;
+        /**
+         * Updates the window title. Requires history enabled
+         * @default true
+         */
+        historyTitle?: boolean | undefined;
+
+        // UI
+        /** Hides navigation element */
+        hideNav?: string | Element | undefined;
+
+        /**
+         * Displays status elements indicating state of page loading. Within the selected element:
+         *
+         * - `.infinite-scroll-request` element will be displayed on request
+         * - `.infinite-scroll-last` element will be displayed on last
+         * - `.infinite-scroll-error` element will be displayed on error
+         *
+         * The selected status element will be hidden on append or load
+         *
+         * @example
+         * ```html
+         * <div class="page-load-status">
+         *   <p class="infinite-scroll-request">Loading...</p>
+         *   <p class="infinite-scroll-last">End of content</p>
+         *   <p class="infinite-scroll-error">No more pages to load</p>
+         * </div>
+         * ```
+         * ```js
+         * status: '.page-load-status'
+         * ```
+         */
+        status?: string | Element | undefined;
+
+        /**
+         * Enables a button to load pages on click.
+         * The button state is changed by Infinite Scroll events:
+         *
+         * - Disabled while loading on request
+         * - Re-enabled after page is loaded on load
+         * - Hidden when no more pages to load on error and last
+         */
+        button?: string | Element | undefined;
+    }
+}
+
+declare class InfiniteScroll {
+    constructor(selector: string | Element, options: InfiniteScroll.Options);
+}
+
+declare global {
+    interface JQuery<TElement> {
+        infiniteScroll(options: InfiniteScroll.Options): JQuery<TElement>;
+
+        infiniteScroll<M extends keyof InfiniteScroll & string>(
+            method: M,
+            ...params: Parameters<InfiniteScroll[M]>
+        ): JQuery<TElement>;
+    }
+}
+
+export = InfiniteScroll;
