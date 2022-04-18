@@ -1,4 +1,4 @@
-// For Library Version: 1.97.0
+// For Library Version: 1.100.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -33,9 +33,33 @@ declare module "sap/ui/integration/library" {
      */
     Custom = "Custom",
     /**
+     * @EXPERIMENTAL (since 1.87)
+     *
+     * Date selection. Available only for Calendar cards.
+     */
+    DateChange = "DateChange",
+    /**
+     * @EXPERIMENTAL (since 1.100)
+     *
+     * Used for hiding the appeared details about the card.
+     */
+    HideCard = "HideCard",
+    /**
+     * @EXPERIMENTAL (since 1.87)
+     *
+     * Month selection. Available only for Calendar cards.
+     */
+    MonthChange = "MonthChange",
+    /**
      * Used for navigation actions
      */
     Navigation = "Navigation",
+    /**
+     * @EXPERIMENTAL (since 1.100)
+     *
+     * Used for showing more details about the card.
+     */
+    ShowCard = "ShowCard",
     /**
      * Used for submit actions
      */
@@ -2494,7 +2518,7 @@ declare module "sap/ui/integration/widgets/Card" {
          * "jsonp". Note: Complex Binding is not supported when a dataType is provided. Serialization of the response
          * to an object is up to the developer.
          */
-        dataType?: Object;
+        dataType?: string;
         /**
          * The HTTP headers of the request.
          */
@@ -2613,9 +2637,9 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * @EXPERIMENTAL (since 1.81)
      *
-     * Displays a message strip on top of the content with the given text.
-     *
-     * **Note** Currently only available for an Adaptive Card.
+     * Displays a message strip above the content with the given text. There can be only 1 message displayed.
+     * If there is a previous message, it is removed. Can be used only after the `manifestApplied` event is
+     * fired.
      */
     showMessage(
       /**
@@ -2851,7 +2875,7 @@ declare module "sap/ui/integration/widgets/Card" {
          * "jsonp". Note: Complex Binding is not supported when a dataType is provided. Serialization of the response
          * to an object is up to the developer.
          */
-        dataType?: Object;
+        dataType?: string;
         /**
          * The HTTP headers of the request.
          */
@@ -2885,9 +2909,9 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * @EXPERIMENTAL (since 1.81)
      *
-     * Displays a message strip on top of the content with the given text.
-     *
-     * **Note** Currently only available for an Adaptive Card.
+     * Displays a message strip above the content with the given text. There can be only 1 message displayed.
+     * If there is a previous message, it is removed. Can be used only after the `manifestApplied` event is
+     * fired.
      */
     showMessage(
       /**
@@ -3113,7 +3137,11 @@ declare namespace sap {
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/mapEditor/MapEditor": undefined;
 
+    "sap/ui/integration/designtime/baseEditor/propertyEditor/multiSelectEditor/MultiSelectEditor": undefined;
+
     "sap/ui/integration/designtime/baseEditor/propertyEditor/numberEditor/NumberEditor": undefined;
+
+    "sap/ui/integration/designtime/baseEditor/propertyEditor/objectArrayEditor/ObjectArrayEditor": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/PropertyEditorFactory": undefined;
 
@@ -3157,6 +3185,8 @@ declare namespace sap {
 
     "sap/ui/integration/designtime/cardEditor/propertyEditor/destinationsEditor/DestinationsEditor": undefined;
 
+    "sap/ui/integration/designtime/cardEditor/propertyEditor/filtersEditor/FiltersEditor": undefined;
+
     "sap/ui/integration/designtime/cardEditor/propertyEditor/iconEditor/IconEditor": undefined;
 
     "sap/ui/integration/designtime/cardEditor/propertyEditor/parametersEditor/ParametersEditor": undefined;
@@ -3181,11 +3211,15 @@ declare namespace sap {
 
     "sap/ui/integration/editor/fields/IntegerField": undefined;
 
-    "sap/ui/integration/editor/fields/ListField": undefined;
-
     "sap/ui/integration/editor/fields/NumberField": undefined;
 
+    "sap/ui/integration/editor/fields/ObjectField": undefined;
+
+    "sap/ui/integration/editor/fields/ObjectListField": undefined;
+
     "sap/ui/integration/editor/fields/StringField": undefined;
+
+    "sap/ui/integration/editor/fields/StringListField": undefined;
 
     "sap/ui/integration/editor/fields/viz/ColorSelect": undefined;
 
@@ -3201,8 +3235,6 @@ declare namespace sap {
 
     "sap/ui/integration/library": undefined;
 
-    "sap/ui/integration/ManifestResolver": undefined;
-
     "sap/ui/integration/services/Service": undefined;
 
     "sap/ui/integration/util/CsrfTokenHandler": undefined;
@@ -3211,7 +3243,11 @@ declare namespace sap {
 
     "sap/ui/integration/util/DataProviderFactory": undefined;
 
+    "sap/ui/integration/util/ManifestResolver": undefined;
+
     "sap/ui/integration/util/RequestDataProvider": undefined;
+
+    "sap/ui/integration/util/SkeletonCard": undefined;
 
     "sap/ui/integration/widgets/Card": undefined;
   }

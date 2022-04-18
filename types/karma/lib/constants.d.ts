@@ -18,7 +18,14 @@ export const LOG_INFO: 'INFO';
 export const LOG_DEBUG: 'DEBUG';
 export const LOG_LOG: 'LOG';
 /** An array of log levels in descending order, i.e. LOG_DISABLE, LOG_ERROR, LOG_WARN, LOG_LOG, LOG_INFO, and LOG_DEBUG */
-export const LOG_PRIORITIES: ['OFF', 'ERROR', 'WARN', 'LOG', 'INFO', 'DEBUG'];
+export const LOG_PRIORITIES: [
+    typeof LOG_DISABLE,
+    typeof LOG_ERROR,
+    typeof LOG_WARN,
+    typeof LOG_LOG,
+    typeof LOG_INFO,
+    typeof LOG_DEBUG,
+];
 
 /** The default color pattern for log output */
 export const COLOR_PATTERN: string;

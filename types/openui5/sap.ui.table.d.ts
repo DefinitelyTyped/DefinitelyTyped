@@ -1,4 +1,4 @@
-// For Library Version: 1.97.0
+// For Library Version: 1.100.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -5425,7 +5425,7 @@ declare module "sap/ui/table/Table" {
         /**
          * binding context of the row which has been clicked so that selection has been changed
          */
-        rowContext?: object;
+        rowContext?: Context;
         /**
          * array of row indices which selection has been changed (either selected or deselected)
          */
@@ -5477,6 +5477,28 @@ declare module "sap/ui/table/Table" {
         columnAdded?: boolean;
       }
     ): boolean;
+    /**
+     * Sets the focus to the stored focus DOM reference.
+     *
+     * If {@param oFocusInfo.targetInfo} is of type {@type sap.ui.core.message.Message}, the focus will be set
+     * as accurately as possible according to the information provided by {@type sap.ui.core.message.Message}.
+     */
+    focus(
+      /**
+       * Options for setting the focus
+       */
+      oFocusInfo?: {
+        /**
+         * @since 1.60 If set to `true`, the focused element won't be moved into the viewport if it's not completely
+         * visible before the focus is set
+         */
+        preventScroll?: boolean;
+        /**
+         * @since 1.98 Further control-specific setting of the focus target within the control
+         */
+        targetInfo?: any;
+      }
+    ): void;
     /**
      * @SINCE 1.52
      *

@@ -18,7 +18,7 @@ export class OrthographicCamera extends Camera {
      * @param [near=0.1] Camera frustum near plane.
      * @param [far=2000] Camera frustum far plane.
      */
-    constructor(left: number, right: number, top: number, bottom: number, near?: number, far?: number);
+    constructor(left?: number, right?: number, top?: number, bottom?: number, near?: number, far?: number);
 
     type: 'OrthographicCamera';
 

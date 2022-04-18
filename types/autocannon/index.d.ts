@@ -1,4 +1,4 @@
-// Type definitions for autocannon 4.1
+// Type definitions for autocannon 7.6
 // Project: https://github.com/mcollina/autocannon#readme
 // Definitions by: Jeremy Bensimon <https://github.com/jeremyben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -164,6 +164,11 @@ declare namespace autocannon {
          * @default false
          */
         excludeErrorStats?: boolean | undefined;
+
+        /**
+         * The number of worker threads to use to fire requests.
+         */
+        workers?: number | undefined;
     }
 
     interface Request {
@@ -203,7 +208,8 @@ declare namespace autocannon {
             | 'UNBIND'
             | 'UNLINK'
             | 'UNLOCK'
-            | 'UNSUBSCRIBE' | undefined;
+            | 'UNSUBSCRIBE'
+            | undefined;
         path?: string | undefined;
     }
 
@@ -460,11 +466,34 @@ declare namespace autocannon {
          */
         progressBarString?: string | undefined;
     }
+    interface PrintResultOptions {
+        /**
+         * The stream to output to.
+         * @default process.stderr
+         */
+        outputStream?: NodeJS.WritableStream | undefined;
+
+        /**
+         * A truthy value to enable the rendering of the results table.
+         * @default true
+         */
+        renderResultsTable?: boolean | undefined;
+
+        /**
+         * A truthy value to enable the rendering of the advanced latency table.
+         * @default false
+         */
+        renderLatencyTable?: boolean | undefined;
+    }
 
     /**
      * Track the progress of your autocannon.
      */
     function track(instance: Instance, options?: TrackingOptions): void;
+    /**
+     * Return string to print the result tables to the terminal, programmatically.
+     */
+    function printResult(result: Result, options?: PrintResultOptions): string;
 }
 
 /**

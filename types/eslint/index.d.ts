@@ -1,4 +1,4 @@
-// Type definitions for eslint 8.2
+// Type definitions for eslint 8.4
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -567,6 +567,8 @@ export namespace Rule {
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
         deprecated?: boolean | undefined;
         type?: "problem" | "suggestion" | "layout" | undefined;
+        /** specifies whether rules can return suggestions (defaults to false if omitted) */
+        hasSuggestions?: boolean | undefined;
     }
 
     interface RuleContext {
@@ -716,7 +718,7 @@ export namespace Linter {
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | "latest" |undefined;
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | "latest" | undefined;
         sourceType?: "script" | "module" | undefined;
         ecmaFeatures?: {
             globalReturn?: boolean | undefined;
@@ -870,6 +872,7 @@ export namespace ESLint {
     }
 
     interface LintResultData {
+        cwd: string;
         rulesMeta: {
             [ruleId: string]: Rule.RuleMetaData;
         };
@@ -881,7 +884,7 @@ export namespace ESLint {
     }
 
     interface Formatter {
-        format(results: LintResult[], data?: LintResultData): string;
+        format(results: LintResult[], data?: LintResultData): string | Promise<string>;
     }
 
     // Docs reference the type by this name
@@ -911,6 +914,7 @@ export class RuleTester {
 
 export namespace RuleTester {
     interface ValidTestCase {
+        name?: string;
         code: string;
         options?: any;
         filename?: string | undefined;

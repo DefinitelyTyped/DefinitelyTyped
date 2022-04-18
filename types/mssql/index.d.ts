@@ -259,7 +259,7 @@ declare class columns extends Array<IColumn> {
     public add(name: string, type: (() => ISqlType) | ISqlType, options?: IColumnOptions): number;
 }
 
-type IRow = (string | number | boolean | Date | Buffer | undefined)[];
+type IRow = (string | number | boolean | Date | Buffer | undefined | null)[];
 
 declare class rows extends Array<IRow> {
     public add(...row: IRow): number;

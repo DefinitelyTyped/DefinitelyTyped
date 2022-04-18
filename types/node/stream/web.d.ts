@@ -1,7 +1,6 @@
 declare module 'stream/web' {
     // stub module, pending copy&paste from .d.ts or manual impl
     // copy from lib.dom.d.ts
-
     interface ReadableWritablePair<R = any, W = any> {
         readable: ReadableStream<R>;
         /**
@@ -15,7 +14,6 @@ declare module 'stream/web' {
          */
         writable: WritableStream<W>;
     }
-
     interface StreamPipeOptions {
         preventAbort?: boolean;
         preventCancel?: boolean;
@@ -63,70 +61,53 @@ declare module 'stream/web' {
         preventClose?: boolean;
         signal?: AbortSignal;
     }
-
     interface ReadableStreamGenericReader {
         readonly closed: Promise<undefined>;
         cancel(reason?: any): Promise<void>;
     }
-
     interface ReadableStreamDefaultReadValueResult<T> {
         done: false;
         value: T;
     }
-
     interface ReadableStreamDefaultReadDoneResult {
         done: true;
         value?: undefined;
     }
     type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
-    type ReadableStreamDefaultReadResult<T> =
-        | ReadableStreamDefaultReadValueResult<T>
-        | ReadableStreamDefaultReadDoneResult;
-
+    type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
     interface ReadableByteStreamControllerCallback {
         (controller: ReadableByteStreamController): void | PromiseLike<void>;
     }
-
     interface UnderlyingSinkAbortCallback {
         (reason?: any): void | PromiseLike<void>;
     }
-
     interface UnderlyingSinkCloseCallback {
         (): void | PromiseLike<void>;
     }
-
     interface UnderlyingSinkStartCallback {
         (controller: WritableStreamDefaultController): any;
     }
-
     interface UnderlyingSinkWriteCallback<W> {
         (chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>;
     }
-
     interface UnderlyingSourceCancelCallback {
         (reason?: any): void | PromiseLike<void>;
     }
-
     interface UnderlyingSourcePullCallback<R> {
         (controller: ReadableStreamController<R>): void | PromiseLike<void>;
     }
-
     interface UnderlyingSourceStartCallback<R> {
         (controller: ReadableStreamController<R>): any;
     }
-
     interface TransformerFlushCallback<O> {
         (controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
     }
-
     interface TransformerStartCallback<O> {
         (controller: TransformStreamDefaultController<O>): any;
     }
-
     interface TransformerTransformCallback<I, O> {
         (chunk: I, controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
     }
-
     interface UnderlyingByteSource {
         autoAllocateChunkSize?: number;
         cancel?: ReadableStreamErrorCallback;
@@ -134,14 +115,12 @@ declare module 'stream/web' {
         start?: ReadableByteStreamControllerCallback;
         type: 'bytes';
     }
-
     interface UnderlyingSource<R = any> {
         cancel?: UnderlyingSourceCancelCallback;
         pull?: UnderlyingSourcePullCallback<R>;
         start?: UnderlyingSourceStartCallback<R>;
         type?: undefined;
     }
-
     interface UnderlyingSink<W = any> {
         abort?: UnderlyingSinkAbortCallback;
         close?: UnderlyingSinkCloseCallback;
@@ -149,11 +128,9 @@ declare module 'stream/web' {
         type?: undefined;
         write?: UnderlyingSinkWriteCallback<W>;
     }
-
     interface ReadableStreamErrorCallback {
         (reason: any): void | PromiseLike<void>;
     }
-
     /** This Streams API interface represents a readable stream of byte data. */
     interface ReadableStream<R = any> {
         readonly locked: boolean;
@@ -162,31 +139,24 @@ declare module 'stream/web' {
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
         tee(): [ReadableStream<R>, ReadableStream<R>];
-        [Symbol.asyncIterator](options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
+        values(options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
+        [Symbol.asyncIterator](): AsyncIterableIterator<R>;
     }
-
     const ReadableStream: {
         prototype: ReadableStream;
-        new (
-            underlyingSource: UnderlyingByteSource,
-            strategy?: QueuingStrategy<Uint8Array>,
-        ): ReadableStream<Uint8Array>;
+        new (underlyingSource: UnderlyingByteSource, strategy?: QueuingStrategy<Uint8Array>): ReadableStream<Uint8Array>;
         new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
     };
-
     interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
         read(): Promise<ReadableStreamDefaultReadResult<R>>;
         releaseLock(): void;
     }
-
     const ReadableStreamDefaultReader: {
         prototype: ReadableStreamDefaultReader;
         new <R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
     };
-
     const ReadableStreamBYOBReader: any;
     const ReadableStreamBYOBRequest: any;
-
     interface ReadableByteStreamController {
         readonly byobRequest: undefined;
         readonly desiredSize: number | null;
@@ -194,24 +164,20 @@ declare module 'stream/web' {
         enqueue(chunk: ArrayBufferView): void;
         error(error?: any): void;
     }
-
     const ReadableByteStreamController: {
         prototype: ReadableByteStreamController;
         new (): ReadableByteStreamController;
     };
-
     interface ReadableStreamDefaultController<R = any> {
         readonly desiredSize: number | null;
         close(): void;
         enqueue(chunk?: R): void;
         error(e?: any): void;
     }
-
     const ReadableStreamDefaultController: {
         prototype: ReadableStreamDefaultController;
         new (): ReadableStreamDefaultController;
     };
-
     interface Transformer<I = any, O = any> {
         flush?: TransformerFlushCallback<O>;
         readableType?: undefined;
@@ -219,33 +185,24 @@ declare module 'stream/web' {
         transform?: TransformerTransformCallback<I, O>;
         writableType?: undefined;
     }
-
     interface TransformStream<I = any, O = any> {
         readonly readable: ReadableStream<O>;
         readonly writable: WritableStream<I>;
     }
-
     const TransformStream: {
         prototype: TransformStream;
-        new <I = any, O = any>(
-            transformer?: Transformer<I, O>,
-            writableStrategy?: QueuingStrategy<I>,
-            readableStrategy?: QueuingStrategy<O>,
-        ): TransformStream<I, O>;
+        new <I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
     };
-
     interface TransformStreamDefaultController<O = any> {
         readonly desiredSize: number | null;
         enqueue(chunk?: O): void;
         error(reason?: any): void;
         terminate(): void;
     }
-
     const TransformStreamDefaultController: {
         prototype: TransformStreamDefaultController;
         new (): TransformStreamDefaultController;
     };
-
     /**
      * This Streams API interface provides a standard abstraction for writing
      * streaming data to a destination, known as a sink. This object comes with
@@ -257,12 +214,10 @@ declare module 'stream/web' {
         close(): Promise<void>;
         getWriter(): WritableStreamDefaultWriter<W>;
     }
-
     const WritableStream: {
         prototype: WritableStream;
         new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
     };
-
     /**
      * This Streams API interface is the object returned by
      * WritableStream.getWriter() and once created locks the < writer to the
@@ -278,12 +233,10 @@ declare module 'stream/web' {
         releaseLock(): void;
         write(chunk?: W): Promise<void>;
     }
-
     const WritableStreamDefaultWriter: {
         prototype: WritableStreamDefaultWriter;
         new <W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
     };
-
     /**
      * This Streams API interface represents a controller allowing control of a
      * WritableStream's state. When constructing a WritableStream, the
@@ -293,21 +246,17 @@ declare module 'stream/web' {
     interface WritableStreamDefaultController {
         error(e?: any): void;
     }
-
     const WritableStreamDefaultController: {
         prototype: WritableStreamDefaultController;
         new (): WritableStreamDefaultController;
     };
-
     interface QueuingStrategy<T = any> {
         highWaterMark?: number;
         size?: QueuingStrategySize<T>;
     }
-
     interface QueuingStrategySize<T = any> {
         (chunk?: T): number;
     }
-
     interface QueuingStrategyInit {
         /**
          * Creates a new ByteLengthQueuingStrategy with the provided high water
@@ -320,7 +269,6 @@ declare module 'stream/web' {
          */
         highWaterMark: number;
     }
-
     /**
      * This Streams API interface provides a built-in byte length queuing
      * strategy that can be used when constructing streams.
@@ -329,12 +277,10 @@ declare module 'stream/web' {
         readonly highWaterMark: number;
         readonly size: QueuingStrategySize<ArrayBufferView>;
     }
-
     const ByteLengthQueuingStrategy: {
         prototype: ByteLengthQueuingStrategy;
         new (init: QueuingStrategyInit): ByteLengthQueuingStrategy;
     };
-
     /**
      * This Streams API interface provides a built-in byte length queuing
      * strategy that can be used when constructing streams.
@@ -343,12 +289,10 @@ declare module 'stream/web' {
         readonly highWaterMark: number;
         readonly size: QueuingStrategySize;
     }
-
     const CountQueuingStrategy: {
         prototype: CountQueuingStrategy;
         new (init: QueuingStrategyInit): CountQueuingStrategy;
     };
-
     interface TextEncoderStream {
         /** Returns "utf-8". */
         readonly encoding: 'utf-8';
@@ -356,19 +300,15 @@ declare module 'stream/web' {
         readonly writable: WritableStream<string>;
         readonly [Symbol.toStringTag]: string;
     }
-
     const TextEncoderStream: {
         prototype: TextEncoderStream;
         new (): TextEncoderStream;
     };
-
     interface TextDecoderOptions {
         fatal?: boolean;
         ignoreBOM?: boolean;
     }
-
     type BufferSource = ArrayBufferView | ArrayBuffer;
-
     interface TextDecoderStream {
         /** Returns encoding's name, lower cased. */
         readonly encoding: string;
@@ -380,7 +320,6 @@ declare module 'stream/web' {
         readonly writable: WritableStream<BufferSource>;
         readonly [Symbol.toStringTag]: string;
     }
-
     const TextDecoderStream: {
         prototype: TextDecoderStream;
         new (label?: string, options?: TextDecoderOptions): TextDecoderStream;

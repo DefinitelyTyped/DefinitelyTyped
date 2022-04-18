@@ -152,6 +152,12 @@ anotherGridInstance.scrollTo();
 anotherGridInstance.scrollTo(rowEntityToScrollTo);
 anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
+anotherGridInstance.getRow(rowEntityToScrollTo);
+anotherGridInstance.getRowsByKey(true, "id", 42);
+anotherGridInstance.getRowsByKey(true, 123, {});
+anotherGridInstance.findRowByKey(true, 10, "42");
+anotherGridInstance.findRowByKey(true, "test", true);
+
 var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
 var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
 var row: IMyEntity = selectedRowEntities[0];
@@ -162,12 +168,14 @@ gridApi.selection.getSelectAllState();
 gridApi.selection.selectAllRows();
 gridApi.selection.selectAllVisibleRows();
 gridApi.selection.selectRow(row);
+gridApi.selection.selectRowByKey(true, "id", 42);
 gridApi.selection.selectRowByVisibleIndex(5);
 gridApi.selection.setModifierKeysToMultiSelect(true);
 gridApi.selection.setMultiSelect(true);
 gridApi.selection.toggleRowSelection(row);
 gridApi.selection.unSelectRow(row);
 gridApi.selection.unSelectRowByVisibleIndex(5);
+gridApi.selection.unSelectRowByKey(true, 10, "42");
 
 gridApi.expandable.on.rowExpandedStateChanged(null, (row) => {
     if (row.isExpanded) {

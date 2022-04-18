@@ -13,6 +13,9 @@ const options: babel.TransformOptions = {
         sourceRoot: '',
         sourcesContent: ['foo'],
     },
+    browserslistEnv: 'last 1 chrome version',
+    browserslistConfigFile: false,
+    cloneInputAst: false,
 };
 
 babel.transform('code();', options, (err, result) => {
@@ -33,8 +36,12 @@ babel.transformFile('filename.js', options, (err, result) => {
 
 babel.transformFileSync('filename.js', options)!.code;
 
+function checkParseResult(_config: t.File) {}
+
 const sourceCode = 'if (true) return;';
 const parsedAst = babel.parse(sourceCode, options);
+
+checkParseResult(parsedAst!);
 
 babel.transformFromAst(parsedAst!, sourceCode, options, (err, result) => {
     const { code, map, ast } = result!;
@@ -146,6 +153,8 @@ if (partialConfig) {
 
 function withPluginPass(state: babel.PluginPass) {
     state.file.hub.addHelper('something');
+    if (!state.get('jsxDetected')) return;
+    state.set('jsxDetected', true);
 }
 
 const plugin: babel.PluginObj = {

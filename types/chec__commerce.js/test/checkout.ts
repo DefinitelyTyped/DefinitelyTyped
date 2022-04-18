@@ -263,7 +263,7 @@ commerce.checkout.checkGiftcard(checkoutTokenId, {
 // $ExpectType Promise<HelperValidationResponse>
 commerce.checkout.helperValidation(checkoutTokenId);
 
-// $ExpectType Promise<GetShippingOptionsResponse>
+// $ExpectType Promise<GetShippingOptionsResponse[]>
 commerce.checkout.getShippingOptions(checkoutTokenId, {
     country,
     region,

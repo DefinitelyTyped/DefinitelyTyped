@@ -229,6 +229,13 @@ interface Auth0LockCore {
     on(event: "unrecoverable_error" | "authorization_error", callback: (error: auth0.Auth0Error) => void): void;
     on(event: "authenticated", callback: (authResult: AuthResult) => void): void;
     on(event: string, callback: (...args: any[]) => void): void;
+
+    // though not documented, these methods are inherited from EventEmitter
+    // https://github.com/browserify/events/blob/48e3d18659caf72d94d319871106f089bb40002d/events.js#L321
+    off(event: "show" | "hide", callback: () => void): void;
+    off(event: "unrecoverable_error" | "authorization_error", callback: (error: auth0.Auth0Error) => void): void;
+    off(event: "authenticated", callback: (authResult: AuthResult) => void): void;
+    off(event: string, callback: (...args: any[]) => void): void;
 }
 
 interface Auth0LockStatic extends Auth0LockCore {

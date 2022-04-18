@@ -88,6 +88,7 @@ function init() {
                 render();
             });
 
+        window.addEventListener('keydown', onKeyDown);
         window.addEventListener('resize', onWindowResize);
 
         arcballGui.setArcballControls();
@@ -125,6 +126,18 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     render();
+}
+
+function onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'c') {
+        if (event.ctrlKey || event.metaKey) {
+            controls.copyState();
+        }
+    } else if (event.key === 'v') {
+        if (event.ctrlKey || event.metaKey) {
+            controls.pasteState();
+        }
+    }
 }
 
 function render() {

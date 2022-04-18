@@ -516,13 +516,13 @@ declare class Pubnub {
 declare namespace Pubnub {
     interface PubnubConfig {
         subscribeKey: string;
+        uuid: string;
         publishKey?: string | undefined;
         cipherKey?: string | undefined;
         authKey?: string | undefined;
         logVerbosity?: boolean | undefined;
-        uuid?: string | undefined;
         ssl?: boolean | undefined;
-        origin?: string | undefined;
+        origin?: string | string[] | undefined;
         presenceTimeout?: number | undefined;
         heartbeatInterval?: number | undefined;
         restore?: boolean | undefined;

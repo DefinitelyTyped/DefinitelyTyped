@@ -382,3 +382,6 @@ declare module 'dns' {
         }
     }
 }
+declare module 'node:dns' {
+    export * from 'dns';
+}

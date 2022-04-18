@@ -14,7 +14,7 @@ import {
     ALL,
     promises,
     setDefaultResultOrder,
-} from 'dns';
+} from 'node:dns';
 
 lookup("nodejs.org", (err, address, family) => {
     const _err: NodeJS.ErrnoException | null = err;

@@ -1,13 +1,13 @@
 import * as MongoNpmModule from 'mongodb';
 // tslint:disable-next-line:no-duplicate-imports
-import { Collection as MongoCollection, Db as MongoDb, IndexOptions, MongoClient } from 'mongodb';
+import { Collection as MongoCollection, Db as MongoDb, CreateIndexesOptions as IndexOptions, MongoClient } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
 
 declare module 'meteor/mongo' {
     // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
     type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
-    module Mongo {
+    namespace Mongo {
         // prettier-ignore
         type BsonType = 1 | "double" |
             2 | "string" |
@@ -174,7 +174,7 @@ declare module 'meteor/mongo' {
              * Constructor for a Collection
              * @param name The name of the collection. If null, creates an unmanaged (unsynchronized) local collection.
              */
-            new <T, U = T>(
+            new <T extends MongoNpmModule.Document, U = T>(
                 name: string | null,
                 options?: {
                     /**
@@ -199,7 +199,7 @@ declare module 'meteor/mongo' {
                 },
             ): Collection<T, U>;
         }
-        interface Collection<T, U = T> {
+        interface Collection<T extends MongoNpmModule.Document, U = T> {
             allow<Fn extends Transform<T> = undefined>(options: {
                 insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
                 update?:
@@ -401,7 +401,7 @@ declare module 'meteor/mongo' {
         function setConnectionOptions(options: any): void;
     }
 
-    module Mongo {
+    namespace Mongo {
         interface AllowDenyOptions {
             insert?: ((userId: string, doc: any) => boolean) | undefined;
             update?: ((userId: string, doc: any, fieldNames: string[], modifier: any) => boolean) | undefined;

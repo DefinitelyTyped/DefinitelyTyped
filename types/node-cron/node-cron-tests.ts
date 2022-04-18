@@ -4,8 +4,13 @@ import cron = require('node-cron');
 
 const log = console.log;
 
-cron.schedule('* * * * *', () => {
+cron.schedule('* * * * *', now => {
     log('running a task every minute');
+    if (now.getTime() === Date.now()) {
+        log('task ran at the predicted time');
+    } else {
+        log('Task ran with a delay');
+    }
 });
 
 cron.schedule('1-5 * * * *', () => {

@@ -8,7 +8,7 @@ export namespace Revwalk {
         NONE = 0,
         TOPOLOGICAL = 1,
         TIME = 2,
-        REVERSE = 4
+        REVERSE = 4,
     }
     interface HistoryEntry {
         commit: Commit;

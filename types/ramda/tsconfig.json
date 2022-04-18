@@ -5,10 +5,7 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strict": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -54,6 +51,7 @@
         "test/constructN-tests.ts",
         "test/contains-tests.ts",
         "test/converge-tests.ts",
+        "test/count-tests.ts",
         "test/countBy-tests.ts",
         "test/curry-tests.ts",
         "test/curryN-tests.ts",

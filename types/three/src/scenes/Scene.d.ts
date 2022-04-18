@@ -45,20 +45,5 @@ export class Scene extends Object3D {
 
     readonly isScene: true;
 
-    /**
-     * Calls before rendering scene
-     */
-    onBeforeRender: (
-        renderer: WebGLRenderer,
-        scene: Scene,
-        camera: Camera,
-        renderTarget: any, // any required for Object3D.onBeforeRender compatibility
-    ) => void;
-
-    /**
-     * Calls after rendering scene
-     */
-    onAfterRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera) => void;
-
     toJSON(meta?: any): any;
 }

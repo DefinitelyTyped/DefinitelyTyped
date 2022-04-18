@@ -242,7 +242,7 @@ f('one');
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
@@ -329,7 +329,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 #### Могу ли я запросить определение?
 
-Вот [текущие запрошенные определения](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Вот [текущие запрошенные определения](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### Как насчет определений типов для DOM?
 
@@ -360,7 +360,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 1. Обновите относительные пути в `tsconfig.json` а также в `tslint.json`.
 2. Добавьте правила сопоставления путей, чтобы убедиться, что тесты выполняются для предполагаемой версии.
 
-Например [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) looks like:
+Например [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks like:
 
 ```json
 {

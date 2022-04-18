@@ -1,15 +1,12 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es5",
+        "target": "es6",
         "lib": [
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strict": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -21,12 +18,14 @@
         },
         "types": [],
         "noEmit": true,
+        "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "test/lib/assert.ts",
         "test/component.ts",
+        "test/built-ins.ts",
         "test/helper.ts",
         "test/template-only.ts"
     ]

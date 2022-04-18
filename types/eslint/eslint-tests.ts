@@ -365,6 +365,20 @@ rule = {
     },
     meta: { type: "layout" },
 };
+rule = {
+    create(context) {
+        return {};
+    },
+    meta: {
+        docs: {
+            description: "disallow the use of `console`",
+            category: "Possible Errors",
+            recommended: true,
+            url: "https://eslint.org/docs/rules/no-console",
+        },
+        hasSuggestions: true,
+    },
+};
 
 rule = {
     create(context) {
@@ -491,6 +505,7 @@ linter.verify(SOURCE, {}, { preprocess: input => input.split(" ") });
 linter.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
 
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }, "test.js");
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2022 } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: "latest" } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, "test.js");
 linter.verify(
@@ -668,6 +683,9 @@ let formatterPromise: Promise<ESLint.Formatter>;
 formatterPromise = eslint.loadFormatter("codeframe");
 formatterPromise = eslint.loadFormatter();
 
+const customFormatter1: ESLint.Formatter = { format: () => "ok" };
+const customFormatter2: ESLint.Formatter = { format: () => Promise.resolve("ok") };
+
 let data: ESLint.LintResultData;
 const meta: Rule.RuleMetaData = {
     type: "suggestion",
@@ -684,13 +702,16 @@ const meta: Rule.RuleMetaData = {
     },
 };
 
-data = { rulesMeta: { "no-extra-semi": meta } };
+data = { cwd: "/foo/bar", rulesMeta: { "no-extra-semi": meta } };
 
 const version: string = ESLint.version;
 
-resultsPromise.then(results => {
-    formatterPromise.then(formatter => formatter.format(results));
-    formatterPromise.then(formatter => formatter.format(results, data));
+(async () => {
+    const results = await resultsPromise;
+    const formatter = await formatterPromise;
+
+    const output1: string = await formatter.format(results);
+    const output2: string = await formatter.format(results, data);
 
     eslint.getRulesMetaForResults(results);
 
@@ -718,7 +739,7 @@ resultsPromise.then(results => {
             message.ruleId = "foo";
         }
     }
-});
+})();
 
 //#endregion
 

@@ -47,3 +47,12 @@ Use [`$ExpectError`](https://github.com/microsoft/dtslint/blob/43859c39/README.m
 // $ExpectError
 R.map((n: number) => n.toString(), ['1', '2', '3']);
 ```
+
+### Code formatting
+
+Please, use prettier before committing changes to format code as described [here](https://github.com/DefinitelyTyped/DefinitelyTyped#common-mistakes).
+
+For example:
+```bash
+npm run prettier -- --write ./path/to/changed/files/name.ts
+```

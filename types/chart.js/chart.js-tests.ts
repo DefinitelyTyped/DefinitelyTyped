@@ -308,11 +308,9 @@ const linearScaleChart: Chart = new Chart(ctx, {
             },
             xAxes: [{
                 type: 'time',
-                time: {
-                    adapters: {
-                        date: {
-                            locale: 'de'
-                        }
+                adapters: {
+                    date: {
+                        locale: 'de'
                     }
                 },
                 distribution: 'series',
