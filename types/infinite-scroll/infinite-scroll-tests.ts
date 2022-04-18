@@ -29,3 +29,6 @@ infScrollJQuery('option', { path: '/page/{{#}}' });
 
 infScroll.destroy();
 infScrollJQuery('destroy');
+
+$('.abc').data('infiniteScroll'); // $ExpectType InfiniteScroll
+InfiniteScroll.data('.abc'); // $ExpectType InfiniteScroll

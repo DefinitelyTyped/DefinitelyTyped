@@ -145,7 +145,7 @@ declare namespace InfiniteScroll {
 }
 
 declare class InfiniteScroll {
-    constructor(selector: string | Element, options: InfiniteScroll.Options);
+    constructor(element: string | Element, options: InfiniteScroll.Options);
 
     /** Load the next page */
     loadNextPage(): Promise<{
@@ -171,16 +171,31 @@ declare class InfiniteScroll {
     option(options: InfiniteScroll.Options): void;
     /** Remove Infinite Scroll functionality completely */
     destroy(): void;
+
+    /**
+     * Get the Infinite Scroll instance via its element.
+     * This is useful for getting the Infinite Scroll instance in JavaScript
+     * after it has been initalized in HTML
+     */
+    static data(element: string | Element): InfiniteScroll;
 }
 
 declare global {
     interface JQuery<TElement> {
+        /** Initialize Infinite Scroll on an element */
         infiniteScroll(options: InfiniteScroll.Options): JQuery<TElement>;
 
+        /** Call an Infinite Scroll function on an element */
         infiniteScroll<M extends keyof InfiniteScroll & string>(
             method: M,
             ...params: Parameters<InfiniteScroll[M]>
         ): JQuery<TElement>;
+
+        /**
+         * Get the Infinite Scroll instance from a jQuery object.
+         * Infinite Scroll instances are useful to access Infinite Scroll properties
+         */
+        data(key: 'infiniteScroll'): InfiniteScroll;
     }
 }
 
