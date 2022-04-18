@@ -3,7 +3,7 @@
 // Definitions by: Nattapong Sirilappanich <https://github.com/NattapongSiri>
 //                 Ravi van Rooijen <https://github.com/HoldYourWaffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// Minimum TypeScript Version: 4.1
 
 import session = require('express-session');
 import { MongoClient, MongoClientOptions } from 'mongodb';
