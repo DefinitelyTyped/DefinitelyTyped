@@ -150,15 +150,15 @@ declare namespace echarts {
 
         /**
          * Create a new shape class.
-         * 
-         * @param {number[][]} opt 
+         *
+         * @param {number[][]} opt
          * @return {zrender.graphic.Path}
         */
-        extendShape ( opt: zrender.graphic.Path ): zrender.graphic.Path
-        
+        extendShape(opt: zrender.graphic.Path): zrender.graphic.Path
+
         /**
          * Register a user defined shape.
-         * 
+         *
          * @param {string} name
          * @param {zrender.graphic.Path} ShapeClass
          */
@@ -166,9 +166,9 @@ declare namespace echarts {
 
         /**
          * Get the registered shape class.
-         * 
-         * @param {string} name 
-         * @return {zrender.graphic.Path} 
+         *
+         * @param {string} name
+         * @return {zrender.graphic.Path}
          */
         getShapeClass(name: string): zrender.graphic.Path
 
