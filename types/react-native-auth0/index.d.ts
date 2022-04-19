@@ -200,9 +200,9 @@ export const users: Users;
  * Web Auth
  */
 export interface AuthorizeParams {
-    state?: string; // Random string to prevent CSRF attacks and used to discard unexepcted results. By default its a cryptographically secure random.
+    state?: string; // Random string to prevent CSRF attacks and used to discard unexpected results. By default it is a cryptographically secure random.
     nonce?: string; // Random string to prevent replay attacks of id_tokens.
-    audience?: string; // Identifier of Resource Server (RS) to be included as audience (aud claim) of the issued access token
+    audience?: string; // Identifier of Resource Server (RS) to be included as the audience (aud claim) of the issued access token
     scope?: string; // Scopes requested for the issued tokens. e.g. `openid profile`
     connection?: string; // The name of the identity provider to use, e.g. "google-oauth2" or "facebook". When not set, it will display Auth0's Universal Login Page.
     language?: string;
