@@ -749,7 +749,6 @@ declare global {
              * @param id id to match the incoming stanza against to find the right handler
              * @param from from jid to match the incoming stanza against to find the right handler
              * @param options matchBareFromJid match only the local and domain of the jid, ignoreNamespaceFragment ignores '#' in namespace
-             * @private
              */
             private constructor(handler: (stanza: Element) => boolean,
                                 ns: string,
@@ -925,7 +924,7 @@ declare global {
              *      ANONYMOUS   - 20
              *      EXTERNAL    - 10
              */
-            mechanisms?: Strophe.SASLMechanism[];
+            mechanisms?: SASLMechanism[];
             /**
              * explicitResourceBinding - Common option for Websocket and Bosh:
              *  If `explicitResourceBinding` is set to a truthy value, then the XMPP client
@@ -1061,7 +1060,7 @@ declare global {
             // SASL
             do_bind: boolean;
             do_session: boolean;
-            mechanism: Record<string, Strophe.SASLMechanism>;
+            mechanism: Record<string, SASLMechanism>;
 
             // handler lists
             timedHandlers: TimedHandler[];
@@ -1555,7 +1554,7 @@ declare global {
              *  Returns:
              *    @returns The id used to send the presence.
              */
-            sendPresence(elem: Element | Strophe.Builder, callback?: (elem: Element) => unknown, errback?: (elem: Element) => unknown, timeout?: number): string;
+            sendPresence(elem: Element | Builder, callback?: (elem: Element) => unknown, errback?: (elem: Element) => unknown, timeout?: number): string;
 
             /** Function: sendIQ
              *  Helper function to send IQ stanzas.
@@ -1595,7 +1594,7 @@ declare global {
              *  Returns:
              *    @returns A reference to the handler that can be used to remove it.
              */
-            addTimedHandler(period: number, handler: () => boolean): Strophe.TimedHandler;
+            addTimedHandler(period: number, handler: () => boolean): TimedHandler;
 
             /** Function: deleteTimedHandler
              *  Delete a timed handler for a connection.
@@ -1607,7 +1606,7 @@ declare global {
              *  Parameters:
              *    @param handRef - The handler reference.
              */
-            deleteTimedHandler(handRef: Strophe.TimedHandler): void;
+            deleteTimedHandler(handRef: TimedHandler): void;
 
 
             /** Function: addHandler
@@ -1682,7 +1681,7 @@ declare global {
                 id?: string,
                 from?: string,
                 options?: { matchBareFromJid: boolean, ignoreNamespaceFragment: boolean }
-            ): Strophe.Handler;
+            ): Handler;
 
             /** Function: deleteHandler
              *  Delete a stanza handler for a connection.
@@ -1694,7 +1693,7 @@ declare global {
              *  Parameters:
              *    @param handRef - The handler reference.
              */
-            deleteHandler(handRef: Strophe.Handler): void;
+            deleteHandler(handRef: Handler): void;
 
             /** Function: registerSASLMechanisms
              *
@@ -1705,7 +1704,7 @@ declare global {
              *    @param mechanisms - Array of objects with Strophe.SASLMechanism prototypes
              *
              */
-            registerSASLMechanisms(mechanisms: Strophe.SASLMechanism[]): void;
+            registerSASLMechanisms(mechanisms: SASLMechanism[]): void;
 
             /** Function: registerSASLMechanism
              *
@@ -1715,7 +1714,7 @@ declare global {
              *    @param Mechanism - Constructor for an object with a Strophe.SASLMechanism prototype
              *
              */
-            registerSASLMechanism(Mechanism: new() => Strophe.SASLMechanism): void;
+            registerSASLMechanism(Mechanism: new() => SASLMechanism): void;
 
             /** Function: disconnect
              *  Start the graceful disconnection process.
@@ -1744,7 +1743,7 @@ declare global {
              *    @param mechanisms - Array of SASL mechanisms.
              *
              */
-            sortMechanismsByPriority(mechanisms: Strophe.SASLMechanism[]): Strophe.SASLMechanism[];
+            sortMechanismsByPriority(mechanisms: SASLMechanism[]): SASLMechanism[];
 
             /** Function: authenticate
              * Set up authentication
@@ -1759,7 +1758,7 @@ declare global {
              *    @param matched - Array of SASL mechanisms supported.
              *
              */
-            authenticate(matched: Strophe.SASLMechanism[]): void;
+            authenticate(matched: SASLMechanism[]): void;
 
             /** Function: bind
              *
@@ -1799,7 +1798,7 @@ declare global {
              *  Returns:
              *    @returns A new Strophe.WebSocket object.
              */
-            constructor(connection: Strophe.Connection);
+            constructor(connection: Connection);
 
             /** PrivateFunction: _connect
              *  _Private_ function called by Strophe.Connection.connect
@@ -1826,7 +1825,7 @@ declare global {
              *  Returns:
              *    @returns A new Strophe.Bosh object.
              */
-            constructor(connection: Strophe.Connection);
+            constructor(connection: Connection);
 
             /** PrivateFunction: _connect
              *  _Private_ function that initializes the BOSH connection.
