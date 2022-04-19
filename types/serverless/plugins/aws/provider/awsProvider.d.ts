@@ -545,7 +545,7 @@ declare namespace Aws {
         /**
          * Supposed to be array of ARNs but needs more info
          */
-        resources?: string[],
+        resources?: string[];
         version?: string;
         id?: string;
         time?: string;
