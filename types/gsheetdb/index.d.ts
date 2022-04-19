@@ -7,7 +7,7 @@
 
 import { JWT, UserRefreshClient } from 'google-auth-library';
 
-export default class gsheetdb {
+declare class gsheetdb {
     spreadsheetId: string;
     sheetName: string;
     credentialsJSON: object;
@@ -23,15 +23,17 @@ export default class gsheetdb {
     updateRow(rowNumber: number, rowArray: Row): Promise<void>;
 }
 
-export interface GSheetDBParameters {
+interface GSheetDBParameters {
     spreadsheetId: string;
     sheetName: string;
     credentialsJSON: object;
 }
 
-export type SheetData = Array<{
+type SheetData = Array<{
     values: Row;
     rowNb: number;
 }>;
 
-export type Row = Array<boolean | string | number | null>;
+type Row = Array<boolean | string | number | null>;
+
+export = gsheetdb;

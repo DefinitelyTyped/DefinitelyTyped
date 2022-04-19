@@ -1,4 +1,4 @@
-import gsheetdb from 'gsheetdb';
+import gsheetdb = require('gsheetdb');
 
 const db = new gsheetdb({
     spreadsheetId: 'sheetId', // replace with spreadsheet id (from URL)
