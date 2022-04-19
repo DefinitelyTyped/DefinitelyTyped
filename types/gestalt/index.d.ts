@@ -873,6 +873,15 @@ export interface IconProps {
         | 'red'
         | 'watermelon'
         | 'white'
+        | 'default'
+        | 'subtle'
+        | 'success'
+        | 'error'
+        | 'warning'
+        | 'inverse'
+        | 'shopping'
+        | 'light'
+        | 'dark'
         | undefined;
     dangerouslySetSvgPath?: { __path: string } | undefined;
     icon?: Icons | undefined;
