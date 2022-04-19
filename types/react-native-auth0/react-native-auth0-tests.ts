@@ -131,7 +131,6 @@ auth0.webAuth
     })
     .then(credentials => credentials.doesNotExist); // $ExpectError
 
-
 auth0.webAuth
 .authorize({
     state: 'state',
