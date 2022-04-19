@@ -449,7 +449,7 @@ declare namespace jest {
          *
          * - `table`: Tagged Template Literal
          * - `name`: String the title of the test, use `$variable` to inject test data into the test title from the tagged template expressions.
-         * - `fn`: Function the test to be ran, this is the function that will receive the test data object..
+         * - `fn`: Function the test to be run, this is the function that will receive the test data object.
          *
          * @example
          *
