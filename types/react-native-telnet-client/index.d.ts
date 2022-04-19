@@ -31,60 +31,60 @@ export type TelnetState =
     | 'start';
 
 export interface ExecOptions {
-    echoLines?: number;
-    execTimeout?: number;
-    failedLoginMatch?: string;
-    irs?: string;
-    loginPrompt?: string;
-    maxBufferLength?: number;
-    newlineReplace?: string;
-    ors?: string;
-    shellPrompt?: string;
-    stripControls?: boolean;
-    timeout?: number;
+    echoLines?: number | undefined;
+    execTimeout?: number | undefined;
+    failedLoginMatch?: string | undefined;
+    irs?: string | undefined;
+    loginPrompt?: string | undefined;
+    maxBufferLength?: number | undefined;
+    newlineReplace?: string | undefined;
+    ors?: string | undefined;
+    shellPrompt?: string | undefined;
+    stripControls?: boolean | undefined;
+    timeout?: number | undefined;
 }
 
 export interface SendOptions {
-    maxBufferLength?: number;
-    newlineReplace?: string;
-    ors?: string;
-    shellPrompt?: string | RegExp;
-    stripControls?: boolean;
-    timeout?: number;
-    waitFor?: string | RegExp | false;
+    maxBufferLength?: number | undefined;
+    newlineReplace?: string | undefined;
+    ors?: string | undefined;
+    shellPrompt?: string | RegExp | undefined;
+    stripControls?: boolean | undefined;
+    timeout?: number | undefined;
+    waitFor?: string | RegExp | false | undefined;
     /** @deprecated */
-    waitfor?: string | RegExp | false;
+    waitfor?: string | RegExp | false | undefined;
 }
 
 export interface ConnectOptions extends SendOptions {
-    debug?: boolean;
-    echoLines?: number;
-    encoding?: BufferEncoding;
-    escapeHandler?: EscapeHandler;
-    execTimeout?: number;
-    extSock?: any;
-    failedLoginMatch?: string | RegExp;
-    host?: string;
+    debug?: boolean | undefined;
+    echoLines?: number | undefined;
+    encoding?: BufferEncoding | undefined;
+    escapeHandler?: EscapeHandler | undefined;
+    execTimeout?: number | undefined;
+    extSock?: unknown | undefined;
+    failedLoginMatch?: string | RegExp | undefined;
+    host?: string | undefined;
     /** @deprecated */
-    initialCTRLC?: boolean;
-    initialCtrlC?: boolean;
-    initialLFCR?: boolean;
-    irs?: string;
-    localAddress?: string;
-    loginPrompt?: string | RegExp;
-    maxEndWait?: number;
-    negotiationMandatory?: boolean;
-    pageSeparator?: string | RegExp;
-    password?: string;
-    passwordPrompt?: string | RegExp;
-    port?: number;
-    sendTimeout?: number;
-    sock?: Socket;
-    socketConnectOptions?: SocketConnectOpts;
-    stripShellPrompt?: boolean;
-    terminalHeight?: number;
-    terminalWidth?: number;
-    username?: string;
+    initialCTRLC?: boolean | undefined;
+    initialCtrlC?: boolean | undefined;
+    initialLFCR?: boolean | undefined;
+    irs?: string | undefined;
+    localAddress?: string | undefined;
+    loginPrompt?: string | RegExp | undefined;
+    maxEndWait?: number | undefined;
+    negotiationMandatory?: boolean | undefined;
+    pageSeparator?: string | RegExp | undefined;
+    password?: string | undefined;
+    passwordPrompt?: string | RegExp | undefined;
+    port?: number | undefined;
+    sendTimeout?: number | undefined;
+    sock?: Socket | undefined;
+    socketConnectOptions?: SocketConnectOpts | undefined;
+    stripShellPrompt?: boolean | undefined;
+    terminalHeight?: number | undefined;
+    terminalWidth?: number | undefined;
+    username?: string | undefined;
 }
 
 export default class Telnet extends EventEmitter {
