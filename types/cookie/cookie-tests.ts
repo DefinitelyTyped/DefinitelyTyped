@@ -1,10 +1,11 @@
-import cookie = require('cookie');
+import * as cookie from 'cookie';
+import { CookieParseOptions, CookieSerializeOptions, parse, serialize } from 'cookie';
 
 function test_serialize(): void {
     let retVal: string;
 
-    retVal = cookie.serialize('foo', 'bar');
-    retVal = cookie.serialize('foo', 'bar', { httpOnly: true });
+    retVal = serialize('foo', 'bar');
+    retVal = serialize('foo', 'bar', { httpOnly: true });
     retVal = cookie.serialize('foo', 'bar', { sameSite: 'none' });
     retVal = cookie.serialize('foo', 'bar', { sameSite: 'lax' });
 }
@@ -12,12 +13,12 @@ function test_serialize(): void {
 function test_parse(): void {
     let retVal: { [key: string]: string };
 
-    retVal = cookie.parse('foo=bar; bar=baz;');
+    retVal = parse('foo=bar; bar=baz;');
     retVal = cookie.parse('foo=bar; bar=baz', { decode: x => x });
 }
 
 function test_options(): void {
-    const serializeOptions: cookie.CookieSerializeOptions = {
+    const serializeOptions: CookieSerializeOptions = {
         encode: (x: string) => x,
         path: '/',
         expires: new Date(),
@@ -29,7 +30,7 @@ function test_options(): void {
         priority: 'low',
     };
 
-    const parseOptios: cookie.CookieParseOptions = {
+    const parseOptions: CookieParseOptions = {
         decode: (x: string) => x,
     };
 }
