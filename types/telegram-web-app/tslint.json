@@ -1,1 +1,1 @@
-{ "extends": "@definitelytyped/dtslint/dt.json", "naming": false }
+{ "extends": "@definitelytyped/dtslint/dt.json", "npm-naming": false }
