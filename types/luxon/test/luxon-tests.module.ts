@@ -29,6 +29,7 @@ DateTime.utc({ locale: 'en-US' }); // $ExpectType DateTime
 DateTime.utc(2018, 5, 31, 23, { numberingSystem: 'arabext' }); // $ExpectType DateTime
 DateTime.utc(2019, { locale: 'en-GB' }, 5); // $ExpectError
 DateTime.isDateTime(0 as unknown); // $ExpectType boolean
+new DateTime(); // $ExpectError
 
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
