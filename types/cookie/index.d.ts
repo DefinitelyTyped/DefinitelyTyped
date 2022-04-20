@@ -136,7 +136,7 @@ export interface CookieParseOptions {
  * @param str the string representing a `Cookie` header value
  * @param [options] object containing parsing options
  */
-export function parse(str: string, options?: CookieParseOptions): { [key: string]: string };
+export function parse(str: string, options?: CookieParseOptions): Record<string, string>;
 
 /**
  * Serialize a cookie name-value pair into a `Set-Cookie` header string.
