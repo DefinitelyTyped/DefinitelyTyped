@@ -132,7 +132,7 @@ auth0.webAuth
     .then(credentials => credentials.doesNotExist); // $ExpectError
 
 auth0.webAuth
-.authorize({
+.authorize<{ customParam1: string, customParam2: number}>({
     state: 'state',
     nonce: 'nonce',
     scope: 'openid',
