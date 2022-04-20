@@ -34,7 +34,7 @@ declare class SteamAuth {
      * Authenticates the user with oAuth.
      * @param request
      */
-    authenticate(request: Request | Object): Promise<UserObject>;
+    authenticate(request: Request | object): Promise<UserObject>;
 }
 
 interface SteamAuthOptions {
