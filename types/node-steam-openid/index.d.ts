@@ -33,6 +33,7 @@ declare class SteamAuth {
 
     /**
      * Authenticates the user with oAuth.
+     * @async
      * @param request
      */
     authenticate(request: Request | object): Promise<UserObject>;
