@@ -3,7 +3,7 @@
 // Definitions by: joshuajeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Request } from 'express'
+import { Request } from 'express';
 
 export = SteamAuth;
 
@@ -34,7 +34,7 @@ declare class SteamAuth {
      * Authenticates the user with oAuth.
      * @param request
      */
-    authenticate(request: Request | Object): Promise<UserObject>
+    authenticate(request: Request | Object): Promise<UserObject>;
 }
 
 interface SteamAuthOptions {
@@ -48,14 +48,14 @@ interface SteamAuthOptions {
  * The key _json holds the raw response from Steam API.
  */
 interface UserObject {
-    _json: Record<string, any>,
+    _json: Record<string, any>;
     steamid: string;
     username: string;
     name: string;
     profile: string;
     avatar: {
-          small: string;
-          medium: string;
-          large: string;
-    }
+        small: string;
+        medium: string;
+        large: string;
+    };
 }
