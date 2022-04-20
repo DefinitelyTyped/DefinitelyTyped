@@ -9,7 +9,7 @@ const geoJson: wellknown.GeoJSONGeometry = {
 
 wellknown.stringify(geoJson); // $ExpectType string
 
-wellknown.parse("GEOMETRYCOLLECTION (1 2)"); // $ExpectType GeoJSONGeometry
+wellknown.parse("GEOMETRYCOLLECTION (POINT (1 2))"); // $ExpectType GeoJSONGeometry
 
 const geometryCollection: wellknown.GeoJSONGeometry = {
     type: "GeometryCollection",
