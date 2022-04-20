@@ -27,6 +27,7 @@ declare class SteamAuth {
 
     /**
      * Gets the redirect URL to Steam.
+     * @async
      */
     getRedirectUrl(): Promise<string>;
 
