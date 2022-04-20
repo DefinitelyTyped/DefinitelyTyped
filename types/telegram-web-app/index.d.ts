@@ -1,3 +1,7 @@
+// Type definitions for telegram-web-app 1.0
+// Project: https://telegram.org/js/telegram-web-app.js
+// Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare global {
   interface Window {
     Telegram: Telegram;
