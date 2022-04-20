@@ -4819,6 +4819,10 @@
             "libraryName": "stacktrace-js",
             "asOfVersion": "2.0.1"
         },
+        "standard-engine": {
+            "libraryName": "standard-engine",
+            "asOfVersion": "15.0.0"
+        },
         "stellar-base": {
             "libraryName": "stellar-base",
             "asOfVersion": "0.13.2"
