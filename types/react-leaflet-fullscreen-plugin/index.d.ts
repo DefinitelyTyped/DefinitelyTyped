@@ -12,8 +12,8 @@ export interface FullscreenProps {
     forcePseudoFullscreen?: boolean | undefined;
     fullscreenElement?: false | HTMLElement | undefined;
     eventHandlers?: {
-        enterFullscreen: (event: Event) => void;
-        exitFullscreen: (event: Event) => void;
+        enterFullscreen?: (event: Event) => void;
+        exitFullscreen?: (event: Event) => void;
     } | undefined;
 }
 
