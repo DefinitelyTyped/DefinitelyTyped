@@ -199,7 +199,7 @@ export const users: Users;
 /**
  * Web Auth
  */
-export interface AuthorizeParams {
+export type  AuthorizeParams <P extends { [key: string]: any }> = P & {
     state?: string; // Random string to prevent CSRF attacks and used to discard unexpected results. By default it is a cryptographically secure random.
     nonce?: string; // Random string to prevent replay attacks of id_tokens.
     audience?: string; // Identifier of Resource Server (RS) to be included as the audience (aud claim) of the issued access token
@@ -210,7 +210,6 @@ export interface AuthorizeParams {
     max_age?: number; // The allowable elapsed time in seconds since the last time the user was authenticated (optional).
     organization?: string; // The ID of the organization to join
     invitationUrl?: string; // The invitation URL to join an organization. Takes precedence over the "organization" parameter.
-    [key: string]: string | number | undefined; // Optional user-defined values appended to the auth page URL query parameters.
 }
 
 export interface AuthorizeOptions {
@@ -235,7 +234,7 @@ export interface Credentials {
 }
 
 export class WebAuth {
-    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<Credentials>;
+    authorize<P = {}>(parameters: AuthorizeParams<P>, options?: AuthorizeOptions): Promise<Credentials>;
     clearSession(parameters?: ClearSessionParams): Promise<any>;
 }
 
