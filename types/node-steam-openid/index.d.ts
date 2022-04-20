@@ -23,7 +23,7 @@ declare class SteamAuth {
      * });
      * ```
      */
-    constructor({ realm, returnUrl, apiKey }: SteamAuthOptions);
+    constructor(steamAuthOptions: SteamAuthOptions);
 
     /**
      * Gets the redirect URL to Steam.
