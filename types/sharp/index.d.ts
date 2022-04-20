@@ -494,16 +494,16 @@ declare namespace sharp {
         toFile(fileOut: string): Promise<OutputInfo>;
 
         /**
-         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF and RAW output are supported.
-         * By default, the format will match the input image, except GIF and SVG input which become PNG output.
+         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF, GIF and RAW output are supported.
+         * By default, the format will match the input image, except SVG input which becomes PNG output.
          * @param callback Callback function called on completion with three arguments (err, buffer, info).
          * @returns A sharp instance that can be used to chain operations
          */
         toBuffer(callback: (err: Error, buffer: Buffer, info: OutputInfo) => void): Sharp;
 
         /**
-         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF and RAW output are supported.
-         * By default, the format will match the input image, except GIF and SVG input which become PNG output.
+         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF, GIF and RAW output are supported.
+         * By default, the format will match the input image, except SVG input which becomes PNG output.
          * @param options resolve options
          * @param options.resolveWithObject Resolve the Promise with an Object containing data and info properties instead of resolving only with data.
          * @returns A promise that resolves with the Buffer data.
@@ -511,8 +511,8 @@ declare namespace sharp {
         toBuffer(options?: { resolveWithObject: false }): Promise<Buffer>;
 
         /**
-         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF and RAW output are supported.
-         * By default, the format will match the input image, except GIF and SVG input which become PNG output.
+         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF, GIF and RAW output are supported.
+         * By default, the format will match the input image, except SVG input which becomes PNG output.
          * @param options resolve options
          * @param options.resolveWithObject Resolve the Promise with an Object containing data and info properties instead of resolving only with data.
          * @returns A promise that resolves with an object containing the Buffer data and an info object containing the output image format, size (bytes), width, height and channels
@@ -535,6 +535,14 @@ declare namespace sharp {
          * @returns A sharp instance that can be used to chain operations
          */
         jpeg(options?: JpegOptions): Sharp;
+
+        /**
+         * Use these JP2 (JPEG 2000) options for output image.
+         * @param options Output options.
+         * @throws {Error} Invalid options
+         * @returns A sharp instance that can be used to chain operations
+         */
+        jp2: (options?: Jp2Options) => Sharp;
 
         /**
          * Use these PNG options for output image.
@@ -925,6 +933,19 @@ declare namespace sharp {
         quantizationTable?: number | undefined;
         /** Use mozjpeg defaults (optional, default false) */
         mozjpeg?: boolean | undefined;
+    }
+
+    interface Jp2Options extends OutputOptions {
+        /** Quality, integer 1-100 (optional, default 80) */
+        quality?: number;
+        /** Use lossless compression mode (optional, default false) */
+        lossless?: boolean;
+        /** Horizontal tile size (optional, default 512) */
+        tileWidth?: number;
+        /** Vertical tile size (optional, default 512) */
+        tileHeight?: number;
+        /** Set to '4:2:0' to enable chroma subsampling (optional, default '4:4:4') */
+        chromaSubsampling?: '4:4:4' | '4:2:0';
     }
 
     interface WebpOptions extends OutputOptions, AnimationOptions {

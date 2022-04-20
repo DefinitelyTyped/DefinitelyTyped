@@ -22,6 +22,15 @@ export class Driver extends webdriver.WebDriver {
   static createSession(
       opt_config?: Options|webdriver.CreateSessionCapabilities,
       opt_service?: remote.DriverService|http.Executor): Driver;
+
+  /**
+   * Sends a DevTools command to change the browser's download directory.
+   *
+   * @param {string} path The desired download directory.
+   * @return {!Promise<void>} A promise that will be resolved when the command
+   *     has finished.
+  */
+  setDownloadPath(path: string): Promise<void>;
 }
 
 export interface IOptionsValues {

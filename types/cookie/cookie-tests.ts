@@ -26,6 +26,7 @@ function test_options(): void {
         secure: false,
         httpOnly: false,
         sameSite: 'strict',
+        priority: 'low',
     };
 
     const parseOptios: cookie.CookieParseOptions = {

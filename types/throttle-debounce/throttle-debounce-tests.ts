@@ -1,30 +1,81 @@
-import { throttle, debounce } from "throttle-debounce";
+import { throttle, debounce } from 'throttle-debounce';
 
-type Func = () => void;
+type Proc = () => void;
+const proc: Proc = () => {};
 
-const func: Func = () => {};
+type Func = (x: number) => string;
+const func: Func = (x: number) => '';
 
-const throttleWithoutCancel1: Func = throttle(42, true, func, true);
-const throttleWithoutCancel2: Func = throttle(42, true, func);
-const throttleWithoutCancel3: Func = throttle(42, func, true);
-const throttleWithoutCancel4: Func = throttle(42, func);
+// --------------- throttle ---------------
 
-throttleWithoutCancel1();
+// Examples of available options.
+throttle(1, proc);
+throttle(2, proc, {});
+throttle(3, proc, { noTrailing: true });
+throttle(4, proc, { noTrailing: false });
+throttle(5, proc, { noLeading: true });
+throttle(6, proc, { noLeading: false });
+throttle(7, proc, { debounceMode: true });
+throttle(8, proc, { debounceMode: false });
+throttle(9, proc, { noTrailing: false, noLeading: false, debounceMode: false });
+
+// Examples of invalid options.
 // $ExpectError
-throttleWithoutCancel1.cancel();
-const throttleWithCancel1: throttle<Func> = throttle(42, true, func, true);
-const throttleWithCancel2: throttle<Func> = throttle(42, true, func);
-const throttleWithCancel3: throttle<Func> = throttle(42, func, true);
-const throttleWithCancel4: throttle<Func> = throttle(42, func);
-throttleWithCancel1();
-throttleWithCancel1.cancel();
+throttle();
+// $ExpectError
+throttle(func);
+// $ExpectError
+throttle('', func);
+// $ExpectError
+throttle(0);
+// $ExpectError
+throttle(0, 0);
+// $ExpectError
+throttle(0, func, { noTrailing: 0 });
+// $ExpectError
+throttle(0, func, { noLeading: 0 });
+// $ExpectError
+throttle(0, func, { debounceMode: 0 });
 
-const debounceWithoutCancel1: Func = debounce(42, true, func);
-const debounceWithoutCancel2: Func = debounce(42, func);
+// Throttled functions should be subtype of `typeof callback` if `callback` will not return value.
+const proc2: Proc = throttle(1, proc);
+
+// Throttled functions should have `cancel`.
+const proc3 = throttle(1, proc);
+// $ExpectType throttle<Proc>
+proc3;
+// $ExpectType void
+proc3();
+// $ExpectType void
+proc3.cancel();
+
+// Throttled functions should not be subtype of `typeof callback` if `callback` will return value.
+// $ExpectError
+const func2: Func = throttle(1, func);
+
+const func3 = throttle(1, func);
+// $ExpectType throttle<Func>
+func3;
+// Throttled function should accept arguments if `callback` accept them.
+// $ExpectType void
+func3(100);
+// Throttled function should reject arguments if `callback` reject them.
+// $ExpectError
+func3('abc');
+// $ExpectError
+func3();
+// Throttled function should have `cancel`.
+// $ExpectType void
+func3.cancel();
+
+// --------------- debounce ---------------
+
+const debounceWithoutCancel1: Proc = debounce(42, true, proc);
+const debounceWithoutCancel2: Proc = debounce(42, proc);
 debounceWithoutCancel1();
 // $ExpectError
 debounceWithoutCancel1.cancel();
-const debounceWithCancel1: debounce<Func> = debounce(42, true, func);
-const debounceWithCancel2: debounce<Func> = debounce(42, func);
+const debounceWithCancel1: debounce<Proc> = debounce(42, true, proc);
+const debounceWithCancel2: debounce<Proc> = debounce(42, proc);
 debounceWithCancel1();
 debounceWithCancel1.cancel();

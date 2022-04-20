@@ -1,4 +1,4 @@
-// Type definitions for prettier 2.4
+// Type definitions for prettier 2.6
 // Project: https://prettier.io
 //          https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
@@ -172,7 +172,7 @@ export interface RequiredOptions extends doc.printer.Options {
     /**
      * Specify plugin directory paths to search for plugins if not installed in the same `node_modules` where prettier is located.
      */
-    pluginSearchDirs: string[];
+    pluginSearchDirs: string[] | false;
     /**
      * How to handle whitespaces in HTML.
      * @default 'css'
@@ -198,6 +198,11 @@ export interface RequiredOptions extends doc.printer.Options {
      * @default 'auto'
      */
     embeddedLanguageFormatting: 'auto' | 'off';
+    /**
+     * Enforce single attribute per line in HTML, Vue and JSX.
+     * @default false
+     */
+    singleAttributePerLine: boolean;
 }
 
 export interface ParserOptions<T = any> extends RequiredOptions {

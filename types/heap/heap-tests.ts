@@ -16,8 +16,8 @@ stringHeap.push("foo");
 numberHeap.insert(0);
 stringHeap.insert("foo");
 
-var numberIdentifier: number = numberHeap.pop();
-var stringIdentifier: string = stringHeap.pop();
+var numberIdentifier: number | undefined = numberHeap.pop();
+var stringIdentifier: string | undefined = stringHeap.pop();
 
 numberIdentifier = numberHeap.replace(1);
 stringIdentifier = stringHeap.replace("bar");
