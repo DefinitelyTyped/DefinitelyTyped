@@ -1,7 +1,4 @@
 /// <reference types="../strophe.js/muc" />
-
-import { $iq, $msg, $pres } from "strophe.js";
-
 function log(msg: string): void {
     console.log(msg);
 }
