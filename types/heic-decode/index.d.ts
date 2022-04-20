@@ -1,19 +1,30 @@
-declare module 'heic-decode';
+// Type definitions for heic-decode 1.1
+// Project: https://github.com/catdad-experiments/heic-decode
+// Definitions by: hieyou1 <https://github.com/hieyou1>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface HasBuffer {
+/*~ You can declare types that are available via importing the module */
+interface HasBuffer {
     buffer: ArrayBufferLike;
 }
 
-export interface DecodedImage {
+interface DecodedImage {
     width: number;
     height: number;
     data: number[];
 }
 
-export interface Decodable {
+interface Decodable {
     decode(): Promise<DecodedImage>;
 }
 
-export default function decode(bufobj: HasBuffer): Promise<DecodedImage>;
+/*~ If this module has methods, declare them as functions like so.
+ */
 
-export function all(bufobj: HasBuffer): Promise<Decodable[]>;
+declare function decode(bufobj: HasBuffer): Promise<DecodedImage>;
+
+declare namespace decode {
+    function all(bufobj: HasBuffer): Promise<Decodable[]>;
+}
+
+export = decode;
