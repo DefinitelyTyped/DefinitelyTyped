@@ -96,7 +96,7 @@ interface JSONArray extends Array<JSONValue> { }
 
 declare namespace resolve {
   export type PackageJSON = JSONObject;
-  
+
   interface Opts {
     /** directory to begin resolving from (defaults to __dirname) */
     basedir?: string | undefined;
