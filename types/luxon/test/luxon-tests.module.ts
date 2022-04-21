@@ -208,6 +208,7 @@ Duration.fromDurationLike({ hours: 1 }); // $ExpectType Duration
 Duration.fromDurationLike(1000); // $ExpectType Duration
 Duration.fromDurationLike(dur); // $ExpectType Duration
 Duration.fromDurationLike(''); // $ExpectError
+new Duration({ hour: 2, minute: 7 }); // $ExpectError
 dt.plus(dur); // $ExpectType DateTime
 dt.plus({ quarters: 2, months: 1 }); // $ExpectType DateTime
 dur.hours; // $ExpectType number
@@ -252,6 +253,7 @@ i.divideEqually(5);
 if (Interval.isInterval(anything)) {
     anything; // $ExpectType Interval
 }
+new Interval(now, later); // $ExpectError
 Interval.invalid(); // $ExpectError
 Interval.invalid('code', 'because I said so'); // $ExpectType Interval
 Interval.isInterval(0 as unknown); // $ExpectType boolean
