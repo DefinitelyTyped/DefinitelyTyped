@@ -1,4 +1,4 @@
-// Type definitions for totp-generator 0.0
+// Type definitions for totp-generator 0.0.5
 // Project: https://github.com/bellstrand/totp-generator
 // Definitions by: haykam821 <https://github.com/haykam821>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,5 +14,5 @@ interface TotpOptions {
     timestamp?: number | undefined;
 }
 
-declare function getToken(key: string, options?: TotpOptions): number;
+declare function getToken(key: string, options?: TotpOptions): string;
 export = getToken;
