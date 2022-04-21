@@ -3,7 +3,6 @@
 // Definitions by: hieyou1 <https://github.com/hieyou1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ You can declare types that are available via importing the module */
 interface HasBuffer {
     buffer: ArrayBufferLike;
 }
@@ -11,15 +10,12 @@ interface HasBuffer {
 interface DecodedImage {
     width: number;
     height: number;
-    data: number[];
+    data: ArrayBuffer;
 }
 
 interface Decodable {
     decode(): Promise<DecodedImage>;
 }
-
-/*~ If this module has methods, declare them as functions like so.
- */
 
 declare function decode(bufobj: HasBuffer): Promise<DecodedImage>;
 
