@@ -456,10 +456,25 @@ export class EditorState<S extends Schema = any> {
      * Create a new state.
      */
     static create<S extends Schema = any>(config: {
+        /**
+         * The schema to use (only relevant if no `doc` is specified).
+         */
         schema?: S | null | undefined;
+        /**
+         * The starting document.
+         */
         doc?: ProsemirrorNode<S> | null | undefined;
+        /**
+         * A valid selection in the document.
+         */
         selection?: Selection<S> | null | undefined;
+        /**
+         * The initial set of [stored marks](#state.EditorState.storedMarks).
+         */
         storedMarks?: Mark[] | null | undefined;
+        /**
+         * The plugins that should be active in this state.
+         */
         plugins?: Array<Plugin<any, S>> | null | undefined;
     }): EditorState<S>;
     /**
