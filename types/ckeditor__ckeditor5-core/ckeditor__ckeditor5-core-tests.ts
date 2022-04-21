@@ -15,6 +15,9 @@ import { EditorWithUI } from '@ckeditor/ckeditor5-core/src/editor/editorwithui';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import ParagraphCommand from '@ckeditor/ckeditor5-paragraph/src/paragraphcommand';
 import View from '@ckeditor/ckeditor5-ui/src/view';
+import { Emitter } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 
 /**
  * Editor
@@ -82,6 +85,12 @@ class MyPlugin extends Plugin {
 }
 
 const myPlugin = new MyPlugin(editor);
+myPlugin.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<MyPlugin, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
 const promise = myPlugin.init?.();
 promise != null && promise.then(() => {});
 myPlugin.myMethod();
@@ -117,6 +126,7 @@ class MyEmptyEditor extends Editor {
 /**
  * Command
  */
+
 class MyCommand extends Command {
     get value(): boolean {
         return this.value;
@@ -131,6 +141,13 @@ class MyCommand extends Command {
 }
 
 const command = new MyCommand(editor);
+
+command.on('execute', (ev, ...args) => {
+    // $ExpectType EventInfo<MyCommand, "execute">
+    ev;
+    // $ExpectType any[]
+    args;
+});
 
 // $ExpectType boolean
 command.value;
@@ -203,6 +220,13 @@ editor.plugins.get(MyCPlugin).myCMethod();
 context.plugins.get(MyCPlugin).myCMethod();
 (context.plugins.get('MyCPlugin') as MyCPlugin).myCMethod();
 
+editor.plugins.get(MyCPlugin).on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<MyCPlugin, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
 /**
  * DataApiMixin
  */
@@ -232,6 +256,14 @@ new EditorUI(editor).componentFactory.add('', locale => new View(locale));
 new EditorUI(editor).set('foo', true);
 // $ExpectType { top: number; right: number; bottom: number; left: number; }
 new EditorUI(editor).viewportOffset;
+new EditorUI(editor).on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<EditorUI, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new EditorUI(editor).set('foo');
 
 /** Pending Actions */
 // $ExpectType boolean

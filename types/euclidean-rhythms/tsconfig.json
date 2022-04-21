@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,12 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "jsx": "preserve",
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-tabs-tests.ts",
-        "react-tabs-tests.tsx"
+        "euclidean-rhythms-tests.ts"
     ]
 }

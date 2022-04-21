@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.2
+// Type definitions for Screeps 3.3
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -9,7 +9,7 @@
 //                 Skyler Kehren <https://github.com/pyrodogg>
 //                 Kieran Carnegie <https://github.com/kotarou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 4.6
 
 // Please contribute types to https://github.com/screepers/typed-screeps
 
@@ -108,7 +108,7 @@ declare const OBSTACLE_OBJECT_TYPES: [
     "terminal",
     "nuker",
     "factory",
-    "invaderCore"
+    "invaderCore",
 ];
 
 declare const ENERGY_REGEN_TIME: 300;
@@ -1567,16 +1567,8 @@ interface Game {
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T extends Id<any>>(id: T): fromId<T> | null;
-
-    /**
-     * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
-     * @param id The unique identifier.
-     * @returns an object instance or null if it cannot be found.
-     * @deprecated Use Id<T>, instead of strings, to increase type safety
-     */
-    // tslint:disable-next-line:unified-signatures
-    getObjectById<T>(id: string): T | null;
+    getObjectById<T extends Id<_HasId>>(id: T): fromId<T> | null;
+    getObjectById<T extends _HasId>(id: Id<T>): T | null;
 
     /**
      * Send a custom message at your profile email.
@@ -1905,7 +1897,8 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?(roomName: string, costMatrix: CostMatrix): void | CostMatrix;
+    // tslint:disable-next-line: invalid-void
+    costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
@@ -2014,7 +2007,7 @@ interface _Constructor<T> {
     readonly prototype: T;
 }
 
-interface _ConstructorById<T> extends _Constructor<T> {
+interface _ConstructorById<T extends _HasId> extends _Constructor<T> {
     new (id: Id<T>): T;
     (id: Id<T>): T;
 }
@@ -2026,7 +2019,7 @@ declare namespace Tag {
         private [OpaqueTagSymbol]: T;
     }
 }
-type Id<T> = string & Tag.OpaqueTag<T>;
+type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
 type fromId<T> = T extends Id<infer R> ? R : never;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
@@ -3198,11 +3191,11 @@ interface PriceHistory {
     stddevPrice: number;
 }
 interface Memory {
-    creeps: {[name: string]: CreepMemory};
-    powerCreeps: {[name: string]: PowerCreepMemory};
-    flags: {[name: string]: FlagMemory};
-    rooms: {[name: string]: RoomMemory};
-    spawns: {[name: string]: SpawnMemory};
+    creeps: { [name: string]: CreepMemory };
+    powerCreeps: { [name: string]: PowerCreepMemory };
+    flags: { [name: string]: FlagMemory };
+    rooms: { [name: string]: RoomMemory };
+    spawns: { [name: string]: SpawnMemory };
 }
 
 interface CreepMemory {}
@@ -3238,9 +3231,9 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     id: Id<this>;
     /**
-     * The remaining time after which the deposit will be refilled.
+     * The remaining time after which the deposit will be refilled if is recharging, otherwise undefined.
      */
-    ticksToRegeneration: number;
+    ticksToRegeneration?: number;
 }
 
 interface MineralConstructor extends _Constructor<Mineral>, _ConstructorById<Mineral> {}
@@ -3388,7 +3381,7 @@ interface CostMatrix {
     /**
      * Creates a new CostMatrix containing 0's for all positions.
      */
-    new(): CostMatrix;
+    new (): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -4834,7 +4827,10 @@ interface SpawnOptions {
     directions?: DirectionConstant[];
 }
 
-interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
+interface SpawningConstructor extends _Constructor<Spawning> {
+    new (id: Id<StructureSpawn>): Spawning;
+    (id: Id<StructureSpawn>): Spawning;
+}
 interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
     /**
      * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
@@ -4846,8 +4842,12 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
     ): UNLIMITED_STORE extends true
         ? null
         : R extends undefined
-        ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
-        : (R extends POSSIBLE_RESOURCES ? number : null);
+        ? ResourceConstant extends POSSIBLE_RESOURCES
+            ? number
+            : null
+        : R extends POSSIBLE_RESOURCES
+        ? number
+        : null;
     /**
      * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
      * @param resource The type of the resource.
@@ -4855,7 +4855,7 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getUsedCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : R extends POSSIBLE_RESOURCES ? number : null;
     /**
      * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
      * @param resource The type of the resource.
@@ -4863,12 +4863,13 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getFreeCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : R extends POSSIBLE_RESOURCES ? number : null;
 }
 
-type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<POSSIBLE_RESOURCES, UNLIMITED_STORE> &
-    { [P in POSSIBLE_RESOURCES]: number } &
-    { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
+type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<
+    POSSIBLE_RESOURCES,
+    UNLIMITED_STORE
+> & { [P in POSSIBLE_RESOURCES]: number } & { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
 
 interface GenericStoreBase {
     /**
@@ -5554,7 +5555,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory.
      * Once set, the level cannot be changed.
      */
-    level: number;
+    level?: number;
     /**
      * An object with the structure contents.
      */

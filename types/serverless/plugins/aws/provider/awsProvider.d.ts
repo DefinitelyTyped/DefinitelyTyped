@@ -401,7 +401,7 @@ declare namespace Aws {
     interface Schedule {
         name?: string | undefined;
         description?: string | undefined;
-        rate: string;
+        rate: string | string[];
         enabled?: boolean | undefined;
         input?: Input | undefined;
         inputPath?: string | undefined;
