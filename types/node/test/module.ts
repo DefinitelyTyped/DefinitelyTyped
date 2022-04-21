@@ -30,7 +30,7 @@ customRequire2('test');
 
 const resolved2: string = customRequire2.resolve('test');
 
-const paths2: string[] | null = customRequire2.resolve.paths('test');
+const paths2: string[] | null  = customRequire2.resolve.paths('test');
 
 const cachedModule2: Module | undefined = customRequire2.cache['/path/to/module.js'];
 
