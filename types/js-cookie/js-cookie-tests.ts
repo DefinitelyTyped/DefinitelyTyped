@@ -35,17 +35,15 @@ Cookies.withAttributes({ sameSite: 'strict' }); // $ExpectType CookiesStatic<str
 Cookies.withAttributes({ custom: 'property' }); // $ExpectType CookiesStatic<string>
 
 Cookies.withConverter<object>({
+    // $ExpectType (value: string | object, name: string) => string
     write(value, name) {
-        value; // $ExpectType string | object
-        name; // $ExpectType string
         return encodeURIComponent(value as string).replace(
             /%(23|24|26|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,
             decodeURIComponent,
         );
     },
+    // $ExpectType (value: string, name: string) => string
     read(value, name) {
-        value; // $ExpectType string
-        name; // $ExpectType string
         return value.replace(/\+/g, ' ').replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
     },
 });
@@ -57,17 +55,15 @@ Cookies.withAttributes({
 });
 // $ExpectType CookiesStatic<string>
 Cookies.withConverter({
+    // $ExpectType (value: string, name: string) => string
     read: (value, name) => {
-        value; // $ExpectType string
-        name; // $ExpectType string
         return unescape(value);
     },
 });
 // $ExpectType CookiesStatic<number>
 const api = Cookies.withConverter({
+    // $ExpectType (value: string, name: string) => number
     read: (value, name) => {
-        value; // $ExpectType string
-        name; // $ExpectType string
         return Number(value);
     },
 });
@@ -76,9 +72,8 @@ api.set('key', 1); // $ExpectType string | undefined
 
 // $ExpectType CookiesStatic<number>
 Cookies.withConverter({
+    // $ExpectType (value: string, name: string) => string | number
     read: (value, name) => {
-        value; // $ExpectType string
-        name; // $ExpectType string
         if (name === 'special') {
             return Number(value);
         }
@@ -87,17 +82,31 @@ Cookies.withConverter({
 });
 // $ExpectType CookiesStatic<string>
 Cookies.withConverter({
+    // $ExpectType (value: string, name: string) => string
     write: (value, name) => {
-        value; // $ExpectType string
-        name; // $ExpectType string
         return value.toUpperCase();
     },
 });
 // $ExpectType CookiesStatic<number>
 Cookies.withConverter<number>({
+    // $ExpectType (value: string | number, name: string) => string
     write: (value, name) => {
-        value; // $ExpectType string | number
-        name; // $ExpectType string
         return value.toString();
+    },
+});
+
+interface Person {
+    name: string;
+}
+
+// $ExpectType CookiesStatic<Person>
+Cookies.withConverter<Person>({
+    // $ExpectType (value: string | Person, name: string) => string
+    write: (value, name) => {
+        return JSON.stringify(value);
+    },
+    // $ExpectType (value: string, name: string) => Person
+    read: (value, name) => {
+        return JSON.parse(value) as Person;
     },
 });

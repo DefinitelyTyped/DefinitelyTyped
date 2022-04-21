@@ -95,7 +95,7 @@ declare namespace Cookies {
     }
 
     type CookieWriteConverter<T> = (value: string | T, name: string) => string;
-    type CookieReadConverter<T> = (value: string, name: string) => T | string;
+    type CookieReadConverter<T> = (value: string, name: string) => string | T;
 }
 
 declare const Cookies: Cookies.CookiesStatic & {
