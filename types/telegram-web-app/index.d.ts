@@ -2,19 +2,15 @@
 // Project: https://telegram.org/js/telegram-web-app.js
 // Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare global {
-  interface Window {
-    Telegram: Telegram;
-  }
-}
+declare var Telegram: Telegram;
 
-export type Color = string | false;
+type Color = string | false;
 
-export interface Telegram {
+interface Telegram {
   WebApp: WebApp;
 }
 
-export interface WebApp {
+interface WebApp {
   /**
    * A string with raw data transferred to the Web App, convenient for
    * validating data. WARNING: Validate data from this field before using it on
@@ -136,7 +132,7 @@ export interface WebApp {
  * user's app in real time. This object contains the user's current theme
  * settings:
  */
-export interface ThemeParams {
+interface ThemeParams {
   /**
    * Background color in the #RRGGBB format. Also available as the CSS variable
    * var(--tg-theme-bg-color).
@@ -173,7 +169,7 @@ export interface ThemeParams {
  * This object controls the main button, which is displayed at the bottom of the
  * Web App in the Telegram interface.
  */
-export interface MainButton {
+interface MainButton {
   /** Current button text. Set to CONTINUE by default. */
   text: string;
   /** Current button color. Set to themeParams.button_color by default. */
@@ -230,7 +226,7 @@ export interface MainButton {
   setParams(params: MainButtonParams): MainButton;
 }
 
-export interface MainButtonParams {
+interface MainButtonParams {
   /** button text */
   text?: string;
   /** button color */
@@ -247,7 +243,7 @@ export interface MainButtonParams {
  * This object contains data that is transferred to the Web App when it is
  * opened. It is empty if the Web App was launched from a keyboard button.
  */
-export interface WebAppInitData {
+interface WebAppInitData {
   /**
    * A unique identifier for the Web App session, required for sending messages
    * via the answerWebAppQuery method.
@@ -279,7 +275,7 @@ export interface WebAppInitData {
 }
 
 /** This object contains the data of the Web App user. */
-export interface WebAppUser {
+interface WebAppUser {
   /**
    * A unique identifier for the user or bot. This number may have more than 32
    * significant bits and some programming languages may have difficulty/silent
