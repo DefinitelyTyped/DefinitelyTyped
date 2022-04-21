@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/hapi": "^16"
+  },
+  "private": true
+}

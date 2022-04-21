@@ -1,6 +1,6 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#errors
 import { Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from "@hapi/hapi";
-import * as Boom from "boom";
+import * as Boom from "@hapi/boom";
 
 const options: ServerOptions = {
     port: 8000,
