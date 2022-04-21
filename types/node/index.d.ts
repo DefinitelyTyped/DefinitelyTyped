@@ -65,8 +65,8 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-
-// NOTE: These definitions support NodeJS and TypeScript 3.7+.
+// Minimum TypeScript Version: 4.0
+// NOTE: These definitions support NodeJS and TypeScript 4.0+.
 
 // Reference required types from the default lib:
 /// <reference lib="es2020" />
