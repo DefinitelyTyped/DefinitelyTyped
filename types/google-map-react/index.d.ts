@@ -1,6 +1,7 @@
 // Type definitions for google-map-react 2.1
 // Project: https://github.com/google-map-react/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
+//                 Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -147,6 +148,7 @@ declare namespace googleMapReact {
     }
 
     interface Props {
+        children?: React.ReactNode;
         bootstrapURLKeys?: BootstrapURLKeys | undefined;
         defaultCenter?: Coords | undefined;
         center?: Coords | undefined;
