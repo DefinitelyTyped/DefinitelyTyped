@@ -87,6 +87,8 @@ declare function resolveSync(id: string, opts?: resolve.SyncOpts): string;
  */
 declare function resolveIsCore(id: string): boolean | undefined;
 
+type PackageJson = Record<string, unknown>;
+
 declare namespace resolve {
   interface Opts {
     /** directory to begin resolving from (defaults to __dirname) */
@@ -98,9 +100,9 @@ declare namespace resolve {
     /** array of file extensions to search in order (defaults to ['.js']) */
     extensions?: string | ReadonlyArray<string> | undefined;
     /** transform the parsed package.json contents before looking at the "main" field */
-    packageFilter?: ((pkg: any, pkgfile: string) => any) | undefined;
+    packageFilter?: ((pkg: PackageJson, pkgFile: string, dir: string) => PackageJson) | undefined;
     /** transform a path within a package */
-    pathFilter?: ((pkg: any, path: string, relativePath: string) => string) | undefined;
+    pathFilter?: ((pkg: PackageJson, path: string, relativePath: string) => string) | undefined;
     /** require.paths array to use if nothing is found on the normal node_modules recursive walk (probably don't use this) */
     paths?: string | ReadonlyArray<string> | undefined;
     /** return the list of candidate paths where the packages sources may be found (probably don't use this) */
