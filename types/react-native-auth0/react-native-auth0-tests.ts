@@ -1,4 +1,4 @@
-import Auth0, { UserInfo } from 'react-native-auth0';
+import Auth0 from 'react-native-auth0';
 
 const auth0 = new Auth0({
     domain: 'definitely-typed',
@@ -132,7 +132,7 @@ auth0.webAuth
     .then(credentials => credentials.doesNotExist); // $ExpectError
 
 auth0.webAuth
-.authorize<{ customParam1: string, customParam2: number}>({
+.authorize({
     state: 'state',
     nonce: 'nonce',
     scope: 'openid',
