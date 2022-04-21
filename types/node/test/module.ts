@@ -1,6 +1,8 @@
 import Module = require('node:module');
 import { URL } from 'node:url';
-require.extensions[".ts"] = () => "";
+require.extensions[".ts"] = (module, filename) => {
+    module._compile("", filename);
+};
 
 Module.runMain();
 const s: string = Module.wrap("some code");
@@ -28,7 +30,7 @@ customRequire2('test');
 
 const resolved2: string = customRequire2.resolve('test');
 
-const paths2: string[] | null  = customRequire2.resolve.paths('test');
+const paths2: string[] | null = customRequire2.resolve.paths('test');
 
 const cachedModule2: Module | undefined = customRequire2.cache['/path/to/module.js'];
 
