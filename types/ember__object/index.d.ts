@@ -68,6 +68,7 @@ export function get<T, K extends keyof T>(
     obj: T,
     key: K
 ): UnwrapComputedPropertyGetter<T[K]>;
+export function get(obj: unknown, key: string): unknown;
 
 /**
  * Sets the value of a property on an object, respecting computed properties

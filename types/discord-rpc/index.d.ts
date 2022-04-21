@@ -8,7 +8,9 @@
 //                 HanchaiN <https://github.com/HanchaiN>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter, Listener } from 'events';
+import { EventEmitter } from 'events';
+
+export type Listener = (...args: any[]) => void;
 
 export function register(id: string): boolean;
 

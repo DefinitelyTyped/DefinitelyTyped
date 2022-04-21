@@ -11,6 +11,11 @@ export interface Geometry<T, C> {
     coordinates: C;
 }
 
+export interface GeoJSONGeometryCollection {
+    type: "GeometryCollection";
+    geometries: GeoJSONGeometry[];
+}
+
 export type GeoJSONPoint = Geometry<"Point", GeoJSONPosition>;
 export type GeoJSONMultiPoint = Geometry<"MultiPoint", GeoJSONPosition[]>;
 
@@ -29,6 +34,7 @@ export type GeoJSONGeometry =
     | GeoJSONMultiLineString
     | GeoJSONPolygon
     | GeoJSONMultiPolygon
+    | GeoJSONGeometryCollection
     | null;
 
 export function parse(input: string): GeoJSONGeometry;

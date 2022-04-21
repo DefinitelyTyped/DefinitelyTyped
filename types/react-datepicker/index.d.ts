@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 4.3
+// Type definitions for react-datepicker 4.4
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 Greg Smith <https://github.com/smrq>
@@ -84,6 +84,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     dropdownMode?: 'scroll' | 'select' | undefined;
     endDate?: Date | null | undefined;
     excludeDates?: Date[] | undefined;
+    excludeDateIntervals?: Array<{start: Date, end: Date}> | undefined;
     excludeTimes?: Date[] | undefined;
     filterDate?(date: Date): boolean;
     filterTime?(date: Date): boolean;
@@ -94,6 +95,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     highlightDates?: Array<HighlightDates | Date> | undefined;
     id?: string | undefined;
     includeDates?: Date[] | undefined;
+    includeDateIntervals?: Array<{start: Date, end: Date}> | undefined;
     includeTimes?: Date[] | undefined;
     injectTimes?: Date[] | undefined;
     inline?: boolean | undefined;
@@ -191,6 +193,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     weekLabel?: string | undefined;
     withPortal?: boolean | undefined;
     portalId?: string | undefined;
+    portalHost?: ShadowRoot | undefined;
     wrapperClassName?: string | undefined;
     yearDropdownItemNumber?: number | undefined;
     excludeScrollbar?: boolean | undefined;

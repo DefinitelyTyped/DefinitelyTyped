@@ -1,4 +1,4 @@
-// Type definitions for @ronomon/crypto-async 2.0
+// Type definitions for @ronomon/crypto-async 5.0
 // Project: https://github.com/ronomon/crypto-async
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,15 @@ declare module "@ronomon/crypto-async" {
                   key: Buffer,
                   iv: Buffer,
                   plaintext: Buffer,
+                  cb: (error: Error | undefined, ciphertext: Buffer) => void): void;
+
+  function cipher(algorithm: string,
+                  cipherDirection: CipherDirection,
+                  key: Buffer,
+                  iv: Buffer,
+                  plaintext: Buffer,
+                  aad: Buffer,
+                  tag: Buffer,
                   cb: (error: Error | undefined, ciphertext: Buffer) => void): void;
 
   function cipher(algorithm: string,

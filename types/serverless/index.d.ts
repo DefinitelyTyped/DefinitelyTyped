@@ -17,7 +17,6 @@ import PluginManager = require('./classes/PluginManager');
 import Utils = require('./classes/Utils');
 import YamlParser = require('./classes/YamlParser');
 import AwsProvider = require('./plugins/aws/provider/awsProvider');
-import ApiGatewayValidate = require('./plugins/aws/package/compile/events/apiGateway/lib/validate');
 
 declare namespace Serverless {
     interface Options {
@@ -42,7 +41,7 @@ declare namespace Serverless {
         timeout?: number | undefined;
         memorySize?: number | undefined;
         environment?: { [name: string]: string } | undefined;
-        events: Event[];
+        events: AwsProvider.Event[];
         tags?: { [key: string]: string } | undefined;
     }
 
@@ -61,9 +60,6 @@ declare namespace Serverless {
         image: string;
     }
 
-    // Other events than ApiGatewayEvent are available
-    type Event = ApiGatewayValidate.ApiGatewayEvent | object;
-
     interface Package {
         /** @deprecated use `patterns` instead */
         include?: string[] | undefined;
@@ -73,6 +69,8 @@ declare namespace Serverless {
         artifact?: string | undefined;
         individually?: boolean | undefined;
     }
+
+    type Event = AwsProvider.Event | object;
 }
 
 declare class Serverless {

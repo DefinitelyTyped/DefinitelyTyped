@@ -5794,6 +5794,7 @@ declare namespace videojs {
     };
 
     interface UserActions {
+        click?: boolean | ((event: EventTarget.Event) => void) | undefined;
         doubleClick?: boolean | ((event: EventTarget.Event) => void) | undefined;
         hotkeys?: boolean | ((event: KeyboardEvent) => void) | UserActionHotkeys | undefined;
     }

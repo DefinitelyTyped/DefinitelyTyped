@@ -77,15 +77,22 @@ CookieJar.deserializeSync("test cookie"); // $ExpectType CookieJar
 
 const store = new MemoryCookieStore();
 store.findCookie('example.com', '/', 'foo', cbCookie); // $ExpectType void
+store.findCookie('example.com', '/', 'foo'); // $ExpectType Promise<Cookie | null>
 
 store.findCookies('example.com', '/', false, cbCookies); // $ExpectType void
+store.findCookies('example.com', '/', false); // $ExpectType Promise<Cookie[]>
 
 store.putCookie(cookie, cb); // $ExpectType void
+store.putCookie(cookie); // $ExpectType Promise<void>
 
 store.updateCookie(cookie, cookie, cb); // $ExpectType void
+store.updateCookie(cookie, cookie); // $ExpectType Promise<void>
 
 store.removeCookie('example.com', '/', 'foo', cb); // $ExpectType void
+store.removeCookie('example.com', '/', 'foo'); // $ExpectType Promise<void>
 
 store.removeCookies('example.com', '/', cb); // $ExpectType void
+store.removeCookies('example.com', '/'); // $ExpectType Promise<void>
 
 store.getAllCookies(cbCookies); // $ExpectType void
+store.getAllCookies(); // $ExpectType Promise<Cookie[]>

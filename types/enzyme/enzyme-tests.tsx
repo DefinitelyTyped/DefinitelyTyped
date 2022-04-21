@@ -994,6 +994,11 @@ function ReactWrapperTest() {
         const provider = wrapper.getWrappingComponent();
         provider.setProps({ value: 'test new' });
     }
+
+    function test_renderProp() {
+        let reactWrapper = new ReactWrapper<MyRenderPropProps>(<MyRenderPropComponent children={(params) => <div className={params} />} />);
+        reactWrapper = reactWrapper.renderProp('children')('test');
+    }
 }
 
 // CheerioWrapper

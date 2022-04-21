@@ -59,6 +59,7 @@ const topLogger: Modifier<'topLogger'> = {
     dropdownMode="scroll"
     endDate={new Date()}
     excludeDates={[new Date()]}
+    excludeDateIntervals={[{start: new Date(), end: new Date()}]}
     excludeTimes={[new Date()]}
     filterDate={date => true}
     filterTime={date => true}
@@ -69,6 +70,7 @@ const topLogger: Modifier<'topLogger'> = {
     highlightDates={[{ someClassName: [new Date()] }]}
     id=""
     includeDates={[new Date()]}
+    includeDateIntervals={[{start: new Date(), end: new Date()}]}
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
@@ -191,6 +193,7 @@ const topLogger: Modifier<'topLogger'> = {
     weekLabel=""
     withPortal
     portalId=""
+    portalHost={document.body.shadowRoot!}
     wrapperClassName=""
     weekAriaLabelPrefix=""
     excludeScrollbar={false}
