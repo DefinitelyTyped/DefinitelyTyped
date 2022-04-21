@@ -5,6 +5,7 @@
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Mike Morearty <https://github.com/mmorearty>
+//                 Ocavue <https://github.com/ocavue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
