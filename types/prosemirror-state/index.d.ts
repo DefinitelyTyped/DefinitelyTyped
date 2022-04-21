@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-state 1.2
+// Type definitions for prosemirror-state 1.3
 // Project: https://github.com/ProseMirror/prosemirror-state, https://github.com/prosemirror/prosemirror
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
