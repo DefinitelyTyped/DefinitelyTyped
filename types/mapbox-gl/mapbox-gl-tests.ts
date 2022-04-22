@@ -492,6 +492,7 @@ const terrainStyle: mapboxgl.Style = {
             url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
         },
     },
+    layers: [],
     terrain: {
         source: 'dem',
         exaggeration: 1.5,

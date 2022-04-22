@@ -1,4 +1,4 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.101.0
 
 declare module "sap/uxap/library" {
   /**
@@ -722,7 +722,7 @@ declare module "sap/uxap/BlockBase" {
        * The column layout to apply to the control
        */
       sLayout: string
-    ): void;
+    ): any;
     /**
      * Sets a new value for property {@link #getFormAdjustment formAdjustment}.
      *

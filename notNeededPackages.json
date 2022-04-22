@@ -2925,6 +2925,10 @@
             "libraryName": "mongoose",
             "asOfVersion": "5.11.0"
         },
+        "mongoose-paginate-v2": {
+            "libraryName": "mongoose-paginate-v2",
+            "asOfVersion": "1.6.0"
+        },
         "monk": {
             "libraryName": "monk",
             "asOfVersion": "6.0.0"
@@ -4243,6 +4247,10 @@
             "libraryName": "react-swipeable",
             "asOfVersion": "5.2.0"
         },
+        "react-tabs": {
+            "libraryName": "react-tabs",
+            "asOfVersion": "5.0.0"
+        },
         "react-tether": {
             "libraryName": "react-tether",
             "asOfVersion": "1.0.0"
@@ -4810,6 +4818,10 @@
         "stacktrace-js": {
             "libraryName": "stacktrace-js",
             "asOfVersion": "2.0.1"
+        },
+        "standard-engine": {
+            "libraryName": "standard-engine",
+            "asOfVersion": "15.0.0"
         },
         "stellar-base": {
             "libraryName": "stellar-base",

@@ -1274,7 +1274,9 @@ export class ImageBackgroundProps extends React.Component {
                 <ImageBackground
                     source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
                     imageRef={this.setImageRef}
-                />
+                >
+                    <Text>Some text</Text>
+                </ImageBackground>
             </View>
         );
     }

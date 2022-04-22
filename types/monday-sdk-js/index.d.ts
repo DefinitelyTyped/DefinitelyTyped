@@ -162,6 +162,108 @@ interface MondayClientSdk {
             timeout?: number | undefined;
         },
     ): Promise<any>;
+    /**
+     * Opens a modal with the preview of an asset
+     * @param type Which action to perform
+     * @param params Optional parameters for the action
+     */
+    execute(
+        type: 'openFilesDialog',
+        params: {
+            /**
+             * The ID of the board
+             */
+            boardId: number;
+
+            /**
+             * The ID of the item, which contains an asset
+             */
+            itemId: number;
+
+            /**
+             * The ID of the column, which contains an asset
+             */
+            columnId: string;
+
+            /**
+             * The ID of the asset to open
+             */
+            assetId: number;
+        },
+    ): Promise<any>;
+    /**
+     * Opens a modal to let the current user upload a file to a specific file column.
+     *
+     * Returns a promise. In case of error, the promise is rejected
+     *
+     * After the file is successfully uploaded, the "change_column_value" event will be triggered. See the {@link listen} method to subscribe to these events.
+     *
+     * _Requires boards:write scope_
+     * @param type Which action to perform
+     * @param params Optional parameters for the action
+     */
+    execute(
+        type: 'triggerFilesUpload',
+        params: {
+            /**
+             * The ID of the board
+             */
+            boardId: number;
+
+            /**
+             * The ID of the item, which contains an asset
+             */
+            itemId: number;
+
+            /**
+             * The ID of the file column, where file should be uploaded
+             */
+            columnId: string;
+        },
+    ): Promise<any>;
+    /**
+     * Opens a new modal window as an iFrame.
+     * @param type Which action to perform
+     * @param params Optional parameters for the action
+     */
+    execute(
+        type: 'openAppFeatureModal',
+        params: {
+            /**
+             * The URL of the page displayed in the modal
+             * Defaults to current iFrame's URL
+             */
+            url?: string;
+
+            /**
+             * Subdirectory or path of the URL to open
+             */
+            urlPath?: string;
+
+            /**
+             * Query parameters for the URL
+             */
+            urlParams?: Record<string, string>;
+
+            /**
+             * The width of the modal
+             * Defaults to "0px"
+             */
+            width?: string;
+
+            /**
+             * The height of the modal
+             * Defaults to "0px"
+             */
+            height?: string;
+        },
+    ): Promise<{ data: any }>;
+    /**
+     * Closes the modal window.
+     * @param type Which action to perform
+     * @param params Optional parameters for the action
+     */
+    execute(type: 'closeAppFeatureModal'): Promise<{ data: any }>;
 
     /**
      * Performs a client-side redirection of the user to the monday OAuth screen with your client ID embedded in the URL,

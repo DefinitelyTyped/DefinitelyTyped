@@ -11,7 +11,22 @@ monday.listen('context', res => res); // $ExpectType void
 monday.execute('openItemCard', { itemId: 123 }); // $ExpectType Promise<any>
 monday.execute('confirm', { message: 'Hello' }); // $ExpectType Promise<{ data: { confirm: boolean; }; }>
 monday.execute('notice', { message: 'Hello' }); // $ExpectType Promise<any>
-monday.oauth({clientId: 'clientId'});
+// $ExpectType Promise<any>
+monday.execute('openFilesDialog', {
+    boardId: 12345,
+    itemId: 23456,
+    columnId: 'files',
+    assetId: 34567,
+});
+// $ExpectType Promise<any>
+monday.execute('triggerFilesUpload', {
+    boardId: 12345,
+    itemId: 23456,
+    columnId: 'files',
+});
+monday.execute('openAppFeatureModal', { urlPath: '/path', urlParams: {}, width: '100px', height: '100px' }); // $ExpectType Promise<{ data: any; }>
+monday.execute('closeAppFeatureModal'); // $ExpectType Promise<{ data: any; }>
+monday.oauth({ clientId: 'clientId' });
 monday.storage.instance.getItem('test'); // $ExpectType Promise<{ data: GetResponse; }>
 monday.storage.instance.setItem('test', '123'); // $ExpectType Promise<SetResponse>
 
