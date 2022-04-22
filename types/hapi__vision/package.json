@@ -1,6 +1,6 @@
 {
     "private": true,
-    "dependencies": {
+    "devDependencies": {
         "handlebars": "^4.1"
     }
 }
