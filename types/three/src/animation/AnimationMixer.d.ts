@@ -19,16 +19,16 @@ export class AnimationMixer extends EventDispatcher {
     timeScale: number;
 
     clipAction(
-        clip: AnimationClip,
+        clip: AnimationClip | string,
         root?: Object3D | AnimationObjectGroup,
         blendMode?: AnimationBlendMode,
     ): AnimationAction;
-    existingAction(clip: AnimationClip, root?: Object3D | AnimationObjectGroup): AnimationAction | null;
+    existingAction(clip: AnimationClip | string, root?: Object3D | AnimationObjectGroup): AnimationAction | null;
     stopAllAction(): AnimationMixer;
     update(deltaTime: number): AnimationMixer;
     setTime(timeInSeconds: number): AnimationMixer;
     getRoot(): Object3D | AnimationObjectGroup;
     uncacheClip(clip: AnimationClip): void;
     uncacheRoot(root: Object3D | AnimationObjectGroup): void;
-    uncacheAction(clip: AnimationClip, root?: Object3D | AnimationObjectGroup): void;
+    uncacheAction(clip: AnimationClip | string, root?: Object3D | AnimationObjectGroup): void;
 }
