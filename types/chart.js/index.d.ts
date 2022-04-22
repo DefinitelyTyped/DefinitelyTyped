@@ -531,7 +531,7 @@ declare namespace Chart {
         borderWidth?: number | Scriptable<number> | undefined;
         borderColor?: ChartColor | Scriptable<ChartColor> | undefined;
         borderCapStyle?: string | Scriptable<string> | undefined;
-        borderDash?: any[] | Scriptable<any[]> | undefined;
+        borderDash?: number[] | Scriptable<number[]> | undefined;
         borderDashOffset?: number | Scriptable<number> | undefined;
         borderJoinStyle?: string | Scriptable<string> | undefined;
         capBezierPoints?: boolean | Scriptable<boolean> | undefined;
