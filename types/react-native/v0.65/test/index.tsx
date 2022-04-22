@@ -4,7 +4,6 @@ The content of index.io.js could be something like
     'use strict';
 
     import { AppRegistry } from 'react-native'
-    import { AppRegistry } from 'react-native'
     import Welcome from './gen/Welcome'
 
     AppRegistry.registerComponent('MopNative', () => Welcome);
@@ -447,7 +446,7 @@ export class PressableTest extends React.Component<{}> {
     render() {
         return (
             <>
-                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }} unstable_pressDelay={100}>
+                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
@@ -526,31 +525,31 @@ const AppStateExample = () => {
     const appStateIsAvailable = AppState.isAvailable;
 
     React.useEffect(() => {
-      const subscription = AppState.addEventListener("change", nextAppState => {
-        if (
-          appState.current.match(/inactive|background/) &&
-          nextAppState === "active"
-        ) {
-          console.log("App has come to the foreground!");
-        }
+        const subscription = AppState.addEventListener("change", nextAppState => {
+            if (
+                appState.current.match(/inactive|background/) &&
+                nextAppState === "active"
+            ) {
+                console.log("App has come to the foreground!");
+            }
 
-        appState.current = nextAppState;
-        setAppStateVisible(appState.current);
-        console.log("AppState", appState.current);
-      });
+            appState.current = nextAppState;
+            setAppStateVisible(appState.current);
+            console.log("AppState", appState.current);
+        });
 
-      return () => {
-        subscription.remove();
-      };
+        return () => {
+            subscription.remove();
+        };
     }, []);
 
     return (
-      <View style={styles.container}>
-        <Text>Current state is: {appStateVisible}</Text>
-        <Text>Available: {appStateIsAvailable}</Text>
-      </View>
+        <View style={styles.container}>
+            <Text>Current state is: {appStateVisible}</Text>
+            <Text>Available: {appStateIsAvailable}</Text>
+        </View>
     );
-  };
+};
 
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
@@ -1140,13 +1139,13 @@ export class ImageTest extends React.Component {
         console.log(image.width, image.height, image.scale, image.uri);
 
         Image.queryCache &&
-            Image.queryCache([uri]).then(({ [uri]: status }) => {
-                if (status === undefined) {
-                    console.log('Image is not in cache');
-                } else {
-                    console.log(`Image is in ${status} cache`);
-                }
-            });
+        Image.queryCache([uri]).then(({ [uri]: status }) => {
+            if (status === undefined) {
+                console.log('Image is not in cache');
+            } else {
+                console.log(`Image is in ${status} cache`);
+            }
+        });
 
         Image.getSize(uri, (width, height) => console.log(width, height));
         Image.getSize(
@@ -1359,16 +1358,16 @@ const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.lo
 const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
 const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
-  const e: SwitchChangeEvent = event;
-  return new Promise(() => e.value);
+    const e: SwitchChangeEvent = event;
+    return new Promise(() => e.value);
 }} />;
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
 const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
 const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
 const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
-  const v: boolean = value;
-  return new Promise(() => v)
+    const v: boolean = value;
+    return new Promise(() => v)
 }} />;
 
 const NativeIDTest = () => (
