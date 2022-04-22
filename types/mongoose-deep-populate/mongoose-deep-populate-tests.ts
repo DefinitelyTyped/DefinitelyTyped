@@ -3,10 +3,10 @@ import * as mongoose from 'mongoose';
 import { Schema } from 'mongoose';
 
 async function wrapper() {
-    var connection = await mongoose.connect("mongodb://localhost/myDatabase");
-    var deepPopulate = mongooseDeepPopulate(connection);
+    const connection = await mongoose.connect("mongodb://localhost/myDatabase");
+    const deepPopulate = mongooseDeepPopulate(connection);
 
-    var bookSchema = new Schema({
+    const bookSchema = new Schema({
         author: { type: Schema.Types.ObjectId, ref: 'Author' },
         title: String,
         genre: String,
