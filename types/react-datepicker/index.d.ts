@@ -111,7 +111,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     nextMonthAriaLabel?: string | undefined;
     nextMonthButtonLabel?: string | React.ReactNode | undefined;
     nextYearAriaLabel?: string | undefined;
-    nextYearButtonLabel?: string | undefined;
+    nextYearButtonLabel?: string | React.ReactNode | undefined;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
@@ -148,7 +148,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     previousMonthAriaLabel?: string | undefined;
     previousMonthButtonLabel?: string | React.ReactNode | undefined;
     previousYearAriaLabel?: string | undefined;
-    previousYearButtonLabel?: string | undefined;
+    previousYearButtonLabel?: string | React.ReactNode | undefined;
     readOnly?: boolean | undefined;
     renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
