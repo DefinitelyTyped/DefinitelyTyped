@@ -1130,19 +1130,38 @@ function testStorageForPromise() {
 }
 
 function testRuntimeSendMessage() {
-    chrome.runtime.sendMessage("Hello World!");
+    const options = { includeTlsChannelId: true };
+
+    chrome.runtime.sendMessage("Hello World!").then(() => {});
     chrome.runtime.sendMessage("Hello World!", console.log);
     chrome.runtime.sendMessage<string>("Hello World!", console.log);
     chrome.runtime.sendMessage<string, number>("Hello World!", console.log);
     chrome.runtime.sendMessage<number>("Hello World!", console.log); // $ExpectError
     chrome.runtime.sendMessage<string, boolean>("Hello World!", (num: number) => alert(num+1)); // $ExpectError
+    chrome.runtime.sendMessage("Hello World!", options).then(() => {});
+    chrome.runtime.sendMessage("Hello World!", options, console.log);
+    chrome.runtime.sendMessage<string>("Hello World!", options, console.log);
+    chrome.runtime.sendMessage<string, number>("Hello World!", options, console.log);
+    chrome.runtime.sendMessage<number>("Hello World!", options, console.log); // $ExpectError
+    chrome.runtime.sendMessage<string, boolean>("Hello World!", options, (num: number) => alert(num+1)); // $ExpectError
 
-    chrome.runtime.sendMessage('extension-id', 'Hello World!');
+    chrome.runtime.sendMessage('extension-id', 'Hello World!').then(() => {});
     chrome.runtime.sendMessage('extension-id', 'Hello World!', console.log);
     chrome.runtime.sendMessage<string>('extension-id', 'Hello World!', console.log);
     chrome.runtime.sendMessage<string, number>('extension-id', 'Hello World!', console.log);
     chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log); // $ExpectError
     chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1)); // $ExpectError
+    chrome.runtime.sendMessage('extension-id', 'Hello World!', options).then(() => {});
+    chrome.runtime.sendMessage('extension-id', 'Hello World!', options, console.log);
+    chrome.runtime.sendMessage<string>('extension-id', 'Hello World!', options, console.log);
+    chrome.runtime.sendMessage<string, number>('extension-id', 'Hello World!', options, console.log);
+    chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log); // $ExpectError
+    chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1)); // $ExpectError
+}
+
+function testRuntimeSendNativeMessage() {
+    chrome.runtime.sendNativeMessage('application', console.log).then(() => {});
+    chrome.runtime.sendNativeMessage('application', console.log, (num: number) => alert(num+1));
 }
 
 function testTabsSendMessage() {
