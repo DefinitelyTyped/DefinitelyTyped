@@ -7,6 +7,7 @@
     "exports": {
         ".": {
             "types": "./index.d.ts"
-        }
+        },
+        "./package.json": "./package.json"
     }
 }
