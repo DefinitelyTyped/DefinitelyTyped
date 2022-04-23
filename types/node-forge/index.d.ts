@@ -236,7 +236,7 @@ declare module "node-forge" {
                 dQ: jsbn.BigInteger;
                 qInv: jsbn.BigInteger;
                 decrypt(data: Bytes, scheme?: EncryptionScheme, schemeOptions?: any): Bytes;
-                sign(md: md.MessageDigest, scheme?: SignatureScheme): Bytes;
+                sign(md: md.MessageDigest | Bytes, scheme?: SignatureScheme): Bytes;
             }
 
             interface KeyPair {

@@ -725,8 +725,19 @@ const awsServerless: Aws.Serverless = {
                         }
                     }
                 }
-            ]
-        }
+            ],
+            url: {
+                cors: {
+                    allowedOrigins: ['https://url1.com', 'https://url2.com'],
+                    allowedHeaders: ['Content-Type', 'Authorization'],
+                    allowedMethods: ['GET'],
+                    allowCredentials: true,
+                    exposedResponseHeaders: ['Special-Response-Header'],
+                    maxAge: 6000,
+                },
+                authorizer: 'aws_iam',
+            },
+        },
     },
     layers: {
         testLayer: {
@@ -892,6 +903,18 @@ const bunchOfConfigs: Aws.Serverless[] = [
             },
         },
         functions: {},
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+        },
+        functions: {
+            basicLambdaFnUrl: {
+                handler: 'main.js',
+                url: true,
+            },
+        },
     },
 ];
 

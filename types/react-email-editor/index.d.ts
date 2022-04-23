@@ -32,6 +32,7 @@ export interface GroupedMergeTag {
 export interface SimpleMergeTag {
     readonly name: string;
     readonly value: string;
+    readonly sample?: string;
 }
 
 export interface ConditionalMergeTagRule {
