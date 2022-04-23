@@ -81,7 +81,7 @@ export namespace comboBox {
      * @param query The value to use in the regular expression
      * @param extras An object of regular expressions to replace and filter the query
      */
-    function generateDynamicRegExp(filter: any, query?: string, extras?: object): RegExp;
+    function generateDynamicRegExp(filter: string, query?: string, extras?: object): RegExp;
     /**
      * Disable the combo-box component
      *
@@ -249,7 +249,7 @@ export namespace navigation {
     function on(el: HTMLElement): void;
     function off(el: HTMLElement): void;
     function teardown(): void;
-    function toggleNav(active: any): boolean;
+    function toggleNav(active: boolean): boolean;
 }
 
 export namespace password {
