@@ -668,8 +668,9 @@ export interface HeaderProps {
         | undefined;
     id?: string | undefined;
     overflow?: 'normal' | 'breakWord' | undefined;
-    size?: 'sm' | 'md' | 'lg' | undefined;
+    size?: '100' | '200' | '300' | '400' | '500' | '600' | 'sm' | 'md' | 'lg' | undefined;
     truncate?: boolean | undefined;
+    lineClamp?: number | undefined;
 }
 
 export type Icons =
@@ -880,6 +881,7 @@ export interface IconProps {
         | 'warning'
         | 'inverse'
         | 'shopping'
+        | 'brandPrimary'
         | 'light'
         | 'dark'
         | undefined;
