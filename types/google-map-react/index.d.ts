@@ -181,6 +181,7 @@ declare namespace googleMapReact {
         style?: React.CSSProperties | undefined;
         shouldUnregisterMapOnUnmount?: boolean | undefined;
         heatmap?: Heatmap | undefined;
+        children?: React.ReactNode;
     }
 
     interface ChildComponentProps extends Coords {
