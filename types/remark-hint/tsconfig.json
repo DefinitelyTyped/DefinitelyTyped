@@ -17,7 +17,7 @@
         "types": []
     },
     "files": [
-      "index.d.ts",
+        "index.d.ts",
         "remark-hint-tests.ts"
     ]
 }
