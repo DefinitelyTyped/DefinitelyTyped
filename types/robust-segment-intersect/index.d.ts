@@ -3,11 +3,8 @@
 // Definitions by: masx200 <https://github.com/masx200>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Coordinate = [number, number];
-declare function a(
-    a0: Coordinate,
-    a1: Coordinate,
-    b0: Coordinate,
-    b1: Coordinate,
-): boolean;
-export = a;
+type Coordinate = Readonly<[number, number]>;
+declare function segmentsIntersect(a0: Coordinate, a1: Coordinate, b0: Coordinate, b1: Coordinate): boolean;
+
+export = segmentsIntersect;
+
