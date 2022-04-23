@@ -70,8 +70,6 @@ declare module "styled-components/native" {
         ListView: ReactNativeThemedStyledFunction<typeof ReactNative.ListView, T>;
         Modal: ReactNativeThemedStyledFunction<typeof ReactNative.Modal, T>;
         NavigatorIOS: ReactNativeThemedStyledFunction<typeof ReactNative.NavigatorIOS, T>;
-        Picker: ReactNativeThemedStyledFunction<typeof ReactNative.Picker, T>;
-        PickerIOS: ReactNativeThemedStyledFunction<typeof ReactNative.PickerIOS, T>;
         Pressable: ReactNativeThemedStyledFunction<typeof ReactNative.Pressable, T>;
         ProgressBarAndroid: ReactNativeThemedStyledFunction<typeof ReactNative.ProgressBarAndroid, T>;
         ProgressViewIOS: ReactNativeThemedStyledFunction<typeof ReactNative.ProgressViewIOS, T>;
