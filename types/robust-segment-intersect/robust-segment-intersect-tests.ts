@@ -1,10 +1,8 @@
 import crosses = require('robust-segment-intersect');
-type Coordinate = [number, number];
-function robustsegmentintersect(
-    a0: Coordinate,
-    a1: Coordinate,
-    b0: Coordinate,
-    b1: Coordinate
-): boolean {
-    return crosses(a0, a1, b0, b1);
-}
+const a0 = [-1, 0]
+const a1 = [ 1, 0]
+const b0 = [ 0,-1]
+const b1 = [ 0, 1]
+
+// $ExpectType boolean
+crosses(a0, a1, b0, b1);
