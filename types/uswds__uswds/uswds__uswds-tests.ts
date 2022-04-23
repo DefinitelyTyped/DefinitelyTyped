@@ -51,7 +51,21 @@ comboBox.init(element); // $ExpectType void
 comboBox.COMBO_BOX_CLASS; // $ExpectType string
 comboBox.on(element); // $ExpectType void
 comboBox.off(element); // $ExpectType void
-// $ExpectType { comboBoxEl: HTMLElement; selectEl: HTMLSelectElement; inputEl: HTMLInputElement; listEl: HTMLUListElement; statusEl: HTMLDivElement; focusedOptionEl: HTMLLIElement; selectedOptionEl: HTMLLIElement; toggleListBtnEl: HTMLButtonElement; clearInputBtnEl: HTMLButtonElement; isPristine: boolean; disableFiltering: boolean; }
+/*
+$ExpectType {
+    comboBoxEl: HTMLElement;
+    selectEl: HTMLSelectElement;
+    inputEl: HTMLInputElement;
+    listEl: HTMLUListElement;
+    statusEl: HTMLDivElement;
+    focusedOptionEl: HTMLLIElement;
+    selectedOptionEl: HTMLLIElement;
+    toggleListBtnEl: HTMLButtonElement;
+    clearInputBtnEl: HTMLButtonElement;
+    isPristine: boolean;
+    disableFiltering: boolean;
+}
+*/
 comboBox.getComboBoxContext(element);
 comboBox.enhanceComboBox(element); // $ExpectType void
 comboBox.generateDynamicRegExp('string'); // $ExpectType RegExp
@@ -64,7 +78,22 @@ comboBox.hideList(input); // $ExpectType void
 datePicker.init(element); // $ExpectType void
 datePicker.on(element); // $ExpectType void
 datePicker.off(element); // $ExpectType void
-// $ExpectType { calendarEl: HTMLDivElement; datePickerEl: HTMLElement; internalInputEl: HTMLInputElement; externalInputEl: HTMLInputElement; statusEl: HTMLDivElement; firstYearChunkEl: HTMLDivElement; calendarDate: Date; minDate: Date; maxDate: Date; selectedDate: Date; rangeDate: Date; defaultDate: Date; }
+/*
+$ExpectType {
+    calendarEl: HTMLDivElement;
+    datePickerEl: HTMLElement;
+    internalInputEl: HTMLInputElement;
+    externalInputEl: HTMLInputElement;
+    statusEl: HTMLDivElement;
+    firstYearChunkEl: HTMLDivElement;
+    calendarDate: Date;
+    minDate: Date;
+    maxDate: Date;
+    selectedDate: Date;
+    rangeDate: Date;
+    defaultDate: Date;
+}
+*/
 datePicker.getDatePickerContext(element);
 datePicker.disable(input); // $ExpectType void
 datePicker.enable(input); // $ExpectType void
