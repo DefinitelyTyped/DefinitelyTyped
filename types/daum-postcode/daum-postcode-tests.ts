@@ -1,6 +1,4 @@
-import { DaumPostcodeTheme } from 'daum-postcode';
-
-declare const div: HTMLDivElement;
+const div = document.createElement('div');
 
 new daum.Postcode({}).embed(div, { autoClose: true, q: '강남역' });
 new daum.Postcode({}).open({
@@ -9,12 +7,13 @@ new daum.Postcode({}).open({
     top: 0,
     popupKey: '_blank',
     popupTitle: 'Daum Postcode Service',
+    q: '강남역',
 });
-new window.daum.Postcode({});
 new window.daum.Postcode({}).embed(div);
+new window.daum.Postcode({}).embed();
 new window.daum.Postcode({}).open();
 
-const theme: DaumPostcodeTheme = {
+const theme = {
     bgColor: '#ECECEC',
     contentBgColor: '#FFFFFF',
     emphTextColor: '#008BD3',
