@@ -5,7 +5,7 @@
 
 interface Result {
     esm: boolean;
-    type: undefined | 'module' | 'commonjs';
+    type?: 'module' | 'commonjs';
     extType: 'c' | 'm' | 'j';
     path: string;
     pkgPath: string;
