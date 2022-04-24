@@ -16,6 +16,13 @@ instance
     });
 instance.tokenUrl = "foo";
 instance.tokenUrl = () => "foo";
+token.set('foo', 5);
+token.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<Token, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
 
 const core = new CloudServicesCore(new MyEditor());
 token = core.createToken("foo");

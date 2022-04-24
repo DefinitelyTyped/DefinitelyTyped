@@ -11,7 +11,7 @@ import {
     LexV2SentimentScore,
     LexV2SessionState,
     LexV2ActiveContext,
-    LexV2DialogAction
+    LexV2DialogAction,
 } from 'aws-lambda';
 
 const handler: LexV2Handler = async (event, context, callback) => {
@@ -21,7 +21,6 @@ const handler: LexV2Handler = async (event, context, callback) => {
     str = event.responseContentType;
     str = event.sessionId;
     str = event.inputTranscript;
-    str = event.requestAttributes[str];
     let bot: LexV2Bot;
     bot = event.bot;
     str = bot.id;
@@ -37,11 +36,11 @@ const handler: LexV2Handler = async (event, context, callback) => {
     str = intent.confirmationState;
     str = intent.name;
     let slot: LexV2Slot;
-    slot = intent.slots[str];
+    slot = intent.slots[str]!;
     strOrUndefined = slot.shape;
     let slotValue: LexV2SlotValue;
     slotValue = slot.value;
-    str = slotValue.interpretedValue;
+    strOrUndefined = slotValue.interpretedValue;
     str = slotValue.originalValue;
     str = slotValue.resolvedValues[0];
     str = intent.state;
@@ -55,7 +54,9 @@ const handler: LexV2Handler = async (event, context, callback) => {
     num = sentimentScore.negative;
     num = sentimentScore.neutral;
     num = sentimentScore.positive;
-    str = event.requestAttributes[str];
+    if (event.requestAttributes) {
+        str = event.requestAttributes[str];
+    }
     let sessionState: LexV2SessionState;
     sessionState = event.sessionState;
     let activeContext: LexV2ActiveContext | undefined;
@@ -116,4 +117,124 @@ const handler: LexV2Handler = async (event, context, callback) => {
     callback(new Error());
     callback(null, result);
     return result;
+};
+
+const event1: LexV2Event = {
+    sessionId: "111111111111111",
+    inputTranscript: "7",
+    interpretations: [
+        {
+            intent: {
+                slots: {
+                    Slot1: null,
+                    Slot2: null,
+                    Slot3: {
+                        shape: "Scalar",
+                        value: {
+                            originalValue: "7",
+                            resolvedValues: [
+                                "7"
+                            ],
+                            interpretedValue: "7"
+                        }
+                    }
+                },
+                confirmationState: "None",
+                name: "IntentName",
+                state: "InProgress"
+            },
+            nluConfidence: 1
+        },
+        {
+            intent: {
+                slots: {},
+                confirmationState: "None",
+                name: "FallbackIntent",
+                state: "InProgress"
+            }
+        }
+    ],
+    proposedNextState: {
+        intent: {
+            slots: {
+                Slot1: null,
+                Slot2: null,
+                Slot3: {
+                    shape: "Scalar",
+                    value: {
+                        originalValue: "7",
+                        resolvedValues: [
+                            "7"
+                        ],
+                        interpretedValue: "7"
+                    }
+                }
+            },
+            confirmationState: "None",
+            name: "IntentName",
+            state: "InProgress"
+        },
+        dialogAction: {
+            slotToElicit: "Slot1",
+            type: "ElicitSlot"
+        }
+    },
+    responseContentType: "text/plain; charset=utf-8",
+    invocationSource: "DialogCodeHook",
+    messageVersion: "1.0",
+    transcriptions: [
+        {
+            resolvedSlots: {
+                Slot3: {
+                    shape: "Scalar",
+                    value: {
+                        originalValue: "7",
+                        resolvedValues: [
+                            "7"
+                        ]
+                    }
+                }
+            },
+            resolvedContext: {
+                intent: "IntentName"
+            },
+            transcription: "7",
+            transcriptionConfidence: 1
+        }
+    ],
+    sessionState: {
+        sessionAttributes: {
+            attribute1: "1"
+        },
+        activeContexts: [],
+        intent: {
+            slots: {
+                Slot1: null,
+                Slot2: null,
+                Slot3: {
+                    shape: "Scalar",
+                    value: {
+                        originalValue: "7",
+                        resolvedValues: [
+                            "7"
+                        ],
+                        interpretedValue: "7"
+                    }
+                }
+            },
+            confirmationState: "None",
+            name: "IntentName",
+            state: "InProgress"
+        },
+        originatingRequestId: "11111111-1111-1111-1111-111111111111"
+    },
+    inputMode: "Text",
+    bot: {
+        aliasName: "string",
+        aliasId: "string",
+        name: "string",
+        version: "DRAFT",
+        localeId: "en_US",
+        id: "string"
+    }
 };

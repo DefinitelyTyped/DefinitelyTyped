@@ -160,8 +160,8 @@ mixed.oneOf(['hello', 'world'], () => 'message');
 mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
 // $ExpectError
 mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
-mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined, object>
-mixed.equals(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined, object>
+mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined, object> || MixedSchema<1 | "hello" | undefined, object>
+mixed.equals(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined, object> || MixedSchema<1 | "hello" | undefined, object>
 mixed.notOneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], () => 'message');
 mixed.when('isBig', {
@@ -253,8 +253,10 @@ mixed.test({
     test: value => !!value,
 });
 
-yup.mixed().oneOf(['hello', 1, null] as const).nullable(); // $ExpectType MixedSchema<"hello" | 1 | null | undefined, object>
-yup.mixed().nullable().oneOf(['hello', 1, null] as const); // $ExpectType MixedSchema<"hello" | 1 | null | undefined, object>
+// tslint:disable-next-line
+yup.mixed().oneOf(['hello', 1, null] as const).nullable(); // $ExpectType MixedSchema<"hello" | 1 | null | undefined, object> || $ExpectType MixedSchema<1 | "hello" | null | undefined, object>
+// tslint:disable-next-line
+yup.mixed().nullable().oneOf(['hello', 1, null] as const); // $ExpectType MixedSchema<"hello" | 1 | null | undefined, object> || $ExpectType MixedSchema<1 | "hello" | null | undefined, object>
 
 // mixed with concat
 yup.object({ name: yup.string().defined() }).defined().concat(yup.object({ when: yup.date().defined() }).defined()); // $ExpectType ObjectSchema<{ name: string; } & { when: Date; }, object>
@@ -383,8 +385,8 @@ function strSchemaTests(strSchema: yup.StringSchema) {
 }
 
 const strSchema = yup.string(); // $ExpectType StringSchema<string | undefined, object>
-strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world" | undefined, object>
-strSchema.required().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world", object>
+strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world" | undefined, object> || StringSchema<"world" | "hello" | undefined, object>
+strSchema.required().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world", object> || StringSchema<"world" | "hello", object>
 strSchemaTests(strSchema);
 
 // $ExpectError
@@ -427,9 +429,9 @@ numSchema
     .validate(5, { strict: true })
     .then(value => value)
     .catch(err => err);
-numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined, object>
-numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined, object>
-numSchema.required().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2, object>
+numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined, object> || NumberSchema<2 | 1 | undefined, object>
+numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined, object> || NumberSchema<2 | 1 | undefined, object>
+numSchema.required().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2, object> || NumberSchema<2 | 1, object>
 numSchema.defined();
 numSchema.default(5); // $ExpectType NumberSchema<number, object>
 numSchema.default(() => 5); // $ExpectType NumberSchema<number, object>

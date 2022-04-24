@@ -22,7 +22,6 @@ export interface WebGLRenderTargetOptions {
 export class WebGLRenderTarget extends EventDispatcher {
     constructor(width: number, height: number, options?: WebGLRenderTargetOptions);
 
-    uuid: string;
     width: number;
     height: number;
     depth: number;

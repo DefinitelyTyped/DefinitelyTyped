@@ -135,7 +135,8 @@ export interface ImapFlowOptions {
     port: number;
     auth: {
         user: string;
-        pass: string;
+        pass?: string;
+        accessToken?: string;
     };
     secure?: boolean;
     servername?: string;

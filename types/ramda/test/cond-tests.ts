@@ -27,4 +27,9 @@ import * as R from 'ramda';
 
     // $ExpectType string
     g(1, '');
+
+    R.cond([
+        [(a: string | number): a is number => true, a => a * 2],
+        [(a: string | number): a is string => true, a => a.length],
+    ]);
 };

@@ -80,3 +80,12 @@ snowflake.createConnection({
     authenticator: '',
     token: '',
 });
+
+// Application
+
+snowflake.createConnection({
+    account: '',
+    password: '',
+    username: '',
+    application: '',
+});

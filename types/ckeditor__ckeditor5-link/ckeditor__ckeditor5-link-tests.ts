@@ -93,6 +93,29 @@ new ManualDecorator({
     styles: { bg: 'red' },
 });
 
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+    defaultValue: true,
+    classes: 'foo',
+    styles: { bg: 'red' },
+}).on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<ManualDecorator, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+    defaultValue: true,
+    classes: 'foo',
+    styles: { bg: 'red' },
+}).set('foo');
+
 // $ExpectType AutoLink
 editor.plugins.get('AutoLink');
 

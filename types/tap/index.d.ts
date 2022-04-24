@@ -725,7 +725,7 @@ declare global {
              */
             resolveMatch(
                 promiseOrFn: Promise<any> | ((...args: any[]) => Promise<any>),
-                wanted: string | RegExp | { [key: string]: RegExp },
+                wanted: any,
                 message?: string,
                 extra?: Options.Assert,
             ): Promise<void>;

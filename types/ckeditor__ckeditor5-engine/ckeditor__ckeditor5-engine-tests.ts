@@ -39,7 +39,7 @@ import {
     StylesProcessor,
     transformSets,
     TreeWalker,
-    ViewDocument,
+    ViewDocument
 } from '@ckeditor/ckeditor5-engine';
 import DowncastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
 import DowncastHelpers, {
@@ -50,14 +50,14 @@ import DowncastHelpers, {
     insertText,
     insertUIElement,
     remove,
-    wrap,
+    wrap
 } from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
 import Mapper from '@ckeditor/ckeditor5-engine/src/conversion/mapper';
 import UpcastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher';
 import UpcastHelpers, {
     convertSelectionChange,
     convertText,
-    convertToModelFragment,
+    convertToModelFragment
 } from '@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers';
 import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
 import ModelDocument from '@ckeditor/ckeditor5-engine/src/model/document';
@@ -66,9 +66,12 @@ import History from '@ckeditor/ckeditor5-engine/src/model/history';
 import { Item } from '@ckeditor/ckeditor5-engine/src/model/item';
 import MarkerCollection, { Marker } from '@ckeditor/ckeditor5-engine/src/model/markercollection';
 import Node from '@ckeditor/ckeditor5-engine/src/model/node';
+import AttributeOperation from '@ckeditor/ckeditor5-engine/src/model/operation/attributeoperation';
+import DetachOperation from '@ckeditor/ckeditor5-engine/src/model/operation/detachoperation';
 import Operation from '@ckeditor/ckeditor5-engine/src/model/operation/operation';
 import ModelPosition from '@ckeditor/ckeditor5-engine/src/model/position';
 import RootElement from '@ckeditor/ckeditor5-engine/src/model/rootelement';
+import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Text from '@ckeditor/ckeditor5-engine/src/model/text';
 import TextProxy from '@ckeditor/ckeditor5-engine/src/model/textproxy';
@@ -79,7 +82,7 @@ import insertContent from '@ckeditor/ckeditor5-engine/src/model/utils/insertcont
 import modifySelection from '@ckeditor/ckeditor5-engine/src/model/utils/modifyselection';
 import {
     injectSelectionPostFixer,
-    mergeIntersectingRanges,
+    mergeIntersectingRanges
 } from '@ckeditor/ckeditor5-engine/src/model/utils/selection-post-fixer';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import { getBoxSidesValues } from '@ckeditor/ckeditor5-engine/src/styles/utils';
@@ -98,7 +101,6 @@ import Matcher, { MatcherPattern } from '@ckeditor/ckeditor5-engine/src/view/mat
 import ViewNode from '@ckeditor/ckeditor5-engine/src/view/node';
 import ArrowKeysObserver from '@ckeditor/ckeditor5-engine/src/view/observer/arrowkeysobserver';
 import BubblingEventInfo from '@ckeditor/ckeditor5-engine/src/view/observer/bubblingeventinfo';
-import ClickObserver from '@ckeditor/ckeditor5-engine/src/view/observer/clickobserver';
 import DomEventData from '@ckeditor/ckeditor5-engine/src/view/observer/domeventdata';
 import DomEventObserver from '@ckeditor/ckeditor5-engine/src/view/observer/domeventobserver';
 import FakeSelectionObserver from '@ckeditor/ckeditor5-engine/src/view/observer/fakeselectionobserver';
@@ -201,10 +203,20 @@ viewDefinition = {
     },
 };
 
-let model: Model = new Model();
+let model = new Model();
+const root = model.document.createRoot();
+let range = model.createRange(model.createPositionAt(root, 0), model.createPositionAt(root, 0));
 model.change(writer => {
     writer.insertText('foo', model.document.selection.getFirstPosition());
 });
+new Model().on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<Model, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new Model().set('foo');
 
 model.document.createRoot();
 model.schema.register('paragraph', { inheritAllFrom: '$block' });
@@ -256,7 +268,12 @@ bool = needsPlaceholder(viewElement, bool);
 const editingcontroller: EditingController = new EditingController(model, stylesProcessor);
 editingcontroller.destroy();
 editingcontroller.set('foo', 'bar');
-editingcontroller.once('foo', () => {});
+editingcontroller.once('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<EditingController, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
 editingcontroller.downcastDispatcher.on('insert:$element', () => {});
 
 const datacontroller: DataController = new DataController(model, stylesProcessor);
@@ -340,7 +357,7 @@ downcastHelper = downcastHelper.add(dispatcher => {
         evt.name; // $ExpectType "insert:paragraph"
         data; // $ExpectType { item: Element & { name: "paragraph"; }; range: Range; }
         schema; // $ExpectType Schema
-        writer; // $ExpectType DowncastWriter
+        writer; // $ExpectType DowncastWriter<Document>
         dispatcher; // $ExpectType DowncastDispatcher<{}>
         mapper; // $ExpectType Mapper
         consumable; // ExpectType ModelConsumable
@@ -367,7 +384,7 @@ downcastHelper = downcastHelper.add(dispatcher => {
     dispatcher.on('insert:$text', insertText());
     dispatcher.on('insert', (evt, data, conversionApi) => {
         evt.name; // $ExpectType "insert"
-        data; // $ExpectType { item: TextProxy | Element; range: Range; }
+        data; // $ExpectType { item: TextProxy | Element; range: Range; } || { item: Element | TextProxy; range: Range; }
         conversionApi; // $ExpectType DowncastConversionApi<{}>
     });
     dispatcher.on('attribute:bold', (evt, data, conversionApi) => {
@@ -501,6 +518,7 @@ let insertOperation = new InsertOperation(
 );
 if (insertOperation.type === 'insert') {
 }
+
 // $ExpectType PositionStickiness
 insertOperation.position.stickiness;
 model.applyOperation(insertOperation);
@@ -509,15 +527,29 @@ insertOperation.nodes.getNode(9);
 insertOperation.shouldReceiveAttributes = true;
 insertOperation.toJSON().baseVersion;
 insertOperation.toJSON().baseVersion;
-InsertOperation.fromJSON(insertOperation.toJSON());
+InsertOperation.fromJSON(insertOperation.toJSON(), new ModelDocument());
 
-const root = model.document.createRoot();
-let range = model.createRange(model.createPositionAt(root, 0), model.createPositionAt(root, 0));
+// $ExpectType "detach"
+new DetachOperation(new ModelPosition(model.document.createRoot(), [0]), 0).type;
+// $ExpectType number
+new DetachOperation(new ModelPosition(model.document.createRoot(), [0]), 0).toJSON().howMany;
+
 let markerOperation = new MarkerOperation('name', nullvalue, range, model.markers, true, 0);
 if (markerOperation.type === 'marker') {
 }
 model.applyOperation(markerOperation);
 markerOperation = markerOperation.getReversed();
+
+let attributeOperation = new AttributeOperation(range, '', true, false, 1);
+attributeOperation = attributeOperation.clone();
+attributeOperation = attributeOperation.getReversed();
+// $ExpectType true
+attributeOperation.oldValue;
+const attributeOperation2 = new AttributeOperation(range, '', true, undefined, 1);
+// $ExpectType null
+attributeOperation2.newValue;
+// $ExpectType null
+attributeOperation2.toJSON().newValue;
 
 let operation: Operation;
 
@@ -670,8 +702,10 @@ if ('data' in node) {
     str = node.data;
 }
 bool = element.is('foo', 'bar');
-const result5: Array<[string, string | number | boolean]> = Array.from(element.getAttributes());
-const result6: Node[] = Array.from(element.getChildren());
+// $ExpectType [string, string | number | boolean][]
+Array.from(element.getAttributes());
+// $ExpectType (Element | Text)[]
+Array.from(element.getChildren());
 node = element.getNodeByPath([num]);
 node = element.findAncestor('p')!;
 num = element.getChildIndex(node);
@@ -828,11 +862,11 @@ if (
 {
     const obj = modelObj as Element;
     if (obj.is('element', 'paragraph')) {
-        // $ExpectType (RootElement | Element) & { name: "paragraph"; }
+        // $ExpectType (RootElement | Element) & { name: "paragraph"; } || (Element | RootElement) & { name: "paragraph"; }
         obj;
     }
     if (obj.is('model:element', 'paragraph')) {
-        // $ExpectType (RootElement | Element) & { name: "paragraph"; }
+        // $ExpectType (RootElement | Element) & { name: "paragraph"; } || (Element | RootElement) & { name: "paragraph"; }
         obj;
     }
     if (obj.is('element', 'paragraph') || obj.is('element', 'blockQuote')) {
@@ -940,11 +974,11 @@ if (
 {
     const obj = viewObj as ViewElement;
     if (obj.is('element', 'p') || obj.is('element', 'div')) {
-        // $ExpectType (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
+        // $ExpectType (Element & { name: "div"; }) | (Element & { name: "p"; }) || (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:element', 'p') || obj.is('view:element', 'div')) {
-        // $ExpectType (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
+        // $ExpectType (Element & { name: "div"; }) | (Element & { name: "p"; }) || (EmptyElement & { name: "p"; }) | (EmptyElement & { name: "div"; })
         obj;
     }
     if (obj.is('element', 'p')) {
@@ -973,11 +1007,11 @@ if (
 {
     const obj = viewObj as ContainerElement;
     if (obj.is('containerElement', 'p') || obj.is('containerElement', 'div')) {
-        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        // $ExpectType (ContainerElement & { name: "div"; }) | (ContainerElement & { name: "p"; }) || (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:containerElement', 'p') || obj.is('view:containerElement', 'div')) {
-        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        // $ExpectType (ContainerElement & { name: "div"; }) | (ContainerElement & { name: "p"; }) || (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
         obj;
     }
     if (obj.is('containerElement', 'p')) {
@@ -1005,11 +1039,11 @@ if (
 {
     const obj = viewObj as EditableElement;
     if (obj.is('editableElement', 'p') || obj.is('editableElement', 'div')) {
-        // $ExpectType (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
+        // $ExpectType (EditableElement & { name: "div"; }) | (EditableElement & { name: "p"; }) || (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:editableElement', 'p') || obj.is('view:editableElement', 'div')) {
-        // $ExpectType (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
+        // $ExpectType (EditableElement & { name: "div"; }) | (EditableElement & { name: "p"; }) || (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('editableElement', 'p')) {
@@ -1037,11 +1071,11 @@ if (
 {
     const obj = viewObj as RootEditableElement;
     if (obj.is('rootEditableElement', 'p') || obj.is('rootEditableElement', 'div')) {
-        // $ExpectType (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
+        // $ExpectType (RootEditableElement & { name: "div"; }) | (RootEditableElement & { name: "p"; }) || (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:rootEditableElement', 'p') || obj.is('view:rootEditableElement', 'div')) {
-        // $ExpectType (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
+        // $ExpectType (RootEditableElement & { name: "div"; }) | (RootEditableElement & { name: "p"; }) || (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
         obj;
     }
     if (obj.is('rootEditableElement', 'p')) {
@@ -1068,11 +1102,11 @@ if (
 {
     const obj = viewObj as RawElement;
     if (obj.is('rawElement', 'p') || obj.is('rawElement', 'div')) {
-        // $ExpectType (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
+        // $ExpectType (RawElement & { name: "div"; }) | (RawElement & { name: "p"; }) || (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:rawElement', 'p') || obj.is('view:rawElement', 'div')) {
-        // $ExpectType (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
+        // $ExpectType (RawElement & { name: "div"; }) | (RawElement & { name: "p"; }) || (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
         obj;
     }
     if (obj.is('rawElement', 'p')) {
@@ -1100,11 +1134,11 @@ if (
 {
     const obj = viewObj as AttributeElement;
     if (obj.is('attributeElement', 'p') || obj.is('attributeElement', 'div')) {
-        // $ExpectType (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
+        // $ExpectType (AttributeElement & { name: "div"; }) | (AttributeElement & { name: "p"; }) || (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:attributeElement', 'p') || obj.is('view:attributeElement', 'div')) {
-        // $ExpectType (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
+        // $ExpectType (AttributeElement & { name: "div"; }) | (AttributeElement & { name: "p"; }) || (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
         obj;
     }
     if (obj.is('attributeElement', 'p')) {
@@ -1132,11 +1166,11 @@ if (
 {
     const obj = viewObj as UIElement;
     if (obj.is('uiElement', 'p') || obj.is('uiElement', 'div')) {
-        // $ExpectType (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
+        // $ExpectType (UIElement & { name: "div"; }) | (UIElement & { name: "p"; }) || (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
         obj;
     }
     if (obj.is('view:uiElement', 'p') || obj.is('view:uiElement', 'div')) {
-        // $ExpectType (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
+        // $ExpectType (UIElement & { name: "div"; }) | (UIElement & { name: "p"; }) || (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
         obj;
     }
     if (obj.is('uiElement', 'p')) {
@@ -1359,13 +1393,13 @@ downcastWriter.createRawElement();
 // prettier-ignore
 downcastWriter.createRawElement('div').render = function(domElement: HTMLElement, domConverter: DomConverter) {
     domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
-    // $ExpectType DowncastWriter
+    // $ExpectType DowncastWriter<Document>
     this;
 };
 // prettier-ignore
 downcastWriter.createRawElement('div', { id: 'foo' }, function(domElement, domConverter) {
     domConverter.setContentOf(domElement, '<b>This is the raw content of myRawElement.</b>');
-    // $ExpectType DowncastWriter
+    // $ExpectType DowncastWriter<Document>
     this;
 });
 
@@ -1382,6 +1416,7 @@ class MyOperation extends Operation {
     toJSON() {
         return { __className: '', baseVersion: 0 };
     }
+    type: 'foo';
 }
 new Batch().addOperation(new MyOperation(1));
 
@@ -1652,3 +1687,28 @@ stylesProcessor.setNormalizer('margin', getPositionShorthandNormalizer('margin')
 
 // $ExpectType string[]
 getShorthandValues('');
+
+const myUIElement = downcastWriter.createUIElement('span');
+myUIElement.render = function render(domDocument, domConverter) {
+    const domElement = this.toDomElement(domDocument);
+
+    domConverter.setContentOf(domElement, '<b>this is ui element</b>');
+
+    return domElement;
+};
+
+downcastWriter.createUIElement('span', null, function callback(domDocument) {
+    const domElement = this.toDomElement(domDocument);
+    domElement.innerHTML = '<b>this is ui element</b>';
+
+    return domElement;
+});
+
+new Schema().on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<Schema, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new Schema().set('foo');

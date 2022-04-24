@@ -1,4 +1,4 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.101.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -523,9 +523,22 @@ declare module "sap/ui/webc/main/library" {
    * @SINCE 1.92.0
    * @EXPERIMENTAL (since 1.92.0)
    *
-   * Defines the growing mode, used in the `ui5-List`.
+   * Defines the growing mode, used in the `ui5-list`.
    */
-  export enum ListGrowingMode {}
+  export enum ListGrowingMode {
+    /**
+     * Component's `load-more` is fired upon pressing a "More" button. at the bottom.
+     */
+    Button = "Button",
+    /**
+     * Component's growing is not enabled.
+     */
+    None = "None",
+    /**
+     * Component's `load-more` is fired upon scroll.
+     */
+    Scroll = "Scroll",
+  }
   /**
    * @SINCE 1.92.0
    * @EXPERIMENTAL (since 1.92.0)
@@ -810,7 +823,20 @@ declare module "sap/ui/webc/main/library" {
    *
    * Defines the growing mode, used in the `ui5-table`.
    */
-  export enum TableGrowingMode {}
+  export enum TableGrowingMode {
+    /**
+     * Component's `load-more` is fired upon pressing a "More" button. at the bottom.
+     */
+    Button = "Button",
+    /**
+     * Component's growing is not enabled.
+     */
+    None = "None",
+    /**
+     * Component's `load-more` is fired upon scroll.
+     */
+    Scroll = "Scroll",
+  }
   /**
    * @SINCE 1.92.0
    * @EXPERIMENTAL (since 1.92.0)
@@ -2697,11 +2723,11 @@ declare module "sap/ui/webc/main/BusyIndicator" {
 
   import Control from "sap/ui/core/Control";
 
-  import { CSSSize } from "sap/ui/core/library";
-
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
   import { BusyIndicatorSize } from "sap/ui/webc/main/library";
+
+  import { CSSSize } from "sap/ui/core/library";
 
   import {
     PropertyBindingInfo,
@@ -2832,8 +2858,10 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * Gets current value of property {@link #getDisplay display}.
      *
      * Defines whether the control will be rendered as a block or inline HTML element
+     *
+     * Default value is `"inline-block"`.
      */
-    getDisplay(): CSSSize;
+    getDisplay(): string;
     /**
      * Gets current value of property {@link #getSize size}.
      *
@@ -2941,12 +2969,14 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * Defines whether the control will be rendered as a block or inline HTML element
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"inline-block"`.
      */
     setDisplay(
       /**
        * New value for property `display`
        */
-      sDisplay?: CSSSize
+      sDisplay?: string
     ): this;
     /**
      * Sets a new value for property {@link #getSize size}.
@@ -2998,7 +3028,7 @@ declare module "sap/ui/webc/main/BusyIndicator" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -3016,7 +3046,7 @@ declare module "sap/ui/webc/main/BusyIndicator" {
     /**
      * Defines whether the control will be rendered as a block or inline HTML element
      */
-    display?: CSSSize | PropertyBindingInfo;
+    display?: string | PropertyBindingInfo;
 
     /**
      * Defines the size of the component.
@@ -3551,7 +3581,7 @@ declare module "sap/ui/webc/main/Button" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -4614,7 +4644,7 @@ declare module "sap/ui/webc/main/Card" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.
@@ -4627,7 +4657,7 @@ declare module "sap/ui/webc/main/Card" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -6075,7 +6105,7 @@ declare module "sap/ui/webc/main/CheckBox" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getWrappingType wrappingType}.
@@ -7803,7 +7833,7 @@ declare module "sap/ui/webc/main/ComboBox" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -9266,7 +9296,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -10171,7 +10201,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -11081,7 +11111,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -11968,7 +11998,7 @@ declare module "sap/ui/webc/main/Dialog" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets the associated {@link #getInitialFocus initialFocus}.
@@ -12058,7 +12088,7 @@ declare module "sap/ui/webc/main/Dialog" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Shows the dialog.
@@ -12679,7 +12709,7 @@ declare module "sap/ui/webc/main/FileUploader" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -12951,7 +12981,7 @@ declare module "sap/ui/webc/main/Icon" {
 
   import Event from "sap/ui/base/Event";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import { CSSColor, CSSSize } from "sap/ui/core/library";
 
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
@@ -13127,13 +13157,13 @@ declare module "sap/ui/webc/main/Icon" {
      *
      * Defines the background color of the control
      */
-    getBackgroundColor(): CSSSize;
+    getBackgroundColor(): CSSColor;
     /**
      * Gets current value of property {@link #getColor color}.
      *
      * Defines the color of the control
      */
-    getColor(): CSSSize;
+    getColor(): CSSColor;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
@@ -13230,7 +13260,7 @@ declare module "sap/ui/webc/main/Icon" {
       /**
        * New value for property `backgroundColor`
        */
-      sBackgroundColor?: CSSSize
+      sBackgroundColor: CSSColor
     ): this;
     /**
      * Sets a new value for property {@link #getColor color}.
@@ -13243,7 +13273,7 @@ declare module "sap/ui/webc/main/Icon" {
       /**
        * New value for property `color`
        */
-      sColor?: CSSSize
+      sColor: CSSColor
     ): this;
     /**
      * Sets a new value for property {@link #getHeight height}.
@@ -13256,7 +13286,7 @@ declare module "sap/ui/webc/main/Icon" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getInteractive interactive}.
@@ -13330,7 +13360,7 @@ declare module "sap/ui/webc/main/Icon" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -13351,12 +13381,12 @@ declare module "sap/ui/webc/main/Icon" {
     /**
      * Defines the background color of the control
      */
-    backgroundColor?: CSSSize | PropertyBindingInfo;
+    backgroundColor?: CSSColor | PropertyBindingInfo;
 
     /**
      * Defines the color of the control
      */
-    color?: CSSSize | PropertyBindingInfo;
+    color?: CSSColor | PropertyBindingInfo;
 
     /**
      * Defines the height of the control
@@ -14333,7 +14363,7 @@ declare module "sap/ui/webc/main/Input" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -14685,7 +14715,7 @@ declare module "sap/ui/webc/main/Label" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getWrappingType wrappingType}.
@@ -15961,7 +15991,7 @@ declare module "sap/ui/webc/main/List" {
      *
      * Default value is `None`.
      */
-    getGrowing(): ListGrowingMode;
+    getGrowing(): ListGrowingMode | keyof typeof ListGrowingMode;
     /**
      * Gets content of aggregation {@link #getHeader header}.
      *
@@ -16240,7 +16270,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * New value for property `growing`
        */
-      sGrowing?: ListGrowingMode
+      sGrowing?: ListGrowingMode | keyof typeof ListGrowingMode
     ): this;
     /**
      * Sets a new value for property {@link #getHeaderText headerText}.
@@ -16270,7 +16300,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getIndent indent}.
@@ -16352,7 +16382,7 @@ declare module "sap/ui/webc/main/List" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -16400,7 +16430,9 @@ declare module "sap/ui/webc/main/List" {
      * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer, on IE the component will
      * fallback to `growing="Button"`.
      */
-    growing?: ListGrowingMode | PropertyBindingInfo;
+    growing?:
+      | (ListGrowingMode | keyof typeof ListGrowingMode)
+      | PropertyBindingInfo;
 
     /**
      * Defines the component header text.
@@ -16759,7 +16791,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getHideCloseButton hideCloseButton}.
@@ -16827,7 +16859,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -17613,7 +17645,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -19014,7 +19046,7 @@ declare module "sap/ui/webc/main/MultiInput" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -19898,7 +19930,7 @@ declare module "sap/ui/webc/main/Panel" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getNoAnimation noAnimation}.
@@ -19927,7 +19959,7 @@ declare module "sap/ui/webc/main/Panel" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -20801,7 +20833,7 @@ declare module "sap/ui/webc/main/Popover" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getHideArrow hideArrow}.
@@ -20975,7 +21007,7 @@ declare module "sap/ui/webc/main/Popover" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Shows the popover.
@@ -21380,7 +21412,7 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -21686,6 +21718,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * 	 - `None`
      * 	 - `Error`
      * 	 - `Warning`
+     * 	 - `Success`
+     * 	 - `Information`
      *
      * Default value is `None`.
      */
@@ -21838,6 +21872,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * 	 - `None`
      * 	 - `Error`
      * 	 - `Warning`
+     * 	 - `Success`
+     * 	 - `Information`
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -21860,7 +21896,7 @@ declare module "sap/ui/webc/main/RadioButton" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getWrappingType wrappingType}.
@@ -21938,6 +21974,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * 	 - `None`
      * 	 - `Error`
      * 	 - `Warning`
+     * 	 - `Success`
+     * 	 - `Information`
      */
     valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
 
@@ -22464,7 +22502,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -22854,7 +22892,7 @@ declare module "sap/ui/webc/main/RatingIndicator" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -24259,7 +24297,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -25275,7 +25313,7 @@ declare module "sap/ui/webc/main/Select" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -25840,7 +25878,7 @@ declare module "sap/ui/webc/main/Slider" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -27402,7 +27440,7 @@ declare module "sap/ui/webc/main/StepInput" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -28328,7 +28366,7 @@ declare module "sap/ui/webc/main/Switch" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -28487,9 +28525,22 @@ declare module "sap/ui/webc/main/Tab" {
       oContent: Control
     ): this;
     /**
+     * Adds some subTab to the aggregation {@link #getSubTabs subTabs}.
+     */
+    addSubTab(
+      /**
+       * The subTab to add; if empty, nothing is inserted
+       */
+      oSubTab: ITab
+    ): this;
+    /**
      * Destroys all the content in the aggregation {@link #getContent content}.
      */
     destroyContent(): this;
+    /**
+     * Destroys all the subTabs in the aggregation {@link #getSubTabs subTabs}.
+     */
+    destroySubTabs(): this;
     /**
      * Gets current value of property {@link #getAdditionalText additionalText}.
      *
@@ -28501,7 +28552,7 @@ declare module "sap/ui/webc/main/Tab" {
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
-     * Defines the tab content.
+     * Holds the content associated with this tab.
      */
     getContent(): Control[];
     /**
@@ -28552,6 +28603,14 @@ declare module "sap/ui/webc/main/Tab" {
      */
     getSelected(): boolean;
     /**
+     * Gets content of aggregation {@link #getSubTabs subTabs}.
+     *
+     * Defines hierarchies with nested sub tabs.
+     *
+     *  **Note:** Use `sap.ui.webc.main.Tab` and `sap.ui.webc.main.TabSeparator` for the intended design.
+     */
+    getSubTabs(): ITab[];
+    /**
      * Returns the DOM reference of the tab that is placed in the header. **Note:** If you need a DOM ref to
      * the tab content please use the `getDomRef` method.
      */
@@ -28575,6 +28634,16 @@ declare module "sap/ui/webc/main/Tab" {
       oContent: Control
     ): int;
     /**
+     * Checks for the provided `sap.ui.webc.main.ITab` in the aggregation {@link #getSubTabs subTabs}. and returns
+     * its index if found or -1 otherwise.
+     */
+    indexOfSubTab(
+      /**
+       * The subTab whose index is looked for
+       */
+      oSubTab: ITab
+    ): int;
+    /**
      * Inserts a content into the aggregation {@link #getContent content}.
      */
     insertContent(
@@ -28590,11 +28659,32 @@ declare module "sap/ui/webc/main/Tab" {
       iIndex: int
     ): this;
     /**
+     * Inserts a subTab into the aggregation {@link #getSubTabs subTabs}.
+     */
+    insertSubTab(
+      /**
+       * The subTab to insert; if empty, nothing is inserted
+       */
+      oSubTab: ITab,
+      /**
+       * The `0`-based index the subTab should be inserted at; for a negative value of `iIndex`, the subTab is
+       * inserted at position 0; for a value greater than the current size of the aggregation, the subTab is inserted
+       * at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
      */
     removeAllContent(): Control[];
+    /**
+     * Removes all the controls from the aggregation {@link #getSubTabs subTabs}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     */
+    removeAllSubTabs(): ITab[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      */
@@ -28604,6 +28694,15 @@ declare module "sap/ui/webc/main/Tab" {
        */
       vContent: int | string | Control
     ): Control;
+    /**
+     * Removes a subTab from the aggregation {@link #getSubTabs subTabs}.
+     */
+    removeSubTab(
+      /**
+       * The subTab to remove or its index or id
+       */
+      vSubTab: int | string | ITab
+    ): ITab;
     /**
      * Sets a new value for property {@link #getAdditionalText additionalText}.
      *
@@ -28758,9 +28857,16 @@ declare module "sap/ui/webc/main/Tab" {
     text?: string | PropertyBindingInfo;
 
     /**
-     * Defines the tab content.
+     * Holds the content associated with this tab.
      */
     content?: Control[] | Control | AggregationBindingInfo;
+
+    /**
+     * Defines hierarchies with nested sub tabs.
+     *
+     *  **Note:** Use `sap.ui.webc.main.Tab` and `sap.ui.webc.main.TabSeparator` for the intended design.
+     */
+    subTabs?: ITab[] | ITab | AggregationBindingInfo;
   }
 }
 
@@ -28802,7 +28908,12 @@ declare module "sap/ui/webc/main/TabContainer" {
    *
    * The `sap.ui.webc.main.TabContainer` can hold two types of entities:
    * 	 - `sap.ui.webc.main.Tab` - contains all the information on an item (text and icon)
-   * 	 - `sap.ui.webc.main.TabSeparator` - used to separate tabs with a vertical line
+   * 	 - `sap.ui.webc.main.TabSeparator` - used to separate tabs with a line
+   *
+   * Hierarchies: Multiple sub tabs could be placed underneath one main tab. Nesting allows deeper hierarchies
+   * with indentations to indicate the level of each nested tab. When a tab has both sub tabs and own content
+   * its click area is split to allow the user to display the content or alternatively to expand / collapse
+   * the list of sub tabs.
    *
    * CSS Shadow Parts:
    *
@@ -29147,7 +29258,7 @@ declare module "sap/ui/webc/main/TabContainer" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets the aggregated {@link #getOverflowButton overflowButton}.
@@ -29250,7 +29361,7 @@ declare module "sap/ui/webc/main/TabContainer" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -29836,7 +29947,7 @@ declare module "sap/ui/webc/main/Table" {
      *
      * Default value is `None`.
      */
-    getGrowing(): TableGrowingMode;
+    getGrowing(): TableGrowingMode | keyof typeof TableGrowingMode;
     /**
      * Gets current value of property {@link #getGrowingButtonSubtext growingButtonSubtext}.
      *
@@ -30072,7 +30183,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * New value for property `growing`
        */
-      sGrowing?: TableGrowingMode
+      sGrowing?: TableGrowingMode | keyof typeof TableGrowingMode
     ): this;
     /**
      * Sets a new value for property {@link #getGrowingButtonSubtext growingButtonSubtext}.
@@ -30125,7 +30236,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getHideNoData hideNoData}.
@@ -30214,7 +30325,7 @@ declare module "sap/ui/webc/main/Table" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -30250,7 +30361,9 @@ declare module "sap/ui/webc/main/Table" {
      * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer, and the component will fallback
      * to `growing="Button"`.
      */
-    growing?: TableGrowingMode | PropertyBindingInfo;
+    growing?:
+      | (TableGrowingMode | keyof typeof TableGrowingMode)
+      | PropertyBindingInfo;
 
     /**
      * Defines the subtext that will be displayed under the `growingButtonText`.
@@ -31703,7 +31816,7 @@ declare module "sap/ui/webc/main/TextArea" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getMaxlength maxlength}.
@@ -31895,7 +32008,7 @@ declare module "sap/ui/webc/main/TextArea" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -32542,7 +32655,7 @@ declare module "sap/ui/webc/main/TimePicker" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -32774,7 +32887,7 @@ declare module "sap/ui/webc/main/Title" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getWrappingType wrappingType}.
@@ -32996,7 +33109,7 @@ declare module "sap/ui/webc/main/Toast" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getPlacement placement}.
@@ -33050,7 +33163,7 @@ declare module "sap/ui/webc/main/Toast" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Shows the component.
@@ -33576,7 +33689,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -34725,7 +34838,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getMode mode}.
@@ -34781,7 +34894,7 @@ declare module "sap/ui/webc/main/Tree" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Perform Depth-First-Search walk on the tree and run a callback on each node
