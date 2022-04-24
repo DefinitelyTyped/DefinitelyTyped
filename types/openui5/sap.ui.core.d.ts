@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.100.0
+// For Library Version: 1.101.0
 
 declare module "sap/base/assert" {
   /**
@@ -13582,7 +13582,7 @@ declare module "sap/ui/core/Core" {
        * the settings object for the component
        */
       mSettings?: object
-    ): Component;
+    ): Component | Promise<Component>;
     /**
      * Returns a new instance of the RenderManager for exclusive use by the caller.
      *
@@ -13973,8 +13973,10 @@ declare module "sap/ui/core/Core" {
     ): Model;
     /**
      * @deprecated (since 0.15.0) - Replaced by `createRenderManager()`
+     *
+     * Creates a new `RenderManager` instance for use by the caller.
      */
-    getRenderManager(): void;
+    getRenderManager(): RenderManager;
     /**
      * @deprecated (since 1.95) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also {@link
      * topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
@@ -14135,7 +14137,7 @@ declare module "sap/ui/core/Core" {
          */
         extensions?: object;
       }
-    ): void;
+    ): object | undefined;
     /**
      * Returns true if the Core has already been initialized. This means that instances of RenderManager etc.
      * do already exist and the init event has already been fired (and will not be fired again).
@@ -14150,9 +14152,14 @@ declare module "sap/ui/core/Core" {
      */
     isMobile(): boolean;
     /**
-     * Used to find out whether a certain DOM element is the static area
+     * Checks whether the given DOM element is the root of the static area.
      */
-    isStaticAreaRef(oDomRef: object): boolean;
+    isStaticAreaRef(
+      /**
+       * DOM element to check
+       */
+      oDomRef: Element
+    ): boolean;
     /**
      * Returns true, if the styles of the current theme are already applied, false otherwise.
      *
@@ -15233,7 +15240,6 @@ declare module "sap/ui/core/dnd/DragDropBase" {
    *
    * Provides the base class for all drag-and-drop configurations. This feature enables a native HTML5 drag-and-drop
    * API for the controls, therefore it is limited to browser support. Restrictions:
-   * 	 - There is no mobile device that supports drag and drop.
    * 	 - There is no accessible alternative for drag and drop. Applications which use the drag-and-drop functionality
    * 			must provide an accessible alternative UI (for example, action buttons or menus) to perform the same
    * 			operations.
@@ -17928,8 +17934,6 @@ declare module "sap/ui/core/format/DateFormat" {
 
   import Locale from "sap/ui/core/Locale";
 
-  import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
-
   /**
    * The DateFormat is a static class for formatting and parsing single date and time values or date and time
    * intervals according to a set of format options.
@@ -18121,15 +18125,20 @@ declare module "sap/ui/core/format/DateFormat" {
          */
         pattern?: string;
         /**
-         * Specifies the display of the timezone:
-         * 	 - "Show": display both datetime and timezone
-         * 	 - "Hide": display only datetime
-         * 	 - "Only": display only timezone  It is ignored for formatting when an options pattern or a format
-         * 			are supplied.
+         * Specifies if the date should be displayed. It is ignored for formatting when an options pattern or a
+         * format are supplied.
          */
-        showTimezone?:
-          | DateFormatTimezoneDisplay
-          | keyof typeof DateFormatTimezoneDisplay;
+        showDate?: boolean;
+        /**
+         * Specifies if the time should be displayed. It is ignored for formatting when an options pattern or a
+         * format are supplied.
+         */
+        showTime?: boolean;
+        /**
+         * Specifies if the timezone should be displayed. It is ignored for formatting when an options pattern or
+         * a format are supplied.
+         */
+        showTimezone?: boolean;
         /**
          * Can be either 'short, 'medium', 'long' or 'full'. For datetime you can also define mixed styles, separated
          * with a slash, where the first part is the date style and the second part is the time style (e.g. "medium/short").
@@ -18154,7 +18163,8 @@ declare module "sap/ui/core/format/DateFormat" {
          */
         relativeRange?: int[];
         /**
-         * If 'auto' is set, a new relative time format is switched on for all Date/Time instances.
+         * If 'auto' is set, a new relative time format is switched on for all Date/Time instances. The default
+         * value depends on `showDate` and `showTime` options.
          */
         relativeScale?: string;
         /**
@@ -18352,6 +18362,8 @@ declare module "sap/ui/core/format/DateFormat" {
 declare module "sap/ui/core/format/DateFormatTimezoneDisplay" {
   /**
    * @SINCE 1.99.0
+   * @deprecated (since 1.101) - replaced by `DateFormat#getDateTimeWithTimezoneInstance` with the `showDate`,
+   * `showTime` and `showTimezone` format options.
    *
    * Configuration options for the `showTimezone` format option of `DateFormat#getDateTimeWithTimezoneInstance`.
    */
@@ -47664,10 +47676,10 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
     /**
      * Gets an array of indices that determine which parts of this type shall not propagate their model messages
      * to the attached control. Prerequisite is that the corresponding binding supports this feature, see {@link
-     * sap.ui.model.Binding#supportsIgnoreMessages}. If the `showTimezone` format option is set to `sap.ui.core.format.DateFormatTimezoneDisplay.Hide`
-     * and the time zone is not shown in the control, the part for the time zone shall not propagate model messages
-     * to the control. Analogously, if the format option `showTimezone` is set to `sap.ui.core.format.DateFormatTimezoneDisplay.Only`,
-     * the date and time are not shown in the control and the parts for the date and time shall not propagate
+     * sap.ui.model.Binding#supportsIgnoreMessages}. If the `showTimezone` format option is set to `false`,
+     * the time zone is not shown in the control, and the part for the time zone shall not propagate model messages
+     * to the control. Analogously, if the format option `showDate` and `showTime` are both set to `false`,
+     * the date and time are not shown in the control, and the parts for the date and time shall not propagate
      * model messages to the control.
      * See:
      * 	sap.ui.model.Binding#supportsIgnoreMessages
@@ -49595,6 +49607,32 @@ declare module "sap/ui/model/odata/v2/Context" {
      */
     created(): Promise<any>;
     /**
+     * @SINCE 1.101
+     *
+     * Deletes the OData entity this context points to. **Note:** The context must not be used anymore after
+     * successful deletion.
+     */
+    delete(
+      /**
+       * For a persistent context, a map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#remove}
+       */
+      mParameters?: {
+        /**
+         * ID of a request group; requests belonging to the same group will be bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * ID of the `ChangeSet` that this request should belong to
+         */
+        changeSetId?: string;
+        /**
+         * Defines whether to update all bindings after submitting this change operation, see {@link #setRefreshAfterChange}.
+         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
+         */
+        refreshAfterChange?: boolean;
+      }
+    ): Promise<any>;
+    /**
      * @SINCE 1.98.0
      *
      * Returns whether this context is inactive. An inactive context will only be sent to the server after the
@@ -50460,7 +50498,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
         error?: Function;
         /**
          * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
-         * sap.ui.model.odata.v2.ODataModel#createEntry}
+         * sap.ui.model.odata.v2.ODataModel#createEntry}; **Note:** if no expand parameter is given, the expand
+         * parameter of this binding is used; see {@link sap.ui.model.odata.v2.ODataModel#bindList}
          */
         expand?: string;
         /**
@@ -50508,7 +50547,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
         error?: Function;
         /**
          * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
-         * sap.ui.model.odata.v2.ODataModel#createEntry}
+         * sap.ui.model.odata.v2.ODataModel#createEntry}; **Note:** if no expand parameter is given, the expand
+         * parameter of this binding is used; see {@link sap.ui.model.odata.v2.ODataModel#bindList}
          */
         expand?: string;
         /**
@@ -50559,7 +50599,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
         error?: Function;
         /**
          * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
-         * sap.ui.model.odata.v2.ODataModel#createEntry}
+         * sap.ui.model.odata.v2.ODataModel#createEntry}; **Note:** if no expand parameter is given, the expand
+         * parameter of this binding is used; see {@link sap.ui.model.odata.v2.ODataModel#bindList}
          */
         expand?: string;
         /**
@@ -50603,7 +50644,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
         error?: Function;
         /**
          * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
-         * sap.ui.model.odata.v2.ODataModel#createEntry}
+         * sap.ui.model.odata.v2.ODataModel#createEntry}; **Note:** if no expand parameter is given, the expand
+         * parameter of this binding is used; see {@link sap.ui.model.odata.v2.ODataModel#bindList}
          */
         expand?: string;
         /**
@@ -53983,8 +54025,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Returns a promise that is resolved without data when the entity represented by this context has been
      * created in the back end and all selected properties of this entity are available. Expanded navigation
-     * properties are only available if the context's binding is refreshable. {@link sap.ui.model.odata.v4.ODataBinding#refresh}
-     * describes which bindings are refreshable.
+     * properties are only available if the context's binding is refreshable. {@link sap.ui.model.odata.v4.ODataContextBinding#refresh}
+     * and {@link sap.ui.model.odata.v4.ODataListBinding#refresh} describe which bindings are refreshable.
      *
      * As long as the promise is not yet resolved or rejected, the entity represented by this context is transient.
      *
@@ -54066,7 +54108,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * is added via {@link sap.ui.model.odata.v4.ODataListBinding#create} without `bAtEnd`, and when a context
      * representing a created entity is deleted again.
      */
-    getIndex(): number;
+    getIndex(): number | undefined;
     /**
      * @SINCE 1.39.0
      *
@@ -55367,7 +55409,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * {@link #getGroupId group ID} is used. Supported since 1.100.0
        */
       sGroupId?: string
-    ): Context | undefined;
+    ): Context;
     /**
      * @SINCE 1.37.0
      *
@@ -57057,7 +57099,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $$updateGroupId?: string;
       }
-    ): Context | undefined;
+    ): Context;
     /**
      * @SINCE 1.85.0
      *

@@ -42,19 +42,19 @@ import {
     ToolbarView,
     TooltipView,
     View,
-    ViewCollection,
+    ViewCollection
 } from '@ckeditor/ckeditor5-ui';
 import preventDefault from '@ckeditor/ckeditor5-ui/src/bindings/preventdefault';
 import DropdownPanelView from '@ckeditor/ckeditor5-ui/src/dropdown/dropdownpanelview';
 import DropdownView from '@ckeditor/ckeditor5-ui/src/dropdown/dropdownview';
 import IframeView from '@ckeditor/ckeditor5-ui/src/iframe/iframeview';
-import LabeledInputView from '@ckeditor/ckeditor5-ui/src/labeledinput/labeledinputview';
-import ListSeparatorView from '@ckeditor/ckeditor5-ui/src/list/listseparatorview';
-import ToolbarLineBreakView from '@ckeditor/ckeditor5-ui/src/toolbar/toolbarlinebreakview';
-import { DomEmitterMixin, EmitterMixin, FocusTracker, KeystrokeHandler, Locale } from '@ckeditor/ckeditor5-utils';
 import InputView from '@ckeditor/ckeditor5-ui/src/input/inputview';
 import InputNumberView from '@ckeditor/ckeditor5-ui/src/inputnumber/inputnumberview';
 import { createLabeledInputNumber } from '@ckeditor/ckeditor5-ui/src/labeledfield/utils';
+import LabeledInputView from '@ckeditor/ckeditor5-ui/src/labeledinput/labeledinputview';
+import ListSeparatorView from '@ckeditor/ckeditor5-ui/src/list/listseparatorview';
+import ToolbarLineBreakView from '@ckeditor/ckeditor5-ui/src/toolbar/toolbarlinebreakview';
+import { DomEmitterMixin, FocusTracker, KeystrokeHandler, Locale } from '@ckeditor/ckeditor5-utils';
 
 let num = 0;
 let str = '';
@@ -69,6 +69,15 @@ let view = new View();
 view.isRendered === bool;
 let template: Template;
 template = view.template as Template;
+
+view.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<View, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+view.set('foo');
 
 let htmlelement = template.render() as HTMLElement;
 
@@ -117,6 +126,11 @@ view.destroy();
 htmlelement = view.element!;
 view.element === null;
 
+// $ExpectType void | undefined
+view.disableCssTransitions?.();
+// $ExpectType void | undefined
+view.enableCssTransitions?.();
+
 /**
  * ViewCollection
  */
@@ -134,6 +148,15 @@ viewCollection.remove(view);
 // $ExpectError
 viewCollection.remove([view]);
 viewCollection.destroy();
+
+viewCollection.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<ViewCollection<View>, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+viewCollection.set('foo');
 
 /**
  * Template
@@ -233,7 +256,7 @@ str = tooltip.text;
  * clickOutsideHandler
  */
 clickOutsideHandler({
-    emitter: Object.create(EmitterMixin),
+    emitter: new View(),
     activator: () => false,
     contextElements: [document.createElement('div')],
     callback: () => {},
@@ -524,7 +547,7 @@ new InputView(locale).id;
 // $ExpectType string
 new InputView(locale).placeholder;
 // $ExpectError
-new InputView(locale).placeholder = "";
+new InputView(locale).placeholder = '';
 new InputView(locale).destroy();
 new InputView(locale).focus();
 
@@ -537,7 +560,7 @@ new InputNumberView(locale).id;
 // $ExpectType string
 new InputNumberView(locale).placeholder;
 // $ExpectError
-new InputNumberView(locale).placeholder = "";
+new InputNumberView(locale).placeholder = '';
 new InputNumberView(locale).destroy();
 new InputNumberView(locale).focus();
 // $ExpectType number | undefined
@@ -546,7 +569,7 @@ new InputNumberView(locale).min;
 new InputNumberView(locale).step;
 
 // $ExpectType InputNumberView
-createLabeledInputNumber(labeledfieldview, "", "");
+createLabeledInputNumber(labeledfieldview, '', '');
 
 // $ExpectType BalloonToolbar
 editor.plugins.get('BalloonToolbar');

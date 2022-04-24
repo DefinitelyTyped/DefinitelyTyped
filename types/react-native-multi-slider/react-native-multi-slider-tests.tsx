@@ -59,7 +59,7 @@ class SliderTest extends React.Component {
                         borderRadius: 20,
                         slipDisplacement: 40,
                     }}
-                    customMarker={(props) => <View {...props} />}
+                    customMarker={({ markerStyle, pressed, pressedMarkerStyle, value}) => <View style={pressed ? pressedMarkerStyle : markerStyle}>value: {value}</View>}
                     sliderLength={280}
                 />
             </React.Fragment>

@@ -10,10 +10,14 @@ import {
     PendingActions,
     Plugin,
 } from '@ckeditor/ckeditor5-core';
+import CommandCollection from '@ckeditor/ckeditor5-core/src/commandcollection';
 import { EditorWithUI } from '@ckeditor/ckeditor5-core/src/editor/editorwithui';
+import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
+import ParagraphCommand from '@ckeditor/ckeditor5-paragraph/src/paragraphcommand';
 import View from '@ckeditor/ckeditor5-ui/src/view';
-
-let comm: Command;
+import { Emitter } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 
 /**
  * Editor
@@ -81,11 +85,17 @@ class MyPlugin extends Plugin {
 }
 
 const myPlugin = new MyPlugin(editor);
+myPlugin.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<MyPlugin, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
 const promise = myPlugin.init?.();
 promise != null && promise.then(() => {});
 myPlugin.myMethod();
 myPlugin.isEnabled = true;
-myPlugin.destroy?.();
+myPlugin.destroy();
 // $ExpectType Editor | EditorWithUI
 myPlugin.editor;
 const myUIEditor = new MyPlugin(new MyUIEditor('')).editor;
@@ -116,37 +126,6 @@ class MyEmptyEditor extends Editor {
 /**
  * Command
  */
-const command = new Command(new MyEmptyEditor());
-command.execute();
-command.execute('foo', 'bar', true, false, 50033);
-command.execute(4545454, 'refresh', [], []);
-command.execute({}, { foo: 5 });
-// $ExpectType Editor
-command.editor;
-// $ExpectType boolean
-command.isEnabled;
-// $ExpectError
-command.isEnabled = false;
-
-comm = new Command(editor);
-
-command.destroy();
-
-command.execute();
-
-command.refresh();
-
-// $ExpectType unknown
-command.value;
-// $ExpectError
-command.value = false;
-delete command.value;
-
-// $ExpectError
-delete command.isEnabled;
-
-// $ExpectType boolean
-command.affectsData;
 
 class MyCommand extends Command {
     get value(): boolean {
@@ -157,11 +136,48 @@ class MyCommand extends Command {
     }
     refresh() {
         this.value = false;
+        this.isEnabled = true;
     }
 }
 
+const command = new MyCommand(editor);
+
+command.on('execute', (ev, ...args) => {
+    // $ExpectType EventInfo<MyCommand, "execute">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
 // $ExpectType boolean
-new MyCommand(editor).value;
+command.value;
+// $ExpectError
+command.value = false;
+// $ExpectError
+delete command.value;
+// $ExpectError
+delete command.isEnabled;
+
+// $ExpectType boolean
+command.affectsData;
+
+command.execute();
+command.execute('foo', 'bar', true, false, 50033);
+command.execute(4545454, 'refresh', [], []);
+command.execute({}, { foo: 5 });
+
+// $ExpectType Editor
+command.editor;
+
+// $ExpectType boolean
+command.isEnabled;
+
+// $ExpectError
+command.isEnabled = false;
+
+command.destroy();
+
+command.refresh();
 
 /**
  * Context
@@ -204,6 +220,13 @@ editor.plugins.get(MyCPlugin).myCMethod();
 context.plugins.get(MyCPlugin).myCMethod();
 (context.plugins.get('MyCPlugin') as MyCPlugin).myCMethod();
 
+editor.plugins.get(MyCPlugin).on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<MyCPlugin, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
 /**
  * DataApiMixin
  */
@@ -225,7 +248,7 @@ attachToForm(editor);
  * MultiCommand
  */
 const MC = new MultiCommand(editor);
-MC.registerChildCommand(comm);
+MC.registerChildCommand(command);
 
 /* EditorUI */
 new EditorUI(editor).componentFactory.editor === editor;
@@ -233,6 +256,14 @@ new EditorUI(editor).componentFactory.add('', locale => new View(locale));
 new EditorUI(editor).set('foo', true);
 // $ExpectType { top: number; right: number; bottom: number; left: number; }
 new EditorUI(editor).viewportOffset;
+new EditorUI(editor).on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<EditorUI, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new EditorUI(editor).set('foo');
 
 /** Pending Actions */
 // $ExpectType boolean
@@ -245,3 +276,25 @@ new PendingActions(context).remove(new PendingActions(context).add(''));
 new MyEditor('').plugins.get('PendingActions');
 // $ExpectType PendingActions
 new MyEditor('').plugins.get(PendingActions);
+
+/*
+ * CommandCollection
+ */
+
+const cc = new CommandCollection();
+cc.add('paragraph', new ParagraphCommand(editor));
+// $ExpectType ParagraphCommand | undefined
+cc.get('paragraph');
+// $ExpectType void
+cc.execute('paragraph');
+cc.execute('paragraph', { selection: new Selection() });
+// $ExpectError
+cc.execute('paragraph', { selection: true });
+// $ExpectError
+cc.execute('paragraph', null);
+// $ExpectType string[]
+Array.from(cc.names());
+// $ExpectType Command[]
+Array.from(cc.commands());
+// $ExpectType [string, Command][]
+Array.from(cc);

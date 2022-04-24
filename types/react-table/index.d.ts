@@ -27,7 +27,6 @@ import {
     ReactElement,
     ReactFragment,
     ReactNode,
-    ReactText,
 } from 'react';
 
 export {};
@@ -874,7 +873,7 @@ export type StringKey<D> = Extract<keyof D, string>;
 export type IdType<D> = StringKey<D> | string;
 export type CellValue<V = any> = V;
 
-export type Renderer<Props> = ComponentType<Props> | ReactElement | ReactText | ReactFragment;
+export type Renderer<Props> = ComponentType<Props> | ReactElement | string | number | ReactFragment;
 
 export interface PluginHook<D extends object> {
     (hooks: Hooks<D>): void;

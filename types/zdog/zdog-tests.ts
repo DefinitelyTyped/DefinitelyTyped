@@ -150,7 +150,7 @@ new Illustration({
     element: canvas,
     onPrerender(context) {
         this; // $ExpectType Illustration
-        context; // $ExpectType SVGSVGElement | CanvasRenderingContext2D
+        context; // $ExpectType SVGSVGElement | CanvasRenderingContext2D || CanvasRenderingContext2D | SVGSVGElement
     },
 });
 

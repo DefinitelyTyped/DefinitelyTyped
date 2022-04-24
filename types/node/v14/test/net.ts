@@ -240,6 +240,7 @@ import { LookupOneOptions } from 'node:dns';
     bool = _socket.connecting;
     bool = _socket.destroyed;
     _socket.destroy();
+    _socket.readyState; // $ExpectType SocketReadyState
 }
 
 {

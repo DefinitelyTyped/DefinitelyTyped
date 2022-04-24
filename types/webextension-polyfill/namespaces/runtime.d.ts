@@ -99,7 +99,7 @@ export namespace Runtime {
     /**
      * The machine's processor architecture.
      */
-    type PlatformArch = "aarch64" | "arm" | "ppc64" | "s390x" | "sparc64" | "x86-32" | "x86-64";
+    type PlatformArch = "aarch64" | "arm" | "ppc64" | "s390x" | "sparc64" | "x86-32" | "x86-64" | "noarch";
 
     /**
      * An object containing information about the current platform.
@@ -266,6 +266,14 @@ export namespace Runtime {
          * @returns The fully-qualified URL to the resource.
          */
         getURL(path: string): string;
+
+        /**
+         * Get the frameId of any window global or frame element.
+         *
+         * @param target A WindowProxy or a Browsing Context container element (IFrame, Frame, Embed, Object) for the target frame.
+         * @returns The frameId of the target frame, or -1 if it doesn't exist.
+         */
+        getFrameId(target: any): number;
 
         /**
          * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics,

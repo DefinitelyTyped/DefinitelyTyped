@@ -81,11 +81,6 @@ export class Material extends EventDispatcher {
     alphaToCoverage: boolean;
 
     /**
-     * @default false
-     */
-    alphaWrite: boolean;
-
-    /**
      * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
      * @default THREE.OneMinusSrcAlphaFactor
      */
