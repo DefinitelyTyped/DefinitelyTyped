@@ -1,9 +1,7 @@
 import crosses = require('robust-segment-intersect');
 
-const a0 = [-1, 0] as const;
-const a1 = [1, 0] as const;
-const b0 = [0, -1] as const;
-const b1 = [0, 1] as const;
-
 // $ExpectType boolean
-crosses(a0, a1, b0, b1);
+crosses([0, 0], [5, 5], [5, 0], [0, 5]);
+
+// $ExpectError
+crosses([1], [2], [3], [4]);
