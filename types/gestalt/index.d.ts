@@ -1,4 +1,4 @@
-// Type definitions for gestalt 46.4
+// Type definitions for gestalt 50.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -162,7 +162,7 @@ export interface BoxProps extends BoxPassthroughProps {
         | 'section'
         | 'summary'
         | undefined;
-    borderStyle?: 'sm' | 'lg' | 'shadow' | 'none' | undefined;
+    borderStyle?: 'sm' | 'lg' | 'shadow' | 'raisedTopShadow' | 'raisedBottomShadow' | 'none' | undefined;
     bottom?: boolean | undefined;
     children?: React.ReactNode | undefined;
     color?:
@@ -656,28 +656,21 @@ export interface HeaderProps {
     align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight' | undefined;
     children?: React.ReactNode | undefined;
     color?:
-        | 'blue'
-        | 'darkGray'
-        | 'eggplant'
-        | 'gray'
-        | 'green'
-        | 'lightGray'
-        | 'maroon'
-        | 'midnight'
-        | 'navy'
-        | 'olive'
-        | 'orange'
-        | 'orchid'
-        | 'pine'
-        | 'purple'
-        | 'red'
-        | 'watermelon'
-        | 'white'
+        | 'default'
+        | 'subtle'
+        | 'success'
+        | 'error'
+        | 'warning'
+        | 'shopping'
+        | 'inverse'
+        | 'light'
+        | 'dark'
         | undefined;
     id?: string | undefined;
     overflow?: 'normal' | 'breakWord' | undefined;
-    size?: 'sm' | 'md' | 'lg' | undefined;
+    size?: '100' | '200' | '300' | '400' | '500' | '600' | 'sm' | 'md' | 'lg' | undefined;
     truncate?: boolean | undefined;
+    lineClamp?: number | undefined;
 }
 
 export type Icons =
@@ -881,6 +874,16 @@ export interface IconProps {
         | 'red'
         | 'watermelon'
         | 'white'
+        | 'default'
+        | 'subtle'
+        | 'success'
+        | 'error'
+        | 'warning'
+        | 'inverse'
+        | 'shopping'
+        | 'brandPrimary'
+        | 'light'
+        | 'dark'
         | undefined;
     dangerouslySetSvgPath?: { __path: string } | undefined;
     icon?: Icons | undefined;
@@ -932,6 +935,7 @@ export interface ImageProps {
     alt: string;
     color: string;
     crossOrigin?: 'anonymous' | 'use-credentials' | undefined;
+    decoding?: 'sync' | 'async' | 'auto';
     elementTiming?: string | undefined;
     naturalHeight: number;
     naturalWidth: number;
@@ -1346,6 +1350,7 @@ export interface SelectListProps {
     errorMessage?: string | undefined;
     helperText?: string | undefined;
     label?: string | undefined;
+    labelDisplay?: 'visible' | 'hidden';
     name?: string | undefined;
     placeholder?: string | undefined;
     size?: 'md' | 'lg' | undefined;
@@ -1606,29 +1611,13 @@ export interface TextProps {
     align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight' | undefined;
     children?: React.ReactNode | undefined;
     color?:
-        | 'blue'
-        | 'darkGray'
-        | 'eggplant'
-        | 'gray'
-        | 'green'
-        | 'lightGray'
-        | 'maroon'
-        | 'midnight'
-        | 'navy'
-        | 'olive'
-        | 'orange'
-        | 'orchid'
-        | 'pine'
-        | 'purple'
-        | 'red'
-        | 'watermelon'
-        | 'white'
         | 'default'
         | 'subtle'
         | 'success'
         | 'error'
         | 'warning'
         | 'shopping'
+        | 'link'
         | 'inverse'
         | 'light'
         | 'dark'
@@ -1669,6 +1658,7 @@ export interface TextAreaProps {
      */
     tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
     value?: string | undefined;
+    readonly?: boolean;
 }
 
 /**

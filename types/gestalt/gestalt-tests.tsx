@@ -199,6 +199,7 @@ const CheckUseReducedMotion = () => {
     </Flex.Item>
 </Flex>;
 <Heading />;
+<Heading color="inverse" />;
 <Icon accessibilityLabel="icon" />;
 <IconButton
     accessibilityLabel="icon"
@@ -363,6 +364,7 @@ const CheckUseReducedMotion = () => {
 />;
 <Tag disabled text="New" />;
 <Text />;
+<Text color="inverse" />;
 <TextArea id="id" onChange={() => {}} />;
 <TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
 
