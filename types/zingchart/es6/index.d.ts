@@ -4433,6 +4433,16 @@ declare namespace zingchart {
        * Sets the padding around the object text. "10%" | "25px" ...
        */
       padding?: number;
+      rules?: Array<{
+        /**
+         * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+         * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+         * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+         * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+         * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+         */
+        rule?: string;
+      }>;
       /**
        * To create sticky tooltips. Use this with the "timeout" attribute, which allows you to specify how long you want the tooltips to "s
        * tick" to the chart. true | false | 1 |0
@@ -5484,6 +5494,16 @@ declare namespace zingchart {
        * Sets the padding around the object text. "10%" | "25px" ...
        */
       padding?: number;
+      rules?: Array<{
+        /**
+         * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+         * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+         * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+         * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+         * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+         */
+        rule?: string;
+      }>;
       /**
        * To create sticky tooltips. Use this with the "timeout" attribute, which allows you to specify how long you want the tooltips to "s
        * tick" to the chart. true | false | 1 |0
@@ -5525,6 +5545,7 @@ declare namespace zingchart {
      */
     'auto-fit'?: boolean;
     autoFit?: boolean;
+    itemsOverlap?: boolean;
     /**
      * Sets whether the scale values will be displayed in scientific notation. Particularly useful when dealing with large numbers. true
      * | false | 1 | 0
@@ -7243,6 +7264,16 @@ declare namespace zingchart {
        * Sets the padding around the object text. "10%" | "25px" ...
        */
       padding?: number;
+      rules?: Array<{
+        /**
+         * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+         * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+         * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+         * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+         * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+         */
+        rule?: string;
+      }>;
       /**
        * To create sticky tooltips. Use this with the "timeout" attribute, which allows you to specify how long you want the tooltips to "s
        * tick" to the chart. true | false | 1 |0
@@ -9186,6 +9217,16 @@ declare namespace zingchart {
        * Sets the padding around the object text. "10%" | "25px" ...
        */
       padding?: number;
+      rules?: Array<{
+        /**
+         * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+         * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+         * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+         * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+         * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+         */
+        rule?: string;
+      }>;
       /**
        * To create sticky tooltips. Use this with the "timeout" attribute, which allows you to specify how long you want the tooltips to "s
        * tick" to the chart. true | false | 1 |0
@@ -11024,6 +11065,16 @@ declare namespace zingchart {
          * Renders text right-to-left. Default value is false. true | false | 1 | 0
          */
         rtl?: boolean;
+        rules?: Array<{
+          /**
+           * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+           * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+           * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+           * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+           * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+           */
+          rule?: string;
+        }>;
         /**
          * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
          */
@@ -13068,6 +13119,16 @@ declare namespace zingchart {
          * Sets the padding around the object text. "10%" | "25px" ...
          */
         padding?: number;
+        rules?: Array<{
+          /**
+           * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+           * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+           * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+           * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+           * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+           */
+          rule?: string;
+        }>;
         /**
          * To create sticky tooltips. Use this with the "timeout" attribute, which allows you to specify how long you want the tooltips to "s
          * tick" to the chart. true | false | 1 |0
@@ -13446,6 +13507,16 @@ declare namespace zingchart {
            * Sets the padding of the object. 3 | '5px' | '10px' | ...
            */
           padding?: number;
+          rules?: Array<{
+            /**
+             * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+             * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+             * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+             * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+             * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+             */
+            rule?: string;
+          }>;
           /**
            * Sets the text to be displayed in the tooltips. "%text: %hits" | ...
            */
@@ -14390,6 +14461,10 @@ declare namespace zingchart {
         'line-width'?: number | string;
         lineWidth?: number | string;
         /**
+         * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+         */
+        visible?: boolean;
+        /**
          * To set the stock preview chart type: area chart or line chart. "area" (default) | "line"
          */
         type?: string;
@@ -14751,6 +14826,16 @@ declare namespace zingchart {
          * Renders text right-to-left. Default value is false. true | false | 1 | 0
          */
         rtl?: boolean;
+        rules?: Array<{
+          /**
+           * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+           * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+           * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+           * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+           * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+           */
+          rule?: string;
+        }>;
         /**
          * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
          */
@@ -15240,6 +15325,10 @@ declare namespace zingchart {
        */
       'preserve-zoom'?: boolean;
       preserveZoom?: boolean;
+      /**
+       * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+       */
+      visible?: boolean;
       /**
        * Sets the object's width. 10 | "20px" | 0.3 | "30%" | ...
        */
@@ -17506,6 +17595,16 @@ declare namespace zingchart {
        * Renders text right-to-left. Default value is false. true | false | 1 | 0
        */
       rtl?: boolean;
+      rules?: Array<{
+        /**
+         * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+         * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+         * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+         * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+         * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+         */
+        rule?: string;
+      }>;
       /**
        * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
        */
@@ -19362,6 +19461,10 @@ declare namespace zingchart {
       'line-width'?: number | string;
       lineWidth?: number | string;
       /**
+       * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+       */
+      visible?: boolean;
+      /**
        * To set the stock preview chart type: area chart or line chart. "area" (default) | "line"
        */
       type?: string;
@@ -19701,6 +19804,16 @@ declare namespace zingchart {
        * Renders text right-to-left. Default value is false. true | false | 1 | 0
        */
       rtl?: boolean;
+      rules?: Array<{
+        /**
+         * A rule allows you to include logic in order to apply a set of attributes only to certain aspects of your chart that meet the crite
+         * ria specified within each "rule": group. You can include any number of "rule": groups nested within a "rules": set. Place the desi
+         * red attribute or attributes within each "rule": group to apply those attributes to the areas that fulfill the requirement. The eff
+         * ect of rules depends largely on the placement of the "rules": set within your JSON code. In the above example, the styling attribu
+         * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
+         */
+        rule?: string;
+      }>;
       /**
        * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
        */
