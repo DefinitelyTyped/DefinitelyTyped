@@ -433,6 +433,7 @@ declare namespace Aws {
         maximumRetryAttempts?: number | string | undefined;
         functionResponseType?: string | undefined;
         enabled?: boolean | undefined;
+        filterPatterns?: FilterPattern[] | undefined;
     }
 
     interface ActiveMq {
