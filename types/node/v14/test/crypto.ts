@@ -188,6 +188,34 @@ import { promisify } from 'node:util';
 }
 
 {
+    // crypto_cipheriv_decipheriv_aad_ocb_test
+    const key = 'keykeykeykeykeykeykeykey';
+    const iv = crypto.randomBytes(12);
+    const aad = Buffer.from('0123456789', 'hex');
+
+    const cipher = crypto.createCipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    const plaintext = 'Hello world';
+    cipher.setAAD(aad, {
+        plaintextLength: Buffer.byteLength(plaintext),
+    });
+    const ciphertext = Buffer.concat([
+        cipher.update(plaintext, 'utf8'),
+        cipher.final(),
+    ]);
+    const tag = cipher.getAuthTag();
+
+    const decipher = crypto.createDecipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    decipher.setAuthTag(tag);
+    decipher.setAAD(aad, {
+        plaintextLength: ciphertext.length,
+    });
+    const receivedPlaintext: Buffer = Buffer.concat([
+        decipher.update(ciphertext),
+        decipher.final(),
+    ]);
+}
+
+{
     // crypto_cipheriv_decipheriv_cbc_string_encoding_test
     const key: string | null = 'keykeykeykeykeykeykeykey';
     const nonce = crypto.randomBytes(12);

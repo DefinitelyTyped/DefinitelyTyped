@@ -22,6 +22,7 @@ import MessagePage from "sap/m/MessagePage";
 import { TitleLevel } from "sap/ui/core/library";
 import DateTimePicker from "sap/m/DateTimePicker";
 import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
+import RenderManager from "sap/ui/core/RenderManager";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -57,6 +58,9 @@ class Ctrl extends Controller {
 
         const dp = new DatePicker();
         dp.setShowCurrentDateButton(true);
+
+        const rm: RenderManager = Core.getRenderManager();
+        rm.openEnd();
         this.getView().addContent(dp);
     }
 }

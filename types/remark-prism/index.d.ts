@@ -16,17 +16,6 @@ type SupportedPlugins =
     | 'show-invisibles'
     | 'treeview';
 
-type SupportedPlugins =
-    | 'autolinker'
-    | 'command-line'
-    | 'data-uri-highlight'
-    | 'diff-highlight'
-    | 'inline-color'
-    | 'keep-markup'
-    | 'line-numbers'
-    | 'show-invisibles'
-    | 'treeview';
-
 declare namespace remarkPrism {
     /**
      * Plugin to use prism with remark.

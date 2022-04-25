@@ -433,6 +433,7 @@ declare namespace Aws {
         maximumRetryAttempts?: number | string | undefined;
         functionResponseType?: string | undefined;
         enabled?: boolean | undefined;
+        filterPatterns?: FilterPattern[] | undefined;
     }
 
     interface ActiveMq {
@@ -619,6 +620,20 @@ declare namespace Aws {
         localMountPath: string;
     }
 
+    interface FunctionUrlConfigCors {
+        allowCredentials?: boolean | undefined;
+        allowedHeaders?: boolean | string[] | undefined;
+        allowedMethods?: boolean | string[] | undefined;
+        allowedOrigins?: boolean | string[] | undefined;
+        exposedResponseHeaders?: boolean | string[] | undefined;
+        maxAge?: number | undefined;
+    }
+
+    interface FunctionUrlConfig {
+        authorizer?: 'aws_iam' | undefined;
+        cors?: boolean | FunctionUrlConfigCors | undefined;
+    }
+
     interface AwsFunction {
         name?: string | undefined;
         description?: string | undefined;
@@ -644,6 +659,7 @@ declare namespace Aws {
         destinations?: Destinations | undefined;
         events?: Event[] | undefined;
         disableLogs?: boolean | undefined;
+        url?: boolean | FunctionUrlConfig | undefined;
     }
 
     interface AwsFunctionHandler extends AwsFunction {
