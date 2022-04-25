@@ -786,21 +786,26 @@ declare module 'node:dom-events' {
         handleEvent(object: Event): void;
     }
 
-    import { Event as _Event, EventTarget as _EventTarget } from 'node:dom-events';
-    global {
-        interface Event extends _Event {}
-        interface EventTarget extends _EventTarget {}
+    // TODO: Event should be a top-level type, but it will conflict with the
+    // Event in lib.dom.d.ts without the conditional declaration below.  It
+    // works in TS < 4.7, but breaks in the latest release.  This can go back
+    // in once we figure out why.
 
-        // For compatibility with "dom" and "webworker" Event / EventTarget declarations
+    // import { Event as _Event, EventTarget as _EventTarget } from 'node:dom-events';
+    // global {
+    //     interface Event extends _Event {}
+    //     interface EventTarget extends _EventTarget {}
 
-        var Event:
-        typeof globalThis extends { onmessage: any, Event: infer Event }
-            ? Event
-            : typeof _Event;
+    //     // For compatibility with "dom" and "webworker" Event / EventTarget declarations
 
-        var EventTarget:
-        typeof globalThis extends { onmessage: any, EventTarget: infer EventTarget }
-            ? EventTarget
-            : typeof _EventTarget;
-    }
+    //     var Event:
+    //     typeof globalThis extends { onmessage: any, Event: infer Event }
+    //         ? Event
+    //         : typeof _Event;
+
+    //     var EventTarget:
+    //     typeof globalThis extends { onmessage: any, EventTarget: infer EventTarget }
+    //         ? EventTarget
+    //         : typeof _EventTarget;
+    // }
 }
