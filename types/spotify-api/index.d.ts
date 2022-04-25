@@ -1196,7 +1196,7 @@ declare namespace SpotifyApi {
         added_at: string;
         added_by: UserObjectPublic;
         is_local: boolean;
-        track: TrackObjectFull;
+        track: TrackObjectFull | null;
     }
 
     /**

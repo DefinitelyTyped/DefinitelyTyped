@@ -1,4 +1,4 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.101.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -1698,6 +1698,16 @@ declare module "sap/f/cards/Header" {
      */
     getSubtitle(): string;
     /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Gets current value of property {@link #getSubtitleMaxLines subtitleMaxLines}.
+     *
+     * Limits the number of lines for the subtitle.
+     *
+     * Default value is `2`.
+     */
+    getSubtitleMaxLines(): int;
+    /**
      * Gets current value of property {@link #getTitle title}.
      *
      * Defines the title.
@@ -1705,6 +1715,16 @@ declare module "sap/f/cards/Header" {
      * Default value is `empty string`.
      */
     getTitle(): string;
+    /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Gets current value of property {@link #getTitleMaxLines titleMaxLines}.
+     *
+     * Limits the number of lines for the title.
+     *
+     * Default value is `3`.
+     */
+    getTitleMaxLines(): int;
     /**
      * @EXPERIMENTAL (since 1.81)
      *
@@ -1815,6 +1835,23 @@ declare module "sap/f/cards/Header" {
       sSubtitle?: string
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Sets a new value for property {@link #getSubtitleMaxLines subtitleMaxLines}.
+     *
+     * Limits the number of lines for the subtitle.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `2`.
+     */
+    setSubtitleMaxLines(
+      /**
+       * New value for property `subtitleMaxLines`
+       */
+      iSubtitleMaxLines?: int
+    ): this;
+    /**
      * Sets a new value for property {@link #getTitle title}.
      *
      * Defines the title.
@@ -1829,6 +1866,23 @@ declare module "sap/f/cards/Header" {
        */
       sTitle?: string
     ): this;
+    /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Sets a new value for property {@link #getTitleMaxLines titleMaxLines}.
+     *
+     * Limits the number of lines for the title.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `3`.
+     */
+    setTitleMaxLines(
+      /**
+       * New value for property `titleMaxLines`
+       */
+      iTitleMaxLines?: int
+    ): this;
   }
 
   export interface $HeaderSettings extends $BaseHeaderSettings {
@@ -1838,9 +1892,23 @@ declare module "sap/f/cards/Header" {
     title?: string | PropertyBindingInfo;
 
     /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Limits the number of lines for the title.
+     */
+    titleMaxLines?: int | PropertyBindingInfo;
+
+    /**
      * Defines the subtitle.
      */
     subtitle?: string | PropertyBindingInfo;
+
+    /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Limits the number of lines for the subtitle.
+     */
+    subtitleMaxLines?: int | PropertyBindingInfo;
 
     /**
      * Defines the status text.
@@ -2067,6 +2135,16 @@ declare module "sap/f/cards/NumericHeader" {
      */
     getDetails(): string;
     /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Gets current value of property {@link #getDetailsMaxLines detailsMaxLines}.
+     *
+     * Limits the number of lines for the details.
+     *
+     * Default value is `1`.
+     */
+    getDetailsMaxLines(): int;
+    /**
      * Gets current value of property {@link #getNumber number}.
      *
      * The numeric value of the main number indicator. If the value contains more than five characters, only
@@ -2123,11 +2201,31 @@ declare module "sap/f/cards/NumericHeader" {
      */
     getSubtitle(): string;
     /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Gets current value of property {@link #getSubtitleMaxLines subtitleMaxLines}.
+     *
+     * Limits the number of lines for the subtitle.
+     *
+     * Default value is `2`.
+     */
+    getSubtitleMaxLines(): int;
+    /**
      * Gets current value of property {@link #getTitle title}.
      *
      * The title of the card
      */
     getTitle(): string;
+    /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Gets current value of property {@link #getTitleMaxLines titleMaxLines}.
+     *
+     * Limits the number of lines for the title.
+     *
+     * Default value is `3`.
+     */
+    getTitleMaxLines(): int;
     /**
      * Gets current value of property {@link #getTrend trend}.
      *
@@ -2183,31 +2281,63 @@ declare module "sap/f/cards/NumericHeader" {
       vSideIndicator: int | string | NumericSideIndicator
     ): NumericSideIndicator;
     /**
-     * Sets additional text which adds more details to what is shown in the numeric header.
+     * Sets a new value for property {@link #getDetails details}.
+     *
+     * Additional text which adds more details to what is shown in the numeric header.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      */
     setDetails(
       /**
-       * The text of the details
+       * New value for property `details`
        */
-      sValue: string
+      sDetails: string
     ): this;
     /**
-     * Sets the value of the main number indicator.
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Sets a new value for property {@link #getDetailsMaxLines detailsMaxLines}.
+     *
+     * Limits the number of lines for the details.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `1`.
+     */
+    setDetailsMaxLines(
+      /**
+       * New value for property `detailsMaxLines`
+       */
+      iDetailsMaxLines?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getNumber number}.
+     *
+     * The numeric value of the main number indicator. If the value contains more than five characters, only
+     * the first five are displayed. Without rounding the number.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      */
     setNumber(
       /**
-       * A string representation of the number
+       * New value for property `number`
        */
-      sValue: string
+      sNumber: string
     ): this;
     /**
-     * Sets the unit of measurement (scaling prefix) for the main indicator.
+     * Sets a new value for property {@link #getScale scale}.
+     *
+     * Defines the unit of measurement (scaling prefix) for the main indicator. Financial characters can be
+     * used for currencies and counters. The International System of Units (SI) prefixes can be used. If the
+     * unit contains more than three characters, only the first three characters are displayed.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      */
     setScale(
       /**
-       * The text of the title
+       * New value for property `scale`
        */
-      sValue: string
+      sScale: string
     ): this;
     /**
      * Sets a new value for property {@link #getSideIndicatorsAlignment sideIndicatorsAlignment}.
@@ -2227,13 +2357,21 @@ declare module "sap/f/cards/NumericHeader" {
         | keyof typeof cards.NumericHeaderSideIndicatorsAlignment
     ): this;
     /**
-     * Sets the semantic color which represents the state of the main number indicator.
+     * @EXPERIMENTAL (since 1.64)
+     *
+     * Sets a new value for property {@link #getState state}.
+     *
+     * The semantic color which represents the state of the main number indicator.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"Neutral"`.
      */
     setState(
       /**
-       * The semantic color which represents the state
+       * New value for property `state`
        */
-      sValue: ValueColor | keyof typeof ValueColor
+      sState?: ValueColor | keyof typeof ValueColor
     ): this;
     /**
      * Sets a new value for property {@link #getStatusText statusText}.
@@ -2251,40 +2389,92 @@ declare module "sap/f/cards/NumericHeader" {
       sStatusText?: string
     ): this;
     /**
-     * Sets the subtitle.
+     * Sets a new value for property {@link #getSubtitle subtitle}.
+     *
+     * The subtitle of the card
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      */
     setSubtitle(
       /**
-       * The text of the subtitle
+       * New value for property `subtitle`
        */
-      sValue: string
+      sSubtitle: string
     ): this;
     /**
-     * Sets the title.
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Sets a new value for property {@link #getSubtitleMaxLines subtitleMaxLines}.
+     *
+     * Limits the number of lines for the subtitle.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `2`.
+     */
+    setSubtitleMaxLines(
+      /**
+       * New value for property `subtitleMaxLines`
+       */
+      iSubtitleMaxLines?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTitle title}.
+     *
+     * The title of the card
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      */
     setTitle(
       /**
-       * The text of the title
+       * New value for property `title`
        */
-      sValue: string
+      sTitle: string
     ): this;
     /**
-     * Sets the direction of the trend arrow.
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Sets a new value for property {@link #getTitleMaxLines titleMaxLines}.
+     *
+     * Limits the number of lines for the title.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `3`.
+     */
+    setTitleMaxLines(
+      /**
+       * New value for property `titleMaxLines`
+       */
+      iTitleMaxLines?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTrend trend}.
+     *
+     * The direction of the trend arrow. Shows deviation for the value of the main number indicator.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"None"`.
      */
     setTrend(
       /**
-       * The direction of the trend arrow
+       * New value for property `trend`
        */
-      sValue: DeviationIndicator | keyof typeof DeviationIndicator
+      sTrend?: DeviationIndicator | keyof typeof DeviationIndicator
     ): this;
     /**
-     * Sets the general unit of measurement for the header. Displayed as side information to the subtitle.
+     * Sets a new value for property {@link #getUnitOfMeasurement unitOfMeasurement}.
+     *
+     * General unit of measurement for the header. Displayed as side information to the subtitle.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      */
     setUnitOfMeasurement(
       /**
-       * The value of the unit of measurement
+       * New value for property `unitOfMeasurement`
        */
-      sValue: string
+      sUnitOfMeasurement: string
     ): this;
   }
 
@@ -2295,9 +2485,23 @@ declare module "sap/f/cards/NumericHeader" {
     title?: string | PropertyBindingInfo;
 
     /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Limits the number of lines for the title.
+     */
+    titleMaxLines?: int | PropertyBindingInfo;
+
+    /**
      * The subtitle of the card
      */
     subtitle?: string | PropertyBindingInfo;
+
+    /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Limits the number of lines for the subtitle.
+     */
+    subtitleMaxLines?: int | PropertyBindingInfo;
 
     /**
      * Defines the status text.
@@ -2340,6 +2544,13 @@ declare module "sap/f/cards/NumericHeader" {
      * Additional text which adds more details to what is shown in the numeric header.
      */
     details?: string | PropertyBindingInfo;
+
+    /**
+     * @EXPERIMENTAL (since 1.101)
+     *
+     * Limits the number of lines for the details.
+     */
+    detailsMaxLines?: int | PropertyBindingInfo;
 
     /**
      * The alignment of the side indicators.

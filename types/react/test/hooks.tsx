@@ -122,6 +122,13 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectError
     typedCallback({});
 
+    function useContextuallyTypedCallback(fn: (event: Event) => string) {}
+    useContextuallyTypedCallback(React.useCallback(event => {
+        // $ExpectType Event
+        event;
+        return String(event);
+    }, []));
+
     // test useRef and its convenience overloads
     // $ExpectType MutableRefObject<number>
     React.useRef(0);

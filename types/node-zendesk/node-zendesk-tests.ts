@@ -152,6 +152,19 @@ client.tickets.exportAudit(123).then(zendeskCallback);
 client.tickets.addTags(123, ["foo", "bar"], zendeskCallback);
 client.tickets.addTags(123, ["foo", "bar"]).then(zendeskCallback);
 
+/** Ticket Fields */
+client.ticketfields.create(
+    {
+        type: "subject",
+        title: "Subject",
+        description: "This is the agent only description for the subject field",
+        position: 0,
+        active: true,
+        key: "subject"
+    },
+    zendeskCallback,
+);
+
 /** Users Methods */
 client.users.auth(zendeskCallback);
 client.users.auth().then(zendeskCallback);

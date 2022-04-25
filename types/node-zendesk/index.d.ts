@@ -48,7 +48,7 @@ export interface Client {
     ticketaudits: unknown;
     ticketevents: unknown;
     ticketexport: unknown;
-    ticketfields: unknown;
+    ticketfields: Tickets.Fields.Methods;
     ticketforms: unknown;
     ticketimport: unknown;
     ticketmetrics: unknown;
@@ -792,6 +792,56 @@ export namespace Tickets {
 
         interface ListPayload {
             readonly ticket_metrics: ReadonlyArray<ResponseModel>;
+        }
+    }
+
+    namespace Fields {
+        interface Methods {
+            list(cb: ZendeskCallback<unknown, unknown>): unknown;
+            list(): Promise<unknown>;
+            show(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+            show(fieldId: ZendeskID): Promise<unknown>;
+            create(field: CreateTicketField, cb: ZendeskCallback<unknown, unknown>): unknown;
+            create(field: CreateTicketField): Promise<unknown>;
+            create(field: CreateTicketField, cb: ZendeskCallback<unknown, unknown>): unknown;
+            update(fieldId: ZendeskID, field: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
+            update(fieldId: ZendeskID, field: unknown): Promise<unknown>;
+            delete(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+            delete(fieldId: ZendeskID): Promise<unknown>;
+        }
+
+        /**
+         * Represents 'ticket_fields'
+         */
+        interface TicketField {
+            readonly type: string | undefined;
+            readonly title: string | undefined;
+            id?: number | undefined;
+            active?: true;
+            agent_description?: string | undefined;
+            collapsed_for_agents?: boolean | undefined;
+            created_at?: Date | undefined;
+            description?: string | undefined;
+            editable_in_portal?: boolean | undefined;
+            position?: number | undefined;
+            raw_description?: string | undefined;
+            raw_title?: string | undefined;
+            raw_title_in_portal?: string | undefined;
+            regexp_for_validation?: string | undefined;
+            removable?: boolean | undefined;
+            required?: boolean | undefined;
+            required_in_portal?: boolean | undefined;
+            tag?: string | undefined;
+            title_in_portal?: string | undefined;
+            updated_at?: Date | undefined;
+            visible_in_portal?: boolean | undefined;
+            url?: string | undefined;
+        }
+        interface CreateTicketField extends TicketField {
+            key: string;
+        }
+        interface CustomFieldOptions {
+            [key: string]: unknown;
         }
     }
 }

@@ -248,11 +248,12 @@ const testPage = {
     },
 
     'Test assertions on page': () => {
-        const google = browser.page.google();
+        const google: EnhancedPageObject<GooglePage> = browser.page.google();
 
         google
             .navigate()
-            .assert.title('Google')
+            .assert.title('Google') // deprecated
+            .assert.titleEquals('Google') // new in 2.0
             .assert.visible('@searchBar')
             .setValue('@searchBar', 'nightwatch')
             .click('@submit');
