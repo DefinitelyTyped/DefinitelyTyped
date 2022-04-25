@@ -217,6 +217,9 @@ declare namespace React {
      * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
      */
     type ReactText = string | number;
+    /**
+     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
     type ReactChild = ReactElement | string | number;
 
     /**
@@ -224,7 +227,7 @@ declare namespace React {
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
     type ReactFragment = Iterable<ReactNode>;
-    type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+    type ReactNode = ReactElement | string | number | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
     // Top Level API
