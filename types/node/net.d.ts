@@ -18,7 +18,7 @@ declare module 'net' {
     import * as dns from 'node:dns';
     type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
     interface AddressInfo {
-        address: string;
+        address: string | number; // number since v18 and string for all previous versions
         family: string;
         port: number;
     }
