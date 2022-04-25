@@ -576,6 +576,33 @@ player
         // an error occurred
     });
 
+player
+    .requestFullscreen()
+    .then(ended => {
+        // ended = whether or not the video has ended
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .exitFullscreen()
+    .then(ended => {
+        // ended = whether or not the video has ended
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .getFullscreen()
+    .then(ended => {
+        // ended = whether or not the video has ended
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
 // EVENTS
 
 player.on('play', data => {

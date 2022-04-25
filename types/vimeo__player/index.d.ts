@@ -337,6 +337,9 @@ export class Player {
     getVolume(): VimeoPromise<number, Error>;
     setVolume(volume: number): VimeoPromise<number, RangeError | Error>;
     destroy(): VimeoPromise<void, Error>;
+    requestFullscreen(): VimeoPromise<void, Error>;
+    exitFullscreen(): VimeoPromise<void, Error>;
+    getFullscreen(): VimeoPromise<boolean, Error>;
 }
 
 export interface VimeoCuePoint {
