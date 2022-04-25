@@ -10,7 +10,7 @@ export type AlertType = 1 | 2 | 3 | 4 | 5 | 'success' | 'warning' | 'error' | 'i
 
 export type Position = 'top' | 'bottom';
 
-export function alert({ text, type, stay, time, position }: AlertOptions): void;
+export function alert(options: AlertOptions): void;
 
 export interface AlertOptions {
     text: string;
@@ -28,10 +28,7 @@ export interface AlertOptions {
     position?: Position | undefined;
 }
 
-export function force(
-    { text, type, buttonText, position, callback }: ForceOptions,
-    optionalCallback?: () => void,
-): void;
+export function force(options: ForceOptions, callback?: () => void): void;
 
 export interface ForceOptions {
     text: string;
@@ -45,11 +42,7 @@ export interface ForceOptions {
     callback?: (() => void) | undefined;
 }
 
-export function confirm(
-    { text, submitText, cancelText, position, submitCallback, cancelCallback }: ConfirmOptions,
-    optionalSubmitCallback?: () => void,
-    optionalCancelCallback?: () => void,
-): void;
+export function confirm(options: ConfirmOptions, submitCallback?: () => void, cancelCallback?: () => void): void;
 
 export interface ConfirmOptions {
     text: string;
@@ -65,30 +58,9 @@ export interface ConfirmOptions {
 }
 
 export function input(
-    {
-        text,
-        submitText,
-        cancelText,
-        position,
-        autocapitalize,
-        autocomplete,
-        autocorrect,
-        autofocus,
-        inputmode,
-        max,
-        maxlength,
-        min,
-        minlength,
-        placeholder,
-        spellcheck,
-        step,
-        type,
-        allowed,
-        submitCallback,
-        cancelCallback,
-    }: InputOptions,
-    optionalSubmitCallback?: (value: string) => void,
-    optionalCancelCallback?: (value: string) => void,
+    options: InputOptions,
+    submitCallback?: (value: string) => void,
+    cancelCallback?: (value: string) => void,
 ): void;
 
 export interface InputOptions {
@@ -132,10 +104,7 @@ export interface InputOptions {
     cancelCallback?: ((value: string) => void) | undefined;
 }
 
-export function select(
-    { text, choices, cancelText, position, cancelCallback }: SelectOptions,
-    optionalCancelCallback?: () => void,
-): void;
+export function select(options: SelectOptions, cancelCallback?: () => void): void;
 
 export interface SelectOptions {
     text: string;
@@ -156,9 +125,9 @@ export interface SelectChoice {
 }
 
 export function date(
-    { value, submitText, cancel, position, submitCallback, cancelCallback }: DateOptions,
-    optionalSubmitCallback?: (date: Date) => void,
-    optionalCancelCallback?: (date: Date) => void,
+    options: DateOptions,
+    submitCallback?: (date: Date) => void,
+    cancelCallback?: (date: Date) => void,
 ): void;
 
 export interface DateOptions {
