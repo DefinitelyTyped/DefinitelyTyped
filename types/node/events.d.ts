@@ -661,9 +661,9 @@ declare module 'node:dom-events' {
     /** An event which takes place in the DOM. */
     interface Event {
         /** This is not used in Node.js and is provided purely for completeness. */
-        readonly bubbles: false;
+        readonly bubbles: boolean;
         /** Alias for event.stopPropagation(). This is not used in Node.js and is provided purely for completeness. */
-        cancelBubble(): void;
+        cancelBubble: unknown;  // Should be () => void but would conflict with DOM
         /** True if the event was created with the cancelable option */
         readonly cancelable: boolean;
         /** This is not used in Node.js and is provided purely for completeness. */
