@@ -443,7 +443,7 @@ declare module 'buffer' {
              * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown.
              *
              * The underlying memory for `Buffer` instances created in this way is _not_
-             * _initialized_. The contents of the newly created `Buffer` are unknown and_may contain sensitive data_. Use `Buffer.alloc()` instead to initialize`Buffer` instances with zeroes.
+             * _initialized_. The contents of the newly created `Buffer` are unknown and _may contain sensitive data_. Use `Buffer.alloc()` instead to initialize`Buffer` instances with zeroes.
              *
              * ```js
              * import { Buffer } from 'buffer';
