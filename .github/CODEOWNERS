@@ -376,11 +376,12 @@
 /types/await-timeout/                                   @szhu
 /types/awesome-notifications/                           @oblakstudio
 /types/awesomplete/                                     @webbiesdk @bmdixon @tbekolay @chrislopresto
+/types/aws-api-gateway-client/                          @jussikinnula
 /types/aws-cloudfront-function/                         @bukka
 /types/aws-greengrass-core-sdk/                         @ozxcorp @lummish
 /types/aws-iot-device-sdk/                              @niik @mlamp
 /types/aws-kcl/                                         @vshlos @foqal
-/types/aws-lambda/                                      @darbio @skarum @StefH @buggy @y13i @wwwy3y3 @OrthoDex @MichaelMarner @daniel-cottone @kostya-misura @coderbyheart @palmithor @daniloraisi @simonbuchan @Haydabase @repl-chris @aneilbaboo @jeznag @louislarry @dpapukchiev @ohookins @trevor-leach @jagregory @dalen @loikg @skyzenr @redlickigrzegorz @juancarbonel @pwmcintyre @alex-bolenok-centralreach @marianzange @apepper @apalumbo @SachinShekhar @ivanmartos @zach-anthony @savnik @svenmilewski @bboure @jamesorlakin @aphex
+/types/aws-lambda/                                      @darbio @skarum @StefH @buggy @y13i @wwwy3y3 @OrthoDex @MichaelMarner @daniel-cottone @kostya-misura @coderbyheart @palmithor @daniloraisi @simonbuchan @Haydabase @repl-chris @aneilbaboo @jeznag @louislarry @dpapukchiev @ohookins @trevor-leach @jagregory @dalen @loikg @skyzenr @redlickigrzegorz @juancarbonel @pwmcintyre @alex-bolenok-centralreach @marianzange @apepper @apalumbo @SachinShekhar @ivanmartos @zach-anthony @savnik @svenmilewski @bboure @jamesorlakin @aphex @joeykilpatrick
 /types/aws-lambda-fastify/                              @kentakang
 /types/aws-lambda-http-server/                          @ElayGelbart
 /types/aws-param-store/                                 @jasonthomasgray @nathanoertel
@@ -569,8 +570,8 @@
 /types/bookshelf/                                       @arcticwaters @vesse @ianldgs @RyWilliams
 /types/boolbase/                                        @DefinitelyTyped
 /types/boolean-to-signed/                               @ChocolateLoverRaj
-/types/boom/                                            @rogatty @AJamesPhillips @jineshshah36 @TimonVS @danielmachado
-/types/boom/v4/                                         @rogatty @AJamesPhillips @jineshshah36 @danielmachado
+/types/boom/                                            @AJamesPhillips @jineshshah36 @TimonVS @danielmachado
+/types/boom/v4/                                         @AJamesPhillips @jineshshah36 @danielmachado
 /types/boom/v3/                                         @rogatty
 /types/bootbox/                                         @vbortone @konpikwastaken @kanup @icereed @trodi @stannynuytkens @renjfk
 /types/bootpag/                                         @rdeneau
@@ -973,7 +974,7 @@
 /types/cluster-hub/                                     @chunkai1312
 /types/clusterize.js/                                   @Pr1st0n @gjovanovicst
 /types/clusterize.js-paging/                            @gjovanovicst
-/types/cmd-shim/                                        @cspotcode
+/types/cmd-shim/                                        @cspotcode @privatenumber
 /types/co/                                              @doniyor2109
 /types/co-body/                                         @geoffreak
 /types/co-views/                                        @devlee @geoffreak
@@ -1421,6 +1422,7 @@
 /types/dateformat/v1/                                   @aicest
 /types/datejs/                                          @rupertavery
 /types/daterangepicker/                                 @SirMartin @smasala @nertzy
+/types/daum-postcode/                                   @doinki
 /types/dav/                                             @ToastHawaii @chaptergy
 /types/dayjs-precise-range/                             @fessracha
 /types/db-migrate-base/                                 @nickiannone
@@ -1530,6 +1532,7 @@
 /types/diskspace/                                       @swedesjs
 /types/dispatchr/                                       @DefinitelyTyped
 /types/disposable-email-domains/                        @geoffreak @hsson
+/types/disqusjs/                                        @enpitsuLin
 /types/distributions/                                   @marcolanaro
 /types/distributions-poisson-quantile/                  @sangaman
 /types/diva.js/                                         @JRegimbal
@@ -1698,7 +1701,7 @@
 /types/elasticlunr/                                     @goblindegook
 /types/elasticsearch/                                   @CasperSkydt @bfsmith @ddunkin @pushplay @mlamp @ahmadferdous @SimonSchick @brabster @deerawan @YonatanKiron @dasdachs @midgleyc
 /types/electron-clipboard-extended/                     @Jungwoo-An
-/types/electron-devtools-installer/                     @mfatihmar
+/types/electron-devtools-installer/                     @DefinitelyTyped
 /types/electron-installer-dmg/                          @ffflorian
 /types/electron-json-storage/                           @stpettersens @nrlquaker @jbw91
 /types/electron-load-devtool/                           @ciffelia
@@ -1890,6 +1893,7 @@
 /types/ethjs-signer/                                    @doppio
 /types/ethjs-util/                                      @DefinitelyTyped
 /types/euclidean-distance/                              @DefinitelyTyped
+/types/euclidean-rhythms/                               @tom-stringer
 /types/eureka-js-client/                                @karl-run @tombarton @jpsullivan
 /types/evaporate/                                       @kookster
 /types/event-emitter/                                   @LKay
@@ -2732,6 +2736,7 @@
 /types/grpc-error/                                      @danwbyrne
 /types/grumbler-scripts/                                @gruiz90
 /types/grunt/                                           @jeffmay @basarat
+/types/gsheetdb/                                        @EndBug
 /types/gsheets/                                         @kyle-n
 /types/gtag.js/                                         @rokt33r
 /types/gtin/                                            @RafaelKr
@@ -2896,7 +2901,7 @@
 /types/hapipal__avocat/                                 @timcosta
 /types/hapipal__schmervice/                             @timcosta
 /types/hapipal__toys/                                   @timcosta
-/types/happo-cypress/                                   @alexanderpolyankin
+/types/happo-cypress/                                   @alexanderpolyankin @Belco90
 /types/happyguestmx__web-utilities/                     @HappyGuest
 /types/happypack/                                       @akashishu777
 /types/har-format/                                      @micmro @marcelltoth
@@ -2935,6 +2940,7 @@
 /types/heapdump/                                        @weekens
 /types/heatmap.js/                                      @lookuptable @rhys-vdw
 /types/heft-jest/                                       @octogonz @iclanton
+/types/heic-decode/                                     @hieyou1
 /types/hellojs/                                         @PavelPZ @vuorinem @baywet @batuhanw
 /types/hellosign-embedded/                              @xt0rted @alizhdanov
 /types/hellosign-sdk/                                   @dvprrsh
@@ -3129,6 +3135,7 @@
 /types/inert/                                           @nycdotnet @AJamesPhillips @lenovouser
 /types/inert/v4/                                        @nycdotnet @AJamesPhillips
 /types/ineum/                                           @evolkmann @bripkens @dtaylor84
+/types/infinite-scroll/                                 @MysteryBlokHed
 /types/inflation/                                       @remcohaszing
 /types/inflected/                                       @dsci
 /types/inflection/                                      @shiwano
@@ -3222,6 +3229,7 @@
 /types/is-empty/                                        @termosa
 /types/is-empty-object/                                 @Richienb
 /types/is-even/                                         @shawnkoon
+/types/is-file-esm/                                     @leonzalion
 /types/is-finite/                                       @mhegazy
 /types/is-function/                                     @evangeloszotos
 /types/is-generator/                                    @Richienb
@@ -3586,7 +3594,7 @@
 /types/json2mq/                                         @ZhangYiJiang
 /types/json2xml/                                        @carboneater
 /types/json3/                                           @NN---
-/types/json8-patch/                                     @peterkooijmans
+/types/json8-patch/                                     @peterkooijmans @jarrodek
 /types/json_ml/                                         @pluma
 /types/jsonabc/                                         @ffflorian
 /types/jsonapi-serializer/                              @chiangf
@@ -4048,298 +4056,298 @@
 /types/lockr/                                           @DefinitelyTyped
 /types/locks/                                           @flippynips @alexey-detr
 /types/locutus/                                         @hookclaw
-/types/lodash/                                          @bczengel @chrootsu @stepancar @aj-r @e-cloud @thorn0 @jtmthf @DomiR @WilliamChelman
+/types/lodash/                                          @bczengel @chrootsu @aj-r @e-cloud @thorn0 @jtmthf @DomiR @WilliamChelman
 /types/lodash/v3/                                       @bczengel @chrootsu
 /types/lodash-deep/                                     @uzust01
 /types/lodash-es/                                       @stephenlautier @e-cloud
 /types/lodash-webpack-plugin/                           @bumbleblym
-/types/lodash.add/                                      @bczengel @chrootsu @stepancar
-/types/lodash.after/                                    @bczengel @chrootsu @stepancar
-/types/lodash.ary/                                      @bczengel @chrootsu @stepancar
-/types/lodash.assign/                                   @bczengel @chrootsu @stepancar
-/types/lodash.assignin/                                 @bczengel @chrootsu @stepancar
-/types/lodash.assigninwith/                             @bczengel @chrootsu @stepancar
-/types/lodash.assignwith/                               @bczengel @chrootsu @stepancar
-/types/lodash.at/                                       @bczengel @chrootsu @stepancar
-/types/lodash.attempt/                                  @bczengel @chrootsu @stepancar
-/types/lodash.before/                                   @bczengel @chrootsu @stepancar
-/types/lodash.bind/                                     @bczengel @chrootsu @stepancar
-/types/lodash.bindall/                                  @bczengel @chrootsu @stepancar
-/types/lodash.bindkey/                                  @bczengel @chrootsu @stepancar
-/types/lodash.camelcase/                                @bczengel @chrootsu @stepancar
-/types/lodash.capitalize/                               @bczengel @chrootsu @stepancar
-/types/lodash.castarray/                                @bczengel @chrootsu @stepancar
-/types/lodash.ceil/                                     @bczengel @chrootsu @stepancar
-/types/lodash.chunk/                                    @bczengel @chrootsu @stepancar
-/types/lodash.clamp/                                    @bczengel @chrootsu @stepancar
-/types/lodash.clone/                                    @bczengel @chrootsu @stepancar
-/types/lodash.clonedeep/                                @bczengel @chrootsu @stepancar
-/types/lodash.clonedeepwith/                            @bczengel @chrootsu @stepancar
-/types/lodash.clonewith/                                @bczengel @chrootsu @stepancar
-/types/lodash.compact/                                  @bczengel @chrootsu @stepancar
-/types/lodash.concat/                                   @bczengel @chrootsu @stepancar
-/types/lodash.cond/                                     @bczengel @chrootsu @stepancar
-/types/lodash.constant/                                 @bczengel @chrootsu @stepancar
-/types/lodash.countby/                                  @bczengel @chrootsu @stepancar
-/types/lodash.create/                                   @bczengel @chrootsu @stepancar
-/types/lodash.curry/                                    @bczengel @chrootsu @stepancar
-/types/lodash.curryright/                               @bczengel @chrootsu @stepancar
-/types/lodash.debounce/                                 @bczengel @chrootsu @stepancar
-/types/lodash.deburr/                                   @bczengel @chrootsu @stepancar
-/types/lodash.defaults/                                 @bczengel @chrootsu @stepancar
-/types/lodash.defaultsdeep/                             @bczengel @chrootsu @stepancar
-/types/lodash.defer/                                    @bczengel @chrootsu @stepancar
-/types/lodash.delay/                                    @bczengel @chrootsu @stepancar
-/types/lodash.difference/                               @bczengel @chrootsu @stepancar
-/types/lodash.differenceby/                             @bczengel @chrootsu @stepancar
-/types/lodash.differencewith/                           @bczengel @chrootsu @stepancar
-/types/lodash.divide/                                   @bczengel @chrootsu @stepancar
-/types/lodash.drop/                                     @bczengel @chrootsu @stepancar
-/types/lodash.dropright/                                @bczengel @chrootsu @stepancar
-/types/lodash.droprightwhile/                           @bczengel @chrootsu @stepancar
-/types/lodash.dropwhile/                                @bczengel @chrootsu @stepancar
-/types/lodash.endswith/                                 @bczengel @chrootsu @stepancar
-/types/lodash.eq/                                       @bczengel @chrootsu @stepancar
-/types/lodash.escape/                                   @bczengel @chrootsu @stepancar
-/types/lodash.escaperegexp/                             @bczengel @chrootsu @stepancar
-/types/lodash.every/                                    @bczengel @chrootsu @stepancar
-/types/lodash.fill/                                     @bczengel @chrootsu @stepancar
-/types/lodash.filter/                                   @bczengel @chrootsu @stepancar
-/types/lodash.find/                                     @bczengel @chrootsu @stepancar
-/types/lodash.findindex/                                @bczengel @chrootsu @stepancar
-/types/lodash.findkey/                                  @bczengel @chrootsu @stepancar
-/types/lodash.findlast/                                 @bczengel @chrootsu @stepancar
-/types/lodash.findlastindex/                            @bczengel @chrootsu @stepancar
-/types/lodash.findlastkey/                              @bczengel @chrootsu @stepancar
-/types/lodash.first/                                    @bczengel @chrootsu @stepancar
-/types/lodash.flatmap/                                  @bczengel @chrootsu @stepancar
-/types/lodash.flatmapdeep/                              @bczengel @chrootsu @stepancar
-/types/lodash.flatmapdepth/                             @bczengel @chrootsu @stepancar
-/types/lodash.flatten/                                  @bczengel @chrootsu @stepancar
-/types/lodash.flattendeep/                              @bczengel @chrootsu @stepancar
-/types/lodash.flattendepth/                             @bczengel @chrootsu @stepancar
-/types/lodash.flip/                                     @bczengel @chrootsu @stepancar
-/types/lodash.floor/                                    @bczengel @chrootsu @stepancar
-/types/lodash.flow/                                     @bczengel @chrootsu @stepancar
-/types/lodash.flowright/                                @bczengel @chrootsu @stepancar
-/types/lodash.foreach/                                  @bczengel @chrootsu @stepancar
-/types/lodash.foreachright/                             @bczengel @chrootsu @stepancar
-/types/lodash.forin/                                    @bczengel @chrootsu @stepancar
-/types/lodash.forinright/                               @bczengel @chrootsu @stepancar
-/types/lodash.forown/                                   @bczengel @chrootsu @stepancar
-/types/lodash.forownright/                              @bczengel @chrootsu @stepancar
-/types/lodash.frompairs/                                @bczengel @chrootsu @stepancar
-/types/lodash.functions/                                @bczengel @chrootsu @stepancar
-/types/lodash.functionsin/                              @bczengel @chrootsu @stepancar
-/types/lodash.get/                                      @bczengel @chrootsu @stepancar
-/types/lodash.groupby/                                  @bczengel @chrootsu @stepancar
-/types/lodash.gt/                                       @bczengel @chrootsu @stepancar
-/types/lodash.gte/                                      @bczengel @chrootsu @stepancar
-/types/lodash.has/                                      @bczengel @chrootsu @stepancar
-/types/lodash.hasin/                                    @bczengel @chrootsu @stepancar
-/types/lodash.head/                                     @bczengel @chrootsu @stepancar
-/types/lodash.identity/                                 @bczengel @chrootsu @stepancar
-/types/lodash.includes/                                 @bczengel @chrootsu @stepancar
-/types/lodash.indexof/                                  @bczengel @chrootsu @stepancar
-/types/lodash.initial/                                  @bczengel @chrootsu @stepancar
-/types/lodash.inrange/                                  @bczengel @chrootsu @stepancar
-/types/lodash.intersection/                             @bczengel @chrootsu @stepancar
-/types/lodash.intersectionby/                           @bczengel @chrootsu @stepancar
-/types/lodash.intersectionwith/                         @bczengel @chrootsu @stepancar
-/types/lodash.invert/                                   @bczengel @chrootsu @stepancar
-/types/lodash.invertby/                                 @bczengel @chrootsu @stepancar
-/types/lodash.invoke/                                   @bczengel @chrootsu @stepancar
-/types/lodash.invokemap/                                @bczengel @chrootsu @stepancar
-/types/lodash.isarguments/                              @bczengel @chrootsu @stepancar
-/types/lodash.isarray/                                  @bczengel @chrootsu @stepancar
-/types/lodash.isarraybuffer/                            @bczengel @chrootsu @stepancar
-/types/lodash.isarraylike/                              @bczengel @chrootsu @stepancar
-/types/lodash.isarraylikeobject/                        @bczengel @chrootsu @stepancar
-/types/lodash.isboolean/                                @bczengel @chrootsu @stepancar
-/types/lodash.isbuffer/                                 @bczengel @chrootsu @stepancar
-/types/lodash.isdate/                                   @bczengel @chrootsu @stepancar
-/types/lodash.iselement/                                @bczengel @chrootsu @stepancar
-/types/lodash.isempty/                                  @bczengel @chrootsu @stepancar
-/types/lodash.isequal/                                  @bczengel @chrootsu @stepancar
-/types/lodash.isequalwith/                              @bczengel @chrootsu @stepancar
-/types/lodash.iserror/                                  @bczengel @chrootsu @stepancar
-/types/lodash.isfinite/                                 @bczengel @chrootsu @stepancar
-/types/lodash.isfunction/                               @bczengel @chrootsu @stepancar
-/types/lodash.isinteger/                                @bczengel @chrootsu @stepancar
-/types/lodash.islength/                                 @bczengel @chrootsu @stepancar
-/types/lodash.ismap/                                    @bczengel @chrootsu @stepancar
-/types/lodash.ismatch/                                  @bczengel @chrootsu @stepancar
-/types/lodash.ismatchwith/                              @bczengel @chrootsu @stepancar
-/types/lodash.isnan/                                    @bczengel @chrootsu @stepancar
-/types/lodash.isnative/                                 @bczengel @chrootsu @stepancar
-/types/lodash.isnil/                                    @bczengel @chrootsu @stepancar
-/types/lodash.isnull/                                   @bczengel @chrootsu @stepancar
-/types/lodash.isnumber/                                 @bczengel @chrootsu @stepancar
-/types/lodash.isobject/                                 @bczengel @chrootsu @stepancar
-/types/lodash.isobjectlike/                             @bczengel @chrootsu @stepancar
-/types/lodash.isplainobject/                            @bczengel @chrootsu @stepancar
-/types/lodash.isregexp/                                 @bczengel @chrootsu @stepancar
-/types/lodash.issafeinteger/                            @bczengel @chrootsu @stepancar
-/types/lodash.isset/                                    @bczengel @chrootsu @stepancar
-/types/lodash.isstring/                                 @bczengel @chrootsu @stepancar
-/types/lodash.issymbol/                                 @bczengel @chrootsu @stepancar
-/types/lodash.istypedarray/                             @bczengel @chrootsu @stepancar
-/types/lodash.isundefined/                              @bczengel @chrootsu @stepancar
-/types/lodash.isweakmap/                                @bczengel @chrootsu @stepancar
-/types/lodash.isweakset/                                @bczengel @chrootsu @stepancar
-/types/lodash.iteratee/                                 @bczengel @chrootsu @stepancar
-/types/lodash.join/                                     @bczengel @chrootsu @stepancar
-/types/lodash.kebabcase/                                @bczengel @chrootsu @stepancar
-/types/lodash.keyby/                                    @bczengel @chrootsu @stepancar
-/types/lodash.keys/                                     @bczengel @chrootsu @stepancar
-/types/lodash.keysin/                                   @bczengel @chrootsu @stepancar
-/types/lodash.last/                                     @bczengel @chrootsu @stepancar
-/types/lodash.lastindexof/                              @bczengel @chrootsu @stepancar
-/types/lodash.lowercase/                                @bczengel @chrootsu @stepancar
-/types/lodash.lowerfirst/                               @bczengel @chrootsu @stepancar
-/types/lodash.lt/                                       @bczengel @chrootsu @stepancar
-/types/lodash.lte/                                      @bczengel @chrootsu @stepancar
-/types/lodash.mapkeys/                                  @bczengel @chrootsu @stepancar
-/types/lodash.mapvalues/                                @bczengel @chrootsu @stepancar
-/types/lodash.matches/                                  @bczengel @chrootsu @stepancar
-/types/lodash.matchesproperty/                          @bczengel @chrootsu @stepancar
-/types/lodash.max/                                      @bczengel @chrootsu @stepancar
-/types/lodash.maxby/                                    @bczengel @chrootsu @stepancar
-/types/lodash.mean/                                     @bczengel @chrootsu @stepancar
-/types/lodash.meanby/                                   @bczengel @chrootsu @stepancar
-/types/lodash.memoize/                                  @bczengel @chrootsu @stepancar
-/types/lodash.merge/                                    @bczengel @chrootsu @stepancar
-/types/lodash.mergewith/                                @bczengel @chrootsu @stepancar
-/types/lodash.method/                                   @bczengel @chrootsu @stepancar
-/types/lodash.methodof/                                 @bczengel @chrootsu @stepancar
-/types/lodash.min/                                      @bczengel @chrootsu @stepancar
-/types/lodash.minby/                                    @bczengel @chrootsu @stepancar
-/types/lodash.mixin/                                    @bczengel @chrootsu @stepancar
-/types/lodash.multiply/                                 @bczengel @chrootsu @stepancar
-/types/lodash.negate/                                   @bczengel @chrootsu @stepancar
-/types/lodash.noop/                                     @bczengel @chrootsu @stepancar
-/types/lodash.now/                                      @bczengel @chrootsu @stepancar
-/types/lodash.nth/                                      @bczengel @chrootsu @stepancar
-/types/lodash.ntharg/                                   @bczengel @chrootsu @stepancar
-/types/lodash.omit/                                     @bczengel @chrootsu @stepancar
-/types/lodash.omitby/                                   @bczengel @chrootsu @stepancar
-/types/lodash.once/                                     @bczengel @chrootsu @stepancar
-/types/lodash.orderby/                                  @bczengel @chrootsu @stepancar
-/types/lodash.over/                                     @bczengel @chrootsu @stepancar
-/types/lodash.overargs/                                 @bczengel @chrootsu @stepancar
-/types/lodash.overevery/                                @bczengel @chrootsu @stepancar
-/types/lodash.oversome/                                 @bczengel @chrootsu @stepancar
-/types/lodash.pad/                                      @bczengel @chrootsu @stepancar
-/types/lodash.padend/                                   @bczengel @chrootsu @stepancar
-/types/lodash.padstart/                                 @bczengel @chrootsu @stepancar
-/types/lodash.parseint/                                 @bczengel @chrootsu @stepancar
-/types/lodash.partial/                                  @bczengel @chrootsu @stepancar
-/types/lodash.partialright/                             @bczengel @chrootsu @stepancar
-/types/lodash.partition/                                @bczengel @chrootsu @stepancar
-/types/lodash.pick/                                     @bczengel @chrootsu @stepancar
-/types/lodash.pickby/                                   @bczengel @chrootsu @stepancar
-/types/lodash.property/                                 @bczengel @chrootsu @stepancar
-/types/lodash.propertyof/                               @bczengel @chrootsu @stepancar
-/types/lodash.pull/                                     @bczengel @chrootsu @stepancar
-/types/lodash.pullall/                                  @bczengel @chrootsu @stepancar
-/types/lodash.pullallby/                                @bczengel @chrootsu @stepancar
-/types/lodash.pullallwith/                              @bczengel @chrootsu @stepancar
-/types/lodash.pullat/                                   @bczengel @chrootsu @stepancar
-/types/lodash.random/                                   @bczengel @chrootsu @stepancar
-/types/lodash.range/                                    @bczengel @chrootsu @stepancar
-/types/lodash.rangeright/                               @bczengel @chrootsu @stepancar
-/types/lodash.rearg/                                    @bczengel @chrootsu @stepancar
-/types/lodash.reduce/                                   @bczengel @chrootsu @stepancar
-/types/lodash.reduceright/                              @bczengel @chrootsu @stepancar
-/types/lodash.reject/                                   @bczengel @chrootsu @stepancar
-/types/lodash.remove/                                   @bczengel @chrootsu @stepancar
-/types/lodash.repeat/                                   @bczengel @chrootsu @stepancar
-/types/lodash.replace/                                  @bczengel @chrootsu @stepancar
-/types/lodash.rest/                                     @bczengel @chrootsu @stepancar
-/types/lodash.result/                                   @bczengel @chrootsu @stepancar
-/types/lodash.reverse/                                  @bczengel @chrootsu @stepancar
-/types/lodash.round/                                    @bczengel @chrootsu @stepancar
-/types/lodash.sample/                                   @bczengel @chrootsu @stepancar
-/types/lodash.samplesize/                               @bczengel @chrootsu @stepancar
-/types/lodash.set/                                      @bczengel @chrootsu @stepancar
-/types/lodash.setwith/                                  @bczengel @chrootsu @stepancar
-/types/lodash.shuffle/                                  @bczengel @chrootsu @stepancar
-/types/lodash.size/                                     @bczengel @chrootsu @stepancar
-/types/lodash.slice/                                    @bczengel @chrootsu @stepancar
-/types/lodash.snakecase/                                @bczengel @chrootsu @stepancar
-/types/lodash.some/                                     @bczengel @chrootsu @stepancar
-/types/lodash.sortby/                                   @bczengel @chrootsu @stepancar
-/types/lodash.sortedindex/                              @bczengel @chrootsu @stepancar
-/types/lodash.sortedindexby/                            @bczengel @chrootsu @stepancar
-/types/lodash.sortedindexof/                            @bczengel @chrootsu @stepancar
-/types/lodash.sortedlastindex/                          @bczengel @chrootsu @stepancar
-/types/lodash.sortedlastindexby/                        @bczengel @chrootsu @stepancar
-/types/lodash.sortedlastindexof/                        @bczengel @chrootsu @stepancar
-/types/lodash.sorteduniq/                               @bczengel @chrootsu @stepancar
-/types/lodash.sorteduniqby/                             @bczengel @chrootsu @stepancar
-/types/lodash.split/                                    @bczengel @chrootsu @stepancar
-/types/lodash.spread/                                   @bczengel @chrootsu @stepancar
-/types/lodash.startcase/                                @bczengel @chrootsu @stepancar
-/types/lodash.startswith/                               @bczengel @chrootsu @stepancar
-/types/lodash.stubfalse/                                @bczengel @chrootsu @stepancar
-/types/lodash.stubtrue/                                 @bczengel @chrootsu @stepancar
-/types/lodash.subtract/                                 @bczengel @chrootsu @stepancar
-/types/lodash.sum/                                      @bczengel @chrootsu @stepancar
-/types/lodash.sumby/                                    @bczengel @chrootsu @stepancar
-/types/lodash.tail/                                     @bczengel @chrootsu @stepancar
-/types/lodash.take/                                     @bczengel @chrootsu @stepancar
-/types/lodash.takeright/                                @bczengel @chrootsu @stepancar
-/types/lodash.takerightwhile/                           @bczengel @chrootsu @stepancar
-/types/lodash.takewhile/                                @bczengel @chrootsu @stepancar
-/types/lodash.template/                                 @bczengel @chrootsu @stepancar
-/types/lodash.throttle/                                 @bczengel @chrootsu @stepancar
-/types/lodash.times/                                    @bczengel @chrootsu @stepancar
-/types/lodash.toarray/                                  @bczengel @chrootsu @stepancar
-/types/lodash.tofinite/                                 @bczengel @chrootsu @stepancar
-/types/lodash.tointeger/                                @bczengel @chrootsu @stepancar
-/types/lodash.tolength/                                 @bczengel @chrootsu @stepancar
-/types/lodash.tolower/                                  @bczengel @chrootsu @stepancar
-/types/lodash.tonumber/                                 @bczengel @chrootsu @stepancar
-/types/lodash.topairs/                                  @bczengel @chrootsu @stepancar
-/types/lodash.topairsin/                                @bczengel @chrootsu @stepancar
-/types/lodash.topath/                                   @bczengel @chrootsu @stepancar
-/types/lodash.toplainobject/                            @bczengel @chrootsu @stepancar
-/types/lodash.tosafeinteger/                            @bczengel @chrootsu @stepancar
-/types/lodash.tostring/                                 @bczengel @chrootsu @stepancar
-/types/lodash.toupper/                                  @bczengel @chrootsu @stepancar
-/types/lodash.transform/                                @bczengel @chrootsu @stepancar
-/types/lodash.trim/                                     @bczengel @chrootsu @stepancar
-/types/lodash.trimend/                                  @bczengel @chrootsu @stepancar
-/types/lodash.trimstart/                                @bczengel @chrootsu @stepancar
-/types/lodash.truncate/                                 @bczengel @chrootsu @stepancar
-/types/lodash.unary/                                    @bczengel @chrootsu @stepancar
-/types/lodash.unescape/                                 @bczengel @chrootsu @stepancar
-/types/lodash.union/                                    @bczengel @chrootsu @stepancar
-/types/lodash.unionby/                                  @bczengel @chrootsu @stepancar
-/types/lodash.unionwith/                                @bczengel @chrootsu @stepancar
-/types/lodash.uniq/                                     @bczengel @chrootsu @stepancar
-/types/lodash.uniqby/                                   @bczengel @chrootsu @stepancar
-/types/lodash.uniqueid/                                 @bczengel @chrootsu @stepancar
-/types/lodash.uniqwith/                                 @bczengel @chrootsu @stepancar
-/types/lodash.unset/                                    @bczengel @chrootsu @stepancar
-/types/lodash.unzip/                                    @bczengel @chrootsu @stepancar
-/types/lodash.unzipwith/                                @bczengel @chrootsu @stepancar
-/types/lodash.update/                                   @bczengel @chrootsu @stepancar
-/types/lodash.updatewith/                               @bczengel @chrootsu @stepancar
-/types/lodash.uppercase/                                @bczengel @chrootsu @stepancar
-/types/lodash.upperfirst/                               @bczengel @chrootsu @stepancar
-/types/lodash.values/                                   @bczengel @chrootsu @stepancar
-/types/lodash.valuesin/                                 @bczengel @chrootsu @stepancar
-/types/lodash.without/                                  @bczengel @chrootsu @stepancar
-/types/lodash.words/                                    @bczengel @chrootsu @stepancar
-/types/lodash.wrap/                                     @bczengel @chrootsu @stepancar
-/types/lodash.xor/                                      @bczengel @chrootsu @stepancar
-/types/lodash.xorby/                                    @bczengel @chrootsu @stepancar
-/types/lodash.xorwith/                                  @bczengel @chrootsu @stepancar
-/types/lodash.zip/                                      @bczengel @chrootsu @stepancar
-/types/lodash.zipobject/                                @bczengel @chrootsu @stepancar
-/types/lodash.zipobjectdeep/                            @bczengel @chrootsu @stepancar
-/types/lodash.zipwith/                                  @bczengel @chrootsu @stepancar
+/types/lodash.add/                                      @bczengel @chrootsu
+/types/lodash.after/                                    @bczengel @chrootsu
+/types/lodash.ary/                                      @bczengel @chrootsu
+/types/lodash.assign/                                   @bczengel @chrootsu
+/types/lodash.assignin/                                 @bczengel @chrootsu
+/types/lodash.assigninwith/                             @bczengel @chrootsu
+/types/lodash.assignwith/                               @bczengel @chrootsu
+/types/lodash.at/                                       @bczengel @chrootsu
+/types/lodash.attempt/                                  @bczengel @chrootsu
+/types/lodash.before/                                   @bczengel @chrootsu
+/types/lodash.bind/                                     @bczengel @chrootsu
+/types/lodash.bindall/                                  @bczengel @chrootsu
+/types/lodash.bindkey/                                  @bczengel @chrootsu
+/types/lodash.camelcase/                                @bczengel @chrootsu
+/types/lodash.capitalize/                               @bczengel @chrootsu
+/types/lodash.castarray/                                @bczengel @chrootsu
+/types/lodash.ceil/                                     @bczengel @chrootsu
+/types/lodash.chunk/                                    @bczengel @chrootsu
+/types/lodash.clamp/                                    @bczengel @chrootsu
+/types/lodash.clone/                                    @bczengel @chrootsu
+/types/lodash.clonedeep/                                @bczengel @chrootsu
+/types/lodash.clonedeepwith/                            @bczengel @chrootsu
+/types/lodash.clonewith/                                @bczengel @chrootsu
+/types/lodash.compact/                                  @bczengel @chrootsu
+/types/lodash.concat/                                   @bczengel @chrootsu
+/types/lodash.cond/                                     @bczengel @chrootsu
+/types/lodash.constant/                                 @bczengel @chrootsu
+/types/lodash.countby/                                  @bczengel @chrootsu
+/types/lodash.create/                                   @bczengel @chrootsu
+/types/lodash.curry/                                    @bczengel @chrootsu
+/types/lodash.curryright/                               @bczengel @chrootsu
+/types/lodash.debounce/                                 @bczengel @chrootsu
+/types/lodash.deburr/                                   @bczengel @chrootsu
+/types/lodash.defaults/                                 @bczengel @chrootsu
+/types/lodash.defaultsdeep/                             @bczengel @chrootsu
+/types/lodash.defer/                                    @bczengel @chrootsu
+/types/lodash.delay/                                    @bczengel @chrootsu
+/types/lodash.difference/                               @bczengel @chrootsu
+/types/lodash.differenceby/                             @bczengel @chrootsu
+/types/lodash.differencewith/                           @bczengel @chrootsu
+/types/lodash.divide/                                   @bczengel @chrootsu
+/types/lodash.drop/                                     @bczengel @chrootsu
+/types/lodash.dropright/                                @bczengel @chrootsu
+/types/lodash.droprightwhile/                           @bczengel @chrootsu
+/types/lodash.dropwhile/                                @bczengel @chrootsu
+/types/lodash.endswith/                                 @bczengel @chrootsu
+/types/lodash.eq/                                       @bczengel @chrootsu
+/types/lodash.escape/                                   @bczengel @chrootsu
+/types/lodash.escaperegexp/                             @bczengel @chrootsu
+/types/lodash.every/                                    @bczengel @chrootsu
+/types/lodash.fill/                                     @bczengel @chrootsu
+/types/lodash.filter/                                   @bczengel @chrootsu
+/types/lodash.find/                                     @bczengel @chrootsu
+/types/lodash.findindex/                                @bczengel @chrootsu
+/types/lodash.findkey/                                  @bczengel @chrootsu
+/types/lodash.findlast/                                 @bczengel @chrootsu
+/types/lodash.findlastindex/                            @bczengel @chrootsu
+/types/lodash.findlastkey/                              @bczengel @chrootsu
+/types/lodash.first/                                    @bczengel @chrootsu
+/types/lodash.flatmap/                                  @bczengel @chrootsu
+/types/lodash.flatmapdeep/                              @bczengel @chrootsu
+/types/lodash.flatmapdepth/                             @bczengel @chrootsu
+/types/lodash.flatten/                                  @bczengel @chrootsu
+/types/lodash.flattendeep/                              @bczengel @chrootsu
+/types/lodash.flattendepth/                             @bczengel @chrootsu
+/types/lodash.flip/                                     @bczengel @chrootsu
+/types/lodash.floor/                                    @bczengel @chrootsu
+/types/lodash.flow/                                     @bczengel @chrootsu
+/types/lodash.flowright/                                @bczengel @chrootsu
+/types/lodash.foreach/                                  @bczengel @chrootsu
+/types/lodash.foreachright/                             @bczengel @chrootsu
+/types/lodash.forin/                                    @bczengel @chrootsu
+/types/lodash.forinright/                               @bczengel @chrootsu
+/types/lodash.forown/                                   @bczengel @chrootsu
+/types/lodash.forownright/                              @bczengel @chrootsu
+/types/lodash.frompairs/                                @bczengel @chrootsu
+/types/lodash.functions/                                @bczengel @chrootsu
+/types/lodash.functionsin/                              @bczengel @chrootsu
+/types/lodash.get/                                      @bczengel @chrootsu
+/types/lodash.groupby/                                  @bczengel @chrootsu
+/types/lodash.gt/                                       @bczengel @chrootsu
+/types/lodash.gte/                                      @bczengel @chrootsu
+/types/lodash.has/                                      @bczengel @chrootsu
+/types/lodash.hasin/                                    @bczengel @chrootsu
+/types/lodash.head/                                     @bczengel @chrootsu
+/types/lodash.identity/                                 @bczengel @chrootsu
+/types/lodash.includes/                                 @bczengel @chrootsu
+/types/lodash.indexof/                                  @bczengel @chrootsu
+/types/lodash.initial/                                  @bczengel @chrootsu
+/types/lodash.inrange/                                  @bczengel @chrootsu
+/types/lodash.intersection/                             @bczengel @chrootsu
+/types/lodash.intersectionby/                           @bczengel @chrootsu
+/types/lodash.intersectionwith/                         @bczengel @chrootsu
+/types/lodash.invert/                                   @bczengel @chrootsu
+/types/lodash.invertby/                                 @bczengel @chrootsu
+/types/lodash.invoke/                                   @bczengel @chrootsu
+/types/lodash.invokemap/                                @bczengel @chrootsu
+/types/lodash.isarguments/                              @bczengel @chrootsu
+/types/lodash.isarray/                                  @bczengel @chrootsu
+/types/lodash.isarraybuffer/                            @bczengel @chrootsu
+/types/lodash.isarraylike/                              @bczengel @chrootsu
+/types/lodash.isarraylikeobject/                        @bczengel @chrootsu
+/types/lodash.isboolean/                                @bczengel @chrootsu
+/types/lodash.isbuffer/                                 @bczengel @chrootsu
+/types/lodash.isdate/                                   @bczengel @chrootsu
+/types/lodash.iselement/                                @bczengel @chrootsu
+/types/lodash.isempty/                                  @bczengel @chrootsu
+/types/lodash.isequal/                                  @bczengel @chrootsu
+/types/lodash.isequalwith/                              @bczengel @chrootsu
+/types/lodash.iserror/                                  @bczengel @chrootsu
+/types/lodash.isfinite/                                 @bczengel @chrootsu
+/types/lodash.isfunction/                               @bczengel @chrootsu
+/types/lodash.isinteger/                                @bczengel @chrootsu
+/types/lodash.islength/                                 @bczengel @chrootsu
+/types/lodash.ismap/                                    @bczengel @chrootsu
+/types/lodash.ismatch/                                  @bczengel @chrootsu
+/types/lodash.ismatchwith/                              @bczengel @chrootsu
+/types/lodash.isnan/                                    @bczengel @chrootsu
+/types/lodash.isnative/                                 @bczengel @chrootsu
+/types/lodash.isnil/                                    @bczengel @chrootsu
+/types/lodash.isnull/                                   @bczengel @chrootsu
+/types/lodash.isnumber/                                 @bczengel @chrootsu
+/types/lodash.isobject/                                 @bczengel @chrootsu
+/types/lodash.isobjectlike/                             @bczengel @chrootsu
+/types/lodash.isplainobject/                            @bczengel @chrootsu
+/types/lodash.isregexp/                                 @bczengel @chrootsu
+/types/lodash.issafeinteger/                            @bczengel @chrootsu
+/types/lodash.isset/                                    @bczengel @chrootsu
+/types/lodash.isstring/                                 @bczengel @chrootsu
+/types/lodash.issymbol/                                 @bczengel @chrootsu
+/types/lodash.istypedarray/                             @bczengel @chrootsu
+/types/lodash.isundefined/                              @bczengel @chrootsu
+/types/lodash.isweakmap/                                @bczengel @chrootsu
+/types/lodash.isweakset/                                @bczengel @chrootsu
+/types/lodash.iteratee/                                 @bczengel @chrootsu
+/types/lodash.join/                                     @bczengel @chrootsu
+/types/lodash.kebabcase/                                @bczengel @chrootsu
+/types/lodash.keyby/                                    @bczengel @chrootsu
+/types/lodash.keys/                                     @bczengel @chrootsu
+/types/lodash.keysin/                                   @bczengel @chrootsu
+/types/lodash.last/                                     @bczengel @chrootsu
+/types/lodash.lastindexof/                              @bczengel @chrootsu
+/types/lodash.lowercase/                                @bczengel @chrootsu
+/types/lodash.lowerfirst/                               @bczengel @chrootsu
+/types/lodash.lt/                                       @bczengel @chrootsu
+/types/lodash.lte/                                      @bczengel @chrootsu
+/types/lodash.mapkeys/                                  @bczengel @chrootsu
+/types/lodash.mapvalues/                                @bczengel @chrootsu
+/types/lodash.matches/                                  @bczengel @chrootsu
+/types/lodash.matchesproperty/                          @bczengel @chrootsu
+/types/lodash.max/                                      @bczengel @chrootsu
+/types/lodash.maxby/                                    @bczengel @chrootsu
+/types/lodash.mean/                                     @bczengel @chrootsu
+/types/lodash.meanby/                                   @bczengel @chrootsu
+/types/lodash.memoize/                                  @bczengel @chrootsu
+/types/lodash.merge/                                    @bczengel @chrootsu
+/types/lodash.mergewith/                                @bczengel @chrootsu
+/types/lodash.method/                                   @bczengel @chrootsu
+/types/lodash.methodof/                                 @bczengel @chrootsu
+/types/lodash.min/                                      @bczengel @chrootsu
+/types/lodash.minby/                                    @bczengel @chrootsu
+/types/lodash.mixin/                                    @bczengel @chrootsu
+/types/lodash.multiply/                                 @bczengel @chrootsu
+/types/lodash.negate/                                   @bczengel @chrootsu
+/types/lodash.noop/                                     @bczengel @chrootsu
+/types/lodash.now/                                      @bczengel @chrootsu
+/types/lodash.nth/                                      @bczengel @chrootsu
+/types/lodash.ntharg/                                   @bczengel @chrootsu
+/types/lodash.omit/                                     @bczengel @chrootsu
+/types/lodash.omitby/                                   @bczengel @chrootsu
+/types/lodash.once/                                     @bczengel @chrootsu
+/types/lodash.orderby/                                  @bczengel @chrootsu
+/types/lodash.over/                                     @bczengel @chrootsu
+/types/lodash.overargs/                                 @bczengel @chrootsu
+/types/lodash.overevery/                                @bczengel @chrootsu
+/types/lodash.oversome/                                 @bczengel @chrootsu
+/types/lodash.pad/                                      @bczengel @chrootsu
+/types/lodash.padend/                                   @bczengel @chrootsu
+/types/lodash.padstart/                                 @bczengel @chrootsu
+/types/lodash.parseint/                                 @bczengel @chrootsu
+/types/lodash.partial/                                  @bczengel @chrootsu
+/types/lodash.partialright/                             @bczengel @chrootsu
+/types/lodash.partition/                                @bczengel @chrootsu
+/types/lodash.pick/                                     @bczengel @chrootsu
+/types/lodash.pickby/                                   @bczengel @chrootsu
+/types/lodash.property/                                 @bczengel @chrootsu
+/types/lodash.propertyof/                               @bczengel @chrootsu
+/types/lodash.pull/                                     @bczengel @chrootsu
+/types/lodash.pullall/                                  @bczengel @chrootsu
+/types/lodash.pullallby/                                @bczengel @chrootsu
+/types/lodash.pullallwith/                              @bczengel @chrootsu
+/types/lodash.pullat/                                   @bczengel @chrootsu
+/types/lodash.random/                                   @bczengel @chrootsu
+/types/lodash.range/                                    @bczengel @chrootsu
+/types/lodash.rangeright/                               @bczengel @chrootsu
+/types/lodash.rearg/                                    @bczengel @chrootsu
+/types/lodash.reduce/                                   @bczengel @chrootsu
+/types/lodash.reduceright/                              @bczengel @chrootsu
+/types/lodash.reject/                                   @bczengel @chrootsu
+/types/lodash.remove/                                   @bczengel @chrootsu
+/types/lodash.repeat/                                   @bczengel @chrootsu
+/types/lodash.replace/                                  @bczengel @chrootsu
+/types/lodash.rest/                                     @bczengel @chrootsu
+/types/lodash.result/                                   @bczengel @chrootsu
+/types/lodash.reverse/                                  @bczengel @chrootsu
+/types/lodash.round/                                    @bczengel @chrootsu
+/types/lodash.sample/                                   @bczengel @chrootsu
+/types/lodash.samplesize/                               @bczengel @chrootsu
+/types/lodash.set/                                      @bczengel @chrootsu
+/types/lodash.setwith/                                  @bczengel @chrootsu
+/types/lodash.shuffle/                                  @bczengel @chrootsu
+/types/lodash.size/                                     @bczengel @chrootsu
+/types/lodash.slice/                                    @bczengel @chrootsu
+/types/lodash.snakecase/                                @bczengel @chrootsu
+/types/lodash.some/                                     @bczengel @chrootsu
+/types/lodash.sortby/                                   @bczengel @chrootsu
+/types/lodash.sortedindex/                              @bczengel @chrootsu
+/types/lodash.sortedindexby/                            @bczengel @chrootsu
+/types/lodash.sortedindexof/                            @bczengel @chrootsu
+/types/lodash.sortedlastindex/                          @bczengel @chrootsu
+/types/lodash.sortedlastindexby/                        @bczengel @chrootsu
+/types/lodash.sortedlastindexof/                        @bczengel @chrootsu
+/types/lodash.sorteduniq/                               @bczengel @chrootsu
+/types/lodash.sorteduniqby/                             @bczengel @chrootsu
+/types/lodash.split/                                    @bczengel @chrootsu
+/types/lodash.spread/                                   @bczengel @chrootsu
+/types/lodash.startcase/                                @bczengel @chrootsu
+/types/lodash.startswith/                               @bczengel @chrootsu
+/types/lodash.stubfalse/                                @bczengel @chrootsu
+/types/lodash.stubtrue/                                 @bczengel @chrootsu
+/types/lodash.subtract/                                 @bczengel @chrootsu
+/types/lodash.sum/                                      @bczengel @chrootsu
+/types/lodash.sumby/                                    @bczengel @chrootsu
+/types/lodash.tail/                                     @bczengel @chrootsu
+/types/lodash.take/                                     @bczengel @chrootsu
+/types/lodash.takeright/                                @bczengel @chrootsu
+/types/lodash.takerightwhile/                           @bczengel @chrootsu
+/types/lodash.takewhile/                                @bczengel @chrootsu
+/types/lodash.template/                                 @bczengel @chrootsu
+/types/lodash.throttle/                                 @bczengel @chrootsu
+/types/lodash.times/                                    @bczengel @chrootsu
+/types/lodash.toarray/                                  @bczengel @chrootsu
+/types/lodash.tofinite/                                 @bczengel @chrootsu
+/types/lodash.tointeger/                                @bczengel @chrootsu
+/types/lodash.tolength/                                 @bczengel @chrootsu
+/types/lodash.tolower/                                  @bczengel @chrootsu
+/types/lodash.tonumber/                                 @bczengel @chrootsu
+/types/lodash.topairs/                                  @bczengel @chrootsu
+/types/lodash.topairsin/                                @bczengel @chrootsu
+/types/lodash.topath/                                   @bczengel @chrootsu
+/types/lodash.toplainobject/                            @bczengel @chrootsu
+/types/lodash.tosafeinteger/                            @bczengel @chrootsu
+/types/lodash.tostring/                                 @bczengel @chrootsu
+/types/lodash.toupper/                                  @bczengel @chrootsu
+/types/lodash.transform/                                @bczengel @chrootsu
+/types/lodash.trim/                                     @bczengel @chrootsu
+/types/lodash.trimend/                                  @bczengel @chrootsu
+/types/lodash.trimstart/                                @bczengel @chrootsu
+/types/lodash.truncate/                                 @bczengel @chrootsu
+/types/lodash.unary/                                    @bczengel @chrootsu
+/types/lodash.unescape/                                 @bczengel @chrootsu
+/types/lodash.union/                                    @bczengel @chrootsu
+/types/lodash.unionby/                                  @bczengel @chrootsu
+/types/lodash.unionwith/                                @bczengel @chrootsu
+/types/lodash.uniq/                                     @bczengel @chrootsu
+/types/lodash.uniqby/                                   @bczengel @chrootsu
+/types/lodash.uniqueid/                                 @bczengel @chrootsu
+/types/lodash.uniqwith/                                 @bczengel @chrootsu
+/types/lodash.unset/                                    @bczengel @chrootsu
+/types/lodash.unzip/                                    @bczengel @chrootsu
+/types/lodash.unzipwith/                                @bczengel @chrootsu
+/types/lodash.update/                                   @bczengel @chrootsu
+/types/lodash.updatewith/                               @bczengel @chrootsu
+/types/lodash.uppercase/                                @bczengel @chrootsu
+/types/lodash.upperfirst/                               @bczengel @chrootsu
+/types/lodash.values/                                   @bczengel @chrootsu
+/types/lodash.valuesin/                                 @bczengel @chrootsu
+/types/lodash.without/                                  @bczengel @chrootsu
+/types/lodash.words/                                    @bczengel @chrootsu
+/types/lodash.wrap/                                     @bczengel @chrootsu
+/types/lodash.xor/                                      @bczengel @chrootsu
+/types/lodash.xorby/                                    @bczengel @chrootsu
+/types/lodash.xorwith/                                  @bczengel @chrootsu
+/types/lodash.zip/                                      @bczengel @chrootsu
+/types/lodash.zipobject/                                @bczengel @chrootsu
+/types/lodash.zipobjectdeep/                            @bczengel @chrootsu
+/types/lodash.zipwith/                                  @bczengel @chrootsu
 /types/log-process-errors/                              @JorgenVatle @BendingBender
 /types/logfmt/                                          @ebroder
 /types/logg/                                            @blittle
@@ -4432,7 +4440,7 @@
 /types/mapbox__polyline/                                @Kern0 @mklopets
 /types/mapbox__s3urls/                                  @sebastianvera
 /types/mapbox__shelf-pack/                              @Perlmint
-/types/mapbox__sphericalmercator/                       @nhusher
+/types/mapbox__sphericalmercator/                       @nhusher @mbullington
 /types/mapbox__spritezero/                              @peterblazejewicz
 /types/mapbox__tile-cover/                              @jeffbdye
 /types/mapbox__tilebelt/                                @DenisCarriere
@@ -4663,7 +4671,7 @@
 /types/mock-aws-s3/                                     @bluehatbrit
 /types/mock-express-request/                            @me
 /types/mock-fs/                                         @Nemo157 @tkqubo @Seally @cshawaus
-/types/mock-knex/                                       @jessezhang91 @scttcper
+/types/mock-knex/                                       @jessezhang91 @scttcper @TeamworkGuy2
 /types/mock-raf/                                        @djpereira
 /types/mock-req-res/                                    @sandorTuranszky
 /types/mock-require/                                    @DefinitelyTyped
@@ -4992,6 +5000,7 @@
 /types/node-ssha256/                                    @midgleyc
 /types/node-static/                                     @Morfent
 /types/node-statsd/                                     @alexturek @convoyinc
+/types/node-steam-openid/                               @joshuajeschek
 /types/node-summary/                                    @manuzcheruz
 /types/node-telegram-bot-api/                           @ammuench @agadar @Dabolus @XC-Zhang @adityathebe @MiklerGM @XieJiSS @toniop99
 /types/node-temperature-converter/                      @DefinitelyTyped
@@ -5212,7 +5221,6 @@
 /types/ospath/                                          @kgajera
 /types/ospec/                                           @maranomynet @spacejack @dead-claudia
 /types/osrm/                                            @DenisCarriere @ringostarr80
-/types/osrs-json-api/                                   @kylemiller3
 /types/ot/                                              @christianalfoni @CompuIves @MichaelDeBoey @ppoulard
 /types/otp-generator/                                   @sifatulrabbi
 /types/ottomated__passport-streamlabs/                  @ottomated
@@ -5930,7 +5938,7 @@
 /types/react-copy-write/                                @samhh @davej
 /types/react-count-to/                                  @pwolaq
 /types/react-credit-cards/                              @vstrimaitis @olefrank @zzanol
-/types/react-cropper/                                   @stepancar @bwlt @frisi
+/types/react-cropper/                                   @bwlt @frisi
 /types/react-css-collapse/                              @dford07
 /types/react-css-modules/                               @KostyaEsmukov @skirsdeda
 /types/react-css-transition-replace/                    @LKay
@@ -6052,7 +6060,7 @@
 /types/react-inner-image-zoom/                          @laurenashpole
 /types/react-inner-image-zoom/v2/                       @laurenashpole
 /types/react-input-autosize/                            @jsonunger @franklixuefei
-/types/react-input-calendar/                            @stepancar
+/types/react-input-calendar/                            @DefinitelyTyped
 /types/react-input-mask/                                @apare @dima7a14 @lucasraziel
 /types/react-input-mask/v1/                             @apare
 /types/react-inspector/                                 @rogerclotet @chenxinyanc
@@ -6078,6 +6086,7 @@
 /types/react-lazylog/                                   @benjaminRomano @abemedia
 /types/react-leaflet/                                   @danzel @davschne @yuit @fenech @MasterEric
 /types/react-leaflet/v1/                                @danzel @davschne @yuit @MasterEric
+/types/react-leaflet-fullscreen-plugin/                 @Zenoo
 /types/react-leaflet-markercluster/                     @ciaccodavide
 /types/react-leaflet-markercluster/v2/                  @Kimahriman
 /types/react-leaflet-pixi-overlay/                      @Guilherm456
@@ -6109,7 +6118,7 @@
 /types/react-mic/                                       @mikaello
 /types/react-mixin/                                     @tkqubo
 /types/react-modal/                                     @radziksh @drewnoakes @homburg @ttamminen @hallowatcher @peterblazejewicz @jpowell @fiberjw @nitzanmo @grgr-dkrk
-/types/react-motion/                                    @stepancar @asvetliakov @dimitarnestorov
+/types/react-motion/                                    @asvetliakov @dimitarnestorov
 /types/react-motion-loop/                               @j-em
 /types/react-motion-slider/                             @asvetliakov
 /types/react-motion-ui-pack/                            @jsonunger
@@ -6230,11 +6239,13 @@
 /types/react-native-sqlite-storage/                     @dryganets @cavarzan
 /types/react-native-square-in-app-payments/             @Phillip-Cognativ
 /types/react-native-star-rating/                        @iRoachie
+/types/react-native-svg-animated-linear-gradient/       @EndBug
 /types/react-native-svg-charts/                         @krzysztof-miemiec
 /types/react-native-svg-uri/                            @iRoachie
 /types/react-native-tab-navigator/                      @iRoachie
 /types/react-native-table-component/                    @davidcole1340
 /types/react-native-tags/                               @IdaszakDaniel
+/types/react-native-telnet-client/                      @robinvandenb
 /types/react-native-text-input-mask/                    @RodrigoAWeber @hengkx
 /types/react-native-toast-native/                       @bm-software
 /types/react-native-torch/                              @BenLorantfy
@@ -6373,7 +6384,7 @@
 /types/react-svg-pan-zoom/                              @huy-nguyen @tvwenger
 /types/react-svg-pan-zoom-loader/                       @rafw87
 /types/react-svg-radar-chart/                           @luksys5 @afmotta
-/types/react-swf/                                       @stepancar
+/types/react-swf/                                       @DefinitelyTyped
 /types/react-swipe/                                     @DeividasBakanas @AAlakkad
 /types/react-swipeable-views/                           @mxl @DeividasBakanas
 /types/react-swipeable-views-core/                      @kodai3
@@ -6383,7 +6394,6 @@
 /types/react-table/                                     @ggascoigne @stramel @gargroh @riceboyler
 /types/react-table/v6/                                  @royxue @psakalo @Havret @andys8 @Gelio @cpepin @iamandrewluca
 /types/react-table-filter/                              @gjsln
-/types/react-tabs/                                      @danez @Equationist
 /types/react-tabs-redux/                                @ntnbrtnkv
 /types/react-tag-autocomplete/                          @jlismore @Rahul-Sagore @MaxCilauro @akondratsky
 /types/react-tag-autocomplete/v5/                       @jlismore @Rahul-Sagore @MaxCilauro
@@ -6531,7 +6541,7 @@
 /types/redux-promise-listener/                          @hikiko4ern
 /types/redux-react-session/                             @joaomlneto
 /types/redux-recycle/                                   @LKay
-/types/redux-router/                                    @stepancar
+/types/redux-router/                                    @DefinitelyTyped
 /types/redux-saga-routines/                             @alexey-pelykh
 /types/redux-saga-tester/                               @BenLorantfy @lawsumisu @BreakBB
 /types/redux-seamless-immutable/                        @SoaresMG
@@ -6575,6 +6585,7 @@
 /types/relay-test-utils/                                @renanmav @Stephen2
 /types/rellax/                                          @shermendev @minvs1
 /types/remark-abbr/                                     @LukeCarrier
+/types/remark-hint/                                     @Cattttttttt
 /types/remark-prism/                                    @bunhojun @stephencweiss
 /types/remarkable/                                      @makepost @chigix @bios21
 /types/remote-git-tags/                                 @midgleyc
@@ -6672,6 +6683,7 @@
 /types/rn-randomnumber/                                 @ChocolateLoverRaj
 /types/roarr/                                           @psaxton
 /types/robust-point-in-polygon/                         @DefinitelyTyped
+/types/robust-segment-intersect/                        @masx200
 /types/rocksdb/                                         @MeirionHughes @danwbyrne
 /types/roll/                                            @icopp
 /types/roll-a-die/                                      @romilodev
@@ -6780,7 +6792,7 @@
 /types/saml20/                                          @HackerUndKoch
 /types/samlp/                                           @horiuchi
 /types/sammy/                                           @borisyankov @oising
-/types/sanctuary/                                       @davidchambers @cortopy @piq9117 @lfarroco
+/types/sanctuary/                                       @davidchambers @cortopy @piq9117 @lfarroco @dotnetcarpenter
 /types/sandboxed-module/                                @svi3c
 /types/sane/                                            @BendingBender
 /types/sane-email-validation/                           @ForbesLindesay
@@ -6935,7 +6947,7 @@
 /types/server/                                          @sant123 @iddan @DazSanchez
 /types/server-destroy/                                  @gyszalai @xapdkop
 /types/server-timing-header/                            @peterblazejewicz
-/types/serverless/                                      @hassankhan @JonathanWilbur @a-pavlenko @fredericbarthelet @bryan-hunter @thomasaribart @G-Rath @AbdullahAli @fargito
+/types/serverless/                                      @hassankhan @JonathanWilbur @a-pavlenko @fredericbarthelet @bryan-hunter @thomasaribart @G-Rath @AbdullahAli @fargito @bacarybruno
 /types/serverless-jest-plugin/                          @Gaelan
 /types/serverless-tencent-scf/                          @yaozulv
 /types/service-worker-mock/                             @remcohaszing
@@ -7217,7 +7229,6 @@
 /types/stampit/v3/                                      @koresar @lummish
 /types/stampit/v2/                                      @koresar
 /types/stamplay-js-sdk/                                 @ridermansb
-/types/standard-engine/                                 @peterblazejewicz
 /types/standard-error/                                  @roblabat
 /types/standard-http-error/                             @roblabat @saiichihashimoto
 /types/standard-version/                                @JasonHK
@@ -7490,6 +7501,7 @@
 /types/terra-theme-context/                             @juzerzarif @Berkyle
 /types/terraformer__arcgis/                             @JeffJacobson @gavinr
 /types/terraformer__spatial/                            @zakjan
+/types/terraformer__wkt/                                @fwang49asu
 /types/teslajs/                                         @fcastilloec
 /types/test-console/                                    @roberto @guidoux @gbmoretti
 /types/test-listen/                                     @stephenmathieson
@@ -7676,6 +7688,7 @@
 /types/twix/                                            @j3ko
 /types/two.js/                                          @cprecioso @demkonst @leventefabry
 /types/twuni__emojify/                                  @max-programming
+/types/tx2/                                             @sasial-dev
 /types/type-check/                                      @hansrwindhoff
 /types/type-detect/                                     @Bartvds
 /types/type-detect/v0/                                  @Bartvds
@@ -7693,6 +7706,7 @@
 /types/tz-lookup/                                       @uwinkelvos
 /types/tz-offset/                                       @RMHonor
 /types/ua-parser-js/                                    @superduper @legendecas @MeLlamoPablo @peterblazejewicz @BendingBender
+/types/uapi-json/                                       @zviwex
 /types/udp-discovery/                                   @scottpage
 /types/uglify-es/                                       @alan-agius4
 /types/uglify-js/                                       @alan-agius4 @tkrotoff @johnnyreilly @peterblazejewicz
@@ -8227,6 +8241,7 @@
 /types/xml-encryption/                                  @midgleyc
 /types/xml-escape/                                      @charliekenney23
 /types/xml-flow/                                        @Warerebel
+/types/xml-name-validator/                              @doug-wade
 /types/xml-parser/                                      @mhfrantz
 /types/xml-zero-lexer/                                  @943297456
 /types/xml2js/                                          @michelsalib @jasonrm @ccurrens @edwardhinkle @claasahl @redlickigrzegorz @72636c
