@@ -2,6 +2,7 @@
 // Project: https://telegram.org/js/telegram-web-app.js
 // Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare var Telegram: Telegram;
 
 type Color = string | false;
