@@ -420,10 +420,10 @@ export interface ComboBoxProps {
     helperText?: string;
     inputValue?: string;
     labelDisplay?: 'visible' | 'hidden';
-    onChange?: (args: { value: string; event: React.SyntheticEvent<HTMLInputElement> }) => void;
-    onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    onFocus?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    onKeyDown?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onChange?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onBlur?: (args: { event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onFocus?: (args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void;
+    onKeyDown?: (args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void;
     onClear?: () => void;
     onSelect?: (args: {
         event: React.SyntheticEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
@@ -1099,6 +1099,7 @@ export interface ModuleExpandableProps {
     items: ReadonlyArray<{
         title: string;
         icon?: Icons | undefined;
+        iconButton?: React.ReactElement<typeof IconButton> | undefined;
         summary?: ReadonlyArray<string> | undefined;
         type?: 'info' | 'error' | undefined;
         iconAccessibilityLabel?: string | undefined;
@@ -1161,7 +1162,7 @@ export interface NumberFieldProps {
      */
     onBlur?:
         | ((args: {
-              event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>;
+              event: React.FocusEvent<HTMLInputElement>;
               value: number | undefined;
           }) => void)
         | undefined;
@@ -1170,7 +1171,7 @@ export interface NumberFieldProps {
      */
     onFocus?:
         | ((args: {
-              event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>;
+              event: React.FocusEvent<HTMLInputElement>;
               value: number | undefined;
           }) => void)
         | undefined;
@@ -1179,7 +1180,7 @@ export interface NumberFieldProps {
      */
     onKeyDown?:
         | ((args: {
-              event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>;
+              event: React.KeyboardEvent<HTMLInputElement>;
               value: number | undefined;
           }) => void)
         | undefined;
@@ -1246,7 +1247,7 @@ export interface PogProps {
  * https://gestalt.netlify.app/Popover
  */
 export interface PopoverProps {
-    anchor: HTMLElement; // ideally a HTMLAnchorElement
+    anchor: HTMLElement | null | undefined; // ideally a HTMLAnchorElement
     onDismiss: () => void;
     children?: React.ReactNode | undefined;
     color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray' | undefined;
@@ -1315,12 +1316,12 @@ export interface SearchFieldProps {
     accessibilityLabel: string;
     accessibilityClearButtonLabel?: string;
     id: string;
-    onChange: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     autoComplete?: 'on' | 'off' | 'username' | 'name' | undefined;
     errorMessage?: string | undefined;
+    onChange: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     onBlur?: ((args: { event: React.SyntheticEvent<HTMLInputElement> }) => void) | undefined;
     onFocus?: ((args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void) | undefined;
-    onKeyDown?: ((args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void) | undefined;
+    onKeyDown?: ((args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void) | undefined;
     placeholder?: string | undefined;
     size?: 'md' | 'lg' | undefined;
     value?: string | undefined;
@@ -1644,9 +1645,9 @@ export interface TextAreaProps {
     helperText?: string | undefined;
     label?: string | undefined;
     name?: string | undefined;
-    onBlur?: ((args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
-    onFocus?: ((args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
-    onKeyDown?: ((args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
+    onBlur?: ((args: { event: React.FocusEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
+    onFocus?: ((args: { event: React.FocusEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
+    onKeyDown?: ((args: { event: React.KeyboardEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
     placeholder?: string | undefined;
     /**
      * Number of text rows to display.
@@ -1681,13 +1682,13 @@ export interface TextFieldProps {
     label?: string | undefined;
     name?: string | undefined;
     onBlur?:
-        | ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void)
+        | ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void)
         | undefined;
     onFocus?:
-        | ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void)
+        | ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void)
         | undefined;
     onKeyDown?:
-        | ((args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: string }) => void)
+        | ((args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void)
         | undefined;
     placeholder?: string | undefined;
     /**
