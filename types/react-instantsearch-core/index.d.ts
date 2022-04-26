@@ -772,24 +772,18 @@ export function connectHitInsights(
 ) => React.ComponentType<Omit<ConnectHitInsightsProvided, { insights: WrappedInsightsClient }>>;
 export function connectVoiceSearch(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
-export type DynamicWidgetComponent = React.Component<{
-  children?: DynamicWidgetComponent;
-  attribute?: string;
-  attributes?: string[];
-}>;
-
 export interface DynamicWidgetsExposed {
   /**
    * The children of this component will be displayed dynamically based
    * on the result of facetOrdering. This means that any child needs
    * to have either the “attribute” or “attributes” prop.
    */
-  children?: React.ReactNode | DynamicWidgetComponent;
+  children?: React.ReactChild;
   /**
    * A function to transform the attributes to render,
    * or using a different source to determine the attributes to render.
    */
-  transformItems?: ((...args: any[]) => any) | undefined;
+  transformItems?: (items: string[], meta: { results: SearchResults }) => any;
   /**
    * The fallbackComponent prop is used if no widget from children matches.
    * The component gets called with an attribute prop.
@@ -799,9 +793,9 @@ export interface DynamicWidgetsExposed {
    * The facets to apply before dynamic widgets get mounted.
    * Setting the value to ['*'] will request all facets
    * and avoid an additional network request once the widgets are added.
-   * The default value is ['*'].
+   * @default ['*']
    */
-  facets?: string[];
+  facets?: never[] | ['*'];
   /**
    * The default number of facet values to request.
    * It’s recommended to have this value at least as high as the highest limit
@@ -809,7 +803,7 @@ export interface DynamicWidgetsExposed {
    * a second network request once that widget mounts.
    * To avoid pinned items not showing in the result, make sure you choose
    * a maxValuesPerFacet at least as high as all the most pinned items you have.
-   * The default value is 20.
+   * @default 20
    */
   maxValuesPerFacet?: number;
 }
@@ -818,6 +812,8 @@ export type DynamicWidgetsProvided = Pick<DynamicWidgetsExposed, 'children' | 'f
   /** The list of refinement values to display returned from the Algolia API. */
   attributesToRender: string[]
 };
+
+export class DynamicWidgets extends React.Component<DynamicWidgetsExposed> {}
 
 export function connectDynamicWidgets(
   stateless: React.FunctionComponent<DynamicWidgetsProvided>

@@ -33,7 +33,7 @@ import {
     translatable,
     TranslatableProvided,
     DynamicWidgetsProvided,
-    DynamicWidgetComponent
+    DynamicWidgets,
 } from 'react-instantsearch-core';
 
 import { Hits, RefinementList } from 'react-instantsearch-dom';
@@ -668,10 +668,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
 };
 
 () => {
-  const getDisplayName = (Component: any) =>
-    Component.displayName || Component.name || 'UnknownComponent';
-
-  function getAttribute(component: DynamicWidgetComponent): string | undefined {
+  function getAttribute(component: React.ReactChild): string | undefined {
     if (typeof component !== 'object') {
       return undefined;
     }
@@ -696,12 +693,10 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
   }: DynamicWidgetsProvided) => {
     const widgets = new Map();
 
-    React.Children.forEach(children as DynamicWidgetComponent, (child) => {
-      const attribute = getAttribute(child);
+    React.Children.forEach(children, (child) => {
+      const attribute = getAttribute(child as React.ReactChild);
       if (!attribute) {
-        throw new Error(
-          `Could not find "attribute" prop for ${getDisplayName(child)}.`
-        );
+        throw new Error('Could not find "attribute" prop');
       }
       widgets.set(attribute, child);
     });
@@ -727,4 +722,16 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
   >
     <RefinementList attribute="brand" />
   </ConnectedDynamicWidgets>;
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/dynamic-facets/react/
+  <DynamicWidgets
+    transformItems={item => item}
+    fallbackComponent={RefinementList}
+    facets={['*']}
+    maxValuesPerFacet={20}
+  >
+    <RefinementList attribute="brand"/>
+  </DynamicWidgets>;
 };
