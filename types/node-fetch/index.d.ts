@@ -217,6 +217,11 @@ declare function fetch(
     init?: RequestInit
 ): Promise<Response>;
 
+// This function type represents the type of the `fetch` function alone and
+// excludes anything added to the function object (like `isRedirect` below).
+// This type should stay in sync with the type definition immediately above.
+export type Fetch = (url: RequestInfo, init?: RequestInit) => Promise<Response>;
+
 declare namespace fetch {
     function isRedirect(code: number): boolean;
 }

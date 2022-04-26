@@ -4,7 +4,8 @@ import fetch, {
     Request,
     RequestInit,
     Response,
-    FetchError
+    FetchError,
+    Fetch
 } from "node-fetch";
 import { URL } from "url";
 import { Agent } from "http";
@@ -214,4 +215,8 @@ function test_ResponseInit() {
 
 async function test_BlobText() {
     const someString = await new Blob(["Hello world"]).text(); // $ExpectType string
+}
+
+async function test_fetchIsFetchType() {
+    const fetchFn: Fetch = fetch;
 }
