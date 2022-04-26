@@ -30,5 +30,6 @@ function rootReducer(state: TestState = initialState, action: Action): TestState
 const store = createStore(withReduxStateSync(rootReducer, (state) => state), initialState, applyMiddleware(middleware));
 initStateWithPrevTab(store);
 initMessageListener(store);
-store.getState().a;
-store.getState().b;
+store.getState().a; // $ExpectType number
+store.getState().b; // $ExpectType string
+store.getState().missingProperty; // $ExpectError
