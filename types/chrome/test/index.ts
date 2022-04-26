@@ -190,6 +190,10 @@ function catBlock() {
     );
 }
 
+function webRequestAddListenerMandatoryFilters() {
+    chrome.webRequest.onBeforeRequest.addListener(info => {}) // $ExpectError
+}
+
 // webNavigation.onBeforeNavigate.addListener example
 function beforeRedditNavigation() {
     chrome.webNavigation.onBeforeNavigate.addListener(
