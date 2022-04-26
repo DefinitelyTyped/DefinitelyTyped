@@ -2,7 +2,7 @@
 // Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
 // Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Mauricio Rojas <https://github.com/orellabac>
-//                 Ron Jones <https://github.cm/boatilus>
+//                 Ron Jones <https://github.com/boatilus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
