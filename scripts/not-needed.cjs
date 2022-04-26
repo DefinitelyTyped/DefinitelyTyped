@@ -18,10 +18,7 @@ rmdirRecursive(path.join('types', typingsPackageName));
 /**  @type  {{packages: Record<string, { libraryName: string; asOfVersion: string; }> }} */
 const notNeededPackages = JSON.parse(fs.readFileSync('notNeededPackages.json', 'utf-8'));
 notNeededPackages.packages[typingsPackageName] = { libraryName, asOfVersion };
-const sortedPackages = Object.entries(notNeededPackages.packages).sort((packageA, packageB) =>
-    packageA[0].localeCompare(packageB[0]),
-);
-notNeededPackages.packages = Object.fromEntries(sortedPackages);
+notNeededPackages.packages = Object.fromEntries(Object.entries(notNeededPackages.packages).sort());
 fs.writeFileSync('notNeededPackages.json', JSON.stringify(notNeededPackages, undefined, 4) + '\n', 'utf-8');
 
 function rmdirRecursive(dir) {
