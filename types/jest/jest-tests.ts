@@ -300,11 +300,68 @@ jest.autoMockOff()
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
 
-// https://jestjs.io/docs/en/jest-object#jestusefaketimersimplementation-modern--legacy
-jest.useFakeTimers('modern');
+// https://jestjs.io/docs/jest-object#jestusefaketimersfaketimersconfig
+jest.useFakeTimers({ advanceTimers: true });
+jest.useFakeTimers({ advanceTimers: 10 });
+// $ExpectError
+jest.useFakeTimers({ advanceTimers: 'fast' });
+
+jest.useFakeTimers({ doNotFake: ['Date'] });
+jest.useFakeTimers({
+    doNotFake: [
+        'Date',
+        'hrtime',
+        'nextTick',
+        'performance',
+        'queueMicrotask',
+        'requestAnimationFrame',
+        'cancelAnimationFrame',
+        'requestIdleCallback',
+        'cancelIdleCallback',
+        'setImmediate',
+        'clearImmediate',
+        'setInterval',
+        'clearInterval',
+        'setTimeout',
+        'clearTimeout',
+    ],
+});
+// $ExpectError
+jest.useFakeTimers({ doNotFake: ['globalThis'] });
+
+jest.useFakeTimers({ legacyFakeTimers: true });
+// $ExpectError
+jest.useFakeTimers({ legacyFakeTimers: 1000 });
+// $ExpectError
+jest.useFakeTimers({ doNotFake: ['Date'], legacyFakeTimers: true });
+// $ExpectError
+jest.useFakeTimers({ enableGlobally: true, legacyFakeTimers: true });
+// $ExpectError
+jest.useFakeTimers({ legacyFakeTimers: true, now: 1483228800000 });
+// $ExpectError
+jest.useFakeTimers({ legacyFakeTimers: true, timerLimit: 1000 });
+
+jest.useFakeTimers({ now: 1483228800000 });
+jest.useFakeTimers({ now: Date.now() });
+jest.useFakeTimers({ now: new Date(1995, 11, 17) });
+// $ExpectError
+jest.useFakeTimers({ now: '1995-12-17T03:24:00' });
+
+jest.useFakeTimers({ timerLimit: 1000 });
+// $ExpectError
+jest.useFakeTimers({ timerLimit: true });
+
+// $ExpectError
+jest.useFakeTimers({ enableGlobally: true });
+// $ExpectError
 jest.useFakeTimers('legacy');
 // $ExpectError
-jest.useFakeTimers('foo');
+jest.useFakeTimers('modern');
+
+jest.useRealTimers();
+// $ExpectError
+jest.useRealTimers(true);
+
 
 // https://jestjs.io/docs/en/jest-object#jestsetsystemtimenow-number--date
 jest.setSystemTime();

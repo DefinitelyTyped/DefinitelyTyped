@@ -1,4 +1,4 @@
-// Type definitions for Jest 27.4
+// Type definitions for Jest 28.0.0-alpha
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -71,6 +71,77 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
         : T extends Readonly<[any, any, any, any, any, any, any, any, any, any]> ? 10
         : 'fallback'
 ];
+
+export type FakeableAPI =
+  | 'Date'
+  | 'hrtime'
+  | 'nextTick'
+  | 'performance'
+  | 'queueMicrotask'
+  | 'requestAnimationFrame'
+  | 'cancelAnimationFrame'
+  | 'requestIdleCallback'
+  | 'cancelIdleCallback'
+  | 'setImmediate'
+  | 'clearImmediate'
+  | 'setInterval'
+  | 'clearInterval'
+  | 'setTimeout'
+  | 'clearTimeout';
+
+type FakeTimersConfig = {
+  /**
+   * If set to `true` all timers will be advanced automatically
+   * by 20 milliseconds every 20 milliseconds. A custom time delta
+   * may be provided by passing a number.
+   *
+   * @defaultValue
+   * The default is `false`.
+   */
+  advanceTimers?: boolean | number;
+  /**
+   * List of names of APIs (e.g. `Date`, `nextTick()`, `setImmediate()`,
+   * `setTimeout()`) that should not be faked.
+   *
+   * @defaultValue
+   * The default is `[]`, meaning all APIs are faked.
+   * */
+  doNotFake?: Array<FakeableAPI>;
+  /**
+   * Sets current system time to be used by fake timers.
+   *
+   * @defaultValue
+   * The default is `Date.now()`.
+   */
+  now?: number | Date;
+  /**
+   * The maximum number of recursive timers that will be run when calling
+   * `jest.runAllTimers()`.
+   *
+   * @defaultValue
+   * The default is `100_000` timers.
+   */
+  timerLimit?: number;
+  /**
+   * Use the old fake timers implementation instead of one backed by
+   * [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
+   *
+   * @defaultValue
+   * The default is `false`.
+   */
+  legacyFakeTimers?: false;
+};
+
+type LegacyFakeTimersConfig = {
+  /**
+   * Use the old fake timers implementation instead of one backed by
+   * [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
+   *
+   * @defaultValue
+   * The default is `false`.
+   */
+  legacyFakeTimers?: true;
+};
 
 declare namespace jest {
     /**
@@ -319,11 +390,20 @@ declare namespace jest {
      */
     function unmock(moduleName: string): typeof jest;
     /**
-     * Instructs Jest to use fake versions of the standard timer functions.
+     * Instructs Jest to use fake versions of the global date, performance,
+     * time and timer APIs. Fake timers implementation is backed by
+     * [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
+     *
+     * @remarks
+     * Calling `jest.useFakeTimers()` once again in the same test file would reinstall
+     * fake timers using the provided options.
      */
-    function useFakeTimers(implementation?: 'modern' | 'legacy'): typeof jest;
+    function useFakeTimers(
+        fakeTimersConfig?: FakeTimersConfig | LegacyFakeTimersConfig,
+      ): typeof jest;
     /**
-     * Instructs Jest to use the real versions of the standard timer functions.
+     * Instructs Jest to restore the original implementations of the global date,
+     * performance, time and timer APIs.
      */
     function useRealTimers(): typeof jest;
 
