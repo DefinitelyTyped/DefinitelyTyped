@@ -32,6 +32,10 @@
             "libraryName": "adhan",
             "asOfVersion": "4.0.0"
         },
+        "adobe__node-fetch-retry": {
+            "libraryName": "@adobe/node-fetch-retry",
+            "asOfVersion": "2.1.0"
+        },
         "ag-grid": {
             "libraryName": "ag-grid",
             "asOfVersion": "3.2.0"
