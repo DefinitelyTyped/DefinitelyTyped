@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { OperationOptions } from 'retry';
+import { WrapOptions } from 'retry';
 
 declare function AsyncRetry<A>(
     fn: AsyncRetry.RetryFunction<A>,
@@ -14,7 +14,7 @@ declare function AsyncRetry<A>(
 ): Promise<A>;
 
 declare namespace AsyncRetry {
-    interface Options extends OperationOptions {
+    interface Options extends WrapOptions {
         onRetry?: ((e: Error, attempt: number) => any) | undefined;
     }
 
