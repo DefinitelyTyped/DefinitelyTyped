@@ -882,6 +882,24 @@ declare namespace lunr {
          * @return string representation of the passed object.
          */
         function asString(obj: any): string;
+        
+        /**
+         * Clones an object.
+         *
+         * Will create a copy of an existing object such that any mutations
+         * on the copy cannot affect the original.
+         *
+         * Only shallow objects are supported, passing a nested object to this
+         * function will cause a TypeError.
+         *
+         * Objects with primitives, and arrays of primitives are supported.
+         *
+         * @param {Object} obj The object to clone.
+         * @return {Object} a clone of the passed object.
+         * @throws {TypeError} when a nested object is passed.
+         * @memberOf Utils
+         */
+        function clone(obj: any): any;
     }
 
     /**
