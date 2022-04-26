@@ -101,7 +101,7 @@ interface BigUint64Array extends RelativeIndexable<bigint> {}
 //#endregion ArrayLike.at() end
 
 /**
- * @since 17.0.0
+ * @since v17.0.0
  *
  * Creates a deep clone of an object.
  */
