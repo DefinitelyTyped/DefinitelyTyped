@@ -210,7 +210,7 @@ export interface AuthorizeParams {
     max_age?: number; // The allowable elapsed time in seconds since the last time the user was authenticated (optional).
     organization?: string; // The ID of the organization to join
     invitationUrl?: string; // The invitation URL to join an organization. Takes precedence over the "organization" parameter.
-    [key: string]: string | number | undefined; // Optional user-defined values appended to the auth page URL query parameters.
+    [key: string]: string | number | boolean | undefined; // Optional user-defined values appended to the auth page URL query parameters.
 }
 
 export interface AuthorizeOptions {
