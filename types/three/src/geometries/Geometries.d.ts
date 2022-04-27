@@ -1,4 +1,5 @@
 export * from './BoxGeometry';
+export * from './CapsuleGeometry';
 export * from './CircleGeometry';
 export * from './ConeGeometry';
 export * from './CylinderGeometry';

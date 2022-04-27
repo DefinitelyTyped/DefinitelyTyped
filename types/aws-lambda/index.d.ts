@@ -41,6 +41,7 @@
 //                 Benoit Boure <https://github.com/bboure>
 //                 James Lakin <https://github.com/jamesorlakin>
 //                 Ross Gerbasi <https://github.com/aphex>
+//                 Joey Kilpatrick <https://github.com/joeykilpatrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

@@ -402,12 +402,12 @@ interface ImageProps extends LayoutableProps, ClickableProps, TouchableProps {
     onProgress?(evt: { nativeEvent: { loaded: number; total: number } }): void;
 }
 declare class Image extends React.Component<ImageProps> {
-    getSize: (
+    static getSize: (
         uri: string,
         success: (width: number, height: number) => void,
         failure?: (err: typeof Error) => void,
     ) => void;
-    prefetch: (url: string) => void;
+    static prefetch: (url: string) => void;
     static get resizeMode(): {
         contain: 'contain';
         cover: 'cover';

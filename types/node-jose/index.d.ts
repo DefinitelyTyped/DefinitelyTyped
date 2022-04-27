@@ -101,7 +101,7 @@ export namespace JWE {
     }
 
     function createEncrypt(keys: JWK.Key | JWK.Key[]): Encryptor;
-    function createEncrypt(options: EncryptOptions, key: JWK.Key): Encryptor;
+    function createEncrypt(options: EncryptOptions, key: JWK.Key | JWK.Key[]): Encryptor;
 
     function createDecrypt(key: JWK.Key | JWK.KeyStore, opts?: any): Decryptor;
 

@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/blocks 9.1
+// Type definitions for @wordpress/blocks 11.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>

@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/media-utils 2.0
+// Type definitions for @wordpress/media-utils 3.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/media-utils/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

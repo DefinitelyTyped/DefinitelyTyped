@@ -25,7 +25,8 @@ var doc = new PDFDocument({
         modifying: true,
         annotating: false,
         printing: 'lowResolution'
-    }
+    },
+    font: 'Arial',
 });
 
 doc.addPage({

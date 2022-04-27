@@ -361,7 +361,7 @@ pmCollection.Item.isItem(item); // $ExpectType boolean
 // ProxyConfigDefinition Tests
 
 const proxyConfDef: pmCollection.ProxyConfigDefinition = {};
-proxyConfDef.match; // $ExpectType string | { pattern: string; } | UrlMatchPattern | undefined
+proxyConfDef.match; // $ExpectType string | { pattern: string; } | UrlMatchPattern | undefined || string | UrlMatchPattern | { pattern: string; } | undefined
 proxyConfDef.host; // $ExpectType string | undefined
 proxyConfDef.port; // $ExpectType number | undefined
 proxyConfDef.tunnel; // $ExpectType boolean | undefined
@@ -502,14 +502,16 @@ pmCollection.Request.isRequest(req); // $ExpectType boolean
 // RequestAuthDefinition Tests
 
 const reqAuthDef: pmCollection.RequestAuthDefinition = {};
-reqAuthDef.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined
+// tslint:disable-next-line
+reqAuthDef.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined || "basic" | "oauth2" | "hawk" | "noauth" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined
 
 // RequestAuth Tests
 
 let reqAuth = new pmCollection.RequestAuth(reqAuthDef);
 reqAuth = new pmCollection.RequestAuth(reqAuthDef, collection);
 
-reqAuth.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm"
+// tslint:disable-next-line
+reqAuth.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined || "basic" | "oauth2" | "hawk" | "noauth" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined
 
 reqAuth.update(new pmCollection.VariableList(collection, [])); // $ExpectType void
 reqAuth.update({ key: 'string', value: 'string' }); // $ExpectType void
@@ -564,7 +566,7 @@ respDef.code; // $ExpectType number
 respDef.header; // $ExpectType HeaderDefinition[] | undefined
 respDef.cookie; // $ExpectType CookieDefinition[] | undefined
 respDef.body; // $ExpectType string | undefined
-respDef.stream; // $ExpectType Buffer | Uint8Array | undefined
+respDef.stream; // $ExpectType Buffer | Uint8Array | undefined || Uint8Array | Buffer | undefined
 respDef.responseTime; // $ExpectType number
 respDef.originalRequest; // $ExpectType RequestDefinition | undefined
 
@@ -577,7 +579,7 @@ response.headers; // $ExpectType HeaderList
 response.originalRequest; // $ExpectType Request | undefined
 response.responseTime; // $ExpectType number
 response.status; // $ExpectType string
-response.stream; // $ExpectType Buffer | Uint8Array | undefined
+response.stream; // $ExpectType Buffer | Uint8Array | undefined || Uint8Array | Buffer | undefined
 response.responseSize; // $ExpectType number | undefined
 
 response.update(respDef); // $ExpectType void

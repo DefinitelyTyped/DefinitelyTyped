@@ -927,3 +927,18 @@ adapter.getForeignObjectAsync(`system.adapter.${adapter.namespace}`).then(o => {
 
 // https://github.com/ioBroker/adapter-core/issues/378
 adapter.performStrictObjectChecks = true;
+
+// Ensure narrowing of SettableState works correctly
+
+function testSettableState(arg: ioBroker.SettableState): void {
+    if (arg.val !== undefined && arg.val !== null) {
+        arg.val.toString(); // OK
+        // $ExpectError
+        arg.ts.toString();
+        if (arg.ts !== undefined && arg.ts !== null) {
+            arg.ts.toString(); // OK
+        }
+    }
+    // $ExpectType number | undefined
+    arg.ts;
+}

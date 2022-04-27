@@ -20,6 +20,7 @@ export function upcastStyleToAttribute(
 export function upcastBorderStyles(
     conversion: Conversion,
     viewElementName: string,
+    modelAttributes: { color: string; style: string; width: string },
     defaultBorder: { color: string; style: string; width: string },
 ): void;
 

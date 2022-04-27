@@ -3393,6 +3393,11 @@ fp.now(); // $ExpectType number
 {
     const func = (n: number, s: string): boolean => true;
     const options: _.DebounceSettings = {
+        leading: false,
+        maxWait: 100,
+        trailing: false,
+    };
+    const optionsWithLeading: _.DebounceSettingsLeading = {
         leading: true,
         maxWait: 100,
         trailing: false,
@@ -3403,9 +3408,16 @@ fp.now(); // $ExpectType number
     result.flush(); // $ExpectType boolean | undefined
     _.debounce(func, 42); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
     _.debounce(func, 42, options); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
+    _.debounce(func, 42, optionsWithLeading); // $ExpectType DebouncedFuncLeading<(n: number, s: string) => boolean>
 
+    _(func).debounce(); // $ExpectType Function<DebouncedFunc<(n: number, s: string) => boolean>>
+    _(func).debounce(42); // $ExpectType Function<DebouncedFunc<(n: number, s: string) => boolean>>
     _(func).debounce(42, options); // $ExpectType Function<DebouncedFunc<(n: number, s: string) => boolean>>
+    _(func).debounce(42, optionsWithLeading); // $ExpectType Function<DebouncedFuncLeading<(n: number, s: string) => boolean>>
+    _.chain(func).debounce(); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
+    _.chain(func).debounce(42); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
     _.chain(func).debounce(42, options); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
+    _.chain(func).debounce(42, optionsWithLeading); // $ExpectType FunctionChain<DebouncedFuncLeading<(n: number, s: string) => boolean>>
     fp.debounce(42, func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
     fp.debounce(42)(func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
 }
@@ -6688,6 +6700,14 @@ fp.now(); // $ExpectType number
 
     _.cond([[pairPred1, pairRes1], [pairPred2, pairRes2]])("hello"); // $ExpectType number
     fp.cond([[pairPred1, pairRes1], [pairPred2, pairRes2]])("hello"); // $ExpectType number
+
+    const nullaryPred1 = () => true;
+    const nullaryPred2 = () => false;
+    const nullaryRes1 = () => 1;
+    const nullaryRes2 = () => 2;
+
+    _.cond([[nullaryPred1, nullaryRes1], [nullaryPred2, nullaryRes2]])(); // $ExpectType number
+    fp.cond([[nullaryPred1, nullaryRes1], [nullaryPred2, nullaryRes2]])(); // $ExpectType number
 }
 
 // _.constant

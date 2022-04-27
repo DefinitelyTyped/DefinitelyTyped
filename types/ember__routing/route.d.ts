@@ -454,13 +454,13 @@ export default class Route<Model = unknown, Params extends object = object>
      * This hook is executed when the router enters the route. It is not executed
      * when the model for the route changes.
      */
-    activate(): void;
+    activate(transition: Transition): void;
 
     /**
      * This hook is executed when the router completely exits this route. It is
      * not executed when the model for the route changes.
      */
-    deactivate(): void;
+    deactivate(transition: Transition): void;
 
     /**
      * The didTransition action is fired after a transition has successfully been

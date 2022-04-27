@@ -10,7 +10,7 @@ const foo = {
     foo() {},
 };
 
-const cache = new LRUCache<string, Foo>();
+const cache = new LRUCache<string, Foo>({ max: 10 });
 cache; // $ExpectType LRUCache<string, Foo>
 
 // $ExpectType LRUCache<string, Foo>
@@ -39,8 +39,10 @@ new LRUCache<string, Foo>({
     },
 });
 new LRUCache<string, Foo>({ max: num }); // $ExpectType LRUCache<string, Foo>
-new LRUCache<string, Foo>(); // $ExpectType LRUCache<string, Foo>
-// $ExpectType LRUCache<string, Foo>
+new LRUCache<string, Foo>({ ttl: 1 }); // $ExpectType LRUCache<string, Foo>
+new LRUCache<string, Foo>({ maxSize: 1000 }); // $ExpectType LRUCache<string, Foo>
+new LRUCache<string, Foo>(); // $ExpectError
+
 new LRUCache<string, Foo>({
     max: num,
     ttl: num,
@@ -137,7 +139,16 @@ cache.rforEach(function(value, key, cache) {
 }, foo);
 
 cache.keys(); // $ExpectType Generator<string, any, unknown>
+cache.rkeys(); // $ExpectType Generator<string, any, unknown>
 cache.values(); // $ExpectType Generator<Foo, any, unknown>
+cache.rvalues(); // $ExpectType Generator<Foo, any, unknown>
+cache.entries(); // $ExpectType Generator<[string, Foo], any, unknown>
+cache.rentries(); // $ExpectType Generator<[string, Foo], any, unknown>
+
+cache.fetchMethod; // $ExpectType Fetcher<string, Foo> | null
+cache.fetch('someKey'); // $ExpectType Promise<Foo | undefined>
+cache.fetch(42); // $ExpectError
+cache.getRemainingTTL('test'); // $ExpectType number
 
 const dump = cache.dump();
 dump; // $ExpectType [string, Entry<Foo>][]

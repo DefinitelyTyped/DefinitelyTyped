@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Gateway, GatewayProvider, GatewayDest } from 'react-gateway';
 
-class GatewayComponent extends React.Component {
+class GatewayComponent extends React.Component<{ children?: React.ReactNode }> {
   render() {
     return (
       <div>{this.props.children}</div>

@@ -13,7 +13,7 @@ declare function normalizeStyles(config: {
 
 declare const DEFAULT_OPTIONS: {
     // This style represents an image placed in the line of text.
-    inline: {
+    readonly inline: {
         name: 'inline';
         title: 'In line';
         icon: string;
@@ -22,7 +22,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This style represents an image aligned to the left and wrapped with text.
-    alignLeft: {
+    readonly alignLeft: {
         name: 'alignLeft';
         title: 'Left aligned image';
         icon: string;
@@ -31,7 +31,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This style represents an image aligned to the left.
-    alignBlockLeft: {
+    readonly alignBlockLeft: {
         name: 'alignBlockLeft';
         title: 'Left aligned image';
         icon: string;
@@ -40,7 +40,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This style represents a centered image.
-    alignCenter: {
+    readonly alignCenter: {
         name: 'alignCenter';
         title: 'Centered image';
         icon: string;
@@ -49,7 +49,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This style represents an image aligned to the right and wrapped with text.
-    alignRight: {
+    readonly alignRight: {
         name: 'alignRight';
         title: 'Right aligned image';
         icon: string;
@@ -58,7 +58,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This style represents an image aligned to the right.
-    alignBlockRight: {
+    readonly alignBlockRight: {
         name: 'alignBlockRight';
         title: 'Right aligned image';
         icon: string;
@@ -67,7 +67,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This option is equal to the situation when no style is applied.
-    block: {
+    readonly block: {
         name: 'block';
         title: 'Centered image';
         icon: string;
@@ -76,7 +76,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This represents a side image.
-    side: {
+    readonly side: {
         name: 'side';
         title: 'Side image';
         icon: string;

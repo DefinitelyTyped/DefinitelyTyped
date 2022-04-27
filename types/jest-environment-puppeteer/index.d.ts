@@ -6,7 +6,6 @@
 // TypeScript Version: 3.8
 
 import NodeEnvironment = require('jest-environment-node');
-import { Global as GlobalType } from '@jest/types';
 import { Browser, Page, BrowserContext } from 'puppeteer';
 import { Context } from 'vm';
 
@@ -47,7 +46,7 @@ interface JestPuppeteer {
     debug(): Promise<void>;
 }
 
-interface Global extends GlobalType.Global {
+interface Global extends NonNullable<NodeEnvironment['global']> {
     browser: Browser;
     context: Context;
     page: Page;
