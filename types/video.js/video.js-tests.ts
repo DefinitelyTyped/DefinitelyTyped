@@ -166,6 +166,9 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
         pipWindow;
     });
 
+    // $ExpectType void
+    this.cancelNamedAnimationFrame('animationFrameName');
+
     // $ExpectType Promise<void>
     this.exitPictureInPicture();
 
