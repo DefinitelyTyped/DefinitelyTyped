@@ -7383,6 +7383,10 @@ declare namespace kendo.ui {
 
     interface MultiColumnComboBoxCascadeEvent extends MultiColumnComboBoxEvent {
     }
+    
+    class MultiSelectListView {
+        setDSFilter(filters: kendo.data.DataSourceFilters): void;
+    }
 
     class MultiSelect extends kendo.ui.Widget {
 
@@ -7420,6 +7424,7 @@ declare namespace kendo.ui {
         value(): any;
         value(value: any): void;
         value(value: string): void;
+        listView: MultiSelectListView;
 
     }
 
