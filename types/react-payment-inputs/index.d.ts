@@ -5,14 +5,14 @@
 
 import * as React from "react";
 
-interface ErroredInputs {
+export interface ErroredInputs {
   cardNumber: string;
   expiryDate: string;
   cvc: string;
   zipField: string;
 }
 
-interface CardType {
+export interface CardType {
   displayName: string;
   type: string;
   format: RegExp;
@@ -22,7 +22,7 @@ interface CardType {
   code: { name: string, length: number };
 }
 
-interface ErrorMessages {
+export interface ErrorMessages {
   emptyCardNumber: string;
   invalidCardNumber: string;
   emptyExpiryDate: string;
@@ -34,7 +34,7 @@ interface ErrorMessages {
   invalidCVC: string;
 }
 
-interface CardImages {
+export interface CardImages {
   amex: React.ReactElement;
   dinersclub: React.ReactElement;
   discover: React.ReactElement;
@@ -48,7 +48,7 @@ interface CardImages {
 
 type InputValidationErrorCallback = (error: string, erroredInputs: ErroredInputs) => void;
 
-interface usePaymentInputsOptions {
+export interface usePaymentInputsOptions {
   autoFocus?: boolean;
   /**
    * custom error messages for the inputs.
@@ -95,7 +95,7 @@ interface usePaymentInputsOptions {
   }) => string;
 }
 
-interface usePaymentInputsData {
+export interface usePaymentInputsData {
   /**
    * Returns the props to apply to the card image SVG.
    */
@@ -241,7 +241,7 @@ interface usePaymentInputsData {
   };
 }
 
-interface PaymentInputsWrapperProps {
+export interface PaymentInputsWrapperProps {
   children: React.ReactNode;
   error: string;
   focused: boolean;
