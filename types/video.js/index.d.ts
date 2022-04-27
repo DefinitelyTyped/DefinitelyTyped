@@ -1814,18 +1814,6 @@ declare namespace videojs {
         requestAnimationFrame(fn: Component.GenericCallback): number;
 
         /**
-         * Request an animation frame, but only one named animation frame will be queued.
-         * Another will never be added until the previous one finishes.
-         *
-         * @param name
-         *         The name to give this requestAnimationFrame.
-         *
-         * @param fn
-         *         A function that will be bound to this component and executed just before the browser's next repaint.
-         */
-        requestNamedAnimationFrame(name: string, fn: Component.GenericCallback): null | string;
-
-        /**
          * Set the value of an attribute on the `Component`'s element
          *
          * @param attribute
