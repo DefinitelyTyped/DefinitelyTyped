@@ -141,7 +141,7 @@ async function proxyFn(this: typeof context, ...args: number[]) {
         thisArg: this.test,
     };
 }
-const args = [1, 2, 3];
+const args: number[] = [1, 2, 3];
 const callBreaker = new CircuitBreaker(proxyFn, options);
 callBreaker.call(context, ...args).then((result) => {
     result.args; // $ExpectType number[]
