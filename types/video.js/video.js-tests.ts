@@ -166,6 +166,9 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
         pipWindow;
     });
 
+    // $ExpectType string | undefined
+    this.requestNamedAnimationFrame('animationFrameName', () => {});
+
     // $ExpectType Promise<void>
     this.exitPictureInPicture();
 
@@ -232,7 +235,7 @@ function testComponents(player: videojs.Player) {
     myWindow.isDisposed(); // $ExpectType boolean
     myWindow.dispose(); // $ExpectType void
 
-	const MyOtherWindow = videojs.extend(videojs.getComponent("ModalDialog"), {
+    const MyOtherWindow = videojs.extend(videojs.getComponent('ModalDialog'), {
         myFunction() {
             this.player().play();
         },
@@ -243,11 +246,11 @@ function testComponents(player: videojs.Player) {
     });
 
     const myOtherWindow = new MyOtherWindow(player, {});
-    myOtherWindow.controlText("My text");
+    myOtherWindow.controlText('My text');
     myOtherWindow.open();
     myOtherWindow.close();
     myOtherWindow.myFunction(); // $ExpectType void
-    myOtherWindow.myOtherFunction("test"); // $ExpectType string
+    myOtherWindow.myOtherFunction('test'); // $ExpectType string
 }
 
 function testPlugin(player: videojs.Player, options: {}) {
