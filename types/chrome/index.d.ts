@@ -11514,7 +11514,7 @@ declare namespace chrome.declarativeNetRequest {
          * Defaults to 1.
          * When specified, should be >= 1.
          */
-        priority: number;
+        priority?: number | undefined;
     }
 
     export interface RuleAction {
