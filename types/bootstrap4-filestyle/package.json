@@ -20,7 +20,7 @@
     },
     "scripts": {},
     "dependencies": {
-        "@types/jquery": "*"
+        
     },
     "typesPublisherContentHash": "8e509fcbb5d74971cf1946193473b81a380993a5562648b505882a6d25dae79e",
     "typeScriptVersion": "3.6"
