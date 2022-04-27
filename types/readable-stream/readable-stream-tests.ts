@@ -2,16 +2,18 @@ import stream = require("stream");
 import RStream = require("readable-stream");
 
 function testTypes() {
-    const ANY: any = null;
+    const ANY: any = undefined;
     const _readableOpts: stream.ReadableOptions = ANY as RStream.ReadableOptions;
     const _writableOpts: stream.WritableOptions = ANY as RStream.WritableOptions;
     const _transformOpts: stream.TransformOptions = ANY as RStream.TransformOptions;
     const _duplexOpts: stream.DuplexOptions = ANY as RStream.DuplexOptions;
 
-    const _readable: typeof stream.Readable = RStream.Readable;
-    const _writable: typeof stream.Writable = RStream.Writable;
-    const _transform: typeof stream.Transform = RStream.Transform;
-    const _duplex: typeof stream.Duplex = RStream.Duplex;
+    const _readable: stream.Readable = new RStream.Readable(_readableOpts);
+    const _writable: stream.Writable = new RStream.Writable(_writableOpts);
+    const _transform: stream.Transform = new RStream.Transform(_transformOpts);
+    const _duplex: stream.Duplex = new RStream.Duplex(_duplexOpts);
+
+    _readable.pipe(_duplex).pipe(_transform).pipe(_writable);
 }
 
 function test() {
@@ -84,7 +86,8 @@ function test() {
             assertType<any>(chunk);
             assertType<string>(enc);
             assertType<(err?: Error | null) => void>(cb);
-        }
+        },
+        writableObjectMode: false
     });
     assertType<boolean>(streamD.allowHalfOpen);
     assertType<boolean>(streamD.readable);
@@ -92,6 +95,14 @@ function test() {
     assertType<boolean>(streamD.readableObjectMode);
     assertType<boolean>(streamD.writableObjectMode);
     streamD.pipe(streamW);
+    const typedEncoding: BufferEncoding = "binary";
+    streamD.setEncoding(typedEncoding);
+
+    const testBufferEncoding = new RS_Duplex({
+        write(chunk: any, enc: BufferEncoding, cb: (err?: Error | null) => void) {
+            assertType<BufferEncoding>(enc);
+        }
+    });
 
     rs.addListener("read", (...args: any[]) => console.log(args));
     rs.emit("read", 1, 2, 3);

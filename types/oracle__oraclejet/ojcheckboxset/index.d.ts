@@ -4,17 +4,17 @@ import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropert
 export interface ojCheckboxset<K, D> extends editableValue<any[], ojCheckboxsetSettableProperties<K, D>> {
     disabled: boolean;
     labelledBy: string | null;
-    optionRenderer?: ((param0: ojCheckboxset.OptionContext<D>) => Element) | null;
+    optionRenderer?: ((param0: ojCheckboxset.OptionContext<D>) => Element) | null | undefined;
     options: DataProvider<K, D> | null;
-    optionsKeys?: ojCheckboxset.OptionsKeys;
+    optionsKeys?: ojCheckboxset.OptionsKeys | undefined;
     required: boolean;
     value: any[];
     translations: {
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
     onDisabledChanged: ((event: JetElementCustomEvent<ojCheckboxset<K, D>["disabled"]>) => any) | null;
     onLabelledByChanged: ((event: JetElementCustomEvent<ojCheckboxset<K, D>["labelledBy"]>) => any) | null;
@@ -51,8 +51,8 @@ export namespace ojCheckboxset {
     }
     // tslint:disable-next-line interface-over-type-literal
     type Option = {
-        disabled?: boolean;
-        label?: string;
+        disabled?: boolean | undefined;
+        label?: string | undefined;
         value: any;
     };
     // tslint:disable-next-line interface-over-type-literal
@@ -63,8 +63,8 @@ export namespace ojCheckboxset {
     };
     // tslint:disable-next-line interface-over-type-literal
     type OptionsKeys = {
-        label?: string;
-        value?: string;
+        label?: string | undefined;
+        value?: string | undefined;
     };
 }
 export interface ojCheckboxsetEventMap<K, D> extends editableValueEventMap<any[], ojCheckboxsetSettableProperties<K, D>> {
@@ -81,17 +81,17 @@ export interface ojCheckboxsetEventMap<K, D> extends editableValueEventMap<any[]
 export interface ojCheckboxsetSettableProperties<K, D> extends editableValueSettableProperties<any[]> {
     disabled: boolean;
     labelledBy: string | null;
-    optionRenderer?: ((param0: ojCheckboxset.OptionContext<D>) => Element) | null;
+    optionRenderer?: ((param0: ojCheckboxset.OptionContext<D>) => Element) | null | undefined;
     options: DataProvider<K, D> | null;
-    optionsKeys?: ojCheckboxset.OptionsKeys;
+    optionsKeys?: ojCheckboxset.OptionsKeys | undefined;
     required: boolean;
     value: any[];
     translations: {
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
 }
 export interface ojCheckboxsetSettablePropertiesLenient<K, D> extends Partial<ojCheckboxsetSettableProperties<K, D>> {

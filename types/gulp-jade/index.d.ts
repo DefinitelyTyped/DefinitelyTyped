@@ -19,7 +19,7 @@ declare namespace GulpJade {
         * useful to get self-closing tags and remove mirroring
         * of boolean attributes.
         */
-        doctype?: string;
+        doctype?: string | undefined;
 
         /**
         * Adds whitespace to the resulting html to make it
@@ -27,18 +27,18 @@ declare namespace GulpJade {
         * If a string is specified, that will be used as
         * indentation instead (e.g. '\t').
         */
-        pretty?: boolean | string;
+        pretty?: boolean | string | undefined;
 
         /**
         * Use a self namespace to hold the locals (false by default)
         */
-        self?: boolean;
+        self?: boolean | undefined;
 
         /**
         * If set to true, the tokens and function body is logged
         * to stdout
         */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
         * If set to true, the function source will be included in the
@@ -46,13 +46,13 @@ declare namespace GulpJade {
         * in development). It is enabled by default unless used with
         * express in production mode.
         */
-        compileDebug?: boolean;
+        compileDebug?: boolean | undefined;
 
         /**
         * If set to true, compiled functions are cached. filename
         * must be set as the cache key.
         */
-        cache?: boolean;
+        cache?: boolean | undefined;
 
         /*******
         * GULP-JADE OPTIONS
@@ -67,7 +67,7 @@ declare namespace GulpJade {
         /**
         * Compile to JS instead of HTML.
         */
-        client?: boolean;
+        client?: boolean | undefined;
 
         /**
         * Locals to be used while parsing jade files. Takes

@@ -128,23 +128,23 @@ interface TwitterWidgetOptions {
     /**
      * Enable Do Not Track for this widget.
      */
-    dnt?: boolean;
+    dnt?: boolean | undefined;
     /**
      * A list of hashtags to be appended to default Tweet text where appropriate.
      */
-    hashtags?: string;
+    hashtags?: string | undefined;
     /**
      * The language in which to render a widget, if supported.
      */
-    lang?: string;
+    lang?: string | undefined;
     /**
      * A list of Twitter screen names to be suggested for following after a Tweet is posted.
      */
-    related?: string;
+    related?: string | undefined;
     /**
      * A Twitter user mentioned in the default Tweet text as /via @user where appropriate.
      */
-    via?: string;
+    via?: string | undefined;
 }
 
 /**
@@ -154,23 +154,23 @@ interface TwitterButtonWidgetOptions extends TwitterWidgetOptions {
     /**
      * The alignment of the button within an iframe; use this to ensure flush layout when aligning buttons against opposite edges of your grid.
      */
-    align?: "left" | "right";
+    align?: "left" | "right" | undefined;
     /**
      * Share button and Follow button only. (Vertical count only available for share buttons.)
      */
-    count?: string;
+    count?: string | undefined;
     /**
      * If the canonical URL to be counted is different from the URL to be shared, you can provide this URL to reference the count. (Share button only.)
      */
-    counturl?: string;
+    counturl?: string | undefined;
     /**
      * medium or large
      */
-    size?: "medium" | "large";
+    size?: "medium" | "large" | undefined;
     /**
      * The default, highlighted text a user sees in the Tweet Web Intent.
      */
-    text?: string;
+    text?: string | undefined;
 }
 
 /**
@@ -180,27 +180,27 @@ interface TwitterTweetWidgetOptions extends TwitterWidgetOptions {
     /**
      * Float the embedded Tweet to the left or right so that text wraps around it, or align center so it floats in the middle of a paragraph.
      */
-    align?: string;
+    align?: string | undefined;
     /**
      * For Tweets that are replies, the previous Tweet in the thread will be displayed by default. Use none to hide the thread and show a Tweet alone.
      */
-    conversation?: "none" | "all";
+    conversation?: "none" | "all" | undefined;
     /**
      * Toggle whether to render expanded media through Twitter Cards in Tweets. Also applies to images uploaded to Twitter.
      */
-    cards?: "hidden" | "visible";
+    cards?: "hidden" | "visible" | undefined;
     /**
      * Fix the width of the embedded widget.
      */
-    width?: number | "auto";
+    width?: number | "auto" | undefined;
     /**
      * Adjust the color of links inside the widget.
      */
-    linkColor?: string;
+    linkColor?: string | undefined;
     /**
      * Toggle the default colorscheme of the widget.
      */
-    theme?: "dark" | "light";
+    theme?: "dark" | "light" | undefined;
 }
 
 type TwitterTimelineWidgetProfileDataSource = {
@@ -260,29 +260,29 @@ type TwitterTimelineWidgetOptions = TwitterTimelineWidgetBaseOptions & {
     /**
      * Apply the specified aria-polite behavior to the rendered timeline.
      */
-    ariaPolite?: "polite" | "assertive" | "rude";
+    ariaPolite?: "polite" | "assertive" | "rude" | undefined;
     /**
      * Fix the height of the embedded widget.
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * Adjust the color of borders inside the widget.
      */
-    borderColor?: string;
+    borderColor?: string | undefined;
     /**
      * Toggle the display of design elements in the widget. This parameter is a space-separated list of values.
      */
-    chrome?: string;
+    chrome?: string | undefined;
     /**
      * Render a timeline statically, displaying only n number of Tweets.
      */
-    tweetLimit?: number;
+    tweetLimit?: number | undefined;
 
     /**
      * Show Tweets in response to another Tweet or account
      */
-    showReplies?: boolean;
+    showReplies?: boolean | undefined;
 };
 
 /**
@@ -376,19 +376,19 @@ interface TwitterIntentEventData {
     /**
      * The ID of a Tweet.
      */
-    tweet_id?: string;
+    tweet_id?: string | undefined;
     /**
      * The ID of a source Tweet.
      */
-    source_tweet_id?: string;
+    source_tweet_id?: string | undefined;
     /**
      * The screen_name of a user;
      */
-    screen_name?: string;
+    screen_name?: string | undefined;
     /**
      * The ID of a user.
      */
-    user_id?: string;
+    user_id?: string | undefined;
 }
 
 declare var twttr: TwitterLike;

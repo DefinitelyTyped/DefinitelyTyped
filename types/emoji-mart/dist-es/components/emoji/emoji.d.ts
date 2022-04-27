@@ -2,7 +2,6 @@ import React = require('react');
 
 import { EmojiProps } from '../..';
 
-// tslint:disable-next-line strict-export-declare-modifiers
-declare const Emoji: React.StatelessComponent<EmojiProps>;
+declare const Emoji: React.FunctionComponent<EmojiProps>;
 
 export { Emoji as default };

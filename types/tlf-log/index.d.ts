@@ -3,10 +3,8 @@
 // Definitions by: thislooksfun <https://github.com/thislooksfun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export interface NewLevel {
-    afterLog?: () => void;
+    afterLog?: (() => void) | undefined;
 }
 export interface NewLevelBefore extends NewLevel {
     before: string;

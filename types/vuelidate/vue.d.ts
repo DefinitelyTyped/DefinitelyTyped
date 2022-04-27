@@ -18,7 +18,7 @@ declare module 'vue/types/vue' {
     }
 
     interface Vue {
-        $v: ValidationProperties<this> & ValidationGroups & Validation
+        $v: ValidationProperties<Vue> & ValidationGroups & Validation
 
         delayTouch(v: Validation): void
     }
@@ -43,6 +43,6 @@ declare module 'vue/types/options' {
     }
 
     interface ComponentOptions<V extends Vue> {
-        validations?: RuleDecl | DynamicDecl
+        validations?: RuleDecl | DynamicDecl | undefined
     }
 }

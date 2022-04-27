@@ -1,6 +1,7 @@
 // Type definitions for sodium-native 2.3
 // Project: https://github.com/sodium-friends/sodium-native
-// Definitions by: Florian Keller <https://github.com/ffflorian>
+// Definitions by: Florian Keller <https://github.com/ffflorian>,
+//                 nshcore <https://github.com/nshcore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -215,25 +216,25 @@ export function sodium_munlock(buffer: Buffer): void;
  * Allocate a buffer of `size` which is memory protected. See [libsodium docs](https://download.libsodium.org/doc/memory_management#guarded-heap-allocations) for details. Be aware that many Buffer
  * methods may break the security guarantees of `sodium.sodium_malloc`'ed memory. To check if a `Buffer` is a "secure" buffer, you can call access the getter `buffer.secure` which will be `true`.
  */
-export function sodium_malloc(size: number): Buffer;
+export function sodium_malloc(size: number): SecureBuffer;
 
 /**
  * Make `buffer` allocated using `sodium.sodium_malloc` inaccessible, crashing the process if any access is attempted.
  * Note that this will have no effect for normal `Buffer`s.
  */
-export function sodium_mprotect_noaccess(buffer: Buffer): void;
+export function sodium_mprotect_noaccess(buffer: SecureBuffer): void;
 
 /**
  * Make `buffer` allocated using `sodium.sodium_malloc` read-only, crashing the process if any writing is attempted.
  * Note that this will have no effect for normal `Buffer`s.
  */
-export function sodium_mprotect_readonly(buffer: Buffer): void;
+export function sodium_mprotect_readonly(buffer: SecureBuffer): void;
 
 /**
  * Make `buffer` allocated using `sodium.sodium_malloc` read-write, undoing `sodium_mprotect_noaccess` or `sodium_mprotect_readonly`.
  * Note that this will have no effect for normal `Buffer`s.
  */
-export function sodium_mprotect_readwrite(buffer: Buffer): void;
+export function sodium_mprotect_readwrite(buffer: SecureBuffer): void;
 
 /**
  * Generate a random 32-bit unsigned integer `[0, 0xffffffff]` (both inclusive)
@@ -1363,4 +1364,11 @@ export interface CryptoHashSha512Wrap {
      * The generated hash is stored in `output`.
      */
     final(output: Buffer): void;
+}
+
+export interface SecureBuffer extends Buffer {
+    /**
+     * To check if a `buffer` is a "secure" `buffer`, you can access the getter `buffer.secure` which will be `true`.
+     */
+    secure: boolean;
 }

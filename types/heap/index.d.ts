@@ -1,6 +1,6 @@
 // Type definitions for heap 0.2.6
 // Project: https://github.com/qiao/heap.js
-// Definitions by: Ryan McNamara <https://github.com/ryan10132>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Heap<T> {
@@ -16,12 +16,12 @@ declare class Heap<T> {
     insert(item: T): void;
 
     // Pop the smallest item off the heap and return it.
-    pop(): T;
+    pop(): T | undefined;
 
     // Return the smallest item of the heap.
-    peek(): T;
-    top(): T;
-    front(): T;
+    peek(): T | undefined;
+    top(): T | undefined;
+    front(): T | undefined;
 
     // Pop and return the current smallest value, and add the new item.
     // This is more efficient than pop() followed by push(), and can be more appropriate when using a fixed size heap.

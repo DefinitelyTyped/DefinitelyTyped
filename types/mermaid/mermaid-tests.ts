@@ -13,7 +13,16 @@ mermaid.initialize(config);
 // mermaidAPI usage
 
 const { mermaidAPI } = mermaid;
-mermaidAPI.initialize({});
+mermaidAPI.initialize({
+    startOnLoad: true,
+    deterministicIds: true,
+    secure: ["startOnLoad", "theme"],
+    maxTextSize: 20,
+    fontFamily: "verdana",
+    securityLevel: mermaidAPI.SecurityLevel.Loose,
+    theme: mermaidAPI.Theme.Default,
+    themeCSS: ""
+});
 
 const element = document.querySelector("#graphDiv")!;
 
@@ -25,4 +34,7 @@ const insertSvg = (
 };
 
 const graphDefinition = "graph TB\na-->b";
-const graph = mermaidAPI.render("graphDiv", graphDefinition, insertSvg);
+let graph: string;
+graph = mermaidAPI.render("graphDiv", graphDefinition);
+graph = mermaidAPI.render("graphDiv", graphDefinition, insertSvg);
+graph = mermaidAPI.render("graphDiv", graphDefinition, insertSvg, element);

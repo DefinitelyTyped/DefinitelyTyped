@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from '@wordpress/element';
+import { ComponentType, ReactNode } from 'react';
 
 import Notice from './';
 
@@ -12,7 +12,7 @@ declare namespace NoticeList {
          * Function called when a notice should be removed / dismissed.
          */
         onRemove?(noticeId: string): void;
-        className?: string;
+        className?: string | undefined;
     }
     interface Notice extends Omit<Notice.Props, 'children' | 'onRemove'> {
         id: string;

@@ -1,5 +1,5 @@
 import { Dashicon } from '@wordpress/components';
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 declare namespace AlignmentToolbar {
     interface Props {
@@ -7,8 +7,8 @@ declare namespace AlignmentToolbar {
             align: string;
             icon: Dashicon.Icon | JSX.Element;
             title: string;
-        }>;
-        children?: never;
+        }> | undefined;
+        children?: never | undefined;
         value: string | undefined;
         onChange(newValue: string | undefined): void;
     }

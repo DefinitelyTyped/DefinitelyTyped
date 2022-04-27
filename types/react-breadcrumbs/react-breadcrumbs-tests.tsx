@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Breadcrumbs, Breadcrumb } from "react-breadcrumbs";
 
-class Wrapper extends React.Component {
+class Wrapper extends React.Component<{ children?: React.ReactNode }> {
     render() {
         return <div>{this.props.children}</div>;
     }
 }
 
-function FunctionWrapper(props: { children?: React.ReactNode }) {
+function FunctionWrapper(props: { children?: React.ReactNode | undefined }) {
     return <div>{props.children}</div>;
 }
 

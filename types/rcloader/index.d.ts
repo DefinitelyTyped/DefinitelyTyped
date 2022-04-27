@@ -6,7 +6,7 @@
 
 interface Options {
     [property: string]: any;
-    lookup?: boolean;
+    lookup?: boolean | undefined;
 }
 
 declare class RcLoader {

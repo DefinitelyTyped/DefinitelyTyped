@@ -114,13 +114,12 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-parallel
          */
         interface SeriesParallel {
-
             /**
              * @default
              * "parallel"
              * @see https://echarts.apache.org/en/option.html#series-parallel.type
              */
-            type?: string;
+            type?: string | undefined;
 
             /**
              * Component ID, not specified by default.
@@ -130,7 +129,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.id
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * The coordinate used in the series, whose options are:
@@ -146,7 +145,7 @@ declare namespace echarts {
              * "parallel"
              * @see https://echarts.apache.org/en/option.html#series-parallel.coordinateSystem
              */
-            coordinateSystem?: string;
+            coordinateSystem?: string | undefined;
 
             /**
              * Index of
@@ -157,7 +156,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.parallelIndex
              */
-            parallelIndex?: number;
+            parallelIndex?: number | undefined;
 
             /**
              * Series name used for displaying in
@@ -169,7 +168,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.name
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * Line style.
@@ -178,7 +177,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * Line color.
                  *
@@ -197,7 +195,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color | undefined;
 
                 /**
                  * line width.
@@ -207,7 +205,7 @@ declare namespace echarts {
                  * 2
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.width
                  */
-                width?: number;
+                width?: number | undefined;
 
                 /**
                  * line type.
@@ -223,7 +221,7 @@ declare namespace echarts {
                  * "solid"
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.type
                  */
-                type?: string;
+                type?: string | undefined;
 
                 /**
                  * Size of shadow blur.
@@ -237,7 +235,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
@@ -245,7 +243,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color | undefined;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -253,7 +251,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
@@ -261,7 +259,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowOffsetY
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
 
                 /**
                  * Opacity of the component.
@@ -273,19 +271,17 @@ declare namespace echarts {
                  * 0.45
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.opacity
                  */
-                opacity?: number;
-            };
+                opacity?: number | undefined;
+            } | undefined;
 
             /**
              * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -304,7 +300,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * line width.
@@ -314,7 +310,7 @@ declare namespace echarts {
                      * 2
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.width
                      */
-                    width?: number;
+                    width?: number | undefined;
 
                     /**
                      * line type.
@@ -330,7 +326,7 @@ declare namespace echarts {
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.type
                      */
-                    type?: string;
+                    type?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -344,7 +340,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -352,7 +348,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -360,7 +356,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
@@ -368,7 +364,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -380,9 +376,9 @@ declare namespace echarts {
                      * 0.45
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.opacity
                      */
-                    opacity?: number;
-                };
-            };
+                    opacity?: number | undefined;
+                } | undefined;
+            } | undefined;
 
             /**
              * When perform brush selection, the unselected lines will be set
@@ -393,7 +389,7 @@ declare namespace echarts {
              * 0.05
              * @see https://echarts.apache.org/en/option.html#series-parallel.inactiveOpacity
              */
-            inactiveOpacity?: number;
+            inactiveOpacity?: number | undefined;
 
             /**
              * When perform brush selection, the selected lines will be set
@@ -404,7 +400,7 @@ declare namespace echarts {
              * 1
              * @see https://echarts.apache.org/en/option.html#series-parallel.activeOpacity
              */
-            activeOpacity?: number;
+            activeOpacity?: number | undefined;
 
             /**
              * Whether to update view in realtime.
@@ -414,7 +410,7 @@ declare namespace echarts {
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-parallel.realtime
              */
-            realtime?: boolean;
+            realtime?: boolean | undefined;
 
             /**
              * Whether to smooth the line.
@@ -424,7 +420,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.smooth
              */
-            smooth?: boolean | number;
+            smooth?: boolean | number | undefined;
 
             /**
              * `progressive` specifies the amount of graphic elements that can
@@ -442,7 +438,7 @@ declare namespace echarts {
              * 500
              * @see https://echarts.apache.org/en/option.html#series-parallel.progressive
              */
-            progressive?: number;
+            progressive?: number | undefined;
 
             /**
              * If current data amount is over the threshold, "progressive rendering"
@@ -453,7 +449,7 @@ declare namespace echarts {
              * 3000
              * @see https://echarts.apache.org/en/option.html#series-parallel.progressiveThreshold
              */
-            progressiveThreshold?: number;
+            progressiveThreshold?: number | undefined;
 
             /**
              * Chunk approach, optional values:
@@ -468,7 +464,7 @@ declare namespace echarts {
              * "sequential"
              * @see https://echarts.apache.org/en/option.html#series-parallel.progressiveChunkMode
              */
-            progressiveChunkMode?: string;
+            progressiveChunkMode?: string | undefined;
 
             /**
              * For example,
@@ -487,10 +483,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.data
              */
-            data?: (
-                (number | string | SeriesParallel.DataObject)[]
-                | (number | string | SeriesParallel.DataObject)[][]
-            );
+            data?: (number | string | SeriesParallel.DataObject)[] | (number | string | SeriesParallel.DataObject)[][] | undefined;
 
             /**
              * `zlevel` value of all graghical elements in parallel.
@@ -509,7 +502,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.zlevel
              */
-            zlevel?: number;
+            zlevel?: number | undefined;
 
             /**
              * `z` value of all graghical elements in parallel, which controls
@@ -525,7 +518,7 @@ declare namespace echarts {
              * 2
              * @see https://echarts.apache.org/en/option.html#series-parallel.z
              */
-            z?: number;
+            z?: number | undefined;
 
             /**
              * Whether to ignore mouse events.
@@ -535,7 +528,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.silent
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
 
             /**
              * Whether to enable animation.
@@ -545,7 +538,7 @@ declare namespace echarts {
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-parallel.animation
              */
-            animation?: boolean;
+            animation?: boolean | undefined;
 
             /**
              * Whether to set graphic number threshold to animation.
@@ -557,7 +550,7 @@ declare namespace echarts {
              * 2000
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationThreshold
              */
-            animationThreshold?: number;
+            animationThreshold?: number | undefined;
 
             /**
              * Duration of the first animation, which supports callback function
@@ -570,7 +563,7 @@ declare namespace echarts {
              * 1000
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationDuration
              */
-            animationDuration?: Function | number;
+            animationDuration?: Function | number | undefined;
 
             /**
              * Easing method used for the first animation.
@@ -583,7 +576,7 @@ declare namespace echarts {
              * "linear"
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationEasing
              */
-            animationEasing?: string;
+            animationEasing?: string | undefined;
 
             /**
              * Delay before updating the first animation, which supports callback
@@ -600,7 +593,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationDelay
              */
-            animationDelay?: Function | number;
+            animationDelay?: Function | number | undefined;
 
             /**
              * Time for animation to complete, which supports callback function
@@ -613,7 +606,7 @@ declare namespace echarts {
              * 300
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationDurationUpdate
              */
-            animationDurationUpdate?: Function | number;
+            animationDurationUpdate?: Function | number | undefined;
 
             /**
              * Easing method used for animation.
@@ -623,7 +616,7 @@ declare namespace echarts {
              * "cubicOut"
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationEasingUpdate
              */
-            animationEasingUpdate?: string;
+            animationEasingUpdate?: string | undefined;
 
             /**
              * Delay before updating animation, which supports callback function
@@ -640,7 +633,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationDelayUpdate
              */
-            animationDelayUpdate?: Function | number;
+            animationDelayUpdate?: Function | number | undefined;
 
             /**
              * tooltip settings in this series.
@@ -648,467 +641,18 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip
              */
-            tooltip?: {
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The position of the tooltip's floating layer, which would
-                 * follow the position of mouse by default.
-                 *
-                 * Options:
-                 *
-                 * + `Array`
-                 *
-                 * Display the position of tooltip's floating layer through
-                 * array, which supports absolute position and relative percentage.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
-                 *
-                 * + `Function`
-                 *
-                 * Callback function in the following form:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
-                 *
-                 * **Parameters:**
-                 * point: Mouse position.
-                 * param: The same as formatter.
-                 * dom: The DOM object of tooltip.
-                 * rect: It is valid only when mouse is on graphic elements,
-                 * which stands for a bounding box with `x`, `y`, `width`, and
-                 * `height`.
-                 * size: The size of dom echarts container.
-                 * For example: `{contentSize: [width, height], viewSize: [width,
-                 * height]}`.
-                 *
-                 * **Return:**
-                 * Return value is an array standing for tooltip position, which
-                 * can be absolute pixels, or relative percentage.
-                 * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                 * '20%', bottom: 40}`.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
-                 *
-                 * Or:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
-                 *
-                 * + `'inside'`
-                 *
-                 * Center position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'top'`
-                 *
-                 * Top position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'left'`
-                 *
-                 * Left position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'right'`
-                 *
-                 * Right position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'bottom'`
-                 *
-                 * Bottom position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.position
-                 */
-                position?: any[] | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The content formatter of tooltip's floating layer which supports
-                 * string template and callback function.
-                 *
-                 * **1\. String template**
-                 *
-                 * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
-                 * `{e}`, which stands for series name, data name and data value
-                 * and ect. When
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is set to be `'axis'`, there may be data from multiple series.
-                 * In this time, series index can be refered as `{a0}`, `{a1}`,
-                 * or `{a2}`.
-                 *
-                 * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for different
-                 * series types:
-                 *
-                 * + Line (area) charts, bar (column) charts, K charts: `{a}`
-                 * for series name, `{b}` for category name, `{c}` for data
-                 * value, `{d}` for none;
-                 *
-                 * + Scatter (bubble) charts: `{a}` for series name, `{b}` for
-                 * data name, `{c}` for data value, `{d}` for none;
-                 *
-                 * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                 * for merging data, `{d}` for none;
-                 *
-                 * + Pie charts, gauge charts, funnel charts: `{a}` for series
-                 * name, `{b}` for data item name, `{c}` for data value, `{d}`
-                 * for percentage.
-                 *
-                 * **Example:**
-                 *
-                 * ```
-                 * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                 *
-                 * ```
-                 *
-                 * **2\. Callback function**
-                 *
-                 * The format of callback function:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
-                 *
-                 * The first parameter `params` is the data that the formatter
-                 * needs. Its format is shown as follows:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
-                 *
-                 * When
-                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
-                 * , `params` is the data array of multiple series.
-                 * The content of each item of the array is the same as above.
-                 * Besides,
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
-                 *
-                 * **Note:** Using array to present all the parameters in ECharts
-                 * 2.x is not supported anymore.
-                 *
-                 * The second parameter `ticket` is the asynchronous callback
-                 * flag which should be used along with the third parameter
-                 * `callback` when it is used.
-                 *
-                 * The third parameter `callback` is asynchronous callback.
-                 * When the content of tooltip is acquired asynchronously, `ticket`
-                 * and `htm` as introduced above can be used to update tooltip
-                 * with callback.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.formatter
-                 */
-                formatter?: Function | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The background color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * "rgba(50,50,50,0.7)"
-                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.backgroundColor
-                 */
-                backgroundColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * '#333'
-                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.borderColor
-                 */
-                borderColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border width of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.borderWidth
-                 */
-                borderWidth?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The floating layer of tooltip space around content.
-                 * The unit is px.
-                 * Default values for each position are 5.
-                 * And they can be set to different values with left, right,
-                 * top, and bottom.
-                 *
-                 * Examples:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
-                 *
-                 *
-                 * @default
-                 * 5
-                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.padding
-                 */
-                padding?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The text syle of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle
-                 */
-                textStyle?: {
-
-                    /**
-                     * text color.
-                     *
-                     *
-                     * @default
-                     * "#fff"
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 14
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip.textStyle)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-                };
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * Extra CSS style for floating layer.
-                 * The following is an example for adding shadow.
-                 *
-                 * ```
-                 * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                 *
-                 * ```
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.extraCssText
-                 */
-                extraCssText?: string;
-            };
+            tooltip?: BaseTooltip | undefined;
         }
 
         namespace SeriesParallel {
             interface DataObject {
-
                 /**
                  * The name of a data item.
                  *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.name
                  */
-                name?: string;
+                name?: string | undefined;
 
                 /**
                  * The value of a data item.
@@ -1116,7 +660,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.value
                  */
-                value?: any[];
+                value?: any[] | undefined;
 
                 /**
                  * Line style.
@@ -1124,7 +668,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.lineStyle
                  */
-                lineStyle?: object;
+                lineStyle?: object | undefined;
 
                 /**
                  * Line color.
@@ -1144,7 +688,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.color
                  */
-                color?: string;
+                color?: EChartOption.Color | undefined;
 
                 /**
                  * line width.
@@ -1154,7 +698,7 @@ declare namespace echarts {
                  * 2
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.width
                  */
-                width?: number;
+                width?: number | undefined;
 
                 /**
                  * line type.
@@ -1170,7 +714,7 @@ declare namespace echarts {
                  * "solid"
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.type
                  */
-                type?: string;
+                type?: string | undefined;
 
                 /**
                  * Size of shadow blur.
@@ -1184,7 +728,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
@@ -1192,7 +736,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color | undefined;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1200,7 +744,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
@@ -1208,7 +752,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowOffsetY
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
 
                 /**
                  * Opacity of the component.
@@ -1220,18 +764,16 @@ declare namespace echarts {
                  * 0.45
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.opacity
                  */
-                opacity?: number;
+                opacity?: number | undefined;
 
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -1251,7 +793,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * line width.
@@ -1261,7 +803,7 @@ declare namespace echarts {
                          * 2
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.width
                          */
-                        width?: number;
+                        width?: number | undefined;
 
                         /**
                          * line type.
@@ -1277,7 +819,7 @@ declare namespace echarts {
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.type
                          */
-                        type?: string;
+                        type?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -1291,7 +833,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -1299,7 +841,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -1307,7 +849,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
@@ -1315,7 +857,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -1327,9 +869,9 @@ declare namespace echarts {
                          * 0.45
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.opacity
                          */
-                        opacity?: number;
-                    };
-                };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
             }
         }
     }

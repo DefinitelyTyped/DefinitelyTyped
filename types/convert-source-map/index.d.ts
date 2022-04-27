@@ -25,7 +25,7 @@ export interface SourceMapConverter {
      * By default, the comment is formatted like: //# sourceMappingURL=..., which you would normally see in a JS source file.
      * When options.multiline == true, the comment is formatted like: /*# sourceMappingURL=... *\/, which you would find in a CSS source file
      */
-    toComment(options?: { multiline?: boolean }): string;
+    toComment(options?: { multiline?: boolean | undefined }): string;
 
     /** Adds given property to the source map. Throws an error if property already exists */
     addProperty(key: string, value: any): SourceMapConverter;
@@ -83,4 +83,4 @@ export const mapFileCommentRegex: RegExp;
  * By default, the comment is formatted like: //# sourceMappingURL=..., which you would normally see in a JS source file.
  * When options.multiline == true, the comment is formatted like: /*# sourceMappingURL=... *\/, which you would find in a CSS source file.
  */
-export function generateMapFileComment(file: string, options?: { multiline?: boolean }): string;
+export function generateMapFileComment(file: string, options?: { multiline?: boolean | undefined }): string;

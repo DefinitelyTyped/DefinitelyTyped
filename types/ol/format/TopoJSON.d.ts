@@ -9,24 +9,17 @@ import {
     Polygon,
     Topology,
 } from 'topojson-specification';
-import { Coordinate } from '../coordinate';
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
-import LineString_1 from '../geom/LineString';
-import MultiLineString_1 from '../geom/MultiLineString';
-import MultiPoint_1 from '../geom/MultiPoint';
-import MultiPolygon_1 from '../geom/MultiPolygon';
-import Point_1 from '../geom/Point';
-import Polygon_1 from '../geom/Polygon';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import { ReadOptions, WriteOptions } from './Feature';
 import JSONFeature from './JSONFeature';
 
 export interface Options {
-    dataProjection?: ProjectionLike;
-    layerName?: string;
-    layers?: string[];
+    dataProjection?: ProjectionLike | undefined;
+    layerName?: string | undefined;
+    layers?: string[] | undefined;
 }
 export type TopoJSONGeometry = GeometryObject;
 export type TopoJSONGeometryCollection = GeometryCollection;

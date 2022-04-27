@@ -1,4 +1,4 @@
-import iopipe = require('iopipe__iopipe');
+import iopipe = require('@iopipe/iopipe');
 
 const config = {
   token: "ABCDEFG"

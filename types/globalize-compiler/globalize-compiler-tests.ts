@@ -33,3 +33,6 @@ compileOutput = globalizeCompiler.compileExtracts({ extracts: extractOutput, def
 compileOutput = globalizeCompiler.compileExtracts({ extracts: extractOutput, defaultLocale: "en", cldr: {}, messages: {} });
 compileOutput = globalizeCompiler.compileExtracts({ extracts: extractOutput, defaultLocale: "en", cldr: {}, template: templateFunction });
 compileOutput = globalizeCompiler.compileExtracts({ extracts: extractOutput, defaultLocale: "en", cldr: {}, messages: {}, template: templateFunction });
+
+// Array extracts are also accepted
+compileOutput = globalizeCompiler.compileExtracts({ extracts: [extractOutput, extractOutput], defaultLocale: "en" });

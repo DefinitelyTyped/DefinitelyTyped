@@ -25,7 +25,7 @@ declare module '../../index' {
          *   Sets the cursor to a predefined symbol or an
          *   image, or makes it visible if already hidden. If
          *   you are trying to set an image as the cursor, the
-         *   recommended size is 16x16 or 32x32 pixels. The
+         *   recommended size is 16×16 or 32×32 pixels. The
          *   values for parameters x and y must be less than
          *   the dimensions of the image.
          *   @param type Built-In: either ARROW, CROSS, HAND,
@@ -54,13 +54,12 @@ declare module '../../index' {
          *   called "refresh rate"), which is set to 60 frames
          *   per second on most computers. A frame rate of 24
          *   frames per second (usual for movies) or above will
-         *   be enough for smooth animations This is the same
-         *   as setFrameRate(val).  Calling frameRate() with no
+         *   be enough for smooth animations. This is the same
+         *   as setFrameRate(val). Calling frameRate() with no
          *   arguments returns the current framerate. The draw
          *   function must run at least once before it will
          *   return a value. This is the same as
          *   getFrameRate().
-         *
          *
          *   Calling frameRate() with arguments that are not of
          *   the type numbers or are non positive also returns
@@ -83,13 +82,12 @@ declare module '../../index' {
          *   called "refresh rate"), which is set to 60 frames
          *   per second on most computers. A frame rate of 24
          *   frames per second (usual for movies) or above will
-         *   be enough for smooth animations This is the same
-         *   as setFrameRate(val).  Calling frameRate() with no
+         *   be enough for smooth animations. This is the same
+         *   as setFrameRate(val). Calling frameRate() with no
          *   arguments returns the current framerate. The draw
          *   function must run at least once before it will
          *   return a value. This is the same as
          *   getFrameRate().
-         *
          *
          *   Calling frameRate() with arguments that are not of
          *   the type numbers or are non positive also returns
@@ -108,8 +106,9 @@ declare module '../../index' {
          *   time the browser window is resized. This is a good
          *   place to resize the canvas or do any other
          *   adjustments to accommodate the new window size.
+         *   @param [event] optional Event callback argument.
          */
-        windowResized(): void;
+        windowResized(event?: object): void;
 
         /**
          *   If argument is given, sets the sketch to
@@ -155,19 +154,31 @@ declare module '../../index' {
         displayDensity(): number;
 
         /**
-         *   Gets the current URL.
+         *   Gets the current URL. Note: when using the p5
+         *   Editor, this will return an empty object because
+         *   the sketch is embedded in an iframe. It will work
+         *   correctly if you view the sketch using the
+         *   editor's present or share URLs.
          *   @return url
          */
         getURL(): string;
 
         /**
-         *   Gets the current URL path as an array.
+         *   Gets the current URL path as an array. Note: when
+         *   using the p5 Editor, this will return an empty
+         *   object because the sketch is embedded in an
+         *   iframe. It will work correctly if you view the
+         *   sketch using the editor's present or share URLs.
          *   @return path components
          */
         getURLPath(): string[];
 
         /**
-         *   Gets the current URL params as an Object.
+         *   Gets the current URL params as an Object. Note:
+         *   when using the p5 Editor, this will return an
+         *   empty object because the sketch is embedded in an
+         *   iframe. It will work correctly if you view the
+         *   sketch using the editor's present or share URLs.
          *   @return URL params
          */
         getURLParams(): object;
@@ -184,10 +195,10 @@ declare module '../../index' {
          *   The system variable deltaTime contains the time
          *   difference between the beginning of the previous
          *   frame and the beginning of the current frame in
-         *   milliseconds.  This variable is useful for
-         *   creating time sensitive animation or physics
-         *   calculation that should stay constant regardless
-         *   of frame rate.
+         *   milliseconds. This variable is useful for creating
+         *   time sensitive animation or physics calculation
+         *   that should stay constant regardless of frame
+         *   rate.
          */
         deltaTime: number;
 

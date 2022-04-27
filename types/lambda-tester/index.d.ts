@@ -6,8 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-/* tslint:disable:no-unnecessary-generics */
-
 import { Context, ClientContext, CognitoIdentity, Handler, Callback } from 'aws-lambda';
 
 declare namespace lambdaTester {

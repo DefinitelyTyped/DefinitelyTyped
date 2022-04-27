@@ -1,4 +1,4 @@
-
+/// <reference types="node"/>
 
 interface SomeModule {
     someMethod(): void;
@@ -19,6 +19,10 @@ require(['./someModule', './otherModule'], (someModule: SomeModule, otherModule:
 
 });
 
+async function testChunkLoad(): Promise<void> {
+    const module = await __webpack_chunk_load__("./someModule");
+}
+
 // check if HMR is enabled
 if(module.hot) {
     // accept update of dependency without a callback
@@ -28,6 +32,17 @@ if(module.hot) {
     module.hot.accept("./handler.js", function() {
         //...
     });
+
+    // accept update of dependency with an error handler
+    module.hot.accept(
+        "./handler.js",
+        function() {
+            //...
+        },
+        function(err: Error) {
+            // ...
+        }
+    );
 }
 
 module.exports = null;
@@ -75,7 +90,7 @@ if (module.hot) {
         // ...
     });
 
-    var status: string = module.hot.status();
+    let status: string = module.hot.status();
     let statusHandler: ((status: string) => void) = status => {
         // ...
     };
@@ -95,3 +110,48 @@ require.ensure([], (require) => {
 require.ensure([], (require) => {
     require("some/module");
 }, 'chunkWithoutErrorHandling');
+
+// since `compilerOptions["module"] === "commonjs"` is required, add this to test `import.meta` fields.
+declare const importMeta: ImportMeta;
+
+if (importMeta.webpack >= 5 && importMeta.webpackHot) {
+    importMeta.webpackHot.accept((err: Error) => {
+        //...
+    });
+
+    importMeta.webpackHot.decline('./someModule');
+
+    importMeta.webpackHot.dispose((data: ModuleData) => {
+        data.updated = true;
+        // ...
+    });
+
+    let disposeHandler: ((data: ModuleData) => void) = data => {
+        // ...
+    };
+    importMeta.webpackHot.addDisposeHandler(disposeHandler);
+    importMeta.webpackHot.removeDisposeHandler(disposeHandler);
+
+    importMeta.webpackHot.check(true, (err: Error, outdatedModules: (string|number)[]) => {
+       // ...
+    });
+
+    importMeta.webpackHot.apply({ ignoreUnaccepted: true }, (err: Error, outdatedModules: (string|number)[]) => {
+        // ...
+    });
+
+    let status: string = importMeta.webpackHot.status();
+    let statusHandler: ((status: string) => void) = status => {
+        // ...
+    };
+    importMeta.webpackHot.status(statusHandler);
+    importMeta.webpackHot.addStatusHandler(statusHandler);
+    importMeta.webpackHot.removeStatusHandler(statusHandler);
+}
+
+if (importMeta.webpack >= 5 && importMeta.webpackContext) {
+    let context = importMeta.webpackContext('./somePath', { recursive: true, regExp: /some/, include: /someModule/, exclude: /noNeedModuel/, preload: true, prefetch: true, chunkName: "[request]", exports: "default", mode: "weak" });
+    let contextModule = context<SomeModule>('./someModule');
+
+    const contextId: string = importMeta.webpackContext('./somePath').id;
+}

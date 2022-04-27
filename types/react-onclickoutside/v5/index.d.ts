@@ -17,15 +17,15 @@ declare namespace OnClickOut {
     }
 
     interface OnClickOutProps {
-        disableOnClickOutside?: boolean;
-        eventTypes?: string | string[];
-        outsideClickIgnoreClass?: string;
-        preventDefault?: boolean;
-        stopPropagation?: boolean;
+        disableOnClickOutside?: boolean | undefined;
+        eventTypes?: string | string[] | undefined;
+        outsideClickIgnoreClass?: string | undefined;
+        preventDefault?: boolean | undefined;
+        stopPropagation?: boolean | undefined;
     }
 }
 
-type ComponentConstructor<P> = React.ComponentClass<P> | React.StatelessComponent<P>;
+type ComponentConstructor<P> = React.ComponentClass<P> | React.FunctionComponent<P>;
 interface ClickOutComponentClass<P extends OnClickOut.InjectedOnClickOutProps> extends React.ComponentClass<P> {
     new (props?: P, context?: any): React.Component<P, React.ComponentState> & OnClickOut.HandleClickOutside<any>;
 }

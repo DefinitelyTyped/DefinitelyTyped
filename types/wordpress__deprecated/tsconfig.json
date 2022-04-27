@@ -12,7 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/deprecated": ["wordpress__deprecated"]
+            "@wordpress/*": ["wordpress__*"]
         }
     },
     "files": ["index.d.ts", "wordpress__deprecated-tests.ts"]

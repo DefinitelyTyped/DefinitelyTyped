@@ -10,54 +10,54 @@ declare namespace soundmanager {
     type ScriptAccess = 'always' | 'sameDomain';
 
     interface DefaultOptions {
-        autoLoad?: boolean;
-        autoPlay?: boolean;
-        from?: number | null;
-        loops?: number;
-        onid3?: (() => void) | null;
-        onerror?: (() => void) | null;
-        onload?: (() => void) | null;
-        whileloading?: (() => void) | null;
-        onplay?: (() => void) | null;
-        onpause?: (() => void) | null;
-        onresume?: (() => void) | null;
-        whileplaying?: (() => void) | null;
-        onposition?: (() => void) | null;
-        onstop?: (() => void) | null;
-        onfinish?: (() => void) | null;
-        multiShot?: boolean;
-        multiShotEvents?: boolean;
-        position?: number | null;
-        pan?: number;
-        playbackRate?: number;
-        stream?: boolean;
-        to?: number | null;
-        type?: string | null;
-        usePolicyFile?: boolean;
-        volume?: number;
+        autoLoad?: boolean | undefined;
+        autoPlay?: boolean | undefined;
+        from?: number | null | undefined;
+        loops?: number | undefined;
+        onid3?: (() => void) | null | undefined;
+        onerror?: (() => void) | null | undefined;
+        onload?: (() => void) | null | undefined;
+        whileloading?: (() => void) | null | undefined;
+        onplay?: (() => void) | null | undefined;
+        onpause?: (() => void) | null | undefined;
+        onresume?: (() => void) | null | undefined;
+        whileplaying?: (() => void) | null | undefined;
+        onposition?: (() => void) | null | undefined;
+        onstop?: (() => void) | null | undefined;
+        onfinish?: (() => void) | null | undefined;
+        multiShot?: boolean | undefined;
+        multiShotEvents?: boolean | undefined;
+        position?: number | null | undefined;
+        pan?: number | undefined;
+        playbackRate?: number | undefined;
+        stream?: boolean | undefined;
+        to?: number | null | undefined;
+        type?: string | null | undefined;
+        usePolicyFile?: boolean | undefined;
+        volume?: number | undefined;
     }
 
     interface Flash9Options {
-        onfailure?: (() => void) | null;
-        isMovieStar?: true | null;
-        usePeakData?: boolean;
-        useWaveformData?: boolean;
-        useEQData?: boolean;
-        onbufferchange?: (() => void) | null;
-        ondataerror?: (() => void) | null;
+        onfailure?: (() => void) | null | undefined;
+        isMovieStar?: true | null | undefined;
+        usePeakData?: boolean | undefined;
+        useWaveformData?: boolean | undefined;
+        useEQData?: boolean | undefined;
+        onbufferchange?: (() => void) | null | undefined;
+        ondataerror?: (() => void) | null | undefined;
     }
 
     interface MovieStarOptions {
-        bufferTime?: number;
-        serverURL?: string | null;
-        onconnect?: (() => void) | null;
-        duration?: number | null;
+        bufferTime?: number | undefined;
+        serverURL?: string | null | undefined;
+        onconnect?: (() => void) | null | undefined;
+        duration?: number | null | undefined;
     }
 
     interface SoundManagerAudioFormat {
         type: string[];
         required: boolean;
-        related?: string[];
+        related?: string[] | undefined;
     }
 
     interface SoundManagerProps {
@@ -67,42 +67,42 @@ declare namespace soundmanager {
          * append the correct SWF file name, depending on flashVersion and
          * debugMode settings.
          */
-        url?: string;
+        url?: string | undefined;
 
-        allowScriptAccess?: ScriptAccess;
-        altURL?: string;
-        bgColor?: string;
-        consoleOnly?: boolean;
-        debugMode?: boolean;
-        debugFlash?: boolean;
+        allowScriptAccess?: ScriptAccess | undefined;
+        altURL?: string | undefined;
+        bgColor?: string | undefined;
+        consoleOnly?: boolean | undefined;
+        debugMode?: boolean | undefined;
+        debugFlash?: boolean | undefined;
         /**
          * Some properties are dynamic, determined at initialisation or later
          * during runtime, and should be treated as read-only.
          */
-        readonly features?: object;
+        readonly features?: object | undefined;
 
-        flashVersion?: number;
+        flashVersion?: number | undefined;
         // flashPollingInterval: number;
-        forceUseGlobalHTML5Audio?: boolean;
-        readonly html5Only?: boolean;
+        forceUseGlobalHTML5Audio?: boolean | undefined;
+        readonly html5Only?: boolean | undefined;
         // html5PollingInterval: number;
         // html5Test: string;
-        flashLoadTimeout?: number;
-        idPrefix?: string;
-        ignoreMobileRestrications?: boolean;
-        noSWFCache?: boolean;
-        preferFlash?: boolean;
-        useAltURL?: boolean;
-        useConsole?: boolean;
-        useFlashBlock?: boolean;
-        useHighPerformance?: boolean;
-        useHTML5Audio?: boolean;
-        waitForWindowLoad?: false;
-        wmode?: string | null;
+        flashLoadTimeout?: number | undefined;
+        idPrefix?: string | undefined;
+        ignoreMobileRestrications?: boolean | undefined;
+        noSWFCache?: boolean | undefined;
+        preferFlash?: boolean | undefined;
+        useAltURL?: boolean | undefined;
+        useConsole?: boolean | undefined;
+        useFlashBlock?: boolean | undefined;
+        useHighPerformance?: boolean | undefined;
+        useHTML5Audio?: boolean | undefined;
+        waitForWindowLoad?: false | undefined;
+        wmode?: string | null | undefined;
 
-        defaultOptions?: DefaultOptions;
-        flash9Options?: Flash9Options;
-        movieStarOptions?: MovieStarOptions;
+        defaultOptions?: DefaultOptions | undefined;
+        flash9Options?: Flash9Options | undefined;
+        movieStarOptions?: MovieStarOptions | undefined;
 
         onready?(): void;
         ontimeout?(): void;
@@ -147,7 +147,7 @@ declare namespace soundmanager {
         togglePause(id: string): SMSound;
         unload(id: string): SMSound;
         unmute(id?: string): SMSound;
-        audioFormats?: { [audioFormat: string]: SoundManagerAudioFormat };
+        audioFormats?: { [audioFormat: string]: SoundManagerAudioFormat } | undefined;
     }
 
     class SMSound {
@@ -175,20 +175,20 @@ declare namespace soundmanager {
         readyState: number;
 
         // Events
-        onbufferchange?: (() => void);
-        onconnect?: (() => void);
-        ondataerror?: (() => void);
-        onerror?: (() => void);
-        onfinish?: (() => void);
-        onload?: (() => void);
-        onpause?: (() => void);
-        onplay?: (() => void);
-        onresume?: (() => void);
-        onsuspend?: (() => void);
-        onstop?: (() => void);
-        onid3?: (() => void);
-        whileloading?: (() => void);
-        whileplaying?: (() => void);
+        onbufferchange?: (() => void) | undefined;
+        onconnect?: (() => void) | undefined;
+        ondataerror?: (() => void) | undefined;
+        onerror?: (() => void) | undefined;
+        onfinish?: (() => void) | undefined;
+        onload?: (() => void) | undefined;
+        onpause?: (() => void) | undefined;
+        onplay?: (() => void) | undefined;
+        onresume?: (() => void) | undefined;
+        onsuspend?: (() => void) | undefined;
+        onstop?: (() => void) | undefined;
+        onid3?: (() => void) | undefined;
+        whileloading?: (() => void) | undefined;
+        whileplaying?: (() => void) | undefined;
 
         // Methods
         destruct(): void;
@@ -216,6 +216,6 @@ declare namespace soundmanager {
 
     interface SoundProperties extends DefaultOptions {
         url: string;
-        id?: string;
+        id?: string | undefined;
     }
 }

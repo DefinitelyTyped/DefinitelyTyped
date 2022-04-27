@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="node" />
-
 // This is the core API exposed by https://github.com/joeferner/java.
 // To get the full power of Typescript with Java, see https://github.com/RedSeal-co/ts-java.
 
@@ -23,9 +21,9 @@ declare namespace NodeJavaCore {
 
   interface AsyncOptions {
     syncSuffix: string;
-    asyncSuffix?: string;
-    promiseSuffix?: string;
-    promisify?: Promisify;
+    asyncSuffix?: string | undefined;
+    promiseSuffix?: string | undefined;
+    promisify?: Promisify | undefined;
   }
 
   interface ProxyFunctions {

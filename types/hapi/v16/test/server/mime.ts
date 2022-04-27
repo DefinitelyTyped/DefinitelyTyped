@@ -7,7 +7,7 @@ const options: Hapi.ServerOptions = {
     mime: {
         override: {
             'node/module': {
-                source: 'steve',
+                source: 'apache',
                 compressible: false,
                 extensions: ['node', 'module', 'npm'],
                 type: 'node/module'

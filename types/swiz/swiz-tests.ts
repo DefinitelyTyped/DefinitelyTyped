@@ -19,51 +19,51 @@ var ser: swiz.ISerializable;
 var fieldArr: swiz.struct.IField[];
 
 var opts: swiz.ISwizOptions = {
-	stripNulls: bool,
-	stripSerializerType: bool,
-	for: str
+    stripNulls: bool,
+    stripSerializerType: bool,
+    for: str
 };
 
 var obj: swiz.struct.IObj = {
-	name: str,
-	options: objOpts,
-	singular: str,
-	plural: str,
-	fields: fieldArr
+    name: str,
+    options: objOpts,
+    singular: str,
+    plural: str,
+    fields: fieldArr
 };
 
 var field: swiz.struct.IField = {
-	name: str,
-	options: fieldOpts,
-	src: str,
-	singular: str,
-	plural: str,
-	desc: str,
-	val: chain,
-	attribute: bool,
-	enumerated: bool,
-	ignorePublic: bool,
-	filterFrom: strArr,
-	coerceTo: value
+    name: str,
+    options: fieldOpts,
+    src: str,
+    singular: str,
+    plural: str,
+    desc: str,
+    val: chain,
+    attribute: bool,
+    enumerated: bool,
+    ignorePublic: bool,
+    filterFrom: strArr,
+    coerceTo: value
 };
 
 var objOpts: swiz.struct.IObjOptions = {
-	singular: str,
-	plural: str,
-	fields: fieldArr
+    singular: str,
+    plural: str,
+    fields: fieldArr
 };
 
 var fieldOpts: swiz.struct.IFieldOptions = {
-	src: str,
-	singular: str,
-	plural: str,
-	desc: str,
-	val: chain,
-	attribute: bool,
-	enumerated: value,
-	ignorePublic: bool,
-	filterFrom: strArr,
-	coerceTo: str
+    src: str,
+    singular: str,
+    plural: str,
+    desc: str,
+    val: chain,
+    attribute: bool,
+    enumerated: value,
+    ignorePublic: bool,
+    filterFrom: strArr,
+    coerceTo: str
 };
 
 var valid: swiz.IValidator;

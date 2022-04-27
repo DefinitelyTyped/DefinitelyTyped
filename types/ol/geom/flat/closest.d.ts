@@ -44,6 +44,10 @@ export function assignClosestPoint(
     minSquaredDistance: number,
     opt_tmpPoint?: number[],
 ): number;
+/**
+ * Return the squared of the largest distance between any pair of consecutive
+ * coordinates.
+ */
 export function maxSquaredDelta(
     flatCoordinates: number[],
     offset: number,

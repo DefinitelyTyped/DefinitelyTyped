@@ -2,46 +2,37 @@
 
 import React = require('react');
 
-function useExperimentalHooks() {
-    const [toggle, setToggle] = React.useState(false);
+function suspenseTest() {
+    function DisplayData() {
+        return null;
+    }
 
-    const [startTransition, done] = React.useTransition({ busyMinDurationMs: 100, busyDelayMs: 200, timeoutMs: 300 });
-    // $ExpectType boolean
-    done;
-
-    // $ExpectType boolean
-    const deferredToggle = React.useDeferredValue(toggle, { timeoutMs: 500 });
-
-    const [func] = React.useState(() => () => 0);
-
-    // $ExpectType () => number
-    func;
-    // $ExpectType () => number
-    const deferredFunc = React.useDeferredValue(func);
-
-    class Constructor {}
-    // $ExpectType typeof Constructor
-    const deferredConstructor = React.useDeferredValue(Constructor);
-
-    // $ExpectType () => string
-    const deferredConstructible = React.useDeferredValue(Constructible);
-
-    return () => {
-        startTransition(() => {
-            setToggle(toggle => !toggle);
-        });
-
-        // The function must be synchronous, even if it can start an asynchronous update
-        // it's no different from an useEffect callback in this respect
-        // $ExpectError
-        startTransition(async () => {});
-
-        // Unlike Effect callbacks, though, there is no possible destructor to return
-        // $ExpectError
-        startTransition(() => () => {});
-    };
-
-    function Constructible() {
-        return '';
+    function FlameChart() {
+        return (
+            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
+                <DisplayData />
+            </React.Suspense>
+        );
     }
 }
+
+// Unsupported `revealOrder` triggers a runtime warning
+// $ExpectError
+<React.SuspenseList revealOrder="something">
+    <React.Suspense fallback="Loading">Content</React.Suspense>
+</React.SuspenseList>;
+
+<React.SuspenseList revealOrder="backwards">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.SuspenseList>;
+
+<React.SuspenseList revealOrder="forwards">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.SuspenseList>;
+
+<React.SuspenseList revealOrder="together">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.SuspenseList>;

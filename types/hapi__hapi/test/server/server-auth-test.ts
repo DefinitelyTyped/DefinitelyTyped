@@ -5,7 +5,11 @@ import * as Boom from "@hapi/boom";
 
 declare module '@hapi/hapi' {
     interface AuthCredentials {
-        name?: string;
+        name?: string | undefined;
+    }
+
+    interface AuthArtifacts {
+        token?: string | undefined;
     }
 }
 
@@ -34,7 +38,12 @@ server.route({
     path: '/',
     handler: async (request: Request, h: ResponseToolkit) => {
         try {
-            const { credentials } = await request.server.auth.test('default', request);
+            const { credentials, artifacts } = await request.server.auth.test('default', request);
+
+            if (artifacts) {
+                return { status: true, user: credentials.name, token: artifacts.token };
+            }
+
             return { status: true, user: credentials.name };
         } catch (err) {
             return { status: false };

@@ -8,7 +8,7 @@ import express = require("express");
 
 interface UserInterface {
     username: string;
-    password?: string;
+    password?: string | undefined;
 }
 
 class User {

@@ -13,7 +13,31 @@ export import Immutable = _Immutable;
 
 interface ReactorConfig {
     /** If true it will log the entire app state for every dispatch. */
-    debug?: boolean;
+    debug?: boolean | undefined;
+
+    /** Additional options for customizing Reactor behavior. */
+    options?: {
+        /** Log information for each dispatch. */
+        logDispatches?: boolean | undefined;
+
+        /** log the entire app state after each dispatch. */
+        logAppState?: boolean | undefined;
+
+        /** Log what stores changed after a dispatch. */
+        logDirtyStores?: boolean | undefined;
+
+        /** Throw an error when dispatching an `undefined` actionType. */
+        throwOnUndefinedActionType?: boolean | undefined;
+
+        /** Throw an error if a store returns undefined. */
+        throwOnUndefinedStoreReturnValue?: boolean | undefined;
+
+        /** Throw an error if a store.getInitialState() returns a non immutable value. */
+        throwOnNonImmutableStore?: boolean | undefined;
+
+        /** Throw when dispatching in dispatch. */
+        throwOnDispatchInDispatch?: boolean | undefined;
+    } | undefined;
 }
 
 // Getters have a really complex, recursive type that can't be represented

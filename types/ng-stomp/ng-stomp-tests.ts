@@ -1,34 +1,34 @@
 class test {
-	constructor(private readonly ngstomp: ngStomp) {
-		const connectHeaders = {
-			Auth: "user",
-			Accept: "lol"
-		};
+    constructor(private readonly ngstomp: ngStomp) {
+        const connectHeaders = {
+            Auth: "user",
+            Accept: "lol"
+        };
 
-		ngstomp.connect('/endpoint', connectHeaders)
-		// frame = CONNECTED headers
-		.then(function(frame) {
-			this.subscription = ngstomp.subscribe('/dest', function(payload, headers, res) {
-				this.payload = payload;
-			}, {
-				headers: "are awesome"
-			});
+        ngstomp.connect('/endpoint', connectHeaders)
+        // frame = CONNECTED headers
+        .then(function(frame) {
+            this.subscription = ngstomp.subscribe('/dest', function(payload, headers, res) {
+                this.payload = payload;
+            }, {
+                headers: "are awesome"
+            });
 
-			// Unsubscribe
-			this.subscription.unsubscribe();
+            // Unsubscribe
+            this.subscription.unsubscribe();
 
-			// Send message
-			ngstomp.send('/dest', {
-				message: 'body'
-			}, {
-				priority: 9,
-				custom: 42 // Custom Headers
-			});
+            // Send message
+            ngstomp.send('/dest', {
+                message: 'body'
+            }, {
+                priority: 9,
+                custom: 42 // Custom Headers
+            });
 
-			// Disconnect
-			ngstomp.disconnect(() => {});
-		});
-	}
+            // Disconnect
+            ngstomp.disconnect(() => {});
+        });
+    }
 }
 
 angular.module("app").controller("ngStompTest", test);

@@ -1,4 +1,4 @@
-import { smartTruncate } from 'smart-truncate';
+import smartTruncate = require('smart-truncate');
 
 const length = 9;
 let result = '';

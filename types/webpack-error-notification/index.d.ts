@@ -2,6 +2,7 @@
 // Project: https://github.com/vsolovyov/webpack-error-notification#readme
 // Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin, Stats } from 'webpack';
 
@@ -23,7 +24,7 @@ declare namespace WebpackErrorNotificationPlugin {
 
     interface Options {
         /** if you do not want to notify warnings, set this to `false` */
-        notifyWarnings?: boolean;
+        notifyWarnings?: boolean | undefined;
     }
 }
 

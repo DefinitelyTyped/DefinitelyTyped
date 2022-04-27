@@ -26,9 +26,11 @@ export interface CertificateErrorEvent<Topic, Type> extends WindowEvent<Topic, T
     certificate: any;
 }
 export interface WebContentsEventMapping<Topic = string, Type = string> extends BaseEventMap {
+    'blurred': WindowEvent<Topic, Type>;
     'certificate-error': CertificateErrorEvent<Topic, Type>;
     'crashed': CrashedEvent & WindowEvent<Topic, Type>;
     'did-change-theme-color': WindowEvent<Topic, Type>;
+    'focused': WindowEvent<Topic, Type>;
     'found-in-page': WindowEvent<Topic, Type>;
     'navigation-rejected': WindowNavigationRejectedEvent<Topic, Type>;
     'page-favicon-updated': WindowEvent<Topic, Type>;

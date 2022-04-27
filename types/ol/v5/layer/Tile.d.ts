@@ -10,16 +10,16 @@ import TileSource from '../source/Tile';
 import Layer from './Layer';
 
 export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    preload?: number;
-    source?: TileSource;
-    map?: PluggableMap;
-    useInterimTilesOnError?: boolean;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    preload?: number | undefined;
+    source?: TileSource | undefined;
+    map?: PluggableMap | undefined;
+    useInterimTilesOnError?: boolean | undefined;
 }
 export default class TileLayer extends Layer {
     constructor(opt_options?: Options);

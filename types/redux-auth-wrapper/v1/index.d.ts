@@ -4,25 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, StatelessComponent, ReactType } from "react";
+import { ComponentClass, FunctionComponent, ElementType } from "react";
 import { Action } from "redux";
 import { Location } from "history";
 
-export type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
+export type ComponentConstructor<P> = ComponentClass<P> | FunctionComponent<P>;
 
 export interface InjectedProps<AuthData> {
-    authData?: AuthData;
+    authData?: AuthData | undefined;
 }
 
 export interface AuthWrapperConfig<State, Props, AuthData> {
-    allowRedirectBack?: boolean | ((location: Location, redirectPath: string) => boolean);
+    allowRedirectBack?: boolean | ((location: Location, redirectPath: string) => boolean) | undefined;
     authenticatingSelector?(state: State, ownProps?: Props): boolean;
     authSelector(state: State, ownProps?: Props): AuthData;
-    FailureComponent?: ReactType;
-    failureRedirectPath?: string | ((state: State, ownProps?: Props) => string);
-    LoadingComponent?: ReactType;
-    redirectQueryParamName?: string;
-    wrapperDisplayName?: string;
+    FailureComponent?: ElementType | undefined;
+    failureRedirectPath?: string | ((state: State, ownProps?: Props) => string) | undefined;
+    LoadingComponent?: ElementType | undefined;
+    redirectQueryParamName?: string | undefined;
+    wrapperDisplayName?: string | undefined;
     predicate?(authData: AuthData): boolean;
     propMapper?(ownProps: Props): InjectedProps<AuthData> & Props;
     redirectAction?(...args: any[]): Action;

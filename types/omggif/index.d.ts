@@ -1,22 +1,28 @@
 // Type definitions for omggif 1.0
 // Project: https://github.com/deanm/omggif
-// Definitions by: Florian Keller <https://github.com/ffflorian>
+// Definitions by: Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/// <reference types="node" />
+/**
+ * Can be any type that supports the bracket accessor: Array, Uint8Array, Node Buffer, etc.
+ */
+export interface GifBinary {
+    readonly length: number;
+    [index: number]: number;
+}
 
 export interface GifOptions {
-    background?: number;
-    loop?: number;
-    palette?: number[];
+    background?: number | undefined;
+    loop?: number | undefined;
+    palette?: number[] | undefined;
 }
 
 export interface FrameOptions {
-    delay?: number;
-    disposal?: number;
-    palette?: number[] | null;
-    transparent?: number;
+    delay?: number | undefined;
+    disposal?: number | undefined;
+    palette?: number[] | null | undefined;
+    transparent?: number | undefined;
 }
 
 export interface Frame {
@@ -38,22 +44,32 @@ export interface Frame {
 export class GifWriter {
     height: number;
     width: number;
-
-    constructor(buf: Buffer, width: number, height: number, gopts?: GifOptions);
+    /**
+     * @param buf - Uint8Array is a common choice.
+     * Can be any type that supports the bracket accessor: Array, Uint8Array, Node Buffer, etc.
+     */
+    constructor(buf: GifBinary, width: number, height: number, gopts?: GifOptions);
 
     addFrame(x: number, y: number, w: number, h: number, indexed_pixels: number[], opts?: FrameOptions): number;
     end(): number;
-    getOutputBuffer(): Buffer;
+    getOutputBuffer(): GifBinary;
     getOutputBufferPosition(): number;
-    setOutputBuffer(v: Buffer): void;
+    setOutputBuffer(v: GifBinary): void;
     setOutputBufferPosition(v: number): void;
 }
 
 export class GifReader {
-    constructor(buf: Buffer);
+    height: number;
+    width: number;
 
-    decodeAndBlitFrameBGRA(frame_num: number, pixels: number[]): void;
-    decodeAndBlitFrameRGBA(frame_num: number, pixels: number[]): void;
+    /**
+     * @param buf - Uint8Array is a common choice.
+     * Can be any type that supports the bracket accessor: Array, Uint8Array, Node Buffer, etc.
+     */
+    constructor(buf: GifBinary);
+
+    decodeAndBlitFrameBGRA(frame_num: number, pixels: number[] | Uint8Array | Uint8ClampedArray): void;
+    decodeAndBlitFrameRGBA(frame_num: number, pixels: number[] | Uint8Array | Uint8ClampedArray): void;
     frameInfo(frame_num: number): Frame;
     loopCount(): number;
     numFrames(): number;

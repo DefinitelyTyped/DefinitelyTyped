@@ -2,7 +2,7 @@ import { DomHandler, DomHandlerOptions, Node, DomElement } from "domhandler";
 
 const handler = new DomHandler((error: Error, dom: DomElement[]) => {
     if (error)
-    	console.error('There has been an error...');
+        console.error('There has been an error...');
     else
         console.log(dom);
 });

@@ -22,6 +22,7 @@
         "test/ie.ts",
         "test/index.ts",
         "test/chrome.ts",
+        "test/edge.ts",
         "test/firefox.ts",
         "test/remote.ts",
         "test/logging.ts"

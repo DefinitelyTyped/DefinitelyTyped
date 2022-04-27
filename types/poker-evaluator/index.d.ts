@@ -1,5 +1,5 @@
 // Type definitions for poker-evaluator 0.3
-// Project: http://github.com/chenosaurus/poker-evaluator
+// Project: https://github.com/chenosaurus/poker-evaluator
 // Definitions by: Rory McGuinness <https://github.com/rorymcgit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -9,8 +9,7 @@ export const HANDTYPES: HandName[];
 export const CARDS: Deck;
 export const ranks: Buffer;
 
-export function evalHand(cards: string[]): EvaluatedHand;
-export function evalCard(card: string): number;
+export function evalHand(cards: string[] | number[]): EvaluatedHand;
 
 export type HandName =
     'invalid hand' |

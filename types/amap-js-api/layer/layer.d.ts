@@ -4,7 +4,7 @@ declare namespace AMap {
             /**
              * 所属的地图对象
              */
-            map?: Map;
+            map?: Map | undefined;
         }
     }
 

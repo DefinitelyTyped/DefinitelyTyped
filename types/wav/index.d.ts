@@ -37,10 +37,10 @@ export class Reader extends Transform {
 }
 
 export interface WriterOptions extends TransformOptions {
-  format?: number;
-  channels?: number;
-  sampleRate?: number;
-  bitDepth?: number;
+  format?: number | undefined;
+  channels?: number | undefined;
+  sampleRate?: number | undefined;
+  bitDepth?: number | undefined;
 }
 
 export class Writer extends Transform {

@@ -1,15 +1,17 @@
-// Type definitions for @rdfjs/term-set 1.0
+// Type definitions for @rdfjs/term-set 2.0
 // Project: https://github.com/rdfjs-base/term-set
 // Definitions by: tpluscode <https://github.com/tpluscode>
+//                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Term } from "rdf-js";
 
-declare namespace TermSet {
-    interface TermSet<T extends Term = Term> extends Set<T> {
-    }
+interface TermSet<T extends Term = Term> extends Set<T> {
 }
 
-declare const TermSet: SetConstructor;
+// tslint:disable-next-line no-unnecessary-class
+export class TermSet<T extends Term = Term> {
+    constructor(values?: T[] | null);
+}
 
-export = TermSet;
+export default TermSet;

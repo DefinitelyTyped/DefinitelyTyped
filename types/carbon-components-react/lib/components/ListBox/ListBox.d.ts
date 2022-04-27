@@ -1,22 +1,27 @@
 import * as React from "react";
-import { ReactDivAttr } from "../../../typings/shared";
+import { ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
 import { ListBoxFieldComponent } from "./ListBoxField";
 import { ListBoxMenuComponent } from "./ListBoxMenu";
 import { ListBoxMenuIconComponent } from "./ListBoxMenuIcon";
 import { ListBoxMenuItemComponent } from "./ListBoxMenuItem";
-import { ListBoxType } from "./ListBoxPropTypes";
+import { ListBoxSize, ListBoxType } from "./ListBoxPropTypes";
 import { ListBoxSelectionComponent } from "./ListBoxSelection";
 
-type ExcludedAttributes = "onKeyDown" | "onKeyPress" | "ref" | "role" | "tabIndex";
-interface InheritedProps extends Omit<ReactDivAttr, ExcludedAttributes> { }
+type ExcludedAttributes = "onKeyDown" | "onKeyPress" | "ref";
 
-export interface ListBoxProps extends InheritedProps {
-    disabled?: boolean, // required but has default value
-    innerRef?: React.Ref<HTMLDivElement>, // required but has default value
-    type?: ListBoxType, // required but has default value
+export interface ListBoxProps extends Omit<ReactDivAttr, ExcludedAttributes> {
+    disabled?: boolean | undefined, // required but has default value
+    invalid?: boolean | undefined,
+    invalidText?: React.ReactNode | undefined,
+    isOpen?: boolean | undefined,
+    light?: boolean | undefined,
+    size?: ListBoxSize | undefined,
+    type?: ListBoxType | undefined, // required but has default value
+    warn?: boolean | undefined,
+    warnText?: React.ReactNode | undefined,
 }
 
-export interface ListBoxComponent extends React.FC<ListBoxProps> {
+export interface ListBoxComponent extends ForwardRefReturn<HTMLDivElement, ListBoxProps> {
     readonly Field: ListBoxFieldComponent,
     readonly Menu: ListBoxMenuComponent,
     readonly MenuIcon: ListBoxMenuIconComponent,

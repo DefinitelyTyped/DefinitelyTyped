@@ -22,15 +22,15 @@ declare namespace esprima {
   }
 
   interface Options {
-    loc?: boolean;
-    range?: boolean;
-    raw?: boolean;
-    tokens?: boolean;
-    comment?: boolean;
-    attachComment?: boolean;
-    tolerant?: boolean;
-    source?: boolean;
-    sourceType?: 'script' | 'module';
+    loc?: boolean | undefined;
+    range?: boolean | undefined;
+    raw?: boolean | undefined;
+    tokens?: boolean | undefined;
+    comment?: boolean | undefined;
+    attachComment?: boolean | undefined;
+    tolerant?: boolean | undefined;
+    source?: boolean | undefined;
+    sourceType?: 'script' | 'module' | undefined;
   }
 
   const Syntax: {

@@ -34,7 +34,6 @@ export namespace promise {
    */
   function filter<T, V>(
       arr: T[]|Promise<T[]>, fn: (element: T, index: number, array: T[]) => V,
-      // tslint:disable-next-line:no-any The type of archaic `self` adds no
       // value
       optSelf?: any): Promise<V[]>;
 
@@ -51,7 +50,6 @@ export namespace promise {
    * Only the first failure will be reported; all subsequent errors will be
    * silently ignored.
    */
-  // tslint:disable-next-line:no-any The type of archaic `self` adds no value
   function map<T, V>(
       arr: T[]|Promise<T[]>, fn: (self: any, type: T, index: number, array: T[]) => V,
       optSelf?: any): Promise<V[]>;
@@ -63,7 +61,6 @@ export namespace promise {
    * argument. The callback will the resolve or reject the returned promise,
    * based on its arguments.
    */
-  // tslint:disable-next-line:no-any  Variable args have variable types.
   function checkedNodeCall<T>(fn: Function, ...varArgs: any[]): Promise<T>;
 
   /**
@@ -81,7 +78,6 @@ export namespace promise {
    *     value['self'] = value;
    *     promise.fullyResolved(value);  // Stack overflow.
    */
-  // tslint:disable-next-line:no-any Complex relation between input and output
   function fullyResolved(value: any): Promise<any>;
 
   /**

@@ -1,6 +1,7 @@
 // Type definitions for country-data 0.0
 // Project: https://github.com/OpenBookPrices/country-data
 // Definitions by: Logan Dam <https://github.com/biltongza>
+//                 Mike MacCana <https://github.com/mikemaccana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -20,6 +21,7 @@ export interface Currency {
     readonly code: string;
     readonly decimals: number;
     readonly name: string;
+    readonly symbol: string;
     readonly number: number;
 }
 
@@ -66,6 +68,8 @@ export const callingCountries: {
 };
 
 export const currencies: {
+    readonly [key: string]: Currency;
+} & {
     readonly all: ReadonlyArray<Currency>;
 };
 

@@ -12,6 +12,7 @@ import {
     Variables,
     OptimisticUpdate,
     MissingFieldHandler,
+    GraphQLTaggedNode,
 } from 'relay-runtime';
 
 export type OperationMockResolver = (operation: OperationDescriptor) => GraphQLResponse | Error | null;
@@ -34,6 +35,7 @@ export interface MockFunctions {
     resolve: (request: ConcreteRequest | OperationDescriptor, payload: GraphQLResponse) => void;
     getAllOperations: () => ReadonlyArray<OperationDescriptor>;
     findOperation: (findFn: (operation: OperationDescriptor) => boolean) => OperationDescriptor;
+    queuePendingOperation: (query: GraphQLTaggedNode, variables: Variables) => void;
     getMostRecentOperation: () => OperationDescriptor;
     resolveMostRecentOperation: (
         payload: GraphQLResponse | ((operation: OperationDescriptor) => GraphQLResponse | void),
@@ -90,8 +92,8 @@ export interface RelayMockEnvironment extends MockEnvironment, IEnvironment {
  *   with a specific error
  */
 export function createMockEnvironment(config?: {
-    handlerProvider?: HandlerProvider;
-    missingFieldHandlers?: ReadonlyArray<MissingFieldHandler>;
-    operationTracker?: OperationTracker;
-    operationLoader?: OperationLoader;
+    handlerProvider?: HandlerProvider | undefined;
+    missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | undefined;
+    operationTracker?: OperationTracker | undefined;
+    operationLoader?: OperationLoader | undefined;
 }): RelayMockEnvironment;

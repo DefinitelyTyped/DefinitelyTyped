@@ -1,20 +1,20 @@
-declare module "url" {
+declare module 'url' {
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
     // Input to `url.format`
     interface UrlObject {
-        auth?: string | null;
-        hash?: string | null;
-        host?: string | null;
-        hostname?: string | null;
-        href?: string | null;
-        path?: string | null;
-        pathname?: string | null;
-        protocol?: string | null;
-        search?: string | null;
-        slashes?: boolean | null;
-        port?: string | number | null;
-        query?: string | null | ParsedUrlQueryInput;
+        auth?: string | null | undefined;
+        hash?: string | null | undefined;
+        host?: string | null | undefined;
+        hostname?: string | null | undefined;
+        href?: string | null | undefined;
+        path?: string | null | undefined;
+        pathname?: string | null | undefined;
+        protocol?: string | null | undefined;
+        search?: string | null | undefined;
+        slashes?: boolean | null | undefined;
+        port?: string | number | null | undefined;
+        query?: string | null | ParsedUrlQueryInput | undefined;
     }
 
     // Output of `url.parse`
@@ -41,13 +41,19 @@ declare module "url" {
         query: string | null;
     }
 
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string): UrlWithStringQuery;
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
 
     function format(URL: URL, options?: URLFormatOptions): string;
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function format(urlObject: UrlObject | string): string;
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function resolve(from: string, to: string): string;
 
     function domainToASCII(domain: string): string;
@@ -68,10 +74,10 @@ declare module "url" {
     function pathToFileURL(url: string): URL;
 
     interface URLFormatOptions {
-        auth?: boolean;
-        fragment?: boolean;
-        search?: boolean;
-        unicode?: boolean;
+        auth?: boolean | undefined;
+        fragment?: boolean | undefined;
+        search?: boolean | undefined;
+        unicode?: boolean | undefined;
     }
 
     class URL {
@@ -93,11 +99,11 @@ declare module "url" {
     }
 
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
+        constructor(init?: URLSearchParams | string | { [key: string]: string | ReadonlyArray<string> | undefined } | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;
-        forEach(callback: (value: string, name: string, searchParams: this) => void): void;
+        forEach(callback: (value: string, name: string, searchParams: URLSearchParams) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
@@ -107,5 +113,35 @@ declare module "url" {
         toString(): string;
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
+    }
+
+    import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
+    global {
+        interface URLSearchParams extends _URLSearchParams {}
+        interface URL extends _URL {}
+        interface Global {
+            URL: typeof _URL;
+            URLSearchParams: typeof _URLSearchParams;
+        }
+        /**
+         * `URL` class is a global reference for `require('url').URL`
+         * https://nodejs.org/api/url.html#the-whatwg-url-api
+         * @since v10.0.0
+         */
+        var URL:
+            // For compatibility with "dom" and "webworker" URL declarations
+            typeof globalThis extends { onmessage: any, URL: infer URL }
+                ? URL
+                : typeof _URL;
+        /**
+         * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`.
+         * https://nodejs.org/api/url.html#class-urlsearchparams
+         * @since v10.0.0
+         */
+        var URLSearchParams:
+            // For compatibility with "dom" and "webworker" URLSearchParams declarations
+            typeof globalThis extends { onmessage: any, URLSearchParams: infer URLSearchParams }
+                ? URLSearchParams
+                : typeof _URLSearchParams;
     }
 }

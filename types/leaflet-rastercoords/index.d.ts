@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Map, LatLng, Point, LatLngExpression, PointExpression } from 'leaflet';
+import { Map, LatLng, Point, LatLngExpression, PointExpression, LatLngBounds } from 'leaflet';
 
 declare module 'leaflet' {
     class RasterCoords {
@@ -13,6 +13,7 @@ declare module 'leaflet' {
         zoomLevel(): number;
         unproject(coords: PointExpression): LatLng;
         project(coords: LatLngExpression): Point;
+        getMaxBounds(): LatLngBounds;
         setMaxBounds(): void;
     }
 }

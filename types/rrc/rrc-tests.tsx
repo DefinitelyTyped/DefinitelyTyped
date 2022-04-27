@@ -42,8 +42,9 @@ class RouteTwo extends React.Component<RouteComponentProps> {
 }
 
 interface LayoutProps {
+    children?: React.ReactNode;
     title: string;
-    subtitle?: string;
+    subtitle?: string | undefined;
 }
 
 class Layout extends React.Component<LayoutProps> {
@@ -61,7 +62,7 @@ class Layout extends React.Component<LayoutProps> {
 const WrappedLayout = wrapSwitch(Layout);
 
 interface Params {
-    page: number;
+    page: string;
 }
 
 class RouteFour extends React.Component<RouteComponentProps> {
@@ -91,7 +92,8 @@ class RouteFour extends React.Component<RouteComponentProps> {
 }
 
 interface MyContainerProps {
-    className?: string;
+    children?: React.ReactNode;
+    className?: string | undefined;
     color: number;
 }
 

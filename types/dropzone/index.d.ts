@@ -1,4 +1,4 @@
-// Type definitions for Dropzone 5.5.0
+// Type definitions for Dropzone 5.7.2
 // Project: http://www.dropzonejs.com/
 // Definitions by: Natan Vivo <https://github.com/nvivo>
 //                 Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
@@ -9,6 +9,8 @@
 //                 Daniel Waxweiler <https://github.com/dwaxweiler>
 //                 PikachuEXE <https://github.com/PikachuEXE>
 //                 Arne Deruwe <https://github.com/arnederuwe>
+//                 Chris Macklin <https://github.com/macklin-10x>
+//                 Michał Lipiński <https://github.com/falsyvalues>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,91 +18,107 @@
 
 declare namespace Dropzone {
     export interface DropzoneResizeInfo {
-        srcX?: number;
-        srcY?: number;
-        trgX?: number;
-        trgY?: number;
-        srcWidth?: number;
-        srcHeight?: number;
-        trgWidth?: number;
-        trgHeight?: number;
+        srcX?: number | undefined;
+        srcY?: number | undefined;
+        trgX?: number | undefined;
+        trgY?: number | undefined;
+        srcWidth?: number | undefined;
+        srcHeight?: number | undefined;
+        trgWidth?: number | undefined;
+        trgHeight?: number | undefined;
+    }
+
+    export interface DropzoneFileUpload {
+        progress: number;
+        total: number;
+        bytesSent: number;
+        uuid: string;
+        totalChunkCount?: number | undefined;
     }
 
     export interface DropzoneFile extends File {
+        dataURL?: string | undefined;
         previewElement: HTMLElement;
         previewTemplate: HTMLElement;
         previewsContainer: HTMLElement;
         status: string;
         accepted: boolean;
-        xhr?: XMLHttpRequest;
+        xhr?: XMLHttpRequest | undefined;
+        upload?: DropzoneFileUpload | undefined;
+    }
+
+    export interface DropzoneMockFile {
+        name: string;
+        size: number;
+        [index: string]: any;
     }
 
     export interface DropzoneDictFileSizeUnits {
-        tb?: string;
-        gb?: string;
-        mb?: string;
-        kb?: string;
-        b?: string;
+        tb?: string | undefined;
+        gb?: string | undefined;
+        mb?: string | undefined;
+        kb?: string | undefined;
+        b?: string | undefined;
     }
 
     export interface DropzoneOptions {
-        url?: ((files: ReadonlyArray<DropzoneFile>) => string) | string;
-        method?: ((files: ReadonlyArray<DropzoneFile>) => string) | string;
-        withCredentials?: boolean;
-        timeout?: number;
-        parallelUploads?: number;
-        uploadMultiple?: boolean;
-        chunking?: boolean;
-        forceChunking?: boolean;
-        chunkSize?: number;
-        parallelChunkUploads?: boolean;
-        retryChunks?: boolean;
-        retryChunksLimit?: number;
-        maxFilesize?: number;
-        paramName?: string;
-        createImageThumbnails?: boolean;
-        maxThumbnailFilesize?: number;
-        thumbnailWidth?: number;
-        thumbnailHeight?: number;
-        thumbnailMethod?: 'contain' | 'crop';
-        resizeWidth?: number;
-        resizeHeight?: number;
-        resizeMimeType?: string;
-        resizeQuality?: number;
-        resizeMethod?: 'contain' | 'crop';
-        filesizeBase?: number;
-        maxFiles?: number;
-        params?: {};
-        headers?: { [key: string]: string };
-        clickable?: boolean | string | HTMLElement | (string | HTMLElement)[];
-        ignoreHiddenFiles?: boolean;
-        acceptedFiles?: string;
+        url?: ((files: ReadonlyArray<DropzoneFile>) => string) | string | undefined;
+        method?: ((files: ReadonlyArray<DropzoneFile>) => string) | string | undefined;
+        withCredentials?: boolean | undefined;
+        timeout?: number | undefined;
+        parallelUploads?: number | undefined;
+        uploadMultiple?: boolean | undefined;
+        chunking?: boolean | undefined;
+        forceChunking?: boolean | undefined;
+        chunkSize?: number | undefined;
+        parallelChunkUploads?: boolean | undefined;
+        retryChunks?: boolean | undefined;
+        retryChunksLimit?: number | undefined;
+        maxFilesize?: number | undefined;
+        paramName?: string | undefined;
+        createImageThumbnails?: boolean | undefined;
+        maxThumbnailFilesize?: number | undefined;
+        thumbnailWidth?: number | undefined;
+        thumbnailHeight?: number | undefined;
+        thumbnailMethod?: 'contain' | 'crop' | undefined;
+        resizeWidth?: number | undefined;
+        resizeHeight?: number | undefined;
+        resizeMimeType?: string | undefined;
+        resizeQuality?: number | undefined;
+        resizeMethod?: 'contain' | 'crop' | undefined;
+        filesizeBase?: number | undefined;
+        maxFiles?: number | undefined;
+        params?: {} | undefined;
+        headers?: { [key: string]: string } | undefined;
+        clickable?: boolean | string | HTMLElement | (string | HTMLElement)[] | undefined;
+        ignoreHiddenFiles?: boolean | undefined;
+        acceptedFiles?: string | undefined;
         renameFilename?(name: string): string;
-        autoProcessQueue?: boolean;
-        autoQueue?: boolean;
-        addRemoveLinks?: boolean;
-        previewsContainer?: boolean | string | HTMLElement;
-        hiddenInputContainer?: HTMLElement;
-        capture?: string;
+        autoProcessQueue?: boolean | undefined;
+        autoQueue?: boolean | undefined;
+        addRemoveLinks?: boolean | undefined;
+        previewsContainer?: boolean | string | HTMLElement | undefined;
+        hiddenInputContainer?: HTMLElement | undefined;
+        capture?: string | undefined;
 
-        dictDefaultMessage?: string;
-        dictFallbackMessage?: string;
-        dictFallbackText?: string;
-        dictFileTooBig?: string;
-        dictInvalidFileType?: string;
-        dictResponseError?: string;
-        dictCancelUpload?: string;
-        dictCancelUploadConfirmation?: string;
-        dictRemoveFile?: string;
-        dictRemoveFileConfirmation?: string;
-        dictMaxFilesExceeded?: string;
-        dictFileSizeUnits?: DropzoneDictFileSizeUnits;
-        dictUploadCanceled?: string;
+        dictDefaultMessage?: string | undefined;
+        dictFallbackMessage?: string | undefined;
+        dictFallbackText?: string | undefined;
+        dictFileTooBig?: string | undefined;
+        dictInvalidFileType?: string | undefined;
+        dictResponseError?: string | undefined;
+        dictCancelUpload?: string | undefined;
+        dictCancelUploadConfirmation?: string | undefined;
+        dictRemoveFile?: string | undefined;
+        dictRemoveFileConfirmation?: string | undefined;
+        dictMaxFilesExceeded?: string | undefined;
+        dictFileSizeUnits?: DropzoneDictFileSizeUnits | undefined;
+        dictUploadCanceled?: string | undefined;
 
         accept?(file: DropzoneFile, done: (error?: string | Error) => void): void;
         chunksUploaded?(file: DropzoneFile, done: (error?: string | Error) => void): void;
         init?(this: Dropzone): void;
-        forceFallback?: boolean;
+        forceFallback?: boolean | undefined;
         fallback?(): void;
         resize?(file: DropzoneFile, width?: number, height?: number, resizeMethod?: string): DropzoneResizeInfo;
 
@@ -146,7 +164,14 @@ declare namespace Dropzone {
 
         transformFile?(file: DropzoneFile, done: (file: string | Blob) => void): void;
 
-        previewTemplate?: string;
+        previewTemplate?: string | undefined;
+    }
+
+    export interface DropzoneListener {
+        element: HTMLElement;
+        events: {
+            [key: string]: (e: Event) => any;
+        };
     }
 }
 
@@ -154,11 +179,21 @@ declare class Dropzone {
     constructor(container: string | HTMLElement, options?: Dropzone.DropzoneOptions);
 
     static autoDiscover: boolean;
-    static options: { [key: string]: Dropzone.DropzoneOptions | false };
+    static blacklistedBrowsers: RegExp[];
     static confirm: (question: string, accepted: () => void, rejected?: () => void) => void;
     static createElement(string: string): HTMLElement;
-    static isBrowserSupported(): boolean;
+    static dataURItoBlob(dataURI: string): Blob;
+    static discover(): Dropzone[];
+    static elementInside(element: HTMLElement, container: HTMLElement): boolean;
+    static forElement(element: string | HTMLElement): Dropzone;
+    static getElement(element: string | HTMLElement, name?: string): HTMLElement;
+    static getElements(elements: string | HTMLElement | Array<string | HTMLElement>): HTMLElement[];
     static instances: Dropzone[];
+    static isBrowserSupported(): boolean;
+    static isValidFile(file: File, acceptedFiles: string): boolean;
+    static options: { [key: string]: Dropzone.DropzoneOptions | false };
+    static optionsForElement(element: HTMLElement): Dropzone.DropzoneOptions | undefined;
+    static version: string;
 
     static ADDED: string;
     static QUEUED: string;
@@ -169,9 +204,14 @@ declare class Dropzone {
     static ERROR: string;
     static SUCCESS: string;
 
+    element: HTMLElement;
     files: Dropzone.DropzoneFile[];
+    hiddenFileInput?: HTMLInputElement | undefined;
+    listeners: Dropzone.DropzoneListener[];
     defaultOptions: Dropzone.DropzoneOptions;
     options: Dropzone.DropzoneOptions;
+    previewsContainer: HTMLElement;
+    version: string;
 
     enable(): void;
 
@@ -204,6 +244,14 @@ declare class Dropzone {
         resizeMethod?: string,
         fixOrientation?: boolean,
         callback?: (...args: any[]) => void,
+    ): any;
+
+    displayExistingFile(
+        mockFile: Dropzone.DropzoneMockFile,
+        imageUrl: string,
+        callback?: () => void,
+        crossOrigin?: 'anonymous' | 'use-credentials',
+        resizeThumbnail?: boolean,
     ): any;
 
     createThumbnailFromUrl(

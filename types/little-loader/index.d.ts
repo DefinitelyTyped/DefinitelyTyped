@@ -5,8 +5,8 @@
 
 interface Options {
     context?: any;
-    setup?: (this: any, script: any) => void;
-    callback?: (this: any, err: string) => void;
+    setup?: ((this: any, script: any) => void) | undefined;
+    callback?: ((this: any, err: string) => void) | undefined;
 }
 
 declare function loader(

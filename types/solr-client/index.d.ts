@@ -5,19 +5,19 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-import { ClientRequest } from "http";
+import { ClientRequest } from 'http';
 
 export function createClient(options?: Options): Client;
 
 export interface Options {
-  host?: string;
-  port?: number;
-  core?: string;
-  path?: string;
-  agent?: string;
-  secure?: boolean;
-  bigint?: string;
-  solrVersion?: string;
+    host?: string | undefined;
+    port?: number | undefined;
+    core?: string | undefined;
+    path?: string | undefined;
+    agent?: string | undefined;
+    secure?: boolean | undefined;
+    bigint?: string | undefined;
+    solrVersion?: string | undefined;
 }
 
 export interface RangeFilterOption {
@@ -27,71 +27,71 @@ export interface RangeFilterOption {
 }
 
 export interface GroupOptions {
-    on?: boolean;
-    field?: string | string[];
-    limit?: number;
-    offset?: number;
-    sort?: string;
-    format?: string;
-    main?: boolean;
-    ngroups?: boolean;
-    truncate?: boolean;
-    cache?: number;
+    on?: boolean | undefined;
+    field?: string | string[] | undefined;
+    limit?: number | undefined;
+    offset?: number | undefined;
+    sort?: string | undefined;
+    format?: string | undefined;
+    main?: boolean | undefined;
+    ngroups?: boolean | undefined;
+    truncate?: boolean | undefined;
+    cache?: number | undefined;
 }
 
 export interface FacetOptions {
     on: boolean;
-    query?: string;
-    field?: string | string[];
-    prefix: string;
-    sort?: string;
-    limit?: number;
-    offset?: number;
-    mincout?: number;
-    missing?: boolean;
-    method?: string;
-    pivot?: string | string[];
+    query?: string | undefined;
+    field?: string | string[] | undefined;
+    prefix?: string | undefined;
+    sort?: string | undefined;
+    limit?: number | undefined;
+    offset?: number | undefined;
+    mincout?: number | undefined;
+    missing?: boolean | undefined;
+    method?: string | undefined;
+    pivot?: string | string[] | undefined;
 }
 
 export interface MoreLikeThisOptions {
     on: boolean;
-    fl?: string | string[];
-    count?: number;
-    mintf?: number;
-    mindf?: number;
-    minwl?: number;
-    maxwl?: number;
-    maxqt?: number;
-    maxntp?: number;
-    boost?: boolean;
-    qf?: string | object;
+    fl?: string | string[] | undefined;
+    count?: number | undefined;
+    mintf?: number | undefined;
+    mindf?: number | undefined;
+    minwl?: number | undefined;
+    maxwl?: number | undefined;
+    maxqt?: number | undefined;
+    maxntp?: number | undefined;
+    boost?: boolean | undefined;
+    qf?: string | object | undefined;
 }
 
 export interface HighlightOptions {
     on: boolean;
-    q?: string | string[];
-    qparser?: string;
-    fl?: string | string[];
-    snippets?: number;
-    fragsize?: number;
-    mergeContiguous?: boolean;
-    maxAnalyzedChars?: number;
-    maxMultiValuedToExamine?: number;
-    maxMultiValuedToMatch?: number;
-    alternateField?: string;
-    maxAlternateFieldLength?: number;
-    formatter?: string;
-    simplePre?: string;
-    simplePost?: string;
-    fragmenter?: string;
-    highlightMultiTerm?: boolean;
-    requireFieldMatch?: boolean;
-    usePhraseHighlighter?: boolean;
-    regexSlop?: number;
-    regexPattern?: string;
-    regexMaxAnalyzedChars?: number;
-    preserveMulti?: boolean;
-    payloads?: boolean;
+    q?: string | string[] | undefined;
+    qparser?: string | undefined;
+    fl?: string | string[] | undefined;
+    snippets?: number | undefined;
+    fragsize?: number | undefined;
+    mergeContiguous?: boolean | undefined;
+    maxAnalyzedChars?: number | undefined;
+    maxMultiValuedToExamine?: number | undefined;
+    maxMultiValuedToMatch?: number | undefined;
+    alternateField?: string | undefined;
+    maxAlternateFieldLength?: number | undefined;
+    formatter?: string | undefined;
+    simplePre?: string | undefined;
+    simplePost?: string | undefined;
+    fragmenter?: string | undefined;
+    highlightMultiTerm?: boolean | undefined;
+    requireFieldMatch?: boolean | undefined;
+    usePhraseHighlighter?: boolean | undefined;
+    regexSlop?: number | undefined;
+    regexPattern?: string | undefined;
+    regexMaxAnalyzedChars?: number | undefined;
+    preserveMulti?: boolean | undefined;
+    payloads?: boolean | undefined;
 }
 
 export interface AddRemoteResourceOptions {
@@ -145,8 +145,19 @@ export interface Client {
     commit(options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
     prepareCommit(callback?: (err: Error, data: object) => void): ClientRequest;
     softCommit(callback?: (err: Error, data: object) => void): ClientRequest;
-    delete(field: string, text: string, options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
-    deleteByRange(field: string, start: string | Date, stop: string | Date, options?: object, callback?: (err: Error, data: object) => void): ClientRequest;
+    delete(
+        field: string,
+        text: string,
+        options?: Options,
+        callback?: (err: Error, data: object) => void,
+    ): ClientRequest;
+    deleteByRange(
+        field: string,
+        start: string | Date,
+        stop: string | Date,
+        options?: object,
+        callback?: (err: Error, data: object) => void,
+    ): ClientRequest;
     deleteByID(id: string | number, options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
     deleteByQuery(query: string, options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
     deleteAll(options?: Options, callback?: (err: Error, data: object) => void): ClientRequest;
@@ -154,7 +165,10 @@ export interface Client {
     rollback(callback?: (err: Error, data: object) => void): ClientRequest;
     update(data: object, options?: object, callback?: (err: Error, data: object) => void): ClientRequest;
     search(query: Query, callback?: (err: Error, data: object) => void): ClientRequest;
-    executeCollection(collection: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;
+    executeCollection(
+        collection: Query | object | string,
+        callback?: (err: Error, data: object) => void,
+    ): ClientRequest;
     searchAll(callback?: (err: Error, data: object) => void): ClientRequest;
     get(handler: string, query: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;
     post(handler: string, query: Query | object | string, callback?: (err: Error, data: object) => void): ClientRequest;

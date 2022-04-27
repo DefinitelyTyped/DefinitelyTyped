@@ -40,11 +40,11 @@ export let listItem: NodeSpec;
  * given to assign a group name to the list node types, for example
  * `"block"`.
  */
-export function addListNodes(
-  nodes: OrderedMap<NodeSpec>,
-  itemContent: string,
-  listGroup?: string
-): OrderedMap<NodeSpec>;
+export function addListNodes<N extends string = any>(
+    nodes: { [name in N]: NodeSpec } | OrderedMap<NodeSpec>,
+    itemContent: string,
+    listGroup?: string,
+): { [name in (N | "ordered_list" | "bullet_list" | "list_item")]: NodeSpec } | OrderedMap<NodeSpec>;
 /**
  * Returns a command function that wraps the selection in a list with
  * the given type an attributes. If `dispatch` is null, only return a
@@ -52,27 +52,27 @@ export function addListNodes(
  * perform the change.
  */
 export function wrapInList<S extends Schema = any>(
-  listType: NodeType<S>,
-  attrs?: { [key: string]: any }
+    listType: NodeType<S>,
+    attrs?: { [key: string]: any },
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
 /**
  * Build a command that splits a non-empty textblock at the top level
  * of a list item by also splitting that list item.
  */
 export function splitListItem<S extends Schema = any>(
-  itemType: NodeType<S>
+    itemType: NodeType<S>,
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
 /**
  * Create a command to lift the list item around the selection up into
  * a wrapping list.
  */
 export function liftListItem<S extends Schema = any>(
-  itemType: NodeType<S>
+    itemType: NodeType<S>,
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;
 /**
  * Create a command to sink the list item around the selection down
  * into an inner list.
  */
 export function sinkListItem<S extends Schema = any>(
-  itemType: NodeType<S>
+    itemType: NodeType<S>,
 ): (state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void) => boolean;

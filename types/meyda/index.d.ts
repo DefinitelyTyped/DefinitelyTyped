@@ -34,11 +34,16 @@ export interface MeydaAnalyzerOptions {
     audioContext: AudioContext;
     source: AudioNode;
     bufferSize: number;
-    hopSize?: number;
-    windowingFunction?: MeydaWindowingFunction;
-    featureExtractors?: MeydaAudioFeature | MeydaAudioFeature[];
-    numberOfMFCCCoefficients?: number;
-    callback?: (features: Partial<MeydaFeaturesObject>) => void;
+    hopSize?: number | undefined;
+    sampleRate?: number | undefined;
+    startImmediately?: boolean | undefined;
+    channel?: number | undefined;
+    windowingFunction?: MeydaWindowingFunction | undefined;
+    featureExtractors?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature> | undefined;
+    inputs?: number | undefined;
+    outputs?: number | undefined;
+    numberOfMFCCCoefficients?: number | undefined;
+    callback?: ((features: Partial<MeydaFeaturesObject>) => void) | undefined;
 }
 
 export type MeydaSignal = SliceableArrayLike<number>;
@@ -76,13 +81,13 @@ export interface MeydaFeaturesObject {
 }
 
 export class MeydaAnalyzer {
-    start(features: MeydaAudioFeature[]): void;
+    start(features?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature>): void;
 
     stop(): void;
 
     setSource(source: AudioNode): void;
 
-    get(features: MeydaAudioFeature[]): Partial<MeydaFeaturesObject> | null;
+    get(features?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature>): Partial<MeydaFeaturesObject> | null;
 }
 
 export const audioContext: AudioContext | null;

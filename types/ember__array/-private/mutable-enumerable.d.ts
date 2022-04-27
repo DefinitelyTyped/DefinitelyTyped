@@ -1,5 +1,5 @@
-import Mixin from "@ember/object/mixin";
-import Enumerable from "@ember/array/-private/enumerable";
+import Mixin from '@ember/object/mixin';
+import Enumerable from '@ember/array/-private/enumerable';
 
 /**
  * This mixin defines the API for modifying generic enumerables. These methods
@@ -24,5 +24,5 @@ interface MutableEnumerable<T> extends Enumerable<T> {
      */
     removeObjects(objects: Enumerable<T>): this;
 }
-declare const MutableEnumerable: Mixin<MutableEnumerable<any>>;
+declare const MutableEnumerable: Mixin<MutableEnumerable<unknown>>;
 export default MutableEnumerable;

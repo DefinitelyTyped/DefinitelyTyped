@@ -1,14 +1,15 @@
-// Type definitions for redux-api-middleware 3.0
+// Type definitions for redux-api-middleware 3.2
 // Project: https://github.com/agraboso/redux-api-middleware
 // Definitions by:  Andrew Luca <https://github.com/iamandrewluca>
 //                  Craig S <https://github.com/Mrman>
 //                  Arturs Vonda <https://github.com/artursvonda>
+//                  Matthew M <https://github.com/magoogli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 import { Dispatch, Middleware, MiddlewareAPI } from 'redux';
 
-type TypeOrResolver<Arg, Type> = Type | ((arg: Arg) => Type);
+type TypeOrResolver<Arg, Type> = Type | ((arg: Arg) => Type | Promise<Type>);
 
 /**
  * This module is also a UMD module that exposes a global variable 'ReduxApiMiddleware'
@@ -50,33 +51,33 @@ export class ApiError<T = any> extends Error {
     constructor(status: number, statusText: string, response: T);
 }
 
-export function getJSON(res: Response): Promise<any> | Promise<void>;
+export function getJSON(res: Response): Promise<any>;
 
 export function apiMiddleware(api: MiddlewareAPI): ReturnType<Middleware>;
 
 export interface CreateMiddlewareOptions {
-    ok?: (res: Response) => boolean;
-    fetch?: typeof fetch;
+    ok?: ((res: Response) => boolean) | undefined;
+    fetch?: typeof fetch | undefined;
 }
 
 export function createMiddleware(options?: CreateMiddlewareOptions): Middleware;
 
 export interface RSAARequestTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: State) => Payload) | Payload;
-    meta?: ((action: RSAAAction, state: State) => Meta) | Meta;
+    payload?: ((action: RSAAAction, state: State) => Payload | Promise<Payload>) | Payload | undefined;
+    meta?: ((action: RSAAAction, state: State) => Meta | Promise<Meta>) | Meta | undefined;
 }
 
 export interface RSAASuccessTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: State, res: Response) => Payload) | Payload;
-    meta?: ((action: RSAAAction, state: State, res: Response) => Meta) | Meta;
+    payload?: ((action: RSAAAction, state: State, res: Response) => Payload | Promise<Payload>) | Payload | undefined;
+    meta?: ((action: RSAAAction, state: State, res: Response) => Meta | Promise<Meta>) | Meta | undefined;
 }
 
 export interface RSAAFailureTypeDescriptor<State = any, Payload = any, Meta = any> {
     type: string | symbol;
-    payload?: ((action: RSAAAction, state: State, res: Response) => Payload) | Payload;
-    meta?: ((action: RSAAAction, state: State, res: Response) => Meta) | Meta;
+    payload?: ((action: RSAAAction, state: State, res: Response) => Payload | Promise<Payload>) | Payload | undefined;
+    meta?: ((action: RSAAAction, state: State, res: Response) => Meta | Promise<Meta>) | Meta | undefined;
 }
 
 export type RSAARequestType<State = any, Payload = any, Meta = any> =
@@ -103,13 +104,13 @@ export interface RSAACall<State = any, Payload = any, Meta = any> {
         RSAASuccessType<State, Payload, Meta>,
         RSAAFailureType<State, Payload, Meta>
     ];
-    body?: TypeOrResolver<State, BodyInit | null>;
-    headers?: TypeOrResolver<State, HeadersInit>;
-    options?: TypeOrResolver<State, RequestInit>;
-    credentials?: RequestCredentials;
-    bailout?: TypeOrResolver<State, boolean>;
-    fetch?: typeof fetch;
-    ok?: (res: Response) => boolean;
+    body?: TypeOrResolver<State, BodyInit | null> | undefined;
+    headers?: TypeOrResolver<State, HeadersInit> | undefined;
+    options?: TypeOrResolver<State, RequestInit> | undefined;
+    credentials?: RequestCredentials | undefined;
+    bailout?: TypeOrResolver<State, boolean> | undefined;
+    fetch?: typeof fetch | undefined;
+    ok?: ((res: Response) => boolean) | undefined;
 }
 
 export interface RSAAAction<State = any, Payload = any, Meta = any> {
@@ -117,7 +118,7 @@ export interface RSAAAction<State = any, Payload = any, Meta = any> {
 }
 
 type ValidAction<Payload = never, Meta = never> =
-    { type: string | symbol; error?: false }
+    { type: string | symbol; error?: false | undefined }
     // The `[Payload] extends [never]` is required to check if generic type is never.
     // Can't do it with just `Payload extends never`.
     & ([Payload] extends [never] ? {} : { payload: Payload })
@@ -146,6 +147,10 @@ export type RSAAResultAction<Payload = never, Meta = never> =
     | InvalidAction<InternalError | RequestError | ApiError<Payload>>;
 
 export type RSAAActions = RSAARequestAction | RSAAResultAction;
+
+export function createAction<State, Payload, Meta>(
+    clientCall: RSAACall<State, Payload, Meta>
+): RSAAAction<State, Payload, Meta>;
 
 /**
  * Redux behaviour changed by middleware, so overloads here

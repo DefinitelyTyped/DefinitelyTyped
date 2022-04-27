@@ -1,32 +1,42 @@
 import * as React from 'react';
 import {
-  InstantSearch,
-  Index,
-  createConnector,
-  SearchResults,
-  connectStateResults,
-  SearchBoxProvided,
-  connectSearchBox,
-  connectRefinementList,
-  CurrentRefinementsProvided,
-  connectCurrentRefinements,
-  RefinementListProvided,
-  Refinement,
-  connectHighlight,
-  connectHits,
-  HighlightProvided,
-  HighlightProps,
-  AutocompleteProvided,
-  connectAutoComplete,
-  Hit,
-  TranslatableProvided,
-  translatable,
-  ConnectorProvided,
-  StateResultsProvided,
-  ConnectorSearchResults,
-  BasicDoc,
-  AllSearchResults,
+    AllSearchResults,
+    AutocompleteProvided,
+    BasicDoc,
+    connectAutoComplete,
+    connectCurrentRefinements,
+    connectHighlight,
+    connectHitInsights,
+    ConnectHitInsightsProvided,
+    connectHits,
+    ConnectorProvided,
+    ConnectorSearchResults,
+    connectRefinementList,
+    connectSearchBox,
+    connectStateResults,
+    connectStats,
+    connectDynamicWidgets,
+    createConnector,
+    CurrentRefinementsProvided,
+    HighlightProps,
+    HighlightProvided,
+    Hit,
+    Index,
+    InsightsClient,
+    InstantSearch,
+    Refinement,
+    RefinementListProvided,
+    SearchBoxProvided,
+    SearchResults,
+    StateResultsProvided,
+    StatsProvided,
+    translatable,
+    TranslatableProvided,
+    DynamicWidgetsProvided,
+    DynamicWidgets,
 } from 'react-instantsearch-core';
+
+import { Hits, RefinementList } from 'react-instantsearch-dom';
 
 () => {
   <Index indexName={'test'} indexId="id">
@@ -48,6 +58,7 @@ import {
       return {
         query,
         page,
+        refine: (value: string) => this.refine(value),
       };
     },
 
@@ -301,6 +312,18 @@ import {
 };
 
 () => {
+    const MyClearRefinements = ({ refine, items }: CurrentRefinementsProvided) => (
+      <button onClick={() => refine(items)}>
+        clear all
+      </button>
+    );
+
+    const ConnectedClearRefinements = connectCurrentRefinements(MyClearRefinements);
+
+    <ConnectedClearRefinements clearsQuery={true} transformItems={item => item} />;
+};
+
+() => {
   function renderRefinement(label: string, value: Refinement['value'], refine: CurrentRefinementsProvided['refine']) {
     return (
       <button className="badge badge-secondary" onClick={() => refine(value)}>
@@ -423,16 +446,16 @@ import {
 () => {
   type Props = SearchBoxProvided &
     TranslatableProvided & {
-      className?: string;
-      showLoadingIndicator?: boolean;
+      className?: string | undefined;
+      showLoadingIndicator?: boolean | undefined;
 
-      submit?: JSX.Element;
-      reset?: JSX.Element;
-      loadingIndicator?: JSX.Element;
+      submit?: JSX.Element | undefined;
+      reset?: JSX.Element | undefined;
+      loadingIndicator?: JSX.Element | undefined;
 
-      onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-      onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-      onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
+      onSubmit?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+      onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+      onChange?: ((event: React.SyntheticEvent<HTMLInputElement>) => any) | undefined;
     };
   interface State {
     query: string | null;
@@ -607,10 +630,108 @@ import {
         isSearchStalled: searchResults.isSearchStalled,
         error: searchResults.error,
         searchingForFacetValues: searchResults.searchingForFacetValues,
+        queryID: results?.queryID,
         props,
       };
     },
   });
 
   const asConnectStateResults: typeof connectStateResults = csr;
+};
+
+() => {
+  const TotalHits = ({ nbHits }: StatsProvided) => {
+      return <span>Your search returned {nbHits} results.</span>;
+  };
+
+  const ConnectedTotalHits = connectStats(TotalHits);
+
+  <ConnectedTotalHits />;
+};
+
+() => {
+  const HitComponent = ({ hit, insights }: ConnectHitInsightsProvided) => (
+    <button
+      onClick={() => {
+        insights('clickedObjectIDsAfterSearch', { eventName: 'hit clicked' });
+      }}
+    >
+      <article>
+        <h1>{hit.name}</h1>
+      </article>
+    </button>
+  );
+
+  const HitWithInsights = connectHitInsights(() => {})(HitComponent);
+
+  <Hits hitComponent={HitWithInsights} />;
+};
+
+() => {
+  function getAttribute(component: React.ReactChild): string | undefined {
+    if (typeof component !== 'object') {
+      return undefined;
+    }
+
+    if (component.props.attribute) {
+      return component.props.attribute;
+    }
+    if (Array.isArray(component.props.attributes)) {
+      return component.props.attributes[0];
+    }
+    if (component.props.children) {
+      return getAttribute(React.Children.only(component.props.children));
+    }
+
+    return undefined;
+  }
+
+  const MyDynamicWidgets = ({
+    attributesToRender,
+    fallbackComponent: Fallback = () => null,
+    children
+  }: DynamicWidgetsProvided) => {
+    const widgets = new Map();
+
+    React.Children.forEach(children, (child) => {
+      const attribute = getAttribute(child as React.ReactChild);
+      if (!attribute) {
+        throw new Error('Could not find "attribute" prop');
+      }
+      widgets.set(attribute, child);
+    });
+
+    return (
+      <>
+        {attributesToRender.map((attribute) => (
+          <React.Fragment key={attribute}>
+            {widgets.get(attribute) || <Fallback attribute={attribute} />}
+          </React.Fragment>
+        ))}
+      </>
+    );
+  };
+
+  const ConnectedDynamicWidgets = connectDynamicWidgets(MyDynamicWidgets);
+
+  <ConnectedDynamicWidgets
+    transformItems={item => item}
+    fallbackComponent={RefinementList}
+    facets={['*']}
+    maxValuesPerFacet={20}
+  >
+    <RefinementList attribute="brand" />
+  </ConnectedDynamicWidgets>;
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/dynamic-facets/react/
+  <DynamicWidgets
+    transformItems={item => item}
+    fallbackComponent={RefinementList}
+    facets={['*']}
+    maxValuesPerFacet={20}
+  >
+    <RefinementList attribute="brand"/>
+  </DynamicWidgets>;
 };

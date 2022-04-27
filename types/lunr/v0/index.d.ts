@@ -475,7 +475,7 @@ declare namespace lunr {
          * @param fieldName  The name of the field within the document that
          * @param options    An optional boost that can be applied to terms in this field.
          */
-        field(fieldName: string, options?: {boost?: number}): Index;
+        field(fieldName: string, options?: {boost?: number | undefined}): Index;
 
         /**
          * Sets the property used to uniquely identify documents added to the index, by default this

@@ -2,7 +2,7 @@
 // Project: https://github.com/optimalbits/node_acl
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="node"/>
 
@@ -96,16 +96,16 @@ declare namespace AclStatic {
     }
 
     interface Option {
-        buckets?: BucketsOption;
+        buckets?: BucketsOption | undefined;
     }
 
     interface BucketsOption {
-        meta?: string;
-        parents?: string;
-        permissions?: string;
-        resources?: string;
-        roles?: string;
-        users?: string;
+        meta?: string | undefined;
+        parents?: string | undefined;
+        permissions?: string | undefined;
+        resources?: string | undefined;
+        roles?: string | undefined;
+        users?: string | undefined;
     }
 
     interface AclSet {

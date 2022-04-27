@@ -1,5 +1,5 @@
 import { Slot } from '@wordpress/components';
-import { FC, ReactNode } from '@wordpress/element';
+import { FC, ReactNode } from 'react';
 
 declare namespace PluginPostStatusInfo {
     interface Props {
@@ -7,7 +7,7 @@ declare namespace PluginPostStatusInfo {
         /**
          * An optional class name added to the row.
          */
-        className?: string;
+        className?: string | undefined;
     }
 }
 

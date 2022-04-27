@@ -17,7 +17,7 @@ declare const names1: MethodNames<{ a: string }>;
 names1; // $ExpectType never
 
 declare const names2: MethodNames<{ a: () => number; b(arg: number): void }>;
-names2; // $ExpectType "a" | "b"
+names2; // $ExpectType "a" | "b" || MethodNames<{ a: () => number; b(arg: number): void; }>
 
 declare const names3: MethodNames<{ a: () => 'hi'; b: null }>;
 names3; // $ExpectType "a"

@@ -1,13 +1,20 @@
 import exorcist = require("exorcist");
+import * as fs from "fs";
 
-module ExorcistTest {
+exorcist("path/to/file"); // $ExpectType Stream
+exorcist("path/to/file", null, null, null, null); // $ExpectType Stream
+exorcist("path/to/file", "example.map"); // $ExpectType Stream
+exorcist("path/to/file", "example.map", "/"); // $ExpectType Stream
+exorcist("path/to/file", "example.map", "/", "../"); // $ExpectType Stream
+exorcist("path/to/file", "example.map", "/", "../", true); // $ExpectType Stream
+exorcist(fs.createWriteStream("./some.map"), "example.map"); // $ExpectType Stream
+exorcist(fs.createWriteStream("./some.map"), "example.map", null, null, null); // $ExpectType Stream
+exorcist(fs.createWriteStream("./some.map")); // $ExpectError
 
-    function pullSourceMaps(srcPath: string, projRoot: string) {
-        exorcist(srcPath, undefined, projRoot);
-        exorcist(srcPath, null, projRoot, null, true);
-        exorcist(srcPath, null, projRoot, "./");
-    }
-
-}
-
-export = ExorcistTest;
+const stream = exorcist("path/to/file");
+stream.on("missing-map", missingMapMessage => {
+    missingMapMessage; // $ExpectType string
+});
+stream.on("error", err => {
+    err; // $ExpectType Error
+});

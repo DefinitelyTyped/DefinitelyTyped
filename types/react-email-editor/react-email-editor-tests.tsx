@@ -1,9 +1,12 @@
 import * as React from 'react';
 import EmailEditor, {
-  Design,
-  FileInfo,
-  FileUploadDoneCallback,
-  HtmlExport,
+    Design,
+    FileInfo,
+    FileUploadDoneCallback,
+    HtmlExport,
+    SimpleMergeTag,
+    GroupedMergeTag,
+    ConditionalMergeTag, DisplayCondition, EmptyDisplayCondition, DisplayConditionDoneCallback
 } from 'react-email-editor';
 
 const TOOLS_CONFIG = {
@@ -14,6 +17,28 @@ const TOOLS_CONFIG = {
       alt: 'this is a test alt text',
     },
   },
+};
+
+const simpleMergeTag: SimpleMergeTag = { value: '{{simple_merge_tag}}', name: 'Simple Merge Tag' };
+const groupedMergeTag: GroupedMergeTag = {
+  name: 'Grouped Merge Tag',
+  mergeTags: [
+    { name: 'Tag 1', value: '{tag_1}' },
+    {
+      name: 'Tag 2',
+      mergeTags: [{ name: 'Tag 4', value: '{tag_4}' }]
+    },
+    { name: 'Tag 3', value: '{tag_3}', sample: 'sample value'},
+  ],
+};
+const conditionalMergeTag: ConditionalMergeTag = {
+  name: 'Conditional',
+  rules: [{
+    name: 'Rule 1',
+    before: '{{#if}}',
+    after: '{{/if}}'
+  }],
+  mergeTags: [{ name: 'Tag 1', value: '{tag_1}' }]
 };
 
 class App extends React.Component {
@@ -33,8 +58,24 @@ class App extends React.Component {
             url: `http://example.com/${file.attachments[0].name}`,
           }),
       );
+      this.editorRef.current.registerCallback(
+        'displayCondition',
+         (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done(null),
+      );
+      this.editorRef.current.registerCallback(
+        'displayCondition',
+        (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done({
+          type: 'type',
+          label: 'label',
+          description: 'description',
+          before: 'before',
+          after: 'after',
+        }),
+      );
       this.editorRef.current.setMergeTags([
-        { name: '{{newTestTag}}', value: 'New Test Tag Value' },
+          simpleMergeTag,
+          groupedMergeTag,
+          conditionalMergeTag
       ]);
     }
   }
@@ -75,12 +116,12 @@ class App extends React.Component {
               name: 'John Doe',
               email: 'john.doe@acme.com',
             },
-            mergeTags: [{ name: '{{testTag}}', value: 'Test Tag Value' }],
+            mergeTags: [simpleMergeTag, groupedMergeTag, conditionalMergeTag],
             designTags: {
               current_user_name: 'John Doe',
             },
             designTagsConfig: {
-              delimeter: ['[[', ']]'],
+              delimiter: ['[[', ']]'],
             },
             tools: TOOLS_CONFIG,
             blocks: [],
@@ -95,7 +136,26 @@ class App extends React.Component {
               preview: true,
               imageEditor: false,
               undoRedo: true,
+              stockImages: false,
+              textEditor: {
+                spellChecker: true,
+                tables: false,
+                cleanPaste: true,
+                emojis: true,
+              },
             },
+            translations: {
+              en: {
+                'custom.key': 'Custom translation',
+              },
+            },
+            displayConditions: [{
+              type: 'type',
+              label: 'label',
+              description: 'description',
+              before: 'before',
+              after: 'after',
+            }]
           }}
           tools={TOOLS_CONFIG}
           appearance={{
@@ -107,7 +167,7 @@ class App extends React.Component {
             },
           }}
           projectId={1}
-          onLoad={this.handleLoad}
+          onReady={this.handleLoad}
         />
         <button onClick={this.handleClick}>save all</button>
       </>

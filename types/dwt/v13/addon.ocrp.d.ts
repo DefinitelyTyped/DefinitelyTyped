@@ -1,7 +1,3 @@
-// tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
-// tslint:disable:no-irregular-whitespace
-
 /*!
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
@@ -162,11 +158,11 @@ interface OCRPro {
      * @return {void}
      */
     RecognizeSelectedImages(optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void;
-	
-	NewOCRError(): OCRError;
-	NewOCRReadPara(): OCRReadPara;
-	NewOCRZone(): OCRZone;
-	NewSettings(): Settings;
+    
+    NewOCRError(): OCRError;
+    NewOCRReadPara(): OCRReadPara;
+    NewOCRZone(): OCRZone;
+    NewSettings(): Settings;
 }
 
 interface DynamsoftWebTwainAddon {

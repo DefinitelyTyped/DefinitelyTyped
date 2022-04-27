@@ -1,7 +1,8 @@
 import * as React from "react";
+import { ReactAttr } from "../../../typings/shared";
 
-export interface TagSkeletonProps { }
+export interface TagSkeletonProps extends ReactAttr<HTMLSpanElement> { }
 
-declare class TagSkeleton extends React.Component<TagSkeletonProps> { }
+declare const TagSkeleton: React.FC<TagSkeletonProps>;
 
 export default TagSkeleton;

@@ -10,5 +10,5 @@ export interface Recase {
 export function create(opts: {
     exceptions?: {
         [origKey: string]: string;
-    };
+    } | undefined;
 }): Recase;

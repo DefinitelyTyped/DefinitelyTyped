@@ -11,13 +11,13 @@ declare class AsObjects extends Transform {
 
 declare namespace AsObjects {
     interface AsObjectOptions extends TransformOptions {
-        packValues?: boolean;
-        packStrings?: boolean;
-        streamValues?: boolean;
-        streamStrings?: boolean;
-        useValues?: boolean;
-        useStringValues?: boolean;
-        fieldPrefix?: string;
+        packValues?: boolean | undefined;
+        packStrings?: boolean | undefined;
+        streamValues?: boolean | undefined;
+        streamStrings?: boolean | undefined;
+        useValues?: boolean | undefined;
+        useStringValues?: boolean | undefined;
+        fieldPrefix?: string | undefined;
     }
 
     function make(options?: AsObjectOptions): AsObjects;

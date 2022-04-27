@@ -1,4 +1,4 @@
-import * as amqp from "amqplib";
+import * as amqp from 'amqplib';
 import * as amqpConMgr from 'amqp-connection-manager';
 
 // from README.md
@@ -7,7 +7,7 @@ const channelWrapper: amqpConMgr.ChannelWrapper = connection.createChannel({
     json: true,
     setup: async (channel: amqp.ConfirmChannel): Promise<void> => {
         // `channel` here is a regular amqplib `ConfirmChannel`. Unfortunately its typings make it return a bluebird-specific promise
-		// tslint:disable-next-line:await-promise
+        // tslint:disable-next-line:await-promise
         await channel.assertQueue('rxQueueName', {durable: true});
     }
 });
@@ -31,6 +31,12 @@ channelWrapper.sendToQueue("foo", {a: 'bar'}).catch(_ => {});
 amqpConMgr.connect(["foo", "bar"], {
     findServers(callback) {
         callback("x");
+    }
+});
+
+amqpConMgr.connect([{ hostname: 'foo' }], {
+    findServers(callback) {
+        callback('x');
     }
 });
 

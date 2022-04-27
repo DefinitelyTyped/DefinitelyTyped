@@ -8,28 +8,28 @@ declare function columnify(data: Record<string, any> | any[], options?: columnif
 
 declare namespace columnify {
     interface Options {
-        align?: 'left' | 'center' | 'centre' | 'right';
-        dataTransform?: (data: string) => string;
-        headingTransform?: (data: string) => string;
-        minWidth?: number;
-        maxWidth?: number;
-        paddingChr?: string;
-        preserveNewLines?: boolean;
-        showHeaders?: boolean;
-        truncateMarker?: string;
+        align?: 'left' | 'center' | 'centre' | 'right' | undefined;
+        dataTransform?: ((data: string) => string) | undefined;
+        headingTransform?: ((data: string) => string) | undefined;
+        minWidth?: number | undefined;
+        maxWidth?: number | undefined;
+        paddingChr?: string | undefined;
+        preserveNewLines?: boolean | undefined;
+        showHeaders?: boolean | undefined;
+        truncateMarker?: string | undefined;
     }
 
     interface GlobalOptions extends Options {
-        columns?: string[];
-        columnSplitter?: string;
+        columns?: string[] | undefined;
+        columnSplitter?: string | undefined;
         config?: {
             [columnName: string]: Options;
-        };
-        maxLineWidth?: number;
-        truncate?: boolean;
+        } | undefined;
+        maxLineWidth?: number | undefined;
+        truncate?: boolean | undefined;
         widths?: {
             [columnName: string]: Pick<Options, 'minWidth' | 'maxWidth'>;
-        };
+        } | undefined;
     }
 }
 

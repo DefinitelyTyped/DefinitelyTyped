@@ -2,7 +2,7 @@
 // Project: https://github.com/mongodb-js/mongoose-autopopulate
 // Definitions by: Ranjit Singh <https://github.com/rann91>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 4.1
 
 import { Schema } from 'mongoose';
 

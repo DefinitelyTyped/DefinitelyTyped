@@ -1,8 +1,6 @@
-import * as _sodium from 'libsodium-wrappers';
+import * as sodium from 'libsodium-wrappers';
 
-_sodium.ready.then(() => {
-  const sodium = _sodium;
-
+sodium.ready.then(() => {
   const key = sodium.crypto_secretstream_xchacha20poly1305_keygen();
 
   const res = sodium.crypto_secretstream_xchacha20poly1305_init_push(key);

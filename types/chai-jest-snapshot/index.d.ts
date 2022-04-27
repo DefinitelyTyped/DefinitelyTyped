@@ -27,7 +27,7 @@ interface ChaiJestSnapshot extends Chai.ChaiPlugin {
     setTestName(testname: string): void;
 
     /** Configure snapshot name using mocha context */
-    configureUsingMochaContext(context: Mocha.IBeforeAndAfterContext): void;
+    configureUsingMochaContext(context: Mocha.Context): void;
 
     /** Reset snapshot registry */
     resetSnapshotRegistry(): void;

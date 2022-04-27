@@ -5,7 +5,7 @@ export type Flavour = 'tiny' | 'short-time' | 'narrow' | 'short' | 'long';
 
 export interface CustomFormatterOptions {
     now: number;
-    date?: Date;
+    date?: Date | undefined;
     time: number;
     elapsed: number;
     locale: Locale;
@@ -14,10 +14,10 @@ export interface CustomFormatterOptions {
 export type CustomFormatter = (options: CustomFormatterOptions) => string | undefined;
 
 export interface FormatStyle {
-    units?: Unit;
-    gradation?: Gradation[];
-    flavour?: Flavour[];
-    custom?: CustomFormatter;
+    units?: Unit | undefined;
+    gradation?: Gradation[] | undefined;
+    flavour?: Flavour[] | undefined;
+    custom?: CustomFormatter | undefined;
     format?(date: Date | number, locale: Locale): string;
 }
 

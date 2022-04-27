@@ -11,32 +11,32 @@ export interface Bundle {
 }
 
 export interface DependencyConfig {
-    type?: string;
+    type?: string | undefined;
     attributes?: {
         integrity: string;
         crossorigin: string;
-    };
-    inline?: string;
-    slot?: string;
-    'css-slot'?: string;
-    'js-slot'?: string;
-    url?: string;
-    path?: string;
-    external?: boolean;
-    'if-flag'?: string;
-    'if-not-flag'?: string;
-    if?: string;
-    from?: string;
-    to?: string;
-    require?: string;
-    'require-run'?: string;
-    dependencies?: Array<DependencyConfig | string>;
+    } | undefined;
+    inline?: string | undefined;
+    slot?: string | undefined;
+    'css-slot'?: string | undefined;
+    'js-slot'?: string | undefined;
+    url?: string | undefined;
+    path?: string | undefined;
+    external?: boolean | undefined;
+    'if-flag'?: string | undefined;
+    'if-not-flag'?: string | undefined;
+    if?: string | undefined;
+    from?: string | undefined;
+    to?: string | undefined;
+    require?: string | undefined;
+    'require-run'?: string | undefined;
+    dependencies?: Array<DependencyConfig | string> | undefined;
 }
 
 export interface Dependency extends EventEmitter, DependencyConfig {
-    _packageDependency?: boolean;
-    contentType?: string;
-    properties?: { [key: string]: string };
+    _packageDependency?: boolean | undefined;
+    contentType?: string | undefined;
+    properties?: { [key: string]: string } | undefined;
 
     (dependencyConfig: DependencyConfig, dirname: string, filename?: string): Dependency;
     calculateKey(lassoContext: LassoContext, callback: Callback): any;

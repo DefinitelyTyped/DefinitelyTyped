@@ -7,13 +7,13 @@ import getOwnPropertyDescriptors = require('object.getownpropertydescriptors');
 declare function expectType<T>(value: T): T;
 
 interface Language {
-	language: string;
-	description?: string;
+    language: string;
+    description?: string | undefined;
 }
 
 interface LanguageDescriptorMap {
-	language: TypedPropertyDescriptor<string>;
-	description?: TypedPropertyDescriptor<string | undefined>;
+    language: TypedPropertyDescriptor<string>;
+    description?: TypedPropertyDescriptor<string | undefined> | undefined;
 }
 
 declare let lang: Language;

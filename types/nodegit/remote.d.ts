@@ -13,13 +13,13 @@ export namespace Remote {
         DOWNLOAD_TAGS_UNSPECIFIED = 0,
         DOWNLOAD_TAGS_AUTO = 1,
         DOWNLOAD_TAGS_NONE = 2,
-        DOWNLOAD_TAGS_ALL = 3
+        DOWNLOAD_TAGS_ALL = 3,
     }
 
     const enum COMPLETION_TYPE {
         COMPLETION_DOWNLOAD = 0,
         COMPLETION_INDEXING = 1,
-        COMPLETION_ERROR = 2
+        COMPLETION_ERROR = 2,
     }
 }
 
@@ -35,6 +35,7 @@ export class Remote {
     static isValidName(remoteName: string): boolean;
     static list(repo: Repository): Promise<any[]>;
     static lookup(repo: Repository, name: string | Remote, callback?: Function): Promise<Remote>;
+    static rename(repo: Repository, oldName: string, newName: string): Promise<void>;
     static setAutotag(repo: Repository, remote: string, value: number): number;
     static setPushurl(repo: Repository, remote: string, url: string): number;
     static setUrl(repo: Repository, remote: string, url: string): number;
@@ -42,7 +43,7 @@ export class Remote {
     autotag(): number;
     connect(direction: Enums.DIRECTION, callbacks: RemoteCallbacks, callback?: Function): Promise<number>;
     connected(): number;
-    defaultBranch(): Promise<Buf>;
+    defaultBranch(): Promise<string>;
     disconnect(): Promise<void>;
     download(refSpecs: any[], opts?: FetchOptions, callback?: Function): Promise<number>;
     dup(): Promise<Remote>;
@@ -62,7 +63,12 @@ export class Remote {
     stats(): TransferProgress;
 
     stop(): void;
-    updateTips(callbacks: RemoteCallbacks, updateFetchhead: number, downloadTags: number, reflogMessage: string): number;
+    updateTips(
+        callbacks: RemoteCallbacks,
+        updateFetchhead: number,
+        downloadTags: number,
+        reflogMessage: string,
+    ): number;
     upload(refspecs: Strarray | string | string[], opts?: PushOptions): number;
     url(): string;
     /**

@@ -34,6 +34,7 @@ class MyTable2 extends React.Component {
                 <Column
                     cell={<Cell>Basic content</Cell>}
                     width={200}
+                    cellClassName="extra-cell-class"
                 />
             </Table>
         );
@@ -177,6 +178,7 @@ class MyTable5 extends React.Component {
                 onScrollEnd={(x: number, y: number) => { }}
                 onContentHeightChange={(newHeight: number) => { }}
                 onRowClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}
+                onRowContextMenu={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}
                 onRowDoubleClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}
                 onRowMouseDown={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}
                 onRowMouseEnter={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}

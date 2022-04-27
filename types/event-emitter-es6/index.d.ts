@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
-  emitDelay?: number;
-  strictMode?: boolean;
+  emitDelay?: number | undefined;
+  strictMode?: boolean | undefined;
 }
 
 type Listener = (...args: any[]) => void;

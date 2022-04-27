@@ -55,6 +55,45 @@ if (memoryCache.store.keys) {
     });
 }
 
+memoryCache.reset().then(() => {
+    // console.log('reset with promise');
+});
+memoryCache.reset(() => {
+    // console.log('reset with callback');
+});
+
+async function promiseMemoryCache(cache: cacheManager.Cache) {
+    const KEY = 'Key';
+    const VALUE = 'string';
+
+    const numberWrap: number = await cache.wrap(KEY, () => 1);
+    const numberWrapAsync: number = await cache.wrap(KEY, async () => 1);
+
+    const stringWrap: string = await cache.wrap(KEY, () => VALUE);
+    const stringWrapAsync: string = await cache.wrap(KEY, async () => VALUE);
+
+    const stringWrapWithCacheConfig: string = await cache.wrap(KEY, () => VALUE, { ttl: 10 });
+    const stringWrapWithCacheConfigAsync: string = await cache.wrap(KEY, async () => VALUE, { ttl: 10 });
+
+    const setWithoutOptional = await cache.set(KEY, VALUE);
+    const setWitOptional = await cache.set(KEY, VALUE, { ttl: 10 });
+
+    const stringTypeSet: string = await cache.set(KEY, VALUE);
+    const stringTypeGet: string | undefined = await cache.get<string>(KEY);
+
+    const numberTypeSet: number = await cache.set(KEY, 1);
+    const numberTypeGet: number | undefined = await cache.get<number>(KEY);
+
+    interface Custom {
+        test: string;
+    };
+
+    const CustomValue: Custom = { test: VALUE };
+
+    const customTypeSet: Custom = await cache.set(KEY, CustomValue);
+    const customTypeGet: Custom | undefined = await cache.get<Custom>(KEY);
+}
+
 const multiCache = cacheManager.multiCaching([memoryCache]);
 
 multiCache.set('foo', 'bar', { ttl: ttl }, (err) => {
@@ -71,4 +110,8 @@ multiCache.set('foo', 'bar', { ttl: ttl }, (err) => {
         });
 
     });
+});
+
+multiCache.reset(() => {
+    // console.log('multiCache reset');
 });

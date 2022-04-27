@@ -4,6 +4,7 @@ import cors = require('cors');
 
 const app = express();
 app.use(cors());
+app.use(cors({}));
 app.use(cors({
     maxAge: 100,
     credentials: true,
@@ -38,6 +39,75 @@ app.use(cors({
     origin: [/example\.com$/, /fakeurl\.com$/]
 }));
 app.use(cors({
+    origin: [false, 'http://example.com']
+}));
+app.use(cors({
+    origin: (requestOrigin, cb) => {
+        try {
+            cb(null, true);
+        } catch (err) {
+            cb(err);
+        }
+    }
+}));
+app.use(cors({
+    origin: (requestOrigin, cb) => {
+        try {
+            cb(null, 'http://example.com');
+        } catch (err) {
+            cb(err);
+        }
+    }
+}));
+app.use(cors({
+    origin: (requestOrigin, cb) => {
+        try {
+            cb(null, /example\.com$/);
+        } catch (err) {
+            cb(err);
+        }
+    }
+}));
+app.use(cors({
+    origin: (requestOrigin, cb) => {
+        try {
+            cb(null, [/example\.com$/, 'http://example.com']);
+        } catch (err) {
+            cb(err);
+        }
+    }
+}));
+app.use(cors({
+    origin: (requestOrigin, cb) => {
+        try {
+            cb(null, ['http://example.com', 'http://fakeurl.com']);
+        } catch (err) {
+            cb(err);
+        }
+    }
+}));
+app.use(cors({
+    origin: (requestOrigin, cb) => {
+        try {
+            cb(null, [/example\.com$/, /fakeurl\.com$/]);
+        } catch (err) {
+            cb(err);
+        }
+    }
+}));
+app.use(cors({
+    origin: (requestOrigin, cb) => {
+        try {
+            if (requestOrigin === undefined) {
+                throw new Error("No origin");
+            }
+            cb(null, requestOrigin);
+        } catch (err) {
+            cb(err);
+        }
+    }
+}));
+app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
             const allow = !requestOrigin || requestOrigin.indexOf('.edu') !== -1;
@@ -53,5 +123,8 @@ app.use(cors((req, cb) => {
     } else {
         cb(new Error('Not trusted'));
     }
-}))
+}));
+app.use(cors({
+    preflightContinue: true,
+}));
 

@@ -1,9 +1,9 @@
-import dotenvParseVariables = require('dotenv-parse-variables');
+import dotenvParseVariables = require("dotenv-parse-variables");
 
-dotenvParseVariables({ a: 'b' });
+dotenvParseVariables({ a: "b" });
 
-dotenvParseVariables({ c: 'd', e: 'f' }, { assignToProcessEnv: true });
+dotenvParseVariables({ c: "d", e: "f" }, { assignToProcessEnv: true });
 
-dotenvParseVariables({ g: 'h' }, { overrideProcessEnv: false });
+dotenvParseVariables({ g: "h" }, { overrideProcessEnv: false });
 
-dotenvParseVariables({ i: 'j' }, { assignToProcessEnv: false, overrideProcessEnv: true });
+dotenvParseVariables({ i: "j" }, { assignToProcessEnv: false, overrideProcessEnv: true, ignoreFunctions: false });

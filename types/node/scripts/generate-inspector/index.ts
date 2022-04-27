@@ -2,9 +2,9 @@
 // [tag] corresponds to a tag name in the node-core repository.
 // By default, uses the current Node version.
 
-import { execSync } from "child_process";
-import { existsSync, readFileSync, writeFileSync } from "fs";
-import * as https from "https";
+import { execSync } from "node:child_process";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import * as https from "node:https";
 
 import * as schema from "./devtools-protocol-schema";
 import { generateSubstituteArgs } from "./generate-substitute-args";
@@ -12,6 +12,10 @@ import { substitute, trimRight } from "./utils";
 
 const httpsGet = (url: string) => new Promise<string>((resolve, reject) => {
     https.get(url, res => {
+        if (res.statusCode !== 200) {
+            reject(new Error(`Failed to fetch ${url} w/ error code ${res.statusCode}`));
+            return;
+        }
         const frames: Buffer[] = [];
         res.on("data", (data: Buffer) => {
             frames.push(data);
@@ -28,7 +32,7 @@ const httpsGet = (url: string) => new Promise<string>((resolve, reject) => {
 // Input arguments
 const tag = process.argv[2] || process.version;
 
-const V8_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/deps/v8/src/inspector/js_protocol-1.3.json`;
+const V8_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/deps/v8/include/js_protocol-1.3.json`;
 const NODE_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/src/inspector/node_protocol.pdl`;
 const INSPECTOR_PROTOCOL_REMOTE = `https://chromium.googlesource.com/deps/inspector_protocol`;
 const INSPECTOR_PROTOCOL_LOCAL_DIR = "/tmp/inspector_protocol";
@@ -45,15 +49,20 @@ function writeProtocolsToFile(jsonProtocols: string[]) {
     };
     for (const json of jsonProtocols) {
         if (json) {
-            const protocol: schema.Schema = JSON.parse(json);
-            combinedProtocol.domains.push(...protocol.domains);
+            try {
+                const protocol: schema.Schema = JSON.parse(json);
+                combinedProtocol.domains.push(...protocol.domains);
+            } catch(e) {
+                console.error(e, json);
+                process.exit(1);
+            }
         }
     }
     const substituteArgs = generateSubstituteArgs(combinedProtocol);
     const template = readFileSync(`${__dirname}/inspector.d.ts.template`, "utf8");
 
     const inspectorDts = substitute(template, substituteArgs).split("\n")
-        .map(line => trimRight(line))
+        .map(trimRight)
         .join("\n");
 
     writeFileSync("./inspector.d.ts", inspectorDts, "utf8");

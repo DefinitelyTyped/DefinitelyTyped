@@ -2,9 +2,9 @@
 // Project: https://github.com/vadimdemedes/mongorito, https://github.com/vdemedes/mongorito
 // Definitions by: Pinguet62 <https://github.com/pinguet62>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 4.1
 
-import { Collection, CommonOptions, Db, IndexOptions, Long, MongoClientOptions, ReadPreference } from 'mongodb';
+import { Collection, CreateIndexesOptions, Db, DropIndexesOptions, Long, MongoClientOptions, ReadPreference } from 'mongodb';
 
 export { Timestamp, ObjectId, MinKey, MaxKey, DBRef, Long } from 'mongodb';
 
@@ -62,17 +62,17 @@ export class Model extends Query {
      * @see mongodb.Collection#listIndexes()
      * @see mongodb.CommandCursor#toArray()
      */
-    static listIndexes(options?: { batchSize?: number, readPreference?: ReadPreference | string }): Promise<any[]>;
+    static listIndexes(options?: { batchSize?: number | undefined, readPreference?: ReadPreference | string | undefined }): Promise<any[]>;
 
     /**
      * @see mongodb.Collection#createIndex()
      */
-    static createIndex(fieldOrSpec: any, options?: IndexOptions): Promise<string>;
+    static createIndex(fieldOrSpec: any, options?: CreateIndexesOptions): Promise<string>;
 
     /**
      * @see mongodb.Collection#dropIndex()
      */
-    static dropIndex(indexName: string, options?: CommonOptions): Promise<object>;
+    static dropIndex(indexName: string, options?: DropIndexesOptions): Promise<object>;
 
     static embeds(key: string, model: ModelClass): void;
 
@@ -128,7 +128,7 @@ export enum ActionTypes {
 
 export interface GetAction {
     type: ActionTypes.GET;
-    key?: string;
+    key?: string | undefined;
 }
 
 export interface SetAction {
@@ -248,7 +248,7 @@ export interface PluginStore {
     dispatch: (arg: any) => any;
     getState: () => State;
     modelClass: ModelClass;
-    model?: Model;
+    model?: Model | undefined;
 }
 
 export type Reducer<S = any> = (state: S, action: Action) => Reducer;

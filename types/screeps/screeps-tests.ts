@@ -30,7 +30,7 @@ interface CreepMemory {
 // the type of the key should be narrowed down in order to prevent casting (key as ResourceConstant).
 // This helper function provides strongly typed keys for such objects.
 // See discussion (https://github.com/Microsoft/TypeScript/pull/12253) why Object.keys does not return typed keys.
-function keys<T>(o: T): Array<keyof T> {
+function keys<T extends Record<string, any>>(o: T): Array<keyof T> {
     return Object.keys(o) as Array<keyof T>;
 }
 
@@ -42,7 +42,6 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     const creepId: Id<Creep> = "1" as Id<Creep>;
     const creepOne: Creep | null = Game.getObjectById(creepId);
-    const creepTwo: Creep | null = Game.getObjectById<Creep>("2"); // deprecated
     const creepThree: Creep = new Creep(creepId); // Works with typed ID
 
     if (creepOne) {
@@ -51,9 +50,12 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     type StoreStructure = StructureContainer | StructureStorage | StructureLink;
-    const storeID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
-    const stringID: string = storeID; // Id<T> assignable implicitly to string
-    const storeObject = Game.getObjectById(storeID)!;
+    const storeUnionID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
+    const storeIdUnion: StoreStructure["id"] = "1234" as StoreStructure["id"];
+    const stringID: string = storeUnionID; // Id<T> assignable implicitly to string
+    const stringID2: string = storeIdUnion; // Id<T> assignable implicitly to string
+    const storeObject = Game.getObjectById(storeUnionID)!;
+    const storeObject2 = Game.getObjectById(storeIdUnion)!;
 
     // Object recognized
     switch (storeObject.structureType) {
@@ -64,16 +66,13 @@ function resources(o: GenericStore): ResourceConstant[] {
         default:
             storeObject.structureType === "link";
     }
-
-    // Default type is unknown if untyped Id provided
-    const untyped = Game.getObjectById("untyped");
 }
 
 // Game.creeps
 
 {
-    for (const i in Game.creeps) {
-        Game.creeps[i].moveTo(flag);
+    for (const creepName of Object.keys(Game.creeps)) {
+        Game.creeps[creepName].moveTo(flag);
     }
 }
 
@@ -88,12 +87,12 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     PowerCreep.create("steve", POWER_CLASS.OPERATOR) === OK;
 
-    for (const i in Game.powerCreeps) {
+    for (const i of Object.keys(Game.powerCreeps)) {
         const powerCreep = Game.powerCreeps[i];
 
         if (powerCreep.ticksToLive === undefined) {
             // Not spawned in world; spawn creep
-            const spawn = Game.getObjectById("powerSpawnID") as StructurePowerSpawn;
+            const spawn = Game.getObjectById("powerSpawnID" as Id<StructurePowerSpawn>)!;
             powerCreep.spawn(spawn);
         } else {
             // Generate Ops
@@ -105,7 +104,7 @@ function resources(o: GenericStore): ResourceConstant[] {
                 Game.powerCreeps[i].usePower(PWR_GENERATE_OPS);
             } else {
                 // Boost resource
-                const targetSource = Game.getObjectById("targetSourceID") as Source;
+                const targetSource = Game.getObjectById("targetSourceID" as Id<Source>)!;
                 const sourceEffect = targetSource.effects.find(effect => effect.effect === PWR_REGEN_SOURCE && effect.level > 0);
                 if (!sourceEffect && powerCreep.powers[PWR_REGEN_SOURCE] && powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0) {
                     powerCreep.usePower(PWR_REGEN_SOURCE, targetSource);
@@ -135,11 +134,11 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.spawns
 
 {
-    for (const i in Game.spawns) {
+    for (const i of Object.keys(Game.spawns)) {
         Game.spawns[i].createCreep(body);
 
         // Test StructureSpawn.Spawning
-        let creep: Spawning | null = Game.spawns[i].spawning;
+        const creep: Spawning | null = Game.spawns[i].spawning;
         if (creep) {
             const name: string = creep.name;
             const needTime: number = creep.needTime;
@@ -150,8 +149,11 @@ function resources(o: GenericStore): ResourceConstant[] {
             const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([TOP, BOTTOM, LEFT, RIGHT]);
         }
 
-        creep = new StructureSpawn.Spawning("" as Id<Spawning>);
-        creep = StructureSpawn.Spawning("" as Id<Spawning>);
+        const invaderCore = new StructureInvaderCore("" as Id<StructureInvaderCore>);
+        const invader = invaderCore.spawning;
+        if (invader) {
+            const name = invader.name;
+        }
     }
 }
 
@@ -171,7 +173,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 }
 
 {
-    for (const name in Game.creeps) {
+    for (const name of Object.keys(Game.creeps)) {
         const startCpu = Game.cpu.getUsed();
 
         // creep logic goes here
@@ -193,6 +195,18 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 }
 
+// Game.cpu.unlock()
+{
+    if (!Game.cpu.unlocked) {
+        if (!Game.cpu.unlockedTime) {
+            const unlock_state = Game.cpu.unlock();
+            if (unlock_state === OK) {
+                // Unlimited cosmic power!
+            }
+        }
+    }
+}
+
 // Game.getObjectById(id)
 
 {
@@ -204,7 +218,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     if (creep.hits < creep.memory.lastHits) {
-        Game.notify(`Creep ${creep} has been attacked at ${creep.pos}!`);
+        Game.notify(`Creep ${creep.toString()} has been attacked at ${creep.pos.toString()}!`);
     }
     creep.memory.lastHits = creep.hits;
 }
@@ -234,7 +248,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.map.findExit()
 
 {
-    if (creep.room !== anotherRoomName) {
+    if (creep.room.name !== anotherRoomName.name) {
         const exitDir = Game.map.findExit(creep.room, anotherRoomName);
         if (exitDir !== ERR_NO_PATH && exitDir !== ERR_INVALID_ARGS) {
             const exit = creep.pos.findClosestByRange(exitDir);
@@ -337,10 +351,11 @@ function resources(o: GenericStore): ResourceConstant[] {
     Game.map.getTerrainAt(new RoomPosition(25, 20, "W10N10"));
 }
 
-// Game.map.isRoomAvailable(roomName)
+// Game.map.getRoomStatus(roomName)
 
 {
-    if (Game.map.isRoomAvailable(room.name)) {
+    const roomStatus = Game.map.getRoomStatus(room.name);
+    if (roomStatus.status === "normal") {
         creep.moveTo(room.getPositionAt(25, 25)!);
     }
 }
@@ -352,7 +367,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     const cost = Game.market.calcTransactionCost(1000, "W0N0", "W10N5");
 
     // Game.market.cancelOrder(orderId)
-    for (const id in Game.market.orders) {
+    for (const id of Object.keys(Game.market.orders)) {
         Game.market.cancelOrder(id);
     }
 
@@ -408,6 +423,10 @@ function resources(o: GenericStore): ResourceConstant[] {
     const avgPrice: number = priceHistory[0].avgPrice;
     const stddevPrice: number = priceHistory[0].stddevPrice;
     const volume: number = priceHistory[0].volume;
+
+    // Game.market.getHistory([resourceType])
+    const energyHistory = Game.market.getHistory(RESOURCE_ENERGY);
+    const pixelHistory = Game.market.getHistory(PIXEL);
 }
 
 // PathFinder
@@ -554,6 +573,14 @@ function resources(o: GenericStore): ResourceConstant[] {
     const sites = room.find(FIND_CONSTRUCTION_SITES);
     sites[0].remove();
 
+    const extensionsites = room.find(FIND_CONSTRUCTION_SITES, {
+        filter: (site): site is ConstructionSite<STRUCTURE_EXTENSION> => {
+            return site.structureType === STRUCTURE_EXTENSION;
+        },
+    });
+    // Should always be true. needs proper testing
+    extensionsites[0].structureType === STRUCTURE_EXTENSION;
+
     // Should have type (_HasRoomPosition | RoomPosition)[]
     const exits = room.find(FIND_EXIT);
 
@@ -568,7 +595,21 @@ function resources(o: GenericStore): ResourceConstant[] {
     towers[0].attack(creeps[0]);
     towers[0].attack(creeps[0] as AnyCreep);
     towers[0].attack(powerCreep);
+    towers[0].attack(spawns[0]);
     towers[0].heal(powerCreep);
+
+    const isTower = (structure: AnyStructure): structure is StructureTower => {
+        return structure.structureType === STRUCTURE_TOWER;
+    };
+
+    const tower = room.find(FIND_MY_STRUCTURES, {
+        filter: isTower,
+    })[0];
+    tower.attack(creeps[0]);
+    tower.attack(creeps[0] as AnyCreep);
+    tower.attack(powerCreep);
+    tower.attack(spawns[0]);
+    tower.heal(powerCreep);
 }
 
 // RoomPosition Finds
@@ -584,11 +625,34 @@ function resources(o: GenericStore): ResourceConstant[] {
         filter: structure => {
             return structure.structureType === STRUCTURE_TOWER;
         },
+        algorithm: "astar",
     });
     if (tower !== null) {
         tower.attack(creep);
         tower.attack(powerCreep);
     }
+
+    // Generic type predicate filter
+    const isStructureType = <T extends StructureConstant, S extends ConcreteStructure<T>>(structureType: T) => {
+        return (structure: AnyStructure): structure is S => {
+            return structure.structureType === structureType as string;
+        };
+    };
+
+    const tower2 = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
+        filter: isStructureType(STRUCTURE_TOWER),
+        algorithm: "astar",
+    });
+    if (tower2 !== null) {
+        tower2.attack(creep);
+        tower2.attack(powerCreep);
+    }
+
+    const creepWithEnergy = creep.pos.findClosestByPath(creep.room.find(FIND_CREEPS), { filter: c => c.store.energy > 0 });
+
+    const creepAbove = creep.pos.findClosestByPath(creep.room.find(FIND_CREEPS).map(c => c.pos), {
+        filter: p => p.getDirectionTo(creep) === TOP,
+    });
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
         filter: structure => {
@@ -616,11 +680,11 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     const matrix = room.lookAtArea(10, 10, 20, 20, false);
-    for (const y in matrix) {
-        const row = matrix[y];
-        for (const x in row) {
+    for (const y of Object.keys(matrix)) {
+        const row = matrix[y as unknown as number];
+        for (const x of Object.keys(row)) {
             const pos = new RoomPosition(+x, +y, room.name);
-            const objects = row[x];
+            const objects = row[x as unknown as number];
             if (objects.length > 0) {
                 objects.map(o => o.type);
             }
@@ -658,21 +722,38 @@ function resources(o: GenericStore): ResourceConstant[] {
     const e1: number = extension.store.getUsedCapacity(RESOURCE_ENERGY);
     const e2: number = extension.store[RESOURCE_ENERGY];
 
-    const g1: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
-    const g2: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
+    // Invalid resource type for extension
+    const eg1: null = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const eg2: null = extension.store.getFreeCapacity(RESOURCE_GHODIUM);
+    const eg3: null = extension.store.getCapacity(RESOURCE_GHODIUM);
+    const eg4: 0 = extension.store.G;
 
     const storage = new StructureStorage("" as Id<StructureStorage>);
 
-    const g3: number = storage.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const sg1: number = storage.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const sg2: number = storage.store.getFreeCapacity(RESOURCE_GHODIUM);
+    const sg3: number = storage.store.getCapacity(RESOURCE_GHODIUM);
 }
 
 // Advanced Structure types
 {
-    const owned = Game.getObjectById<AnyOwnedStructure>("blah");
-    const owner = owned!.owner.username;
-    owned!.notifyWhenAttacked(false);
+    const owned = Game.getObjectById("blah" as Id<AnyOwnedStructure>)!;
+    const owner = owned.owner && owned.owner.username;
+    owned.notifyWhenAttacked(false);
 
-    const unowned = Game.getObjectById<AnyStructure>("blah2")!;
+    const structs = room.find(FIND_MY_STRUCTURES);
+    structs.forEach(struct => {
+        switch (struct.structureType) {
+            case STRUCTURE_CONTROLLER:
+                const usernameOptional: string | undefined = struct.owner && struct.owner.username;
+                break;
+            default:
+                const usernameRequired: string = struct.owner.username;
+                break;
+        }
+    });
+
+    const unowned = Game.getObjectById("blah2" as Id<AnyStructure>)!;
     const hp = unowned.hits / unowned.hitsMax;
 
     // test discriminated union
@@ -731,6 +812,15 @@ function resources(o: GenericStore): ResourceConstant[] {
     creep.withdraw(tombstone, RESOURCE_ENERGY);
 }
 
+// Ruin
+
+{
+    const ruin = room.find(FIND_RUINS)[0];
+
+    creep.withdraw(ruin, RESOURCE_ENERGY);
+    powerCreep.withdraw(ruin, RESOURCE_ENERGY);
+}
+
 {
     if (Game.cpu.hasOwnProperty("getHeapStatistics")) {
         const heap = Game.cpu.getHeapStatistics!();
@@ -745,7 +835,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     portals.forEach((p: StructurePortal) => {
         const state = p.ticksToDecay === undefined ? "stable" : "unstable";
         if (p.destination instanceof RoomPosition) {
-            Game.notify(`Found ${state} inter-room portal to ${p.destination}`);
+            Game.notify(`Found ${state} inter-room portal to ${p.destination.toString()}`);
         } else {
             Game.notify(`Found ${state} inter-shard portal to ${p.destination.shard} ${p.destination.room}`);
         }
@@ -768,13 +858,15 @@ function resources(o: GenericStore): ResourceConstant[] {
 // StructureLab
 
 {
-    const lab0 = Game.getObjectById<StructureLab>("lab0");
-    const lab1 = Game.getObjectById<StructureLab>("lab1");
-    const lab2 = Game.getObjectById<StructureLab>("lab2");
+    const lab0 = Game.getObjectById("lab" as Id<StructureLab>);
+    const lab1 = Game.getObjectById("lab" as Id<StructureLab>);
+    const lab2 = Game.getObjectById("lab" as Id<StructureLab>);
     if (lab0 !== null && lab1 !== null && lab2 !== null) {
         if (lab1.mineralAmount >= LAB_REACTION_AMOUNT && lab2.mineralAmount >= LAB_REACTION_AMOUNT && lab0.mineralType === null) {
             lab0.runReaction(lab1, lab2);
         }
+        // nevermind, reverse that
+        lab0.reverseReaction(lab1, lab2);
     }
 }
 
@@ -820,4 +912,126 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     const enemyTerrain = new Room.Terrain("W2N5");
+}
+
+// Creep.body
+function atackPower(creep: Creep) {
+    return creep.body
+        .map(part => {
+            if (part.type === ATTACK) {
+                const multiplier = part.boost ? BOOSTS[part.type][part.boost].attack : 1;
+                return multiplier * ATTACK_POWER;
+            }
+            return 0;
+        })
+        .reduce((a, b) => a + b);
+}
+
+// Factories and Commodities
+
+{
+    const factory = new StructureFactory("" as Id<StructureFactory>);
+
+    if (!factory.level) {
+        powerCreep.usePower(PWR_OPERATE_FACTORY, factory);
+    }
+
+    creep.transfer(factory, RESOURCE_CELL, 20);
+    creep.transfer(factory, RESOURCE_OXIDANT, 36);
+    creep.transfer(factory, RESOURCE_LEMERGIUM_BAR, 16);
+    creep.transfer(factory, RESOURCE_ENERGY, 8);
+
+    factory.produce(RESOURCE_PHLEGM);
+
+    factory.produce(RESOURCE_BATTERY);
+    factory.produce(RESOURCE_ENERGY);
+
+    factory.produce(RESOURCE_GHODIUM);
+    factory.produce(RESOURCE_GHODIUM_MELT);
+
+    creep.withdraw(factory, RESOURCE_PHLEGM);
+
+    // Energy and ghodium commodities
+    COMMODITIES[RESOURCE_ENERGY];
+    COMMODITIES[RESOURCE_GHODIUM];
+
+    // Mineral commodities
+    COMMODITIES[RESOURCE_UTRIUM];
+    COMMODITIES[RESOURCE_LEMERGIUM];
+    COMMODITIES[RESOURCE_KEANIUM];
+    COMMODITIES[RESOURCE_ZYNTHIUM];
+    COMMODITIES[RESOURCE_OXYGEN];
+    COMMODITIES[RESOURCE_HYDROGEN];
+    COMMODITIES[RESOURCE_CATALYST];
+
+    // Commodity commodities
+    COMMODITIES[RESOURCE_UTRIUM_BAR];
+    COMMODITIES[RESOURCE_LEMERGIUM_BAR];
+    COMMODITIES[RESOURCE_ZYNTHIUM_BAR];
+    COMMODITIES[RESOURCE_KEANIUM_BAR];
+    COMMODITIES[RESOURCE_GHODIUM_MELT];
+    COMMODITIES[RESOURCE_OXIDANT];
+    COMMODITIES[RESOURCE_REDUCTANT];
+    COMMODITIES[RESOURCE_PURIFIER];
+    COMMODITIES[RESOURCE_BATTERY];
+    COMMODITIES[RESOURCE_COMPOSITE];
+    COMMODITIES[RESOURCE_CRYSTAL];
+    COMMODITIES[RESOURCE_LIQUID];
+    COMMODITIES[RESOURCE_WIRE];
+    COMMODITIES[RESOURCE_SWITCH];
+    COMMODITIES[RESOURCE_TRANSISTOR];
+    COMMODITIES[RESOURCE_MICROCHIP];
+    COMMODITIES[RESOURCE_CIRCUIT];
+    COMMODITIES[RESOURCE_DEVICE];
+    COMMODITIES[RESOURCE_CELL];
+    COMMODITIES[RESOURCE_PHLEGM];
+    COMMODITIES[RESOURCE_TISSUE];
+    COMMODITIES[RESOURCE_MUSCLE];
+    COMMODITIES[RESOURCE_ORGANOID];
+    COMMODITIES[RESOURCE_ORGANISM];
+    COMMODITIES[RESOURCE_ALLOY];
+    COMMODITIES[RESOURCE_TUBE];
+    COMMODITIES[RESOURCE_FIXTURES];
+    COMMODITIES[RESOURCE_FRAME];
+    COMMODITIES[RESOURCE_HYDRAULICS];
+    COMMODITIES[RESOURCE_MACHINE];
+    COMMODITIES[RESOURCE_CONDENSATE];
+    COMMODITIES[RESOURCE_CONCENTRATE];
+    COMMODITIES[RESOURCE_EXTRACT];
+    COMMODITIES[RESOURCE_SPIRIT];
+    COMMODITIES[RESOURCE_EMANATION];
+    COMMODITIES[RESOURCE_ESSENCE];
+}
+
+// <strike>Horse armor!</strike>Pixels!
+{
+    const ret: OK | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL = Game.cpu.generatePixel();
+}
+
+// Game.map.visual
+{
+    const mapVis = Game.map.visual;
+    const point1 = new RoomPosition(1, 1, "E1N1");
+    const point2 = new RoomPosition(1, 1, "E1N8");
+    const point3 = new RoomPosition(1, 1, "E8N8");
+    const point4 = new RoomPosition(1, 1, "E1N8");
+
+    mapVis
+        .line(point1, point2)
+        .circle(point3, { fill: "#f2f2f2" })
+        .poly([point1, point2, point3, point4])
+        .rect(point3, 50, 50);
+
+    const size: number = mapVis.getSize();
+
+    const visData = mapVis.export();
+    mapVis.clear();
+    mapVis.import(visData);
+}
+
+// Id
+{
+    const roomId = "" as Id<Room>; // $ExpectError
+    const creep = Game.getObjectById("" as Id<Creep>);
+    const foo = Game.getObjectById<StructureTower>("" as Id<Creep>); // $ExpectError
 }

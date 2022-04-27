@@ -116,16 +116,9 @@ declare namespace google.script {
         function setWidth(width: number): void;
     }
 
-    const run: Runner;
-
     type Parameter = number | boolean | string | { [index: number]: Parameter } | { [key: string]: Parameter } | null | undefined;
 
-    type Runner = {
-        /**
-         * Executes the server-side Apps Script function with the corresponding name.
-         */
-        [functionName: string]: (first?: Parameter | HTMLFormElement, ...rest: Parameter[]) => void;
-    } & {
+    interface RunnerFunctions {
         /**
          * Sets a callback function to run if the server-side function throws an exception.
          * Without a failure handler, failures are logged to the JavaScript console.
@@ -133,14 +126,14 @@ declare namespace google.script {
          * @param handler a client-side callback function to run if the server-side function throws an exception;
          * the Error object is passed to the function as the first argument, and the user object (if any) is passed as a second argument
          */
-        withFailureHandler(handler: (error: Error, object?: any) => void): Runner;
+        withFailureHandler(handler: (error: Error, object?: any) => void): typeof run;
 
         /**
          * Sets a callback function to run if the server-side function returns successfully.
          * @param handler a client-side callback function to run if the server-side function returns successfully;
          * the server's return value is passed to the function as the first argument, and the user object (if any) is passed as a second argument
          */
-        withSuccessHandler(handler: (value?: any, object?: any) => void): Runner;
+        withSuccessHandler(handler: (value?: any, object?: any) => void): typeof run;
 
         /**
          * Sets an object to pass as a second parameter to the success and failure handlers.
@@ -148,6 +141,15 @@ declare namespace google.script {
          * because user objects are not sent to the server, they are not subject to the restrictions on parameters and return values for server calls.
          * User objects cannot, however, be objects constructed with the new operator
          */
-        withUserObject(object: any): Runner;
-    };
+        withUserObject(object: any): typeof run;
+    }
+
+    interface PublicEndpoints {
+        /**
+         * Executes the server-side Apps Script function with the corresponding name.
+         */
+        [functionName: string]: (first?: Parameter | HTMLFormElement, ...rest: Parameter[]) => void;
+    }
+
+    const run: RunnerFunctions & PublicEndpoints;
 }

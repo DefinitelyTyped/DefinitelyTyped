@@ -23,32 +23,32 @@ declare namespace f {
         /**
          * The directory where the session files will be stored. Defaults to `./sessions`
          */
-        path?: string;
+        path?: string | undefined;
 
         /**
          * Session time to live in seconds. Defaults to `3600`
          */
-        ttl?: number;
+        ttl?: number | undefined;
 
         /**
          * The number of retries to get session data from a session file. Defaults to `5`
          */
-        retries?: number;
+        retries?: number | undefined;
 
         /**
          * The exponential factor to use for retry. Defaults to `1`
          */
-        factor?: number;
+        factor?: number | undefined;
 
         /**
          * The number of milliseconds before starting the first retry. Defaults to `50`
          */
-        minTimeout?: number;
+        minTimeout?: number | undefined;
 
         /**
          * The maximum number of milliseconds between two retries. Defaults to `100`
          */
-        maxTimeout?: number;
+        maxTimeout?: number | undefined;
 
         /**
          * [OUT] Contains intervalObject if reap was scheduled
@@ -58,22 +58,22 @@ declare namespace f {
         /**
          * Interval to clear expired sessions in seconds or -1 if do not need. Defaults to `1 hour`
          */
-        reapInterval?: number;
+        reapInterval?: number | undefined;
 
         /**
          * Undocumented
          */
-        reapMaxConcurrent?: number;
+        reapMaxConcurrent?: number | undefined;
 
         /**
          * Use distinct worker process for removing stale sessions. Defaults to `false`
          */
-        reapAsync?: boolean;
+        reapAsync?: boolean | undefined;
 
         /**
          * Reap stale sessions synchronously if can not do it asynchronously. Default to `false`
          */
-        reapSyncFallback?: boolean;
+        reapSyncFallback?: boolean | undefined;
 
         /**
          * Log messages. Defaults to `console.log`
@@ -88,7 +88,7 @@ declare namespace f {
         /**
          * Object-to-text text encoding. Can be null. Defaults to `'utf8'`
          */
-        encoding?: string;
+        encoding?: string | undefined;
 
         /**
          * Encoding function. Takes object, returns encoded data. Defaults to `JSON.stringify`
@@ -104,22 +104,22 @@ declare namespace f {
          * If secret string is specified then enables encryption of the session before
          * writing the file and also decryption when reading it.
          */
-        secret?: string;
+        secret?: string | undefined;
 
         /**
          * Encryption output encoding. Defaults to `'hex'`
          */
-        encryptEncoding?: string;
+        encryptEncoding?: string | undefined;
 
         /**
          * File extension of saved files. Defaults to `'.json'`
          */
-        fileExtension?: string;
+        fileExtension?: string | undefined;
 
         /**
          * Undocumented
          */
-        filePattern?: RegExp;
+        filePattern?: RegExp | undefined;
 
         /**
          * Encryption key retrieval function. Takes secret andsession id, returns key.

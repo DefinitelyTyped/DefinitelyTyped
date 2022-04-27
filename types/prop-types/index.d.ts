@@ -17,10 +17,9 @@ export interface ReactElementLike {
     key: string | number | null;
 }
 
-export interface ReactNodeArray extends Array<ReactNodeLike> {}
+export interface ReactNodeArray extends Iterable<ReactNodeLike> {}
 
 export type ReactNodeLike =
-    | {}
     | ReactElementLike
     | ReactNodeArray
     | string
@@ -41,7 +40,7 @@ export interface Validator<T> {
     (props: { [key: string]: any }, propName: string, componentName: string, location: string, propFullName: string): Error | null;
     [nominalTypeHack]?: {
         type: T;
-    };
+    } | undefined;
 }
 
 export interface Requireable<T> extends Validator<T | undefined | null> {

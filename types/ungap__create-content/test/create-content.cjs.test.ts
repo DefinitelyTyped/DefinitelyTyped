@@ -1,4 +1,4 @@
-import createContent = require('ungap__create-content');
+import createContent = require('@ungap/create-content');
 
 createContent('<div>foo</div>'); // $ExpectType DocumentFragment
 createContent('<div>foo</div>', 'html'); // $ExpectType DocumentFragment

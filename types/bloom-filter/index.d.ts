@@ -28,8 +28,8 @@ declare namespace Filter {
   interface FilterOptions {
     vData: Buffer;
     nHashFuncs: number;
-    nTweak?: number;
-    nFlags?: number;
+    nTweak?: number | undefined;
+    nFlags?: number | undefined;
   }
 
   function MurmurHash3(seed: number, data: Buffer): number;

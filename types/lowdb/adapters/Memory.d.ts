@@ -1,3 +1,3 @@
 import { AdapterSync } from "../index";
-declare const FileSync: AdapterSync;
-export = FileSync;
+declare const Memory: AdapterSync;
+export = Memory;

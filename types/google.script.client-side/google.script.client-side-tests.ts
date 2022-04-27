@@ -25,9 +25,9 @@ google.script.host.editor.focus();
 google.script.host.setHeight(450);
 google.script.host.setWidth(300);
 
-google.script.run.withSuccessHandler(() => {}); // $ExpectType Runner
-google.script.run.withFailureHandler(() => {}); // $ExpectType Runner
-google.script.run.withUserObject({}); // $ExpectType Runner
+google.script.run.withSuccessHandler(() => {}); // $ExpectType RunnerFunctions & PublicEndpoints
+google.script.run.withFailureHandler(() => {}); // $ExpectType RunnerFunctions & PublicEndpoints
+google.script.run.withUserObject({}); // $ExpectType RunnerFunctions & PublicEndpoints
 
 google.script.run
     .withSuccessHandler(value => {})

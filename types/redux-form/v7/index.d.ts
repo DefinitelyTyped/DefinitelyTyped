@@ -5,7 +5,6 @@
 //                 Karol Janyst <https://github.com/LKay>
 //                 Luka Zakrajsek <https://github.com/bancek>
 //                 Alex Young <https://github.com/alsiola>
-//                 Anton Novik <https://github.com/tehbi4>
 //                 Huw Martin <https://github.com/huwmartin>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Maddi Joyce <https://github.com/maddijoyce>
@@ -16,14 +15,14 @@
 // TypeScript Version: 3.0
 import {
   ComponentClass,
-  StatelessComponent,
+  FunctionComponent,
   ReactElement
 } from "react";
 
 export type FieldType = "Field" | "FieldArray";
 
 export interface ErrorOther<T = string> {
-    _error?: T;
+    _error?: T | undefined;
 }
 
 export type FormErrors<FormData = {}, T = string> = {
@@ -31,7 +30,7 @@ export type FormErrors<FormData = {}, T = string> = {
 } & ErrorOther<T>;
 
 export interface WarningOther<T = void> {
-    _warning?: T;
+    _warning?: T | undefined;
 }
 
 export type FormWarnings<FormData = {}, T = void> = {

@@ -9,4 +9,9 @@ interface VariableExt extends Variable {
   };
 }
 
+// tslint:disable-next-line:no-unnecessary-class
+declare class VariableExt {
+    constructor(name: string);
+}
+
 export = VariableExt;

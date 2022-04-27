@@ -13,6 +13,7 @@
             "../"
         ],
         "types": [],
+        "paths": {},
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

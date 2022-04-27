@@ -7,7 +7,7 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "paths": {
-            "@google-cloud/tasks": ["google-cloud__tasks"]
+            "@google-cloud/*": ["google-cloud__*"]
         },
         "baseUrl": "../",
         "typeRoots": ["../"],

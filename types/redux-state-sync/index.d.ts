@@ -6,7 +6,7 @@
 // TypeScript Version: 2.4
 
 import { Store, Reducer, Middleware, AnyAction } from "redux";
-import BroadcastChannel from "broadcast-channel";
+import BroadcastChannel, { BroadcastChannelOptions } from "broadcast-channel";
 
 export interface Stamp {
     $uuid: string;
@@ -16,12 +16,12 @@ export interface Stamp {
 export type StampedAction = Stamp & AnyAction;
 
 export interface Config {
-    channel?: string;
-    predicate?: (action: AnyAction) => boolean | null;
-    blacklist?: string[];
-    whitelist?: string[];
-    broadcastChannelOption?: object | null;
-    prepareState?: (state: any) => any;
+    channel?: string | undefined;
+    predicate?: ((action: AnyAction) => boolean | null) | undefined;
+    blacklist?: string[] | undefined;
+    whitelist?: string[] | undefined;
+    broadcastChannelOption?: BroadcastChannelOptions | undefined;
+    prepareState?: ((state: any) => any) | undefined;
 }
 
 export interface MessageListenerConfig {

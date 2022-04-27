@@ -4,6 +4,7 @@
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Robert Ying <https://github.com/robertying>
 //                 Jesse Katsumata <https://github.com/Naturalclar>
+//                 Cambo <https://github.com/indentedspace>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

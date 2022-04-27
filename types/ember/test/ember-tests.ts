@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import { AnyFn } from 'ember/-private/type-utils';
+import { assertType } from './lib/assert';
 
 let App: any;
 
@@ -13,7 +15,7 @@ App.country.get('presidentName');
 App.president = Ember.Object.create({
     firstName: 'Barack',
     lastName: 'Obama',
-    fullName: Ember.computed(function() {
+    fullName: Ember.computed(function () {
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 });
@@ -48,7 +50,7 @@ PersonReopened.create().get('isPerson');
 
 App.todosController = Ember.Object.create({
     todos: [Ember.Object.create({ isDone: false })],
-    remaining: Ember.computed('todos.@each.isDone', function() {
+    remaining: Ember.computed('todos.@each.isDone', function () {
         const todos = this.get('todos');
         return todos.filterProperty('isDone', false).get('length');
     }),
@@ -95,7 +97,7 @@ App.userController = Ember.Object.create({
 Ember.Handlebars.registerHelper(
     'highlight',
     (property: string, options: any) =>
-        new Ember.Handlebars.SafeString('<span class="highlight">' + 'some value' + '</span>')
+        new Ember.Handlebars.SafeString('<span class="highlight">' + 'some value' + '</span>'),
 );
 
 const coolView = App.CoolView.create();
@@ -112,10 +114,17 @@ const people = Ember.A([
     Person2.create({ name: 'Majd' }),
 ]);
 people.invoke('sayHello');
+people.invoke('name'); // $ExpectError
 
-const arr = Ember.A([Ember.Object.create(), Ember.Object.create()]);
-arr.setEach('name', 'unknown');
-arr.getEach('name');
+type Arr = Ember.NativeArray<Ember.Object & {
+    name?: string;
+}>;
+const arr: Arr = Ember.A([Ember.Object.create(), Ember.Object.create()]);
+arr.setEach('name', 'unknown'); // $ExpectType void
+arr.setEach('name', undefined); // $ExpectType void
+arr.getEach('name'); // $ExpectType (string | undefined)[]
+arr.setEach('age', 123); // $ExpectError
+arr.getEach('age'); // $ExpectError
 
 const Person3 = Ember.Object.extend({
     name: '',
@@ -132,11 +141,12 @@ people2.every(isHappy);
 people2.any(isHappy);
 people2.isEvery('isHappy');
 people2.isEvery('isHappy', true);
-people2.isAny('isHappy', 'true');
+people2.isAny('isHappy', 'true'); // $ExpectError
+people2.isAny('isHappy', true);
 people2.isAny('isHappy');
 
 // Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
-const promise = new Ember.RSVP.Promise<string>((resolve: (...args: any[]) => any, reject: (...args: any[]) => any) => {
+const promise = new Ember.RSVP.Promise<string>((resolve: AnyFn, reject: AnyFn) => {
     // on success
     resolve('ok!');
 
@@ -145,12 +155,13 @@ const promise = new Ember.RSVP.Promise<string>((resolve: (...args: any[]) => any
 });
 
 promise.then(
-    (value: any) => {
+    (value) => {
         // on fulfillment
+        assertType<string>(value);
     },
-    (reason: any) => {
+    (reason: unknown) => {
         // on rejection
-    }
+    },
 );
 
 // make sure Ember.RSVP.Promise can be reference as a type
@@ -170,4 +181,4 @@ const component1 = Ember.Component.extend(mix1, mix2, {
 });
 
 // make sure htmlSafe returns a SafeString
-Ember.String.htmlSafe("hello"); // $ExpectType SafeString
+Ember.String.htmlSafe('hello'); // $ExpectType SafeString

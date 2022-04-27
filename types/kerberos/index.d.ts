@@ -25,7 +25,7 @@ export interface WrapOptions {
     /**
      * @description The user to authorize
      */
-    user?: string;
+    user?: string | undefined;
 }
 
 /**
@@ -35,15 +35,15 @@ export interface InitializeClientOptions {
     /**
      * @description Optional string containing the client principal in the form '`user@realm`'
      */
-    principal?: string;
+    principal?: string | undefined;
     /**
      * @description Optional integer used to set GSS flags. (e.g. GSS_C_DELEG_FLAG|GSS_C_MUTUAL_FLAG|GSS_C_SEQUENCE_FLAG will allow for forwarding credentials to the remote host)
      */
-    gssFlag?: number;
+    gssFlag?: number | undefined;
     /**
      * @description Optional GSS mech OID. Defaults to None (GSS_C_NO_OID). Other possible values are `GSS_MECH_OID_KRB5`, `GSS_MECH_OID_SPNEGO`
      */
-    mechOID?: number;
+    mechOID?: number | undefined;
 }
 
 export class KerberosClient {

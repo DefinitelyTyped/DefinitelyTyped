@@ -1,30 +1,16 @@
 import { Schema } from 'prosemirror-model';
-import {
-    EditorState,
-    NodeSelection,
-    Selection,
-    TextSelection,
-    Transaction,
-} from 'prosemirror-state';
+import { EditorState, NodeSelection, Selection, TextSelection, Transaction } from 'prosemirror-state';
 import pm = require('prosemirror-test-builder');
 
 export type DispatchFunction = (tr: Transaction) => void;
-export type CommandFunction = (
-    state: EditorState,
-    dispatch?: DispatchFunction,
-) => boolean;
+export type CommandFunction = (state: EditorState, dispatch?: DispatchFunction) => boolean;
 
 function selectionFor(docNode: pm.TaggedProsemirrorNode) {
     const aTag = docNode.tag.a;
     if (aTag != null) {
         const $aTag = docNode.resolve(aTag);
         if ($aTag.parent.inlineContent) {
-            return new TextSelection(
-                $aTag,
-                docNode.tag.b != null
-                    ? docNode.resolve(docNode.tag.b)
-                    : undefined,
-            );
+            return new TextSelection($aTag, docNode.tag.b != null ? docNode.resolve(docNode.tag.b) : undefined);
         } else {
             return new NodeSelection($aTag);
         }
@@ -49,10 +35,7 @@ export function apply(
     }
 
     if (result && result.tag.a != null) {
-        return [
-            pm.eq(state.selection, selectionFor(result)),
-            result || docNode,
-        ];
+        return [pm.eq(state.selection, selectionFor(result)), result || docNode];
     }
     return [true, state.doc as pm.TaggedProsemirrorNode];
 }
@@ -116,8 +99,8 @@ const { h1, a } = builders(schema, {
     img: { nodeType: 'image', src: 'img.png', alt: 'x' },
 });
 
-const TEST1 = h1; // $ExpectType NodeBuilderMethod<Schema<"doc" | "paragraph" | "blockquote", "em">>
-const TEST2 = a; // $ExpectType MarkBuilderMethod<Schema<"doc" | "paragraph" | "blockquote", "em">>
+const TEST1 = h1; // $ExpectType NodeBuilderMethod<Schema<"doc" | "paragraph" | "blockquote", "em">> || NodeBuilderMethod<Schema<"blockquote" | "doc" | "paragraph", "em">>
+const TEST2 = a; // $ExpectType MarkBuilderMethod<Schema<"doc" | "paragraph" | "blockquote", "em">> || MarkBuilderMethod<Schema<"blockquote" | "doc" | "paragraph", "em">>
 
-h1(''); // $ExpectType TaggedProsemirrorNode<Schema<"doc" | "paragraph" | "blockquote", "em">>
-a(''); // $ExpectType TaggedFlatObject<Schema<"doc" | "paragraph" | "blockquote", "em">>
+h1(''); // $ExpectType TaggedProsemirrorNode<Schema<"doc" | "paragraph" | "blockquote", "em">> || TaggedProsemirrorNode<Schema<"blockquote" | "doc" | "paragraph", "em">>
+a(''); // $ExpectType TaggedFlatObject<Schema<"doc" | "paragraph" | "blockquote", "em">> || TaggedFlatObject<Schema<"blockquote" | "doc" | "paragraph", "em">>

@@ -12,7 +12,7 @@ export namespace Libgit2 {
         GET_CACHED_MEMORY = 9,
         GET_TEMPLATE_PATH = 10,
         SET_TEMPLATE_PATH = 11,
-        SET_SSL_CERT_LOCATIONS = 12
+        SET_SSL_CERT_LOCATIONS = 12,
     }
 }
 

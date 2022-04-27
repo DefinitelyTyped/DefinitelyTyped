@@ -1,11 +1,25 @@
 /**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
  */
-declare module "async_hooks" {
+declare module 'async_hooks' {
     /**
      * Returns the asyncId of the current execution context.
      */
     function executionAsyncId(): number;
+
+    /**
+     * The resource representing the current execution.
+     *  Useful to store data within the resource.
+     *
+     * Resource objects returned by `executionAsyncResource()` are most often internal
+     * Node.js handle objects with undocumented APIs. Using any functions or properties
+     * on the object is likely to crash your application and should be avoided.
+     *
+     * Using `executionAsyncResource()` in the top-level execution context will
+     * return an empty object as there is no handle or request object to use,
+     * but having an object representing the top-level can be helpful.
+     */
+    function executionAsyncResource(): object;
 
     /**
      * Returns the ID of the resource responsible for calling the callback that is currently being executed.
@@ -20,7 +34,7 @@ declare module "async_hooks" {
          * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
          * @param resource reference to the resource representing the async operation, needs to be released during destroy
          */
-        init?(asyncId: number, type: string, triggerAsyncId: number, resource: Object): void;
+        init?(asyncId: number, type: string, triggerAsyncId: number, resource: object): void;
 
         /**
          * When an asynchronous operation is initiated or completes a callback is called to notify the user.
@@ -71,18 +85,18 @@ declare module "async_hooks" {
     interface AsyncResourceOptions {
       /**
        * The ID of the execution context that created this async event.
-       * Default: `executionAsyncId()`
+       * @default executionAsyncId()
        */
-      triggerAsyncId?: number;
+      triggerAsyncId?: number | undefined;
 
       /**
        * Disables automatic `emitDestroy` when the object is garbage collected.
        * This usually does not need to be set (even if `emitDestroy` is called
        * manually), unless the resource's `asyncId` is retrieved and the
        * sensitive API's `emitDestroy` is called with it.
-       * Default: `false`
+       * @default false
        */
-      requireManualDestroy?: boolean;
+      requireManualDestroy?: boolean | undefined;
     }
 
     /**
@@ -97,9 +111,22 @@ declare module "async_hooks" {
          * @param type The type of async event.
          * @param triggerAsyncId The ID of the execution context that created
          *   this async event (default: `executionAsyncId()`), or an
-         *   AsyncResourceOptions object (since 9.3)
+         *   AsyncResourceOptions object (since v9.3.0)
          */
         constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
+
+        /**
+         * Binds the given function to the current execution context.
+         * @param fn The function to bind to the current execution context.
+         * @param type An optional name to associate with the underlying `AsyncResource`.
+         */
+        static bind<Func extends (...args: any[]) => any>(fn: Func, type?: string): Func & { asyncResource: AsyncResource };
+
+        /**
+         * Binds the given function to execute to this `AsyncResource`'s scope.
+         * @param fn The function to bind to the current `AsyncResource`.
+         */
+        bind<Func extends (...args: any[]) => any>(fn: Func): Func & { asyncResource: AsyncResource };
 
         /**
          * Call the provided function with the provided arguments in the
@@ -117,7 +144,7 @@ declare module "async_hooks" {
         /**
          * Call AsyncHooks destroy callbacks.
          */
-        emitDestroy(): void;
+        emitDestroy(): this;
 
         /**
          * @return the unique ID assigned to this AsyncResource instance.
@@ -128,5 +155,92 @@ declare module "async_hooks" {
          * @return the trigger ID for this AsyncResource instance.
          */
         triggerAsyncId(): number;
+    }
+
+    /**
+     * When having multiple instances of `AsyncLocalStorage`, they are independent
+     * from each other. It is safe to instantiate this class multiple times.
+     */
+    class AsyncLocalStorage<T> {
+        /**
+         * This method disables the instance of `AsyncLocalStorage`. All subsequent calls
+         * to `asyncLocalStorage.getStore()` will return `undefined` until
+         * `asyncLocalStorage.run()` or `asyncLocalStorage.runSyncAndReturn()`
+         * is called again.
+         *
+         * When calling `asyncLocalStorage.disable()`, all current contexts linked to the
+         * instance will be exited.
+         *
+         * Calling `asyncLocalStorage.disable()` is required before the
+         * `asyncLocalStorage` can be garbage collected. This does not apply to stores
+         * provided by the `asyncLocalStorage`, as those objects are garbage collected
+         * along with the corresponding async resources.
+         *
+         * This method is to be used when the `asyncLocalStorage` is not in use anymore
+         * in the current process.
+         */
+        disable(): void;
+
+        /**
+         * This method returns the current store.
+         * If this method is called outside of an asynchronous context initialized by
+         * calling `asyncLocalStorage.run` or `asyncLocalStorage.runAndReturn`, it will
+         * return `undefined`.
+         */
+        getStore(): T | undefined;
+
+        /**
+         * Calling `asyncLocalStorage.run(callback)` will create a new asynchronous
+         * context.
+         * Within the callback function and the asynchronous operations from the callback,
+         * `asyncLocalStorage.getStore()` will return an instance of `Map` known as
+         * "the store". This store will be persistent through the following
+         * asynchronous calls.
+         *
+         * The callback will be ran asynchronously. Optionally, arguments can be passed
+         * to the function. They will be passed to the callback function.
+         *
+         * If an error is thrown by the callback function, it will not be caught by
+         * a `try/catch` block as the callback is ran in a new asynchronous resource.
+         * Also, the stacktrace will be impacted by the asynchronous call.
+         */
+        // TODO: Apply generic vararg once available
+        run(store: T, callback: (...args: any[]) => void, ...args: any[]): void;
+
+        /**
+         * Calling `asyncLocalStorage.exit(callback)` will create a new asynchronous
+         * context.
+         * Within the callback function and the asynchronous operations from the callback,
+         * `asyncLocalStorage.getStore()` will return `undefined`.
+         *
+         * The callback will be ran asynchronously. Optionally, arguments can be passed
+         * to the function. They will be passed to the callback function.
+         *
+         * If an error is thrown by the callback function, it will not be caught by
+         * a `try/catch` block as the callback is ran in a new asynchronous resource.
+         * Also, the stacktrace will be impacted by the asynchronous call.
+         */
+        exit(callback: (...args: any[]) => void, ...args: any[]): void;
+
+        /**
+         * This methods runs a function synchronously outside of a context and return its
+         * return value. The store is not accessible within the callback function or
+         * the asynchronous operations created within the callback.
+         *
+         * Optionally, arguments can be passed to the function. They will be passed to
+         * the callback function.
+         *
+         * If the callback function throws an error, it will be thrown by
+         * `exitSyncAndReturn` too. The stacktrace will not be impacted by this call and
+         * the context will be re-entered.
+         */
+        exitSyncAndReturn<R>(callback: (...args: any[]) => R, ...args: any[]): R;
+
+        /**
+         * Calling `asyncLocalStorage.enterWith(store)` will transition into the context
+         * for the remainder of the current synchronous execution and will persist
+         * through any following asynchronous calls.
+         */
+        enterWith(store: T): void;
     }
 }

@@ -1,5 +1,5 @@
 // Type definitions for rc-tooltip 3.7
-// Project: http://github.com/react-component/tooltip
+// Project: https://github.com/react-component/tooltip
 // Definitions by: rhysd <https://github.com/rhysd>
 //                 ahstro <https://github.com/ahstro>
 //                 vsaarinen <https://github.com/vsaarinen>
@@ -12,32 +12,34 @@ import * as React from 'react';
 export as namespace RCTooltip;
 
 declare namespace RCTooltip {
-	export type Trigger = "hover" | "click" | "focus";
-	export type Placement =
-		"left" | "right" | "top" | "bottom" |
-		"topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+    export type Trigger = "hover" | "click" | "focus";
+    export type Placement =
+        "left" | "right" | "top" | "bottom" |
+        "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 
-	export interface Props extends React.Props<any> {
-		overlayClassName?: string;
-		trigger?: Trigger[];
-		mouseEnterDelay?: number;
-		mouseLeaveDelay?: number;
-		overlayStyle?: React.CSSProperties;
-		prefixCls?: string;
-		transitionName?: string;
-		onVisibleChange?: (visible?: boolean) => void;
-		afterVisibleChange?: (visible?: boolean) => void;
-		visible?: boolean;
-		defaultVisible?: boolean;
-		placement?: Placement | Object;
-		align?: Object;
-		onPopupAlign?: (popupDomNode: Element, align: Object) => void;
-		overlay: (() => React.ReactChild) | React.ReactChild | React.ReactFragment | React.ReactPortal;
-		arrowContent?: React.ReactNode;
-		getTooltipContainer?: () => Element;
-		destroyTooltipOnHide?: boolean;
-		id?: string;
-	}
+    export interface Props {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<any> | undefined;
+        overlayClassName?: string | undefined;
+        trigger?: Trigger[] | undefined;
+        mouseEnterDelay?: number | undefined;
+        mouseLeaveDelay?: number | undefined;
+        overlayStyle?: React.CSSProperties | undefined;
+        prefixCls?: string | undefined;
+        transitionName?: string | undefined;
+        onVisibleChange?: ((visible?: boolean) => void) | undefined;
+        afterVisibleChange?: ((visible?: boolean) => void) | undefined;
+        visible?: boolean | undefined;
+        defaultVisible?: boolean | undefined;
+        placement?: Placement | Object | undefined;
+        align?: Object | undefined;
+        onPopupAlign?: ((popupDomNode: Element, align: Object) => void) | undefined;
+        overlay: (() => React.ReactChild) | React.ReactChild | React.ReactFragment | React.ReactPortal;
+        arrowContent?: React.ReactNode | undefined;
+        getTooltipContainer?: (() => Element) | undefined;
+        destroyTooltipOnHide?: boolean | undefined;
+        id?: string | undefined;
+    }
 }
 
 export default class Tooltip extends React.Component<RCTooltip.Props> {}

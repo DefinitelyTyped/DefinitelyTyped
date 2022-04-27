@@ -373,666 +373,666 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface AdBreak {
-        midrollSeconds?: number;
-        position?: string;
-        slot?: YoutubePartner.Schema.AdSlot[];
+        midrollSeconds?: number | undefined;
+        position?: string | undefined;
+        slot?: YoutubePartner.Schema.AdSlot[] | undefined;
       }
       interface AdSlot {
-        id?: string;
-        type?: string;
+        id?: string | undefined;
+        type?: string | undefined;
       }
       interface AllowedAdvertisingOptions {
-        adsOnEmbeds?: boolean;
-        kind?: string;
-        licAdFormats?: string[];
-        ugcAdFormats?: string[];
+        adsOnEmbeds?: boolean | undefined;
+        kind?: string | undefined;
+        licAdFormats?: string[] | undefined;
+        ugcAdFormats?: string[] | undefined;
       }
       interface Asset {
-        aliasId?: string[];
-        id?: string;
-        kind?: string;
-        label?: string[];
-        matchPolicy?: YoutubePartner.Schema.AssetMatchPolicy;
-        matchPolicyEffective?: YoutubePartner.Schema.AssetMatchPolicy;
-        matchPolicyMine?: YoutubePartner.Schema.AssetMatchPolicy;
-        metadata?: YoutubePartner.Schema.Metadata;
-        metadataEffective?: YoutubePartner.Schema.Metadata;
-        metadataMine?: YoutubePartner.Schema.Metadata;
-        ownership?: YoutubePartner.Schema.RightsOwnership;
-        ownershipConflicts?: YoutubePartner.Schema.OwnershipConflicts;
-        ownershipEffective?: YoutubePartner.Schema.RightsOwnership;
-        ownershipMine?: YoutubePartner.Schema.RightsOwnership;
-        status?: string;
-        timeCreated?: string;
-        type?: string;
+        aliasId?: string[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        label?: string[] | undefined;
+        matchPolicy?: YoutubePartner.Schema.AssetMatchPolicy | undefined;
+        matchPolicyEffective?: YoutubePartner.Schema.AssetMatchPolicy | undefined;
+        matchPolicyMine?: YoutubePartner.Schema.AssetMatchPolicy | undefined;
+        metadata?: YoutubePartner.Schema.Metadata | undefined;
+        metadataEffective?: YoutubePartner.Schema.Metadata | undefined;
+        metadataMine?: YoutubePartner.Schema.Metadata | undefined;
+        ownership?: YoutubePartner.Schema.RightsOwnership | undefined;
+        ownershipConflicts?: YoutubePartner.Schema.OwnershipConflicts | undefined;
+        ownershipEffective?: YoutubePartner.Schema.RightsOwnership | undefined;
+        ownershipMine?: YoutubePartner.Schema.RightsOwnership | undefined;
+        status?: string | undefined;
+        timeCreated?: string | undefined;
+        type?: string | undefined;
       }
       interface AssetLabel {
-        kind?: string;
-        labelName?: string;
+        kind?: string | undefined;
+        labelName?: string | undefined;
       }
       interface AssetLabelListResponse {
-        items?: YoutubePartner.Schema.AssetLabel[];
-        kind?: string;
+        items?: YoutubePartner.Schema.AssetLabel[] | undefined;
+        kind?: string | undefined;
       }
       interface AssetListResponse {
-        items?: YoutubePartner.Schema.Asset[];
-        kind?: string;
+        items?: YoutubePartner.Schema.Asset[] | undefined;
+        kind?: string | undefined;
       }
       interface AssetMatchPolicy {
-        kind?: string;
-        policyId?: string;
-        rules?: YoutubePartner.Schema.PolicyRule[];
+        kind?: string | undefined;
+        policyId?: string | undefined;
+        rules?: YoutubePartner.Schema.PolicyRule[] | undefined;
       }
       interface AssetRelationship {
-        childAssetId?: string;
-        id?: string;
-        kind?: string;
-        parentAssetId?: string;
+        childAssetId?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        parentAssetId?: string | undefined;
       }
       interface AssetRelationshipListResponse {
-        items?: YoutubePartner.Schema.AssetRelationship[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YoutubePartner.Schema.PageInfo;
+        items?: YoutubePartner.Schema.AssetRelationship[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YoutubePartner.Schema.PageInfo | undefined;
       }
       interface AssetSearchResponse {
-        items?: YoutubePartner.Schema.AssetSnippet[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YoutubePartner.Schema.PageInfo;
+        items?: YoutubePartner.Schema.AssetSnippet[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YoutubePartner.Schema.PageInfo | undefined;
       }
       interface AssetShare {
-        kind?: string;
-        shareId?: string;
-        viewId?: string;
+        kind?: string | undefined;
+        shareId?: string | undefined;
+        viewId?: string | undefined;
       }
       interface AssetShareListResponse {
-        items?: YoutubePartner.Schema.AssetShare[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YoutubePartner.Schema.PageInfo;
+        items?: YoutubePartner.Schema.AssetShare[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YoutubePartner.Schema.PageInfo | undefined;
       }
       interface AssetSnippet {
-        customId?: string;
-        id?: string;
-        isrc?: string;
-        iswc?: string;
-        kind?: string;
-        timeCreated?: string;
-        title?: string;
-        type?: string;
+        customId?: string | undefined;
+        id?: string | undefined;
+        isrc?: string | undefined;
+        iswc?: string | undefined;
+        kind?: string | undefined;
+        timeCreated?: string | undefined;
+        title?: string | undefined;
+        type?: string | undefined;
       }
       interface Campaign {
-        campaignData?: YoutubePartner.Schema.CampaignData;
-        id?: string;
-        kind?: string;
-        status?: string;
-        timeCreated?: string;
-        timeLastModified?: string;
+        campaignData?: YoutubePartner.Schema.CampaignData | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        status?: string | undefined;
+        timeCreated?: string | undefined;
+        timeLastModified?: string | undefined;
       }
       interface CampaignData {
-        campaignSource?: YoutubePartner.Schema.CampaignSource;
-        expireTime?: string;
-        name?: string;
-        promotedContent?: YoutubePartner.Schema.PromotedContent[];
-        startTime?: string;
+        campaignSource?: YoutubePartner.Schema.CampaignSource | undefined;
+        expireTime?: string | undefined;
+        name?: string | undefined;
+        promotedContent?: YoutubePartner.Schema.PromotedContent[] | undefined;
+        startTime?: string | undefined;
       }
       interface CampaignList {
-        items?: YoutubePartner.Schema.Campaign[];
-        kind?: string;
+        items?: YoutubePartner.Schema.Campaign[] | undefined;
+        kind?: string | undefined;
       }
       interface CampaignSource {
-        sourceType?: string;
-        sourceValue?: string[];
+        sourceType?: string | undefined;
+        sourceValue?: string[] | undefined;
       }
       interface CampaignTargetLink {
-        targetId?: string;
-        targetType?: string;
+        targetId?: string | undefined;
+        targetType?: string | undefined;
       }
       interface Claim {
-        appliedPolicy?: YoutubePartner.Schema.Policy;
-        assetId?: string;
-        blockOutsideOwnership?: boolean;
-        contentType?: string;
-        id?: string;
-        isPartnerUploaded?: boolean;
-        kind?: string;
-        matchInfo?: YoutubePartner.Schema.ClaimMatchInfo;
-        origin?: YoutubePartner.Schema.ClaimOrigin;
-        policy?: YoutubePartner.Schema.Policy;
-        status?: string;
-        timeCreated?: string;
-        videoId?: string;
+        appliedPolicy?: YoutubePartner.Schema.Policy | undefined;
+        assetId?: string | undefined;
+        blockOutsideOwnership?: boolean | undefined;
+        contentType?: string | undefined;
+        id?: string | undefined;
+        isPartnerUploaded?: boolean | undefined;
+        kind?: string | undefined;
+        matchInfo?: YoutubePartner.Schema.ClaimMatchInfo | undefined;
+        origin?: YoutubePartner.Schema.ClaimOrigin | undefined;
+        policy?: YoutubePartner.Schema.Policy | undefined;
+        status?: string | undefined;
+        timeCreated?: string | undefined;
+        videoId?: string | undefined;
       }
       interface ClaimEvent {
-        kind?: string;
-        reason?: string;
-        source?: YoutubePartner.Schema.ClaimEventSource;
-        time?: string;
-        type?: string;
-        typeDetails?: YoutubePartner.Schema.ClaimEventTypeDetails;
+        kind?: string | undefined;
+        reason?: string | undefined;
+        source?: YoutubePartner.Schema.ClaimEventSource | undefined;
+        time?: string | undefined;
+        type?: string | undefined;
+        typeDetails?: YoutubePartner.Schema.ClaimEventTypeDetails | undefined;
       }
       interface ClaimEventSource {
-        contentOwnerId?: string;
-        type?: string;
-        userEmail?: string;
+        contentOwnerId?: string | undefined;
+        type?: string | undefined;
+        userEmail?: string | undefined;
       }
       interface ClaimEventTypeDetails {
-        appealExplanation?: string;
-        disputeNotes?: string;
-        disputeReason?: string;
-        updateStatus?: string;
+        appealExplanation?: string | undefined;
+        disputeNotes?: string | undefined;
+        disputeReason?: string | undefined;
+        updateStatus?: string | undefined;
       }
       interface ClaimHistory {
-        event?: YoutubePartner.Schema.ClaimEvent[];
-        id?: string;
-        kind?: string;
-        uploaderChannelId?: string;
+        event?: YoutubePartner.Schema.ClaimEvent[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        uploaderChannelId?: string | undefined;
       }
       interface ClaimListResponse {
-        items?: YoutubePartner.Schema.Claim[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YoutubePartner.Schema.PageInfo;
-        previousPageToken?: string;
+        items?: YoutubePartner.Schema.Claim[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YoutubePartner.Schema.PageInfo | undefined;
+        previousPageToken?: string | undefined;
       }
       interface ClaimMatchInfo {
-        longestMatch?: YoutubePartner.Schema.ClaimMatchInfoLongestMatch;
-        matchSegments?: YoutubePartner.Schema.MatchSegment[];
-        referenceId?: string;
-        totalMatch?: YoutubePartner.Schema.ClaimMatchInfoTotalMatch;
+        longestMatch?: YoutubePartner.Schema.ClaimMatchInfoLongestMatch | undefined;
+        matchSegments?: YoutubePartner.Schema.MatchSegment[] | undefined;
+        referenceId?: string | undefined;
+        totalMatch?: YoutubePartner.Schema.ClaimMatchInfoTotalMatch | undefined;
       }
       interface ClaimMatchInfoLongestMatch {
-        durationSecs?: string;
-        referenceOffset?: string;
-        userVideoOffset?: string;
+        durationSecs?: string | undefined;
+        referenceOffset?: string | undefined;
+        userVideoOffset?: string | undefined;
       }
       interface ClaimMatchInfoTotalMatch {
-        referenceDurationSecs?: string;
-        userVideoDurationSecs?: string;
+        referenceDurationSecs?: string | undefined;
+        userVideoDurationSecs?: string | undefined;
       }
       interface ClaimOrigin {
-        source?: string;
+        source?: string | undefined;
       }
       interface ClaimSearchResponse {
-        items?: YoutubePartner.Schema.ClaimSnippet[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YoutubePartner.Schema.PageInfo;
-        previousPageToken?: string;
+        items?: YoutubePartner.Schema.ClaimSnippet[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YoutubePartner.Schema.PageInfo | undefined;
+        previousPageToken?: string | undefined;
       }
       interface ClaimSnippet {
-        assetId?: string;
-        contentType?: string;
-        id?: string;
-        isPartnerUploaded?: boolean;
-        kind?: string;
-        origin?: YoutubePartner.Schema.ClaimSnippetOrigin;
-        status?: string;
-        thirdPartyClaim?: boolean;
-        timeCreated?: string;
-        timeStatusLastModified?: string;
-        videoId?: string;
-        videoTitle?: string;
-        videoViews?: string;
+        assetId?: string | undefined;
+        contentType?: string | undefined;
+        id?: string | undefined;
+        isPartnerUploaded?: boolean | undefined;
+        kind?: string | undefined;
+        origin?: YoutubePartner.Schema.ClaimSnippetOrigin | undefined;
+        status?: string | undefined;
+        thirdPartyClaim?: boolean | undefined;
+        timeCreated?: string | undefined;
+        timeStatusLastModified?: string | undefined;
+        videoId?: string | undefined;
+        videoTitle?: string | undefined;
+        videoViews?: string | undefined;
       }
       interface ClaimSnippetOrigin {
-        source?: string;
+        source?: string | undefined;
       }
       interface ClaimedVideoDefaults {
-        autoGeneratedBreaks?: boolean;
-        channelOverride?: boolean;
-        kind?: string;
-        newVideoDefaults?: string[];
+        autoGeneratedBreaks?: boolean | undefined;
+        channelOverride?: boolean | undefined;
+        kind?: string | undefined;
+        newVideoDefaults?: string[] | undefined;
       }
       interface Conditions {
-        contentMatchType?: string[];
-        matchDuration?: YoutubePartner.Schema.IntervalCondition[];
-        matchPercent?: YoutubePartner.Schema.IntervalCondition[];
-        referenceDuration?: YoutubePartner.Schema.IntervalCondition[];
-        referencePercent?: YoutubePartner.Schema.IntervalCondition[];
-        requiredTerritories?: YoutubePartner.Schema.TerritoryCondition;
+        contentMatchType?: string[] | undefined;
+        matchDuration?: YoutubePartner.Schema.IntervalCondition[] | undefined;
+        matchPercent?: YoutubePartner.Schema.IntervalCondition[] | undefined;
+        referenceDuration?: YoutubePartner.Schema.IntervalCondition[] | undefined;
+        referencePercent?: YoutubePartner.Schema.IntervalCondition[] | undefined;
+        requiredTerritories?: YoutubePartner.Schema.TerritoryCondition | undefined;
       }
       interface ConflictingOwnership {
-        owner?: string;
-        ratio?: number;
+        owner?: string | undefined;
+        ratio?: number | undefined;
       }
       interface ContentOwner {
-        conflictNotificationEmail?: string;
-        displayName?: string;
-        disputeNotificationEmails?: string[];
-        fingerprintReportNotificationEmails?: string[];
-        id?: string;
-        kind?: string;
-        primaryNotificationEmails?: string[];
+        conflictNotificationEmail?: string | undefined;
+        displayName?: string | undefined;
+        disputeNotificationEmails?: string[] | undefined;
+        fingerprintReportNotificationEmails?: string[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        primaryNotificationEmails?: string[] | undefined;
       }
       interface ContentOwnerAdvertisingOption {
-        allowedOptions?: YoutubePartner.Schema.AllowedAdvertisingOptions;
-        claimedVideoOptions?: YoutubePartner.Schema.ClaimedVideoDefaults;
-        id?: string;
-        kind?: string;
+        allowedOptions?: YoutubePartner.Schema.AllowedAdvertisingOptions | undefined;
+        claimedVideoOptions?: YoutubePartner.Schema.ClaimedVideoDefaults | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
       }
       interface ContentOwnerListResponse {
-        items?: YoutubePartner.Schema.ContentOwner[];
-        kind?: string;
+        items?: YoutubePartner.Schema.ContentOwner[] | undefined;
+        kind?: string | undefined;
       }
       interface CountriesRestriction {
-        adFormats?: string[];
-        territories?: string[];
+        adFormats?: string[] | undefined;
+        territories?: string[] | undefined;
       }
       interface CuepointSettings {
-        cueType?: string;
-        durationSecs?: number;
-        offsetTimeMs?: string;
-        walltime?: string;
+        cueType?: string | undefined;
+        durationSecs?: number | undefined;
+        offsetTimeMs?: string | undefined;
+        walltime?: string | undefined;
       }
       interface Date {
-        day?: number;
-        month?: number;
-        year?: number;
+        day?: number | undefined;
+        month?: number | undefined;
+        year?: number | undefined;
       }
       interface DateRange {
-        end?: YoutubePartner.Schema.Date;
-        kind?: string;
-        start?: YoutubePartner.Schema.Date;
+        end?: YoutubePartner.Schema.Date | undefined;
+        kind?: string | undefined;
+        start?: YoutubePartner.Schema.Date | undefined;
       }
       interface ExcludedInterval {
-        high?: number;
-        low?: number;
-        origin?: string;
-        timeCreated?: string;
+        high?: number | undefined;
+        low?: number | undefined;
+        origin?: string | undefined;
+        timeCreated?: string | undefined;
       }
       interface IntervalCondition {
-        high?: number;
-        low?: number;
+        high?: number | undefined;
+        low?: number | undefined;
       }
       interface LiveCuepoint {
-        broadcastId?: string;
-        id?: string;
-        kind?: string;
-        settings?: YoutubePartner.Schema.CuepointSettings;
+        broadcastId?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        settings?: YoutubePartner.Schema.CuepointSettings | undefined;
       }
       interface MatchSegment {
-        channel?: string;
-        reference_segment?: YoutubePartner.Schema.Segment;
-        video_segment?: YoutubePartner.Schema.Segment;
+        channel?: string | undefined;
+        reference_segment?: YoutubePartner.Schema.Segment | undefined;
+        video_segment?: YoutubePartner.Schema.Segment | undefined;
       }
       interface Metadata {
-        actor?: string[];
-        album?: string;
-        artist?: string[];
-        broadcaster?: string[];
-        category?: string;
-        contentType?: string;
-        copyrightDate?: YoutubePartner.Schema.Date;
-        customId?: string;
-        description?: string;
-        director?: string[];
-        eidr?: string;
-        endYear?: number;
-        episodeNumber?: string;
-        episodesAreUntitled?: boolean;
-        genre?: string[];
-        grid?: string;
-        hfa?: string;
-        infoUrl?: string;
-        isan?: string;
-        isrc?: string;
-        iswc?: string;
-        keyword?: string[];
-        label?: string;
-        notes?: string;
-        originalReleaseMedium?: string;
-        producer?: string[];
-        ratings?: YoutubePartner.Schema.Rating[];
-        releaseDate?: YoutubePartner.Schema.Date;
-        seasonNumber?: string;
-        showCustomId?: string;
-        showTitle?: string;
-        spokenLanguage?: string;
-        startYear?: number;
-        subtitledLanguage?: string[];
-        title?: string;
-        tmsId?: string;
-        totalEpisodesExpected?: number;
-        upc?: string;
-        writer?: string[];
+        actor?: string[] | undefined;
+        album?: string | undefined;
+        artist?: string[] | undefined;
+        broadcaster?: string[] | undefined;
+        category?: string | undefined;
+        contentType?: string | undefined;
+        copyrightDate?: YoutubePartner.Schema.Date | undefined;
+        customId?: string | undefined;
+        description?: string | undefined;
+        director?: string[] | undefined;
+        eidr?: string | undefined;
+        endYear?: number | undefined;
+        episodeNumber?: string | undefined;
+        episodesAreUntitled?: boolean | undefined;
+        genre?: string[] | undefined;
+        grid?: string | undefined;
+        hfa?: string | undefined;
+        infoUrl?: string | undefined;
+        isan?: string | undefined;
+        isrc?: string | undefined;
+        iswc?: string | undefined;
+        keyword?: string[] | undefined;
+        label?: string | undefined;
+        notes?: string | undefined;
+        originalReleaseMedium?: string | undefined;
+        producer?: string[] | undefined;
+        ratings?: YoutubePartner.Schema.Rating[] | undefined;
+        releaseDate?: YoutubePartner.Schema.Date | undefined;
+        seasonNumber?: string | undefined;
+        showCustomId?: string | undefined;
+        showTitle?: string | undefined;
+        spokenLanguage?: string | undefined;
+        startYear?: number | undefined;
+        subtitledLanguage?: string[] | undefined;
+        title?: string | undefined;
+        tmsId?: string | undefined;
+        totalEpisodesExpected?: number | undefined;
+        upc?: string | undefined;
+        writer?: string[] | undefined;
       }
       interface MetadataHistory {
-        kind?: string;
-        metadata?: YoutubePartner.Schema.Metadata;
-        origination?: YoutubePartner.Schema.Origination;
-        timeProvided?: string;
+        kind?: string | undefined;
+        metadata?: YoutubePartner.Schema.Metadata | undefined;
+        origination?: YoutubePartner.Schema.Origination | undefined;
+        timeProvided?: string | undefined;
       }
       interface MetadataHistoryListResponse {
-        items?: YoutubePartner.Schema.MetadataHistory[];
-        kind?: string;
+        items?: YoutubePartner.Schema.MetadataHistory[] | undefined;
+        kind?: string | undefined;
       }
       interface Order {
-        availGroupId?: string;
-        channelId?: string;
-        contentType?: string;
-        country?: string;
-        customId?: string;
-        dvdReleaseDate?: YoutubePartner.Schema.Date;
-        estDates?: YoutubePartner.Schema.DateRange;
-        events?: YoutubePartner.Schema.StateCompleted[];
-        id?: string;
-        kind?: string;
-        movie?: string;
-        originalReleaseDate?: YoutubePartner.Schema.Date;
-        priority?: string;
-        productionHouse?: string;
-        purchaseOrder?: string;
-        requirements?: YoutubePartner.Schema.Requirements;
-        show?: YoutubePartner.Schema.ShowDetails;
-        status?: string;
-        videoId?: string;
-        vodDates?: YoutubePartner.Schema.DateRange;
+        availGroupId?: string | undefined;
+        channelId?: string | undefined;
+        contentType?: string | undefined;
+        country?: string | undefined;
+        customId?: string | undefined;
+        dvdReleaseDate?: YoutubePartner.Schema.Date | undefined;
+        estDates?: YoutubePartner.Schema.DateRange | undefined;
+        events?: YoutubePartner.Schema.StateCompleted[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        movie?: string | undefined;
+        originalReleaseDate?: YoutubePartner.Schema.Date | undefined;
+        priority?: string | undefined;
+        productionHouse?: string | undefined;
+        purchaseOrder?: string | undefined;
+        requirements?: YoutubePartner.Schema.Requirements | undefined;
+        show?: YoutubePartner.Schema.ShowDetails | undefined;
+        status?: string | undefined;
+        videoId?: string | undefined;
+        vodDates?: YoutubePartner.Schema.DateRange | undefined;
       }
       interface OrderListResponse {
-        items?: YoutubePartner.Schema.Order[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YoutubePartner.Schema.PageInfo;
-        previousPageToken?: string;
+        items?: YoutubePartner.Schema.Order[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YoutubePartner.Schema.PageInfo | undefined;
+        previousPageToken?: string | undefined;
       }
       interface Origination {
-        owner?: string;
-        source?: string;
+        owner?: string | undefined;
+        source?: string | undefined;
       }
       interface OwnershipConflicts {
-        general?: YoutubePartner.Schema.TerritoryConflicts[];
-        kind?: string;
-        mechanical?: YoutubePartner.Schema.TerritoryConflicts[];
-        performance?: YoutubePartner.Schema.TerritoryConflicts[];
-        synchronization?: YoutubePartner.Schema.TerritoryConflicts[];
+        general?: YoutubePartner.Schema.TerritoryConflicts[] | undefined;
+        kind?: string | undefined;
+        mechanical?: YoutubePartner.Schema.TerritoryConflicts[] | undefined;
+        performance?: YoutubePartner.Schema.TerritoryConflicts[] | undefined;
+        synchronization?: YoutubePartner.Schema.TerritoryConflicts[] | undefined;
       }
       interface OwnershipHistoryListResponse {
-        items?: YoutubePartner.Schema.RightsOwnershipHistory[];
-        kind?: string;
+        items?: YoutubePartner.Schema.RightsOwnershipHistory[] | undefined;
+        kind?: string | undefined;
       }
       interface Package {
-        content?: string;
-        customIds?: string[];
-        id?: string;
-        kind?: string;
-        locale?: string;
-        name?: string;
-        status?: string;
-        statusReports?: YoutubePartner.Schema.StatusReport[];
-        timeCreated?: string;
-        type?: string;
-        uploaderName?: string;
+        content?: string | undefined;
+        customIds?: string[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        locale?: string | undefined;
+        name?: string | undefined;
+        status?: string | undefined;
+        statusReports?: YoutubePartner.Schema.StatusReport[] | undefined;
+        timeCreated?: string | undefined;
+        type?: string | undefined;
+        uploaderName?: string | undefined;
       }
       interface PackageInsertResponse {
-        errors?: YoutubePartner.Schema.ValidateError[];
-        kind?: string;
-        resource?: YoutubePartner.Schema.Package;
-        status?: string;
+        errors?: YoutubePartner.Schema.ValidateError[] | undefined;
+        kind?: string | undefined;
+        resource?: YoutubePartner.Schema.Package | undefined;
+        status?: string | undefined;
       }
       interface PageInfo {
-        resultsPerPage?: number;
-        startIndex?: number;
-        totalResults?: number;
+        resultsPerPage?: number | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
       }
       interface Policy {
-        description?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
-        rules?: YoutubePartner.Schema.PolicyRule[];
-        timeUpdated?: string;
+        description?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        rules?: YoutubePartner.Schema.PolicyRule[] | undefined;
+        timeUpdated?: string | undefined;
       }
       interface PolicyList {
-        items?: YoutubePartner.Schema.Policy[];
-        kind?: string;
+        items?: YoutubePartner.Schema.Policy[] | undefined;
+        kind?: string | undefined;
       }
       interface PolicyRule {
-        action?: string;
-        conditions?: YoutubePartner.Schema.Conditions;
-        subaction?: string[];
+        action?: string | undefined;
+        conditions?: YoutubePartner.Schema.Conditions | undefined;
+        subaction?: string[] | undefined;
       }
       interface PromotedContent {
-        link?: YoutubePartner.Schema.CampaignTargetLink[];
+        link?: YoutubePartner.Schema.CampaignTargetLink[] | undefined;
       }
       interface Publisher {
-        caeNumber?: string;
-        id?: string;
-        ipiNumber?: string;
-        kind?: string;
-        name?: string;
+        caeNumber?: string | undefined;
+        id?: string | undefined;
+        ipiNumber?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface PublisherList {
-        items?: YoutubePartner.Schema.Publisher[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YoutubePartner.Schema.PageInfo;
+        items?: YoutubePartner.Schema.Publisher[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YoutubePartner.Schema.PageInfo | undefined;
       }
       interface Rating {
-        rating?: string;
-        ratingSystem?: string;
+        rating?: string | undefined;
+        ratingSystem?: string | undefined;
       }
       interface Reference {
-        assetId?: string;
-        audioswapEnabled?: boolean;
-        claimId?: string;
-        contentType?: string;
-        duplicateLeader?: string;
-        excludedIntervals?: YoutubePartner.Schema.ExcludedInterval[];
-        fpDirect?: boolean;
-        hashCode?: string;
-        id?: string;
-        ignoreFpMatch?: boolean;
-        kind?: string;
-        length?: number;
-        origination?: YoutubePartner.Schema.Origination;
-        status?: string;
-        statusReason?: string;
-        urgent?: boolean;
-        videoId?: string;
+        assetId?: string | undefined;
+        audioswapEnabled?: boolean | undefined;
+        claimId?: string | undefined;
+        contentType?: string | undefined;
+        duplicateLeader?: string | undefined;
+        excludedIntervals?: YoutubePartner.Schema.ExcludedInterval[] | undefined;
+        fpDirect?: boolean | undefined;
+        hashCode?: string | undefined;
+        id?: string | undefined;
+        ignoreFpMatch?: boolean | undefined;
+        kind?: string | undefined;
+        length?: number | undefined;
+        origination?: YoutubePartner.Schema.Origination | undefined;
+        status?: string | undefined;
+        statusReason?: string | undefined;
+        urgent?: boolean | undefined;
+        videoId?: string | undefined;
       }
       interface ReferenceConflict {
-        conflictingReferenceId?: string;
-        expiryTime?: string;
-        id?: string;
-        kind?: string;
-        matches?: YoutubePartner.Schema.ReferenceConflictMatch[];
-        originalReferenceId?: string;
-        status?: string;
+        conflictingReferenceId?: string | undefined;
+        expiryTime?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        matches?: YoutubePartner.Schema.ReferenceConflictMatch[] | undefined;
+        originalReferenceId?: string | undefined;
+        status?: string | undefined;
       }
       interface ReferenceConflictListResponse {
-        items?: YoutubePartner.Schema.ReferenceConflict[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YoutubePartner.Schema.PageInfo;
+        items?: YoutubePartner.Schema.ReferenceConflict[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YoutubePartner.Schema.PageInfo | undefined;
       }
       interface ReferenceConflictMatch {
-        conflicting_reference_offset_ms?: string;
-        length_ms?: string;
-        original_reference_offset_ms?: string;
-        type?: string;
+        conflicting_reference_offset_ms?: string | undefined;
+        length_ms?: string | undefined;
+        original_reference_offset_ms?: string | undefined;
+        type?: string | undefined;
       }
       interface ReferenceListResponse {
-        items?: YoutubePartner.Schema.Reference[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YoutubePartner.Schema.PageInfo;
+        items?: YoutubePartner.Schema.Reference[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YoutubePartner.Schema.PageInfo | undefined;
       }
       interface Requirements {
-        caption?: boolean;
-        hdTranscode?: boolean;
-        posterArt?: boolean;
-        spotlightArt?: boolean;
-        spotlightReview?: boolean;
-        trailer?: boolean;
+        caption?: boolean | undefined;
+        hdTranscode?: boolean | undefined;
+        posterArt?: boolean | undefined;
+        spotlightArt?: boolean | undefined;
+        spotlightReview?: boolean | undefined;
+        trailer?: boolean | undefined;
       }
       interface RightsOwnership {
-        general?: YoutubePartner.Schema.TerritoryOwners[];
-        kind?: string;
-        mechanical?: YoutubePartner.Schema.TerritoryOwners[];
-        performance?: YoutubePartner.Schema.TerritoryOwners[];
-        synchronization?: YoutubePartner.Schema.TerritoryOwners[];
+        general?: YoutubePartner.Schema.TerritoryOwners[] | undefined;
+        kind?: string | undefined;
+        mechanical?: YoutubePartner.Schema.TerritoryOwners[] | undefined;
+        performance?: YoutubePartner.Schema.TerritoryOwners[] | undefined;
+        synchronization?: YoutubePartner.Schema.TerritoryOwners[] | undefined;
       }
       interface RightsOwnershipHistory {
-        kind?: string;
-        origination?: YoutubePartner.Schema.Origination;
-        ownership?: YoutubePartner.Schema.RightsOwnership;
-        timeProvided?: string;
+        kind?: string | undefined;
+        origination?: YoutubePartner.Schema.Origination | undefined;
+        ownership?: YoutubePartner.Schema.RightsOwnership | undefined;
+        timeProvided?: string | undefined;
       }
       interface Segment {
-        duration?: string;
-        kind?: string;
-        start?: string;
+        duration?: string | undefined;
+        kind?: string | undefined;
+        start?: string | undefined;
       }
       interface ShowDetails {
-        episodeNumber?: string;
-        episodeTitle?: string;
-        seasonNumber?: string;
-        title?: string;
+        episodeNumber?: string | undefined;
+        episodeTitle?: string | undefined;
+        seasonNumber?: string | undefined;
+        title?: string | undefined;
       }
       interface SpreadsheetTemplate {
-        kind?: string;
-        status?: string;
-        templateContent?: string;
-        templateName?: string;
-        templateType?: string;
+        kind?: string | undefined;
+        status?: string | undefined;
+        templateContent?: string | undefined;
+        templateName?: string | undefined;
+        templateType?: string | undefined;
       }
       interface SpreadsheetTemplateListResponse {
-        items?: YoutubePartner.Schema.SpreadsheetTemplate[];
-        kind?: string;
-        status?: string;
+        items?: YoutubePartner.Schema.SpreadsheetTemplate[] | undefined;
+        kind?: string | undefined;
+        status?: string | undefined;
       }
       interface StateCompleted {
-        state?: string;
-        timeCompleted?: string;
+        state?: string | undefined;
+        timeCompleted?: string | undefined;
       }
       interface StatusReport {
-        statusContent?: string;
-        statusFileName?: string;
+        statusContent?: string | undefined;
+        statusFileName?: string | undefined;
       }
       interface TerritoryCondition {
-        territories?: string[];
-        type?: string;
+        territories?: string[] | undefined;
+        type?: string | undefined;
       }
       interface TerritoryConflicts {
-        conflictingOwnership?: YoutubePartner.Schema.ConflictingOwnership[];
-        territory?: string;
+        conflictingOwnership?: YoutubePartner.Schema.ConflictingOwnership[] | undefined;
+        territory?: string | undefined;
       }
       interface TerritoryOwners {
-        owner?: string;
-        publisher?: string;
-        ratio?: number;
-        territories?: string[];
-        type?: string;
+        owner?: string | undefined;
+        publisher?: string | undefined;
+        ratio?: number | undefined;
+        territories?: string[] | undefined;
+        type?: string | undefined;
       }
       interface Uploader {
-        kind?: string;
-        uploaderName?: string;
+        kind?: string | undefined;
+        uploaderName?: string | undefined;
       }
       interface UploaderListResponse {
-        items?: YoutubePartner.Schema.Uploader[];
-        kind?: string;
+        items?: YoutubePartner.Schema.Uploader[] | undefined;
+        kind?: string | undefined;
       }
       interface ValidateAsyncRequest {
-        content?: string;
-        kind?: string;
-        uploaderName?: string;
+        content?: string | undefined;
+        kind?: string | undefined;
+        uploaderName?: string | undefined;
       }
       interface ValidateAsyncResponse {
-        kind?: string;
-        status?: string;
-        validationId?: string;
+        kind?: string | undefined;
+        status?: string | undefined;
+        validationId?: string | undefined;
       }
       interface ValidateError {
-        columnName?: string;
-        columnNumber?: number;
-        lineNumber?: number;
-        message?: string;
-        messageCode?: number;
-        severity?: string;
+        columnName?: string | undefined;
+        columnNumber?: number | undefined;
+        lineNumber?: number | undefined;
+        message?: string | undefined;
+        messageCode?: number | undefined;
+        severity?: string | undefined;
       }
       interface ValidateRequest {
-        content?: string;
-        kind?: string;
-        locale?: string;
-        uploaderName?: string;
+        content?: string | undefined;
+        kind?: string | undefined;
+        locale?: string | undefined;
+        uploaderName?: string | undefined;
       }
       interface ValidateResponse {
-        errors?: YoutubePartner.Schema.ValidateError[];
-        kind?: string;
-        status?: string;
+        errors?: YoutubePartner.Schema.ValidateError[] | undefined;
+        kind?: string | undefined;
+        status?: string | undefined;
       }
       interface ValidateStatusRequest {
-        kind?: string;
-        locale?: string;
-        validationId?: string;
+        kind?: string | undefined;
+        locale?: string | undefined;
+        validationId?: string | undefined;
       }
       interface ValidateStatusResponse {
-        errors?: YoutubePartner.Schema.ValidateError[];
-        isMetadataOnly?: boolean;
-        kind?: string;
-        status?: string;
+        errors?: YoutubePartner.Schema.ValidateError[] | undefined;
+        isMetadataOnly?: boolean | undefined;
+        kind?: string | undefined;
+        status?: string | undefined;
       }
       interface VideoAdvertisingOption {
-        adBreaks?: YoutubePartner.Schema.AdBreak[];
-        adFormats?: string[];
-        autoGeneratedBreaks?: boolean;
-        breakPosition?: string[];
-        id?: string;
-        kind?: string;
-        tpAdServerVideoId?: string;
-        tpTargetingUrl?: string;
-        tpUrlParameters?: string;
+        adBreaks?: YoutubePartner.Schema.AdBreak[] | undefined;
+        adFormats?: string[] | undefined;
+        autoGeneratedBreaks?: boolean | undefined;
+        breakPosition?: string[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        tpAdServerVideoId?: string | undefined;
+        tpTargetingUrl?: string | undefined;
+        tpUrlParameters?: string | undefined;
       }
       interface VideoAdvertisingOptionGetEnabledAdsResponse {
-        adBreaks?: YoutubePartner.Schema.AdBreak[];
-        adsOnEmbeds?: boolean;
-        countriesRestriction?: YoutubePartner.Schema.CountriesRestriction[];
-        id?: string;
-        kind?: string;
+        adBreaks?: YoutubePartner.Schema.AdBreak[] | undefined;
+        adsOnEmbeds?: boolean | undefined;
+        countriesRestriction?: YoutubePartner.Schema.CountriesRestriction[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
       }
       interface Whitelist {
-        id?: string;
-        kind?: string;
-        title?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        title?: string | undefined;
       }
       interface WhitelistListResponse {
-        items?: YoutubePartner.Schema.Whitelist[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YoutubePartner.Schema.PageInfo;
+        items?: YoutubePartner.Schema.Whitelist[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YoutubePartner.Schema.PageInfo | undefined;
       }
     }
   }
   interface YoutubePartner {
-    AssetLabels?: YoutubePartner.Collection.AssetLabelsCollection;
-    AssetMatchPolicy?: YoutubePartner.Collection.AssetMatchPolicyCollection;
-    AssetRelationships?: YoutubePartner.Collection.AssetRelationshipsCollection;
-    AssetSearch?: YoutubePartner.Collection.AssetSearchCollection;
-    AssetShares?: YoutubePartner.Collection.AssetSharesCollection;
-    Assets?: YoutubePartner.Collection.AssetsCollection;
-    Campaigns?: YoutubePartner.Collection.CampaignsCollection;
-    ClaimHistory?: YoutubePartner.Collection.ClaimHistoryCollection;
-    ClaimSearch?: YoutubePartner.Collection.ClaimSearchCollection;
-    Claims?: YoutubePartner.Collection.ClaimsCollection;
-    ContentOwnerAdvertisingOptions?: YoutubePartner.Collection.ContentOwnerAdvertisingOptionsCollection;
-    ContentOwners?: YoutubePartner.Collection.ContentOwnersCollection;
-    LiveCuepoints?: YoutubePartner.Collection.LiveCuepointsCollection;
-    MetadataHistory?: YoutubePartner.Collection.MetadataHistoryCollection;
-    Orders?: YoutubePartner.Collection.OrdersCollection;
-    Ownership?: YoutubePartner.Collection.OwnershipCollection;
-    OwnershipHistory?: YoutubePartner.Collection.OwnershipHistoryCollection;
-    Package?: YoutubePartner.Collection.PackageCollection;
-    Policies?: YoutubePartner.Collection.PoliciesCollection;
-    Publishers?: YoutubePartner.Collection.PublishersCollection;
-    ReferenceConflicts?: YoutubePartner.Collection.ReferenceConflictsCollection;
-    References?: YoutubePartner.Collection.ReferencesCollection;
-    SpreadsheetTemplate?: YoutubePartner.Collection.SpreadsheetTemplateCollection;
-    Uploader?: YoutubePartner.Collection.UploaderCollection;
-    Validator?: YoutubePartner.Collection.ValidatorCollection;
-    VideoAdvertisingOptions?: YoutubePartner.Collection.VideoAdvertisingOptionsCollection;
-    Whitelists?: YoutubePartner.Collection.WhitelistsCollection;
+    AssetLabels?: YoutubePartner.Collection.AssetLabelsCollection | undefined;
+    AssetMatchPolicy?: YoutubePartner.Collection.AssetMatchPolicyCollection | undefined;
+    AssetRelationships?: YoutubePartner.Collection.AssetRelationshipsCollection | undefined;
+    AssetSearch?: YoutubePartner.Collection.AssetSearchCollection | undefined;
+    AssetShares?: YoutubePartner.Collection.AssetSharesCollection | undefined;
+    Assets?: YoutubePartner.Collection.AssetsCollection | undefined;
+    Campaigns?: YoutubePartner.Collection.CampaignsCollection | undefined;
+    ClaimHistory?: YoutubePartner.Collection.ClaimHistoryCollection | undefined;
+    ClaimSearch?: YoutubePartner.Collection.ClaimSearchCollection | undefined;
+    Claims?: YoutubePartner.Collection.ClaimsCollection | undefined;
+    ContentOwnerAdvertisingOptions?: YoutubePartner.Collection.ContentOwnerAdvertisingOptionsCollection | undefined;
+    ContentOwners?: YoutubePartner.Collection.ContentOwnersCollection | undefined;
+    LiveCuepoints?: YoutubePartner.Collection.LiveCuepointsCollection | undefined;
+    MetadataHistory?: YoutubePartner.Collection.MetadataHistoryCollection | undefined;
+    Orders?: YoutubePartner.Collection.OrdersCollection | undefined;
+    Ownership?: YoutubePartner.Collection.OwnershipCollection | undefined;
+    OwnershipHistory?: YoutubePartner.Collection.OwnershipHistoryCollection | undefined;
+    Package?: YoutubePartner.Collection.PackageCollection | undefined;
+    Policies?: YoutubePartner.Collection.PoliciesCollection | undefined;
+    Publishers?: YoutubePartner.Collection.PublishersCollection | undefined;
+    ReferenceConflicts?: YoutubePartner.Collection.ReferenceConflictsCollection | undefined;
+    References?: YoutubePartner.Collection.ReferencesCollection | undefined;
+    SpreadsheetTemplate?: YoutubePartner.Collection.SpreadsheetTemplateCollection | undefined;
+    Uploader?: YoutubePartner.Collection.UploaderCollection | undefined;
+    Validator?: YoutubePartner.Collection.ValidatorCollection | undefined;
+    VideoAdvertisingOptions?: YoutubePartner.Collection.VideoAdvertisingOptionsCollection | undefined;
+    Whitelists?: YoutubePartner.Collection.WhitelistsCollection | undefined;
     // Create a new instance of AdBreak
     newAdBreak(): YoutubePartner.Schema.AdBreak;
     // Create a new instance of AdSlot

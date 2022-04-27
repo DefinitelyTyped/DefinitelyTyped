@@ -12,13 +12,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@keystonejs/auth-password": ["keystonejs__auth-password"],
-            "@keystonejs/app-graphql": ["keystonejs__app-graphql"],
-            "@keystonejs/app-admin-ui": ["keystonejs__app-admin-ui"],
-            "@keystonejs/adapter-knex": ["keystonejs__adapter-knex"],
-            "@keystonejs/app-next": ["keystonejs__app-next"],
-            "@keystonejs/app-static": ["keystonejs__app-static"],
-            "@keystonejs/fields": ["keystonejs__fields"]
+            "@keystonejs/*": ["keystonejs__*"]
         }
     },
     "files": [

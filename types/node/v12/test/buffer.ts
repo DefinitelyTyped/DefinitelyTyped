@@ -19,8 +19,8 @@ console.log(Buffer.isBuffer(octetBuffer));
 console.log(Buffer.isEncoding('utf8'));
 console.log(Buffer.byteLength('xyz123'));
 console.log(Buffer.byteLength('xyz123', 'ascii'));
-const result1 = Buffer.concat([utf8Buffer, base64Buffer]);
-const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+const result1 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>);
+const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>, 9999999);
 
 // Module constants
 {
@@ -41,7 +41,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
 // Class Method: Buffer.from(data)
 {
     // Array
-    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as ReadonlyArray<number>);
     // Buffer
     const buf2: Buffer = Buffer.from(buf1);
     // String
@@ -120,15 +120,25 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
 let a: Buffer | number;
 a = new Buffer(10);
 if (Buffer.isBuffer(a)) {
+    a.writeUInt8(3);
     a.writeUInt8(3, 4);
+    a.writeUint8(3, 4);
 }
 
 // write* methods return offsets.
 const b = new Buffer(16);
-let result: number = b.writeUInt32LE(0, 0);
+let result: number = b.writeUInt32LE(0);
+result = b.writeUInt32LE(0, 0);
+result = b.writeUint32LE(0, 0);
+result = b.writeUInt16LE(0);
 result = b.writeUInt16LE(0, 4);
+result = b.writeUint16LE(0, 4);
+result = b.writeUInt8(0);
 result = b.writeUInt8(0, 6);
+result = b.writeUint8(0, 6);
+result = b.writeInt8(0);
 result = b.writeInt8(0, 7);
+result = b.writeDoubleLE(0);
 result = b.writeDoubleLE(0, 8);
 result = b.write('asd');
 result = b.write('asd', 'hex');
@@ -208,9 +218,11 @@ b.fill('a').fill('b');
 // Imported Buffer from buffer module works properly
 {
     const b = new ImportedBuffer('123');
+    b.writeUInt8(0);
     b.writeUInt8(0, 6);
     const sb = new ImportedSlowBuffer(43);
-    b.writeUInt8(0, 6);
+    sb.writeUInt8(0);
+    sb.writeUInt8(0, 6);
 }
 
 // Buffer has Uint8Array's buffer field (an ArrayBuffer).

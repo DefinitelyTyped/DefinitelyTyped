@@ -1,36 +1,19 @@
 import { Component, CSSProperties } from "react";
 import { CustomPickerProps, ColorState } from "../../..";
+import { Classes } from "reactcss";
 
-export interface GithubPickerDefaultStyles {
-    card?: CSSProperties;
-    triangle?: CSSProperties;
-    triangleShadow?: CSSProperties;
-}
-
-export interface GithubPickerTriangleStyles {
-    triangle?: CSSProperties;
-    triangleShadow?: CSSProperties;
-}
-
-export interface GithubPickerHideTriangleStyles {
-    triangle?: CSSProperties;
-    "top-left-triangle"?: GithubPickerTriangleStyles;
-    "top-right-triangle"?: GithubPickerTriangleStyles;
-    "bottom-left-triangle"?: GithubPickerTriangleStyles;
-    "bottom-right-triangle"?: GithubPickerTriangleStyles;
-}
-
-export interface GithubPickerStyles {
-    default?: GithubPickerDefaultStyles;
+export interface GithubPickerStylesProps {
+    card: CSSProperties;
+    triangle: CSSProperties;
+    triangleShadow: CSSProperties;
 }
 
 export interface GithubPickerProps extends CustomPickerProps {
-    colors?: string[];
-    width?: string;
-    triangle?: "hide" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+    colors?: string[] | undefined;
+    width?: string | undefined;
+    triangle?: "hide" | "top-left" | "top-right" | "bottom-left" | "bottom-right" | undefined;
     onSwatchHover?(color: ColorState, event: MouseEvent): void;
-    className?: string;
-    styles?: GithubPickerStyles;
+    styles?: Partial<Classes<GithubPickerStylesProps>> | undefined;
 }
 
-export default class GithubPicker extends Component<GithubPickerProps> {}
+export default class GithubPicker extends Component<GithubPickerProps> { }

@@ -14,6 +14,7 @@ interface TestObject {
     foo: string;
 }
 
+const testBoolean = true as boolean;
 const testObject = { foo: "bar" };
 
 /**
@@ -46,9 +47,14 @@ token = jwt.sign(testObject, { key: privKey, passphrase: 'keypwd' }, { algorithm
 
 // sign asynchronously
 jwt.sign(testObject, cert, { algorithm: "RS256" }, (
-    err: Error,
-    token: string,
+    err: Error | null,
+    token: string | undefined,
 ) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
     console.log(token);
 });
 
@@ -137,24 +143,92 @@ jwt.verify(token, cert, { ignoreExpiration: true }, (err, decoded) => {
     // if ignoreExpration == false and token is expired, err == expired token
 });
 
+jwt.verify(token, cert, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
+    }
+});
+
+jwt.verify(token, cert, {}, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
+    }
+});
+
+jwt.verify(token, cert, { complete: true }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType Jwt
+        decoded;
+        // $ExpectType string | JwtPayload
+        decoded.payload;
+    }
+});
+
+jwt.verify(token, cert, { complete: false }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
+    }
+});
+
+jwt.verify(token, cert, { maxAge: 3600 }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
+    }
+});
+
+jwt.verify(token, cert, { complete: testBoolean }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | Jwt | JwtPayload
+        decoded;
+    }
+});
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert);
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, {});
+
+// $ExpectType Jwt
+jwt.verify(token, cert, { complete: true });
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, { complete: true }).payload;
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, { complete: false });
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, { maxAge: 3600 });
+
+// $ExpectType string | Jwt | JwtPayload
+jwt.verify(token, cert, { complete: testBoolean });
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
  */
-let decoded = jwt.decode(token);
+// $ExpectType string | JwtPayload | null
+jwt.decode(token);
 
-decoded = jwt.decode(token, { complete: false });
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { complete: false });
 
-if (decoded !== null && typeof decoded === "object") {
-    console.log(decoded.foo);
-}
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { json: false });
 
-decoded = jwt.decode(token, { json: false });
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { complete: false, json: false });
 
-decoded = jwt.decode(token, { complete: false, json: false });
+// $ExpectType JwtPayload | null
+jwt.decode(token, { json: true });
 
-decoded = jwt.decode(token, { json: true });
-if (decoded) {
-    // $ExpectType { [key: string]: any; }
-    decoded;
-}
+// $ExpectType Jwt | null
+jwt.decode(token, { complete: true });
+
+// $ExpectType Jwt | null
+jwt.decode(token, { complete: true, json: true });

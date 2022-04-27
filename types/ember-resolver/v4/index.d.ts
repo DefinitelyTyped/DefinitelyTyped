@@ -3,7 +3,7 @@
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import Ember from 'ember';
 

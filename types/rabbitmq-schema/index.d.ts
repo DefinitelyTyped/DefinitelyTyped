@@ -7,8 +7,8 @@
 interface Binding {
     destination: Exchange | Queue;
     source: Exchange;
-    args?: object;
-    routingPattern?: string;
+    args?: object | undefined;
+    routingPattern?: string | undefined;
 }
 
 interface TopicBinding extends Binding {
@@ -20,7 +20,7 @@ interface DirectBinding extends Binding {
 }
 
 interface Topology {
-    options?: object;
+    options?: object | undefined;
 }
 
 interface Exchange extends Topology {

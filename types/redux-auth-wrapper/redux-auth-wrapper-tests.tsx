@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, StatelessComponent } from "react";
+import { Component, FunctionComponent } from "react";
 import { createStore } from "redux";
 import { push } from "react-router-redux";
 import { LocationDescriptorObject } from "history";

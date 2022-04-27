@@ -9,6 +9,8 @@ options({
   }
 });
 
+options();
+
 cache = newInstance({
   statusCodes: {
     exclude: [404, 429, 500],

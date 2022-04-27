@@ -11,11 +11,11 @@ declare namespace insight {
     
     interface IOptions {
         trackingCode:string;
-        trackingProvider?:string;
-        pkg?:IPackage;
-        packageName?:string;
-        packageVersion?:string;
-        config?:IConfigstore;
+        trackingProvider?:string | undefined;
+        pkg?:IPackage | undefined;
+        packageName?:string | undefined;
+        packageVersion?:string | undefined;
+        config?:IConfigstore | undefined;
     }
 
     interface IConfigstore {
@@ -29,8 +29,8 @@ declare namespace insight {
     interface IEvent {
         category:string;
         action:string;
-        label?:string;
-        value?:number|string;
+        label?:string | undefined;
+        value?:number|string | undefined;
     }
 }
 

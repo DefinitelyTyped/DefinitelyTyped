@@ -13,11 +13,12 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@testing-library/jest-dom": ["testing-library__jest-dom"]
+            "@testing-library/*": ["testing-library__*"]
         }
     },
     "files": [
         "index.d.ts",
-        "test/testing-library__jest-dom-global-tests.ts"
+        "test/testing-library__jest-dom-global-tests.ts",
+        "test/testing-library__jest-dom-extend-matchers-tests.ts"
     ]
 }

@@ -33,3 +33,9 @@ tx.verify();
 new bitcore.Unit(2, 'BTC').toSatoshis();
 
 bitcore.Unit.fromMilis(1000).toBTC();
+
+const message = new bitcore.Message('sign this message');
+
+const signedMessageSig = message.sign(privateKey);
+
+message.verify(privateKey.toAddress(), signedMessageSig);

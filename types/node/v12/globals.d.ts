@@ -21,16 +21,16 @@ interface Console {
      */
     countReset(label?: string): void;
     /**
-     * The `console.debug()` function is an alias for {@link console.log()}.
+     * The `console.debug()` function is an alias for {@link console.log}.
      */
     debug(message?: any, ...optionalParams: any[]): void;
     /**
-     * Uses {@link util.inspect()} on `obj` and prints the resulting string to `stdout`.
+     * Uses {@link util.inspect} on `obj` and prints the resulting string to `stdout`.
      * This function bypasses any custom `inspect()` function defined on `obj`.
      */
     dir(obj: any, options?: NodeJS.InspectOptions): void;
     /**
-     * This method calls {@link console.log()} passing it the arguments received. Please note that this method does not produce any XML formatting
+     * This method calls {@link console.log} passing it the arguments received. Please note that this method does not produce any XML formatting
      */
     dirxml(...data: any[]): void;
     /**
@@ -43,7 +43,7 @@ interface Console {
      */
     group(...label: any[]): void;
     /**
-     * The `console.groupCollapsed()` function is an alias for {@link console.group()}.
+     * The `console.groupCollapsed()` function is an alias for {@link console.group}.
      */
     groupCollapsed(...label: any[]): void;
     /**
@@ -51,7 +51,7 @@ interface Console {
      */
     groupEnd(): void;
     /**
-     * The {@link console.info()} function is an alias for {@link console.log()}.
+     * The {@link console.info} function is an alias for {@link console.log}.
      */
     info(message?: any, ...optionalParams: any[]): void;
     /**
@@ -62,25 +62,25 @@ interface Console {
      * This method does not display anything unless used in the inspector.
      *  Prints to `stdout` the array `array` formatted as a table.
      */
-    table(tabularData: any, properties?: string[]): void;
+    table(tabularData: any, properties?: ReadonlyArray<string>): void;
     /**
      * Starts a timer that can be used to compute the duration of an operation. Timers are identified by a unique `label`.
      */
     time(label?: string): void;
     /**
-     * Stops a timer that was previously started by calling {@link console.time()} and prints the result to `stdout`.
+     * Stops a timer that was previously started by calling {@link console.time} and prints the result to `stdout`.
      */
     timeEnd(label?: string): void;
     /**
-     * For a timer that was previously started by calling {@link console.time()}, prints the elapsed time and other `data` arguments to `stdout`.
+     * For a timer that was previously started by calling {@link console.time}, prints the elapsed time and other `data` arguments to `stdout`.
      */
     timeLog(label?: string, ...data: any[]): void;
     /**
-     * Prints to `stderr` the string 'Trace :', followed by the {@link util.format()} formatted message and stack trace to the current position in the code.
+     * Prints to `stderr` the string 'Trace :', followed by the {@link util.format} formatted message and stack trace to the current position in the code.
      */
     trace(message?: any, ...optionalParams: any[]): void;
     /**
-     * The {@link console.warn()} function is an alias for {@link console.error()}.
+     * The {@link console.warn} function is an alias for {@link console.error}.
      */
     warn(message?: any, ...optionalParams: any[]): void;
 
@@ -124,7 +124,7 @@ interface Console {
 }
 
 interface Error {
-    stack?: string;
+    stack?: string | undefined;
 }
 
 // Declare "static" methods in Error
@@ -137,7 +137,7 @@ interface ErrorConstructor {
      *
      * @see https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
      */
-    prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
+    prepareStackTrace?: ((err: Error, stackTraces: NodeJS.CallSite[]) => any) | undefined;
 
     stackTraceLimit: number;
 }
@@ -152,6 +152,11 @@ interface String {
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
+
+    /** Returns a copy with leading whitespace removed. */
+    trimStart(): string;
+    /** Returns a copy with trailing whitespace removed. */
+    trimEnd(): string;
 }
 
 interface ImportMeta {
@@ -164,7 +169,6 @@ interface ImportMeta {
  *                                               *
  ------------------------------------------------*/
 declare var process: NodeJS.Process;
-declare var global: NodeJS.Global;
 declare var console: Console;
 
 declare var __filename: string;
@@ -189,7 +193,6 @@ declare function queueMicrotask(callback: () => void): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
-    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -208,7 +211,7 @@ interface NodeRequire extends NodeRequireFunction {
 }
 
 interface RequireResolve {
-    (id: string, options?: { paths?: string[]; }): string;
+    (id: string, options?: { paths?: string[] | undefined; }): string;
     paths(request: string): string[] | null;
 }
 
@@ -227,8 +230,15 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: NodeModule | null;
+    /** @deprecated since v12.19.0 Please use `require.main` and `module.children` instead. */
+    parent: NodeModule | null | undefined;
     children: NodeModule[];
+    /**
+     * @since v11.14.0
+     *
+     * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+     */
+    path: string;
     paths: string[];
 }
 
@@ -242,6 +252,34 @@ type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" 
 
 interface Buffer {
     constructor: typeof Buffer;
+    readBigUInt64BE(offset?: number): bigint;
+    /**
+     * @alias Buffer.readBigUInt64BE
+     * @since v12.19.0
+     */
+    readBigUint64BE(offset?: number): bigint;
+    readBigUInt64LE(offset?: number): bigint;
+    /**
+     * @alias Buffer.readBigUInt64LE
+     * @since v12.19.0
+     */
+    readBigUint64LE(offset?: number): bigint;
+    readBigInt64BE(offset?: number): bigint;
+    readBigInt64LE(offset?: number): bigint;
+    writeBigInt64BE(value: bigint, offset?: number): number;
+    writeBigInt64LE(value: bigint, offset?: number): number;
+    writeBigUInt64BE(value: bigint, offset?: number): number;
+    /**
+     * @alias Buffer.writeBigUInt64BE
+     * @since v12.19.0
+     */
+    writeBigUint64BE(value: bigint, offset?: number): number;
+    writeBigUInt64LE(value: bigint, offset?: number): number;
+    /**
+     * @alias Buffer.writeBigUInt64LE
+     * @since v12.19.0
+     */
+    writeBigUint64LE(value: bigint, offset?: number): number;
 }
 
 /**
@@ -287,7 +325,7 @@ declare class Buffer extends Uint8Array {
      * @param array The octets to store.
      * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
-    constructor(array: any[]);
+    constructor(array: ReadonlyArray<any>);
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
@@ -308,7 +346,7 @@ declare class Buffer extends Uint8Array {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    static from(data: number[]): Buffer;
+    static from(data: ReadonlyArray<number>): Buffer;
     static from(data: Uint8Array): Buffer;
     /**
      * Creates a new buffer containing the coerced value of an object
@@ -362,7 +400,7 @@ declare class Buffer extends Uint8Array {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    static concat(list: Uint8Array[], totalLength?: number): Buffer;
+    static concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -428,45 +466,115 @@ declare class Buffer extends Uint8Array {
      */
     subarray(begin?: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.writeUIntLE
+     * @since v12.19.0
+     */
+    writeUintLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.writeUIntBE
+     * @since v12.19.0
+     */
+    writeUintBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
     writeIntBE(value: number, offset: number, byteLength: number): number;
     readUIntLE(offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.readUIntLE
+     * @since v12.19.0
+     */
+    readUintLE(offset: number, byteLength: number): number;
     readUIntBE(offset: number, byteLength: number): number;
+    /**
+     * @alias Buffer.readUIntBE
+     * @since v12.19.0
+     */
+    readUintBE(offset: number, byteLength: number): number;
     readIntLE(offset: number, byteLength: number): number;
     readIntBE(offset: number, byteLength: number): number;
-    readUInt8(offset: number): number;
-    readUInt16LE(offset: number): number;
-    readUInt16BE(offset: number): number;
-    readUInt32LE(offset: number): number;
-    readUInt32BE(offset: number): number;
-    readInt8(offset: number): number;
-    readInt16LE(offset: number): number;
-    readInt16BE(offset: number): number;
-    readInt32LE(offset: number): number;
-    readInt32BE(offset: number): number;
-    readFloatLE(offset: number): number;
-    readFloatBE(offset: number): number;
-    readDoubleLE(offset: number): number;
-    readDoubleBE(offset: number): number;
+    readUInt8(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt8
+     * @since v12.19.0
+     */
+    readUint8(offset?: number): number;
+    readUInt16LE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt16LE
+     * @since v12.19.0
+     */
+    readUint16LE(offset?: number): number;
+    readUInt16BE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt16BE
+     * @since v12.19.0
+     */
+    readUint16BE(offset?: number): number;
+    readUInt32LE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt32LE
+     * @since v12.19.0
+     */
+    readUint32LE(offset?: number): number;
+    readUInt32BE(offset?: number): number;
+    /**
+     * @alias Buffer.readUInt32BE
+     * @since v12.19.0
+     */
+    readUint32BE(offset?: number): number;
+    readInt8(offset?: number): number;
+    readInt16LE(offset?: number): number;
+    readInt16BE(offset?: number): number;
+    readInt32LE(offset?: number): number;
+    readInt32BE(offset?: number): number;
+    readFloatLE(offset?: number): number;
+    readFloatBE(offset?: number): number;
+    readDoubleLE(offset?: number): number;
+    readDoubleBE(offset?: number): number;
     reverse(): this;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;
-    writeUInt8(value: number, offset: number): number;
-    writeUInt16LE(value: number, offset: number): number;
-    writeUInt16BE(value: number, offset: number): number;
-    writeUInt32LE(value: number, offset: number): number;
-    writeUInt32BE(value: number, offset: number): number;
-    writeInt8(value: number, offset: number): number;
-    writeInt16LE(value: number, offset: number): number;
-    writeInt16BE(value: number, offset: number): number;
-    writeInt32LE(value: number, offset: number): number;
-    writeInt32BE(value: number, offset: number): number;
-    writeFloatLE(value: number, offset: number): number;
-    writeFloatBE(value: number, offset: number): number;
-    writeDoubleLE(value: number, offset: number): number;
-    writeDoubleBE(value: number, offset: number): number;
+    writeUInt8(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt8
+     * @since v12.19.0
+     */
+    writeUint8(value: number, offset?: number): number;
+    writeUInt16LE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt16LE
+     * @since v12.19.0
+     */
+    writeUint16LE(value: number, offset?: number): number;
+    writeUInt16BE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt16BE
+     * @since v12.19.0
+     */
+    writeUint16BE(value: number, offset?: number): number;
+    writeUInt32LE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt32LE
+     * @since v12.19.0
+     */
+    writeUint32LE(value: number, offset?: number): number;
+    writeUInt32BE(value: number, offset?: number): number;
+    /**
+     * @alias Buffer.writeUInt32BE
+     * @since v12.19.0
+     */
+    writeUint32BE(value: number, offset?: number): number;
+    writeInt8(value: number, offset?: number): number;
+    writeInt16LE(value: number, offset?: number): number;
+    writeInt16BE(value: number, offset?: number): number;
+    writeInt32LE(value: number, offset?: number): number;
+    writeInt32BE(value: number, offset?: number): number;
+    writeFloatLE(value: number, offset?: number): number;
+    writeFloatBE(value: number, offset?: number): number;
+    writeDoubleLE(value: number, offset?: number): number;
+    writeDoubleBE(value: number, offset?: number): number;
 
     fill(value: string | Uint8Array | number, offset?: number, end?: number, encoding?: BufferEncoding): this;
 
@@ -493,17 +601,17 @@ declare namespace NodeJS {
          * the getter function.
          * @default `false`
          */
-        getters?: 'get' | 'set' | boolean;
-        showHidden?: boolean;
+        getters?: 'get' | 'set' | boolean | undefined;
+        showHidden?: boolean | undefined;
         /**
          * @default 2
          */
-        depth?: number | null;
-        colors?: boolean;
-        customInspect?: boolean;
-        showProxy?: boolean;
-        maxArrayLength?: number | null;
-        breakLength?: number;
+        depth?: number | null | undefined;
+        colors?: boolean | undefined;
+        customInspect?: boolean | undefined;
+        showProxy?: boolean | undefined;
+        maxArrayLength?: number | null | undefined;
+        breakLength?: number | undefined;
         /**
          * Setting this to `false` causes each object key
          * to be displayed on a new line. It will also add new lines to text that is
@@ -514,16 +622,21 @@ declare namespace NodeJS {
          * For more information, see the example below.
          * @default `true`
          */
-        compact?: boolean | number;
-        sorted?: boolean | ((a: string, b: string) => number);
+        compact?: boolean | number | undefined;
+        sorted?: boolean | ((a: string, b: string) => number) | undefined;
     }
 
     interface ConsoleConstructorOptions {
         stdout: WritableStream;
-        stderr?: WritableStream;
-        ignoreErrors?: boolean;
-        colorMode?: boolean | 'auto';
-        inspectOptions?: InspectOptions;
+        stderr?: WritableStream | undefined;
+        ignoreErrors?: boolean | undefined;
+        colorMode?: boolean | 'auto' | undefined;
+        inspectOptions?: InspectOptions | undefined;
+        /**
+         * Set group indentation
+         * @default 2
+         */
+        groupIndentation?: number | undefined;
     }
 
     interface ConsoleConstructor {
@@ -607,11 +720,10 @@ declare namespace NodeJS {
     }
 
     interface ErrnoException extends Error {
-        errno?: number;
-        code?: string;
-        path?: string;
-        syscall?: string;
-        stack?: string;
+        errno?: number | undefined;
+        code?: string | undefined;
+        path?: string | undefined;
+        syscall?: string | undefined;
     }
 
     class EventEmitter {
@@ -640,7 +752,7 @@ declare namespace NodeJS {
         pause(): this;
         resume(): this;
         isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
         unpipe(destination?: WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
@@ -651,9 +763,9 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
         write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
-        end(cb?: () => void): void;
-        end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: string, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(data: string | Uint8Array, cb?: () => void): this;
+        end(str: string, encoding?: string, cb?: () => void): this;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -686,10 +798,10 @@ declare namespace NodeJS {
 
     interface ProcessRelease {
         name: string;
-        sourceUrl?: string;
-        headersUrl?: string;
-        libUrl?: string;
-        lts?: string;
+        sourceUrl?: string | undefined;
+        headersUrl?: string | undefined;
+        libUrl?: string | undefined;
+        lts?: string | undefined;
     }
 
     interface ProcessVersions {
@@ -736,7 +848,7 @@ declare namespace NodeJS {
     type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<any>, value: any) => void;
 
     interface Socket extends ReadWriteStream {
-        isTTY?: true;
+        isTTY?: true | undefined;
     }
 
     interface ProcessEnv {
@@ -745,6 +857,7 @@ declare namespace NodeJS {
 
     interface HRTime {
         (time?: [number, number]): [number, number];
+        bigint(): bigint;
     }
 
     interface ProcessReport {
@@ -779,7 +892,7 @@ declare namespace NodeJS {
         /**
          * If true, a diagnostic report is generated when the process
          * receives the signal specified by process.report.signal.
-         * @defaul false
+         * @default false
          */
         reportOnSignal: boolean;
 
@@ -831,6 +944,32 @@ declare namespace NodeJS {
         voluntaryContextSwitches: number;
     }
 
+    interface EmitWarningOptions {
+        /**
+         * When `warning` is a `string`, `type` is the name to use for the _type_ of warning being emitted.
+         *
+         * @default 'Warning'
+         */
+        type?: string | undefined;
+
+        /**
+         * A unique identifier for the warning instance being emitted.
+         */
+        code?: string | undefined;
+
+        /**
+         * When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace.
+         *
+         * @default process.emitWarning
+         */
+        ctor?: Function | undefined;
+
+        /**
+         * Additional text to include with the error.
+         */
+        detail?: string | undefined;
+    }
+
     interface Process extends EventEmitter {
         /**
          * Can also be a tty.WriteStream, not typed due to limitation.s
@@ -846,14 +985,29 @@ declare namespace NodeJS {
         argv0: string;
         execArgv: string[];
         execPath: string;
-        abort(): void;
+        abort(): never;
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
-        emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
+
+        /**
+         * The `process.emitWarning()` method can be used to emit custom or application specific process warnings.
+         *
+         * These can be listened for by adding a handler to the `'warning'` event.
+         *
+         * @param warning The warning to emit.
+         * @param type When `warning` is a `string`, `type` is the name to use for the _type_ of warning being emitted. Default: `'Warning'`.
+         * @param code A unique identifier for the warning instance being emitted.
+         * @param ctor When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace. Default: `process.emitWarning`.
+         */
+        emitWarning(warning: string | Error, ctor?: Function): void;
+        emitWarning(warning: string | Error, type?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, type?: string, code?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, options?: EmitWarningOptions): void;
+
         env: ProcessEnv;
         exit(code?: number): never;
-        exitCode?: number;
+        exitCode?: number | undefined;
         getgid(): number;
         setgid(id: number | string): void;
         getuid(): number;
@@ -863,7 +1017,7 @@ declare namespace NodeJS {
         getegid(): number;
         setegid(id: number | string): void;
         getgroups(): number[];
-        setgroups(groups: Array<string | number>): void;
+        setgroups(groups: ReadonlyArray<string | number>): void;
         setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
         hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
@@ -894,13 +1048,13 @@ declare namespace NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string | number): void;
+        kill(pid: number, signal?: string | number): true;
         pid: number;
         ppid: number;
         title: string;
         arch: string;
         platform: Platform;
-        mainModule?: NodeModule;
+        mainModule?: NodeModule | undefined;
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
@@ -916,15 +1070,21 @@ declare namespace NodeJS {
             tls: boolean;
         };
         /**
+         * @deprecated since v12.19.0 - Calling process.umask() with no argument causes
+         * the process-wide umask to be written twice. This introduces a race condition between threads,
+         * and is a potential security vulnerability. There is no safe, cross-platform alternative API.
+         */
+        umask(): number;
+        /**
          * Can only be set if not in worker thread.
          */
-        umask(mask?: number): number;
+        umask(mask: string | number): number;
         uptime(): number;
         hrtime: HRTime;
         domain: Domain;
 
         // Worker
-        send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
+        send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean | undefined}, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         connected: boolean;
 
@@ -938,7 +1098,7 @@ declare namespace NodeJS {
         /**
          * Only available with `--experimental-report`
          */
-        report?: ProcessReport;
+        report?: ProcessReport | undefined;
 
         resourceUsage(): ResourceUsage;
 
@@ -1121,6 +1281,7 @@ declare namespace NodeJS {
         ref(): this;
         refresh(): this;
         unref(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     class Immediate {
@@ -1135,6 +1296,7 @@ declare namespace NodeJS {
         ref(): this;
         refresh(): this;
         unref(): this;
+        [Symbol.toPrimitive](): number;
     }
 
     class Module {
@@ -1155,17 +1317,35 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: Module | null;
+        /** @deprecated since v12.19.0 Please use `require.main` and `module.children` instead. */
+        parent: Module | null | undefined;
         children: Module[];
+        /**
+         * @since v11.14.0
+         *
+         * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
+         */
+        path: string;
         paths: string[];
 
         constructor(id: string, parent?: Module);
     }
 
-    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
-    type ArrayBufferView = TypedArray | DataView;
+    interface Dict<T> {
+        [key: string]: T | undefined;
+    }
 
-    // The value type here is a "poor man's `unknown`". When these types support TypeScript
-    // 3.0+, we can replace this with `unknown`.
-    type PoorMansUnknown = {} | null | undefined;
+    type TypedArray =
+        | Uint8Array
+        | Uint8ClampedArray
+        | Uint16Array
+        | Uint32Array
+        | Int8Array
+        | Int16Array
+        | Int32Array
+        | BigUint64Array
+        | BigInt64Array
+        | Float32Array
+        | Float64Array;
+    type ArrayBufferView = TypedArray | DataView;
 }

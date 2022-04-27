@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ContentRangeFormatOptions {
-    first?: number;
-    last?: number;
+    first?: number | undefined;
+    last?: number | undefined;
     length: number | null;
-    limit?: number;
+    limit?: number | undefined;
     unit: string;
 }
 

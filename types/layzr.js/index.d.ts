@@ -56,21 +56,21 @@ declare namespace Layzr {
         /**
          * Customize the attribute the normal resolution source is taken from.
          */
-        normal?: string;
+        normal?: string | undefined;
         /**
          * Customize the attribute the retina/high resolution source is taken from.
          */
-        retina?: string;
+        retina?: string | undefined;
         /**
          * Customize the attribute the source set is taken from.
          */
-        srcset?: string;
+        srcset?: string | undefined;
         /**
          * Adjust when images load, relative to the viewport. Positive values make images load sooner, negative values make images load later.
          *
          * Threshold is a percentage of the viewport height, identical to the CSS vh unit.
          */
-        threshold?: number;
+        threshold?: number | undefined;
     }
 }
 /**

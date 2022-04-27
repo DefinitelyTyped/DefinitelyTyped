@@ -16,25 +16,48 @@ import * as http from 'http';
 
 // for docs go to https://github.com/expressjs/body-parser/tree/1.19.0#body-parser
 
-/** @deprecated */
-declare function bodyParser(
-    options?: bodyParser.OptionsJson & bodyParser.OptionsText & bodyParser.OptionsUrlencoded,
-): NextHandleFunction;
-
 declare namespace bodyParser {
+    interface BodyParser {
+        /**
+         * @deprecated  use individual json/urlencoded middlewares
+         */
+        (options?: OptionsJson & OptionsText & OptionsUrlencoded): NextHandleFunction;
+        /**
+         * Returns middleware that only parses json and only looks at requests
+         * where the Content-Type header matches the type option.
+         */
+        json(options?: OptionsJson): NextHandleFunction;
+        /**
+         * Returns middleware that parses all bodies as a Buffer and only looks at requests
+         * where the Content-Type header matches the type option.
+         */
+        raw(options?: Options): NextHandleFunction;
+
+        /**
+         * Returns middleware that parses all bodies as a string and only looks at requests
+         * where the Content-Type header matches the type option.
+         */
+        text(options?: OptionsText): NextHandleFunction;
+        /**
+         * Returns middleware that only parses urlencoded bodies and only looks at requests
+         * where the Content-Type header matches the type option
+         */
+        urlencoded(options?: OptionsUrlencoded): NextHandleFunction;
+    }
+
     interface Options {
         /** When set to true, then deflated (compressed) bodies will be inflated; when false, deflated bodies are rejected. Defaults to true. */
-        inflate?: boolean;
+        inflate?: boolean | undefined;
         /**
          * Controls the maximum request body size. If this is a number,
          * then the value specifies the number of bytes; if it is a string,
          * the value is passed to the bytes library for parsing. Defaults to '100kb'.
          */
-        limit?: number | string;
+        limit?: number | string | undefined;
         /**
          * The type option is used to determine what media type the middleware will parse
          */
-        type?: string | string[] | ((req: http.IncomingMessage) => any);
+        type?: string | string[] | ((req: http.IncomingMessage) => any) | undefined;
         /**
          * The verify option, if supplied, is called as verify(req, res, buf, encoding),
          * where buf is a Buffer of the raw request body and encoding is the encoding of the request.
@@ -52,7 +75,7 @@ declare namespace bodyParser {
          * When set to `true`, will only accept arrays and objects;
          * when `false` will accept anything JSON.parse accepts. Defaults to `true`.
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 
     interface OptionsText extends Options {
@@ -61,7 +84,7 @@ declare namespace bodyParser {
          * is not specified in the Content-Type header of the request.
          * Defaults to `utf-8`.
          */
-        defaultCharset?: string;
+        defaultCharset?: string | undefined;
     }
 
     interface OptionsUrlencoded extends Options {
@@ -69,36 +92,16 @@ declare namespace bodyParser {
          * The extended option allows to choose between parsing the URL-encoded data
          * with the querystring library (when `false`) or the qs library (when `true`).
          */
-        extended?: boolean;
+        extended?: boolean | undefined;
         /**
          * The parameterLimit option controls the maximum number of parameters
          * that are allowed in the URL-encoded data. If a request contains more parameters than this value,
          * a 413 will be returned to the client. Defaults to 1000.
          */
-        parameterLimit?: number;
+        parameterLimit?: number | undefined;
     }
-
-    /**
-     * Returns middleware that only parses json and only looks at requests
-     * where the Content-Type header matches the type option.
-     */
-    function json(options?: OptionsJson): NextHandleFunction;
-    /**
-     * Returns middleware that parses all bodies as a Buffer and only looks at requests
-     * where the Content-Type header matches the type option.
-     */
-    function raw(options?: Options): NextHandleFunction;
-
-    /**
-     * Returns middleware that parses all bodies as a string and only looks at requests
-     * where the Content-Type header matches the type option.
-     */
-    function text(options?: OptionsText): NextHandleFunction;
-    /**
-     * Returns middleware that only parses urlencoded bodies and only looks at requests
-     * where the Content-Type header matches the type option
-     */
-    function urlencoded(options?: OptionsUrlencoded): NextHandleFunction;
 }
+
+declare const bodyParser: bodyParser.BodyParser;
 
 export = bodyParser;

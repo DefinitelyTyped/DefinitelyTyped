@@ -1,22 +1,17 @@
-// Type definitions for @rdfjs/namespace 1.1
+// Type definitions for @rdfjs/namespace 2.0
 // Project: https://github.com/rdfjs-base/namespace
 // Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { DataFactory, NamedNode } from 'rdf-js';
 
-declare function namespace(baseIRI: string, options?: namespace.BuilderOptions): namespace.NamespaceBuilder;
+export type NamespaceBuilder<TermNames extends string = any> = Record<TermNames, NamedNode> & {
+    (property?: TemplateStringsArray | TermNames): NamedNode;
+};
 
-declare namespace namespace {
-    interface NamespaceBuilder {
-        (property?: TemplateStringsArray | string): NamedNode;
-
-        readonly [property: string]: NamedNode;
-    }
-
-    interface BuilderOptions {
-        factory?: DataFactory;
-    }
+export interface BuilderOptions {
+    factory?: DataFactory | undefined;
 }
 
-export = namespace;
+// tslint:disable-next-line: no-unnecessary-generics
+export default function namespace<TermNames extends string = string>(baseIRI: string, options?: BuilderOptions): NamespaceBuilder<TermNames>;

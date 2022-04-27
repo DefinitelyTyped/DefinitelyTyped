@@ -22,6 +22,7 @@ const test = (config: karma.Config) => {
             startTunnel: true,
             timeout: 100,
             tunnelIdentifier: 'tunnel',
+            localIdentifier: 'Test123',
             video: true,
         },
 

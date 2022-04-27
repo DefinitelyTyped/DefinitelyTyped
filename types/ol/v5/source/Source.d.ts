@@ -9,11 +9,11 @@ import State from './State';
 export type Attribution = (p0: FrameState) => string | string[];
 export type AttributionLike = string | string[] | Attribution;
 export interface Options {
-    attributions?: AttributionLike;
-    attributionsCollapsible?: boolean;
-    projection?: ProjectionLike;
-    state?: State;
-    wrapX?: boolean;
+    attributions?: AttributionLike | undefined;
+    attributionsCollapsible?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    state?: State | undefined;
+    wrapX?: boolean | undefined;
 }
 export default class Source extends BaseObject {
     constructor(options: Options);

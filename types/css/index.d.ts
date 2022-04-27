@@ -1,7 +1,7 @@
 // Type definitions for css
 // Project: https://github.com/reworkcss/css
 // Definitions by: Ilya Verbitskiy <https://github.com/ilich>
-// Definitions: https://github.com/ilich/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * CSS parser / stringifier for Node.js
@@ -13,9 +13,9 @@
  */
 export interface ParserOptions {
     /** Silently fail on parse errors */
-    silent?: boolean;
+    silent?: boolean | undefined;
     /** The path to the file containing css. Makes errors and source maps more helpful, by letting them know where code comes from. */
-    source?: string;
+    source?: string | undefined;
 }
 
 /**
@@ -23,21 +23,21 @@ export interface ParserOptions {
  */
 export interface StringifyOptions {
     /** The string used to indent the output. Defaults to two spaces. */
-    indent?: string;
+    indent?: string | undefined;
     /** Omit comments and extraneous whitespace. */
-    compress?: boolean;
+    compress?: boolean | undefined;
     /** Return a sourcemap along with the CSS output. 
      * Using the source option of css.parse is strongly recommended 
      * when creating a source map. Specify sourcemap: 'generator' 
      * to return the SourceMapGenerator object instead of serializing the source map. 
      */
-    sourcemap?: string;
+    sourcemap?: string | undefined;
     /** (enabled by default, specify false to disable)
      *  Reads any source maps referenced by the input files 
      * when generating the output source map. When enabled, 
      * file system access may be required for reading the referenced source maps. 
      */
-    inputSourcemaps?: boolean;
+    inputSourcemaps?: boolean | undefined;
 }
 
 /**
@@ -45,15 +45,15 @@ export interface StringifyOptions {
  */
 export interface ParserError {
     /** The full error message with the source position. */
-    message?: string;
+    message?: string | undefined;
     /** The error message without position. */
-    reason?: string;
+    reason?: string | undefined;
     /** The value of options.source if passed to css.parse. Otherwise undefined. */
-    filename?: string;
-    line?: number;
-    column?: number;
+    filename?: string | undefined;
+    line?: number | undefined;
+    column?: number | undefined;
     /** The portion of code that couldn't be parsed. */
-    source?: string;
+    source?: string | undefined;
 }
 
 // ---------------------------------------------------------------------------------
@@ -65,8 +65,8 @@ export interface ParserError {
  * The line and column numbers are 1-based: The first line is 1 and the first column of a line is 1 (not 0).
  */
 export interface Position {
-    line?: number;
-    column?: number;
+    line?: number | undefined;
+    column?: number | undefined;
 }
 
 /**
@@ -74,39 +74,39 @@ export interface Position {
  */
 export interface Node {
     /** The possible values are the ones listed in the Types section on https://github.com/reworkcss/css page. */
-    type?: string;
+    type?: string | undefined;
     /** A reference to the parent node, or null if the node has no parent. */
-    parent?: Node;
+    parent?: Node | undefined;
     /** Information about the position in the source string that corresponds to the node. */
     position?: {
-        start?: Position;
-        end?: Position;
+        start?: Position | undefined;
+        end?: Position | undefined;
         /** The value of options.source if passed to css.parse. Otherwise undefined. */
-        source?: string;
+        source?: string | undefined;
         /** The full source string passed to css.parse. */
-        content?: string;
-    };
+        content?: string | undefined;
+    } | undefined;
 }
 
 export interface Rule extends Node {
     /** The list of selectors of the rule, split on commas. Each selector is trimmed from whitespace and comments. */
-    selectors?: Array<string>;
+    selectors?: Array<string> | undefined;
     /** Array of nodes with the types declaration and comment. */
-    declarations?: Array<Declaration | Comment>;
+    declarations?: Array<Declaration | Comment> | undefined;
 }
 
 export interface Declaration extends Node {
     /** The property name, trimmed from whitespace and comments. May not be empty. */
-    property?: string;
+    property?: string | undefined;
     /** The value of the property, trimmed from whitespace and comments. Empty values are allowed. */
-    value?: string;
+    value?: string | undefined;
 }
 
 /** 
  * A rule-level or declaration-level comment. Comments inside selectors, properties and values etc. are lost.
  */
 export interface Comment extends Node {
-    comment?: string;
+    comment?: string | undefined;
 }
 
 /** 
@@ -114,7 +114,7 @@ export interface Comment extends Node {
  */
 export interface Charset extends Node {
     /** The part following @charset. */
-    charset?: string;
+    charset?: string | undefined;
 }
 
 /**
@@ -122,9 +122,9 @@ export interface Charset extends Node {
  */
 export interface CustomMedia extends Node {
     /** The ---prefixed name. */
-    name?: string;
+    name?: string | undefined;
     /** The part following the name. */
-    media?: string;
+    media?: string | undefined;
 }
 
 /**
@@ -132,11 +132,11 @@ export interface CustomMedia extends Node {
  */
 export interface Document extends Node {
     /** The part following @document. */
-    document?: string;
+    document?: string | undefined;
     /** The vendor prefix in @document, or undefined if there is none. */
-    vendor?: string;
+    vendor?: string | undefined;
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
-    rules?: Array<Rule | Comment | AtRule>;
+    rules?: Array<Rule | Comment | AtRule> | undefined;
 }
 
 /**
@@ -144,7 +144,7 @@ export interface Document extends Node {
  */
 export interface FontFace extends Node {
     /** Array of nodes with the types declaration and comment. */
-    declarations?: Array<Declaration | Comment>;
+    declarations?: Array<Declaration | Comment> | undefined;
 }
 
 /**
@@ -152,7 +152,7 @@ export interface FontFace extends Node {
  */
 export interface Host extends Node {
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
-    rules?: Array<Rule | Comment | AtRule>;
+    rules?: Array<Rule | Comment | AtRule> | undefined;
 }
 
 /**
@@ -160,7 +160,7 @@ export interface Host extends Node {
  */
 export interface Import extends Node {
     /** The part following @import. */
-    import?: string;
+    import?: string | undefined;
 }
 
 /**
@@ -168,18 +168,18 @@ export interface Import extends Node {
  */
 export interface KeyFrames extends Node {
     /** The name of the keyframes rule. */
-    name?: string;
+    name?: string | undefined;
     /** The vendor prefix in @keyframes, or undefined if there is none. */
-    vendor?: string;
+    vendor?: string | undefined;
     /** Array of nodes with the types keyframe and comment. */
-    keyframes?: Array<KeyFrame | Comment>;
+    keyframes?: Array<KeyFrame | Comment> | undefined;
 }
 
 export interface KeyFrame extends Node {
     /** The list of "selectors" of the keyframe rule, split on commas. Each “selector” is trimmed from whitespace. */
-    values?: Array<string>;
+    values?: Array<string> | undefined;
     /** Array of nodes with the types declaration and comment. */
-    declarations?: Array<Declaration | Comment>;
+    declarations?: Array<Declaration | Comment> | undefined;
 }
 
 /**
@@ -187,9 +187,9 @@ export interface KeyFrame extends Node {
  */
 export interface Media extends Node {
     /** The part following @media. */
-    media?: string;
+    media?: string | undefined;
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
-    rules?: Array<Rule | Comment | AtRule>;
+    rules?: Array<Rule | Comment | AtRule> | undefined;
 }
 
 /**
@@ -197,7 +197,7 @@ export interface Media extends Node {
  */
 export interface Namespace extends Node {
     /** The part following @namespace. */
-    namespace?: string;
+    namespace?: string | undefined;
 }
 
 /**
@@ -205,9 +205,9 @@ export interface Namespace extends Node {
  */
 export interface Page extends Node {
     /** The list of selectors of the rule, split on commas. Each selector is trimmed from whitespace and comments. */
-    selectors?: Array<string>;
+    selectors?: Array<string> | undefined;
     /** Array of nodes with the types declaration and comment. */
-    declarations?: Array<Declaration | Comment>;
+    declarations?: Array<Declaration | Comment> | undefined;
 }
 
 /**
@@ -215,9 +215,9 @@ export interface Page extends Node {
  */
 export interface Supports extends Node {
     /** The part following @supports. */
-    supports?: string;
+    supports?: string | undefined;
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
-    rules?: Array<Rule | Comment | AtRule>;
+    rules?: Array<Rule | Comment | AtRule> | undefined;
 }
 
 /** All at-rules. */
@@ -230,14 +230,14 @@ export interface StyleRules {
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
     rules: Array<Rule | Comment | AtRule>;
     /** Array of Errors. Errors collected during parsing when option silent is true. */
-    parsingErrors?: Array<ParserError>
+    parsingErrors?: Array<ParserError> | undefined
 }
 
 /** 
  * The root node returned by css.parse. 
  */
 export interface Stylesheet extends Node {
-    stylesheet?: StyleRules;
+    stylesheet?: StyleRules | undefined;
 }
 
 // ---------------------------------------------------------------------------------

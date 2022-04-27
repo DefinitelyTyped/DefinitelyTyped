@@ -8,21 +8,23 @@ import ImageSource from '../source/Image';
 import Layer from './Layer';
 
 export interface Options {
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    map?: PluggableMap;
-    source?: ImageSource;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    map?: PluggableMap | undefined;
+    source?: ImageSource | undefined;
 }
 export default class BaseImageLayer extends Layer<ImageSource> {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

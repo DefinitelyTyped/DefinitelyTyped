@@ -1,5 +1,5 @@
 // Type definitions for jsforce 1.9
-// Project: http://github.com/jsforce/jsforce
+// Project: https://github.com/jsforce/jsforce
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 //                 Kamil Ejsymont <https://github.com/netes>
 //                 Thomas Dvornik <https://github.com/amphro>
@@ -11,12 +11,14 @@
 //                 Doug Ayers <https://github.com/douglascayers>
 //                 Arlo Godfrey <https://github.com/Arlodotexe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.7
 
+/// <reference types="node" />
 export * from './api/analytics';
 export * from './api/apex';
 export * from './api/chatter';
 export * from './api/metadata';
+export * from './api/soap';
 export * from './batch';
 export * from './bulk';
 export * from './cache';
@@ -31,7 +33,9 @@ export * from './promise';
 export * from './query';
 export * from './record';
 export * from './record-result';
+export * from './record-stream';
 export * from './salesforce-id';
 export * from './salesforce-object';
 export * from './streaming';
 export * from './topic';
+export * from './date';

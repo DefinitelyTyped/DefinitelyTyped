@@ -1,6 +1,6 @@
 // Project: https://github.com/scf4/lyricist, https://www.npmjs.com/package/lyricist
 // Definitions by: Aleksei Klimenko <https://github.com/DadUndead>
-// Definitions: https://github.com/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Album, Artist, SearchResult, Song, SongByArtist, LyricistTextFormat } from 'lyricist';
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/geowarin/friendly-errors-webpack-plugin
 // Definitions by: Arne Bahlo <https://github.com/bahlo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.7
 
 import { Plugin, Compiler } from 'webpack';
 
@@ -24,11 +24,11 @@ declare namespace FriendlyErrorsWebpackPlugin {
         compilationSuccessInfo?: {
             messages: string[],
             notes: string[],
-        };
+        } | undefined;
         onErrors?(severity: Severity, errors: string): void;
-        clearConsole?: boolean;
-        additionalFormatters?: Array<(errors: WebpackError[], type: Severity) => string[]>;
-        additionalTransformers?: Array<(error: any) => any>;
+        clearConsole?: boolean | undefined;
+        additionalFormatters?: Array<(errors: WebpackError[], type: Severity) => string[]> | undefined;
+        additionalTransformers?: Array<(error: any) => any> | undefined;
     }
 
     interface WebpackError {

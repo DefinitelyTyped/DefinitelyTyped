@@ -34,19 +34,19 @@ export interface Factory<T> {
 }
 
 export interface Options {
-    max?: number;
-    min?: number;
-    maxWaitingClients?: number;
-    testOnBorrow?: boolean;
-    testOnReturn?: boolean;
-    acquireTimeoutMillis?: number;
-    fifo?: boolean;
-    priorityRange?: number;
-    autostart?: boolean;
-    evictionRunIntervalMillis?: number;
-    numTestsPerEvictionRun?: number;
-    softIdleTimeoutMillis?: number;
-    idleTimeoutMillis?: number;
+    max?: number | undefined;
+    min?: number | undefined;
+    maxWaitingClients?: number | undefined;
+    testOnBorrow?: boolean | undefined;
+    testOnReturn?: boolean | undefined;
+    acquireTimeoutMillis?: number | undefined;
+    fifo?: boolean | undefined;
+    priorityRange?: number | undefined;
+    autostart?: boolean | undefined;
+    evictionRunIntervalMillis?: number | undefined;
+    numTestsPerEvictionRun?: number | undefined;
+    softIdleTimeoutMillis?: number | undefined;
+    idleTimeoutMillis?: number | undefined;
 }
 
 export function createPool<T>(factory: Factory<T>, opts?: Options): Pool<T>;

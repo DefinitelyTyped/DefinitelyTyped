@@ -1,6 +1,6 @@
+import * as crypto from "crypto";
+import * as fs from "fs";
 import * as puppeteer from "puppeteer";
-import { TimeoutError } from "puppeteer/Errors";
-import * as Devices from "puppeteer/DeviceDescriptors";
 
 // Accessibility
 
@@ -85,9 +85,6 @@ puppeteer.launch().then(async browser => {
   );
 });
 
-import * as crypto from "crypto";
-import * as fs from "fs";
-
 puppeteer.launch().then(async browser => {
   const page = await browser.newPage();
   page.on("console", console.log);
@@ -120,11 +117,10 @@ puppeteer.launch().then(async browser => {
     console.log(content);
   });
 
-  Devices.forEach(device => console.log(device.name));
-  puppeteer.devices.forEach(device => console.log(device.name));
+  Object.keys(puppeteer.devices).forEach(name => console.log(name));
+  Object.values(puppeteer.devices).forEach(device => console.log(device.name));
 
   await page.emulateMediaType("screen");
-  await page.emulate(Devices['test']);
   await page.emulate(puppeteer.devices['test']);
   await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }]);
   await page.pdf({ path: "page.pdf" });
@@ -143,8 +139,10 @@ puppeteer.launch().then(async browser => {
     });
   });
 
+  const delayOptions: puppeteer.KeyboardTypeOptions = { delay: 100 };
+
   page.keyboard.type("Hello"); // Types instantly
-  page.keyboard.type("World", { delay: 100 }); // Types slower, like a user
+  page.keyboard.type("World", delayOptions); // Types slower, like a user
 
   const watchDog = page.waitForFunction("window.innerWidth < 100");
   page.setViewport({ width: 50, height: 50 });
@@ -168,6 +166,9 @@ puppeteer.launch().then(async browser => {
     await page.goto(currentURL);
   }
 
+  const keyboardPressOptions: puppeteer.KeyboardPressOptions = { text: 'c', delay: 100 };
+  page.keyboard.press('KeyC', keyboardPressOptions);
+
   page.keyboard.type("Hello World!");
   page.keyboard.press("ArrowLeft");
 
@@ -179,6 +180,12 @@ puppeteer.launch().then(async browser => {
   page.keyboard.up("Shift");
   page.keyboard.press("Backspace");
   page.keyboard.sendCharacter("嗨");
+
+  // mouse events
+  await page.mouse.wheel();
+  await page.mouse.wheel({ deltaX: -100 });
+  await page.mouse.wheel({ deltaY: -100 });
+  await page.mouse.wheel({ deltaX: 100, deltaY: 100 });
 
   await page.tracing.start({ path: "trace.json" });
   await page.goto("https://www.google.com");
@@ -211,6 +218,23 @@ puppeteer.launch().then(async browser => {
   await page.screenshot({ path: "example.png" });
 
   browser.close();
+})();
+
+// `product` support
+(async () => {
+    await puppeteer.launch({
+        product: 'chrome',
+    });
+    await puppeteer.launch({
+        product: 'firefox',
+    });
+    const options: puppeteer.FetcherOptions = {
+        product: 'firefox',
+    };
+
+    const browserFetcher = puppeteer.createBrowserFetcher(options);
+    browserFetcher.product(); // $ExpectType LiteralUnion<"chrome" | "firefox"> || Product
+    browserFetcher.revisionInfo('revision').product; // $ExpectType LiteralUnion<"chrome" | "firefox"> || Product
 })();
 
 // Launching with default viewport disabled
@@ -516,17 +540,6 @@ puppeteer.launch().then(async browser => {
   });
 });
 
-// Errors
-(async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  try {
-    await page.waitFor('test');
-  } catch (err) {
-    console.log(err instanceof TimeoutError);
-  }
-});
-
 // domcontentloaded page event test
 (async () => {
   const browser = await puppeteer.launch();
@@ -689,3 +702,64 @@ puppeteer.launch().then(async browser => {
 
   const selected: string[] = await elementHandle.select('a', 'b', 'c');
 })();
+
+// .executionContext on Frame, and ExecutionContext.queryObjects
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const frame = page.mainFrame();
+  frame.executionContext().then(() => {});
+
+  const context = await frame.executionContext();
+
+  const queryObjectsRes = context.queryObjects(await context.evaluateHandle(() => {}));
+  queryObjectsRes.then(() => {});
+})();
+
+// .isJavaScriptEnabled on Page
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const isJavaScriptEnabled: boolean = page.isJavaScriptEnabled();
+})();
+
+// Mouse Wheel
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  await page.mouse.wheel({ deltaY: -100 });
+})();
+
+// Errors
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  try {
+    await page.waitFor('test');
+  } catch (err) {
+    console.log(err instanceof puppeteer.errors.TimeoutError);
+  }
+});
+
+// page.evaluateHandle returning ElementHandle
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  await page.goto("https://example.com/");
+
+  const firstLink = await page.evaluateHandle<puppeteer.ElementHandle>(() => {
+    const firstLink = document.querySelector("a");
+    return firstLink;
+  });
+
+  await firstLink.click();
+  await page.waitForNavigation({ waitUntil: "networkidle2" });
+  console.log("Moved to", page.url());
+
+  browser.close();
+});

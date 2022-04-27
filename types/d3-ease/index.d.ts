@@ -1,9 +1,12 @@
-// Type definitions for D3JS d3-ease module 1.0
+// Type definitions for D3JS d3-ease module 3.0
 // Project: https://github.com/d3/d3-ease/, https://d3js.org/d3-ease
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.1
+// Last module patch version validated against: 3.0.1
 
 // --------------------------------------------------------------------------
 // Easing Functions

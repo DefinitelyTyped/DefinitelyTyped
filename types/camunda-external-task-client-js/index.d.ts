@@ -22,26 +22,34 @@ export class Client {
 
 export interface ClientConfig {
     baseUrl: string;
-    workerId?: string;
-    maxTasks?: number;
-    maxParallelExecutions?: number;
-    interval?: number;
-    lockDuration?: number;
-    autoPoll?: boolean;
-    asyncResponseTimeout?: number;
-    interceptors?: Interceptor | Interceptor[];
-    use?: Middleware | Middleware[];
+    workerId?: string | undefined;
+    maxTasks?: number | undefined;
+    maxParallelExecutions?: number | undefined;
+    interval?: number | undefined;
+    lockDuration?: number | undefined;
+    autoPoll?: boolean | undefined;
+    asyncResponseTimeout?: number | undefined;
+    interceptors?: Interceptor | Interceptor[] | undefined;
+    use?: Middleware | Middleware[] | undefined;
+}
+
+export interface ValueMap {
+    [key: string]: Value;
+}
+
+export interface TypedValueMap {
+    [key: string]: TypedValue;
 }
 
 export class Variables {
     get(variableName: string): Value;
     getTyped(variableName: string): TypedValue;
-    getAll(): Value[];
-    getAllTyped(): TypedValue[];
+    getAll(): ValueMap;
+    getAllTyped(): TypedValueMap;
     set(variableName: string, value: Value): Variables;
     setTyped(variableName: string, typedValue: TypedValue): Variables;
-    setAll(values: { [key: string]: Value }): Variables;
-    setAllTyped(typedValues: { [key: string]: TypedValue }): Variables;
+    setAll(values: ValueMap): Variables;
+    setAllTyped(typedValues: TypedValueMap): Variables;
 }
 
 export type Handler = (args: HandlerArgs) => void;
@@ -55,22 +63,22 @@ export interface Task {
     variables: Variables;
 
     // These are not guaranteed by package documentation, but are returned according to REST API docs
-    activityId?: string;
-    activityInstanceId?: string;
-    businessKey?: string;
-    errorDetails?: string;
-    errorMessage?: string;
-    executionId?: string;
-    id?: string;
-    lockExpirationTime?: string;
-    priority?: number;
-    processDefinitionId?: string;
-    processDefinitionKey?: string;
-    processInstanceId?: string;
-    retries?: number;
-    tenantId?: string;
-    topicName?: string;
-    workerId?: string;
+    activityId?: string | undefined;
+    activityInstanceId?: string | undefined;
+    businessKey?: string | undefined;
+    errorDetails?: string | undefined;
+    errorMessage?: string | undefined;
+    executionId?: string | undefined;
+    id?: string | undefined;
+    lockExpirationTime?: string | undefined;
+    priority?: number | undefined;
+    processDefinitionId?: string | undefined;
+    processDefinitionKey?: string | undefined;
+    processInstanceId?: string | undefined;
+    retries?: number | undefined;
+    tenantId?: string | undefined;
+    topicName?: string | undefined;
+    workerId?: string | undefined;
 }
 
 export type Value = any;
@@ -82,31 +90,31 @@ export interface TypedValue {
 }
 
 export interface TaskService {
-    complete(task: Task, processVariables?: Variables, localVariables?: Variables): void;
-    handleFailure(task: Task, options?: HandleFailureOptions): void;
-    handleBpmnError(task: Task, errorCode: string, errorMessage?: string, variables?: Variables): void;
-    extendLock(task: Task, newDuration: number): void;
-    unlock(task: Task): void;
+    complete(task: Task, processVariables?: Variables, localVariables?: Variables): Promise<void>;
+    handleFailure(task: Task, options?: HandleFailureOptions): Promise<void>;
+    handleBpmnError(task: Task, errorCode: string, errorMessage?: string, variables?: Variables): Promise<void>;
+    extendLock(task: Task, newDuration: number): Promise<void>;
+    unlock(task: Task): Promise<void>;
 }
 
 export interface HandleFailureOptions {
-    errorMessage?: string;
-    errorDetails?: string;
-    retries?: number;
-    retryTimeout?: number;
+    errorMessage?: string | undefined;
+    errorDetails?: string | undefined;
+    retries?: number | undefined;
+    retryTimeout?: number | undefined;
 }
 
 export interface SubscribeOptions {
-    lockDuration?: number;
-    variables?: any[];
-    businessKey?: string;
-    processDefinitionId?: string;
-    processDefinitionIdIn?: string;
-    processDefinitionKey?: string;
-    processDefinitionKeyIn?: string;
-    processDefinitionVersionTag?: string;
-    withoutTenantId?: boolean;
-    tenantIdIn?: string[];
+    lockDuration?: number | undefined;
+    variables?: any[] | undefined;
+    businessKey?: string | undefined;
+    processDefinitionId?: string | undefined;
+    processDefinitionIdIn?: string | undefined;
+    processDefinitionKey?: string | undefined;
+    processDefinitionKeyIn?: string | undefined;
+    processDefinitionVersionTag?: string | undefined;
+    withoutTenantId?: boolean | undefined;
+    tenantIdIn?: string[] | undefined;
 }
 
 export interface TopicSubscription {

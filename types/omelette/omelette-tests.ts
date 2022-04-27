@@ -46,8 +46,10 @@ completion.on("user", ({ reply }) => {
 });
 
 completion.on("repo", ({ before, reply }) => {
-  reply([`http://github.com/${before}/helloworld`, `http://github.com/${before}/blabla`]);
+  reply([`https://github.com/${before}/helloworld`, `https://github.com/${before}/blabla`]);
 });
+
+completion.on('complete', (fragment, { reply }) => reply(["hello", "world"]));
 
 // Initialize the omelette.
 completion.init();
@@ -80,7 +82,7 @@ omelette`
   githubber|gh
   ${["clone", "update", "push"]}
   ${() => fs.readdirSync("/Users/")}
-  ${({ before }) => [`http://github.com/${before}/helloworld`, `http://github.com/${before}/blabla`]}
+  ${({ before }) => [`https://github.com/${before}/helloworld`, `https://github.com/${before}/blabla`]}
 `.init();
 
 // ------------------------------ //

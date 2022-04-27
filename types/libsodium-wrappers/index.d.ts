@@ -1,6 +1,6 @@
 // Type definitions for libsodium-wrappers 0.7
 // Project: https://github.com/jedisct1/libsodium.js
-// Definitions by: Florian Keller <https://github.com/ffflorian>
+// Definitions by: Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -75,19 +75,29 @@ export interface StringMessageTag {
 
 export const crypto_aead_chacha20poly1305_ABYTES: number;
 export const crypto_aead_chacha20poly1305_ietf_ABYTES: number;
+export const crypto_aead_chacha20poly1305_IETF_ABYTES: number;
 export const crypto_aead_chacha20poly1305_ietf_KEYBYTES: number;
+export const crypto_aead_chacha20poly1305_IETF_KEYBYTES: number;
 export const crypto_aead_chacha20poly1305_ietf_MESSAGEBYTES_MAX: number;
+export const crypto_aead_chacha20poly1305_IETF_MESSAGEBYTES_MAX: number;
 export const crypto_aead_chacha20poly1305_ietf_NPUBBYTES: number;
+export const crypto_aead_chacha20poly1305_IETF_NPUBBYTES: number;
 export const crypto_aead_chacha20poly1305_ietf_NSECBYTES: number;
+export const crypto_aead_chacha20poly1305_IETF_NSECBYTES: number;
 export const crypto_aead_chacha20poly1305_KEYBYTES: number;
 export const crypto_aead_chacha20poly1305_MESSAGEBYTES_MAX: number;
 export const crypto_aead_chacha20poly1305_NPUBBYTES: number;
 export const crypto_aead_chacha20poly1305_NSECBYTES: number;
 export const crypto_aead_xchacha20poly1305_ietf_ABYTES: number;
+export const crypto_aead_xchacha20poly1305_IETF_ABYTES: number;
 export const crypto_aead_xchacha20poly1305_ietf_KEYBYTES: number;
+export const crypto_aead_xchacha20poly1305_IETF_KEYBYTES: number;
 export const crypto_aead_xchacha20poly1305_ietf_MESSAGEBYTES_MAX: number;
+export const crypto_aead_xchacha20poly1305_IETF_MESSAGEBYTES_MAX: number;
 export const crypto_aead_xchacha20poly1305_ietf_NPUBBYTES: number;
+export const crypto_aead_xchacha20poly1305_IETF_NPUBBYTES: number;
 export const crypto_aead_xchacha20poly1305_ietf_NSECBYTES: number;
+export const crypto_aead_xchacha20poly1305_IETF_NSECBYTES: number;
 export const crypto_auth_BYTES: number;
 export const crypto_auth_KEYBYTES: number;
 export const crypto_box_BEFORENMBYTES: number;
@@ -98,12 +108,12 @@ export const crypto_box_PUBLICKEYBYTES: number;
 export const crypto_box_SEALBYTES: number;
 export const crypto_box_SECRETKEYBYTES: number;
 export const crypto_box_SEEDBYTES: number;
+export const crypto_generichash_BYTES: number;
 export const crypto_generichash_BYTES_MAX: number;
 export const crypto_generichash_BYTES_MIN: number;
-export const crypto_generichash_BYTES: number;
+export const crypto_generichash_KEYBYTES: number;
 export const crypto_generichash_KEYBYTES_MAX: number;
 export const crypto_generichash_KEYBYTES_MIN: number;
-export const crypto_generichash_KEYBYTES: number;
 export const crypto_hash_BYTES: number;
 export const crypto_kdf_BYTES_MAX: number;
 export const crypto_kdf_BYTES_MIN: number;
@@ -131,7 +141,6 @@ export const crypto_pwhash_OPSLIMIT_SENSITIVE: number;
 export const crypto_pwhash_PASSWD_MAX: number;
 export const crypto_pwhash_PASSWD_MIN: number;
 export const crypto_pwhash_SALTBYTES: number;
-export const crypto_pwhash_STR_VERIFY: number;
 export const crypto_pwhash_STRBYTES: number;
 export const crypto_pwhash_STRPREFIX: string;
 export const crypto_scalarmult_BYTES: number;
@@ -155,7 +164,6 @@ export const crypto_sign_MESSAGEBYTES_MAX: number;
 export const crypto_sign_PUBLICKEYBYTES: number;
 export const crypto_sign_SECRETKEYBYTES: number;
 export const crypto_sign_SEEDBYTES: number;
-export const randombytes_SEEDBYTES: number;
 export const SODIUM_LIBRARY_VERSION_MAJOR: number;
 export const SODIUM_LIBRARY_VERSION_MINOR: number;
 export const SODIUM_VERSION_STRING: string;

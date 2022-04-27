@@ -29,21 +29,21 @@ lolex.createClock<lolex.NodeClock>(7, 9001);
 lolex.createClock<lolex.NodeClock>(new Date(), 9001);
 
 const browserInstalledClock = lolex.install<lolex.BrowserClock>({
-	advanceTimeDelta: 20,
-	loopLimit: 10,
-	now: 0,
-	shouldAdvanceTime: true,
-	target: {},
-	toFake: ["setTimeout", "nextTick", "hrtime"]
+    advanceTimeDelta: 20,
+    loopLimit: 10,
+    now: 0,
+    shouldAdvanceTime: true,
+    target: {},
+    toFake: ["setTimeout", "nextTick", "hrtime"]
 });
 
 const nodeInstalledClock = lolex.install<lolex.NodeClock>({
-	advanceTimeDelta: 20,
-	loopLimit: 10,
-	now: new Date(0),
-	shouldAdvanceTime: true,
-	target: {},
-	toFake: ["setTimeout", "nextTick", "hrtime"]
+    advanceTimeDelta: 20,
+    loopLimit: 10,
+    now: new Date(0),
+    shouldAdvanceTime: true,
+    target: {},
+    toFake: ["setTimeout", "nextTick", "hrtime"]
 });
 
 const browserNow: number = browserClock.now;

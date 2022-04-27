@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/socket.io": "2.1.13",
+        "@types/socket.io-client": "1.4.36"
+    }
+}

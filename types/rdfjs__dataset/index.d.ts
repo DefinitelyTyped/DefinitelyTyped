@@ -1,16 +1,12 @@
-// Type definitions for @rdfjs/dataset 1.0
+// Type definitions for @rdfjs/dataset 2.0
 // Project: https://github.com/rdfjs-base/dataset
 // Definitions by: tpluscode <https://github.com/tpluscode>
+//                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DataFactory, DefaultGraph } from 'rdf-js';
-import DatasetCore = require('./DatasetCore');
+import { BaseQuad, DataFactory, DefaultGraph, Quad } from 'rdf-js';
+import Factory from './Factory';
 
-declare function dataset(): DatasetCore;
+declare const factory: Factory;
 
-declare const Dataset: {
-    dataset(): DatasetCore;
-    defaultGraphInstance: DefaultGraph;
-} & Required<DataFactory>;
-
-export = Dataset;
+export default factory;

@@ -22,24 +22,33 @@ export class Driver extends webdriver.WebDriver {
   static createSession(
       opt_config?: Options|webdriver.CreateSessionCapabilities,
       opt_service?: remote.DriverService|http.Executor): Driver;
+
+  /**
+   * Sends a DevTools command to change the browser's download directory.
+   *
+   * @param {string} path The desired download directory.
+   * @return {!Promise<void>} A promise that will be resolved when the command
+   *     has finished.
+  */
+  setDownloadPath(path: string): Promise<void>;
 }
 
 export interface IOptionsValues {
   args: string[];
-  binary?: string;
+  binary?: string | undefined;
   detach: boolean;
   extensions: string[];
   localState?: any;
-  logFile?: string;
+  logFile?: string | undefined;
   prefs?: any;
 }
 
 export interface IPerfLoggingPrefs {
-  enableNetwork: boolean;
-  enablePage: boolean;
-  enableTimeline: boolean;
-  tracingCategories: string;
-  bufferUsageReportingInterval: number;
+  enableNetwork?: boolean | undefined;
+  enablePage?: boolean | undefined;
+  enableTimeline?: boolean | undefined;
+  traceCategories?: string | undefined;
+  bufferUsageReportingInterval?: number | undefined;
 }
 
 /**

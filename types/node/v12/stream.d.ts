@@ -1,20 +1,20 @@
-declare module "stream" {
-    import * as events from "events";
+declare module 'stream' {
+    import EventEmitter = require('events');
 
-    class internal extends events.EventEmitter {
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+    class internal extends EventEmitter {
+        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
     }
 
     namespace internal {
         class Stream extends internal { }
 
         interface ReadableOptions {
-            highWaterMark?: number;
-            encoding?: string;
-            objectMode?: boolean;
+            highWaterMark?: number | undefined;
+            encoding?: string | undefined;
+            objectMode?: boolean | undefined;
             read?(this: Readable, size: number): void;
             destroy?(this: Readable, error: Error | null, callback: (error: Error | null) => void): void;
-            autoDestroy?: boolean;
+            autoDestroy?: boolean | undefined;
         }
 
         class Readable extends Stream implements NodeJS.ReadableStream {
@@ -24,6 +24,9 @@ declare module "stream" {
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
 
             readable: boolean;
+            readonly readableEncoding: BufferEncoding | null;
+            readonly readableEnded: boolean;
+            readonly readableFlowing: boolean | null;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
             readonly readableObjectMode: boolean;
@@ -40,7 +43,7 @@ declare module "stream" {
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
 
             /**
              * Event emitter
@@ -104,16 +107,16 @@ declare module "stream" {
         }
 
         interface WritableOptions {
-            highWaterMark?: number;
-            decodeStrings?: boolean;
-            defaultEncoding?: string;
-            objectMode?: boolean;
-            emitClose?: boolean;
+            highWaterMark?: number | undefined;
+            decodeStrings?: boolean | undefined;
+            defaultEncoding?: string | undefined;
+            objectMode?: boolean | undefined;
+            emitClose?: boolean | undefined;
             write?(this: Writable, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Writable, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
             destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
             final?(this: Writable, callback: (error?: Error | null) => void): void;
-            autoDestroy?: boolean;
+            autoDestroy?: boolean | undefined;
         }
 
         class Writable extends Stream implements NodeJS.WritableStream {
@@ -132,12 +135,12 @@ declare module "stream" {
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, encoding: string, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding: string, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding: string, cb?: () => void): this;
             cork(): void;
             uncork(): void;
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
 
             /**
              * Event emitter
@@ -207,11 +210,11 @@ declare module "stream" {
         }
 
         interface DuplexOptions extends ReadableOptions, WritableOptions {
-            allowHalfOpen?: boolean;
-            readableObjectMode?: boolean;
-            writableObjectMode?: boolean;
-            readableHighWaterMark?: number;
-            writableHighWaterMark?: number;
+            allowHalfOpen?: boolean | undefined;
+            readableObjectMode?: boolean | undefined;
+            writableObjectMode?: boolean | undefined;
+            readableHighWaterMark?: number | undefined;
+            writableHighWaterMark?: number | undefined;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -227,6 +230,7 @@ declare module "stream" {
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
+            allowHalfOpen: boolean;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -235,9 +239,9 @@ declare module "stream" {
             write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding?: string, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding?: string, cb?: () => void): this;
             cork(): void;
             uncork(): void;
         }
@@ -262,9 +266,15 @@ declare module "stream" {
 
         class PassThrough extends Transform { }
 
+        interface FinishedOptions {
+            error?: boolean | undefined;
+            readable?: boolean | undefined;
+            writable?: boolean | undefined;
+        }
+        function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options: FinishedOptions, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
         function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
         namespace finished {
-            function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream): Promise<void>;
+            function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options?: FinishedOptions): Promise<void>;
         }
 
         function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T, callback?: (err: NodeJS.ErrnoException | null) => void): T;
@@ -284,7 +294,10 @@ declare module "stream" {
             stream5: T,
             callback?: (err: NodeJS.ErrnoException | null) => void,
         ): T;
-        function pipeline(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>, callback?: (err: NodeJS.ErrnoException | null) => void): NodeJS.WritableStream;
+        function pipeline(
+            streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
+            callback?: (err: NodeJS.ErrnoException | null) => void,
+        ): NodeJS.WritableStream;
         function pipeline(
             stream1: NodeJS.ReadableStream,
             stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
@@ -301,7 +314,7 @@ declare module "stream" {
                 stream4: NodeJS.ReadWriteStream,
                 stream5: NodeJS.WritableStream,
             ): Promise<void>;
-            function __promisify__(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
+            function __promisify__(streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
             function __promisify__(
                 stream1: NodeJS.ReadableStream,
                 stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,

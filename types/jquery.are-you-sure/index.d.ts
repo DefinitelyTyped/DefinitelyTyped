@@ -10,23 +10,23 @@
 interface AreYouSureOptions {
     
     /**Message to show when attempting to quit a dirty form without saving*/
-    message?: string;
+    message?: string | undefined;
 
     /**Class to assign to the form when dirty*/
-    dirtyClass?: string;
+    dirtyClass?: string | undefined;
     
     /**Callback when form is found to be dirty - allows control of submit/reset buttons etc*/
-    change?: Function;
+    change?: Function | undefined;
     
     /**Jquery selector to use to find input elements*/
-    fieldSelector?: string;
-	
-	/**Make Are-You-Sure "silent" by disabling the warning message*/
-	silent?: boolean;
+    fieldSelector?: string | undefined;
+    
+    /**Make Are-You-Sure "silent" by disabling the warning message*/
+    silent?: boolean | undefined;
 }
 
 interface AreYouSure {
-	(): JQuery;
+    (): JQuery;
     (options: AreYouSureOptions): JQuery;
 }
 

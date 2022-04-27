@@ -59,6 +59,6 @@ export class keystore {
 export interface VaultOptions {
     password: string;
     seedPhrase: string;
-    salt?: string;
+    salt?: string | undefined;
     hdPathString: string;
 }

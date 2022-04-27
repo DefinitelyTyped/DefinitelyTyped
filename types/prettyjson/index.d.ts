@@ -34,18 +34,18 @@ export interface RendererOptions {
     /**
      * Define behavior for Array objects
      */
-    emptyArrayMsg?: string;  // default: (empty)
-    inlineArrays?: boolean;
-    noAlign?: boolean;
+    emptyArrayMsg?: string | undefined;  // default: (empty)
+    inlineArrays?: boolean | undefined;
+    noAlign?: boolean | undefined;
 
     /**
      * Color definition
      */
-    noColor?: boolean;
-    keysColor?: string;
-    dashColor?: string;
-    numberColor?: string;
-    stringColor?: string;
+    noColor?: boolean | undefined;
+    keysColor?: string | undefined;
+    dashColor?: string | undefined;
+    numberColor?: string | undefined;
+    stringColor?: string | undefined;
 
-    defaultIndentation?: number;
+    defaultIndentation?: number | undefined;
 }

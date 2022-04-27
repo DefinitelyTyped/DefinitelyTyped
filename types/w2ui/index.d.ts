@@ -31,34 +31,34 @@ declare namespace W2UI {
     /* Primitives (first alphabetically, then by documentation order) */
 
     interface W2Item {
-        checked?: boolean;
-        caption?: string;
-        group?: string;
-        id?: string;
-        img?: string;
-        items?: W2Item[];
-        onClick?: Function;
-        text?: string;
-        type?: string;
+        checked?: boolean | undefined;
+        caption?: string | undefined;
+        group?: string | undefined;
+        id?: string | undefined;
+        img?: string | undefined;
+        items?: W2Item[] | undefined;
+        onClick?: Function | undefined;
+        text?: string | undefined;
+        type?: string | undefined;
     }
 
     type W2Object = W2Layout | W2Grid | W2Toolbar | W2Sidebar | W2Tabs | W2Form | W2Popup
 
     interface W2Panel {
-        content?: string | JQuery;
-        hidden?: boolean;
-        overflow?: string;
-        resizable?: boolean;
-        size?: number | string;
-        style?: string;
-        title?: string;
-        tabs?: W2Tabs;
-        type?: string;
+        content?: string | JQuery | undefined;
+        hidden?: boolean | undefined;
+        overflow?: string | undefined;
+        resizable?: boolean | undefined;
+        size?: number | string | undefined;
+        style?: string | undefined;
+        title?: string | undefined;
+        tabs?: W2Tabs | undefined;
+        type?: string | undefined;
     }
 
     interface W2Tab {
-        caption?: string;
-        id?: string;
+        caption?: string | undefined;
+        id?: string | undefined;
     }
 
     interface W2UI {

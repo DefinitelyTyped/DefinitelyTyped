@@ -2,11 +2,12 @@ import gulp = require('gulp');
 import path = require('path');
 import nodemon = require('gulp-nodemon');
 
-gulp.task('start', function () {
+gulp.task('start', function (done) {
     nodemon({
         script: 'server.js'
         , ext: 'js html'
         , env: { 'NODE_ENV': 'development' }
+        , done: done
     })
 });
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/clark-stevenson/cannon.d.ts
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
 //                 Grzegorz Rozdzialik <https://github.com/Gelio>
+//                 Sean Bradley <https://github.com/Sean-Bradley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -9,8 +10,8 @@ declare module CANNON {
 
     export interface IAABBOptions {
 
-        upperBound?: Vec3;
-        lowerBound?: Vec3;
+        upperBound?: Vec3 | undefined;
+        lowerBound?: Vec3 | undefined;
 
     }
 
@@ -137,8 +138,8 @@ declare module CANNON {
 
     export interface IConstraintOptions {
 
-        collideConnected?: boolean;
-        wakeUpBodies?: boolean;
+        collideConnected?: boolean | undefined;
+        wakeUpBodies?: boolean | undefined;
 
     }
 
@@ -166,11 +167,11 @@ declare module CANNON {
 
     export interface IHingeConstraintOptions {
 
-        pivotA?: Vec3;
-        axisA?: Vec3;
-        pivotB?: Vec3;
-        axisB?: Vec3;
-        maxForce?: number;
+        pivotA?: Vec3 | undefined;
+        axisA?: Vec3 | undefined;
+        pivotB?: Vec3 | undefined;
+        axisB?: Vec3 | undefined;
+        maxForce?: number | undefined;
 
     }
 
@@ -181,11 +182,14 @@ declare module CANNON {
         motorMinForce: number;
         motorMaxForce: number;
         motorEquation: RotationalMotorEquation;
+        axisA: Vec3;
+        axisB: Vec3;
 
         constructor(bodyA: Body, bodyB: Body, options?: IHingeConstraintOptions);
 
         enableMotor(): void;
         disableMotor(): void;
+        setMotorSpeed(speed: number): void;
 
     }
 
@@ -196,7 +200,7 @@ declare module CANNON {
     }
 
     export interface ILockConstraintOptions {
-        maxForce?: number;
+        maxForce?: number | undefined;
     }
 
     export class LockConstraint extends Constraint {
@@ -204,11 +208,11 @@ declare module CANNON {
     }
 
     export interface IConeTwistConstraintOptions {
-        pivotA?: Vec3;
-        pivotB?: Vec3;
-        axisA?: Vec3;
-        axisB?: Vec3;
-        maxForce?: number;
+        pivotA?: Vec3 | undefined;
+        pivotB?: Vec3 | undefined;
+        axisA?: Vec3 | undefined;
+        axisB?: Vec3 | undefined;
+        maxForce?: number | undefined;
     }
 
     export class ConeTwistConstraint extends Constraint {
@@ -298,12 +302,12 @@ declare module CANNON {
 
     export interface IContactMaterialOptions {
 
-        friction?: number;
-        restitution?: number;
-        contactEquationStiffness?: number;
-        contactEquationRelaxation?: number;
-        frictionEquationStiffness?: number;
-        frictionEquationRelaxation?: number;
+        friction?: number | undefined;
+        restitution?: number | undefined;
+        contactEquationStiffness?: number | undefined;
+        contactEquationRelaxation?: number | undefined;
+        frictionEquationStiffness?: number | undefined;
+        frictionEquationRelaxation?: number | undefined;
 
     }
 
@@ -445,22 +449,22 @@ declare module CANNON {
     }
 
     export interface IBodyOptions {
-        position?: Vec3;
-        velocity?: Vec3;
-        angularVelocity?: Vec3;
-        quaternion?: Quaternion;
-        mass?: number;
-        material?: Material;
-        type?: number;
-        linearDamping?: number;
-        angularDamping?: number;
-        allowSleep?: boolean;
-        sleepSpeedLimit?: number;
-        sleepTimeLimit?: number;
-        collisionFilterGroup?: number;
-        collisionFilterMask?: number;
-        fixedRotation?: boolean;
-        shape?: Shape;
+        position?: Vec3 | undefined;
+        velocity?: Vec3 | undefined;
+        angularVelocity?: Vec3 | undefined;
+        quaternion?: Quaternion | undefined;
+        mass?: number | undefined;
+        material?: Material | undefined;
+        type?: number | undefined;
+        linearDamping?: number | undefined;
+        angularDamping?: number | undefined;
+        allowSleep?: boolean | undefined;
+        sleepSpeedLimit?: number | undefined;
+        sleepTimeLimit?: number | undefined;
+        collisionFilterGroup?: number | undefined;
+        collisionFilterMask?: number | undefined;
+        fixedRotation?: boolean | undefined;
+        shape?: Shape | undefined;
     }
 
     export class Body extends EventTarget {
@@ -544,47 +548,47 @@ declare module CANNON {
 
     export interface IRaycastVehicleOptions {
 
-        chassisBody?: Body;
-        indexRightAxis?: number;
-        indexLeftAxis?: number;
-        indexUpAxis?: number;
+        chassisBody?: Body | undefined;
+        indexRightAxis?: number | undefined;
+        indexLeftAxis?: number | undefined;
+        indexUpAxis?: number | undefined;
 
     }
 
     export interface IWheelInfoOptions {
 
-        chassisConnectionPointLocal?: Vec3;
-        chassisConnectionPointWorld?: Vec3;
-        directionLocal?: Vec3;
-        directionWorld?: Vec3;
-        axleLocal?: Vec3;
-        axleWorld?: Vec3;
-        suspensionRestLength?: number;
-        suspensionMaxLength?: number;
-        radius?: number;
-        suspensionStiffness?: number;
-        dampingCompression?: number;
-        dampingRelaxation?: number;
-        frictionSlip?: number;
-        steering?: number;
-        rotation?: number;
-        deltaRotation?: number;
-        rollInfluence?: number;
-        maxSuspensionForce?: number;
-        isFronmtWheel?: boolean;
-        clippedInvContactDotSuspension?: number;
-        suspensionRelativeVelocity?: number;
-        suspensionForce?: number;
-        skidInfo?: number;
-        suspensionLength?: number;
-        maxSuspensionTravel?: number;
-        useCustomSlidingRotationalSpeed?: boolean;
-        customSlidingRotationalSpeed?: number;
+        chassisConnectionPointLocal?: Vec3 | undefined;
+        chassisConnectionPointWorld?: Vec3 | undefined;
+        directionLocal?: Vec3 | undefined;
+        directionWorld?: Vec3 | undefined;
+        axleLocal?: Vec3 | undefined;
+        axleWorld?: Vec3 | undefined;
+        suspensionRestLength?: number | undefined;
+        suspensionMaxLength?: number | undefined;
+        radius?: number | undefined;
+        suspensionStiffness?: number | undefined;
+        dampingCompression?: number | undefined;
+        dampingRelaxation?: number | undefined;
+        frictionSlip?: number | undefined;
+        steering?: number | undefined;
+        rotation?: number | undefined;
+        deltaRotation?: number | undefined;
+        rollInfluence?: number | undefined;
+        maxSuspensionForce?: number | undefined;
+        isFronmtWheel?: boolean | undefined;
+        clippedInvContactDotSuspension?: number | undefined;
+        suspensionRelativeVelocity?: number | undefined;
+        suspensionForce?: number | undefined;
+        skidInfo?: number | undefined;
+        suspensionLength?: number | undefined;
+        maxSuspensionTravel?: number | undefined;
+        useCustomSlidingRotationalSpeed?: boolean | undefined;
+        customSlidingRotationalSpeed?: number | undefined;
 
-        position?: Vec3;
-        direction?: Vec3;
-        axis?: Vec3;
-        body?: Body;
+        position?: Vec3 | undefined;
+        direction?: Vec3 | undefined;
+        axis?: Vec3 | undefined;
+        body?: Body | undefined;
 
     }
 
@@ -650,6 +654,7 @@ declare module CANNON {
         getVehicleAxisWorld(axisIndex: number, result: Vec3): Vec3;
         updateVehicle(timeStep: number): void;
         updateSuspension(deltaTime: number): void;
+        updateWheelTransform(wheelIndex: number): void;
         removeFromWorld(world: World): void;
         getWheelTransformWorld(wheelIndex: number): Transform;
 
@@ -708,13 +713,13 @@ declare module CANNON {
 
     export interface ISpringOptions {
 
-        restLength?: number;
-        stiffness?: number;
-        damping?: number;
-        worldAnchorA?: Vec3;
-        worldAnchorB?: Vec3;
-        localAnchorA?: Vec3;
-        localAnchorB?: Vec3;
+        restLength?: number | undefined;
+        stiffness?: number | undefined;
+        damping?: number | undefined;
+        worldAnchorA?: Vec3 | undefined;
+        worldAnchorB?: Vec3 | undefined;
+        localAnchorA?: Vec3 | undefined;
+        localAnchorB?: Vec3 | undefined;
 
     }
 
@@ -740,7 +745,7 @@ declare module CANNON {
 
     export class Box extends Shape {
 
-        static calculateIntertia(halfExtents: Vec3, mass: number, target: Vec3): void;
+        static calculateInertia(halfExtents: Vec3, mass: number, target: Vec3): void;
 
         boundingSphereRadius: number;
         collisionResponse: boolean;
@@ -770,7 +775,7 @@ declare module CANNON {
         faceNormals: Vec3[];
         uniqueEdges: Vec3[];
 
-        constructor(points?: Vec3[], faces?: number[]);
+        constructor(points?: Vec3[], faces?: number[][]);
 
         computeEdges(): void;
         computeNormals(): void;
@@ -799,8 +804,8 @@ declare module CANNON {
 
     export interface IHightfield {
 
-        minValue?: number;
-        maxValue?: number;
+        minValue?: number | undefined;
+        maxValue?: number | undefined;
         elementSize: number;
 
     }
@@ -843,6 +848,35 @@ declare module CANNON {
 
     }
 
+    export class Trimesh extends Shape {
+
+        vertices: number[]
+        indices: number[]
+        scale: Vec3
+
+        constructor(vertices: number[], indices: number[]);
+
+        updateTree(): void;
+        getTrianglesInAABB(aabb: AABB, result: number[]): number[];
+        setScale(scale: Vec3): void
+        updateNormals(): void;
+        updateEdges(): void;
+        getEdgeVertex(edgeIndex: number, firstOrSecond: 0|1, vertexStore: Vec3): void;
+        getEdgeVector(edgeIndex: number, vectorStore: Vec3): void;
+        static computeNormal(va: Vec3, vb: Vec3, vc: Vec3, target: Vec3): void;
+        getVertex(i: number, out: Vec3): Vec3;
+        getWorldVertex(i: number, pos: Vec3, quat: Quaternion, out: Vec3): Vec3;
+        getTriangleVertices(i: number, a: Vec3, b: Vec3, c: Vec3): void;
+        getNormal(i: number, target: Vec3): Vec3;
+        calculateLocalInertia(mass: number, target: Vec3): Vec3;
+        computeLocalAABB(aabb: Vec3): void;
+        updateAABB(): void;
+        updateBoundingSphereRadius(): number;
+        calculateWorldAABB(pos: Vec3, quat: Quaternion, min: Vec3, max: Vec3): void;
+        volume(): number;
+        createTorus(radius: number, tube: number, radialSegments: number, tubularSegments: number, arc: number): Trimesh;
+    }
+
     export class Shape {
 
         static types: {
@@ -855,12 +889,14 @@ declare module CANNON {
             HEIGHTFIELD: number;
             PARTICLE: number;
             CYLINDER: number;
+            TRIMESH: number;
 
         }
 
         type: number;
         boundingSphereRadius: number;
         collisionResponse: boolean;
+        id: number;
 
         updateBoundingSphereRadius(): number;
         volume(): number;
@@ -1020,6 +1056,7 @@ declare module CANNON {
     export interface IBodyEvent extends IEvent {
 
         body: Body;
+        target: Body;
 
     }
 

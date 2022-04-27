@@ -1,26 +1,16 @@
-// from a NodeList
-autosize(document.querySelectorAll('textarea'));
+/// <reference types="jquery" />
 
-// from a single Node
-autosize(document.querySelector('textarea'));
+autosize(document.querySelectorAll("textarea")); // $ExpectType NodeListOf<HTMLTextAreaElement>
+autosize(document.querySelector("textarea")!); // $ExpectType HTMLTextAreaElement
+autosize(document.getElementById("my-textarea")!); // $ExpectType HTMLElement
+autosize($("#my-textarea")); // $ExpectType JQuery<HTMLElement>
 
-// from a single element
-autosize(document.getElementById('my-textarea'));
+autosize.update(document.querySelectorAll("textarea")); // $ExpectType NodeListOf<HTMLTextAreaElement>
+autosize.update(document.querySelector("textarea")!); // $ExpectType HTMLTextAreaElement
+autosize.update(document.getElementById("my-textarea")!); // $ExpectType HTMLElement
+autosize.update($("#my-textarea")); // $ExpectType JQuery<HTMLElement>
 
-// update a NodeList
-autosize.update(document.querySelectorAll('textarea'));
-
-// update a single Node
-autosize.update(document.querySelector('textarea'));
-
-// update a single element
-autosize.update(document.getElementById('my-textarea'));
-
-// destroy a NodeList
-autosize.destroy(document.querySelectorAll('textarea'));
-
-// destroy a single Node
-autosize.destroy(document.querySelector('textarea'));
-
-// destroy a single element
-autosize.destroy(document.getElementById('my-textarea'));
+autosize.destroy(document.querySelectorAll("textarea")); // $ExpectType NodeListOf<HTMLTextAreaElement>
+autosize.destroy(document.querySelector("textarea")!); // $ExpectType HTMLTextAreaElement
+autosize.destroy(document.getElementById("my-textarea")!); // $ExpectType HTMLElement
+autosize.destroy($("#my-textarea")); // $ExpectType JQuery<HTMLElement>

@@ -12,7 +12,10 @@ const Example = ({ sample, children }: { sample: ImageSourcePropType; children: 
 );
 
 class CanvasTest extends React.Component {
-    handleImageData(canvas: Canvas) {
+    handleImageData(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
 
@@ -33,7 +36,10 @@ class CanvasTest extends React.Component {
         });
     }
 
-    handlePurpleRect(canvas: Canvas) {
+    handlePurpleRect(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
 
@@ -41,11 +47,17 @@ class CanvasTest extends React.Component {
 
         context.fillStyle = 'purple';
         context.fillRect(0, 0, 100, 100);
+        context.lineCap = 'round';
+        context.strokeStyle = 'blue';
+        context.strokeRect(0, 0, 100, 100);
 
         const { width } = context.measureText('yo');
     }
 
-    handleRedCircle(canvas: Canvas) {
+    handleRedCircle(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
 
@@ -56,7 +68,10 @@ class CanvasTest extends React.Component {
         context.fill();
     }
 
-    handleImageRect(canvas: Canvas) {
+    handleImageRect(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         const image = new CanvasImage(canvas);
         canvas.width = 100;
         canvas.height = 100;
@@ -70,7 +85,10 @@ class CanvasTest extends React.Component {
         });
     }
 
-    handlePath(canvas: Canvas) {
+    handlePath(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
         const context = canvas.getContext('2d');
@@ -93,7 +111,10 @@ class CanvasTest extends React.Component {
         context.restore();
     }
 
-    handleGradient(canvas: Canvas) {
+    handleGradient(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
         const ctx = canvas.getContext('2d');
@@ -104,7 +125,10 @@ class CanvasTest extends React.Component {
         ctx.fillRect(0, 0, 100, 100);
     }
 
-    handleEmbedHTML(canvas: Canvas) {
+    handleEmbedHTML(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         const image = new CanvasImage(canvas);
         canvas.width = 100;
         canvas.height = 100;
@@ -127,6 +151,27 @@ class CanvasTest extends React.Component {
 
         image.addEventListener('load', () => {
             context.drawImage(image, 0, 0, 100, 100);
+        });
+    }
+
+    handleToDataURL(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
+        canvas.width = 100;
+        canvas.height = 100;
+
+        const context = canvas.getContext('2d');
+
+        context.fillStyle = 'purple';
+        context.fillRect(0, 0, 100, 100);
+
+        canvas.toDataURL().then((dataURL: string) => {
+            void dataURL;
+        });
+
+        canvas.toDataURL('image/jpeg', 0.7).then((dataURL: string) => {
+            void dataURL;
         });
     }
 
@@ -155,6 +200,9 @@ class CanvasTest extends React.Component {
                     </Example>
                     <Example sample={require('./images/embed-html.png')}>
                         <Canvas ref={this.handleEmbedHTML} />
+                    </Example>
+                    <Example sample={require('./images/to-data-url.png')}>
+                        <Canvas ref={this.handleToDataURL} />
                     </Example>
                 </ScrollView>
             </View>

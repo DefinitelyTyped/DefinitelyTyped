@@ -7,6 +7,9 @@ chai.use(sinonChai);
 var expect = chai.expect;
 declare var spy: Sinon.SinonSpy;
 declare var anotherSpy: Sinon.SinonSpy;
+declare var anotherStub: Sinon.SinonStub;
+declare var spyCall: Sinon.SinonSpyCall;
+declare var anotherSpyCall: Sinon.SinonSpyCall;
 declare var context: {};
 declare var match: RegExp;
 
@@ -20,6 +23,10 @@ function test() {
     expect(spy).to.have.been.calledImmediatelyBefore(anotherSpy);
     expect(spy).to.have.been.calledAfter(anotherSpy);
     expect(spy).to.have.been.calledImmediatelyAfter(anotherSpy);
+    expect(spy).to.have.been.calledBefore(anotherStub);
+    expect(spy).to.have.been.calledImmediatelyBefore(anotherStub);
+    expect(spy).to.have.been.calledAfter(anotherStub);
+    expect(spy).to.have.been.calledImmediatelyAfter(anotherStub);
     expect(spy).to.have.been.calledWithNew;
     expect(spy).to.always.have.been.calledWithNew;
     expect(spy).to.have.been.calledOn(context);
@@ -40,4 +47,6 @@ function test() {
     expect(spy).to.have.always.thrown(new Error());
     expect(spy).to.have.always.thrown(Error);
     expect(spy).to.have.always.thrown('an error');
+    expect(spyCall).to.have.been.calledBefore(anotherSpyCall);
+    expect(spyCall).to.have.been.calledAfter(anotherSpyCall);
 }

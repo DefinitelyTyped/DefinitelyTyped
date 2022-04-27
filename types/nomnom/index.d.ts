@@ -21,32 +21,32 @@ declare namespace NomnomInternal
             /**
              * The abbreviated name of the option.
              */
-            abbr?: string;
+            abbr?: string | undefined;
 
             /**
              * The full name of the option.
              */
-            full?: string;
+            full?: string | undefined;
 
             /**
              * Whether the option is a flag.
              */
-            flag?: boolean;
+            flag?: boolean | undefined;
 
             /**
              * A string to be used in the usage printout.
              */
-            metavar?: string;
+            metavar?: string | undefined;
 
             /**
              * A shorthand for abbr, full, and metavar.
              */
-            string?: string;
+            string?: string | undefined;
 
             /**
              * A help string for the option.
              */
-            help?: string;
+            help?: string | undefined;
 
             /**
              * The default value of the option.
@@ -56,37 +56,37 @@ declare namespace NomnomInternal
             /**
              * A callback for the option.
              */
-            callback?: (option: any) => string;
+            callback?: ((option: any) => string) | undefined;
 
             /**
              * The position of the option if it's a positional argument.
              */
-            position?: number;
+            position?: number | undefined;
 
             /**
              * Whether the option is a list.
              */
-            list?: boolean;
+            list?: boolean | undefined;
 
             /**
              * Whether the option is required.
              */
-            required?: boolean;
+            required?: boolean | undefined;
 
             /**
              * The choices for the option.
              */
-            choices?: string[];
+            choices?: string[] | undefined;
 
             /**
              * If you don't want the option JSON-parsed, specify type "string".
              */
-            type?: string;
+            type?: string | undefined;
 
             /**
              * Whether the option is hidden.
              */
-            hidden?: boolean;
+            hidden?: boolean | undefined;
         }
 
         /**

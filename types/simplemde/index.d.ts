@@ -5,51 +5,51 @@
 
 declare namespace SimpleMDE {
     interface AutoSaveOptions {
-        enabled?: boolean;
-        delay?: number;
+        enabled?: boolean | undefined;
+        delay?: number | undefined;
         uniqueId: string;
     }
 
     interface BlockStyleOptions {
-        bold?: string;
-        code?: string;
-        italic?: string;
+        bold?: string | undefined;
+        code?: string | undefined;
+        italic?: string | undefined;
     }
 
     interface InsertTextOptions {
-        horizontalRule?: string[];
-        image?: string[];
-        link?: string[];
-        table?: string[];
+        horizontalRule?: string[] | undefined;
+        image?: string[] | undefined;
+        link?: string[] | undefined;
+        table?: string[] | undefined;
     }
 
     interface ParsingOptions {
-        allowAtxHeaderWithoutSpace?: boolean;
-        strikethrough?: boolean;
-        underscoresBreakWords?: boolean;
+        allowAtxHeaderWithoutSpace?: boolean | undefined;
+        strikethrough?: boolean | undefined;
+        underscoresBreakWords?: boolean | undefined;
     }
 
     interface RenderingOptions {
-        singleLineBreaks?: boolean;
+        singleLineBreaks?: boolean | undefined;
         codeSyntaxHighlighting: boolean;
     }
 
     interface ShortcutsArray {
         [action: string]: string|undefined;
-        toggleBlockquote?: string;
-        toggleBold?: string;
-        cleanBlock?: string;
-        toggleHeadingSmaller?: string;
-        toggleItalic?: string;
-        drawLink?: string;
-        toggleUnorderedList?: string;
-        togglePreview?: string;
-        toggleCodeBlock?: string;
-        drawImage?: string;
-        toggleOrderedList?: string;
-        toggleHeadingBigger?: string;
-        toggleSideBySide?: string;
-        toggleFullScreen?: string;
+        toggleBlockquote?: string | undefined;
+        toggleBold?: string | undefined;
+        cleanBlock?: string | undefined;
+        toggleHeadingSmaller?: string | undefined;
+        toggleItalic?: string | undefined;
+        drawLink?: string | undefined;
+        toggleUnorderedList?: string | undefined;
+        togglePreview?: string | undefined;
+        toggleCodeBlock?: string | undefined;
+        drawImage?: string | undefined;
+        toggleOrderedList?: string | undefined;
+        toggleHeadingBigger?: string | undefined;
+        toggleSideBySide?: string | undefined;
+        toggleFullScreen?: string | undefined;
     }
 
     interface StatusBarItem {
@@ -66,30 +66,30 @@ declare namespace SimpleMDE {
     }
 
     interface Options {
-        autoDownloadFontAwesome?: boolean;
-        autofocus?: boolean;
-        autosave?: AutoSaveOptions;
-        blockStyles?: BlockStyleOptions;
-        element?: HTMLElement;
-        forceSync?: boolean;
-        hideIcons?: string[];
-        indentWithTabs?: boolean;
-        initialValue?: string;
-        insertTexts?: InsertTextOptions;
-        lineWrapping?: boolean;
-        parsingConfig?: ParsingOptions;
-        placeholder?: string;
-        previewRender?: (markdownPlaintext: string, previewElement?: HTMLElement) => string;
-        promptURLs?: boolean;
-        renderingConfig?: RenderingOptions;
-        shortcuts?: ShortcutsArray;
-        showIcons?: string[];
-        spellChecker?: boolean;
-        status?: boolean|Array<string|StatusBarItem>;
-        styleSelectedText?: boolean;
-        tabSize?: number;
-        toolbar?: boolean|Array<string|ToolbarIcon>;
-        toolbarTips?: boolean;
+        autoDownloadFontAwesome?: boolean | undefined;
+        autofocus?: boolean | undefined;
+        autosave?: AutoSaveOptions | undefined;
+        blockStyles?: BlockStyleOptions | undefined;
+        element?: HTMLElement | undefined;
+        forceSync?: boolean | undefined;
+        hideIcons?: string[] | undefined;
+        indentWithTabs?: boolean | undefined;
+        initialValue?: string | undefined;
+        insertTexts?: InsertTextOptions | undefined;
+        lineWrapping?: boolean | undefined;
+        parsingConfig?: ParsingOptions | undefined;
+        placeholder?: string | undefined;
+        previewRender?: ((markdownPlaintext: string, previewElement?: HTMLElement) => string) | undefined;
+        promptURLs?: boolean | undefined;
+        renderingConfig?: RenderingOptions | undefined;
+        shortcuts?: ShortcutsArray | undefined;
+        showIcons?: string[] | undefined;
+        spellChecker?: boolean | undefined;
+        status?: boolean|Array<string|StatusBarItem> | undefined;
+        styleSelectedText?: boolean | undefined;
+        tabSize?: number | undefined;
+        toolbar?: boolean|Array<string|ToolbarIcon> | undefined;
+        toolbarTips?: boolean | undefined;
     }
 }
 

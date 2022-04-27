@@ -1,4 +1,4 @@
-import { Block, BlockConfiguration, BlockInstance, BlockStyle, BlockSupports } from '../';
+import { Block, BlockConfiguration, BlockIcon, BlockInstance, BlockStyle, BlockSupports } from '../';
 
 /**
  * Returns the block support value for a feature, if defined.
@@ -20,7 +20,7 @@ export function getBlockSupport<T>(
  * Returns a registered block type.
  */
 // tslint:disable:no-unnecessary-generics
-export function getBlockType<T = any>(name: string | undefined): Block<T> | undefined;
+export function getBlockType<T extends Record<string, any> = any>(name: string | undefined): Block<T> | undefined;
 
 /**
  * Returns all registered blocks.
@@ -91,6 +91,18 @@ export function hasChildBlocksWithInserterSupport(blockName: string): boolean;
 export function isReusableBlock(blockOrType: Block<any> | BlockInstance): boolean;
 
 /**
+ * Registers a new block collection to group blocks in the same namespace in the inserter.
+ *
+ * @param namespace - The namespace to group blocks by in the inserter;
+ *                    corresponds to the block namespace.
+ * @param settings The block collection settings.
+ */
+export function registerBlockCollection(
+    namespace: string,
+    settings: {title: string, icon?: BlockIcon | undefined}
+): void;
+
+/**
  * Registers a new block style variation for the given block.
  *
  * @param blockName - Name of block (example: 'core/paragraph').
@@ -105,15 +117,19 @@ export function registerBlockStyle(blockName: string, styleVariation: BlockStyle
  * behavior. Once registered, the block is made available as an option to any
  * editor interface where blocks are implemented.
  *
- * @param name - Block name.
+ * @param blockNameOrMetadata - Block type name or its metadata.
  * @param settings - Block settings.
  *
  * @returns The block if it has been successfully registered, otherwise `undefined`.
  */
-export function registerBlockType<T extends Record<string, any> = {}>(
+export function registerBlockType<TAttributes extends Record<string, any> = {}>(
+    metadata: BlockConfiguration<TAttributes>,
+    settings?: Partial<BlockConfiguration<TAttributes>>,
+): Block<TAttributes> | undefined;
+export function registerBlockType<TAttributes extends Record<string, any> = {}>(
     name: string,
-    settings: BlockConfiguration<T>
-): Block<T> | undefined;
+    settings: BlockConfiguration<TAttributes>,
+): Block<TAttributes> | undefined;
 
 /**
  * Assigns the default block name.

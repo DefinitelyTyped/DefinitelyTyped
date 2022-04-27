@@ -11,14 +11,14 @@
 import * as dgram from 'dgram';
 
 export interface StatsDConfig {
-  host?: string;
-  port?: number;
-  prefix?: string;
-  suffix?: string;
-  globalize?: boolean;
-  cacheDns?: boolean;
-  mock?: boolean;
-  global_tags?: string[];
+  host?: string | undefined;
+  port?: number | undefined;
+  prefix?: string | undefined;
+  suffix?: string | undefined;
+  globalize?: boolean | undefined;
+  cacheDns?: boolean | undefined;
+  mock?: boolean | undefined;
+  global_tags?: string[] | undefined;
 }
 
 export type Callback = (error?: Error, bytes?: Buffer) => void;

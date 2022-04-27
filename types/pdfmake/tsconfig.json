@@ -25,6 +25,7 @@
         "test/pdfmake-global-tests.ts",
         "test/pdfmake-import-default-tests.ts",
         "test/pdfmake-module-browser-tests.ts",
+        "test/pdfmake-module-browser-min-tests.ts",
         "test/pdfmake-module-server-tests.ts"
     ]
 }

@@ -1,10 +1,11 @@
-// Type definitions for react-avatar-editor 10.3
+// Type definitions for react-avatar-editor 12.0
 // Project: https://github.com/mosch/react-avatar-editor
 // Definitions by: Diogo Corrêa <https://github.com/diogocorrea>
 //                 Gabriel Prates <https://github.com/gabsprates>
 //                 Laurent Senta <https://github.com/lsenta>
 //                 David Spiess <https://github.com/davidspiess>
 //                 John Grisham <https://github.com/JohnGrisham>
+//                 Joshua Hintze <https://github.com/GimpMaster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -25,20 +26,21 @@ export interface ImageState extends CroppedRect {
 }
 
 export interface AvatarEditorProps {
-    className?: string;
+    className?: string | undefined;
     image: string | File;
-    width?: number;
-    height?: number;
-    border?: number | number[];
-    borderRadius?: number;
-    color?: number[];
-    style?: object;
-    scale?: number;
-    position?: Position;
-    rotate?: number;
-    crossOrigin?: string;
-    disableBoundaryChecks?: boolean;
-    disableDrop?: boolean;
+    width?: number | undefined;
+    height?: number | undefined;
+    backgroundColor?: string | undefined;
+    border?: number | number[] | undefined;
+    borderRadius?: number | undefined;
+    color?: number[] | undefined;
+    style?: object | undefined;
+    scale?: number | undefined;
+    position?: Position | undefined;
+    rotate?: number | undefined;
+    crossOrigin?: string | undefined;
+    disableBoundaryChecks?: boolean | undefined;
+    disableDrop?: boolean | undefined;
     onDropFile?(event: DragEvent): void;
     onLoadFailure?(event: Event): void;
     onLoadSuccess?(imgInfo: ImageState): void;

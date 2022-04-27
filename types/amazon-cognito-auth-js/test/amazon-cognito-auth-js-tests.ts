@@ -52,6 +52,16 @@ let authOptions: lib.CognitoAuthOptions = {
 };
 let auth: lib.CognitoAuth = new lib.CognitoAuth(authOptions);
 
+const cookieStorageOptions: lib.CookieStorageOptions = {
+    domain: "https://myapp.com"
+};
+
+const cookieStorage: lib.CookieStorage = new lib.CookieStorage(cookieStorageOptions);
+cookieStorage.setItem('example', 'hello'); // $ExpectType string
+cookieStorage.getItem('example'); // $ExpectType string | undefined
+cookieStorage.removeItem('example'); // $ExpectType void
+cookieStorage.clear(); // $ExpectType {}
+
 authOptions = {
     ClientId: '1a2b3c4d5e6f7g',
     AppWebDomain: 'myapp.auth.us-east-1.amazoncognito.com',
@@ -60,7 +70,9 @@ authOptions = {
     RedirectUriSignOut: 'https://myapp.com/logout',
     IdentityProvider: 'Facebook',
     UserPoolId: 'us-east-1_faKE4ReAl',
-    AdvancedSecurityDataCollectionFlag: true
+    AdvancedSecurityDataCollectionFlag: true,
+    Storage: cookieStorage,
+    LaunchUri: (uri) => console.log(uri)
 };
 auth = new lib.CognitoAuth(authOptions);
 
@@ -111,6 +123,15 @@ const userHandler: lib.CognitoAuthUserHandler = {
 };
 auth.userhandler = userHandler;
 
+authOptions = {
+    ClientId: '1a2b3c4d5e6f7g',
+    AppWebDomain: 'myapp.auth.us-east-1.amazoncognito.com',
+    RedirectUriSignIn: 'https://myapp.com/login',
+    RedirectUriSignOut: 'https://myapp.com/logout',
+    Storage: window.localStorage
+};
+auth = new lib.CognitoAuth(authOptions);
+
 const constants: lib.CognitoConstants = auth.getCognitoConstants();
 constants.DOMAIN_SCHEME; // $ExpectType string
 constants.DOMAIN_PATH_SIGNIN; // $ExpectType string
@@ -159,4 +180,4 @@ const dateHelper: lib.DateHelper = new lib.DateHelper();
 dateHelper.getNowString(); // $ExpectType string
 
 const storageHelper: lib.StorageHelper = new lib.StorageHelper();
-storageHelper.getStorage(); // $ExpectType Storage
+storageHelper.getStorage(); // $ExpectType CognitoAuthStorage

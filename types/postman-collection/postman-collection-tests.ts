@@ -195,7 +195,7 @@ cookieDef.extensions; // $ExpectType { key: string; value: string; }[] | undefin
 
 let cookie = new pmCollection.Cookie();
 cookie = new pmCollection.Cookie(cookieDef);
-
+cookie.name; // $ExpectType string | undefined
 cookie.domain; // $ExpectType string
 cookie.expires; // $ExpectType Date
 cookie.extensions; // $ExpectType { key: string; value: string; }[] | undefined
@@ -206,15 +206,12 @@ cookie.path; // $ExpectType string
 cookie.secure; // $ExpectType boolean | undefined
 cookie.session; // $ExpectType boolean | undefined
 cookie.value; // $ExpectType string | undefined
-
 cookie.update(cookieDef); // $ExpectType void
-
 cookie.valueOf(); // $ExpectType string
-
 pmCollection.Cookie.isCookie({}); // $ExpectType boolean
-pmCollection.Cookie.parse('string'); // $ExpectType CookieDefinition
-pmCollection.Cookie.splitParam('string'); // $ExpectType { key: string; value: string | boolean; }
-
+const parsed = pmCollection.Cookie.parse('string'); // $ExpectType CookieDefinition
+const unparsed = pmCollection.Cookie.unparseSingle(parsed); // $ExpectType string
+pmCollection.Cookie.stringify(parsed); // $ExpectType string
 // CookieList Tests
 
 const cookieList = new pmCollection.CookieList(null, [cookie]);
@@ -364,7 +361,7 @@ pmCollection.Item.isItem(item); // $ExpectType boolean
 // ProxyConfigDefinition Tests
 
 const proxyConfDef: pmCollection.ProxyConfigDefinition = {};
-proxyConfDef.match; // $ExpectType string | { pattern: string; } | UrlMatchPattern | undefined
+proxyConfDef.match; // $ExpectType string | { pattern: string; } | UrlMatchPattern | undefined || string | UrlMatchPattern | { pattern: string; } | undefined
 proxyConfDef.host; // $ExpectType string | undefined
 proxyConfDef.port; // $ExpectType number | undefined
 proxyConfDef.tunnel; // $ExpectType boolean | undefined
@@ -445,7 +442,7 @@ pmCollection.QueryParam.unparseSingle(qpDef, true); // $ExpectType string
 const reqDef: pmCollection.RequestDefinition = {
   url: 'string',
 };
-reqDef.url; // $ExpectType string | Url
+reqDef.url; // $ExpectType string | UrlDefinition
 reqDef.method; // $ExpectType string | undefined
 reqDef.header; // $ExpectType HeaderDefinition[] | undefined
 reqDef.body; // $ExpectType RequestBodyDefinition | undefined
@@ -505,14 +502,16 @@ pmCollection.Request.isRequest(req); // $ExpectType boolean
 // RequestAuthDefinition Tests
 
 const reqAuthDef: pmCollection.RequestAuthDefinition = {};
-reqAuthDef.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined
+// tslint:disable-next-line
+reqAuthDef.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined || "basic" | "oauth2" | "hawk" | "noauth" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined
 
 // RequestAuth Tests
 
 let reqAuth = new pmCollection.RequestAuth(reqAuthDef);
 reqAuth = new pmCollection.RequestAuth(reqAuthDef, collection);
 
-reqAuth.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm"
+// tslint:disable-next-line
+reqAuth.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined || "basic" | "oauth2" | "hawk" | "noauth" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined
 
 reqAuth.update(new pmCollection.VariableList(collection, [])); // $ExpectType void
 reqAuth.update({ key: 'string', value: 'string' }); // $ExpectType void
@@ -567,7 +566,7 @@ respDef.code; // $ExpectType number
 respDef.header; // $ExpectType HeaderDefinition[] | undefined
 respDef.cookie; // $ExpectType CookieDefinition[] | undefined
 respDef.body; // $ExpectType string | undefined
-respDef.stream; // $ExpectType Buffer | Uint8Array | undefined
+respDef.stream; // $ExpectType Buffer | Uint8Array | undefined || Uint8Array | Buffer | undefined
 respDef.responseTime; // $ExpectType number
 respDef.originalRequest; // $ExpectType RequestDefinition | undefined
 
@@ -580,7 +579,7 @@ response.headers; // $ExpectType HeaderList
 response.originalRequest; // $ExpectType Request | undefined
 response.responseTime; // $ExpectType number
 response.status; // $ExpectType string
-response.stream; // $ExpectType Buffer | Uint8Array | undefined
+response.stream; // $ExpectType Buffer | Uint8Array | undefined || Uint8Array | Buffer | undefined
 response.responseSize; // $ExpectType number | undefined
 
 response.update(respDef); // $ExpectType void

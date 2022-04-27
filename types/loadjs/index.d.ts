@@ -40,8 +40,8 @@ declare namespace loadjs {
 
     interface LoadOptions {
         before?(path: string, scriptEl: HTMLElement): void;
-        async?: boolean;
-        numRetries?: number;
+        async?: boolean | undefined;
+        numRetries?: number | undefined;
         success?(): void; // Arguments provided are different in case of returnPromise: true / false
         error?(depsNotFound: string[]): void;
     }

@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "pica-tests.ts"
+        "test/pica-tests.cjs.ts",
+        "test/pica-tests.global.ts"
     ]
 }

@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "lib": ["DOM", "ES6"],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "typeRoots": ["../"],
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "test/ActionFooterTest.tsx",
+        "test/BlockActionFooterTest.tsx",
+        "test/CenteredActionFooterTest.tsx"
+    ]
+}

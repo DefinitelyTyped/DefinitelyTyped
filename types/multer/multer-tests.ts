@@ -1,5 +1,7 @@
 import express = require('express');
 import multer = require('multer');
+import { Multer } from 'multer';
+import assert = require('assert');
 
 const upload = multer({
     dest: 'uploads/',
@@ -10,12 +12,17 @@ const upload = multer({
     },
 });
 
+upload; // $ExpectType Multer
+assert.strictEqual(upload.constructor.name, 'Multer');
+
 const app = express();
 
 app.post('/profile', upload.single('avatar'), (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    req.file; // $ExpectType File | undefined
 });
 
 app.post('/photos/upload', upload.array('photos', 12), (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    req.files; // $ExpectType { [fieldname: string]: File[]; } | File[] | undefined
 });
 
 const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }]);
@@ -37,7 +44,26 @@ const diskStorage = multer.diskStorage({
     }
 });
 
-const diskUpload = multer({ storage: diskStorage });
+const diskUpload: Multer = multer({ storage: diskStorage });
 
 const memoryStorage = multer.memoryStorage();
-const memoryUpload = multer({ storage: memoryStorage });
+const memoryUpload: Multer = multer({ storage: memoryStorage });
+
+const customStorage = {
+    _handleFile: (
+            req: express.Request,
+            file: Express.Multer.File,
+            callback: (error?: any, info?: Partial<Express.Multer.File>) => void
+        ): void => {
+        callback();
+    },
+    _removeFile: (
+        req: express.Request,
+        file: Express.Multer.File,
+        callback: (error: Error | null) => void
+    ): void => {
+        callback(null);
+    }
+};
+
+const customUpload: Multer = multer({ storage: customStorage });

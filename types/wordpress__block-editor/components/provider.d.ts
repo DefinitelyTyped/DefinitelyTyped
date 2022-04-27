@@ -1,5 +1,5 @@
 import { BlockInstance } from '@wordpress/blocks';
-import { ComponentType, ReactNode } from '@wordpress/element';
+import { ComponentType, ReactNode } from 'react';
 
 import { EditorSettings, EditorBlockListSettings } from '../';
 
@@ -35,12 +35,12 @@ declare namespace BlockEditorProvider {
          * except for the first.
          */
         onInput?(blocks: BlockInstance[]): void;
-        settings?: Partial<EditorSettings & EditorBlockListSettings>;
-        useSubRegistry?: boolean;
+        settings?: Partial<EditorSettings & EditorBlockListSettings> | undefined;
+        useSubRegistry?: boolean | undefined;
         /**
          * The current array of blocks.
          */
-        value?: BlockInstance[];
+        value?: BlockInstance[] | undefined;
     }
 }
 declare const BlockEditorProvider: ComponentType<BlockEditorProvider.Props>;

@@ -2,20 +2,19 @@ import * as cls from 'continuation-local-storage';
 
 import { EventEmitter } from 'events';
 
-class Test {
-  test(topic: string, callback: (t: Test) => any): any {}
-  plan(n: number): any {}
-  equal(a: any, b: any, c?: any): any {}
-  ok(a: any, b: any): any {}
-  notOk(a: any, b: any): any {}
-  comment(a: any): any {}
-  end(): any {}
-  doesNotThrow(a: any): any {}
-  throws(a: any): any {}
+declare class Test {
+    test(topic: string, callback: (t: Test) => any): any;
+    plan(n: number): any;
+    equal(a: any, b: any, c?: any): any;
+    ok(a: any, b: any): any;
+    notOk(a: any, b: any): any;
+    comment(a: any): any;
+    end(): any;
+    doesNotThrow(a: any): any;
+    throws(a: any): any;
 }
 
-function test(topic: string, callback: (t: Test) => any) {
-}
+declare function test(topic: string, callback: (t: Test) => any): void;
 
 // from test/async-context.tap.js
 test("asynchronously propagating state with local-context-domains", function (t) {
@@ -31,7 +30,6 @@ test("asynchronously propagating state with local-context-domains", function (t)
 });
 
 // from test/async-no-run-queue-multiple.tap.js
-
 test("minimized test case that caused #6011 patch to fail", function (t) {
   t.plan(3);
 
@@ -425,16 +423,13 @@ test("event emitters bound to CLS context", function (t) {
   });
 });
 
-
 // from test/bind.tap.js
-
-// multiple contexts in use
 test("simple tracer built on contexts", function (t) {
   const tracer = cls.createNamespace('tracer');
 
   class Trace {
-    harvester: any;
-    constructor(harvester: any) {
+    harvester: EventEmitter;
+    constructor(harvester: EventEmitter) {
       this.harvester = harvester;
     }
     runHandler(callback: any) {
@@ -446,12 +441,14 @@ test("simple tracer built on contexts", function (t) {
     }
   }
 
+  type Transaction = {status: string};
+
   t.plan(6);
 
   const harvester = new EventEmitter();
   const trace = new Trace(harvester);
 
-  harvester.on('finished', function (transaction: any) {
+  harvester.on('finished', function (transaction: Transaction) {
     t.ok(transaction, "transaction should have been passed in");
     t.equal(transaction.status, 'ok', "transaction should have finished OK");
     // t.equal(Object.keys(process.namespaces).length, 1, "Should only have one namespace.");
@@ -459,8 +456,8 @@ test("simple tracer built on contexts", function (t) {
 
   trace.runHandler(function inScope() {
     t.ok(tracer.active, "tracer should have an active context");
-    tracer.set('transaction', {status : 'ok'});
+    tracer.set<Transaction>('transaction', {status : 'ok'});
     t.ok(tracer.get('transaction'), "can retrieve newly-set value");
-    t.equal(tracer.get('transaction').status, 'ok', "value should be correct");
+    t.equal(tracer.get<Transaction>('transaction')!.status, 'ok', "value should be correct");
   });
 });

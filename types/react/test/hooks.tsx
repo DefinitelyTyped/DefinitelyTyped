@@ -1,5 +1,7 @@
 import * as React from "react";
 
+const {useSyncExternalStore} = React;
+
 interface PersonProps {
     name: string;
     age: number;
@@ -12,12 +14,12 @@ export function Person(props: PersonProps) {
 
 export interface FancyButtonProps {
     onClick: () => void;
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
-export interface FancyButton {
+export interface FancyButtonMethod {
     fancyClick(): void;
 }
-export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React.Ref<FancyButton>) => {
+export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React.Ref<FancyButtonMethod>) => {
     const buttonRef = React.useRef<HTMLButtonElement | null>(null);
     const [count, setCount] = React.useState(0);
 
@@ -60,7 +62,7 @@ const initialState = {
 
 export function App() {
     const [state, dispatch] = React.useReducer(reducer, initialState);
-    const birthdayRef = React.useRef<FancyButton>(null);
+    const birthdayRef = React.useRef<React.ComponentRef<typeof FancyButton>>(null);
 
     React.useLayoutEffect(() => {
         if (birthdayRef.current !== null) {
@@ -101,6 +103,31 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
 
     // inline object, to (manually) check if autocomplete works
     React.useReducer(reducer, { age: 42, name: 'The Answer' });
+
+    // Implicit any
+    // $ExpectError
+    const anyCallback = React.useCallback(value => {
+        // $ExpectType any
+        return value;
+    }, []);
+    // $ExpectType any
+    anyCallback({});
+    // $ExpectType (value: string) => number
+    const typedCallback = React.useCallback((value: string) => {
+        return Number(value);
+    }, []);
+    // $ExpectType number
+    typedCallback("1");
+    // Argument of type '{}' is not assignable to parameter of type 'string'.
+    // $ExpectError
+    typedCallback({});
+
+    function useContextuallyTypedCallback(fn: (event: Event) => string) {}
+    useContextuallyTypedCallback(React.useCallback(event => {
+        // $ExpectType Event
+        event;
+        return String(event);
+    }, []));
 
     // test useRef and its convenience overloads
     // $ExpectType MutableRefObject<number>
@@ -230,5 +257,120 @@ const UsesEveryHook = React.forwardRef(
 const everyHookRef = React.createRef<{ id: number }>();
 <UsesEveryHook ref={everyHookRef}/>;
 
-// TODO: "implicit any" in typescript@3.0 but not in typescript@3.1
-// <UsesEveryHook ref={ref => { ref && console.log(ref.id); }}/>;
+<UsesEveryHook ref={ref => {
+    // $ExpectType { id: number; } | null
+    ref;
+ }}/>;
+
+function useExperimentalHooks() {
+    const [toggle, setToggle] = React.useState(false);
+
+    const [done, startTransition] = React.useTransition();
+    // $ExpectType boolean
+    done;
+
+    // $ExpectType boolean
+    const deferredToggle = React.useDeferredValue(toggle);
+
+    const [func] = React.useState(() => () => 0);
+
+    // $ExpectType () => number
+    func;
+    // $ExpectType () => number
+    const deferredFunc = React.useDeferredValue(func);
+
+    class Constructor {}
+    // $ExpectType typeof Constructor
+    const deferredConstructor = React.useDeferredValue(Constructor);
+
+    // $ExpectType () => string
+    const deferredConstructible = React.useDeferredValue(Constructible);
+
+    React.useInsertionEffect(() => {});
+    React.useInsertionEffect(() => {}, []);
+    React.useInsertionEffect(() => {
+        return () => {};
+    }, [toggle]);
+
+    return () => {
+        startTransition(() => {
+            setToggle(toggle => !toggle);
+        });
+
+        // The function must be synchronous, even if it can start an asynchronous update
+        // it's no different from an useEffect callback in this respect
+        // $ExpectError
+        startTransition(async () => {});
+
+        // Unlike Effect callbacks, though, there is no possible destructor to return
+        // $ExpectError
+        startTransition(() => () => {});
+    };
+
+    function Constructible() {
+        return '';
+    }
+}
+
+function startTransitionTest() {
+    function transitionToPage(page: string) {}
+
+    React.startTransition(() => {
+        transitionToPage('/');
+    });
+
+    // $ExpectError
+    React.startTransition(async () => {});
+}
+
+function Dialog() {
+    const id = React.useId();
+    const nameId = `${id}-name`;
+    const descriptionId = `${id}-description`;
+
+    return (
+        <div role="dialog" aria-labelledby={nameId} aria-describedby={descriptionId}>
+            <h2 id={nameId}>Name</h2>
+            <p id={descriptionId}>Description</p>
+        </div>
+    );
+}
+
+// keep in sync with `use-sync-external-store-tests.ts`
+interface Store<State> {
+    getState(): State;
+    getServerState(): State;
+    subscribe(onStoreChange: () => void): () => void;
+}
+
+declare const numberStore: Store<number>;
+function useVersion(): number {
+    return useSyncExternalStore(numberStore.subscribe, numberStore.getState);
+}
+
+function useStoreWrong() {
+    useSyncExternalStore(
+        // no unsubscribe returned
+        // $ExpectError
+        () => {
+            return null;
+        },
+        () => 1,
+    );
+
+    // `string` is not assignable to `number`
+    // $ExpectError
+    const version: number = useSyncExternalStore(
+        () => () => {},
+        () => '1',
+    );
+}
+
+declare const objectStore: Store<{ version: { major: number; minor: number }; users: string[] }>;
+function useUsers(): string[] {
+    return useSyncExternalStore(
+        objectStore.subscribe,
+        () => objectStore.getState().users,
+        () => objectStore.getServerState().users,
+    );
+}

@@ -35,7 +35,7 @@ client
 const promisableClient = createClient({
     key: 'my-google-maps-api-key',
     language: 'ja',
-    // tslint:disable-next-line
+    // tslint:disable-next-line:object-literal-shorthand
     Promise: Promise,
 });
 

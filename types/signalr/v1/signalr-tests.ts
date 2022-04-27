@@ -51,17 +51,17 @@ function test_connection() {
 }
 
 interface MyHubConnection extends HubConnection {
-	someState: string;
-	SomeFunction: Function;
+    someState: string;
+    SomeFunction: Function;
 
-	// My Hubs Client functions: 
-	client: {
-		addMessage: (message: string) => void;
-	};
-	// My Hubs Server function: 
-	server: {
-		send(message: string): any;
-	};
+    // My Hubs Client functions: 
+    client: {
+        addMessage: (message: string) => void;
+    };
+    // My Hubs Server function: 
+    server: {
+        send(message: string): any;
+    };
 }
 
 interface SignalR {
@@ -116,7 +116,7 @@ function test_hubs() {
         
     //a listener may have more than 1 parameter, and you should be able to subscribe and unsubscribe
     function listenerWithMoreParams(id: number, anything: string){
-    	console.log('listenerWithMoreParams -> ', arguments);
+        console.log('listenerWithMoreParams -> ', arguments);
     };
     //subscribe
     proxy.on('listenerWithMoreParams', listenerWithMoreParams);

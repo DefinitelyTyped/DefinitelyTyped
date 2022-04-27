@@ -28,26 +28,26 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface IModalOptions {
-            animation?: string;
-            backdropAnimation?: string;
-            placement?: string;
-            title?: string;
-            content?: string;
-            html?: boolean;
-            backdrop?: boolean | string;
-            keyboard?: boolean;
-            show?: boolean;
-            container?: string | boolean;
+            animation?: string | undefined;
+            backdropAnimation?: string | undefined;
+            placement?: string | undefined;
+            title?: string | undefined;
+            content?: string | undefined;
+            html?: boolean | undefined;
+            backdrop?: boolean | string | undefined;
+            keyboard?: boolean | undefined;
+            show?: boolean | undefined;
+            container?: string | boolean | undefined;
             controller?: any;
-            controllerAs?: string;
+            controllerAs?: string | undefined;
             resolve?: any;
             locals?: any;
-            template?: string;
-            templateUrl?: string;
-            contentTemplate?: string;
-            prefixEvent?: string;
-            id?: string;
-            scope?: ng.IScope;
+            template?: string | undefined;
+            templateUrl?: string | undefined;
+            contentTemplate?: string | undefined;
+            prefixEvent?: string | undefined;
+            id?: string | undefined;
+            scope?: ng.IScope | undefined;
             onShow?(modal: IModal): void;
             onBeforeShow?(modal: IModal): void;
             onHide?(modal: IModal): void;
@@ -81,21 +81,21 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface IAsideOptions {
-            animation?: string;
-            placement?: string;
-            title?: string;
-            content?: string;
-            html?: boolean;
-            backdrop?: boolean | string;
-            keyboard?: boolean;
-            show?: boolean;
-            container?: string | boolean;
+            animation?: string | undefined;
+            placement?: string | undefined;
+            title?: string | undefined;
+            content?: string | undefined;
+            html?: boolean | undefined;
+            backdrop?: boolean | string | undefined;
+            keyboard?: boolean | undefined;
+            show?: boolean | undefined;
+            container?: string | boolean | undefined;
             controller?: any;
-            controllerAs?: string;
-            template?: string;
-            templateUrl?: string;
-            contentTemplate?: string;
-            scope?: ng.IScope;
+            controllerAs?: string | undefined;
+            template?: string | undefined;
+            templateUrl?: string | undefined;
+            contentTemplate?: string | undefined;
+            scope?: ng.IScope | undefined;
             onShow?(aside: IAside): void;
             onBeforeShow?(aside: IAside): void;
             onHide?(aside: IAside): void;
@@ -129,19 +129,19 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface IAlertOptions {
-            animation?: string;
-            placement?: string;
-            title?: string;
-            content?: string;
-            type?: string;
-            show?: boolean;
-            container?: string | boolean;
+            animation?: string | undefined;
+            placement?: string | undefined;
+            title?: string | undefined;
+            content?: string | undefined;
+            type?: string | undefined;
+            show?: boolean | undefined;
+            container?: string | boolean | undefined;
             controller?: any;
-            controllerAs?: string;
-            template?: string;
-            templateUrl?: string;
-            duration?: number | boolean;
-            dismissable?: boolean;
+            controllerAs?: string | undefined;
+            template?: string | undefined;
+            templateUrl?: string | undefined;
+            duration?: number | boolean | undefined;
+            dismissable?: boolean | undefined;
             onShow?(alert: IAlert): void;
             onBeforeShow?(alert: IAlert): void;
             onHide?(alert: IAlert): void;
@@ -175,24 +175,24 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface ITooltipOptions {
-            animation?: string;
-            placement?: string;
-            trigger?: string;
-            title?: string;
-            html?: boolean;
-            delay?: number | { show: number; hide: number};
-            container?: string | boolean;
-            target?: string | ng.IAugmentedJQuery | boolean;
-            template?: string;
-            templateUrl?: string;
-            titleTemplate?: string;
-            prefixEvent?: string;
-            id?: string;
+            animation?: string | undefined;
+            placement?: string | undefined;
+            trigger?: string | undefined;
+            title?: string | undefined;
+            html?: boolean | undefined;
+            delay?: number | { show: number; hide: number} | undefined;
+            container?: string | boolean | undefined;
+            target?: string | ng.IAugmentedJQuery | boolean | undefined;
+            template?: string | undefined;
+            templateUrl?: string | undefined;
+            titleTemplate?: string | undefined;
+            prefixEvent?: string | undefined;
+            id?: string | undefined;
             onShow?(tooltip: ITooltip): void;
             onBeforeShow?(tooltip: ITooltip): void;
             onHide?(tooltip: ITooltip): void;
             onBeforeHide?(tooltip: ITooltip): void;
-            viewport?: string | { selector: string; padding: string | number };
+            viewport?: string | { selector: string; padding: string | number } | undefined;
         }
 
         interface ITooltipScope extends ng.IScope {
@@ -223,25 +223,25 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface IPopoverOptions {
-            animation?: string;
-            placement?: string;
-            trigger?: string;
-            title?: string;
-            content?: string;
-            html?: boolean;
-            delay?: number | { show: number; hide: number };
-            container?: string | boolean;
-            target?: string | ng.IAugmentedJQuery | boolean;
-            template?: string;
-            templateUrl?: string;
-            contentTemplate?: string;
-            autoClose?: boolean;
-            id?: string;
+            animation?: string | undefined;
+            placement?: string | undefined;
+            trigger?: string | undefined;
+            title?: string | undefined;
+            content?: string | undefined;
+            html?: boolean | undefined;
+            delay?: number | { show: number; hide: number } | undefined;
+            container?: string | boolean | undefined;
+            target?: string | ng.IAugmentedJQuery | boolean | undefined;
+            template?: string | undefined;
+            templateUrl?: string | undefined;
+            contentTemplate?: string | undefined;
+            autoClose?: boolean | undefined;
+            id?: string | undefined;
             onShow?(popover: IPopover): void;
             onBeforeShow?(popover: IPopover): void;
             onHide?(popover: IPopover): void;
             onBeforeHide?(popover: IPopover): void;
-            viewport?: string | { selector: string; padding: string | number };
+            viewport?: string | { selector: string; padding: string | number } | undefined;
         }
 
         interface IPopoverScope extends ng.IScope {
@@ -271,20 +271,20 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface ITypeaheadOptions {
-            animation?: string;
-            placement?: string;
-            trigger?: string;
-            html?: boolean;
-            delay?: number | { show: number; hide: number };
-            container?: string | boolean;
-            template?: string;
-            limit?: number;
-            minLength?: number;
-            autoSelect?: boolean;
-            comparator?: string;
-            id?: string;
-            watchOptions?: boolean;
-            trimValue?: boolean;
+            animation?: string | undefined;
+            placement?: string | undefined;
+            trigger?: string | undefined;
+            html?: boolean | undefined;
+            delay?: number | { show: number; hide: number } | undefined;
+            container?: string | boolean | undefined;
+            template?: string | undefined;
+            limit?: number | undefined;
+            minLength?: number | undefined;
+            autoSelect?: boolean | undefined;
+            comparator?: string | undefined;
+            id?: string | undefined;
+            watchOptions?: boolean | undefined;
+            trimValue?: boolean | undefined;
             onShow?(typeahead: ITypeahead): void;
             onBeforeShow?(typeahead: ITypeahead): void;
             onHide?(typeahead: ITypeahead): void;
@@ -322,33 +322,33 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface IDatepickerOptions {
-            animation?: string;
-            placement?: string;
-            trigger?: string;
-            html?: boolean;
-            delay?: number | { show: number; hide: number };
-            container?: string | boolean;
-            template?: string;
+            animation?: string | undefined;
+            placement?: string | undefined;
+            trigger?: string | undefined;
+            html?: boolean | undefined;
+            delay?: number | { show: number; hide: number } | undefined;
+            container?: string | boolean | undefined;
+            template?: string | undefined;
             onShow?(datepicker: IDatepicker): void;
             onBeforeShow?(datepicker: IDatepicker): void;
             onHide?(datepicker: IDatepicker): void;
             onBeforeHide?(datepicker: IDatepicker): void;
-            dateFormat?: string;
-            modelDateFormat?: string;
-            dateType?: string;
-            timezone?: string;
-            autoclose?: boolean;
-            useNative?: boolean;
-            minDate?: Date;
-            maxDate?: Date;
-            startView?: number;
-            minView?: number;
-            startWeek?: number;
-            startDate?: Date;
-            iconLeft?: string;
-            iconRight?: string;
-            daysOfWeekDisabled?: string;
-            disabledDates?: IDatepickerDateRange[];
+            dateFormat?: string | undefined;
+            modelDateFormat?: string | undefined;
+            dateType?: string | undefined;
+            timezone?: string | undefined;
+            autoclose?: boolean | undefined;
+            useNative?: boolean | undefined;
+            minDate?: Date | undefined;
+            maxDate?: Date | undefined;
+            startView?: number | undefined;
+            minView?: number | undefined;
+            startWeek?: number | undefined;
+            startDate?: Date | undefined;
+            iconLeft?: string | undefined;
+            iconRight?: string | undefined;
+            daysOfWeekDisabled?: string | undefined;
+            disabledDates?: IDatepickerDateRange[] | undefined;
         }
     }
 
@@ -368,32 +368,32 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface ITimepickerOptions {
-            animation?: string;
-            placement?: string;
-            trigger?: string;
-            html?: boolean;
-            delay?: number | { show: number; hide: number; };
-            container?: string | boolean;
-            template?: string;
+            animation?: string | undefined;
+            placement?: string | undefined;
+            trigger?: string | undefined;
+            html?: boolean | undefined;
+            delay?: number | { show: number; hide: number; } | undefined;
+            container?: string | boolean | undefined;
+            template?: string | undefined;
             onShow?(timepicker: ITimepicker): void;
             onBeforeShow?(timepicker: ITimepicker): void;
             onHide?(timepicker: ITimepicker): void;
             onBeforeHide?(timepicker: ITimepicker): void;
-            timeFormat?: string;
-            modelTimeFormat?: string;
-            timeType?: string;
-            autoclose?: boolean;
-            useNative?: boolean;
-            minTime?: Date; // TODO
-            maxTime?: Date; // TODO
-            length?: number;
-            hourStep?: number;
-            minuteStep?: number;
-            secondStep?: number;
-            roundDisplay?: boolean;
-            iconUp?: string;
-            iconDown?: string;
-            arrowBehaviour?: string;
+            timeFormat?: string | undefined;
+            modelTimeFormat?: string | undefined;
+            timeType?: string | undefined;
+            autoclose?: boolean | undefined;
+            useNative?: boolean | undefined;
+            minTime?: Date | undefined; // TODO
+            maxTime?: Date | undefined; // TODO
+            length?: number | undefined;
+            hourStep?: number | undefined;
+            minuteStep?: number | undefined;
+            secondStep?: number | undefined;
+            roundDisplay?: boolean | undefined;
+            iconUp?: string | undefined;
+            iconDown?: string | undefined;
+            arrowBehaviour?: string | undefined;
         }
     }
 
@@ -425,28 +425,28 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface ISelectOptions {
-          animation?: string;
-          placement?: string;
-          trigger?: string;
-          html?: boolean;
-          delay?: number | { show: number; hide: number; };
-          container?: string | boolean;
-          template?: string;
-          toggle?: boolean;
+          animation?: string | undefined;
+          placement?: string | undefined;
+          trigger?: string | undefined;
+          html?: boolean | undefined;
+          delay?: number | { show: number; hide: number; } | undefined;
+          container?: string | boolean | undefined;
+          template?: string | undefined;
+          toggle?: boolean | undefined;
           onShow?(select: ISelect): void;
           onBeforeShow?(select: ISelect): void;
           onHide?(select: ISelect): void;
           onBeforeHide?(select: ISelect): void;
-          multiple?: boolean;
-          allNoneButtons?: boolean;
-          allText?: string;
-          noneText?: string;
-          maxLength?: number;
-          maxLengthHtml?: string;
-          sort?: boolean;
-          placeholder?: string;
-          iconCheckmark?: string;
-          id?: string;
+          multiple?: boolean | undefined;
+          allNoneButtons?: boolean | undefined;
+          allText?: string | undefined;
+          noneText?: string | undefined;
+          maxLength?: number | undefined;
+          maxLengthHtml?: string | undefined;
+          sort?: boolean | undefined;
+          placeholder?: string | undefined;
+          iconCheckmark?: string | undefined;
+          id?: string | undefined;
         }
     }
 
@@ -466,10 +466,10 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface ITabOptions {
-            animation?: string;
-            template?: string;
-            navClass?: string;
-            activeClass?: string;
+            animation?: string | undefined;
+            template?: string | undefined;
+            navClass?: string | undefined;
+            activeClass?: string | undefined;
         }
     }
 
@@ -484,11 +484,11 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface ICollapseOptions {
-            animation?: string;
-            activeClass?: string;
-            disallowToggle?: boolean;
-            startCollapsed?: boolean;
-            allowMultiple?: boolean;
+            animation?: string | undefined;
+            activeClass?: string | undefined;
+            disallowToggle?: boolean | undefined;
+            startCollapsed?: boolean | undefined;
+            allowMultiple?: boolean | undefined;
         }
     }
 
@@ -511,14 +511,14 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface IDropdownOptions {
-          animation?: string;
-          placement?: string;
-          trigger?: string;
-          html?: boolean;
-          delay?: number | { show: number; hide: number; };
-          container?: string | boolean;
-          template?: string;
-          templateUrl?: string;
+          animation?: string | undefined;
+          placement?: string | undefined;
+          trigger?: string | undefined;
+          html?: boolean | undefined;
+          delay?: number | { show: number; hide: number; } | undefined;
+          container?: string | boolean | undefined;
+          template?: string | undefined;
+          templateUrl?: string | undefined;
           onShow?(dropdown: IDropdown): void;
           onBeforeShow?(dropdown: IDropdown): void;
           onHide?(dropdown: IDropdown): void;
@@ -537,8 +537,8 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface INavbarOptions {
-            activeClass?: string;
-            routeAttr?: string;
+            activeClass?: string | undefined;
+            routeAttr?: string | undefined;
         }
 
         interface INavbarService {
@@ -566,8 +566,8 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface IScrollspyOptions {
-            target?: string;
-            offset?: number;
+            target?: string | undefined;
+            offset?: number | undefined;
         }
     }
 
@@ -591,10 +591,10 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface IAffixOptions {
-            offsetTop?: number;
-            offsetBottom?: number;
-            offsetParent?: number;
-            offsetUnpin?: number;
+            offsetTop?: number | undefined;
+            offsetBottom?: number | undefined;
+            offsetParent?: number | undefined;
+            offsetUnpin?: number | undefined;
         }
     }
 }

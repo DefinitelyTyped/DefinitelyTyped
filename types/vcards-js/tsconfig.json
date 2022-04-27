@@ -13,7 +13,6 @@
             "../"
         ],
         "types": [],
-        "esModuleInterop": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

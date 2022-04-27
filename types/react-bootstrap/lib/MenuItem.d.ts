@@ -3,16 +3,16 @@ import { SelectCallback } from 'react-bootstrap';
 
 declare namespace MenuItem {
     export interface MenuItemProps extends React.HTMLProps<MenuItem> {
-        active?: boolean;
-        bsClass?: string;
-        disabled?: boolean;
-        divider?: boolean;
+        active?: boolean | undefined;
+        bsClass?: string | undefined;
+        disabled?: boolean | undefined;
+        divider?: boolean | undefined;
         eventKey?: any;
-        header?: boolean;
-        onClick?: React.MouseEventHandler<{}>;
-        onSelect?: SelectCallback;
-        target?: string;
-        title?: string;
+        header?: boolean | undefined;
+        onClick?: React.MouseEventHandler<{}> | undefined;
+        onSelect?: SelectCallback | undefined;
+        target?: string | undefined;
+        title?: string | undefined;
     }
 }
 declare class MenuItem extends React.Component<MenuItem.MenuItemProps> { }

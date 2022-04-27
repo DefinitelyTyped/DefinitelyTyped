@@ -8,14 +8,14 @@ import * as React from 'react';
 import { TextStyle } from 'react-native';
 
 export interface PercentageCircleProps {
-    color?: string;
-    bgcolor?: string;
-    innerColor?: string;
-    radius?: number;
-    percent?: number;
-    borderWidth?: number;
-    textStyle?: TextStyle[];
-    disabled?: boolean;
+    color?: string | undefined;
+    bgcolor?: string | undefined;
+    innerColor?: string | undefined;
+    radius?: number | undefined;
+    percent?: number | undefined;
+    borderWidth?: number | undefined;
+    textStyle?: TextStyle[] | undefined;
+    disabled?: boolean | undefined;
 }
 
 export default class PercentageCircle extends React.Component<PercentageCircleProps> {}

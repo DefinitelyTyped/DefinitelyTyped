@@ -6,6 +6,10 @@ instance.checkOverflow();
 instance.close();
 instance.close();
 
+instance.setContent("string content");
+instance.setContent(new Node());
+instance.setContent(new DocumentFragment());
+
 instance = new modal({
     onOpen() {
         this.checkOverflow();

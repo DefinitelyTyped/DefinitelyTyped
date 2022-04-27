@@ -1,12 +1,12 @@
 import Ember from 'ember';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 type Person = typeof Person.prototype;
 const Person = Ember.Object.extend({
     name: '',
     sayHello() {
         alert(`Hello. My name is ${this.get('name')}`);
-    }
+    },
 });
 
 assertType<Person>(Person.reopen());
@@ -19,7 +19,7 @@ const Person2 = Person.reopenClass({
 
     createPerson(name: string): Person {
         return Person.create({ name });
-    }
+    },
 });
 
 assertType<string>(Person2.create().name);
@@ -27,7 +27,7 @@ assertType<void>(Person2.create().sayHello());
 assertType<string>(Person2.species);
 
 let tom = Person2.create({
-    name: 'Tom Dale'
+    name: 'Tom Dale',
 });
 let yehuda = Person2.createPerson('Yehuda Katz');
 
@@ -40,7 +40,7 @@ const Person3 = Person2.reopen({
 
     sayGoodbye() {
         alert(`${this.get('goodbyeMessage')}, ${this.get('name')}`);
-    }
+    },
 });
 
 const person3 = Person3.create();
@@ -49,11 +49,13 @@ person3.get('goodbyeMessage');
 person3.sayHello();
 person3.sayGoodbye();
 
-interface AutoResizeMixin { resizable: true; }
+interface AutoResizeMixin {
+    resizable: true;
+}
 declare const AutoResizeMixin: Ember.Mixin<AutoResizeMixin>;
 
 const ResizableTextArea = Ember.TextArea.reopen(AutoResizeMixin, {
-    scaling: 1.0
+    scaling: 1.0,
 });
 const text = ResizableTextArea.create();
 assertType<boolean>(text.resizable);

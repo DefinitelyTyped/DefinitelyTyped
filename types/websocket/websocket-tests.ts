@@ -157,6 +157,23 @@ function serverTest2() {
     });
 }
 
+function serverAcceptNullParameterTest() {
+    const server = http.createServer((req, rsp) => {
+        rsp.writeHead(200);
+        rsp.end("Hello, world!");
+    });
+    server.listen(8888);
+
+    const wsServer = new websocket.server({
+        httpServer: server,
+        autoAcceptConnections: true
+    });
+
+    wsServer.on("request", (request) => {
+        request.accept(null, request.origin);
+    });
+}
+
 function clientTest2() {
     const ipArray = getLocalIpArray();
 
@@ -167,11 +184,18 @@ function clientTest2() {
             console.log(`on frame - ${frame.binaryPayload.toString()}`);
         });
         conn.on('message', data => {
-            console.log(`on message - ${data.utf8Data}`);
+            if (data.type === 'utf8') {
+                console.log(`on message - ${data.utf8Data}`);
+            } else if (data.type === 'binary') {
+                console.log(`on message - ${data.binaryData}`);
+            }
         });
     });
     client.on('connectFailed', err => {
         console.log(`on failed: ${err}`);
+    });
+    client.on('httpResponse', resp => {
+        console.log(`got ${resp.statusCode} ${resp.statusMessage}, expected 101 Switching Protocols`);
     });
     client.connect(`ws://${ipArray[0]}:8888`, null, null, null, {
         localAddress: ipArray[0],
@@ -212,6 +236,7 @@ function testClientAbortApi() {
 {
     console.log(`websocket test start.`);
     serverTest2();
+    serverAcceptNullParameterTest();
     clientTest2();
     clientTest3();
     testClientAbortApi();

@@ -11,7 +11,7 @@ export interface FluxibleConfiguration {
     /**
      * App level component action handler
      */
-    componentActionHandler?: () => void;
+    componentActionHandler?: (() => void) | undefined;
     /**
      * Stores your top level React component for access using `getComponent()`
      */
@@ -198,7 +198,7 @@ export class ActionContext {
          * @param callback
          */
         delete: (resource: string, params: any, callback: (error: Error, data: any) => void) => void;
-    };
+    } | undefined;
 }
 
 export class ComponentContext {

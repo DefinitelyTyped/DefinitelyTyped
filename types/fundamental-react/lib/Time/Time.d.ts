@@ -1,25 +1,25 @@
 import * as React from "react";
 
 export interface TimeBaseProps {
-    disableStyles?: boolean;
-    format12Hours?: boolean;
-    showHour?: boolean;
-    showMinute?: boolean;
-    showSecond?: boolean;
-    spinners?: boolean;
-    time?: { hour: string; minute: string; second: string; meridiem: 0 | 1 };
+    disableStyles?: boolean | undefined;
+    format12Hours?: boolean | undefined;
+    showHour?: boolean | undefined;
+    showMinute?: boolean | undefined;
+    showSecond?: boolean | undefined;
+    spinners?: boolean | undefined;
+    time?: { hour: string; minute: string; second: string; meridiem: 0 | 1 } | undefined;
 }
 
 export type TimeProps = TimeBaseProps & {
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     hoursDownButtonProps?: any;
     hoursInputProps?: any;
     hoursUpButtonProps?: any;
-    id?: string;
+    id?: string | undefined;
     localizedText?: {
-        meridiemAM?: string;
-        meridiemPM?: string;
-    };
+        meridiemAM?: string | undefined;
+        meridiemPM?: string | undefined;
+    } | undefined;
     meridiemDownButtonProps?: any;
     meridiemInputProps?: any;
     meridiemUpButtonProps?: any;
@@ -29,7 +29,7 @@ export type TimeProps = TimeBaseProps & {
     secondsDownButtonProps?: any;
     secondsInputProps?: any;
     secondsUpButtonProps?: any;
-    onChange?: (time: { hour: string; minute: string; second: string; meridiem: 0 | 1 }) => void;
+    onChange?: ((time: { hour: string; minute: string; second: string; meridiem: 0 | 1 }) => void) | undefined;
 } & { [x: string]: any };
 
 declare class Time extends React.Component<TimeProps> {

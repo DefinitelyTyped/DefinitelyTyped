@@ -1,8 +1,21 @@
-import * as rtlcss from "rtlcss";
+import rtlcss = require('rtlcss');
 
-rtlcss.process("body { direction:ltr; }");
+const css = 'body { direction:ltr; }';
 
-const config = {
+// $ExpectType string
+rtlcss.process(css);
+rtlcss.process(css, {}, [], {
+    pre: (root, postcss) => {
+        root; // $ExpectType Root
+        postcss; // $ExpectType Postcss
+    },
+    post: (root, postcss) => {
+        root; // $ExpectType Root
+        postcss; // $ExpectType Postcss
+    },
+});
+
+const options = {
     autoRename: false,
     autoRenameStrict: false,
     blacklist: {},
@@ -11,17 +24,26 @@ const config = {
     processUrls: false,
     stringMap: [
         {
-            name    : 'left-right',
+            name: 'left-right',
             priority: 100,
-            search  : ['left', 'Left', 'LEFT'],
-            replace : ['right', 'Right', 'RIGHT'],
-            options : {
-                scope : '*',
-                ignoreCase : false
-            }
-        }
+            search: ['left', 'Left', 'LEFT'],
+            replace: ['right', 'Right', 'RIGHT'],
+            options: {
+                scope: '*',
+                ignoreCase: false,
+            },
+        },
     ],
-    useCalc: false
+    useCalc: false,
 };
 
+const config = {
+    options,
+    plugins: [],
+};
+
+// $ExpectType Processor
 rtlcss.configure(config);
+
+// $ExpectType Processor | Plugin
+rtlcss(options);

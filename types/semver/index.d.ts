@@ -1,13 +1,12 @@
-// Type definitions for semver 7.1
+// Type definitions for semver 7.3
 // Project: https://github.com/npm/node-semver
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
-
-/// <reference types="node" />
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // re-exports for index file
 
@@ -78,6 +77,8 @@ import semverOutside = require('./ranges/outside');
 import semverGtr = require('./ranges/gtr');
 import semverLtr = require('./ranges/ltr');
 import semverIntersects = require('./ranges/intersects');
+import simplify = require('./ranges/simplify');
+import rangeSubset = require('./ranges/subset');
 
 export {
     semverSatisfies as satisfies,
@@ -90,6 +91,8 @@ export {
     semverGtr as gtr,
     semverLtr as ltr,
     semverIntersects as intersects,
+    simplify as simplifyRange,
+    rangeSubset as subset,
 };
 
 // classes
@@ -109,8 +112,8 @@ export const SEMVER_SPEC_VERSION: '2.0.0';
 export type ReleaseType = 'major' | 'premajor' | 'minor' | 'preminor' | 'patch' | 'prepatch' | 'prerelease';
 
 export interface Options {
-    loose?: boolean;
-    includePrerelease?: boolean;
+    loose?: boolean | undefined;
+    includePrerelease?: boolean | undefined;
 }
 export interface CoerceOptions extends Options {
     /**
@@ -124,7 +127,7 @@ export interface CoerceOptions extends Options {
      *
      * @since 6.2.0
      */
-    rtl?: boolean;
+    rtl?: boolean | undefined;
 }
 
 export type Operator = '===' | '!==' | '' | '=' | '==' | '!=' | '>' | '>=' | '<' | '<=';

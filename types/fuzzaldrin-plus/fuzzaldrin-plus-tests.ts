@@ -13,15 +13,19 @@ const candidates = [
 ]
 const objectCandidates = candidates.map(s => ({ foo: s }))
 const options: fz.IOptions = { allowErrors: true }
-const filterOptions: fz.IFilterOptions = {
+const filterOptions: fz.IFilterOptions<string> = {
     allowErrors: true,
-    key: 'foo'
 }
 
 fz.filter(candidates, 'install')
 fz.filter(candidates, 'install', options)
 fz.filter(candidates, 'install', filterOptions)
 fz.filter(objectCandidates, 'install', { key: 'foo' })
+
+const filterOptions2: fz.IFilterOptions<{ foo: string }> = {
+    allowErrors: true,
+    key: 'foo'
+}
 
 const preparedQuery: fz.Query = fz.prepareQuery('install')
 
@@ -48,7 +52,6 @@ fz.filter(['Maybe', 'Me'], 'me', undefined)
 fz.filter(['Maybe', 'Me'], 'me', null)
 fz.filter(['Maybe', 'Me'], 'me', {})
 fz.filter(['Maybe', 'Me'], 'me', { allowErrors: true })
-fz.filter(['Maybe', 'Me'], 'me', { key: 'key' })
 fz.filter(['Maybe', 'Me'], 'me', {
     preparedQuery: fz.prepareQuery('me')
 })
@@ -194,9 +197,13 @@ fz.filter(['Maybe', 'Me'], 'me', { allowErrors: 'not a boolean' })
 // $ExpectError
 fz.filter(['Maybe', 'Me'], 'me', { key: true })
 // $ExpectError
+fz.filter(['Maybe', 'Me'], 'me', { key: 'should not be here' })
+// $ExpectError
 fz.filter(['Maybe', 'Me'], 'me', { preparedQuery: {} })
 // $ExpectError
 fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { key: 1 })
+// $ExpectError
+fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { key: 'invalid key' })
 // $ExpectError
 fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { allowErrors: 'not a boolean', key: 1 })
 // $ExpectError

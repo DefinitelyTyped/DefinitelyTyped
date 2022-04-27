@@ -7,6 +7,7 @@ import zhHansHK from "javascript-time-ago/locale/zh-Hant-HK";
 TimeAgo.locale(en);
 TimeAgo.addLocale(to);
 TimeAgo.addLocale(zhHansHK);
+TimeAgo.addDefaultLocale(en);
 
 TimeAgo.intlDateTimeFormatSupportedLocale("en");
 

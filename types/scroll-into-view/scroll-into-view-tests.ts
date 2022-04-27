@@ -15,7 +15,9 @@ scrollIntoView(someElement, {
         top: 0,
         left: 1,
         topOffset: 20,
-        leftOffset: 20
+        leftOffset: 20,
+        lockX: false,
+        lockY: false,
     }
 });
 

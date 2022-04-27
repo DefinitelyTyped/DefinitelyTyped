@@ -1,6 +1,6 @@
 // Type definitions for plurals-cldr 1.0
 // Project: https://github.com/nodeca/plurals-cldr
-// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type Form = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
@@ -12,7 +12,7 @@ interface Plural {
      *
      * @param locale The locale code.
      * @param number The number to check. May be passed as a string to keep
-     * 	trailing zeroes.
+     *     trailing zeroes.
      */
     (locale: string, number: number | string): Form | null;
 
@@ -35,7 +35,7 @@ interface Plural {
      *
      * @param locale The locale code.
      * @param number The number to check. May be passed as a string to keep
-     * 	trailing zeroes.
+     *     trailing zeroes.
      */
     indexOf(locale: string, number: number | string): number;
 }
