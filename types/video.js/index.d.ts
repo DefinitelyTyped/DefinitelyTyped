@@ -1361,6 +1361,14 @@ declare namespace videojs {
         cancelAnimationFrame(id: number): number;
 
         /**
+         * Cancels a current named animation frame if it exists.
+         *
+         * @param name
+         *        Cancels a current named animation frame if it exists.
+         */
+        cancelNamedAnimationFrame(name: string): void;
+
+        /**
          * Get an array of all child components
          *
          * @return The children
@@ -1804,6 +1812,18 @@ declare namespace videojs {
          * @see [Similar to]{@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame}
          */
         requestAnimationFrame(fn: Component.GenericCallback): number;
+
+        /**
+         * Request an animation frame, but only one named animation frame will be queued.
+         * Another will never be added until the previous one finishes.
+         *
+         * @param name
+         *         The name to give this requestAnimationFrame.
+         *
+         * @param fn
+         *         A function that will be bound to this component and executed just before the browser's next repaint.
+         */
+        requestNamedAnimationFrame(name: string, fn: Component.GenericCallback): null | string;
 
         /**
          * Set the value of an attribute on the `Component`'s element
