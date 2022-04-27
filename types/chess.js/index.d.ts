@@ -653,5 +653,5 @@ export const Chess: {
      * the board configuration in Forsyth-Edwards Notation.
      * @param fen specifies the board configuration in Forsyth-Edwards Notation.
      */
-    new(fen?: string): ChessInstance;
+    new (fen?: string): ChessInstance;
 };
