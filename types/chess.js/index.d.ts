@@ -180,6 +180,9 @@ export const QUEEN: "q";
 /** The string that represents a King */
 export const KING: "k";
 
+/** The constant that represents an empty square or value */
+export const EMPTY: number;
+
 /** A list of all the squares in the game, from "a1" to "h8" */
 export const SQUARES: [
     "a8",
