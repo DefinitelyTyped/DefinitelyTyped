@@ -44,74 +44,116 @@ declare module 'http' {
     import { URL } from 'node:url';
     import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
     // incoming headers will never contain number
-    interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
-        accept?: string | undefined;
-        'accept-language'?: string | undefined;
-        'accept-patch'?: string | undefined;
-        'accept-ranges'?: string | undefined;
-        'access-control-allow-credentials'?: string | undefined;
-        'access-control-allow-headers'?: string | undefined;
-        'access-control-allow-methods'?: string | undefined;
-        'access-control-allow-origin'?: string | undefined;
-        'access-control-expose-headers'?: string | undefined;
-        'access-control-max-age'?: string | undefined;
-        'access-control-request-headers'?: string | undefined;
-        'access-control-request-method'?: string | undefined;
-        age?: string | undefined;
-        allow?: string | undefined;
-        'alt-svc'?: string | undefined;
-        authorization?: string | undefined;
-        'cache-control'?: string | undefined;
-        connection?: string | undefined;
-        'content-disposition'?: string | undefined;
-        'content-encoding'?: string | undefined;
-        'content-language'?: string | undefined;
-        'content-length'?: string | undefined;
-        'content-location'?: string | undefined;
-        'content-range'?: string | undefined;
-        'content-type'?: string | undefined;
-        cookie?: string | undefined;
-        date?: string | undefined;
-        etag?: string | undefined;
-        expect?: string | undefined;
-        expires?: string | undefined;
-        forwarded?: string | undefined;
-        from?: string | undefined;
-        host?: string | undefined;
-        'if-match'?: string | undefined;
-        'if-modified-since'?: string | undefined;
-        'if-none-match'?: string | undefined;
-        'if-unmodified-since'?: string | undefined;
-        'last-modified'?: string | undefined;
-        location?: string | undefined;
-        origin?: string | undefined;
-        pragma?: string | undefined;
-        'proxy-authenticate'?: string | undefined;
-        'proxy-authorization'?: string | undefined;
-        'public-key-pins'?: string | undefined;
-        range?: string | undefined;
-        referer?: string | undefined;
-        'retry-after'?: string | undefined;
-        'sec-websocket-accept'?: string | undefined;
-        'sec-websocket-extensions'?: string | undefined;
-        'sec-websocket-key'?: string | undefined;
-        'sec-websocket-protocol'?: string | undefined;
-        'sec-websocket-version'?: string | undefined;
-        'set-cookie'?: string[] | undefined;
-        'strict-transport-security'?: string | undefined;
-        tk?: string | undefined;
-        trailer?: string | undefined;
-        'transfer-encoding'?: string | undefined;
-        upgrade?: string | undefined;
-        'user-agent'?: string | undefined;
-        vary?: string | undefined;
-        via?: string | undefined;
-        warning?: string | undefined;
-        'www-authenticate'?: string | undefined;
-    }
-    // outgoing headers allows numbers (as they are converted internally to strings)
-    type OutgoingHttpHeader = number | string | string[];
-    interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {}
+    
+    // rightful definition according to: https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Standard_request_fields
+    type IncomingHttpHeaderKeys = (
+      | "a-im"
+      | "accept"
+      | "accept-charset"
+      | "accept-datetime"
+      | "accept-encoding"
+      | "accept-language"
+      | "access-control-request-method"
+      | "access-control-request-headers"
+      | "authorization"
+      | "cache-control"
+      | "connection"
+      | "content-encoding"
+      | "content-length"
+      | "content-md5"
+      | "content-type"
+      | "cookie"
+      | "date"
+      | "expect"
+      | "forwarded"
+      | "from"
+      | "host"
+      | "http2-settings"
+      | "if-match"
+      | "if-modified-since"
+      | "if-none-match"
+      | "if-range"
+      | "if-unmodified-since"
+      | "max-forwards"
+      | "origin"
+      | "pragma"
+      | "prefer"
+      | "proxy-authorization"
+      | "range"
+      | "referer"
+      | "te"
+      | "trailer"
+      | "transfer-encoding"
+      | "user-agent"
+      | "upgrade"
+      | "via"
+      | "warning"
+      | `x-${string}`
+    );
+    
+    interface IncomingHttpHeaders extends NodeJS.Dict<IncomingHttpHeaderKeys | string[]> {}
+
+    // rightful definition according to: https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Standard_response_fields
+    type OutgoingHttpHeaderKeys = (
+      | "accept-ch"
+      | "access-control-allow-credentials"
+      | "access-control-allow-headers"
+      | "access-control-allow-methods"
+      | "access-control-allow-origin"
+      | "access-control-expose-headers"
+      | "access-control-max-age"
+      | "accept-patch"
+      | "accept-ranges"
+      | "age"
+      | "allow"
+      | "alt-svc"
+      | "cache-control"
+      | "connection"
+      | "content-disposition"
+      | "content-encoding"
+      | "content-language"
+      | "content-length"
+      | "content-location"
+      | "content-md5"
+      | "content-range"
+      | "content-type"
+      | "date"
+      | "delta-base"
+      | "etag"
+      | "expires"
+      | "im"
+      | "last-modified"
+      | "link"
+      | "location"
+      | "permissions-policy"
+      | "p3p"
+      | "pragma"
+      | "preference-applied"
+      | "proxy-authenticate"
+      | "public-key-pins"
+      | "refresh"
+      | "retry-after"
+      | "sec-websocket-accept"
+      | "sec-websocket-extensions"
+      | "sec-websocket-key"
+      | "sec-websocket-protocol"
+      | "sec-websocket-version"
+      | "server"
+      | "set-cookie"
+      | "strict-transport-security"
+      | "trailer"
+      | "transfer-encoding"
+      | "tk"
+      | "upgrade"
+      | "vary"
+      | "via"
+      | "warning"
+      | "www-authenticate"
+      | `x-${string}`    
+    );
+
+    interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeaderKeys, string | string[]> {}
+    
     interface ClientRequestArgs {
         signal?: AbortSignal | undefined;
         protocol?: string | null | undefined;
