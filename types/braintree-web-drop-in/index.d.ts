@@ -277,8 +277,6 @@ export interface ChangeActiveViewPayload {
     newViewId: ActiveView;
 }
 
-export type VERSION = string;
-
 // Methods
 
 export function create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
