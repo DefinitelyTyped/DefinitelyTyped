@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v2
 
       - run: npm install --no-package-lock
-      - run: node ./scripts/ghostbuster.cjs
+      - run: node ./scripts/ghostbuster.js
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_API_READ }}
 

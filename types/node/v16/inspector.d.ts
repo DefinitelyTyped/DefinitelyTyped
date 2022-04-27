@@ -1782,7 +1782,7 @@ declare module 'inspector' {
          * Connects a session to the main thread inspector back-end.
          * An exception will be thrown if this API was not called on a Worker
          * thread.
-         * @since 12.11.0
+         * @since v12.11.0
          */
         connectToMainThread(): void;
         /**

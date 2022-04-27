@@ -529,13 +529,28 @@ declare namespace Aws {
     }
 
     interface CloudwatchEvent {
-        event: string;
+        event: CloudwatchEventInternalEvent | string;
         name?: string | undefined;
         description?: string | undefined;
         enabled?: boolean | undefined;
         input?: Input | undefined;
         inputPath?: string | undefined;
         inputTransformer?: InputTransformer | undefined;
+    }
+
+    interface CloudwatchEventInternalEvent {
+        source: string | string[];
+        "detail-type"?: string | string[];
+        detail?: object;
+        region?: string;
+        /**
+         * Supposed to be array of ARNs but needs more info
+         */
+        resources?: string[];
+        version?: string;
+        id?: string;
+        time?: string;
+        account?: string;
     }
 
     interface CloudwatchLog {
