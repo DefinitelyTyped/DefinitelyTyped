@@ -30,6 +30,11 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     readonly volumeThreshold: number;
 
     /**
+     * Execute the action for this circuit with a provided this argument
+     */
+    call(context: any, ...args: TI): Promise<TR>;
+
+    /**
      * Clears the cache of this CircuitBreaker
      */
     clearCache(): void;
