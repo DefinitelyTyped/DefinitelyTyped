@@ -82,13 +82,9 @@ if (module.hot) {
     module.hot.addDisposeHandler(disposeHandler);
     module.hot.removeDisposeHandler(disposeHandler);
 
-    module.hot.check(true, (err: Error, outdatedModules: (string|number)[]) => {
-       // ...
-    });
+    module.hot.check(true).then((outdatedModules: null|(string|number)[]) => {})
 
-    module.hot.apply({ ignoreUnaccepted: true }, (err: Error, outdatedModules: (string|number)[]) => {
-        // ...
-    });
+    module.hot.apply({ ignoreUnaccepted: true }).then((outdatedModules: (string|number)[]) => {})
 
     let status: string = module.hot.status();
     let statusHandler: ((status: string) => void) = status => {
