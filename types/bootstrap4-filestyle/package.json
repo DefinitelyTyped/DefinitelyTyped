@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/bootstrap4-filestyle",
+    "version": "2.1.3",
+    "description": "TypeScript definitions for bootstrap-filestyle for bootstrap 4",
+    "homepage": "https://www.npmjs.com/package/bootstrap4-filestyle",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Mustafa Salaheldin",
+            "url": "https://github.com/mustafasalahuldin",
+            "githubUsername": "mustafasalahuldin"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/bootstrap4-filestyle"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "typesPublisherContentHash": "8e509fcbb5d74971cf1946193473b81a380993a5562648b505882a6d25dae79e",
+    "typeScriptVersion": "3.6"
+}
