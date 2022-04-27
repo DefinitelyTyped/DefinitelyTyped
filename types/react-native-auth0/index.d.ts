@@ -199,7 +199,7 @@ export const users: Users;
 /**
  * Web Auth
  */
-export type AuthorizeParams = { [key: string]: any } & {
+export interface AuthorizeParams {
     state?: string; // Random string to prevent CSRF attacks and used to discard unexpected results. By default it is a cryptographically secure random.
     nonce?: string; // Random string to prevent replay attacks of id_tokens.
     audience?: string; // Identifier of Resource Server (RS) to be included as the audience (aud claim) of the issued access token
@@ -210,7 +210,8 @@ export type AuthorizeParams = { [key: string]: any } & {
     max_age?: number; // The allowable elapsed time in seconds since the last time the user was authenticated (optional).
     organization?: string; // The ID of the organization to join
     invitationUrl?: string; // The invitation URL to join an organization. Takes precedence over the "organization" parameter.
-};
+    [key: string]: string | number | undefined; // Optional user-defined values appended to the auth page URL query parameters.
+}
 
 export interface AuthorizeOptions {
     ephemeralSession?: boolean; //  Disable Single-Sign-On (SSO). It only affects iOS with versions 13 and above. Defaults to `false`.
