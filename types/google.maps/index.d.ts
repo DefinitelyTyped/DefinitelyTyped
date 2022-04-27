@@ -67,7 +67,6 @@ declare namespace google.maps {
 }
 declare namespace google.maps {
   /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * Used for retrieving camera parameters, such as that of the GL camera used
    * for the {@link google.maps.WebGLOverlayView}.
    */
@@ -339,7 +338,6 @@ declare namespace google.maps {
 }
 declare namespace google.maps {
   /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * This interface provides convenience methods for generating matrices to use
    * for rendering WebGL scenes on top of the Google base map. <br><br>Note: A
    * reference to this object should <b>not</b> be held outside of the scope of
@@ -3129,7 +3127,6 @@ declare namespace google.maps {
 }
 declare namespace google.maps {
   /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * A <code>LatLngAltitude</code> is a 3D point in geographical coordinates:
    * latitude, longitude, and altitude.<br> <ul> <li>Latitude ranges between -90
    * and 90 degrees, inclusive. Values above or below this range will be clamped
@@ -3146,55 +3143,44 @@ declare namespace google.maps {
   class LatLngAltitude implements google.maps.LatLngAltitudeLiteral,
                                   google.maps.LatLngLiteral {
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Returns the altitude.
      */
     altitude: number;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Comparison function.
      * @param other Another LatLngAltitude object.
      */
     equals(other: google.maps.LatLngAltitude|null): boolean;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Returns the latitude.
      */
     lat: number;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Returns the longitude.
      */
     lng: number;
-    /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-     */
     toJSON(): google.maps.LatLngAltitudeLiteral;
   }
 }
 declare namespace google.maps {
   /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * Object literals are accepted in place of <code>LatLngAltitude</code>
    * objects, as a convenience, in many places. These are converted to
    * <code>LatLngAltitude</code> objects when the Maps API encounters them.
    */
   interface LatLngAltitudeLiteral extends google.maps.LatLngLiteral {
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Distance (in meters) above the ground surface. Negative value means
      * underneath the ground surface. Defaults to 0.
      */
     altitude: number;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Latitude in degrees. Values will be clamped to the range [-90, 90]. This
      * means that if the value specified is less than -90, it will be set to
      * -90. And if the value is greater than 90, it will be set to 90.
      */
     lat: number;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Longitude in degrees. Values outside the range [-180, 180] will be
      * wrapped so that they fall within the range. For example, a value of -190
      * will be converted to 170. A value of 190 will be converted to -170. This
@@ -3576,7 +3562,6 @@ declare namespace google.maps {
      */
     mapTypes: google.maps.MapTypeRegistry;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Immediately sets the map&#39;s camera to the target camera options,
      * without animation.
      */
@@ -3705,7 +3690,6 @@ declare namespace google.maps {
     fromLatLngToDivPixel(latLng: google.maps.LatLng|null|
                          google.maps.LatLngLiteral): google.maps.Point|null;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * The visible region of the map. Returns <code>null</code> if the map has
      * no size. Returns <code>null</code> if the OverlayView is on a
      * StreetViewPanorama.
@@ -6651,7 +6635,6 @@ declare namespace google.maps {
 }
 declare namespace google.maps {
   /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * Contains the four points defining the four-sided polygon that is the
    * visible region of the map. On a vector map this polygon can be a trapezoid
    * instead of a rectangle, when a vector map has tilt.
@@ -6669,7 +6652,6 @@ declare namespace google.maps {
 }
 declare namespace google.maps {
   /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * Drawing options.
    */
   interface WebGLDrawOptions {
@@ -6686,7 +6668,6 @@ declare namespace google.maps {
 }
 declare namespace google.maps {
   /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * The WebGL Overlay View provides direct access to the same WebGL rendering
    * context Google Maps Platform uses to render the vector basemap. This use of
    * a shared rendering context provides benefits such as depth occlusion with
@@ -6768,7 +6749,6 @@ declare namespace google.maps {
 }
 declare namespace google.maps {
   /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * GL state options.
    */
   interface WebGLStateOptions {
