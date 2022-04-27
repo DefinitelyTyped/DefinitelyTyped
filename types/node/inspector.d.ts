@@ -1,5 +1,12 @@
 // tslint:disable-next-line:dt-header
 // Type definitions for inspector
+
+// These definitions are auto-generated.
+// Please see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/19330
+// for more information.
+
+// tslint:disable:max-line-length
+
 /**
  * The `inspector` module provides an API for interacting with the V8 inspector.
  *
@@ -69,7 +76,7 @@ declare module 'inspector' {
             /**
              * Remote object value in case of primitive values or JSON values (if it was requested).
              */
-            value?: any;
+            value?: any | undefined;
             /**
              * Primitive value which can not be JSON-stringified does not have <code>value</code>, but gets this property.
              */
@@ -235,7 +242,7 @@ declare module 'inspector' {
             /**
              * Primitive value or serializable javascript object.
              */
-            value?: any;
+            value?: any | undefined;
             /**
              * Primitive value which can not be JSON-stringified.
              */
@@ -1681,7 +1688,7 @@ declare module 'inspector' {
             /**
              * Controls how the trace buffer stores data.
              */
-            recordMode?: string;
+            recordMode?: string | undefined;
             /**
              * Included category filters.
              */
@@ -1771,12 +1778,6 @@ declare module 'inspector' {
          * @since v8.0.0
          */
         connect(): void;
-        /**
-         * Connects a session to the main thread inspector back-end. An exception will
-         * be thrown if this API was not called on a Worker thread.
-         * @since v12.11.0
-         */
-        connectToMainThread(): void;
         /**
          * Immediately close the session. All pending message callbacks will be called
          * with an error. `session.connect()` will need to be called to be able to send
@@ -2731,7 +2732,10 @@ declare module 'inspector' {
      */
     function waitForDebugger(): void;
 }
+/**
+ * The inspector module provides an API for interacting with the V8 inspector.
+ */
 declare module 'node:inspector' {
-    import EventEmitter = require('inspector');
-    export = EventEmitter;
+    import inspector = require('inspector');
+    export = inspector;
 }
