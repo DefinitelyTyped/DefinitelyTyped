@@ -265,7 +265,7 @@ export interface venmoPaymentMethodPayload {
 export type ActiveView =
     | 'card'
     | 'paypal'
-    | 'payapCredit'
+    | 'paypalCredit'
     | 'venmo'
     | 'googlePay'
     | 'applePay'
