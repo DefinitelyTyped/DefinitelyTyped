@@ -873,8 +873,7 @@ declare module 'url' {
          * https://nodejs.org/api/url.html#the-whatwg-url-api
          * @since v10.0.0
          */
-        var URL: // For compatibility with "dom" and "webworker" URL declarations
-        typeof globalThis extends {
+        var URL: typeof globalThis extends {
             onmessage: any;
             URL: infer URL;
         }
@@ -885,8 +884,7 @@ declare module 'url' {
          * https://nodejs.org/api/url.html#class-urlsearchparams
          * @since v10.0.0
          */
-        var URLSearchParams: // For compatibility with "dom" and "webworker" URLSearchParams declarations
-        typeof globalThis extends {
+        var URLSearchParams: typeof globalThis extends {
             onmessage: any;
             URLSearchParams: infer URLSearchParams;
         }
