@@ -1,8 +1,8 @@
 {
-    "name": "@types/bootstrap-filestyle",
-    "version": "1.2.1",
-    "description": "TypeScript definitions for bootstrap-filestyle",
-    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/bootstrap-filestyle",
+    "name": "@types/bootstrap4-filestyle",
+    "version": "2.1.3",
+    "description": "TypeScript definitions for bootstrap-filestyle for bootstrap 4",
+    "homepage": "https://www.npmjs.com/package/bootstrap4-filestyle",
     "license": "MIT",
     "contributors": [
         {
