@@ -2,7 +2,9 @@
 // Project: https://github.com/mailchimp/mailchimp-client-lib-codegen
 // Definitions by: Jan Müller <https://github.com/rattkin>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
+//                 Daniel Castro <https://github.com/odanieldcs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// API Documentation: https://mailchimp.com/developer/marketing/api/
 
 export function setConfig(config: Config): void;
 
@@ -58,6 +60,17 @@ export interface SetListMemberBody {
     merge_fields?: Record<string, any> | undefined;
 }
 
+export type StatusTag = 'active' | 'inactive';
+
+export interface TagBody {
+    name: string;
+    status: StatusTag;
+}
+
+export interface MemberTagsBody {
+    tags: TagBody[];
+}
+
 /*~ If there are types, properties, or methods inside dotted names
  *~ of the module, declare them inside a 'namespace'.
  */
@@ -88,4 +101,6 @@ export namespace lists {
     ): Promise<void>;
 
     function deleteListMemberPermanent(listId: string, subscriberHash: string): Promise<void>;
+
+    function updateListMemberTags(listId: string, subscriberHash: string, body: any): Promise<void>;
 }

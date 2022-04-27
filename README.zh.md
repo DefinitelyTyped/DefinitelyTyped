@@ -368,7 +368,7 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 #### 我可以请求类型定义吗？
 
-这里是 [当前在请求的类型定义](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest)。
+这里是 [当前在请求的类型定义](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package)。
 
 #### DOM 上的类型定义是什么？
 

@@ -178,6 +178,55 @@ for (let richTextRun of richTextValue.getRuns()) {
     newValueBuilder.build().getText();
 }
 
+// TextStyle - get/setForegroundColorObject
+// Build an RGB color object
+// $ExpectType Color
+const colorObjRgb = SpreadsheetApp.newColor()
+    .setRgbColor('red')
+    .build();
+
+// Build a Theme color object
+// $ExpectType Color
+const colorObjTheme = SpreadsheetApp.newColor()
+    .setThemeColor(SpreadsheetApp.ThemeColorType.ACCENT1)
+    .build();
+
+// Build TextStyle objects for Rgb, Theme, and null
+// $ExpectType TextStyle
+const rgbTextStyle = SpreadsheetApp.newTextStyle()
+    .setForegroundColorObject(colorObjRgb)
+    .build();
+
+// $ExpectType TextStyle
+const themeTextStyle = SpreadsheetApp.newTextStyle()
+    .setForegroundColorObject(colorObjTheme)
+    .build();
+
+// $ExpectType TextStyle
+const nullTextStyle = SpreadsheetApp.newTextStyle().build();
+
+// Null Color Test
+// $ExpectType Color
+const nullColorObj = nullTextStyle.getForegroundColorObject();
+Logger.log(nullColorObj); // null
+
+// RgbColor Test
+// $ExpectType Color
+const rgbColorObj = rgbTextStyle.getForegroundColorObject();
+Logger.log(rgbColorObj); // Color
+Logger.log(rgbColorObj.getColorType()); // RGB
+Logger.log(rgbColorObj.asRgbColor().asHexString()); // #ff0000
+Logger.log(rgbColorObj.asRgbColor().getBlue()); // 0
+Logger.log(rgbColorObj.asRgbColor().getGreen()); // 0
+Logger.log(rgbColorObj.asRgbColor().getRed()); // 255
+
+// ThemeColor Test
+// $ExpectType Color
+const themeColorObj = themeTextStyle.getForegroundColorObject();
+Logger.log(themeColorObj); // Color
+Logger.log(themeColorObj.getColorType()); // THEME
+Logger.log(themeColorObj.asThemeColor().getThemeColorType()); // ACCENT1
+
 const tableCell = DocumentApp.create("").getCursor().getElement().asTableCell();
 tableCell.getParentRow().getChildIndex(tableCell);
 

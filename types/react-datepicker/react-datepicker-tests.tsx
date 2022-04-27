@@ -59,6 +59,7 @@ const topLogger: Modifier<'topLogger'> = {
     dropdownMode="scroll"
     endDate={new Date()}
     excludeDates={[new Date()]}
+    excludeDateIntervals={[{start: new Date(), end: new Date()}]}
     excludeTimes={[new Date()]}
     filterDate={date => true}
     filterTime={date => true}
@@ -69,6 +70,7 @@ const topLogger: Modifier<'topLogger'> = {
     highlightDates={[{ someClassName: [new Date()] }]}
     id=""
     includeDates={[new Date()]}
+    includeDateIntervals={[{start: new Date(), end: new Date()}]}
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
@@ -131,7 +133,12 @@ const topLogger: Modifier<'topLogger'> = {
     previousYearAriaLabel=""
     previousYearButtonLabel=""
     readOnly
-    ref={handleRef}
+    ref={instance => {
+        if (instance !== null) {
+            // $ExpectType ReactDatePicker<"offset" | "preventOverflow", true>
+            instance;
+        }
+    }}
     renderCustomHeader={({
         monthDate,
         date,
@@ -186,6 +193,7 @@ const topLogger: Modifier<'topLogger'> = {
     weekLabel=""
     withPortal
     portalId=""
+    portalHost={document.body.shadowRoot!}
     wrapperClassName=""
     weekAriaLabelPrefix=""
     excludeScrollbar={false}
@@ -200,7 +208,7 @@ const topLogger: Modifier<'topLogger'> = {
 
 <DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
 
-function handleRef(ref: DatePicker) {
+function handleRef(ref: DatePicker | null) {
     if (ref) {
         ref.setBlur();
         ref.setFocus();
@@ -224,7 +232,7 @@ const props: ReactDatePickerProps = {
 <DatePicker<'topLogger'>
     onChange={() => {}}
     popperModifiers={[{ name: 'arrow', options: { padding: 5 } }, topLogger]}
-    ref={handleRef}
+    ref={(instance: DatePicker<'topLogger'> | null) => {}}
 />;
 
 const DatePickerCustomHeader = ({

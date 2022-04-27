@@ -218,7 +218,7 @@ export class WebGLRenderer implements Renderer {
     /**
      * Return the WebGL context.
      */
-    getContext(): WebGLRenderingContext;
+    getContext(): WebGLRenderingContext | WebGL2RenderingContext;
     getContextAttributes(): any;
     forceContextLoss(): void;
     forceContextRestore(): void;

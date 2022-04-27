@@ -77,7 +77,7 @@ interface PromptModuleBase {
  * @template TChoiceMap
  * The valid choices for the question.
  */
-interface ListQuestionOptionsBase<T, TChoiceMap> extends inquirer.Question<T> {
+interface ListQuestionOptionsBase<T extends inquirer.Answers, TChoiceMap extends inquirer.Answers> extends inquirer.Question<T> {
     /**
      * The choices of the prompt.
      */
@@ -597,7 +597,7 @@ declare namespace inquirer {
      * @template TChoiceMap
      * The valid choices for the question.
      */
-    interface LoopableListQuestionOptionsBase<T, TChoiceMap> extends ListQuestionOptionsBase<T, TChoiceMap> {
+    interface LoopableListQuestionOptionsBase<T extends Answers, TChoiceMap extends Answers> extends ListQuestionOptionsBase<T, TChoiceMap> {
         /**
          * A value indicating whether choices in a list should be looped.
          */

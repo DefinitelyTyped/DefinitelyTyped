@@ -2,6 +2,7 @@ export const APPLICATION_SESSIONS: number;
 export const APPLICATIONS: number;
 export const AUTH_POLICIES: number;
 export const AUTH_SCOPES: number;
+export const AUTH_SCOPE_GRANTS: number;
 export const AUTH_TOKENS: number;
 export const AUXILIARY_TABLES: number;
 export const CLASSDEF_MANAGER_STARTUP: number;

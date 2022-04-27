@@ -240,6 +240,11 @@ export interface ConnectionOptions {
     jsTreatIntegerAsBigInt?: boolean | undefined;
 
     /**
+     * Specifies the name of the client application connecting to Snowflake.
+     */
+    application?: string;
+
+    /**
      * Specifies the authenticator to use for verifying user login credentials. You can set this to one of the following values:
      *  - SNOWFLAKE: Use the internal Snowflake authenticator. You must also set the password option.
      *  - EXTERNALBROWSER: Use your web browser to authenticate with Okta, ADFS, or any other SAML 2.0-compliant identity provider

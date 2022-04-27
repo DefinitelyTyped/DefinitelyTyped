@@ -1,5 +1,5 @@
-import * as path from "path";
-import * as ts from "typescript";
+import * as path from "node:path";
+import ts from "typescript";
 
 export function isExternalDependency(file: ts.SourceFile, dirPath: string, program: ts.Program): boolean {
     return !startsWithDirectory(file.fileName, dirPath) || program.isSourceFileFromExternalLibrary(file);

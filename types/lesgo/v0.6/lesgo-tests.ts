@@ -140,7 +140,7 @@ queue; // $ExpectType SQSService<Record<string, QueueConfig>>
 (async () => {
     await dispatch('ping', 'myqueue'); // $ExpectType SendMessageResult
 })();
-// $ExpectType Partial<Record<"id" | "name", any>>
+// $ExpectType Partial<Record<"id" | "name", any>> || Partial<Record<"name" | "id", any>>
 validateFields(
     {
         id: 1,

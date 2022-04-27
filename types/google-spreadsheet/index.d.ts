@@ -1,4 +1,4 @@
-// Type definitions for google-spreadsheet 3.1
+// Type definitions for google-spreadsheet 3.2
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
@@ -763,15 +763,18 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * set the header (first) row in the worksheet
      *
      * @param headers
+     * @param headerRowIndex The index of the header row, if not the first. NOTE: not zero-indexed
      */
-    setHeaderRow(headers: string[]): Promise<void>;
+    setHeaderRow(headers: string[], headerRowIndex?: number): Promise<void>;
 
     /**
      * @description
      * loads the header row (first row) of the sheet
      * - usually do not need to call this directly
+     *
+     * @param headerRowIndex The index of the header row, if not the first. NOTE: not zero-indexed
      */
-    loadHeaderRow(): Promise<void>;
+    loadHeaderRow(headerRowIndex?: number): Promise<void>;
 
     /**
      * @description
@@ -854,6 +857,18 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
         properties: WorksheetDimensionProperties,
         bounds: WorksheetDimensionBounds,
     ): Promise<void>;
+
+    /**
+     * @description
+     * insert into worksheet "dimension properties"
+     *
+     * @param columnsOrRows which dimension to update
+     *
+     * @param bounds start index and end index of the dimension to be added
+     *
+     * @param inheritFromBefore to inherit properties from the previous dimension
+     */
+    insertDimension(columnsOrRows: WorksheetDimension, bounds: WorksheetDimensionBounds, inheritFromBefore?: boolean): Promise<void>;
 
     /**
      * @description

@@ -1,4 +1,4 @@
-// Type definitions for react-edit-text 4.3
+// Type definitions for react-edit-text 4.4
 // Project: https://github.com/bymi15/react-edit-text#readme
 // Definitions by: Brian Min <https://github.com/bymi15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -87,6 +87,21 @@ export interface EditTextProps extends SharedProps {
      * default: false
      */
     inline?: boolean;
+    /**
+     * Displays an edit button that can be pressed to enable edit mode,
+     * default: false
+     */
+    showEditButton?: boolean;
+    /**
+     * Sets the content for the edit button. This can be any valid element,
+     * default: <EditIcon />
+     */
+    editButtonContent?: React.ReactNode;
+    /**
+     * Sets the props passed to the edit button. This can be any valid DOM attribute,
+     * default: {}
+     */
+    editButtonProps?: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 }
 
 export interface EditTextareaProps extends SharedProps {

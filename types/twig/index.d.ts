@@ -46,6 +46,7 @@ export interface CompileOptions {
 }
 
 export interface RenderOptions {
+    [index: string]: any;
     allowAsync?: boolean | undefined;
     settings?:
         | {
