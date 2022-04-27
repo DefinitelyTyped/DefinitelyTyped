@@ -188,30 +188,14 @@ declare namespace __WebpackModuleApi {
          * apply() is automatically called with autoApply as options parameter.
          * If autoApply is not set the callback will be called with all modules that will be disposed on apply().
          * @param autoApply
-         * @param callback
          */
-        check(autoApply: boolean, callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
-        /**
-         * Throws an exceptions if status() is not idle.
-         * Check all currently loaded modules for updates and apply updates if found.
-         * If no update was found, the callback is called with null.
-         * The callback will be called with all modules that will be disposed on apply().
-         * @param callback
-         */
-        check(callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
+        check(autoApply?: boolean): Promise<null|ModuleId[]>;
         /**
          * If status() != "ready" it throws an error.
          * Continue the update process.
          * @param options
-         * @param callback
          */
-        apply(options: AcceptOptions, callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
-        /**
-         * If status() != "ready" it throws an error.
-         * Continue the update process.
-         * @param callback
-         */
-        apply(callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
+        apply(options?: AcceptOptions): Promise<ModuleId[]>;
         /**
          * Return one of idle, check, watch, watch-delay, prepare, ready, dispose, apply, abort or fail.
          */
