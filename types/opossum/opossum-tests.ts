@@ -135,7 +135,7 @@ const noTimeoutOptions: CircuitBreaker.Options = {
 
 // you can call with a provided this arg
 const context = {test: 'test' as const};
-async function proxyFn(this: typeof context, args: number[]) {
+async function proxyFn(this: typeof context, ...args: number[]) {
     return {
         args,
         thisArg: this.test,
@@ -143,7 +143,7 @@ async function proxyFn(this: typeof context, args: number[]) {
 }
 const args = [1, 2, 3];
 const callBreaker = new CircuitBreaker(proxyFn, options);
-callBreaker.call(context, args).then((result) => {
+callBreaker.call(context, ...args).then((result) => {
     result.args; // $ExpectType number[]
     result.thisArg; // $ExpectType "test"
 });
