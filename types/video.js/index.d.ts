@@ -647,7 +647,7 @@ declare namespace videojs {
      *
      * @see [Spec]{@link https://html.spec.whatwg.org/multipage/media.html#audiotracklist}
      */
-     interface AudioTrackList extends TrackList {
+    interface AudioTrackList extends TrackList {
         [index: number]: VideojsAudioTrack;
 
         /**
@@ -1616,7 +1616,7 @@ declare namespace videojs {
          * @return The descendant `Component` following the given descendant
          *         `names` or undefined.
          */
-        getDescendant(...names: Array<(string|string[])>): Component|undefined;
+        getDescendant(...names: Array<string | string[]>): Component | undefined;
 
         /**
          * Returns the child `Component` with the given `id`.
@@ -1812,6 +1812,20 @@ declare namespace videojs {
          * @see [Similar to]{@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame}
          */
         requestAnimationFrame(fn: Component.GenericCallback): number;
+
+        /**
+         * Request an animation frame, but only one named animation
+         * frame will be queued. Another will never be added until
+         * the previous one finishes.
+         *
+         * @param name
+         *        The name to give this requestAnimationFrame
+         *
+         * @param  fn
+         *         A function that will be bound to this component and executed just
+         *         before the browser's next repaint.
+         */
+        requestNamedAnimationFrame(name: string, fn: Component.GenericCallback): string | undefined;
 
         /**
          * Set the value of an attribute on the `Component`'s element
@@ -3945,12 +3959,12 @@ declare namespace videojs {
         /**
          * Determines the height of the floating video window.
          */
-         height: number;
+        height: number;
 
         /**
          * Determines the width of the floating video window.
          */
-         width: number;
+        width: number;
     }
 
     type Player = VideoJsPlayer;
