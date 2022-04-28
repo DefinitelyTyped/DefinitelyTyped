@@ -212,3 +212,10 @@ export let scheduledJobs: {[jobName: string]: Job};
  * @returns Whether the job has been cancelled with success.
  */
 export function cancelJob(job: Job|string): boolean;
+
+/**
+ * Gracefullly cancels all jobs.
+ *
+ * @returns Promise that resolves when all running jobs have stopped.
+ */
+ export function gracefulShutdown(): Promise<void>;
