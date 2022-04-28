@@ -41,12 +41,19 @@ declare module 'meteor/meteor' {
             address: string;
             verified: boolean;
         }
+        /**
+         * UserProfile is left intentionally underspecified here, to allow you
+         * to override it in your application (but keep in mind that the default
+         * Meteor configuration allows users to write directly to their user
+         * record's profile field)
+         */
+        interface UserProfile {}
         interface User {
             _id: string;
             username?: string | undefined;
             emails?: UserEmail[] | undefined;
             createdAt?: Date | undefined;
-            profile?: any;
+            profile?: UserProfile;
             services?: any;
         }
 
@@ -457,6 +464,11 @@ declare module 'meteor/meteor' {
          * Access inside the publish function. The incoming connection for this subscription.
          */
         stop(): void;
+        /**
+         * Call inside the publish function. Allows subsequent methods or subscriptions for the client of this subscription
+         * to begin running without waiting for the publishing to become ready.
+         */
+        unblock(): void;
         /** Access inside the publish function. The id of the logged-in user, or `null` if no user is logged in. */
         userId: string | null;
     }

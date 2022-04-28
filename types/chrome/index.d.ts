@@ -952,10 +952,10 @@ declare namespace chrome.browserAction {
  */
 declare namespace chrome.browsingData {
     export interface OriginTypes {
-        /** Optional. Websites that have been installed as hosted applications (be careful!).  */
-        protectedWeb?: boolean | undefined;
         /** Optional. Extensions and packaged applications a user has installed (be _really_ careful!).  */
         extension?: boolean | undefined;
+        /** Optional. Websites that have been installed as hosted applications (be careful!).  */
+        protectedWeb?: boolean | undefined;
         /** Optional. Normal websites.  */
         unprotectedWeb?: boolean | undefined;
     }
@@ -964,11 +964,25 @@ declare namespace chrome.browsingData {
     export interface RemovalOptions {
         /**
          * Optional.
-         * Since Chrome 21.
-         * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you really want to remove application data before adding 'protectedWeb' or 'extensions'.
+         * Since Chrome 74.
+         * When present, data for origins in this list is excluded from deletion. Can't be used together with origins. Only supported for cookies, storage and cache. Cookies are excluded for the whole registrable domain.
+         */
+        excludeOrigins?: string[] | undefined;
+        /**
+         * Optional.
+         * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
          */
         originTypes?: OriginTypes | undefined;
-        /** Optional. Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data).  */
+        /**
+         * Optional.
+         * Since Chrome 74.
+         * When present, only data for origins in this list is deleted. Only supported for cookies, storage and cache. Cookies are cleared for the whole registrable domain.
+         */
+        origins?: string[] | undefined;
+        /**
+         * Optional.
+         * Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the {@link Date.getTime} method). If absent, defaults to 0 (which would remove all browsing data).
+         */
         since?: number | undefined;
     }
 
@@ -985,7 +999,12 @@ declare namespace chrome.browsingData {
         cookies?: boolean | undefined;
         /** Optional. Stored passwords.  */
         passwords?: boolean | undefined;
-        /** Optional. Server-bound certificates.  */
+        /**
+         * @deprecated Deprecated since Chrome 76.
+         * Support for server-bound certificates has been removed. This data type will be ignored.
+         *
+         * Optional. Server-bound certificates.
+         */
         serverBoundCertificates?: boolean | undefined;
         /** Optional. The browser's download list.  */
         downloads?: boolean | undefined;
@@ -995,7 +1014,12 @@ declare namespace chrome.browsingData {
         appcache?: boolean | undefined;
         /** Optional. Websites' file systems.  */
         fileSystems?: boolean | undefined;
-        /** Optional. Plugins' data.  */
+        /**
+         * @deprecated Deprecated since Chrome 88.
+         * Support for Flash has been removed. This data type will be ignored.
+         *
+         * Optional. Plugins' data.
+         */
         pluginData?: boolean | undefined;
         /** Optional. Websites' local storage data.  */
         localStorage?: boolean | undefined;
@@ -1011,7 +1035,7 @@ declare namespace chrome.browsingData {
         serviceWorkers?: boolean | undefined;
     }
 
-    export interface SettingsCallback {
+    export interface SettingsResult {
         options: RemovalOptions;
         /** All of the types will be present in the result, with values of true if they are both selected to be removed and permitted to be removed, otherwise false. */
         dataToRemove: DataTypeSet;
@@ -1022,11 +1046,28 @@ declare namespace chrome.browsingData {
     /**
      * Since Chrome 26.
      * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.
+     * @return The `settings` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function settings(): Promise<SettingsResult>;
+    /**
+     * Since Chrome 26.
+     * Reports which types of data are currently selected in the 'Clear browsing data' settings UI. Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.
      * @param callback The callback parameter should be a function that looks like this:
      * function(object result) {...};
      */
-    export function settings(callback: (result: SettingsCallback) => void): void;
+    export function settings(callback: (result: SettingsResult) => void): void;
     /**
+     * @deprecated Deprecated since Chrome 88.
+     * Support for Flash has been removed. This function has no effect.
+     *
+     * Clears plugins' data.
+     * @return The `removePluginData` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removePluginData(options: RemovalOptions): Promise<void>;
+    /**
+     * @deprecated Deprecated since Chrome 88.
+     * Support for Flash has been removed. This function has no effect.
+     *
      * Clears plugins' data.
      * @param callback Called when plugins' data has been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
@@ -1034,12 +1075,36 @@ declare namespace chrome.browsingData {
      */
     export function removePluginData(options: RemovalOptions, callback?: () => void): void;
     /**
+     * Since Chrome 72.
+     * Clears websites' service workers.
+     * @return The `removeServiceWorkers` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeServiceWorkers(options: RemovalOptions): Promise<void>;
+    /**
+     * Since Chrome 72.
+     * Clears websites' service workers.
+     * @param callback Called when the browser's service workers have been cleared.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function removeServiceWorkers(options: RemovalOptions, callback?: () => void): void;
+    /**
+     * Clears the browser's stored form data (autofill).
+     * @return The `removeFormData` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeFormData(options: RemovalOptions): Promise<void>;
+    /**
      * Clears the browser's stored form data (autofill).
      * @param callback Called when the browser's form data has been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeFormData(options: RemovalOptions, callback?: () => void): void;
+    /**
+     * Clears websites' file system data.
+     * @return The `removeFileSystems` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeFileSystems(options: RemovalOptions): Promise<void>;
     /**
      * Clears websites' file system data.
      * @param callback Called when websites' file systems have been cleared.
@@ -1050,11 +1115,22 @@ declare namespace chrome.browsingData {
     /**
      * Clears various types of browsing data stored in a user's profile.
      * @param dataToRemove The set of data types to remove.
+     * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function remove(options: RemovalOptions, dataToRemove: DataTypeSet): Promise<void>;
+    /**
+     * Clears various types of browsing data stored in a user's profile.
+     * @param dataToRemove The set of data types to remove.
      * @param callback Called when deletion has completed.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function remove(options: RemovalOptions, dataToRemove: DataTypeSet, callback?: () => void): void;
+    /**
+     * Clears the browser's stored passwords.
+     * @return The `removePasswords` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removePasswords(options: RemovalOptions): Promise<void>;
     /**
      * Clears the browser's stored passwords.
      * @param callback Called when the browser's passwords have been cleared.
@@ -1064,11 +1140,21 @@ declare namespace chrome.browsingData {
     export function removePasswords(options: RemovalOptions, callback?: () => void): void;
     /**
      * Clears the browser's cookies and server-bound certificates modified within a particular timeframe.
+     * @return The `removeCookies` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeCookies(options: RemovalOptions, callback?: () => void): Promise<void>;
+    /**
+     * Clears the browser's cookies and server-bound certificates modified within a particular timeframe.
      * @param callback Called when the browser's cookies and server-bound certificates have been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeCookies(options: RemovalOptions, callback?: () => void): void;
+    /**
+     * Clears websites' WebSQL data.
+     * @return The `removeWebSQL` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeWebSQL(options: RemovalOptions): Promise<void>;
     /**
      * Clears websites' WebSQL data.
      * @param callback Called when websites' WebSQL databases have been cleared.
@@ -1078,11 +1164,31 @@ declare namespace chrome.browsingData {
     export function removeWebSQL(options: RemovalOptions, callback?: () => void): void;
     /**
      * Clears websites' appcache data.
+     * @return The `removeAppcache` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeAppcache(options: RemovalOptions): Promise<void>;
+    /**
+     * Clears websites' appcache data.
      * @param callback Called when websites' appcache data has been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeAppcache(options: RemovalOptions, callback?: () => void): void;
+    /** Clears websites' cache storage data.
+     * @return The `removeCacheStorage` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeCacheStorage(options: RemovalOptions): Promise<void>
+    /** Clears websites' cache storage data.
+     * @param callback Called when websites' appcache data has been cleared.
+     * If you specify the callback parameter, it should be a function that looks like this:
+     * function() {...};
+     */
+    export function removeCacheStorage(options: RemovalOptions, callback?: () => void): void
+    /**
+     * Clears the browser's list of downloaded files (not the downloaded files themselves).
+     * @return The `removeDownloads` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeDownloads(options: RemovalOptions): Promise<void>
     /**
      * Clears the browser's list of downloaded files (not the downloaded files themselves).
      * @param callback Called when the browser's list of downloaded files has been cleared.
@@ -1092,11 +1198,21 @@ declare namespace chrome.browsingData {
     export function removeDownloads(options: RemovalOptions, callback?: () => void): void;
     /**
      * Clears websites' local storage data.
+     * @return The `removeLocalStorage` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeLocalStorage(options: RemovalOptions): Promise<void>;
+    /**
+     * Clears websites' local storage data.
      * @param callback Called when websites' local storage has been cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeLocalStorage(options: RemovalOptions, callback?: () => void): void;
+    /**
+     * Clears the browser's cache.
+     * @return The `removeCache` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeCache(options: RemovalOptions): Promise<void>;
     /**
      * Clears the browser's cache.
      * @param callback Called when the browser's cache has been cleared.
@@ -1106,11 +1222,21 @@ declare namespace chrome.browsingData {
     export function removeCache(options: RemovalOptions, callback?: () => void): void;
     /**
      * Clears the browser's history.
+     * @return The `removeHistory` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeHistory(options: RemovalOptions): Promise<void>;
+    /**
+     * Clears the browser's history.
      * @param callback Called when the browser's history has cleared.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeHistory(options: RemovalOptions, callback?: () => void): void;
+    /**
+     * Clears websites' IndexedDB data.
+     * @return The `removeIndexedDB` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeIndexedDB(options: RemovalOptions): Promise<void>;
     /**
      * Clears websites' IndexedDB data.
      * @param callback Called when websites' IndexedDB data has been cleared.
@@ -1140,6 +1266,11 @@ declare namespace chrome.commands {
 
     export interface CommandEvent extends chrome.events.Event<(command: string, tab: chrome.tabs.Tab) => void> { }
 
+    /**
+     * Returns all the registered extension commands for this extension and their shortcut (if active).
+     * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getAll(): Promise<Command[]>;
     /**
      * Returns all the registered extension commands for this extension and their shortcut (if active).
      * @param callback Called to return the registered commands.
@@ -1540,7 +1671,7 @@ declare namespace chrome.contextMenus {
         wasChecked?: boolean | undefined;
         /**
          * Since Chrome 35.
-         * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
+         * The URL of the page where the menu item was clicked. This property is not set if the click occurred in a context where there is no current page, such as in a launcher context menu.
          */
         pageUrl: string;
         /**
@@ -1945,6 +2076,13 @@ declare module chrome {
          * Attaches debugger to the given target.
          * @param target Debugging target to which you want to attach.
          * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
+         * @return The `attach` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         */
+         export function attach(target: Debuggee, requiredVersion: string): Promise<void>;
+        /**
+         * Attaches debugger to the given target.
+         * @param target Debugging target to which you want to attach.
+         * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
          * @param callback Called once the attach operation succeeds or fails. Callback receives no arguments. If the attach fails, runtime.lastError will be set to the error message.
          * If you specify the callback parameter, it should be a function that looks like this:
          * function() {...};
@@ -1953,11 +2091,30 @@ declare module chrome {
         /**
          * Detaches debugger from the given target.
          * @param target Debugging target from which you want to detach.
+         * @return The `detach` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         */
+        export function detach(target: Debuggee): Promise<void>;
+        /**
+         * Detaches debugger from the given target.
+         * @param target Debugging target from which you want to detach.
          * @param callback Called once the detach operation succeeds or fails. Callback receives no arguments. If the detach fails, runtime.lastError will be set to the error message.
          * If you specify the callback parameter, it should be a function that looks like this:
          * function() {...};
          */
         export function detach(target: Debuggee, callback?: () => void): void;
+        /**
+         * Sends given command to the debugging target.
+         * @param target Debugging target to which you want to send the command.
+         * @param method Method name. Should be one of the methods defined by the remote debugging protocol.
+         * @param commandParams Since Chrome 22.
+         * JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
+         * @return The `sendCommand` method provides its result via callback or returned as a `Promise` (MV3 only).
+         */
+        export function sendCommand(
+            target: Debuggee,
+            method: string,
+            commandParams?: Object,
+        ): Promise<Object>;
         /**
          * Sends given command to the debugging target.
          * @param target Debugging target to which you want to send the command.
@@ -1974,6 +2131,12 @@ declare module chrome {
             commandParams?: Object,
             callback?: (result?: Object) => void,
         ): void;
+        /**
+         * Since Chrome 28.
+         * Returns the list of available debug targets.
+         * @return The `getTargets` method provides its result via callback or returned as a `Promise` (MV3 only).
+         */
+        export function getTargets(): Promise<TargetInfo[]>;
         /**
          * Since Chrome 28.
          * Returns the list of available debug targets.
@@ -2847,10 +3010,21 @@ declare namespace chrome.downloads {
 
     /**
      * Find DownloadItem. Set query to the empty object to get all DownloadItem. To get a specific DownloadItem, set only the id field. To page through a large number of items, set orderBy: ['-startTime'], set limit to the number of items per page, and set startedAfter to the startTime of the last item from the last page.
+     * @return The `search` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function search(query: DownloadQuery): Promise<DownloadItem[]>;
+    /**
+     * Find DownloadItem. Set query to the empty object to get all DownloadItem. To get a specific DownloadItem, set only the id field. To page through a large number of items, set orderBy: ['-startTime'], set limit to the number of items per page, and set startedAfter to the startTime of the last item from the last page.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of DownloadItem results) {...};
      */
     export function search(query: DownloadQuery, callback: (results: DownloadItem[]) => void): void;
+    /**
+     * Pause the download. If the request was successful the download is in a paused state. Otherwise runtime.lastError contains an error message. The request will fail if the download is not active.
+     * @param downloadId The id of the download to pause.
+     * @return The `pause` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function pause(downloadId: number): Promise<void>;
     /**
      * Pause the download. If the request was successful the download is in a paused state. Otherwise runtime.lastError contains an error message. The request will fail if the download is not active.
      * @param downloadId The id of the download to pause.
@@ -2859,6 +3033,12 @@ declare namespace chrome.downloads {
      * function() {...};
      */
     export function pause(downloadId: number, callback?: () => void): void;
+    /**
+     * Retrieve an icon for the specified download. For new downloads, file icons are available after the onCreated event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, runtime.lastError will contain an error message.
+     * @param downloadId The identifier for the download.
+     * @return The `getFileIcon` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getFileIcon(downloadId: number, options?: GetFileIconOptions): Promise<string>;
     /**
      * Retrieve an icon for the specified download. For new downloads, file icons are available after the onCreated event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, runtime.lastError will contain an error message.
      * @param downloadId The identifier for the download.
@@ -2882,6 +3062,12 @@ declare namespace chrome.downloads {
     /**
      * Resume a paused download. If the request was successful the download is in progress and unpaused. Otherwise runtime.lastError contains an error message. The request will fail if the download is not active.
      * @param downloadId The id of the download to resume.
+     * @return The `resume` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function resume(downloadId: number): Promise<void>;
+    /**
+     * Resume a paused download. If the request was successful the download is in progress and unpaused. Otherwise runtime.lastError contains an error message. The request will fail if the download is not active.
+     * @param downloadId The id of the download to resume.
      * @param callback  Called when the resume request is completed.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
@@ -2890,11 +3076,23 @@ declare namespace chrome.downloads {
     /**
      * Cancel a download. When callback is run, the download is cancelled, completed, interrupted or doesn't exist anymore.
      * @param downloadId The id of the download to cancel.
+     * @return The `cancel` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function cancel(downloadId: number): Promise<void>;
+    /**
+     * Cancel a download. When callback is run, the download is cancelled, completed, interrupted or doesn't exist anymore.
+     * @param downloadId The id of the download to cancel.
      * @param callback Called when the cancel request is completed.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function cancel(downloadId: number, callback?: () => void): void;
+    /**
+     * Download a URL. If the URL uses the HTTP[S] protocol, then the request will include all cookies currently set for its hostname. If both filename and saveAs are specified, then the Save As dialog will be displayed, pre-populated with the specified filename. If the download started successfully, callback will be called with the new DownloadItem's downloadId. If there was an error starting the download, then callback will be called with downloadId=undefined and runtime.lastError will contain a descriptive string. The error strings are not guaranteed to remain backwards compatible between releases. Extensions must not parse it.
+     * @param options What to download and how.
+     * @return The `download` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function download(options: DownloadOptions): Promise<number>;
     /**
      * Download a URL. If the URL uses the HTTP[S] protocol, then the request will include all cookies currently set for its hostname. If both filename and saveAs are specified, then the Save As dialog will be displayed, pre-populated with the specified filename. If the download started successfully, callback will be called with the new DownloadItem's downloadId. If there was an error starting the download, then callback will be called with downloadId=undefined and runtime.lastError will contain a descriptive string. The error strings are not guaranteed to remain backwards compatible between releases. Extensions must not parse it.
      * @param options What to download and how.
@@ -2917,16 +3115,32 @@ declare namespace chrome.downloads {
     export function showDefaultFolder(): void;
     /**
      * Erase matching DownloadItem from history without deleting the downloaded file. An onErased event will fire for each DownloadItem that matches query, then callback will be called.
+     * @return The `erase` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function erase(query: DownloadQuery): Promise<number[]>;
+    /**
+     * Erase matching DownloadItem from history without deleting the downloaded file. An onErased event will fire for each DownloadItem that matches query, then callback will be called.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(array of integer erasedIds) {...};
      */
     export function erase(query: DownloadQuery, callback: (erasedIds: number[]) => void): void;
     /**
      * Remove the downloaded file if it exists and the DownloadItem is complete; otherwise return an error through runtime.lastError.
+     * @return The `removeFile` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function removeFile(downloadId: number): Promise<void>;
+    /**
+     * Remove the downloaded file if it exists and the DownloadItem is complete; otherwise return an error through runtime.lastError.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function removeFile(downloadId: number, callback?: () => void): void;
+    /**
+     * Prompt the user to accept a dangerous download. Can only be called from a visible context (tab, window, or page/browser action popup). Does not automatically accept dangerous downloads. If the download is accepted, then an onChanged event will fire, otherwise nothing will happen. When all the data is fetched into a temporary file and either the download is not dangerous or the danger has been accepted, then the temporary file is renamed to the target filename, the |state| changes to 'complete', and onChanged fires.
+     * @param downloadId The identifier for the DownloadItem.
+     * @return The `acceptDanger` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function acceptDanger(downloadId: number): Promise<void>;
     /**
      * Prompt the user to accept a dangerous download. Can only be called from a visible context (tab, window, or page/browser action popup). Does not automatically accept dangerous downloads. If the download is accepted, then an onChanged event will fire, otherwise nothing will happen. When all the data is fetched into a temporary file and either the download is not dangerous or the danger has been accepted, then the temporary file is renamed to the target filename, the |state| changes to 'complete', and onChanged fires.
      * @param downloadId The identifier for the DownloadItem.
@@ -3207,15 +3421,8 @@ declare namespace chrome.events {
         originAndPathMatches?: string | undefined;
     }
 
-    /** An object which allows the addition and removal of listeners for a Chrome event. */
-    export interface Event<T extends Function> {
-        /**
-         * Registers an event listener callback to an event.
-         * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
-         * The callback parameter should be a function that looks like this:
-         * function() {...};
-         */
-        addListener(callback: T): void;
+    export interface BaseEvent<T extends Function> {
+        addListener(callback: T, filter?: webRequest.RequestFilter): void;
         /**
          * Returns currently registered rules.
          * @param callback Called with registered rules.
@@ -3269,6 +3476,20 @@ declare namespace chrome.events {
          */
         removeListener(callback: T): void;
         hasListeners(): boolean;
+    }
+
+    /** An object which allows the addition and removal of listeners for a Chrome event. */
+    interface Event<T extends Function> extends BaseEvent<T> {
+        /**
+         * Registers an event listener callback to an event.
+         * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
+         * The callback parameter should be a function that looks like this:
+         * function() {...};
+         */
+        addListener(callback: T): void;
+    }
+    export interface EventWithRequiredFilterInAddListener<T extends Function> extends BaseEvent<T> {
+        addListener(callback: T, filter: webRequest.RequestFilter): void;
     }
 
     /** Description of a declarative rule for handling events. */
@@ -3327,7 +3548,7 @@ declare namespace chrome.extension {
      * True for content scripts running inside incognito tabs, and for extension pages running inside an incognito process. The latter only applies to extensions with 'split' incognito_behavior.
      */
     export var inIncognitoContext: boolean;
-    /** Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be undefined. */
+    /** Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occurred lastError will be undefined. */
     export var lastError: LastError;
 
     /** Returns the JavaScript 'window' object for the background page running inside the current extension. Returns null if the extension has no background page. */
@@ -3347,11 +3568,23 @@ declare namespace chrome.extension {
     /**
      * Retrieves the state of the extension's access to the 'file://' scheme (as determined by the user-controlled 'Allow access to File URLs' checkbox.
      * Since Chrome 12.
+     * @return The `isAllowedFileSchemeAccess` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function isAllowedFileSchemeAccess(): Promise<boolean>;
+    /**
+     * Retrieves the state of the extension's access to the 'file://' scheme (as determined by the user-controlled 'Allow access to File URLs' checkbox.
+     * Since Chrome 12.
      * @param callback The callback parameter should be a function that looks like this:
      * function(boolean isAllowedAccess) {...};
      * Parameter isAllowedAccess: True if the extension can access the 'file://' scheme, false otherwise.
      */
     export function isAllowedFileSchemeAccess(callback: (isAllowedAccess: boolean) => void): void;
+    /**
+     * Retrieves the state of the extension's access to Incognito-mode (as determined by the user-controlled 'Allowed in Incognito' checkbox.
+     * Since Chrome 12.
+     * @return The `isAllowedIncognitoAccess` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function isAllowedIncognitoAccess(): Promise<boolean>;
     /**
      * Retrieves the state of the extension's access to Incognito-mode (as determined by the user-controlled 'Allowed in Incognito' checkbox.
      * Since Chrome 12.
@@ -3913,7 +4146,13 @@ declare namespace chrome.fontSettings {
 
     export interface FontDetails {
         /** The generic font family for the font. */
-        genericFamily: string;
+        genericFamily:
+            | 'cursive'
+            | 'fantasy'
+            | 'fixed'
+            | 'sansserif'
+            | 'serif'
+            | 'standard';
         /** Optional. The script for the font. If omitted, the global script font setting is affected.  */
         script?: string | undefined;
     }
@@ -3963,16 +4202,32 @@ declare namespace chrome.fontSettings {
 
     /**
      * Sets the default font size.
+     * @return The `setDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setDefaultFontSize(details: DefaultFontSizeDetails): Promise<void>
+    /**
+     * Sets the default font size.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function setDefaultFontSize(details: DefaultFontSizeDetails, callback?: Function): void;
     /**
      * Gets the font for a given script and generic font family.
+     * @return The `getFont` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getFont(details: FontDetails): Promise<FontDetailsResult>
+    /**
+     * Gets the font for a given script and generic font family.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(object details) {...};
      */
     export function getFont(details: FontDetails, callback?: (details: FontDetailsResult) => void): void;
+    /**
+     * Gets the default font size.
+     * @param details This parameter is currently unused.
+     * @return The `getDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getDefaultFontSize(details?: Object): Promise<FontSizeDetails>;
     /**
      * Gets the default font size.
      * @param details This parameter is currently unused.
@@ -3983,16 +4238,33 @@ declare namespace chrome.fontSettings {
     /**
      * Gets the minimum font size.
      * @param details This parameter is currently unused.
+     * @return The `getMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getMinimumFontSize(details?: object): Promise<FontSizeDetails>;
+    /**
+     * Gets the minimum font size.
+     * @param details This parameter is currently unused.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(object details) {...};
      */
-    export function getMinimumFontSize(details?: FontSizeDetails, callback?: (options: FontSizeDetails) => void): void;
+    export function getMinimumFontSize(details?: object, callback?: (options: FontSizeDetails) => void): void;
+    /**
+     * Sets the minimum font size.
+     * @return The `setMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setMinimumFontSize(details: SetFontSizeDetails): Promise<void>;
     /**
      * Sets the minimum font size.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function setMinimumFontSize(details: SetFontSizeDetails, callback?: Function): void;
+    /**
+     * Gets the default size for fixed width fonts.
+     * @param details This parameter is currently unused.
+     * @return The `getDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getDefaultFixedFontSize(details?: Object): Promise<FontSizeDetails>;
     /**
      * Gets the default size for fixed width fonts.
      * @param details This parameter is currently unused.
@@ -4003,10 +4275,21 @@ declare namespace chrome.fontSettings {
     /**
      * Clears the default font size set by this extension, if any.
      * @param details This parameter is currently unused.
+     * @return The `clearDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function clearDefaultFontSize(details?: Object): Promise<void>;
+    /**
+     * Clears the default font size set by this extension, if any.
+     * @param details This parameter is currently unused.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function clearDefaultFontSize(details?: Object, callback?: Function): void;
+    /**
+     * Sets the default size for fixed width fonts.
+     * @return The `setDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setDefaultFixedFontSize(details: SetFontSizeDetails): Promise<void>;
     /**
      * Sets the default size for fixed width fonts.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -4015,10 +4298,20 @@ declare namespace chrome.fontSettings {
     export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback?: Function): void;
     /**
      * Clears the font set by this extension, if any.
+     * @return The `clearFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function clearFont(details: FontDetails): Promise<void>;
+    /**
+     * Clears the font set by this extension, if any.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function clearFont(details: FontDetails, callback?: Function): void;
+    /**
+     * Sets the font for a given script and generic font family.
+     * @return The `setFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function setFont(details: SetFontDetails): Promise<void>;
     /**
      * Sets the font for a given script and generic font family.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -4028,16 +4321,33 @@ declare namespace chrome.fontSettings {
     /**
      * Clears the minimum font size set by this extension, if any.
      * @param details This parameter is currently unused.
+     * @return The `clearMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function clearMinimumFontSize(details?: Object): Promise<void>;
+    /**
+     * Clears the minimum font size set by this extension, if any.
+     * @param details This parameter is currently unused.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
     export function clearMinimumFontSize(details?: Object, callback?: Function): void;
     /**
      * Gets a list of fonts on the system.
+     * @return The `getFontList` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getFontList(): Promise<FontName[]>;
+    /**
+     * Gets a list of fonts on the system.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of FontName results) {...};
      */
-    export function getFontList(callback: (results: FontName[]) => void): void;
+    export function getFontList(callback?: (results: FontName[]) => void): void;
+    /**
+     * Clears the default fixed font size set by this extension, if any.
+     * @param details This parameter is currently unused.
+     * @return The `clearDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function clearDefaultFixedFontSize(details: Object): Promise<void>;
     /**
      * Clears the default fixed font size set by this extension, if any.
      * @param details This parameter is currently unused.
@@ -4219,10 +4529,20 @@ declare namespace chrome.history {
 
     /**
      * Searches the history for the last visit time of each page matching the query.
+     * @return The `search` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function search(query: HistoryQuery): Promise<HistoryItem[]>;
+    /**
+     * Searches the history for the last visit time of each page matching the query.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of HistoryItem results) {...};
      */
-    export function search(query: HistoryQuery, callback: (results: HistoryItem[]) => void): void;
+    export function search(query: HistoryQuery, callback?: (results: HistoryItem[]) => void): void;
+    /**
+     * Adds a URL to the history at the current time with a transition type of "link".
+     * @return The `addUrl` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function addUrl(details: Url): Promise<void>;
     /**
      * Adds a URL to the history at the current time with a transition type of "link".
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -4231,10 +4551,20 @@ declare namespace chrome.history {
     export function addUrl(details: Url, callback?: () => void): void;
     /**
      * Removes all items within the specified date range from the history. Pages will not be removed from the history unless all visits fall within the range.
+     * @return The `deleteRange` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function deleteRange(range: Range): Promise<void>;
+    /**
+     * Removes all items within the specified date range from the history. Pages will not be removed from the history unless all visits fall within the range.
      * @param callback The callback parameter should be a function that looks like this:
      * function() {...};
      */
-    export function deleteRange(range: Range, callback: () => void): void;
+    export function deleteRange(range: Range, callback?: () => void): void;
+    /**
+     * Deletes all items from the history.
+     * @return The `deleteAll` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function deleteAll(): Promise<void>;
     /**
      * Deletes all items from the history.
      * @param callback The callback parameter should be a function that looks like this:
@@ -4243,10 +4573,20 @@ declare namespace chrome.history {
     export function deleteAll(callback: () => void): void;
     /**
      * Retrieves information about visits to a URL.
+     * @return The `getVisits` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getVisits(details: Url): Promise<VisitItem[]>;
+    /**
+     * Retrieves information about visits to a URL.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of VisitItem results) {...};
      */
     export function getVisits(details: Url, callback: (results: VisitItem[]) => void): void;
+    /**
+     * Removes all occurrences of the given URL from the history.
+     * @return The `deleteUrl` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function deleteUrl(details: Url): Promise<void>;
     /**
      * Removes all occurrences of the given URL from the history.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -4290,6 +4630,12 @@ declare namespace chrome.i18n {
 
     /**
      * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
+     * @return The `getAcceptLanguages` method provides its result via callback or returned as a `Promise` (MV3 only).
+     * @since MV3
+     */
+    export function getAcceptLanguages(): Promise<string[]>;
+    /**
+     * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
      * @param callback The callback parameter should be a function that looks like this:
      * function(array of string languages) {...};
      * Parameter languages: Array of the accept languages of the browser, such as en-US,en,zh-CN
@@ -4307,6 +4653,12 @@ declare namespace chrome.i18n {
      */
     export function getUILanguage(): string;
 
+    /** Detects the language of the provided text using CLD.
+     * @param text User input string to be translated.
+     * @return The `detectLanguage` method provides its result via callback or returned as a `Promise` (MV3 only).
+     * @since MV3
+     */
+    export function detectLanguage(text: string): Promise<LanguageDetectionResult>;
     /** Detects the language of the provided text using CLD.
      * @param text User input string to be translated.
      * @param callback The callback parameter should be a function that looks like this: function(object result) {...};
@@ -5785,7 +6137,7 @@ declare namespace chrome.pageCapture {
      * function(binary mhtmlData) {...};
      * Parameter mhtmlData: The MHTML data as a Blob.
      */
-    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: ArrayBuffer) => void): void;
+    export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: Blob) => void): void;
 }
 
 ////////////////////
@@ -7036,57 +7388,102 @@ declare namespace chrome.runtime {
      */
     export function restart(): void;
     /**
+     * Restart the ChromeOS device when the app runs in kiosk mode after the
+     * given seconds. If called again before the time ends, the reboot will
+     * be delayed. If called with a value of -1, the reboot will be
+     * cancelled. It's a no-op in non-kiosk mode. It's only allowed to be
+     * called repeatedly by the first extension to invoke this API.
+     * @since Chrome 53.
+     * @param seconds
+     * @param callback
+     */
+    export function restartAfterDelay(seconds: number, callback?: () => void): void;
+    /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 26.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage<M = any, R = any>(message: M, responseCallback?: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendMessage<M = any, R = any>(
         message: M,
         options: MessageOptions,
-        responseCallback?: (response: R) => void,
+        responseCallback: (response: R) => void,
     ): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 26.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage<M = any, R = any>(extensionId: string, message: M, responseCallback?: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(extensionId: string, message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendMessage<Message = any, Response = any>(
         extensionId: string,
         message: Message,
         options: MessageOptions,
-        responseCallback?: (response: Response) => void,
+        responseCallback: (response: Response) => void,
+    ): void;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 26.
+     */
+    export function sendMessage<M = any, R = any>(message: M): Promise<R>;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 32.
+     */
+    export function sendMessage<M = any, R = any>(
+        message: M,
+        options: MessageOptions,
+    ): Promise<R>;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 26.
+     * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+     */
+    export function sendMessage<M = any, R = any>(extensionId: string, message: M): Promise<R>;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 32.
+     * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+     */
+    export function sendMessage<Message = any, Response = any>(
+        extensionId: string,
+        message: Message,
+        options: MessageOptions,
+    ): Promise<Response>;
+    /**
+     * Send a single message to a native application.
+     * @since Chrome 28.
+     * @param application The of the native messaging host.
+     * @param message The message that will be passed to the native messaging host.
+     * Parameter response: The response message sent by the native messaging host. If an error occurs while connecting to the native messaging host, the callback will be called with no arguments and runtime.lastError will be set to the error message.
+     */
+    export function sendNativeMessage(
+        application: string,
+        message: Object,
+        responseCallback: (response: any) => void,
     ): void;
     /**
      * Send a single message to a native application.
      * @since Chrome 28.
      * @param application The of the native messaging host.
      * @param message The message that will be passed to the native messaging host.
-     * @param responseCallback Optional.
-     * Parameter response: The response message sent by the native messaging host. If an error occurs while connecting to the native messaging host, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendNativeMessage(
         application: string,
         message: Object,
-        responseCallback?: (response: any) => void,
-    ): void;
+    ): Promise<any>;
     /**
      * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
      * @since Chrome 41.
@@ -10441,41 +10838,42 @@ declare namespace chrome.webRequest {
     }
 
     export interface WebRequestBodyEvent
-        extends chrome.events.Event<(details: WebRequestBodyDetails) => BlockingResponse | void> {
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestBodyDetails) => BlockingResponse | void> {
         addListener(
             callback: (details: WebRequestBodyDetails) => BlockingResponse | void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
 
     export interface WebRequestHeadersSynchronousEvent
-        extends chrome.events.Event<(details: WebRequestHeadersDetails) => BlockingResponse | void> {
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestHeadersDetails) => BlockingResponse | void> {
         addListener(
             callback: (details: WebRequestHeadersDetails) => BlockingResponse | void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
 
-    export interface WebRequestHeadersEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => void> {
+    export interface WebRequestHeadersEvent
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestHeadersDetails) => void> {
         addListener(
             callback: (details: WebRequestHeadersDetails) => void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
 
     export interface _WebResponseHeadersEvent<T extends WebResponseHeadersDetails>
-        extends chrome.events.Event<(details: T) => void> {
-        addListener(callback: (details: T) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: T) => void> {
+        addListener(callback: (details: T) => void, filter: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     export interface WebResponseHeadersEvent
-        extends chrome.events.Event<(details: WebResponseHeadersDetails) => BlockingResponse | void> {
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebResponseHeadersDetails) => BlockingResponse | void> {
         addListener(
             callback: (details: WebResponseHeadersDetails) => BlockingResponse | void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
@@ -10485,7 +10883,7 @@ declare namespace chrome.webRequest {
     export interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> { }
 
     export interface WebAuthenticationChallengeEvent
-        extends chrome.events.Event<
+        extends chrome.events.EventWithRequiredFilterInAddListener<
         (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void
         > {
         addListener(
@@ -10493,7 +10891,7 @@ declare namespace chrome.webRequest {
                 details: WebAuthenticationChallengeDetails,
                 callback?: (response: BlockingResponse) => void,
             ) => void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }

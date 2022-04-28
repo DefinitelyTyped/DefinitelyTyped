@@ -5,10 +5,7 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strict": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +15,7 @@
         },
         "types": [],
         "noEmit": true,
+        "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [

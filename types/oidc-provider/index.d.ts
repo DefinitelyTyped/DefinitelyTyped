@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.8
+// Type definitions for oidc-provider 7.11
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1054,11 +1054,6 @@ export interface Configuration {
         } | undefined;
 
         jwtIntrospection?: {
-            enabled?: boolean | undefined;
-            ack?: string | undefined;
-        } | undefined;
-
-        issAuthResp?: {
             enabled?: boolean | undefined;
             ack?: string | undefined;
         } | undefined;
@@ -2130,5 +2125,8 @@ export namespace errors {
     }
     class WebMessageUriMismatch extends OIDCProviderError {
         constructor(description?: string, detail?: string);
+    }
+    class CustomOIDCProviderError extends OIDCProviderError {
+        constructor(message: string, description?: string);
     }
 }

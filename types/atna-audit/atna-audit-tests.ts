@@ -70,5 +70,7 @@ atna.send.sendAuditEvent(syslog, {
         key: 'key',
         cert: 'cert',
         ca: 'ca',
+        enableTrace: true,
+        checkServerIdentity: (servername, cert) => undefined,
     },
 });

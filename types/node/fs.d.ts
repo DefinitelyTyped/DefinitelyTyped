@@ -2233,6 +2233,23 @@ declare module 'fs' {
      */
     export function writeSync(fd: number, string: string, position?: number | null, encoding?: BufferEncoding | null): number;
     export type ReadPosition = number | bigint;
+    export interface ReadSyncOptions {
+        /**
+         * @default 0
+         */
+        offset?: number | undefined;
+        /**
+         * @default `length of buffer`
+         */
+        length?: number | undefined;
+        /**
+         * @default null
+         */
+        position?: ReadPosition | null | undefined;
+    }
+    export interface ReadAsyncOptions<TBuffer extends NodeJS.ArrayBufferView> extends ReadSyncOptions {
+        buffer?: TBuffer;
+    }
     /**
      * Read data from the file specified by `fd`.
      *
@@ -2258,6 +2275,24 @@ declare module 'fs' {
         position: ReadPosition | null,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
     ): void;
+    /**
+     * Similar to the above `fs.read` function, this version takes an optional `options` object.
+     * If not otherwise specified in an `options` object,
+     * `buffer` defaults to `Buffer.alloc(16384)`,
+     * `offset` defaults to `0`,
+     * `length` defaults to `buffer.byteLength`, `- offset` as of Node 17.6.0
+     * `position` defaults to `null`
+     * @since v12.17.0, 13.11.0
+     */
+    export function read<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        options: ReadAsyncOptions<TBuffer>,
+        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
+    ): void;
+    export function read(
+        fd: number,
+        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => void
+    ): void;
     export namespace read {
         /**
          * @param fd A file descriptor.
@@ -2276,20 +2311,19 @@ declare module 'fs' {
             bytesRead: number;
             buffer: TBuffer;
         }>;
-    }
-    export interface ReadSyncOptions {
-        /**
-         * @default 0
-         */
-        offset?: number | undefined;
-        /**
-         * @default `length of buffer`
-         */
-        length?: number | undefined;
-        /**
-         * @default null
-         */
-        position?: ReadPosition | null | undefined;
+        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
+            fd: number,
+            options: ReadAsyncOptions<TBuffer>
+        ): Promise<{
+            bytesRead: number;
+            buffer: TBuffer;
+        }>;
+        function __promisify__(
+            fd: number
+        ): Promise<{
+            bytesRead: number;
+            buffer: NodeJS.ArrayBufferView;
+        }>;
     }
     /**
      * Returns the number of `bytesRead`.

@@ -1,4 +1,4 @@
-// Type definitions for gestalt 41.0
+// Type definitions for gestalt 50.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -38,6 +38,11 @@ export interface OnNavigationArgs {
 export type OnNavigationType = (args: OnNavigationArgs) => EventHandlerType | null | undefined;
 export type UnsignedUpTo12 = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type SignedUpTo12 = -12 | -11 | -10 | -9 | -8 | -7 | -6 | -5 | -4 | -3 | -2 | -1 | UnsignedUpTo12;
+
+export interface BadgeObject {
+    text: string;
+    type?: 'info' | 'error' | 'warning' | 'success' | 'neutral' | 'darkWash' | 'lightWash' | undefined;
+}
 
 /**
  * ActivationCard Props Interface
@@ -124,6 +129,7 @@ export interface AvatarPairProps {
 export interface BadgeProps {
     text: string;
     position?: 'middle' | 'top' | undefined;
+    type?: 'info' | 'error' | 'warning' | 'success' | 'neutral' | 'darkWash' | 'lightWash' | undefined;
 }
 
 export type BoxPassthroughProps = Omit<React.ComponentProps<'div'>, 'onClick' | 'className' | 'style' | 'ref'> &
@@ -156,7 +162,7 @@ export interface BoxProps extends BoxPassthroughProps {
         | 'section'
         | 'summary'
         | undefined;
-    borderStyle?: 'sm' | 'lg' | 'shadow' | 'none' | undefined;
+    borderStyle?: 'sm' | 'lg' | 'shadow' | 'raisedTopShadow' | 'raisedBottomShadow' | 'none' | undefined;
     bottom?: boolean | undefined;
     children?: React.ReactNode | undefined;
     color?:
@@ -181,6 +187,23 @@ export interface BoxProps extends BoxPassthroughProps {
         | 'transparentDarkGray'
         | 'watermelon'
         | 'white'
+        | 'infoBase'
+        | 'infoWeak'
+        | 'errorBase'
+        | 'errorWeak'
+        | 'warningBase'
+        | 'warningWeak'
+        | 'successBase'
+        | 'successWeak'
+        | 'shopping'
+        | 'primary'
+        | 'secondary'
+        | 'tertiary'
+        | 'selected'
+        | 'inverse'
+        | 'brand'
+        | 'education'
+        | 'elevationAccent'
         | undefined;
     column?: UnsignedUpTo12 | undefined;
     smColumn?: UnsignedUpTo12 | undefined;
@@ -397,10 +420,10 @@ export interface ComboBoxProps {
     helperText?: string;
     inputValue?: string;
     labelDisplay?: 'visible' | 'hidden';
-    onChange?: (args: { value: string; event: React.SyntheticEvent<HTMLInputElement> }) => void;
-    onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    onFocus?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    onKeyDown?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onChange?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onBlur?: (args: { event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
+    onFocus?: (args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void;
+    onKeyDown?: (args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void;
     onClear?: () => void;
     onSelect?: (args: {
         event: React.SyntheticEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
@@ -466,6 +489,7 @@ export interface DatapointProps {
     tooltipText?: string | undefined;
     trend?: { accesibilityLabel: string; value: number } | undefined;
     trendSentiment?: 'good' | 'bad' | 'neutral' | 'auto' | undefined;
+    badge?: BadgeObject | undefined;
 }
 
 /**
@@ -530,7 +554,7 @@ export interface DropdownItemProps {
     /**
      * When supplied, will display a Badge next to the item's label.
      */
-    badgeText?: string | undefined;
+    badge?: BadgeObject | undefined;
 
     /**
      * When supplied, will add a data-test-id prop to the dom element.
@@ -553,7 +577,7 @@ export interface DropdownLinkProps {
     /**
      * When supplied, will display a Badge next to the item's label.
      */
-    badgeText?: string | undefined;
+    badge?: BadgeObject | undefined;
     children?: React.ReactNode;
     /**
      * When supplied, will add a data-test-id prop to the dom element.
@@ -632,28 +656,21 @@ export interface HeaderProps {
     align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight' | undefined;
     children?: React.ReactNode | undefined;
     color?:
-        | 'blue'
-        | 'darkGray'
-        | 'eggplant'
-        | 'gray'
-        | 'green'
-        | 'lightGray'
-        | 'maroon'
-        | 'midnight'
-        | 'navy'
-        | 'olive'
-        | 'orange'
-        | 'orchid'
-        | 'pine'
-        | 'purple'
-        | 'red'
-        | 'watermelon'
-        | 'white'
+        | 'default'
+        | 'subtle'
+        | 'success'
+        | 'error'
+        | 'warning'
+        | 'shopping'
+        | 'inverse'
+        | 'light'
+        | 'dark'
         | undefined;
     id?: string | undefined;
     overflow?: 'normal' | 'breakWord' | undefined;
-    size?: 'sm' | 'md' | 'lg' | undefined;
+    size?: '100' | '200' | '300' | '400' | '500' | '600' | 'sm' | 'md' | 'lg' | undefined;
     truncate?: boolean | undefined;
+    lineClamp?: number | undefined;
 }
 
 export type Icons =
@@ -857,6 +874,16 @@ export interface IconProps {
         | 'red'
         | 'watermelon'
         | 'white'
+        | 'default'
+        | 'subtle'
+        | 'success'
+        | 'error'
+        | 'warning'
+        | 'inverse'
+        | 'shopping'
+        | 'brandPrimary'
+        | 'light'
+        | 'dark'
         | undefined;
     dangerouslySetSvgPath?: { __path: string } | undefined;
     icon?: Icons | undefined;
@@ -896,6 +923,8 @@ export interface IconButtonProps {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | undefined;
     tabIndex?: -1 | 0 | undefined;
     target?: null | 'self' | 'blank' | undefined;
+    tooltip?: Pick<TooltipProps, 'accessibilityLabel' | 'inline' | 'idealDirection' | 'text' | 'zIndex'> | undefined;
+    type?: 'submit' | 'button' | undefined;
 }
 
 /**
@@ -906,6 +935,7 @@ export interface ImageProps {
     alt: string;
     color: string;
     crossOrigin?: 'anonymous' | 'use-credentials' | undefined;
+    decoding?: 'sync' | 'async' | 'auto';
     elementTiming?: string | undefined;
     naturalHeight: number;
     naturalWidth: number;
@@ -1037,7 +1067,7 @@ export interface ModalProps {
     footer?: React.ReactNode | undefined;
     heading?: React.ReactNode | undefined;
     role?: 'alertdialog' | 'dialog' | undefined;
-    size?: 'sm' | 'md' | 'lg' | number | undefined;
+    size?: 'sm' | 'md' | 'lg' | '100' | '200' | '300' | '400' | '500' | '600' | undefined;
     /**
      * Only renders with `heading` strings
      */
@@ -1050,7 +1080,7 @@ export interface ModalProps {
  */
 export interface ModuleProps {
     id: string;
-    badgeText?: string | undefined;
+    badge?: BadgeObject | undefined;
     icon?: Icons | undefined;
     iconAccessibilityLabel?: string | undefined;
     iconButton?: React.ReactElement<typeof IconButton> | undefined;
@@ -1069,10 +1099,12 @@ export interface ModuleExpandableProps {
     items: ReadonlyArray<{
         title: string;
         icon?: Icons | undefined;
+        iconButton?: React.ReactElement<typeof IconButton> | undefined;
         summary?: ReadonlyArray<string> | undefined;
         type?: 'info' | 'error' | undefined;
         iconAccessibilityLabel?: string | undefined;
         children?: React.ReactNode | undefined;
+        badge?: BadgeObject | undefined;
     }>;
     expandedIndex?: number | null | undefined;
     onExpandedChange?: ((expandedIndex: number | null) => void) | undefined;
@@ -1130,7 +1162,7 @@ export interface NumberFieldProps {
      */
     onBlur?:
         | ((args: {
-              event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>;
+              event: React.FocusEvent<HTMLInputElement>;
               value: number | undefined;
           }) => void)
         | undefined;
@@ -1139,7 +1171,7 @@ export interface NumberFieldProps {
      */
     onFocus?:
         | ((args: {
-              event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>;
+              event: React.FocusEvent<HTMLInputElement>;
               value: number | undefined;
           }) => void)
         | undefined;
@@ -1148,7 +1180,7 @@ export interface NumberFieldProps {
      */
     onKeyDown?:
         | ((args: {
-              event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>;
+              event: React.KeyboardEvent<HTMLInputElement>;
               value: number | undefined;
           }) => void)
         | undefined;
@@ -1215,7 +1247,7 @@ export interface PogProps {
  * https://gestalt.netlify.app/Popover
  */
 export interface PopoverProps {
-    anchor: HTMLElement; // ideally a HTMLAnchorElement
+    anchor: HTMLElement | null | undefined; // ideally a HTMLAnchorElement
     onDismiss: () => void;
     children?: React.ReactNode | undefined;
     color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray' | undefined;
@@ -1225,6 +1257,7 @@ export interface PopoverProps {
     shouldFocus?: boolean | undefined;
     showCaret?: boolean | undefined;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number | undefined;
+    onKeyDown?: AbstractEventHandler<React.KeyboardEvent<HTMLElement>>;
 }
 
 /**
@@ -1283,12 +1316,12 @@ export interface SearchFieldProps {
     accessibilityLabel: string;
     accessibilityClearButtonLabel?: string;
     id: string;
-    onChange: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     autoComplete?: 'on' | 'off' | 'username' | 'name' | undefined;
     errorMessage?: string | undefined;
+    onChange: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     onBlur?: ((args: { event: React.SyntheticEvent<HTMLInputElement> }) => void) | undefined;
     onFocus?: ((args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void) | undefined;
-    onKeyDown?: ((args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void) | undefined;
+    onKeyDown?: ((args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void) | undefined;
     placeholder?: string | undefined;
     size?: 'md' | 'lg' | undefined;
     value?: string | undefined;
@@ -1304,7 +1337,6 @@ export interface SegmentedControlProps {
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeIndex: number }) => void;
     selectedItemIndex: number;
     responsive?: boolean | undefined;
-    size?: 'md' | 'lg' | undefined;
 }
 
 /**
@@ -1319,6 +1351,7 @@ export interface SelectListProps {
     errorMessage?: string | undefined;
     helperText?: string | undefined;
     label?: string | undefined;
+    labelDisplay?: 'visible' | 'hidden';
     name?: string | undefined;
     placeholder?: string | undefined;
     size?: 'md' | 'lg' | undefined;
@@ -1579,31 +1612,25 @@ export interface TextProps {
     align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight' | undefined;
     children?: React.ReactNode | undefined;
     color?:
-        | 'blue'
-        | 'darkGray'
-        | 'eggplant'
-        | 'gray'
-        | 'green'
-        | 'lightGray'
-        | 'maroon'
-        | 'midnight'
-        | 'navy'
-        | 'olive'
-        | 'orange'
-        | 'orchid'
-        | 'pine'
-        | 'purple'
-        | 'red'
-        | 'watermelon'
-        | 'white'
+        | 'default'
+        | 'subtle'
+        | 'success'
+        | 'error'
+        | 'warning'
+        | 'shopping'
+        | 'link'
+        | 'inverse'
+        | 'light'
+        | 'dark'
         | undefined;
     inline?: boolean | undefined;
     italic?: boolean | undefined;
     overflow?: 'normal' | 'breakWord' | 'noWrap' | undefined;
-    size?: 'sm' | 'md' | 'lg' | undefined;
+    size?: 'sm' | 'md' | 'lg' | '100' | '200' | '300' | '400' | '500' | '600' | undefined;
     lineClamp?: number;
     underline?: boolean | undefined;
     weight?: 'bold' | 'normal' | undefined;
+    title?: string | undefined;
 }
 
 /**
@@ -1618,9 +1645,9 @@ export interface TextAreaProps {
     helperText?: string | undefined;
     label?: string | undefined;
     name?: string | undefined;
-    onBlur?: ((args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
-    onFocus?: ((args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
-    onKeyDown?: ((args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
+    onBlur?: ((args: { event: React.FocusEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
+    onFocus?: ((args: { event: React.FocusEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
+    onKeyDown?: ((args: { event: React.KeyboardEvent<HTMLTextAreaElement>; value: string }) => void) | undefined;
     placeholder?: string | undefined;
     /**
      * Number of text rows to display.
@@ -1632,6 +1659,7 @@ export interface TextAreaProps {
      */
     tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
     value?: string | undefined;
+    readonly?: boolean;
 }
 
 /**
@@ -1654,13 +1682,13 @@ export interface TextFieldProps {
     label?: string | undefined;
     name?: string | undefined;
     onBlur?:
-        | ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void)
+        | ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void)
         | undefined;
     onFocus?:
-        | ((args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void)
+        | ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void)
         | undefined;
     onKeyDown?:
-        | ((args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: string }) => void)
+        | ((args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void)
         | undefined;
     placeholder?: string | undefined;
     /**
@@ -1676,7 +1704,7 @@ export interface TextFieldProps {
     /**
      * @default "text"
      */
-    type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url' | 'tel' | undefined;
+    type?: 'date' | 'email' | 'password' | 'text' | 'url' | 'tel' | undefined;
     value?: string | undefined;
 }
 
@@ -1703,6 +1731,7 @@ export interface TooltipProps {
     inline?: boolean | undefined;
     link?: React.ReactNode | undefined;
     zIndex?: Indexable | undefined;
+    accessibilityLabel?: string | undefined;
 }
 
 /**

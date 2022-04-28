@@ -1,8 +1,8 @@
-// For Library Version: 1.95.0
+// For Library Version: 1.101.0
 
 declare module "sap/ui/support/library" {
   /**
-   * @SINCE 1.95.0
+   * @SINCE 1.50
    *
    * Defines the Audiences.
    */
@@ -21,7 +21,7 @@ declare module "sap/ui/support/library" {
     Internal = "Internal",
   }
   /**
-   * @SINCE 1.95.0
+   * @SINCE 1.50
    *
    * Issue Categories.
    */
@@ -43,6 +43,8 @@ declare module "sap/ui/support/library" {
      */
     DataModel = "DataModel",
     /**
+     * @SINCE 1.58
+     *
      * Fiori Guidelines issue category.
      */
     FioriGuidelines = "FioriGuidelines",
@@ -55,6 +57,8 @@ declare module "sap/ui/support/library" {
      */
     Memory = "Memory",
     /**
+     * @SINCE 1.60
+     *
      * Modularization issue category.
      */
     Modularization = "Modularization",
@@ -76,7 +80,7 @@ declare module "sap/ui/support/library" {
     Usage = "Usage",
   }
   /**
-   * @SINCE 1.95.0
+   * @SINCE 1.58
    *
    * Analysis history formats.
    */
@@ -91,7 +95,7 @@ declare module "sap/ui/support/library" {
     String = "String",
   }
   /**
-   * @SINCE 1.95.0
+   * @SINCE 1.50
    *
    * Defines severity types.
    */
@@ -110,7 +114,7 @@ declare module "sap/ui/support/library" {
     Medium = "Medium",
   }
   /**
-   * @SINCE 1.95.0
+   * @SINCE 1.60
    *
    * Contains the available system presets.
    */
@@ -263,12 +267,6 @@ declare namespace sap {
      */
     namespace support {
       export const CoreFacade: undefined;
-
-      /**
-       * Overview: These channels enable the user to hook to the {@link sap.ui.support.WindowCommunicationBus
-       * } Usage: These channels are used for communication with Main.
-       */
-      export const WCBChannels: undefined;
 
       /**
        * Creates a RuleSet. The RuleSet can store multiple rules concerning namespaces. Usage: The RuleSet is

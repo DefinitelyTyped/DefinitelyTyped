@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.29
+// Type definitions for sharp 0.30
 // Project: https://github.com/lovell/sharp
 // Definitions by: Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
@@ -71,6 +71,12 @@ declare namespace sharp {
         heif?: string | undefined;
         xml?: string | undefined;
         zlib?: string | undefined;
+    };
+
+    /** An Object containing the platform and architecture of the current and installed vendored binaries. */
+    const vendor: {
+        current: string;
+        installed: string[];
     };
 
     /** An EventEmitter that emits a change event when a task is either queued, waiting for libuv to provide a worker thread, complete */
@@ -488,16 +494,16 @@ declare namespace sharp {
         toFile(fileOut: string): Promise<OutputInfo>;
 
         /**
-         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF and RAW output are supported.
-         * By default, the format will match the input image, except GIF and SVG input which become PNG output.
+         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF, GIF and RAW output are supported.
+         * By default, the format will match the input image, except SVG input which becomes PNG output.
          * @param callback Callback function called on completion with three arguments (err, buffer, info).
          * @returns A sharp instance that can be used to chain operations
          */
         toBuffer(callback: (err: Error, buffer: Buffer, info: OutputInfo) => void): Sharp;
 
         /**
-         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF and RAW output are supported.
-         * By default, the format will match the input image, except GIF and SVG input which become PNG output.
+         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF, GIF and RAW output are supported.
+         * By default, the format will match the input image, except SVG input which becomes PNG output.
          * @param options resolve options
          * @param options.resolveWithObject Resolve the Promise with an Object containing data and info properties instead of resolving only with data.
          * @returns A promise that resolves with the Buffer data.
@@ -505,8 +511,8 @@ declare namespace sharp {
         toBuffer(options?: { resolveWithObject: false }): Promise<Buffer>;
 
         /**
-         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF and RAW output are supported.
-         * By default, the format will match the input image, except GIF and SVG input which become PNG output.
+         * Write output to a Buffer. JPEG, PNG, WebP, AVIF, TIFF, GIF and RAW output are supported.
+         * By default, the format will match the input image, except SVG input which becomes PNG output.
          * @param options resolve options
          * @param options.resolveWithObject Resolve the Promise with an Object containing data and info properties instead of resolving only with data.
          * @returns A promise that resolves with an object containing the Buffer data and an info object containing the output image format, size (bytes), width, height and channels
@@ -529,6 +535,14 @@ declare namespace sharp {
          * @returns A sharp instance that can be used to chain operations
          */
         jpeg(options?: JpegOptions): Sharp;
+
+        /**
+         * Use these JP2 (JPEG 2000) options for output image.
+         * @param options Output options.
+         * @throws {Error} Invalid options
+         * @returns A sharp instance that can be used to chain operations
+         */
+        jp2: (options?: Jp2Options) => Sharp;
 
         /**
          * Use these PNG options for output image.
@@ -727,6 +741,8 @@ declare namespace sharp {
          * An integral Number of pixels, zero or false to remove limit, true to use default limit of 268402689 (0x3FFF x 0x3FFF). (optional, default 268402689)
          */
         limitInputPixels?: number | boolean | undefined;
+        /** Set this to true to remove safety features that help prevent memory exhaustion (SVG, PNG). (optional, default false) */
+        unlimited?: boolean | undefined;
         /** Set this to true to use sequential rather than random access where possible. This can reduce memory usage and might improve performance on some systems. (optional, default false) */
         sequentialRead?: boolean | undefined;
         /** Number representing the DPI for vector images. (optional, default 72) */
@@ -735,6 +751,8 @@ declare namespace sharp {
         pages?: number | undefined;
         /** Page number to start extracting from for multi-page input (GIF, TIFF, PDF), zero based. (optional, default 0) */
         page?: number | undefined;
+        /** subIFD (Sub Image File Directory) to extract for OME-TIFF, defaults to main image. (optional, default -1) */
+        subifd?: number | undefined;
         /** Level to extract from a multi-level input (OpenSlide), zero based. (optional, default 0) */
         level?: number | undefined;
         /** Set to `true` to read all frames/pages of an animated image (equivalent of setting `pages` to `-1`). (optional, default false) */
@@ -781,6 +799,8 @@ declare namespace sharp {
         channels: Channels;
         /** Parsed by the [color](https://www.npmjs.org/package/color) module to extract values for red, green, blue and alpha. */
         background: Color;
+        /** Describes a noise to be created. */
+        noise?: Noise | undefined;
     }
 
     interface WriteableMetadata {
@@ -915,6 +935,19 @@ declare namespace sharp {
         mozjpeg?: boolean | undefined;
     }
 
+    interface Jp2Options extends OutputOptions {
+        /** Quality, integer 1-100 (optional, default 80) */
+        quality?: number;
+        /** Use lossless compression mode (optional, default false) */
+        lossless?: boolean;
+        /** Horizontal tile size (optional, default 512) */
+        tileWidth?: number;
+        /** Vertical tile size (optional, default 512) */
+        tileHeight?: number;
+        /** Set to '4:2:0' to enable chroma subsampling (optional, default '4:4:4') */
+        chromaSubsampling?: '4:4:4' | '4:2:0';
+    }
+
     interface WebpOptions extends OutputOptions, AnimationOptions {
         /** Quality, integer 1-100 (optional, default 80) */
         quality?: number | undefined;
@@ -927,6 +960,11 @@ declare namespace sharp {
         /** Use high quality chroma subsampling (optional, default false) */
         smartSubsample?: boolean | undefined;
         /** Level of CPU effort to reduce file size, integer 0-6 (optional, default 4) */
+        effort?: number | undefined;
+        /**
+         * Level of CPU effort to reduce file size, integer 0-6 (optional, default 4)
+         * @deprecated Use `effort` instead
+         */
         reductionEffort?: number | undefined;
     }
 
@@ -935,10 +973,15 @@ declare namespace sharp {
         quality?: number | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
-        /** CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5) */
+        /**
+         * CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5)
+         * @deprecated Use `effort` instead
+         */
         speed?: number | undefined;
+        /** Level of CPU effort to reduce file size, between 0 (fastest) and 9 (slowest) (optional, default 4) */
+        effort?: number | undefined;
         /** set to '4:2:0' to use chroma subsampling, requires libvips v8.11.0 (optional, default '4:4:4') */
-        chromaSubsampling?: string;
+        chromaSubsampling?: string | undefined;
     }
 
     interface HeifOptions extends OutputOptions {
@@ -948,24 +991,24 @@ declare namespace sharp {
         compression?: 'av1' | 'hevc' | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
-        /** CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5) */
+        /**
+         * effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5)
+         * @deprecated Use `effort` instead
+         */
         speed?: number | undefined;
+        /** Level of CPU effort to reduce file size, between 0 (fastest) and 9 (slowest) (optional, default 4) */
+        effort?: number | undefined;
     }
 
-    /**
-     * Requires libvips compiled with support for ImageMagick or GraphicsMagick.
-     * The prebuilt binaries do not include this - see
-     * {@link https://sharp.pixelplumbing.com/install#custom-libvips installing a custom libvips}.
-     */
     interface GifOptions extends OutputOptions, AnimationOptions {
-        /** Page height for animated output */
-        pageHeight?: number;
-        /** Number of animation iterations, use 0 for infinite animation (optional, default 0) */
-        loop?: number;
-        /** List of delays between animation frames (in milliseconds) */
-        delay?: number[];
-        /** Force GIF output, otherwise attempt to use input format (optional, default true) */
-        force?: boolean;
+        /** Maximum number of palette entries, including transparency, between 2 and 256 (optional, default 256) */
+        colours?: number | undefined;
+        /** Alternative Spelling of "colours". Maximum number of palette entries, including transparency, between 2 and 256 (optional, default 256) */
+        colors?: number | undefined;
+        /** Level of CPU effort to reduce file size, between 1 (fastest) and 10 (slowest) (optional, default 7) */
+        effort?: number | undefined;
+        /** Level of Floyd-Steinberg error diffusion, between 0 (least) and 1 (most) (optional, default 1.0) */
+        dither?: number | undefined;
     }
 
     interface TiffOptions extends OutputOptions {
@@ -989,6 +1032,8 @@ declare namespace sharp {
         yres?: number | undefined;
         /** Reduce bitdepth to 1, 2 or 4 bit (optional, default 8) */
         bitdepth?: 1 | 2 | 4 | 8 | undefined;
+        /** Resolution unit options: inch, cm (optional, default 'inch') */
+        resolutionUnit?: 'inch' | 'cm' | undefined;
     }
 
     interface PngOptions extends OutputOptions {
@@ -996,10 +1041,12 @@ declare namespace sharp {
         progressive?: boolean | undefined;
         /** zlib compression level, 0-9 (optional, default 6) */
         compressionLevel?: number | undefined;
-        /** use adaptive row filtering (optional, default false) */
+        /** Use adaptive row filtering (optional, default false) */
         adaptiveFiltering?: boolean | undefined;
-        /** use the lowest number of colours needed to achieve given quality (optional, default `100`) */
+        /** Use the lowest number of colours needed to achieve given quality (optional, default `100`) */
         quality?: number | undefined;
+        /** Level of CPU effort to reduce file size, between 1 (fastest) and 10 (slowest), sets palette to true (optional, default 7) */
+        effort?: number | undefined;
         /** Quantise to a palette-based image with alpha transparency support (optional, default false) */
         palette?: boolean | undefined;
         /** Maximum number of palette entries (optional, default 256) */
@@ -1040,6 +1087,8 @@ declare namespace sharp {
         kernel?: keyof KernelEnum | undefined;
         /** Do not enlarge if the width or height are already less than the specified dimensions, equivalent to GraphicsMagick's > geometry option. (optional, default false) */
         withoutEnlargement?: boolean | undefined;
+        /** Do not reduce if the width or height are already greater than the specified dimensions, equivalent to GraphicsMagick's < geometry option. (optional, default false) */
+        withoutReduction?: boolean | undefined;
         /** Take greater advantage of the JPEG and WebP shrink-on-load feature, which can lead to a slight moiré pattern on some images. (optional, default true) */
         fastShrinkOnLoad?: boolean | undefined;
     }
@@ -1053,6 +1102,15 @@ declare namespace sharp {
         width: number;
         /** dimension of extracted image */
         height: number;
+    }
+
+    interface Noise {
+        /** type of generated noise, currently only gaussian is supported. */
+        type?: 'gaussian' | undefined;
+        /** mean of pixels in generated noise. */
+        mean?: number | undefined;
+        /** standard deviation of pixels in generated noise. */
+        sigma?: number | undefined;
     }
 
     interface ExtendOptions {
@@ -1155,17 +1213,21 @@ declare namespace sharp {
         skipBlanks?: number | undefined;
         /** Tile container, with value fs (filesystem) or zip (compressed file). (optional, default 'fs') */
         container?: string | undefined;
-        /** Filesystem layout, possible values are dz, iiif, zoomify or google. (optional, default 'dz') */
+        /** Filesystem layout, possible values are dz, iiif, iiif3, zoomify or google. (optional, default 'dz') */
         layout?: TileLayout | undefined;
+        /** Centre image in tile. (optional, default false) */
+        centre?: boolean | undefined;
+        /** Alternative spelling of centre. (optional, default false) */
+        center?: boolean | undefined;
+        /** When layout is iiif/iiif3, sets the @id/id attribute of info.json (optional, default 'https://example.com/iiif') */
+        id?: string | undefined;
     }
 
     interface AnimationOptions {
-        /** Page height for animated output, a value greater than 0. (optional) */
-        pageHeight?: number | undefined;
         /** Number of animation iterations, a value between 0 and 65535. Use 0 for infinite animation. (optional, default 0) */
         loop?: number | undefined;
-        /** List of delays between animation frames (in milliseconds), each value between 0 and 65535. (optional) */
-        delay?: number[] | undefined;
+        /** delay(s) between animation frames (in milliseconds), each value between 0 and 65535. (optional) */
+        delay?: number | number[] | undefined;
     }
 
     interface OutputInfo {
@@ -1222,7 +1284,7 @@ declare namespace sharp {
         srgb: string;
     }
 
-    type TileLayout = 'dz' | 'iiif' | 'zoomify' | 'google';
+    type TileLayout = 'dz' | 'iiif' | 'iiif3' | 'zoomify' | 'google';
 
     type Blend =
         | 'clear'

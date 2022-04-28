@@ -7,14 +7,34 @@ declare namespace Card {
         className?: string | undefined;
 
         /**
-         * Renders a borderless card.
+         * Renders an elevated card.
+         *
+         * @deprecated Use `elevation={2}` instead.
+         */
+        isElevated?: boolean | undefined;
+
+        /**
+         * Size of the elevation shadow, based on the Style system’s elevation
+         * system. This may be helpful in highlighting certain content. For more
+         * information, check out [Elevation]{@link https://developer.wordpress.org/block-editor/designers-developers/developers/components/elevation/}.
+         *
+         * @defaultValue 0
+         */
+        elevation?: number | undefined;
+
+        /**
+         * Renders without a border.
+         *
+         * @defaultValue false
          */
         isBorderless?: boolean | undefined;
 
         /**
-         * Renders an elevated card.
+         * Renders with rounded corners.
+         *
+         * @defaultValue false
          */
-        isElevated?: boolean | undefined;
+        isRounded?: boolean | undefined;
 
         /**
          * Determines the amount of padding within the card.

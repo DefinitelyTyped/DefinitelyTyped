@@ -7888,7 +7888,7 @@ declare namespace EngineAPI {
          * >>This parameter is optional.
          * Default is to sort by alphabetical order, ascending.
          */
-        qSortCriterias?: ISortCriteria | undefined;
+        qSortCriterias?: ISortCriteria[] | undefined;
 
         /**
          * Defines the format of the value.

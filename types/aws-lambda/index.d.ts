@@ -41,6 +41,7 @@
 //                 Benoit Boure <https://github.com/bboure>
 //                 James Lakin <https://github.com/jamesorlakin>
 //                 Ross Gerbasi <https://github.com/aphex>
+//                 Joey Kilpatrick <https://github.com/joeykilpatrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -87,5 +88,6 @@ export * from "./trigger/sns";
 export * from "./trigger/sqs";
 export * from './trigger/msk';
 export * from "./trigger/secretsmanager";
+export * from "./trigger/s3-event-notification";
 
 export as namespace AWSLambda;

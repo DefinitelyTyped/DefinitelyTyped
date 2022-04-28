@@ -1,6 +1,7 @@
-// Type definitions for clownface 1.2
+// Type definitions for clownface 1.5
 // Project: https://github.com/rdf-ext/clownface
 // Definitions by: tpluscode <https://github.com/tpluscode>
+//                 BenjaminHofstetter <https://github.com/BenjaminHofstetter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -43,6 +44,11 @@ declare namespace clownface {
       ? Iteratee<T[0], D>
       : Iteratee<T, D>;
 
+  type ExtractContext<T extends AnyContext> = T extends undefined ? never : T extends any[] ? T[0] : T;
+
+  type FilterCallback<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore, S extends T = T>
+      = (ptr: Iteratee<T, D>, index: number, pointers: Array<GraphPointer<ExtractContext<T>>>) => ptr is Predicate<S, any>;
+
   interface OutOptions {
     language?: string | string[] | undefined;
   }
@@ -58,9 +64,9 @@ declare namespace clownface {
     any(): AnyPointer<AnyContext, D>;
     list(): Iterable<Iteratee<T, D>> | null;
     isList(): boolean;
-    toArray(): Array<AnyPointer<T extends undefined ? never : T extends any[] ? T[0] : T, D>>;
-    filter<S extends T>(cb: (ptr: Iteratee<T, D>) => ptr is Predicate<S, any>): AnyPointer<S, D>;
-    filter(cb: (ptr: Iteratee<T, D>) => boolean): AnyPointer<T, D>;
+    toArray(): Array<AnyPointer<ExtractContext<T>, D>>;
+    filter<S extends T>(cb: FilterCallback<T, D, S>): AnyPointer<S, D>;
+    filter(cb: (ptr: Iteratee<T, D>, index: number, pointers: Array<GraphPointer<ExtractContext<T>>>) => boolean): AnyPointer<T, D>;
     forEach(cb: (quad: Iteratee<T, D>) => void): this;
     map<X>(cb: (quad: Iteratee<T, D>, index: number) => X): X[];
 

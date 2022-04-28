@@ -221,7 +221,7 @@ Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "dtslint/dt.json" }`, and no additional rules.
+The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
 If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
 
@@ -308,7 +308,7 @@ Entonces están equivocados. Puedes ayudar enviando un pull request para arregla
 
 #### Puedo pedir una definition?
 
-Aquí están las [definiciones solicitadas actualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Aquí están las [definiciones solicitadas actualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### ¿Qué pasa con las type definitions para el DOM?
 
@@ -338,7 +338,7 @@ Si planeas continuar actualizando la versión anterior del paquete, puedes crear
 1. Actualiza las rutas relativas en `tsconfig.json` al igual que `tslint.json`.
 2. Añadir reglas de mapeo de rutas para asegurarte de que la prueba se está ejecutando contra la versión prevista.
 
-Por ejemplo [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) se ve así:
+Por ejemplo [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) se ve así:
 
 ```json
 {

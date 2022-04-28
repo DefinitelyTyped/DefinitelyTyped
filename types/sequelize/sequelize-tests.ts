@@ -944,6 +944,7 @@ User.findAll( {
 } );
 User.findAll( { paranoid : false, where : [' IS NOT NULL '], include : [{ model : User }] } );
 User.findAll( { include : [{ model : Task, paranoid: false }] } );
+User.findAll( { include : { model : Task, include: Task, paranoid: false } } );
 User.findAll( { transaction : t } );
 User.findAll( { where : { data : { name : { last : 's' }, employment : { $ne : 'a' } } }, order : [['id', 'ASC']] } );
 User.findAll( { where : { username : ['boo', 'boo2'] } } );
@@ -1113,6 +1114,7 @@ User.count( { transaction : t } );
 User.count().then( function( c ) { c.toFixed(); } );
 User.count( { where : ["username LIKE '%us%'"] } );
 User.count( { include : [{ model : User, required : false }] } );
+User.count( { include : User } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
 User.count( { attributes : ['data'], group : ['data'] } );
 User.count( { where : { access_level : { gt : 5 } } } );

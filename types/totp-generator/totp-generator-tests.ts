@@ -1,6 +1,6 @@
 import totpGenerator = require('totp-generator');
 
-// $ExpectType number
+// $ExpectType string
 const totp = totpGenerator("key");
 
 const totpWithExplicitDefaultOptions = totpGenerator("key", {});

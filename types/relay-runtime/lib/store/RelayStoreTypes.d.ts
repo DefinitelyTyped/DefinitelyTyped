@@ -1,25 +1,26 @@
-import { ReaderFragment } from '../util/ReaderNode';
-import { Variables, Disposable, DataID, CacheConfig, FetchPolicy, RenderPolicy } from '../util/RelayRuntimeTypes';
-import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
-import { RequestIdentifier } from '../util/getRequestIdentifier';
+import { MutationParameters } from '../mutations/commitMutation';
 import {
-    NormalizationSelectableNode,
-    NormalizationSplitOperation,
-    NormalizationScalarField,
-    NormalizationLinkedField,
-} from '../util/NormalizationNode';
-import {
-    PayloadData,
-    Network,
-    UploadableMap,
-    PayloadError,
     GraphQLResponse,
+    Network,
+    PayloadData,
+    PayloadError,
     ReactFlightServerTree,
+    UploadableMap,
 } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
+import { RequestIdentifier } from '../util/getRequestIdentifier';
+import {
+    NormalizationLinkedField,
+    NormalizationScalarField,
+    NormalizationSelectableNode,
+    NormalizationSplitOperation,
+} from '../util/NormalizationNode';
+import { ReaderFragment } from '../util/ReaderNode';
+import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
+import { CacheConfig, DataID, Disposable, FetchPolicy, RenderPolicy, Variables } from '../util/RelayRuntimeTypes';
+import { InvalidationState } from './RelayModernStore';
 import { RelayOperationTracker } from './RelayOperationTracker';
 import { RecordState } from './RelayRecordState';
-import { InvalidationState } from './RelayModernStore';
 
 export type FragmentType = unknown;
 export type OperationTracker = RelayOperationTracker;
@@ -872,10 +873,10 @@ export interface OptimisticUpdateRelayPayload {
     readonly updater: SelectorStoreUpdater | null | undefined;
 }
 
-export interface OptimisticResponseConfig {
+export interface OptimisticResponseConfig<TMutation extends MutationParameters = any> {
     readonly operation: OperationDescriptor;
     readonly response: PayloadData | null | undefined;
-    readonly updater: SelectorStoreUpdater | null | undefined;
+    readonly updater: SelectorStoreUpdater<TMutation> | null | undefined;
 }
 
 /**
@@ -939,6 +940,17 @@ export interface RelayResponsePayload {
     readonly moduleImportPayloads: ModuleImportPayload[] | null | undefined;
     readonly source: MutableRecordSource;
     readonly isFinal: boolean;
+}
+
+/**
+ * Configuration on the executeMutation(...).
+ */
+export interface ExecuteMutationConfig<TMutation extends MutationParameters> {
+    operation: OperationDescriptor;
+    optimisticUpdater?: SelectorStoreUpdater<TMutation['response']> | null;
+    optimisticResponse?: { [key: string]: any } | null;
+    updater?: SelectorStoreUpdater<TMutation['response']> | null;
+    uploadables?: UploadableMap | null;
 }
 
 /**

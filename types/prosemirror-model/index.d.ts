@@ -7,6 +7,7 @@
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Anthony Weston <https://github.com/AnthonyWeston>
 //                 Martin Staffa <https://github.com/Narretz>
+//                 Ocavue <https://github.com/ocavue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -104,7 +105,12 @@ export class Fragment<S extends Schema = any> {
     /**
      * Extract the text between `from` and `to`. See the same method on {@link ProsemirrorNode.textBetween}
      */
-    textBetween(from: number, to: number, blockSeparator?: string | null, leafText?: string | null): string;
+    textBetween(
+        from: number,
+        to: number,
+        blockSeparator?: string | null,
+        leafText?: string | ((leafNode: ProsemirrorNode) => string) | null,
+    ): string;
     /**
      * Create a new fragment containing the combined content of this
      * fragment and the other.
@@ -556,7 +562,12 @@ declare class ProsemirrorNode<S extends Schema = any> {
      * block node is started. When `leafText` is given, it'll be
      * inserted for every non-text leaf node encountered.
      */
-    textBetween(from: number, to: number, blockSeparator?: string, leafText?: string): string;
+    textBetween(
+        from: number,
+        to: number,
+        blockSeparator?: string,
+        leafText?: string | ((leafNode: ProsemirrorNode) => string) | null,
+    ): string;
     /**
      * Returns this node's first child, or `null` if there are no
      * children.
@@ -1409,7 +1420,7 @@ export interface DOMOutputSpecArray {
     8?: DOMOutputSpec | 0 | undefined;
     9?: DOMOutputSpec | 0 | undefined;
 }
-export type DOMOutputSpec = string | Node | DOMOutputSpecArray | {dom: Node, contentDOM?: Node | undefined};
+export type DOMOutputSpec = string | Node | DOMOutputSpecArray | { dom: Node; contentDOM?: Node | undefined };
 /**
  * A DOM serializer knows how to convert ProseMirror nodes and
  * marks of various types to DOM nodes.

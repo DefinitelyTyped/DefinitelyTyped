@@ -9992,7 +9992,9 @@ const reorderTracksInPlaylist : SpotifyApi.ReorderPlaylistTracksResponse = {
  * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
  * https://developer.spotify.com/web-api/replace-playlists-tracks/
  */
-const replacePlaylistTracks : SpotifyApi.ReplacePlaylistTracksResponse = {};
+const replacePlaylistTracks : SpotifyApi.ReplacePlaylistTracksResponse = {
+  "snapshot_id" : "t3+4ZWOqedj+bmcHHu1HKNqYfIyYAfXKlSHHykvS4KAm7hoVhDoCpn+KIuFZebZp"
+};
 
 
 

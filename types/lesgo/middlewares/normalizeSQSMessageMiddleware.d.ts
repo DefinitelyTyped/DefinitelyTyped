@@ -9,4 +9,6 @@ export interface NormalizeSQSMiddleware {
     before: middy.MiddlewareFunction<SQSEventWithCollection, any>;
 }
 
+export function normalizeHandler(records: SQSRecord[]): Array<Record<string, any>>;
+
 export default function normalizeSQSMessageMiddleware(): NormalizeSQSMiddleware;

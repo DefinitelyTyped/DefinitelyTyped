@@ -3,7 +3,6 @@
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Thibault Malbranche <https://github.com/titozzz>
 //                 Stuart Forrest <https://github.com/stuartforrest-infinity>
-//                 Un Ha Kim <https://github.com/UHKim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

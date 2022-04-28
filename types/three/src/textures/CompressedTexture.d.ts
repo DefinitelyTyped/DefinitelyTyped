@@ -38,7 +38,8 @@ export class CompressedTexture extends Texture {
         encoding?: TextureEncoding,
     );
 
-    image: { width: number; height: number };
+    get image(): { width: number; height: number };
+    set image(value: { width: number; height: number });
 
     mipmaps: ImageData[];
 

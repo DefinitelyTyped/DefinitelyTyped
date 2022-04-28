@@ -130,7 +130,7 @@ export interface FieldApi {
 
 export interface FieldProps {
     children?: React.ReactNode;
-    field?: string | string[] | React.ReactText[] | Array<(string | React.ReactText[])> | undefined;
+    field?: string | string[] | Array<string | number> | Array<(string | Array<string | number>)> | undefined;
     showErrors?: boolean | undefined;
     errorBefore?: boolean | undefined;
     isForm?: boolean | undefined;
@@ -157,7 +157,7 @@ export interface RadioGroupContext {
 
 export class RadioGroup
     extends React.Component<
-        FieldProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn | undefined }
+        Omit<FieldProps, 'children'> & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn | undefined }
         >
     implements React.ChildContextProvider<RadioGroupContext> {
     getChildContext(): {
@@ -184,7 +184,7 @@ export const StyledRadio: React.FunctionComponent<StyledProps & React.InputHTMLA
 
 export class StyledRadioGroup
     extends React.Component<
-        StyledProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn | undefined }
+        Omit<StyledProps, 'children'> & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn | undefined }
         >
     implements React.ChildContextProvider<RadioGroupContext> {
     getChildContext(): {

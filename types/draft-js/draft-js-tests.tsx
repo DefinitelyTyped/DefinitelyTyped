@@ -45,7 +45,7 @@ type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 
 const HANDLE_REGEX = /\@[\w]+/g;
 
-class HandleSpan extends React.Component {
+class HandleSpan extends React.Component<{ children?: React.ReactNode }> {
   render() {
     return <span>{this.props.children}</span>
   }
@@ -80,6 +80,10 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
     }
     state = RichEditorExample.initState()
 
+    editor: Editor;
+    editorElement: HTMLElement;
+    editorContainer: HTMLElement;
+
     onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });
 
     keyBindingFn(e: SyntheticKeyboardEvent): string {
@@ -101,6 +105,18 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
         }
 
         return getDefaultKeyBinding(e);
+    }
+
+    getEditorKey = (): string => this.editor.getEditorKey();
+
+    focus = (): void => this.editor.focus();
+
+    blur = (): void => this.editor.blur();
+
+    handleEditorRef = (editor: Editor | null) => {
+        this.editor = editor;
+        this.editorElement = this.editor?.editor;
+        this.editorContainer = this.editor?.editorContainer;
     }
 
     handleKeyCommand = (command: EditorCommand, editorState: EditorState, eventTimeStamp: number) => {
@@ -196,7 +212,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
                         handleKeyCommand={this.handleKeyCommand}
                         onChange={this.onChange}
                         placeholder="Tell a story..."
-                        ref="editor"
+                        ref={this.handleEditorRef}
                         spellCheck={true}
                         preserveSelectionOnBlur={false}
                     />

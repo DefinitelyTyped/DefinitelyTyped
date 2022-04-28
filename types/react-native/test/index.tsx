@@ -15,6 +15,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
     AccessibilityInfo,
+    ActionSheetIOS,
     AsyncStorage,
     Alert,
     AppState,
@@ -443,7 +444,7 @@ export class PressableTest extends React.Component<{}> {
     render() {
         return (
             <>
-                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
+                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }} unstable_pressDelay={100}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
@@ -1273,7 +1274,9 @@ export class ImageBackgroundProps extends React.Component {
                 <ImageBackground
                     source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
                     imageRef={this.setImageRef}
-                />
+                >
+                    <Text>Some text</Text>
+                </ImageBackground>
             </View>
         );
     }
@@ -1441,6 +1444,13 @@ const NativeIDTest = () => (
 
 const ScrollViewMaintainVisibleContentPositionTest = () => (
     <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}></ScrollView>
+);
+
+const ScrollViewInsetsTest = () => (
+  <>
+    <ScrollView automaticallyAdjustKeyboardInsets />
+    <ScrollView automaticallyAdjustKeyboardInsets={false} />
+  </>
 );
 
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
@@ -1890,3 +1900,30 @@ LayoutAnimation.configureNext(
 );
 
 LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));
+
+// ActionSheetIOS
+const ActionSheetIOSTest = () => {
+    // test destructiveButtonIndex undefined
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: undefined,
+    }, () => undefined);
+
+    // test destructiveButtonIndex null
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: null,
+    }, () => undefined);
+
+    // test destructiveButtonIndex single number
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo'],
+        destructiveButtonIndex: 0,
+    }, () => undefined);
+
+    // test destructiveButtonIndex number array
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['foo', 'bar'],
+        destructiveButtonIndex: [0, 1],
+    }, () => undefined);
+}

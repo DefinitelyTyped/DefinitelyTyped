@@ -19,6 +19,7 @@ import styled, {
     FlattenInterpolation,
 } from 'styled-components';
 import {} from 'styled-components/cssprop';
+import { find, findAll, enzymeFind } from 'styled-components/test-utils';
 
 /**
  * general usage
@@ -488,6 +489,12 @@ const ComponentWithTheme = withTheme(Component);
 <ComponentWithTheme text={'hi'} />; // ok
 <ComponentWithTheme text={'hi'} theme={{ color: 'red' }} />; // ok
 <ThemeConsumer>{theme => <Component text="hi" theme={theme} />}</ThemeConsumer>;
+
+// should consider default props of a component
+const ComponentWithDefaultProps = ({ text }: WithThemeProps) => <div>{text}</div>;
+ComponentWithDefaultProps.defaultProps = { text: 'hi' };
+const ComponentWithDefaultPropsAndTheme = withTheme(ComponentWithDefaultProps);
+<ComponentWithDefaultPropsAndTheme />;
 
 /**
  * isStyledComponent utility
@@ -1136,8 +1143,7 @@ export class WrapperClass extends React.Component<WrapperProps> {
     }
 }
 const StyledWrapperClass = styled(WrapperClass)``;
-// React.Component typings always add `children` to props, so this should accept children
-const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>;
+const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>; // $ExpectError
 
 export class WrapperClassFuncChild extends React.Component<WrapperProps & { children: () => any }> {
     render() {
@@ -1145,7 +1151,6 @@ export class WrapperClassFuncChild extends React.Component<WrapperProps & { chil
     }
 }
 const StyledWrapperClassFuncChild = styled(WrapperClassFuncChild)``;
-// React.Component typings always add `children` to props, so this should accept children
 const wrapperClassNoChildrenGood = <StyledWrapperClassFuncChild>{() => 'text'}</StyledWrapperClassFuncChild>;
 const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperClassFuncChild>; // $ExpectError
 
@@ -1243,3 +1248,32 @@ function unionTest2() {
     <C />; // $ExpectError
     <C foo={123} bar="foobar" />; // $ExpectError
 }
+
+function unionPerformanceTest() {
+    type ManyUnion = ({ signal1: 'green'; greenTime1?: number } | { signal1: 'red'; redTime1: number }) &
+        ({ signal2?: 'green'; greenTime2?: number } | { signal2: 'red'; redTime2: number }) &
+        ({ signal3?: 'green'; greenTime3?: number } | { signal3: 'red'; redTime3: number }) &
+        ({ signal4?: 'green'; greenTime4?: number } | { signal4: 'red'; redTime4: number }) &
+        ({ signal5?: 'green'; greenTime5?: number } | { signal5: 'red'; redTime5: number });
+
+    const C = (props: ManyUnion) => null;
+
+    const Styled = styled(C)<{ defaultColor?: string }>`
+        .signal1 {
+            color: ${props => props.signal1 || 'green'};
+        }
+    `;
+
+    <Styled signal1="green" greenTime1={100} />;
+    <Styled signal1="red" redTime1={200} />;
+    <Styled signal1="red" greenTime1={100} />; // $ExpectError
+    <Styled signal1="green" greenTime1={100} signal2="green" greenTime2={100} />;
+    <Styled signal1="green" greenTime1={100} signal2="red" greenTime2={100} />; // $ExpectError
+}
+
+const SomeStyledComponent = styled.div``;
+const somethingWithFindMethod = { find: (_: string) => {} };
+
+find(document.body, SomeStyledComponent);
+findAll(document.body, SomeStyledComponent);
+enzymeFind(somethingWithFindMethod, SomeStyledComponent);

@@ -1,9 +1,10 @@
-// Type definitions for sanctuary 3.0
+// Type definitions for sanctuary 3.1
 // Project: https://github.com/sanctuary-js/sanctuary#readme
 // Definitions by: David Chambers <https://github.com/davidchambers>
 //                 Juan J. Jimenez-Anca <https://github.com/cortopy>
 //                 Ken Aguilar <https://github.com/piq9117>
 //                 Leonardo Farroco <https://github.com/lfarroco>
+//                 Jon Ege Ronnenberg <https://github.com/dotnetcarpenter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var S: Sanctuary.Environment;
@@ -48,12 +49,15 @@ type NonNegativeInteger     = number;
 
 interface TypeRep {}
 
+// Please retain type-class hierarchy ordering
+// https://github.com/sanctuary-js/sanctuary-type-classes#type-class-hierarchy
 interface Setoid<A> {}
 interface Ord<A> extends Setoid<A> {}
 interface Semigroupoid<A, B> {}
 interface Category<A> extends Semigroupoid<A, A> {}
 interface Semigroup<A> {}
 interface Monoid<A> extends Semigroup<A> {}
+interface Group<A> extends Monoid<A> {}
 interface Functor<A> {}
 interface Bifunctor<A, C> extends Functor<C> {}
 interface Profunctor<B, C> extends Functor<C> {}
@@ -113,6 +117,7 @@ declare namespace Sanctuary {
     concat<A>(x: StrMap<A>): (y: StrMap<A>) => StrMap<A>;
     concat(x: string): (y: string) => string;
     empty(p: TypeRep): Monoid<any>;
+    invert<A>(g: Group<A>): Group<A>;
     map<A, B>(p: Fn<A, B>): {
       <C>(q: Fn<C, A>): Fn<C, B>;
         (q: ReadonlyArray<A>): B[];
@@ -132,6 +137,7 @@ declare namespace Sanctuary {
     alt<A>(x: A): (y: A) => A;
     zero(p: TypeRep): Plus<any>;
     reduce<A, B>(p: Fn2<B, A, B>): (q: B) => (r: ReadonlyArray<A> | StrMap<A> | Maybe<A> | Either<any, A> | Foldable<A>) => B;
+    reduce_<A, B>(p: Fn2<A, B, B>): (q: B) => (r: ReadonlyArray<A> | StrMap<A> | Maybe<A> | Either<any, A> | Foldable<A>) => B;
     traverse(typeRep: TypeRep): <A, B>(f: Fn<A, Applicative<B>>) => (traversable: Traversable<A>) => Applicative<Traversable<B>>;
     sequence(typeRep: TypeRep): <A>(traversable: Traversable<Applicative<A>>) => Applicative<Traversable<A>>;
     ap<A, B>(p: Apply<Fn<A, B>>): (q: Apply<A>) => Apply<B>;
@@ -254,6 +260,7 @@ declare namespace Sanctuary {
     takeLast(n: Integer): ListToMaybeList;
     drop(n: Integer): ListToMaybeList;
     dropLast(n: Integer): ListToMaybeList;
+    size<A>(xs: Foldable<A> | ReadonlyArray<A>): Integer;
     //  Array
     //  TODO: Fantasyland overloads, non-curried versions
     append<A>(x: A): {
@@ -291,10 +298,14 @@ declare namespace Sanctuary {
     get(p: Predicate<any>): (q: string) => (r: any) => Maybe<any>;
     gets(p: Predicate<any>): (q: ReadonlyArray<string>) => (r: any) => Maybe<any>;
     //  StrMap
-    value<A>(p: string): (p: StrMap<A>) => Maybe<A>;
+    value(p: string): <A>(p: StrMap<A>) => Maybe<A>;
+    singleton(key: string): <A>(value: A) => StrMap<A>;
+    insert(key: string): <A>(value: A) => (r: StrMap<A>) => StrMap<A>;
+    remove(key: string): <A>(r: StrMap<A>) => StrMap<A>;
     keys(p: StrMap<any>): string[];
     values<A>(p: StrMap<A>): A[];
     pairs<A>(p: StrMap<A>): Array<Pair<string, A>>;
+    fromPairs<A>(p: Foldable<Pair<string, A>>): StrMap<A>;
     //  Number
     negate(n: ValidNumber): ValidNumber;
     add(p: FiniteNumber): (q: FiniteNumber) => FiniteNumber;

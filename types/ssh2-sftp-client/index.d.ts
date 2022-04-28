@@ -7,7 +7,6 @@
 //                 Taylor Herron <https://github.com/gbhmt>
 //                 Lane Goldberg <https://github.com/builtbylane>
 //                 Lorenzo Adinolfi <https://github.com/loru88>
-//                 Sam Galizia <https://github.com/sgalizia>
 //                 Tom Xu <https://github.com/hengkx>
 //                 Joseph Burger <https://github.com/candyapplecorn>
 //                 Emma Milner <https://github.com/tsop14>

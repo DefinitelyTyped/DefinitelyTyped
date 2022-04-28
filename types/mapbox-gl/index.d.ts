@@ -1,13 +1,13 @@
-// Type definitions for Mapbox GL JS 2.6
+// Type definitions for Mapbox GL JS 2.7
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
-//                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 André Fonseca <https://github.com/amxfonseca>
 //                 makspetrov <https://github.com/Nosfit>
+//                 Michael Bullington <https://github.com/mbullington>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -87,6 +87,7 @@ declare namespace mapboxgl {
         | 'format'
         | 'literal'
         | 'number'
+        | 'number-format'
         | 'object'
         | 'string'
         | 'image'
@@ -555,7 +556,7 @@ declare namespace mapboxgl {
 
         on<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         on<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -1281,16 +1282,17 @@ declare namespace mapboxgl {
     }
 
     export interface Style {
+        layers: AnyLayer[];
+        sources: Sources;
+
         bearing?: number | undefined;
         center?: number[] | undefined;
         fog?: Fog | undefined;
         glyphs?: string | undefined;
-        layers?: AnyLayer[] | undefined;
         metadata?: any;
         name?: string | undefined;
         pitch?: number | undefined;
         light?: Light | undefined;
-        sources?: Sources | undefined;
         sprite?: string | undefined;
         terrain?: TerrainSpecification | undefined;
         transition?: Transition | undefined;
@@ -1518,9 +1520,29 @@ declare namespace mapboxgl {
         exaggeration?: PropertyValueSpecification<number> | undefined;
     }
 
+    /**
+     * @see https://github.com/mapbox/tilejson-spec/tree/master/3.0.0#33-vector_layers
+     */
+    type SourceVectorLayer = {
+        id: string;
+        fields?: Record<string, string>;
+        description?: string;
+        minzoom?: number;
+        maxzoom?: number;
+
+        // Non standard extensions that are valid in a Mapbox context.
+        source?: string;
+        source_name?: string;
+    };
+
     interface VectorSource extends Source {
         type: 'vector';
+        format?: 'pbf';
+
         url?: string | undefined;
+        id?: string;
+        name?: string;
+
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
         scheme?: 'xyz' | 'tms' | undefined;
@@ -1528,10 +1550,16 @@ declare namespace mapboxgl {
         maxzoom?: number | undefined;
         attribution?: string | undefined;
         promoteId?: PromoteIdSpecification | undefined;
+
+        vector_layers?: SourceVectorLayer[];
     }
 
     interface RasterSource extends Source {
+        name?: string;
         type: 'raster';
+        id?: string;
+        format?: 'webp' | string;
+
         url?: string | undefined;
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
@@ -1543,7 +1571,10 @@ declare namespace mapboxgl {
     }
 
     interface RasterDemSource extends Source {
+        name?: string;
         type: 'raster-dem';
+        id?: string;
+
         url?: string | undefined;
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
@@ -2425,7 +2456,7 @@ declare namespace mapboxgl {
         'text-pitch-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
         'text-rotation-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
         'text-field'?: string | StyleFunction | Expression | undefined;
-        'text-font'?: string | string[] | Expression | undefined;
+        'text-font'?: string[] | Expression | undefined;
         'text-size'?: number | StyleFunction | Expression | undefined;
         'text-max-width'?: number | StyleFunction | Expression | undefined;
         'text-line-height'?: number | Expression | undefined;

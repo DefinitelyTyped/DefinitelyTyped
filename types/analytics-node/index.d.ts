@@ -78,6 +78,7 @@ declare namespace AnalyticsNode {
       timestamp?: Date | undefined;
       context?: any;
       integrations?: Integrations | undefined;
+      messageId?: string | undefined;
     }, callback?: (err: Error) => void): Analytics;
 
     /* The screen method lets you record whenever a user sees a screen,

@@ -349,3 +349,14 @@ const visitorWithInvalidDenylist: Visitor = {
     // $ExpectError
     denylist: ['SomeRandomType'],
 };
+
+const nullPath: NodePath<t.Identifier | undefined> = new NodePath<t.Identifier | undefined>(
+    null as any,
+    {} as any,
+);
+
+nullPath.type; // $ExpectType "Identifier" | undefined
+
+if (nullPath.hasNode()) {
+    nullPath.type; // $ExpectType "Identifier"
+}

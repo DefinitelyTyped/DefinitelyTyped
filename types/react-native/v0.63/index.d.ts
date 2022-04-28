@@ -478,7 +478,7 @@ export interface PressableAndroidRippleConfig {
     radius?: null | number;
 }
 
-export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
      * Called when a single tap gesture is detected.
      */
@@ -6902,7 +6902,7 @@ export interface ActionSheetIOSOptions {
     title?: string;
     options: string[];
     cancelButtonIndex?: number;
-    destructiveButtonIndex?: number;
+    destructiveButtonIndex?: number | number[] | undefined | null;
     message?: string;
     anchor?: number;
     tintColor?: ColorValue | ProcessedColorValue;

@@ -13,6 +13,27 @@ window.obsstudio.getCurrentScene((scene: OBSSceneInfo) => {
     scene.height;
 });
 
+window.obsstudio.setCurrentScene('Scene 1');
+
+window.obsstudio.getCurrentTransition();
+window.obsstudio.getCurrentTransition((transition: string) => {
+    transition;
+});
+
+window.obsstudio.setCurrentTransition('Cut');
+
+window.obsstudio.getScenes();
+window.obsstudio.getScenes((scenes: string[]) => {
+    scenes;
+    scenes[0];
+});
+
+window.obsstudio.getTransitions();
+window.obsstudio.getTransitions((transitions: string[]) => {
+    transitions;
+    transitions[0];
+});
+
 window.obsstudio.getStatus();
 window.obsstudio.getStatus((status: OBSStatus) => {
     status.recording;
@@ -98,22 +119,27 @@ window.addEventListener('obsRecordingUnpaused', (event: CustomEvent<null>) => {
     event.detail;
 });
 
-window.addEventListener('obsReplayBufferStarting', (event: CustomEvent<null>) => {
+window.addEventListener('obsReplaybufferStarting', (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsReplayBufferStarted', (event: CustomEvent<null>) => {
+window.addEventListener('obsReplaybufferStarted', (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsReplayBufferStopping', (event: CustomEvent<null>) => {
+window.addEventListener('obsReplaybufferStopping', (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsReplayBufferStopped', (event: CustomEvent<null>) => {
+window.addEventListener('obsReplaybufferStopped', (event: CustomEvent<null>) => {
+    event;
+    event.detail;
+});
+
+window.addEventListener('obsReplaybufferSaved', (event: CustomEvent<null>) => {
     event;
     event.detail;
 });

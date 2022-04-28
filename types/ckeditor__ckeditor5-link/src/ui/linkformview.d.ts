@@ -13,5 +13,6 @@ export default class LinkFormView extends View {
     constructor(locale: Locale, linkCommand: LinkCommand, protocol?: string);
     constructor(linkCommand: LinkCommand, protocol?: string);
     focus(): void;
+    destroy(): void;
     getDecoratorSwitchesState(): Record<string, boolean>;
 }

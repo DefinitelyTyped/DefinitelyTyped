@@ -7,7 +7,6 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
-//                 Maciej Goszczycki <https://github.com/mgoszcz2>
 //                 Aaron Reisman <https://github.com/lifeiscontent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -55,17 +54,14 @@ type Defaultize<P, D> = P extends any
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D> : P;
 
-type MakeAttrsOptional<C extends string | React.ComponentType<any>, O extends object, A extends keyof any> = OmitU<
-    ReactDefaultizedProps<
-        C,
-        React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never>
-    > &
-        O,
-    A
-> &
-    Partial<
-        PickU<React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never> & O, A>
-    >;
+type MakeAttrsOptional<
+    C extends string | React.ComponentType<any>,
+    O extends object,
+    A extends keyof P,
+    P = React.ComponentPropsWithRef<C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never>,
+> =
+    // Distribute unions early to avoid quadratic expansion
+    P extends any ? OmitU<ReactDefaultizedProps<C, P> & O, A> & Partial<PickU<P & O, A>> : never;
 
 export type StyledComponentProps<
     // The Component from whose props are derived
@@ -84,19 +80,8 @@ export type StyledComponentProps<
         ? WithOptionalTheme<
               MakeAttrsOptional<C, O, A> & MakeAttrsOptional<FAsC, O, A>,
               T
-          > &
-              WithChildrenIfReactComponentClass<C>
+          >
         : never;
-
-// Because of React typing quirks, when getting props from a React.ComponentClass,
-// we need to manually add a `children` field.
-// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/31945
-// and https://github.com/DefinitelyTyped/DefinitelyTyped/pull/32843
-type WithChildrenIfReactComponentClass<C extends string | React.ComponentType<any>> = C extends React.ComponentClass<
-    any
->
-    ? { children?: React.ReactNode | undefined }
-    : {};
 
 type StyledComponentPropsWithAs<
     C extends string | React.ComponentType<any>,
@@ -120,11 +105,11 @@ export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 
 type Attrs<P, A extends Partial<P>, T> = ((props: ThemedStyledProps<P, T>) => A) | A;
 
-export type ThemedGlobalStyledClassProps<P, T> = WithOptionalTheme<P, T> & {
+export type ThemedGlobalStyledClassProps<P extends { theme?: T | undefined }, T> = WithOptionalTheme<P, T> & {
     suppressMultiMountWarning?: boolean | undefined;
 };
 
-export interface GlobalStyleComponent<P, T> extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>> {}
+export interface GlobalStyleComponent<P extends { theme?: T | undefined }, T> extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>> {}
 
 // remove the call signature from StyledComponent so Interpolation can still infer InterpolationFunction
 type StyledComponentInterpolation =
@@ -343,7 +328,7 @@ export type BaseWithThemeFnInterface<T extends object> = <C extends React.Compon
     // this check is roundabout because the extends clause above would
     // not allow any component that accepts _more_ than theme as a prop
     component: React.ComponentProps<C> extends { theme?: T | undefined } ? C : never,
-) => React.ForwardRefExoticComponent<WithOptionalTheme<React.ComponentPropsWithRef<C>, T>>;
+) => React.ForwardRefExoticComponent<WithOptionalTheme<JSX.LibraryManagedAttributes<C, React.ComponentPropsWithRef<C>>, T>>;
 export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<AnyIfEmpty<T>>;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
 

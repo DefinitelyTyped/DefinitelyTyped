@@ -82,10 +82,10 @@ ec('conname'); // $ExpectType Memcached
 
 encrypt('this is a test'); // $ExpectType string
 decrypt('TMxLqkHSs8D7tD02ptbtWQxocJO93ZPvqS4IruHEpj8='); // $ExpectType string
-hash('this is a test'); // $ExpectType Buffer
-hashMD5(new Uint8Array([21, 31])); // $ExpectType Buffer
+hash('this is a test'); // $ExpectType string
+hashMD5(new Uint8Array([21, 31])); // $ExpectType string
 
-db; // $ExpectType AuroraDbService | AuroraDbRDSProxyService
+db; // $ExpectType AuroraDbService | AuroraDbRDSProxyService || AuroraDbRDSProxyService | AuroraDbService
 (async () => {
     await (db as AuroraDbService).select('SELECT * FROM users;', []); // $ExpectType any[]
     await (db as AuroraDbRDSProxyService).select('SELECT * FROM users;', []); // $ExpectType AuroraDbRDSProxyServiceResult
@@ -144,7 +144,7 @@ queue; // $ExpectType SQSService<Record<string, QueueConfig>>
 (async () => {
     await dispatch('ping', 'myqueue'); // $ExpectType SendMessageResult
 })();
-// $ExpectType Partial<Record<"id" | "name", any>>
+// $ExpectType Partial<Record<"id" | "name", any>> || Partial<Record<"name" | "id", any>>
 validateFields(
     {
         id: 1,
