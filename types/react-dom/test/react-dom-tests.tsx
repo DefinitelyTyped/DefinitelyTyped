@@ -229,6 +229,7 @@ function createRoot() {
     const root = ReactDOMClient.createRoot(document.documentElement);
 
     root.render(<div>initial render</div>);
+    root.render(false);
 
     // only makes sense for `hydrateRoot`
     // $ExpectError
@@ -248,6 +249,8 @@ function hydrateRoot() {
         // $ExpectError
         identifierPrefix: 'react-18-app',
     });
+
+    ReactDOMClient.hydrateRoot(document.getElementById('root')!, false);
 }
 
 /**
