@@ -128,6 +128,8 @@ doc.translate(280, 0)
 
 doc.circle(100, 100, 100).clip();
 
+doc.font('Arial', 30).text('The size is 30');
+
 doc.fontSize(25)
     .fillColor('blue')
     .text('This is a link!', 20, 0);
