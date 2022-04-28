@@ -700,7 +700,7 @@ export interface TableResizerProps {
     onMouseDown: (e: MouseEvent<Element>) => void;
     onTouchStart: (e: MouseEvent<Element>) => void;
     draggable: boolean;
-    role: 'separator'
+    role: 'separator';
 }
 
 export interface UseResizeColumnsColumnProps<D extends object> {
