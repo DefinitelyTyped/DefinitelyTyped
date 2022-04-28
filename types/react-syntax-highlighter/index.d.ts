@@ -1,4 +1,4 @@
-// Type definitions for react-syntax-highlighter 13.5
+// Type definitions for react-syntax-highlighter 15.5
 // Project: https://github.com/conorhastings/react-syntax-highlighter
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 //                 Guo Yunhe <https://github.com/guoyunhe>
