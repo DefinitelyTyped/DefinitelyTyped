@@ -696,7 +696,12 @@ export interface UseResizeColumnsColumnOptions<D extends object> {
     disableResizing?: boolean | undefined;
 }
 
-export interface TableResizerProps {}
+export interface TableResizerProps {
+    onMouseDown: (e: MouseEvent<Element>) => void;
+    onTouchStart: (e: MouseEvent<Element>) => void;
+    draggable: boolean;
+    role: 'separator'
+}
 
 export interface UseResizeColumnsColumnProps<D extends object> {
     getResizerProps: (props?: Partial<TableResizerProps>) => TableResizerProps;
