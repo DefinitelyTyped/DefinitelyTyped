@@ -218,6 +218,12 @@ doc.image('path/to/image.png', {
     destination: 'lorem',
 });
 
+doc.file('/path/to/file/example.txt');
+
+doc.file(Buffer.from('this will be a text file'), { name: 'example.txt' });
+
+doc.file('data:text/plain;base64,YmFzZTY0IHN0cmluZw==', { name: 'base64.txt' });
+
 
 // AcroForm
 doc.initForm();
