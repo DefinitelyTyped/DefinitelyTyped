@@ -169,6 +169,9 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     // $ExpectType string | undefined
     this.requestNamedAnimationFrame('animationFrameName', () => {});
 
+    // $ExpectType void
+    this.cancelNamedAnimationFrame('animationFrameName');
+
     // $ExpectType Promise<void>
     this.exitPictureInPicture();
 

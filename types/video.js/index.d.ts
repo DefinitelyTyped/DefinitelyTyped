@@ -1361,6 +1361,14 @@ declare namespace videojs {
         cancelAnimationFrame(id: number): number;
 
         /**
+         * Cancels a current named animation frame if it exists.
+         *
+         * @param name
+         *        Cancels a current named animation frame if it exists.
+         */
+        cancelNamedAnimationFrame(name: string): void;
+
+        /**
          * Get an array of all child components
          *
          * @return The children
