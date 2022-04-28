@@ -1188,7 +1188,8 @@ import { promisify } from 'node:util';
     cert.ca; // $ExpectType boolean
     cert.fingerprint; // $ExpectType string
     cert.fingerprint256; // $ExpectType string
-    cert.infoAccess; // $ExpectType string
+    cert.fingerprint512; // $ExpectType string
+    cert.infoAccess; // $ExpectType string | undefined
     cert.issuer; // $ExpectType string
     cert.issuerCertificate; // $ExpectType X509Certificate | undefined
     cert.keyUsage; // $ExpectType string[]
@@ -1196,7 +1197,7 @@ import { promisify } from 'node:util';
     cert.raw; // $ExpectType Buffer
     cert.serialNumber; // $ExpectType string
     cert.subject; // $ExpectType string
-    cert.subjectAltName; // $ExpectType string
+    cert.subjectAltName; // $ExpectType string | undefined
     cert.validFrom; // $ExpectType string
     cert.validTo; // $ExpectType string
 
@@ -1210,10 +1211,10 @@ import { promisify } from 'node:util';
 
     cert.checkEmail('test@test.com'); // $ExpectType string | undefined
     cert.checkEmail('test@test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkEmail('test@test.com', { subject: 'always' }); // $ExpectType string | undefined
     cert.checkHost('test.com'); // $ExpectType string | undefined
     cert.checkHost('test.com', checkOpts); // $ExpectType string | undefined
     cert.checkIP('1.1.1.1'); // $ExpectType string | undefined
-    cert.checkIP('1.1.1.1', checkOpts); // $ExpectType string | undefined
     cert.checkIssued(new crypto.X509Certificate('dummycert')); // $ExpectType boolean
     cert.checkPrivateKey(crypto.createPrivateKey('dummy')); // $ExpectType boolean
     cert.toLegacyObject(); // $ExpectType PeerCertificate
