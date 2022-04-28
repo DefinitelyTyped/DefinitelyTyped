@@ -23,13 +23,13 @@ map.rotatedPointToMapPanePoint(point);
 map.mapPanePointToRotatedPoint(point);
 
 // $ExpectType Point
-point.rotate(30)
-const point2 = new L.Point(20, 20)
+point.rotate(30);
+const point2 = new L.Point(20, 20);
 // $ExpectType Point
-point.rotateFrom(60, point2)
+point.rotateFrom(60, point2);
 
 const marker = new L.Marker([0, 0], {
     rotation: 30,
     rotateWithView: true,
-})
-marker.setRotation(30)
+});
+marker.setRotation(30);
