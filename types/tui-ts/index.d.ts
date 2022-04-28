@@ -65,12 +65,12 @@ export class ContextMenu {
     getRun(): ContextMenuRun;
 }
 
-export const createContextMenu: Builder["createContextMenu"];
+export const createContextMenu: Builder['createContextMenu'];
 
-export const select: Builder["select"];
+export const select: Builder['select'];
 
-export const build: Builder["build"];
+export const build: Builder['build'];
 
-export const getState: Builder["getState"];
+export const getState: Builder['getState'];
 
-export const setState: Builder["setState"];
+export const setState: Builder['setState'];

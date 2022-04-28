@@ -1,12 +1,12 @@
-import { build, createContextMenu, getState, select, setState } from "tui-ts";
+import { build, createContextMenu, getState, select, setState } from 'tui-ts';
 
 // $ExpectType void
 build();
 
 // $ExpectType ContextMenu
 createContextMenu({
-    id: "foo",
-    run: () => {}
+    id: 'foo',
+    run: () => {},
 });
 
 // $ExpectError
@@ -16,13 +16,13 @@ createContextMenu({});
 getState();
 
 // $ExpectType ContextMenu | null
-select("bar");
+select('bar');
 
 // $ExpectError
 select(1);
 
 // $ExpectType void
-setState({ foo: "bar" });
+setState({ foo: 'bar' });
 
 // $ExpectType void
 setState({});
