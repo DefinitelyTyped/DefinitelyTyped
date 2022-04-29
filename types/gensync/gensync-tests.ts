@@ -10,7 +10,7 @@ declare function readFileSync(path: string, encoding: 'utf8' | 'ascii'): string;
 declare function readFileAsync(path: string, encoding: 'utf8' | 'ascii'): Promise<string>;
 
 // $ExpectType GensyncFunction<[path: string, encoding: "utf8" | "ascii"], string, unknown>
-const readFile1 = gensync({
+const readFile = gensync({
     name: 'readFile',
     arity: 2,
     sync: readFileSync,
@@ -40,7 +40,7 @@ const pathJoin = gensync(function* (...args: string[]) {
 
 const readContents = gensync(function* (p: string) {
     const path = yield* pathJoin('folder', p);
-    const contents = yield* readFile1(path, 'utf8');
+    const contents = yield* readFile(path, 'utf8');
     return contents;
 });
 

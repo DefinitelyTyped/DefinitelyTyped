@@ -46,7 +46,7 @@ declare function gensync<A extends unknown[], R, E = unknown>(
 ): GensyncFunction<A, R, E>;
 
 declare namespace gensync {
-    type GensyncGenerator<R = unknown> = Generator<GensyncGenerator<never>, R>;
+    type GensyncGenerator<R = unknown> = Generator<GensyncGenerator, R>;
     type GensyncReturn<T> = T extends GensyncGenerator<infer U> ? U : never;
 
     interface GensyncFunction<A extends unknown[], R, E = unknown> {
