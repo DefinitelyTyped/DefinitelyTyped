@@ -395,7 +395,7 @@ export interface CheckboxProps {
     onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }> | undefined;
     size?: 'sm' | 'md' | undefined;
     subtext?: string | undefined;
-    labelDisplay?: 'visible' | 'hidden',
+    labelDisplay?: 'visible' | 'hidden';
 }
 
 /**
@@ -1643,7 +1643,7 @@ export interface TextAreaProps {
     tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
     value?: string | undefined;
     readonly?: boolean;
-    labelDisplay?: 'visible' | 'hidden',
+    labelDisplay?: 'visible' | 'hidden';
 }
 
 /**
@@ -1690,7 +1690,7 @@ export interface TextFieldProps {
      */
     type?: 'date' | 'email' | 'password' | 'text' | 'url' | 'tel' | undefined;
     value?: string | undefined;
-    labelDisplay?: 'visible' | 'hidden',
+    labelDisplay?: 'visible' | 'hidden';
 }
 
 /**
