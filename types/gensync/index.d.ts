@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-import { Gensync, Handler, Options } from '.';
-
 /**
  * Returns a function that can be "awaited" (with `yield*`) in another `gensync` generator
  * function, or executed via
@@ -16,8 +14,8 @@ import { Gensync, Handler, Options } from '.';
  * @param generatorFnOrOptions A generator function, or options for an existing sync/async function
  */
 declare function gensync<A extends unknown[], R, E = unknown>(
-    generatorFnOrOptions: ((...args: A) => Generator<Handler, R>) | Options<A, R, E>,
-): Gensync<A, R, E>;
+    generatorFnOrOptions: ((...args: A) => Generator<gensync.Handler, R>) | gensync.Options<A, R, E>,
+): gensync.Gensync<A, R, E>;
 
 declare namespace gensync {
     /**
