@@ -31,8 +31,8 @@ const addNumbers = gensync(function* (a: number, b?: number) {
     return a + (b ?? 0);
 });
 
-const pathJoin = gensync(function* (a: string, b: string) {
-    return a + '/' + b;
+const pathJoin = gensync(function* (...args: string[]) {
+    return args.join('/');
 });
 
 const readContents = gensync(function* (p: string) {
@@ -44,8 +44,9 @@ const readContents = gensync(function* (p: string) {
 // $ExpectType string
 const contents = readContents.sync('foo');
 
-async function readContents2(): Promise<string> {
-    return await readContents.async('foo');
+async function readContents2() {
+    // $ExpectType string
+    const result = await readContents.async('foo');
 }
 
 readContents.errback('foo', (err, result) => {
@@ -86,6 +87,7 @@ gensync(function* () {
     const race = yield* gensync.race(iterable);
 });
 
+// gensync throws when both async and errback are provided.
 // $ExpectError
 const readFileBad = gensync({
     name: 'readFile',
