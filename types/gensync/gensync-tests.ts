@@ -101,12 +101,18 @@ gensync({
 
 // $ExpectError
 gensync(function* () {
-    // This generator was not produced by gensync.
+    // This generator was not produced by gensync; error.
+    // It'd be better to have an error on the next line rather than above,
+    // but the generator type that's produced via the body appears to have
+    // higher precedence than the contextual type.
     yield* someOtherGenerator();
 });
 
 // $ExpectError
 gensync(() => {});
+
+// $ExpectError
+gensync({});
 
 gensync(function* () {
     // $ExpectError

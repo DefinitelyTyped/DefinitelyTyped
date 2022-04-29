@@ -46,9 +46,8 @@ declare function gensync<A extends unknown[], R, E = unknown>(
 ): GensyncFunction<A, R, E>;
 
 declare namespace gensync {
-    // Branded to enforce that generator functions passed to gensync only yield
-    // from generators returned by gensync.
-    type GensyncGenerator<R = unknown> = Generator<GensyncGenerator<never>, R> & { __gensyncBrand: never };
+    type GensyncGenerator<R = unknown> = Generator<GensyncGenerator<never>, R>;
+    type GensyncReturn<T> = T extends GensyncGenerator<infer U> ? U : never;
 
     interface GensyncFunction<A extends unknown[], R, E = unknown> {
         (...args: A): GensyncGenerator<R>;
@@ -102,8 +101,6 @@ declare namespace gensync {
          */
         errback?: ((...args: [...A, (err: E, result: R) => void]) => void) | undefined;
     }
-
-    type GensyncReturn<T> = T extends GensyncGenerator<infer U> ? U : never;
 
     /**
      * `Promise.all`-like combinator that works with an iterable of generator objects
