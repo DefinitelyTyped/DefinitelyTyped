@@ -10,25 +10,52 @@ declare function readFileSync(path: string, encoding: 'utf8' | 'ascii'): string;
 declare function readFileAsync(path: string, encoding: 'utf8' | 'ascii'): Promise<string>;
 
 // $ExpectType Operation<[path: string, encoding: "utf8" | "ascii"], string, unknown>
-const readFile = gensync({
+const readFileFromSync = gensync({
     name: 'readFile',
     arity: 2,
     sync: readFileSync,
 });
 
+// $ExpectType (path: string, encoding: "utf8" | "ascii") => string
+readFileFromSync.sync;
+
+// $ExpectType (path: string, encoding: "utf8" | "ascii") => Promise<string>
+readFileFromSync.async;
+
+// $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: unknown, result: string) => void) => void
+readFileFromSync.errback;
+
 // $ExpectType Operation<[path: string, encoding: "utf8" | "ascii"], string, unknown>
-gensync({
+const readFileFromAsync = gensync({
     name: 'readFile',
     sync: readFileSync,
     async: readFileAsync,
 });
 
+// $ExpectType (path: string, encoding: "utf8" | "ascii") => string
+readFileFromAsync.sync;
+
+// $ExpectType (path: string, encoding: "utf8" | "ascii") => Promise<string>
+readFileFromAsync.async;
+
+// $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: unknown, result: string) => void) => void
+readFileFromAsync.errback;
+
 // $ExpectType Operation<[path: string, encoding: "utf8" | "ascii"], string, Error>
-gensync({
+const readFileFromErrback = gensync({
     name: 'readFile',
     sync: readFileSync,
     errback: readFileCallback,
 });
+
+// $ExpectType (path: string, encoding: "utf8" | "ascii") => string
+readFileFromErrback.sync;
+
+// $ExpectType (path: string, encoding: "utf8" | "ascii") => Promise<string>
+readFileFromErrback.async;
+
+// $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: Error, result: string) => void) => void
+readFileFromErrback.errback;
 
 // $ExpectType Operation<[], void, unknown>
 gensync(function* () {});
@@ -43,7 +70,7 @@ const pathJoin = gensync(function* (...args: string[]) {
 
 const readContents = gensync(function* (p: string) {
     const path = yield* pathJoin('folder', p);
-    const contents = yield* readFile(path, 'utf8');
+    const contents = yield* readFileFromSync(path, 'utf8');
     return contents;
 });
 
@@ -107,8 +134,8 @@ function* someOtherGenerator() {
 // $ExpectError
 gensync(function* () {
     // This generator was not produced by gensync; error.
-    // It'd be better to have an error on the next line rather than above,
-    // but the generator type that's produced via the body appears to have
+    // It"d be better to have an error on the next line rather than above,
+    // but the generator type that"s produced via the body appears to have
     // higher precedence than the contextual type.
     yield* someOtherGenerator();
 });

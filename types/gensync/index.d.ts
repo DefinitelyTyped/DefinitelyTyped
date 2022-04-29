@@ -44,7 +44,7 @@ declare namespace gensync {
         (...args: A): GensyncGenerator<R>;
         sync(...args: A): R;
         async(...args: A): Promise<R>;
-        errback(...args: [...A, (err: E, result: R) => void]): void;
+        errback(...args: [...args: A, callback: (err: E, result: R) => void]): void;
     }
 
     interface SyncOptions<A extends unknown[], R> {
