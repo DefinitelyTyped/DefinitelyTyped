@@ -30,6 +30,9 @@ gensync({
     errback: readFileCallback,
 });
 
+// $ExpectType Operation<[], void, unknown>
+gensync(function* () {});
+
 const addNumbers = gensync(function* (a: number, b?: number) {
     return a + (b ?? 0);
 });
@@ -47,7 +50,7 @@ const readContents = gensync(function* (p: string) {
 // $ExpectType string
 readContents.sync('foo');
 
-async function readContents2() {
+async function readContentsAsync() {
     // $ExpectType string
     await readContents.async('foo');
 }
@@ -56,11 +59,6 @@ readContents.errback('foo', (err, result) => {
     // $ExpectType string
     result;
 });
-
-function* someOtherGenerator() {
-    yield 'this is not a gensync generator';
-    return 1234;
-}
 
 gensync(function* () {
     // $ExpectType [number, string]
@@ -77,7 +75,7 @@ gensync(function* () {
     yield* gensync.all(gens);
 
     // $ExpectType string | number
-    const x = yield* gensync.race(gens);
+    yield* gensync.race(gens);
 });
 
 declare const iterable: Iterable<gensync.GensyncGenerator<number | boolean>>;
@@ -91,13 +89,20 @@ gensync(function* () {
 });
 
 // gensync throws when both async and errback are provided.
-// $ExpectError
-gensync({
-    name: 'readFile',
-    sync: readFileSync,
-    async: readFileAsync,
-    errback: readFileCallback,
-});
+// For now, don't model this, as it requires overloads or
+// mutually exclusive properties (https://github.com/microsoft/TypeScript/issues/20863).
+// // $ExpectError
+// gensync({
+//     name: 'readFile',
+//     sync: readFileSync,
+//     async: readFileAsync,
+//     errback: readFileCallback,
+// });
+
+function* someOtherGenerator() {
+    yield 'this is not a gensync generator';
+    return 1234;
+}
 
 // $ExpectError
 gensync(function* () {
