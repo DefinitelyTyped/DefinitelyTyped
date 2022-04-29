@@ -118,3 +118,12 @@ func5();
 // Debounced function should have `cancel`.
 // $ExpectType void
 func5.cancel();
+// `cancel` should accept options with optional `upcomingOnly` boolean flag
+// $ExpectType void
+func5.cancel({ upcomingOnly: true });
+// $ExpectError
+func5.cancel({ upcomingOnly: 'true' });
+// $ExpectError
+func5.cancel({ upcomingOnly: 0 });
+// $ExpectError
+func5.cancel(true);

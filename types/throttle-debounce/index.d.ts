@@ -5,8 +5,12 @@
 
 export {};
 
+interface CancelOptions {
+    upcomingOnly?: boolean;
+}
+
 interface Cancel {
-    cancel: () => void;
+    cancel: (options?: CancelOptions) => void;
 }
 
 interface NoReturn<T extends (...args: any[]) => any> {
