@@ -9,21 +9,21 @@ declare function readFileCallback(
 declare function readFileSync(path: string, encoding: 'utf8' | 'ascii'): string;
 declare function readFileAsync(path: string, encoding: 'utf8' | 'ascii'): Promise<string>;
 
-// $ExpectType GensyncFunction<[path: string, encoding: "utf8" | "ascii"], string, unknown>
+// $ExpectType Operation<[path: string, encoding: "utf8" | "ascii"], string, unknown>
 const readFile = gensync({
     name: 'readFile',
     arity: 2,
     sync: readFileSync,
 });
 
-// $ExpectType GensyncFunction<[path: string, encoding: "utf8" | "ascii"], string, unknown>
+// $ExpectType Operation<[path: string, encoding: "utf8" | "ascii"], string, unknown>
 gensync({
     name: 'readFile',
     sync: readFileSync,
     async: readFileAsync,
 });
 
-// $ExpectType GensyncFunction<[path: string, encoding: "utf8" | "ascii"], string, Error>
+// $ExpectType Operation<[path: string, encoding: "utf8" | "ascii"], string, Error>
 gensync({
     name: 'readFile',
     sync: readFileSync,
