@@ -76,8 +76,8 @@ export interface Cache {
     get<T>(key: string, callback: (error: any, result: T | undefined) => void): void;
     get<T>(key: string): Promise<T | undefined>;
 
-    del(key: string, callback: (error: any) => void): void;
-    del(key: string): Promise<any>;
+    del(key: string | string[], callback: (error: any) => void): void;
+    del(key: string | string[]): Promise<any>;
 
     reset(): Promise<void>;
     reset(cb: () => void): void;
