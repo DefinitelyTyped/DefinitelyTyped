@@ -15,9 +15,9 @@ import { GensyncFunction, GensyncGenerator, AsyncOptions, ErrbackOptions } from 
  *   - `.errback(...args, (err, result) => {})` - Calls the callback with the computed value, or error.
  * @param fn A generator function
  */
-declare function gensync<A extends unknown[], R>(
+declare function gensync<A extends unknown[], R, E = unknown>(
     fn: (...args: A) => Generator<GensyncGenerator, R>,
-): GensyncFunction<A, R>;
+): GensyncFunction<A, R, E>;
 
 /**
  * Returns a function that can be "await"-ed in another `gensync` generator
@@ -28,8 +28,9 @@ declare function gensync<A extends unknown[], R>(
  *   - `.errback(...args, (err, result) => {})` - Calls the callback with the computed value, or error.
  * @param opts Options for an existing sync/async function.
  */
+// Disabled to document function versus option parameter.
 // tslint:disable-next-line:unified-signatures
-declare function gensync<A extends unknown[], R>(opts: AsyncOptions<A, R>): GensyncFunction<A, R>;
+declare function gensync<A extends unknown[], R, E = unknown>(opts: AsyncOptions<A, R>): GensyncFunction<A, R, E>;
 
 /**
  * Returns a function that can be "await"-ed in another `gensync` generator
