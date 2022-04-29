@@ -1,4 +1,4 @@
-// Type definitions for node-telegram-bot-api 0.56
+// Type definitions for node-telegram-bot-api 0.57
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
@@ -8,15 +8,16 @@
 //                 Michael Orlov <https://github.com/MiklerGM>
 //                 XieJiSS <https://github.com/XieJiSS>
 //                 Toniop <https://github.com/toniop99>
+//                 Konstantin24121 <https://github.com/konstantin24121>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
-import { Stream, Readable } from 'stream';
 import { ServerOptions } from 'https';
 import { Options } from 'request';
+import { Readable, Stream } from 'stream';
 
 declare namespace TelegramBot {
     interface TextListener {
@@ -40,42 +41,57 @@ declare namespace TelegramBot {
     type DocumentMimeType = 'application/pdf' | 'application/zip';
 
     type MessageType =
-        'text' |
-        'animation' |
-        'audio' |
-        'channel_chat_created' |
-        'contact' |
-        'delete_chat_photo' |
-        'document' |
-        'game' |
-        'group_chat_created' |
-        'invoice' |
-        'left_chat_member' |
-        'location' |
-        'migrate_from_chat_id' |
-        'migrate_to_chat_id' |
-        'new_chat_members' |
-        'new_chat_photo' |
-        'new_chat_title' |
-        'passport_data' |
-        'photo' |
-        'pinned_message' |
-        'sticker' |
-        'successful_payment' |
-        'supergroup_chat_created' |
-        'video' |
-        'video_note' |
-        'voice' |
-        'voice_chat_started' |
-        'voice_chat_ended' |
-        'voice_chat_participants_invited' |
-        'voice_chat_scheduled' |
-        'message_auto_delete_timer_changed' |
-        'chat_invite_link' |
-        'chat_member_updated';
+        | 'text'
+        | 'animation'
+        | 'audio'
+        | 'channel_chat_created'
+        | 'contact'
+        | 'delete_chat_photo'
+        | 'document'
+        | 'game'
+        | 'group_chat_created'
+        | 'invoice'
+        | 'left_chat_member'
+        | 'location'
+        | 'migrate_from_chat_id'
+        | 'migrate_to_chat_id'
+        | 'new_chat_members'
+        | 'new_chat_photo'
+        | 'new_chat_title'
+        | 'passport_data'
+        | 'photo'
+        | 'pinned_message'
+        | 'sticker'
+        | 'successful_payment'
+        | 'supergroup_chat_created'
+        | 'video'
+        | 'video_note'
+        | 'voice'
+        | 'video_chat_started'
+        | 'video_chat_ended'
+        | 'video_chat_participants_invited'
+        | 'video_chat_scheduled'
+        | 'message_auto_delete_timer_changed'
+        | 'chat_invite_link'
+        | 'chat_member_updated';
 
-    type MessageEntityType = 'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' |
-        'bold' | 'italic' | 'underline' | 'strikethrough' | 'code' | 'pre' | 'text_link' | 'text_mention' | 'spoiler';
+    type MessageEntityType =
+        | 'mention'
+        | 'hashtag'
+        | 'cashtag'
+        | 'bot_command'
+        | 'url'
+        | 'email'
+        | 'phone_number'
+        | 'bold'
+        | 'italic'
+        | 'underline'
+        | 'strikethrough'
+        | 'code'
+        | 'pre'
+        | 'text_link'
+        | 'text_mention'
+        | 'spoiler';
 
     type ParseMode = 'Markdown' | 'MarkdownV2' | 'HTML';
 
@@ -285,6 +301,7 @@ declare namespace TelegramBot {
         can_restrict_members?: boolean | undefined;
         can_pin_messages?: boolean | undefined;
         can_promote_members?: boolean | undefined;
+        can_manage_video_chats?: boolean | undefined;
     }
 
     interface AnswerCallbackQueryOptions {
@@ -404,8 +421,10 @@ declare namespace TelegramBot {
         url: string;
         has_custom_certificate: boolean;
         pending_update_count: number;
+        ip_address?: string | undefined;
         last_error_date?: number | undefined;
         last_error_message?: string | undefined;
+        last_synchronization_error_date?: number | undefined;
         max_connections?: number | undefined;
         allowed_updates?: string[] | undefined;
     }
@@ -493,6 +512,7 @@ declare namespace TelegramBot {
         connected_website?: string | undefined;
         passport_data?: PassportData | undefined;
         reply_markup?: InlineKeyboardMarkup | undefined;
+        web_app_data?: WebAppData | undefined;
         is_automatic_forward?: boolean | undefined;
         has_protected_content?: boolean | undefined;
         dice?: Dice | undefined;
@@ -591,7 +611,7 @@ declare namespace TelegramBot {
         foursquare_type?: string | undefined;
     }
 
-    type PollType = "regular" | "quiz";
+    type PollType = 'regular' | 'quiz';
 
     interface PollAnswer {
         poll_id: string;
@@ -648,6 +668,12 @@ declare namespace TelegramBot {
         text: string;
         request_contact?: boolean | undefined;
         request_location?: boolean | undefined;
+        request_poll?: KeyboardButtonPollType;
+        web_app?: WebAppInfo;
+    }
+
+    interface KeyboardButtonPollType {
+        type: PollType;
     }
 
     interface ReplyKeyboardRemove {
@@ -662,8 +688,9 @@ declare namespace TelegramBot {
     interface InlineKeyboardButton {
         text: string;
         url?: string | undefined;
-        login_url?: LoginUrl | undefined;
         callback_data?: string | undefined;
+        web_app?: WebAppInfo;
+        login_url?: LoginUrl | undefined;
         switch_inline_query?: string | undefined;
         switch_inline_query_current_chat?: string | undefined;
         callback_game?: CallbackGame | undefined;
@@ -1184,6 +1211,46 @@ declare namespace TelegramBot {
         BotCommandScopeChat |
         BotCommandScopeChatAdministrators |
         BotCommandScopeChatMember;
+    interface WebAppInfo {
+        url: string;
+    }
+
+    interface WebAppData {
+        data: string;
+        button_text: string;
+    }
+
+    interface MenuButtonCommands {
+        type: 'commands';
+    }
+    interface MenuButtonWebApp {
+        type: 'web_app';
+        text: string;
+        web_app: WebAppInfo;
+    }
+    interface MenuButtonDefault {
+        type: 'default';
+    }
+
+    type MenuButton = MenuButtonCommands | MenuButtonWebApp | MenuButtonDefault;
+
+    interface ChatAdministratorRights {
+        is_anonymous: boolean;
+        can_manage_chat: boolean;
+        can_delete_messages: boolean;
+        can_manage_video_chats: boolean;
+        can_restrict_members: boolean;
+        can_promote_members: boolean;
+        can_change_info: boolean;
+        can_invite_users: boolean;
+        can_post_messages?: boolean;
+        can_edit_messages?: boolean;
+        can_pin_messages?: boolean;
+    }
+
+    interface SentWebAppMessage {
+        inline_message_id?: string;
+    }
 }
 
 declare class TelegramBot extends EventEmitter {
@@ -1675,6 +1742,22 @@ declare class TelegramBot extends EventEmitter {
             scope?: TelegramBot.BotCommandScope
         },
     ): Promise<boolean>;
+
+    setChatMenuButton(form: { chat_id?: number; menu_button?: TelegramBot.MenuButton }): Promise<boolean>;
+
+    getChatMenuButton(form: { chat_id?: number }): Promise<TelegramBot.MenuButton>;
+
+    setMyDefaultAdministratorRights(form: {
+        rights?: TelegramBot.ChatAdministratorRights;
+        for_channels?: boolean;
+    }): Promise<boolean>;
+
+    getMyDefaultAdministratorRights(form: { for_channels?: boolean }): Promise<TelegramBot.ChatAdministratorRights>;
+
+    answerWebAppQuery(
+        web_app_query_id: string,
+        result: TelegramBot.InlineQueryResult,
+    ): Promise<TelegramBot.SentWebAppMessage>;
 }
 
 export = TelegramBot;
