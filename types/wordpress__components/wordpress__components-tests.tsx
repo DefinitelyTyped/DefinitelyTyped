@@ -526,7 +526,7 @@ const kbshortcuts = {
 <C.Modal title="This is my modal"
     isDismissible={true}
     onRequestClose={
-        ( event: ReactKeyboardEvent | ReactMouseEvent | ReactMouseEvent ) => console.log(`The ${event.type} event told me to close myself!`)
+        (event: ReactKeyboardEvent | ReactMouseEvent | ReactMouseEvent) => console.log(`The ${event.type} event told me to close myself!`)
     }
 >
     <button onClick={() => console.log('clicked')}>My custom close button</button>
