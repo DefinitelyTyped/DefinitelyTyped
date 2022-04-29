@@ -77,7 +77,7 @@ gensync(function* () {
     yield* gensync.all(gens);
 
     // $ExpectType string | number
-    yield* gensync.race(gens);
+    const x = yield* gensync.race(gens);
 });
 
 declare const iterable: Iterable<gensync.GensyncGenerator<number | boolean>>;

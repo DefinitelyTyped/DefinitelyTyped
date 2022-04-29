@@ -131,7 +131,7 @@ declare namespace gensync {
     /**
      * `Promise.race`-like combinator that works with an iterable of generator objects
      * that could be passed to `yield*` within a gensync generator.
-     * @param args An array of gensync generators
+     * @param args An iterable of gensync generators
      * @returns A new gensync generator
      */
     function race<T>(args: Iterable<GensyncGenerator<T>>): GensyncGenerator<T>;
