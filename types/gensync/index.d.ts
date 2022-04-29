@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
+// tslint:disable-next-line void-return
+type Callback<R, E = unknown> = R extends void ? (err: E) => void : (err: E, result: R) => void;
+
 /**
  * Returns a function that can be "awaited" (with `yield*`) in another `gensync` generator
  * function, or executed via
@@ -42,7 +45,7 @@ declare namespace gensync {
         (...args: A): Handler<R>;
         sync(...args: A): R;
         async(...args: A): Promise<R>;
-        errback(...args: [...args: A, callback: (err: E, result: R) => void]): void;
+        errback(...args: [...args: A, callback: Callback<R, E>]): void;
     }
 
     interface SyncOptions<A extends unknown[], R> {
@@ -98,7 +101,7 @@ declare namespace gensync {
          *
          * Must not be specified with `async`.
          */
-        errback: (...args: [...A, (err: E, result: R) => void]) => void;
+        errback: (...args: [...A, Callback<R, E>]) => void;
     }
 
     type Options<A extends unknown[], R, E = unknown> =

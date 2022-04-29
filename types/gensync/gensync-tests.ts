@@ -58,7 +58,23 @@ readFileFromErrback.async;
 readFileFromErrback.errback;
 
 // $ExpectType Gensync<[], void, unknown>
-gensync(function* () {});
+const noop = gensync(function* () {});
+
+// $ExpectType () => void
+noop.sync;
+
+// $ExpectType () => Promise<void>
+noop.async;
+
+// $ExpectType (callback: (err: unknown) => void) => void
+noop.errback;
+
+gensync({
+    sync: () => {},
+    errback: callback => {
+        callback(new Error());
+    },
+});
 
 const addNumbers = gensync(function* (a: number, b?: number) {
     return a + (b ?? 0);
@@ -135,7 +151,7 @@ function* someOtherGenerator() {
 gensync(function* () {
     // This generator was not produced by gensync; error.
     // It"d be better to have an error on the next line rather than above,
-    // but the generator type that"s produced via the body appears to have
+    // but the generator type that's produced via the body appears to have
     // higher precedence than the contextual type.
     yield* someOtherGenerator();
 });
@@ -158,4 +174,12 @@ gensync(function* () {
 
     // $ExpectError
     yield* gensync.race([someOtherGenerator()]);
+});
+
+gensync({
+    sync: () => {},
+    errback: callback => {
+        // $ExpectError
+        callback(new Error(), 'some result');
+    },
 });
