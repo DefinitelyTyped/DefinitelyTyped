@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-import { GensyncFunction, GensyncGenerator, AsyncOptions, ErrbackOptions } from '.';
+import { GensyncFunction, GensyncGenerator, OptionsWithAsync, OptionsWithErrback } from '.';
 
 /**
  * Returns a function that can be "await"-ed in another `gensync` generator
@@ -30,7 +30,7 @@ declare function gensync<A extends unknown[], R>(
  */
 // Disabled to document function versus option parameter.
 // tslint:disable-next-line:unified-signatures
-declare function gensync<A extends unknown[], R>(opts: AsyncOptions<A, R>): GensyncFunction<A, R>;
+declare function gensync<A extends unknown[], R>(opts: OptionsWithAsync<A, R>): GensyncFunction<A, R>;
 
 /**
  * Returns a function that can be "await"-ed in another `gensync` generator
@@ -41,7 +41,9 @@ declare function gensync<A extends unknown[], R>(opts: AsyncOptions<A, R>): Gens
  *   - `.errback(...args, (err, result) => {})` - Calls the callback with the computed value, or error.
  * @param opts Options for an existing sync/async function.
  */
-declare function gensync<A extends unknown[], R, E = unknown>(opts: ErrbackOptions<A, R, E>): GensyncFunction<A, R, E>;
+declare function gensync<A extends unknown[], R, E = unknown>(
+    opts: OptionsWithErrback<A, R, E>,
+): GensyncFunction<A, R, E>;
 
 declare namespace gensync {
     // Branded to enforce that generator functions passed to gensync only yield
@@ -79,7 +81,7 @@ declare namespace gensync {
         sync: (...args: A) => R;
     }
 
-    interface AsyncOptions<A extends unknown[], R> extends SharedOptions<A, R> {
+    interface OptionsWithAsync<A extends unknown[], R> extends SharedOptions<A, R> {
         /**
          * A function that will be called when `.async()` or `.errback()` is called on
          * the `gensync()` result, or when the result is passed to `yield*` in another
@@ -88,7 +90,7 @@ declare namespace gensync {
         async?: (...args: A) => Promise<R> | undefined;
     }
 
-    interface ErrbackOptions<A extends unknown[], R, E = unknown> extends SharedOptions<A, R> {
+    interface OptionsWithErrback<A extends unknown[], R, E = unknown> extends SharedOptions<A, R> {
         /**
          * A function that will be called when `.async()` or `.errback()` is called on
          * the `gensync()` result, or when the result is passed to `yield*` in another
