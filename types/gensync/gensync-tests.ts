@@ -56,6 +56,8 @@ async function readContentsAsync() {
 }
 
 readContents.errback('foo', (err, result) => {
+    // $ExpectType unknown
+    err;
     // $ExpectType string
     result;
 });
@@ -89,15 +91,13 @@ gensync(function* () {
 });
 
 // gensync throws when both async and errback are provided.
-// For now, don't model this, as it requires overloads or
-// mutually exclusive properties (https://github.com/microsoft/TypeScript/issues/20863).
-// // $ExpectError
-// gensync({
-//     name: 'readFile',
-//     sync: readFileSync,
-//     async: readFileAsync,
-//     errback: readFileCallback,
-// });
+gensync({
+    name: 'readFile',
+    sync: readFileSync,
+    // $ExpectError
+    async: readFileAsync,
+    errback: readFileCallback,
+});
 
 function* someOtherGenerator() {
     yield 'this is not a gensync generator';

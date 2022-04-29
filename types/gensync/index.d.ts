@@ -47,7 +47,7 @@ declare namespace gensync {
         errback(...args: [...A, (err: E, result: R) => void]): void;
     }
 
-    interface Options<A extends unknown[], R, E = unknown> {
+    interface SyncOptions<A extends unknown[], R> {
         /**
          * A function that will be called when `.sync()` is called on the `gensync()`
          * result, or when the result is passed to `yield*` in another generator that
@@ -56,28 +56,6 @@ declare namespace gensync {
          * Also called for `.async()` calls if no async handlers are provided.
          */
         sync: (...args: A) => R;
-
-        /**
-         * A function that will be called when `.async()` or `.errback()` is called on
-         * the `gensync()` result, or when the result is passed to `yield*` in another
-         * generator that is being run asynchronously.
-         *
-         * Must not be specified with `errback`.
-         */
-        async?: (...args: A) => Promise<R>;
-
-        /**
-         * A function that will be called when `.async()` or `.errback()` is called on
-         * the `gensync()` result, or when the result is passed to `yield*` in another
-         * generator that is being run asynchronously.
-         *
-         * This option allows for simpler compatibility with many existing Node APIs,
-         * and also avoids introducing the extra even loop turns that promises introduce
-         * to access the result value.
-         *
-         * Must not be specified with `async`.
-         */
-        errback?: (...args: [...A, (err: E, result: R) => void]) => void;
 
         /**
          * A string name to apply to the returned function. If no value is provided,
@@ -93,7 +71,42 @@ declare namespace gensync {
          * `length` value.
          */
         arity?: number | undefined;
+
+        // Mutually exclusive options.
+        async?: undefined;
+        errback?: undefined;
     }
+
+    interface AsyncOptions<A extends unknown[], R> extends Omit<SyncOptions<A, R>, 'async'> {
+        /**
+         * A function that will be called when `.async()` or `.errback()` is called on
+         * the `gensync()` result, or when the result is passed to `yield*` in another
+         * generator that is being run asynchronously.
+         *
+         * Must not be specified with `errback`.
+         */
+        async: (...args: A) => Promise<R>;
+    }
+
+    interface ErrbackOptions<A extends unknown[], R, E = unknown> extends Omit<SyncOptions<A, R>, 'errback'> {
+        /**
+         * A function that will be called when `.async()` or `.errback()` is called on
+         * the `gensync()` result, or when the result is passed to `yield*` in another
+         * generator that is being run asynchronously.
+         *
+         * This option allows for simpler compatibility with many existing Node APIs,
+         * and also avoids introducing the extra even loop turns that promises introduce
+         * to access the result value.
+         *
+         * Must not be specified with `async`.
+         */
+        errback: (...args: [...A, (err: E, result: R) => void]) => void;
+    }
+
+    type Options<A extends unknown[], R, E = unknown> =
+        | SyncOptions<A, R>
+        | AsyncOptions<A, R>
+        | ErrbackOptions<A, R, E>;
 
     // "all" and "race"'s types are pretty much copied from Promise.all and Promise.race,
     // replacing Awaited with GensyncAwaited.
