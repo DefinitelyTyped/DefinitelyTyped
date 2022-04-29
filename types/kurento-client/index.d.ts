@@ -92,6 +92,11 @@ declare namespace kurento {
         socket?: any;
     }
 
+    interface OfferOptions {
+        offerToReceiveAudio?: boolean | undefined;
+        offerToReceiveVideo?: boolean | undefined;
+    }
+
     interface ClientInstance {
         create(type: 'MediaPipeline'): Promise<MediaPipeline>;
         create(type: 'WebRtcEndpoint', options?: { useDataChannels?: boolean | undefined }): Promise<WebRtcEndpoint>;
@@ -499,8 +504,16 @@ declare namespace kurento {
 
     // interface SessionEndpoint extends Endpoint {}
     type SessionEndpoint = Endpoint;
-    // interface SdpEndpoint extends SessionEndpoint {}
-    type SdpEndpoint = SessionEndpoint;
+
+    interface SdpEndpoint extends SessionEndpoint {
+        processOffer: (offer: string, callback?: Callback<string>) => Promise<string>;
+        generateOffer: (options?: OfferOptions, callback?: Callback<string>) => Promise<string>;
+        processAnswer: (answer: string, callback?: Callback<string>) => Promise<string>;
+        setMaxAudioRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
+        getMaxAudioRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
+        getMaxVideoRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
+        setMaxVideoRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
+    }
 
     interface BaseRtpEndpoint extends SdpEndpoint {
         getConnectionState(callback?: Callback<ConnectionState>): Promise<ConnectionState>;
@@ -590,12 +603,8 @@ declare namespace kurento {
         getConnectionState: (callback?: Callback<any>) => Promise<any>;
         getICECandidatePairs: (callback?: Callback<any>) => Promise<any>;
         getIceConnectionState: (callback?: Callback<IceConnection>) => Promise<IceConnection>;
-        setMaxAudioRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
-        getMaxAudioRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
         setMinVideoRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
         getMinVideoRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
-        setMaxVideoRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
-        getMaxVideoRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
         setMinVideoSendBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
         getMinVideoSendBandwidth: (callback?: Callback<number>) => Promise<number>;
         setMaxVideoSendBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
@@ -610,7 +619,6 @@ declare namespace kurento {
         getStunServerPort: (callback?: Callback<number>) => Promise<number>;
         setTurnUrl: (url: string, callback?: Callback<void>) => Promise<void>;
         getTurnUrl: (callback?: Callback<string>) => Promise<string>;
-        processOffer: (offer: string, callback?: Callback<string>) => Promise<string>;
 
         on(
             event: 'DataChannelClose',
