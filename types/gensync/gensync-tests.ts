@@ -9,7 +9,7 @@ declare function readFileCallback(
 declare function readFileSync(path: string, encoding: 'utf8' | 'ascii'): string;
 declare function readFileAsync(path: string, encoding: 'utf8' | 'ascii'): Promise<string>;
 
-// $ExpectType Operation<[path: string, encoding: "utf8" | "ascii"], string, unknown>
+// $ExpectType Gensync<[path: string, encoding: "utf8" | "ascii"], string, unknown>
 const readFileFromSync = gensync({
     name: 'readFile',
     arity: 2,
@@ -25,7 +25,7 @@ readFileFromSync.async;
 // $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: unknown, result: string) => void) => void
 readFileFromSync.errback;
 
-// $ExpectType Operation<[path: string, encoding: "utf8" | "ascii"], string, unknown>
+// $ExpectType Gensync<[path: string, encoding: "utf8" | "ascii"], string, unknown>
 const readFileFromAsync = gensync({
     name: 'readFile',
     sync: readFileSync,
@@ -41,7 +41,7 @@ readFileFromAsync.async;
 // $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: unknown, result: string) => void) => void
 readFileFromAsync.errback;
 
-// $ExpectType Operation<[path: string, encoding: "utf8" | "ascii"], string, Error>
+// $ExpectType Gensync<[path: string, encoding: "utf8" | "ascii"], string, Error>
 const readFileFromErrback = gensync({
     name: 'readFile',
     sync: readFileSync,
@@ -57,7 +57,7 @@ readFileFromErrback.async;
 // $ExpectType (path: string, encoding: "utf8" | "ascii", callback: (err: Error, result: string) => void) => void
 readFileFromErrback.errback;
 
-// $ExpectType Operation<[], void, unknown>
+// $ExpectType Gensync<[], void, unknown>
 gensync(function* () {});
 
 const addNumbers = gensync(function* (a: number, b?: number) {
@@ -107,7 +107,7 @@ gensync(function* () {
     yield* gensync.race(gens);
 });
 
-declare const iterable: Iterable<gensync.GensyncGenerator<number | boolean>>;
+declare const iterable: Iterable<gensync.Handler<number | boolean>>;
 
 gensync(function* () {
     // $ExpectType (number | boolean)[]

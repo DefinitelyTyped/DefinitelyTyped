@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-import { GensyncGenerator, Operation, Options } from '.';
+import { Gensync, Handler, Options } from '.';
 
 /**
  * Returns a function that can be "awaited" (with `yield*`) in another `gensync` generator
@@ -16,21 +16,21 @@ import { GensyncGenerator, Operation, Options } from '.';
  * @param generatorFnOrOptions A generator function, or options for an existing sync/async function
  */
 declare function gensync<A extends unknown[], R, E = unknown>(
-    generatorFnOrOptions: ((...args: A) => Generator<GensyncGenerator, R>) | Options<A, R, E>,
-): Operation<A, R, E>;
+    generatorFnOrOptions: ((...args: A) => Generator<Handler, R>) | Options<A, R, E>,
+): Gensync<A, R, E>;
 
 declare namespace gensync {
     /**
      * A generator produced by `gensync`, which can only "await" (with `yield*`) other
      * generators produced by `gensync`.
      */
-    type GensyncGenerator<R = unknown> = Generator<GensyncGenerator, R>;
+    type Handler<R = unknown> = Generator<Handler, R>;
 
     /**
      * Given a `gensync` generator, produces the "awaited" type of that generator
      * when "yield*"'d in another `gensync` generator.
      */
-    type GensyncAwaited<T> = T extends GensyncGenerator<infer U> ? U : never;
+    type Handled<T> = T extends Handler<infer U> ? U : never;
 
     /**
      * A function that can be "awaited" (with `yield*`) in another `gensync` generator,
@@ -40,8 +40,8 @@ declare namespace gensync {
      *   - `.async(...args)` - Returns a promise for the computed value.
      *   - `.errback(...args, (err, result) => {})` - Calls the callback wit
      */
-    interface Operation<A extends unknown[], R, E = unknown> {
-        (...args: A): GensyncGenerator<R>;
+    interface Gensync<A extends unknown[], R, E = unknown> {
+        (...args: A): Handler<R>;
         sync(...args: A): R;
         async(...args: A): Promise<R>;
         errback(...args: [...args: A, callback: (err: E, result: R) => void]): void;
@@ -109,7 +109,7 @@ declare namespace gensync {
         | ErrbackOptions<A, R, E>;
 
     // "all" and "race"'s types are pretty much copied from Promise.all and Promise.race,
-    // replacing Awaited with GensyncAwaited.
+    // replacing Awaited with Handled.
 
     /**
      * `Promise.all`-like combinator that works with an iterable of generator objects
@@ -117,9 +117,7 @@ declare namespace gensync {
      * @param args An array of gensync generators
      * @returns A new gensync generator
      */
-    function all<T extends readonly GensyncGenerator[] | []>(
-        args: T,
-    ): GensyncGenerator<{ -readonly [P in keyof T]: GensyncAwaited<T[P]> }>;
+    function all<T extends readonly Handler[] | []>(args: T): Handler<{ -readonly [P in keyof T]: Handled<T[P]> }>;
 
     /**
      * `Promise.all`-like combinator that works with an iterable of generator objects
@@ -127,7 +125,7 @@ declare namespace gensync {
      * @param args An iterable of gensync generators
      * @returns A new gensync generator
      */
-    function all<T>(args: Iterable<GensyncGenerator<T>>): GensyncGenerator<T[]>;
+    function all<T>(args: Iterable<Handler<T>>): Handler<T[]>;
 
     /**
      * `Promise.race`-like combinator that works with an iterable of generator objects
@@ -135,7 +133,7 @@ declare namespace gensync {
      * @param args An array of gensync generators
      * @returns A new gensync generator
      */
-    function race<T extends readonly GensyncGenerator[] | []>(args: T): GensyncGenerator<GensyncAwaited<T[number]>>;
+    function race<T extends readonly Handler[] | []>(args: T): Handler<Handled<T[number]>>;
 
     /**
      * `Promise.race`-like combinator that works with an iterable of generator objects
@@ -143,7 +141,7 @@ declare namespace gensync {
      * @param args An iterable of gensync generators
      * @returns A new gensync generator
      */
-    function race<T>(args: Iterable<GensyncGenerator<T>>): GensyncGenerator<T>;
+    function race<T>(args: Iterable<Handler<T>>): Handler<T>;
 }
 
 export = gensync;
