@@ -65,7 +65,7 @@ import {
     Upsell,
     useFocusVisible,
     useReducedMotion,
-    Video,
+    Video
 } from 'gestalt';
 import * as React from 'react';
 
@@ -468,7 +468,7 @@ const CheckUseReducedMotion = () => {
 <Upsell
     message="Hello world"
     imageData={{
-        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
+        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="dark" size={32} />,
     }}
 />;
 <Upsell
@@ -479,7 +479,7 @@ const CheckUseReducedMotion = () => {
         onDismiss: () => {},
     }}
     imageData={{
-        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
+        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="dark" size={32} />,
     }}
 >
     <Upsell.Form
