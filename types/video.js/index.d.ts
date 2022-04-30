@@ -1426,6 +1426,25 @@ declare namespace videojs {
         createEl(tagName?: string, properties?: any, attributes?: any): Element;
 
         /**
+         * Get current breakpoint name, if any.
+         *
+         * @return {string}
+         *         If there is currently a breakpoint set, returns a the key from the
+         *         breakpoints object matching it. Otherwise, returns an empty string.
+         */
+        currentBreakpoint(): string;
+
+        /**
+         * Get the current breakpoint class name.
+         *
+         * @return {string}
+         *         The matching class name (e.g. `"vjs-layout-tiny"` or
+         *         `"vjs-layout-large"`) for the current breakpoint. Empty string if
+         *         there is no current breakpoint.
+         */
+        currentBreakpointClass(): string;
+
+        /**
          * Get the width or the height of the `Component` elements computed style. Uses
          * `window.getComputedStyle`.
          *
