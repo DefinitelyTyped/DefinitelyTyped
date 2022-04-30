@@ -2077,10 +2077,9 @@ interface GoogleApiYouTubeVideoResource {
         /**
          * The videos license.
          */
-        license: string;
+        license: "youtube" | "creativeCommon";
         /**
          * This value indicates whether the video can be embedded on another website.
-
          */
         embeddable: boolean;
         /**
