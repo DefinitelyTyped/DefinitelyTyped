@@ -24,6 +24,7 @@
 /// <reference path="./OCSPNonce.d.ts" />
 /// <reference path="./RDN.d.ts" />
 /// <reference path="./SubjectAltName.d.ts" />
+/// <reference path="./SubjectDirectoryAttributes.d.ts" />
 /// <reference path="./SubjectKeyIdentifier.d.ts" />
 /// <reference path="./SubjectPublicKeyInfo.d.ts" />
 /// <reference path="./TBSCertificate.d.ts" />
