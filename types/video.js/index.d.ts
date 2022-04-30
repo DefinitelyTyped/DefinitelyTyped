@@ -6284,8 +6284,7 @@ export interface VideoJsPlayer extends videojs.Component {
     /**
      * Get current breakpoint name, if any.
      *
-     * @return {string}
-     *         If there is currently a breakpoint set, returns a the key from the
+     * @return If there is currently a breakpoint set, returns a the key from the
      *         breakpoints object matching it. Otherwise, returns an empty string.
      */
     currentBreakpoint(): string;
@@ -6293,8 +6292,7 @@ export interface VideoJsPlayer extends videojs.Component {
     /**
      * Get the current breakpoint class name.
      *
-     * @return {string}
-     *         The matching class name (e.g. `"vjs-layout-tiny"` or
+     * @return The matching class name (e.g. `"vjs-layout-tiny"` or
      *         `"vjs-layout-large"`) for the current breakpoint. Empty string if
      *         there is no current breakpoint.
      */
