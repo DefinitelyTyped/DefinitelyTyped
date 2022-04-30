@@ -88,6 +88,10 @@
             "libraryName": "all-keys",
             "asOfVersion": "3.0.0"
         },
+        "amazon-connect-streams": {
+            "libraryName": "amazon-connect-streams",
+            "asOfVersion": "1.4.8"
+        },
         "angular-dynamic-locale": {
             "libraryName": "angular-dynamic-locale",
             "asOfVersion": "0.1.35"
