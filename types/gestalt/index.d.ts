@@ -1643,7 +1643,7 @@ export interface TextAreaProps {
     tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
     value?: string | undefined;
     readonly?: boolean;
-    labelDisplay?: 'visible' | 'hidden';
+    labelDisplay?: 'visible' | 'hidden' | undefined;
 }
 
 /**
