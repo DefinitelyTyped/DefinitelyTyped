@@ -395,7 +395,7 @@ export interface CheckboxProps {
     onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }> | undefined;
     size?: 'sm' | 'md' | undefined;
     subtext?: string | undefined;
-    labelDisplay?: 'visible' | 'hidden';
+    labelDisplay?: 'visible' | 'hidden' | undefined;
 }
 
 /**
