@@ -1,10 +1,10 @@
 declare namespace jsrsasign.KJUR.asn1.x509 {
     /**
      * SubjectDirectoryAttributes ASN.1 structure class<br/>
-     * @name KJUR.asn1.x509.SubjectDirectoryAttributes
-     * @class SubjectDirectoryAttributes ASN.1 structure class
-     * @param {Array} params associative array of parameters
-     * @extends KJUR.asn1.x509.Extension
+     * name KJUR.asn1.x509.SubjectDirectoryAttributes
+     * class SubjectDirectoryAttributes ASN.1 structure class
+     * @param params associative array of parameters
+     * extends KJUR.asn1.x509.Extension
      * @since jsrsasign 10.1.9 asn1x509 2.1.7
      * @description
      * This class provides X.509v3 SubjectDirectoryAttributes extension
@@ -33,5 +33,6 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
      */
     class SubjectDirectoryAttributes {
         constructor(params?: { extname?: string; array?: any });
+        getExtnValueHex(): string;
     }
 }
