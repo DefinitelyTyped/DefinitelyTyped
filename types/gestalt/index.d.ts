@@ -1690,7 +1690,7 @@ export interface TextFieldProps {
      */
     type?: 'date' | 'email' | 'password' | 'text' | 'url' | 'tel' | undefined;
     value?: string | undefined;
-    labelDisplay?: 'visible' | 'hidden';
+    labelDisplay?: 'visible' | 'hidden' | undefined;
 }
 
 /**
