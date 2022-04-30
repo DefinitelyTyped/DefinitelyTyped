@@ -43,7 +43,7 @@ declare class Server extends events.EventEmitter {
      * Used for proxying regular HTTP(S) requests
      * @param req - Client request.
      * @param res - Client response.
-     * @param options - Additionnal options.
+     * @param options - Additional options.
      */
     web(
         req: http.IncomingMessage,

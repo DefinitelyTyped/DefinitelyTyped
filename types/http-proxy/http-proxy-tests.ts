@@ -6,7 +6,7 @@ const proxy = new HttpProxy({
 });
 
 proxy.on("error", err => {
-    console.error("An error occured:", err);
+    console.error("An error occurred:", err);
 });
 
 /**
