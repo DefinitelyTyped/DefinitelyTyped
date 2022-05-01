@@ -1,4 +1,4 @@
-// Type definitions for javascript-color-gradient 2.3
+// Type definitions for javascript-color-gradient 2.4
 // Project: https://github.com/Adrinlol/javascript-color-gradient
 // Definitions by: Wilson Chua <https://github.com/wilsoncwc/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
