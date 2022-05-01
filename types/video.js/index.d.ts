@@ -1621,6 +1621,14 @@ declare namespace videojs {
         getChildById(id: string): Component | undefined;
 
         /**
+         * When this Component receives a `keydown` event which it does not process,
+         *  it passes the event to the Player for handling.
+         *
+         *  @listens keydown
+         */
+        handleKeyDown(event: Event): void;
+
+        /**
          * Check if a component's element has a CSS class name.
          *
          * @param classToCheck

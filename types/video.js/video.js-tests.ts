@@ -229,6 +229,7 @@ function testComponents(player: videojs.Player) {
     myWindow.open();
     myWindow.close();
     myWindow.myFunction();
+    myWindow.handleKeyDown();
     myWindow.isDisposed(); // $ExpectType boolean
     myWindow.dispose(); // $ExpectType void
 
