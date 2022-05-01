@@ -79,6 +79,7 @@ export interface DefaultArcObject {
  * The second generic corresponds to the datum type for which the arc is to be generated.
  */
 export interface Arc<This, Datum> {
+    (): string | null;
     /**
      * Generates an arc for the given arguments.
      *
