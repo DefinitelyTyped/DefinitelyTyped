@@ -740,7 +740,6 @@ export class DateTime {
      */
     static isDateTime(o: unknown): o is DateTime;
 
-    // Constructor is declared `@access private`
     private constructor();
 
     // INFO
