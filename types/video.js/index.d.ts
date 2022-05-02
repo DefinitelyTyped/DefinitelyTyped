@@ -7072,6 +7072,7 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     nativeControlsForTouch?: boolean | undefined;
     notSupportedMessage?: string | undefined;
     playbackRates?: number[] | undefined;
+    noUITitleAttributes?: boolean | undefined;
     plugins?: Partial<VideoJsPlayerPluginOptions> | undefined;
     poster?: string | undefined;
     preload?: string | undefined;
