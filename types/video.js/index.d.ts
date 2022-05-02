@@ -1057,12 +1057,16 @@ declare namespace videojs {
               children?: Child[] | undefined;
           };
 
+    interface ClickableComponentOptions extends ComponentOptions {
+        clickHandler?: () => void;
+    }
+
     /**
      * Clickable Component which is clickable or keyboard actionable,
      * but is not a native HTML button.
      */
     interface ClickableComponent extends Component {
-        options_: ComponentOptions;
+        options_: ClickableComponentOptions;
 
         /**
          * Builds the default DOM `className`.
@@ -1195,7 +1199,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): ClickableComponent;
+        new (player: Player, options?: ClickableComponentOptions): ClickableComponent;
     };
 
     /**

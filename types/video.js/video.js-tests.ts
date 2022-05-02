@@ -248,6 +248,11 @@ function testComponents(player: videojs.Player) {
     myOtherWindow.close();
     myOtherWindow.myFunction(); // $ExpectType void
     myOtherWindow.myOtherFunction("test"); // $ExpectType string
+
+    const MyClickableComponent = videojs.extend(videojs.getComponent("clickablecomponent"));
+    const myClickable = new MyClickableComponent(player, {
+        clickHandler: () => {}
+    });
 }
 
 function testPlugin(player: videojs.Player, options: {}) {
