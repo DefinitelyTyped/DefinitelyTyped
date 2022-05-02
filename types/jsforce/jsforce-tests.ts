@@ -145,6 +145,11 @@ async function testSObject(connection: sf.Connection) {
             err; // $ExpectType Error | null
             res; // $ExpectType RecordResult[]
         });
+
+        // find and update
+        dummySObject.find({ Id: '50130000000014C' }).update({
+            thing: true,
+        });
     }
 
     {

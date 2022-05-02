@@ -90,6 +90,24 @@ declare module 'diagnostics_channel' {
         readonly hasSubscribers: boolean;
         private constructor(name: string);
         /**
+         * Publish a message to any subscribers to the channel. This will
+         * trigger message handlers synchronously so they will execute within
+         * the same context.
+         *
+         * ```js
+         * import diagnostics_channel from 'diagnostics_channel';
+         *
+         * const channel = diagnostics_channel.channel('my-channel');
+         *
+         * channel.publish({
+         *   some: 'message'
+         * });
+         * ```
+         * @since v15.1.0, v14.17.0
+         * @param message The message to send to the channel subscribers
+         */
+        publish(message: unknown): void;
+        /**
          * Register a message handler to subscribe to this channel. This message handler
          * will be run synchronously whenever a message is published to the channel. Any
          * errors thrown in the message handler will trigger an `'uncaughtException'`.

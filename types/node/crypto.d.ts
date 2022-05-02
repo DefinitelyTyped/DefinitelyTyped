@@ -3109,20 +3109,27 @@ declare module 'crypto' {
          */
         readonly fingerprint256: string;
         /**
+         * The SHA-512 fingerprint of this certificate.
+         * @since v16.14.0
+         */
+         readonly fingerprint512: string;
+        /**
          * The complete subject of this certificate.
          * @since v15.6.0
          */
         readonly subject: string;
         /**
-         * The subject alternative name specified for this certificate.
+         * The subject alternative name specified for this certificate or `undefined`
+         * if not available.
          * @since v15.6.0
          */
-        readonly subjectAltName: string;
+        readonly subjectAltName: string | undefined;
         /**
-         * The information access content of this certificate.
+         * The information access content of this certificate or `undefined` if not
+         * available.
          * @since v15.6.0
          */
-        readonly infoAccess: string;
+        readonly infoAccess: string | undefined;
         /**
          * An array detailing the key usages for this certificate.
          * @since v15.6.0
@@ -3170,7 +3177,7 @@ declare module 'crypto' {
          * @since v15.6.0
          * @return Returns `email` if the certificate matches, `undefined` if it does not.
          */
-        checkEmail(email: string, options?: X509CheckOptions): string | undefined;
+        checkEmail(email: string, options?: Pick<X509CheckOptions, 'subject'>): string | undefined;
         /**
          * Checks whether the certificate matches the given host name.
          * @since v15.6.0
@@ -3182,7 +3189,7 @@ declare module 'crypto' {
          * @since v15.6.0
          * @return Returns `ip` if the certificate matches, `undefined` if it does not.
          */
-        checkIP(ip: string, options?: X509CheckOptions): string | undefined;
+        checkIP(ip: string): string | undefined;
         /**
          * Checks whether this certificate was issued by the given `otherCert`.
          * @since v15.6.0
