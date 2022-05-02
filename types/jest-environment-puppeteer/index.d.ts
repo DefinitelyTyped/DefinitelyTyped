@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-import NodeEnvironment = require('jest-environment-node');
+import NodeEnvironment from 'jest-environment-node';
 import { Browser, Page, BrowserContext } from 'puppeteer';
 import { Context } from 'vm';
 
