@@ -329,6 +329,13 @@ describe("toHaveClass", () => {
     expect(element).toHaveClass(Element); // $ExpectError
 });
 
+describe('toHaveSpyInteractions', () => {
+    const mySpyObj = jasmine.createSpyObj('NewClass', ['spyA', 'spyB']);
+    mySpyObj.otherMethod = () => {};
+    expect(mySpyObj).toHaveSpyInteractions();
+    expect(mySpyObj).not.toHaveSpyInteractions();
+});
+
 describe("A spec", () => {
     it("is just a function, so it can contain any code", () => {
         var foo = 0;
@@ -1988,6 +1995,24 @@ describe("better typed spys", () => {
             }
             spyOn<Base>(new Super(), "service");
             spyOn<Base>(new Super(), "service2"); // $ExpectError
+        });
+    });
+    describe("spyOnProperty", () => {
+        it("works", () => {
+            const obj = {prop: "test", otherProp: 1};
+            const getSpy = spyOnProperty(obj, "prop");
+            getSpy.and.returnValue("spy");
+            getSpy.and.returnValue(123); // $ExpectError
+            getSpy.and.callFake(function() {
+                this.otherProp; // $ExpectType number
+                return "spy";
+            });
+            const setSpy = spyOnProperty(obj, "prop", "set");
+            setSpy.calls.first().args; // $ExpectType [string] || [value: string]
+            setSpy.calls.first().returnValue; // $ExpectType void
+            setSpy.and.callFake(function(value: string) {
+                this.otherProp; // $ExpectType number
+            });
         });
     });
     describe("createSpyObj", () => {

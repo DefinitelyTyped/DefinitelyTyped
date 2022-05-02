@@ -548,6 +548,16 @@ declare namespace jsts {
             constructor(c: Coordinate);
 
             /**
+             * @constructor
+             */
+             constructor();
+
+            /**
+             * @constructor
+             */
+             constructor(x: number, y: number, z: number);
+
+            /**
              * Gets or sets the x value.
              */
             x: number;
@@ -1033,6 +1043,102 @@ declare namespace jsts {
              * @return {jsts.geom.Envelope} A new instance copied from this.
              */
             clone(): Envelope;
+        }
+
+        /**
+         * An interface for classes which use the values of the coordinates in a Geometry.
+         * Coordinate filters can be used to implement centroid and envelope computation,
+         * and many other functions.
+         * CoordinateFilter is an example of the Gang-of-Four Visitor pattern.
+         *
+         * Note: it is not recommended to use these filters to mutate the coordinates.
+         * There is no guarantee that the coordinate is the actual object stored in the
+         * source geometry. In particular, modified values may not be preserved if the
+         * source Geometry uses a non-default CoordinateSequence.
+         * If in-place mutation is required, use CoordinateSequenceFilter.
+         */
+        interface CoordinateFilter {
+            /**
+             * Performs an operation with the provided coord. Note that there is no guarantee
+             * that the input coordinate is the actual object stored in the source geometry,
+             * so changes to the coordinate object may not be persistent.
+             * @param coord a Coordinate to which the filter is applied.
+             */
+            filter(coord: Coordinate): void;
+        }
+
+        /**
+         * An interface for classes which process the coordinates in a CoordinateSequence.
+         * A filter can either record information about each coordinate, or change the value of the coordinate.
+         * Filters can be used to implement operations such as coordinate transformations,
+         * centroid and envelope computation, and many other functions.
+         * Geometry classes support the concept of applying a CoordinateSequenceFilter to each
+         * CoordinateSequences they contain.
+         * For maximum efficiency, the execution of filters can be short-circuited by using the isDone() method.
+         * CoordinateSequenceFilter is an example of the Gang-of-Four Visitor pattern.
+         */
+        interface CoordinateSequenceFilter {
+            /**
+             * Performs an operation on a coordinate in a CoordinateSequence.
+             * @param seq the CoordinateSequence to which the filter is applied
+             * @param i the index of the coordinate to apply the filter to
+             */
+            filter(seq: CoordinateSequence, i: number): void;
+
+            /**
+             * Reports whether the application of this filter can be terminated.
+             * Once this method returns true, it must continue to return true on
+             * every subsequent call.
+             *
+             * @returns true if the application of this filter can be terminated.
+             */
+            isDone(): boolean;
+
+            /**
+             * Reports whether the execution of this filter has modified the coordinates
+             * of the geometry. If so, Geometry.geometryChanged() will be executed after
+             * this filter has finished being executed.
+             * Most filters can simply return a constant value reflecting whether
+             * they are able to change the coordinates.
+             *
+             * @returns true if this filter has changed the coordinates of the geometry
+             */
+            isGeometryChanged(): boolean;
+        }
+
+        /**
+         * GeometryCollection classes support the concept of applying a GeometryFilter
+         * to the Geometry. The filter is applied to every element Geometry.
+         * A GeometryFilter can either record information about the Geometry or
+         * change the Geometry in some way. GeometryFilter is an example of the
+         * Gang-of-Four Visitor pattern.
+         */
+        interface GeometryFilter {
+            /**
+             * Performs an operation with or on geom.
+             * @param geom  a Geometry to which the filter is applied.
+             */
+            filter(geom: Geometry): void;
+        }
+
+        /**
+         * Geometry classes support the concept of applying a GeometryComponentFilter
+         * filter to the Geometry. The filter is applied to every component of the Geometry
+         * which is itself a Geometry and which does not itself contain any components.
+         * (For instance, all the LinearRings in Polygons are visited, but in a MultiPolygon
+         * the Polygons themselves are not visited.) Thus the only classes of Geometry which
+         * must be handled as arguments to filter(org.locationtech.jts.geom.Geometry) are
+         * LineStrings, LinearRings and Points.
+         * A GeometryComponentFilter filter can either record information about the Geometry
+         * or change the Geometry in some way. GeometryComponentFilter is an example of the
+         * Gang-of-Four Visitor pattern.
+         */
+        interface GeometryComponentFilter {
+            /**
+             * Performs an operation with or on geom.
+             * @param geom  a Geometry to which the filter is applied.
+             */
+            filter(geom: Geometry): void;
         }
 
         /**
@@ -1676,7 +1782,7 @@ declare namespace jsts {
              * @see #buffer(double, int)
              * @see BufferOp
              */
-            buffer(distance: number, quadrantSegments: number, endCapStyle: number): Geometry;
+            buffer(distance: number, quadrantSegments: number, endCapStyle: number): Polygon | MultiPolygon;
 
             /**
              * Computes the smallest convex <code>Polygon</code> that contains all the
@@ -1831,15 +1937,34 @@ declare namespace jsts {
             equalsNorm(g: Geometry): boolean;
 
             /**
-             * Performs an operation with or on this <code>Geometry</code> and its
-             * subelement <code>Geometry</code>s (if any). Only GeometryCollections and
-             * subclasses have subelement Geometry's.
-             *
-             * @param filter
-             *          the filter to apply to this <code>Geometry</code> (and its
-             *          children, if it is a <code>GeometryCollection</code>).
+             * Performs an operation with or on this Geometry's coordinates. If this method
+             * modifies any coordinate values, geometryChanged() must be called to update the
+             * geometry state. Note that you cannot use this method to modify this Geometry
+             * if its underlying CoordinateSequence's #get method returns a copy of the Coordinate,
+             * rather than the actual Coordinate stored (if it even stores Coordinate objects at all).
+             * @param filter the filter to apply to this Geometry's coordinates
              */
-            apply(filter: any): void;
+            apply(filter: CoordinateFilter): void;
+            /**
+             * Performs an operation on the coordinates in this Geometry's CoordinateSequences.
+             * If the filter reports that a coordinate value has been changed, geometryChanged()
+             * will be called automatically.
+             * @param filter the filter to apply
+             */
+            apply(filter: CoordinateSequenceFilter): void;
+            /**
+             * Performs an operation with or on this Geometry and its subelement Geometrys (if any).
+             * Only GeometryCollections and subclasses have subelement Geometry's.
+             * @param filter the filter to apply to this Geometry (and its children, if it is a GeometryCollection).
+             */
+            apply(filter: GeometryFilter): void;
+            /**
+             * Performs an operation with or on this Geometry and its component Geometry's.
+             * Only GeometryCollections and Polygons have component Geometry's;
+             * for Polygons they are the LinearRings of the shell and holes.
+             * @param filter the filter to apply to this Geometry.
+             */
+            apply(filter: GeometryComponentFilter): void;
 
             /**
              * Creates and returns a full copy of this {@link Geometry} object (including
@@ -2180,6 +2305,22 @@ declare namespace jsts {
              * @return {number} The number of interior rings.
              */
             getNumInteriorRing(): number;
+        }
+
+        /**
+         * Models a collection of Polygons.
+         * As per the OGC SFS specification, the Polygons in a MultiPolygon
+         * may not overlap, and may only touch at single points. This allows 
+         * the topological point-set semantics to be well-defined.
+         */
+        export class MultiPolygon extends GeometryCollection {
+            /**
+             * polygons - the Polygons for this MultiPolygon, or null or an empty 
+             * array to create the empty geometry. Elements may be empty Polygons,
+             * but not nulls. The polygons must conform to the assertions specified
+             * in the OpenGIS Simple Features Specification for SQL.
+             */
+            constructor(polygons: null | Array<Polygon>, factory: GeometryFactory);
         }
 
         namespace util {

@@ -189,6 +189,7 @@ declare module 'crypto' {
 
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm' | 'chacha20-poly1305';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
+    type CipherOCBTypes = 'aes-128-ocb' | 'aes-192-ocb' | 'aes-256-ocb';
 
     type BinaryLike = string | NodeJS.ArrayBufferView;
 
@@ -200,6 +201,9 @@ declare module 'crypto' {
     interface CipherGCMOptions extends stream.TransformOptions {
         authTagLength?: number | undefined;
     }
+    interface CipherOCBOptions extends stream.TransformOptions {
+        authTagLength: number;
+    }
     /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): CipherCCM;
     /** @deprecated since v10.0.0 use `createCipheriv()` */
@@ -210,13 +214,19 @@ declare module 'crypto' {
     function createCipheriv(
         algorithm: CipherCCMTypes,
         key: CipherKey,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options: CipherCCMOptions,
     ): CipherCCM;
     function createCipheriv(
+        algorithm: CipherOCBTypes,
+        key: CipherKey,
+        iv: BinaryLike,
+        options: CipherOCBOptions,
+    ): CipherOCB;
+    function createCipheriv(
         algorithm: CipherGCMTypes,
         key: CipherKey,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options?: CipherGCMOptions,
     ): CipherGCM;
     function createCipheriv(
@@ -246,6 +256,10 @@ declare module 'crypto' {
         setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
+    interface CipherOCB extends Cipher {
+        setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
+        getAuthTag(): Buffer;
+    }
     /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): DecipherCCM;
     /** @deprecated since v10.0.0 use `createDecipheriv()` */
@@ -256,13 +270,19 @@ declare module 'crypto' {
     function createDecipheriv(
         algorithm: CipherCCMTypes,
         key: CipherKey,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options: CipherCCMOptions,
     ): DecipherCCM;
     function createDecipheriv(
+        algorithm: CipherOCBTypes,
+        key: CipherKey,
+        iv: BinaryLike,
+        options: CipherOCBOptions,
+    ): DecipherOCB;
+    function createDecipheriv(
         algorithm: CipherGCMTypes,
         key: CipherKey,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options?: CipherGCMOptions,
     ): DecipherGCM;
     function createDecipheriv(
@@ -289,6 +309,10 @@ declare module 'crypto' {
         setAAD(buffer: NodeJS.ArrayBufferView, options: { plaintextLength: number }): this;
     }
     interface DecipherGCM extends Decipher {
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
+    }
+    interface DecipherOCB extends Decipher {
         setAuthTag(buffer: NodeJS.ArrayBufferView): this;
         setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
     }

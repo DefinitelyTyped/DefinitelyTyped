@@ -20,7 +20,7 @@ declare function HtmlValidator(
 
 declare namespace HtmlValidator {
     interface BasicOptions {
-        validator?: object | undefined;
+        validator?: string | object | undefined;
         ignore?: string | string[] | undefined;
         isLocal?: boolean | undefined;
         isFragment?: boolean | undefined;

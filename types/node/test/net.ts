@@ -244,6 +244,7 @@ import { Socket } from 'node:dgram';
     bool = _socket.connecting;
     bool = _socket.destroyed;
     _socket.destroy().destroy();
+    _socket.readyState; // $ExpectType SocketReadyState
 }
 
 {

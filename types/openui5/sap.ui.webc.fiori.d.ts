@@ -1,4 +1,4 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.101.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -1138,7 +1138,7 @@ declare module "sap/ui/webc/fiori/Bar" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -2798,7 +2798,7 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getHideArrows hideArrows}.
@@ -2876,7 +2876,7 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -5948,7 +5948,7 @@ declare module "sap/ui/webc/fiori/Page" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getHideFooter hideFooter}.
@@ -5976,7 +5976,7 @@ declare module "sap/ui/webc/fiori/Page" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -9166,7 +9166,7 @@ declare module "sap/ui/webc/fiori/Timeline" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getLayout layout}.
@@ -9200,7 +9200,7 @@ declare module "sap/ui/webc/fiori/Timeline" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -10157,7 +10157,7 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getHideDragOverlay hideDragOverlay}.
@@ -10242,7 +10242,7 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -11806,7 +11806,7 @@ declare module "sap/ui/webc/fiori/Wizard" {
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
   }
 
