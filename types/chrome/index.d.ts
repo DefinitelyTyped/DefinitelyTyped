@@ -7601,7 +7601,7 @@ declare namespace chrome.scripting {
         files: string[];
     } | ({
         /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        func: ((...args: Args) => void);
+        func: ((...args?: Args) => void);
     } & (Args extends [] ? {
         /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
         args?: Args;
