@@ -9,6 +9,7 @@ export interface PointsMaterialParameters extends MaterialParameters {
     alphaMap?: Texture | null | undefined;
     size?: number | undefined;
     sizeAttenuation?: boolean | undefined;
+    fog?: boolean | undefined;
 }
 
 export class PointsMaterial extends Material {
@@ -43,6 +44,12 @@ export class PointsMaterial extends Material {
      * @default true
      */
     sizeAttenuation: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: PointsMaterialParameters): void;
 }
