@@ -105,6 +105,19 @@ readContents.errback('foo', (err, result) => {
     result;
 });
 
+const isAsync = gensync<[], boolean, null>({
+    sync: () => false,
+    errback: cb => cb(null, true),
+});
+
+isAsync.errback((err, condition) => {
+    // $ExpectType null
+    err;
+
+    // $ExpectType boolean
+    condition;
+});
+
 gensync(function* () {
     // $ExpectType [number, string]
     yield* gensync.all([addNumbers(1, 2), readContents('foo')]);

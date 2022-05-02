@@ -5,7 +5,7 @@
 // Minimum TypeScript Version: 4.0
 
 // tslint:disable-next-line void-return
-type Callback<R, E = unknown> = R extends void ? (err: E) => void : (err: E, result: R) => void;
+type Callback<R, E = unknown> = [R] extends [void] ? (err: E) => void : (err: E, result: R) => void;
 
 /**
  * Returns a function that can be "awaited" (with `yield*`) in another `gensync` generator
