@@ -87,9 +87,6 @@ export interface VimeoChapter {
     index: number;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface ChapterChangeEvent extends VimeoChapter {}
-
 export interface Cue {
     /**
      * The `html` property contains the HTML that the Player renders for that cue.
@@ -156,9 +153,6 @@ export interface VimeoCameraProps {
     fov: number;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface CameraChangeEvent extends VimeoCameraProps {}
-
 export interface ResizeEvent {
     videoWidth: number;
     videoHeight: number;
@@ -213,7 +207,7 @@ export interface EventMap {
     /**
      * Triggered when the current chapter changes.
      */
-    chapterchange: ChapterChangeEvent;
+    chapterchange: VimeoChapter;
 
     /**
      * Triggered when the active cue for the current text track changes. It also fires when the active text track changes. There may be multiple cues active.
@@ -278,7 +272,7 @@ export interface EventMap {
     /**
      * Triggered when any of the camera properties change for 360° videos.
      */
-    camerachange: CameraChangeEvent;
+    camerachange: VimeoCameraProps;
 
     /**
      * Triggered when the intrinsic size of the media changes.
