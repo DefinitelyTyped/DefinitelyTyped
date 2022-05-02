@@ -74,7 +74,6 @@ export class Interval {
      */
     static isInterval(o: unknown): o is Interval;
 
-    // Constructor is declared `@private`
     private constructor();
 
     /**
