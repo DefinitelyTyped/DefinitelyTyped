@@ -1,7 +1,12 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { Value } from '@wordpress/rich-text';
-import { createRef, MouseEvent as ReactMouseEvent } from 'react';
+import {
+    createRef,
+    KeyboardEvent as ReactKeyboardEvent,
+    MouseEvent as ReactMouseEvent,
+    FocusEvent as ReactFocusEvent
+} from 'react';
 
 //
 // primitives
@@ -518,7 +523,12 @@ const kbshortcuts = {
 //
 // modal
 //
-<C.Modal title="This is my modal" isDismissible={true} onRequestClose={() => console.log('closing modal')}>
+<C.Modal title="This is my modal"
+    isDismissible={true}
+    onRequestClose={
+        (event: ReactKeyboardEvent | ReactMouseEvent | ReactMouseEvent) => console.log(`The ${event.type} event told me to close myself!`)
+    }
+>
     <button onClick={() => console.log('clicked')}>My custom close button</button>
 </C.Modal>;
 
