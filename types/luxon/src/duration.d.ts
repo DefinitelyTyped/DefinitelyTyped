@@ -190,7 +190,6 @@ export class Duration {
      */
     static isDuration(o: unknown): o is Duration;
 
-    // Constructor is declared `@private`
     private constructor();
 
     /**
