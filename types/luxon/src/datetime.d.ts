@@ -740,7 +740,7 @@ export class DateTime {
      */
     static isDateTime(o: unknown): o is DateTime;
 
-    private constructor();
+    private constructor(config: unknown);
 
     // INFO
 

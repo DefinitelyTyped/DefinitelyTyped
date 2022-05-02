@@ -190,7 +190,7 @@ export class Duration {
      */
     static isDuration(o: unknown): o is Duration;
 
-    private constructor();
+    private constructor(config: unknown);
 
     /**
      * Get  the locale of a Duration, such 'en-GB'
