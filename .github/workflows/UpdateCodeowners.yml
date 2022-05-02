@@ -20,7 +20,7 @@ jobs:
         with:
             fetch-depth: 0
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
 
       - run: git config --global user.email "bot@typescriptlang.org"
       - run: git config --global user.name "TS Bot"
