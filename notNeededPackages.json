@@ -92,6 +92,10 @@
             "libraryName": "amazon-connect-streams",
             "asOfVersion": "1.4.8"
         },
+        "amqp-connection-manager": {
+            "libraryName": "amqp-connection-manager",
+            "asOfVersion": "3.4.0"
+        },
         "angular-dynamic-locale": {
             "libraryName": "angular-dynamic-locale",
             "asOfVersion": "0.1.35"
