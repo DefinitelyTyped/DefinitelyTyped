@@ -65,6 +65,22 @@ declare namespace PDFKit.Mixins {
         textAnnotation(x: number, y: number, w: number, h: number, text: string, option?: AnnotationOption): this;
     }
 
+    interface PDFAttachmentOptions {
+        name?: string;
+        type?: string;
+        description?: string;
+        hidden?: boolean;
+        creationDate?: Date;
+        modifiedDate?: Date;
+    }
+
+    interface PDFAttachment {
+        /**
+         * Embed content of `src` in PDF
+         */
+        file(src: Buffer | ArrayBuffer | string, options?: PDFAttachmentOptions): this;
+    }
+
     // The color forms accepted by PDFKit:
     //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
     type ColorValue = string | PDFGradient | [number, number, number] | [number, number, number, number];
@@ -111,6 +127,7 @@ declare namespace PDFKit.Mixins {
 
     interface PDFFont {
         font(buffer: Buffer): this;
+        font(src: string, size?: number): this;
         font(src: string, family?: string, size?: number): this;
         fontSize(size: number): this;
         currentLineHeight(includeGap?: boolean): number;
@@ -397,7 +414,8 @@ declare namespace PDFKit {
             Mixins.PDFVector,
             Mixins.PDFFont,
             Mixins.PDFAcroForm,
-            Mixins.PDFMarking {
+            Mixins.PDFMarking,
+            Mixins.PDFAttachment {
         /**
          * PDF Version
          */

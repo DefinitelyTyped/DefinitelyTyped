@@ -9,6 +9,16 @@
         "default": "./index.d.ts"
       }
     },
+    "./next": {
+      "types": {
+        "default": "./next.d.ts"
+      }
+    },
+    "./experimental": {
+      "types": {
+        "default": "./experimental.d.ts"
+      }
+    },
     "./jsx-runtime": {
       "types": {
         "default": "./jsx-runtime.d.ts"

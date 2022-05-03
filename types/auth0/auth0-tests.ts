@@ -1022,6 +1022,11 @@ async function signupTest(): Promise<void> {
     signupResult._id; // $ExpectType string
     signupResult.email; // $ExpectType string
     signupResult.email_verified; // $ExpectType boolean
+
+    authentication.database.signUp({ email: 'email', password: 'password' }, (err, data) => {
+        err; // $ExpectType Error
+        data; // $ExpectType User<AppMetadata, UserMetadata>
+    });
 }
 
 const decoded = idToken.decode('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken

@@ -99,7 +99,7 @@ declare namespace Long {
         /**
          * Converts the specified value to a Long.
          */
-        fromValue( val: Long | number | string | {low: number, high: number, unsigned: boolean} ): Long;
+        fromValue( val: Long | number | string | {low: number, high: number, unsigned: boolean}, unsigned?: boolean ): Long;
     }
     interface Long
     {
