@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Node as ProsemirrorNode, Schema } from 'prosemirror-model';
+import { Mark, Node as ProsemirrorNode, Schema } from 'prosemirror-model';
 
 type TestNodesUnion =
     | 'p'
@@ -32,7 +32,8 @@ type TestNodesUnion =
     | 'hard_break';
 type TestMarksUnion = 'a' | 'link' | 'em' | 'strong' | 'code';
 
-type Args = Array<string | prosemirrorTestBuilder.TaggedProsemirrorNode | prosemirrorTestBuilder.TaggedFlatObject>;
+type Args = Array<string | prosemirrorTestBuilder.TaggedProsemirrorNode | prosemirrorTestBuilder.TaggedFlatObject |
+    typeof Mark['attrs'] | typeof Node['attrs']>;
 
 type NodeBuilderMethod<S extends Schema = any> = (...args: Args) => prosemirrorTestBuilder.TaggedProsemirrorNode<S>;
 
