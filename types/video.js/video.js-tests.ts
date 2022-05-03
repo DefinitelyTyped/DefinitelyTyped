@@ -124,6 +124,7 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     liveTracker.seekToLiveEdge();
     liveTracker.startTracking();
     liveTracker.stopTracking();
+    liveTracker.nextSeekedFromUser();
     const isTracking: boolean = liveTracker.isTracking();
 
     const whereYouAt: number = this.currentTime();

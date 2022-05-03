@@ -3096,6 +3096,13 @@ declare namespace videojs {
         behindLiveEdge(): boolean;
 
         /**
+         * The next seeked event is from the user. Meaning that any seek
+         * > 2s behind live will be considered behind live for real and
+         * liveTolerance will be ignored.
+         */
+        nextSeekedFromUser(): void;
+
+        /**
          * live current time is our best approximation of what the live current time is.
          * Internally it uses the pastSeekEnd() function and adds that to the seekableEnd() function.
          * It is possible for this function to return Infinity.
