@@ -190,6 +190,34 @@ import { promisify } from 'node:util';
 }
 
 {
+    // crypto_cipheriv_decipheriv_aad_ocb_test
+    const key = 'keykeykeykeykeykeykeykey';
+    const iv = crypto.randomBytes(12);
+    const aad = Buffer.from('0123456789', 'hex');
+
+    const cipher = crypto.createCipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    const plaintext = 'Hello world';
+    cipher.setAAD(aad, {
+        plaintextLength: Buffer.byteLength(plaintext),
+    });
+    const ciphertext = Buffer.concat([
+        cipher.update(plaintext, 'utf8'),
+        cipher.final(),
+    ]);
+    const tag = cipher.getAuthTag();
+
+    const decipher = crypto.createDecipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    decipher.setAuthTag(tag);
+    decipher.setAAD(aad, {
+        plaintextLength: ciphertext.length,
+    });
+    const receivedPlaintext: Buffer = Buffer.concat([
+        decipher.update(ciphertext),
+        decipher.final(),
+    ]);
+}
+
+{
     // crypto_cipheriv_decipheriv_cbc_string_encoding_test
     const key: string | null = 'keykeykeykeykeykeykeykey';
     const nonce = crypto.randomBytes(12);
@@ -1160,7 +1188,8 @@ import { promisify } from 'node:util';
     cert.ca; // $ExpectType boolean
     cert.fingerprint; // $ExpectType string
     cert.fingerprint256; // $ExpectType string
-    cert.infoAccess; // $ExpectType string
+    cert.fingerprint512; // $ExpectType string
+    cert.infoAccess; // $ExpectType string | undefined
     cert.issuer; // $ExpectType string
     cert.issuerCertificate; // $ExpectType X509Certificate | undefined
     cert.keyUsage; // $ExpectType string[]
@@ -1168,7 +1197,7 @@ import { promisify } from 'node:util';
     cert.raw; // $ExpectType Buffer
     cert.serialNumber; // $ExpectType string
     cert.subject; // $ExpectType string
-    cert.subjectAltName; // $ExpectType string
+    cert.subjectAltName; // $ExpectType string | undefined
     cert.validFrom; // $ExpectType string
     cert.validTo; // $ExpectType string
 
@@ -1182,10 +1211,10 @@ import { promisify } from 'node:util';
 
     cert.checkEmail('test@test.com'); // $ExpectType string | undefined
     cert.checkEmail('test@test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkEmail('test@test.com', { subject: 'always' }); // $ExpectType string | undefined
     cert.checkHost('test.com'); // $ExpectType string | undefined
     cert.checkHost('test.com', checkOpts); // $ExpectType string | undefined
     cert.checkIP('1.1.1.1'); // $ExpectType string | undefined
-    cert.checkIP('1.1.1.1', checkOpts); // $ExpectType string | undefined
     cert.checkIssued(new crypto.X509Certificate('dummycert')); // $ExpectType boolean
     cert.checkPrivateKey(crypto.createPrivateKey('dummy')); // $ExpectType boolean
     cert.toLegacyObject(); // $ExpectType PeerCertificate

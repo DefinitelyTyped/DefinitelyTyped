@@ -3421,15 +3421,8 @@ declare namespace chrome.events {
         originAndPathMatches?: string | undefined;
     }
 
-    /** An object which allows the addition and removal of listeners for a Chrome event. */
-    export interface Event<T extends Function> {
-        /**
-         * Registers an event listener callback to an event.
-         * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
-         * The callback parameter should be a function that looks like this:
-         * function() {...};
-         */
-        addListener(callback: T): void;
+    export interface BaseEvent<T extends Function> {
+        addListener(callback: T, filter?: webRequest.RequestFilter): void;
         /**
          * Returns currently registered rules.
          * @param callback Called with registered rules.
@@ -3483,6 +3476,20 @@ declare namespace chrome.events {
          */
         removeListener(callback: T): void;
         hasListeners(): boolean;
+    }
+
+    /** An object which allows the addition and removal of listeners for a Chrome event. */
+    interface Event<T extends Function> extends BaseEvent<T> {
+        /**
+         * Registers an event listener callback to an event.
+         * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
+         * The callback parameter should be a function that looks like this:
+         * function() {...};
+         */
+        addListener(callback: T): void;
+    }
+    export interface EventWithRequiredFilterInAddListener<T extends Function> extends BaseEvent<T> {
+        addListener(callback: T, filter: webRequest.RequestFilter): void;
     }
 
     /** Description of a declarative rule for handling events. */
@@ -7394,55 +7401,89 @@ declare namespace chrome.runtime {
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 26.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage<M = any, R = any>(message: M, responseCallback?: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendMessage<M = any, R = any>(
         message: M,
         options: MessageOptions,
-        responseCallback?: (response: R) => void,
+        responseCallback: (response: R) => void,
     ): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 26.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage<M = any, R = any>(extensionId: string, message: M, responseCallback?: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(extensionId: string, message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendMessage<Message = any, Response = any>(
         extensionId: string,
         message: Message,
         options: MessageOptions,
-        responseCallback?: (response: Response) => void,
+        responseCallback: (response: Response) => void,
+    ): void;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 26.
+     */
+    export function sendMessage<M = any, R = any>(message: M): Promise<R>;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 32.
+     */
+    export function sendMessage<M = any, R = any>(
+        message: M,
+        options: MessageOptions,
+    ): Promise<R>;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 26.
+     * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+     */
+    export function sendMessage<M = any, R = any>(extensionId: string, message: M): Promise<R>;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 32.
+     * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+     */
+    export function sendMessage<Message = any, Response = any>(
+        extensionId: string,
+        message: Message,
+        options: MessageOptions,
+    ): Promise<Response>;
+    /**
+     * Send a single message to a native application.
+     * @since Chrome 28.
+     * @param application The of the native messaging host.
+     * @param message The message that will be passed to the native messaging host.
+     * Parameter response: The response message sent by the native messaging host. If an error occurs while connecting to the native messaging host, the callback will be called with no arguments and runtime.lastError will be set to the error message.
+     */
+    export function sendNativeMessage(
+        application: string,
+        message: Object,
+        responseCallback: (response: any) => void,
     ): void;
     /**
      * Send a single message to a native application.
      * @since Chrome 28.
      * @param application The of the native messaging host.
      * @param message The message that will be passed to the native messaging host.
-     * @param responseCallback Optional.
-     * Parameter response: The response message sent by the native messaging host. If an error occurs while connecting to the native messaging host, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendNativeMessage(
         application: string,
         message: Object,
-        responseCallback?: (response: any) => void,
-    ): void;
+    ): Promise<any>;
     /**
      * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
      * @since Chrome 41.
@@ -10797,41 +10838,42 @@ declare namespace chrome.webRequest {
     }
 
     export interface WebRequestBodyEvent
-        extends chrome.events.Event<(details: WebRequestBodyDetails) => BlockingResponse | void> {
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestBodyDetails) => BlockingResponse | void> {
         addListener(
             callback: (details: WebRequestBodyDetails) => BlockingResponse | void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
 
     export interface WebRequestHeadersSynchronousEvent
-        extends chrome.events.Event<(details: WebRequestHeadersDetails) => BlockingResponse | void> {
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestHeadersDetails) => BlockingResponse | void> {
         addListener(
             callback: (details: WebRequestHeadersDetails) => BlockingResponse | void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
 
-    export interface WebRequestHeadersEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => void> {
+    export interface WebRequestHeadersEvent
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestHeadersDetails) => void> {
         addListener(
             callback: (details: WebRequestHeadersDetails) => void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
 
     export interface _WebResponseHeadersEvent<T extends WebResponseHeadersDetails>
-        extends chrome.events.Event<(details: T) => void> {
-        addListener(callback: (details: T) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: T) => void> {
+        addListener(callback: (details: T) => void, filter: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     export interface WebResponseHeadersEvent
-        extends chrome.events.Event<(details: WebResponseHeadersDetails) => BlockingResponse | void> {
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebResponseHeadersDetails) => BlockingResponse | void> {
         addListener(
             callback: (details: WebResponseHeadersDetails) => BlockingResponse | void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
@@ -10841,7 +10883,7 @@ declare namespace chrome.webRequest {
     export interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> { }
 
     export interface WebAuthenticationChallengeEvent
-        extends chrome.events.Event<
+        extends chrome.events.EventWithRequiredFilterInAddListener<
         (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void
         > {
         addListener(
@@ -10849,7 +10891,7 @@ declare namespace chrome.webRequest {
                 details: WebAuthenticationChallengeDetails,
                 callback?: (response: BlockingResponse) => void,
             ) => void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }

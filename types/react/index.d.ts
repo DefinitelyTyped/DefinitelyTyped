@@ -213,20 +213,21 @@ declare namespace React {
         (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNode[]): ReactSVGElement;
     }
 
-    //
-    // React Nodes
-    // http://facebook.github.io/react/docs/glossary.html
-    // ----------------------------------------------------------------------
-
+    /**
+     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
     type ReactText = string | number;
-    type ReactChild = ReactElement | ReactText;
+    /**
+     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
+    type ReactChild = ReactElement | string | number;
 
     /**
      * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
     type ReactFragment = Iterable<ReactNode>;
-    type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+    type ReactNode = ReactElement | string | number | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
     // Top Level API
@@ -2279,6 +2280,7 @@ declare namespace React {
         integrity?: string | undefined;
         media?: string | undefined;
         imageSrcSet?: string | undefined;
+        imageSizes?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         rel?: string | undefined;
         sizes?: string | undefined;

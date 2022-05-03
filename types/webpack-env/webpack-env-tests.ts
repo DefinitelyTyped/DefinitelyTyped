@@ -148,3 +148,10 @@ if (importMeta.webpack >= 5 && importMeta.webpackHot) {
     importMeta.webpackHot.addStatusHandler(statusHandler);
     importMeta.webpackHot.removeStatusHandler(statusHandler);
 }
+
+if (importMeta.webpack >= 5 && importMeta.webpackContext) {
+    let context = importMeta.webpackContext('./somePath', { recursive: true, regExp: /some/, include: /someModule/, exclude: /noNeedModuel/, preload: true, prefetch: true, chunkName: "[request]", exports: "default", mode: "weak" });
+    let contextModule = context<SomeModule>('./someModule');
+
+    const contextId: string = importMeta.webpackContext('./somePath').id;
+}

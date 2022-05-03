@@ -1,4 +1,4 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.101.0
 
 declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
   import Metadata from "sap/ui/base/Metadata";
@@ -104,6 +104,8 @@ declare namespace sap {
 
     "sap/ui/mdc/enum/PersistenceMode": undefined;
 
+    "sap/ui/mdc/enum/PropagationReason": undefined;
+
     "sap/ui/mdc/enum/SelectType": undefined;
 
     "sap/ui/mdc/Field": undefined;
@@ -170,6 +172,10 @@ declare namespace sap {
 
     "sap/ui/mdc/FilterBar": undefined;
 
+    "sap/ui/mdc/filterbar/aligned/FilterContainer": undefined;
+
+    "sap/ui/mdc/filterbar/aligned/FilterItemLayout": undefined;
+
     "sap/ui/mdc/filterbar/FilterBarBase": undefined;
 
     "sap/ui/mdc/filterbar/vh/CollectiveSearchSelect": undefined;
@@ -205,6 +211,8 @@ declare namespace sap {
     "sap/ui/mdc/odata/v4/FieldValueHelpDelegate": undefined;
 
     "sap/ui/mdc/odata/v4/TableDelegate": undefined;
+
+    "sap/ui/mdc/odata/v4/ValueHelpDelegate": undefined;
 
     "sap/ui/mdc/p13n/AdaptationProvider": undefined;
 

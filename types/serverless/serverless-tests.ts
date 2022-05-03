@@ -555,7 +555,53 @@ const awsServerless: Aws.Serverless = {
                         batchSize: 1,
                         maximumRetryAttempts: 1,
                         enabled: true,
-                        functionResponseType: 'ReportBatchItemFailures'
+                        functionResponseType: 'ReportBatchItemFailures',
+                        filterPatterns: [
+                            {
+                                UserID: [null]
+                            },
+                            {
+                                LastName: ['']
+                            },
+                            {
+                                Name: ['Alice']
+                            },
+                            {
+                                Location: ['New York'],
+                                Day: ['Monday']
+                            },
+                            {
+                                PaymentType: ['Credit', 'Debit']
+                            },
+                            {
+                                Weather: [
+                                    {
+                                        'anything-but': ['Raining']
+                                    }
+                                ]
+                            },
+                            {
+                                Price: [
+                                    {
+                                        numeric: [ '=', 100 ]
+                                    }
+                                ]
+                            },
+                            {
+                                ProductName: [
+                                    {
+                                        exists: true
+                                    }
+                                ]
+                            },
+                            {
+                                Region: [
+                                    {
+                                        prefix: 'us-'
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }, {
                     activemq: {
@@ -725,8 +771,19 @@ const awsServerless: Aws.Serverless = {
                         }
                     }
                 }
-            ]
-        }
+            ],
+            url: {
+                cors: {
+                    allowedOrigins: ['https://url1.com', 'https://url2.com'],
+                    allowedHeaders: ['Content-Type', 'Authorization'],
+                    allowedMethods: ['GET'],
+                    allowCredentials: true,
+                    exposedResponseHeaders: ['Special-Response-Header'],
+                    maxAge: 6000,
+                },
+                authorizer: 'aws_iam',
+            },
+        },
     },
     layers: {
         testLayer: {
@@ -892,6 +949,18 @@ const bunchOfConfigs: Aws.Serverless[] = [
             },
         },
         functions: {},
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+        },
+        functions: {
+            basicLambdaFnUrl: {
+                handler: 'main.js',
+                url: true,
+            },
+        },
     },
 ];
 

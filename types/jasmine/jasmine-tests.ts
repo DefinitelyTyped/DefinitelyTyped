@@ -329,6 +329,13 @@ describe("toHaveClass", () => {
     expect(element).toHaveClass(Element); // $ExpectError
 });
 
+describe('toHaveSpyInteractions', () => {
+    const mySpyObj = jasmine.createSpyObj('NewClass', ['spyA', 'spyB']);
+    mySpyObj.otherMethod = () => {};
+    expect(mySpyObj).toHaveSpyInteractions();
+    expect(mySpyObj).not.toHaveSpyInteractions();
+});
+
 describe("A spec", () => {
     it("is just a function, so it can contain any code", () => {
         var foo = 0;

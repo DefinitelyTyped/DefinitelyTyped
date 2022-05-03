@@ -23,11 +23,11 @@ const state = new FindAndReplaceState(new Model());
 // $ExpectType string
 state.searchText;
 // $ExpectError
-state.searchText = "foo";
+state.searchText = 'foo';
 // $ExpectType string
 state.replaceText;
 // $ExpectError
-state.replaceText = "foo";
+state.replaceText = 'foo';
 // $ExpectType boolean
 state.matchCase;
 // $ExpectError
@@ -37,6 +37,15 @@ state.clear(new Model());
 state.results;
 // $ExpectError
 state.results = state.results;
+
+state.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<FindAndReplaceState, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+state.set('foo');
 
 const plugin = editor.plugins.get('FindAndReplaceEditing');
 if (plugin instanceof FindAndReplaceEditing) {
