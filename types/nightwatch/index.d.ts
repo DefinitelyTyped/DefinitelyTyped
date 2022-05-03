@@ -19,6 +19,13 @@ import { WebElement, WebElementPromise, By } from 'selenium-webdriver';
 
 export * from './globals';
 
+export const ELEMENT_KEY = 'element-6066-11e4-a52e-4f735466cecf';
+
+export interface JSON_WEB_OBJECT {
+    ELEMENT_KEY: string;
+    getID: () => string;
+}
+
 export interface ChromePerfLoggingPrefs {
     /**
      * Default: true. Whether or not to collect events from Network domain.
@@ -230,6 +237,11 @@ export interface NightwatchTestRunner {
     options?:
         | {
               ui?: string | undefined;
+              feature_path?: string | undefined;
+              auto_start_session?: boolean | undefined;
+              parallel?: number | undefined;
+              reporter?: string | undefined;
+              reporterOptions: { [key: string]: any };
           }
         | undefined;
 }
@@ -1048,8 +1060,7 @@ export interface NightwatchCommonAssertions {
 
     /**
      * Checks if the page title equals the given value.
-     * @deprecated in Nightwatch 2.0 and will be removed from future versions.
-     * @see assert.titleEquals()
+     *
      * ```
      *    this.demoTest = function (client) {
      *      browser.assert.title("Nightwatch.js");
@@ -1170,6 +1181,192 @@ export interface NightwatchCommonAssertions {
         expected: string | number,
         msg?: string,
     ): NightwatchAPI;
+
+    /**
+     * Check if an element's attribute value matches a regular expression.
+     *
+     * @example
+     *
+     * ```
+     *    this.demoTest = function (browser) {
+     *      browser.assert.attributeMatches('body', 'data-attr', '(value)');
+     *    };
+     * ```
+     *
+     */
+    attributeMatches(
+        selector: string | ElementProperties,
+        attribute: string,
+        regexExpression: string | RegExp,
+        msg?: string,
+    ): NightwatchAPI;
+
+    /**
+     * Checks if the given element exists in the DOM.
+     *
+     * @example
+     * ```
+     *    this.demoTest = function (browser) {
+     *      browser.assert.elementNotPresent(".should_not_exist");
+     *    };
+     * ```
+     * @deprecated
+     */
+    elementNotPresent(selector: string | ElementProperties, msg?: string): NightwatchAPI;
+
+    /**
+     * Checks if the given element does not have the specified CSS class.
+     *
+     * ```
+     *    this.demoTest = function (browser) {
+     *      browser.assert.cssClassNotPresent('#main', 'container');
+     *    };
+     * ```
+     *
+     */
+    cssClassNotPresent(selector: string | ElementProperties, className: string, msg?: string): NightwatchAPI;
+
+    /**
+     * Checks if the number of elements specified by a selector is equal to a given value.
+     *
+     * @example
+     *
+     * this.demoTest = function (browser) {
+     *   browser.assert.elementsCount('div', 10);
+     *   browser.assert.not.elementsCount('div', 10);
+     * }
+     *
+     */
+    elementsCount(selector: string | ElementProperties, count: number, msg?: string): NightwatchAPI;
+
+    /**
+     * Checks if the given element contains the specified DOM attribute.
+     *
+     * Equivalent of: https://developer.mozilla.org/en-US/docs/Web/API/Element/hasAttribute
+     *
+     * @example
+     *
+     * ```
+     *    this.demoTest = function (browser) {
+     *      browser.assert.hasAttribute('#main', 'data-track');
+     *    };
+     * ```
+     *
+     */
+    hasAttribute(selector: string | ElementProperties, expectedAttribute: string, msg?: string): NightwatchAPI;
+
+    /**
+     * Checks if the given element has the specified CSS class.
+     *
+     * @example
+     *
+     *
+     * ```
+     *    this.demoTest = function (browser) {
+     *      browser.assert.hasClass('#main', 'container');
+     *      browser.assert.hasClass('#main', ['visible', 'container']);
+     *      browser.assert.hasClass('#main', 'visible container');
+     *    };
+     * ```
+     *
+     */
+    hasClass(selector: string | ElementProperties, className: string, msg?: string): NightwatchAPI;
+
+    /**
+     * Checks if the given element is not visible on the page.
+     *
+     * @example
+     * ```
+     *    this.demoTest = function (browser) {
+     *      browser.assert.hidden('.should_not_be_visible');
+     *    };
+     * ```
+     *
+     */
+    hidden(selector: string | ElementProperties, msg?: string): NightwatchAPI;
+
+    /**
+     * Checks if the given element contains the specified text.
+     *
+     * @example
+     * ```
+     *   this.demoTest = function (browser) {
+     *     browser.assert.textContains('#main', 'The Night Watch');
+     *   };
+     * ```
+     *
+     */
+    textContains(selector: string | ElementProperties, expectedText: string, msg?: string): NightwatchAPI;
+
+    /**
+     * Check if an element's inner text equals the expected text.
+     *
+     * @example
+     *
+     * ```
+     *   this.demoTest = function (browser) {
+     *     browser.assert.textEquals('#main', 'The Night Watch');
+     *   };
+     * ```
+     *
+     */
+    textEquals(selector: string | ElementProperties, expectedText: string, msg?: string): NightwatchAPI;
+
+    /**
+     * Check if an elements inner text matches a regular expression.
+     *
+     * @example
+     *
+     * ```
+     *   this.demoTest = function (browser) {
+     *     browser.assert.textMatches('#main', '^Nightwatch');
+     *   };
+     * ```
+     *
+     */
+    textMatches(selector: string | ElementProperties, regexExpression: string | RegExp, msg?: string): NightwatchAPI;
+
+    /**
+     * Checks if the current title matches a regular expression.
+     *
+     * @example
+     *
+     * ```
+     *    this.demoTest = function (client) {
+     *      browser.assert.titleMatches('^Nightwatch');
+     *    };
+     * ```
+     *
+     */
+    titleMatches(regexExpression: string | RegExp, msg?: string): NightwatchAPI;
+
+    /**
+     * Checks if the current url matches a regular expression.
+     *
+     * @example
+     * ```
+     *    this.demoTest = function (client) {
+     *      browser.assert.urlMatches('^https');
+     *    };
+     * ```
+     *
+     */
+    urlMatches(regexExpression: string | RegExp, msg?: string): NightwatchAPI;
+
+    /**
+     * Checks if the given form element's value equals the expected value.
+     *
+     * The existing .assert.value() command.
+     *
+     * @example
+     * ```
+     *    this.demoTest = function (browser) {
+     *      browser.assert.valueEquals("form.login input[type=text]", "username");
+     *    };
+     * ```
+     *
+     */
+    valueEquals(selector: string | ElementProperties, expected: string, msg?: string): NightwatchAPI;
 
     /**
      * Checks if the specified DOM property of a given element has the expected value.
@@ -1770,6 +1967,9 @@ export interface Cookie {
 export interface SharedCommands extends ClientCommands, ElementCommands {}
 
 export type windowSizeAndPosition = { offsetX: number; offsetY: number } | { height: number; width: number };
+
+export type windowType = 'tab' | 'window';
+
 export interface ClientCommands {
     /**
      * Close the current window. This can be useful when you're working with multiple windows open (e.g. an OAuth login).
@@ -1783,6 +1983,76 @@ export interface ClientCommands {
      * @see window
      */
     closeWindow(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+
+    /**
+     * Sets the current window state to fullscreen.
+     *
+     * @example
+     * module.exports = {
+     *  'demo Test': function(browser) {
+     *     browser.fullscreenWindow(function(result) {
+     *       console.log(result);
+     *     });
+     *   },
+     *
+     *   'ES6 async demo Test': async function(browser) {
+     *     const result = await browser.fullscreenWindow();
+     *     console.log('result value is:', result.value);
+     *   }
+     * }
+     *
+     */
+    fullscreenWindow(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+
+    /**
+     * Hides the window in the system tray. If the window happens to be in fullscreen mode,
+     * it is restored the normal state then it will be "iconified" - minimize or hide the window from the visible screen.
+     *
+     * @example
+     * module.exports = {
+     *  'demo Test': function(browser) {
+     *     browser.minimizeWindow(function(result) {
+     *       console.log(result);
+     *     });
+     *   },
+     *
+     *   'ES6 async demo Test': async function(browser) {
+     *     const result = await browser.minimizeWindow();
+     *     console.log('result value is:', result.value);
+     *   }
+     * }
+     */
+    minimizeWindow(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+
+    /**
+     * Opens a new top-level browser window, which can be either a tab (default) or a separate new window.
+     *
+     * This command is only available for W3C Webdriver compatible browsers.
+     *
+     * @example
+     * module.exports = {
+     *  'demo Test': function(browser) {
+     *     // open a new window tab (default)
+     *     browser.openNewWindow(function(result) {
+     *       console.log(result);
+     *     });
+     *
+     *     // open a new window
+     *     browser.openNewWindow('window', function(result) {
+     *       console.log(result);
+     *     });
+     *   },
+     *
+     *   'ES6 async demo Test': async function(browser) {
+     *     const result = await browser.fullscreenWindow();
+     *     console.log('result value is:', result.value);
+     *   }
+     * }
+     */
+    openNewWindow(
+        type?: windowType,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): this;
 
     /**
      * Delete the cookie with the given name. This command is a no-op if there is no such cookie visible to the current page.
@@ -1900,6 +2170,30 @@ export interface ClientCommands {
     ): this;
 
     /**
+     * Retrieve the URL of the current page.
+     *
+     * @example
+     * describe('Navigation commands demo', function() {
+     *   test('demoTest', function(browser) {
+     *     // navigate to new url:
+     *     browser.navigateTo('https://nightwatchjs.org');
+     *
+     *     // Retrieve to url with callback:
+     *     browser.getCurrentUrl(function(result) {
+     *       console.log(result.value);
+     *     });
+     *   });
+     *
+     *   test('demoTestAsync', async function(browser) {
+     *     const currentUrl = await browser.navigateTo('https://nightwatchjs.org').getCurrentUrl();
+     *     console.log('currentUrl:', currentUrl); // will print 'https://nightwatchjs.org'
+     *   });
+     *
+     * });
+     */
+    getCurrentUrl(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+
+    /**
      * Returns the title of the current page. Uses title protocol command.
      *
      * @example
@@ -1913,6 +2207,47 @@ export interface ClientCommands {
      * @see title
      */
     getTitle(callback?: (this: NightwatchAPI, result?: string) => void): this;
+
+    /**
+     * Navigate to a new URL. This method will also call the `onBrowserNavigate()` test global,
+     * right after the page is loaded.
+     *
+     * @example
+     * describe('Navigation commands demo', function() {
+     *   test('demoTest', function(browser) {
+     *     // navigate to new url:
+     *     browser.navigateTo('https://nightwatchjs.org');
+     *
+     *     // Retrieve to url with callback:
+     *     browser.getCurrentUrl(function(result) {
+     *       console.log(result.value);
+     *     });
+     *   });
+     *
+     *   test('demoTestAsync', async function(browser) {
+     *     const currentUrl = await browser.navigateTo('https://nightwatchjs.org').getCurrentUrl();
+     *     console.log('currentUrl:', currentUrl); // will print 'https://nightwatchjs.org'
+     *   });
+     *
+     * });
+     */
+    navigateTo(url?: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+
+    /**
+     * Ends the session and closes down the test WebDriver server, if one is running.
+     * This is similar to calling the .end() command, but the former doesn't quit the WebDriver session.
+     *
+     * This command will also execute the `onBrowserQuit()` global, if one is defined.
+     *
+     * @example
+     * this.demoTest = function (browser) {
+     *   browser.quit(function(result) {
+     *     console.log(result.value);
+     *   });
+     * }
+     *
+     */
+    quit(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
 
     /**
      * This command is an alias to url and also a convenience method when called without any arguments in the sense
@@ -2029,6 +2364,38 @@ export interface ClientCommands {
             | (() => undefined | Promise<any>)
             | ((done: () => void) => void)
             | ((client: NightwatchAPI, done: () => void) => void),
+    ): this;
+
+    /**
+     * Waits for a condition to evaluate to a "truthy" value. The condition may be specified by any function which
+     * returns the value to be evaluated or a Promise to wait for.
+     *
+     * An optional wait time can be specified, otherwise the global waitForConditionTimeout value will be used.
+     *
+     * @example
+     * describe('waitUntil Example', function() {
+     *   it('demo Test', function(browser) {
+     *     browser
+     *       .url('https://nightwatchjs.org)
+     *       .waitUntil(async function() {
+     *         const title = await this.execute(function() {
+     *           return document.title;
+     *         });
+     *
+     *         return title === 'Nightwatch.js';
+     *       }, 1000);
+     *   });
+     * }
+     *
+     */
+    waitUntil(
+        conditionFn:
+            | (() => undefined | Promise<any>)
+            | ((done: () => void) => void)
+            | ((client: NightwatchAPI, done: () => void) => void),
+        waitTimeMs?: number,
+        retryInterval?: number,
+        callback?: (this: NightwatchAPI) => void,
     ): this;
 
     /**
@@ -2183,6 +2550,10 @@ export interface ClientCommands {
      * @see window
      */
     switchWindow(
+        handleOrName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
+    switchToWindow(
         handleOrName: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
@@ -2838,6 +3209,50 @@ export interface ElementCommands {
     ): this;
 
     /**
+     * Determines if an element is present in the DOM.
+     *
+     * @example
+     * module.exports = {
+     *   demoTest(browser) {
+     *     browser.isPresent('#main ul li a.first', function(result) {
+     *       this.assert.equal(typeof result, "object");
+     *       this.assert.equal(result.status, 0);
+     *       this.assert.equal(result.value, true);
+     *     });
+     *
+     *     // with explicit locate strategy
+     *     browser.isPresent('css selector', '#main ul li a.first');
+     *
+     *     // with selector object - see https://nightwatchjs.org/guide#element-properties
+     *     browser.isPresent({
+     *       selector: '#main ul li a',
+     *       index: 1,
+     *     });
+     *
+     *     browser.isPresent({
+     *       selector: '#main ul li a.first',
+     *       timeout: 2000 // overwrite the default timeout (in ms) to check if the element is present
+     *     });
+     *   },
+     *
+     *   demoTestAsync: async function(browser) {
+     *     const result = await browser.isPresent('#main ul li a.first');
+     *     console.log('isPresent result', result);
+     *   }
+     * }
+     *
+     */
+    isPresent(
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
+    ): this;
+    isPresent(
+        using: LocateStrategy,
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
+    ): this;
+
+    /**
      * Move the mouse by an offset of the specified element. If an element is provided but no offset, the mouse will be moved to the center of the element.
      * If the element is not visible, it will be scrolled into view.
      *
@@ -3432,6 +3847,41 @@ export interface ElementCommands {
     ): this;
 
     /**
+     * Sends some text to an element. Can be used to set the value of a form element or
+     *  to send a sequence of key strokes to an element. Any UTF-8 character may be specified.
+     *
+     * <div class="alert alert-warning"><strong>updateValue</strong> is equivalent
+     * with <strong>setValue</strong> and <strong>sendKeys</strong> with the exception
+     * that it clears the value beforehand.</div>
+     *
+     * An object map with available keys and their respective UTF-8 characters,
+     * as defined on [W3C WebDriver draft spec](https://www.w3.org/TR/webdriver/#character-types),
+     * is loaded onto the main Nightwatch instance as `browser.Keys`.
+     *
+     * @example
+     * // send some simple text to an input
+     * this.demoTest = function (browser) {
+     *   browser.updateValue('input[type=text]', 'nightwatch');
+     * };
+     *
+     * // send some text to an input and hit enter.
+     * this.demoTest = function (browser) {
+     *   browser.updateValue('input[type=text]', ['nightwatch', browser.Keys.ENTER]);
+     * };
+     *
+     */
+    updateValue(
+        selector: string | ElementProperties,
+        inputValue: string | string[],
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): this;
+    updateValue(
+        using: LocateStrategy,
+        selector: string | ElementProperties,
+        inputValue: string | string[],
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): this;
+    /**
      * Drag an element to the given position or destination element.
      *
      * @example
@@ -3462,6 +3912,177 @@ export interface ElementCommands {
     ): this;
 
     /**
+     * Returns an element's first child. The child element will be returned as web
+     * element JSON object (with an added .getId() convenience method).
+     *
+     *
+     * @example
+     * module.exports = {
+     *  'demo Test': function(browser) {
+     *     const resultElement = await browser.getFirstElementChild('.features-container');
+     *
+     *     console.log('last child element Id:', resultElement.getId());
+     *   },
+     *
+     */
+    getFirstElementChild(
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
+    ): this;
+    getFirstElementChild(
+        using: LocateStrategy,
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
+    ): this;
+
+    /**
+     * Returns an element's last child. The child element will be returned
+     * as web element JSON object (with an added .getId() convenience method).
+     *
+     *
+     * @example
+     * module.exports = {
+     *  'demo Test': function(browser) {
+     *     const resultElement = await browser.getLastElementChild('.features-container');
+     *
+     *     console.log('last child element Id:', resultElement.getId());
+     *   },
+     *
+     */
+    getLastElementChild(
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
+    ): this;
+    getLastElementChild(
+        using: LocateStrategy,
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
+    ): this;
+
+    /**
+     * Returns the element immediately following the specified one in their parent's childNodes.
+     * The element will be returned as web element JSON object (with an added .getId() convenience method).
+     *
+     *
+     * @example
+     * module.exports = {
+     *  'demo Test': function(browser) {
+     *     const resultElement = await browser.getNextSibling('.features-container li:first-child');
+     *
+     *     console.log('next sibling element Id:', resultElement.getId());
+     *   },
+     *
+     */
+    getNextSibling(
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
+    ): this;
+    getNextSibling(
+        using: LocateStrategy,
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
+    ): this;
+
+    /**
+     *  Returns the element immediately preceding the specified one in its parent's child elements list.
+     * The element will be returned as web element JSON object (with an added `.getId()` convenience method).
+     *
+     *
+     * @example
+     * module.exports = {
+     *  'demo Test': function(browser) {
+     *     const resultElement = await browser.getPreviousSibling('.features-container li:second-child');
+     *
+     *     console.log('previous sibling element Id:', resultElement.getId());
+     *   },
+     *
+     * browser.getPreviousSibling('#web-button', function(result) {
+     *
+     *   console.log(result.value)
+     * }})
+     * await browser.getPreviousSibling('#web-button')
+     * await browser.getPreviousSibling({selector: '#web-button', locateStrategy: 'css selector'})
+     *
+     * // with global element():
+     * const formEl = element('form');
+     * const result = await browser.getPreviousSibling(formEl)
+     *
+     * // with Selenium By() locators
+     * // https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html
+     * const locator = by.tagName('form');
+     * const result = await browser.getPreviousSibling(locator)
+     *
+     * // with browser.findElement()
+     * const formEl = await browser.findElement('form');
+     * const result = await browser.getPreviousSibling(formEl)
+     *
+     */
+    getPreviousSibling(
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
+    ): this;
+    getPreviousSibling(
+        using: LocateStrategy,
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
+    ): this;
+
+    /**
+     * Returns true or false based on whether the DOM has any child nodes
+     *
+     * @example
+     * module.exports = {
+     *  'demo Test': function(browser) {
+     *     const result = await browser.hasDescendants('.features-container');
+     *
+     *     console.log('true or false:', result);
+     *   },
+     *
+     */
+    hasDescendants(
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
+    ): this;
+    hasDescendants(
+        using: LocateStrategy,
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
+    ): this;
+
+    /**
+     * Returns the `shadowRoot` read-only property which represents the shadow root hosted by the element.
+     *  This can further be used to retrieve elements part of the shadow root element.
+     *
+     * @example
+     * describe('Shadow Root example test', function() {
+     *   it('retrieve the shadowRoot', async function(browser) {
+     *      await browser
+     *        .navigateTo('https://mdn.github.io/web-components-examples/popup-info-box-web-component/')
+     *        .waitForElementVisible('form');
+     *
+     *      const shadowRootEl = await browser.getShadowRoot('popup-info');
+     *      const infoElement = await shadowRootEl.find('.info');
+     *
+     *      await expect(infoElement.property('innerHTML')).to.include('card validation code');
+     *      const iconElement = await shadowRootEl.find('.icon');
+     *      const firstElement = await browser.getFirstElementChild(iconElement);
+     *
+     *      await expect.element(firstElement).to.be.an('img');
+     *    });
+     * });
+     *
+     */
+    getShadowRoot(
+        selector: string | ElementProperties | WebElement | By,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
+    ): this;
+    getShadowRoot(
+        using: LocateStrategy,
+        selector: string | ElementProperties | WebElement | By,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
+    ): this;
+
+    /**
      * Search for an elements on the page, starting from the document root. The located element will be returned as web element JSON object (with an added .getId() convenience method).
      * First argument is the element selector, either specified as a string or as an object (with 'selector' and 'locateStrategy' properties).
      *
@@ -3479,7 +4100,11 @@ export interface ElementCommands {
         selector: string | ElementProperties,
         callback?: (
             this: NightwatchAPI,
-            result: NightwatchCallbackResult<{ value: WebElement; status: number; WebdriverElementId: WebElement }>,
+            result: NightwatchCallbackResult<{
+                value: JSON_WEB_OBJECT;
+                status: number;
+                WebdriverElementId: WebElement;
+            }>,
         ) => void,
     ): WebElementPromise;
     findElement(
@@ -3487,7 +4112,11 @@ export interface ElementCommands {
         selector: string | ElementProperties,
         callback?: (
             this: NightwatchAPI,
-            result: NightwatchCallbackResult<{ value: WebElement; status: number; WebdriverElementId: WebElement }>,
+            result: NightwatchCallbackResult<{
+                value: JSON_WEB_OBJECT;
+                status: number;
+                WebdriverElementId: WebElement;
+            }>,
         ) => void,
     ): WebElementPromise;
 
@@ -3510,24 +4139,24 @@ export interface ElementCommands {
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{
-                value: WebElement[];
+                value: JSON_WEB_OBJECT[];
                 status: number;
                 WebdriverElementId: WebElement;
             }>,
         ) => void,
-    ): WebElement[];
+    ): JSON_WEB_OBJECT[];
     findElements(
         using: LocateStrategy,
         selector: string | ElementProperties,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{
-                value: WebElement[];
+                value: JSON_WEB_OBJECT[];
                 status: number;
                 WebdriverElementId: WebElement;
             }>,
         ) => void,
-    ): WebElement[];
+    ): JSON_WEB_OBJECT[];
 
     /**
      * Retrieve the value of a specified DOM property for the given element.
@@ -4301,6 +4930,27 @@ export interface WebDriverProtocolElements {
     ): this;
 
     /**
+     * Move to the element and performs a double-click in the middle of the given element if
+     * element is given else double-clicks at the current mouse coordinates (set by `.moveTo()`).
+     *
+     */
+    elementIdDoubleClick(
+        webElementId: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
+
+    /**
+     *
+     * Retrieve the value of a specified DOM property for the given element.
+     * For all the available DOM element properties, consult the [Element doc at MDN](https://developer.mozilla.org/en-US/docs/Web/API/element).
+     */
+    elementIdProperty(
+        webElementId: string,
+        DOMPropertyName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): this;
+
+    /**
      * Test if two web element IDs refer to the same DOM element.
      *
      * This command is __deprecated__ and is only available on the [JSON Wire protocol](https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#sessionsessionidelementidequalsother)
@@ -4522,6 +5172,44 @@ export interface WebDriverProtocolDocumentHandling {
     ): this;
 
     /**
+     *
+     * Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame.
+     * The executed script is assumed to be asynchronous.
+     *
+     * The function to be injected receives the `done` callback as argument which needs to be called
+     * when the asynchronous operation finishes. The value passed to the `done` callback is returned to the client.
+     * Additional arguments for the injected function may be passed as a non-empty array which
+     * will be passed before the `done` callback.
+     *
+     * Asynchronous script commands may not span page loads. If an unload event is fired
+     *  while waiting for the script result, an error will be returned.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser.executeAsyncScript(function(done) {
+     *      setTimeout(function() {
+     *        done(true);
+     *      }, 500);
+     *    }, function(result) {
+     *      // result.value === true
+     *    });
+     *
+     *    browser.executeAsyncScript(function(arg1, arg2, done) {
+     *      setTimeout(function() {
+     *        done(true);
+     *      }, 500);
+     *    }, [arg1, arg2], function(result) {
+     *      // result.value === true
+     *    });
+     * }
+     */
+    executeAsyncScript<T>(
+        script: string | ((this: undefined, ...data: any[]) => T) | string,
+        args: any[],
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void,
+    ): this;
+
+    /**
      * Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame. The executed script is assumed to be asynchronous.
      *
      * The function to be injected receives the `done` callback as argument which needs to be called when the asynchronous operation finishes.
@@ -4616,6 +5304,57 @@ export interface WebDriverProtocolUserActions {
     ): this;
 
     /**
+     * Move to the element and click (without releasing) in the middle of the given element.
+     *
+     * @example
+     * module.exports = {
+     *   demoTest() {
+     *     browser.clickAndHold('#main ul li a.first');
+     *
+     *     browser.clickAndHold('#main ul li a.first', function(result) {
+     *       console.log('Click result', result);
+     *     });
+     *
+     *     // with explicit locate strategy
+     *     browser.clickAndHold('css selector', '#main ul li a.first');
+     *
+     *     // with selector object - see https://nightwatchjs.org/guide#element-properties
+     *     browser.clickAndHold({
+     *       selector: '#main ul li a',
+     *       index: 1,
+     *       suppressNotFoundErrors: true
+     *     });
+     *
+     *     browser.clickAndHold({
+     *       selector: '#main ul li a.first',
+     *       timeout: 2000 // overwrite the default timeout (in ms) to check if the element is present
+     *     });
+     *   },
+     *
+     *   demoTestAsync: async function() {
+     *     const result = await browser.clickAndHold('#main ul li a.first');
+     *     console.log('Right click result', result);
+     *   }
+     * }
+     *
+     */
+    clickAndHold(
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
+    clickAndHold(
+        using: LocateStrategy,
+        selector: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
+
+    /**
+     * Release the depressed left mouse button at the current mouse coordinates (set by `.moveTo()`).
+     *
+     */
+    releaseMouseButton(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+
+    /**
      * Click at the current mouse coordinates (set by `.moveTo()`).
      *
      * The button can be (0, 1, 2) or ('left', 'middle', 'right'). It defaults to left mouse button.
@@ -4676,6 +5415,53 @@ export interface WebDriverProtocolUserActions {
         xoffset: number,
         yoffset: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
+
+    /**
+     * Simulates a context-click(right click) event on the given DOM element.
+     * The element is scrolled into view if it is not already pointer-interactable.
+     * See the WebDriver specification for element [interactability](https://www.w3.org/TR/webdriver/#element-interactability).
+     *
+     * @example
+     * module.exports = {
+     *   demoTest() {
+     *     browser.rightClick('#main ul li a.first');
+     *
+     *     browser.rightClick('#main ul li a.first', function(result) {
+     *       console.log('Click result', result);
+     *     });
+     *
+     *     // with explicit locate strategy
+     *     browser.rightClick('css selector', '#main ul li a.first');
+     *
+     *     // with selector object - see https://nightwatchjs.org/guide#element-properties
+     *     browser.rightClick({
+     *       selector: '#main ul li a',
+     *       index: 1,
+     *       suppressNotFoundErrors: true
+     *     });
+     *
+     *     browser.rightClick({
+     *       selector: '#main ul li a.first',
+     *       timeout: 2000 // overwrite the default timeout (in ms) to check if the element is present
+     *     });
+     *   },
+     *
+     *   demoTestAsync: async function() {
+     *     const result = await browser.rightClick('#main ul li a.first');
+     *     console.log('Right click result', result);
+     *   }
+     * }
+     *
+     */
+    rightClick(
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): this;
+    rightClick(
+        using: LocateStrategy,
+        selector: string | ElementProperties,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): this;
 }
 
