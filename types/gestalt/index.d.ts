@@ -1,4 +1,4 @@
-// Type definitions for gestalt 50.0
+// Type definitions for gestalt 53.1
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -392,10 +392,10 @@ export interface CheckboxProps {
     indeterminate?: boolean | undefined;
     label?: string | undefined;
     name?: string | undefined;
-
     onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }> | undefined;
     size?: 'sm' | 'md' | undefined;
     subtext?: string | undefined;
+    labelDisplay?: 'visible' | 'hidden' | undefined;
 }
 
 /**
@@ -857,23 +857,6 @@ export interface IconProps {
     accessibilityLabel: string;
 
     color?:
-        | 'blue'
-        | 'darkGray'
-        | 'eggplant'
-        | 'gray'
-        | 'green'
-        | 'lightGray'
-        | 'maroon'
-        | 'midnight'
-        | 'navy'
-        | 'olive'
-        | 'orange'
-        | 'orchid'
-        | 'pine'
-        | 'purple'
-        | 'red'
-        | 'watermelon'
-        | 'white'
         | 'default'
         | 'subtle'
         | 'success'
@@ -1660,6 +1643,7 @@ export interface TextAreaProps {
     tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
     value?: string | undefined;
     readonly?: boolean;
+    labelDisplay?: 'visible' | 'hidden' | undefined;
 }
 
 /**
@@ -1706,6 +1690,7 @@ export interface TextFieldProps {
      */
     type?: 'date' | 'email' | 'password' | 'text' | 'url' | 'tel' | undefined;
     value?: string | undefined;
+    labelDisplay?: 'visible' | 'hidden' | undefined;
 }
 
 /**
