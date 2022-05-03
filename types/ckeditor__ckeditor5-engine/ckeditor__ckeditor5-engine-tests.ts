@@ -59,6 +59,7 @@ import UpcastHelpers, {
     convertText,
     convertToModelFragment
 } from '@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers';
+import XmlDataProcessor from '@ckeditor/ckeditor5-engine/src/dataprocessor/xmldataprocessor';
 import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
 import ModelDocument from '@ckeditor/ckeditor5-engine/src/model/document';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
@@ -1712,3 +1713,12 @@ new Schema().on('foo', (ev, ...args) => {
 });
 
 new Schema().set('foo');
+
+new XmlDataProcessor(viewDocument);
+new XmlDataProcessor(viewDocument, { namespaces: [''] });
+// $ExpectType string
+new XmlDataProcessor(viewDocument).toData(viewDocumentFragment);
+// $ExpectType DocumentFragment
+new XmlDataProcessor(viewDocument).toView("");
+new XmlDataProcessor(viewDocument).useFillerType("default");
+new XmlDataProcessor(viewDocument).registerRawContentMatcher(pattern);
