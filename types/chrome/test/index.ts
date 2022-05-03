@@ -855,7 +855,7 @@ async function testDeclarativeNetRequest() {
         rule.action; // $ExpectType RuleAction
         rule.condition; // $ExpectType RuleCondition
         rule.id; // $ExpectType number
-        rule.priority; // $ExpectType number
+        rule.priority; // $ExpectType number | undefined
     })
 
     chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
