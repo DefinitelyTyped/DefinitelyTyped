@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.19
+// Type definitions for non-npm package microsoft-graph 2.20
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -1084,6 +1084,7 @@ export type EntityType =
     | "drive"
     | "unknownFutureValue";
 export type SearchAlterationType = "suggestion" | "modification" | "unknownFutureValue";
+export type PlannerContainerType = "group" | "unknownFutureValue" | "roster";
 export type PlannerPreviewType = "automatic" | "noPreview" | "checklist" | "description" | "reference";
 export type OnenotePatchActionType = "Replace" | "Append" | "Delete" | "Insert" | "Prepend";
 export type OnenotePatchInsertPosition = "After" | "Before";
@@ -2221,7 +2222,8 @@ export type TeamworkUserIdentityType =
     | "personalMicrosoftAccountUser"
     | "skypeUser"
     | "phoneUser"
-    | "unknownFutureValue";
+    | "unknownFutureValue"
+    | "emailUser";
 export type ScheduleChangeRequestActor = "sender" | "recipient" | "manager" | "system" | "unknownFutureValue";
 export type ScheduleChangeState = "pending" | "approved" | "declined" | "unknownFutureValue";
 export type ScheduleEntityTheme =
@@ -2338,6 +2340,10 @@ export interface DirectoryAudit extends Entity {
      * Directory, B2C, Invited Users, Microsoft Identity Manager, Privileged Identity Management.
      */
     loggedByService?: NullableOption<string>;
+    /**
+     * Indicates the type of operation that was performed. The possible values include but are not limited to the following:
+     * Add, Assign, Update, Unassign, and Delete.
+     */
     operationType?: NullableOption<string>;
     // Indicates the result of the activity. Possible values are: success, failure, timeout, unknownFutureValue.
     result?: NullableOption<OperationResult>;
@@ -5401,6 +5407,7 @@ export interface Group extends DirectoryObject {
     planner?: NullableOption<PlannerGroup>;
     // Read-only.
     onenote?: NullableOption<Onenote>;
+    // The team associated with this group.
     team?: NullableOption<Team>;
 }
 export interface TeamsAppInstallation extends Entity {
@@ -8460,6 +8467,7 @@ export interface Call extends Entity {
      * P2P call. This needs to be copied over from Microsoft.Graph.Call.CallChainId.
      */
     callChainId?: NullableOption<string>;
+    // Contains the optional features for the call.
     callOptions?: NullableOption<CallOptions>;
     // The routing information on how the call was retargeted. Read-only.
     callRoutes?: NullableOption<CallRoute[]>;
@@ -8518,7 +8526,7 @@ export interface AccessReviewHistoryDefinition extends Entity {
     reviewHistoryPeriodStartDateTime?: string;
     /**
      * The settings for a recurring access review history definition series. Only required if reviewHistoryPeriodStartDateTime
-     * or reviewHistoryPeriodEndDateTime are not defined.
+     * or reviewHistoryPeriodEndDateTime are not defined. Not supported yet.
      */
     scheduleSettings?: NullableOption<AccessReviewHistoryScheduleSettings>;
     /**
@@ -13386,6 +13394,8 @@ export interface PlannerBucket extends Entity {
     tasks?: NullableOption<PlannerTask[]>;
 }
 export interface PlannerPlan extends Entity {
+    // Identifies the container of the plan. After it is set, this property can’t be updated. Required.
+    container?: NullableOption<PlannerPlanContainer>;
     // Read-only. The user who created the plan.
     createdBy?: NullableOption<IdentitySet>;
     /**
@@ -13458,6 +13468,13 @@ export interface PlannerTask extends Entity {
      * description, reference.
      */
     previewType?: NullableOption<PlannerPreviewType>;
+    /**
+     * Priority of the task. Valid range of values is between 0 and 10 (inclusive), with increasing value being lower priority
+     * (0 has the highest priority and 10 has the lowest priority). Currently, Planner interprets values 0 and 1 as 'urgent',
+     * 2 and 3 and 4 as 'important', 5, 6, and 7 as 'medium', and 8, 9, and 10 as 'low'. Currently, Planner sets the value 1
+     * for 'urgent', 3 for 'important', 5 for 'medium', and 9 for 'low'.
+     */
+    priority?: NullableOption<number>;
     // Number of external references that exist on the task.
     referenceCount?: NullableOption<number>;
     /**
@@ -17932,7 +17949,7 @@ export interface AccessPackageAssignmentRequestRequirements {
 export interface EntitlementManagementSchedule {
     // When the access should expire.
     expiration?: NullableOption<ExpirationPattern>;
-    // For recurring access. Not used at present.
+    // For recurring access reviews. Not used in access requests.
     recurrence?: NullableOption<PatternedRecurrence>;
     /**
      * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
@@ -19413,8 +19430,40 @@ export interface PlannerAssignments {}
 export interface PlannerCategoryDescriptions {
     // The label associated with Category 1
     category1?: NullableOption<string>;
+    // The label associated with Category 10
+    category10?: NullableOption<string>;
+    // The label associated with Category 11
+    category11?: NullableOption<string>;
+    // The label associated with Category 12
+    category12?: NullableOption<string>;
+    // The label associated with Category 13
+    category13?: NullableOption<string>;
+    // The label associated with Category 14
+    category14?: NullableOption<string>;
+    // The label associated with Category 15
+    category15?: NullableOption<string>;
+    // The label associated with Category 16
+    category16?: NullableOption<string>;
+    // The label associated with Category 17
+    category17?: NullableOption<string>;
+    // The label associated with Category 18
+    category18?: NullableOption<string>;
+    // The label associated with Category 19
+    category19?: NullableOption<string>;
     // The label associated with Category 2
     category2?: NullableOption<string>;
+    // The label associated with Category 20
+    category20?: NullableOption<string>;
+    // The label associated with Category 21
+    category21?: NullableOption<string>;
+    // The label associated with Category 22
+    category22?: NullableOption<string>;
+    // The label associated with Category 23
+    category23?: NullableOption<string>;
+    // The label associated with Category 24
+    category24?: NullableOption<string>;
+    // The label associated with Category 25
+    category25?: NullableOption<string>;
     // The label associated with Category 3
     category3?: NullableOption<string>;
     // The label associated with Category 4
@@ -19423,6 +19472,12 @@ export interface PlannerCategoryDescriptions {
     category5?: NullableOption<string>;
     // The label associated with Category 6
     category6?: NullableOption<string>;
+    // The label associated with Category 7
+    category7?: NullableOption<string>;
+    // The label associated with Category 8
+    category8?: NullableOption<string>;
+    // The label associated with Category 9
+    category9?: NullableOption<string>;
 }
 export interface PlannerChecklistItem {
     // Value is true if the item is checked and false otherwise.
@@ -19460,6 +19515,18 @@ export interface PlannerExternalReference {
 export interface PlannerExternalReferences {}
 // tslint:disable-next-line: no-empty-interface
 export interface PlannerOrderHintsByAssignee {}
+export interface PlannerPlanContainer {
+    // The identifier of the resource that contains the plan.
+    containerId?: string;
+    /**
+     * The type of the resource that contains the plan. See the previous table for supported types. Possible values are:
+     * group, unknownFutureValue, roster. Note that you must use the Prefer: include-unknown-enum-members request header to
+     * get the following value in this evolvable enum: roster.
+     */
+    type?: PlannerContainerType;
+    // The full canonical URL of the container.
+    url?: string;
+}
 // tslint:disable-next-line: no-empty-interface
 export interface PlannerUserIds {}
 // tslint:disable-next-line: interface-name
@@ -20995,7 +21062,7 @@ export interface ConversationMemberRoleUpdatedEventMessageDetail extends EventMe
 export interface TeamworkUserIdentity extends Identity {
     /**
      * Type of user. Possible values are: aadUser, onPremiseAadUser, anonymousGuest, federatedUser,
-     * personalMicrosoftAccountUser, skypeUser, phoneUser, and unknownFutureValue.
+     * personalMicrosoftAccountUser, skypeUser, phoneUser, unknownFutureValue and emailUser.
      */
     userIdentityType?: NullableOption<TeamworkUserIdentityType>;
 }

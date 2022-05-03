@@ -201,3 +201,5 @@ const stagedFeatureName: MicrosoftGraph.StagedFeatureName = "seamlessSso";
 const accessReviewExpirationBehavior: MicrosoftGraph.AccessReviewExpirationBehavior = "acceptAccessRecommendation";
 
 const roleEligibilityScheduleFilterByCurrentUserOptions: MicrosoftGraph.RoleEligibilityScheduleFilterByCurrentUserOptions = "principal";
+
+const bookingPriceType: MicrosoftGraph.BookingPriceType = "undefined";
