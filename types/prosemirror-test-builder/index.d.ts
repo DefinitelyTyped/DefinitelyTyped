@@ -33,7 +33,7 @@ type TestNodesUnion =
 type TestMarksUnion = 'a' | 'link' | 'em' | 'strong' | 'code';
 
 type Args = Array<string | prosemirrorTestBuilder.TaggedProsemirrorNode | prosemirrorTestBuilder.TaggedFlatObject |
-    { [key: string]: any }>;
+    object>;
 
 type NodeBuilderMethod<S extends Schema = any> = (...args: Args) => prosemirrorTestBuilder.TaggedProsemirrorNode<S>;
 
