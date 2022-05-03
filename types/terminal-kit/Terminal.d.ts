@@ -194,7 +194,7 @@ declare namespace Terminal {
     getPalette(register: number, callback?: Callback<Palette>): void;
     setPalette(palette: string | Palette): void;
 
-    table(tableCells: string[][], options?: TextTableOptions): void;
+    table(tableCells: ReadonlyArray<ReadonlyArray<string>>, options?: TextTableOptions): void;
 
     wrapColumn(options?: {
       width: null | number;
@@ -548,7 +548,7 @@ declare namespace Terminal {
 
   interface TextTableOptions {
     width?: number;
-    cellContents?: string[][];
+    cellContents?: ReadonlyArray<ReadonlyArray<string>>;
     contentHasMarkup?: boolean | string;
     textAttr?: object;
     voidAttr?: object;
