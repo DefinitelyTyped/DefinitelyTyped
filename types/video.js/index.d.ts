@@ -3074,7 +3074,7 @@ declare namespace videojs {
          * > 2s behind live will be considered behind live for real and
          * liveTolerance will be ignored.
          */
-        nextSeekedFromUser():void
+        nextSeekedFromUser(): void;
 
         /**
          * live current time is our best approximation of what the live current time is.
