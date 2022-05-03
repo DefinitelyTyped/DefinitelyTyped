@@ -78,6 +78,16 @@ const res6_plugin = new state.Plugin({
     },
 });
 
+const res7_view = new view.EditorView<typeof schema.schema>(undefined, {
+    state: {} as any, // this is not part of the test
+
+    dispatchTransaction(tr) {
+        // From DirectEditorProps
+        // Ensure that `this` is bound to type EditorView<schema.schema>
+        const v: view.EditorView<typeof schema.schema> = this;
+    },
+});
+
 const view1 = new state.Plugin({
     props: {
         handleDOMEvents: {
