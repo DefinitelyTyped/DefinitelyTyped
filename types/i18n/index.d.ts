@@ -261,13 +261,13 @@ declare namespace i18n {
      */
     function __n(singular: string, plural: string, count: number | string): string;
     /**
-     * Translate with plural condition the given json key and count using locale configuration
-     * @param flattedKey - Flatted key path in locale json file
+     * Translate with plural condition the given phrase and count using locale configuration
+     * @param phrase - The phrase to translate or a flattened key path in locale json file
      * @param count - The number which allow to select from plural to singular
      * @param replacements - An object containing replacements
      * @returns The translated phrase
      */
-    function __n(flattedKey: string, count: number | string, replacements: Replacements): string;
+    function __n(phrase: string, count: number | string, replacements: Replacements): string;
 
     //#endregion
 
