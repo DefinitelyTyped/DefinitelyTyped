@@ -66,13 +66,12 @@ declare namespace prosemirrorTestBuilder {
             NodeTypeAttributes | MarkTypeAttributes
         >,
         N extends string = string,
-        M extends string = string
+        M extends string = string,
     >(
         testSchema: Schema<N, M>,
         names: Obj,
     ) => Record<N, NodeBuilderMethod<Schema<N, M>>> &
-        Record<M, MarkBuilderMethod<Schema<N, M>>> &
-        {
+        Record<M, MarkBuilderMethod<Schema<N, M>>> & {
             [P in keyof Obj]: Obj[P] extends NodeTypeAttributes
                 ? NodeBuilderMethod<Schema<N, M>>
                 : MarkBuilderMethod<Schema<N, M>>;

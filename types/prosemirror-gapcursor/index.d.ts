@@ -26,7 +26,7 @@ export class GapCursor extends Selection {}
  */
 export function gapCursor(): Plugin;
 
-declare module "prosemirror-model" {
+declare module 'prosemirror-model' {
     interface NodeSpec {
         /**
          * By default, gap cursor are only allowed in places where the

@@ -44,7 +44,7 @@ export function addListNodes<N extends string = any>(
     nodes: { [name in N]: NodeSpec } | OrderedMap<NodeSpec>,
     itemContent: string,
     listGroup?: string,
-): { [name in (N | "ordered_list" | "bullet_list" | "list_item")]: NodeSpec } | OrderedMap<NodeSpec>;
+): { [name in N | 'ordered_list' | 'bullet_list' | 'list_item']: NodeSpec } | OrderedMap<NodeSpec>;
 /**
  * Returns a command function that wraps the selection in a list with
  * the given type an attributes. If `dispatch` is null, only return a

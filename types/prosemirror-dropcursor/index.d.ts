@@ -19,7 +19,7 @@ import { Plugin } from 'prosemirror-state';
  * @param options.width The precise width of the cursor in pixels. Defaults to 1.
  */
 export function dropCursor(options?: {
-  class?: string | null | undefined;
-  color?: string | null | undefined;
-  width?: number | null | undefined;
+    class?: string | null | undefined;
+    color?: string | null | undefined;
+    width?: number | null | undefined;
 }): Plugin;

@@ -9,7 +9,7 @@ export const nodeSpec: NodeSpec = {
 };
 
 export const nodeSpecErr: NodeSpec = {
-    allowGapCursor: "not a boolean value", // $ExpectError
+    allowGapCursor: 'not a boolean value', // $ExpectError
 };
 
 // We want to make sure the type of spec.allowGapCursor is defined, i.e., not any

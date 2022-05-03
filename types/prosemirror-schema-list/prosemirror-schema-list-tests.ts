@@ -11,4 +11,4 @@ import {
 } from 'prosemirror-schema-list';
 
 // Add the listNodes to the schema from prosemirror-schema-basic
-const listNodes = addListNodes(schema.spec.nodes, "paragraph block*", "block");
+const listNodes = addListNodes(schema.spec.nodes, 'paragraph block*', 'block');

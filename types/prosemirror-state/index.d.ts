@@ -43,13 +43,12 @@ export interface PluginSpec<T = any, S extends Schema = any> {
      * editor view.
      */
     view?:
-        | ((
-              p: EditorView<S>,
-          ) => {
+        | ((p: EditorView<S>) => {
               update?: ((view: EditorView<S>, prevState: EditorState<S>) => void) | null | undefined;
               destroy?: (() => void) | null | undefined;
           })
-        | null | undefined;
+        | null
+        | undefined;
     /**
      * When present, this will be called before a transaction is
      * applied by the state, allowing the plugin to cancel it (by
@@ -70,7 +69,8 @@ export interface PluginSpec<T = any, S extends Schema = any> {
               oldState: EditorState<S>,
               newState: EditorState<S>,
           ) => Transaction<S> | null | undefined | void)
-        | null | undefined;
+        | null
+        | undefined;
 }
 /**
  * Plugins bundle functionality that can be added to an editor.
@@ -125,7 +125,10 @@ export interface StateField<T = any, S extends Schema = Schema> {
      * Deserialize the JSON representation of this field. Note that the
      * `state` argument is again a half-initialized state.
      */
-    fromJSON?: ((this: Plugin<T, S>, config: { [key: string]: any }, value: any, state: EditorState<S>) => T) | null | undefined;
+    fromJSON?:
+        | ((this: Plugin<T, S>, config: { [key: string]: any }, value: any, state: EditorState<S>) => T)
+        | null
+        | undefined;
 }
 /**
  * A key is used to [tag](#state.PluginSpec.key)
@@ -446,7 +449,10 @@ export class EditorState<S extends Schema = any> {
      * [`init`](#state.StateField.init) method, passing in the new
      * configuration object..
      */
-    reconfigure(config: { schema?: S | null | undefined; plugins?: Array<Plugin<any, S>> | null | undefined }): EditorState<S>;
+    reconfigure(config: {
+        schema?: S | null | undefined;
+        plugins?: Array<Plugin<any, S>> | null | undefined;
+    }): EditorState<S>;
     /**
      * Serialize this state to JSON. If you want to serialize the state
      * of plugins, pass an object mapping property names to use in the

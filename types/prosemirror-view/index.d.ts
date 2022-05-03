@@ -595,18 +595,20 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
      */
     nodeViews?:
         | {
-              [name: string]: ((
-                  node: ProsemirrorNode<S>,
-                  view: EditorView<S>,
-                  /** get the node's current position */
-                  getPos: () => number,
-                  decorations: Decoration[],
-              ) => NodeView<S>) | ((
-                  mark: Mark<S>,
-                  view: EditorView<S>,
-                  /** indicates whether the mark's content is inline */
-                  inline: boolean,
-              ) => Pick<NodeView<S>, 'dom' | 'contentDOM'>);
+              [name: string]:
+                  | ((
+                        node: ProsemirrorNode<S>,
+                        view: EditorView<S>,
+                        /** get the node's current position */
+                        getPos: () => number,
+                        decorations: Decoration[],
+                    ) => NodeView<S>)
+                  | ((
+                        mark: Mark<S>,
+                        view: EditorView<S>,
+                        /** indicates whether the mark's content is inline */
+                        inline: boolean,
+                    ) => Pick<NodeView<S>, 'dom' | 'contentDOM'>);
           }
         | null
         | undefined;
@@ -664,11 +666,9 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
 /**
  * A mapping of dom events.
  */
-export type HandleDOMEventsProp<ThisT = unknown, S extends Schema = any> = Partial<
-    {
-        [K in keyof DocumentEventMap]: (this: ThisT, view: EditorView<S>, event: DocumentEventMap[K]) => boolean;
-    }
-> & {
+export type HandleDOMEventsProp<ThisT = unknown, S extends Schema = any> = Partial<{
+    [K in keyof DocumentEventMap]: (this: ThisT, view: EditorView<S>, event: DocumentEventMap[K]) => boolean;
+}> & {
     [key: string]: (this: ThisT, view: EditorView<S>, event: any) => boolean;
 };
 /**
@@ -690,7 +690,7 @@ export interface DirectEditorProps<S extends Schema = any> extends EditorProps<u
      * appender) will result in an error, since such plugins must be
      * present in the state to work.
      */
-    plugins: Plugin[];
+    plugins?: Plugin[];
 
     /**
      * The callback over which to send transactions (state updates)
