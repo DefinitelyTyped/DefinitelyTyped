@@ -853,32 +853,44 @@ export interface NightwatchLanguageChains {
     have: Expect;
     with: Expect;
     at: Expect;
+    does: Expect;
     of: Expect;
+}
+
+export interface NightwatchExpectMethods {
+    active: Expect;
+    deep: Expect;
+    count: Expect;
 }
 
 export interface NightwatchTestSettings {
     [key: string]: NightwatchTestSettingScreenshots;
 }
 
-export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
+export interface Expect extends NightwatchLanguageChains, NightwatchExpectMethods {
     /**
      * Returns the DOM Element
      */
-    element(property: any): this;
+    element(property: string): this;
 
     /**
      * These methods will perform assertions on the specified target on the current element.
      * The targets can be an attribute value, the element's inner text and a css property.
      */
-    equal(value: string): this;
-    equals(value: string): this;
+    equal(value: string | string[] | number | number[]): this;
+    equals(value: string | string[] | number | number[]): this;
     contain(value: string): this;
     contains(value: string): this;
     match(value: string | RegExp): this;
+    matches(value: string | RegExp): this;
     startWith(value: string): this;
     startsWith(value: string): this;
     endWith(value: string): this;
     endsWith(value: string): this;
+
+    cookie(name: string, domain?: string): this;
+    domProperty(propertyName: string): this;
+    elements(property: string): this;
 
     /**
      * Negates any of assertions following in the chain.
@@ -906,11 +918,27 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     attribute(name: string, message?: string): this;
 
     /**
+     * Checks if a given DOM property of an element has the expected value.
+     * For all the available DOM element properties, consult the [Element doc at MDN](https://developer.mozilla.org/en-US/docs/Web/API/element).
+     */
+    property(name: string, message?: string): this;
+
+    /**
      * Checks a given css property of an element exists and optionally if it has the expected value.
      */
     css(property: string, message?: string): this;
 
     section(property: string): this;
+
+    /**
+     * Retrieves the page title value in order to be used for performing equal, match or contains assertions on it.
+     */
+    title(): this;
+
+    /**
+     * Retrieves the page url value in order to be used for performing equal, match or contains assertions on it.
+     */
+    url(): this;
 
     /**
      * Property that checks if an element is currently enabled.

@@ -21,6 +21,7 @@
     "files": [
         "index.d.ts",
         "test/nightwatch-tests.ts",
+        "test/testExpect.ts",
         "test/react.tsx",
         "test/testComponent.ts"
     ]
