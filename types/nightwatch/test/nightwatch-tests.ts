@@ -12,7 +12,7 @@ import {
     xit,
     xdescribe,
     test,
-    PageObjectModel
+    PageObjectModel,
 } from 'nightwatch';
 
 //
@@ -21,7 +21,7 @@ import {
 
 const testGeneral: NightwatchTests = {
     'Demo test Google 1': () => {
-        browser.url('https://google.com').pause(1000);
+        browser.registerBasicAuth('test-username', 'test-password').navigateTo('https://google.com').pause(1000);
 
         // expect element <body> to be present in 1000ms
         browser.expect.element('body').to.be.present.before(1000);
@@ -79,6 +79,14 @@ describe('Ecosia', () => {
     before(browser => browser.url('https://www.ecosia.org/'));
 
     it('Demo test ecosia.org', () => {
+        // Setting network conditions before the actual test
+        browser.setNetworkConditions({
+            offline: false,
+            latency: 5, // Additional latency (ms).
+            download_throughput: 500 * 1024, // Maximal aggregated download throughput.
+            upload_throughput: 500 * 1024, // Maximal aggregated upload throughput.
+        });
+
         browser
             .waitForElementVisible('body')
             .assert.titleContains('Ecosia')
@@ -435,23 +443,44 @@ describe('demo element() global', () => {
     const signupEl = element(by.css('#signupSection'));
     const loginEl = element('#weblogin');
 
-    test('element globals command',  async () => {
-      // use elements created with element() to regular nightwatch assertions
-      browser.assert.visible(loginEl);
+    test('element globals command', async () => {
+        // use elements created with element() to regular nightwatch assertions
+        browser.assert.visible(loginEl);
 
-      // use elements created with element() to expect assertions
-      browser.expect.element(loginEl).to.be.visible;
+        // use elements created with element() to expect assertions
+        browser.expect.element(loginEl).to.be.visible;
 
-      // retrieve the WebElement instance
-      const loginWebElement = await loginEl.getWebElement();
+        // retrieve the WebElement instance
+        const loginWebElement = await loginEl.getWebElement();
     });
-  });
+});
 
 // Ensure test
 
 it('Ensure demo test', () => {
     browser
-    .url('https://nightwatchjs.org')
-    .ensure.titleMatches(/Nightwatch.js/)
-    .ensure.elementIsVisible('#index-container');
+        .url('https://nightwatchjs.org')
+        .ensure.titleMatches(/Nightwatch.js/)
+        .ensure.elementIsVisible('#index-container');
+});
+
+// chai expect test
+
+it('Chai demo test', () => {
+    const infoElement = element('.info');
+    expect(infoElement.property('innerHTML')).to.be.a('string').and.to.include('validation code');
+});
+
+// Relative locator test
+
+describe('sample with relative locators', function () {
+    before(browser => browser.navigateTo('https://archive.org/account/login'));
+
+    it('locates password input', function () {
+        const passwordElement = locateWith(By.tagName('input')).below(By.css('input[type=email]'));
+
+        browser.waitForElementVisible(passwordElement).expect.element(passwordElement).to.be.an('input');
+
+        browser.expect.element(passwordElement).attribute('type').equal('password');
+    });
 });

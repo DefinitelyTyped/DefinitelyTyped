@@ -28,6 +28,9 @@ export interface JSON_WEB_OBJECT {
 
 export type definition = string | ElementProperties | Element;
 
+// TODO: Remove after Selenium-Webdriver implements locateWith in their types
+export function locateWith(args: By): any;
+
 export interface ChromePerfLoggingPrefs {
     /**
      * Default: true. Whether or not to collect events from Network domain.
@@ -500,6 +503,33 @@ export interface NightwatchOptions {
                * @default none
                */
               access_key: string;
+
+              /**
+               * Sets the path to the Chrome binary to use.
+               * On Mac OS X, this path should reference the actual Chrome executable,
+               * not just the application binary (e.g. "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").
+               */
+              chrome_binary?: '';
+
+              /**
+               * Sets the path to Chrome's log file. This path should exist on the machine that will launch Chrome.
+               */
+              chrome_log_file?: '';
+
+              /** Configures the ChromeDriver to launch Chrome on Android via adb.*/
+              android_chrome?: false;
+
+              /** Sets the path to the Edge binary to use.*/
+              edge_binary?: '';
+
+              /** Sets the path to the Edge binary to use.*/
+              edge_log_file?: '';
+
+              /** Sets the binary to use. The binary may be specified as the path to a Firefox executable or a desired release Channel.*/
+              firefox_binary?: '';
+
+              /** Sets the path to an existing profile to use as a template for new browser sessions. This profile will be copied for each new session - changes will not be applied to the profile itself.*/
+              firefox_profile?: '';
           }
         | undefined;
 
@@ -551,11 +581,31 @@ export interface NightwatchOptions {
     default_reporter?: string;
 
     /**
+     * Set this to true to use the v1.x response format for commands when using ES6 async/await
      * @default false
      */
     backwards_compatibility_mode?: boolean;
 
+    /**
+     * Set this to true to disable the global objects such as element(), browser, by(), expect()
+     */
     disable_global_apis?: boolean;
+
+    /**
+     * Ignore network errors (e.g. ECONNRESET errors)
+     */
+    report_network_errors: boolean;
+
+    /**
+     * Interactive element commands such as "click" or "setValue" can be retried
+     * if an error occurred (such as an "element not interactable" error)
+     */
+    element_command_retries: number;
+
+    /**
+     * Sets the initial window size: {height: number, width: number}
+     */
+    window_size: undefined;
 }
 
 export interface NightwatchGlobals {
@@ -857,6 +907,7 @@ export interface NightwatchLanguageChains {
     at: Expect;
     does: Expect;
     of: Expect;
+    include(...data: any): Expect;
 }
 
 export interface NightwatchExpectMethods {
@@ -869,6 +920,7 @@ export interface NightwatchTestSettings {
     [key: string]: NightwatchTestSettingScreenshots;
 }
 
+export function globalExpect(...args: any): Expect;
 export interface Expect extends NightwatchLanguageChains, NightwatchExpectMethods {
     /**
      * Returns the DOM Element
@@ -974,25 +1026,105 @@ export interface Expect extends NightwatchLanguageChains, NightwatchExpectMethod
 }
 
 export interface Ensure {
+    /**
+     * Ensures that the Nightwatch WebDriver client is able to switch to the designated frame.
+     */
     ableToSwitchToFrame(frame: number | WebElement | By): NightwatchBrowser;
+
+    /**
+     * Creates a condition that waits for an alert to be opened.
+     */
     alertIsPresent(): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the given element to be disabled.
+     */
     elementIsDisabled(element: WebElement | Element | string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the given element to be enabled.
+     */
     elementIsEnabled(element: WebElement): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the given element to be deselected.
+     */
     elementIsNotSelected(element: WebElement | Element | string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the given element to be in the DOM, yet not displayed to the user.
+     */
     elementIsNotVisible(element: WebElement | Element | string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the given element to be selected.
+     */
     elementIsSelected(element: WebElement | Element | string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the given element to be displayed.
+     */
     elementIsVisible(element: WebElement | Element | string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will loop until an element is found with the given locator.
+     */
     elementLocated(locator: By): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the given element's text to contain the given substring.
+     */
     elementTextContains(element: WebElement | Element | string, substr: string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the given element's text to equal the given text.
+     */
     elementTextIs(element: WebElement | Element | string, text: string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the given element's text to match a given regular expression.
+     */
     elementTextMatches(element: WebElement | Element | string, regex: RegExp): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will loop until at least one element is found with the given locator.
+     */
     elementsLocated(locator: By): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the given element to become stale.
+     * An element is considered stale once it is removed from the DOM, or a new page has loaded.
+     */
     stalenessOf(element: WebElement | Element | string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the current page's title to contain the given substring.
+     */
     titleContains(substr: string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the current page's title to match the given value.
+     */
     titleIs(title: string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the current page's title to match the given regular expression.
+     */
     titleMatches(regex: RegExp): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the current page's url to contain the given substring.
+     */
     urlContains(substrUrl: string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the current page's url to match the given value.
+     */
     urlIs(url: string): NightwatchBrowser;
+
+    /**
+     * Creates a condition that will wait for the current page's url to match the given regular expression.
+     */
     urlMatches(regex: RegExp): NightwatchBrowser;
 }
 
@@ -1013,12 +1145,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    attributeContains(
-        selector: definition,
-        attribute: string,
-        expected: string,
-        message?: string,
-    ): NightwatchAPI;
+    attributeContains(selector: definition, attribute: string, expected: string, message?: string): NightwatchAPI;
 
     /**
      * Checks if the given attribute of an element has the expected value.
@@ -1029,12 +1156,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    attributeEquals(
-        selector: definition,
-        attribute: string,
-        expected: string,
-        message?: string,
-    ): NightwatchAPI;
+    attributeEquals(selector: definition, attribute: string, expected: string, message?: string): NightwatchAPI;
 
     /**
      * Checks if the given element contains the specified text.
@@ -1067,12 +1189,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    cssProperty(
-        selector: definition,
-        cssProperty: string,
-        expected: string | number,
-        msg?: string,
-    ): NightwatchAPI;
+    cssProperty(selector: definition, cssProperty: string, expected: string | number, msg?: string): NightwatchAPI;
 
     deepEqual(value: any, expected: any, message?: string): NightwatchAPI;
 
@@ -1768,28 +1885,28 @@ export class Element {
     getId: () => string;
     findElement: ElementCommands['findElement'];
     element: typeof globalElement;
-    find: () => any;
-    get: () => any;
+    find: (selector: definition | WebElement | By) => any;
+    get: (selector: definition | WebElement | By) => any;
     findElements: ElementCommands['findElements'];
-    findAll: () => any;
+    findAll: (selector: definition) => any;
     click: ElementCommands['click'];
     sendKeys: ElementCommands['sendKeys'];
     getTagName: ElementCommands['getTagName'];
-    tagName: () => string;
+    tagName: (selector: definition) => string;
     getCssValue: ElementCommands['getCssProperty'];
-    css: () => string;
+    css: (selector: definition) => string;
     getAttribute: ElementCommands['getAttribute'];
-    attr: () => string;
-    attribute: () => string;
+    attr: (selector: definition) => string;
+    attribute: (selector: definition) => string;
     getProperty: ElementCommands['getElementProperty'];
-    property: () => any;
-    prop: () => any;
+    property: (selector: definition) => any;
+    prop: (selector: definition) => any;
     getText: ElementCommands['getText'];
-    text: () => string;
+    text: (selector: definition) => string;
     getAriaRole: ElementCommands['getAriaRole'];
-    arialRole: () => string;
+    arialRole: (selector: definition) => string;
     getAccessibleName: ElementCommands['getAccessibleName'];
-    accessibleName: () => string;
+    accessibleName: (selector: definition) => string;
     getRect: ClientCommands['getWindowRect'];
     rect: () => { x: number; y: number; width: number; height: number };
     isEnabled: ElementCommands['isEnabled'];
@@ -1798,7 +1915,7 @@ export class Element {
     clear: ElementCommands['clearValue'];
     isDisplayed: WebDriverProtocolElementState['elementIdDisplayed'];
     takeScreenshot: ElementCommands['takeElementScreenshot'];
-    screenshot: () => 'string';
+    screenshot: (selector: definition) => 'string';
     getWebElement: () => Promise<WebElement>;
     isComponent: () => boolean;
 }
@@ -2896,10 +3013,7 @@ export interface ElementCommands {
      *
      * @see elementIdClick
      */
-    click(
-        selector: definition,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): this;
+    click(selector: definition, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
     click(
         using: LocateStrategy,
         selector: definition,
@@ -4672,6 +4786,24 @@ export interface WebDriverProtocolSessions {
             result: NightwatchCallbackResult<Array<'client' | 'driver' | 'browser' | 'server'>>,
         ) => void,
     ): this;
+
+    /**
+     * Command to set Chrome network emulation settings.
+     *
+     * @example
+     *  this.demoTest = function() {
+     *    browser.setNetworkConditions({
+     *      offline: false,
+     *      latency: 50000,
+     *      download_throughput: 450 * 1024,
+     *      upload_throughput: 150 * 1024
+     *    });
+     *  };
+     */
+    setNetworkConditions(spec: {
+        [key: string]: any;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void;
+    }): this;
 }
 
 export interface WebDriverProtocolNavigation {
@@ -5605,6 +5737,23 @@ export interface WebDriverProtocolUserPrompts {
      * browser.setAlertText('randomalert');
      */
     setAlertText(value: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+
+    /**
+     * Automate the input of basic auth credentials whenever they arise.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser
+     *      .registerBasicAuth('test-username', 'test-password')
+     *      .navigateTo('http://browserspy.dk/password-ok.php');
+     *  };
+     *
+     */
+    registerBasicAuth(
+        username: string,
+        password: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): this;
 }
 
 export interface WebDriverProtocolScreenCapture {
