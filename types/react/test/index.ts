@@ -703,6 +703,10 @@ DOM.input({
     onChange: event => {
         // `event.target` is guaranteed to be HTMLInputElement
         const target: HTMLInputElement = event.target;
+    },
+    onKeyUp: event => {
+        // `event.target` is guaranteed to be HTMLInputElement
+        const target: HTMLInputElement = event.target;
     }
 });
 
