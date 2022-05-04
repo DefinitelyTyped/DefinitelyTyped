@@ -10,7 +10,6 @@
 //   Aleksey Chemakin <https://github.com/Dzenly>
 //   David Burns <https://github.com/AutomatedTester>
 //   Pirasis Leelatanon <https://github.com/1pete>
-//   Harmandeep Singh <https://github.com/SinghHrmn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
