@@ -234,7 +234,7 @@ declare namespace EW {
     }
 
     // onClientResponse
-    interface EgressClientRequest extends ReadsHeaders, ReadsVariables, Request, MutatesVariables {
+    interface EgressClientRequest extends ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
     }
     interface EgressClientResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
     }
