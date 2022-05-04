@@ -516,19 +516,30 @@ export interface NightwatchOptions {
                */
               chrome_log_file?: '';
 
-              /** Configures the ChromeDriver to launch Chrome on Android via adb.*/
+              /**
+               * Configures the ChromeDriver to launch Chrome on Android via adb.
+               */
               android_chrome?: false;
 
-              /** Sets the path to the Edge binary to use.*/
+              /**
+               * Sets the path to the Edge binary to use.
+               */
               edge_binary?: '';
 
-              /** Sets the path to the Edge binary to use.*/
+              /**
+               * Sets the path to the Edge binary to use.
+               */
               edge_log_file?: '';
 
-              /** Sets the binary to use. The binary may be specified as the path to a Firefox executable or a desired release Channel.*/
+              /**
+               * Sets the binary to use. The binary may be specified as the path to a Firefox executable or a desired release Channel.
+               */
               firefox_binary?: '';
 
-              /** Sets the path to an existing profile to use as a template for new browser sessions. This profile will be copied for each new session - changes will not be applied to the profile itself.*/
+              /**
+               * Sets the path to an existing profile to use as a template for new browser sessions.
+               * This profile will be copied for each new session - changes will not be applied to the profile itself.
+               */
               firefox_profile?: '';
           }
         | undefined;

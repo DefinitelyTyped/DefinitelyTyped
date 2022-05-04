@@ -473,10 +473,10 @@ it('Chai demo test', () => {
 
 // Relative locator test
 
-describe('sample with relative locators', function () {
+describe('sample with relative locators', () => {
     before(browser => browser.navigateTo('https://archive.org/account/login'));
 
-    it('locates password input', function () {
+    it('locates password input',  () => {
         const passwordElement = locateWith(By.tagName('input')).below(By.css('input[type=email]'));
 
         browser.waitForElementVisible(passwordElement).expect.element(passwordElement).to.be.an('input');
