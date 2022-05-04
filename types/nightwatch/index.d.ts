@@ -2042,7 +2042,7 @@ export interface NightwatchAssertion<T, U = any> {
     client: NightwatchClient;
 }
 
-export interface NightwatchClient {
+export interface NightwatchClient extends Nightwatch {
     api: NightwatchAPI;
     locateStrategy: LocateStrategy;
     options: NightwatchOptions;
@@ -2096,6 +2096,8 @@ export interface Nightwatch {
     assert: NightwatchAssertions;
     expect: Expect;
     verify: NightwatchAssertions;
+    updateCapabilities(...args: any): this;
+    launchBrowser(): NightwatchAPI | Promise<NightwatchAPI>;
 }
 
 export type LocateStrategy =
@@ -5854,3 +5856,5 @@ export interface PageObjectModel {
     commands?: any;
     props?: any;
 }
+
+export const Nightwatch: NightwatchClient & Nightwatch;
