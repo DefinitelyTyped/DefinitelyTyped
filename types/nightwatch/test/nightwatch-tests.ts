@@ -484,18 +484,3 @@ describe('sample with relative locators', () => {
         browser.expect.element(passwordElement).attribute('type').equal('password');
     });
 });
-
-// New Programtic APi
-import { Nightwatch } from 'nightwatch'
-
-const client = Nightwatch.createClient({
-  browserName: 'firefox',
-  headless: true
-});
-
-client.updateCapabilities({
-  testCapability: 'one, two, three'
-});
-const browser = async () => {
-    await client.launchBrowser();
-};
