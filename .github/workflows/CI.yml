@@ -35,7 +35,10 @@ jobs:
       - run: npm link
         working-directory: DefinitelyTyped-tools/packages/dtslint
       - run: npm link @definitelytyped/dtslint
+      - run: echo @types/angular-ui-router >> DefinitelyTyped-tools/packages/definitions-parser/allowedPackageJsonDependencies.txt
       - run: node DefinitelyTyped-tools/packages/dtslint-runner/dist/index.js --path .
+        env:
+          NODE_ENV: test
 
       - name: "Run Danger"
         env:

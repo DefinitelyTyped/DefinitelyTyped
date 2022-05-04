@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/angular-ui-router": "*"
+  },
+  "private": true
+}
