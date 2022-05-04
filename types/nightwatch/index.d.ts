@@ -973,6 +973,29 @@ export interface Expect extends NightwatchLanguageChains, NightwatchExpectMethod
     visible: this;
 }
 
+export interface Ensure {
+    ableToSwitchToFrame(frame: number | WebElement | By): NightwatchBrowser;
+    alertIsPresent(): NightwatchBrowser;
+    elementIsDisabled(element: WebElement | Element | string): NightwatchBrowser;
+    elementIsEnabled(element: WebElement): NightwatchBrowser;
+    elementIsNotSelected(element: WebElement | Element | string): NightwatchBrowser;
+    elementIsNotVisible(element: WebElement | Element | string): NightwatchBrowser;
+    elementIsSelected(element: WebElement | Element | string): NightwatchBrowser;
+    elementIsVisible(element: WebElement | Element | string): NightwatchBrowser;
+    elementLocated(locator: By): NightwatchBrowser;
+    elementTextContains(element: WebElement | Element | string, substr: string): NightwatchBrowser;
+    elementTextIs(element: WebElement | Element | string, text: string): NightwatchBrowser;
+    elementTextMatches(element: WebElement | Element | string, regex: RegExp): NightwatchBrowser;
+    elementsLocated(locator: By): NightwatchBrowser;
+    stalenessOf(element: WebElement | Element | string): NightwatchBrowser;
+    titleContains(substr: string): NightwatchBrowser;
+    titleIs(title: string): NightwatchBrowser;
+    titleMatches(regex: RegExp): NightwatchBrowser;
+    urlContains(substrUrl: string): NightwatchBrowser;
+    urlIs(url: string): NightwatchBrowser;
+    urlMatches(regex: RegExp): NightwatchBrowser;
+}
+
 export interface NightwatchAssertions extends NightwatchCommonAssertions, NightwatchCustomAssertions {
     /**
      * Negates any of assertions following in the chain.
@@ -1653,6 +1676,7 @@ export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, Nightw
     baseURL: string;
     assert: NightwatchAssertions;
     expect: Expect;
+    ensure: Ensure;
     verify: NightwatchAssertions;
 
     page: NightwatchPage & NightwatchCustomPageObjects;

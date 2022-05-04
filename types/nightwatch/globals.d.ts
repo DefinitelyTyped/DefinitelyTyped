@@ -1,4 +1,4 @@
-import { NightwatchBrowser, globalElement } from './index';
+import { NightwatchBrowser, globalElement, Ensure } from './index';
 import { By as seleniumBy } from "selenium-webdriver";
 
 declare global {
@@ -6,4 +6,5 @@ declare global {
     const element: typeof globalElement;
     const by: typeof seleniumBy;
     const By: typeof seleniumBy;
+    const ensure: Ensure;
 }

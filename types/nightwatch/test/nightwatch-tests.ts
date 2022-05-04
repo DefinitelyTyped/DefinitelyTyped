@@ -446,3 +446,12 @@ describe('demo element() global', () => {
       const loginWebElement = await loginEl.getWebElement();
     });
   });
+
+// Ensure test
+
+it('Ensure demo test', () => {
+    browser
+    .url('https://nightwatchjs.org')
+    .ensure.titleMatches(/Nightwatch.js/)
+    .ensure.elementIsVisible('#index-container');
+});
