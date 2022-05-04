@@ -12,7 +12,7 @@ import {
     xit,
     xdescribe,
     test,
-    PageObjectModel,
+    PageObjectModel
 } from 'nightwatch';
 
 //
@@ -428,3 +428,21 @@ const testCustomAssertion = {
         browser.assert.text('#checkme', 'Exactly match text');
     },
 };
+
+// test global element
+
+describe('demo element() global', () => {
+    const signupEl = element(by.css('#signupSection'));
+    const loginEl = element('#weblogin');
+
+    test('element globals command',  async () => {
+      // use elements created with element() to regular nightwatch assertions
+      browser.assert.visible(loginEl);
+
+      // use elements created with element() to expect assertions
+      browser.expect.element(loginEl).to.be.visible;
+
+      // retrieve the WebElement instance
+      const loginWebElement = await loginEl.getWebElement();
+    });
+  });
