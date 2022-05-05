@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { EmitterSubscription, Rationale} from "react-native";
+import { EmitterSubscription, Rationale } from "react-native";
 
 export type OS = 'Android' | 'iOS';
 export type Gender = 'Male' | 'Female';
@@ -187,25 +187,24 @@ export interface DefaultMessageStorage {
 }
 
 export interface CustomMessageStorage {
-
     /**
      * Will be called by the plugin when messages are received and it's time to save them to the storage
      *
-     * @param {Array} array of message objects to save to storage
+     * @param array of message objects to save to storage
      */
     save(messages: Message[]): void;
 
     /**
      * Will be called by the plugin to find a message by message id
      *
-     * @param {Function} callback has to be called on completion with one parameter - found message object
+     * @param callback has to be called on completion with one parameter - found message object
      */
     find(messageId: string, callback: (message: Message) => void): void;
 
     /**
      * Will be called by the plugin to find all messages in the storage
      *
-     * @param {Function} callback has to be called on completion with one parameter - an array of available messages
+     * @param callback has to be called on completion with one parameter - an array of available messages
      */
     findAll(callback: (messages: Message[]) => void): void;
 
@@ -455,7 +454,7 @@ export class MobileMessagingReactNative {
      * @param rationale rationale to display if it's needed. Describing why this permissions required.
      * Mobile Messaging SDK requires following permissions to be able to send geo targeted notifications, even if application is killed or on background.
      * ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, ACCESS_BACKGROUND_LOCATION
-     * @return {Promise<boolean>}
+     * @return
      */
     requestAndroidPermissions(rationale?: Rationale): Promise<boolean>;
 }
