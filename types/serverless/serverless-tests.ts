@@ -368,7 +368,8 @@ const awsServerless: Aws.Serverless = {
         },
         eventBridge: {
             useCloudFormation: true
-        }
+        },
+        layers: ['arn:aws:lambda:us-east-2:451483290750:layer:NewRelicNodeJS14X:45']
     },
     package: {
         include: ['testinclude'],

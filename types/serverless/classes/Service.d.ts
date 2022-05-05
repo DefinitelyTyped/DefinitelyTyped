@@ -26,7 +26,7 @@ declare class Service {
         runtime?: string | undefined;
         timeout?: number | undefined;
         versionFunctions: boolean;
-        layers: [string | unknown];
+        layers?: Array<string | Record<string, string>> | undefined;
     };
     serverless: Serverless;
     service: string | null;
