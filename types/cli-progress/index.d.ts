@@ -83,6 +83,9 @@ export interface Options {
      */
     hideCursor?: boolean | null | undefined;
 
+    /** glue sequence (control chars) between bar elements (default: '') */
+    barGlue?: string;
+
     /** number of updates with which to calculate the eta; higher numbers give a more stable eta (default: 10) */
     etaBuffer?: number | undefined;
 
@@ -150,7 +153,7 @@ export class GenericBar extends EventEmitter {
     constructor(opt: Options, preset?: Preset);
 
     /** Internal render function */
-    render(forceRendering?:boolean): void;
+    render(forceRendering?: boolean): void;
 
     /** Starts the progress bar and set the total and initial value */
     start(total: number, startValue: number, payload?: object): void;
@@ -259,6 +262,7 @@ export const Format: {
     TimeFormat: typeof formatTime;
 };
 
-export class Bar extends SingleBar {}
+export class Bar extends SingleBar {
+}
 
 export {};
