@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { EmitterSubscription } from "../react-native";
+import { EmitterSubscription, Rationale} from "../react-native";
 
 export type OS = 'Android' | 'iOS';
 export type Gender = 'Male' | 'Female';
@@ -21,6 +21,8 @@ export type Event = 'messageReceived' |
     'userUpdated' |
     'personalized' |
     'depersonalized' |
+    'inAppChat.availabilityUpdated' |
+    'inAppChat.unreadMessageCounterUpdated' |
     'deeplink';
 
 export interface Configuration {
@@ -44,6 +46,15 @@ export interface Configuration {
         notificationIcon: string; // a resource name for a status bar icon (without extension), located in '/platforms/android/app/src/main/res/mipmap'
         multipleNotifications: boolean;
         notificationAccentColor: string;
+        firebaseOptions?: {
+            apiKey: string;
+            applicationId: string;
+            databaseUrl: string;
+            gaTrackingId: string;
+            gcmSenderId: string;
+            storageBucket: string;
+            projectId: string;
+        };
     } | undefined;
     privacySettings?: {
         applicationCodePersistingDisabled?: boolean | undefined;
@@ -213,6 +224,12 @@ export class MobileMessagingReactNative {
      * This method should be used for react-native versions >= 0.65.
      */
     unsubscribe(subscription: EmitterSubscription): void;
+
+    /**
+     * Unregister all handlers from MobileMessaging library event.
+     *
+     */
+    unregisterAllHandlers(eventName: string): void;
 
     /**
      * Sends an event to the server eventually, handles possible errors and do retries for you.
@@ -385,6 +402,28 @@ export class MobileMessagingReactNative {
      * @param settings
      */
     setupiOSChatSettings(settings: ChatSettingsIOS): void;
+
+    /**
+     * Returns unread in-app chat push messages counter.
+     * The counter increments each time the application receives in-app chat push message
+     * (this usually happens when chat screen is inactive or the application is in background/terminated state).
+     */
+    getMessageCounter(onResult: (counter: number) => void): void;
+
+    /**
+     * MobileMessaging plugin automatically resets the counter to 0 whenever user opens the in-app chat screen.
+     * However, use the following API in case you need to manually reset the counter.
+     */
+    resetMessageCounter(): void;
+
+    /**
+     * This is used for requesting Location permissions for Android
+     * @param rationale rationale to display if it's needed. Describing why this permissions required.
+     * Mobile Messaging SDK requires following permissions to be able to send geo targeted notifications, even if application is killed or on background.
+     * ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, ACCESS_BACKGROUND_LOCATION
+     * @return {Promise<boolean>}
+     */
+    requestAndroidPermissions(rationale?: Rationale): Promise<boolean>;
 }
 
 export const MobileMessaging: MobileMessagingReactNative;
