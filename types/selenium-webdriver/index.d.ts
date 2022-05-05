@@ -27,6 +27,7 @@ import * as logging from './lib/logging';
 import * as until from './lib/until';
 import * as safari from './safari';
 import { WebSocket } from 'ws';
+import { HttpResponse } from './networkinterceptor';
 
 export { By, ByHash } from './lib/by';
 export { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
@@ -2034,7 +2035,7 @@ export class WebDriver {
    * Creates a new WebSocket connection.
    * @return {!Promise<resolved>} A new CDP instance.
    */
-  createCDPConnection(target: any): Promise<any>;
+  createCDPConnection(target: string): Promise<any>;
 
   /**
    * Retrieves 'webSocketDebuggerUrl' by sending a http request using debugger address
@@ -2043,7 +2044,7 @@ export class WebDriver {
    * @param caps
    * @return {string} Returns parsed webSocketDebuggerUrl obtained from the http request
    */
-  getWsUrl(debuggerAddress: string, target: any, caps: any): Promise<string>;
+  getWsUrl(debuggerAddress: string, target: string, caps: Capabilities): Promise<string>;
 
   /**
    * Sets a listener for Fetch.authRequired event from CDP
@@ -2062,7 +2063,7 @@ export class WebDriver {
    *                     as well as what should be returned.
    * @param callback callback called when we intercept requests.
    */
-  onIntercept(connection: WebSocket, httpResponse: any, callback: Function): Promise<void>;
+  onIntercept(connection: WebSocket, httpResponse: HttpResponse, callback: () => void): Promise<void>;
 
   /**
    *
@@ -2070,7 +2071,7 @@ export class WebDriver {
    * @param callback
    * @returns {Promise<void>}
    */
-  onLogEvent(connection: WebSocket, callback: Function): Promise<void>;
+  onLogEvent(connection: WebSocket, callback: (event: any) => void): Promise<void>;
 
     /**
    *
@@ -2078,14 +2079,14 @@ export class WebDriver {
    * @param callback
    * @returns {Promise<void>}
    */
-  onLogException(connection: WebSocket, callback: Function): Promise<void>;
+  onLogException(connection: WebSocket, callback: (event: any) => void): Promise<void>;
 
   /**
    * @param connection
    * @param callback
    * @returns {Promise<void>}
    */
-  logMutationEvents(connection: WebSocket, callback: Function): Promise<void>;
+  logMutationEvents(connection: WebSocket, callback: (event: any) => void): Promise<void>;
   // endregion
 }
 
@@ -2190,7 +2191,7 @@ export class ChromiumWebDriver extends WebDriver {
    * @return {!promise.Thenable<void>} A promise that will be resolved with an array of Strings
    *   containing the friendly device names of available cast sink targets.
    */
-  getCastSinks(): Promise<void>;
+  getCastSinks(): Promise<string[]>;
 
   /**
    * Selects a cast sink (Cast device) as the recipient of media router intents (connect or play).
@@ -2223,7 +2224,7 @@ export class ChromiumWebDriver extends WebDriver {
    * @return {!promise.Thenable<void>} A promise that will be resolved
    *     when the mirror command has been issued to the device.
    */
-  getCastIssueMessage(): Promise<void>;
+  getCastIssueMessage(): Promise<string>;
 
   /**
    * Stops casting from media router to the specified device, if connected.
