@@ -6315,6 +6315,23 @@ export interface VideoJsPlayer extends videojs.Component {
     createModal(content: string | (() => any) | Element | any[], options: any): videojs.ModalDialog;
 
     /**
+     * Get current breakpoint name, if any.
+     *
+     * @return If there is currently a breakpoint set, returns a the key from the
+     *         breakpoints object matching it. Otherwise, returns an empty string.
+     */
+    currentBreakpoint(): string;
+
+    /**
+     * Get the current breakpoint class name.
+     *
+     * @return The matching class name (e.g. `"vjs-layout-tiny"` or
+     *         `"vjs-layout-large"`) for the current breakpoint. Empty string if
+     *         there is no current breakpoint.
+     */
+    currentBreakpointClass(): string;
+
+    /**
      * Returns the current source object.
      *
      * @return The current source object
