@@ -81,6 +81,7 @@ declare namespace Aws {
         logs?: Logs | undefined;
         kmsKeyArn?: string | undefined;
         eventBridge?: EventBridge | undefined;
+        layers?: Array<string | Record<string, string>> | undefined;
     }
 
     interface EventBridge {
