@@ -1,37 +1,41 @@
-import { ReactDivAttr, FCProps, FCReturn } from "../../../typings/shared";
-import { CopyProps } from "../Copy";
+import { ReactDivAttr, FCProps, FCReturn } from '../../../typings/shared';
+import { CopyProps } from '../Copy';
 
 interface SharedProps {
-    children?: string | undefined,
-    copyLabel?: string | undefined,
-    copyButtonDescription?: string | undefined,
-    disabled?: boolean | undefined,
-    feedback?: string | undefined,
+    children?: React.ReactNode | undefined;
+    copyText?: string | undefined;
+    copyLabel?: string | undefined;
+    copyButtonDescription?: string | undefined;
+    disabled?: boolean | undefined;
+    feedback?: string | undefined;
     feedbackTimeout?: number | undefined;
-    hideCopyButton?: boolean | undefined,
-    light?: boolean | undefined,
-    showLessText?: string | undefined,
-    showMoreText?: string | undefined,
-    wrapText?: boolean | undefined,
+    hideCopyButton?: boolean | undefined;
+    light?: boolean | undefined;
+    showLessText?: string | undefined;
+    showMoreText?: string | undefined;
+    wrapText?: boolean | undefined;
 }
 
-export interface CodeSnippetDivProps extends SharedProps, Omit<ReactDivAttr, "children"> {
-    type?: "single" | null | undefined;
+export interface CodeSnippetDivProps extends SharedProps, Omit<ReactDivAttr, 'children'> {
+    type?: 'single' | null | undefined;
 }
 
-export interface CodeSnippetMultiProps extends SharedProps, Omit<ReactDivAttr, "children"> {
+export interface CodeSnippetMultiProps extends SharedProps, Omit<ReactDivAttr, 'children'> {
     maxCollapsedNumberOfRows?: number | undefined;
     maxExpandedNumberOfRows?: number | undefined;
     minCollapsedNumberOfRows?: number | undefined;
     minExpandedNumberOfRows?: number | undefined;
-    type: "multi";
+    type: 'multi';
 }
 
-export interface CodeSnippetInlineProps extends SharedProps, Omit<CopyProps, "children" | "type"> {
-    type: "inline",
+export interface CodeSnippetInlineProps extends SharedProps, Omit<CopyProps, 'children' | 'type'> {
+    type: 'inline';
 }
 
-export type CodeSnippetType = CodeSnippetDivProps["type"] | CodeSnippetInlineProps["type"] | CodeSnippetMultiProps["type"];
+export type CodeSnippetType =
+    | CodeSnippetDivProps['type']
+    | CodeSnippetInlineProps['type']
+    | CodeSnippetMultiProps['type'];
 
 declare function CodeSnippet(props: FCProps<CodeSnippetInlineProps>): FCReturn;
 // tslint:disable:unified-signatures

@@ -65,6 +65,7 @@ export * from './extras/core/ShapePath';
 export * from './extras/core/CurvePath';
 export * from './extras/core/Curve';
 export * from './extras/DataUtils';
+export * from './extras/Earcut';
 export * from './extras/ImageUtils';
 export * from './extras/ShapeUtils';
 export * from './extras/PMREMGenerator';
@@ -209,6 +210,7 @@ export * from './renderers/webgl/WebGLUniforms';
 export * from './renderers/webxr/WebXR';
 export * from './renderers/webxr/WebXRController';
 export * from './renderers/webxr/WebXRManager';
+export { WebGLUtils } from './renderers/webgl/WebGLUtils.js';
 /**
  * Scenes
  */

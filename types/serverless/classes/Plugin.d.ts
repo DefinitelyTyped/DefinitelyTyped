@@ -30,6 +30,16 @@ declare namespace Plugin {
         };
     }
 
+    type ConfigurationVariablesSource = (variableSource: any) => Promise<any>;
+
+    interface ConfigurationVariablesSources {
+        [variablePrefix: string]: ConfigurationVariablesSource | {
+                    resolve: ConfigurationVariablesSource,
+                    isDisabledAtPrepopulation?: boolean | undefined,
+                    serviceName?: string | undefined
+            };
+    }
+
     interface Logging {
         log: {
           error: (text: string) => void;
@@ -52,6 +62,7 @@ interface Plugin {
     hooks: Plugin.Hooks;
     commands?: Plugin.Commands | undefined;
     variableResolvers?: Plugin.VariableResolvers | undefined;
+    configurationVariablesSources?: Plugin.ConfigurationVariablesSources | undefined;
 }
 
 export = Plugin;

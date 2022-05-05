@@ -233,6 +233,8 @@ doc.fetch((err) => {
     }
 });
 
+doc.create({foo: true}, 'http://sharejs.org/types/JSONv0');
+
 function startServer() {
     const server = http.createServer();
 

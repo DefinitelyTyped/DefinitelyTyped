@@ -114,7 +114,7 @@ export interface Props {
     /**
      * Function called when the page is successfully rendered on the screen.
      */
-    onRenderSuccess?: (() => void) | undefined;
+    onRenderSuccess?: ((page: PDFPageProxy) => void) | undefined;
 
     /**
      * Function called when annotations are successfully loaded.

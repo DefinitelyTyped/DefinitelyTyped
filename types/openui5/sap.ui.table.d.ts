@@ -1,4 +1,4 @@
-// For Library Version: 1.98.0
+// For Library Version: 1.101.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -292,16 +292,6 @@ declare module "sap/ui/table/AnalyticalColumn" {
      * Default value is `false`.
      */
     getSummed(): boolean;
-    /**
-     * Returns the information whether the column is groupable.
-     *
-     * The column is groupable only if the following conditions are fulfilled:
-     * 	 - The column must be child of an `AnalyticalTable`.
-     * 	 - The `rows` aggregation of the table must be bound.
-     * 	 - The metadata of the model must be loaded.
-     * 	 - The column's `leadingProperty` must be a sortable and filterable dimension.
-     */
-    isGroupable(): boolean;
     /**
      * Sets a new value for property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
      *
@@ -1164,11 +1154,7 @@ declare module "sap/ui/table/Column" {
 
   import Menu from "sap/ui/unified/Menu";
 
-  import {
-    IColumnHeaderMenu,
-    HorizontalAlign,
-    CSSSize,
-  } from "sap/ui/core/library";
+  import { HorizontalAlign, CSSSize } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -1366,13 +1352,6 @@ declare module "sap/ui/table/Column" {
      * Default value is `false`.
      */
     getAutoResizable(): boolean;
-    /**
-     * @SINCE 1.98.0
-     *
-     * Returns the `sap.ui.core.IColumnHeaderMenu<\code>, which is the current target of the association columnHeaderMenu`,
-     * or null.
-     */
-    getColumnHeaderMenu(): IColumnHeaderMenu;
     /**
      * Gets current value of property {@link #getDefaultFilterOperator defaultFilterOperator}.
      *
@@ -2971,8 +2950,6 @@ declare module "sap/ui/table/Row" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import RowAction from "sap/ui/table/RowAction";
-
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
@@ -3061,13 +3038,6 @@ declare module "sap/ui/table/Row" {
      * scroll position of the table and also takes fixed rows and fixed bottom rows into account.
      */
     getIndex(): int;
-    /**
-     * Returns the related `RowAction` of the row.
-     *
-     * This function must only be used for application testing purposes. The `RowAction` is generated based
-     * on a template. Manipulations of the object or its items are not supported.
-     */
-    getRowAction(): RowAction;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getCells cells}. and returns
      * its index if found or -1 otherwise.
@@ -5436,7 +5406,7 @@ declare module "sap/ui/table/Table" {
         /**
          * binding context of the row which has been clicked so that selection has been changed
          */
-        rowContext?: object;
+        rowContext?: Context;
         /**
          * array of row indices which selection has been changed (either selected or deselected)
          */
@@ -5563,12 +5533,6 @@ declare module "sap/ui/table/Table" {
      * Columns of the Table
      */
     getColumns(): Column[];
-    /**
-     * In contrast to the function `getFixedColumnCount` which returns the value of the property `fixedColumnCount`,
-     * this function returns the actual fixed column count computed based on the column spans of the header,
-     * the width of the table and the width of the columns.
-     */
-    getComputedFixedColumnCount(): int;
     /**
      * Returns the context of a row by its index. Please note that for server-based models like OData, the supplied
      * index might not have been loaded yet. If the context is not available at the client, the binding will
@@ -5961,11 +5925,11 @@ declare module "sap/ui/table/Table" {
     /**
      * Gets current value of property {@link #getThreshold threshold}.
      *
-     * The `threshold` defines how many additional (not yet visible records) shall be pre-fetched to enable
-     * smooth scrolling. The threshold is always added to the `visibleRowCount`. If the `visibleRowCount` is
-     * 10 and the `threshold` is 100, there will be 110 records fetched with the initial load. If the `threshold`
-     * is lower than the `visibleRowCount`, the `visibleRowCount` will be used as the `threshold`. If the value
-     * is 0 then the thresholding is disabled.
+     * Defines how many additional (not yet visible) data records from the back-end system are pre-fetched to
+     * enable smooth scrolling. The threshold is always added to the `visibleRowCount`. If the `visibleRowCount`
+     * is 10 and the `threshold` is 100, there will be 110 records fetched with the initial load. If the `threshold`
+     * is lower than the number of rows in the scrollable area (`visibleRowCount` minus number of fixed rows),
+     * this number is used as the `threshold`. If the value is 0, thresholding is disabled.
      *
      * Default value is `100`.
      */
@@ -6996,11 +6960,11 @@ declare module "sap/ui/table/Table" {
       | PropertyBindingInfo;
 
     /**
-     * The `threshold` defines how many additional (not yet visible records) shall be pre-fetched to enable
-     * smooth scrolling. The threshold is always added to the `visibleRowCount`. If the `visibleRowCount` is
-     * 10 and the `threshold` is 100, there will be 110 records fetched with the initial load. If the `threshold`
-     * is lower than the `visibleRowCount`, the `visibleRowCount` will be used as the `threshold`. If the value
-     * is 0 then the thresholding is disabled.
+     * Defines how many additional (not yet visible) data records from the back-end system are pre-fetched to
+     * enable smooth scrolling. The threshold is always added to the `visibleRowCount`. If the `visibleRowCount`
+     * is 10 and the `threshold` is 100, there will be 110 records fetched with the initial load. If the `threshold`
+     * is lower than the number of rows in the scrollable area (`visibleRowCount` minus number of fixed rows),
+     * this number is used as the `threshold`. If the value is 0, thresholding is disabled.
      */
     threshold?: int | PropertyBindingInfo;
 

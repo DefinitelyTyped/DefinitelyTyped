@@ -261,6 +261,11 @@ export interface ToSQLOptions {
      * @default false
      */
     includeZone?: boolean | undefined;
+    /**
+     * include the space between the time and the offset, such as '05:15:16.345 -04:00'
+     * @default true
+     */
+    includeOffsetSpace?: boolean;
 }
 
 export interface ToISODateOptions {
@@ -734,6 +739,8 @@ export class DateTime {
      * @param o
      */
     static isDateTime(o: unknown): o is DateTime;
+
+    private constructor(config: unknown);
 
     // INFO
 

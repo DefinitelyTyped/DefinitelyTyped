@@ -1144,7 +1144,7 @@ declare namespace Mocha {
         pending: boolean;
         duration?: number | undefined;
         parent?: Suite | undefined;
-        state?: 'failed' | 'passed' | undefined;
+        state?: 'failed' | 'passed' | 'pending' | undefined;
         timer?: any;
         ctx?: Context | undefined;
         callback?: Done | undefined;

@@ -128,7 +128,7 @@ declare namespace Popover {
          *
          * @default ''
          */
-        content: string | Element | ((this: HTMLElement) => string);
+        content: string | Element | JQuery | ((this: HTMLElement) => string | Element | JQuery);
 
         /**
          * To change Bootstrap's default Popper.js config

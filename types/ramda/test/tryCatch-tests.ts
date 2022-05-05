@@ -37,7 +37,7 @@ import * as R from 'ramda';
     // With currying
 
     R.tryCatch((x: number) => x + 1)(err => err)(2); // $ExpectType unknown
-    R.tryCatch((x: number) => x + 1)((err, x)  => x)(2); // $ExpectType number
+    R.tryCatch((x: number) => x + 1)((err, x) => x)(2); // $ExpectType number
 
     R.tryCatch((x: number) => x, R.F); // $ExpectType (() => false) | ((x: number) => number)
     R.tryCatch((x: number) => x)(R.F); // $ExpectType ((x: number) => number) | (() => false)
@@ -51,11 +51,7 @@ import * as R from 'ramda';
     )(12);
 
     // $ExpectType string | number
-    R.tryCatch(
-        (x: number) => 1,
-    )(
-        (err, x) => x.toString(),
-    )(12);
+    R.tryCatch((x: number) => 1)((err, x) => x.toString())(12);
 
     // $ExpectType number | Error
     R.tryCatch(
@@ -64,11 +60,7 @@ import * as R from 'ramda';
     )(12);
 
     // $ExpectType number | Error
-    R.tryCatch(
-        (x: number) => 1,
-    )(
-        (err: Error, x) => err,
-    )(12);
+    R.tryCatch((x: number) => 1)((err: Error, x) => err)(12);
 
     /* Generic functions */
 
@@ -87,7 +79,7 @@ import * as R from 'ramda';
     // Generic function tryer inference
     R.tryCatch(
         <T extends string | number>(x: T) => x,
-        (err, x) => x // $ExpectType (err: unknown, x: string | number) => string | number
+        (err, x) => x, // $ExpectType (err: unknown, x: string | number) => string | number
     )(123); // $ExpectType 123
 
     R.tryCatch(R.prop('x'), R.F)({ x: true }); // $ExpectType boolean
@@ -101,8 +93,9 @@ import * as R from 'ramda';
 
     // $ExpectType (() => "some-error") | (<Y>(y: Y) => { x: "arg"; y: Y; })
     const gtf = R.tryCatch(
-        <X>(x: X) => <Y>(y: Y) => ({x, y}),
-        () => () => 'some-error' as const
+        <X>(x: X) =>
+            <Y>(y: Y) => ({ x, y }),
+        () => () => 'some-error' as const,
     )('arg' as const);
 
     gtf('arg2' as const); // $ExpectType "some-error" | { x: "arg"; y: "arg2"; }

@@ -1,4 +1,4 @@
-// Type definitions for Jest 27.4
+// Type definitions for Jest 27.5
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -1309,6 +1309,7 @@ declare namespace jest {
     type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
 
     interface MockContext<T, Y extends any[]> {
+        lastCall: Y;
         calls: Y[];
         instances: T[];
         invocationCallOrder: number[];

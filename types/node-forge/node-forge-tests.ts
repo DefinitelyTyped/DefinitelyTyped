@@ -661,3 +661,13 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     isBigInteger = bn.modInverse(bn);
     isBoolean = bn.isProbablePrime(0);
 }
+
+{
+    forge.pki.rsa.generateKeyPair({ bits: 2048,}, (err, keypair) => {
+        if (err) {
+            throw err;
+        }
+        const msg = '0102030405060708090a0b0c0d0e0f00';
+        keypair.privateKey.sign(forge.util.hexToBytes(msg), 'NONE');
+    });
+}

@@ -2,6 +2,7 @@
 // Project: https://imapflow.com/
 // Definitions by: Jeffrey Ratton <https://github.com/jeffreyratton98>
 //                 Martin Badin <https://github.com/martin-badin>
+//                 Northern Star <https://github.com/grayson-code>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -36,7 +37,7 @@ export class ImapFlow extends EventEmitter {
     download(
         range: SequenceString,
         part?: string,
-        options?: { uid?: boolean; maxBytes?: number },
+        options?: { uid?: boolean; maxBytes?: number, chunkSize?: number },
     ): Promise<DownloadObject>;
 
     getMailboxLock(path: string, options?: null | { readonly?: boolean }): Promise<MailboxLockObject>;
@@ -56,7 +57,7 @@ export class ImapFlow extends EventEmitter {
 
     mailboxCreate(path: string | any[]): Promise<MailboxCreateResponse>;
 
-    maiboxDelete(path: string | any[]): Promise<MailboxDeleteResponse>;
+    mailboxDelete(path: string | any[]): Promise<MailboxDeleteResponse>;
 
     mailboxOpen(path: string | any[], options?: { readOnly?: boolean }): Promise<MailboxObject>;
 
@@ -134,7 +135,8 @@ export interface ImapFlowOptions {
     port: number;
     auth: {
         user: string;
-        pass: string;
+        pass?: string;
+        accessToken?: string;
     };
     secure?: boolean;
     servername?: string;

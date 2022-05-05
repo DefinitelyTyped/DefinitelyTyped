@@ -1,4 +1,4 @@
-import { LevelUp as levelup } from 'levelup';
+import levelup = require('levelup');
 import { AbstractLevelDOWN } from 'abstract-leveldown';
 import ttl, { LevelTTL, LevelTTLOptions } from 'level-ttl';
 

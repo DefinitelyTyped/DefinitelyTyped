@@ -6,8 +6,6 @@
 
 import React = require('react');
 export interface HydrationOptions {
-    onHydrated?(suspenseInstance: Comment): void;
-    onDeleted?(suspenseInstance: Comment): void;
     /**
      * Prefix for `useId`.
      */
@@ -24,7 +22,7 @@ export interface RootOptions {
 }
 
 export interface Root {
-    render(children: React.ReactChild | Iterable<React.ReactNode>): void;
+    render(children: React.ReactNode): void;
     unmount(): void;
 }
 
@@ -33,10 +31,10 @@ export interface Root {
  *
  * @see https://reactjs.org/docs/concurrent-mode-reference.html#createroot
  */
-export function createRoot(container: Element | Document | DocumentFragment | Comment, options?: RootOptions): Root;
+export function createRoot(container: Element | DocumentFragment, options?: RootOptions): Root;
 
 export function hydrateRoot(
-    container: Element | Document | DocumentFragment | Comment,
-    initialChildren: React.ReactChild | Iterable<React.ReactNode>,
+    container: Element | Document,
+    initialChildren: React.ReactNode,
     options?: HydrationOptions,
 ): Root;

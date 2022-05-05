@@ -347,7 +347,6 @@ management.assignPermissionsToUser(
 );
 
 // Using different client settings.
-
 const retryableManagementClient = new auth0.ManagementClient({
     clientId: '',
     clientSecret: '',
@@ -683,6 +682,7 @@ management
     )
     .then(() => console.log('It worked'))
     .catch(err => console.log('Something went wrong ' + err));
+
 management.removePermissionsFromRole(
     { id: 'role_id' },
     {
@@ -706,6 +706,7 @@ management
     )
     .then(() => console.log('It worked'))
     .catch(err => console.log('Something went wrong ' + err));
+
 management.addPermissionsInRole(
     { id: 'role_id' },
     {
@@ -882,6 +883,35 @@ management.getGrants(
         grants,
 );
 
+// Logs
+management.getLog({ id: 'cd_0000000000000001'}).then(log => console.log(log));
+management.getLog({ id: 'cd_0000000000000001'}, (log) => console.log(log));
+management.getLogs().then(logs => console.log(logs));
+management.getLogs({
+    fields: 'audience',
+    from: 'cd_0000000000000001',
+    include_fields: true,
+    include_totals: false,
+    page: 0,
+    per_page: 12,
+    q: '?!?',
+    sort: 'audience',
+    take: 42
+}).then(logs => console.log(logs));
+management.getLogs((logs) => console.log(logs));
+management.getLogs({
+    fields: 'audience',
+    from: 'cd_0000000000000001',
+    include_fields: true,
+    include_totals: false,
+    page: 0,
+    per_page: 12,
+    q: '?!?',
+    sort: 'audience',
+    take: 42
+},
+logs => console.log(logs));
+
 const authentication = new auth0.AuthenticationClient({
     domain: 'auth0.com',
 });
@@ -951,16 +981,17 @@ async () => {
     const options: auth0.PasswordlessOptions = {};
     options.forwardedFor = '{YOUR_IP}';
 
-    let token: auth0.SignInToken;
-    token = await authentication.passwordless.signIn(signInUserData);
-    token = await authentication.passwordless.signIn(signInUserData, options);
+    // $ExpectType SignInToken
+    await authentication.passwordless.signIn(signInUserData);
+    // $ExpectType SignInToken
+    await authentication.passwordless.signIn(signInUserData, options);
     authentication.passwordless.signIn(signInUserData, (err, data) => {
         err; // $ExpectType Error
-        token = data;
+        data; // $ExpectType SignInToken
     });
     authentication.passwordless.signIn(signInUserData, options, (err, data) => {
         err; // $ExpectType Error
-        token = data;
+        data; // $ExpectType SignInToken
     });
 
     await authentication.passwordless.sendEmail(emailUserData);
@@ -991,6 +1022,11 @@ async function signupTest(): Promise<void> {
     signupResult._id; // $ExpectType string
     signupResult.email; // $ExpectType string
     signupResult.email_verified; // $ExpectType boolean
+
+    authentication.database.signUp({ email: 'email', password: 'password' }, (err, data) => {
+        err; // $ExpectType Error
+        data; // $ExpectType User<AppMetadata, UserMetadata>
+    });
 }
 
 const decoded = idToken.decode('{YOUR_API_V2_TOKEN}'); // $ExpectType DecodedToken
@@ -1586,3 +1622,14 @@ management.organizations.removeMemberRoles(
 management.organizations
     .removeMemberRoles({ id: 'organization_id', user_id: 'user_id' }, { roles: ['role_id'] })
     .then(() => {});
+
+// Device Credentials
+management.getDeviceCredentials({ user_id: 'user_id' }).then(deviceCredentials => {
+    deviceCredentials; // $ExpectType DeviceCredential[]
+});
+management.getDeviceCredentials({ user_id: 'user_id' }, (err, deviceCredentials) => {
+    deviceCredentials; // $ExpectType DeviceCredential[]
+});
+
+management.deleteDeviceCredential({ id: 'id' }).then(() => {});
+management.deleteDeviceCredential({ id: 'id' }, err => {});
