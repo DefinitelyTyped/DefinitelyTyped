@@ -7,6 +7,7 @@
 // Minimum TypeScript Version: 4.4
 
 import Service from '@ember/service';
+import FeatureFlag from './helpers/feature-flag';
 
 // https://github.com/kategengler/ember-feature-flags/blob/v6.0.0/addon/services/features.js#L5
 export default interface Features extends Service {
@@ -15,3 +16,5 @@ export default interface Features extends Service {
     disable(feature: string): void;
     isEnabled(feature: string): boolean;
 }
+
+export { FeatureFlag };
