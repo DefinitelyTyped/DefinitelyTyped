@@ -1,6 +1,6 @@
 import { Disposable, Grammar, GrammarToken, TextBuffer } from '../index';
 
-interface SyntaxNode {}
+type SyntaxNode = {}
 interface InjectionPoint {
     type: string;
     language: (node: SyntaxNode) => string;
