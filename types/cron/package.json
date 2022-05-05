@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/luxon": ">=2.3.2",
         "luxon": ">=2.3.2"
     }
 }
