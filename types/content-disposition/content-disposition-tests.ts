@@ -5,7 +5,7 @@ const withFilenameNoOptions = contentDisposition('EURO rates.txt');
 const withFilenameAndOptions = contentDisposition('€ rates.txt', { type: 'attachment', fallback: 'EURO rates.txt' });
 const noFilename = contentDisposition(undefined, { type: 'attachment', fallback: true });
 
-const { parse } = contentDisposition
+const { parse } = contentDisposition;
 
 const res = parse('attachment; filename="EURO rates.txt"');
 const type = res.type;
@@ -13,5 +13,5 @@ const parameters = res.parameters;
 
 if ("filename" in parameters) {
   // $ExpectType string
-  parameters["filename"]
+  parameters["filename"];
 }
