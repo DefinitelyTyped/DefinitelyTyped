@@ -161,6 +161,12 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     const readyState: videojs.ReadyState = this.readyState();
 
+    // $ExpectType string
+    const currentBreakPoint = this.currentBreakpoint();
+
+    // $ExpectType string
+    const currentBreakpointClass: string = this.currentBreakpointClass();
+
     this.requestFullscreen();
 
     this.requestPictureInPicture().then(pipWindow => {
