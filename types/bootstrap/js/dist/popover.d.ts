@@ -156,7 +156,7 @@ declare namespace Popover {
             | 'toggleEnabled'
             | 'update'
             | 'dispose',
-    ) => void;
+    ) => JQuery;
 }
 
 export default Popover;
