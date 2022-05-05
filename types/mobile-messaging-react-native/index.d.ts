@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { EmitterSubscription, Rationale} from "../react-native";
+import { EmitterSubscription, Rationale} from "react-native";
 
 export type OS = 'Android' | 'iOS';
 export type Gender = 'Male' | 'Female';
