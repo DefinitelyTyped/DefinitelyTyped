@@ -143,7 +143,7 @@ export interface GeoCenter {
 export interface Message {
     messageId: string;
     title?: string | undefined;
-    body?: string | undefined;
+    body: string | undefined;
     sound?: string | undefined;
     silent?: string | undefined;
     customPayload?: Record<string, string> | undefined;
@@ -157,7 +157,7 @@ export interface Message {
     vibrate?: boolean | undefined; // Android only
     icon?: string | undefined; // Android only
     category?: string | undefined; // Android only
-    chat?: string | undefined;
+    chat?: boolean | undefined;
     browserUrl?: string | undefined;
     deeplink?: string | undefined;
     webViewUrl?: string | undefined;
