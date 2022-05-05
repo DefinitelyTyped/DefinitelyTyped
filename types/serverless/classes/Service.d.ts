@@ -26,6 +26,7 @@ declare class Service {
         runtime?: string | undefined;
         timeout?: number | undefined;
         versionFunctions: boolean;
+        layers: [string | unknown];
     };
     serverless: Serverless;
     service: string | null;
