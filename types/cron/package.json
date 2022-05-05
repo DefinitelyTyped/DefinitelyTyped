@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "moment": ">=2.14.0"
+        "@types/luxon": ">=2.3.2",
+        "luxon": ">=2.3.2"
     }
 }
