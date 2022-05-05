@@ -1,4 +1,13 @@
-import { Block, BlockConfiguration, BlockIcon, BlockInstance, BlockStyle, BlockSupports } from '../';
+import {
+    Block,
+    BlockConfiguration,
+    BlockIcon,
+    BlockInstance,
+    BlockStyle,
+    BlockSupports,
+    BlockVariation,
+    BlockVariationScope,
+} from '../';
 
 /**
  * Returns the block support value for a feature, if defined.
@@ -167,3 +176,29 @@ export function unregisterBlockStyle(blockName: string, styleVariationName: stri
  * @returns The previous block value if successfully unregistered, otherwise `undefined`.
  */
 export function unregisterBlockType(name: string): Block<any> | undefined;
+
+/**
+ * Returns an array with the variations of a given block type.
+ *
+ * @param blockName - Name of block (example: “core/columns”).
+ * @param [scope] - Block variation scope name.
+ *
+ * @returns Block variations.
+ */
+export function getBlockVariations(blockName: string, scope?: BlockVariationScope): BlockVariation[] | undefined;
+
+/**
+ * Registers a new block variation for the given block type.
+ *
+ * @param blockName - Name of the block (example: “core/columns”).
+ * @param variation - Object describing a block variation.
+ */
+export function registerBlockVariation(blockName: string, variation: BlockVariation): void;
+
+/**
+ * Unregisters a block variation defined for the given block type.
+ *
+ * @param blockName - Name of the block (example: “core/columns”).
+ * @param variationName - Name of the variation defined for the block.
+ */
+export function unregisterBlockVariation(blockName: string, variationName: string): void;
