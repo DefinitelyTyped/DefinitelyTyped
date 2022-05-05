@@ -35,7 +35,7 @@ export interface Configuration {
     /**
      * Message storage save callback
      */
-    messageStorage?: string | undefined;
+    messageStorage?: CustomMessageStorage;
     defaultMessageStorage?: boolean | undefined;
     ios?: {
         notificationTypes?: string[] | undefined;
@@ -184,6 +184,40 @@ export interface DefaultMessageStorage {
     delete(messageId: string, callback: () => void): void;
 
     deleteAll(callback: () => void): void;
+}
+
+export interface CustomMessageStorage {
+
+    /**
+     * Will be called by the plugin when messages are received and it's time to save them to the storage
+     *
+     * @param {Array} array of message objects to save to storage
+     */
+    save(messages: Message[]): void;
+
+    /**
+     * Will be called by the plugin to find a message by message id
+     *
+     * @param {Function} callback has to be called on completion with one parameter - found message object
+     */
+    find(messageId: string, callback: (message: Message) => void): void;
+
+    /**
+     * Will be called by the plugin to find all messages in the storage
+     *
+     * @param {Function} callback has to be called on completion with one parameter - an array of available messages
+     */
+    findAll(callback: (messages: Message[]) => void): void;
+
+    /**
+     * Will be called by the plugin when its time to initialize the storage
+     */
+    start(): void;
+
+    /**
+     * Will be called by the plugin when its time to deinitialize the storage
+     */
+    stop(): void;
 }
 
 export interface CustomEvent {
