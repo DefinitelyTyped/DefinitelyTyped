@@ -56,16 +56,6 @@ declare namespace DropdownMenu {
          * @defaultValue false
          */
         disableOpenOnArrowDown?: boolean | undefined;
-
-        /**
-         * The text to pass as prop to the underlying toggle Button component.
-         */
-        text?: string | undefined;
-
-        /**
-         * Whether to add 'no-icons' className to the underlying NavigableMenu component.
-         */
-        noIcons?: boolean | undefined;
     }
     interface PropsWithChildren extends BaseProps {
         /**
