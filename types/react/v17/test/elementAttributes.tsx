@@ -58,6 +58,16 @@ const testCases = [
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
     </picture>,
+    <dialog
+        onCancel={event => {
+            // $ExpectType React.SyntheticEvent<HTMLDialogElement>
+            event;
+        }}
+        onClose={event => {
+            // $ExpectType React.SyntheticEvent<HTMLDialogElement>
+            event;
+        }}
+    ></dialog>,
 ];
 
 // Needed to check these HTML elements in event callbacks.
