@@ -42,11 +42,11 @@ export interface CloudFrontResponse {
 }
 
 export interface CloudFrontRequestBody {
-              action: 'read-only' | 'replace';
-              data: string;
-              encoding: 'base64' | 'text';
-              readonly inputTruncated: boolean;
-          };
+    action: 'read-only' | 'replace';
+    data: string;
+    encoding: 'base64' | 'text';
+    readonly inputTruncated: boolean;
+}
 
 export interface CloudFrontRequest {
     body?: CloudFrontRequestBody;
