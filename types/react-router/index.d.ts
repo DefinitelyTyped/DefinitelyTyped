@@ -146,21 +146,19 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(
     parent?: match<Params> | null,
 ): match<Params> | null;
 
-type OnlyIncludes<Input extends string, Allowed extends string> =
-    StringChars<Input> extends StringChars<Allowed> ? true : false
+type OnlyIncludes<Input extends string, Allowed extends string> = StringChars<Input> extends StringChars<Allowed>
+    ? true
+    : false;
 
-type StringChars<T extends string> = T extends `${infer Left}${infer Right}`
-    ? Left | StringChars<Right>
-    : T
+type StringChars<T extends string> = T extends `${infer Left}${infer Right}` ? Left | StringChars<Right> : T;
 
-type IsExtractableRegex<T extends string> = OnlyIncludes<Lowercase<T>, 'abcdefghijklmnopqrstuvwxyz0123456789-_|'>
+type IsExtractableRegex<T extends string> = OnlyIncludes<Lowercase<T>, 'abcdefghijklmnopqrstuvwxyz0123456789-_|'>;
 
-type ExtractRegExpOptions<T extends string, U = string | number | boolean> =
-    IsExtractableRegex<T> extends true ? ExtractOptions<T> : U;
+type ExtractRegExpOptions<T extends string, U = string | number | boolean> = IsExtractableRegex<T> extends true
+    ? ExtractOptions<T>
+    : U;
 
-type ExtractOptions<T extends string> = T extends `${infer Left}|${infer Right}`
-    ? Left | ExtractOptions<Right>
-    : T
+type ExtractOptions<T extends string> = T extends `${infer Left}|${infer Right}` ? Left | ExtractOptions<Right> : T;
 
 export type ExtractRouteOptionalParam<T extends string, U = string | number | boolean> = T extends `${infer Param}?`
     ? { [k in Param]?: U }
@@ -174,12 +172,12 @@ export type ExtractRouteParams<T extends string, U = string | number | boolean> 
     ? { [k in string]?: U }
     : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}/${infer Rest}`
     ? ParamWithOptionalRegExp extends `${infer Param}(${infer RegExp})`
-      ? ExtractRouteOptionalParam<Param, ExtractRegExpOptions<RegExp, U>> & ExtractRouteParams<Rest, U>
-      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
+        ? ExtractRouteOptionalParam<Param, ExtractRegExpOptions<RegExp, U>> & ExtractRouteParams<Rest, U>
+        : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
     : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}`
     ? ParamWithOptionalRegExp extends `${infer Param}(${infer RegExp})`
-      ? ExtractRouteOptionalParam<Param, ExtractRegExpOptions<RegExp, U>>
-      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
+        ? ExtractRouteOptionalParam<Param, ExtractRegExpOptions<RegExp, U>>
+        : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
     : {};
 
 export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;
