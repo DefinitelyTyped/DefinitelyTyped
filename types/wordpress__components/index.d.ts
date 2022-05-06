@@ -5,6 +5,7 @@
 //                 Philip Jackson <https://github.com/p-jackson>
 //                 Sara Marcondes <https://github.com/sarayourfriend>
 //                 Michael Thomas <https://github.com/michaelhthomas>
+//                 Manzoor Wani <https://github.com/manzoorwanijk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
