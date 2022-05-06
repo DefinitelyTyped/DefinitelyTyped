@@ -210,7 +210,7 @@ export class MultiBar extends EventEmitter {
     constructor(opt: Options, preset?: Preset);
 
     /** add a new bar to the stack */
-    create(total: number, startValue: number, payload?: any, barOptions?: object): SingleBar;
+    create(total: number, startValue: number, payload?: any, barOptions?: Options): SingleBar;
 
     /** remove a bar from the stack */
     remove(bar: SingleBar): boolean;
