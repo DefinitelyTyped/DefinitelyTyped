@@ -41,21 +41,21 @@ export interface CloudFrontResponse {
     headers: CloudFrontHeaders;
 }
 
-export interface CloudFrontRequest {
-    body?:
-        | {
+export interface CloudFrontRequestBody {
               action: 'read-only' | 'replace';
               data: string;
               encoding: 'base64' | 'text';
               readonly inputTruncated: boolean;
-          }
-        | undefined;
+          };
+
+export interface CloudFrontRequest {
+    body?: CloudFrontRequestBody;
     readonly clientIp: string;
     readonly method: string;
     uri: string;
     querystring: string;
     headers: CloudFrontHeaders;
-    origin?: CloudFrontOrigin | undefined;
+    origin?: CloudFrontOrigin;
 }
 
 export interface CloudFrontEvent {
