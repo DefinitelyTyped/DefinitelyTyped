@@ -507,17 +507,17 @@ export type Transform<T extends Record<string, any> = Record<string, any>> =
 
 export type BlockVariationScope = 'block' | 'inserter' | 'transform';
 
-export interface BlockVariation<TAttributes extends Record<string, any> = any> {
+export interface BlockVariation<T extends Record<string, any> = any> {
     name: string;
     title: string;
     description?: string;
     category?: string;
     icon?: BlockIcon;
     isDefault?: boolean;
-    attributes?: Partial<TAttributes>;
+    attributes?: T;
     innerBlocks?: any[];
     example?: Record<string, any>;
     scope?: BlockVariationScope[];
     keywords?: string[];
-    isActive?: (blockAttributes: TAttributes, variationAttributes: Partial<TAttributes>) => boolean | string[];
+    isActive?: (blockAttributes: T, variationAttributes: T) => boolean | string[];
 }
