@@ -2663,7 +2663,6 @@ export class WebElement implements Serializable<IWebElementId> {
    */
   getShadowRoot(): ShadowRootPromise;
 
-
   /** @override */
   serialize(): Promise<IWebElementId>;
 }
