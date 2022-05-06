@@ -8,7 +8,8 @@ import type {
     CloudFrontResponseResult,
     CloudFrontS3Origin,
     CloudFrontCustomOrigin,
-    CloudFrontFunctionsEvent, CloudFrontRequestEventRecord,
+    CloudFrontFunctionsEvent,
+    CloudFrontRequestEventRecord,
 } from 'aws-lambda';
 
 // TODO: Update test to read all event properties, and write all result
