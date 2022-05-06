@@ -60,11 +60,11 @@ const testCases = [
     </picture>,
     <dialog
         onCancel={event => {
-            // $ExpectType SyntheticEvent<HTMLDialogElement>
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
         }}
         onClose={event => {
-            // $ExpectType SyntheticEvent<HTMLDialogElement>
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
         }}
     ></dialog>,
