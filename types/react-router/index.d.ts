@@ -146,13 +146,49 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(
     parent?: match<Params> | null,
 ): match<Params> | null;
 
-type OnlyIncludes<Input extends string, Allowed extends string> = StringChars<Input> extends StringChars<Allowed>
-    ? true
-    : false;
-
-type StringChars<T extends string> = T extends `${infer Left}${infer Right}` ? Left | StringChars<Right> : T;
-
-type IsExtractableRegex<T extends string> = OnlyIncludes<Lowercase<T>, 'abcdefghijklmnopqrstuvwxyz0123456789-_|'>;
+// Must only use abcdefghijklmnopqrstuvwxyz0123456789-_|
+type IsExtractableRegex<T extends string, L = Lowercase<T>> =
+    L extends `` ? true :
+    L extends `a${infer R}` ? IsExtractableRegex<R> :
+    L extends `b${infer R}` ? IsExtractableRegex<R> :
+    L extends `c${infer R}` ? IsExtractableRegex<R> :
+    L extends `d${infer R}` ? IsExtractableRegex<R> :
+    L extends `e${infer R}` ? IsExtractableRegex<R> :
+    L extends `f${infer R}` ? IsExtractableRegex<R> :
+    L extends `g${infer R}` ? IsExtractableRegex<R> :
+    L extends `h${infer R}` ? IsExtractableRegex<R> :
+    L extends `i${infer R}` ? IsExtractableRegex<R> :
+    L extends `j${infer R}` ? IsExtractableRegex<R> :
+    L extends `k${infer R}` ? IsExtractableRegex<R> :
+    L extends `l${infer R}` ? IsExtractableRegex<R> :
+    L extends `m${infer R}` ? IsExtractableRegex<R> :
+    L extends `n${infer R}` ? IsExtractableRegex<R> :
+    L extends `o${infer R}` ? IsExtractableRegex<R> :
+    L extends `p${infer R}` ? IsExtractableRegex<R> :
+    L extends `q${infer R}` ? IsExtractableRegex<R> :
+    L extends `r${infer R}` ? IsExtractableRegex<R> :
+    L extends `s${infer R}` ? IsExtractableRegex<R> :
+    L extends `t${infer R}` ? IsExtractableRegex<R> :
+    L extends `u${infer R}` ? IsExtractableRegex<R> :
+    L extends `v${infer R}` ? IsExtractableRegex<R> :
+    L extends `w${infer R}` ? IsExtractableRegex<R> :
+    L extends `x${infer R}` ? IsExtractableRegex<R> :
+    L extends `y${infer R}` ? IsExtractableRegex<R> :
+    L extends `z${infer R}` ? IsExtractableRegex<R> :
+    L extends `0${infer R}` ? IsExtractableRegex<R> :
+    L extends `1${infer R}` ? IsExtractableRegex<R> :
+    L extends `2${infer R}` ? IsExtractableRegex<R> :
+    L extends `3${infer R}` ? IsExtractableRegex<R> :
+    L extends `4${infer R}` ? IsExtractableRegex<R> :
+    L extends `5${infer R}` ? IsExtractableRegex<R> :
+    L extends `6${infer R}` ? IsExtractableRegex<R> :
+    L extends `7${infer R}` ? IsExtractableRegex<R> :
+    L extends `8${infer R}` ? IsExtractableRegex<R> :
+    L extends `9${infer R}` ? IsExtractableRegex<R> :
+    L extends `-${infer R}` ? IsExtractableRegex<R> :
+    L extends `_${infer R}` ? IsExtractableRegex<R> :
+    L extends `|${infer R}` ? IsExtractableRegex<R> :
+    false;
 
 type ExtractRegExpOptions<T extends string, U = string | number | boolean> = IsExtractableRegex<T> extends true
     ? ExtractOptions<T>
