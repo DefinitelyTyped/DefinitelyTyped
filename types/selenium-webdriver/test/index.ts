@@ -8,6 +8,7 @@ import * as safari from 'selenium-webdriver/safari';
 import { PageLoadStrategy, UserPromptHandler, Platform } from 'selenium-webdriver/lib/capabilities';
 import { Command } from 'selenium-webdriver/lib/command';
 import Symbols from 'selenium-webdriver/lib/symbols';
+import { ShadowRoot, ShadowRootPromise } from 'selenium-webdriver/lib/webdriver'
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();
@@ -567,4 +568,35 @@ function TestUntilModule() {
     conditionWebElement = webdriver.until.elementTextIs(el, 'text');
     conditionWebElement = webdriver.until.elementTextMatches(el, /text/);
     conditionWebElements = webdriver.until.elementsLocated(webdriver.By.className('class'));
+}
+
+function TestShadowRoot() {
+    let driver: webdriver.WebDriver = new webdriver.Builder().
+        withCapabilities(webdriver.Capabilities.chrome()).
+        build();
+
+    let shadowRoot: ShadowRoot;
+    let element: webdriver.WebElement;
+    shadowRoot = new ShadowRoot(driver, 'shadowRootId');
+
+    element = shadowRoot.findElement(webdriver.By.id('ABC'));
+    element = shadowRoot.findElement({id: 'ABC'});
+    shadowRoot.findElements({className: 'ABC'}).then((elements: webdriver.WebElement[]) => { });
+
+    shadowRoot.getId().then((id: string) => {});
+    shadowRoot.serialize().then((id: webdriver.IWebElementId) => {});
+}
+
+function TestShadowRootPromise() {
+    let driver: webdriver.WebDriver = new webdriver.Builder().
+        withCapabilities(webdriver.Capabilities.chrome()).
+        build();
+
+    let element: webdriver.WebElement = new webdriver.WebElement(driver, 'elementId');
+    let shadowRootPromise: ShadowRootPromise = element.getShadowRoot();
+
+    shadowRootPromise.then();
+    shadowRootPromise.then((shadowRoot: ShadowRoot) => {});
+    shadowRootPromise.then((shadowRoot: ShadowRoot) => {}, (error: any) => {});
+    shadowRootPromise.then((shadowRoot: ShadowRoot) => 'foo', (error: any) => 'bar').then((result: string) => {});
 }
