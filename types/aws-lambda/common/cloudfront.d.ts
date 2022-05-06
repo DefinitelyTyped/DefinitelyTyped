@@ -58,13 +58,22 @@ export interface CloudFrontRequest {
     origin?: CloudFrontOrigin;
 }
 
-export interface CloudFrontEvent {
-    config: {
-        readonly distributionDomainName: string;
-        readonly distributionId: string;
-        readonly eventType: 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response';
-        readonly requestId: string;
+export interface CloudFrontConfig {
+    readonly distributionDomainName: string;
+    readonly distributionId: string;
+    readonly eventType: 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response';
+    readonly requestId: string;
+}
+
+export interface CloudFrontEventRecord {
+    cf: {
+        config: CloudFrontConfig;
+        request: CloudFrontRequest;
     };
+}
+
+export interface CloudFrontEvent {
+    Records: CloudFrontEventRecord[];
 }
 
 /**
@@ -108,7 +117,7 @@ export interface CloudFrontFunctionsHeaders {
  *   var response = event.response;
  *   var headers = response.headers;
  *   // Set the cache-control header
- *   headers["cache-control"] = { value: "public,max-age=31536000,immutable" };
+ *   headers['cache-control'] = { value: "public,max-age=31536000,immutable" };
  *   // Return response to viewers
  *   return response
  * };
@@ -141,8 +150,9 @@ export interface CloudFrontFunctionsEvent {
     };
     /**
      * ## Viewer object
-     * The `viewer` object contains an `ip` field whose value is the IP address of the viewer (client) that sent the request.
-     * If the viewer request came through an HTTP proxy or a load balancer, the value is the IP address of the proxy or load balancer.
+     * The `viewer` object contains an `ip` field whose value is the IP address of the viewer (client) that sent the
+     * request. If the viewer request came through an HTTP proxy or a load balancer, the value is the IP address of the
+     * proxy or load balancer.
      */
     viewer: {
         ip: string;
@@ -169,7 +179,8 @@ export interface CloudFrontFunctionsEvent {
          * The relative path of the requested object. If your function modifies the `uri value, note the following:
          * - The new `uri` value must begin with a forward slash (`/`)`.
          * - When a function changes the `uri` value, it changes the object that the viewer is requesting.
-         * - When a function changes the `uri` value, it doesn’t change the cache behavior for the request or the origin that an origin request is sent to.
+         * - When a function changes the `uri` value, it doesn’t change the cache behavior for the request or the
+         * origin that an origin request is sent to.
          */
         uri: string;
         /**
@@ -182,15 +193,18 @@ export interface CloudFrontFunctionsEvent {
         querystring: CloudFrontFunctionsQuerystring;
         /**
          * An object that represents the HTTP headers in the request. If the request contains any `Cookie` headers,
-         * those headers are not part of the `headers` object. Cookies are represented separately in the `cookies` object.
+         * those headers are not part of the `headers` object. Cookies are represented separately in the `cookies`
+         * object.
          *
-         * The `headers` object contains one field for each header in the request. Header names are converted to lowercase.
+         * The `headers` object contains one field for each header in the request. Header names are converted to
+         * lowercase.
          */
         headers: CloudFrontFunctionsHeaders;
         /**
          * An object that represents the cookies in the request (`Cookie` headers).
          *
-         * The `cookies` object contains one field for each cookie in the request. Cookie names are converted to lowercase.
+         * The `cookies` object contains one field for each cookie in the request. Cookie names are converted to
+         * lowercase.
          */
         cookies: CloudFrontFunctionsCookies;
     };
@@ -198,7 +212,8 @@ export interface CloudFrontFunctionsEvent {
      * ## Response object
      *
      * The `response` object contains a representation of a CloudFront-to-viewer HTTP response.
-     * In the `event` object that’s passed to your function, the `response` object represents CloudFront’s actual response to a viewer request.
+     * In the `event` object that’s passed to your function, the `response` object represents CloudFront’s actual
+     * response to a viewer request.
      *
      * If your function code returns a `response` object, it must use this same structure.
      *
@@ -210,22 +225,26 @@ export interface CloudFrontFunctionsEvent {
          *
          * If the function is associated with a _viewer response_ event type, your function code cannot change
          * the `statusCode` that it received. If the function is associated with a _viewer request_ event type
-         * and [generates an HTTP response](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/writing-function-code.html#function-code-generate-response),
+         * and [generates an HTTP
+         * response](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/writing-function-code.html#function-code-generate-response),
          * your function code can set the `statusCode`.
          */
         statusCode: number;
         /** The HTTP status description of the response. If your function code generates a response, this field is optional. */
         statusDescription?: string;
         /**
-         * An object that represents the HTTP headers in the response. If the response contains any `Set-Cookie` headers,
-         * those `headers` are not part of the headers object. Cookies are represented separately in the `cookies` object.
+         * An object that represents the HTTP headers in the response. If the response contains any `Set-Cookie`
+         * headers, those `headers` are not part of the headers object. Cookies are represented separately in the
+         * `cookies` object.
          *
-         * The `headers` object contains one field for each header in the response. Header names are converted to lowercase.
+         * The `headers` object contains one field for each header in the response. Header names are converted to
+         * lowercase.
          */
         headers: CloudFrontFunctionsHeaders;
         /**
          * An object that represents the cookies in the response (`Set-Cookie` headers).
-         * The `cookies` object contains one field for each cookie in the response. Cookie names are converted to lowercase.
+         * The `cookies` object contains one field for each cookie in the response. Cookie names are converted to
+         * lowercase.
          */
         cookies: CloudFrontFunctionsCookies;
     };
