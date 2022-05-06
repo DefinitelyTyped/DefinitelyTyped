@@ -124,7 +124,7 @@ export interface Options {
     autopaddingChar?: string | undefined;
 
     /** stop bar on SIGINT/SIGTERM to restore cursor settings (default: true) */
-    gracefulExit?: boolean
+    gracefulExit?: boolean;
 }
 
 export interface Preset {
