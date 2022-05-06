@@ -13,6 +13,9 @@
             "../"
         ],
         "paths": {
+            "tapable": [
+                "./node_modules/tapable"
+            ],
             "webpack": [
                 "./node_modules/webpack"
             ]
