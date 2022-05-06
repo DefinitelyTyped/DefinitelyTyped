@@ -96,6 +96,9 @@ export interface Options {
      */
     etaAsynchronousUpdate?: boolean | undefined;
 
+    /** progress calculation relative to start value ? default start at 0 (default: false) */
+    progressCalculationRelative?: boolean;
+
     /** disable line wrapping (default: false) - pass null to keep terminal settings; pass true to trim the output to terminal width */
     linewrap?: boolean | null | undefined;
 
@@ -119,6 +122,9 @@ export interface Options {
 
     /** the character sequence used for autopadding (default: " ") */
     autopaddingChar?: string | undefined;
+
+    /** stop bar on SIGINT/SIGTERM to restore cursor settings (default: true) */
+    gracefulExit?: boolean
 }
 
 export interface Preset {
@@ -204,7 +210,7 @@ export class MultiBar extends EventEmitter {
     constructor(opt: Options, preset?: Preset);
 
     /** add a new bar to the stack */
-    create(total: number, startValue: number, payload?: any): SingleBar;
+    create(total: number, startValue: number, payload?: any, barOptions?: object): SingleBar;
 
     /** remove a bar from the stack */
     remove(bar: SingleBar): boolean;
