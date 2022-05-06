@@ -337,7 +337,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
             onClick: () => console.log('up'),
         },
     ]}
-    menuProps={{ orientation:'vertical' }}
+    menuProps={{ orientation: 'vertical' }}
     popoverProps={{ animate: true }}
     toggleProps={{ variant: 'primary' }}
     disableOpenOnArrowDown={true}
