@@ -3,7 +3,8 @@
 // Definitions by: Yusuf Ades <https://github.com/yusufades>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { WebpackPluginInstance, Compiler } from 'webpack';
+/// <reference types="node" />
+import type { Compiler } from 'webpack';
 
 declare namespace WebpackFilesArchivePlugin {
     type Formats = 'tar' | 'zip';
@@ -24,7 +25,7 @@ declare namespace WebpackFilesArchivePlugin {
     }
 }
 
-declare class WebpackFilesArchivePlugin implements WebpackPluginInstance {
+declare class WebpackFilesArchivePlugin {
     constructor(options: WebpackFilesArchivePlugin.Options);
 
     apply(compiler: Compiler): void;

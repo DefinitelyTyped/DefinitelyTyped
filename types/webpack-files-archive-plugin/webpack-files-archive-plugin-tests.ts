@@ -1,7 +1,7 @@
 import FilesArchivePlugin = require('webpack-files-archive-plugin');
-import type { Configuration } from 'webpack';
+import { Configuration } from 'webpack';
 
-const _: Configuration = {
+const config: Configuration = {
     plugins: [
         // $ExpectError
         new FilesArchivePlugin(),
@@ -14,9 +14,8 @@ const _: Configuration = {
         new FilesArchivePlugin({
             format: 'tar',
         }),
-        // $ExpectError
         new FilesArchivePlugin({
-            format: 'rar',
+            format: 'rar', // $ExpectError
         }),
         new FilesArchivePlugin({
             format: ['zip', 'tar'],
