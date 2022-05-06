@@ -147,7 +147,7 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(
 ): match<Params> | null;
 
 // Must only use abcdefghijklmnopqrstuvwxyz0123456789-_|
-type IsExtractableRegex<T extends string, L = Lowercase<T>> =
+export type IsExtractableRegex<T extends string, L = Lowercase<T>> =
     L extends `` ? true :
     L extends `a${infer R}` ? IsExtractableRegex<R> :
     L extends `b${infer R}` ? IsExtractableRegex<R> :
@@ -190,11 +190,11 @@ type IsExtractableRegex<T extends string, L = Lowercase<T>> =
     L extends `|${infer R}` ? IsExtractableRegex<R> :
     false;
 
-type ExtractRegExpOptions<T extends string, U = string | number | boolean> = IsExtractableRegex<T> extends true
+export type ExtractRegExpOptions<T extends string, U = string | number | boolean> = IsExtractableRegex<T> extends true
     ? ExtractOptions<T>
     : U;
 
-type ExtractOptions<T extends string> = T extends `${infer Left}|${infer Right}` ? Left | ExtractOptions<Right> : T;
+export type ExtractOptions<T extends string> = T extends `${infer Left}|${infer Right}` ? Left | ExtractOptions<Right> : T;
 
 export type ExtractRouteOptionalParam<T extends string, U = string | number | boolean> = T extends `${infer Param}?`
     ? { [k in Param]?: U }
