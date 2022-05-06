@@ -1,4 +1,4 @@
-// Type definitions for Selenium WebDriverJS 4.0
+// Type definitions for Selenium WebDriverJS 4.1.0
 // Project: https://github.com/SeleniumHQ/selenium
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
 //   Yuki Kokubun <https://github.com/Kuniwak>,
@@ -10,6 +10,7 @@
 //   Aleksey Chemakin <https://github.com/Dzenly>
 //   David Burns <https://github.com/AutomatedTester>
 //   Pirasis Leelatanon <https://github.com/1pete>
+//   Othmane Ajdor <https://github.com/ajdor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
