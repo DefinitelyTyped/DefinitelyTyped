@@ -2,7 +2,6 @@
 // Project: https://github.com/thorough-developer/fast-als
 // Definitions by: Elias Fauser <https://github.com/elias-fauser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="node" />
 
 export {};
 
