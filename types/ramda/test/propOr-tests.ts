@@ -35,30 +35,12 @@ const propName = 'age';
 
     // $ExpectType "Default value" | 101
     R.propOr(defaultValue, propName, obj);
-    // $ExpectType "Default value" | 101
-    R.propOr(R.__, propName, obj)(defaultValue);
-    // $ExpectType "Default value" | 101
-    R.propOr(defaultValue, R.__, obj)(propName);
-    // $ExpectType "Default value" | 101
-    R.propOr(R.__, R.__, obj)(defaultValue, propName);
-    // $ExpectType "Default value" | 101
-    R.propOr(R.__, R.__, obj)(R.__, propName)(defaultValue);
-    // $ExpectType "Default value" | 101
-    R.propOr(R.__, R.__, obj)(defaultValue)(propName);
 
     // $ExpectType "Default value" | 101
     R.propOr(defaultValue, propName)(obj);
-    // $ExpectType "Default value" | 101
-    R.propOr(R.__, propName)(defaultValue, obj);
-    // $ExpectType "Default value" | 101
-    R.propOr(R.__, propName)(R.__, obj)(defaultValue);
-    // $ExpectType "Default value" | 101
-    R.propOr(R.__, propName)(defaultValue)(obj);
 
     // $ExpectType "Default value" | 101
     R.propOr(defaultValue)(propName, obj);
-    // $ExpectType "Default value" | 101
-    R.propOr(defaultValue)(R.__, obj)(propName);
     // $ExpectType "Default value" | 101
     R.propOr(defaultValue)(propName)(obj);
 };
