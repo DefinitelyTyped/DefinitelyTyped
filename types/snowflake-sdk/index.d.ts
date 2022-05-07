@@ -2,9 +2,12 @@
 // Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
 // Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Mauricio Rojas <https://github.com/orellabac>
+//                 Ron Jones <https://github.com/boatilus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+import { Pool, Options as PoolOptions } from 'generic-pool';
 
 /**
  * ### Related Docs
@@ -544,3 +547,8 @@ export function serializeConnection(connection: Connection): string;
  * Configures this instance of the Snowflake core module.
  */
 export function configure(options?: ConfigureOptions): void;
+
+/**
+ * Creates a connection pool for Snowflake connections.
+ */
+export function createPool(options: ConnectionOptions, poolOptions?: PoolOptions): Pool<Connection>;
