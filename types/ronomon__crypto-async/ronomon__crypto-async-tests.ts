@@ -21,6 +21,28 @@ import * as cryptoAsync from '@ronomon/crypto-async';
 })();
 
 (() => {
+  const algorithm = 'chacha20-poly1305';
+  const encrypt = cryptoAsync.CipherDirection.Encrypt;
+  const key = Buffer.alloc(32);
+  const iv = Buffer.alloc(12);
+  const plaintext = Buffer.alloc(128);
+  const aad = Buffer.alloc(256);
+  const tag = Buffer.alloc(16);
+  cryptoAsync.cipher(algorithm, encrypt, key, iv, plaintext, aad, tag,
+    (error, ciphertext) => {
+      if (error) throw error;
+      console.log(ciphertext.toString('hex'));
+      cryptoAsync.cipher(algorithm, cryptoAsync.CipherDirection.Decrypt, key, iv, ciphertext, aad, tag,
+        (error, plaintext) => {
+          if (error) throw error;
+          console.log(plaintext.toString('hex'));
+        }
+      );
+    }
+  );
+})();
+
+(() => {
   const algorithm = 'AES-256-CTR';
   const encrypt = 1; // 0 = Decrypt, 1 = Encrypt
   const key = Buffer.alloc(1024);

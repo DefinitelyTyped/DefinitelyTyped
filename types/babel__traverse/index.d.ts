@@ -1,4 +1,4 @@
-// Type definitions for @babel/traverse 7.14
+// Type definitions for @babel/traverse 7.17
 // Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
@@ -140,7 +140,12 @@ export class Scope {
 
     crawl(): void;
 
-    push(opts: { id: t.LVal; init?: t.Expression | undefined; unique?: boolean | undefined; kind?: 'var' | 'let' | 'const' | undefined }): void;
+    push(opts: {
+        id: t.LVal;
+        init?: t.Expression | undefined;
+        unique?: boolean | undefined;
+        kind?: 'var' | 'let' | 'const' | undefined;
+    }): void;
 
     getProgramParent(): Scope;
 
@@ -194,13 +199,11 @@ export class Binding {
     constantViolations: NodePath[];
 }
 
-export type Visitor<S = {}> = VisitNodeObject<S, Node> &
-    {
-        [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
-    } &
-    {
-        [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
-    };
+export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
+    [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
+} & {
+    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
+};
 
 export type VisitNode<S, P extends Node> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
 
@@ -253,6 +256,8 @@ export class NodePath<T = Node> {
     setData(key: string, val: any): any;
 
     getData(key: string, def?: any): any;
+
+    hasNode(): this is NodePath<NonNullable<this['node']>>;
 
     buildCodeFrameError<TError extends Error>(msg: string, Error?: new (msg: string) => TError): TError;
 
@@ -548,6 +553,8 @@ export class NodePath<T = Node> {
         context?: boolean | TraversalContext,
     ): T[K] extends Array<Node | null | undefined>
         ? Array<NodePath<T[K][number]>>
+        : T[K] extends Array<Node | null | undefined> | null | undefined
+        ? Array<NodePath<NonNullable<T[K]>[number]>> | NodePath<null | undefined>
         : T[K] extends Node | null | undefined
         ? NodePath<T[K]>
         : never;

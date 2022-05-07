@@ -2,7 +2,7 @@
 // Project: https://github.com/awapps/mongration#readme
 // Definitions by: Anton Lobashev <https://github.com/soulthreads>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+// Minimum TypeScript Version: 4.1
 
 import { Db } from 'mongodb';
 

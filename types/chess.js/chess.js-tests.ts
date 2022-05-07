@@ -201,7 +201,7 @@ chess.history({ verbose: false });
 // $ExpectType Move[]
 chess.history({ verbose: true });
 
-// $ExpectType ({ type: PieceType; color: "w" | "b"; } | null)[][] || ({ type: PieceType; color: "b" | "w"; } | null)[][]
+// $ExpectType ({ type: PieceType; color: "w" | "b"; square: Square; } | null)[][] || ({ type: PieceType; color: "b" | "w"; square: Square; } | null)[][]
 chess.board();
 
 // --- comments --- \\

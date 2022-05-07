@@ -1,7 +1,6 @@
 // Type definitions for gremlin 3.5
 // Project: https://tinkerpop.apache.org/
-// Definitions by: keith1024 <https://github.com/keith1024>
-//                 Paulo Soares <https://github.com/7jpsan>
+// Definitions by: Paulo Soares <https://github.com/7jpsan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { driver, process, structure };

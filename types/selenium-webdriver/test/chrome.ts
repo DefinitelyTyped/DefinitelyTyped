@@ -2,11 +2,12 @@ import * as chrome from 'selenium-webdriver/chrome';
 import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
 
-function TestChromeDriver() {
+async function TestChromeDriver() {
     let driver: chrome.Driver = chrome.Driver.createSession();
     driver = chrome.Driver.createSession(webdriver.Capabilities.chrome());
 
     let baseDriver: webdriver.WebDriver = driver;
+    await driver.setDownloadPath('/path/to/dir');
 }
 
 function TestChromeOptions() {

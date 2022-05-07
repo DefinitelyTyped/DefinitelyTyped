@@ -1,8 +1,8 @@
-import * as fs from "fs";
+import * as fs from "node:fs";
 import * as stringify from "json-stable-stringify";
-import * as path from "path";
+import * as path from "node:path";
 import { Configuration as Config, ILinterOptions, Linter, LintResult } from "tslint";
-import * as ts from "typescript";
+import ts from "typescript";
 import { isExternalDependency } from "./dependencies";
 
 /**
