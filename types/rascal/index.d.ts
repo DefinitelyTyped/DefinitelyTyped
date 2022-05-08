@@ -55,6 +55,10 @@ export interface ConnectionAttributes {
     } | undefined;
     socketOptions?: {
         timeout?: number | undefined;
+        clientProperties?: {
+            connection_name?: string | undefined;
+            [key: string]: string | undefined;
+        }
     } | undefined;
 }
 
