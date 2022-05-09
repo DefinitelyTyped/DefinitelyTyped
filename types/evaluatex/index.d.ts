@@ -6,8 +6,14 @@
 type Token =
     | {
           type: 'NUMBER' | 'POWER' | 'DIVIDE' | 'LPAREN' | 'RPAREN' | 'COMMAND';
-          value: string | ((params: unknown[]) => unknown);
+          value: string | number;
           name: string | null;
+      }
+      | {
+
+        type: 'COMMAND';
+        value(params: unknown[]): unknown;
+        name: string | null;
       }
     | { type: 'SYMBOL'; value: string; name: null };
 
