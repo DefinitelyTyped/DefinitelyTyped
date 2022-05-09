@@ -814,6 +814,14 @@ declare namespace Vex {
             setXShift(x: number): void; //inconsistent type: void -> Modifier
             draw(): void;
             alignSubNotesWithNote(subNotes: Note[], note: Note): void;
+            // (Modifier extends Element in vexflow, but not in these definitions, probably because of some typing problem)
+            getStyle(): { shadowColor?: string | undefined; shadowBlur?: string | undefined; fillStyle?: string | undefined; strokeStyle?: string | undefined };
+            setStyle(style: {
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
+            }): Modifier;
         }
 
         namespace Modifier {
@@ -1378,6 +1386,15 @@ declare namespace Vex {
             getPosition(): number;
             getWidth(): number;
             getPadding(index: number): number;
+
+            //  (StaveModifier extends Element in vexflow, but not in these definitions, probably because of a typing problem)
+            setStyle(style: {
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
+            }): StaveModifier;
+            getStyle(): { shadowColor?: string | undefined; shadowBlur?: string | undefined; fillStyle?: string | undefined; strokeStyle?: string | undefined };
         }
 
         namespace StaveModifier {
@@ -2004,16 +2021,8 @@ declare namespace Vex {
 
         class TimeSignature extends StaveModifier {
             //TODO remove the following lines once TypeScript allows subclass overrides with type changes
-            //  (TimeSignature extends Element in vexflow, but not in these definitions, probably because of above problem)
             addModifier(): void;
             addEndModifier(): void;
-            setStyle(style: {
-                shadowColor?: string | undefined;
-                shadowBlur?: string | undefined;
-                fillStyle?: string | undefined;
-                strokeStyle?: string | undefined;
-            }): TimeSignature;
-            getStyle(): { shadowColor?: string | undefined; shadowBlur?: string | undefined; fillStyle?: string | undefined; strokeStyle?: string | undefined };
 
             constructor(timeSpec: string, customPadding?: number);
             parseTimeSpec(timeSpec: string): { num: number; glyph: Glyph };

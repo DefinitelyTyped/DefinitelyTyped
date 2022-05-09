@@ -16,9 +16,11 @@ stave.options.line_config = [
 // TODO add test where only some lines visible
 
 // this isn't pretty, but so isn't vexflow 1's modifier typing ;)
-const timesignature: Vex.Flow.TimeSignature = stave.getModifiers(Vex.Flow.Modifier.Position.LEFT, 'timesignatures')[0] as Vex.Flow.TimeSignature;
+const timesignature: Vex.Flow.StaveModifier = stave.getModifiers(Vex.Flow.Modifier.Position.LEFT, 'timesignatures')[0];
+//  could also type as TimeSignature instead of StaveModifier
 timesignature.setStyle({fillStyle: "#FF0000"});
 timesignature.getStyle().strokeStyle = "#FF0000";
+
 if (stave.endClef) {
     stave.endClef.setPadding(5);
 }
@@ -39,6 +41,8 @@ var notes1 = [
 const stringnumber: Vex.Flow.StringNumber = new Vex.Flow.StringNumber(0);
 stringnumber.radius = 0; // remove the circle around the number
 notes1[1].addModifier(0, stringnumber);
+stringnumber.setStyle({strokeStyle: "#00FF00"});
+stringnumber.getStyle().fillStyle = "#00FF00";
 
 // Create a beam for the first two notes
 var beam = new Vex.Flow.Beam(notes1.slice(0, 2));
