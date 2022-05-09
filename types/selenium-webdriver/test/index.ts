@@ -9,6 +9,7 @@ import { PageLoadStrategy, UserPromptHandler, Platform } from 'selenium-webdrive
 import { Command } from 'selenium-webdriver/lib/command';
 import Symbols from 'selenium-webdriver/lib/symbols';
 import { ShadowRoot, ShadowRootPromise } from 'selenium-webdriver/lib/webdriver';
+import { HttpResponse } from 'selenium-webdriver/networkinterceptor';
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();
@@ -373,7 +374,7 @@ declare let booleanPromise: Promise<boolean>;
 declare const booleanCondition: webdriver.Condition<boolean>;
 declare const webElementCondition: webdriver.WebElementCondition;
 
-function TestWebDriver() {
+async function TestWebDriver() {
     let session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.chrome());
     let httpClient: http.HttpClient = new http.HttpClient('http://someserver');
     let executor: http.Executor = new http.Executor(httpClient);
@@ -446,6 +447,22 @@ function TestWebDriver() {
     webElementPromise = driver.wait(webElementCondition, 50, 'Message');
     webElementPromise = driver.wait(webElementCondition, 50, 'Message', 10);
     voidPromise = driver.wait(webElementCondition).click();
+
+    const connection = await driver.createCDPConnection('page');
+    let url = "http://localhost:4444/cheese";
+    let callback = async () => {
+        // do something
+    };
+    let httpResponse = new HttpResponse(url);
+    httpResponse.addHeaders("Content-Type", "UTF-8");
+    httpResponse.body = "sausages";
+    await driver.onIntercept(connection, httpResponse, callback);
+
+    await driver.register('random', 'random', connection);
+    await driver.onLogEvent(connection, (event: any) => {})
+    await driver.onLogException(connection, (event: any) => {})
+    await driver.logMutationEvents(connection, (event: any) => {})
+    let wsUrl: string = await driver.getWsUrl("TargetAddress", "target", await driver.getCapabilities());
 
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.chrome());
 }

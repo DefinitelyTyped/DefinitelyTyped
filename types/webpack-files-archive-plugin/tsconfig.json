@@ -12,15 +12,20 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "tapable": [
+                "./node_modules/tapable"
+            ],
+            "webpack": [
+                "./node_modules/webpack"
+            ]
+        },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@ronomon/*": ["ronomon__*"]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "ronomon__crypto-async-tests.ts"
+        "webpack-files-archive-plugin-tests.ts"
     ]
 }

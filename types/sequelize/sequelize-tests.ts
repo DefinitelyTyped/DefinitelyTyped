@@ -1207,6 +1207,7 @@ User.update( { username : 'Bill', secretValue : '43' }, { where : { secretValue 
 User.update( { username : s.cast( '1', 'char' ) }, { where : { username : 'John' } } );
 User.update( { username : s.fn( 'upper', s.col( 'username' ) ) }, { where : { username : 'John' } } );
 User.update( { username : 'Bill' }, { where : { secretValue : '42' }, returning : true } );
+User.update( { deletedAt : new Date() }, { where : { username : 'dan', deleted_at: null } } );
 User.update( { secretValue : '43' }, { where : { username : 'Peter' }, limit : 1 } );
 User.update( { name : Math.random().toString() }, { where : { id : '1' } } );
 User.update( { a : { b : 10, c : 'd' } }, { where : { username : 'Jan' }, sideEffects : false } );

@@ -8,6 +8,21 @@ async function TestChromeDriver() {
 
     let baseDriver: webdriver.WebDriver = driver;
     await driver.setDownloadPath('/path/to/dir');
+    await driver.sendDevToolsCommand('command', {});
+    let response = await driver.sendAndGetDevToolsCommand('command', []);
+    let networkConditions = await driver.getNetworkConditions();
+    await driver.setNetworkConditions(networkConditions);
+    await driver.deleteNetworkConditions();
+    await driver.launchApp('appId');
+    await driver.setPermission('javaScriptEnabled', 'granted');
+    await driver.startDesktopMirroring('deviceName');
+    await driver.startCastTabMirroring('deviceName');
+    await driver.getCastIssueMessage();
+    await driver.getCastSinks();
+    await driver.setCastSinkToUse('deviceName');
+    await driver.stopCasting('deviceName');
+
+    driver.quit();
 }
 
 function TestChromeOptions() {
