@@ -13,6 +13,7 @@ import * as R from 'ramda';
         return x * 2;
     }
 
+    // $ExpectType number[]
     R.map(double, [1, 2, 3]); // => [2, 4, 6]
 
     // functor
@@ -22,6 +23,7 @@ import * as R from 'ramda';
             return chars.map(char => fn(char.charCodeAt(0)));
         },
     };
+    // $ExpectType Functor<number>
     R.map((x: number) => x - 1, numberFunctor); // => "Hello World"
 };
 
@@ -32,29 +34,26 @@ import * as R from 'ramda';
     }
 
     interface B {
-        a: string;
-        b: string;
-    }
-
-    interface C {
         b: number;
         c: string;
     }
 
-    R.map<A, A>(R.inc, { a: 1, b: 2 });
-    R.map<A, B>(R.toString, { a: 1, b: 2 });
+    // $ExpectType Record<"a" | "b", number>
+    R.map(R.inc, { a: 1, b: 2 });
+    // $ExpectType Record<"a" | "b", string>
+    R.map(R.toString, { a: 1, b: 2 });
 
-    R.map<A, A>(R.inc)({ a: 1, b: 2 });
-    R.map<A, B>(R.toString)({ a: 1, b: 2 });
-
-    type KeyOfUnion<T> = T extends infer U ? keyof U : never;
+    // $ExpectType Record<"a" | "b", number>
+    R.map(R.inc)({ a: 1, b: 2 });
+    // $ExpectType Record<"a" | "b", string>
+    R.map(R.toString)({ a: 1, b: 2 });
 
     /**
      * Typescript implementation of union order is not guaranteed and can
      * change. Therefor using `||` here, which is a feature of $ExpectType
      */
     // $ExpectType Record<"c" | "a" | "b", void> || Record<"a" | "b" | "c", void>
-    R.map<A | C, Record<KeyOfUnion<A | C>, void>>(
+    R.map<A | B, void>(
         // $ExpectType (value: string | number) => void
         value => {
             value;

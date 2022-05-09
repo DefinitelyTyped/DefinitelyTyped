@@ -162,7 +162,7 @@ type EvolveValue<V, E> = E extends (value: V) => any
  * the seventh being `document.all`. However `NaN` is not a valid literal type,
  * and `document.all` is an object so it's probably not a good idea to add it either.
  */
-export type Falsy = undefined | null | 0 | "" | false;
+export type Falsy = undefined | null | 0 | '' | false;
 
 /**
  * The type of `R.find` and `R.findLast`
@@ -286,7 +286,7 @@ type Intersection<T1, T2> = Intersectable<T1, T2> extends true
 export type mergeArrWithLeft<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = readonly [
     ...{
         readonly [Index in keyof T1]: Index extends keyof T2 ? Intersection<T1[Index], T2[Index]> : T1[Index];
-    }
+    },
 ];
 
 /**
@@ -320,7 +320,7 @@ type MergeArrays<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> =
  */
 export type LargestArgumentsList<T extends ReadonlyArray<any>> = T extends readonly [
     (...args: infer Args) => any,
-    ...infer Rest
+    ...infer Rest,
 ]
     ? MergeArrays<LargestArgumentsList<Rest>, Args>
     : readonly [];
@@ -531,6 +531,7 @@ export type ValueOfRecord<R> = R extends Record<any, infer T> ? T : never;
  * @param T The (possible) union
  */
 export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
+export type KeyOfUnion<T> = T extends infer U ? keyof U : never;
 
 /**
  * Take first `N` types of an Tuple
