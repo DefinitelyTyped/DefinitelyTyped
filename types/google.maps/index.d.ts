@@ -3831,7 +3831,6 @@ declare namespace google.maps {
      */
     heading?: number|null;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Whether the map should allow fractional zoom levels. If not explicitly
      * set to <code>true</code> or <code>false</code>, by default vector maps
      * will allow fractional zoom and raster maps will not. Listen to
@@ -8892,12 +8891,11 @@ declare namespace google.maps.places {
     setFields(fields: string[]|undefined): void;
     setOptions(options: google.maps.places.AutocompleteOptions|null): void;
     /**
-     * Sets the types of predictions to be returned. For a list of supported
-     * types, see the <a
-     * href="https://developers.google.com/maps/documentation/places/web-service/supported_types#table3">
-     * developer&#39;s guide</a>. If no type is specified, all types will be
-     * returned. The <code>setTypes</code> method accepts a single element
-     * array.
+     * Sets the types of predictions to be returned. For supported types, see
+     * the <a
+     * href="https://developers.google.com/maps/documentation/javascript/places-autocomplete#constrain-place-types">
+     * developer&#39;s guide</a>. If no types are specified, all types will be
+     * returned.
      * @param types The types of predictions to be included.
      */
     setTypes(types: string[]|null): void;
@@ -8950,13 +8948,10 @@ declare namespace google.maps.places {
      */
     strictBounds?: boolean;
     /**
-     * The types of predictions to be returned. For a list of supported types,
-     * see the <a
-     * href="https://developers.google.com/maps/documentation/places/web-service/supported_types#table3">developer&#39;s
-     * guide</a>. If nothing is specified, all types are returned. In general
-     * only a single type is allowed. The exception is that you can safely mix
-     * the <code>'geocode'</code> and <code>'establishment'</code> types, but
-     * note that this will have the same effect as specifying no types.
+     * The types of predictions to be returned. For supported types, see the <a
+     * href="https://developers.google.com/maps/documentation/javascript/places-autocomplete#constrain-place-types">
+     * developer&#39;s guide</a>. If no types are specified, all types will be
+     * returned.
      */
     types?: string[];
   }
@@ -9116,13 +9111,10 @@ declare namespace google.maps.places {
      */
     sessionToken?: google.maps.places.AutocompleteSessionToken;
     /**
-     * The types of predictions to be returned. For a list of supported types,
-     * see the <a
-     * href="https://developers.google.com/maps/documentation/places/web-service/supported_types#table3">developer&#39;s
-     * guide</a>. If nothing is specified, all types are returned. In general
-     * only a single type is allowed. The exception is that you can safely mix
-     * the <code>'geocode'</code> and <code>'establishment'</code> types, but
-     * note that this will have the same effect as specifying no types.
+     * The types of predictions to be returned. For supported types, see the <a
+     * href="https://developers.google.com/maps/documentation/javascript/places-autocomplete#constrain-place-types">
+     * developer&#39;s guide</a>. If no types are specified, all types will be
+     * returned.
      */
     types?: string[];
   }
