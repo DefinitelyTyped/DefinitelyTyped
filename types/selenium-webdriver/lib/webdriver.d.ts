@@ -98,7 +98,12 @@ export class ShadowRoot implements Serializable<IWebElementId> {
  * @implements { IThenable<!ShadowRoot>}
  * @final
  */
-export class ShadowRootPromise extends Promise<ShadowRoot> {
+export interface ShadowRootPromise extends Promise<ShadowRoot> {}
+
+/**
+ * Implement ShadowRootPromise
+ */
+export class ShadowRootPromise extends ShadowRoot {
     /**
      * @param {!WebDriver} driver The parent WebDriver instance for this
      *     element.

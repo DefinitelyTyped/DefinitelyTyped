@@ -118,9 +118,9 @@ export interface ICommandName {
     TOUCH_FLICK: string;
 
     // Shadow DOM Commands
-    GET_SHADOW_ROOT: string,
-    FIND_ELEMENT_FROM_SHADOWROOT: string,
-    FIND_ELEMENTS_FROM_SHADOWROOT: string,
+    GET_SHADOW_ROOT: string;
+    FIND_ELEMENT_FROM_SHADOWROOT: string;
+    FIND_ELEMENTS_FROM_SHADOWROOT: string;
 
     GET_AVAILABLE_LOG_TYPES: string;
     GET_LOG: string;
