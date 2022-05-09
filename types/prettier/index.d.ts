@@ -72,7 +72,8 @@ export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 export type CustomParser = (text: string, parsers: BuiltInParsers, options: Options) => AST;
 
 /**
- * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettier.config.js` or `prettier.config.cjs`.
+ * For use in `.prettierrc.json`, `.prettierrc.yml`, `.prettierrc.yaml`, `.prettierrc.json5`,
+ * `.prettierrc.js`, `.prettierrc.cjs`, `prettier.config.js` or `prettier.config.cjs`.
  */
 export interface Config extends Options {
     overrides?: Array<{
