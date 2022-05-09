@@ -10,7 +10,6 @@ type Token =
           name: string | null;
       }
       | {
-
         type: 'COMMAND';
         value(params: unknown[]): unknown;
         name: string | null;
