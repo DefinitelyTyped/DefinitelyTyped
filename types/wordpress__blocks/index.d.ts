@@ -5,7 +5,7 @@
 //                 Dennis Snell <https://github.com/dmsnell>
 //                 Tomasz Tunik <https://github.com/tomasztunik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
+// TypeScript Version: 3.6
 
 import { Dashicon } from '@wordpress/components';
 import { dispatch, select } from '@wordpress/data';
@@ -507,7 +507,7 @@ export type Transform<T extends Record<string, any> = Record<string, any>> =
 
 export type BlockAttributes = Record<string, any>;
 
-export type InnerBlockTemplate = [name: string, attributes?: BlockAttributes, innerBlocks?: InnerBlockTemplate[]];
+export type InnerBlockTemplate = [string, BlockAttributes | undefined, InnerBlockTemplate[] | undefined];
 
 export type BlockVariationScope = 'block' | 'inserter' | 'transform';
 
