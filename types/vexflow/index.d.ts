@@ -1387,7 +1387,7 @@ declare namespace Vex {
             getWidth(): number;
             getPadding(index: number): number;
 
-            //  (StaveModifier extends Element in vexflow, but not in these definitions, probably because of a typing problem)
+            // (StaveModifier extends Element in vexflow, but not in these definitions, probably because of a typing problem)
             setStyle(style: {
                 shadowColor?: string | undefined;
                 shadowBlur?: string | undefined;
