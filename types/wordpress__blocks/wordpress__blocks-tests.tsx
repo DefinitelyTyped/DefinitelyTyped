@@ -507,7 +507,7 @@ blocks.unregisterBlockStyle('my/foo', 'foo__bar');
 // $ExpectType Block<any> | undefined
 blocks.unregisterBlockType('my/foo');
 
-// $ExpectType BlockVariation<BlockAttributes>[] | undefined
+// $ExpectType BlockVariation<BlockAttributes>[] | undefined || BlockVariation<Record<string, any>>[] | undefined
 blocks.getBlockVariations('core/columns');
 
 // $ExpectType void
