@@ -188,17 +188,17 @@ export function unregisterBlockType(name: string): Block<any> | undefined;
 export function getBlockVariations(blockName: string, scope?: BlockVariationScope): BlockVariation[] | undefined;
 
 /**
- * Registers a new block variation for the given block type.
+ * Registers one or more new block variations for the given block type.
  *
  * @param blockName - Name of the block (example: “core/columns”).
- * @param variation - Object describing a block variation.
+ * @param variation - Object or array of objects describing block variations.
  */
-export function registerBlockVariation(blockName: string, variation: BlockVariation): void;
+export function registerBlockVariation(blockName: string, variation: BlockVariation | BlockVariation[]): void;
 
 /**
- * Unregisters a block variation defined for the given block type.
+ * Unregisters one or more variations defined for the given block type.
  *
  * @param blockName - Name of the block (example: “core/columns”).
- * @param variationName - Name of the variation defined for the block.
+ * @param variationName - Name or array of variation names defined for the block.
  */
-export function unregisterBlockVariation(blockName: string, variationName: string): void;
+export function unregisterBlockVariation(blockName: string, variationName: string | string[]): void;

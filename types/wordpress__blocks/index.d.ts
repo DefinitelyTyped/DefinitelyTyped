@@ -505,19 +505,29 @@ export type Transform<T extends Record<string, any> = Record<string, any>> =
     | TransformRaw<T>
     | TransformShortcode<T>;
 
-export type BlockVariationScope = 'block' | 'inserter' | 'transform';
 
-export interface BlockVariation<T extends Record<string, any> = any> {
+    
+export type BlockAttributes = Record<string, any>;
+
+export type InnerBlockTemplate = [name: string, attributes?: BlockAttributes, innerBlocks?: InnerBlockTemplate[]];
+
+export type BlockVariationScope = 'block' | 'inserter' | 'transform';
+    
+export interface BlockVariation<Attributes extends BlockAttributes = BlockAttributes> {
     name: string;
     title: string;
     description?: string;
     category?: string;
     icon?: BlockIcon;
     isDefault?: boolean;
-    attributes?: T;
-    innerBlocks?: any[];
-    example?: Record<string, any>;
+    attributes?: Attributes;
+    innerBlocks?: BlockInstance | InnerBlockTemplate[];
+    example?: BlockExampleInnerBlock | {
+        attributes: Attributes;
+        innerBlocks?: InnerBlockTemplate[];
+    };
     scope?: BlockVariationScope[];
     keywords?: string[];
-    isActive?: (blockAttributes: T, variationAttributes: T) => boolean | string[];
+    isActive?: (blockAttributes: Attributes, variationAttributes: Attributes) => boolean | string[];
 }
+
