@@ -2084,6 +2084,8 @@ declare namespace React {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        onCancel?: ReactEventHandler<T> |  undefined;
+        onClose?: ReactEventHandler<T> |  undefined;
         open?: boolean | undefined;
     }
 

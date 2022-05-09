@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "svg-path-bbox-tests.ts"
+        "html2json-tests.ts"
     ]
 }

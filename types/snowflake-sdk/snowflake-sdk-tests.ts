@@ -89,3 +89,10 @@ snowflake.createConnection({
     username: '',
     application: '',
 });
+
+// Pool
+// $ExpectType Pool<Connection>
+const pool = snowflake.createPool({
+    account: '',
+    username: '',
+});
