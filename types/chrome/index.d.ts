@@ -7593,9 +7593,9 @@ declare namespace chrome.scripting {
 
     export type ScriptInjection<Args extends any[] = []> = {
         /* Details specifying the target into which to inject the script. */
-        target: any;
+        target: InjectionTarget;
         /* The JavaScript world for a script to execute within. */
-        world?: any;
+        world?: InjectionTarget;
     } & ({
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files: string[];
