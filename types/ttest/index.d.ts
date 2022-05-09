@@ -1,39 +1,26 @@
-// Type definitions for ttest x.x
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: eps1lon <https://github.com/me>
+// Type definitions for ttest 4.0
+// Project: https://github.com/AndreasMadsen/ttest
+// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
+export = ttest;
 
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
+declare function ttest(left: number[], options?: Omit<ttest.Options, 'varEqual'>): ttest.TTest;
+declare function ttest(left: number[], right: number[], options?: ttest.Options): ttest.TTest;
 
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
-}
+declare namespace ttest {
+    interface Options {
+        mu?: number;
+        varEqual?: boolean;
+        alpha?: number;
+        alternative?: 'less' | 'greater' | 'not equal';
+    }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    function foo(): void;
+    interface TTest {
+        testValue: () => number;
+        pValue: () => number;
+        confidence: () => number[];
+        valid: () => boolean;
+        freedom: () => number;
+    }
 }
