@@ -5,7 +5,7 @@
 //                 Dennis Snell <https://github.com/dmsnell>
 //                 Tomasz Tunik <https://github.com/tomasztunik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 4.0
 
 import { Dashicon } from '@wordpress/components';
 import { dispatch, select } from '@wordpress/data';
@@ -505,14 +505,12 @@ export type Transform<T extends Record<string, any> = Record<string, any>> =
     | TransformRaw<T>
     | TransformShortcode<T>;
 
-
-    
 export type BlockAttributes = Record<string, any>;
 
 export type InnerBlockTemplate = [name: string, attributes?: BlockAttributes, innerBlocks?: InnerBlockTemplate[]];
 
 export type BlockVariationScope = 'block' | 'inserter' | 'transform';
-    
+
 export interface BlockVariation<Attributes extends BlockAttributes = BlockAttributes> {
     name: string;
     title: string;
@@ -522,10 +520,12 @@ export interface BlockVariation<Attributes extends BlockAttributes = BlockAttrib
     isDefault?: boolean;
     attributes?: Attributes;
     innerBlocks?: BlockInstance | InnerBlockTemplate[];
-    example?: BlockExampleInnerBlock | {
-        attributes: Attributes;
-        innerBlocks?: InnerBlockTemplate[];
-    };
+    example?:
+        | BlockExampleInnerBlock
+        | {
+              attributes: Attributes;
+              innerBlocks?: InnerBlockTemplate[];
+          };
     scope?: BlockVariationScope[];
     keywords?: string[];
     isActive?: (blockAttributes: Attributes, variationAttributes: Attributes) => boolean | string[];
