@@ -1,6 +1,6 @@
 // Type definitions for evaluatex 2.2
 // Project: https://github.com/arthanzel/evaluatex
-// Definitions by: Fawaz Orabi <https://github.com/me>
+// Definitions by: Fawaz Orabi <https://github.com/forabi-cosuno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type Token =
