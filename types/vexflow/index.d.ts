@@ -629,6 +629,8 @@ declare namespace Vex {
             static GCD(a: number, b: number): number;
             static LCM(a: number, b: number): number;
             static LCMM(a: number, b: number): number;
+            denominator: number;
+            numerator: number;
             set(numerator: number, denominator: number): Fraction;
             value(): number;
             simplify(): Fraction;

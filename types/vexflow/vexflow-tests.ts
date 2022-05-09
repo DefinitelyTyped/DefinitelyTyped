@@ -65,6 +65,11 @@ var voice1 = new Vex.Flow.Voice({
     resolution: Vex.Flow.RESOLUTION,
 }).addTickables(tickable1);
 
+var fraction = new Vex.Flow.Fraction(3, 4);
+if (fraction.numerator === 3 && fraction.denominator === 4) {
+    fraction.numerator = 4;
+}
+
 // Create a second voice with just one whole note
 var voice2 = new Vex.Flow.Voice(Vex.Flow.TIME4_4).addTickables([
     new Vex.Flow.StaveNote({ keys: ['c/4'], duration: 'w' }),
