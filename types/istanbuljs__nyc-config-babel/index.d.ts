@@ -6,6 +6,6 @@
 declare const config: {
     sourceMap: boolean;
     instrument: boolean;
-    require: string[];
+    require: ['@babel/register'];
 };
 export = config;
