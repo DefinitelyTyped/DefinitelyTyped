@@ -4,17 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function simpleSvgPlaceholder(options?: {
-    width?: number;
-    height?: number;
-    text?: string;
-    fontFamily?: string;
-    fontWeight?: string | number;
-    fontSize?: number;
-    dy?: number;
-    bgColor?: string;
-    textColor?: string;
-    dataUri?: boolean;
-    charset?: string;
+    width?: number | undefined;
+    height?: number | undefined;
+    text?: string | undefined;
+    fontFamily?: string | undefined;
+    fontWeight?: string | number | undefined;
+    fontSize?: number | undefined;
+    dy?: number | undefined;
+    bgColor?: string | undefined;
+    textColor?: string | undefined;
+    dataUri?: boolean | undefined;
+    charset?: string | undefined;
 }): string;
 
 export = simpleSvgPlaceholder;
