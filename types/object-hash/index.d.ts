@@ -5,6 +5,8 @@
 //                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 declare namespace objectHash {
     /**
      * @see https://github.com/puleos/object-hash#hashsha1value
