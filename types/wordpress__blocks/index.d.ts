@@ -530,4 +530,3 @@ export interface BlockVariation<Attributes extends BlockAttributes = BlockAttrib
     keywords?: string[];
     isActive?: (blockAttributes: Attributes, variationAttributes: Attributes) => boolean | string[];
 }
-
