@@ -1,6 +1,6 @@
 {
   "private": true,
-  "devDependencies": {
-    "graphql": "16"
+  "dependencies": {
+    "graphql": ">=14"
   }
 }
