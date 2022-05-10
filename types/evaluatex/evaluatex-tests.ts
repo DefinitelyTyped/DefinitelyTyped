@@ -1,4 +1,4 @@
-import evaluatex from 'evaluatex';
+import evaluatex = require('evaluatex');
 
 const fn = evaluatex('sqrt(3^2 + 4^2) + log(PI) / log(SQRT2)', {}, {});
 
