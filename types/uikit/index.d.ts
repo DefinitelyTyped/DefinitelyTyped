@@ -295,7 +295,6 @@ export namespace UIkit {
     interface UIkitSwitcherOptions {
         connect?: string | undefined;
         toggle?: string | undefined;
-        itemNav?: boolean | undefined;
         active?: number | undefined;
         animation?: string | undefined;
         duration?: number | undefined;
