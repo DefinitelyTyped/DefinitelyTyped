@@ -38,6 +38,9 @@ export interface Element {
     text: ElementText | null;
     tail: string | null;
 
+    new (ElementTag: string, attrib?: Attributes): Element;
+    (ElementTag: string, attrib?: Attributes): Element;
+
     toString(): string;
     makeelement(tag: ElementTag, attrib?: Attributes): Element;
     len(): number;
@@ -80,9 +83,9 @@ export function Comment(text?: ElementText): Element;
 export function ProcessingInstruction(target: ElementText, text?: ElementText): Element;
 
 export function XML(data: string): Element;
-export function Element(ElementTag: string, attrib?: Attributes): Element;
 export function SubElement(parent: Element, ElementTag: string, attrib?: Attributes): Element;
+export const Element: Element;
 
 export function parse(source: string): ElementTree;
 export function register_namespace(prefix: string, uri: string): void;
-export function tostring(element: Element, options: ElementTreeWriteOptions): string;
+export function tostring(element: Element, options?: ElementTreeWriteOptions): string;
