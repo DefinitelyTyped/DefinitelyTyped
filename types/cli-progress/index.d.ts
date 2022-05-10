@@ -97,7 +97,7 @@ export interface Options {
     etaAsynchronousUpdate?: boolean | undefined;
 
     /** progress calculation relative to start value ? default start at 0 (default: false) */
-    progressCalculationRelative?: boolean;
+    progressCalculationRelative?: boolean | undefined;
 
     /** disable line wrapping (default: false) - pass null to keep terminal settings; pass true to trim the output to terminal width */
     linewrap?: boolean | null | undefined;
