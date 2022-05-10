@@ -295,6 +295,7 @@ export namespace UIkit {
     interface UIkitSwiterOptions {
         connect?: string | undefined;
         toggle?: string | undefined;
+        itemNav?: string | undefined;
         active?: number | undefined;
         animation?: string | undefined;
         duration?: number | undefined;
