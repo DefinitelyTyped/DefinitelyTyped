@@ -268,7 +268,6 @@ export const Format: {
     TimeFormat: typeof formatTime;
 };
 
-export class Bar extends SingleBar {
-}
+export class Bar extends SingleBar {}
 
 export {};
