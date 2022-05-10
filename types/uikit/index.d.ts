@@ -239,7 +239,6 @@ export namespace UIkit {
     type Offcanvas = (element: UIkitElement, options?: UIkitOffcanvasOptions) => UIkitOffcanvasElement;
 
     interface UIkitScrollOptions {
-        duration?: number | undefined;
         offset?: number | undefined;
     }
 
