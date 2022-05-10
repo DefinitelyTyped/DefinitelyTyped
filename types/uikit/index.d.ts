@@ -33,6 +33,7 @@ export namespace UIkit {
         targets?: string | undefined;
         toggle?: string | undefined;
         transition?: string | undefined;
+        offset?: number | undefined;
     }
 
     interface UIkitAccordionElement {
