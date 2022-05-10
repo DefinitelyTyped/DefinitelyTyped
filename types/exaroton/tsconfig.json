@@ -1,16 +1,14 @@
 {
     "compilerOptions": {
-        "target": "es2017",
         "module": "commonjs",
         "lib": [
-            "ESNext"
+            "ES6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
-        "esModuleInterop": true,
         "typeRoots": [
             "../"
         ],
