@@ -430,6 +430,9 @@ export namespace UIkit {
     interface UIkitParallaxOptions {
         easing?: number | undefined;
         target?: string | undefined;
+        start?: number | string | undefined;
+        end?: number |string | undefined;
+        /** @deprecated */
         viewport?: number | undefined;
         media?: number | string | undefined;
     }
