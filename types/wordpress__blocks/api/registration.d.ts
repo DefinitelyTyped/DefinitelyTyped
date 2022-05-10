@@ -199,6 +199,6 @@ export function registerBlockVariation(blockName: string, variation: BlockVariat
  * Unregisters one or more variations defined for the given block type.
  *
  * @param blockName - Name of the block (example: “core/columns”).
- * @param variationName - Variation name defined for the block (or array of if more than one).
+ * @param variationName - Name of variation to be unregistered (or array if unregistering multiple variations)
  */
 export function unregisterBlockVariation(blockName: string, variationName: string | string[]): void;
