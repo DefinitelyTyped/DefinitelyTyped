@@ -84,7 +84,7 @@ export interface Options {
     hideCursor?: boolean | null | undefined;
 
     /** glue sequence (control chars) between bar elements (default: '') */
-    barGlue?: string;
+    barGlue?: string | undefined;
 
     /** number of updates with which to calculate the eta; higher numbers give a more stable eta (default: 10) */
     etaBuffer?: number | undefined;
