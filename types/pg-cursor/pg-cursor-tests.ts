@@ -47,9 +47,12 @@ const handleFn: ResultCallback<string> = (err: Error | undefined, rows: string[]
 handle.read(100, handleFn);
 
 // Returns promise when no callback
-handle.read(100).then(() => {
-    // Finished
-});
+handle
+    .read(100)
+    .then(rows => {
+        console.log(rows);
+    })
+    .catch(error => console.log(error.message));
 
 const customTypes: CustomTypesConfig = {
     getTypeParser: () => () => "aCustomTypeParser!",
