@@ -22,7 +22,7 @@ export function getBlockSupport(nameOrType: string | Block<any>, feature: keyof 
 export function getBlockSupport<T>(
     nameOrType: string | Block<any>,
     feature: keyof BlockSupports,
-    defaultSupports: T
+    defaultSupports: T,
 ): T extends string ? string : T extends number ? number : T extends boolean ? boolean : T;
 
 /**
@@ -76,7 +76,7 @@ export function getUnregisteredTypeHandlerName(): string | undefined;
 export function hasBlockSupport(
     nameOrType: string | Block<any>,
     feature: keyof BlockSupports,
-    defaultSupports?: boolean
+    defaultSupports?: boolean,
 ): boolean;
 
 /**
@@ -108,7 +108,7 @@ export function isReusableBlock(blockOrType: Block<any> | BlockInstance): boolea
  */
 export function registerBlockCollection(
     namespace: string,
-    settings: {title: string, icon?: BlockIcon | undefined}
+    settings: { title: string; icon?: BlockIcon | undefined },
 ): void;
 
 /**
@@ -181,7 +181,7 @@ export function unregisterBlockType(name: string): Block<any> | undefined;
  * Returns an array with the variations of a given block type.
  *
  * @param blockName - Name of block (example: “core/columns”).
- * @param [scope] - Block variation scope name.
+ * @param scope - Block variation scope name.
  *
  * @returns Block variations.
  */
@@ -191,7 +191,7 @@ export function getBlockVariations(blockName: string, scope?: BlockVariationScop
  * Registers one or more new block variations for the given block type.
  *
  * @param blockName - Name of the block (example: “core/columns”).
- * @param variation - Object or array of objects describing block variations.
+ * @param variation - Variation configuration object (or array of if more than one).
  */
 export function registerBlockVariation(blockName: string, variation: BlockVariation | BlockVariation[]): void;
 
@@ -199,6 +199,6 @@ export function registerBlockVariation(blockName: string, variation: BlockVariat
  * Unregisters one or more variations defined for the given block type.
  *
  * @param blockName - Name of the block (example: “core/columns”).
- * @param variationName - Name or array of variation names defined for the block.
+ * @param variationName - Variation name defined for the block (or array of if more than one).
  */
 export function unregisterBlockVariation(blockName: string, variationName: string | string[]): void;
