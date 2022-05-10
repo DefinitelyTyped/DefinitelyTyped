@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "ES2022",
+        "lib": [
+            "ESNext"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "esModuleInterop": true,
+        "moduleResolution": "Node",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "exaroton-tests.ts"
+    ]
+}
