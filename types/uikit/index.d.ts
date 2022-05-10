@@ -269,6 +269,7 @@ export namespace UIkit {
     type ScrollspyNav = (element: UIkitElement, options?: UIkitScrollspyNavOptions) => void;
 
     interface UIkitStickyOptions {
+        position?: "top" | "bottom" | undefined;
         top?: number | string | undefined;
         bottom?: boolean | string | undefined;
         offset?: number | string | undefined;
