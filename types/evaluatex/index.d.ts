@@ -35,4 +35,4 @@ declare function evaluatex(
     options?: { latex?: boolean },
 ): EvaluatexResult;
 
-export default evaluatex;
+export = evaluatex;
