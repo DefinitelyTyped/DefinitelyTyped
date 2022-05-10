@@ -68,6 +68,7 @@ export namespace UIkit {
         mode?: string | undefined;
         'delay-show'?: number | undefined;
         'delay-hide'?: number | undefined;
+        display?: "dynamic" | "static" | undefined;
         boundary?: string | undefined;
         'boundary-align'?: boolean | undefined;
         flip?: boolean | string | undefined;
@@ -270,9 +271,10 @@ export namespace UIkit {
 
     interface UIkitStickyOptions {
         position?: "top" | "bottom" | undefined;
-        top?: number | string | undefined;
-        bottom?: boolean | string | undefined;
+        start?: number | string | undefined;
+        end?: boolean | number | string | undefined;
         offset?: number | string | undefined;
+        'overflow-flip'?: boolean | undefined;
         animation?: string | boolean | undefined;
         'cls-active'?: string | undefined;
         'cls-inactive'?: string | undefined;
