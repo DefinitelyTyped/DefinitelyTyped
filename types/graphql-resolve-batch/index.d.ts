@@ -38,7 +38,8 @@ export function createBatchResolver<
 export type ResolverFunction<TSource, TArgs, TContext, TReturn> = (
     source: TSource,
     args: TArgs,
-    context: TContext
+    context: TContext,
+    info: GraphQLResolveInfo
 ) => Promise<TReturn>;
 
 /**
