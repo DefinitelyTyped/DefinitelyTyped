@@ -362,6 +362,8 @@ export namespace UIkit {
     interface UIkitFilterOptions {
         target?: string | undefined;
         selActive?: string | boolean | undefined;
+        animation?: "slide" | "fade" | "delayed-fade" | false | undefined;
+        duration?: number | undefined;
     }
 
     type Filter = (element: UIkitElement, options?: UIkitFilterOptions) => void;
