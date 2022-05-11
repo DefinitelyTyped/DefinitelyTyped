@@ -146,7 +146,9 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(
     parent?: match<Params> | null,
 ): match<Params> | null;
 
-// Must only use abcdefghijklmnopqrstuvwxyz0123456789-_|
+// This is a hacky way to test that the string only uses abcdefghijklmnopqrstuvwxyz0123456789-_|
+// With TS 4.5 this can be replaced:
+// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/60238#discussion_r867249457
 export type IsExtractableRegex<T extends string, L = Lowercase<T>> =
     L extends `` ? true :
     L extends `a${infer R}` ? IsExtractableRegex<R> :
