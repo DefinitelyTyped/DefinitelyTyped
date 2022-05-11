@@ -1643,6 +1643,7 @@ export class Handler extends Class {
 export interface LeafletEvent {
     type: string;
     target: any;
+    popup: any;
     sourceTarget: any;
     propagatedFrom: any;
     /**
