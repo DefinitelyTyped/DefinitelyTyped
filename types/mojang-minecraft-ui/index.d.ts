@@ -71,11 +71,6 @@ export class ActionFormData {
     button(text: string, iconPath?: string): ActionFormData;
     /**
      * @remarks
-     * Creates a new modal form builder.
-     */
-    constructor();
-    /**
-     * @remarks
      * Creates and shows this modal popup form. Returns
      * asynchronously when the player confirms or cancels the
      * dialog.
@@ -144,11 +139,6 @@ export class MessageFormData {
     button2(text: string): MessageFormData;
     /**
      * @remarks
-     * Creates a new modal form builder.
-     */
-    constructor();
-    /**
-     * @remarks
      * Creates and shows this modal popup form. Returns
      * asynchronously when the player confirms or cancels the
      * dialog.
@@ -185,11 +175,6 @@ export class MessageFormResponse extends FormResponse {
  * player.
  */
 export class ModalFormData {
-    /**
-     * @remarks
-     * Creates a new modal form builder.
-     */
-    constructor();
     /**
      * @remarks
      * Adds a dropdown with choices to the form.
