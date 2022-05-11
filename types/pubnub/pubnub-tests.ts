@@ -12,6 +12,7 @@ const config: Pubnub.PubnubConfig = {
     ssl: true,
     authKey: '',
     useRandomIVs: false,
+    subscribeRequestTimeout: 60,
     uuid: 'myUUID'
 };
 

@@ -4,15 +4,15 @@ declare module 'timers' {
         function __promisify__(ms: number): Promise<void>;
         function __promisify__<T>(ms: number, value: T): Promise<T>;
     }
-    function clearTimeout(timeoutId: NodeJS.Timeout): void;
+    function clearTimeout(timeoutId: NodeJS.Timeout | undefined): void;
     function setInterval(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;
-    function clearInterval(intervalId: NodeJS.Timeout): void;
+    function clearInterval(intervalId: NodeJS.Timeout | undefined): void;
     function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
     namespace setImmediate {
         function __promisify__(): Promise<void>;
         function __promisify__<T>(value: T): Promise<T>;
     }
-    function clearImmediate(immediateId: NodeJS.Immediate): void;
+    function clearImmediate(immediateId: NodeJS.Immediate | undefined): void;
 }
 declare module 'node:timers' {
     export * from 'timers';

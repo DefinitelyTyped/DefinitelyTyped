@@ -8,6 +8,7 @@ import http, {
     Response,
     ResponseType,
     del,
+    head,
     get,
     options,
     patch,
@@ -57,6 +58,18 @@ responseDefault = del(address, { item: '576' });
 del(address, {}, 5); // $ExpectError
 responseBinary = del(address, null, { responseType: 'binary' });
 del(address, {}, {}, 5); // $ExpectError
+
+// head
+head(); // $ExpectError
+head(5); // $ExpectError
+head(addressFromHttpURL);
+responseDefault = head(address);
+head(address, 5); // $ExpectError
+responseDefault = head(address, {});
+responseBinary = head(address, { responseType: 'binary' });
+responseNone = head(address, { responseType: 'none' });
+responseText = head(address, { responseType: 'text' });
+head(address, {}, 5); // $ExpectError
 
 // get
 get(); // $ExpectError

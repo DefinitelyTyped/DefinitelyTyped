@@ -42,7 +42,6 @@ export class OrbitControls {
     autoRotate: boolean;
     autoRotateSpeed: number;
 
-    enableKeys: boolean;
     keys: { LEFT: string; UP: string; RIGHT: string; BOTTOM: string };
     mouseButtons: { LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE };
     touches: { ONE: TOUCH; TWO: TOUCH };
@@ -53,7 +52,7 @@ export class OrbitControls {
 
     update(): boolean;
 
-    listenToKeyEvents(domElement: HTMLElement): void;
+    listenToKeyEvents(domElement: HTMLElement | Window): void;
 
     saveState(): void;
 

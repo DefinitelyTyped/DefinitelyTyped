@@ -32,6 +32,7 @@ export interface GroupedMergeTag {
 export interface SimpleMergeTag {
     readonly name: string;
     readonly value: string;
+    readonly sample?: string;
 }
 
 export interface ConditionalMergeTagRule {
@@ -49,7 +50,7 @@ export interface ConditionalMergeTag {
 export type MergeTag = SimpleMergeTag | ConditionalMergeTag | GroupedMergeTag;
 
 export interface DesignTagConfig {
-    readonly delimeter: [string, string];
+    readonly delimiter: [string, string];
 }
 
 export interface DisplayCondition {

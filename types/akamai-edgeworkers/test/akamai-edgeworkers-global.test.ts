@@ -88,6 +88,11 @@ export function onClientResponse(request: EW.EgressClientRequest, response: EW.E
         return;
     }
 
+    if (response.getHeader("should-respondWith")) {
+        request.respondWith(444, {}, "wanted a respond with");
+        return;
+    }
+
     // Req - getHeader
     let h = request.getHeader("onClientResponse-req-getHeader") || [];
     response.setHeader("header-from-req", h);

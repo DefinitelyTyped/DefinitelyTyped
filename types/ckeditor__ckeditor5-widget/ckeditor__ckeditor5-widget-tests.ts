@@ -4,16 +4,9 @@ import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
-import Position from '@ckeditor/ckeditor5-engine/src/view/position';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
-import { Rect } from '@ckeditor/ckeditor5-utils';
-import Resizer from '@ckeditor/ckeditor5-widget/src/widgetresize/resizer';
-import SizeView from '@ckeditor/ckeditor5-widget/src/widgetresize/sizeview';
 import {
-    findOptimalInsertionRange,
-    centeredBalloonPositionForLongWidgets,
-    checkSelectionOnObject,
-    getLabel,
+    checkSelectionOnObject, findOptimalInsertionRange, getLabel,
     isWidget,
     setHighlightHandling,
     setLabel,
@@ -21,8 +14,12 @@ import {
     Widget,
     WidgetResize,
     WidgetToolbarRepository,
-    WidgetTypeAround,
+    WidgetTypeAround
 } from '@ckeditor/ckeditor5-widget/';
+import HighlightStack from '@ckeditor/ckeditor5-widget/src/highlightstack';
+import Resizer from '@ckeditor/ckeditor5-widget/src/widgetresize/resizer';
+import ResizeState from '@ckeditor/ckeditor5-widget/src/widgetresize/resizerstate';
+import SizeView from '@ckeditor/ckeditor5-widget/src/widgetresize/sizeview';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -68,6 +65,14 @@ resizer = widgetResize.attachTo({
 });
 resizer = widgetResize.getResizerByViewElement(containerElement)!;
 resizer.destroy();
+resizer.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<Resizer, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+resizer.set('foo');
 
 const widgetTypeAround = new WidgetTypeAround(editor);
 widgetTypeAround.init();
@@ -76,11 +81,7 @@ WidgetTypeAround.requires.length === 2;
 WidgetTypeAround.requires.map(Plugin => new Plugin(editor).init());
 
 isWidget(containerElement) === bool;
-const position: Position = centeredBalloonPositionForLongWidgets(
-    new Rect(document.createElement('div')),
-    new Rect(document.createElement('div')),
-)!;
-position.is('foo');
+// $ExpectType boolean
 findOptimalInsertionRange(new Selection(null), new Model()).containsRange(
     findOptimalInsertionRange(new Selection(null), new Model()),
 );
@@ -96,6 +97,36 @@ toWidget(containerElement, new DowncastWriter(new Document(new StylesProcessor()
 
 new SizeView().render();
 new SizeView().isRendered === bool;
+
+new HighlightStack().add(
+    {
+        classes: '',
+        attributes: { foo: true },
+    },
+    new DowncastWriter(new Document(new StylesProcessor())),
+);
+new HighlightStack().remove('', new DowncastWriter(new Document(new StylesProcessor())));
+
+const resizeState = new ResizeState({
+    isCentered: () => true,
+    getHandleHost: () => document.body,
+    editor,
+    getResizeHost: () => document.body,
+    onCommit: () => {
+        return;
+    },
+    viewElement: containerElement,
+    modelElement: new Element('div'),
+});
+
+resizeState.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<ResizeState, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+resizeState.set('foo');
 
 // $ExpectType Widget
 editor.plugins.get('Widget');

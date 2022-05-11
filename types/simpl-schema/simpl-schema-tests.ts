@@ -163,6 +163,14 @@ StringSchema.extend({
     name: { type: String }
 });
 
+StringSchema.extend({
+    name: { type: String, required: false }
+});
+
+StringSchema.extend({
+    name: { type: String, required: () => false }
+});
+
 SimpleSchema.extendOptions(['autoform']);
 
 SimpleSchema.setDefaultMessages({

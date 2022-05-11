@@ -211,7 +211,7 @@ const defaults: amplitude.Config = {
     language: 'en',
     logLevel: 'WARN',
     onError: () => {},
-    onExit: () => {},
+    onExitPage: () => {},
     optOut: false,
     platform: 'iOS',
     sameSiteCookie: 'Lax', // cookie privacy policy

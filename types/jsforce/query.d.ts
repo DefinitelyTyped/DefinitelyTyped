@@ -63,8 +63,12 @@ export class Query<T> extends Readable implements Promise<T> {
 
     toSOQL(callback: (err: Error, soql: string) => void): Promise<string>;
 
-    update(mapping: any, type: string, callback: (err: Error, records: RecordResult[]) => void): Promise<RecordResult[]>;
-    update(mapping: any, callback: (err: Error, records: RecordResult[]) => void): Promise<RecordResult[]>;
+    update(
+        mapping: any,
+        type: string,
+        callback?: (err: Error, records: RecordResult[]) => void,
+    ): Promise<RecordResult[]>;
+    update(mapping: any, callback?: (err: Error, records: RecordResult[]) => void): Promise<RecordResult[]>;
 
     where(conditions: Object | string): Query<T>;
 

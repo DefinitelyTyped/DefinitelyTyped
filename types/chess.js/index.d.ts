@@ -1,4 +1,4 @@
-// Type definitions for chess.js 0.11
+// Type definitions for chess.js 0.13
 // Project: https://github.com/jhlywa/chess.js
 // Definitions by: Jacob Fischer <https://github.com/JacobFischer>
 //                 Zachary Svoboda <https://github.com/zacnomore>
@@ -620,7 +620,7 @@ export interface ChessInstance {
         verbose?: boolean | undefined;
     }): string[] | Move[];
 
-    board(): Array<Array<{ type: PieceType; color: "w" | "b" } | null>>;
+    board(): Array<Array<{ type: PieceType; color: "w" | "b", square: Square } | null>>;
 
     get_comment(): string | undefined;
 

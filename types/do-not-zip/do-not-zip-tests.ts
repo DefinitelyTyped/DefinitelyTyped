@@ -14,7 +14,7 @@ const data = [
 // $ExpectType number[]
 doNotZip.toArray(data);
 
-// $ExpectType Buffer | Blob
+// $ExpectType Buffer | Blob || Blob | Buffer
 doNotZip.toAuto(data);
 
 // $ExpectType Blob

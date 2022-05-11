@@ -11,7 +11,7 @@ import { Block } from '../';
  * @param attributes - Parsed block attributes.
  * @param originalBlockContent - Original block content.
  */
-export function isValidBlockContent<T>(
+export function isValidBlockContent<T extends Record<string, any>>(
     blockTypeOrName: Block<T> | string,
     attributes: T,
     originalBlockContent: string

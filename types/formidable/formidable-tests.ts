@@ -190,6 +190,10 @@ http.createServer(req => {
     });
 });
 
+http.createServer(req => {
+    form.parse(req); // testing without callback
+});
+
 // $ExpectType IncomingForm
 new IncomingForm();
 

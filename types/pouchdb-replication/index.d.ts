@@ -150,7 +150,7 @@ declare namespace PouchDB {
          * then this will track future changes and also replicate them automatically.
          * This method returns an object with the method cancel(), which you call if you want to cancel live replication.
          */
-        replicate<Content>(
+        replicate<Content extends {}>(
             source: string | Database<Content>,
             target: string | Database<Content>,
             options?: Replication.ReplicateOptions,
@@ -166,7 +166,7 @@ declare namespace PouchDB {
          * is equivalent to this code:
          * `PouchDB.sync('mydb', 'http://localhost:5984/mydb')`;
          */
-        sync<Content>(
+        sync<Content extends {}>(
             source: string | Database<Content>,
             target: string | Database<Content>,
             options?: Replication.SyncOptions,
@@ -182,7 +182,7 @@ declare namespace PouchDB {
              * If options.live is true, then this will track future changes and also replicate them automatically.
              * This method returns an object with the method cancel(), which you call if you want to cancel live replication.
              */
-            to<Content>(
+            to<Content extends {}>(
                 target: string | Database<Content>,
                 options?: Replication.ReplicateOptions,
                 callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>
@@ -194,7 +194,7 @@ declare namespace PouchDB {
              * If options.live is true, then this will track future changes and also replicate them automatically.
              * This method returns an object with the method cancel(), which you call if you want to cancel live replication.
              */
-            from<Content>(
+            from<Content extends {}>(
                 source: string | Database<Content>,
                 options?: Replication.ReplicateOptions,
                 callback?: Core.Callback<Replication.ReplicationResultComplete<Content>>
@@ -210,7 +210,7 @@ declare namespace PouchDB {
          * is equivalent to this code:
          * `PouchDB.sync('mydb', 'http://localhost:5984/mydb')`;
          */
-        sync<Content>(
+        sync<Content extends {}>(
             remote: string | Database<Content>,
             options?: Replication.SyncOptions,
             callback?: Core.Callback<Replication.SyncResultComplete<Content>>
