@@ -1121,6 +1121,8 @@ export interface Configuration {
     jwks?: JWKS | undefined;
 
     responseTypes?: ResponseType[] | undefined;
+    
+    revokeGrantPolicy?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
 
     pkce?: {
         methods: PKCEMethods[];
