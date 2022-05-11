@@ -894,13 +894,13 @@ declare namespace ReactReconciler {
     }
 
     interface TransitionTracingCallbacks {
-        onTransitionStart?: (transitionName: string, startTime: number) => void,
+        onTransitionStart?: (transitionName: string, startTime: number) => void;
         onTransitionProgress?: (
           transitionName: string,
           startTime: number,
           currentTime: number,
           pending: Array<{name: null | string}>,
-        ) => void,
+        ) => void;
         onTransitionIncomplete?: (
           transitionName: string,
           startTime: number,
@@ -910,19 +910,19 @@ declare namespace ReactReconciler {
             newName?: string,
             endTime: number,
           }>,
-        ) => void,
+        ) => void;
         onTransitionComplete?: (
           transitionName: string,
           startTime: number,
           endTime: number,
-        ) => void,
+        ) => void;
         onMarkerProgress?: (
           transitionName: string,
           marker: string,
           startTime: number,
           currentTime: number,
           pending: Array<{name: null | string}>,
-        ) => void,
+        ) => void;
         onMarkerIncomplete?: (
           transitionName: string,
           marker: string,
@@ -933,13 +933,13 @@ declare namespace ReactReconciler {
             newName?: string,
             endTime: number,
           }>,
-        ) => void,
+        ) => void;
         onMarkerComplete?: (
           transitionName: string,
           marker: string,
           startTime: number,
           endTime: number,
-        ) => void,
+        ) => void;
     }
 
     interface ComponentSelector {
