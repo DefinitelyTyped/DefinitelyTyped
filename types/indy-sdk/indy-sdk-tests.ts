@@ -43,7 +43,7 @@ const importExportConfig: indy.WalletExportImportConfig = {
 };
 const rekeyWalletCredentials: indy.OpenWalletCredentials = {
     key: 'old_key',
-    rekey: 'new_key'
+    rekey: 'new_key',
 };
 const credDef: indy.CredDef = {
     id: 'id',
@@ -270,6 +270,14 @@ indy.proverStoreCredential(
     null,
 );
 indy.proverGetCredential(10, 'outCredId');
+indy.proverGetCredentials(10, {
+    cred_def_id: 'cred_def_id',
+    issuer_did: 'issuer_did',
+    schema_id: 'schema_id',
+    schema_issuer_did: 'schema_issuer_did',
+    schema_name: 'schema_name',
+    schema_version: 'schema_version',
+});
 indy.proverDeleteCredential(10, 'credId');
 indy.generateNonce();
 indy.buildGetAttribRequest(null, 'did', 'endpoint', null, null);

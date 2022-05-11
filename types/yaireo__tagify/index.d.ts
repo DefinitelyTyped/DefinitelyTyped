@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.9
+// Type definitions for @yaireo/tagify 4.12
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -308,6 +308,16 @@ declare namespace Tagify {
         dropdownWrapper: string;
 
         /**
+         * @default 'tagify__dropdown__header'
+         */
+        dropdownHeader: string;
+
+        /**
+         * @default 'tagify__dropdown__footer'
+         */
+        dropdownFooter: string;
+
+        /**
          * @default 'tagify__dropdown__item'
          */
         dropdownItem: string;
@@ -403,11 +413,23 @@ declare namespace Tagify {
          */
         dropdown?:
         /**
-         * @param Current settings for the dropdown instance.
+         * @param settings Current settings for the dropdown instance.
          * @returns HTML string with the dropdown menu container to use for the
          * dropdown menu.
          */
         ((this: Tagify<T>, settings: TagifySettings<T>) => string) | undefined;
+
+        /**
+         * This callback is called to prepend the {@link dropdownHeader} template and
+         * append {@link dropdownFooter} template to the generated HTML string of the
+         * list of dropdown items.
+         */
+        dropdownContent?:
+        /**
+         * @param htmlContent List of dropdown items as HTML string.
+         * @returns `htmlContent` wrapped into {@link dropdownHeader} and {@link dropdownFooter}.
+         */
+        ((this: Tagify<T>, htmlContent: string) => string) | undefined;
 
         /**
          * This callback is called once for each item in the dropdown list. It
@@ -420,6 +442,28 @@ declare namespace Tagify {
          * shown in the dropdown menu.
          */
         ((this: Tagify<T>, item: T) => string) | undefined;
+
+        /**
+         * Template for a header that is rendered above the list of dropdown items.
+         */
+        dropdownHeader?:
+        /**
+         * @param suggestions An array of all the matched suggested items,
+         * including those which were sliced away due to the {@link DropDownSettings.maxItems} setting.
+         * @returns HTML string that is displayed at the top of the dropdown list.
+         */
+        ((this: Tagify<T>, suggestions: T[]) => string) | undefined;
+
+        /**
+         * Template for a footer that is rendered beneath the list of dropdown items.
+         */
+        dropdownFooter?:
+        /**
+         * @param suggestions An array of all the matched suggested items,
+         * including those which were sliced away due to the {@link DropDownSettings.maxItems} setting.
+         * @returns HTML string that is displayed at the bottom of the dropdown list.
+         */
+        ((this: Tagify<T>, suggestions: T[]) => string) | undefined;
 
         /**
          * Callback invoked when no matching dropdown item was found. If there
@@ -1251,9 +1295,10 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
         toggle(show?: boolean): void;
 
         /**
-         * Add all whitelist items as tags and close the suggestion dropdown.
+         * Add all suggested items as tags and close the suggestion dropdown.
+         * @param onlyRendered Include only suggested items that are currently rendered, otherwise include all.
          */
-        selectAll(): void;
+        selectAll(onlyRendered?: boolean): void;
     };
 
     /**
