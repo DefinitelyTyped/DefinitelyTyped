@@ -79,7 +79,7 @@ export namespace UIkit {
 
     interface UIkitDropElement {
         show(): void;
-        hide(): void;
+        hide(delay?: boolean): void;
     }
 
     type Drop = (element: UIkitElement, options?: UIkitDropOptions) => UIkitDropElement;
@@ -100,7 +100,7 @@ export namespace UIkit {
 
     interface UIkitDropdownElement {
         show(): void;
-        hide(): void;
+        hide(delay?: boolean): void;
     }
 
     type Dropdown = (element: UIkitElement, options?: UIkitDropdownOptions) => UIkitDropdownElement;
@@ -202,8 +202,7 @@ export namespace UIkit {
     }
 
     interface UIkitNavElement {
-        index: string | number | UIkitNode;
-        animate: boolean;
+        toggle(index: string | number | UIkitNode, animate: boolean): void;
     }
 
     type Nav = (element: UIkitElement, options?: UIkitNavOptions) => UIkitNavElement;
@@ -384,6 +383,7 @@ export namespace UIkit {
         items?: object[] | undefined;
         template?: string | undefined;
         'delay-controls'?: number | undefined;
+        container?: string | undefined;
     }
 
     interface UIkitLightboxPanelElement {
@@ -435,8 +435,6 @@ export namespace UIkit {
         target?: string | undefined;
         start?: number | string | undefined;
         end?: number |string | undefined;
-        /** @deprecated */
-        viewport?: number | undefined;
         media?: number | string | undefined;
     }
 
@@ -489,6 +487,7 @@ export namespace UIkit {
     interface UIkitSortableOptions {
         group?: string | undefined;
         animation?: number | undefined;
+        duration?: number | undefined;
         threshold?: number | undefined;
         'cls-item'?: string | undefined;
         'cls-placeholder'?: string | undefined;
@@ -511,6 +510,7 @@ export namespace UIkit {
         duration?: number | undefined;
         delay?: number | undefined;
         cls?: string | undefined;
+        container?: string | undefined;
     }
 
     interface UIkitTooltipElement {
