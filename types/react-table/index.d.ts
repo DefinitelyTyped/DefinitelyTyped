@@ -65,33 +65,43 @@ export interface ColumnGroupInterface<D extends object> {
     columns: Array<Column<D>>;
 }
 
-export type ColumnGroup<D extends object = {}> = ColumnInterface<D> &
-    ColumnGroupInterface<D> &
-    (
-        | { Header: string }
-        | ({ id: IdType<D> } & {
-              Header: Renderer<HeaderProps<D>>;
-          })
-    ) & // Not used, but needed for backwards compatibility
-    { accessor?: Accessor<D> | undefined };
+export type ColumnGroup<D extends object = {}> =
+    & ColumnInterface<D>
+    & ColumnGroupInterface<D>
+    & (
+        | { Header: string; }
+        | ({ id: IdType<D>; } & {
+            Header: Renderer<HeaderProps<D>>;
+        })
+    )
+    // Not used, but needed for backwards compatibility
+    & { accessor?: Accessor<D> | undefined; };
 
 type ValueOf<T> = T[keyof T];
 
 // The accessors like `foo.bar` are not supported, use functions instead
-export type ColumnWithStrictAccessor<D extends object = {}> = ColumnInterface<D> &
-    ValueOf<{
+export type ColumnWithStrictAccessor<D extends object = {}> =
+    & ColumnInterface<D>
+    & ValueOf<{
         [K in keyof D]: {
             accessor: K;
         } & ColumnInterfaceBasedOnValue<D, D[K]>;
     }>;
 
-export type ColumnWithLooseAccessor<D extends object = {}> = ColumnInterface<D> &
-    ColumnInterfaceBasedOnValue<D> &
-    ({ Header: string } | { id: IdType<D> } | { accessor: keyof D extends never ? IdType<D> : never }) & {
-        accessor?: (keyof D extends never ? IdType<D> | Accessor<D> : Accessor<D>) | undefined;
-    };
+export type ColumnWithLooseAccessor<D extends object = {}> =
+    & ColumnInterface<D>
+    & ColumnInterfaceBasedOnValue<D>
+    & (
+        | { Header: string }
+        | { id: IdType<D> }
+        | { accessor: keyof D extends never ? IdType<D> : never }
+    )
+    & { accessor?: (keyof D extends never ? IdType<D> | Accessor<D> : Accessor<D>) | undefined; };
 
-export type Column<D extends object = {}> = ColumnGroup<D> | ColumnWithLooseAccessor<D> | ColumnWithStrictAccessor<D>;
+export type Column<D extends object = {}> =
+    | ColumnGroup<D>
+    | ColumnWithLooseAccessor<D>
+    | ColumnWithStrictAccessor<D>;
 
 export interface ColumnInstance<D extends object = {}>
     extends Omit<ColumnInterface<D>, 'id'>,
@@ -159,12 +169,7 @@ export type UseTableOptions<D extends object> = {
     data: readonly D[];
 } & Partial<{
     initialState: Partial<TableState<D>>;
-    stateReducer: (
-        newState: TableState<D>,
-        action: ActionType,
-        previousState: TableState<D>,
-        instance?: TableInstance<D>,
-    ) => TableState<D>;
+    stateReducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>, instance?: TableInstance<D>) => TableState<D>;
     useControlledState: (state: TableState<D>, meta: Meta<D>) => TableState<D>;
     defaultColumn: Partial<Column<D>>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
@@ -798,7 +803,7 @@ export namespace useSortBy {
 export interface TableSortByToggleProps {
     title?: string | undefined;
     style?: CSSProperties | undefined;
-    onClick?: ((e: MouseEvent) => void) | undefined;
+    onClick?: ((e: MouseEvent) => void)| undefined;
 }
 
 export type UseSortByOptions<D extends object> = Partial<{
