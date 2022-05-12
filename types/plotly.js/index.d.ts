@@ -1584,7 +1584,7 @@ export interface Config {
      * function to add the background color to a different container
      * or 'opaque' to ensure there's white behind it
      */
-    setBackground: () => string | 'opaque' | 'transparent';
+    setBackground: ((gd: PlotlyHTMLElement, bgColor: string) => void) | 'opaque' | 'transparent';
 
     /** URL to topojson files used in geo charts */
     topojsonURL: string;
