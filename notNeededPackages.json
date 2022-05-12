@@ -184,6 +184,10 @@
             "libraryName": "askmethat-rating",
             "asOfVersion": "0.4.0"
         },
+        "asn1js": {
+            "libraryName": "asn1js",
+            "asOfVersion": "3.0.0"
+        },
         "assertion-error": {
             "libraryName": "assertion-error",
             "asOfVersion": "1.1.0"
