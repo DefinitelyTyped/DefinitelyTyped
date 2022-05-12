@@ -9,7 +9,8 @@ export = Pako;
 export as namespace pako;
 
 declare namespace Pako {
-    enum FlushValues {
+    enum constants {
+        // FlushValues
         Z_NO_FLUSH = 0,
         Z_PARTIAL_FLUSH = 1,
         Z_SYNC_FLUSH = 2,
@@ -17,17 +18,13 @@ declare namespace Pako {
         Z_FINISH = 4,
         Z_BLOCK = 5,
         Z_TREES = 6,
-    }
-
-    enum StrategyValues {
+        // StrategyValues
         Z_FILTERED = 1,
         Z_HUFFMAN_ONLY = 2,
         Z_RLE = 3,
         Z_FIXED = 4,
         Z_DEFAULT_STRATEGY = 0,
-    }
-
-    enum ReturnCodes {
+        // ReturnCodes
         Z_OK = 0,
         Z_STREAM_END = 1,
         Z_NEED_DICT = 2,
@@ -36,6 +33,28 @@ declare namespace Pako {
         Z_DATA_ERROR = -3,
         Z_BUF_ERROR = -5,
     }
+
+    type FlushValues = constants.Z_NO_FLUSH
+                        | constants.Z_PARTIAL_FLUSH
+                        | constants.Z_SYNC_FLUSH
+                        | constants.Z_FINISH
+                        | constants.Z_BLOCK
+                        | constants.Z_TREES;
+
+    type StrategyValues = constants.Z_FILTERED
+                        | constants.Z_HUFFMAN_ONLY
+                        | constants.Z_RLE
+                        | constants.Z_FIXED
+                        | constants.Z_DEFAULT_STRATEGY;
+
+    type ReturnCodes = constants.Z_OK
+                        | constants.Z_STREAM_END
+                        | constants.Z_NEED_DICT
+                        | constants.Z_ERRNO
+                        | constants.Z_STREAM_ERROR
+                        | constants.Z_DATA_ERROR
+                        | constants.Z_BUF_ERROR
+                        | constants.Z_DEFAULT_STRATEGY;
 
     interface DeflateOptions {
         level?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | undefined;
@@ -87,17 +106,17 @@ declare namespace Pako {
     /**
      * Compress data with deflate algorithm and options.
      */
-    function deflate(data: Data | String, options?: DeflateFunctionOptions): Uint8Array;
+    function deflate(data: Data | string, options?: DeflateFunctionOptions): Uint8Array;
 
     /**
      * The same as deflate, but creates raw data, without wrapper (header and adler32 crc).
      */
-    function deflateRaw(data: Data | String, options?: DeflateFunctionOptions): Uint8Array;
+    function deflateRaw(data: Data | string, options?: DeflateFunctionOptions): Uint8Array;
 
     /**
      * The same as deflate, but create gzip wrapper instead of deflate one.
      */
-    function gzip(data: Data | String, options?: DeflateFunctionOptions): Uint8Array;
+    function gzip(data: Data | string, options?: DeflateFunctionOptions): Uint8Array;
 
     /**
      * Decompress data with inflate/ungzip and options. Autodetect format via wrapper header
@@ -126,7 +145,7 @@ declare namespace Pako {
         result: Uint8Array;
         onData(chunk: Data): void;
         onEnd(status: number): void;
-        push(data: Data | String, mode?: FlushValues | boolean): boolean;
+        push(data: Data | string, mode?: FlushValues | boolean): boolean;
     }
 
     // https://github.com/nodeca/pako/blob/893381abcafa10fa2081ce60dae7d4d8e873a658/lib/inflate.js
