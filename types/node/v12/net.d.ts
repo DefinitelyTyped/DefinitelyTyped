@@ -96,6 +96,11 @@ declare module 'net' {
         readonly remoteAddress?: string | undefined;
         readonly remoteFamily?: string | undefined;
         readonly remotePort?: number | undefined;
+        /**
+         * The socket timeout in milliseconds as set by socket.setTimeout(). It is undefined if a timeout has not been set.
+         * @since v10.7.0
+         */
+        readonly timeout?: number | undefined;
 
         // Extended base methods
         end(cb?: () => void): this;
