@@ -11,6 +11,9 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
+        "paths": {
+            "pako/v1": ["pako/v1"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
