@@ -41,10 +41,10 @@ deflator.push(data, true);
 const inflator = new pako.Inflate({ to: 'string' });
 inflator.push(deflator.result, true);
 
-assert.equal(inflator.err, 0);
-assert.equal(inflator.result, data);
+assert.strictEqual(inflator.err, 0);
+assert.strictEqual(inflator.result, data);
 
 const header = inflator.header;
-assert.equal(header.time, 1234567);
-assert.equal(header.os, 15);
-assert.equal(header.name, 'test name');
+assert.strictEqual(header?.time, 1234567);
+assert.strictEqual(header?.os, 15);
+assert.strictEqual(header?.name, 'test name');

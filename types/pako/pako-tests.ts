@@ -46,6 +46,6 @@ assert.strictEqual(inflatorString.err, 0);
 assert.strictEqual(inflatorString.result, data);
 
 const header = inflatorString.header;
-assert.strictEqual(header.time, 1234567);
-assert.strictEqual(header.os, 15);
-assert.strictEqual(header.name, 'test name');
+assert.strictEqual(header?.time, 1234567);
+assert.strictEqual(header?.os, 15);
+assert.strictEqual(header?.name, 'test name');
