@@ -27,7 +27,6 @@ import {
     ReactElement,
     ReactFragment,
     ReactNode,
-    ReactText,
 } from 'react';
 
 export {};
@@ -320,7 +319,9 @@ export type HeaderProps<D extends object> = TableInstance<D> & {
     column: ColumnInstance<D>;
 };
 
-export type FooterProps<D extends object> = TableInstance<D> & {};
+export type FooterProps<D extends object> = TableInstance<D> & {
+    column: ColumnInstance<D>;
+};
 
 export type CellProps<D extends object, V = any> = TableInstance<D> & {
     column: ColumnInstance<D>;
@@ -874,7 +875,7 @@ export type StringKey<D> = Extract<keyof D, string>;
 export type IdType<D> = StringKey<D> | string;
 export type CellValue<V = any> = V;
 
-export type Renderer<Props> = ComponentType<Props> | ReactElement | ReactText | ReactFragment;
+export type Renderer<Props> = ComponentType<Props> | ReactElement | string | number | ReactFragment;
 
 export interface PluginHook<D extends object> {
     (hooks: Hooks<D>): void;

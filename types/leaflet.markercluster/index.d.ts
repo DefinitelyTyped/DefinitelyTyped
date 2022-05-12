@@ -1,6 +1,6 @@
-// Type definitions for Leaflet.markercluster 1.4
+// Type definitions for Leaflet.markercluster 1.5
 // Project: https://github.com/Leaflet/Leaflet.markercluster
-// Definitions by: Robert Imig <https://github.com/rimig>, Nenad Filipovic <https://github.com/nenadfilipovic>
+// Definitions by: Robert Imig <https://github.com/rimig>, Nenad Filipovic <https://github.com/nenadfilipovic>, Yaroslav Kormushyn <https://github.com/YaroslavKormushyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -143,6 +143,70 @@ declare module 'leaflet' {
         * Typically used to implement a progress indicator. Defaults to null.
         */
         chunkProgress?: ((processedMarkers: number, totalMarkers: number, elapsedTime: number) => void) | undefined;
+    }
+
+    /*
+     * Cluster-related handler functions.
+     */
+    type AnimationEndEventHandlerFn = (event: LeafletEvent) => void;
+    type SpiderfyEventHandlerFn = (event: MarkerClusterSpiderfyEvent) => void;
+
+    /*
+     * Event fired on spiderfy cluster actions.
+     */
+    interface MarkerClusterSpiderfyEvent extends LeafletEvent {
+        /*
+         * The cluster that fired the event.
+         */
+        cluster: MarkerCluster;
+
+        /*
+         * The markers in the cluster that fired the event.
+         */
+        markers: Marker[];
+    }
+
+    /*
+     * Extend existing event handler function map to include cluster events.
+     */
+    interface LeafletEventHandlerFnMap {
+        /*
+         * Fires when overlapping markers get spiderified.
+         */
+        spiderfied?: SpiderfyEventHandlerFn | undefined;
+
+        /*
+         * Fires when overlapping markers get unspiderified.
+         */
+        unspiderfied?: SpiderfyEventHandlerFn | undefined;
+
+        /*
+         * Fires when marker clustering/unclustering animation has completed.
+         */
+        animationend?: AnimationEndEventHandlerFn | undefined;
+    }
+
+    /*
+     * Extend Evented to include cluster events.
+     */
+    interface Evented {
+        on(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        on(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
+
+        off(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        off(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
+
+        once(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        once(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
+
+        addEventListener(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        addEventListener(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
+
+        removeEventListener(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        removeEventListener(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
+
+        addOneTimeEventListener(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        addOneTimeEventListener(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
     }
 
     class MarkerClusterGroup extends FeatureGroup {

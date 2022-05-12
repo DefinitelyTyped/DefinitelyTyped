@@ -41,9 +41,9 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
     class X500Name extends ASN1Object {
         constructor(
             params:
-                | StringParam & { certissuer?: string | undefined; certsubject?: string | undefined }
-                | X500NameParam & { certissuer?: string | undefined; certsubject?: string | undefined }
-                | { ldapstr: string } & { certissuer?: string | undefined; certsubject?: string | undefined },
+                | (StringParam & { certissuer?: string | undefined; certsubject?: string | undefined })
+                | (X500NameParam & { certissuer?: string | undefined; certsubject?: string | undefined })
+                | ({ ldapstr: string } & { certissuer?: string | undefined; certsubject?: string | undefined }),
         );
 
         /**

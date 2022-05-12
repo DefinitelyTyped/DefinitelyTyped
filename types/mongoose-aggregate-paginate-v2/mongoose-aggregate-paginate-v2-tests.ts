@@ -3,7 +3,7 @@
  * Adapted to mongoose-aggregate-paginate-v2 by Alexandre Croteau <https://github.com/acrilex1>
  */
 
-import { Schema, model, AggregatePaginateModel, PaginateOptions, AggregatePaginateResult, Document } from 'mongoose';
+import { Schema, model, Aggregate, AggregatePaginateModel, PaginateOptions, AggregatePaginateResult, Document } from 'mongoose';
 import mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
 import { Router, Request, Response } from 'express';
 
@@ -30,6 +30,8 @@ const UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<
 //#region Test Paginate
 const router: Router = Router();
 
+declare const aggregate: Aggregate<User[]>;
+
 router.get('/users.json', (req: Request, res: Response) => {
     const descending = true;
     const options: PaginateOptions = {};
@@ -47,18 +49,6 @@ router.get('/users.json', (req: Request, res: Response) => {
         nextPage: 'nextPageCustom',
         prevPage: 'prevPageCustom',
     };
-
-    const aggregate = UserModel.aggregate([
-        {
-            $project: {
-                id: 0,
-                email: 1,
-                username: 1,
-            },
-        },
-    ])
-        .collation({ locale: 'en_US', strength: 1 })
-        .cursor({ batchSize: 200 });
 
     UserModel.aggregatePaginate(aggregate, options, (err: any, value: AggregatePaginateResult<User>) => {
         if (err) {

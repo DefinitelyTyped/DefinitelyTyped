@@ -174,4 +174,6 @@ export class Quaternion {
     inverse(): Quaternion;
 
     random(): Quaternion;
+
+    [Symbol.iterator](): Generator<number, void>;
 }

@@ -1,4 +1,4 @@
-// Type definitions for Jest 27.4
+// Type definitions for Jest 27.5
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -146,7 +146,8 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function doMock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    // tslint:disable-next-line no-unnecessary-generics
+    function doMock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module from require() (e.g. that it should always return the real module).
@@ -177,7 +178,8 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function mock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    // tslint:disable-next-line no-unnecessary-generics
+    function mock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
 
     /**
      * The mocked test helper provides typings on your mocked modules and even
@@ -1309,6 +1311,7 @@ declare namespace jest {
     type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
 
     interface MockContext<T, Y extends any[]> {
+        lastCall: Y;
         calls: Y[];
         instances: T[];
         invocationCallOrder: number[];

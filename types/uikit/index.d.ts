@@ -292,7 +292,7 @@ export namespace UIkit {
         svg: Promise<any>;
     };
 
-    interface UIkitSwiterOptions {
+    interface UIkitSwitcherOptions {
         connect?: string | undefined;
         toggle?: string | undefined;
         active?: number | undefined;
@@ -301,11 +301,17 @@ export namespace UIkit {
         swiping?: boolean | undefined;
     }
 
+    /**
+     * An alias for `UIkitSwitcherOptions` to support backward compatibility.
+     * @deprecated
+     */
+    type UIkitSwiterOptions = UIkitSwitcherOptions;
+
     interface UIkitSwitcherElement {
         show(index: string | number | UIkitNode): void;
     }
 
-    type Switcher = (element: UIkitElement, options?: UIkitSwiterOptions) => UIkitSwitcherElement;
+    type Switcher = (element: UIkitElement, options?: UIkitSwitcherOptions | UIkitSwiterOptions) => UIkitSwitcherElement;
 
     interface UIkitTabOptions {
         connect?: string | undefined;

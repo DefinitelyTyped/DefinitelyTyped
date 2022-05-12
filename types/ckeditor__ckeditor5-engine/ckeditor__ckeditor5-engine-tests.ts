@@ -39,7 +39,7 @@ import {
     StylesProcessor,
     transformSets,
     TreeWalker,
-    ViewDocument,
+    ViewDocument
 } from '@ckeditor/ckeditor5-engine';
 import DowncastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
 import DowncastHelpers, {
@@ -50,15 +50,16 @@ import DowncastHelpers, {
     insertText,
     insertUIElement,
     remove,
-    wrap,
+    wrap
 } from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
 import Mapper from '@ckeditor/ckeditor5-engine/src/conversion/mapper';
 import UpcastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher';
 import UpcastHelpers, {
     convertSelectionChange,
     convertText,
-    convertToModelFragment,
+    convertToModelFragment
 } from '@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers';
+import XmlDataProcessor from '@ckeditor/ckeditor5-engine/src/dataprocessor/xmldataprocessor';
 import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
 import ModelDocument from '@ckeditor/ckeditor5-engine/src/model/document';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
@@ -66,9 +67,12 @@ import History from '@ckeditor/ckeditor5-engine/src/model/history';
 import { Item } from '@ckeditor/ckeditor5-engine/src/model/item';
 import MarkerCollection, { Marker } from '@ckeditor/ckeditor5-engine/src/model/markercollection';
 import Node from '@ckeditor/ckeditor5-engine/src/model/node';
+import AttributeOperation from '@ckeditor/ckeditor5-engine/src/model/operation/attributeoperation';
+import DetachOperation from '@ckeditor/ckeditor5-engine/src/model/operation/detachoperation';
 import Operation from '@ckeditor/ckeditor5-engine/src/model/operation/operation';
 import ModelPosition from '@ckeditor/ckeditor5-engine/src/model/position';
 import RootElement from '@ckeditor/ckeditor5-engine/src/model/rootelement';
+import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Text from '@ckeditor/ckeditor5-engine/src/model/text';
 import TextProxy from '@ckeditor/ckeditor5-engine/src/model/textproxy';
@@ -79,7 +83,7 @@ import insertContent from '@ckeditor/ckeditor5-engine/src/model/utils/insertcont
 import modifySelection from '@ckeditor/ckeditor5-engine/src/model/utils/modifyselection';
 import {
     injectSelectionPostFixer,
-    mergeIntersectingRanges,
+    mergeIntersectingRanges
 } from '@ckeditor/ckeditor5-engine/src/model/utils/selection-post-fixer';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import { getBoxSidesValues } from '@ckeditor/ckeditor5-engine/src/styles/utils';
@@ -200,10 +204,20 @@ viewDefinition = {
     },
 };
 
-let model: Model = new Model();
+let model = new Model();
+const root = model.document.createRoot();
+let range = model.createRange(model.createPositionAt(root, 0), model.createPositionAt(root, 0));
 model.change(writer => {
     writer.insertText('foo', model.document.selection.getFirstPosition());
 });
+new Model().on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<Model, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new Model().set('foo');
 
 model.document.createRoot();
 model.schema.register('paragraph', { inheritAllFrom: '$block' });
@@ -255,7 +269,12 @@ bool = needsPlaceholder(viewElement, bool);
 const editingcontroller: EditingController = new EditingController(model, stylesProcessor);
 editingcontroller.destroy();
 editingcontroller.set('foo', 'bar');
-editingcontroller.once('foo', () => {});
+editingcontroller.once('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<EditingController, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
 editingcontroller.downcastDispatcher.on('insert:$element', () => {});
 
 const datacontroller: DataController = new DataController(model, stylesProcessor);
@@ -500,6 +519,7 @@ let insertOperation = new InsertOperation(
 );
 if (insertOperation.type === 'insert') {
 }
+
 // $ExpectType PositionStickiness
 insertOperation.position.stickiness;
 model.applyOperation(insertOperation);
@@ -508,15 +528,29 @@ insertOperation.nodes.getNode(9);
 insertOperation.shouldReceiveAttributes = true;
 insertOperation.toJSON().baseVersion;
 insertOperation.toJSON().baseVersion;
-InsertOperation.fromJSON(insertOperation.toJSON());
+InsertOperation.fromJSON(insertOperation.toJSON(), new ModelDocument());
 
-const root = model.document.createRoot();
-let range = model.createRange(model.createPositionAt(root, 0), model.createPositionAt(root, 0));
+// $ExpectType "detach"
+new DetachOperation(new ModelPosition(model.document.createRoot(), [0]), 0).type;
+// $ExpectType number
+new DetachOperation(new ModelPosition(model.document.createRoot(), [0]), 0).toJSON().howMany;
+
 let markerOperation = new MarkerOperation('name', nullvalue, range, model.markers, true, 0);
 if (markerOperation.type === 'marker') {
 }
 model.applyOperation(markerOperation);
 markerOperation = markerOperation.getReversed();
+
+let attributeOperation = new AttributeOperation(range, '', true, false, 1);
+attributeOperation = attributeOperation.clone();
+attributeOperation = attributeOperation.getReversed();
+// $ExpectType true
+attributeOperation.oldValue;
+const attributeOperation2 = new AttributeOperation(range, '', true, undefined, 1);
+// $ExpectType null
+attributeOperation2.newValue;
+// $ExpectType null
+attributeOperation2.toJSON().newValue;
 
 let operation: Operation;
 
@@ -669,8 +703,10 @@ if ('data' in node) {
     str = node.data;
 }
 bool = element.is('foo', 'bar');
-const result5: Array<[string, string | number | boolean]> = Array.from(element.getAttributes());
-const result6: Node[] = Array.from(element.getChildren());
+// $ExpectType [string, string | number | boolean][]
+Array.from(element.getAttributes());
+// $ExpectType (Element | Text)[]
+Array.from(element.getChildren());
 node = element.getNodeByPath([num]);
 node = element.findAncestor('p')!;
 num = element.getChildIndex(node);
@@ -827,11 +863,11 @@ if (
 {
     const obj = modelObj as Element;
     if (obj.is('element', 'paragraph')) {
-        // $ExpectType (RootElement | Element) & { name: "paragraph"; }
+        // $ExpectType (RootElement | Element) & { name: "paragraph"; } || (Element | RootElement) & { name: "paragraph"; }
         obj;
     }
     if (obj.is('model:element', 'paragraph')) {
-        // $ExpectType (RootElement | Element) & { name: "paragraph"; }
+        // $ExpectType (RootElement | Element) & { name: "paragraph"; } || (Element | RootElement) & { name: "paragraph"; }
         obj;
     }
     if (obj.is('element', 'paragraph') || obj.is('element', 'blockQuote')) {
@@ -1381,6 +1417,7 @@ class MyOperation extends Operation {
     toJSON() {
         return { __className: '', baseVersion: 0 };
     }
+    type: 'foo';
 }
 new Batch().addOperation(new MyOperation(1));
 
@@ -1667,3 +1704,21 @@ downcastWriter.createUIElement('span', null, function callback(domDocument) {
 
     return domElement;
 });
+
+new Schema().on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<Schema, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new Schema().set('foo');
+
+new XmlDataProcessor(viewDocument);
+new XmlDataProcessor(viewDocument, { namespaces: [''] });
+// $ExpectType string
+new XmlDataProcessor(viewDocument).toData(viewDocumentFragment);
+// $ExpectType DocumentFragment
+new XmlDataProcessor(viewDocument).toView("");
+new XmlDataProcessor(viewDocument).useFillerType("default");
+new XmlDataProcessor(viewDocument).registerRawContentMatcher(pattern);

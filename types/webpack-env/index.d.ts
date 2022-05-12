@@ -339,17 +339,35 @@ declare var DEBUG: boolean;
 
 interface ImportMeta {
     /**
-     * `import.meta.webpackHot` is an alias for` module.hot` which is also available in strict ESM
+     * `import.meta.url` is the `file:` url of the current file (similar to `__filename` but as file url)
      */
-    webpackHot?: __WebpackModuleApi.Hot | undefined;
+    url: string;
     /**
      * `import.meta.webpack` is the webpack major version as number
      */
     webpack: number;
     /**
-     * `import.meta.url` is the `file:` url of the current file (similar to `__filename` but as file url)
+     * `import.meta.webpackHot` is an alias for` module.hot` which is also available in strict ESM
      */
-    url: string;
+    webpackHot?: __WebpackModuleApi.Hot | undefined;
+    /**
+     * `import.meta.webpackContext` as ESM alternative to `require.context`
+     * Available: 5.70.0+
+     */
+    webpackContext?: (
+        request: string,
+        options?: {
+          recursive?: boolean;
+          regExp?: RegExp;
+          include?: RegExp;
+          exclude?: RegExp;
+          preload?: boolean | number;
+          prefetch?: boolean | number;
+          chunkName?: string;
+          exports?: string | string[][];
+          mode?: 'sync' | 'eager' | 'weak' | 'lazy' | 'lazy-once';
+        }
+      ) => __WebpackModuleApi.RequireContext;
 }
 
 interface NodeModule extends NodeJS.Module {}

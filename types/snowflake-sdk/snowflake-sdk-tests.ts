@@ -80,3 +80,19 @@ snowflake.createConnection({
     authenticator: '',
     token: '',
 });
+
+// Application
+
+snowflake.createConnection({
+    account: '',
+    password: '',
+    username: '',
+    application: '',
+});
+
+// Pool
+// $ExpectType Pool<Connection>
+const pool = snowflake.createPool({
+    account: '',
+    username: '',
+});

@@ -350,6 +350,13 @@ const visitorWithInvalidDenylist: Visitor = {
     denylist: ['SomeRandomType'],
 };
 
+const objectTypeAnnotation: NodePath<t.ObjectTypeAnnotation> = new NodePath<t.ObjectTypeAnnotation>(
+    null as any,
+    {} as any,
+);
+
+objectTypeAnnotation.get('indexers'); // $ExpectType NodePath<null | undefined> | NodePath<ObjectTypeIndexer>[]
+
 // Test that NodePath can be narrowed from union to single type
 const path: NodePath<t.ExportDefaultDeclaration | t.ExportNamedDeclaration> = new NodePath<t.ExportNamedDeclaration>(
     null as any,
@@ -358,4 +365,12 @@ const path: NodePath<t.ExportDefaultDeclaration | t.ExportNamedDeclaration> = ne
 
 if (path.isExportNamedDeclaration()) {
     path.type; // $ExpectType "ExportNamedDeclaration"
+}
+
+const nullPath: NodePath<t.Identifier | undefined> = new NodePath<t.Identifier | undefined>(null as any, {} as any);
+
+nullPath.type; // $ExpectType "Identifier" | undefined
+
+if (nullPath.hasNode()) {
+    nullPath.type; // $ExpectType "Identifier"
 }

@@ -323,6 +323,12 @@ export interface CompressOptions {
      * @default true
      */
     varify?: boolean | undefined;
+    /**
+     * Support non-standard Safari/Webkit.
+     * By default UglifyJS will not try to be Safari-proof.
+     * @default false
+     */
+    webkit?: boolean | undefined;
 }
 
 export enum InlineFunctions {
