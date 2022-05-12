@@ -15,12 +15,16 @@ declare class TraceParent {
     static fromString(header: string): TraceParent;
     static startOrResume(parent: null | undefined | TraceParent | string, settings: TraceParentSettings): TraceParent;
 
-    recorded: boolean;
-    traceId: string;
-    id: string;
-    parentId: string | undefined;
-    flags: string;
-    version: string;
+    static readonly FLAGS: Readonly<{
+        recorded: 0b00000001;
+    }>;
+
+    readonly recorded: boolean;
+    readonly traceId: string;
+    readonly id: string;
+    readonly parentId: string | undefined;
+    readonly flags: string;
+    readonly version: string;
 
     child(): TraceParent;
     toString(): string;
