@@ -4,13 +4,13 @@ import lostgrid = require('lost');
 const css = 'div { lost-column: 1/3 }';
 postcss([lostgrid]).process(css);
 
-// Make sure that all lib functions exist
+// Import all lib functions
 import lostAlign = require('lost/lib/lost-align');
 import lostAtRule = require('lost/lib/lost-at-rule');
 import lostCenter = require('lost/lib/lost-center');
 import lostColumn = require('lost/lib/lost-column');
 import lostFlexContainer = require('lost/lib/lost-flex-container');
-import lostGutter = require('lost/lib/lost-gutter');
+import lgGutter = require('lost/lib/lg-gutter');
 import lostMasonryColumn = require('lost/lib/lost-masonry-column');
 import lostMasonryWrap = require('lost/lib/lost-masonry-wrap');
 import lostMove = require('lost/lib/lost-move');
@@ -29,7 +29,7 @@ const libs = [
     lostCenter,
     lostColumn,
     lostFlexContainer,
-    lostGutter,
+    lgGutter,
     lostMasonryColumn,
     lostMasonryWrap,
     lostMove,
