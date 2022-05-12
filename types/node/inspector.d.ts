@@ -76,7 +76,7 @@ declare module 'inspector' {
             /**
              * Remote object value in case of primitive values or JSON values (if it was requested).
              */
-            value?: any | undefined;
+            value?: any;
             /**
              * Primitive value which can not be JSON-stringified does not have <code>value</code>, but gets this property.
              */
@@ -242,7 +242,7 @@ declare module 'inspector' {
             /**
              * Primitive value or serializable javascript object.
              */
-            value?: any | undefined;
+            value?: any;
             /**
              * Primitive value which can not be JSON-stringified.
              */
