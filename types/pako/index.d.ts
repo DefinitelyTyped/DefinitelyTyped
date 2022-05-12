@@ -34,27 +34,30 @@ declare namespace Pako {
         Z_BUF_ERROR = -5,
     }
 
-    type FlushValues = constants.Z_NO_FLUSH
-                        | constants.Z_PARTIAL_FLUSH
-                        | constants.Z_SYNC_FLUSH
-                        | constants.Z_FINISH
-                        | constants.Z_BLOCK
-                        | constants.Z_TREES;
+    type FlushValues =
+        | constants.Z_NO_FLUSH
+        | constants.Z_PARTIAL_FLUSH
+        | constants.Z_SYNC_FLUSH
+        | constants.Z_FINISH
+        | constants.Z_BLOCK
+        | constants.Z_TREES;
 
-    type StrategyValues = constants.Z_FILTERED
-                        | constants.Z_HUFFMAN_ONLY
-                        | constants.Z_RLE
-                        | constants.Z_FIXED
-                        | constants.Z_DEFAULT_STRATEGY;
+    type StrategyValues =
+        | constants.Z_FILTERED
+        | constants.Z_HUFFMAN_ONLY
+        | constants.Z_RLE
+        | constants.Z_FIXED
+        | constants.Z_DEFAULT_STRATEGY;
 
-    type ReturnCodes = constants.Z_OK
-                        | constants.Z_STREAM_END
-                        | constants.Z_NEED_DICT
-                        | constants.Z_ERRNO
-                        | constants.Z_STREAM_ERROR
-                        | constants.Z_DATA_ERROR
-                        | constants.Z_BUF_ERROR
-                        | constants.Z_DEFAULT_STRATEGY;
+    type ReturnCodes =
+        | constants.Z_OK
+        | constants.Z_STREAM_END
+        | constants.Z_NEED_DICT
+        | constants.Z_ERRNO
+        | constants.Z_STREAM_ERROR
+        | constants.Z_DATA_ERROR
+        | constants.Z_BUF_ERROR
+        | constants.Z_DEFAULT_STRATEGY;
 
     interface DeflateOptions {
         level?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | undefined;

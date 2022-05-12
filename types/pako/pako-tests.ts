@@ -1,15 +1,15 @@
-import Pako = require("pako");
-import assert = require("assert");
+import Pako = require('pako');
+import assert = require('assert');
 
 const chunk1 = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 const chunk2 = new Uint8Array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19]);
 const chunk3 = new Uint8Array([101, 111, 121, 131, 141, 151, 161, 171, 181, 191]);
 
-const deflate = new Pako.Deflate({level: 3, strategy : Pako.constants.Z_HUFFMAN_ONLY});
+const deflate = new Pako.Deflate({ level: 3, strategy: Pako.constants.Z_HUFFMAN_ONLY });
 
 deflate.push(chunk1, false);
 deflate.push(chunk3, Pako.constants.Z_PARTIAL_FLUSH);
-deflate.push(chunk2, true);  // true -> last chunk
+deflate.push(chunk2, true); // true -> last chunk
 
 if (deflate.err !== Pako.constants.Z_OK) {
     throw new Error(deflate.err.toString());
@@ -29,8 +29,8 @@ const deflator = new Pako.Deflate({
         os: 15,
         name: 'test name',
         comment: 'test comment',
-        extra: [ 4, 5, 6 ]
-    }
+        extra: [4, 5, 6],
+    },
 });
 deflator.push(data, true);
 
