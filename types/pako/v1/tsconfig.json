@@ -9,10 +9,10 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
         "paths": {
-            "pako/v1": ["pako/v1"]
+            "pako": ["pako/v1"]
         },
         "types": [],
         "noEmit": true,
