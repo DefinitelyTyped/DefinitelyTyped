@@ -2,18 +2,17 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
+        "typeRoots": ["../../"],
         "paths": {
-            "lru-cache": ["lru-cache/v4"]
+            "pako": ["pako/v1"]
         },
         "types": [],
         "noEmit": true,
@@ -21,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "lru-cache-tests.ts"
+        "pako-tests.ts"
     ]
 }

@@ -2645,6 +2645,10 @@
             "libraryName": "lower-case-first",
             "asOfVersion": "1.0.1"
         },
+        "lru-cache": {
+            "libraryName": "lru-cache",
+            "asOfVersion": "7.10.0"
+        },
         "make-dir": {
             "libraryName": "make-dir",
             "asOfVersion": "2.1.0"

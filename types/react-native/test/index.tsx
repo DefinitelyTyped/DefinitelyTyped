@@ -1536,6 +1536,37 @@ const PermissionsAndroidTest = () => {
                 break;
         }
     });
+
+    PermissionsAndroid.requestMultiple([
+        'android.permission.BLUETOOTH_SCAN',
+        'android.permission.BLUETOOTH_CONNECT',
+        'android.permission.BLUETOOTH_ADVERTISE'
+    ]).then(results => {
+        switch (results['android.permission.BLUETOOTH_SCAN']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.BLUETOOTH_CONNECT']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.BLUETOOTH_ADVERTISE']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    });
 };
 
 // Platform
