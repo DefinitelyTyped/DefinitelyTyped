@@ -66,30 +66,191 @@ declare namespace googleMapReact {
     }
 
     interface Maps {
-        Animation: any;
-        ControlPosition: any;
-        MapTypeControlStyle: any;
-        MapTypeId: any;
-        NavigationControlStyle: any;
-        ScaleControlStyle: any;
-        StrokePosition: any;
-        SymbolPath: any;
-        ZoomControlStyle: any;
-        DirectionsStatus: any;
-        DirectionsTravelMode: any;
-        DirectionsUnitSystem: any;
-        DistanceMatrixStatus: any;
-        DistanceMatrixElementStatus: any;
-        ElevationStatus: any;
-        GeocoderLocationType: any;
-        GeocoderStatus: any;
-        KmlLayerStats: any;
-        MaxZoomStatus: any;
-        StreetViewStatus: any;
-        TransitMode: any;
-        TransitRoutePreference: any;
-        TravelMode: any;
-        UnitSystem: any;
+      Animation: {
+        BOUNCE: number;
+        DROP: number;
+        Uz: number;
+        Qz: number;
+      };
+      ControlPosition: {
+        TOP_LEFT: number;
+        TOP_CENTER: number;
+        TOP: number;
+        TOP_RIGHT: number;
+        LEFT_CENTER: number;
+        LEFT_TOP: number;
+        LEFT: number;
+        LEFT_BOTTOM: number;
+        RIGHT_TOP: number;
+        RIGHT: number;
+        RIGHT_CENTER: number;
+        RIGHT_BOTTOM: number;
+        BOTTOM_LEFT: number;
+        BOTTOM_CENTER: number;
+        BOTTOM: number;
+        BOTTOM_RIGHT: number;
+        CENTER: number;
+      };
+      DirectionsStatus: {
+        OK: string;
+        UNKNOWN_ERROR: string;
+        OVER_QUERY_LIMIT: string;
+        REQUEST_DENIED: string;
+        INVALID_REQUEST: string;
+        ZERO_RESULTS: string;
+        MAX_WAYPOINTS_EXCEEDED: string;
+        NOT_FOUND: string;
+      };
+      DirectionsTravelMode: {
+        DRIVING: string;
+        WALKING: string;
+        BICYCLING: string;
+        TRANSIT: string;
+        TWO_WHEELER: string;
+      };
+      DirectionsUnitSystem: {
+        METRIC: number;
+        IMPERIAL: number;
+      };
+      DistanceMatrixStatus: {
+        OK: string;
+        INVALID_REQUEST: string;
+        OVER_QUERY_LIMIT: string;
+        REQUEST_DENIED: string;
+        UNKNOWN_ERROR: string;
+        MAX_ELEMENTS_EXCEEDED: string;
+        MAX_DIMENSIONS_EXCEEDED: string;
+      };
+      DistanceMatrixElementStatus: {
+        OK: string;
+        NOT_FOUND: string;
+        ZERO_RESULTS: string;
+      };
+      ElevationStatus: {
+        OK: string;
+        UNKNOWN_ERROR: string;
+        OVER_QUERY_LIMIT: string;
+        REQUEST_DENIED: string;
+        INVALID_REQUEST: string;
+        yz: string;
+      };
+      GeocoderLocationType: {
+        ROOFTOP: string;
+        RANGE_INTERPOLATED: string;
+        GEOMETRIC_CENTER: string;
+        APPROXIMATE: string;
+      };
+      GeocoderStatus: {
+        OK: string;
+        UNKNOWN_ERROR: string;
+        OVER_QUERY_LIMIT: string;
+        REQUEST_DENIED: string;
+        INVALID_REQUEST: string;
+        ZERO_RESULTS: string;
+        ERROR: string;
+      };
+      KmlLayerStatus: {
+        UNKNOWN: string;
+        OK: string;
+        INVALID_REQUEST: string;
+        DOCUMENT_NOT_FOUND: string;
+        FETCH_ERROR: string;
+        INVALID_DOCUMENT: string;
+        DOCUMENT_TOO_LARGE: string;
+        LIMITS_EXCEEDED: string;
+        TIMED_OUT: string;
+      };
+      MapTypeControlStyle: {
+        DEFAULT: number;
+        HORIZONTAL_BAR: number;
+        DROPDOWN_MENU: number;
+        INSET: number;
+        INSET_LARGE: number;
+      };
+      MapTypeId: {
+        ROADMAP: string;
+        SATELLITE: string;
+        HYBRID: string;
+        TERRAIN: string;
+      };
+      MaxZoomStatus: {
+        OK: string;
+        ERROR: string;
+      };
+      NavigationControlStyle: {
+        DEFAULT: number;
+        SMALL: number;
+        ANDROID: number;
+        ZOOM_PAN: number;
+        Vz: number;
+        Ot: number;
+      };
+      RenderingType: {
+        UNINITIALIZED: string;
+        RASTER: string;
+        VECTOR: string;
+      };
+      ScaleControlStyle: {
+        DEFAULT: number;
+      };
+      StreetViewPreference: {
+        NEAREST: string;
+        BEST: string;
+      };
+      StreetViewStatus: {
+        OK: string;
+        UNKNOWN_ERROR: string;
+        ZERO_RESULTS: string;
+      };
+      StreetViewSource: {
+        DEFAULT: string;
+        OUTDOOR: string;
+      };
+      StrokePosition: {
+        CENTER: number;
+        INSIDE: number;
+        OUTSIDE: number;
+      };
+      SymbolPath: {
+        CIRCLE: number;
+        FORWARD_CLOSED_ARROW: number;
+        FORWARD_OPEN_ARROW: number;
+        BACKWARD_CLOSED_ARROW: number;
+        BACKWARD_OPEN_ARROW: number;
+      };
+      TrafficModel: {
+        BEST_GUESS: string;
+        OPTIMISTIC: string;
+        PESSIMISTIC: string;
+      };
+      TransitMode: {
+        BUS: string;
+        RAIL: string;
+        SUBWAY: string;
+        TRAIN: string;
+        TRAM: string;
+      };
+      TransitRoutePreference: {
+        LESS_WALKING: string;
+        FEWER_TRANSFERS: string;
+      };
+      TravelMode: {
+        DRIVING: string;
+        WALKING: string;
+        BICYCLING: string;
+        TRANSIT: string;
+        TWO_WHEELER: string;
+      };
+      UnitSystem: {
+        METRIC: number;
+        IMPERIAL: number;
+      };
+      ZoomControlStyle: {
+        DEFAULT: number;
+        SMALL: number;
+        LARGE: number;
+        Ot: number;
+      };
     }
 
     interface Bounds {
