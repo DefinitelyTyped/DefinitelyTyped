@@ -69,7 +69,7 @@ export interface ConvertUnknownOptions {
 
 export function detect(data: RawType | string, encodings?: Encoding | Encoding[]): EncodingDetection;
 export function convert(data: RawType, to: Encoding, from?: Encoding): number[];
-export function convert(data: string, to: Encoding, from?: Encoding): string;
+export function convert(data: string | number[], to: Encoding, from?: Encoding): string;
 export function convert(data: RawType | string, options: ConvertStringOptions): string;
 export function convert(data: RawType | string, options: ConvertArrayBufferOptions): ArrayBuffer;
 export function convert(data: RawType | string, options: ConvertArrayOptions): number[];
