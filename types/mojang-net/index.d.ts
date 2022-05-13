@@ -157,7 +157,7 @@ export class HttpResponse {
      */
     readonly 'headers': HttpHeader[];
     /**
-     * Information that was used to formulate the HTTP response
+     * The HTTP request that corresponds to the HTTP response
      * that this object represents.
      */
     readonly 'request': HttpRequest;
