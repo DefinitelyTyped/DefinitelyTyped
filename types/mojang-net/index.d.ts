@@ -116,7 +116,7 @@ export class HttpRequest {
      */
     'method': HttpRequestMethod;
     /**
-     * Amount of time, in milliseconds, before the request times
+     * Amount of time, in seconds, before the request times
      * out and is abandoned.
      */
     'timeout': number;
