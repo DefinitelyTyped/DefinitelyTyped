@@ -11545,6 +11545,8 @@ declare namespace chrome.declarativeNetRequest {
         domainType?: DomainType | undefined;
 
         /**
+         * @deprecated since Chrome 101. Use initiatorDomains instead.
+
          * The rule will only match network requests originating from the list of domains.
          * If the list is omitted, the rule is applied to requests from all domains.
          * An empty list is not allowed.
@@ -11558,6 +11560,8 @@ declare namespace chrome.declarativeNetRequest {
         domains?: string[] | undefined;
 
         /**
+         * @deprecated since Chrome 101. Use excludedInitiatorDomains instead
+         *
          * The rule will not match network requests originating from the list of excludedDomains.
          * If the list is empty or omitted, no domains are excluded.
          * This takes precedence over domains.
@@ -11569,6 +11573,56 @@ declare namespace chrome.declarativeNetRequest {
          * This matches against the request initiator and not the request url.
          */
         excludedDomains?: string[] | undefined;
+
+        /**
+         * The rule will only match network requests originating from the list of initiatorDomains.
+         * If the list is omitted, the rule is applied to requests from all domains.
+         * An empty list is not allowed.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         * This matches against the request initiator and not the request url.
+         */
+        initiatorDomains?: string[] | undefined;
+
+        /**
+         * The rule will not match network requests originating from the list of excludedInitiatorDomains.
+         * If the list is empty or omitted, no domains are excluded.
+         * This takes precedence over initiatorDomains.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         * This matches against the request initiator and not the request url.
+         */
+        excludedInitiatorDomains?: string[] | undefined;
+
+        /**
+         * The rule will only match network requests when the domain matches one from the list of requestDomains.
+         * If the list is omitted, the rule is applied to requests from all domains.
+         * An empty list is not allowed.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         */
+        requestDomains?: string[] | undefined;
+
+        /**
+         * The rule will not match network requests when the domains matches one from the list of excludedRequestDomains.
+         * If the list is empty or omitted, no domains are excluded.
+         * This takes precedence over requestDomains.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         */
+        excludedRequestDomains?: string[] | undefined;
 
         /**
          * List of request methods which the rule won't match.
