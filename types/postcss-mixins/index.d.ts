@@ -35,7 +35,7 @@ declare namespace postcssMixins {
      * A mixin, either a function or an object
      */
     type Mixin = MixinFn | MixinObj;
-    type MixinFn = (mixin: Container, ...args: string[]) => Record<string, any> | void;
+    type MixinFn = (mixin: Container, ...args: string[]) => MixinObj | void;
     type MixinObj = Record<string, Record<string, any>>;
 }
 
