@@ -36,7 +36,10 @@ declare namespace postcssMixins {
      */
     type Mixin = MixinFn | MixinObj;
     type MixinFn = (mixin: Container, ...args: string[]) => MixinObj | void;
-    type MixinObj = Record<string, Record<string, any>>;
+    // The Exclude here is meant to make sure that you can't assign invalid functions to MixinObj,
+    // which is possible with Record<string, any>
+    // tslint:disable-next-line:ban-types
+    type MixinObj = Record<string, Exclude<Object, Function>>;
 }
 
 declare var postcssMixins: PluginCreator<postcssMixins.Options>;

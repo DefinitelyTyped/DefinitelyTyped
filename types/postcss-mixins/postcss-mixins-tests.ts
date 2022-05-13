@@ -22,6 +22,7 @@ postcssMixins({
         // Returning new nodes
         mixinFn2(_mixin, color) {
             return {
+                top: 10,
                 '&:hover': { color },
             };
         },
@@ -33,9 +34,8 @@ postcssMixins({
 
         // Mixin object
         mixinObj: {
-            '&:hover': {
-                color: 'red',
-            },
+            top: 10,
+            '&:hover': { color: 'red' },
         },
     },
 });
