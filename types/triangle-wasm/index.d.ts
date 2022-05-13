@@ -1,5 +1,5 @@
 // Type definitions for triangle-wasm 1.0
-// Project: https://github.com/brunoimbrizi/triangle-wasm (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/brunoimbrizi/triangle-wasm
 // Definitions by: Daniel Berlanga <https://github.com/danikaze>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -63,7 +63,7 @@ export interface TriangulateIO {
 /**
  * Initialises the WASM module.
  *
- * @param path (default `'/'`) path to triangle.out.wasm (See [Distributing WASM](https://github.com/brunoimbrizi/triangle-wasm#distributing-wasm))
+ * @param [path] (default `'/'`) path to triangle.out.wasm (See [Distributing WASM](https://github.com/brunoimbrizi/triangle-wasm#distributing-wasm))
  * @returns `Promise` which resolves when the .wasm module is ready.
  */
 export function init(path?: string): Promise<void>;
@@ -72,10 +72,10 @@ export function init(path?: string): Promise<void>;
  * Triangulates the data passed in as `input` and writes the result to `ouput`
  * (and the optional Voronoi result to `vorout`).
  *
- * @param switches
- * @param input
- * @param output
- * @param vorout
+ * @param switches an object or a string of switches
+ * @param input the input data
+ * @param output initialised, but empty
+ * @param [vorout] initialised, but empty
  */
 export function triangulate(
     switches: TriangulateSwitches | string,
@@ -88,7 +88,6 @@ export function triangulate(
  * Creates an instance of `TriangulateIO` and allocates memory on the heap.
  * `data` is only required when creating an input instance.
  *
- * @param data
  * @returns instance of `TriangulateIO`
  */
 export function makeIO(data?: TriangulateData): TriangulateIO;
@@ -97,7 +96,7 @@ export function makeIO(data?: TriangulateData): TriangulateIO;
  * Releases the allocated memory for an input/output instance.
  *
  * @param io reference to the stored i/o object
- * @param all release all copied pointers
+ * @param [all] release all copied pointers
  */
 export function freeIO(io: TriangulateIO, all?: boolean): void;
 
