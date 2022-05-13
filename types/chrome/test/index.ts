@@ -458,6 +458,16 @@ async function testTabGroupInterface() {
         tabGroup.id; // $ExpectType number
         tabGroup.title; // $ExpectType string | undefined
         tabGroup.windowId; // $ExpectType number
+
+        tabGroup.color = 'grey';
+        tabGroup.color = 'blue';
+        tabGroup.color = 'red';
+        tabGroup.color = 'yellow';
+        tabGroup.color = 'green';
+        tabGroup.color = 'pink';
+        tabGroup.color = 'purple';
+        tabGroup.color = 'cyan';
+        tabGroup.color = 'orange';
     });
   }
 
