@@ -547,8 +547,8 @@ export type Connection = NodeJS.EventEmitter & {
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
         fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
-        complete: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
-    }): void;
+        complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
+    }): Statement;
 
     /**
      * Fetches the result of a previously issued statement.

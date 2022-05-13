@@ -74,6 +74,22 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
             //
         },
     });
+
+    const stmt = conn.execute({
+        sqlText: '',
+        streamResult: true,
+    });
+    stmt; // $ExpectType Statement
+    const stream = stmt.streamRows(); // $ExpectType ReadableStream
+
+    const stmt2 = conn.execute({
+        sqlText: '',
+        streamResult: true,
+        complete(err, stmt, rows) {
+            const stream2 = stmt.streamRows(); // $ExpectType ReadableStream
+        },
+    });
+    stmt2; // $ExpectType Statement
 };
 connection.connect(connectCallback);
 connection.connectAsync(connectCallback);
@@ -112,4 +128,28 @@ snowflake.createConnection({
 const pool = snowflake.createPool({
     account: '',
     username: '',
+});
+
+pool.use<snowflake.Statement>(conn => {
+    return conn.execute({
+        sqlText: '',
+        binds: [],
+        streamResult: true,
+    });
+}).then(statement => statement.streamRows());
+
+pool.use<snowflake.Statement>(conn => {
+    return conn.execute({
+        sqlText: '',
+        binds: [],
+        streamResult: true,
+        complete: (_err, _stmt, _rows) => {},
+    });
+}).then(statement => statement.streamRows());
+
+pool.use<snowflake.Statement>(conn => {
+    return conn.execute({
+        sqlText: '',
+        complete: (_err, _stmt, _rows) => {},
+    });
 });
