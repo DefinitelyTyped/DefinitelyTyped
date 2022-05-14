@@ -1,4 +1,4 @@
-// Type definitions for gestalt 53.1
+// Type definitions for gestalt 55.2
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -415,24 +415,28 @@ export interface ComboBoxProps {
     label: string;
     options: ComboBoxItemType[];
     noResultText: string;
-    disabled?: boolean;
-    errorMessage?: string;
-    helperText?: string;
-    inputValue?: string;
-    labelDisplay?: 'visible' | 'hidden';
-    onChange?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    onBlur?: (args: { event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    onFocus?: (args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void;
-    onKeyDown?: (args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void;
-    onClear?: () => void;
+    zIndex?: Indexable | undefined;
+    disabled?: boolean | undefined;
+    errorMessage?: string | undefined;
+    helperText?: string | undefined;
+    inputValue?: string | undefined;
+    labelDisplay?: 'visible' | 'hidden' | undefined;
+    onChange?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void | undefined;
+    onBlur?: (args: {
+        event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>;
+        value: string;
+    }) => void | undefined;
+    onFocus?: (args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void | undefined;
+    onKeyDown?: (args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void | undefined;
+    onClear?: () => void | undefined;
     onSelect?: (args: {
         event: React.SyntheticEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
         item: ComboBoxItemType;
-    }) => void;
-    placeholder?: string;
-    selectedOption?: ComboBoxItemType;
-    size?: 'md' | 'lg';
-    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
+    }) => void | undefined;
+    placeholder?: string | undefined;
+    selectedOption?: ComboBoxItemType | undefined;
+    size?: 'md' | 'lg' | undefined;
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
 }
 
 /**
@@ -490,6 +494,7 @@ export interface DatapointProps {
     trend?: { accesibilityLabel: string; value: number } | undefined;
     trendSentiment?: 'good' | 'bad' | 'neutral' | 'auto' | undefined;
     badge?: BadgeObject | undefined;
+    tooltipZIndex?: Indexable | undefined;
 }
 
 /**
@@ -589,6 +594,7 @@ export interface DropdownLinkProps {
      * Do not add if the item navigates users within the app. See the Best practices for more info.
      */
     isExternal?: boolean | undefined;
+
     onClick?:
         | AbstractEventHandler<
               | React.MouseEvent<HTMLButtonElement>
@@ -862,6 +868,7 @@ export interface IconProps {
         | 'success'
         | 'error'
         | 'warning'
+        | 'info'
         | 'inverse'
         | 'shopping'
         | 'brandPrimary'
@@ -967,14 +974,18 @@ export interface LetterboxProps {
  * Link Props Interface
  * https://gestalt.netlify.app/Link
  */
+export type ExternalLinkIcon = 'none' | 'default' | { color: IconProps['color']; size: TextProps['size'] };
 export interface LinkProps {
     href: string;
     accessibilityLabel?: string | undefined;
-    accessibilitySelected?: boolean | undefined;
     children?: React.ReactNode | undefined;
     hoverStyle?: 'none' | 'underline' | undefined;
     id?: string | undefined;
     inline?: boolean | undefined;
+    /**
+     * When supplied, a "visit" icon is shown at the end of Link. See the [externalLinkIcon and rel variant](https://gestalt.pinterest.systems/link#externalLinkIcon-and-rel) to learn more.
+     */
+    externalLinkIcon?: ExternalLinkIcon | undefined;
     onBlur?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>> | undefined;
     onClick?:
         | AbstractEventHandler<
@@ -984,7 +995,6 @@ export interface LinkProps {
         | undefined;
     onFocus?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>> | undefined;
     rel?: 'none' | 'nofollow' | undefined;
-    role?: 'tab' | undefined;
     rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
     tapStyle?: 'none' | 'compress' | undefined;
     target?: null | 'self' | 'blank' | undefined;
@@ -1143,29 +1153,16 @@ export interface NumberFieldProps {
     /**
      * Callback triggered when the user blurs the input.
      */
-    onBlur?:
-        | ((args: {
-              event: React.FocusEvent<HTMLInputElement>;
-              value: number | undefined;
-          }) => void)
-        | undefined;
+    onBlur?: ((args: { event: React.FocusEvent<HTMLInputElement>; value: number | undefined }) => void) | undefined;
     /**
      * Callback triggered when the user focuses the input.
      */
-    onFocus?:
-        | ((args: {
-              event: React.FocusEvent<HTMLInputElement>;
-              value: number | undefined;
-          }) => void)
-        | undefined;
+    onFocus?: ((args: { event: React.FocusEvent<HTMLInputElement>; value: number | undefined }) => void) | undefined;
     /**
      * Callback triggered when the user presses any key while the input is focused.
      */
     onKeyDown?:
-        | ((args: {
-              event: React.KeyboardEvent<HTMLInputElement>;
-              value: number | undefined;
-          }) => void)
+        | ((args: { event: React.KeyboardEvent<HTMLInputElement>; value: number | undefined }) => void)
         | undefined;
     /**
      * Placeholder text shown when the user has not yes input a value.
@@ -1344,6 +1341,7 @@ export interface SelectListProps {
 /**
  * Sheet Props Interface
  * https://gestalt.netlify.app/Sheet
+ *
  */
 export type SheetNodeOrRenderProp = ((prop: { onDismissStart: () => void }) => React.ReactNode) | React.ReactNode;
 export type OnAnimationEndStateType = 'in' | 'out';
@@ -1358,6 +1356,50 @@ export interface SheetProps {
     size?: 'sm' | 'md' | 'lg' | undefined;
     subHeading?: SheetNodeOrRenderProp | undefined;
     onAnimationEnd?: (args: { animationState: OnAnimationEndStateType }) => void;
+}
+
+/**
+ * Slim Banner Props Interface
+ * https://gestalt.netlify.app/slimbanner
+ *
+ */
+export interface SlimBannerProps {
+    /**
+     * Helper [Link](https://gestalt.pinterest.systems/link) to be placed after the message. See the [helperLink variant](https://gestalt.pinterest.systems/slimbanner#helperLink) to learn more.
+     */
+    helperLink?: {
+        accessibilityLabel: string;
+        href: string;
+        target?: null | 'self' | 'blank' | undefined;
+        text: string;
+        onClick: (args: {
+            event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>;
+            dangerouslyDisableOnNavigation: () => void;
+        }) => void;
+    };
+    /**
+     * Label to describe the status icon’s purpose. See the [Accessibility guidelines](https://gestalt.pinterest.systems/slimbanner#Accessibility) for details on proper usage.
+     */
+    iconAccessibilityLabel?: string | undefined;
+    /**
+     * Main content of SlimBanner. Content should be [localized](https://gestalt.pinterest.systems/slimbanner#Localization).
+     *
+     */
+    message: string;
+    /**
+     * The type of SlimBanner. See the [variants](https://gestalt.pinterest.systems/slimbanner#Variants) to learn more.
+     */
+    type?:
+        | 'neutral'
+        | 'error'
+        | 'info'
+        | 'warning'
+        | 'success'
+        | 'errorBare'
+        | 'infoBare'
+        | 'warningBare'
+        | 'successBare'
+        | undefined;
 }
 
 /**
@@ -1653,7 +1695,7 @@ export interface TextAreaProps {
 export interface TextFieldProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    autoComplete?: 'current-password' | 'on' | 'off' | 'username' | 'new-password' | 'email' | undefined;
+    autoComplete?: 'bday' | 'current-password' | 'email' | 'new-password' | 'on' | 'off' | 'username' | undefined;
     /**
      * @default false
      */
@@ -1665,15 +1707,9 @@ export interface TextFieldProps {
     helperText?: string | undefined;
     label?: string | undefined;
     name?: string | undefined;
-    onBlur?:
-        | ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void)
-        | undefined;
-    onFocus?:
-        | ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void)
-        | undefined;
-    onKeyDown?:
-        | ((args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void)
-        | undefined;
+    onBlur?: ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void) | undefined;
+    onFocus?: ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void) | undefined;
+    onKeyDown?: ((args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void) | undefined;
     placeholder?: string | undefined;
     /**
      * md: 40px, lg: 48px
@@ -1891,6 +1927,7 @@ export const SearchField: ReactForwardRef<HTMLInputElement, SearchFieldProps>;
 export class SegmentedControl extends React.Component<SegmentedControlProps, any> {}
 export class SelectList extends React.Component<SelectListProps, any> {}
 export const Sheet: ReactForwardRef<HTMLDivElement, SheetProps>;
+export class SlimBanner extends React.Component<SlimBannerProps, any> {}
 export class Spinner extends React.Component<SpinnerProps, any> {}
 export class Stack extends React.Component<StackProps, any> {}
 export class Status extends React.Component<StatusProps, any> {}
