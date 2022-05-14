@@ -247,6 +247,10 @@ declare namespace googleMapReact {
             IMPERIAL: number;
             METRIC: number;
         };
+        /**
+         * @deprecated - The Zoom control is available in only one style, and
+         * `google.maps.ZoomControlStyle` is therefore no longer available.
+         */
         ZoomControlStyle: {
             DEFAULT: number;
             LARGE: number;
