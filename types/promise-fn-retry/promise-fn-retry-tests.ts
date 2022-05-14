@@ -6,6 +6,7 @@ const options: RetryOptions = {
     initialDelayTime: 100,
     onRetry: (err: unknown, controlOptions: RetryControlOptions) => {},
     shouldRetry: (err: unknown) => true,
-}
+};
 
-const res = retry(requestFn, options)
+// $ExpectType Promise<string>
+retry(requestFn, options);
