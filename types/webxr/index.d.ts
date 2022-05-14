@@ -207,8 +207,9 @@ export interface XRFrame {
     worldInformation?: {
         detectedPlanes?: XRPlaneSet | undefined;
     } | undefined;
+
     // Hand tracking
-    getJointPose?(joint: XRJointSpace, baseSpace: XRSpace): XRJointPose;
+    getJointPose?: (joint: XRJointSpace, baseSpace: XRSpace) => XRJointPose;
 }
 
 export interface XRInputSourceEvent extends Event {
@@ -379,11 +380,39 @@ export interface XRPlane {
     lastChangedTime: number;
 }
 
-// tslint:disable-next-line no-empty-interface
-export interface XRJointSpace extends XRSpace {}
+export type XRHandJoint =
+    | 'wrist'
+    | 'thumb-metacarpal'
+    | 'thumb-phalanx-proximal'
+    | 'thumb-phalanx-distal'
+    | 'thumb-tip'
+    | 'index-finger-metacarpal'
+    | 'index-finger-phalanx-proximal'
+    | 'index-finger-phalanx-intermediate'
+    | 'index-finger-phalanx-distal'
+    | 'index-finger-tip'
+    | 'middle-finger-metacarpal'
+    | 'middle-finger-phalanx-proximal'
+    | 'middle-finger-phalanx-intermediate'
+    | 'middle-finger-phalanx-distal'
+    | 'middle-finger-tip'
+    | 'ring-finger-metacarpal'
+    | 'ring-finger-phalanx-proximal'
+    | 'ring-finger-phalanx-intermediate'
+    | 'ring-finger-phalanx-distal'
+    | 'ring-finger-tip'
+    | 'pinky-finger-metacarpal'
+    | 'pinky-finger-phalanx-proximal'
+    | 'pinky-finger-phalanx-intermediate'
+    | 'pinky-finger-phalanx-distal'
+    | 'pinky-finger-tip';
+
+export interface XRJointSpace extends XRSpace {
+    readonly jointName: XRHandJoint;
+}
 
 export interface XRJointPose extends XRPose {
-    radius: number | undefined;
+    readonly radius: number | undefined;
 }
 
 export interface XRHand extends Iterable<XRJointSpace> {
