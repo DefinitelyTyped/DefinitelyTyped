@@ -151,7 +151,6 @@ interface XRWebGLLayerInit {
 }
 
 interface XRWebGLLayer extends XRLayer {
-
     readonly antialias: boolean;
     readonly ignoreDepthValues: boolean;
     fixedFoveation?: number | undefined;
@@ -403,7 +402,7 @@ declare class XRViewerPose {
     prototype: XRViewerPose;
 }
 
-interface XRRigidTransform { 
+interface XRRigidTransform {
     readonly position: DOMPointReadOnly;
     readonly orientation: DOMPointReadOnly;
     readonly matrix: Float32Array;
@@ -412,6 +411,7 @@ interface XRRigidTransform {
 
 declare class XRRigidTransform {
     constructor(position?: DOMPointInit, direction?: DOMPointInit);
+    prototype: XRRigidTransform;
 }
 
 interface XRView {
@@ -617,6 +617,7 @@ interface XRLayerEvent extends Event {
 
 declare class XRLayerEvent {
     constructor(type: "redraw", eventInitDict?: XRLayerEventInit);
+    prototype: XRLayerEvent;
 }
 
 interface XRCompositionLayerEventMap {
