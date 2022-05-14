@@ -101,6 +101,7 @@ declare namespace googleMapReact {
             UNKNOWN_ERROR: string;
             ZERO_RESULTS: string;
         };
+        /** @deprecated - Use `TravelMode` instead */
         DirectionsTravelMode: {
             BICYCLING: string;
             DRIVING: string;
@@ -108,6 +109,7 @@ declare namespace googleMapReact {
             TWO_WHEELER: string;
             WALKING: string;
         };
+        /** @deprecated - Use `UnitSystem` instead */
         DirectionsUnitSystem: {
             IMPERIAL: number;
             METRIC: number;
