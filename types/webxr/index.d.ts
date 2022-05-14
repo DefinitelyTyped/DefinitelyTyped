@@ -198,8 +198,9 @@ export interface XRFrame {
     // AR
     getHitTestResults(hitTestSource: XRHitTestSource): XRHitTestResult[];
     getHitTestResultsForTransientInput(
-        hitTestSource: XRTransientInputHitTestSource,
+        hitTestSource: XRTransientInputHitTestSource
     ): XRTransientInputHitTestResult[];
+
     // Anchors
     trackedAnchors?: XRAnchorSet | undefined;
     createAnchor?(pose: XRRigidTransform, space: XRSpace): Promise<XRAnchor>;
@@ -281,13 +282,13 @@ export interface XRSession {
     onvisibilitychange: XREventHandler;
 
     // hit test
-    requestHitTestSource?(options: XRHitTestOptionsInit): Promise<XRHitTestSource>;
-    requestHitTestSourceForTransientInput?(
+    requestHitTestSource?: (options: XRHitTestOptionsInit) => Promise<XRHitTestSource>;
+    requestHitTestSourceForTransientInput?: (
         options: XRTransientInputHitTestOptionsInit,
-    ): Promise<XRTransientInputHitTestSource>;
+    ) => Promise<XRTransientInputHitTestSource>;
 
     // legacy AR hit test
-    requestHitTest?(ray: XRRay, referenceSpace: XRReferenceSpace): Promise<XRHitResult[]>;
+    requestHitTest?: (ray: XRRay, referenceSpace: XRReferenceSpace) => Promise<XRHitResult[]>;
 
     // legacy plane detection
     updateWorldTrackingState?(options: { planeDetectionState?: { enabled: boolean } | undefined }): void;
@@ -322,16 +323,15 @@ export interface XRInputSourceChangeEvent extends Event {
 // Experimental/Draft features
 export class XRRay {
     constructor(transformOrOrigin: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
-    origin: DOMPointReadOnly;
-    direction: DOMPointReadOnly;
-    matrix: Float32Array;
+    readonly origin: DOMPointReadOnly;
+    readonly direction: DOMPointReadOnly;
+    readonly matrix: Float32Array;
 }
 
-export enum XRHitTestTrackableType {
-    'point',
-    'plane',
-    'mesh',
-}
+export type XRHitTestTrackableType =
+    | 'point'
+    | 'plane'
+    | 'mesh';
 
 export interface XRHitResult {
     hitMatrix: Float32Array;
