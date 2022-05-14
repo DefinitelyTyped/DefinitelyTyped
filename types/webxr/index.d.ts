@@ -606,3 +606,53 @@ export class XRMediaBinding {
     createCylinderLayer(video: HTMLVideoElement, init?: XRMediaCylinderLayerInit): XRCylinderLayer;
     createEquirectLayer(video: HTMLVideoElement, init?: XRMediaEquirectLayerInit): XREquirectLayer;
 }
+
+// WebGL extensions
+export interface XRWebGLRenderingContext {
+    makeXRCompatible(): Promise<void>;
+}
+
+export interface WebGLRenderingContextBase {
+    getExtension(extensionName: "OCULUS_multiview"): OCULUS_multiview | null;
+}
+
+export interface WebGLRenderingContext extends XRWebGLRenderingContext {
+}
+
+export interface WebGL2RenderingContext extends XRWebGLRenderingContext {
+}
+
+export enum XOVR_multiview2 {
+    FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR = 0x9630,
+    FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR = 0x9632,
+    MAX_VIEWS_OVR = 0x9631,
+    FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR = 0x9633
+}
+
+export interface OVR_multiview2 {
+    FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR: XOVR_multiview2;
+    FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR: XOVR_multiview2;
+    MAX_VIEWS_OVR: XOVR_multiview2;
+    FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR: XOVR_multiview2;
+
+    framebufferTextureMultiviewOVR(
+        target: GLenum,
+        attachment: GLenum,
+        texture: WebGLTexture,
+        level: number,
+        baseViewIndex: number,
+        numViews: number
+    ): WebGLRenderbuffer;
+}
+
+export interface OCULUS_multiview extends OVR_multiview2 {
+    framebufferTextureMultisampleMultiviewOVR(
+        target: GLenum,
+        attachment: GLenum,
+        texture: WebGLTexture | null,
+        level: GLint,
+        samples: GLsizei,
+        baseViewIndex: GLint,
+        numViews: GLsizei
+    ): void;
+}
