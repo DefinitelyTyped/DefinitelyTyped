@@ -103,16 +103,16 @@ interface XRSystemEventMap extends HTMLMediaElementEventMap {
 }
 
 interface XRSystem extends EventTarget {
-    requestSession(mode: XRSessionMode, options?: XRSessionInit | undefined): Promise<XRSession>;
+    requestSession(mode: XRSessionMode, options?: XRSessionInit): Promise<XRSession>;
     isSessionSupported(mode: XRSessionMode): Promise<boolean>;
 
     ondevicechange: ((this: XRSystem, ev: XRSystemDeviceChangeEvent) => any) | null;
     onsessiongranted: ((this: XRSystem, ev: XRSystemSessionGrantedEvent) => any) | null;
 
-    addEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | AddEventListenerOptions | undefined): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions | undefined): void;
-    removeEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | EventListenerOptions | undefined): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions | undefined): void;
+    addEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 interface XRViewport {
@@ -137,7 +137,7 @@ declare class XRWebGLLayer implements XRLayer {
     constructor(
         session: XRSession,
         context: WebGLRenderingContext | WebGL2RenderingContext,
-        layerInit?: XRWebGLLayerInit | undefined,
+        layerInit?: XRWebGLLayerInit,
     );
 
     readonly antialias: boolean;
@@ -150,8 +150,8 @@ declare class XRWebGLLayer implements XRLayer {
 
     getViewport(view: XRView): XRViewport | undefined;
 
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions | undefined): void;
-    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | EventListenerOptions | undefined): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | EventListenerOptions): void;
     dispatchEvent(event: Event): boolean;
 }
 
@@ -307,10 +307,10 @@ interface XRSession extends EventTarget {
     onvisibilitychange: XREventHandler;
     onframeratechange: XREventHandler;
 
-    addEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | AddEventListenerOptions | undefined): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions | undefined): void;
-    removeEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | EventListenerOptions | undefined): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions | undefined): void;
+    addEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 
     // hit test
     requestHitTestSource?: (options: XRHitTestOptionsInit) => Promise<XRHitTestSource> | undefined;
@@ -334,7 +334,7 @@ interface XRViewerPose extends XRPose {
 }
 
 declare class XRRigidTransform {
-    constructor(position?: DOMPointInit | undefined, direction?: DOMPointInit | undefined);
+    constructor(position?: DOMPointInit, direction?: DOMPointInit);
     position: DOMPointReadOnly;
     orientation: DOMPointReadOnly;
     matrix: Float32Array;
@@ -356,7 +356,7 @@ interface XRInputSourceChangeEvent extends XRSessionEvent {
 
 // Experimental/Draft features
 declare class XRRay {
-    constructor(transformOrOrigin: XRRigidTransform | DOMPointInit, direction?: DOMPointInit | undefined);
+    constructor(transformOrOrigin: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
     readonly origin: DOMPointReadOnly;
     readonly direction: DOMPointReadOnly;
     readonly matrix: Float32Array;
@@ -517,12 +517,12 @@ interface XRCompositionLayer extends XRLayer {
         this: XRCompositionLayer,
         type: K,
         callback: (evt: XRCompositionLayerEventMap[K]) => any,
-        options?: boolean | AddEventListenerOptions | undefined
+        options?: boolean | AddEventListenerOptions
     ): void;
     addEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions | undefined
+        options?: boolean | AddEventListenerOptions
     ): void;
 
     removeEventListener<K extends keyof XRCompositionLayerEventMap>(
@@ -533,7 +533,7 @@ interface XRCompositionLayer extends XRLayer {
     removeEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions | undefined
+        options?: boolean | EventListenerOptions
     ): void;
 }
 
@@ -669,22 +669,22 @@ declare class XRWebGLBinding {
 
     readonly nativeProjectionScaleFactor: number;
 
-    createProjectionLayer(init?: XRProjectionLayerInit | undefined): XRProjectionLayer;
-    createQuadLayer(init?: XRQuadLayerInit | undefined): XRQuadLayer;
-    createCylinderLayer(init?: XRCylinderLayerInit | undefined): XRCylinderLayer;
-    createEquirectLayer(init?: XREquirectLayerInit | undefined): XREquirectLayer;
-    createCubeLayer(init?: XRCubeLayerInit | undefined): XRCubeLayer;
+    createProjectionLayer(init?: XRProjectionLayerInit): XRProjectionLayer;
+    createQuadLayer(init?: XRQuadLayerInit): XRQuadLayer;
+    createCylinderLayer(init?: XRCylinderLayerInit): XRCylinderLayer;
+    createEquirectLayer(init?: XREquirectLayerInit): XREquirectLayer;
+    createCubeLayer(init?: XRCubeLayerInit): XRCubeLayer;
 
-    getSubImage(layer: XRCompositionLayer, frame: XRFrame, eye?: XREye | undefined): XRWebGLSubImage;
+    getSubImage(layer: XRCompositionLayer, frame: XRFrame, eye?: XREye): XRWebGLSubImage;
     getViewSubImage(layer: XRProjectionLayer, view: XRView): XRWebGLSubImage;
 }
 
 declare class XRMediaBinding {
     constructor(sesion: XRSession);
 
-    createQuadLayer(video: HTMLVideoElement, init?: XRMediaQuadLayerInit | undefined): XRQuadLayer;
-    createCylinderLayer(video: HTMLVideoElement, init?: XRMediaCylinderLayerInit | undefined): XRCylinderLayer;
-    createEquirectLayer(video: HTMLVideoElement, init?: XRMediaEquirectLayerInit | undefined): XREquirectLayer;
+    createQuadLayer(video: HTMLVideoElement, init?: XRMediaQuadLayerInit): XRQuadLayer;
+    createCylinderLayer(video: HTMLVideoElement, init?: XRMediaCylinderLayerInit): XRCylinderLayer;
+    createEquirectLayer(video: HTMLVideoElement, init?: XRMediaEquirectLayerInit): XREquirectLayer;
 }
 
 // WebGL extensions
