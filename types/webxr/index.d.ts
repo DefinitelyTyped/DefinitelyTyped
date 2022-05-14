@@ -102,16 +102,16 @@ interface XRSystemEventMap extends HTMLMediaElementEventMap {
 }
 
 interface XRSystem extends EventTarget {
-    requestSession(mode: XRSessionMode, options?: XRSessionInit): Promise<XRSession>;
+    requestSession(mode: XRSessionMode, options?: XRSessionInit | undefined): Promise<XRSession>;
     isSessionSupported(mode: XRSessionMode): Promise<boolean>;
 
     ondevicechange: ((this: XRSystem, ev: XRSystemDeviceChangeEvent) => any) | null;
     onsessiongranted: ((this: XRSystem, ev: XRSystemSessionGrantedEvent) => any) | null;
 
-    addEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | AddEventListenerOptions | undefined): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions | undefined): void;
+    removeEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | EventListenerOptions | undefined): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions | undefined): void;
 }
 
 interface XRViewport {
@@ -136,7 +136,7 @@ declare class XRWebGLLayer implements XRLayer {
     constructor(
         session: XRSession,
         context: WebGLRenderingContext | WebGL2RenderingContext,
-        layerInit ?: XRWebGLLayerInit,
+        layerInit?: XRWebGLLayerInit | undefined,
     );
 
     readonly antialias: boolean;
@@ -149,8 +149,8 @@ declare class XRWebGLLayer implements XRLayer {
 
     getViewport(view: XRView): XRViewport | undefined;
 
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | EventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions | undefined): void;
+    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | EventListenerOptions | undefined): void;
     dispatchEvent(event: Event): boolean;
 }
 
@@ -168,9 +168,9 @@ interface XRRenderState {
 }
 
 interface XRRenderStateInit {
-    baseLayer?: XRWebGLLayer;
-    depthFar?: number;
-    depthNear?: number;
+    baseLayer?: XRWebGLLayer | undefined;
+    depthFar?: number | undefined;
+    depthNear?: number | undefined;
     inlineVerticalFieldOfView?: number | undefined;
     layers?: XRLayer[] | undefined;
 }
@@ -212,7 +212,7 @@ interface XRFrame {
 
     // Anchors
     trackedAnchors?: XRAnchorSet | undefined;
-    createAnchor?: (pose: XRRigidTransform, space: XRSpace) => Promise<XRAnchor>;
+    createAnchor?: (pose: XRRigidTransform, space: XRSpace) => Promise<XRAnchor> | undefined;
 
     // Planes
     worldInformation?: {
@@ -220,7 +220,7 @@ interface XRFrame {
     } | undefined;
 
     // Hand tracking
-    getJointPose?: (joint: XRJointSpace, baseSpace: XRSpace) => XRJointPose;
+    getJointPose?: (joint: XRJointSpace, baseSpace: XRSpace) => XRJointPose | undefined;
 }
 
 declare class XRFrame {
@@ -258,8 +258,8 @@ interface XRSession extends EventTarget {
     readonly renderState: XRRenderState;
     readonly environmentBlendMode: XREnvironmentBlendMode;
     readonly visibilityState: XRVisibilityState;
-    readonly frameRate?: number;
-    readonly supportedFrameRates?: Float32Array;
+    readonly frameRate?: number | undefined;
+    readonly supportedFrameRates?: Float32Array | undefined;
 
     /**
      * Removes a callback from the animation frame painting callback from
@@ -306,22 +306,22 @@ interface XRSession extends EventTarget {
     onvisibilitychange: XREventHandler;
     onframeratechange: XREventHandler;
 
-    addEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | AddEventListenerOptions | undefined): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions | undefined): void;
+    removeEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | EventListenerOptions | undefined): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions | undefined): void;
 
     // hit test
-    requestHitTestSource?: (options: XRHitTestOptionsInit) => Promise<XRHitTestSource>;
+    requestHitTestSource?: (options: XRHitTestOptionsInit) => Promise<XRHitTestSource> | undefined;
     requestHitTestSourceForTransientInput?: (
         options: XRTransientInputHitTestOptionsInit,
-    ) => Promise<XRTransientInputHitTestSource>;
+    ) => Promise<XRTransientInputHitTestSource> | undefined;
 
     // legacy AR hit test
-    requestHitTest?: (ray: XRRay, referenceSpace: XRReferenceSpace) => Promise<XRHitResult[]>;
+    requestHitTest?: (ray: XRRay, referenceSpace: XRReferenceSpace) => Promise<XRHitResult[]> | undefined;
 
     // legacy plane detection
-    updateWorldTrackingState?: (options: { planeDetectionState?: { enabled: boolean } | undefined }) => void;
+    updateWorldTrackingState?: (options: { planeDetectionState?: { enabled: boolean } | undefined }) => void | undefined;
 }
 
 declare class XRSession {
@@ -333,7 +333,7 @@ interface XRViewerPose extends XRPose {
 }
 
 declare class XRRigidTransform {
-    constructor(position?: DOMPointInit, direction?: DOMPointInit);
+    constructor(position?: DOMPointInit | undefined, direction?: DOMPointInit | undefined);
     position: DOMPointReadOnly;
     orientation: DOMPointReadOnly;
     matrix: Float32Array;
@@ -355,7 +355,7 @@ interface XRInputSourceChangeEvent extends XRSessionEvent {
 
 // Experimental/Draft features
 declare class XRRay {
-    constructor(transformOrOrigin: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
+    constructor(transformOrOrigin: XRRigidTransform | DOMPointInit, direction?: DOMPointInit | undefined);
     readonly origin: DOMPointReadOnly;
     readonly direction: DOMPointReadOnly;
     readonly matrix: Float32Array;
@@ -378,7 +378,7 @@ interface XRTransientInputHitTestResult {
 interface XRHitTestResult {
     getPose(baseSpace: XRSpace): XRPose | undefined;
     // When anchor system is enabled
-    createAnchor?(pose: XRRigidTransform): Promise<XRAnchor>;
+    createAnchor?: (pose: XRRigidTransform) => Promise<XRAnchor> | undefined;
 }
 
 interface XRHitTestSource {
@@ -502,7 +502,7 @@ interface XRCompositionLayerEventMap {
 interface XRCompositionLayer extends XRLayer {
     readonly layout: XRLayerLayout;
     blendTextureSourceAlpha: boolean;
-    chromaticAberrationCorrection?: boolean;
+    chromaticAberrationCorrection?: boolean | undefined;
     readonly mipLevels: number;
     readonly needsRedraw: boolean;
     destroy(): void;
@@ -516,12 +516,12 @@ interface XRCompositionLayer extends XRLayer {
         this: XRCompositionLayer,
         type: K,
         callback: (evt: XRCompositionLayerEventMap[K]) => any,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions | undefined
     ): void;
     addEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions | undefined
     ): void;
 
     removeEventListener<K extends keyof XRCompositionLayerEventMap>(
@@ -532,7 +532,7 @@ interface XRCompositionLayer extends XRLayer {
     removeEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions | undefined
     ): void;
 }
 
@@ -546,10 +546,10 @@ type XRLayerLayout =
     | "stereo-top-bottom";
 
 interface XRProjectionLayerInit {
-    scaleFactor?: number;
-    textureType?: XRTextureType;
-    colorFormat?: GLenum;
-    depthFormat?: GLenum;
+    scaleFactor?: number | undefined;
+    textureType?: XRTextureType | undefined;
+    colorFormat?: GLenum | undefined;
+    depthFormat?: GLenum | undefined;
 }
 
 interface XRProjectionLayer extends XRCompositionLayer {
@@ -561,35 +561,35 @@ interface XRProjectionLayer extends XRCompositionLayer {
 }
 
 interface XRLayerInit {
-    mipLevels?: number;
+    mipLevels?: number | undefined;
     viewPixelWidth: number;
     viewPixelHeight: number;
-    isStatic?: boolean;
-    colorFormat?: GLenum;
-    depthFormat?: GLenum;
+    isStatic?: boolean | undefined;
+    colorFormat?: GLenum | undefined;
+    depthFormat?: GLenum | undefined;
     space: XRSpace;
-    layout?: XRLayerLayout;
+    layout?: XRLayerLayout | undefined;
 }
 
 interface XRMediaLayerInit {
-    invertStereo?: boolean;
+    invertStereo?: boolean | undefined;
     space: XRSpace;
-    layout?: XRLayerLayout;
+    layout?: XRLayerLayout | undefined;
 }
 
 interface XRCylinderLayerInit extends XRLayerInit {
-    textureType?: XRTextureType;
+    textureType?: XRTextureType | undefined;
     transform: XRRigidTransform;
-    radius?: number;
-    centralAngle?: number;
-    aspectRatio?: number;
+    radius?: number | undefined;
+    centralAngle?: number | undefined;
+    aspectRatio?: number | undefined;
 }
 
 interface XRMediaCylinderLayerInit extends XRMediaLayerInit {
-    transform?: XRRigidTransform;
-    radius?: number;
-    centralAngle?: number;
-    aspectRatio?: number;
+    transform?: XRRigidTransform | undefined;
+    radius?: number | undefined;
+    centralAngle?: number | undefined;
+    aspectRatio?: number | undefined;
 }
 
 interface XRCylinderLayer extends XRCompositionLayer {
@@ -600,16 +600,16 @@ interface XRCylinderLayer extends XRCompositionLayer {
 }
 
 interface XRQuadLayerInit extends XRLayerInit {
-    textureType?: XRTextureType;
-    transform?: XRRigidTransform;
-    width?: number;
-    height?: number;
+    textureType?: XRTextureType | undefined;
+    transform?: XRRigidTransform | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
 }
 
 interface XRMediaQuadLayerInit extends XRMediaLayerInit {
-    transform?: XRRigidTransform;
-    width?: number;
-    height?: number;
+    transform?: XRRigidTransform | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
 }
 
 interface XRQuadLayer extends XRCompositionLayer {
@@ -619,20 +619,20 @@ interface XRQuadLayer extends XRCompositionLayer {
 }
 
 interface XREquirectLayerInit extends XRLayerInit {
-    textureType?: XRTextureType;
-    transform?: XRRigidTransform;
-    radius?: number;
-    centralHorizontalAngle?: number;
-    upperVerticalAngle?: number;
-    lowerVerticalAngle?: number;
+    textureType?: XRTextureType | undefined;
+    transform?: XRRigidTransform | undefined;
+    radius?: number | undefined;
+    centralHorizontalAngle?: number | undefined;
+    upperVerticalAngle?: number | undefined;
+    lowerVerticalAngle?: number | undefined;
 }
 
 interface XRMediaEquirectLayerInit extends XRMediaLayerInit {
-    transform?: XRRigidTransform;
-    radius?: number;
-    centralHorizontalAngle?: number;
-    upperVerticalAngle?: number;
-    lowerVerticalAngle?: number;
+    transform?: XRRigidTransform | undefined;
+    radius?: number | undefined;
+    centralHorizontalAngle?: number | undefined;
+    upperVerticalAngle?: number | undefined;
+    lowerVerticalAngle?: number | undefined;
 }
 
 interface XREquirectLayer extends XRCompositionLayer {
@@ -644,7 +644,7 @@ interface XREquirectLayer extends XRCompositionLayer {
 }
 
 interface XRCubeLayerInit extends XRLayerInit {
-    orientation?: DOMPointReadOnly;
+    orientation?: DOMPointReadOnly | undefined;
 }
 
 interface XRCubeLayer extends XRCompositionLayer {
@@ -668,22 +668,22 @@ declare class XRWebGLBinding {
 
     readonly nativeProjectionScaleFactor: number;
 
-    createProjectionLayer(init?: XRProjectionLayerInit): XRProjectionLayer;
-    createQuadLayer(init?: XRQuadLayerInit): XRQuadLayer;
-    createCylinderLayer(init?: XRCylinderLayerInit): XRCylinderLayer;
-    createEquirectLayer(init?: XREquirectLayerInit): XREquirectLayer;
-    createCubeLayer(init?: XRCubeLayerInit): XRCubeLayer;
+    createProjectionLayer(init?: XRProjectionLayerInit | undefined): XRProjectionLayer;
+    createQuadLayer(init?: XRQuadLayerInit | undefined): XRQuadLayer;
+    createCylinderLayer(init?: XRCylinderLayerInit | undefined): XRCylinderLayer;
+    createEquirectLayer(init?: XREquirectLayerInit | undefined): XREquirectLayer;
+    createCubeLayer(init?: XRCubeLayerInit | undefined): XRCubeLayer;
 
-    getSubImage(layer: XRCompositionLayer, frame: XRFrame, eye?: XREye): XRWebGLSubImage;
+    getSubImage(layer: XRCompositionLayer, frame: XRFrame, eye?: XREye | undefined): XRWebGLSubImage;
     getViewSubImage(layer: XRProjectionLayer, view: XRView): XRWebGLSubImage;
 }
 
 declare class XRMediaBinding {
     constructor(sesion: XRSession);
 
-    createQuadLayer(video: HTMLVideoElement, init?: XRMediaQuadLayerInit): XRQuadLayer;
-    createCylinderLayer(video: HTMLVideoElement, init?: XRMediaCylinderLayerInit): XRCylinderLayer;
-    createEquirectLayer(video: HTMLVideoElement, init?: XRMediaEquirectLayerInit): XREquirectLayer;
+    createQuadLayer(video: HTMLVideoElement, init?: XRMediaQuadLayerInit | undefined): XRQuadLayer;
+    createCylinderLayer(video: HTMLVideoElement, init?: XRMediaCylinderLayerInit | undefined): XRCylinderLayer;
+    createEquirectLayer(video: HTMLVideoElement, init?: XRMediaEquirectLayerInit | undefined): XREquirectLayer;
 }
 
 // WebGL extensions
