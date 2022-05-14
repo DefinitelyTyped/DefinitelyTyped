@@ -1,4 +1,4 @@
-// Type definitions for non-npm package webxr 0.3
+// Type definitions for non-npm package webxr 0.4
 // Project: https://www.w3.org/TR/webxr/
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 //                 Raanan Weber <https://github.com/RaananW>
@@ -50,17 +50,20 @@ type XREye = 'none' | 'left' | 'right';
 /**
  * Type of XR events available
  */
+type XRInputSourceEventType =
+    | "select"
+    | "selectend"
+    | "selectstart"
+    | "squeeze"
+    | "squeezeend"
+    | "squeezestart";
+
 type XREventType =
+    | XRInputSourceEventType
     | 'devicechange'
     | 'visibilitychange'
     | 'end'
     | 'inputsourceschange'
-    | 'select'
-    | 'selectstart'
-    | 'selectend'
-    | 'squeeze'
-    | 'squeezestart'
-    | 'squeezeend'
     | 'reset';
 
 type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
@@ -75,6 +78,10 @@ interface XREventHandler {
 // tslint:disable-next-line no-empty-interface
 interface XRLayer extends EventTarget { }
 
+declare class XRLayer {
+    prototype: XRLayer;
+}
+
 interface XRSessionInit {
     optionalFeatures?: string[] | undefined;
     requiredFeatures?: string[] | undefined;
@@ -82,6 +89,10 @@ interface XRSessionInit {
 
 interface XRSessionEvent extends Event {
     readonly session: XRSession;
+}
+
+declare class XRSessionEvent {
+    prototype: XRSessionEvent;
 }
 
 interface XRSystemDeviceChangeEvent extends Event {
@@ -115,11 +126,19 @@ interface XRSystem extends EventTarget {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
+declare class XRSystem {
+    prototype: XRSystem;
+}
+
 interface XRViewport {
     readonly x: number;
     readonly y: number;
     readonly width: number;
     readonly height: number;
+}
+
+declare class XRViewport {
+    prototype: XRViewport;
 }
 
 interface XRWebGLLayerInit {
@@ -131,14 +150,7 @@ interface XRWebGLLayerInit {
     framebufferScaleFactor?: number | undefined;
 }
 
-declare class XRWebGLLayer implements XRLayer {
-    static getNativeFramebufferScaleFactor(session: XRSession): number;
-
-    constructor(
-        session: XRSession,
-        context: WebGLRenderingContext | WebGL2RenderingContext,
-        layerInit?: XRWebGLLayerInit,
-    );
+interface XRWebGLLayer extends XRLayer {
 
     readonly antialias: boolean;
     readonly ignoreDepthValues: boolean;
@@ -155,8 +167,24 @@ declare class XRWebGLLayer implements XRLayer {
     dispatchEvent(event: Event): boolean;
 }
 
+declare class XRWebGLLayer {
+    static getNativeFramebufferScaleFactor(session: XRSession): number;
+
+    constructor(
+        session: XRSession,
+        context: WebGLRenderingContext | WebGL2RenderingContext,
+        layerInit?: XRWebGLLayerInit,
+    );
+
+    prototype: XRWebGLLayer;
+}
+
 // tslint:disable-next-line no-empty-interface
 interface XRSpace extends EventTarget { }
+
+declare class XRSpace {
+    prototype: XRSpace;
+}
 
 interface XRRenderState {
     readonly baseLayer?: XRWebGLLayer | undefined;
@@ -166,6 +194,10 @@ interface XRRenderState {
 
     // https://immersive-web.github.io/layers/#xrrenderstatechanges
     readonly layers?: XRLayer[] | undefined;
+}
+
+declare class XRRenderState {
+    prototype: XRRenderState;
 }
 
 interface XRRenderStateInit {
@@ -181,8 +213,16 @@ interface XRReferenceSpace extends XRSpace {
     onreset: XREventHandler;
 }
 
+declare class XRReferenceSpace {
+    prototype: XRReferenceSpace;
+}
+
 interface XRBoundedReferenceSpace extends XRReferenceSpace {
     readonly boundsGeometry: DOMPointReadOnly[];
+}
+
+declare class XRBoundedReferenceSpace {
+    prototype: XRBoundedReferenceSpace;
 }
 
 interface XRInputSource {
@@ -195,9 +235,24 @@ interface XRInputSource {
     readonly hand?: XRHand | undefined;
 }
 
+declare class XRInputSource {
+    prototype: XRInputSource;
+}
+
+// tslint:disable-next-line no-empty-interface
+interface XRInputSourceArray extends Array<XRInputSource> { }
+
+declare class XRInputSourceArray {
+    prototype: XRInputSourceArray;
+}
+
 interface XRPose {
     readonly transform: XRRigidTransform;
     readonly emulatedPosition: boolean;
+}
+
+declare class XRPose {
+    prototype: XRPose;
 }
 
 interface XRFrame {
@@ -229,21 +284,32 @@ declare class XRFrame {
 }
 
 interface XRInputSourceEvent extends Event {
+    readonly type: XRInputSourceEventType;
     readonly frame: XRFrame;
     readonly inputSource: XRInputSource;
+}
+
+interface XRInputSourceEventInit extends EventInit {
+    frame?: XRFrame | undefined;
+    inputSource?: XRInputSource | undefined;
+}
+
+declare class XRInputSourceEvent {
+    constructor(type: XRInputSourceEventType, eventInitDict?: XRInputSourceEventInit);
+    prototype: XRInputSourceEvent;
 }
 
 interface XRSessionEventMap {
     "end": XREventHandler;
     "inputsourceschange": XREventHandler;
-    "select": XREventHandler;
-    "selectstart": XREventHandler;
-    "selectend": XREventHandler;
-    "squeeze": XREventHandler;
-    "squeezestart": XREventHandler;
-    "squeezeend": XREventHandler;
     "visibilitychange": XREventHandler;
     "frameratechange": XREventHandler;
+    "select": XRInputSourceEvent;
+    "selectstart": XRInputSourceEvent;
+    "selectend": XRInputSourceEvent;
+    "squeeze": XRInputSourceEvent;
+    "squeezestart": XRInputSourceEvent;
+    "squeezeend": XRInputSourceEvent;
 }
 
 interface XRSession extends EventTarget {
@@ -251,7 +317,7 @@ interface XRSession extends EventTarget {
      * Returns a list of this session's XRInputSources, each representing an input device
      * used to control the camera and/or scene.
      */
-    readonly inputSources: XRInputSource[];
+    readonly inputSources: XRInputSourceArray;
     /**
      * object which contains options affecting how the imagery is rendered.
      * This includes things such as the near and far clipping planes
@@ -330,15 +396,22 @@ declare class XRSession {
 }
 
 interface XRViewerPose extends XRPose {
-    readonly views: XRView[];
+    readonly views: ReadonlyArray<XRView>;
+}
+
+declare class XRViewerPose {
+    prototype: XRViewerPose;
+}
+
+interface XRRigidTransform { 
+    readonly position: DOMPointReadOnly;
+    readonly orientation: DOMPointReadOnly;
+    readonly matrix: Float32Array;
+    readonly inverse: XRRigidTransform;
 }
 
 declare class XRRigidTransform {
     constructor(position?: DOMPointInit, direction?: DOMPointInit);
-    position: DOMPointReadOnly;
-    orientation: DOMPointReadOnly;
-    matrix: Float32Array;
-    inverse: XRRigidTransform;
 }
 
 interface XRView {
@@ -349,17 +422,36 @@ interface XRView {
     requestViewportScale(scale: number): void;
 }
 
+declare class XRView {
+    prototype: XRView;
+}
+
 interface XRInputSourceChangeEvent extends XRSessionEvent {
-    removed: XRInputSource[];
-    added: XRInputSource[];
+    readonly removed: ReadonlyArray<XRInputSource>;
+    readonly added: ReadonlyArray<XRInputSource>;
+}
+
+interface XRInputSourceChangeEventInit extends EventInit {
+    session?: XRSession;
+    added?: XRInputSource[];
+    removed?: XRInputSource[];
+}
+
+declare class XRInputSourceChangeEvent {
+    constructor(type: "inpuptsourceschange", eventInitDict?: XRInputSourceChangeEventInit);
+    prototype: XRInputSourceChangeEvent;
 }
 
 // Experimental/Draft features
-declare class XRRay {
-    constructor(transformOrOrigin: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
+interface XRRay {
     readonly origin: DOMPointReadOnly;
     readonly direction: DOMPointReadOnly;
     readonly matrix: Float32Array;
+}
+
+declare class XRRay {
+    constructor(transformOrOrigin: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
+    prototype: XRRay;
 }
 
 type XRHitTestTrackableType =
@@ -373,7 +465,11 @@ interface XRHitResult {
 
 interface XRTransientInputHitTestResult {
     readonly inputSource: XRInputSource;
-    readonly results: XRHitTestResult[];
+    readonly results: ReadonlyArray<XRHitTestResult>;
+}
+
+declare class XRTransientInputHitTestResult {
+    prototype: XRTransientInputHitTestResult;
 }
 
 interface XRHitTestResult {
@@ -382,12 +478,24 @@ interface XRHitTestResult {
     createAnchor?: (pose: XRRigidTransform) => Promise<XRAnchor> | undefined;
 }
 
+declare class XRHitTestResult {
+    prototype: XRHitTestResult;
+}
+
 interface XRHitTestSource {
     cancel(): void;
 }
 
+declare class XRHitTestSource {
+    prototype: XRHitTestSource;
+}
+
 interface XRTransientInputHitTestSource {
     cancel(): void;
+}
+
+declare class XRTransientInputHitTestSource {
+    prototype: XRTransientInputHitTestSource;
 }
 
 interface XRHitTestOptionsInit {
@@ -405,6 +513,10 @@ interface XRTransientInputHitTestOptionsInit {
 interface XRAnchor {
     anchorSpace: XRSpace;
     delete(): void;
+}
+
+declare class XRAnchor {
+    prototype: XRAnchor;
 }
 
 interface XRPlane {
@@ -445,15 +557,19 @@ interface XRJointSpace extends XRSpace {
     readonly jointName: XRHandJoint;
 }
 
+declare class XRJointSpace {
+    prototype: XRJointSpace;
+}
+
 interface XRJointPose extends XRPose {
     readonly radius: number | undefined;
 }
 
-interface XRHand extends Iterable<XRJointSpace> {
-    readonly length: number;
+declare class XRJointPose {
+    prototype: XRJointPose;
+}
 
-    [index: number]: XRJointSpace;
-
+interface XRHand extends Map<number, XRJointSpace> {
     readonly WRIST: number;
 
     readonly THUMB_METACARPAL: number;
@@ -486,14 +602,21 @@ interface XRHand extends Iterable<XRJointSpace> {
     readonly LITTLE_PHALANX_TIP: number;
 }
 
+declare class XRHand {
+    prototype: XRHand;
+}
+
 // WebXR Layers
 interface XRLayerEventInit extends EventInit {
     layer: XRLayer;
 }
 
-declare class XRLayerEvent extends Event {
-    constructor(type: string, eventInitDict: XRLayerEventInit);
+interface XRLayerEvent extends Event {
     readonly layer: XRLayer;
+}
+
+declare class XRLayerEvent {
+    constructor(type: "redraw", eventInitDict?: XRLayerEventInit);
 }
 
 interface XRCompositionLayerEventMap {
@@ -537,6 +660,10 @@ interface XRCompositionLayer extends XRLayer {
     ): void;
 }
 
+declare class XRCompositionLayer {
+    prototype: XRCompositionLayer;
+}
+
 type XRTextureType = "texture" | "texture-array";
 
 type XRLayerLayout =
@@ -559,6 +686,10 @@ interface XRProjectionLayer extends XRCompositionLayer {
     readonly textureArrayLength: number;
     readonly ignoreDepthValues: number;
     fixedFoveation: number;
+}
+
+declare class XRProjectionLayer {
+    prototype: XRProjectionLayer;
 }
 
 interface XRLayerInit {
@@ -600,6 +731,10 @@ interface XRCylinderLayer extends XRCompositionLayer {
     aspectRatio: number;
 }
 
+declare class XRCylinderLayer {
+    prototype: XRCylinderLayer;
+}
+
 interface XRQuadLayerInit extends XRLayerInit {
     textureType?: XRTextureType | undefined;
     transform?: XRRigidTransform | undefined;
@@ -617,6 +752,10 @@ interface XRQuadLayer extends XRCompositionLayer {
     transform: XRRigidTransform;
     width: number;
     height: number;
+}
+
+declare class XRQuadLayer {
+    prototype: XRQuadLayer;
 }
 
 interface XREquirectLayerInit extends XRLayerInit {
@@ -644,6 +783,10 @@ interface XREquirectLayer extends XRCompositionLayer {
     lowerVerticalAngle: number;
 }
 
+declare class XREquirectLayer {
+    prototype: XREquirectLayer;
+}
+
 interface XRCubeLayerInit extends XRLayerInit {
     orientation?: DOMPointReadOnly | undefined;
 }
@@ -652,8 +795,16 @@ interface XRCubeLayer extends XRCompositionLayer {
     orientation: DOMPointReadOnly;
 }
 
+declare class XRCubeLayer {
+    prototype: XRCubeLayer;
+}
+
 interface XRSubImage {
     readonly viewport: XRViewport;
+}
+
+declare class XRSubImage {
+    prototype: XRSubImage;
 }
 
 interface XRWebGLSubImage extends XRSubImage {
@@ -664,9 +815,11 @@ interface XRWebGLSubImage extends XRSubImage {
     readonly textureHeight: number;
 }
 
-declare class XRWebGLBinding {
-    constructor(session: XRSession, context: WebGLRenderingContext);
+declare class XRWebGLSubImage {
+    prototype: XRWebGLSubImage;
+}
 
+interface XRWebGLBinding {
     readonly nativeProjectionScaleFactor: number;
 
     createProjectionLayer(init?: XRProjectionLayerInit): XRProjectionLayer;
@@ -679,12 +832,20 @@ declare class XRWebGLBinding {
     getViewSubImage(layer: XRProjectionLayer, view: XRView): XRWebGLSubImage;
 }
 
-declare class XRMediaBinding {
-    constructor(sesion: XRSession);
+declare class XRWebGLBinding {
+    constructor(session: XRSession, context: WebGLRenderingContext);
+    prototype: XRWebGLBinding;
+}
 
+interface XRMediaBinding {
     createQuadLayer(video: HTMLVideoElement, init?: XRMediaQuadLayerInit): XRQuadLayer;
     createCylinderLayer(video: HTMLVideoElement, init?: XRMediaCylinderLayerInit): XRCylinderLayer;
     createEquirectLayer(video: HTMLVideoElement, init?: XRMediaEquirectLayerInit): XREquirectLayer;
+}
+
+declare class XRMediaBinding {
+    constructor(sesion: XRSession);
+    prototype: XRMediaBinding;
 }
 
 // WebGL extensions
