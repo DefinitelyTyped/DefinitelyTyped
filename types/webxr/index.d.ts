@@ -14,7 +14,7 @@
 //
 
 export interface Navigator {
-    xr: XRSystem;
+    xr?: XRSystem | undefined;
 }
 
 /**
