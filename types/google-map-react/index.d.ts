@@ -239,9 +239,9 @@ declare namespace googleMapReact {
         TravelMode: {
             BICYCLING: string;
             DRIVING: string;
-            WALKING: string;
             TRANSIT: string;
             TWO_WHEELER: string;
+            WALKING: string;
         };
         UnitSystem: {
             IMPERIAL: number;
