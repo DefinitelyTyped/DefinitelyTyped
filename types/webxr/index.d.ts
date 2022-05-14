@@ -83,9 +83,35 @@ export interface XRSessionEvent extends Event {
     readonly session: XRSession;
 }
 
+export interface XRSystemDeviceChangeEvent extends Event {
+    type: "devicechange";
+}
+
+export interface XRSessionGrant {
+    mode: XRSessionMode;
+}
+
+export interface XRSystemSessionGrantedEvent extends Event {
+    type: "sessiongranted";
+    session: XRSessionGrant;
+}
+
+export interface XRSystemEventMap extends HTMLMediaElementEventMap {
+    "devicechange": XRSystemDeviceChangeEvent;
+    "sessiongranted": XRSystemSessionGrantedEvent;
+}
+
 export interface XRSystem extends EventTarget {
-    isSessionSupported: (sessionMode: XRSessionMode) => Promise<boolean>;
-    requestSession: (sessionMode: XRSessionMode, sessionInit?: any) => Promise<XRSession>;
+    requestSession(mode: XRSessionMode, options?: XRSessionInit): Promise<XRSession>;
+    isSessionSupported(mode: XRSessionMode): Promise<boolean>;
+
+    ondevicechange: ((this: XRSystem, ev: XRSystemDeviceChangeEvent) => any) | null;
+    onsessiongranted: ((this: XRSystem, ev: XRSystemSessionGrantedEvent) => any) | null;
+
+    addEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 export interface XRViewport {
