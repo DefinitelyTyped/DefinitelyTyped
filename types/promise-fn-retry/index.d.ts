@@ -2,7 +2,6 @@
 // Project: https://github.com/felippemauricio/promise-fn-retry
 // Definitions by: Jonathan Chang <https://github.com/Jono-Chang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 export interface RetryOptions {
   times?: number;
