@@ -72,7 +72,7 @@ export interface XREventHandler {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface XRLayer extends EventTarget {}
+export interface XRLayer extends EventTarget { }
 
 export interface XRSessionInit {
     optionalFeatures?: string[] | undefined;
@@ -126,27 +126,35 @@ export interface XRWebGLLayerInit {
     depth?: boolean | undefined;
     stencil?: boolean | undefined;
     alpha?: boolean | undefined;
-    multiview?: boolean | undefined;
+    ignoreDepthValues?: boolean | undefined;
     framebufferScaleFactor?: number | undefined;
+}
+
+export interface XRWebGLLayer extends XRLayer {
 }
 
 export class XRWebGLLayer {
     static getNativeFramebufferScaleFactor(session: XRSession): number;
+
     constructor(
         session: XRSession,
         context: WebGLRenderingContext | WebGL2RenderingContext,
-        layerInit?: XRWebGLLayerInit,
+        layerInit ?: XRWebGLLayerInit,
     );
+
     readonly antialias: boolean;
+    readonly ignoreDepthValues: boolean;
+    fixedFoveation?: number | undefined;
+
     readonly framebuffer: WebGLFramebuffer;
     readonly framebufferWidth: number;
     readonly framebufferHeight: number;
-    readonly ignoreDepthValues: boolean;
-    getViewport: (view: XRView) => XRViewport;
+
+    getViewport(view: XRView): XRViewport | undefined;
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface XRSpace extends EventTarget {}
+export interface XRSpace extends EventTarget { }
 
 export interface XRRenderState {
     readonly baseLayer?: XRWebGLLayer | undefined;
@@ -158,10 +166,10 @@ export interface XRRenderState {
     readonly layers?: XRLayer[] | undefined;
 }
 
-export interface XRRenderStateInit extends XRRenderState {
-    baseLayer: XRWebGLLayer;
-    depthFar: number;
-    depthNear: number;
+export interface XRRenderStateInit {
+    baseLayer?: XRWebGLLayer;
+    depthFar?: number;
+    depthNear?: number;
     inlineVerticalFieldOfView?: number | undefined;
     layers?: XRLayer[] | undefined;
 }
@@ -192,8 +200,8 @@ export interface XRPose {
 
 export interface XRFrame {
     readonly session: XRSession;
-    getPose(space: XRSpace, baseSpace: XRSpace): XRPose | null;
-    getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | null;
+    getPose(space: XRSpace, baseSpace: XRSpace): XRPose | undefined;
+    getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | undefined;
 
     // AR
     getHitTestResults(hitTestSource: XRHitTestSource): XRHitTestResult[];
@@ -203,7 +211,8 @@ export interface XRFrame {
 
     // Anchors
     trackedAnchors?: XRAnchorSet | undefined;
-    createAnchor?(pose: XRRigidTransform, space: XRSpace): Promise<XRAnchor>;
+    createAnchor?: (pose: XRRigidTransform, space: XRSpace) => Promise<XRAnchor>;
+
     // Planes
     worldInformation?: {
         detectedPlanes?: XRPlaneSet | undefined;
@@ -213,24 +222,29 @@ export interface XRFrame {
     getJointPose?: (joint: XRJointSpace, baseSpace: XRSpace) => XRJointPose;
 }
 
+export class XRFrame {
+    prototype: XRFrame;
+}
+
 export interface XRInputSourceEvent extends Event {
     readonly frame: XRFrame;
     readonly inputSource: XRInputSource;
 }
 
-export type XRInputSourceArray = XRInputSource[];
+export interface XRSessionEventMap {
+    "end": XREventHandler;
+    "inputsourceschange": XREventHandler;
+    "select": XREventHandler;
+    "selectstart": XREventHandler;
+    "selectend": XREventHandler;
+    "squeeze": XREventHandler;
+    "squeezestart": XREventHandler;
+    "squeezeend": XREventHandler;
+    "visibilitychange": XREventHandler;
+    "frameratechange": XREventHandler;
+}
 
-export interface XRSession {
-    addEventListener(
-        type: XREventType,
-        listener: XREventHandler,
-        options?: boolean | AddEventListenerOptions,
-    ): void;
-    removeEventListener(
-        type: XREventType,
-        listener: XREventHandler,
-        options?: boolean | EventListenerOptions,
-    ): void;
+export interface XRSession extends EventTarget {
     /**
      * Returns a list of this session's XRInputSources, each representing an input device
      * used to control the camera and/or scene.
@@ -241,18 +255,24 @@ export interface XRSession {
      * This includes things such as the near and far clipping planes
      */
     readonly renderState: XRRenderState;
+    readonly environmentBlendMode: XREnvironmentBlendMode;
     readonly visibilityState: XRVisibilityState;
+    readonly frameRate?: number;
+    readonly supportedFrameRates?: Float32Array;
+
     /**
      * Removes a callback from the animation frame painting callback from
      * XRSession's set of animation frame rendering callbacks, given the
      * identifying handle returned by a previous call to requestAnimationFrame().
      */
-    cancelAnimationFrame: (handle: number) => void;
+    cancelAnimationFrame(id: number): void;
+
     /**
      * Ends the WebXR session. Returns a promise which resolves when the
      * session has been shut down.
      */
     end(): Promise<void>;
+
     /**
      * Schedules the specified method to be called the next time the user agent
      * is working on rendering an animation frame for the WebXR device. Returns an
@@ -260,7 +280,8 @@ export interface XRSession {
      * canceling the callback using cancelAnimationFrame(). This method is comparable
      * to the Window.requestAnimationFrame() method.
      */
-    requestAnimationFrame: (callback: XRFrameRequestCallback) => number;
+    requestAnimationFrame(callback: XRFrameRequestCallback): number;
+
     /**
      * Requests that a new XRReferenceSpace of the specified export type be created.
      * Returns a promise which resolves with the XRReferenceSpace or
@@ -269,7 +290,9 @@ export interface XRSession {
      */
     requestReferenceSpace(type: XRReferenceSpaceType): Promise<XRReferenceSpace | XRBoundedReferenceSpace>;
 
-    updateRenderState(XRRenderStateInit: XRRenderState): Promise<void>;
+    updateRenderState(renderStateInit: XRRenderStateInit): Promise<void>;
+
+    updateTargetFrameRate(rate: number): Promise<void>;
 
     onend: XREventHandler;
     oninputsourceschange: XREventHandler;
@@ -280,6 +303,12 @@ export interface XRSession {
     onsqueezestart: XREventHandler;
     onsqueezeend: XREventHandler;
     onvisibilitychange: XREventHandler;
+    onframeratechange: XREventHandler;
+
+    addEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 
     // hit test
     requestHitTestSource?: (options: XRHitTestOptionsInit) => Promise<XRHitTestSource>;
@@ -291,7 +320,11 @@ export interface XRSession {
     requestHitTest?: (ray: XRRay, referenceSpace: XRReferenceSpace) => Promise<XRHitResult[]>;
 
     // legacy plane detection
-    updateWorldTrackingState?(options: { planeDetectionState?: { enabled: boolean } | undefined }): void;
+    updateWorldTrackingState?: (options: { planeDetectionState?: { enabled: boolean } | undefined }) => void;
+}
+
+export class XRSession {
+    prototype: XRSession;
 }
 
 export interface XRViewerPose extends XRPose {
@@ -314,8 +347,7 @@ export interface XRView {
     requestViewportScale(scale: number): void;
 }
 
-export interface XRInputSourceChangeEvent extends Event {
-    session: XRSession;
+export interface XRInputSourceChangeEvent extends XRSessionEvent {
     removed: XRInputSource[];
     added: XRInputSource[];
 }
