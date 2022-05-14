@@ -153,6 +153,9 @@ export interface XRRenderState {
     readonly depthFar: number;
     readonly depthNear: number;
     readonly inlineVerticalFieldOfView?: number | undefined;
+
+    // https://immersive-web.github.io/layers/#xrrenderstatechanges
+    readonly layers?: XRLayer[] | undefined;
 }
 
 export interface XRRenderStateInit extends XRRenderState {
@@ -418,4 +421,188 @@ export interface XRHand extends Iterable<XRJointSpace> {
     readonly LITTLE_PHALANX_INTERMEDIATE: number;
     readonly LITTLE_PHALANX_DISTAL: number;
     readonly LITTLE_PHALANX_TIP: number;
+}
+
+
+
+// WebXR Layers
+export interface XRLayerEventInit extends EventInit {
+    layer: XRLayer;
+}
+
+export class XRLayerEvent extends Event {
+    constructor(type: string, eventInitDict: XRLayerEventInit);
+    readonly layer: XRLayer;
+}
+
+export interface XRCompositionLayerEventMap {
+    "redraw": XRLayerEvent;
+}
+
+export interface XRCompositionLayer extends XRLayer {
+    readonly layout: XRLayerLayout;
+    blendTextureSourceAlpha: boolean;
+    chromaticAberrationCorrection?: boolean;
+    readonly mipLevels: number;
+    readonly needsRedraw: boolean;
+    destroy(): void;
+
+    space: XRSpace;
+
+    // Events
+    onredraw: (evt: XRCompositionLayerEventMap["redraw"]) => any;
+    addEventListener<K extends keyof XRCompositionLayerEventMap>(this: XRCompositionLayer, type: K, callback: (evt: XRCompositionLayerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof XRCompositionLayerEventMap>(this: XRCompositionLayer, type: K, callback: (evt: XRCompositionLayerEventMap[K]) => any): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+export type XRTextureType = "texture" | "texture-array";
+
+export type XRLayerLayout =
+    | "default"
+    | "mono"
+    | "stereo"
+    | "stereo-left-right"
+    | "stereo-top-bottom";
+
+export interface XRProjectionLayerInit {
+    scaleFactor?: number;
+    textureType?: XRTextureType;
+    colorFormat?: GLenum;
+    depthFormat?: GLenum;
+}
+
+export interface XRProjectionLayer extends XRCompositionLayer {
+    readonly textureWidth: number;
+    readonly textureHeight: number;
+    readonly textureArrayLength: number;
+    readonly ignoreDepthValues: number;
+    fixedFoveation: number;
+}
+
+export interface XRLayerInit {
+    mipLevels?: number;
+    viewPixelWidth: number;
+    viewPixelHeight: number;
+    isStatic?: boolean;
+    colorFormat?: GLenum;
+    depthFormat?: GLenum;
+    space: XRSpace;
+    layout?: XRLayerLayout;
+}
+
+export interface XRMediaLayerInit {
+    invertStereo?: boolean;
+    space: XRSpace;
+    layout?: XRLayerLayout;
+}
+
+export interface XRCylinderLayerInit extends XRLayerInit {
+    textureType?: XRTextureType;
+    transform: XRRigidTransform;
+    radius?: number;
+    centralAngle?: number;
+    aspectRatio?: number;
+}
+
+export interface XRMediaCylinderLayerInit extends XRMediaLayerInit {
+    transform?: XRRigidTransform;
+    radius?: number;
+    centralAngle?: number;
+    aspectRatio?: number;
+}
+
+export interface XRCylinderLayer extends XRCompositionLayer {
+    transform: XRRigidTransform;
+    radius: number;
+    centralAngle: number;
+    aspectRatio: number;
+}
+
+export interface XRQuadLayerInit extends XRLayerInit {
+    textureType?: XRTextureType;
+    transform?: XRRigidTransform;
+    width?: number;
+    height?: number;
+}
+
+export interface XRMediaQuadLayerInit extends XRMediaLayerInit {
+    transform?: XRRigidTransform;
+    width?: number;
+    height?: number;
+}
+
+export interface XRQuadLayer extends XRCompositionLayer {
+    transform: XRRigidTransform;
+    width: number;
+    height: number;
+}
+
+export interface XREquirectLayerInit extends XRLayerInit {
+    textureType?: XRTextureType;
+    transform?: XRRigidTransform;
+    radius?: number;
+    centralHorizontalAngle?: number;
+    upperVerticalAngle?: number;
+    lowerVerticalAngle?: number;
+}
+
+export interface XRMediaEquirectLayerInit extends XRMediaLayerInit {
+    transform?: XRRigidTransform;
+    radius?: number;
+    centralHorizontalAngle?: number;
+    upperVerticalAngle?: number;
+    lowerVerticalAngle?: number;
+}
+
+export interface XREquirectLayer extends XRCompositionLayer {
+    transform: XRRigidTransform;
+    radius: number;
+    centralHorizontalAngle: number;
+    upperVerticalAngle: number;
+    lowerVerticalAngle: number;
+}
+
+export interface XRCubeLayerInit extends XRLayerInit {
+    orientation?: DOMPointReadOnly;
+}
+
+export interface XRCubeLayer extends XRCompositionLayer {
+    orientation: DOMPointReadOnly;
+}
+
+export interface XRSubImage {
+    readonly viewport: XRViewport;
+}
+
+export interface XRWebGLSubImage extends XRSubImage {
+    readonly colorTexture: WebGLTexture;
+    readonly depthStencilTexture: WebGLTexture;
+    readonly imageIndex: number;
+    readonly textureWidth: number;
+    readonly textureHeight: number;
+}
+
+export class XRWebGLBinding {
+    constructor(session: XRSession, context: WebGLRenderingContext);
+
+    readonly nativeProjectionScaleFactor: number;
+
+    createProjectionLayer(init?: XRProjectionLayerInit): XRProjectionLayer;
+    createQuadLayer(init?: XRQuadLayerInit): XRQuadLayer;
+    createCylinderLayer(init?: XRCylinderLayerInit): XRCylinderLayer;
+    createEquirectLayer(init?: XREquirectLayerInit): XREquirectLayer;
+    createCubeLayer(init?: XRCubeLayerInit): XRCubeLayer;
+
+    getSubImage(layer: XRCompositionLayer, frame: XRFrame, eye?: XREye): XRWebGLSubImage;
+    getViewSubImage(layer: XRProjectionLayer, view: XRView): XRWebGLSubImage;
+}
+
+export class XRMediaBinding {
+    constructor(sesion: XRSession);
+
+    createQuadLayer(video: HTMLVideoElement, init?: XRMediaQuadLayerInit): XRQuadLayer;
+    createCylinderLayer(video: HTMLVideoElement, init?: XRMediaCylinderLayerInit): XRCylinderLayer;
+    createEquirectLayer(video: HTMLVideoElement, init?: XRMediaEquirectLayerInit): XREquirectLayer;
 }
