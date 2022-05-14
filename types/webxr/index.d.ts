@@ -13,43 +13,43 @@
 //  https://github.com/immersive-web
 //
 
-export interface Navigator {
+interface Navigator {
     xr?: XRSystem | undefined;
 }
 
 /**
  * Available session modes
  */
-export type XRSessionMode = 'inline' | 'immersive-vr' | 'immersive-ar';
+type XRSessionMode = 'inline' | 'immersive-vr' | 'immersive-ar';
 
 /**
  * Reference space types
  */
-export type XRReferenceSpaceType = 'viewer' | 'local' | 'local-floor' | 'bounded-floor' | 'unbounded';
+type XRReferenceSpaceType = 'viewer' | 'local' | 'local-floor' | 'bounded-floor' | 'unbounded';
 
-export type XREnvironmentBlendMode = 'opaque' | 'additive' | 'alpha-blend';
+type XREnvironmentBlendMode = 'opaque' | 'additive' | 'alpha-blend';
 
-export type XRVisibilityState = 'visible' | 'visible-blurred' | 'hidden';
+type XRVisibilityState = 'visible' | 'visible-blurred' | 'hidden';
 
 /**
  * Handedness types
  */
-export type XRHandedness = 'none' | 'left' | 'right';
+type XRHandedness = 'none' | 'left' | 'right';
 
 /**
  * InputSource target ray modes
  */
-export type XRTargetRayMode = 'gaze' | 'tracked-pointer' | 'screen';
+type XRTargetRayMode = 'gaze' | 'tracked-pointer' | 'screen';
 
 /**
  * Eye types
  */
-export type XREye = 'none' | 'left' | 'right';
+type XREye = 'none' | 'left' | 'right';
 
 /**
  * Type of XR events available
  */
-export type XREventType =
+type XREventType =
     | 'devicechange'
     | 'visibilitychange'
     | 'end'
@@ -62,46 +62,46 @@ export type XREventType =
     | 'squeezeend'
     | 'reset';
 
-export type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
+type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
 
-export type XRPlaneSet = Set<XRPlane>;
-export type XRAnchorSet = Set<XRAnchor>;
+type XRPlaneSet = Set<XRPlane>;
+type XRAnchorSet = Set<XRAnchor>;
 
-export interface XREventHandler {
+interface XREventHandler {
     (event: Event): any;
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface XRLayer extends EventTarget { }
+interface XRLayer extends EventTarget { }
 
-export interface XRSessionInit {
+interface XRSessionInit {
     optionalFeatures?: string[] | undefined;
     requiredFeatures?: string[] | undefined;
 }
 
-export interface XRSessionEvent extends Event {
+interface XRSessionEvent extends Event {
     readonly session: XRSession;
 }
 
-export interface XRSystemDeviceChangeEvent extends Event {
+interface XRSystemDeviceChangeEvent extends Event {
     type: "devicechange";
 }
 
-export interface XRSessionGrant {
+interface XRSessionGrant {
     mode: XRSessionMode;
 }
 
-export interface XRSystemSessionGrantedEvent extends Event {
+interface XRSystemSessionGrantedEvent extends Event {
     type: "sessiongranted";
     session: XRSessionGrant;
 }
 
-export interface XRSystemEventMap extends HTMLMediaElementEventMap {
+interface XRSystemEventMap extends HTMLMediaElementEventMap {
     "devicechange": XRSystemDeviceChangeEvent;
     "sessiongranted": XRSystemSessionGrantedEvent;
 }
 
-export interface XRSystem extends EventTarget {
+interface XRSystem extends EventTarget {
     requestSession(mode: XRSessionMode, options?: XRSessionInit): Promise<XRSession>;
     isSessionSupported(mode: XRSessionMode): Promise<boolean>;
 
@@ -114,14 +114,14 @@ export interface XRSystem extends EventTarget {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
-export interface XRViewport {
+interface XRViewport {
     readonly x: number;
     readonly y: number;
     readonly width: number;
     readonly height: number;
 }
 
-export interface XRWebGLLayerInit {
+interface XRWebGLLayerInit {
     antialias?: boolean | undefined;
     depth?: boolean | undefined;
     stencil?: boolean | undefined;
@@ -130,10 +130,7 @@ export interface XRWebGLLayerInit {
     framebufferScaleFactor?: number | undefined;
 }
 
-export interface XRWebGLLayer extends XRLayer {
-}
-
-export class XRWebGLLayer {
+declare class XRWebGLLayer implements XRLayer {
     static getNativeFramebufferScaleFactor(session: XRSession): number;
 
     constructor(
@@ -151,12 +148,16 @@ export class XRWebGLLayer {
     readonly framebufferHeight: number;
 
     getViewport(view: XRView): XRViewport | undefined;
+
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | EventListenerOptions): void;
+    dispatchEvent(event: Event): boolean;
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface XRSpace extends EventTarget { }
+interface XRSpace extends EventTarget { }
 
-export interface XRRenderState {
+interface XRRenderState {
     readonly baseLayer?: XRWebGLLayer | undefined;
     readonly depthFar: number;
     readonly depthNear: number;
@@ -166,7 +167,7 @@ export interface XRRenderState {
     readonly layers?: XRLayer[] | undefined;
 }
 
-export interface XRRenderStateInit {
+interface XRRenderStateInit {
     baseLayer?: XRWebGLLayer;
     depthFar?: number;
     depthNear?: number;
@@ -174,16 +175,16 @@ export interface XRRenderStateInit {
     layers?: XRLayer[] | undefined;
 }
 
-export interface XRReferenceSpace extends XRSpace {
+interface XRReferenceSpace extends XRSpace {
     getOffsetReferenceSpace(originOffset: XRRigidTransform): XRReferenceSpace;
     onreset: XREventHandler;
 }
 
-export interface XRBoundedReferenceSpace extends XRReferenceSpace {
+interface XRBoundedReferenceSpace extends XRReferenceSpace {
     readonly boundsGeometry: DOMPointReadOnly[];
 }
 
-export interface XRInputSource {
+interface XRInputSource {
     readonly handedness: XRHandedness;
     readonly targetRayMode: XRTargetRayMode;
     readonly targetRaySpace: XRSpace;
@@ -193,12 +194,12 @@ export interface XRInputSource {
     readonly hand?: XRHand | undefined;
 }
 
-export interface XRPose {
+interface XRPose {
     readonly transform: XRRigidTransform;
     readonly emulatedPosition: boolean;
 }
 
-export interface XRFrame {
+interface XRFrame {
     readonly session: XRSession;
     getPose(space: XRSpace, baseSpace: XRSpace): XRPose | undefined;
     getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | undefined;
@@ -222,16 +223,16 @@ export interface XRFrame {
     getJointPose?: (joint: XRJointSpace, baseSpace: XRSpace) => XRJointPose;
 }
 
-export class XRFrame {
+declare class XRFrame {
     prototype: XRFrame;
 }
 
-export interface XRInputSourceEvent extends Event {
+interface XRInputSourceEvent extends Event {
     readonly frame: XRFrame;
     readonly inputSource: XRInputSource;
 }
 
-export interface XRSessionEventMap {
+interface XRSessionEventMap {
     "end": XREventHandler;
     "inputsourceschange": XREventHandler;
     "select": XREventHandler;
@@ -244,7 +245,7 @@ export interface XRSessionEventMap {
     "frameratechange": XREventHandler;
 }
 
-export interface XRSession extends EventTarget {
+interface XRSession extends EventTarget {
     /**
      * Returns a list of this session's XRInputSources, each representing an input device
      * used to control the camera and/or scene.
@@ -283,10 +284,10 @@ export interface XRSession extends EventTarget {
     requestAnimationFrame(callback: XRFrameRequestCallback): number;
 
     /**
-     * Requests that a new XRReferenceSpace of the specified export type be created.
+     * Requests that a new XRReferenceSpace of the specified type be created.
      * Returns a promise which resolves with the XRReferenceSpace or
      * XRBoundedReferenceSpace which was requested, or throws a NotSupportedError if
-     * the requested space export type isn't supported by the device.
+     * the requested space type isn't supported by the device.
      */
     requestReferenceSpace(type: XRReferenceSpaceType): Promise<XRReferenceSpace | XRBoundedReferenceSpace>;
 
@@ -323,15 +324,15 @@ export interface XRSession extends EventTarget {
     updateWorldTrackingState?: (options: { planeDetectionState?: { enabled: boolean } | undefined }) => void;
 }
 
-export class XRSession {
+declare class XRSession {
     prototype: XRSession;
 }
 
-export interface XRViewerPose extends XRPose {
+interface XRViewerPose extends XRPose {
     readonly views: XRView[];
 }
 
-export class XRRigidTransform {
+declare class XRRigidTransform {
     constructor(position?: DOMPointInit, direction?: DOMPointInit);
     position: DOMPointReadOnly;
     orientation: DOMPointReadOnly;
@@ -339,7 +340,7 @@ export class XRRigidTransform {
     inverse: XRRigidTransform;
 }
 
-export interface XRView {
+interface XRView {
     readonly eye: XREye;
     readonly projectionMatrix: Float32Array;
     readonly transform: XRRigidTransform;
@@ -347,72 +348,72 @@ export interface XRView {
     requestViewportScale(scale: number): void;
 }
 
-export interface XRInputSourceChangeEvent extends XRSessionEvent {
+interface XRInputSourceChangeEvent extends XRSessionEvent {
     removed: XRInputSource[];
     added: XRInputSource[];
 }
 
 // Experimental/Draft features
-export class XRRay {
+declare class XRRay {
     constructor(transformOrOrigin: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
     readonly origin: DOMPointReadOnly;
     readonly direction: DOMPointReadOnly;
     readonly matrix: Float32Array;
 }
 
-export type XRHitTestTrackableType =
+type XRHitTestTrackableType =
     | 'point'
     | 'plane'
     | 'mesh';
 
-export interface XRHitResult {
+interface XRHitResult {
     hitMatrix: Float32Array;
 }
 
-export interface XRTransientInputHitTestResult {
+interface XRTransientInputHitTestResult {
     readonly inputSource: XRInputSource;
     readonly results: XRHitTestResult[];
 }
 
-export interface XRHitTestResult {
+interface XRHitTestResult {
     getPose(baseSpace: XRSpace): XRPose | undefined;
     // When anchor system is enabled
     createAnchor?(pose: XRRigidTransform): Promise<XRAnchor>;
 }
 
-export interface XRHitTestSource {
+interface XRHitTestSource {
     cancel(): void;
 }
 
-export interface XRTransientInputHitTestSource {
+interface XRTransientInputHitTestSource {
     cancel(): void;
 }
 
-export interface XRHitTestOptionsInit {
+interface XRHitTestOptionsInit {
     space: XRSpace;
     entityTypes?: XRHitTestTrackableType[] | undefined;
     offsetRay?: XRRay | undefined;
 }
 
-export interface XRTransientInputHitTestOptionsInit {
+interface XRTransientInputHitTestOptionsInit {
     profile: string;
     entityTypes?: XRHitTestTrackableType[] | undefined;
     offsetRay?: XRRay | undefined;
 }
 
-export interface XRAnchor {
+interface XRAnchor {
     anchorSpace: XRSpace;
     delete(): void;
 }
 
-export interface XRPlane {
+interface XRPlane {
     orientation: 'Horizontal' | 'Vertical';
     planeSpace: XRSpace;
     polygon: DOMPointReadOnly[];
     lastChangedTime: number;
 }
 
-export type XRHandJoint =
+type XRHandJoint =
     | 'wrist'
     | 'thumb-metacarpal'
     | 'thumb-phalanx-proximal'
@@ -439,15 +440,15 @@ export type XRHandJoint =
     | 'pinky-finger-phalanx-distal'
     | 'pinky-finger-tip';
 
-export interface XRJointSpace extends XRSpace {
+interface XRJointSpace extends XRSpace {
     readonly jointName: XRHandJoint;
 }
 
-export interface XRJointPose extends XRPose {
+interface XRJointPose extends XRPose {
     readonly radius: number | undefined;
 }
 
-export interface XRHand extends Iterable<XRJointSpace> {
+interface XRHand extends Iterable<XRJointSpace> {
     readonly length: number;
 
     [index: number]: XRJointSpace;
@@ -484,23 +485,21 @@ export interface XRHand extends Iterable<XRJointSpace> {
     readonly LITTLE_PHALANX_TIP: number;
 }
 
-
-
 // WebXR Layers
-export interface XRLayerEventInit extends EventInit {
+interface XRLayerEventInit extends EventInit {
     layer: XRLayer;
 }
 
-export class XRLayerEvent extends Event {
+declare class XRLayerEvent extends Event {
     constructor(type: string, eventInitDict: XRLayerEventInit);
     readonly layer: XRLayer;
 }
 
-export interface XRCompositionLayerEventMap {
+interface XRCompositionLayerEventMap {
     "redraw": XRLayerEvent;
 }
 
-export interface XRCompositionLayer extends XRLayer {
+interface XRCompositionLayer extends XRLayer {
     readonly layout: XRLayerLayout;
     blendTextureSourceAlpha: boolean;
     chromaticAberrationCorrection?: boolean;
@@ -512,29 +511,48 @@ export interface XRCompositionLayer extends XRLayer {
 
     // Events
     onredraw: (evt: XRCompositionLayerEventMap["redraw"]) => any;
-    addEventListener<K extends keyof XRCompositionLayerEventMap>(this: XRCompositionLayer, type: K, callback: (evt: XRCompositionLayerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XRCompositionLayerEventMap>(this: XRCompositionLayer, type: K, callback: (evt: XRCompositionLayerEventMap[K]) => any): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+
+    addEventListener<K extends keyof XRCompositionLayerEventMap>(
+        this: XRCompositionLayer,
+        type: K,
+        callback: (evt: XRCompositionLayerEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions
+    ): void;
+
+    removeEventListener<K extends keyof XRCompositionLayerEventMap>(
+        this: XRCompositionLayer,
+        type: K,
+        callback: (evt: XRCompositionLayerEventMap[K]) => any
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions
+    ): void;
 }
 
-export type XRTextureType = "texture" | "texture-array";
+type XRTextureType = "texture" | "texture-array";
 
-export type XRLayerLayout =
+type XRLayerLayout =
     | "default"
     | "mono"
     | "stereo"
     | "stereo-left-right"
     | "stereo-top-bottom";
 
-export interface XRProjectionLayerInit {
+interface XRProjectionLayerInit {
     scaleFactor?: number;
     textureType?: XRTextureType;
     colorFormat?: GLenum;
     depthFormat?: GLenum;
 }
 
-export interface XRProjectionLayer extends XRCompositionLayer {
+interface XRProjectionLayer extends XRCompositionLayer {
     readonly textureWidth: number;
     readonly textureHeight: number;
     readonly textureArrayLength: number;
@@ -542,7 +560,7 @@ export interface XRProjectionLayer extends XRCompositionLayer {
     fixedFoveation: number;
 }
 
-export interface XRLayerInit {
+interface XRLayerInit {
     mipLevels?: number;
     viewPixelWidth: number;
     viewPixelHeight: number;
@@ -553,13 +571,13 @@ export interface XRLayerInit {
     layout?: XRLayerLayout;
 }
 
-export interface XRMediaLayerInit {
+interface XRMediaLayerInit {
     invertStereo?: boolean;
     space: XRSpace;
     layout?: XRLayerLayout;
 }
 
-export interface XRCylinderLayerInit extends XRLayerInit {
+interface XRCylinderLayerInit extends XRLayerInit {
     textureType?: XRTextureType;
     transform: XRRigidTransform;
     radius?: number;
@@ -567,40 +585,40 @@ export interface XRCylinderLayerInit extends XRLayerInit {
     aspectRatio?: number;
 }
 
-export interface XRMediaCylinderLayerInit extends XRMediaLayerInit {
+interface XRMediaCylinderLayerInit extends XRMediaLayerInit {
     transform?: XRRigidTransform;
     radius?: number;
     centralAngle?: number;
     aspectRatio?: number;
 }
 
-export interface XRCylinderLayer extends XRCompositionLayer {
+interface XRCylinderLayer extends XRCompositionLayer {
     transform: XRRigidTransform;
     radius: number;
     centralAngle: number;
     aspectRatio: number;
 }
 
-export interface XRQuadLayerInit extends XRLayerInit {
+interface XRQuadLayerInit extends XRLayerInit {
     textureType?: XRTextureType;
     transform?: XRRigidTransform;
     width?: number;
     height?: number;
 }
 
-export interface XRMediaQuadLayerInit extends XRMediaLayerInit {
+interface XRMediaQuadLayerInit extends XRMediaLayerInit {
     transform?: XRRigidTransform;
     width?: number;
     height?: number;
 }
 
-export interface XRQuadLayer extends XRCompositionLayer {
+interface XRQuadLayer extends XRCompositionLayer {
     transform: XRRigidTransform;
     width: number;
     height: number;
 }
 
-export interface XREquirectLayerInit extends XRLayerInit {
+interface XREquirectLayerInit extends XRLayerInit {
     textureType?: XRTextureType;
     transform?: XRRigidTransform;
     radius?: number;
@@ -609,7 +627,7 @@ export interface XREquirectLayerInit extends XRLayerInit {
     lowerVerticalAngle?: number;
 }
 
-export interface XRMediaEquirectLayerInit extends XRMediaLayerInit {
+interface XRMediaEquirectLayerInit extends XRMediaLayerInit {
     transform?: XRRigidTransform;
     radius?: number;
     centralHorizontalAngle?: number;
@@ -617,7 +635,7 @@ export interface XRMediaEquirectLayerInit extends XRMediaLayerInit {
     lowerVerticalAngle?: number;
 }
 
-export interface XREquirectLayer extends XRCompositionLayer {
+interface XREquirectLayer extends XRCompositionLayer {
     transform: XRRigidTransform;
     radius: number;
     centralHorizontalAngle: number;
@@ -625,19 +643,19 @@ export interface XREquirectLayer extends XRCompositionLayer {
     lowerVerticalAngle: number;
 }
 
-export interface XRCubeLayerInit extends XRLayerInit {
+interface XRCubeLayerInit extends XRLayerInit {
     orientation?: DOMPointReadOnly;
 }
 
-export interface XRCubeLayer extends XRCompositionLayer {
+interface XRCubeLayer extends XRCompositionLayer {
     orientation: DOMPointReadOnly;
 }
 
-export interface XRSubImage {
+interface XRSubImage {
     readonly viewport: XRViewport;
 }
 
-export interface XRWebGLSubImage extends XRSubImage {
+interface XRWebGLSubImage extends XRSubImage {
     readonly colorTexture: WebGLTexture;
     readonly depthStencilTexture: WebGLTexture;
     readonly imageIndex: number;
@@ -645,7 +663,7 @@ export interface XRWebGLSubImage extends XRSubImage {
     readonly textureHeight: number;
 }
 
-export class XRWebGLBinding {
+declare class XRWebGLBinding {
     constructor(session: XRSession, context: WebGLRenderingContext);
 
     readonly nativeProjectionScaleFactor: number;
@@ -660,7 +678,7 @@ export class XRWebGLBinding {
     getViewSubImage(layer: XRProjectionLayer, view: XRView): XRWebGLSubImage;
 }
 
-export class XRMediaBinding {
+declare class XRMediaBinding {
     constructor(sesion: XRSession);
 
     createQuadLayer(video: HTMLVideoElement, init?: XRMediaQuadLayerInit): XRQuadLayer;
@@ -669,32 +687,74 @@ export class XRMediaBinding {
 }
 
 // WebGL extensions
-export interface XRWebGLRenderingContext {
+interface WebGLRenderingContext {
     makeXRCompatible(): Promise<void>;
-}
-
-export interface WebGLRenderingContextBase {
     getExtension(extensionName: "OCULUS_multiview"): OCULUS_multiview | null;
+    getExtension(extensionName: "EXT_blend_minmax"): EXT_blend_minmax | null;
+    getExtension(extensionName: "EXT_texture_filter_anisotropic"): EXT_texture_filter_anisotropic | null;
+    getExtension(extensionName: "EXT_frag_depth"): EXT_frag_depth | null;
+    getExtension(extensionName: "EXT_shader_texture_lod"): EXT_shader_texture_lod | null;
+    getExtension(extensionName: "EXT_sRGB"): EXT_sRGB | null;
+    getExtension(extensionName: "OES_vertex_array_object"): OES_vertex_array_object | null;
+    getExtension(extensionName: "WEBGL_color_buffer_float"): WEBGL_color_buffer_float | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_astc"): WEBGL_compressed_texture_astc | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_s3tc_srgb"): WEBGL_compressed_texture_s3tc_srgb | null;
+    getExtension(extensionName: "WEBGL_debug_shaders"): WEBGL_debug_shaders | null;
+    getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;
+    getExtension(extensionName: "WEBGL_lose_context"): WEBGL_lose_context | null;
+    getExtension(extensionName: "WEBGL_depth_texture"): WEBGL_depth_texture | null;
+    getExtension(extensionName: "WEBGL_debug_renderer_info"): WEBGL_debug_renderer_info | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_s3tc"): WEBGL_compressed_texture_s3tc | null;
+    getExtension(extensionName: "OES_texture_half_float_linear"): OES_texture_half_float_linear | null;
+    getExtension(extensionName: "OES_texture_half_float"): OES_texture_half_float | null;
+    getExtension(extensionName: "OES_texture_float_linear"): OES_texture_float_linear | null;
+    getExtension(extensionName: "OES_texture_float"): OES_texture_float | null;
+    getExtension(extensionName: "OES_standard_derivatives"): OES_standard_derivatives | null;
+    getExtension(extensionName: "OES_element_index_uint"): OES_element_index_uint | null;
+    getExtension(extensionName: "ANGLE_instanced_arrays"): ANGLE_instanced_arrays | null;
+    getExtension(extensionName: string): any;
 }
 
-export interface WebGLRenderingContext extends XRWebGLRenderingContext {
+interface WebGL2RenderingContext {
+    makeXRCompatible(): Promise<void>;
+    getExtension(extensionName: "OCULUS_multiview"): OCULUS_multiview | null;
+    getExtension(extensionName: "EXT_blend_minmax"): EXT_blend_minmax | null;
+    getExtension(extensionName: "EXT_texture_filter_anisotropic"): EXT_texture_filter_anisotropic | null;
+    getExtension(extensionName: "EXT_frag_depth"): EXT_frag_depth | null;
+    getExtension(extensionName: "EXT_shader_texture_lod"): EXT_shader_texture_lod | null;
+    getExtension(extensionName: "EXT_sRGB"): EXT_sRGB | null;
+    getExtension(extensionName: "OES_vertex_array_object"): OES_vertex_array_object | null;
+    getExtension(extensionName: "WEBGL_color_buffer_float"): WEBGL_color_buffer_float | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_astc"): WEBGL_compressed_texture_astc | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_s3tc_srgb"): WEBGL_compressed_texture_s3tc_srgb | null;
+    getExtension(extensionName: "WEBGL_debug_shaders"): WEBGL_debug_shaders | null;
+    getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;
+    getExtension(extensionName: "WEBGL_lose_context"): WEBGL_lose_context | null;
+    getExtension(extensionName: "WEBGL_depth_texture"): WEBGL_depth_texture | null;
+    getExtension(extensionName: "WEBGL_debug_renderer_info"): WEBGL_debug_renderer_info | null;
+    getExtension(extensionName: "WEBGL_compressed_texture_s3tc"): WEBGL_compressed_texture_s3tc | null;
+    getExtension(extensionName: "OES_texture_half_float_linear"): OES_texture_half_float_linear | null;
+    getExtension(extensionName: "OES_texture_half_float"): OES_texture_half_float | null;
+    getExtension(extensionName: "OES_texture_float_linear"): OES_texture_float_linear | null;
+    getExtension(extensionName: "OES_texture_float"): OES_texture_float | null;
+    getExtension(extensionName: "OES_standard_derivatives"): OES_standard_derivatives | null;
+    getExtension(extensionName: "OES_element_index_uint"): OES_element_index_uint | null;
+    getExtension(extensionName: "ANGLE_instanced_arrays"): ANGLE_instanced_arrays | null;
+    getExtension(extensionName: string): any;
 }
 
-export interface WebGL2RenderingContext extends XRWebGLRenderingContext {
-}
-
-export enum XOVR_multiview2 {
+declare enum XOVR_multiview2 {
     FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR = 0x9630,
     FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR = 0x9632,
     MAX_VIEWS_OVR = 0x9631,
     FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR = 0x9633
 }
 
-export interface OVR_multiview2 {
-    FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR: XOVR_multiview2;
-    FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR: XOVR_multiview2;
-    MAX_VIEWS_OVR: XOVR_multiview2;
-    FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR: XOVR_multiview2;
+interface OVR_multiview2 {
+    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR: number;
+    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR: number;
+    readonly MAX_VIEWS_OVR: number;
+    readonly FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR: number;
 
     framebufferTextureMultiviewOVR(
         target: GLenum,
@@ -706,7 +766,7 @@ export interface OVR_multiview2 {
     ): WebGLRenderbuffer;
 }
 
-export interface OCULUS_multiview extends OVR_multiview2 {
+interface OCULUS_multiview extends OVR_multiview2 {
     framebufferTextureMultisampleMultiviewOVR(
         target: GLenum,
         attachment: GLenum,
