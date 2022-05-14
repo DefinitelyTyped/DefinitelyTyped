@@ -1,7 +1,8 @@
-// Type definitions for non-npm package webxr 0.2
+// Type definitions for non-npm package webxr 0.3
 // Project: https://www.w3.org/TR/webxr/
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 //                 Raanan Weber <https://github.com/RaananW>
+//                 Sean T. McBeth <https://github.com/capnmidnight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
