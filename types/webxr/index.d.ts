@@ -408,7 +408,7 @@ interface XRAnchor {
 }
 
 interface XRPlane {
-    orientation: 'Horizontal' | 'Vertical';
+    orientation: 'horizontal' | 'vertical';
     planeSpace: XRSpace;
     polygon: DOMPointReadOnly[];
     lastChangedTime: number;
