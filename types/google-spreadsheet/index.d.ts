@@ -1115,7 +1115,7 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      *
      * // doc is ready to be used
      */
-    useServiceAccountAuth(credentials: ServiceAccountCredentials, impersonateAs?: string): Promise<void>;
+    useServiceAccountAuth(credentials: ServiceAccountCredentials, impersonateAs?: string | null): Promise<void>;
 
     /**
      * @description
