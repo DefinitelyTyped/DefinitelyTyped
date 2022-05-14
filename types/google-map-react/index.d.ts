@@ -69,76 +69,76 @@ declare namespace googleMapReact {
         Animation: {
             BOUNCE: number;
             DROP: number;
-            Uz: number;
             Qz: number;
+            Uz: number;
         };
         ControlPosition: {
-            TOP_LEFT: number;
-            TOP_CENTER: number;
-            TOP: number;
-            TOP_RIGHT: number;
-            LEFT_CENTER: number;
-            LEFT_TOP: number;
-            LEFT: number;
-            LEFT_BOTTOM: number;
-            RIGHT_TOP: number;
-            RIGHT: number;
-            RIGHT_CENTER: number;
-            RIGHT_BOTTOM: number;
-            BOTTOM_LEFT: number;
-            BOTTOM_CENTER: number;
             BOTTOM: number;
+            BOTTOM_CENTER: number;
+            BOTTOM_LEFT: number;
             BOTTOM_RIGHT: number;
             CENTER: number;
+            LEFT: number;
+            LEFT_BOTTOM: number;
+            LEFT_CENTER: number;
+            LEFT_TOP: number;
+            RIGHT: number;
+            RIGHT_BOTTOM: number;
+            RIGHT_CENTER: number;
+            RIGHT_TOP: number;
+            TOP: number;
+            TOP_CENTER: number;
+            TOP_LEFT: number;
+            TOP_RIGHT: number;
         };
         DirectionsStatus: {
-            OK: string;
-            UNKNOWN_ERROR: string;
-            OVER_QUERY_LIMIT: string;
-            REQUEST_DENIED: string;
             INVALID_REQUEST: string;
-            ZERO_RESULTS: string;
             MAX_WAYPOINTS_EXCEEDED: string;
             NOT_FOUND: string;
-        };
-        DirectionsTravelMode: {
-            DRIVING: string;
-            WALKING: string;
-            BICYCLING: string;
-            TRANSIT: string;
-            TWO_WHEELER: string;
-        };
-        DirectionsUnitSystem: {
-            METRIC: number;
-            IMPERIAL: number;
-        };
-        DistanceMatrixStatus: {
             OK: string;
-            INVALID_REQUEST: string;
             OVER_QUERY_LIMIT: string;
             REQUEST_DENIED: string;
             UNKNOWN_ERROR: string;
-            MAX_ELEMENTS_EXCEEDED: string;
+            ZERO_RESULTS: string;
+        };
+        DirectionsTravelMode: {
+            BICYCLING: string;
+            DRIVING: string;
+            TRANSIT: string;
+            TWO_WHEELER: string;
+            WALKING: string;
+        };
+        DirectionsUnitSystem: {
+            IMPERIAL: number;
+            METRIC: number;
+        };
+        DistanceMatrixStatus: {
+            INVALID_REQUEST: string;
             MAX_DIMENSIONS_EXCEEDED: string;
+            MAX_ELEMENTS_EXCEEDED: string;
+            OK: string;
+            OVER_QUERY_LIMIT: string;
+            REQUEST_DENIED: string;
+            UNKNOWN_ERROR: string;
         };
         DistanceMatrixElementStatus: {
-            OK: string;
             NOT_FOUND: string;
+            OK: string;
             ZERO_RESULTS: string;
         };
         ElevationStatus: {
+            INVALID_REQUEST: string;
             OK: string;
-            UNKNOWN_ERROR: string;
             OVER_QUERY_LIMIT: string;
             REQUEST_DENIED: string;
-            INVALID_REQUEST: string;
+            UNKNOWN_ERROR: string;
             yz: string;
         };
         GeocoderLocationType: {
-            ROOFTOP: string;
-            RANGE_INTERPOLATED: string;
-            GEOMETRIC_CENTER: string;
             APPROXIMATE: string;
+            GEOMETRIC_CENTER: string;
+            RANGE_INTERPOLATED: string;
+            ROOFTOP: string;
         };
         GeocoderStatus: {
             OK: string;
@@ -150,52 +150,52 @@ declare namespace googleMapReact {
             ERROR: string;
         };
         KmlLayerStatus: {
-            UNKNOWN: string;
-            OK: string;
-            INVALID_REQUEST: string;
             DOCUMENT_NOT_FOUND: string;
+            DOCUMENT_TOO_LARGE: string;
             FETCH_ERROR: string;
             INVALID_DOCUMENT: string;
-            DOCUMENT_TOO_LARGE: string;
+            INVALID_REQUEST: string;
             LIMITS_EXCEEDED: string;
+            OK: string;
             TIMED_OUT: string;
+            UNKNOWN: string;
         };
         MapTypeControlStyle: {
             DEFAULT: number;
-            HORIZONTAL_BAR: number;
             DROPDOWN_MENU: number;
+            HORIZONTAL_BAR: number;
             INSET: number;
             INSET_LARGE: number;
         };
         MapTypeId: {
+            HYBRID: string;
             ROADMAP: string;
             SATELLITE: string;
-            HYBRID: string;
             TERRAIN: string;
         };
         MaxZoomStatus: {
-            OK: string;
             ERROR: string;
+            OK: string;
         };
         NavigationControlStyle: {
-            DEFAULT: number;
-            SMALL: number;
             ANDROID: number;
-            ZOOM_PAN: number;
-            Vz: number;
+            DEFAULT: number;
             Ot: number;
+            SMALL: number;
+            Vz: number;
+            ZOOM_PAN: number;
         };
         RenderingType: {
-            UNINITIALIZED: string;
             RASTER: string;
+            UNINITIALIZED: string;
             VECTOR: string;
         };
         ScaleControlStyle: {
             DEFAULT: number;
         };
         StreetViewPreference: {
-            NEAREST: string;
             BEST: string;
+            NEAREST: string;
         };
         StreetViewStatus: {
             OK: string;
@@ -213,10 +213,10 @@ declare namespace googleMapReact {
         };
         SymbolPath: {
             CIRCLE: number;
-            FORWARD_CLOSED_ARROW: number;
-            FORWARD_OPEN_ARROW: number;
             BACKWARD_CLOSED_ARROW: number;
             BACKWARD_OPEN_ARROW: number;
+            FORWARD_CLOSED_ARROW: number;
+            FORWARD_OPEN_ARROW: number;
         };
         TrafficModel: {
             BEST_GUESS: string;
@@ -231,25 +231,25 @@ declare namespace googleMapReact {
             TRAM: string;
         };
         TransitRoutePreference: {
-            LESS_WALKING: string;
             FEWER_TRANSFERS: string;
+            LESS_WALKING: string;
         };
         TravelMode: {
+            BICYCLING: string;
             DRIVING: string;
             WALKING: string;
-            BICYCLING: string;
             TRANSIT: string;
             TWO_WHEELER: string;
         };
         UnitSystem: {
-            METRIC: number;
             IMPERIAL: number;
+            METRIC: number;
         };
         ZoomControlStyle: {
             DEFAULT: number;
-            SMALL: number;
             LARGE: number;
             Ot: number;
+            SMALL: number;
         };
     }
 
