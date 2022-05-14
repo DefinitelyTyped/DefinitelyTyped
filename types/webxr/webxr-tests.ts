@@ -27,6 +27,8 @@ const ctx: WebGLRenderingContext | null = canvas.getContext('webgl') as any as W
     };
     session.updateRenderState(init);
 
+    const layers: XRCompositionLayer[] = [];
+
     let space = await session.requestReferenceSpace('local');
 
     const loop: XRFrameRequestCallback = (time: number, frame: XRFrame) => { };
@@ -53,26 +55,69 @@ const ctx: WebGLRenderingContext | null = canvas.getContext('webgl') as any as W
         // XR device availability changed
     });
 
-    const video = document.createElement("video");
-    const mediaBinding = new XRMediaBinding(session);
-    const transform = new XRRigidTransform({
-        x: 0,
-        y: 0,
-        z: -2
-    }, {
-        x: 0,
-        y: 0,
-        z: 0,
-        w: 1
-    });
-    const mediaLayer = mediaBinding.createQuadLayer(video, {
-        space,
-        layout: "mono",
-        invertStereo: false,
-        transform,
-        width: 1,
-        height: video.height / video.width
+    if ("XRWebGLBinding" in window) {
+        const glBinding = new XRWebGLBinding(session, ctx);
+        const cubeLayer = glBinding.createCubeLayer({
+            space,
+            layout: "mono",
+            isStatic: true,
+            viewPixelWidth: 2048,
+            viewPixelHeight: 2048
+        });
+
+        layers.push(cubeLayer);
+
+        await session.updateRenderState({
+            layers
+        });
+    }
+
+    if ("XRMediaBinding" in window) {
+        const video = document.createElement("video");
+        const mediaBinding = new XRMediaBinding(session);
+        const transform = new XRRigidTransform({
+            x: 0,
+            y: 0,
+            z: -2
+        }, {
+            x: 0,
+            y: 0,
+            z: 0,
+            w: 1
+        });
+        const mediaLayer = mediaBinding.createQuadLayer(video, {
+            space,
+            layout: "mono",
+            invertStereo: false,
+            transform,
+            width: 1,
+            height: video.height / video.width
+        });
+
+        layers.push(mediaLayer);
+
+        await session.updateRenderState({
+            layers
+        });
+    }
+
+    await session.updateRenderState({
+        layers: []
     });
 
-    mediaLayer.destroy();
+    for (const layer of layers) {
+        if (layer instanceof XRQuadLayer) {
+            console.log("Layer is a quad layer");
+        } else if (layer instanceof XRCubeLayer) {
+            console.log("Layer is a cube layer");
+        } else if (layer instanceof XRCylinderLayer) {
+            console.log("Layer is a cylinder layer");
+        } else if (layer instanceof XREquirectLayer) {
+            console.log("Layer is an equirectangular layer");
+        } else if (layer instanceof XRProjectionLayer) {
+            console.log("Layer is a projection layer");
+        }
+
+        layer.destroy();
+    }
 })();
