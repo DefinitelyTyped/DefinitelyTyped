@@ -148,5 +148,5 @@ const errorCallback: HttpProxy.ErrorCallback = (err, req, res, target) => {
 
 const errorCallbackExpress: HttpProxy.ErrorCallback<Error, express.Request, express.Response> = (err, req, res, target) => {
     req.params;
-    (res as express.Response).status(200);
+    ("status" in res) && res.status(200);
 };
