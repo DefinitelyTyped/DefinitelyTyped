@@ -35,7 +35,17 @@ export interface PEMS {
     clientcert?: string;
 }
 
-export function generate(attrs: any[] | null | undefined, options: Options | undefined, callback: Callback): void;
-export function generate(attrs: any[] | null | undefined, callback: Callback): void;
-export function generate(attrs: any[] | null | undefined, options?: Options): PEMS;
+export interface Attribute {
+    name: string;
+    value: string;
+}
+
+export interface ShortAttribute {
+    shortName: string;
+    value: string;
+}
+
+export function generate(attrs: Array<Attribute | ShortAttribute> | null | undefined, options: Options | undefined, callback: Callback): void;
+export function generate(attrs: Array<Attribute | ShortAttribute> | null | undefined, callback: Callback): void;
+export function generate(attrs: Array<Attribute | ShortAttribute> | null | undefined, options?: Options): PEMS;
 export function generate(callback: Callback): void;
