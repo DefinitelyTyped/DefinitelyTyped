@@ -5,9 +5,12 @@ import * as selfsigned from "selfsigned";
 const pems = selfsigned.generate([{ name: 'commonName', value: 'contoso.com' }], { days: 365 });
 
 // Callback
-// $ExpectType PEMS
-selfsigned.generate([{ name: 'commonName', value: 'contoso.com' }], { days: 365 }, (err, pems) => {
-});
+// $ExpectType void
+selfsigned.generate([{ name: 'commonName', value: 'contoso.com' }], { days: 365 }, (err, pems) => {});
+
+// Callback only
+// $ExpectType void
+selfsigned.generate((err, pems) => {});
 
 // Generate Client Certificates
 // $ExpectType PEMS

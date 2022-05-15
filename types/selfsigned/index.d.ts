@@ -32,4 +32,7 @@ export interface PEMS {
     clientcert?: string;
 }
 
-export function generate(attrs: any[] | null, options?: Options, callback?: Callback): PEMS;
+export function generate(attrs: any[] | null | undefined, options: Options | undefined, callback: Callback): void;
+export function generate(attrs: any[] | null | undefined, callback: Callback): void;
+export function generate(attrs: any[] | null | undefined, options?: Options): PEMS;
+export function generate(callback: Callback): void;
