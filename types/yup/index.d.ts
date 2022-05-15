@@ -114,7 +114,7 @@ export interface MixedSchema<T extends any = {} | null | undefined, C = object> 
     ): MixedSchema<U, C>;
     test(name: string, message: TestOptionsMessage, test: TestFunction<unknown, C>): this;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): MixedSchema<U, C>;
-    test(options: TestOptions<Record<string, any>, C>): this;
+    test(options: TestOptions<Record<string, any>, C, unknown>): this;
     default<U extends T>(value: U | (() => U)): U extends undefined ? MixedSchema<T, C> : MixedSchema<Exclude<T, undefined>, C>;
     default(): T;
 }
@@ -169,7 +169,7 @@ export interface StringSchema<T extends string | null | undefined = string | und
         test: AssertingTestFunction<U, C>,
     ): StringSchema<U, C>;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): StringSchema<U, C>;
-    test(options: TestOptions<Record<string, any>, C>): this;
+    test(options: TestOptions<Record<string, any>, C, T | null | undefined>): this;
     optional(): StringSchema<T | undefined, C>;
     default<U extends T>(value: U | (() => U)): U extends undefined ? StringSchema<T, C> : StringSchema<Exclude<T, undefined>, C>;
     default(): T;
@@ -214,7 +214,7 @@ export interface NumberSchema<T extends number | null | undefined = number | und
         test: AssertingTestFunction<U, C>,
     ): NumberSchema<U, C>;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): NumberSchema<U, C>;
-    test(options: TestOptions<Record<string, any>, C>): this;
+    test(options: TestOptions<Record<string, any>, C, T | null | undefined>): this;
     optional(): NumberSchema<T | undefined, C>;
     default<U extends T>(value: U | (() => U)): U extends undefined ? NumberSchema<T, C> : NumberSchema<Exclude<T, undefined>, C>;
     default(): T;
@@ -250,7 +250,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean | 
         test: AssertingTestFunction<U, C>,
     ): BooleanSchema<U, C>;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): BooleanSchema<U, C>;
-    test(options: TestOptions<Record<string, any>, C>): this;
+    test(options: TestOptions<Record<string, any>, C, T | null | undefined>): this;
     optional(): BooleanSchema<T | undefined, C>;
     default<U extends T>(value: U | (() => U)): U extends undefined ? BooleanSchema<T, C> : BooleanSchema<Exclude<T, undefined>, C>;
     default(): T;
@@ -287,7 +287,7 @@ export interface DateSchema<T extends Date | string | null | undefined = Date | 
         test: AssertingTestFunction<U, C>,
     ): DateSchema<U, C>;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): DateSchema<U, C>;
-    test(options: TestOptions<Record<string, any>, C>): this;
+    test(options: TestOptions<Record<string, any>, C, T | null | undefined>): this;
     optional(): DateSchema<T | undefined, C>;
     default<U extends T>(value: U | (() => U)): U extends undefined ? DateSchema<T, C> : DateSchema<Exclude<T, undefined>, C>;
     default(): T;
@@ -313,8 +313,8 @@ export interface BasicArraySchema<E, T extends E[] | null | undefined, C = objec
     // applies to arrays anyway.
     oneOf(arrayOfValues: ReadonlyArray<T | Ref | null>, message?: MixedLocale['oneOf']): this;
     equals(arrayOfValues: ReadonlyArray<T | Ref | null>, message?: MixedLocale['oneOf']): this;
-    test(name: string, message: TestOptionsMessage, test: TestFunction<T | undefined | null, C>): this;
-    test(options: TestOptions<Record<string, any>, C>): this;
+    test(name: string, message: TestOptionsMessage, test: TestFunction<T | undefined | null, C>): this; // TODO
+    test(options: TestOptions<Record<string, any>, C, T | null | undefined>): this;
     innerType: Schema<E, C>;
 }
 
@@ -418,7 +418,7 @@ export interface ObjectSchema<T extends object | null | undefined = object | und
         test: AssertingTestFunction<U, C>,
     ): ObjectSchema<U, C>;
     test<U extends T = T>(options: AssertingTestOptions<U, Record<string, any>, C>): ObjectSchema<U, C>;
-    test(options: TestOptions<Record<string, any>, C>): this;
+    test(options: TestOptions<Record<string, any>, C, T | null | undefined>): this;
     default<U extends T>(value: U | (() => U)): U extends undefined ? ObjectSchema<T, C> : ObjectSchema<Exclude<T, undefined>, C>;
     default(): T;
 }
@@ -491,7 +491,7 @@ export interface TestMessageParams {
     label: string;
 }
 
-interface BaseTestOptions<P extends Record<string, any>, C = object> {
+interface BaseTestOptions<P extends Record<string, any>, C = object, T extends any = {} | null | undefined> {
     /**
      * Unique name identifying the test. Required for exclusive tests.
      */
@@ -500,7 +500,7 @@ interface BaseTestOptions<P extends Record<string, any>, C = object> {
     /**
      * Test function, determines schema validity
      */
-    test: TestFunction<unknown, C>;
+    test: TestFunction<T | null | undefined, C>;
 
     /**
      * The validation error message
@@ -518,26 +518,26 @@ interface BaseTestOptions<P extends Record<string, any>, C = object> {
     exclusive?: boolean | undefined;
 }
 
-interface NonExclusiveTestOptions<P extends Record<string, any>, C> extends BaseTestOptions<P, C> {
+interface NonExclusiveTestOptions<P extends Record<string, any>, C, T> extends BaseTestOptions<P, C, T> {
     exclusive?: false | undefined;
 }
 
-interface ExclusiveTestOptions<P extends Record<string, any>, C> extends BaseTestOptions<P, C> {
+interface ExclusiveTestOptions<P extends Record<string, any>, C, T> extends BaseTestOptions<P, C, T> {
     exclusive: true;
     name: string;
 }
 
-interface NonExclusiveAssertingTestOptions<U, P extends Record<string, any>, C> extends NonExclusiveTestOptions<P, C> {
+interface NonExclusiveAssertingTestOptions<U, P extends Record<string, any>, C> extends NonExclusiveTestOptions<P, C, any> {
     test: AssertingTestFunction<U, C>;
 }
 
-interface ExclusiveAssertingTestOptions<U, P extends Record<string, any>, C> extends ExclusiveTestOptions<P, C> {
+interface ExclusiveAssertingTestOptions<U, P extends Record<string, any>, C> extends ExclusiveTestOptions<P, C, any> {
     test: AssertingTestFunction<U, C>;
 }
 
-export type TestOptions<P extends Record<string, any> = {}, C = object> =
-    | NonExclusiveTestOptions<P, C>
-    | ExclusiveTestOptions<P, C>;
+export type TestOptions<P extends Record<string, any> = {}, C = object, T extends any = {} | null | undefined> =
+    | NonExclusiveTestOptions<P, C, T>
+    | ExclusiveTestOptions<P, C, T>;
 
 export type AssertingTestOptions<U, P extends Record<string, any> = {}, C = object> =
     | NonExclusiveAssertingTestOptions<U, P, C>

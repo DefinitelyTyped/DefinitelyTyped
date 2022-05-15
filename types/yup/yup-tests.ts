@@ -1152,6 +1152,26 @@ yup.object({
         }
         return true;
     }),
+    alias: yup
+        .string()
+        .defined()
+        .test({
+            name: 'test1',
+            test: (value: string | null | undefined) => true,
+            message: 'validation error message',
+            exclusive: true,
+        })
+        .test({
+            name: 'test2',
+            // $ExpectError
+            test: (value: string) => true,
+            message: 'validation error message',
+            exclusive: true,
+        }),
+    dateOfBirthIsUnknown: yup.boolean().test({
+        test: (value: boolean | null | undefined) => true,
+        message: 'validation error message',
+    }),
     dateOfBirth: yup.date().required().test('', '', (value) => {
         // $ExpectError
         const x = Number.parseFloat(value);
@@ -1189,7 +1209,35 @@ yup.object({
             const test3 = value.name * 1;
             return false;
         });
-    })
+    }),
+    data: typedSchema
+        .test('', '', value => {
+            // $ExpectType MyInterface | null | undefined
+            const v = value;
+            return true;
+        })
+        .test({
+            name: 'name',
+            test: (value: any): value is MyInterface => true,
+            exclusive: true,
+        })
+        .test({
+            name: 'nonExclusiveTest',
+            test: (value: any): value is MyInterface => true,
+        })
+        .test({
+            test: (value: any) => new Promise<boolean>(() => true),
+        })
+        .test({
+            test: (value: MyInterface | null | undefined) => true,
+        })
+        .test({
+            test: (value: MyInterface | null | undefined) => new Promise<boolean>(() => true),
+        })
+        .test({
+            // $ExpectError
+            test: (value: MyInterface) => new Promise<boolean>(() => true),
+        }),
 });
 
 interface MyContext {
