@@ -11,6 +11,10 @@ const pems = selfsigned.generate([{ name: 'commonName', value: 'contoso.com' }],
 // $ExpectType void
 selfsigned.generate([{ name: 'commonName', value: 'contoso.com' }], { days: 365 }, (err, pems) => {});
 
+// Callback
+// $ExpectType void
+selfsigned.generate([{ name: 'commonName', value: 'contoso.com' }], (err, pems) => {});
+
 // Callback only
 // $ExpectType void
 selfsigned.generate((err, pems) => {});
