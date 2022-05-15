@@ -187,237 +187,47 @@ export class Wallet {
     getExchangeRate(currencyCode: CurrencyCode): Promise<ExchangeRate>;
 }
 
+interface HttpSignedRequest {
+    baseURL: string;
+    url: string;
+    method: string;
+    headers: {
+        'oauth-publickey': string;
+        'oauth-signature': string;
+        'oauth-timestamp': string;
+        'app-secret': string;
+    };
+    data: string;
+    responseType: string;
+}
+
 declare class HttpRequestFactory {
     authToken: string;
     baseApiEndpoint: string;
     appSecret: string;
     constructor(authToken: string, baseApiEndpoint: string, appSecret: string);
-    _getSignedRequest(method: string, endpoint: string, body?: any, queryParameters?: any): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
+    _getHttpSignedRequest(method: string, endpoint: string, body?: any, queryParameters?: any): HttpSignedRequest;
     static _getEncodedEndpoint(endpoint: string, queryParameters: any): string;
     static _getRequestSignature(method: string, endpoint: string, serializedBody: string, timestamp: string, privateKey: any): string;
     static _getRequestSignaturePayload(method: string, endpoint: string, serializedBody: string, timestamp: string): string;
-    getCurrentProfileRequest(): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getPublicProfilesByHandleRequest(aliases: string[]): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getUserFriendsRequest(): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getUserPermissionsRequest(): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getEncryptionKeypairRequest(encryptionPublicKey: string): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getDataSignatureRequest(dataSignatureParameters: DataSignatureParameters): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getSpendableBalanceRequest(currencyCode: CurrencyCode): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getTotalBalanceRequest(): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getPayRequest(paymentParameters: PaymentParameters): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
+    getCurrentProfileRequest(): HttpSignedRequest;
+    getPublicProfilesByHandleRequest(aliases: string[]): HttpSignedRequest;
+    getUserFriendsRequest(): HttpSignedRequest;
+    getUserPermissionsRequest(): HttpSignedRequest;
+    getEncryptionKeypairRequest(encryptionPublicKey: string): HttpSignedRequest;
+    getDataSignatureRequest(dataSignatureParameters: DataSignatureParameters): HttpSignedRequest;
+    getSpendableBalanceRequest(currencyCode: CurrencyCode): HttpSignedRequest;
+    getTotalBalanceRequest(): HttpSignedRequest;
+    getPayRequest(paymentParameters: PaymentParameters): HttpSignedRequest;
     getPaymentRequest(queryParameters: {
         transactionId: string;
-    }): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getExchangeRateRequest(currencyCode: CurrencyCode): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getPursePayRequest(rawTransaction: string, inputParents: any[]): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getPurseBroadcastRequest(rawTransaction: string): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getOwnerNextAddressRequest(alias: string): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getOwnerSignRequest(rawTransaction: string, inputParents: any[], locks: any[]): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
-    getNftLocationsRequest(): {
-        baseURL: string;
-        url: string;
-        method: string;
-        headers: {
-            'oauth-publickey': string;
-            'oauth-signature': string;
-            'oauth-timestamp': string;
-            'app-secret': string;
-        };
-        data: string;
-        responseType: string;
-    };
+    }): HttpSignedRequest;
+    getExchangeRateRequest(currencyCode: CurrencyCode): HttpSignedRequest;
+    getPursePayRequest(rawTransaction: string, inputParents: any[]): HttpSignedRequest;
+    getPurseBroadcastRequest(rawTransaction: string): HttpSignedRequest;
+    getOwnerNextAddressRequest(alias: string): HttpSignedRequest;
+    getOwnerSignRequest(rawTransaction: string, inputParents: any[], locks: any[]): HttpSignedRequest;
+    getNftLocationsRequest(): HttpSignedRequest;
 }
 
 declare class HandCashConnectService {
