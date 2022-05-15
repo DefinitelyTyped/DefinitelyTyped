@@ -39,6 +39,17 @@ class CustomPlugin implements Plugin {
         this.variableResolvers = {
             echo: async (source) => source.slice(5)
         };
+
+        logging.log.info('logging some text');
+        logging.log.info('logging with %i format %s', 2, 'parameters');
+        logging.log.info('logging with lots of different arguments', 123, ["ah"], { thing: true });
+
+        const myProgress = logging.progress.create({
+            message: 'Doing extra work in custom-plugin',
+            name: 'custom-plugin-progress',
+        });
+        myProgress.update('Almost finished');
+        logging.progress.get('custom-plugin-progress').remove();
     }
 }
 
