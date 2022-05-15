@@ -5,18 +5,26 @@
 
 interface LogFunction {
     /**
-     * log doesn't force any specific arguments handling. Still it is recommended to assume printf-like message format, as all currently available writers are setup to support it. Placeholders support reflects one implemented in Node.js format util
-     * 
-     * The first argument is a string containing zero or more placeholder tokens. Each placeholder token is replaced with the converted value from the corresponding argument. Supported placeholders are:
+     * log doesn't force any specific arguments handling.
+     * Still it is recommended to assume printf-like message format, as all currently available writers are setup to support it.
+     * Placeholders support reflects one implemented in Node.js [`util.format`](https://nodejs.org/api/util.html#utilformatformat-args).
+     *
+     * If using placeholders, the first argument is a string containing zero or more placeholder tokens.
+     * Each placeholder token is replaced with the converted value from the corresponding argument.
+     * Supported placeholders are:
      * * %s - String.
      * * %d - Number (integer or floating point value).
      * * %i - Integer.
      * * %f - Floating point value.
      * * %j - JSON. Replaced with the string '[Circular]' if the argument contains circular references.
-     * * %o - Object. A string representation of an object with generic JavaScript object formatting. Similar to util.inspect() with options { showHidden: true, depth: 4, showProxy: true }. This will show the full object including non-enumerable symbols and properties.
-     * * %O - Object. A string representation of an object with generic JavaScript object formatting. Similar to util.inspect() without options. This will show the full object not including non-enumerable symbols and properties.
+     * * %o - Object. A string representation of an object with generic JavaScript object formatting.
+     *                Similar to [`util.inspect`](https://nodejs.org/api/util.html#utilinspectobject-options) with options `{ showHidden: true, depth: 4, showProxy: true }`.
+     *                This will show the full object including non-enumerable symbols and properties.
+     * * %O - Object. A string representation of an object with generic JavaScript object formatting.
+     *                Similar to [`util.inspect`](https://nodejs.org/api/util.html#utilinspectobject-options) without options.
+     *                This will show the full object not including non-enumerable symbols and properties.
      * * %% - single percent sign ('%'). This does not consume an argument.
-     * 
+     *
      * ```
      * log.info("Log out different things!", 123, { "prop": true })
      * log.info("This uses %i format %s", 2, "placeholders")
@@ -31,7 +39,7 @@ interface LogFunction {
     };
 }
 
-interface Logger {
+declare class Logger {
     /** debugging information (hidden by default) */
     debug: LogFunction;
     /** a purely informational message (hidden by default) */
@@ -50,4 +58,4 @@ interface Logger {
 }
 
 declare const log: Logger;
-export default log;
+export = log;
