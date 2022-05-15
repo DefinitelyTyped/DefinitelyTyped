@@ -51,3 +51,11 @@ import * as R from 'ramda';
     // $ExpectError
     R.nth(1, '', 1);
 };
+
+async () => {
+    const promise = Promise.resolve([1, 2, 3]);
+
+    // $ExpectType number
+    const el = await promise.then(R.nth(0));
+    // but I am getting string above
+};
