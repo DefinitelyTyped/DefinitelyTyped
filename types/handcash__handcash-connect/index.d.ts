@@ -1,5 +1,5 @@
 // Type definitions for @handcash/handcash-connect 0.4
-// Project: https://github.com/HandCash/handcash-connect-sdk-js (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/HandCash/handcash-connect-sdk-js
 // Definitions by: nLockTimeLabs <https://github.com/nLockTimeLabs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
