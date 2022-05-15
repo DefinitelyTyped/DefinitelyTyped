@@ -4,13 +4,15 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export type Algorithm = "sha1" | "sha256";
+
 export interface Options {
     /** the size for the private key in bits (default: 1024) */
     keySize?: number;
     /** how long till expiry of the signed certificate (default: 365) */
     days?: number;
     /** sign the certificate with specified algorithm (default: 'sha1') */
-    algorithm?: string;
+    algorithm?: Algorithm;
     /** certificate extensions array */
     extensions?: any[];
     /** include PKCS#7 as part of the output (default: false) */
