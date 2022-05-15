@@ -39,7 +39,7 @@ interface LogFunction {
     };
 }
 
-declare class Logger {
+interface Logger {
     /** debugging information (hidden by default) */
     debug: LogFunction;
     /** a purely informational message (hidden by default) */
