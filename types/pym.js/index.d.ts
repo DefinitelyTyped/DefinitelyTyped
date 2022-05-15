@@ -1,4 +1,4 @@
-// Type definitions for pym.js 1.3.2
+// Type definitions for pym.js 1.3
 // Project: https://github.com/nprapps/pym.js/
 // Definitions by: James Lin <https://github.com/igowerf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@ declare module 'pym.js' {
         /**
          * callback invoked after receiving a resize event from the parent
          */
-        renderCallback?: Function | null;
+        renderCallback?: (message: string) => {} | null;
 
         /**
          * xdomain to validate messages received. defaults to '*'.
@@ -101,38 +101,36 @@ declare module 'pym.js' {
     /**
      * The Child half of a response iframe.
      *
-     * @class Child
-     * @param {Object} config Optional configuration for the child instance.
+     * @param config Optional configuration for the child instance.
      */
     class Child {
         constructor(config?: ChildOptions);
-        navigateParentTo(url: string);
-        onMessage(messageType: string, callback: Callback);
-        sendMessage(messageType: string, message: string);
-        getParentPositionInfo();
-        scrollParentTo(hash: string);
-        scrollParentToChildEl(id: string);
-        scrollParentToChildPos(pos: number);
-        sendHeight();
-        remove();
+        navigateParentTo(url: string): void;
+        onMessage(messageType: string, callback: Callback): void;
+        sendMessage(messageType: string, message: string): void;
+        getParentPositionInfo(): void;
+        scrollParentTo(hash: string): void;
+        scrollParentToChildEl(id: string): void;
+        scrollParentToChildPos(pos: number): void;
+        sendHeight(): void;
+        remove(): void;
     }
 
     /**
      * The Parent half of a response iframe.
      *
-     * @class Parent
-     * @param {String} id The id of the div into which the iframe will be rendered.
-     * @param {String} url The url of the iframe source.
-     * @param {Object} config Optional configuration for the parent instance.
+     * @param id The id of the div into which the iframe will be rendered.
+     * @param url The url of the iframe source.
+     * @param config Optional configuration for the parent instance.
      */
     class Parent {
         constructor(id: string, url: string, config?: ParentOptions);
-        onMessage(messageType: string, callback: Callback);
-        sendMessage(messageType: string, message: string);
-        sendWidth();
-        sendViewportAndIFramePosition();
-        remove();
+        onMessage(messageType: string, callback: Callback): void;
+        sendMessage(messageType: string, message: string): void;
+        sendWidth(): void;
+        sendViewportAndIFramePosition(): void;
+        remove(): void;
     }
 
-    function autoInit(doNotRaiseEvents: boolean);
+    function autoInit(doNotRaiseEvents: boolean): [Parent];
 }
