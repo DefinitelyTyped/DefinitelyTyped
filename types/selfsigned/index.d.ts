@@ -1,0 +1,35 @@
+// Type definitions for selfsigned 2.0
+// Project: https://github.com/jfromaniello/selfsigned
+// Definitions by: chimurai <https://github.com/chimurai>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export interface Options {
+    /** the size for the private key in bits (default: 1024) */
+    keySize?: number;
+    /** how long till expiry of the signed certificate (default: 365) */
+    days?: number;
+    /** sign the certificate with specified algorithm (default: 'sha1') */
+    algorithm?: string;
+    /** certificate extensions array */
+    extensions?: any[];
+    /** include PKCS#7 as part of the output (default: false) */
+    pkcs7?: boolean;
+    /** generate client cert signed by the original key (default: false) */
+    clientCertificate?: boolean;
+    /** client certificate's common name (default: 'John Doe jdoe123') */
+    clientCertificateCN?: string;
+}
+
+export type Callback = (error: Error, pems: PEMS) => void;
+
+export interface PEMS {
+    fingerprint: string;
+    cert: string;
+    public: string;
+    private: string;
+    clientprivate?: string;
+    clientpublic?: string;
+    clientcert?: string;
+}
+
+export function generate(attrs: any[] | null, options?: Options, callback?: Callback): PEMS;
