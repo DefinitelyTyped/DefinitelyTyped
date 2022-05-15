@@ -1,7 +1,7 @@
 // Internal helper types
 
 // tslint:disable-next-line: strict-export-declare-modifiers
-type FunctionComponent<Props> = (props: Props) => JSX.Element;
+type FunctionComponent<Props> = (props: Props) => JSX.Element | null;
 // tslint:disable-next-line: strict-export-declare-modifiers
 type ClassComponent<Props> = new (props: Props) => JSX.ElementClass;
 // tslint:disable-next-line: strict-export-declare-modifiers
@@ -46,7 +46,7 @@ export interface MDXProps {
 /**
  * The type of the default export of an MDX module.
  */
-export type MDXContent = FunctionComponent<MDXProps>;
+export type MDXContent = (props: MDXProps) => JSX.Element;
 
 /**
  * A generic MDX module type.
