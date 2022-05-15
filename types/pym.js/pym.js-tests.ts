@@ -3,7 +3,6 @@ import pym from 'pym.js';
 const pymParent = new pym.Parent('example-1', 'https://blog.apps.npr.org/pym.js/examples/table/child.html', {});
 new pym.Child({});
 pymParent.onMessage('customMessage', (message: string) => {
-    console.log(message);
 });
 pymParent.sendMessage('customMessage', 'hello from parent');
 pymParent.sendViewportAndIFramePosition();
@@ -15,7 +14,6 @@ const pymChild = new pym.Child({
 pymChild.getParentPositionInfo();
 pymChild.navigateParentTo('');
 pymChild.onMessage('customMessage', (message: string) => {
-    console.log(message);
 });
 pymChild.scrollParentTo('#foo');
 pymChild.scrollParentToChildEl('#bar');
