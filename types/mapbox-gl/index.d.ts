@@ -772,6 +772,13 @@ declare namespace mapboxgl {
         pitch?: number | undefined;
 
         /**
+         * A style's projection property sets which projection a map is rendered in.
+         *
+         * @default 'mercator'
+         */
+         projection?: 'equalEarth' | 'albers' | 'mercator' | 'lambertConformalConic' | 'winkelTripel' | 'naturalEarth' | 'equirectangular';
+
+        /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
          *
          * @default true
