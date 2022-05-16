@@ -102,6 +102,7 @@ MyTelegramBot.sendVoice(1234, 'voice/path', { filename: 'filename', contentType:
 MyTelegramBot.sendAnimation(1234, 'animation/path', { caption: 'Foo', duration: 100, width: 200, height: 300 });
 MyTelegramBot.sendChatAction(1234, 'typing');
 MyTelegramBot.kickChatMember(1234, 'myUserID');
+MyTelegramBot.banChatMember(1234, 'myUserID');
 MyTelegramBot.unbanChatMember(1234, 'myUserID');
 MyTelegramBot.restrictChatMember(1234, 'myUserID', { can_add_web_page_previews: true, can_send_polls: false });
 MyTelegramBot.promoteChatMember(1234, 'myUserID', { can_change_info: true });
