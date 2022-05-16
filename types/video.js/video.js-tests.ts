@@ -210,14 +210,14 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 });
 
 function testEvents(player: videojs.Player) {
-    const myFunc = function (this: videojs.Player) {
+    const myFunc = function(this: videojs.Player) {
         // Do something when the event is fired
     };
     player.on('error', myFunc);
     // Removes the specified listener only.
     player.off('error', myFunc);
 
-    const myFuncWithArg = function (this: videojs.Player, e: Event) {
+    const myFuncWithArg = function(this: videojs.Player, e: Event) {
         // Do something when the event is fired
     };
     player.on('volumechange', myFuncWithArg);
@@ -274,7 +274,7 @@ function testPlugin(player: videojs.Player, options: {}) {
         return;
     }
 
-    videojs.registerPlugin('uloztoExample', function ({ }: typeof options) {
+    videojs.registerPlugin('uloztoExample', function({ }: typeof options) {
         this.play();
         this.one('ended', () => {
             // do something
