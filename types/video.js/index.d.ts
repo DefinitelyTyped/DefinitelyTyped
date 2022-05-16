@@ -460,9 +460,9 @@ declare namespace videojs {
     function extend<
         TSuper extends new (...args: any[]) => any,
         TSubClassMethods extends Record<string | symbol, (this: InstanceType<TSuper>, ...args: any[]) => any>,
-        >(
-            superClass: TSuper,
-            subClassMethods?: TSubClassMethods,
+    >(
+        superClass: TSuper,
+        subClassMethods?: TSubClassMethods,
     ): new (...args: ConstructorParameters<TSuper>) => InstanceType<TSuper> & TSubClassMethods;
 
     /**
