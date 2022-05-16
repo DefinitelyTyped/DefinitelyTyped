@@ -2042,51 +2042,11 @@ declare namespace videojs {
 
     type Content = string | Element | Node | (() => string | Element | Node);
 
-    interface PlaybackRateMenuButton extends Component {
-        /**
-         * Returns the HTML Div Element
-         *
-         * @return the HTML Div Element.
-         */
-        el(): HTMLDivElement;
-    }
-
-    interface LiveDisplay extends Component {
-        /**
-         * Returns the HTML Div Element
-         *
-         * @return the HTML Div Element.
-         */
-        el(): HTMLDivElement;
-    }
-
-    interface ProgressControl extends Component {
-        /**
-         * Returns the HTML Div Element
-         *
-         * @return the HTML Div Element.
-         */
-        el(): HTMLDivElement;
-    }
-
-    interface RemainingTimeDisplay extends Component {
-        /**
-         * Returns the HTML Div Element
-         *
-         * @return the HTML Div Element.
-         */
-        el(): HTMLDivElement;
-    }
-
     /**
      * Container of main controls.
      */
     interface ControlBar extends Component {
-        liveDisplay: LiveDisplay;
         options_: ControlBarOptions;
-        playbackRateMenuButton: PlaybackRateMenuButton;
-        progressControl: ProgressControl;
-        remainingTimeDisplay: RemainingTimeDisplay;
 
         /**
          * Create the `Component`'s DOM element
@@ -2094,6 +2054,20 @@ declare namespace videojs {
          * @return The element that was created.
          */
         createEl(): HTMLDivElement;
+
+        /**
+         * Returns the child `Component` with the given `name`.
+         *
+         * @param name
+         *        The name of the child `Component` to get.
+         *
+         * @return The child `Component` with the given `name` or undefined.
+         */
+        getChild(name: string): ControlBarChild | undefined;
+    }
+
+    interface ControlBarChild extends Component {
+        el(): HTMLDivElement;
     }
 
     const ControlBar: {
@@ -4290,6 +4264,8 @@ declare namespace videojs {
          */
         disable(): void;
 
+        el(): HTMLDivElement;
+
         /**
          * Enable all controls on the progress control and its children
          */
@@ -4899,11 +4875,11 @@ declare namespace videojs {
         dispose(): void;
 
         /**
-         * Returns the HTML Video Element
+         * Returns the HTML Video/Audio Element
          *
-         * @return the HTML Video Element
+         * @return the HTML Video/Audio Element
          */
-        el: () => HTMLVideoElement;
+        el: () => HTMLVideoElement | HTMLAudioElement;
 
         /**
          * Emulate texttracks
