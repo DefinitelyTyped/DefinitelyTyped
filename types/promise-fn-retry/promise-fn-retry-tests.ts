@@ -1,6 +1,7 @@
 import retry, { RetryOptions, RetryControlOptions } from 'promise-fn-retry';
 
-const requestFn = () => Promise.resolve();
+const testString = 'testString';
+const requestFn = () => Promise.resolve(testString);
 const options: RetryOptions = {
     times: 1,
     initialDelayTime: 100,
