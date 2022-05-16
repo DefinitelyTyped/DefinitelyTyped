@@ -361,34 +361,18 @@ function testTracks(player: VideoJsPlayer) {
 }
 
 function testVideoElement(player: VideoJsPlayer) {
-    // $ExpectType HTMLVideoElement
+    // $ExpectType HTMLVideoElement | HTMLAudioElement
     player.tech(true).el();
 }
 
 function testControlBarElements(player: VideoJsPlayer) {
-    // $ExpectType PlaybackRateMenuButton
-    player.controlBar.playbackRateMenuButton;
+    // $ExpectType ControlBarChild | undefined
+    const child = player.controlBar.getChild('playbackRateMenuButton');
 
-    // $ExpectType HTMLDivElement
-    player.controlBar.playbackRateMenuButton.el();
-
-    // $ExpectType LiveDisplay
-    player.controlBar.liveDisplay;
-
-    // $ExpectType HTMLDivElement
-    player.controlBar.liveDisplay.el();
-
-    // $ExpectType ProgressControl
-    player.controlBar.progressControl;
-
-    // $ExpectType HTMLDivElement
-    player.controlBar.progressControl.el();
-
-    // $ExpectType RemainingTimeDisplay
-    player.controlBar.remainingTimeDisplay;
-
-    // $ExpectType HTMLDivElement
-    player.controlBar.remainingTimeDisplay.el();
+    if (child) {
+        // $ExpectType HTMLDivElement
+        child.el();
+    }
 }
 
 function testGetDescendants(player: VideoJsPlayer) {
