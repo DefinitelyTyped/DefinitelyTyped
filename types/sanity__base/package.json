@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "@sanity/types": "^2.28.0",
+    "@sanity/field": "^2.28.0",
+    "@sanity/schema": "^2.28.0"
+  }
+}
