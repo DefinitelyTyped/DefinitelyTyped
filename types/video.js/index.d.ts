@@ -1053,9 +1053,9 @@ declare namespace videojs {
     type Child =
         | string
         | {
-            name: string;
-            children?: Child[] | undefined;
-        };
+        name: string;
+        children?: Child[] | undefined;
+    };
 
     interface ClickableComponentOptions extends ComponentOptions {
         clickHandler?: () => void;
