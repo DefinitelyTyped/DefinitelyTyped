@@ -207,6 +207,10 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     this.canPlayType('video/mp4');
 
     testTracks(this);
+
+    testVideoElement(this);
+
+    testControlBarElements(this);
 });
 
 function testEvents(player: videojs.Player) {
