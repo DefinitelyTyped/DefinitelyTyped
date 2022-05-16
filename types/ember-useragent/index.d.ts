@@ -7,7 +7,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.4
 
-import './services/user-agent';
-import './helpers/user-agent';
+import UserAgentService from './services/user-agent';
 
-export {};
+export * from './services/user-agent';
+export * from './helpers/user-agent';
+
+declare module '@ember/service' {
+    interface ServiceRegistry {
+        userAgent: UserAgentService;
+    }
+}

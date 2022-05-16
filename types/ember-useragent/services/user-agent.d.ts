@@ -76,9 +76,3 @@ export default class UserAgentService extends Service {
 
     userAgent: string;
 }
-
-declare module '@ember/service' {
-    interface ServiceRegistry {
-        userAgent: UserAgentService;
-    }
-}
