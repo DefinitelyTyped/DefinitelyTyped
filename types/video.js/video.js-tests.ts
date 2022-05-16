@@ -58,8 +58,8 @@ const playerOptions: VideoJsPlayerOptions = {
     ],
     techOrder: ['html5', 'anotherTech'],
     userActions: {
-        click: event => {},
-        doubleClick: event => {},
+        click: event => { },
+        doubleClick: event => { },
         hotkeys: true,
     },
 };
@@ -91,7 +91,7 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     const playPromise = this.play();
 
     if (playPromise) {
-        playPromise.then(() => {});
+        playPromise.then(() => { });
     }
 
     this.pause();
@@ -110,8 +110,8 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     ]);
 
     const liveTracker = this.liveTracker;
-    liveTracker.on('seekableendchange', () => {});
-    liveTracker.on('liveedgechange', () => {});
+    liveTracker.on('seekableendchange', () => { });
+    liveTracker.on('liveedgechange', () => { });
     const windowOrDuration = liveTracker.isLive() ? liveTracker.liveWindow() : this.duration();
     const liveCurrentTime: number = liveTracker.liveCurrentTime();
     const liveWindow: number = liveTracker.liveWindow();
@@ -175,7 +175,7 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     });
 
     // $ExpectType string | undefined
-    this.requestNamedAnimationFrame('animationFrameName', () => {});
+    this.requestNamedAnimationFrame('animationFrameName', () => { });
 
     // $ExpectType void
     this.cancelNamedAnimationFrame('animationFrameName');
@@ -210,14 +210,14 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 });
 
 function testEvents(player: videojs.Player) {
-    const myFunc = function(this: videojs.Player) {
+    const myFunc = function (this: videojs.Player) {
         // Do something when the event is fired
     };
     player.on('error', myFunc);
     // Removes the specified listener only.
     player.off('error', myFunc);
 
-    const myFuncWithArg = function(this: videojs.Player, e: Event) {
+    const myFuncWithArg = function (this: videojs.Player, e: Event) {
         // Do something when the event is fired
     };
     player.on('volumechange', myFuncWithArg);
@@ -265,7 +265,7 @@ function testComponents(player: videojs.Player) {
 
     const MyClickableComponent = videojs.extend(videojs.getComponent("clickablecomponent"));
     const myClickable = new MyClickableComponent(player, {
-        clickHandler: () => {}
+        clickHandler: () => { }
     });
 }
 
@@ -274,7 +274,7 @@ function testPlugin(player: videojs.Player, options: {}) {
         return;
     }
 
-    videojs.registerPlugin('uloztoExample', function({}: typeof options) {
+    videojs.registerPlugin('uloztoExample', function ({ }: typeof options) {
         this.play();
         this.one('ended', () => {
             // do something
@@ -358,6 +358,37 @@ function testTracks(player: VideoJsPlayer) {
 
     // $ExpectType TextTrackList
     player.textTracks();
+}
+
+function testVideoElement(player: VideoJsPlayer) {
+    // $ExpectType HTMLVideoElement
+    player.tech(true).el();
+}
+
+function testControlBarElements(player: VideoJsPlayer) {
+    // $ExpectType PlaybackRateMenuButton
+    player.controlBar.playbackRateMenuButton;
+
+    // $ExpectType HTMLDivElement
+    player.controlBar.playbackRateMenuButton.el();
+
+    // $ExpectType LiveDisplay
+    player.controlBar.liveDisplay;
+
+    // $ExpectType HTMLDivElement
+    player.controlBar.liveDisplay.el();
+
+    // $ExpectType ProgressControl
+    player.controlBar.progressControl;
+
+    // $ExpectType HTMLDivElement
+    player.controlBar.progressControl.el();
+
+    // $ExpectType RemainingTimeDisplay
+    player.controlBar.remainingTimeDisplay;
+
+    // $ExpectType HTMLDivElement
+    player.controlBar.remainingTimeDisplay.el();
 }
 
 function testGetDescendants(player: VideoJsPlayer) {
