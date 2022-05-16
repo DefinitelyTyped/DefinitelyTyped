@@ -71,6 +71,6 @@ declare namespace Masonry {
 declare global {
     interface JQuery {
         masonry(options?: Masonry.Options): JQuery;
-	masonry(selector: string | Element, options?: Masonry.Options | JQuery): JQuery;
+        masonry(selector: string | Element, options?: Masonry.Options | JQuery): JQuery;
     }
 }
