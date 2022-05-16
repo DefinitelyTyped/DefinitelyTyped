@@ -370,7 +370,7 @@ function testVideoElement(player: VideoJsPlayer) {
 }
 
 function testControlBarElements(player: VideoJsPlayer) {
-    // $ExpectType ControlBarChild | undefined
+    // $ExpectType PlaybackRateMenuButton | undefined
     const child = player.controlBar.getChild('playbackRateMenuButton');
 
     if (child) {
