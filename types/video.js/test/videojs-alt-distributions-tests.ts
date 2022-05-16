@@ -99,14 +99,14 @@ function test(videojs: typeof videojsnovtt | typeof videojscore) {
     });
 
     function testEvents(player: videojsnovtt.Player | videojscore.Player) {
-        const myFunc = function(this: videojscore.Player) {
+        const myFunc = function (this: videojscore.Player) {
             // Do something when the event is fired
         };
         player.on('error', myFunc);
         // Removes the specified listener only.
         player.off('error', myFunc);
 
-        const myFuncWithArg = function(this: videojscore.Player, e: Event) {
+        const myFuncWithArg = function (this: videojscore.Player, e: Event) {
             // Do something when the event is fired
         };
         player.on('volumechange', myFuncWithArg);
@@ -139,7 +139,7 @@ function test(videojs: typeof videojsnovtt | typeof videojscore) {
             return;
         }
 
-        videojs.registerPlugin('uloztoExample', function({}: typeof options) {
+        videojs.registerPlugin('uloztoExample', function ({}: typeof options) {
             this.play();
             this.one('ended', () => {
                 // do something
