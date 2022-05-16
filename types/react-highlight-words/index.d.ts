@@ -5,19 +5,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface FindChunks {
-    autoEscape?: boolean | undefined;
-    caseSensitive?: boolean | undefined;
-    sanitize?: ((text: string) => string) | undefined;
-    searchWords: Array<string | RegExp>;
-    textToHighlight: string;
+  autoEscape?: boolean | undefined;
+  caseSensitive?: boolean | undefined;
+  sanitize?: ((text: string) => string) | undefined;
+  searchWords: Array<string|RegExp>;
+  textToHighlight: string;
 }
 
 export interface Chunk {
-    start: number;
-    end: number;
+  start: number;
+  end: number;
 }
 
 export interface HighlighterProps {
