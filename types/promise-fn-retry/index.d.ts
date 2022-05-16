@@ -16,7 +16,7 @@ export interface RetryControlOptions extends RetryOptions {
 }
 
 declare function retry<T>(
-  requestFn: (...args: any[]) => Promise<T>,
+  requestFn: () => Promise<T>,
   options?: RetryOptions,
 ): Promise<T>;
 
