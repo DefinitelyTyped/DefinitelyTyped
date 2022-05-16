@@ -1,20 +1,41 @@
-const canvas = document.createElement('canvas');
-const ctx: WebGLRenderingContext | null = canvas.getContext('webgl') as any as WebGLRenderingContext;
-
 (async () => {
-    if (!navigator.xr || ctx && !ctx.makeXRCompatible) {
+    const canvas = document.createElement('canvas');
+    const ctx: WebGLRenderingContext | null = canvas.getContext('webgl');
+
+    if (!ctx) {
+        throw new Error("No graphics context");
+    }
+
+    if (!navigator.xr || !ctx.makeXRCompatible) {
         throw Error('You do not have WebXR');
     }
+
+    navigator.xr.addEventListener("sessiongranted", (evt) =>
+        console.log("Session granted", evt.session));
 
     const startRot = new DOMPoint(0, 0, 0, 1);
     const startSpot = new DOMPoint(0, 0, 0, 1);
 
     await ctx.makeXRCompatible();
 
+    // const session = new XRSession(); // shouldn't be able to do this.
     const session = await navigator.xr.requestSession('immersive-vr');
+    if (!(session instanceof XRSession)) {
+        throw new Error("Can't test instance of XRSession");
+    }
 
-    const ext = ctx.getExtension("OCULUS_multiview");
-    if (ext && !ext.framebufferTextureMultisampleMultiviewOVR) {
+    session.addEventListener("end", (evt) =>
+        console.log("The session has ended.", evt.session));
+
+    const ovrExt = ctx.getExtension("OVR_multiview2");
+    if (ovrExt && !ovrExt.framebufferTextureMultiviewOVR) {
+        throw Error("Incorrect extension type");
+    }
+
+    const omvExt = ctx.getExtension("OCULUS_multiview");
+    if (omvExt
+        && !omvExt.framebufferTextureMultiviewOVR
+        && !omvExt.framebufferTextureMultisampleMultiviewOVR) {
         throw Error("Incorrect extension type");
     }
 

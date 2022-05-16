@@ -18,6 +18,10 @@ interface Navigator {
     xr?: XRSystem | undefined;
 }
 
+interface WebGLRenderingContextBase {
+    makeXRCompatible(): Promise<void>;
+}
+
 /**
  * Available session modes
  */
@@ -47,88 +51,38 @@ type XRTargetRayMode = 'gaze' | 'tracked-pointer' | 'screen';
  */
 type XREye = 'none' | 'left' | 'right';
 
-/**
- * Type of XR events available
- */
-type XRInputSourceEventType =
-    | "select"
-    | "selectend"
-    | "selectstart"
-    | "squeeze"
-    | "squeezeend"
-    | "squeezestart";
-
-type XREventType =
-    | XRInputSourceEventType
-    | 'devicechange'
-    | 'visibilitychange'
-    | 'end'
-    | 'inputsourceschange'
-    | 'reset';
-
 type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
 
-type XRPlaneSet = Set<XRPlane>;
-type XRAnchorSet = Set<XRAnchor>;
-
-interface XREventHandler {
+interface EventHandler {
     (event: Event): any;
-}
-
-// tslint:disable-next-line no-empty-interface
-interface XRLayer extends EventTarget { }
-
-declare class XRLayer {
-    prototype: XRLayer;
-}
-
-interface XRSessionInit {
-    optionalFeatures?: string[] | undefined;
-    requiredFeatures?: string[] | undefined;
-}
-
-interface XRSessionEvent extends Event {
-    readonly session: XRSession;
-}
-
-declare class XRSessionEvent {
-    prototype: XRSessionEvent;
 }
 
 interface XRSystemDeviceChangeEvent extends Event {
     type: "devicechange";
 }
 
-interface XRSessionGrant {
-    mode: XRSessionMode;
+interface XRSystemDeviceChangeEventHandler {
+    (event: XRSystemDeviceChangeEvent): any;
 }
 
-interface XRSystemSessionGrantedEvent extends Event {
-    type: "sessiongranted";
-    session: XRSessionGrant;
-}
-
-interface XRSystemEventMap extends HTMLMediaElementEventMap {
+interface XRSystemEventMap {
     "devicechange": XRSystemDeviceChangeEvent;
-    "sessiongranted": XRSystemSessionGrantedEvent;
 }
 
 interface XRSystem extends EventTarget {
     requestSession(mode: XRSessionMode, options?: XRSessionInit): Promise<XRSession>;
     isSessionSupported(mode: XRSessionMode): Promise<boolean>;
 
-    ondevicechange: ((this: XRSystem, ev: XRSystemDeviceChangeEvent) => any) | null;
-    onsessiongranted: ((this: XRSystem, ev: XRSystemSessionGrantedEvent) => any) | null;
+    ondevicechange: XRSystemDeviceChangeEventHandler | null;
 
+    dispatchEvent(event: Event): boolean;
     addEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
-declare class XRSystem {
-    prototype: XRSystem;
-}
+declare abstract class XRSystem implements XRSystem { }
 
 interface XRViewport {
     readonly x: number;
@@ -137,52 +91,18 @@ interface XRViewport {
     readonly height: number;
 }
 
-declare class XRViewport {
-    prototype: XRViewport;
-}
-
-interface XRWebGLLayerInit {
-    antialias?: boolean | undefined;
-    depth?: boolean | undefined;
-    stencil?: boolean | undefined;
-    alpha?: boolean | undefined;
-    ignoreDepthValues?: boolean | undefined;
-    framebufferScaleFactor?: number | undefined;
-}
-
-interface XRWebGLLayer extends XRLayer {
-    readonly antialias: boolean;
-    readonly ignoreDepthValues: boolean;
-    fixedFoveation?: number | undefined;
-
-    readonly framebuffer: WebGLFramebuffer;
-    readonly framebufferWidth: number;
-    readonly framebufferHeight: number;
-
-    getViewport(view: XRView): XRViewport | undefined;
-
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | EventListenerOptions): void;
-    dispatchEvent(event: Event): boolean;
-}
-
-declare class XRWebGLLayer {
-    static getNativeFramebufferScaleFactor(session: XRSession): number;
-
-    constructor(
-        session: XRSession,
-        context: WebGLRenderingContext | WebGL2RenderingContext,
-        layerInit?: XRWebGLLayerInit,
-    );
-
-    prototype: XRWebGLLayer;
-}
+declare abstract class XRViewport implements XRViewport { }
 
 // tslint:disable-next-line no-empty-interface
 interface XRSpace extends EventTarget { }
 
-declare class XRSpace {
-    prototype: XRSpace;
+declare abstract class XRSpace implements XRSpace { }
+
+interface XRRenderStateInit {
+    baseLayer?: XRWebGLLayer | undefined;
+    depthFar?: number | undefined;
+    depthNear?: number | undefined;
+    inlineVerticalFieldOfView?: number | undefined;
 }
 
 interface XRRenderState {
@@ -190,39 +110,22 @@ interface XRRenderState {
     readonly depthFar: number;
     readonly depthNear: number;
     readonly inlineVerticalFieldOfView?: number | undefined;
-
-    // https://immersive-web.github.io/layers/#xrrenderstatechanges
-    readonly layers?: XRLayer[] | undefined;
 }
 
-declare class XRRenderState {
-    prototype: XRRenderState;
-}
-
-interface XRRenderStateInit {
-    baseLayer?: XRWebGLLayer | undefined;
-    depthFar?: number | undefined;
-    depthNear?: number | undefined;
-    inlineVerticalFieldOfView?: number | undefined;
-    layers?: XRLayer[] | undefined;
-}
+declare abstract class XRRenderState implements XRRenderState { }
 
 interface XRReferenceSpace extends XRSpace {
     getOffsetReferenceSpace(originOffset: XRRigidTransform): XRReferenceSpace;
-    onreset: XREventHandler;
+    onreset: EventHandler;
 }
 
-declare class XRReferenceSpace {
-    prototype: XRReferenceSpace;
-}
+declare abstract class XRReferenceSpace implements XRReferenceSpace { }
 
 interface XRBoundedReferenceSpace extends XRReferenceSpace {
     readonly boundsGeometry: DOMPointReadOnly[];
 }
 
-declare class XRBoundedReferenceSpace {
-    prototype: XRBoundedReferenceSpace;
-}
+declare abstract class XRBoundedReferenceSpace implements XRBoundedReferenceSpace { }
 
 interface XRInputSource {
     readonly handedness: XRHandedness;
@@ -234,75 +137,86 @@ interface XRInputSource {
     readonly hand?: XRHand | undefined;
 }
 
-declare class XRInputSource {
-    prototype: XRInputSource;
+declare abstract class XRInputSource implements XRInputSource { }
+
+interface XRInputSourceArray {
+    [Symbol.iterator](): IterableIterator<XRInputSource>;
+    [n: number]: XRInputSource;
+
+    length: number;
+
+    entries(): IterableIterator<[number, XRInputSource]>;
+    keys(): IterableIterator<number>;
+    values(): IterableIterator<XRInputSource>;
+
+    forEach(callbackfn: (value: XRInputSource, index: number, array: XRInputSource[]) => void, thisArg?: any): void;
 }
 
-// tslint:disable-next-line no-empty-interface
-interface XRInputSourceArray extends Array<XRInputSource> { }
-
-declare class XRInputSourceArray {
-    prototype: XRInputSourceArray;
-}
+declare abstract class XRInputSourceArray implements XRInputSourceArray { }
 
 interface XRPose {
     readonly transform: XRRigidTransform;
     readonly emulatedPosition: boolean;
 }
 
-declare class XRPose {
-    prototype: XRPose;
-}
+declare abstract class XRPose implements XRPose { }
 
 interface XRFrame {
     readonly session: XRSession;
     getPose(space: XRSpace, baseSpace: XRSpace): XRPose | undefined;
     getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | undefined;
-
-    // AR
-    getHitTestResults(hitTestSource: XRHitTestSource): XRHitTestResult[];
-    getHitTestResultsForTransientInput(
-        hitTestSource: XRTransientInputHitTestSource
-    ): XRTransientInputHitTestResult[];
-
-    // Anchors
-    trackedAnchors?: XRAnchorSet | undefined;
-    createAnchor?: (pose: XRRigidTransform, space: XRSpace) => Promise<XRAnchor> | undefined;
-
-    // Planes
-    worldInformation?: {
-        detectedPlanes?: XRPlaneSet | undefined;
-    } | undefined;
-
-    // Hand tracking
-    getJointPose?: (joint: XRJointSpace, baseSpace: XRSpace) => XRJointPose | undefined;
 }
 
-declare class XRFrame {
-    prototype: XRFrame;
-}
+declare abstract class XRFrame implements XRFrame { }
 
-interface XRInputSourceEvent extends Event {
-    readonly type: XRInputSourceEventType;
-    readonly frame: XRFrame;
-    readonly inputSource: XRInputSource;
-}
+/**
+ * Type of XR events available
+ */
+type XRInputSourceEventType =
+    | "select"
+    | "selectend"
+    | "selectstart"
+    | "squeeze"
+    | "squeezeend"
+    | "squeezestart";
 
 interface XRInputSourceEventInit extends EventInit {
     frame?: XRFrame | undefined;
     inputSource?: XRInputSource | undefined;
 }
 
-declare class XRInputSourceEvent {
+declare class XRInputSourceEvent extends Event {
+    readonly type: XRInputSourceEventType;
+    readonly frame: XRFrame;
+    readonly inputSource: XRInputSource;
+
     constructor(type: XRInputSourceEventType, eventInitDict?: XRInputSourceEventInit);
-    prototype: XRInputSourceEvent;
+}
+
+type XRSessionEventType =
+    | 'end'
+    | 'visibilitychange'
+    | 'frameratechange';
+
+interface XRSessionEventInit extends EventInit {
+    session: XRSession;
+}
+
+declare class XRSessionEvent extends Event {
+    readonly session: XRSession;
+    constructor(type: XRSessionEventType, eventInitDict?: XRSessionEventInit);
+}
+
+interface XRSessionInit {
+    optionalFeatures?: string[] | undefined;
+    requiredFeatures?: string[] | undefined;
 }
 
 interface XRSessionEventMap {
-    "end": XREventHandler;
-    "inputsourceschange": XREventHandler;
-    "visibilitychange": XREventHandler;
-    "frameratechange": XREventHandler;
+    "inputsourceschange": XRInputSourceChangeEvent;
+    "end": XRSessionEvent;
+    "visibilitychange": XRSessionEvent;
+    "frameratechange": XRSessionEvent;
     "select": XRInputSourceEvent;
     "selectstart": XRInputSourceEvent;
     "selectend": XRInputSourceEvent;
@@ -361,57 +275,39 @@ interface XRSession extends EventTarget {
 
     updateTargetFrameRate(rate: number): Promise<void>;
 
-    onend: XREventHandler;
-    oninputsourceschange: XREventHandler;
-    onselect: XREventHandler;
-    onselectstart: XREventHandler;
-    onselectend: XREventHandler;
-    onsqueeze: XREventHandler;
-    onsqueezestart: XREventHandler;
-    onsqueezeend: XREventHandler;
-    onvisibilitychange: XREventHandler;
-    onframeratechange: XREventHandler;
+    onend: EventHandler;
+    oninputsourceschange: EventHandler;
+    onselect: EventHandler;
+    onselectstart: EventHandler;
+    onselectend: EventHandler;
+    onsqueeze: EventHandler;
+    onsqueezestart: EventHandler;
+    onsqueezeend: EventHandler;
+    onvisibilitychange: EventHandler;
+    onframeratechange: EventHandler;
 
+    dispatchEvent(ev: Event): boolean;
     addEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     removeEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-
-    // hit test
-    requestHitTestSource?: (options: XRHitTestOptionsInit) => Promise<XRHitTestSource> | undefined;
-    requestHitTestSourceForTransientInput?: (
-        options: XRTransientInputHitTestOptionsInit,
-    ) => Promise<XRTransientInputHitTestSource> | undefined;
-
-    // legacy AR hit test
-    requestHitTest?: (ray: XRRay, referenceSpace: XRReferenceSpace) => Promise<XRHitResult[]> | undefined;
-
-    // legacy plane detection
-    updateWorldTrackingState?: (options: { planeDetectionState?: { enabled: boolean } | undefined }) => void | undefined;
 }
 
-declare class XRSession {
-    prototype: XRSession;
-}
+declare abstract class XRSession implements XRSession { }
 
 interface XRViewerPose extends XRPose {
     readonly views: ReadonlyArray<XRView>;
 }
 
-declare class XRViewerPose {
-    prototype: XRViewerPose;
-}
+declare abstract class XRViewerPose implements XRViewerPose { }
 
-interface XRRigidTransform {
+declare class XRRigidTransform {
     readonly position: DOMPointReadOnly;
     readonly orientation: DOMPointReadOnly;
     readonly matrix: Float32Array;
     readonly inverse: XRRigidTransform;
-}
 
-declare class XRRigidTransform {
     constructor(position?: DOMPointInit, direction?: DOMPointInit);
-    prototype: XRRigidTransform;
 }
 
 interface XRView {
@@ -422,46 +318,43 @@ interface XRView {
     requestViewportScale(scale: number): void;
 }
 
-declare class XRView {
-    prototype: XRView;
-}
+declare abstract class XRView implements XRView { }
 
 interface XRInputSourceChangeEvent extends XRSessionEvent {
     readonly removed: ReadonlyArray<XRInputSource>;
     readonly added: ReadonlyArray<XRInputSource>;
 }
 
-interface XRInputSourceChangeEventInit extends EventInit {
-    session?: XRSession;
-    added?: XRInputSource[];
-    removed?: XRInputSource[];
-}
-
-declare class XRInputSourceChangeEvent {
-    constructor(type: "inpuptsourceschange", eventInitDict?: XRInputSourceChangeEventInit);
-    prototype: XRInputSourceChangeEvent;
-}
-
 // Experimental/Draft features
-interface XRRay {
+
+// Anchors
+type XRAnchorSet = Set<XRAnchor>;
+
+interface XRAnchor {
+    anchorSpace: XRSpace;
+    delete(): void;
+}
+
+declare abstract class XRAnchor implements XRAnchor { }
+
+interface XRFrame {
+    trackedAnchors?: XRAnchorSet | undefined;
+    createAnchor?: (pose: XRRigidTransform, space: XRSpace) => Promise<XRAnchor> | undefined;
+}
+
+// AR Hit testing
+declare class XRRay {
     readonly origin: DOMPointReadOnly;
     readonly direction: DOMPointReadOnly;
     readonly matrix: Float32Array;
-}
 
-declare class XRRay {
-    constructor(transformOrOrigin: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
-    prototype: XRRay;
+    constructor(transformOrOrigin?: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
 }
 
 type XRHitTestTrackableType =
     | 'point'
     | 'plane'
     | 'mesh';
-
-interface XRHitResult {
-    hitMatrix: Float32Array;
-}
 
 interface XRTransientInputHitTestResult {
     readonly inputSource: XRInputSource;
@@ -478,25 +371,19 @@ interface XRHitTestResult {
     createAnchor?: (pose: XRRigidTransform) => Promise<XRAnchor> | undefined;
 }
 
-declare class XRHitTestResult {
-    prototype: XRHitTestResult;
-}
+declare abstract class XRHitTestResult implements XRHitTestResult { }
 
 interface XRHitTestSource {
     cancel(): void;
 }
 
-declare class XRHitTestSource {
-    prototype: XRHitTestSource;
-}
+declare abstract class XRHitTestSource implements XRHitTestSource { }
 
 interface XRTransientInputHitTestSource {
     cancel(): void;
 }
 
-declare class XRTransientInputHitTestSource {
-    prototype: XRTransientInputHitTestSource;
-}
+declare abstract class XRTransientInputHitTestSource implements XRTransientInputHitTestSource { }
 
 interface XRHitTestOptionsInit {
     space: XRSpace;
@@ -510,22 +397,56 @@ interface XRTransientInputHitTestOptionsInit {
     offsetRay?: XRRay | undefined;
 }
 
-interface XRAnchor {
-    anchorSpace: XRSpace;
-    delete(): void;
+interface XRSession {
+    requestHitTestSource?: (options: XRHitTestOptionsInit) => Promise<XRHitTestSource> | undefined;
+    requestHitTestSourceForTransientInput?: (
+        options: XRTransientInputHitTestOptionsInit,
+    ) => Promise<XRTransientInputHitTestSource> | undefined;
+
+    // Legacy
+    requestHitTest?: (ray: XRRay, referenceSpace: XRReferenceSpace) => Promise<XRHitResult[]> | undefined;
 }
 
-declare class XRAnchor {
-    prototype: XRAnchor;
+interface XRFrame {
+    getHitTestResults(hitTestSource: XRHitTestSource): XRHitTestResult[];
+    getHitTestResultsForTransientInput(
+        hitTestSource: XRTransientInputHitTestSource
+    ): XRTransientInputHitTestResult[];
 }
+
+// Legacy
+interface XRHitResult {
+    hitMatrix: Float32Array;
+}
+
+// Plane detection
+type XRPlaneSet = Set<XRPlane>;
+
+type XRPlaneOrientation =
+    | 'horizontal'
+    | 'vertical';
 
 interface XRPlane {
-    orientation: 'horizontal' | 'vertical';
+    orientation: XRPlaneOrientation;
     planeSpace: XRSpace;
     polygon: DOMPointReadOnly[];
     lastChangedTime: number;
 }
 
+declare abstract class XRPlane implements XRPlane { }
+
+interface XRSession {
+    // Legacy
+    updateWorldTrackingState?: (options: { planeDetectionState?: { enabled: boolean } | undefined }) => void | undefined;
+}
+
+interface XRFrame {
+    worldInformation?: {
+        detectedPlanes?: XRPlaneSet | undefined;
+    } | undefined;
+}
+
+// Hand Tracking
 type XRHandJoint =
     | 'wrist'
     | 'thumb-metacarpal'
@@ -557,17 +478,13 @@ interface XRJointSpace extends XRSpace {
     readonly jointName: XRHandJoint;
 }
 
-declare class XRJointSpace {
-    prototype: XRJointSpace;
-}
+declare abstract class XRJointSpace implements XRJointSpace { }
 
 interface XRJointPose extends XRPose {
     readonly radius: number | undefined;
 }
 
-declare class XRJointPose {
-    prototype: XRJointPose;
-}
+declare abstract class XRJointPose implements XRJointPose { }
 
 interface XRHand extends Map<number, XRJointSpace> {
     readonly WRIST: number;
@@ -602,22 +519,61 @@ interface XRHand extends Map<number, XRJointSpace> {
     readonly LITTLE_PHALANX_TIP: number;
 }
 
-declare class XRHand {
-    prototype: XRHand;
+declare abstract class XRHand implements XRHand { }
+
+interface XRFrame {
+    getJointPose?: (joint: XRJointSpace, baseSpace: XRSpace) => XRJointPose | undefined;
 }
 
 // WebXR Layers
-interface XRLayerEventInit extends EventInit {
-    layer: XRLayer;
+
+// tslint:disable-next-line no-empty-interface
+interface XRLayer extends EventTarget { }
+
+declare abstract class XRLayer implements XRLayer { }
+
+interface XRWebGLLayerInit {
+    antialias?: boolean | undefined;
+    depth?: boolean | undefined;
+    stencil?: boolean | undefined;
+    alpha?: boolean | undefined;
+    ignoreDepthValues?: boolean | undefined;
+    framebufferScaleFactor?: number | undefined;
 }
+
+declare class XRWebGLLayer extends XRLayer {
+    static getNativeFramebufferScaleFactor(session: XRSession): number;
+
+    constructor(
+        session: XRSession,
+        context: WebGLRenderingContext | WebGL2RenderingContext,
+        layerInit?: XRWebGLLayerInit,
+    );
+
+    readonly antialias: boolean;
+    readonly ignoreDepthValues: boolean;
+    fixedFoveation?: number | undefined;
+
+    readonly framebuffer: WebGLFramebuffer;
+    readonly framebufferWidth: number;
+    readonly framebufferHeight: number;
+
+    getViewport(view: XRView): XRViewport | undefined;
+}
+
+interface XRRenderStateInit {
+    layers?: XRLayer[] | undefined;
+}
+
+interface XRRenderState {
+    readonly layers?: XRLayer[] | undefined;
+}
+
+type XRLayerEventType = "redraw";
 
 interface XRLayerEvent extends Event {
+    readonly type: XRLayerEventType;
     readonly layer: XRLayer;
-}
-
-declare class XRLayerEvent {
-    constructor(type: "redraw", eventInitDict?: XRLayerEventInit);
-    prototype: XRLayerEvent;
 }
 
 interface XRCompositionLayerEventMap {
@@ -661,11 +617,11 @@ interface XRCompositionLayer extends XRLayer {
     ): void;
 }
 
-declare class XRCompositionLayer {
-    prototype: XRCompositionLayer;
-}
+declare abstract class XRCompositionLayer implements XRCompositionLayer { }
 
-type XRTextureType = "texture" | "texture-array";
+type XRTextureType =
+    | "texture"
+    | "texture-array";
 
 type XRLayerLayout =
     | "default"
@@ -689,9 +645,7 @@ interface XRProjectionLayer extends XRCompositionLayer {
     fixedFoveation: number;
 }
 
-declare class XRProjectionLayer {
-    prototype: XRProjectionLayer;
-}
+declare abstract class XRProjectionLayer implements XRProjectionLayer { }
 
 interface XRLayerInit {
     mipLevels?: number | undefined;
@@ -732,9 +686,7 @@ interface XRCylinderLayer extends XRCompositionLayer {
     aspectRatio: number;
 }
 
-declare class XRCylinderLayer {
-    prototype: XRCylinderLayer;
-}
+declare abstract class XRCylinderLayer implements XRCylinderLayer { }
 
 interface XRQuadLayerInit extends XRLayerInit {
     textureType?: XRTextureType | undefined;
@@ -755,9 +707,7 @@ interface XRQuadLayer extends XRCompositionLayer {
     height: number;
 }
 
-declare class XRQuadLayer {
-    prototype: XRQuadLayer;
-}
+declare abstract class XRQuadLayer implements XRQuadLayer { }
 
 interface XREquirectLayerInit extends XRLayerInit {
     textureType?: XRTextureType | undefined;
@@ -784,9 +734,7 @@ interface XREquirectLayer extends XRCompositionLayer {
     lowerVerticalAngle: number;
 }
 
-declare class XREquirectLayer {
-    prototype: XREquirectLayer;
-}
+declare abstract class XREquirectLayer implements XREquirectLayer { }
 
 interface XRCubeLayerInit extends XRLayerInit {
     orientation?: DOMPointReadOnly | undefined;
@@ -796,17 +744,13 @@ interface XRCubeLayer extends XRCompositionLayer {
     orientation: DOMPointReadOnly;
 }
 
-declare class XRCubeLayer {
-    prototype: XRCubeLayer;
-}
+declare abstract class XRCubeLayer implements XRCubeLayer { }
 
 interface XRSubImage {
     readonly viewport: XRViewport;
 }
 
-declare class XRSubImage {
-    prototype: XRSubImage;
-}
+declare abstract class XRSubImage implements XRSubImage { }
 
 interface XRWebGLSubImage extends XRSubImage {
     readonly colorTexture: WebGLTexture;
@@ -816,12 +760,12 @@ interface XRWebGLSubImage extends XRSubImage {
     readonly textureHeight: number;
 }
 
-declare class XRWebGLSubImage {
-    prototype: XRWebGLSubImage;
-}
+declare abstract class XRWebGLSubImage implements XRWebGLSubImage { }
 
-interface XRWebGLBinding {
+declare class XRWebGLBinding {
     readonly nativeProjectionScaleFactor: number;
+
+    constructor(session: XRSession, context: WebGLRenderingContext);
 
     createProjectionLayer(init?: XRProjectionLayerInit): XRProjectionLayer;
     createQuadLayer(init?: XRQuadLayerInit): XRQuadLayer;
@@ -833,77 +777,17 @@ interface XRWebGLBinding {
     getViewSubImage(layer: XRProjectionLayer, view: XRView): XRWebGLSubImage;
 }
 
-declare class XRWebGLBinding {
-    constructor(session: XRSession, context: WebGLRenderingContext);
-    prototype: XRWebGLBinding;
-}
+declare class XRMediaBinding {
+    constructor(sesion: XRSession);
 
-interface XRMediaBinding {
     createQuadLayer(video: HTMLVideoElement, init?: XRMediaQuadLayerInit): XRQuadLayer;
     createCylinderLayer(video: HTMLVideoElement, init?: XRMediaCylinderLayerInit): XRCylinderLayer;
     createEquirectLayer(video: HTMLVideoElement, init?: XRMediaEquirectLayerInit): XREquirectLayer;
 }
 
-declare class XRMediaBinding {
-    constructor(sesion: XRSession);
-    prototype: XRMediaBinding;
-}
-
 // WebGL extensions
-interface WebGLRenderingContext {
-    makeXRCompatible(): Promise<void>;
+interface WebGLRenderingContextBase {
     getExtension(extensionName: "OCULUS_multiview"): OCULUS_multiview | null;
-    getExtension(extensionName: "EXT_blend_minmax"): EXT_blend_minmax | null;
-    getExtension(extensionName: "EXT_texture_filter_anisotropic"): EXT_texture_filter_anisotropic | null;
-    getExtension(extensionName: "EXT_frag_depth"): EXT_frag_depth | null;
-    getExtension(extensionName: "EXT_shader_texture_lod"): EXT_shader_texture_lod | null;
-    getExtension(extensionName: "EXT_sRGB"): EXT_sRGB | null;
-    getExtension(extensionName: "OES_vertex_array_object"): OES_vertex_array_object | null;
-    getExtension(extensionName: "WEBGL_color_buffer_float"): WEBGL_color_buffer_float | null;
-    getExtension(extensionName: "WEBGL_compressed_texture_astc"): WEBGL_compressed_texture_astc | null;
-    getExtension(extensionName: "WEBGL_compressed_texture_s3tc_srgb"): WEBGL_compressed_texture_s3tc_srgb | null;
-    getExtension(extensionName: "WEBGL_debug_shaders"): WEBGL_debug_shaders | null;
-    getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;
-    getExtension(extensionName: "WEBGL_lose_context"): WEBGL_lose_context | null;
-    getExtension(extensionName: "WEBGL_depth_texture"): WEBGL_depth_texture | null;
-    getExtension(extensionName: "WEBGL_debug_renderer_info"): WEBGL_debug_renderer_info | null;
-    getExtension(extensionName: "WEBGL_compressed_texture_s3tc"): WEBGL_compressed_texture_s3tc | null;
-    getExtension(extensionName: "OES_texture_half_float_linear"): OES_texture_half_float_linear | null;
-    getExtension(extensionName: "OES_texture_half_float"): OES_texture_half_float | null;
-    getExtension(extensionName: "OES_texture_float_linear"): OES_texture_float_linear | null;
-    getExtension(extensionName: "OES_texture_float"): OES_texture_float | null;
-    getExtension(extensionName: "OES_standard_derivatives"): OES_standard_derivatives | null;
-    getExtension(extensionName: "OES_element_index_uint"): OES_element_index_uint | null;
-    getExtension(extensionName: "ANGLE_instanced_arrays"): ANGLE_instanced_arrays | null;
-    getExtension(extensionName: string): any;
-}
-
-interface WebGL2RenderingContext {
-    makeXRCompatible(): Promise<void>;
-    getExtension(extensionName: "OCULUS_multiview"): OCULUS_multiview | null;
-    getExtension(extensionName: "EXT_blend_minmax"): EXT_blend_minmax | null;
-    getExtension(extensionName: "EXT_texture_filter_anisotropic"): EXT_texture_filter_anisotropic | null;
-    getExtension(extensionName: "EXT_frag_depth"): EXT_frag_depth | null;
-    getExtension(extensionName: "EXT_shader_texture_lod"): EXT_shader_texture_lod | null;
-    getExtension(extensionName: "EXT_sRGB"): EXT_sRGB | null;
-    getExtension(extensionName: "OES_vertex_array_object"): OES_vertex_array_object | null;
-    getExtension(extensionName: "WEBGL_color_buffer_float"): WEBGL_color_buffer_float | null;
-    getExtension(extensionName: "WEBGL_compressed_texture_astc"): WEBGL_compressed_texture_astc | null;
-    getExtension(extensionName: "WEBGL_compressed_texture_s3tc_srgb"): WEBGL_compressed_texture_s3tc_srgb | null;
-    getExtension(extensionName: "WEBGL_debug_shaders"): WEBGL_debug_shaders | null;
-    getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;
-    getExtension(extensionName: "WEBGL_lose_context"): WEBGL_lose_context | null;
-    getExtension(extensionName: "WEBGL_depth_texture"): WEBGL_depth_texture | null;
-    getExtension(extensionName: "WEBGL_debug_renderer_info"): WEBGL_debug_renderer_info | null;
-    getExtension(extensionName: "WEBGL_compressed_texture_s3tc"): WEBGL_compressed_texture_s3tc | null;
-    getExtension(extensionName: "OES_texture_half_float_linear"): OES_texture_half_float_linear | null;
-    getExtension(extensionName: "OES_texture_half_float"): OES_texture_half_float | null;
-    getExtension(extensionName: "OES_texture_float_linear"): OES_texture_float_linear | null;
-    getExtension(extensionName: "OES_texture_float"): OES_texture_float | null;
-    getExtension(extensionName: "OES_standard_derivatives"): OES_standard_derivatives | null;
-    getExtension(extensionName: "OES_element_index_uint"): OES_element_index_uint | null;
-    getExtension(extensionName: "ANGLE_instanced_arrays"): ANGLE_instanced_arrays | null;
-    getExtension(extensionName: string): any;
 }
 
 declare enum XOVR_multiview2 {
@@ -929,6 +813,31 @@ interface OVR_multiview2 {
     ): WebGLRenderbuffer;
 }
 
+declare abstract class OVR_multiview2 implements OVR_multiview2 { }
+
+// Oculus extensions
+interface XRSessionGrant {
+    mode: XRSessionMode;
+}
+
+interface XRSystemSessionGrantedEvent extends Event {
+    type: "sessiongranted";
+    session: XRSessionGrant;
+}
+
+interface XRSystemSessionGrantedEventHandler {
+    (event: XRSystemSessionGrantedEvent): any;
+}
+
+interface XRSystemEventMap {
+    // Session Grant events are an Meta Oculus Browser extension
+    "sessiongranted": XRSystemSessionGrantedEvent;
+}
+
+interface XRSystem {
+    onsessiongranted: XRSystemSessionGrantedEventHandler | null;
+}
+
 interface OCULUS_multiview extends OVR_multiview2 {
     framebufferTextureMultisampleMultiviewOVR(
         target: GLenum,
@@ -940,3 +849,5 @@ interface OCULUS_multiview extends OVR_multiview2 {
         numViews: GLsizei
     ): void;
 }
+
+declare abstract class OCULUS_multiview implements OCULUS_multiview { }
