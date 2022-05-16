@@ -145,7 +145,7 @@ declare namespace videojs {
      *
      * @return    The created players
      */
-    function getPlayers(): { [key: string]: Player };
+    function getPlayers(): { [key: string]: Player; };
 
     /**
      * Gets a plugin by name if it exists.
@@ -237,7 +237,7 @@ declare namespace videojs {
      * An Object that contains lifecycle hooks as keys which point to an array
      * of functions that are run when a lifecycle is triggered
      */
-    const hooks_: { [type: string]: () => any };
+    const hooks_: { [type: string]: () => any; };
 
     /**
      * Log messages
@@ -278,7 +278,7 @@ declare namespace videojs {
      * An object that can be returned by a middleware to signify
      * that the middleware is being terminated.
      */
-    const middleware: { TERMINATOR: {} };
+    const middleware: { TERMINATOR: {}; };
 
     /**
      * Removes event listeners from an element
@@ -460,9 +460,9 @@ declare namespace videojs {
     function extend<
         TSuper extends new (...args: any[]) => any,
         TSubClassMethods extends Record<string | symbol, (this: InstanceType<TSuper>, ...args: any[]) => any>,
-    >(
-        superClass: TSuper,
-        subClassMethods?: TSubClassMethods,
+        >(
+            superClass: TSuper,
+            subClassMethods?: TSubClassMethods,
     ): new (...args: ConstructorParameters<TSuper>) => InstanceType<TSuper> & TSubClassMethods;
 
     /**
@@ -520,7 +520,7 @@ declare namespace videojs {
          *        If this track is the one that is currently playing. If this track is part of
          *        an {@link AudioTrackList}, only one {@link AudioTrack} will be enabled.
          */
-        new (options?: AudioTrackOptions): Track;
+        new(options?: AudioTrackOptions): Track;
     };
 
     /**
@@ -600,7 +600,7 @@ declare namespace videojs {
          * @param [options={}]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: TrackButtonOptions): AudioTrackButton;
+        new(player: Player, options?: TrackButtonOptions): AudioTrackButton;
     };
 
     /**
@@ -630,7 +630,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: AudioTrackMenuItemOptions): AudioTrackMenuItem;
+        new(player: Player, options?: AudioTrackMenuItemOptions): AudioTrackMenuItem;
     };
 
     interface VideojsAudioTrack extends Track {
@@ -724,7 +724,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): BigPlayButton;
+        new(player: Player, options?: ComponentOptions): BigPlayButton;
     };
 
     interface Browser {
@@ -825,7 +825,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): Button;
+        new(player: Player, options?: ComponentOptions): Button;
     };
 
     /**
@@ -869,7 +869,7 @@ declare namespace videojs {
          * @param [ready]
          *        The function to call when this function is ready.
          */
-        new (player: Player, options?: TrackButtonOptions, ready?: Component.ReadyCallback): CaptionsButton;
+        new(player: Player, options?: TrackButtonOptions, ready?: Component.ReadyCallback): CaptionsButton;
     };
 
     /**
@@ -902,7 +902,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: CaptionSettingsMenuItemOptions): CaptionSettingsMenuItem;
+        new(player: Player, options?: CaptionSettingsMenuItemOptions): CaptionSettingsMenuItem;
     };
 
     interface CaptionSettingsMenuItemOptions extends TextTrackMenuItemOptions {
@@ -995,7 +995,7 @@ declare namespace videojs {
          * @param [ready]
          *        The function to call when this function is ready.
          */
-        new (player: Player, options?: TrackButtonOptions, ready?: Component.ReadyCallback): ChaptersButton;
+        new(player: Player, options?: TrackButtonOptions, ready?: Component.ReadyCallback): ChaptersButton;
     };
 
     /**
@@ -1042,7 +1042,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: ChaptersTrackMenuItemOptions): ChaptersTrackMenuItem;
+        new(player: Player, options?: ChaptersTrackMenuItemOptions): ChaptersTrackMenuItem;
     };
 
     interface ChaptersTrackMenuItemOptions extends MenuItemOptions {
@@ -1053,20 +1053,16 @@ declare namespace videojs {
     type Child =
         | string
         | {
-              name: string;
-              children?: Child[] | undefined;
-          };
-
-    interface ClickableComponentOptions extends ComponentOptions {
-        clickHandler?: () => void;
-    }
+            name: string;
+            children?: Child[] | undefined;
+        };
 
     /**
      * Clickable Component which is clickable or keyboard actionable,
      * but is not a native HTML button.
      */
     interface ClickableComponent extends Component {
-        options_: ClickableComponentOptions;
+        options_: ComponentOptions;
 
         /**
          * Builds the default DOM `className`.
@@ -1199,7 +1195,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options?: ClickableComponentOptions): ClickableComponent;
+        new(player: Player, options?: ComponentOptions): ClickableComponent;
     };
 
     /**
@@ -1244,7 +1240,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options?: CloseButtonOptions): CloseButton;
+        new(player: Player, options?: CloseButtonOptions): CloseButton;
     };
 
     interface CloseButtonOptions extends ComponentOptions {
@@ -1963,7 +1959,7 @@ declare namespace videojs {
          * @param [ready]
          *        Function that gets called when the `Component` is ready.
          */
-        new (player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): Component;
+        new(player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): Component;
 
         /**
          * Get a `Component` based on the name it was registered with.
@@ -2042,11 +2038,51 @@ declare namespace videojs {
 
     type Content = string | Element | Node | (() => string | Element | Node);
 
+    interface PlaybackRateMenuButton extends Component {
+        /**
+         * Returns the HTML Div Element
+         *
+         * @return the HTML Div Element.
+         */
+        el(): HTMLDivElement;
+    }
+
+    interface LiveDisplay extends Component {
+        /**
+         * Returns the HTML Div Element
+         *
+         * @return the HTML Div Element.
+         */
+        el(): HTMLDivElement;
+    }
+
+    interface ProgressControl extends Component {
+        /**
+         * Returns the HTML Div Element
+         *
+         * @return the HTML Div Element.
+         */
+        el(): HTMLDivElement;
+    }
+
+    interface RemainingTimeDisplay extends Component {
+        /**
+         * Returns the HTML Div Element
+         *
+         * @return the HTML Div Element.
+         */
+        el(): HTMLDivElement;
+    }
+
     /**
      * Container of main controls.
      */
     interface ControlBar extends Component {
+        liveDisplay: LiveDisplay;
         options_: ControlBarOptions;
+        playbackRateMenuButton: PlaybackRateMenuButton;
+        progressControl: ProgressControl;
+        remainingTimeDisplay: RemainingTimeDisplay;
 
         /**
          * Create the `Component`'s DOM element
@@ -2068,7 +2104,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: ControlBarOptions): ControlBar;
+        new(player: Player, options?: ControlBarOptions): ControlBar;
     };
 
     interface ControlBarOptions extends ComponentOptions {
@@ -2139,7 +2175,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options: ComponentOptions): CurrentTimeDisplay;
+        new(player: Player, options: ComponentOptions): CurrentTimeDisplay;
     };
 
     /**
@@ -2176,7 +2212,7 @@ declare namespace videojs {
          * @param [ready]
          *        Function that gets called when the `Component` is ready.
          */
-        new (player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): CustomControlSpacer;
+        new(player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): CustomControlSpacer;
     };
 
     /**
@@ -2223,7 +2259,7 @@ declare namespace videojs {
          * @param [ready]
          *        The function to call when this component is ready.
          */
-        new (player: Player, options?: TrackButtonOptions, ready?: Component.ReadyCallback): DescriptionsButton;
+        new(player: Player, options?: TrackButtonOptions, ready?: Component.ReadyCallback): DescriptionsButton;
     };
 
     /**
@@ -2263,7 +2299,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options: ComponentOptions): DurationDisplay;
+        new(player: Player, options: ComponentOptions): DurationDisplay;
     };
 
     /**
@@ -2300,7 +2336,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options?: ModalDialogOptions): ErrorDisplay;
+        new(player: Player, options?: ModalDialogOptions): ErrorDisplay;
     };
 
     interface Dom {
@@ -2933,7 +2969,7 @@ declare namespace videojs {
     const EventTarget: {
         prototype: EventTarget;
 
-        new (): EventTarget;
+        new(): EventTarget;
     };
 
     namespace EventTarget {
@@ -3005,7 +3041,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): FullscreenToggle;
+        new(player: Player, options?: ComponentOptions): FullscreenToggle;
     };
 
     /**
@@ -3029,7 +3065,7 @@ declare namespace videojs {
          * @param [tracks=[]]
          *        A list of `HtmlTrackElement` to instantiate the list with.
          */
-        new (tracks?: HTMLTrackElement[]): HTMLTrackElementList;
+        new(tracks?: HTMLTrackElement[]): HTMLTrackElementList;
     };
 
     interface KeyboardEvent extends EventTarget.Event {
@@ -3094,13 +3130,6 @@ declare namespace videojs {
          * See the seekableendchange event and the pastSeekEnd() function for more info.
          */
         behindLiveEdge(): boolean;
-
-        /**
-         * The next seeked event is from the user. Meaning that any seek
-         * > 2s behind live will be considered behind live for real and
-         * liveTolerance will be ignored.
-         */
-        nextSeekedFromUser(): void;
 
         /**
          * live current time is our best approximation of what the live current time is.
@@ -3332,7 +3361,7 @@ declare namespace videojs {
          *        - `MediaError` (video.js): will return itself if it's already a
          *          video.js `MediaError` object.
          */
-        new (value: number | string | { [key: string]: any } | MediaError): MediaError;
+        new(value: number | string | { [key: string]: any; } | MediaError): MediaError;
 
         /**
          * The default `MediaError` messages based on the {@link MediaError.errorTypes}.
@@ -3458,7 +3487,7 @@ declare namespace videojs {
          *        Object of option names and values
          *
          */
-        new (player: Player, options?: MenuOptions): Menu;
+        new(player: Player, options?: MenuOptions): Menu;
     };
 
     interface MenuOptions extends ComponentOptions {
@@ -3629,7 +3658,7 @@ declare namespace videojs {
          * @param [options={}]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: MenuButtonOptions): MenuButton;
+        new(player: Player, options?: MenuButtonOptions): MenuButton;
     };
 
     interface MenuButtonOptions extends ComponentOptions {
@@ -3694,7 +3723,7 @@ declare namespace videojs {
          *        The key/value store of player options.
          *
          */
-        new (player: Player, options?: MenuItemOptions): MenuItem;
+        new(player: Player, options?: MenuItemOptions): MenuItem;
     };
 
     interface MenuItemOptions extends ComponentOptions {
@@ -3866,7 +3895,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: ModalDialogOptions): ModalDialog;
+        new(player: Player, options?: ModalDialogOptions): ModalDialog;
     };
 
     /**
@@ -3944,7 +3973,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): MouseTimeDisplay;
+        new(player: Player, options?: ComponentOptions): MouseTimeDisplay;
     };
 
     enum ReadyState {
@@ -3991,7 +4020,7 @@ declare namespace videojs {
          * 1. By calling `videojs('example_video_1');`
          * 2. By using it directly via  `videojs.players.example_video_1;`
          */
-        new (player: Player, options?: PlayerOptions): Player;
+        new(player: Player, options?: PlayerOptions): Player;
 
         /**
          * Gets tag settings
@@ -4146,7 +4175,7 @@ declare namespace videojs {
          * @param player
          *        A Video.js player instance.
          */
-        new (player: Player, options?: any): Plugin;
+        new(player: Player, options?: any): Plugin;
 
         /**
          * De-register a Video.js plugin.
@@ -4188,7 +4217,7 @@ declare namespace videojs {
          *
          * @check returning type
          */
-        getPlugins(names?: string[]): { [name: string]: Plugin };
+        getPlugins(names?: string[]): { [name: string]: Plugin; };
 
         /**
          * Determines if a plugin is a basic plugin (i.e. not a sub-class of `Plugin`).
@@ -4319,7 +4348,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: ProgressControlOptions): ProgressControl;
+        new(player: Player, options?: ProgressControlOptions): ProgressControl;
     };
 
     interface ProgressControlOptions extends ComponentOptions {
@@ -4460,7 +4489,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: SliderOptions): SeekBar;
+        new(player: Player, options?: SliderOptions): SeekBar;
     };
 
     /**
@@ -4619,7 +4648,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: SliderOptions): Slider;
+        new(player: Player, options?: SliderOptions): Slider;
     };
 
     interface SliderOptions extends ComponentOptions {
@@ -4669,7 +4698,7 @@ declare namespace videojs {
          * @param [ready]
          *        Function that gets called when the `Component` is ready.
          */
-        new (player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): Spacer;
+        new(player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): Spacer;
     };
 
     interface Tech extends Component {
@@ -4857,6 +4886,13 @@ declare namespace videojs {
          * @fires Component#dispose
          */
         dispose(): void;
+
+        /**
+         * Returns the HTML Video Element
+         *
+         * @return the HTML Video Element
+         */
+        el: () => HTMLVideoElement;
 
         /**
          * Emulate texttracks
@@ -5074,7 +5110,7 @@ declare namespace videojs {
          * @param ready
          *        Callback function to call when the `HTML5` Tech is ready.
          */
-        new (options?: any, ready?: Component.ReadyCallback): Tech;
+        new(options?: any, ready?: Component.ReadyCallback): Tech;
 
         /**
          * Check if the tech can support the given source
@@ -5199,7 +5235,7 @@ declare namespace videojs {
          * @param [options={}]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: TrackButtonOptions): TextTrackButton;
+        new(player: Player, options?: TrackButtonOptions): TextTrackButton;
     };
 
     /**
@@ -5240,7 +5276,7 @@ declare namespace videojs {
          * @param cues
          *        A list of cues to be initialized with
          */
-        new (cues: TextTrackCueList.TextTrackCue[]): TextTrackCueList;
+        new(cues: TextTrackCueList.TextTrackCue[]): TextTrackCueList;
     };
 
     namespace TextTrackCueList {
@@ -5323,7 +5359,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: TextTrackMenuItemOptions): TextTrackMenuItem;
+        new(player: Player, options?: TextTrackMenuItemOptions): TextTrackMenuItem;
     };
 
     interface TextTrackMenuItemOptions extends MenuItemOptions {
@@ -5415,7 +5451,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options: TextTrackSettingsOptions): TextTrackSettings;
+        new(player: Player, options: TextTrackSettingsOptions): TextTrackSettings;
     };
 
     interface TextTrackSettingsOptions extends ModalDialogOptions {
@@ -5533,7 +5569,7 @@ declare namespace videojs {
          * @param [options.default]
          *        If this track should default to on or off.
          */
-        new (options: TextTrackOptions): TextTrack;
+        new(options: TextTrackOptions): TextTrack;
     };
 
     interface TextTrackOptions extends TrackOptions {
@@ -5579,7 +5615,7 @@ declare namespace videojs {
          * @param tracks
          *        A list of tracks to initialize the list with.
          */
-        new (tracks?: TextTrack[]): TextTrackList;
+        new(tracks?: TextTrack[]): TextTrackList;
     };
 
     /**
@@ -5655,7 +5691,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): TimeDisplay;
+        new(player: Player, options?: ComponentOptions): TimeDisplay;
     };
 
     /**
@@ -5696,7 +5732,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): TimeToolTip;
+        new(player: Player, options?: ComponentOptions): TimeToolTip;
     };
 
     /**
@@ -5750,7 +5786,7 @@ declare namespace videojs {
          * @param [options.language='']
          *        A valid two character language code.
          */
-        new (options?: TrackOptions): Track;
+        new(options?: TrackOptions): Track;
     };
 
     interface TrackOptions {
@@ -5775,7 +5811,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options?: TrackButtonOptions): MenuButton;
+        new(player: Player, options?: TrackButtonOptions): MenuButton;
     };
 
     interface TrackButtonOptions extends MenuButtonOptions {
@@ -5824,7 +5860,7 @@ declare namespace videojs {
          * @param tracks
          *        A list of tracks to initialize the list with.
          */
-        new (tracks?: Track[]): TrackList;
+        new(tracks?: Track[]): TrackList;
     };
 
     interface UserActions {
@@ -5905,7 +5941,7 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: SliderOptions): VolumeBar;
+        new(player: Player, options?: SliderOptions): VolumeBar;
     };
 
     /**
@@ -5965,7 +6001,7 @@ declare namespace videojs {
          * @param [options={}]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: VolumeControlOptions): VolumeControl;
+        new(player: Player, options?: VolumeControlOptions): VolumeControl;
     };
 
     interface VolumeControlOptions extends ComponentOptions {
@@ -6005,7 +6041,7 @@ declare namespace videojs {
          * @param [ready]
          *        Function that gets called when the `Component` is ready.
          */
-        new (player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): VolumeLevel;
+        new(player: Player, options?: ComponentOptions, ready?: Component.ReadyCallback): VolumeLevel;
     };
 
     /**
@@ -6033,7 +6069,7 @@ declare namespace videojs {
          * @param [options={}]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: VolumePanel): VolumePanel;
+        new(player: Player, options?: VolumePanel): VolumePanel;
     };
 
     interface VolumePanelOptions extends ComponentOptions {
@@ -6313,23 +6349,6 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return the {@link ModalDialog} that was created
      */
     createModal(content: string | (() => any) | Element | any[], options: any): videojs.ModalDialog;
-
-    /**
-     * Get current breakpoint name, if any.
-     *
-     * @return If there is currently a breakpoint set, returns a the key from the
-     *         breakpoints object matching it. Otherwise, returns an empty string.
-     */
-    currentBreakpoint(): string;
-
-    /**
-     * Get the current breakpoint class name.
-     *
-     * @return The matching class name (e.g. `"vjs-layout-tiny"` or
-     *         `"vjs-layout-large"`) for the current breakpoint. Empty string if
-     *         there is no current breakpoint.
-     */
-    currentBreakpointClass(): string;
 
     /**
      * Returns the current source object.
@@ -7089,14 +7108,13 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     html5?: any;
     inactivityTimeout?: number | undefined;
     language?: string | undefined;
-    languages?: { [code: string]: videojs.LanguageTranslations } | undefined;
+    languages?: { [code: string]: videojs.LanguageTranslations; } | undefined;
     liveui?: boolean | undefined;
     loop?: boolean | undefined;
     muted?: boolean | undefined;
     nativeControlsForTouch?: boolean | undefined;
     notSupportedMessage?: string | undefined;
     playbackRates?: number[] | undefined;
-    noUITitleAttributes?: boolean | undefined;
     plugins?: Partial<VideoJsPlayerPluginOptions> | undefined;
     poster?: string | undefined;
     preload?: string | undefined;
