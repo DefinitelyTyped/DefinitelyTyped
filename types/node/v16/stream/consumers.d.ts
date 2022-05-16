@@ -3,12 +3,14 @@
 // Which in turn causes tests to pass that shouldn't pass.
 //
 // This interface is not, and should not be, exported.
+import { ReadableStream } from 'node:stream/web'
+
 interface Blob {
     readonly size: number;
     readonly type: string;
     arrayBuffer(): Promise<ArrayBuffer>;
     slice(start?: number, end?: number, contentType?: string): Blob;
-    stream(): NodeJS.ReadableStream;
+    stream(): ReadableStream;
     text(): Promise<string>;
 }
 declare module 'stream/consumers' {
