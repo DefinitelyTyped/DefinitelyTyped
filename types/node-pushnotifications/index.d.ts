@@ -26,6 +26,7 @@ declare namespace PushNotifications {
         gcm?: {
             /** GCM or FCM token */
             id?: string | undefined;
+            phonegap?: boolean | undefined;
         } | undefined;
         /** Apple Push Notifications */
         apn?: {
