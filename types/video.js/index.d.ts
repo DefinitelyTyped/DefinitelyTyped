@@ -2021,7 +2021,7 @@ declare namespace videojs {
         registerComponent(name: string, ComponentToRegister: any): any;
     };
 
-    type ComponentNameMap = {
+    interface ComponentNameMap {
         liveDisplay: LiveDisplay;
         playbackRateMenuButton: PlaybackRateMenuButton;
         progressControl: ProgressControl;
