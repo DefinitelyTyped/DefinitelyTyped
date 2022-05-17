@@ -3,6 +3,6 @@
 // Definitions by: Jerry Wang <https://github.com/c1495616js>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = format_thousands;
+export = formatThousands;
 
-declare function format_thousands(number?: number | string, option?: string | { separator?: string; formatFourDigits?: boolean }): string;
+declare function formatThousands(number?: number | string, option?: string | { separator?: string; formatFourDigits?: boolean }): string;
