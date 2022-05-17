@@ -8,7 +8,6 @@
 
 import { Dashicon } from '@wordpress/components';
 import { dispatch, select } from '@wordpress/data';
-import type { GenericStoreConfig } from '../wordpress__data';
 import { ComponentType, ReactElement } from 'react';
 
 export * from './api';
