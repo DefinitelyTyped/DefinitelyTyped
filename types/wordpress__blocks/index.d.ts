@@ -12,7 +12,6 @@ import { ComponentType, ReactElement } from 'react';
 
 export * from './api';
 export { withBlockContentContext } from './block-content-provider';
-export { store } from './store';
 
 declare module '@wordpress/data' {
     function dispatch(key: 'core/blocks'): typeof import('./store/actions');
