@@ -1,5 +1,5 @@
 import { dispatch, select } from '@wordpress/data';
-import type { Notice, Action } from './';
+import type { Notice, Action } from '@wordpress/notices';
 
 //
 // store
