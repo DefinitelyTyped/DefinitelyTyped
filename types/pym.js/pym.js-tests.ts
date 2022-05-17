@@ -25,7 +25,6 @@ pymParent.remove();
 
 pym.autoInit(true);
 
-
 const parent = new Parent('example-1', 'https://blog.apps.npr.org/pym.js/examples/table/child.html', {});
 parent.onMessage('customMessage', (message: string) => {
 });

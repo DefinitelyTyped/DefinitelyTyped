@@ -133,4 +133,6 @@ export class Parent {
 
 export function autoInit(doNotRaiseEvents: boolean): [Parent];
 
+export const autoInitInstances: Parent[];
+
 export as namespace pym;
