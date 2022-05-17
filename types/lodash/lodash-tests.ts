@@ -4131,6 +4131,67 @@ fp.now(); // $ExpectType number
     _({}).isEmpty(); // $ExpectType boolean
     _.chain([]).isEmpty(); // $ExpectType PrimitiveChain<boolean>
     fp.isEmpty(anything); // $ExpectType boolean
+
+    if (_.isEmpty(anything)) {
+        const result: undefined | null | '' | [] | never[] | Record<never, never> = anything;
+    } else {
+        anything; // $ExpectType any
+    }
+
+    const string: string | undefined = '';
+    if (_.isEmpty(string)) {
+        const result: '' | undefined = string;
+    } else {
+        string; // $ExpectType string
+    }
+
+    const array: Array<{ value: boolean }> = [];
+    if (_.isEmpty(array)) {
+        const result2: Array<{ value: boolean }> = array;
+        array.push({ value: true });
+    } else {
+        array; // $ExpectType { value: boolean; }[]
+    }
+
+    const roarray: ReadonlyArray<{ value: boolean }> = [];
+    if (_.isEmpty(roarray)) {
+        const writable: never[] = roarray; // $ExpectError
+        const result: Readonly<[]> = roarray;
+    } else {
+        roarray; // $ExpectType readonly { value: boolean; }[]
+    }
+
+    const tuple: Readonly<[{ value: boolean }?]> = [{ value: true }];
+    if (_.isEmpty(tuple)) {
+        const result: Readonly<[]> = tuple;
+    }
+    let tuple2: Readonly<[] | [number]> = [1];
+    if (Math.random()) {
+        tuple2 = [];
+    }
+    if (_.isEmpty(tuple2)) {
+        const result: Readonly<[]> = tuple2;
+    } else {
+        tuple2; // $ExpectType readonly [number]
+    }
+
+    const obj: { value?: boolean } = {};
+    if (_.isEmpty(obj)) {
+        const result: { value?: undefined } = obj;
+    } else {
+        obj; // $ExpectType { value?: boolean | undefined; }
+    }
+    let obj2: { value: boolean } | null | undefined = { value: true };
+    if (Math.random()) {
+        obj2 = null;
+    } else if (Math.random()) {
+        obj2 = undefined;
+    }
+    if (_.isEmpty(obj2)) {
+        const result: null | undefined = obj2;
+    } else {
+        obj2; // $ExpectType { value: boolean; }
+    }
 }
 
 // _.isEqual
