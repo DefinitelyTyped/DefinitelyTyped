@@ -13,7 +13,7 @@ declare module '@wordpress/data' {
 }
 
 export type Status = 'error' | 'info' | 'success' | 'warning';
-export type WPNoticeType = 'snackbar' | 'default';
+export type NoticeType = 'snackbar' | 'default';
 
 export interface Notice {
     /**
@@ -45,7 +45,7 @@ export interface Notice {
      * Type of notice, one of `default`, or `snackbar`. Defaults to `default`.
      * @defaultValue `'global'`
      */
-    type: WPNoticeType;
+    type: NoticeType;
     /**
      * Whether the notice content should be announced to screen readers. Defaults to `true`.
      */
@@ -96,7 +96,7 @@ export interface Options {
      * The type of notice.
      * @defaultValue `'default'`
      */
-    type: WPNoticeType;
+    type: NoticeType;
     /**
      *  An icon displayed with the notice.
      * @defaultValue `null`
