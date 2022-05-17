@@ -526,11 +526,18 @@ blocks.getSaveContent('my/foo', { foo: 'bar' });
 // $ExpectType string
 blocks.getSaveContent(BLOCK, { foo: 'bar' }, []);
 
+// $ExpectError
+blocks.getSavecontent(BLOCK, false, []);
+
 // $ExpectType ReactChild
 blocks.getSaveElement('my/foo', { foo: 'bar' });
 
 // $ExpectType ReactChild
 blocks.getSaveElement(BLOCK, { foo: 'bar' });
+
+// $ExpectError
+blocks.getSaveElement(BLOCK, false, []);
+
 
 // $ExpectType string
 blocks.serialize([BLOCK_INSTANCE, BLOCK_INSTANCE]);
@@ -600,6 +607,9 @@ blocks.isValidBlockContent('my/foo', { foo: 'bar' }, 'Foobar');
 
 // $ExpectType boolean
 blocks.isValidBlockContent(BLOCK, { foo: 'bar' }, 'Foobar');
+
+// $ExpectError
+blocks.isValidBlockContent( BLOCK, false, true );
 
 //
 // stores
