@@ -785,7 +785,7 @@ declare global {
             skip(n: number): Query<T>;
             sortByTextScore(): this;
             startsWith<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, prefix: string): this;
-            subscribe(): Promise<LiveQuerySubscription>;
+            subscribe(sessionToken?: string): Promise<LiveQuerySubscription>;
             toJSON(): any;
             withJSON(json: any): this;
             withCount(includeCount?: boolean): this;
