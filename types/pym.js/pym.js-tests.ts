@@ -1,7 +1,6 @@
-import pym from 'pym.js';
+import pym, { Child, Parent, autoInit } from 'pym.js';
 
 const pymParent = new pym.Parent('example-1', 'https://blog.apps.npr.org/pym.js/examples/table/child.html', {});
-new pym.Child({});
 pymParent.onMessage('customMessage', (message: string) => {
 });
 pymParent.sendMessage('customMessage', 'hello from parent');
@@ -25,3 +24,29 @@ pymChild.remove();
 pymParent.remove();
 
 pym.autoInit(true);
+
+
+const parent = new Parent('example-1', 'https://blog.apps.npr.org/pym.js/examples/table/child.html', {});
+parent.onMessage('customMessage', (message: string) => {
+});
+parent.sendMessage('customMessage', 'hello from parent');
+parent.sendViewportAndIFramePosition();
+parent.sendWidth();
+
+const child = new Child({
+    polling: 1000,
+});
+child.getParentPositionInfo();
+child.navigateParentTo('');
+child.onMessage('customMessage', (message: string) => {
+});
+child.scrollParentTo('#foo');
+child.scrollParentToChildEl('#bar');
+child.scrollParentToChildPos(10);
+child.sendHeight();
+child.sendMessage('customMessage', 'hello from child');
+
+child.remove();
+child.remove();
+
+autoInit(true);
