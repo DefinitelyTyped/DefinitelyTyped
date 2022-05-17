@@ -3,15 +3,14 @@
     const ctx: WebGLRenderingContext | null = canvas.getContext('webgl');
 
     if (!ctx) {
-        throw new Error("No graphics context");
+        throw new Error('No graphics context');
     }
 
     if (!navigator.xr || !ctx.makeXRCompatible) {
         throw Error('You do not have WebXR');
     }
 
-    navigator.xr.addEventListener("sessiongranted", (evt) =>
-        console.log("Session granted", evt.session));
+    navigator.xr.addEventListener('sessiongranted', evt => console.log('Session granted', evt.session));
 
     const startRot = new DOMPoint(0, 0, 0, 1);
     const startSpot = new DOMPoint(0, 0, 0, 1);
@@ -24,19 +23,16 @@
         throw new Error("Can't test instance of XRSession");
     }
 
-    session.addEventListener("end", (evt) =>
-        console.log("The session has ended.", evt.session));
+    session.addEventListener('end', evt => console.log('The session has ended.', evt.session));
 
-    const ovrExt = ctx.getExtension("OVR_multiview2");
+    const ovrExt = ctx.getExtension('OVR_multiview2');
     if (ovrExt && !ovrExt.framebufferTextureMultiviewOVR) {
-        throw Error("Incorrect extension type");
+        throw Error('Incorrect extension type');
     }
 
-    const omvExt = ctx.getExtension("OCULUS_multiview");
-    if (omvExt
-        && !omvExt.framebufferTextureMultiviewOVR
-        && !omvExt.framebufferTextureMultisampleMultiviewOVR) {
-        throw Error("Incorrect extension type");
+    const omvExt = ctx.getExtension('OCULUS_multiview');
+    if (omvExt && !omvExt.framebufferTextureMultiviewOVR && !omvExt.framebufferTextureMultisampleMultiviewOVR) {
+        throw Error('Incorrect extension type');
     }
 
     const layer = new XRWebGLLayer(session, ctx);
@@ -52,7 +48,7 @@
 
     let space = await session.requestReferenceSpace('local');
 
-    const loop: XRFrameRequestCallback = (time: number, frame: XRFrame) => { };
+    const loop: XRFrameRequestCallback = (time: number, frame: XRFrame) => {};
     const handle = session.requestAnimationFrame(loop);
     session.cancelAnimationFrame(handle);
 
@@ -76,67 +72,70 @@
         // XR device availability changed
     });
 
-    if ("XRWebGLBinding" in window) {
+    if ('XRWebGLBinding' in window) {
         const glBinding = new XRWebGLBinding(session, ctx);
         const cubeLayer = glBinding.createCubeLayer({
             space,
-            layout: "mono",
+            layout: 'mono',
             isStatic: true,
             viewPixelWidth: 2048,
-            viewPixelHeight: 2048
+            viewPixelHeight: 2048,
         });
 
         layers.push(cubeLayer);
 
         await session.updateRenderState({
-            layers
+            layers,
         });
     }
 
-    if ("XRMediaBinding" in window) {
-        const video = document.createElement("video");
+    if ('XRMediaBinding' in window) {
+        const video = document.createElement('video');
         const mediaBinding = new XRMediaBinding(session);
-        const transform = new XRRigidTransform({
-            x: 0,
-            y: 0,
-            z: -2
-        }, {
-            x: 0,
-            y: 0,
-            z: 0,
-            w: 1
-        });
+        const transform = new XRRigidTransform(
+            {
+                x: 0,
+                y: 0,
+                z: -2,
+            },
+            {
+                x: 0,
+                y: 0,
+                z: 0,
+                w: 1,
+            },
+        );
         const mediaLayer = mediaBinding.createQuadLayer(video, {
             space,
-            layout: "mono",
+            layout: 'mono',
             invertStereo: false,
             transform,
             width: 1,
-            height: video.height / video.width
+            height: video.height / video.width,
         });
 
         layers.push(mediaLayer);
 
         await session.updateRenderState({
-            layers
+            layers,
         });
     }
 
     await session.updateRenderState({
-        layers: []
+        layers: [],
     });
 
     for (const layer of layers) {
         if (layer instanceof XRQuadLayer) {
-            console.log("Layer is a quad layer");
+            console.log('Layer is a quad layer');
         } else if (layer instanceof XRCubeLayer) {
-            console.log("Layer is a cube layer");
+            console.log('Layer is a cube layer');
         } else if (layer instanceof XRCylinderLayer) {
-            console.log("Layer is a cylinder layer");
+            console.log('Layer is a cylinder layer');
         } else if (layer instanceof XREquirectLayer) {
-            console.log("Layer is an equirectangular layer");
+            console.log('Layer is an equirectangular layer');
         } else if (layer instanceof XRProjectionLayer) {
-            console.log("Layer is a projection layer");
+            console.log('Layer is a projection layer');
         }
 
         layer.destroy();

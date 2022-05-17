@@ -14,8 +14,25 @@
 //  https://github.com/immersive-web
 //
 
+/**
+ * ref: https://immersive-web.github.io/webxr/#navigator-xr-attribute
+ */
 interface Navigator {
+    /**
+     * An XRSystem object is the entry point to the API, used to query for XR features
+     * available to the user agent and initiate communication with XR hardware via the
+     * creation of XRSessions.
+     */
     xr?: XRSystem | undefined;
+}
+
+/**
+ * WebGL Context Compatability
+ *
+ * ref: https://immersive-web.github.io/webxr/#contextcompatibility
+ */
+interface WebGLContextAttributes {
+    xrCompatible?: boolean | undefined;
 }
 
 interface WebGLRenderingContextBase {
@@ -24,6 +41,8 @@ interface WebGLRenderingContextBase {
 
 /**
  * Available session modes
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrsessionmode-enum
  */
 type XRSessionMode = 'inline' | 'immersive-vr' | 'immersive-ar';
 
@@ -34,6 +53,9 @@ type XRReferenceSpaceType = 'viewer' | 'local' | 'local-floor' | 'bounded-floor'
 
 type XREnvironmentBlendMode = 'opaque' | 'additive' | 'alpha-blend';
 
+/**
+ * ref: https://immersive-web.github.io/webxr/#xrsession-interface
+ */
 type XRVisibilityState = 'visible' | 'visible-blurred' | 'hidden';
 
 /**
@@ -53,12 +75,8 @@ type XREye = 'none' | 'left' | 'right';
 
 type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
 
-interface EventHandler {
-    (event: Event): any;
-}
-
 interface XRSystemDeviceChangeEvent extends Event {
-    type: "devicechange";
+    type: 'devicechange';
 }
 
 interface XRSystemDeviceChangeEventHandler {
@@ -66,24 +84,62 @@ interface XRSystemDeviceChangeEventHandler {
 }
 
 interface XRSystemEventMap {
-    "devicechange": XRSystemDeviceChangeEvent;
+    devicechange: XRSystemDeviceChangeEvent;
 }
 
+/**
+ * An XRSystem object is the entry point to the API, used to query for XR features available
+ * to the user agent and initiate communication with XR hardware via the creation of
+ * XRSessions.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrsystem-interface
+ */
 interface XRSystem extends EventTarget {
+    /**
+     * Attempts to initialize an XRSession for the given mode if possible, entering immersive
+     * mode if necessary.
+     * @param mode
+     * @param options
+     */
     requestSession(mode: XRSessionMode, options?: XRSessionInit): Promise<XRSession>;
+
+    /**
+     * Queries if a given mode may be supported by the user agent and device capabilities.
+     * @param mode
+     */
     isSessionSupported(mode: XRSessionMode): Promise<boolean>;
 
     ondevicechange: XRSystemDeviceChangeEventHandler | null;
 
-    dispatchEvent(event: Event): boolean;
-    addEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XRSystemEventMap>(type: K, listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof XRSystemEventMap>(
+        type: K,
+        listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof XRSystemEventMap>(
+        type: K,
+        listener: (this: XRSystem, ev: XRSystemEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
-declare abstract class XRSystem implements XRSystem { }
+declare abstract class XRSystem implements XRSystem {}
 
+/**
+ * Describes a viewport, or rectangular region, of a graphics surface.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrviewport-interface
+ */
 interface XRViewport {
     readonly x: number;
     readonly y: number;
@@ -91,12 +147,20 @@ interface XRViewport {
     readonly height: number;
 }
 
-declare abstract class XRViewport implements XRViewport { }
+declare abstract class XRViewport implements XRViewport {}
 
+/**
+ * Represents a virtual coordinate system with an origin that corresponds to a physical location.
+ * Spatial data that is requested from the API or given to the API is always expressed in relation
+ * to a specific XRSpace at the time of a specific XRFrame. Numeric values such as pose positions
+ * are coordinates in that space relative to its origin. The interface is intentionally opaque.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrspace-interface
+ */
 // tslint:disable-next-line no-empty-interface
-interface XRSpace extends EventTarget { }
+interface XRSpace extends EventTarget {}
 
-declare abstract class XRSpace implements XRSpace { }
+declare abstract class XRSpace implements XRSpace {}
 
 interface XRRenderStateInit {
     baseLayer?: XRWebGLLayer | undefined;
@@ -112,21 +176,92 @@ interface XRRenderState {
     readonly inlineVerticalFieldOfView?: number | undefined;
 }
 
-declare abstract class XRRenderState implements XRRenderState { }
+declare abstract class XRRenderState implements XRRenderState {}
 
-interface XRReferenceSpace extends XRSpace {
-    getOffsetReferenceSpace(originOffset: XRRigidTransform): XRReferenceSpace;
-    onreset: EventHandler;
+interface XRReferenceSpaceEventInit extends EventInit {
+    referenceSpace?: XRReferenceSpace | undefined;
+    transform?: XRRigidTransform | undefined;
 }
 
-declare abstract class XRReferenceSpace implements XRReferenceSpace { }
+/**
+ * XRReferenceSpaceEvents are fired to indicate changes to the state of an XRReferenceSpace.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrreferencespaceevent-interface
+ */
+interface XRReferenceSpaceEvent extends Event {
+    readonly type: 'reset';
+    readonly referenceSpace: XRReferenceSpace;
+    readonly transform?: XRRigidTransform | undefined;
+}
 
+// tslint:disable-next-line no-unnecessary-class
+declare class XRReferenceSpaceEvent implements XRReferenceSpaceEvent {
+    constructor(type: 'reset', eventInitDict?: XRReferenceSpaceEventInit);
+}
+
+interface XRReferenceSpaceEventHandler {
+    (event: XRReferenceSpaceEvent): any;
+}
+
+interface XRReferenceSpaceEventMap {
+    reset: XRReferenceSpaceEvent;
+}
+
+/**
+ * One of several common XRSpaces that applications can use to establish a spatial relationship
+ * with the user's physical environment.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrreferencespace-interface
+ */
+interface XRReferenceSpace extends XRSpace {
+    getOffsetReferenceSpace(originOffset: XRRigidTransform): XRReferenceSpace;
+    onreset: XRReferenceSpaceEventHandler;
+
+    addEventListener<K extends keyof XRReferenceSpaceEventMap>(
+        type: K,
+        listener: (this: XRReferenceSpace, ev: XRReferenceSpaceEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof XRReferenceSpaceEventMap>(
+        type: K,
+        listener: (this: XRReferenceSpace, ev: XRReferenceSpaceEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
+}
+
+declare abstract class XRReferenceSpace implements XRReferenceSpace {}
+
+/**
+ * Extends XRReferenceSpace to include boundsGeometry, indicating the pre-configured boundaries
+ * of the user's space.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrboundedreferencespace-interface
+ */
 interface XRBoundedReferenceSpace extends XRReferenceSpace {
     readonly boundsGeometry: DOMPointReadOnly[];
 }
 
-declare abstract class XRBoundedReferenceSpace implements XRBoundedReferenceSpace { }
+declare abstract class XRBoundedReferenceSpace implements XRBoundedReferenceSpace {}
 
+/**
+ * Represents an XR input source, which is any input mechanism which allows the user to perform
+ * targeted actions in the same virtual space as the viewer. Example XR input sources include,
+ * but are not limited to, handheld controllers, optically tracked hands, and gaze-based input
+ * methods that operate on the viewer's pose. Input mechanisms which are not explicitly associated
+ * with the XR device, such as traditional gamepads, mice, or keyboards SHOULD NOT be considered
+ * XR input sources.
+ * ref: https://immersive-web.github.io/webxr/#xrinputsource-interface
+ */
 interface XRInputSource {
     readonly handedness: XRHandedness;
     readonly targetRayMode: XRTargetRayMode;
@@ -137,8 +272,13 @@ interface XRInputSource {
     readonly hand?: XRHand | undefined;
 }
 
-declare abstract class XRInputSource implements XRInputSource { }
+declare abstract class XRInputSource implements XRInputSource {}
 
+/**
+ * Represents a list of XRInputSources. It is used in favor of a frozen array type when the contents
+ * of the list are expected to change over time, such as with the XRSession inputSources attribute.
+ * ref: https://immersive-web.github.io/webxr/#xrinputsourcearray-interface
+ */
 interface XRInputSourceArray {
     [Symbol.iterator](): IterableIterator<XRInputSource>;
     [n: number]: XRInputSource;
@@ -152,39 +292,67 @@ interface XRInputSourceArray {
     forEach(callbackfn: (value: XRInputSource, index: number, array: XRInputSource[]) => void, thisArg?: any): void;
 }
 
-declare abstract class XRInputSourceArray implements XRInputSourceArray { }
+declare abstract class XRInputSourceArray implements XRInputSourceArray {}
 
+/**
+ * Describes a position and orientation in space relative to an XRSpace.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrpose-interface
+ */
 interface XRPose {
     readonly transform: XRRigidTransform;
     readonly emulatedPosition: boolean;
 }
 
-declare abstract class XRPose implements XRPose { }
+declare abstract class XRPose implements XRPose {}
 
+/**
+ * Represents a snapshot of the state of all of the tracked objects for an XRSession. Applications
+ * can acquire an XRFrame by calling requestAnimationFrame() on an XRSession with an
+ * XRFrameRequestCallback. When the callback is called it will be passed an XRFrame.
+ * Events which need to communicate tracking state, such as the select event, will also provide an
+ * XRFrame.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrframe-interface
+ */
 interface XRFrame {
     readonly session: XRSession;
+    readonly predictedDisplayTime: DOMHighResTimeStamp;
+
+    /**
+     * Provides the pose of space relative to baseSpace as an XRPose, at the time represented by
+     * the XRFrame.
+     *
+     * @param space
+     * @param baseSpace
+     */
     getPose(space: XRSpace, baseSpace: XRSpace): XRPose | undefined;
+
+    /**
+     * Provides the pose of the viewer relative to referenceSpace as an XRViewerPose, at the
+     * XRFrame's time.
+     *
+     * @param referenceSpace
+     */
     getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | undefined;
 }
 
-declare abstract class XRFrame implements XRFrame { }
+declare abstract class XRFrame implements XRFrame {}
 
 /**
  * Type of XR events available
  */
-type XRInputSourceEventType =
-    | "select"
-    | "selectend"
-    | "selectstart"
-    | "squeeze"
-    | "squeezeend"
-    | "squeezestart";
+type XRInputSourceEventType = 'select' | 'selectend' | 'selectstart' | 'squeeze' | 'squeezeend' | 'squeezestart';
 
 interface XRInputSourceEventInit extends EventInit {
     frame?: XRFrame | undefined;
     inputSource?: XRInputSource | undefined;
 }
 
+/**
+ * XRInputSourceEvents are fired to indicate changes to the state of an XRInputSource.
+ * ref: https://immersive-web.github.io/webxr/#xrinputsourceevent-interface
+ */
 declare class XRInputSourceEvent extends Event {
     readonly type: XRInputSourceEventType;
     readonly frame: XRFrame;
@@ -193,38 +361,58 @@ declare class XRInputSourceEvent extends Event {
     constructor(type: XRInputSourceEventType, eventInitDict?: XRInputSourceEventInit);
 }
 
-type XRSessionEventType =
-    | 'end'
-    | 'visibilitychange'
-    | 'frameratechange';
+interface XRInputSourceEventHandler {
+    (evt: XRInputSourceEvent): any;
+}
+
+type XRSessionEventType = 'end' | 'visibilitychange' | 'frameratechange';
 
 interface XRSessionEventInit extends EventInit {
     session: XRSession;
 }
 
+/**
+ * XRSessionEvents are fired to indicate changes to the state of an XRSession.
+ * ref: https://immersive-web.github.io/webxr/#xrsessionevent-interface
+ */
 declare class XRSessionEvent extends Event {
     readonly session: XRSession;
     constructor(type: XRSessionEventType, eventInitDict?: XRSessionEventInit);
 }
 
+interface XRSessionEventHandler {
+    (evt: XRSessionEvent): any;
+}
+
+/**
+ * ref: https://immersive-web.github.io/webxr/#feature-dependencies
+ */
 interface XRSessionInit {
     optionalFeatures?: string[] | undefined;
     requiredFeatures?: string[] | undefined;
 }
 
 interface XRSessionEventMap {
-    "inputsourceschange": XRInputSourceChangeEvent;
-    "end": XRSessionEvent;
-    "visibilitychange": XRSessionEvent;
-    "frameratechange": XRSessionEvent;
-    "select": XRInputSourceEvent;
-    "selectstart": XRInputSourceEvent;
-    "selectend": XRInputSourceEvent;
-    "squeeze": XRInputSourceEvent;
-    "squeezestart": XRInputSourceEvent;
-    "squeezeend": XRInputSourceEvent;
+    inputsourceschange: XRInputSourceChangeEvent;
+    end: XRSessionEvent;
+    visibilitychange: XRSessionEvent;
+    frameratechange: XRSessionEvent;
+    select: XRInputSourceEvent;
+    selectstart: XRInputSourceEvent;
+    selectend: XRInputSourceEvent;
+    squeeze: XRInputSourceEvent;
+    squeezestart: XRInputSourceEvent;
+    squeezeend: XRInputSourceEvent;
 }
 
+/**
+ * Any interaction with XR hardware is done via an XRSession object, which can only be
+ * retrieved by calling requestSession() on the XRSystem object. Once a session has been
+ * successfully acquired, it can be used to poll the viewer pose, query information about
+ * the user's environment, and present imagery to the user.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrsession-interface
+ */
 interface XRSession extends EventTarget {
     /**
      * Returns a list of this session's XRInputSources, each representing an input device
@@ -271,36 +459,68 @@ interface XRSession extends EventTarget {
      */
     requestReferenceSpace(type: XRReferenceSpaceType): Promise<XRReferenceSpace | XRBoundedReferenceSpace>;
 
-    updateRenderState(renderStateInit: XRRenderStateInit): Promise<void>;
+    updateRenderState(renderStateInit?: XRRenderStateInit): Promise<void>;
 
     updateTargetFrameRate(rate: number): Promise<void>;
 
-    onend: EventHandler;
-    oninputsourceschange: EventHandler;
-    onselect: EventHandler;
-    onselectstart: EventHandler;
-    onselectend: EventHandler;
-    onsqueeze: EventHandler;
-    onsqueezestart: EventHandler;
-    onsqueezeend: EventHandler;
-    onvisibilitychange: EventHandler;
-    onframeratechange: EventHandler;
+    onend: XRSessionEventHandler;
+    oninputsourceschange: XRInputSourceChangeEventHandler;
+    onselect: XRInputSourceEventHandler;
+    onselectstart: XRInputSourceEventHandler;
+    onselectend: XRInputSourceEventHandler;
+    onsqueeze: XRInputSourceEventHandler;
+    onsqueezestart: XRInputSourceEventHandler;
+    onsqueezeend: XRInputSourceEventHandler;
+    onvisibilitychange: XRSessionEventHandler;
+    onframeratechange: XRSessionEventHandler;
 
-    dispatchEvent(ev: Event): boolean;
-    addEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof XRSessionEventMap>(type: K, listener: (this: XRSession, ev: XRSessionEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof XRSessionEventMap>(
+        type: K,
+        listener: (this: XRSession, ev: XRSessionEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof XRSessionEventMap>(
+        type: K,
+        listener: (this: XRSession, ev: XRSessionEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
-declare abstract class XRSession implements XRSession { }
+declare abstract class XRSession implements XRSession {}
 
+/**
+ * An XRPose describing the state of a viewer of the XR scene as tracked by the XR
+ * device. A viewer may represent a tracked piece of hardware, the observed position
+ * of a user's head relative to the hardware, or some other means of computing a series
+ * of viewpoints into the XR scene. XRViewerPoses can only be queried relative to an
+ * XRReferenceSpace. It provides, in addition to the XRPose values, an array of views
+ * which include rigid transforms to indicate the viewpoint and projection matrices.
+ * These values should be used by the application when rendering a frame of an XR scene.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrviewerpose-interface
+ */
 interface XRViewerPose extends XRPose {
     readonly views: ReadonlyArray<XRView>;
 }
 
-declare abstract class XRViewerPose implements XRViewerPose { }
+declare abstract class XRViewerPose implements XRViewerPose {}
 
+/**
+ * A transform described by a position and orientation. When interpreting an
+ * XRRigidTransform the orientation is always applied prior to the position.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrrigidtransform-interface
+ */
 declare class XRRigidTransform {
     readonly position: DOMPointReadOnly;
     readonly orientation: DOMPointReadOnly;
@@ -310,6 +530,11 @@ declare class XRRigidTransform {
     constructor(position?: DOMPointInit, direction?: DOMPointInit);
 }
 
+/**
+ * Describes a single view into an XR scene for a given frame.
+ *
+ * ref: https://immersive-web.github.io/webxr/#xrview-interface
+ */
 interface XRView {
     readonly eye: XREye;
     readonly projectionMatrix: Float32Array;
@@ -318,11 +543,20 @@ interface XRView {
     requestViewportScale(scale: number): void;
 }
 
-declare abstract class XRView implements XRView { }
+declare abstract class XRView implements XRView {}
 
+/**
+ * XRInputSourcesChangeEvents are fired to indicate changes to the XRInputSources that are
+ * available to an XRSession.
+ * ref: https://immersive-web.github.io/webxr/#xrinputsourceschangeevent-interface
+ */
 interface XRInputSourceChangeEvent extends XRSessionEvent {
     readonly removed: ReadonlyArray<XRInputSource>;
     readonly added: ReadonlyArray<XRInputSource>;
+}
+
+interface XRInputSourceChangeEventHandler {
+    (evt: XRInputSourceChangeEvent): any;
 }
 
 // Experimental/Draft features
@@ -335,7 +569,7 @@ interface XRAnchor {
     delete(): void;
 }
 
-declare abstract class XRAnchor implements XRAnchor { }
+declare abstract class XRAnchor implements XRAnchor {}
 
 interface XRFrame {
     trackedAnchors?: XRAnchorSet | undefined;
@@ -351,10 +585,7 @@ declare class XRRay {
     constructor(transformOrOrigin?: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
 }
 
-type XRHitTestTrackableType =
-    | 'point'
-    | 'plane'
-    | 'mesh';
+type XRHitTestTrackableType = 'point' | 'plane' | 'mesh';
 
 interface XRTransientInputHitTestResult {
     readonly inputSource: XRInputSource;
@@ -371,19 +602,19 @@ interface XRHitTestResult {
     createAnchor?: (pose: XRRigidTransform) => Promise<XRAnchor> | undefined;
 }
 
-declare abstract class XRHitTestResult implements XRHitTestResult { }
+declare abstract class XRHitTestResult implements XRHitTestResult {}
 
 interface XRHitTestSource {
     cancel(): void;
 }
 
-declare abstract class XRHitTestSource implements XRHitTestSource { }
+declare abstract class XRHitTestSource implements XRHitTestSource {}
 
 interface XRTransientInputHitTestSource {
     cancel(): void;
 }
 
-declare abstract class XRTransientInputHitTestSource implements XRTransientInputHitTestSource { }
+declare abstract class XRTransientInputHitTestSource implements XRTransientInputHitTestSource {}
 
 interface XRHitTestOptionsInit {
     space: XRSpace;
@@ -409,9 +640,7 @@ interface XRSession {
 
 interface XRFrame {
     getHitTestResults(hitTestSource: XRHitTestSource): XRHitTestResult[];
-    getHitTestResultsForTransientInput(
-        hitTestSource: XRTransientInputHitTestSource
-    ): XRTransientInputHitTestResult[];
+    getHitTestResultsForTransientInput(hitTestSource: XRTransientInputHitTestSource): XRTransientInputHitTestResult[];
 }
 
 // Legacy
@@ -422,9 +651,7 @@ interface XRHitResult {
 // Plane detection
 type XRPlaneSet = Set<XRPlane>;
 
-type XRPlaneOrientation =
-    | 'horizontal'
-    | 'vertical';
+type XRPlaneOrientation = 'horizontal' | 'vertical';
 
 interface XRPlane {
     orientation: XRPlaneOrientation;
@@ -433,17 +660,21 @@ interface XRPlane {
     lastChangedTime: number;
 }
 
-declare abstract class XRPlane implements XRPlane { }
+declare abstract class XRPlane implements XRPlane {}
 
 interface XRSession {
     // Legacy
-    updateWorldTrackingState?: (options: { planeDetectionState?: { enabled: boolean } | undefined }) => void | undefined;
+    updateWorldTrackingState?: (options: {
+        planeDetectionState?: { enabled: boolean } | undefined;
+    }) => void | undefined;
 }
 
 interface XRFrame {
-    worldInformation?: {
-        detectedPlanes?: XRPlaneSet | undefined;
-    } | undefined;
+    worldInformation?:
+        | {
+              detectedPlanes?: XRPlaneSet | undefined;
+          }
+        | undefined;
 }
 
 // Hand Tracking
@@ -478,13 +709,13 @@ interface XRJointSpace extends XRSpace {
     readonly jointName: XRHandJoint;
 }
 
-declare abstract class XRJointSpace implements XRJointSpace { }
+declare abstract class XRJointSpace implements XRJointSpace {}
 
 interface XRJointPose extends XRPose {
     readonly radius: number | undefined;
 }
 
-declare abstract class XRJointPose implements XRJointPose { }
+declare abstract class XRJointPose implements XRJointPose {}
 
 interface XRHand extends Map<number, XRJointSpace> {
     readonly WRIST: number;
@@ -519,7 +750,7 @@ interface XRHand extends Map<number, XRJointSpace> {
     readonly LITTLE_PHALANX_TIP: number;
 }
 
-declare abstract class XRHand implements XRHand { }
+declare abstract class XRHand implements XRHand {}
 
 interface XRFrame {
     getJointPose?: (joint: XRJointSpace, baseSpace: XRSpace) => XRJointPose | undefined;
@@ -527,10 +758,14 @@ interface XRFrame {
 
 // WebXR Layers
 
+/**
+ * The base class for XRWebGLLayer and other layer types introduced by future extensions.
+ * ref: https://immersive-web.github.io/webxr/#xrlayer-interface
+ */
 // tslint:disable-next-line no-empty-interface
-interface XRLayer extends EventTarget { }
+interface XRLayer extends EventTarget {}
 
-declare abstract class XRLayer implements XRLayer { }
+declare abstract class XRLayer implements XRLayer {}
 
 interface XRWebGLLayerInit {
     antialias?: boolean | undefined;
@@ -541,6 +776,11 @@ interface XRWebGLLayerInit {
     framebufferScaleFactor?: number | undefined;
 }
 
+/**
+ * A layer which provides a WebGL framebuffer to render into, enabling hardware accelerated
+ * rendering of 3D graphics to be presented on the XR device. *
+ * ref: https://immersive-web.github.io/webxr/#xrwebgllayer-interface
+ */
 declare class XRWebGLLayer extends XRLayer {
     static getNativeFramebufferScaleFactor(session: XRSession): number;
 
@@ -569,7 +809,7 @@ interface XRRenderState {
     readonly layers?: XRLayer[] | undefined;
 }
 
-type XRLayerEventType = "redraw";
+type XRLayerEventType = 'redraw';
 
 interface XRLayerEvent extends Event {
     readonly type: XRLayerEventType;
@@ -577,7 +817,7 @@ interface XRLayerEvent extends Event {
 }
 
 interface XRCompositionLayerEventMap {
-    "redraw": XRLayerEvent;
+    redraw: XRLayerEvent;
 }
 
 interface XRCompositionLayer extends XRLayer {
@@ -591,44 +831,37 @@ interface XRCompositionLayer extends XRLayer {
     space: XRSpace;
 
     // Events
-    onredraw: (evt: XRCompositionLayerEventMap["redraw"]) => any;
+    onredraw: (evt: XRCompositionLayerEventMap['redraw']) => any;
 
     addEventListener<K extends keyof XRCompositionLayerEventMap>(
         this: XRCompositionLayer,
         type: K,
         callback: (evt: XRCompositionLayerEventMap[K]) => any,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
 
     removeEventListener<K extends keyof XRCompositionLayerEventMap>(
         this: XRCompositionLayer,
         type: K,
-        callback: (evt: XRCompositionLayerEventMap[K]) => any
+        callback: (evt: XRCompositionLayerEventMap[K]) => any,
     ): void;
     removeEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
 }
 
-declare abstract class XRCompositionLayer implements XRCompositionLayer { }
+declare abstract class XRCompositionLayer implements XRCompositionLayer {}
 
-type XRTextureType =
-    | "texture"
-    | "texture-array";
+type XRTextureType = 'texture' | 'texture-array';
 
-type XRLayerLayout =
-    | "default"
-    | "mono"
-    | "stereo"
-    | "stereo-left-right"
-    | "stereo-top-bottom";
+type XRLayerLayout = 'default' | 'mono' | 'stereo' | 'stereo-left-right' | 'stereo-top-bottom';
 
 interface XRProjectionLayerInit {
     scaleFactor?: number | undefined;
@@ -645,7 +878,7 @@ interface XRProjectionLayer extends XRCompositionLayer {
     fixedFoveation: number;
 }
 
-declare abstract class XRProjectionLayer implements XRProjectionLayer { }
+declare abstract class XRProjectionLayer implements XRProjectionLayer {}
 
 interface XRLayerInit {
     mipLevels?: number | undefined;
@@ -686,7 +919,7 @@ interface XRCylinderLayer extends XRCompositionLayer {
     aspectRatio: number;
 }
 
-declare abstract class XRCylinderLayer implements XRCylinderLayer { }
+declare abstract class XRCylinderLayer implements XRCylinderLayer {}
 
 interface XRQuadLayerInit extends XRLayerInit {
     textureType?: XRTextureType | undefined;
@@ -707,7 +940,7 @@ interface XRQuadLayer extends XRCompositionLayer {
     height: number;
 }
 
-declare abstract class XRQuadLayer implements XRQuadLayer { }
+declare abstract class XRQuadLayer implements XRQuadLayer {}
 
 interface XREquirectLayerInit extends XRLayerInit {
     textureType?: XRTextureType | undefined;
@@ -734,7 +967,7 @@ interface XREquirectLayer extends XRCompositionLayer {
     lowerVerticalAngle: number;
 }
 
-declare abstract class XREquirectLayer implements XREquirectLayer { }
+declare abstract class XREquirectLayer implements XREquirectLayer {}
 
 interface XRCubeLayerInit extends XRLayerInit {
     orientation?: DOMPointReadOnly | undefined;
@@ -744,13 +977,13 @@ interface XRCubeLayer extends XRCompositionLayer {
     orientation: DOMPointReadOnly;
 }
 
-declare abstract class XRCubeLayer implements XRCubeLayer { }
+declare abstract class XRCubeLayer implements XRCubeLayer {}
 
 interface XRSubImage {
     readonly viewport: XRViewport;
 }
 
-declare abstract class XRSubImage implements XRSubImage { }
+declare abstract class XRSubImage implements XRSubImage {}
 
 interface XRWebGLSubImage extends XRSubImage {
     readonly colorTexture: WebGLTexture;
@@ -760,7 +993,7 @@ interface XRWebGLSubImage extends XRSubImage {
     readonly textureHeight: number;
 }
 
-declare abstract class XRWebGLSubImage implements XRWebGLSubImage { }
+declare abstract class XRWebGLSubImage implements XRWebGLSubImage {}
 
 declare class XRWebGLBinding {
     readonly nativeProjectionScaleFactor: number;
@@ -787,14 +1020,14 @@ declare class XRMediaBinding {
 
 // WebGL extensions
 interface WebGLRenderingContextBase {
-    getExtension(extensionName: "OCULUS_multiview"): OCULUS_multiview | null;
+    getExtension(extensionName: 'OCULUS_multiview'): OCULUS_multiview | null;
 }
 
 declare enum XOVR_multiview2 {
     FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR = 0x9630,
     FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR = 0x9632,
     MAX_VIEWS_OVR = 0x9631,
-    FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR = 0x9633
+    FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR = 0x9633,
 }
 
 interface OVR_multiview2 {
@@ -809,11 +1042,11 @@ interface OVR_multiview2 {
         texture: WebGLTexture,
         level: number,
         baseViewIndex: number,
-        numViews: number
+        numViews: number,
     ): WebGLRenderbuffer;
 }
 
-declare abstract class OVR_multiview2 implements OVR_multiview2 { }
+declare abstract class OVR_multiview2 implements OVR_multiview2 {}
 
 // Oculus extensions
 interface XRSessionGrant {
@@ -821,7 +1054,7 @@ interface XRSessionGrant {
 }
 
 interface XRSystemSessionGrantedEvent extends Event {
-    type: "sessiongranted";
+    type: 'sessiongranted';
     session: XRSessionGrant;
 }
 
@@ -831,7 +1064,7 @@ interface XRSystemSessionGrantedEventHandler {
 
 interface XRSystemEventMap {
     // Session Grant events are an Meta Oculus Browser extension
-    "sessiongranted": XRSystemSessionGrantedEvent;
+    sessiongranted: XRSystemSessionGrantedEvent;
 }
 
 interface XRSystem {
@@ -846,8 +1079,8 @@ interface OCULUS_multiview extends OVR_multiview2 {
         level: GLint,
         samples: GLsizei,
         baseViewIndex: GLint,
-        numViews: GLsizei
+        numViews: GLsizei,
     ): void;
 }
 
-declare abstract class OCULUS_multiview implements OCULUS_multiview { }
+declare abstract class OCULUS_multiview implements OCULUS_multiview {}
