@@ -66,4 +66,6 @@ export interface DatePickerProps {
     value?: Date | undefined;
 }
 
-export const DatePicker: React.FunctionComponent<DatePickerProps>;
+declare const DatePicker: React.FunctionComponent<DatePickerProps>;
+
+export default DatePicker;
