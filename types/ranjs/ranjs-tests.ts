@@ -34,7 +34,7 @@ ss = core.shuffle(['1', '2', '3']);
 
 let normal = new dist.Normal();
 b = normal.type() === 'continuous';
-b = normal.support() === [];
+b = normal.support().length === 0;
 normal = normal.seed(0xfffff); // though Distribution.seed mutates itself
 const distState = normal.save();
 normal = new dist.Normal().load(distState);
