@@ -13,7 +13,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import * as React from 'react';
+import React = require('react');
 
 /**
  * Helpers
@@ -1877,88 +1877,97 @@ export class CompositeZIndex implements Indexable {
     index(): number;
 }
 
-export class ActivationCard extends React.Component<ActivationCardProps, any> {}
-export class Avatar extends React.Component<AvatarProps, any> {}
-export class AvatarGroup extends React.Component<AvatarGroupProps, any> {}
-export class AvatarPair extends React.Component<AvatarPairProps, any> {}
-export class Badge extends React.Component<BadgeProps, any> {}
+export const ActivationCard: React.FunctionComponent<ActivationCardProps>;
+export const Avatar: React.FunctionComponent<AvatarProps>;
+export const AvatarGroup: React.FunctionComponent<AvatarGroupProps>;
+export const AvatarPair: React.FunctionComponent<AvatarPairProps>;
+export const Badge: React.FunctionComponent<BadgeProps>;
 export const Box: ReactForwardRef<HTMLDivElement, BoxProps>;
 export const Button: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>;
-export class ButtonGroup extends React.Component<ButtonGroupProps, any> {}
-export class Callout extends React.Component<CalloutProps, any> {}
-export class Card extends React.Component<CardProps, any> {}
-export class ComboBox extends React.Component<ComboBoxProps, any> {}
+export const ButtonGroup: React.FunctionComponent<ButtonGroupProps>;
+export const Callout: React.FunctionComponent<CalloutProps>;
+export const Card: React.FunctionComponent<CardProps>;
+export const ComboBox: React.FunctionComponent<ComboBoxProps>;
 export const Checkbox: ReactForwardRef<HTMLInputElement, CheckboxProps>;
-export class Collage extends React.Component<CollageProps, any> {}
-export class ColorSchemeProvider extends React.Component<ColorSchemeProviderProps, any> {}
-export class Column extends React.Component<ColumnProps, any> {}
-export class Container extends React.Component<ContainerProps, any> {}
-export class Datapoint extends React.Component<DatapointProps, any> {}
-export class ScrollBoundaryContainer extends React.Component<ScrollBoundaryContainerProps, any> {}
-export class Divider extends React.Component<{}, any> {}
-export class Dropdown extends React.Component<DropdownProps, any> {
-    static Item: React.FC<DropdownItemProps>;
-    static Link: React.FC<DropdownLinkProps>;
-    static Section: React.FC<DropdownSectionProps>;
+export const Collage: React.FunctionComponent<CollageProps>;
+export const ColorSchemeProvider: React.FunctionComponent<ColorSchemeProviderProps>;
+export const Column: React.FunctionComponent<ColumnProps>;
+export const Container: React.FunctionComponent<ContainerProps>;
+export const Datapoint: React.FunctionComponent<DatapointProps>;
+export const ScrollBoundaryContainer: React.FunctionComponent<ScrollBoundaryContainerProps>;
+export const Divider: React.FunctionComponent<{}>;
+
+interface DropdownSubComponents {
+    Item: React.FC<DropdownItemProps>;
+    Link: React.FC<DropdownLinkProps>;
+    Section: React.FC<DropdownSectionProps>;
 }
-export class Fieldset extends React.Component<FieldsetProps, any> {}
-export class Flex extends React.Component<FlexProps, any> {
-    static Item: React.FC<FlexItemProps>;
+export const Dropdown: React.FunctionComponent<DropdownProps> & DropdownSubComponents;
+export const Fieldset: React.FunctionComponent<FieldsetProps>;
+
+interface FlexSubCompnents {
+    Item: React.FC<FlexItemProps>;
 }
-export class Heading extends React.Component<HeaderProps, any> {}
-export class Icon extends React.Component<IconProps, any> {}
+export const Flex: React.FunctionComponent<FlexProps> & FlexSubCompnents;
+export const Heading: React.FunctionComponent<HeaderProps>;
+export const Icon: React.FunctionComponent<IconProps>;
 export const IconButton: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, IconButtonProps>;
-export class Image extends React.Component<ImageProps, any> {}
-export class Label extends React.Component<LabelProps, any> {}
-export class Layer extends React.Component<LayerProps, any> {}
-export class Letterbox extends React.Component<LetterboxProps, any> {}
+export const Image: React.FunctionComponent<ImageProps>;
+export const Label: React.FunctionComponent<LabelProps>;
+export const Layer: React.FunctionComponent<LayerProps>;
+export const Letterbox: React.FunctionComponent<LetterboxProps>;
 export const Link: ReactForwardRef<HTMLAnchorElement, LinkProps>;
-export class Mask extends React.Component<MaskProps, any> {}
-export class Masonry extends React.Component<MasonryProps, any> {}
+export const Mask: React.FunctionComponent<MaskProps>;
+export const Masonry: React.FunctionComponent<MasonryProps>;
 export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
-export class Module extends React.Component<ModuleProps, any> {
-    static Expandable: React.FC<ModuleExpandableProps>;
+
+interface ModuleSubComponents {
+    Expandable: React.FC<ModuleExpandableProps>;
 }
+export const Module: React.FunctionComponent<ModuleProps> & ModuleSubComponents;
 export const NumberField: ReactForwardRef<HTMLInputElement, NumberFieldProps>;
-export class OnLinkNavigationProvider extends React.Component<OnLinkNavigationProviderProps, any> {}
-export class PageHeader extends React.Component<PageHeaderProps, any> {}
-export class Pog extends React.Component<PogProps, any> {}
-export class Popover extends React.Component<PopoverProps, any> {}
-export class Pulsar extends React.Component<PulsarProps, any> {}
+export const OnLinkNavigationProvider: React.FunctionComponent<OnLinkNavigationProviderProps>;
+export const PageHeader: React.FunctionComponent<PageHeaderProps>;
+export const Pog: React.FunctionComponent<PogProps>;
+export const Popover: React.FunctionComponent<PopoverProps>;
+export const Pulsar: React.FunctionComponent<PulsarProps>;
 export const RadioButton: ReactForwardRef<HTMLInputElement, RadioButtonProps>;
-export class Row extends React.Component<RowProps, any> {}
+export const Row: React.FunctionComponent<RowProps>;
 export const SearchField: ReactForwardRef<HTMLInputElement, SearchFieldProps>;
-export class SegmentedControl extends React.Component<SegmentedControlProps, any> {}
-export class SelectList extends React.Component<SelectListProps, any> {}
+export const SegmentedControl: React.FunctionComponent<SegmentedControlProps>;
+export const SelectList: React.FunctionComponent<SelectListProps>;
 export const Sheet: ReactForwardRef<HTMLDivElement, SheetProps>;
-export class SlimBanner extends React.Component<SlimBannerProps, any> {}
-export class Spinner extends React.Component<SpinnerProps, any> {}
-export class Stack extends React.Component<StackProps, any> {}
-export class Status extends React.Component<StatusProps, any> {}
-export class Sticky extends React.Component<StickyProps, any> {}
-export class Switch extends React.Component<SwitchProps, any> {}
-export class Table extends React.Component<TableProps, any> {
-    static Body: React.FC<TableBodyProps>;
-    static Cell: React.FC<TableCellProps>;
-    static Footer: React.FC<TableFooterProps>;
-    static Header: React.FC<TableHeaderProps>;
-    static HeaderCell: React.FC<TableHeaderCellProps>;
-    static Row: React.FC<TableRowProps>;
-    static RowExpandable: React.FC<TableRowExpandableProps>;
-    static SortableHeaderCell: React.FC<TableSortableHeaderCellProps>;
+export const SlimBanner: React.FunctionComponent<SlimBannerProps>;
+export const Spinner: React.FunctionComponent<SpinnerProps>;
+export const Stack: React.FunctionComponent<StackProps>;
+export const Status: React.FunctionComponent<StatusProps>;
+export const Sticky: React.FunctionComponent<StickyProps>;
+export const Switch: React.FunctionComponent<SwitchProps>;
+
+interface TableSubCompnents {
+    Body: React.FC<TableBodyProps>;
+    Cell: React.FC<TableCellProps>;
+    Footer: React.FC<TableFooterProps>;
+    Header: React.FC<TableHeaderProps>;
+    HeaderCell: React.FC<TableHeaderCellProps>;
+    Row: React.FC<TableRowProps>;
+    RowExpandable: React.FC<TableRowExpandableProps>;
+    SortableHeaderCell: React.FC<TableSortableHeaderCellProps>;
 }
-export class Tabs extends React.Component<TabsProps, any> {}
-export class Tag extends React.Component<TagProps, any> {}
+export const Table: React.FunctionComponent<TableProps> & TableSubCompnents;
+export const Tabs: React.FunctionComponent<TabsProps>;
+export const Tag: React.FunctionComponent<TagProps>;
 export const TapArea: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, TapAreaProps>;
-export class Text extends React.Component<TextProps, any> {}
+export const Text: React.FunctionComponent<TextProps>;
 export const TextArea: ReactForwardRef<HTMLTextAreaElement, TextAreaProps>;
 export const TextField: ReactForwardRef<HTMLInputElement, TextFieldProps>;
-export class Toast extends React.Component<ToastProps, any> {}
-export class Tooltip extends React.Component<TooltipProps, any> {}
-export class Upsell extends React.Component<UpsellProps, any> {
-    static Form: React.FC<UpsellFormProps>;
+export const Toast: React.FunctionComponent<ToastProps>;
+export const Tooltip: React.FunctionComponent<TooltipProps>;
+interface UpsellSubCompnents {
+    Form: React.FC<UpsellFormProps>;
 }
-export class Video extends React.Component<VideoProps, any> {}
+export const Upsell: React.FunctionComponent<UpsellProps> & UpsellSubCompnents;
+export const Video: React.FunctionComponent<VideoProps>;
 
 export function useReducedMotion(): boolean;
 export function useFocusVisible(): { isFocusVisible: boolean };
