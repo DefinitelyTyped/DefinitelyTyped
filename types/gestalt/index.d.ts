@@ -1895,9 +1895,9 @@ export const Column: React.FunctionComponent<ColumnProps>;
 export const Container: React.FunctionComponent<ContainerProps>;
 export const Datapoint: React.FunctionComponent<DatapointProps>;
 export const ScrollBoundaryContainer: React.FunctionComponent<ScrollBoundaryContainerProps>;
-export const Divider: React.FunctionComponent<{}>;
+export const Divider: React.FunctionComponent;
 
-interface DropdownSubComponents {
+export interface DropdownSubComponents {
     Item: React.FC<DropdownItemProps>;
     Link: React.FC<DropdownLinkProps>;
     Section: React.FC<DropdownSectionProps>;
@@ -1905,7 +1905,7 @@ interface DropdownSubComponents {
 export const Dropdown: React.FunctionComponent<DropdownProps> & DropdownSubComponents;
 export const Fieldset: React.FunctionComponent<FieldsetProps>;
 
-interface FlexSubCompnents {
+export interface FlexSubCompnents {
     Item: React.FC<FlexItemProps>;
 }
 export const Flex: React.FunctionComponent<FlexProps> & FlexSubCompnents;
@@ -1921,7 +1921,7 @@ export const Mask: React.FunctionComponent<MaskProps>;
 export const Masonry: React.FunctionComponent<MasonryProps>;
 export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
 
-interface ModuleSubComponents {
+export interface ModuleSubComponents {
     Expandable: React.FC<ModuleExpandableProps>;
 }
 export const Module: React.FunctionComponent<ModuleProps> & ModuleSubComponents;
@@ -1944,7 +1944,7 @@ export const Status: React.FunctionComponent<StatusProps>;
 export const Sticky: React.FunctionComponent<StickyProps>;
 export const Switch: React.FunctionComponent<SwitchProps>;
 
-interface TableSubCompnents {
+export interface TableSubCompnents {
     Body: React.FC<TableBodyProps>;
     Cell: React.FC<TableCellProps>;
     Footer: React.FC<TableFooterProps>;
@@ -1963,7 +1963,7 @@ export const TextArea: ReactForwardRef<HTMLTextAreaElement, TextAreaProps>;
 export const TextField: ReactForwardRef<HTMLInputElement, TextFieldProps>;
 export const Toast: React.FunctionComponent<ToastProps>;
 export const Tooltip: React.FunctionComponent<TooltipProps>;
-interface UpsellSubCompnents {
+export interface UpsellSubCompnents {
     Form: React.FC<UpsellFormProps>;
 }
 export const Upsell: React.FunctionComponent<UpsellProps> & UpsellSubCompnents;
