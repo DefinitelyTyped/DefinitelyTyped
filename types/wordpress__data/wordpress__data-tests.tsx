@@ -66,3 +66,9 @@ data.select('foo/bar').getFoo();
 
 // $ExpectType string
 data.select('foo/bar').getFoo<string>();
+
+// $ExpectError
+data.use(data.plugins.persistence, 'b');
+
+// $ExpectError
+data.use('b', { storage: window.localStorage });
