@@ -538,7 +538,6 @@ blocks.getSaveElement(BLOCK, { foo: 'bar' });
 // $ExpectError
 blocks.getSaveElement(BLOCK, false, []);
 
-
 // $ExpectType string
 blocks.serialize([BLOCK_INSTANCE, BLOCK_INSTANCE]);
 
@@ -609,7 +608,7 @@ blocks.isValidBlockContent('my/foo', { foo: 'bar' }, 'Foobar');
 blocks.isValidBlockContent(BLOCK, { foo: 'bar' }, 'Foobar');
 
 // $ExpectError
-blocks.isValidBlockContent( BLOCK, false, true );
+blocks.isValidBlockContent(BLOCK, false, true);
 
 //
 // stores
