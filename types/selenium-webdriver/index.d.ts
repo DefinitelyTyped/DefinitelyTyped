@@ -1,4 +1,4 @@
-// Type definitions for Selenium WebDriverJS 4.0
+// Type definitions for Selenium WebDriverJS 4.1
 // Project: https://github.com/SeleniumHQ/selenium
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
 //   Yuki Kokubun <https://github.com/Kuniwak>,
@@ -26,8 +26,9 @@ import { promise } from './lib/promise';
 import * as logging from './lib/logging';
 import * as until from './lib/until';
 import * as safari from './safari';
+import { ShadowRootPromise } from './lib/webdriver';
 import { WebSocket } from 'ws';
-import { HttpResponse } from './networkinterceptor';
+import { HttpResponse } from './networkinterceptor'
 
 export { By, ByHash } from './lib/by';
 export { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
@@ -2881,6 +2882,14 @@ export class WebElement implements Serializable<IWebElementId> {
    *     resolved to the screenshot as a base-64 encoded PNG.
    */
   takeScreenshot(opt_scroll?: boolean): Promise<string>;
+
+  /**
+   * Get the shadow root of the current web element.
+   * @returns {!Promise<ShadowRoot>} A promise that will be
+   *      resolved with the elements shadow root or rejected
+   *      with {@link NoSuchShadowRootError}
+   */
+  getShadowRoot(): ShadowRootPromise;
 
   /** @override */
   serialize(): Promise<IWebElementId>;
