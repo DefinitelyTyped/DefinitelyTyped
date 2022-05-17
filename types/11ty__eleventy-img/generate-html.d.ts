@@ -31,7 +31,7 @@ declare namespace generateHTML {
      * @template AddedAttributes User-provided attributes for the <img> tag.
      */
     interface PictureAttributes<AddedAttributes> {
-        children: [...SourceAttributes[], ImgAttributes<AddedAttributes>];
+        picture: [...SourceAttributes[], ImgAttributes<AddedAttributes>];
     }
 
     /**
