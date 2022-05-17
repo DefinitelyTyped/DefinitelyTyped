@@ -228,9 +228,8 @@ const userMigration: UserMigrationTriggerHandler = async (event, _, callback) =>
     boolOrUndefined = response.forceAliasCreation;
     response.messageAction === 'RESEND';
     response.messageAction === 'SUPPRESS';
-    response.desiredDeliveryMediums === ['EMAIL'];
-    response.desiredDeliveryMediums === ['SMS'];
-    response.desiredDeliveryMediums === ['SMS', 'EMAIL'];
+    response.desiredDeliveryMediums[0] === 'EMAIL';
+    response.desiredDeliveryMediums[0] === 'SMS';
 
     triggerSource === 'UserMigration_Authentication';
     triggerSource === 'UserMigration_ForgotPassword';
