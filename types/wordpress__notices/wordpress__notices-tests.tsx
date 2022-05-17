@@ -47,17 +47,3 @@ select('core/notices').getNotices('foo');
 
 // $ExpectType Notice
 const { type, id, actions } = select('core/notices').getNotices('foo')[0];
-
-// $ExpectType Notice
-const newNotice: Notice = {
-    id: 'new-notice',
-    type: 'snackbar',
-    actions,
-    __unstableHTML:
-        '<span>Unstable HTML</span>',
-    isDismissible: false,
-    content: 'Content',
-    speak: true,
-    spokenMessage: 'spokenMessage',
-    status: 'error',
-};
