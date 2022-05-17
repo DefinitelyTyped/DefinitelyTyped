@@ -1,4 +1,5 @@
-import pym, { Child, Parent, autoInit } from 'pym.js';
+import * as pym from 'pym.js';
+const { Child, Parent, autoInit } = pym;
 
 const pymParent = new pym.Parent('example-1', 'https://blog.apps.npr.org/pym.js/examples/table/child.html', {});
 pymParent.onMessage('customMessage', (message: string) => {
