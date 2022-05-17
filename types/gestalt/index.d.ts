@@ -421,18 +421,22 @@ export interface ComboBoxProps {
     helperText?: string | undefined;
     inputValue?: string | undefined;
     labelDisplay?: 'visible' | 'hidden' | undefined;
-    onChange?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void | undefined;
-    onBlur?: (args: {
-        event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>;
-        value: string;
-    }) => void | undefined;
-    onFocus?: (args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void | undefined;
-    onKeyDown?: (args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void | undefined;
-    onClear?: () => void | undefined;
-    onSelect?: (args: {
-        event: React.SyntheticEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
-        item: ComboBoxItemType;
-    }) => void | undefined;
+    onChange?: ((args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void) | undefined;
+    onBlur?:
+        | ((args: {
+              event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>;
+              value: string;
+          }) => void)
+        | undefined;
+    onFocus?: ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void) | undefined;
+    onKeyDown?: ((args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void) | undefined;
+    onClear?: (() => void) | undefined;
+    onSelect?:
+        | ((args: {
+              event: React.SyntheticEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
+              item: ComboBoxItemType;
+          }) => void)
+        | undefined;
     placeholder?: string | undefined;
     selectedOption?: ComboBoxItemType | undefined;
     size?: 'md' | 'lg' | undefined;
