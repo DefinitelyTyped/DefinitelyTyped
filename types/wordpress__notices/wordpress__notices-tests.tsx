@@ -45,9 +45,10 @@ select('core/notices').getNotices();
 // $ExpectType Notice[]
 select('core/notices').getNotices('foo');
 
-// $ExpectType { type: string, id: string, actions: Action[] }
+// $ExpectType Notice
 const { type, id, actions } = select('core/notices').getNotices('foo')[0];
 
+// $ExpectType Notice
 const newNotice: Notice = {
     id: 'new-notice',
     type: 'snackbar',
