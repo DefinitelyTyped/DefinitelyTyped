@@ -198,7 +198,6 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     route.method === 'GET';
     route.name === 'routeName';
     route.path === '/some/path';
-    route.path === /\/some\/path\/.*/;
     restify.plugins.auditLogger({ event: 'after', log: logger })(req, res, route, err);
 });
 

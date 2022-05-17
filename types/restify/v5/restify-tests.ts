@@ -165,8 +165,7 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     route.spec.method === 'GET';
     route.spec.name === 'routeName';
     route.spec.path === '/some/path';
-    route.spec.path === /\/some\/path\/.*/;
-    route.spec.versions === ['v1'];
+    route.spec.versions[0] === 'v1';
     restify.plugins.auditLogger({ event: 'after', log: logger })(req, res, route, err);
 });
 
