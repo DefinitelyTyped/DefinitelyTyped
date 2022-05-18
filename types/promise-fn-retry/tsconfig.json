@@ -1,21 +1,23 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es5"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "target": "ES5"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "test/domexception.index.test.ts",
-        "test/domexception.webidl2js.test.ts",
-        "index.d.ts"
+        "index.d.ts",
+        "promise-fn-retry-tests.ts"
     ]
 }
