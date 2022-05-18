@@ -42,11 +42,12 @@ declare namespace JustifiedGallery {
     }
 }
 
-// tslint:disable-next-line:no-single-declare-module
-declare module "justifiedGallery" {
-    export = JustifiedGallery;
+declare function justifiedGallery(root: Window, jQuery?: JQueryStatic): JQueryStatic | JQuery | HTMLElement;
+
+declare global {
+    interface JQuery<TElement = HTMLElement> {
+        justifiedGallery(settings?: JustifiedGallery.Settings): JQuery;
+    }
 }
 
-interface JQuery {
-    justifiedGallery(settings?: JustifiedGallery.Settings): JQuery;
-}
+export = justifiedGallery;
