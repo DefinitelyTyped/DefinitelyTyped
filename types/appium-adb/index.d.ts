@@ -1,4 +1,4 @@
-// Type definitions for appium-adb 8.16
+// Type definitions for appium-adb 9.4
 // Project: https://github.com/appium/appium-adb
 // Definitions by: Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,7 @@ import {
     getAndroidBinaryPath,
     getSdkRootFromEnv,
     AdbExecutable,
-    CreateAdbOptions
+    CreateAdbOptions,
 } from './lib/adb';
 import {
     LogcatOpts,

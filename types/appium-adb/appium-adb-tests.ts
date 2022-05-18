@@ -1,5 +1,6 @@
 import ADB from 'appium-adb';
 import Logcat, { Log } from 'appium-adb/lib/logcat';
+import { VerboseDevice } from './lib/tools';
 
 const adb = new ADB({ adbExecTimeout: 60000 });
 const logcat = new Logcat({
@@ -111,3 +112,9 @@ adb.setHiddenApiPolicy(1);
 adb.setDefaultHiddenApiPolicy();
 
 adb.powerAC(adb.POWER_AC_STATES.POWER_AC_ON);
+
+let devices = adb.getConnectedDevices();
+const verboseDevices: Promise<VerboseDevice[]> = adb.getConnectedDevices({ verbose: true });
+devices = verboseDevices;
+
+const copy: ADB = adb.clone();
