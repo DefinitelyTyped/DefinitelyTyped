@@ -1,4 +1,4 @@
-// Type definitions for react-resizable 3.0.4
+// Type definitions for react-resizable 3.0
 // Project: https://github.com/STRML/react-resizable
 // Definitions by: Harry Brrundage <https://github.com/airhorns>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
