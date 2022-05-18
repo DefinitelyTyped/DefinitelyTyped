@@ -136,7 +136,10 @@ export namespace UIkit {
         ratio?: number | undefined;
     }
 
-    type Icon = (element: UIkitElement, options?: UIkitIconOptions) => {
+    type Icon = (
+        element: UIkitElement,
+        options?: UIkitIconOptions,
+    ) => {
         svg: Promise<any>;
     };
 
@@ -294,7 +297,10 @@ export namespace UIkit {
         'stroke-animation'?: boolean | undefined;
     }
 
-    type Svg = (element: UIkitElement, options?: UIkitSvgOptions) => {
+    type Svg = (
+        element: UIkitElement,
+        options?: UIkitSvgOptions,
+    ) => {
         svg: Promise<any>;
     };
 
@@ -317,7 +323,10 @@ export namespace UIkit {
         show(index: string | number | UIkitNode): void;
     }
 
-    type Switcher = (element: UIkitElement, options?: UIkitSwitcherOptions | UIkitSwiterOptions) => UIkitSwitcherElement;
+    type Switcher = (
+        element: UIkitElement,
+        options?: UIkitSwitcherOptions | UIkitSwiterOptions,
+    ) => UIkitSwitcherElement;
 
     interface UIkitTabOptions {
         connect?: string | undefined;
