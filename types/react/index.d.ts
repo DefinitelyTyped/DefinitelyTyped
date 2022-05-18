@@ -38,6 +38,7 @@
 import * as CSS from 'csstype';
 import * as PropTypes from 'prop-types';
 import { Interaction as SchedulerInteraction } from 'scheduler/tracing';
+import 'trusted-types';
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -1374,7 +1375,7 @@ declare namespace React {
     interface DOMAttributes<T> {
         children?: ReactNode | undefined;
         dangerouslySetInnerHTML?: {
-            __html: string;
+            __html: string | TrustedHTML;
         } | undefined;
 
         // Clipboard Events

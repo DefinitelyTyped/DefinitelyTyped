@@ -9,6 +9,7 @@ import shallowCompare = require("react-addons-shallow-compare");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
+import { trustedTypes } from "trusted-types";
 
 // NOTE: forward declarations for tests
 declare function setInterval(...args: any[]): any;
@@ -526,6 +527,19 @@ DOM.svg({
         fillRule: "evenodd"
     })
 );
+
+const trustedTypesPolicy = trustedTypes.createPolicy("my-policy", {
+  createHTML: (s: string) => s
+});
+const trustedHTML = trustedTypesPolicy.createHTML("<div>trusted!</div>");
+const trustedTypesHTMLAttr: React.HTMLProps<HTMLElement> = {
+    dangerouslySetInnerHTML: {
+        __html: trustedHTML
+    }
+}
+DOM.div(trustedTypesHTMLAttr);
+DOM.span(trustedTypesHTMLAttr);
+DOM.input(trustedTypesHTMLAttr);
 
 //
 // React.Children
