@@ -263,7 +263,7 @@ declare namespace Autodesk {
           loadOptions?: object | undefined;
           sharedPropertyDbPath?: string | undefined;
           ids?: string | undefined;
-          applyScaling?: string;
+          applyScaling?: string | { from: string, to: string };
           modelNameOverride?: string;
           [key: string]: any;
         }
@@ -619,12 +619,12 @@ declare namespace Autodesk {
             getCache(): object;
             getName(): string;
             getModes(): string[];
-            getState(viewerState: Private.ViewerStateObject): void;
+            getState(viewerState: Private.ViewerStateOptions): void;
             isActive(mode: string): boolean;
             load(): boolean | Promise<boolean>;
             unload(): boolean;
             onToolbarCreated(toolbar?: UI.ToolBar): void;
-            restoreState(viewerState: Private.ViewerStateObject, immediate: boolean): boolean;
+            restoreState(viewerState: Private.ViewerStateOptions, immediate: boolean): boolean;
             setActive(enable: boolean, mode: string): void;
         }
 
@@ -1844,7 +1844,7 @@ declare namespace Autodesk {
               restoreState(viewerState: object, filter?: object, immediate?: boolean): boolean;
             }
 
-            class ViewerStateObject {
+            interface ViewerStateOptions {
               guid?: string;
               seedURN?: string;
               overrides?: [];
