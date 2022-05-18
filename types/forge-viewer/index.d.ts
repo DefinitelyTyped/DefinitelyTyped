@@ -263,6 +263,8 @@ declare namespace Autodesk {
           loadOptions?: object | undefined;
           sharedPropertyDbPath?: string | undefined;
           ids?: string | undefined;
+          applyScaling?: string | { from: string, to: string };
+          modelNameOverride?: string;
           [key: string]: any;
         }
 
@@ -549,6 +551,9 @@ declare namespace Autodesk {
             accessToken?: string | undefined;
             useADP?: boolean | undefined;
             useConsolidation?: boolean | undefined;
+            optOutTrackingByDefault?: boolean;
+            shouldInitializeAuth?: boolean;
+            useCredentials?: boolean;
             [key: string]: any;
         }
 
@@ -603,6 +608,7 @@ declare namespace Autodesk {
         }
 
         class Extension {
+            container: HTMLDivElement;
             viewer: GuiViewer3D;
             options: any;
             constructor(viewer: GuiViewer3D, options: any);
@@ -613,12 +619,12 @@ declare namespace Autodesk {
             getCache(): object;
             getName(): string;
             getModes(): string[];
-            getState(viewerState: object): void;
+            getState(viewerState: Private.ViewerStateOptions): void;
             isActive(mode: string): boolean;
             load(): boolean | Promise<boolean>;
             unload(): boolean;
             onToolbarCreated(toolbar?: UI.ToolBar): void;
-            restoreState(viewerState: object, immediate: boolean): boolean;
+            restoreState(viewerState: Private.ViewerStateOptions, immediate: boolean): boolean;
             setActive(enable: boolean, mode: string): void;
         }
 
@@ -1836,6 +1842,61 @@ declare namespace Autodesk {
               getSeedUrn(): string;
               getState(filter?: object): object;
               restoreState(viewerState: object, filter?: object, immediate?: boolean): boolean;
+            }
+
+            interface ViewerStateOptions {
+              guid?: string;
+              seedURN?: string;
+              overrides?: [];
+              objectSet?: ObjectSetItem[];
+
+              cutplanes?: number[][];
+
+              viewport?: {
+                name: string;
+                eye: [number, number, number];
+                target: [number, number, number];
+                up: [number, number, number];
+                worldUpVector: [number, number, number];
+                pivotPoint: [number, number, number];
+                distanceToOrbit: number;
+                aspectRatio: number;
+                projection: 'perspective' | 'orthographic';
+                isOrthographic: boolean;
+                fieldOfView?: number;
+                orthographicHeight?: number;
+              };
+
+              renderOptions?: {
+                environment: string;
+                ambientOcclusion: {
+                  enabled: boolean;
+                  radius: number;
+                  intensity: number;
+                };
+                toneMap: {
+                  method: number;
+                  exposure: number;
+                  lightMultiplier: number;
+                };
+                appearance: {
+                  ghostHidden: boolean;
+                  ambientShadow: boolean;
+                  antiAliasing: boolean;
+                  progressiveDisplay: boolean;
+                  swapBlackAndWhite: boolean;
+                  displayLines: boolean;
+                  displayPoints: boolean;
+                };
+              };
+            }
+
+            interface ObjectSetItem {
+              id: number[];
+              isolated: number[];
+              hidden: number[];
+              explodeScale: number;
+              seedUrn: string;
             }
 
             interface HitTestResult {
