@@ -1,6 +1,5 @@
-import ADB from 'appium-adb';
+import ADB, { VerboseDevice } from 'appium-adb';
 import Logcat, { Log } from 'appium-adb/lib/logcat';
-import { VerboseDevice } from './lib/tools';
 
 const adb = new ADB({ adbExecTimeout: 60000 });
 const logcat = new Logcat({
