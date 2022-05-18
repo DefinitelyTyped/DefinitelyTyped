@@ -47,3 +47,8 @@ function testUse() {
     plugin.installed = false;
     UIkit.use(plugin);
 }
+
+import Icons from 'uikit/dist/js/uikit-icons';
+
+// $ExpectType boolean
+Icons.installed;
