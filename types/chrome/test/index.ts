@@ -458,6 +458,16 @@ async function testTabGroupInterface() {
         tabGroup.id; // $ExpectType number
         tabGroup.title; // $ExpectType string | undefined
         tabGroup.windowId; // $ExpectType number
+
+        tabGroup.color = 'grey';
+        tabGroup.color = 'blue';
+        tabGroup.color = 'red';
+        tabGroup.color = 'yellow';
+        tabGroup.color = 'green';
+        tabGroup.color = 'pink';
+        tabGroup.color = 'purple';
+        tabGroup.color = 'cyan';
+        tabGroup.color = 'orange';
     });
   }
 
@@ -855,7 +865,7 @@ async function testDeclarativeNetRequest() {
         rule.action; // $ExpectType RuleAction
         rule.condition; // $ExpectType RuleCondition
         rule.id; // $ExpectType number
-        rule.priority; // $ExpectType number
+        rule.priority; // $ExpectType number | undefined
     })
 
     chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
@@ -1103,7 +1113,7 @@ async function testDynamicRules() {
           type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
         },
         condition: {
-            domains: ["www.example.com"],
+            initiatorDomains: ["www.example.com"],
             tabIds: [2, 3, 76],
         },
         id: 2,

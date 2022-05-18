@@ -1,4 +1,4 @@
-// Type definitions for mssql 7.1.3
+// Type definitions for mssql 8.0.0
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
@@ -219,6 +219,7 @@ export declare class ConnectionPool extends events.EventEmitter {
     public readonly pending: number;
     public readonly borrowed: number;
     public readonly pool: Pool<Connection>;
+    public static parseConnectionString(connectionString: string): config;
     public constructor(config: config, callback?: (err?: any) => void);
     public constructor(connectionString: string, callback?: (err?: any) => void);
     public query(command: string): Promise<IResult<any>>;

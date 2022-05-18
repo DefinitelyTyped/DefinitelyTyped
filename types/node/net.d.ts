@@ -286,6 +286,11 @@ declare module 'net' {
          */
         readonly remotePort?: number | undefined;
         /**
+         * The socket timeout in milliseconds as set by socket.setTimeout(). It is undefined if a timeout has not been set.
+         * @since v10.7.0
+         */
+        readonly timeout?: number | undefined;
+        /**
          * Half-closes the socket. i.e., it sends a FIN packet. It is possible the
          * server will still send some data.
          *

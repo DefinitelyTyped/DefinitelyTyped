@@ -118,7 +118,6 @@ examples/jsm/postprocessing/OutlinePass.d.ts
 examples/jsm/postprocessing/RenderPass.d.ts
 examples/jsm/postprocessing/BloomPass.d.ts
 examples/jsm/postprocessing/SAOPass.d.ts
-examples/jsm/postprocessing/SavePass.d.ts
 examples/jsm/postprocessing/SMAAPass.d.ts
 examples/jsm/postprocessing/SSAARenderPass.d.ts
 examples/jsm/postprocessing/SSAOPass.d.ts

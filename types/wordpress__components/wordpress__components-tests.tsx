@@ -327,6 +327,21 @@ const buttonGroupRef = createRef<HTMLDivElement>();
         },
     ]}
 />;
+<C.DropdownMenu
+    icon={<span>icon</span>}
+    label="Select a direction"
+    controls={[
+        {
+            title: 'Up',
+            icon: 'arrow-up-alt',
+            onClick: () => console.log('up'),
+        },
+    ]}
+    menuProps={{ orientation: 'vertical' }}
+    popoverProps={{ animate: true }}
+    toggleProps={{ variant: 'primary' }}
+    disableOpenOnArrowDown={true}
+/>;
 
 //
 // external-link

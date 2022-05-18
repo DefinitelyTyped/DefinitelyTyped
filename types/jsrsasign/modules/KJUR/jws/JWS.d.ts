@@ -174,6 +174,7 @@ declare namespace jsrsasign.KJUR.jws {
             alg: string | null,
             spHead: string | { alg: string },
             spPayload: string | object,
+            key?: string | RSAKey | crypto.ECDSA | { b64: string } | { hex: string } | { utf8: string } | { rstr: string } | { b64u: string },
             pass?: string | { [type: string]: string },
         ): string;
 

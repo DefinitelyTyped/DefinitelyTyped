@@ -141,6 +141,7 @@ declare namespace mapboxgl {
         // Color
         | 'rgb'
         | 'rgba'
+        | 'to-rgba'
         // Math
         | '-'
         | '*'

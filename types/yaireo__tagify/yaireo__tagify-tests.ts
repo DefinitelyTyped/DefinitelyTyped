@@ -243,6 +243,9 @@ const settings: TagifyConstructorSettings = {
             }
             return "";
         },
+        dropdownContent(htmlContent) {
+            return htmlContent + '<div>Some additional content.</div>';
+        },
         dropdownItem(item) {
             if (this.settings.classNames) {
                 return `<div ${this.getAttributes(item)}
@@ -251,6 +254,17 @@ const settings: TagifyConstructorSettings = {
             role="option">${item.value}</div>`;
             }
             return "";
+        },
+        dropdownHeader: (suggestions) => '',
+        dropdownFooter(suggestions) {
+            if (this.settings.classNames && this.settings?.dropdown?.maxItems) {
+                const hasMore = suggestions.length - this.settings.dropdown.maxItems;
+                return hasMore > 0
+                    ? `<footer data-selector='tagify-suggestions-footer' class="${this.settings.classNames.dropdownFooter}">
+                   ${hasMore} more items. Refine your search.</footer>`
+                    : '';
+            }
+            return '';
         },
         dropdownItemNoMatch: (data) => `No suggestion found for: ${data.value}`,
     },
@@ -281,6 +295,8 @@ const settings: TagifyConstructorSettings = {
         tagText: 'tagify__tag-text',
         dropdown: 'tagify__dropdown',
         dropdownWrapper: 'tagify__dropdown__wrapper',
+        dropdownHeader: 'tagify__dropdown__header',
+        dropdownFooter: 'tagify__dropdown__footer',
         dropdownItem: 'tagify__dropdown__item',
         dropdownItemActive: 'tagify__dropdown__item--active',
         dropdownInital: 'tagify__dropdown--initial',
@@ -911,6 +927,7 @@ tagify.setDisabled(true);
 tagify.dropdown.show();
 tagify.dropdown.show('foo');
 tagify.dropdown.selectAll();
+tagify.dropdown.selectAll(true);
 tagify.dropdown.hide();
 tagify.dropdown.hide(true);
 tagify.dropdown.toggle();

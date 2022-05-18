@@ -170,7 +170,7 @@ declare namespace sequelize {
         /**
          * Apply a scope on the related model, or remove its default scope by passing false.
          */
-        scope?: string | boolean | undefined;
+        scope?: string | boolean | undefined | null;
     }
 
     /**
@@ -3176,9 +3176,9 @@ declare namespace sequelize {
      * Logic of where statement
      */
     type WhereLogic = Partial<{
-        $ne: string | number | WhereLogic;
+        $ne: string | number | WhereLogic | null;
         $in: Array<string | number> | literal;
-        $not: boolean | string | number | AnyWhereOptions;
+        $not: boolean | string | number | AnyWhereOptions | null;
         $notIn: Array<string | number> | literal;
         $gte: number | string | Date;
         $gt: number | string | Date;
@@ -3216,7 +3216,7 @@ declare namespace sequelize {
      * A hash of attributes to describe your search, accepting any field names. See `WhereOptions` for details.
      */
     interface AnyWhereOptions {
-        [field: string]: WhereOptions<any>[] | Object;
+        [field: string]: WhereOptions<any>[] | Object | null;
     }
 
     /**

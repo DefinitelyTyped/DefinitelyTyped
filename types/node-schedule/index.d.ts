@@ -1,4 +1,4 @@
-// Type definitions for node-schedule 1.3
+// Type definitions for node-schedule 2.1
 // Project: https://github.com/node-schedule/node-schedule
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Florian Plattner <https://github.com/flowpl>
@@ -11,7 +11,7 @@
 import { EventEmitter } from 'events';
 
 /** The callback executed by a Job */
-export type JobCallback = (fireDate: Date) => void;
+export type JobCallback = (fireDate: Date) => void | Promise<any>;
 
 /** Scheduler jobs. */
 export class Job extends EventEmitter {
@@ -212,3 +212,10 @@ export let scheduledJobs: {[jobName: string]: Job};
  * @returns Whether the job has been cancelled with success.
  */
 export function cancelJob(job: Job|string): boolean;
+
+/**
+ * Gracefullly cancels all jobs.
+ *
+ * @returns Promise that resolves when all running jobs have stopped.
+ */
+ export function gracefulShutdown(): Promise<void>;

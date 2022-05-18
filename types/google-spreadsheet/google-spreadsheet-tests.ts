@@ -9,10 +9,13 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
     const doc = new GoogleSpreadsheet('<the sheet ID from the url>');
 
     // use service account creds
-    await doc.useServiceAccountAuth({
-        client_email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: GOOGLE_PRIVATE_KEY,
-    });
+    await doc.useServiceAccountAuth(
+        {
+            client_email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
+            private_key: GOOGLE_PRIVATE_KEY,
+        },
+        'user@example.com',
+    );
     // OR use API key -- only for read-only access to public sheets
     doc.useApiKey('YOUR-API-KEY');
 

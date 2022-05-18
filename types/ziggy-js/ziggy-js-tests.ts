@@ -9,10 +9,27 @@ ziggy.default();
 ziggy.default("test");
 
 const Ziggy = {
-    routes: {},
+    routes:  {
+        'posts.show': {
+            uri: 'posts/{post}',
+            methods:  [
+                'GET' as const,
+                'HEAD' as const
+            ]
+        }
+    },
     defaults: {},
-    url: '',
+    url: 'https://ziggy.test',
 };
+
+// $ExpectType string
+ziggy.default("posts.show", 1, undefined, Ziggy);           // 'https://ziggy.test/posts/1'
+
+// $ExpectType string
+ziggy.default("posts.show", [1], undefined, Ziggy);         // 'https://ziggy.test/posts/1'
+
+// $ExpectType string
+ziggy.default("posts.show", { post: 1 }, undefined, Ziggy); // 'https://ziggy.test/posts/1'
 
 // $ExpectType Router
 ziggy.default(undefined, undefined, undefined, Ziggy);

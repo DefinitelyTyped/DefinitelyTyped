@@ -11,6 +11,26 @@ import { A, M, O, T } from 'ts-toolbelt';
 // - Types need proper descriptions, so that we know what they do
 
 /**
+ * A type that any constructor is assignable to.
+ * Use as a generic constraint (`T extends AnyConstructor`)
+ * and for function parameters (`a: AnyConstructor`).
+ * Use `new (...args: unknown[]) => unknown` instead for function return types.
+ *
+ * <created by @somebody1234>
+ */
+export type AnyConstructor = new (...args: any[]) => unknown;
+
+/**
+ * A type that any function is assignable to.
+ * Use as a generic constraint (`T extends AnyFunction`)
+ * and for function parameters (`a: AnyFunction`).
+ * Use `(...args: unknown[]) => unknown` instead for function return types.
+ *
+ * <created by @somebody1234>
+ */
+export type AnyFunction = (...args: any[]) => unknown;
+
+/**
  * A function taking 0 arguments.
  * @deprecated Use `() => unknown` instead
  */
@@ -431,7 +451,7 @@ export type ObjectHavingSome<Key extends string> = A.Clean<
 /**
  * <needs description>
  */
-export type Path = Array<number | string>;
+export type Path = ReadonlyArray<number | string>;
 
 /**
  * A placeholder used to skip parameters, instead adding a parameter to the returned function.

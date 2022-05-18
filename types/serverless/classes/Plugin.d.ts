@@ -10,48 +10,54 @@ declare namespace Plugin {
             usage?: string | undefined;
             lifecycleEvents?: string[] | undefined;
             commands?: { [command: string]: {} } | undefined;
-            options?: {
-                [option: string]: {
-                    usage?: string | undefined;
-                    required?: boolean | undefined;
-                    shortcut?: string | undefined;
-                };
-            } | undefined;
+            options?:
+                | {
+                      [option: string]: {
+                          usage?: string | undefined;
+                          required?: boolean | undefined;
+                          shortcut?: string | undefined;
+                      };
+                  }
+                | undefined;
         };
     }
 
     type VariableResolver = (variableSource: string) => Promise<any>;
 
     interface VariableResolvers {
-        [variablePrefix: string]: VariableResolver | {
-            resolver: VariableResolver,
-            isDisabledAtPrepopulation?: boolean | undefined,
-            serviceName?: string | undefined
-        };
+        [variablePrefix: string]:
+            | VariableResolver
+            | {
+                  resolver: VariableResolver;
+                  isDisabledAtPrepopulation?: boolean | undefined;
+                  serviceName?: string | undefined;
+              };
     }
 
     type ConfigurationVariablesSource = (variableSource: any) => Promise<any>;
 
     interface ConfigurationVariablesSources {
-        [variablePrefix: string]: ConfigurationVariablesSource | {
-                    resolve: ConfigurationVariablesSource,
-                    isDisabledAtPrepopulation?: boolean | undefined,
-                    serviceName?: string | undefined
-            };
+        [variablePrefix: string]:
+            | ConfigurationVariablesSource
+            | {
+                  resolve: ConfigurationVariablesSource;
+                  isDisabledAtPrepopulation?: boolean | undefined;
+                  serviceName?: string | undefined;
+              };
     }
 
     interface Logging {
         log: {
-          error: (text: string) => void;
-          warning: (text: string) => void;
-          notice: (text: string) => void;
-          info: (text: string) => void;
-          debug: (text: string) => void;
-          verbose: (text: string) => void;
-          success: (text: string) => void;
+            error: (text: string) => void;
+            warning: (text: string) => void;
+            notice: (text: string) => void;
+            info: (text: string) => void;
+            debug: (text: string) => void;
+            verbose: (text: string) => void;
+            success: (text: string) => void;
         };
         writeText: (text: string | string[]) => void;
-      }
+    }
 
     interface PluginStatic {
         new (serverless: Serverless, options: Serverless.Options, logging: Logging): Plugin;
