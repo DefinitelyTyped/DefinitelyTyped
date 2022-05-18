@@ -11,6 +11,11 @@ type UIkitElement = object | HTMLElement | string;
 type UIkitNodes = NodeList | HTMLCollection | UIkitNode;
 type UIkitNode = Node;
 
+export interface Plugin {
+    (uikit: typeof UIkit): void;
+    installed?: boolean;
+}
+
 export namespace UIkit {
     const util: object;
     const component: object;
@@ -18,10 +23,11 @@ export namespace UIkit {
     const prefix: string;
     const options: object;
     const version: string;
-    const use: object;
     const mixin: object;
     const extend: object;
     const update: object;
+
+    function use(plugin: Plugin): typeof UIkit;
 
     interface UIkitAccordionOptions {
         active?: number | undefined;

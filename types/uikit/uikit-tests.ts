@@ -41,3 +41,9 @@ function testUpload() {
         }
     });
 }
+
+function testUse() {
+    const plugin = (uikit: typeof UIkit) => {};
+    plugin.installed = false;
+    UIkit.use(plugin);
+}
