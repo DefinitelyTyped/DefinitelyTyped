@@ -58,3 +58,6 @@ UIkit.icon.add({
     icon1: '<svg>A</svg>',
     icon2: '<svg>B</svg>',
 });
+UIkit.icon('#app', {
+    icon: 'home',
+});
