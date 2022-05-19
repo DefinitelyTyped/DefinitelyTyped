@@ -5,9 +5,10 @@
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
+//                 Fil <https://github.com/Fil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.1.2
 
 // -----------------------------------------------------------------------
 // Hierarchy
@@ -216,6 +217,21 @@ export interface StratifyOperator<Datum> {
      * @param parentId The parent id accessor.
      */
     parentId(parentId: (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined)): this;
+
+    /**
+     * Returns the current path accessor, which defaults to undefined.
+     */
+    path(): ((d: Datum, i: number, data: Datum[]) => string) | null | undefined;
+    /**
+     * If path is specified, sets the path accessor to the given function and returns this stratify operator.
+     * Otherwise, returns the current path accessor, which defaults to undefined.
+     * If a path accessor is set, the id and parentId arguments are ignored,
+     * and a unix-like hierarchy is computed on the slash-delimited strings
+     * returned by the path accessor, imputing parent nodes and ids as necessary.
+     *
+     * @param path The path accessor.
+     */
+    path(path: ((d: Datum, i: number, data: Datum[]) => string) | null | undefined): this;
 }
 
 /**
