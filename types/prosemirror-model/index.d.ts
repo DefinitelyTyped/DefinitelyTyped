@@ -79,6 +79,12 @@ export class Fragment<S extends Schema = any> {
      * content nodes.
      */
     size: number;
+
+    /**
+     * The array of the child nodes.
+     */
+    content: Array<ProsemirrorNode<S>>;
+
     /**
      * Invoke a callback for all descendant nodes between the given two
      * positions (relative to start of this fragment). Doesn't descend
