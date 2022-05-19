@@ -7363,6 +7363,12 @@ declare namespace chrome.runtime {
      */
     export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
     /**
+     * Returns information about the current platform.
+     * @since Chrome 29.
+     * @return The `getPlatformInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getPlatformInfo(): Promise<PlatformInfo>;
+    /**
      * Converts a relative path within an app/extension install directory to a fully-qualified URL.
      * @param path A path to a resource within an app/extension expressed relative to its install directory.
      */

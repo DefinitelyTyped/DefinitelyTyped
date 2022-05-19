@@ -577,6 +577,20 @@ async function testGetPlatformInfo() {
     });
 }
 
+async function testGetPlatformForPromise() {
+    chrome.runtime.getPlatformInfo().then(platformInfo => {
+        platformInfo; // $ExpectType PlatformInfo
+
+        platformInfo.arch; // $ExpectType PlatformArch
+        platformInfo.nacl_arch; // $ExpectType PlatformNaclArch
+        platformInfo.os; // $ExpectType PlatformOs
+
+        platformInfo.arch = 'invalid-arch'; // $ExpectError
+        platformInfo.nacl_arch = 'invalid-nacl_arch'; // $ExpectError
+        platformInfo.os = 'invalid-os'; // $ExpectError
+    });
+}
+
 // https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
 function testTabCaptureOptions() {
     // Constraints based on:
