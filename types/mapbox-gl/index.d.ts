@@ -776,7 +776,11 @@ declare namespace mapboxgl {
          *
          * @default 'mercator'
          */
-         projection?: 'equalEarth' | 'albers' | 'mercator' | 'lambertConformalConic' | 'winkelTripel' | 'naturalEarth' | 'equirectangular';
+         projection?:  {
+            name: 'albers' | 'equalEarth' | 'equirectangular' | 'lambertConformalConic' | 'mercator' | 'naturalEarth' | 'winkelTripel' | 'globe',
+            center?: [number, number],
+            parallels?: [number, number]
+        };
 
         /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
