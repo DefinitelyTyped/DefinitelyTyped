@@ -569,13 +569,8 @@ export function binary<T extends AnyFunction>(fn: T): (...arg: _.T.Take<Paramete
  * // logs {a: 2}
  * ```
  */
-export function bind<F extends AnyFunction, T>(
-    fn: F,
-    thisObj: T,
-): (...args: Parameters<F>) => ReturnType<F>;
-export function bind<F extends AnyFunction, T>(
-    fn: F,
-): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends AnyFunction, T>(fn: F, thisObj: T): (...args: Parameters<F>) => ReturnType<F>;
+export function bind<F extends AnyFunction, T>(fn: F): (thisObj: T) => (...args: Parameters<F>) => ReturnType<F>;
 
 /**
  * A function which calls the two provided functions and returns the `&&` of the
@@ -1344,9 +1339,7 @@ export function curryN<N extends number, F extends AnyFunction>(
 ): _.F.Curry<(...args: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
 export function curryN<N extends number>(
     length: N,
-): <F extends AnyFunction>(
-    fn: F,
-) => _.F.Curry<(...args: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
+): <F extends AnyFunction>(fn: F) => _.F.Curry<(...args: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
 
 /**
  * Decrements its argument.
@@ -3108,10 +3101,7 @@ export function median(list: readonly number[]): number;
  * count; //=> 1
  * ```
  */
-export function memoizeWith<T extends AnyFunction>(
-    keyFn: (...v: Parameters<T>) => string,
-    fn: T,
-): T;
+export function memoizeWith<T extends AnyFunction>(keyFn: (...v: Parameters<T>) => string, fn: T): T;
 
 /**
  * Create a new object with the own properties of a
@@ -3497,10 +3487,9 @@ export function not(value: any): boolean;
  */
 export function nth<T>(n: number, list: readonly T[]): T | undefined;
 export function nth(n: number, list: string): string;
-export function nth(n: number): {
-    <T>(list: readonly T[]): T | undefined;
-    (list: string): string;
-};
+export function nth(
+    n: number,
+): <T extends readonly any[] | string>(list: T) => (T extends Array<infer E> ? E : string) | undefined;
 
 /**
  * Returns a function which returns its nth argument.
@@ -3601,11 +3590,16 @@ export function omit<K extends string>(names: readonly K[]): <T>(obj: T) => Omit
  */
 export function on<T, U, R>(combine: (a: U, b: U) => R, transform: (value: T) => U, a: T, b: T): R;
 export function on<T, U, R>(combine: (a: U, b: U) => R, transform: (value: T) => U, a: T): (b: T) => R;
-export function on<T, U, R>(combine: (a: U, b: U) => R, transform: (value: T) => U): {
+export function on<T, U, R>(
+    combine: (a: U, b: U) => R,
+    transform: (value: T) => U,
+): {
     (a: T, b: T): R;
     (a: T): (b: T) => R;
 };
-export function on<U, R>(combine: (a: U, b: U) => R): {
+export function on<U, R>(
+    combine: (a: U, b: U) => R,
+): {
     <T>(transform: (value: T) => U, a: T, b: T): R;
     <T>(transform: (value: T) => U, a: T): (b: T) => R;
     <T>(transform: (value: T) => U): {
@@ -3614,7 +3608,9 @@ export function on<U, R>(combine: (a: U, b: U) => R): {
     };
 };
 // For manually specifying overloads
-export function on<T, U, R>(combine: (a: U, b: U) => R): {
+export function on<T, U, R>(
+    combine: (a: U, b: U) => R,
+): {
     (transform: (value: T) => U, a: T, b: T): R;
     (transform: (value: T) => U, a: T): (b: T) => R;
     (transform: (value: T) => U): {
@@ -4298,8 +4294,13 @@ export function project<T, U>(props: readonly string[]): (objs: readonly T[]) =>
  * ```
  */
 export function promap<A, B, C, D>(pre: (value: A) => B, post: (value: C) => D, fn: (value: B) => C): (value: A) => D;
-export function promap<A, B, C, D>(pre: (value: A) => B, post: (value: C) => D): (fn: (value: B) => C) => (value: A) => D;
-export function promap<A, B>(pre: (value: A) => B): <C, D>(post: (value: C) => D, fn: (value: B) => C) => (value: A) => D;
+export function promap<A, B, C, D>(
+    pre: (value: A) => B,
+    post: (value: C) => D,
+): (fn: (value: B) => C) => (value: A) => D;
+export function promap<A, B>(
+    pre: (value: A) => B,
+): <C, D>(post: (value: C) => D, fn: (value: B) => C) => (value: A) => D;
 
 /**
  * Returns a function that when supplied an object
@@ -5265,9 +5266,7 @@ export function test(regexp: RegExp): (str: string) => boolean;
  * R.thunkify((a: number, b: number) => a + b)(25, 17)(); //=> 42
  * ```
  */
-export function thunkify<F extends AnyFunction>(
-    fn: F,
-): _.F.Curry<(...args: Parameters<F>) => () => ReturnType<F>>;
+export function thunkify<F extends AnyFunction>(fn: F): _.F.Curry<(...args: Parameters<F>) => () => ReturnType<F>>;
 
 /**
  * Calls an input function `n` times,
