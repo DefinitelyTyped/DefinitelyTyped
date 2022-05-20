@@ -3,6 +3,6 @@ import { Player, PlayerProps } from 'video-react';
 
 const testProps: PlayerProps = { autoPlay: true };
 
-const TestComponent: React.StatelessComponent<PlayerProps> = (props: PlayerProps) => {
+function TestComponent(props: PlayerProps): JSX.Element {
     return <Player {...testProps} />;
-};
+}
