@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-color module 3.0
+// Type definitions for D3JS d3-color module 3.1
 // Project: https://github.com/d3/d3-color/, https://d3js.org/d3-color
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
