@@ -72,21 +72,6 @@ const testGeneral: NightwatchTests = {
 
     'test user defined globals': () => {
         browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
-    },
-    
-    'Test assertions on page': () => {
-        const google: GooglePage = browser.page.google();
-
-        google
-            .navigate()
-            .assert.title('Google') // deprecated
-            .assert.titleEquals('Google') // new in 2.0
-            .assert.visible('@searchBar')
-            .moveToElement('@searchBar', 1, 1)
-            .setValue('@searchBar', 'nightwatch')
-            .click('@submit');
-
-        browser.end();
     }
 };
 
@@ -270,6 +255,7 @@ const testPage = {
             .assert.title('Google') // deprecated
             .assert.titleEquals('Google') // new in 2.0
             .assert.visible('@searchBar')
+            .moveToElement('@searchBar', 1, 1)
             .setValue('@searchBar', 'nightwatch')
             .click('@submit');
 
