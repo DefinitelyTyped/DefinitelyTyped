@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.48
+// Type definitions for non-npm package Google Maps JavaScript API 3.49
 // Project: https://developers.google.com/maps/
 // Definitions by: Justin Poehnelt <https://github.com/jpoehnelt>
 //                 Alex Muramoto <https://github.com/amuramoto>
@@ -8,7 +8,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.48
+// Google Maps JS API Version: 3.49
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -9083,6 +9083,16 @@ declare namespace google.maps.places {
      */
     input: string;
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A language identifier for the language in which the results should be
+     * returned, if possible. Results in the selected language may be given a
+     * higher ranking, but suggestions are not restricted to this language. See
+     * the <a href="https://developers.google.com/maps/faq#languagesupport">list
+     * of supported languages</a>. Google often updates the supported languages,
+     * so this list may not be exhaustive.
+     */
+    language?: string|null;
+    /**
      * Location for prediction biasing. Predictions will be biased towards the
      * given <code>location</code> and <code>radius</code>. Alternatively,
      * <code>bounds</code> can be used.
@@ -9106,6 +9116,20 @@ declare namespace google.maps.places {
      * <code>bounds</code> can be used.
      */
     radius?: number;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A region code which is used for result formatting and for result
+     * filtering. It does not restrict the suggestions to this country. The
+     * region code accepts a <a
+     * href="https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains#Country_code_top-level_domains">ccTLD
+     * (&quot;top-level domain&quot;)</a> two-character value. Most ccTLD codes
+     * are identical to ISO 3166-1 codes, with some notable exceptions. For
+     * example, the United Kingdom&#39;s ccTLD is &quot;uk&quot;
+     * (<code>.co.uk</code>) while its ISO 3166-1 code is &quot;gb&quot;
+     * (technically for the entity of &quot;The United Kingdom of Great Britain
+     * and Northern Ireland&quot;).
+     */
+    region?: string|null;
     /**
      * Unique reference used to bundle individual requests into sessions.
      */
@@ -9174,6 +9198,15 @@ declare namespace google.maps.places {
      */
     fields: string[];
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A language identifier for the language in which names and addresses
+     * should be returned, when possible. See the <a
+     * href="https://developers.google.com/maps/faq#languagesupport">list of
+     * supported languages</a>. Google often updates the supported languages, so
+     * this list may not be exhaustive.
+     */
+    language?: string|null;
+    /**
      * The bias used when searching for Place. The result will be biased
      * towards, but not restricted to, the given {@link
      * google.maps.places.LocationBias}.
@@ -9204,6 +9237,15 @@ declare namespace google.maps.places {
      * dot-paths (for example, <code>"geometry.location"</code>).
      */
     fields: string[];
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A language identifier for the language in which names and addresses
+     * should be returned, when possible. See the <a
+     * href="https://developers.google.com/maps/faq#languagesupport">list of
+     * supported languages</a>. Google often updates the supported languages, so
+     * this list may not be exhaustive.
+     */
+    language?: string|null;
     /**
      * The bias used when searching for Place. The result will be biased
      * towards, but not restricted to, the given {@link
@@ -9279,9 +9321,31 @@ declare namespace google.maps.places {
      */
     fields?: string[];
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A language identifier for the language in which details should be
+     * returned. See the <a
+     * href="https://developers.google.com/maps/faq#languagesupport">list of
+     * supported languages</a>. Google often updates the supported languages, so
+     * this list may not be exhaustive.
+     */
+    language?: string|null;
+    /**
      * The Place ID of the Place for which details are being requested.
      */
     placeId: string;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A region code of the user&#39;s region. This can affect which photos may
+     * be returned, and possibly other things. The region code accepts a <a
+     * href="https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains#Country_code_top-level_domains">ccTLD
+     * (&quot;top-level domain&quot;)</a> two-character value. Most ccTLD codes
+     * are identical to ISO 3166-1 codes, with some notable exceptions. For
+     * example, the United Kingdom&#39;s ccTLD is &quot;uk&quot;
+     * (<code>.co.uk</code>) while its ISO 3166-1 code is &quot;gb&quot;
+     * (technically for the entity of &quot;The United Kingdom of Great Britain
+     * and Northern Ireland&quot;).
+     */
+    region?: string|null;
     /**
      * Unique reference used to bundle the details request with an autocomplete
      * session.
@@ -9729,6 +9793,15 @@ declare namespace google.maps.places {
      */
     keyword?: string;
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A language identifier for the language in which names and addresses
+     * should be returned, when possible. See the <a
+     * href="https://developers.google.com/maps/faq#languagesupport">list of
+     * supported languages</a>. Google often updates the supported languages, so
+     * this list may not be exhaustive.
+     */
+    language?: string|null;
+    /**
      * The location around which to search for Places.
      */
     location?: google.maps.LatLng|google.maps.LatLngLiteral;
@@ -10115,6 +10188,15 @@ declare namespace google.maps.places {
      */
     bounds?: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral;
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A language identifier for the language in which names and addresses
+     * should be returned, when possible. See the <a
+     * href="https://developers.google.com/maps/faq#languagesupport">list of
+     * supported languages</a>. Google often updates the supported languages, so
+     * this list may not be exhaustive.
+     */
+    language?: string|null;
+    /**
      * The center of the area used to bias results when searching for Places.
      */
     location?: google.maps.LatLng|google.maps.LatLngLiteral;
@@ -10131,6 +10213,18 @@ declare namespace google.maps.places {
      * meters.
      */
     radius?: number;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A region code to bias results towards. The region code accepts a <a
+     * href="https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains#Country_code_top-level_domains">ccTLD
+     * (&quot;top-level domain&quot;)</a> two-character value. Most ccTLD codes
+     * are identical to ISO 3166-1 codes, with some notable exceptions. For
+     * example, the United Kingdom&#39;s ccTLD is &quot;uk&quot;
+     * (<code>.co.uk</code>) while its ISO 3166-1 code is &quot;gb&quot;
+     * (technically for the entity of &quot;The United Kingdom of Great Britain
+     * and Northern Ireland&quot;).
+     */
+    region?: string|null;
     /**
      * Searches for places of the given type. The type is translated to the
      * local language of the request&#39;s target location and used as a query
