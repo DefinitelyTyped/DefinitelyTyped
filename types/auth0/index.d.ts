@@ -1521,6 +1521,16 @@ export interface DeviceCredential {
     last_used?: string;
 }
 
+export interface sendEnrollmentTicketData {
+    user_id: string;
+    send_mail?: boolean;
+}
+
+export interface sendEnrollmentTicketResponse {
+    ticket_id: string;
+    ticket_url: string;
+}
+
 export class OrganizationsManager {
     create(data: CreateOrganization): Promise<Organization>;
     create(data: CreateOrganization, cb: (err: Error, organization: Organization) => void): void;
@@ -2006,6 +2016,9 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
 
     deleteGuardianEnrollment(params: ObjectWithId): Promise<void>;
     deleteGuardianEnrollment(params: ObjectWithId, cb?: (err: Error) => void): void;
+
+    createGuardianEnrollmentTicket(data: sendEnrollmentTicketData): Promise<sendEnrollmentTicketResponse>;
+    createGuardianEnrollmentTicket(data: sendEnrollmentTicketData, cb?: (err: Error, data: sendEnrollmentTicketResponse) => void): void;
 
     // MFA invalidate remember browser
     invalidateRememberBrowser(params: ObjectWithId): Promise<void>;
