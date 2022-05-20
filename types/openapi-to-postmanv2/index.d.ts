@@ -13,9 +13,9 @@ export interface Input {
 }
 
 export interface Options {
-    schemaFaker?: boolean;
-    requestNameSource?: 'fallback' | 'url';
-    indentCharacter?: string;
+    schemaFaker?: boolean | undefined;
+    requestNameSource?: 'fallback' | 'url' | undefined;
+    indentCharacter?: string | undefined;
 }
 
 export interface SuccessfulValidationResult {
@@ -41,13 +41,13 @@ export type MetadataResult = Result<{ name: string }>;
 export type Callback<Result> = (err: unknown, result: Result) => void;
 
 interface OptionsBase {
-    external?: boolean;
+    external?: boolean | undefined;
     usage: ReadonlyArray<'CONVERSION' | 'VALIDATION'>;
 }
 export type OptionsVersion = '3.0' | '3.1';
 
 export interface OptionsCriteria extends OptionsBase {
-    version?: OptionsVersion;
+    version?: OptionsVersion | undefined;
 }
 
 interface OptionsTypes {
