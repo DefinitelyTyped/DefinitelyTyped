@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "global.d.ts", "dialogify-browser-tests.ts"]
+    "files": ["index.d.ts", "dialogify-browser-tests.ts"]
 }

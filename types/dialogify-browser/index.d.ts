@@ -5,6 +5,7 @@
 // Minimum TypeScript Version: 4.4
 
 /// <reference types="jquery" />
+/// <reference path="global.d.ts" />
 
 declare namespace Dialogify {
     type DialogifyEvent = 'show' | 'close' | 'cancel';
