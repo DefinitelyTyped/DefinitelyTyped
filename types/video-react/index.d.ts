@@ -10,7 +10,7 @@ declare module 'video-react' {
 
     export type StateListener = (current: PlayerState, previous: PlayerState) => void;
 
-    export interface StaticPlayerInstanceMethods {
+    interface StaticPlayerInstanceMethods {
         /**
          * Get the redux State.
          */
@@ -57,7 +57,7 @@ declare module 'video-react' {
         subscribeToStateChange: (listener: StateListener) => void;
     }
 
-    export interface PlayerState {
+    interface PlayerState {
         /**
          * Returns the URL of the current video
          */
@@ -148,7 +148,7 @@ declare module 'video-react' {
         videoId: string;
     }
 
-    export interface PlayerActions {
+    interface PlayerActions {
         /**
          * Get the redux State.
          */
@@ -195,7 +195,7 @@ declare module 'video-react' {
         subscribeToStateChange: (listener: StateListener) => void;
     }
 
-    export interface PlayerProps {
+    interface PlayerProps {
         ref?: LegacyRef<PlayerReference> | undefined;
         /**
          * In fluid mode, it’s 100% wide all the time, the height will be
@@ -269,7 +269,7 @@ declare module 'video-react' {
         startTime?: number;
     }
 
-    export interface ShortcutItem {
+    interface ShortcutItem {
         /**
          * The key code for the shortcut.
          */
@@ -286,7 +286,7 @@ declare module 'video-react' {
         handle: (state: PlayerState, actions: PlayerActions) => void;
     }
 
-    export interface ShortcutProps {
+    interface ShortcutProps {
         /**
          * Allow click to play/pause, default: `true`
          */
@@ -301,7 +301,7 @@ declare module 'video-react' {
         shortcuts?: Array<ShortcutItem>;
     }
 
-    export interface PosterImageProps {
+    interface PosterImageProps {
         /**
          * A URL indicating a poster frame to show until the user plays or
          * seeks. If this attribute isn't specified, nothing is displayed
@@ -311,7 +311,7 @@ declare module 'video-react' {
         poster: string;
     }
 
-    export interface ControlBarProps {
+    interface ControlBarProps {
         /**
          * Hide the control bar automatically after the player is inactive,
          * default: `true`
@@ -333,35 +333,35 @@ declare module 'video-react' {
         disableCompletely?: boolean;
     }
 
-    export interface ReplayControlProps {
+    interface ReplayControlProps {
         /**
          * How many seconds to go forward, default: `10`
          */
         seconds?: 5 | 10 | 30;
     }
 
-    export interface BigPlayButtonProps {
+    interface BigPlayButtonProps {
         /**
          * Determines the position of the big play button.
          */
         position?: 'center' | 'left' | 'left-top' | 'left-bottom' | 'right' | 'right-top' | 'right-bottom';
     }
 
-    export interface ForwardControlProps {
+    interface ForwardControlProps {
         /**
          * How many seconds to go forward, default: `10`
          */
         seconds?: 5 | 10 | 30;
     }
 
-    export interface VolumeMenuButtonProps {
+    interface VolumeMenuButtonProps {
         /**
          * The direction where Volume Bar popup, default: `false`
          */
         vertical?: boolean;
     }
 
-    export interface PlaybackRateMenuButtonProps {
+    interface PlaybackRateMenuButtonProps {
         /**
          * The direction where Volume Bar popup, default:
          * `[2, 1.5, 1.25, 1, 0.5, 0.25]`
