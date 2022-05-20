@@ -72,7 +72,7 @@ const testGeneral: NightwatchTests = {
 
     'test user defined globals': () => {
         browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
-    }
+    },
 };
 
 describe('Ecosia', () => {
