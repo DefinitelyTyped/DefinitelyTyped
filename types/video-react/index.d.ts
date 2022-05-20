@@ -6,9 +6,9 @@
 import { LegacyRef } from 'react';
 
 declare module 'video-react' {
-    export type PlayerReference = HTMLVideoElement & StaticPlayerInstanceMethods;
+    type PlayerReference = HTMLVideoElement & StaticPlayerInstanceMethods;
 
-    export type StateListener = (current: PlayerState, previous: PlayerState) => void;
+    type StateListener = (current: PlayerState, previous: PlayerState) => void;
 
     interface StaticPlayerInstanceMethods {
         /**
