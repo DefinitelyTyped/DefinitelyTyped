@@ -10,7 +10,6 @@ import { Command } from 'selenium-webdriver/lib/command';
 import Symbols from 'selenium-webdriver/lib/symbols';
 import { ShadowRoot, ShadowRootPromise } from 'selenium-webdriver/lib/webdriver';
 import { HttpResponse } from 'selenium-webdriver/networkinterceptor';
-import { checkedLocator, escapeCss, locateWith, withTagName } from 'selenium-webdriver/lib/by';
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();
@@ -263,10 +262,10 @@ function TestBy() {
 
     webdriver.By.js('script', 1, 2, 3)(driver).then((abc: number) => {});
 
-    let cssEscape = escapeCss('css');
-    let check  = checkedLocator(locatorHash);
-    let fromTagName = withTagName(webdriver.By.tagName('tag'));
-    let fromLocateWith = locateWith(str);
+    let cssEscape = webdriver.escapeCss('css');
+    let check  = webdriver.checkedLocator(locatorHash);
+    let fromTagName = webdriver.withTagName(webdriver.By.tagName('tag'));
+    let fromLocateWith = webdriver.locateWith(str);
 
     let relativeLocator: webdriver.RelativeBy = new webdriver.RelativeBy(locator, []);
     relativeLocator = relativeLocator.above('above-class');
