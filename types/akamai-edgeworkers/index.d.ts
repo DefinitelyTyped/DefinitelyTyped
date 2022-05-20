@@ -158,6 +158,20 @@ declare namespace EW {
         readonly cacheKey: CacheKey;
     }
 
+    interface ReadsBody {
+        /**
+         * A promise that reads the body to completion and resolves to a string containing the full
+         * body decoded as UTF-8, using the replacement character on encoding errors.
+         */
+        text(): Promise<string>;
+
+        /**
+         * A promise that reads the body to completion and resolves to an Object that is the result
+         * of parsing the body as JSON.
+         */
+        json(): Promise<any>;
+    }
+
     interface Request {
         /**
          * The Host header value of the incoming request.
@@ -240,7 +254,7 @@ declare namespace EW {
     }
 
     // responseProvider
-    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader {
+    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader, ReadsBody {
     }
 
     interface Destination {
