@@ -1486,8 +1486,19 @@ suite('assert', () => {
     });
 
     test('notInstanceOf', () => {
-        assert.notInstanceOf(new Foo(), String);
-        assert.notInstanceOf(new Foo(), Foo);
+        {
+            const value: Foo | CrashyObject = Math.random() > 0.5 ? new Foo() : new CrashyObject();
+            assert.notInstanceOf(value, Foo);
+            // $ExpectType CrashyObject
+            value;
+        }
+
+        {
+            const value: Foo | CrashyObject = Math.random() > 0.5 ? new Foo() : new CrashyObject();
+            assert.notInstanceOf(value, CrashyObject);
+            // $ExpectType Foo
+            value;
+        }
     });
 
     test('isObject', () => {

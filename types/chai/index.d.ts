@@ -840,7 +840,7 @@ declare namespace Chai {
          * @param constructor   Potential expected contructor of value.
          * @param message   Message to display on error.
          */
-        notInstanceOf<T>(value: T, type: Function, message?: string): void;
+        notInstanceOf<T extends object, F extends new(...args: any) => any>(value: T, constructor: F, message?: string): asserts value is Exclude<T, InstanceType<F>>;
 
         /**
          * Asserts that haystack includes needle.
