@@ -1,4 +1,4 @@
-// Type definitions for rtlcss 3.1
+// Type definitions for rtlcss 3.5
 // Project: https://github.com/MohammadYounes/rtlcss
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,6 +23,11 @@ declare namespace rtlcss {
     }
 
     interface ConfigOptions {
+        /**
+         * An object map of property-name Aliases,
+         * where keys are variable names and values are property names.
+         * e.g. {"aliases": {"--small-padding": "padding"}}
+         */
         aliases?: Record<string, string> | undefined;
         /**
          * Applies to CSS rules containing no directional properties,
@@ -69,7 +74,11 @@ declare namespace rtlcss {
          * When enabled, flips background-position expressed in length units using calc.
          */
         useCalc?: boolean | undefined;
-        processEnv?: string | undefined;
+        /**
+         * When disabled, prevents flipping agent-defined environment variables
+         * safe-area-inset-left, safe-area-inset-right.
+         */
+        processEnv?: boolean | undefined;
     }
 
     interface HookOptions {
