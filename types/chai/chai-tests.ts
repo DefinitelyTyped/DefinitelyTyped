@@ -1470,9 +1470,19 @@ suite('assert', () => {
     });
 
     test('instanceOf', () => {
-        assert.instanceOf(new Foo(), Foo);
-        assert.instanceOf(5, Foo);
-        assert.instanceOf(new CrashyObject(), CrashyObject);
+        {
+            const value = new Foo() as any;
+            assert.instanceOf(value, Foo);
+            // $ExpectType Foo
+            value;
+        }
+
+        {
+            const value = {};
+            assert.instanceOf(value, Foo);
+            // $ExpectType Foo
+            value;
+        }
     });
 
     test('notInstanceOf', () => {
