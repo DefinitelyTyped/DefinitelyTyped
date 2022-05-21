@@ -15,7 +15,7 @@ rtlcss.process(css, {}, [], {
     },
 });
 
-const options = {
+const options: rtlcss.ConfigOptions = {
     autoRename: false,
     autoRenameStrict: false,
     blacklist: {},
@@ -35,9 +35,10 @@ const options = {
         },
     ],
     useCalc: false,
+    processEnv: false,
 };
 
-const config = {
+const config: rtlcss.ConfigureOptions = {
     options,
     plugins: [],
 };

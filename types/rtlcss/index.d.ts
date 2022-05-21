@@ -69,7 +69,10 @@ declare namespace rtlcss {
          * When enabled, flips background-position expressed in length units using calc.
          */
         useCalc?: boolean | undefined;
-        processEnv?: string | undefined;
+        /**
+         * @default true
+         */
+        processEnv?: boolean | undefined;
     }
 
     interface HookOptions {
