@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "mui-image-tests.ts"
+        "mui-image-tests.tsx"
     ]
 }
