@@ -591,7 +591,6 @@ googletag.pubads().addEventListener('slotVisibilityChanged', event => {
 // DEMO 61
 // Test for definitions not declared by GPT Reference
 googletag.pubads().clearTagForChildDirectedTreatment().setTagForChildDirectedTreatment(1).setTagForUnderAgeOfConsent(2);
-googletag.pubads().enableAsyncRendering();
 googletag.pubads().isSRA();
 let imaContent = {
     vid: 'imaContentId?',
