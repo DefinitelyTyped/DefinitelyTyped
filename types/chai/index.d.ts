@@ -13,7 +13,7 @@
 //                 CXuesong <https://github.com/CXuesong>,
 //                 Joey Kilpatrick <https://github.com/joeykilpatrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.7
 
 declare namespace Chai {
     type Message = string | (() => string);
