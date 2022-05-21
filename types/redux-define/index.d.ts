@@ -34,7 +34,7 @@ export type Action<
     SubAction extends string = string,
     SubActions extends SubAction[] | undefined = undefined,
     Namespace extends string | undefined = undefined,
-> = SubActions extends readonly string[]
+> = SubActions extends string[]
     ? PlainAction<OwnAction, Namespace> & SubActionProps<SubAction, SubActions, Namespace, OwnAction>
     : PlainAction<OwnAction, Namespace>;
 
