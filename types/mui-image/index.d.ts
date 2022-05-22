@@ -33,3 +33,4 @@ interface MuiImageProps {
 
 declare const Image: React.FC<MuiImageProps>;
 export default Image;
+export { Image };
