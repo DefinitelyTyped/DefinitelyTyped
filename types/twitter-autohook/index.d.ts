@@ -20,18 +20,25 @@ export class Autohook extends EventEmitter {
     });
 
     startServer(): void;
+    /** @async */
     setWebhook(webhookUrl: string): Promise<unknown>;
+    /** @async */
     getWebhooks(): Promise<unknown>;
+    /** @async */
     removeWebhook(webhook: unknown): Promise<void>;
+    /** @async */
     removeWebhooks(): Promise<void>;
+    /** @async */
     start(webhookUrl?: string): Promise<void>;
+    /** @async */
     subscribe(options: { oauth_token: string; oauth_token_secret: string; screen_name?: string }): Promise<true>;
+    /** @async */
     unsubscribe(userId: string): Promise<true>;
 }
 
 export class WebhookURIError extends TwitterError {}
 
-export class TwitterError extends Error {
+declare class TwitterError extends Error {
     constructor(basicInfo: { body: any; statusCode?: any }, message?: string, code?: any);
 }
 
