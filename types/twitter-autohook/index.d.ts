@@ -48,3 +48,4 @@ export class TooManySubscriptionsError extends TwitterError {}
 export function validateWebhook(token: string, auth: unknown): { response_token: string };
 
 export function validateSignature(header: object, auth: object, body: object): boolean;
+export {};
