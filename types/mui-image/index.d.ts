@@ -18,8 +18,8 @@ interface MuiImageProps {
     height?: React.CSSProperties['height'] | number | undefined;
     iconWrapperClassName?: string | undefined;
     iconWrapperStyle?: React.CSSProperties | undefined;
-    onError?: (...args: any[]) => any | undefined;
-    onLoad?: (...args: any[]) => any | undefined;
+    onError?: (...args: any[]) => void | undefined;
+    onLoad?: (...args: any[]) => void | undefined;
     position?: React.CSSProperties['position'] | undefined;
     shift?: 'left' | 'right' | 'top' | 'bottom' | false | null | undefined;
     shiftDuration?: number | undefined;
