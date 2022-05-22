@@ -39,10 +39,10 @@ export type Action<
     : PlainAction<OwnAction, Namespace>;
 
 export function defineAction<OwnAction extends string>(actionType: OwnAction): Action<OwnAction>;
-export function defineAction<OwnAction extends string, SubAction extends string, S extends SubAction[]>(
+export function defineAction<OwnAction extends string, SubAction extends string, SubActions extends SubAction[]>(
     actionType: OwnAction,
-    subactions: S,
-): Action<OwnAction, SubAction, S>;
+    subactions: SubActions,
+): Action<OwnAction, SubAction, SubActions>;
 export function defineAction<
     OwnAction extends string,
     SubAction extends string,
