@@ -1544,12 +1544,12 @@ export interface DeviceCredential {
     last_used?: string;
 }
 
-export interface sendEnrollmentTicketData {
+export interface SendEnrollmentTicketData {
     user_id: string;
     send_mail?: boolean;
 }
 
-export interface sendEnrollmentTicketResponse {
+export interface SendEnrollmentTicketResponse {
     ticket_id: string;
     ticket_url: string;
 }
@@ -2054,10 +2054,10 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     deleteGuardianEnrollment(params: ObjectWithId): Promise<void>;
     deleteGuardianEnrollment(params: ObjectWithId, cb?: (err: Error) => void): void;
 
-    createGuardianEnrollmentTicket(data: sendEnrollmentTicketData): Promise<sendEnrollmentTicketResponse>;
+    createGuardianEnrollmentTicket(data: SendEnrollmentTicketData): Promise<SendEnrollmentTicketResponse>;
     createGuardianEnrollmentTicket(
-        data: sendEnrollmentTicketData,
-        cb?: (err: Error, data: sendEnrollmentTicketResponse) => void,
+        data: SendEnrollmentTicketData,
+        cb: (err: Error, data: SendEnrollmentTicketResponse) => void,
     ): void;
 
     // MFA invalidate remember browser
