@@ -10,17 +10,18 @@
 // and LiRen Tu <https://github.com/tuliren> for their contribution
 
 declare module 'mongoose' {
-    interface CustomLabels {
-        totalDocs?: string | undefined;
-        limit?: string | undefined;
-        page?: string | undefined;
-        totalPages?: string | undefined;
-        docs?: string | undefined;
-        nextPage?: string | undefined;
-        prevPage?: string | undefined;
-        pagingCounter?: string | undefined;
-        hasPrevPage?: string | undefined;
-        hasNextPage?: string | undefined;
+    interface CustomLabels<T = string | undefined | boolean> {
+        totalDocs?: T;
+        docs?: T;
+        limit?: T;
+        page?: T;
+        nextPage?: T;
+        prevPage?: T;
+        hasNextPage?: T;
+        hasPrevPage?: T;
+        totalPages?: T;
+        pagingCounter?: T;
+        meta?: T;
     }
 
     interface PaginateOptions {
