@@ -5,6 +5,10 @@ const map = L.map('map', {
     zoom: 13,
     rotate: true,
     bearing: 30,
+    trackContainerMutation: false,
+    touchRotate: true,
+    shiftKeyRotate: true,
+    rotateControl: true,
 });
 
 map.setBearing(180);
@@ -17,3 +21,15 @@ const point = new L.Point(0, 0);
 map.rotatedPointToMapPanePoint(point);
 // $ExpectType Point
 map.mapPanePointToRotatedPoint(point);
+
+// $ExpectType Point
+point.rotate(30);
+const point2 = new L.Point(20, 20);
+// $ExpectType Point
+point.rotateFrom(60, point2);
+
+const marker = new L.Marker([0, 0], {
+    rotation: 30,
+    rotateWithView: true,
+});
+marker.setRotation(30);

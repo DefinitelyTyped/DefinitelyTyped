@@ -1057,12 +1057,16 @@ declare namespace videojs {
               children?: Child[] | undefined;
           };
 
+    interface ClickableComponentOptions extends ComponentOptions {
+        clickHandler?: () => void;
+    }
+
     /**
      * Clickable Component which is clickable or keyboard actionable,
      * but is not a native HTML button.
      */
     interface ClickableComponent extends Component {
-        options_: ComponentOptions;
+        options_: ClickableComponentOptions;
 
         /**
          * Builds the default DOM `className`.
@@ -1195,7 +1199,7 @@ declare namespace videojs {
          * @param [options]
          *         The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): ClickableComponent;
+        new (player: Player, options?: ClickableComponentOptions): ClickableComponent;
     };
 
     /**
@@ -1592,6 +1596,16 @@ declare namespace videojs {
          * @see [DOM API]{@link https://developer.mozilla.org/en-US/docs/Web/API/Element/getAttribute}
          */
         getAttribute(attribute: string): string | null;
+
+        /**
+         * Returns the child `Component` with the given `name`.
+         *
+         * @param name
+         *        The name of the child `Component` to get.
+         *
+         * @return The child `Component` with the given `name` or undefined.
+         */
+        getChild<TComponentName extends keyof ComponentNameMap>(name: TComponentName): ComponentNameMap[TComponentName] | undefined;
 
         /**
          * Returns the child `Component` with the given `name`.
@@ -2006,6 +2020,13 @@ declare namespace videojs {
          */
         registerComponent(name: string, ComponentToRegister: any): any;
     };
+
+    interface ComponentNameMap {
+        liveDisplay: LiveDisplay;
+        playbackRateMenuButton: PlaybackRateMenuButton;
+        progressControl: ProgressControl;
+        remainingTimeDisplay: RemainingTimeDisplay;
+    }
 
     interface ComponentOptions {
         children?: Child[] | undefined;
@@ -3036,6 +3057,10 @@ declare namespace videojs {
         [language: string]: string;
     }
 
+    interface LiveDisplay extends Component {
+        el(): HTMLDivElement;
+    }
+
     /**
      * LiveTracker provides several useful helper functions and events for dealing with live playback, all of which are used and tested internally.
      * Internally this component keeps track of the live current time through a function that runs on a 30ms interval.
@@ -3090,6 +3115,13 @@ declare namespace videojs {
          * See the seekableendchange event and the pastSeekEnd() function for more info.
          */
         behindLiveEdge(): boolean;
+
+        /**
+         * The next seeked event is from the user. Meaning that any seek
+         * > 2s behind live will be considered behind live for real and
+         * liveTolerance will be ignored.
+         */
+        nextSeekedFromUser(): void;
 
         /**
          * live current time is our best approximation of what the live current time is.
@@ -3994,6 +4026,10 @@ declare namespace videojs {
         getTagSettings(tag: Element): any;
     };
 
+    interface PlaybackRateMenuButton extends Component {
+        el(): HTMLDivElement;
+    }
+
     namespace Player {
         /**
          * An object that describes a single piece of media.
@@ -4239,6 +4275,8 @@ declare namespace videojs {
          */
         disable(): void;
 
+        el(): HTMLDivElement;
+
         /**
          * Enable all controls on the progress control and its children
          */
@@ -4313,6 +4351,10 @@ declare namespace videojs {
 
     interface ProgressControlOptions extends ComponentOptions {
         seekBar?: boolean | undefined;
+    }
+
+    interface RemainingTimeDisplay extends Component {
+        el(): HTMLDivElement;
     }
 
     interface Representation {
@@ -4846,6 +4888,13 @@ declare namespace videojs {
          * @fires Component#dispose
          */
         dispose(): void;
+
+        /**
+         * Returns the HTML Video/Audio Element
+         *
+         * @return the HTML Video/Audio Element
+         */
+        el: () => HTMLVideoElement | HTMLAudioElement;
 
         /**
          * Emulate texttracks
@@ -6304,6 +6353,23 @@ export interface VideoJsPlayer extends videojs.Component {
     createModal(content: string | (() => any) | Element | any[], options: any): videojs.ModalDialog;
 
     /**
+     * Get current breakpoint name, if any.
+     *
+     * @return If there is currently a breakpoint set, returns a the key from the
+     *         breakpoints object matching it. Otherwise, returns an empty string.
+     */
+    currentBreakpoint(): string;
+
+    /**
+     * Get the current breakpoint class name.
+     *
+     * @return The matching class name (e.g. `"vjs-layout-tiny"` or
+     *         `"vjs-layout-large"`) for the current breakpoint. Empty string if
+     *         there is no current breakpoint.
+     */
+    currentBreakpointClass(): string;
+
+    /**
      * Returns the current source object.
      *
      * @return The current source object
@@ -7068,6 +7134,7 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     nativeControlsForTouch?: boolean | undefined;
     notSupportedMessage?: string | undefined;
     playbackRates?: number[] | undefined;
+    noUITitleAttributes?: boolean | undefined;
     plugins?: Partial<VideoJsPlayerPluginOptions> | undefined;
     poster?: string | undefined;
     preload?: string | undefined;

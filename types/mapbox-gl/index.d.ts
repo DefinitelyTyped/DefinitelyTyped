@@ -141,6 +141,7 @@ declare namespace mapboxgl {
         // Color
         | 'rgb'
         | 'rgba'
+        | 'to-rgba'
         // Math
         | '-'
         | '*'
@@ -769,6 +770,17 @@ declare namespace mapboxgl {
          * @default 0
          */
         pitch?: number | undefined;
+
+        /**
+         * A style's projection property sets which projection a map is rendered in.
+         *
+         * @default 'mercator'
+         */
+         projection?: {
+            name: 'albers' | 'equalEarth' | 'equirectangular' | 'lambertConformalConic' | 'mercator' | 'naturalEarth' | 'winkelTripel' | 'globe',
+            center?: [number, number],
+            parallels?: [number, number]
+        };
 
         /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.

@@ -27,7 +27,7 @@ element.addEventListener(Tab.Events.shown, event => {
     // do something…
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').tab();
 
-$('.alert').tab('show'); // $ExpectType void
+$('.alert').tab('show'); // $ExpectType JQuery<HTMLElement>

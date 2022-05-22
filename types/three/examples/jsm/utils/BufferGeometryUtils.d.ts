@@ -15,5 +15,11 @@ export function estimateBytesUsed(geometry: BufferGeometry): number;
 export function mergeVertices(geometry: BufferGeometry, tolerance?: number): BufferGeometry;
 export function toTrianglesDrawMode(geometry: BufferGeometry, drawMode: TrianglesDrawModes): BufferGeometry;
 export function computeMorphedAttributes(object: Mesh | Line | Points): object;
-export function computeTangents(geometry: BufferGeometry, negateSign?: boolean): BufferGeometry;
+export function computeMikkTSpaceTangents(
+    geometry: BufferGeometry,
+    MikkTSpace: unknown,
+    negateSign?: boolean,
+): BufferGeometry;
 export function mergeGroups(geometry: BufferGeometry): BufferGeometry;
+export function deinterleaveAttribute(geometry: BufferGeometry): void;
+export function deinterleaveGeometry(geometry: BufferGeometry): void;

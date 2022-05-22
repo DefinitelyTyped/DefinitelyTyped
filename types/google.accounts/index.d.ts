@@ -441,6 +441,12 @@ declare namespace google.accounts {
              * manually close One Tap.
              */
             intermediate_iframe_close_callback?: () => void;
+
+            /**
+             * This field determines if the upgraded One Tap UX should be enabled
+             * on browsers that support Intelligent Tracking Prevention (ITP).
+             */
+            itp_support?: boolean;
         }
 
         interface PromptMomentNotification {

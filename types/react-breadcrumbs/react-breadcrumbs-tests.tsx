@@ -28,9 +28,17 @@ class MyComponent extends React.Component {
                     wrapper={FunctionWrapper}
                 />
 
+                <Breadcrumbs className="demo__crumbs">
+                    Children
+                </Breadcrumbs>
+
                 <Breadcrumb data={{ title: "Dashboard", pathname: "/" }} />
 
                 <Breadcrumb data={{ pathname: "/dashboard" }} hidden />
+
+                <Breadcrumb data={{ title: "Dashboard", pathname: "/" }}>
+                    Children
+                </Breadcrumb>
             </div>
         );
     }

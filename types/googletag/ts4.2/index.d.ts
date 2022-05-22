@@ -107,7 +107,7 @@ declare namespace googletag {
      * For custom out-of-page ads, `div` is the ID of the div element that will contain the ad.
      * See the article on [out-of-page creatives](https://support.google.com/admanager/answer/6088046) for more details.
      *
-     * For GPT managed out-of-page ads, `div` is a supported `googletag.enums.OutOfPageFormat`.
+     * For GPT managed out-of-page ads, `div` is a supported `OutOfPageFormat`.
      * See the article on [web interstitials](https://support.google.com/admanager/answer/9840201) for more details.
      *
      * **Example**
@@ -142,7 +142,7 @@ declare namespace googletag {
     function defineSlot(adUnitPath: string, size: GeneralSize, div: string): Slot | null;
     function defineSlot(adUnitPath: string, size: GeneralSize): Slot;
     /**
-     * Same as `googletag.defineSlot`
+     * @see googletag.defineSlot
      */
     function defineUnit(adUnitPath: string, size: GeneralSize, div: string): Slot | null;
     function defineUnit(adUnitPath: string, size: GeneralSize): Slot;
@@ -288,9 +288,16 @@ declare namespace googletag {
         getName(): 'companion_ads';
         /**
          * Sets whether companion slots that have not been filled will be automatically backfilled.
+         *
          * This method can be called multiple times during the page's lifetime to turn backfill on and off.
          * Only slots that are also registered with the `PubAdsService` will be backfilled.
          * Due to policy restrictions, this method is not designed to fill empty companion slots when an Ad Exchange video is served.
+         *
+         * **Example**
+         * ```
+         * googletag.companionAds().setRefreshUnfilledSlots(true);
+         * ```
+         *
          * @param value `true` to automatically backfill unfilled slots, `false` to leave them unchanged.
          */
         setRefreshUnfilledSlots(value: boolean): void;
@@ -314,7 +321,7 @@ declare namespace googletag {
          */
         nonPersonalizedAds?: boolean | undefined;
         /**
-         * Enables serving to run in [restricted processing](https://support.google.com/admanager/answer/9598414) mode to aid in publisher regulatory compliance needs.
+         * Enables serving to run in [restricted processing mode](https://support.google.com/admanager/answer/9598414) to aid in publisher regulatory compliance needs.
          */
         restrictDataProcessing?: boolean | undefined;
         /**
@@ -414,13 +421,8 @@ declare namespace googletag {
          */
         display(adUnitPath: string, size: GeneralSize, div?: string | Element, clickUrl?: string): void;
         /**
-         * Asynchronous rendering is enabled by default.
-         * GPT synchronous rendering is no longer supported, ads will be requested and rendered asynchronously.
-         */
-        enableAsyncRendering(): boolean;
-        /**
          * Enables lazy loading in GPT as defined by the config object.
-         * For more detailed examples, see the [Lazy Loading](https://developers.google.com/publisher-tag/samples/lazy-loading) example.
+         * For more detailed examples, see the [Lazy loading](https://developers.google.com/publisher-tag/samples/lazy-loading) sample.
          *
          * **Notes:**
          * - Lazy fetching in SRA only works if all slots are outside the fetching margin.
@@ -434,7 +436,7 @@ declare namespace googletag {
          * });
          * ```
          *
-         * @param config Configuration object allows customization of lazy loading behavior.
+         * @param config Configuration object allows customization of lazy behavior.
          * Any omitted configurations will use a default set by Google that will be tuned over time.
          * To disable a particular setting, such as a fetching margin, set the value to `-1`.
          *
@@ -584,7 +586,7 @@ declare namespace googletag {
         /**
          * Sets values for AdSense attributes that apply to all ad slots under the Publisher Ads service.
          *
-         * See AdSense Attributes for a list of available keys and values.
+         * See `AdSense Attributes` for a list of available keys and values.
          * Calling this more than once for the same key will override previously set values for that key.
          * All values must be set before calling `display` or `refresh`.
          *
@@ -777,7 +779,7 @@ declare namespace googletag {
         /**
          * Sets the video content information to be sent along with the ad requests for targeting and content exclusion purposes.
          * Video ads will be automatically enabled when this method is called.
-         * For videoContentId and videoCmsId, use the values that are provided to the Google Ad Manager content ingestion service.
+         * For `videoContentId` and `videoCmsId`, use the values that are provided to the Google Ad Manager content ingestion service.
          *
          * See the article on [video content](https://support.google.com/admanager/answer/1068325) for more details.
          *
@@ -793,11 +795,11 @@ declare namespace googletag {
         /**
          * The ID of the advertiser.
          */
-        advertiserId: number;
+        advertiserId: number | null;
         /**
          * The ID of the campaign.
          */
-        campaignId: number;
+        campaignId: number | null;
         /**
          * The ID of the creative.
          */
@@ -969,7 +971,7 @@ declare namespace googletag {
      */
     interface SizeMappingBuilder {
         /**
-         * Adds a mapping from a single-size array representing the viewport to either a single-size array or a multi-size array representing the slot.
+         * Adds a mapping from a single-size array (representing the viewport) to a single- or multi-size array representing the slot.
          *
          * **Example**
          * ```
@@ -1000,7 +1002,7 @@ declare namespace googletag {
         /**
          * Builds a size map specification from the mappings added to this builder.
          *
-         * If any invalid mappings have been supplied, this method will return null.
+         * If any invalid mappings have been supplied, this method will return `null`.
          * Otherwise it returns a specification in the correct format to pass to `googletag.Slot.defineSizeMapping()`.
          *
          * Note: the behavior of the builder after calling this method is undefined.
@@ -1369,7 +1371,7 @@ declare namespace googletag {
         setTargeting(key: string, value: string | string[]): Slot;
         /**
          * Sets custom targeting parameters for this slot, from a key:value map in a JSON object.
-         * This is the same as calling `setTargeting()` for all the key values of the object.
+         * This is the same as calling `setTargeting(key,value)` for all the key values of the object.
          * These keys are defined in your Google Ad Manager account.
          *
          * **Notes:**

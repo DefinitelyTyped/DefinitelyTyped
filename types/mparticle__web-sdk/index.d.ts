@@ -1,4 +1,4 @@
-// Type definitions for mParticle/web-sdk SDK 2.15
+// Type definitions for mParticle/web-sdk SDK 2.16
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
@@ -14,6 +14,7 @@ export interface MPConfiguration {
     dataPlan?: DataPlanConfig | undefined;
     appVersion?: string | undefined;
     appName?: string | undefined;
+    package?: string | undefined;
     logLevel?: 'verbose' | 'warning' | 'none' | undefined;
     logger?: Logger | undefined;
     sessionTimeout?: number | undefined;

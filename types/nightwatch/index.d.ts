@@ -3500,8 +3500,6 @@ export interface ElementCommands {
         selector: definition,
         xoffset: number,
         yoffset: number,
-        duration: number,
-        origin: { pointer: number; viewport: number },
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
     moveToElement(
@@ -3509,8 +3507,6 @@ export interface ElementCommands {
         selector: definition,
         xoffset: number,
         yoffset: number,
-        duration: number,
-        origin: { pointer: number; viewport: number },
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
 
