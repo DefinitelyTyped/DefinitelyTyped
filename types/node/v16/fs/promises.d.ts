@@ -487,7 +487,20 @@ declare module 'fs/promises' {
      * @param [mode=0o666] Sets the file mode (permission and sticky bits) if the file is created.
      * @return Fulfills with a {FileHandle} object.
      */
-    function open(path: PathLike, flags: string | number, mode?: Mode): Promise<FileHandle>;
+    function open(path: PathLike, flags: string | number | undefined, mode?: Mode): Promise<FileHandle>;
+    /**
+     * Opens a `FileHandle`.
+     *
+     * Refer to the POSIX [`open(2)`](http://man7.org/linux/man-pages/man2/open.2.html) documentation for more detail.
+     *
+     * Some characters (`< > : " / \ | ? *`) are reserved under Windows as documented
+     * by [Naming Files, Paths, and Namespaces](https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file). Under NTFS, if the filename contains
+     * a colon, Node.js will open a file system stream, as described by [this MSDN page](https://docs.microsoft.com/en-us/windows/desktop/FileIO/using-streams).
+     * @since v10.0.0
+     * @param [flags='r'] See `support of file system `flags``.
+     * @return Fulfills with a {FileHandle} object.
+     */
+    function open(path: PathLike, flags?: string | number): Promise<FileHandle>;
     /**
      * Renames `oldPath` to `newPath`.
      * @since v10.0.0
