@@ -8,30 +8,46 @@
 import EventEmitter = require('events');
 
 export class Autohook extends EventEmitter {
-    constructor(configuration: {
-        token: string;
-        token_secret: string;
-        consumer_key: string;
-        consumer_secret: string;
+    constructor(configuration?: {
+        token?: string;
+        token_secret?: string;
+        consumer_key?: string;
+        consumer_secret?: string;
         ngrok_secret?: string;
-        env: string;
-        port: number;
+        env?: string;
+        port?: number;
         headers?: any[];
     });
 
     startServer(): void;
+
     /** @async */
     setWebhook(webhookUrl: string): Promise<unknown>;
+
     /** @async */
     getWebhooks(): Promise<unknown>;
+
     /** @async */
     removeWebhook(webhook: unknown): Promise<void>;
-    /** @async */
+
+    /**
+     * Removes existing webhooks
+     * @async
+     */
     removeWebhooks(): Promise<void>;
-    /** @async */
+
+    /**
+     * Starts a server and adds a new webhook
+     * @async
+     */
     start(webhookUrl?: string): Promise<void>;
-    /** @async */
+
+    /**
+     * Subscribes to a user's activity
+     * @async
+     */
     subscribe(options: { oauth_token: string; oauth_token_secret: string; screen_name?: string }): Promise<true>;
+
     /** @async */
     unsubscribe(userId: string): Promise<true>;
 }
