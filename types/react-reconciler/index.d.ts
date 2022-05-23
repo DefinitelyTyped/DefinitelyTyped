@@ -2,7 +2,6 @@
 // Project: https://reactjs.org/
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 //                 Zhang Haocong <https://github.com/zhanghaocong>
-//                 Mathieu Dutour <https://github.com/mathieudutour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -24,6 +23,7 @@ declare function ReactReconciler<
     NoTimeout
 >(
     config: ReactReconciler.HostConfig<
+        // tslint:disable:no-unnecessary-generics
         Type,
         Props,
         Container,
@@ -37,6 +37,7 @@ declare function ReactReconciler<
         ChildSet,
         TimeoutHandle,
         NoTimeout
+        // tslint:enable:no-unnecessary-generics
     >,
 ): ReactReconciler.Reconciler<
     Container,
@@ -286,7 +287,7 @@ declare namespace ReactReconciler {
          * Set this to `true` to indicate that your renderer supports `scheduleMicrotask`. We use microtasks as part of our discrete event implementation in React DOM. If you're not sure if your renderer should support this, you probably should. The option to not implement `scheduleMicrotask` exists so that platforms with more control over user events, like React Native, can choose to use a different mechanism.
          */
         // tslint:enable:max-line-length
-        supportsMicrotask?: boolean
+        supportsMicrotask?: boolean;
 
         /**
          * Optional. You can proxy this to `queueMicrotask` or its equivalent in your environment.
@@ -300,11 +301,12 @@ declare namespace ReactReconciler {
         // tslint:enable:max-line-length
         isPrimaryRenderer: boolean;
 
-      /**
-       * Whether the renderer shouldn't trigger missing `act()` warnings
-       */
-        warnsIfNotActing?: boolean
+        /**
+         * Whether the renderer shouldn't trigger missing `act()` warnings
+         */
+        warnsIfNotActing?: boolean;
 
+        // tslint:disable:max-line-length
         /**
          * To implement this method, you'll need some constants available on the special `react-reconciler/constants` entry point:
          *
@@ -336,19 +338,18 @@ declare namespace ReactReconciler {
          *
          * You can consult the `getCurrentEventPriority()` implementation in `ReactDOMHostConfig.js` for a reference implementation.
          */
+        // tslint:enable:max-line-length
         getCurrentEventPriority(): Lane;
 
-        getInstanceFromNode(node: Object): Fiber | null | undefined;
+        getInstanceFromNode(node: any): Fiber | null | undefined;
 
         beforeActiveInstanceBlur(): void;
 
         afterActiveInstanceBlur(): void;
 
-        preparePortalMount(portalInstance: Instance): void;
+        prepareScopeUpdate(scopeInstance: any, instance: any): void;
 
-        prepareScopeUpdate(scopeInstance: Object, inst: Object): void;
-
-        getInstanceFromScope(scopeInstance: Object): null | Instance;
+        getInstanceFromScope(scopeInstance: any): null | Instance;
 
         detachDeletedInstance(node: Instance): void;
 
