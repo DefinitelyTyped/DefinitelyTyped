@@ -25,7 +25,7 @@ export type WithNamespace<OwnAction extends string, Namespace extends string | u
 
 export interface PlainAction<OwnAction extends string, Namespace extends string | undefined> {
     ACTION: WithNamespace<OwnAction, Namespace>;
-    defineAction: typeof defineActionMethod;
+    defineAction: defineChildAction & defineChildActionWithNamespace & defineChildActionWithSubactionsAndNamespace;
     toString: () => WithNamespace<OwnAction, Namespace>;
 }
 
@@ -58,18 +58,20 @@ export function defineAction<OwnAction extends string, Namespace extends string 
     namespace: Namespace,
 ): Action<OwnAction, string, undefined, NamespaceString<Namespace>>;
 
-export function defineActionMethod<Parent extends Action, OwnAction extends string>(
+export type defineChildAction = <Parent extends Action, OwnAction extends string>(
     this: Parent,
     actionType: OwnAction,
-): Action<OwnAction, string, undefined, Parent['ACTION']>;
-export function defineActionMethod<OwnAction extends string, Namespace extends string | Action>(
+) => Action<OwnAction, string, undefined, Parent['ACTION']>;
+
+export type defineChildActionWithNamespace = <OwnAction extends string, Namespace extends string | Action>(
     this: Action,
     actionType: OwnAction,
     namespace: Namespace,
     // Here we use the namespace passed as an argument, rather than the one from `this`.
     // This is accurate reflection of the lib behaviour, but possibly a bug.
-): Action<OwnAction, string, undefined, NamespaceString<Namespace>>;
-export function defineActionMethod<
+) => Action<OwnAction, string, undefined, NamespaceString<Namespace>>;
+
+export type defineChildActionWithSubactionsAndNamespace = <
     Parent extends Action,
     OwnAction extends string,
     SubAction extends string,
@@ -79,4 +81,4 @@ export function defineActionMethod<
     actionType: OwnAction,
     subactions: SubActions,
     namespace?: string | Action, // Has no effect but is permitted.
-): Action<OwnAction, SubAction, SubActions, Parent['ACTION']>;
+) => Action<OwnAction, SubAction, SubActions, Parent['ACTION']>;
