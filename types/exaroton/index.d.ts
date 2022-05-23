@@ -86,32 +86,32 @@ declare class Request {
     /**
      * Request method, e.g. "GET" or "POST"
      */
-    method: Method;
+    readonly method: Method;
 
     /**
      * Endpoint URL, without base, version or starting /
      */
-    endpoint: string;
+    readonly endpoint: string;
 
     /**
      * URL parameters, which are replaced in the endpoint string
      */
-    parameters: object;
+    readonly parameters: object;
 
     /**
      * HTTP request headers
      */
-    headers: object;
+    readonly headers: object;
 
     /**
      * Post body data
      */
-    data: null | object;
+    readonly data: null | object;
 
     /**
      * Response class used to create/parse responses to this request
      */
-    responseClass: Response;
+    readonly responseClass: Response;
 
     /**
      * Set a URL parameter
@@ -186,12 +186,12 @@ interface Server {
     name: string;
     address: string;
     motd: string;
-    status: ServerStatus;
+    status: number;
     host: string | null;
     port: number | null;
     shared: boolean;
     software: Software;
-    players: PlayerList[];
+    players: Players;
 }
 
 interface Software {
@@ -243,7 +243,7 @@ declare class Server extends EventEmitter {
      * Server status
      * @see ServerStatus
      */
-    status: ServerStatus;
+    status: number;
 
     /**
      * Host address, only available if the server is online
@@ -268,7 +268,7 @@ declare class Server extends EventEmitter {
     /**
      * Player lists
      */
-    private playerLists: PlayerList[];
+    player: Players;
 
     /**
      * Server constructor
@@ -399,14 +399,14 @@ declare class Server extends EventEmitter {
      *
      * @param streams
      */
-    subscribe(streams?: subscriptionTypes[] | subscriptionTypes): boolean;
+    subscribe(streams?: subscriptionType[] | subscriptionType): boolean;
 
     /**
      * Unsubscribe from one, multiple or all streams
      *
      * @param streams
      */
-    unsubscribe(streams?: subscriptionTypes[] | subscriptionTypes): boolean;
+    unsubscribe(streams?: subscriptionType[] | subscriptionType): boolean;
 
     /**
      * Map raw object to this instance
@@ -518,8 +518,8 @@ declare class RequestStatusError extends RequestError {
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 declare class GetServersRequest extends Request {
-    endpoint: string;
-    responseClass: ServersResponse;
+    readonly endpoint: string;
+    readonly responseClass: ServersResponse;
 }
 
 declare class ServerRequest extends Request {
@@ -532,8 +532,8 @@ declare class ServerRequest extends Request {
 }
 
 declare class ExecuteServerCommandRequest extends ServerRequest {
-    endpoint: string;
-    method: 'POST';
+    readonly endpoint: string;
+    readonly method: 'POST';
 
     /**
      * Server request constructor
@@ -545,11 +545,11 @@ declare class ExecuteServerCommandRequest extends ServerRequest {
 }
 
 declare class GetServerLogsRequest extends ServerRequest {
-    endpoint: string;
+    readonly endpoint: string;
 }
 
 declare class GetServerOptionRequest extends ServerRequest {
-    endpoint: string;
+    readonly endpoint: string;
 
     /**
      * GetServerOptionRequest constructor
@@ -568,15 +568,15 @@ declare class GetServerOptionRequest extends ServerRequest {
 }
 
 declare class GetServerRequest extends ServerRequest {
-    endpoint: string;
+    readonly endpoint: string;
 }
 
 declare class RestartServerRequest extends ServerRequest {
-    endpoint: string;
+    readonly endpoint: string;
 }
 
 declare class SetServerOptionRequest extends GetServerOptionRequest {
-    method: 'POST';
+    readonly method: 'POST';
 
     /**
      * SetServerOptionRequest constructor
@@ -585,45 +585,45 @@ declare class SetServerOptionRequest extends GetServerOptionRequest {
      * @param option
      * @param value
      */
-    constructor(id: string, option: string, value: any);
+    constructor(id: string, option: 'ram' | 'motd', value: string);
 }
 
 declare class ShareServerLogsRequest extends ServerRequest {
-    endpoint: string;
+    readonly endpoint: string;
 }
 
 declare class StartServerRequest extends ServerRequest {
-    endpoint: string;
+    readonly endpoint: string;
 }
 
-declare class StopSeversRequest extends ServerRequest {
-    endpoint: string;
+declare class StopServerRequest extends ServerRequest {
+    readonly endpoint: string;
 }
 
 declare class PlayerListRequest extends ServerRequest {
-    endpoint: string;
+    readonly endpoint: string;
     constructor(id: string, name: string);
 }
 
 declare class DeletePlayerListEntriesRequest extends PlayerListRequest {
-    method: 'DELETE';
+    readonly method: 'DELETE';
     constructor(id: string, name: string, entries: string);
 }
 
 declare class GetPlayerListEntriesRequest extends PlayerListRequest {}
 
 declare class GetPlayerListRequest extends ServerRequest {
-    endpoint: string;
-    responseClass: PlayerListResponse;
+    readonly endpoint: string;
+    readonly responseClass: PlayerListResponse;
 }
 
 declare class PutPlayerListEntriesRequest extends PlayerListRequest {
-    method: 'PUT';
+    readonly method: 'PUT';
     constructor(id: string, name: string, entries: string);
 }
 
 declare class GetAccountRequest extends Request {
-    endpoint: 'account/' | string;
+    readonly endpoint: string;
 }
 
 declare class PlayerListResponse extends Response {
@@ -847,7 +847,7 @@ declare class WebsocketClient extends EventEmitter {
      * @param type
      * @param data
      */
-    send(stream: string, type: any, data: any): boolean;
+    send(stream: string, type: string, data: string): boolean;
 }
 
 declare class Stream extends EventEmitter {
@@ -855,7 +855,7 @@ declare class Stream extends EventEmitter {
     private started: false | boolean;
     private shouldStart: false | boolean;
     name: string;
-    startData: object;
+    startData: object | string;
     startStatuses: StreamStatus[];
 
     /**
@@ -863,7 +863,7 @@ declare class Stream extends EventEmitter {
      */
     constructor(client: WebsocketClient);
 
-    send(type: any, data: any): boolean;
+    send(type: subscriptionType, data: any): boolean;
 
     /**
      * Status change event
@@ -887,12 +887,12 @@ declare class Stream extends EventEmitter {
      * @param type
      * @param data
      */
-    emitEvent(type: string, data: any[]): void;
+    emitEvent(type: string, data: object[]): void;
 
     /**
      * Start this stream
      */
-    start(data: any): void;
+    start(data?: any): void;
 
     /**
      * Should/can this stream be started
@@ -917,30 +917,34 @@ declare class Stream extends EventEmitter {
     isStarted(): boolean;
 }
 
-type subscriptionTypes = 'tick' | 'heap' | 'stats' | 'console';
+type subscriptionType = 'tick' | 'heap' | 'stats' | 'console';
 
+type tickDataType = 'start' | 'stop' | 'started' | 'tick';
 declare class TickStream extends Stream {
     name: string;
     startStatuses: [1];
-    onDataMessage(type: string, message: any): void;
+    onDataMessage(type: tickDataType, message: string): void;
 }
 
+type statsDataType = 'start' | 'stop' | 'started' | 'stats';
 declare class StatsStream extends Stream {
     name: string;
     startStatuses: [1];
 }
 
+type heapDataType = 'start' | 'stop' | 'started' | 'heap';
 declare class HeapStream extends Stream {
     name: string;
     startStatuses: [1];
 }
 
+type consoleDataType = 'start' | 'stop' | 'command' | 'started' | 'line';
 declare class ConsoleStream extends Stream {
     private ansiRegex: RegExpConstructor;
     name: string;
     startData: { tail: 0 };
 
-    onDataMessage(type: string, message: any): void;
+    onDataMessage(type: consoleDataType, message: string): void;
 
     parseReturns(string: string): string;
 
