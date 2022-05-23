@@ -128,35 +128,35 @@ export class RelativeBy {
      * @param {string|WebElement} locatorOrElement
      * @return {!RelativeBy} Return this object
      */
-    above(locatorOrElement: string | WebElement): RelativeBy;
+    above(locatorOrElement: Locator | WebElement): RelativeBy;
 
     /**
      * Look for elements below the root element passed in
-     * @param {string|WebElement} locatorOrElement
+     * @param {Locator|WebElement} locatorOrElement
      * @return {!RelativeBy} Return this object
      */
-    below(locatorOrElement: string | WebElement): RelativeBy;
+    below(locatorOrElement: Locator | WebElement): RelativeBy;
 
     /**
      * Look for elements left the root element passed in
-     * @param {string|WebElement} locatorOrElement
+     * @param {Locator|WebElement} locatorOrElement
      * @return {!RelativeBy} Return this object
      */
-    toLeftOf(locatorOrElement: string | WebElement): RelativeBy;
+    toLeftOf(locatorOrElement: Locator | WebElement): RelativeBy;
 
     /**
      * Look for elements right the root element passed in
-     * @param {string|WebElement} locatorOrElement
+     * @param {Locator|WebElement} locatorOrElement
      * @return {!RelativeBy} Return this object
      */
-    toRightOf(locatorOrElement: string | WebElement): RelativeBy;
+    toRightOf(locatorOrElement: Locator | WebElement): RelativeBy;
 
     /**
      * Look for elements near the root element passed in
-     * @param {string|WebElement} locatorOrElement
+     * @param {Locator|WebElement} locatorOrElement
      * @return {!RelativeBy} Return this object
      */
-    near(locatorOrElement: string | WebElement): RelativeBy;
+    near(locatorOrElement: Locator | WebElement): RelativeBy;
 
     /**
      * Returns a marshalled version of the {@link RelativeBy}
@@ -213,10 +213,10 @@ export function checkedLocator(locator: Locator): By | Function;
 
 /**
  * Start searching for relative objects using search criteria with By.
- * @param {string} by A By map that shows how to find the initial element
+ * @param {Locator} by A By map that shows how to find the initial element
  * @returns {RelativeBy} RelativeBy instance
  */
-export function locateWith(by: string): RelativeBy;
+export function locateWith(by: Locator): RelativeBy;
 
 /**
  * Start Searching for relative objects using the value returned from
