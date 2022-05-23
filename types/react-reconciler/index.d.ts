@@ -1,7 +1,8 @@
-// Type definitions for react-reconciler 0.26
+// Type definitions for react-reconciler 0.28
 // Project: https://reactjs.org/
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 //                 Zhang Haocong <https://github.com/zhanghaocong>
+//                 Mathieu Dutour <https://github.com/mathieudutour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -23,7 +24,6 @@ declare function ReactReconciler<
     NoTimeout
 >(
     config: ReactReconciler.HostConfig<
-        // tslint:disable:no-unnecessary-generics
         Type,
         Props,
         Container,
@@ -37,7 +37,6 @@ declare function ReactReconciler<
         ChildSet,
         TimeoutHandle,
         NoTimeout
-        // tslint:enable:no-unnecessary-generics
     >,
 ): ReactReconciler.Reconciler<
     Container,
@@ -59,7 +58,7 @@ declare namespace ReactReconciler {
         PublicInstance,
         HostContext,
         UpdatePayload,
-        _ChildSet, // TODO Placeholder for undocumented API
+        ChildSet,
         TimeoutHandle,
         NoTimeout
     > {
@@ -80,12 +79,19 @@ declare namespace ReactReconciler {
          *   // ...
          * }
          * ```
+         *
+         * Depending on the mode, the reconciler will call different methods on your host config.
+         *
+         * If you're not sure which one you want, you likely need the mutation mode.
          */
         // tslint:enable:max-line-length
         supportsMutation: boolean;
 
         // tslint:disable:max-line-length
         /**
+         *
+         * The reconciler has two modes: mutation mode and persistent mode. You must specify one of them.
+         *
          * If your target platform has immutable trees, you'll want the **persistent mode** instead. In that mode, existing nodes are never mutated, and instead every change clones the parent tree and then replaces the whole parent tree at the root. This is the node used by the new React Native renderer, codenamed "Fabric".
          *
          * ```js
@@ -277,10 +283,74 @@ declare namespace ReactReconciler {
 
         // tslint:disable:max-line-length
         /**
+         * Set this to `true` to indicate that your renderer supports `scheduleMicrotask`. We use microtasks as part of our discrete event implementation in React DOM. If you're not sure if your renderer should support this, you probably should. The option to not implement `scheduleMicrotask` exists so that platforms with more control over user events, like React Native, can choose to use a different mechanism.
+         */
+        // tslint:enable:max-line-length
+        supportsMicrotask?: boolean
+
+        /**
+         * Optional. You can proxy this to `queueMicrotask` or its equivalent in your environment.
+         */
+        scheduleMicrotask?(fn: () => unknown): void;
+
+        // tslint:disable:max-line-length
+        /**
          * This is a property (not a function) that should be set to `true` if your renderer is the main one on the page. For example, if you're writing a renderer for the Terminal, it makes sense to set it to `true`, but if your renderer is used *on top of* React DOM or some other existing renderer, set it to `false`.
          */
         // tslint:enable:max-line-length
         isPrimaryRenderer: boolean;
+
+      /**
+       * Whether the renderer shouldn't trigger missing `act()` warnings
+       */
+        warnsIfNotActing?: boolean
+
+        /**
+         * To implement this method, you'll need some constants available on the special `react-reconciler/constants` entry point:
+         *
+         * ```
+         * import {
+         *   DiscreteEventPriority,
+         *   ContinuousEventPriority,
+         *   DefaultEventPriority,
+         * } from 'react-reconciler/constants';
+         *
+         * const HostConfig = {
+         *   // ...
+         *   getCurrentEventPriority() {
+         *     return DefaultEventPriority;
+         *   },
+         *   // ...
+         * }
+         *
+         * const MyRenderer = Reconciler(HostConfig);
+         * ```
+         *
+         * The constant you return depends on which event, if any, is being handled right now. (In the browser, you can check this using `window.event && window.event.type`).
+         *
+         * - **Discrete events**: If the active event is directly caused by the user (such as mouse and keyboard events) and each event in a sequence is intentional (e.g. click), return DiscreteEventPriority. This tells React that they should interrupt any background work and cannot be batched across time.
+         *
+         * - **Continuous events**: If the active event is directly caused by the user but the user can't distinguish between individual events in a sequence (e.g. mouseover), return ContinuousEventPriority. This tells React they should interrupt any background work but can be batched across time.
+         *
+         * - **Other events / No active event**: In all other cases, return DefaultEventPriority. This tells React that this event is considered background work, and interactive events will be prioritized over it.
+         *
+         * You can consult the `getCurrentEventPriority()` implementation in `ReactDOMHostConfig.js` for a reference implementation.
+         */
+        getCurrentEventPriority(): Lane;
+
+        getInstanceFromNode(node: Object): Fiber | null | undefined;
+
+        beforeActiveInstanceBlur(): void;
+
+        afterActiveInstanceBlur(): void;
+
+        preparePortalMount(portalInstance: Instance): void;
+
+        prepareScopeUpdate(scopeInstance: Object, inst: Object): void;
+
+        getInstanceFromScope(scopeInstance: Object): null | Instance;
+
+        detachDeletedInstance(node: Instance): void;
 
         // -------------------
         //  Mutation Methods
@@ -426,14 +496,40 @@ declare namespace ReactReconciler {
         //  If you use the persistent mode instead of the mutation mode, you would still need the "Core Methods". However, instead of the Mutation Methods above you will implement a different set of methods that performs cloning nodes and replacing them at the root level. You can find a list of them in the "Persistence" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberHostConfig.custom.js). File an issue if you need help.
         // -------------------
         // tslint:enable:max-line-length
-        cloneInstance?: any;
-        cloneFundamentalInstance?: any;
-        createContainerChildSet?: any;
-        appendChildToContainerChildSet?: any;
-        finalizeContainerChildren?: any;
-        replaceContainerChildren?: any;
-        cloneHiddenInstance?: any;
-        cloneHiddenTextInstance?: any;
+        cloneInstance?(
+          instance: Instance,
+          updatePayload: UpdatePayload,
+          type: Type,
+          oldProps: Props,
+          newProps: Props,
+          internalInstanceHandle: OpaqueHandle,
+          keepChildren: boolean,
+          recyclableInstance: null | Instance,
+        ): Instance;
+        createContainerChildSet?(container: Container): ChildSet;
+        appendChildToContainerChildSet?(
+          childSet: ChildSet,
+          child: Instance | TextInstance,
+        ): void;
+        finalizeContainerChildren?(
+          container: Container,
+          newChildren: ChildSet,
+        ): void;
+        replaceContainerChildren?(
+          container: Container,
+          newChildren: ChildSet,
+        ): void;
+        cloneHiddenInstance?(
+          instance: Instance,
+          type: Type,
+          props: Props,
+          internalInstanceHandle: OpaqueHandle,
+        ): Instance;
+        cloneHiddenTextInstance?(
+          instance: Instance,
+          text: Type,
+          internalInstanceHandle: OpaqueHandle,
+        ): TextInstance;
 
         // tslint:disable:max-line-length
         // -------------------
@@ -576,6 +672,8 @@ declare namespace ReactReconciler {
             parentProps: Props,
             parentInstance: Instance,
         ): void;
+
+        errorHydratingContainer?(parentContainer: Container): void;
     }
 
     interface Thenable<T> {
@@ -947,7 +1045,7 @@ declare namespace ReactReconciler {
         value: React$AbstractComponent<never, unknown>;
     }
 
-    interface HasPsuedoClassSelector {
+    interface HasPseudoClassSelector {
         $$typeof: symbol | number;
         value: Selector[];
     }
@@ -969,7 +1067,7 @@ declare namespace ReactReconciler {
 
     type Selector =
         | ComponentSelector
-        | HasPsuedoClassSelector
+        | HasPseudoClassSelector
         | RoleSelector
         | TextSelector
         | TestNameSelector;
@@ -1004,74 +1102,6 @@ declare namespace ReactReconciler {
             transitionCallbacks: null | TransitionTracingCallbacks,
         ): OpaqueRoot;
 
-        updateContainer(
-            element: ReactNode,
-            container: OpaqueRoot,
-            parentComponent?: Component<any, any> | null,
-            callback?: (() => void) | null,
-        ): Lane;
-
-        batchedEventUpdates<A, R>(fn: (a: A) => R, a: A): R;
-
-        batchedUpdates<A, R>(fn: (a: A) => R, a: A): R;
-
-        unbatchedUpdates<A, R>(fn: (a: A) => R, a: A): R;
-
-        deferredUpdates<A>(fn: () => A): A;
-
-        discreteUpdates<A, B, C, D, R>(
-            fn: (arg0: A, arg1: B, arg2: C) => R,
-            a: A,
-            b: B,
-            c: C,
-
-            // tslint:disable-next-line:no-unnecessary-generics
-            d: D,
-        ): R;
-
-        flushDiscreteUpdates(): void;
-
-        flushControlled(fn: () => any): void;
-
-        flushSync<A, R>(fn: (a: A) => R, a: A): R;
-
-        flushPassiveEffects(): boolean;
-
-        readonly IsThisRendererActing: { current: boolean };
-
-        getPublicRootInstance(
-            container: OpaqueRoot,
-        ): Component<any, any> | PublicInstance | null;
-
-        attemptSynchronousHydration(fiber: Fiber): void;
-
-        attemptUserBlockingHydration(fiber: Fiber): void;
-
-        attemptContinuousHydration(fiber: Fiber): void;
-
-        attemptHydrationAtCurrentPriority(fiber: Fiber): void;
-
-        getCurrentUpdateLanePriority(): LanePriority;
-
-        findHostInstance(component: any): PublicInstance | null;
-
-        findHostInstanceWithWarning(
-            component: any,
-            methodName: string,
-        ): PublicInstance | null;
-
-        findHostInstanceWithNoPortals(
-            fiber: Fiber,
-        ): PublicInstance | null;
-
-        shouldSuspend(fiber: Fiber): boolean;
-
-        injectIntoDevTools(
-            devToolsConfig: DevToolsConfig<Instance, TextInstance, any>
-        ): boolean;
-
-        act(callback: () => Thenable<unknown>): Thenable<void>;
-
         createPortal(
             children: ReactNode,
             containerInfo: any, // TODO: figure out the API for cross-renderer implementation.
@@ -1079,14 +1109,18 @@ declare namespace ReactReconciler {
             key?: string | null,
         ): ReactPortal;
 
+        registerMutableSourceForHydration(
+            root: FiberRoot,
+            mutableSource: MutableSource,
+        ): void;
+
         createComponentSelector(
             component: React$AbstractComponent<never, unknown>,
         ): ComponentSelector;
 
-        // TODO: "psuedo" is spelled "pseudo"
-        createHasPsuedoClassSelector(
+        createHasPseudoClassSelector(
             selectors: Selector[],
-        ): HasPsuedoClassSelector;
+        ): HasPseudoClassSelector;
 
         createRoleSelector(role: string): RoleSelector;
 
@@ -1121,14 +1155,83 @@ declare namespace ReactReconciler {
                 intersections: Array<{ratio: number; rect: BoundingRect}>,
             ) => void,
             options?: IntersectionObserverOptions,
-        ): {disconnect: () => void};
+        ): { disconnect: () => void };
 
-        registerMutableSourceForHydration(
-            root: FiberRoot,
-            mutableSource: MutableSource,
-        ): void;
+        createHydrationContainer(
+            initialChildren: ReactNode,
+            callback: (() => void) | null | undefined,
+            containerInfo: Container,
+            tag: RootTag,
+            hydrationCallbacks: null | SuspenseHydrationCallbacks<SuspenseInstance>,
+            isStrictMode: boolean,
+            concurrentUpdatesByDefaultOverride: null | boolean,
+            identifierPrefix: string,
+            onRecoverableError: (error: Error) => void,
+            transitionCallbacks: null | TransitionTracingCallbacks,
+        ): OpaqueRoot;
+
+        updateContainer(
+            element: ReactNode,
+            container: OpaqueRoot,
+            parentComponent?: Component<any, any> | null,
+            callback?: (() => void) | null,
+        ): Lane;
+
+        batchedUpdates<A, R>(fn: (a: A) => R, a: A): R;
+
+        deferredUpdates<A>(fn: () => A): A;
+
+        discreteUpdates<A, B, C, D, R>(
+              fn: (arg0: A, arg1: B, arg2: C, arg3: D) => R,
+              a: A,
+              b: B,
+              c: C,
+              d: D,
+        ): R;
+
+        flushControlled(fn: () => any): void;
+
+        flushSync(): void;
+        flushSync<R>(fn: () => R): R;
+
+        isAlreadyRendering(): boolean;
+
+        flushPassiveEffects(): boolean;
+
+        getPublicRootInstance(
+              container: OpaqueRoot,
+        ): Component<any, any> | PublicInstance | null;
+
+        attemptSynchronousHydration(fiber: Fiber): void;
+
+        attemptDiscreteHydration(fiber: Fiber): void;
+
+        attemptContinuousHydration(fiber: Fiber): void;
+
+        attemptHydrationAtCurrentPriority(fiber: Fiber): void;
+
+        getCurrentUpdatePriority(): LanePriority;
 
         runWithPriority<T>(priority: LanePriority, fn: () => T): T;
+
+        findHostInstance(component: any): PublicInstance | null;
+
+        findHostInstanceWithWarning(
+            component: any,
+            methodName: string,
+        ): PublicInstance | null;
+
+        findHostInstanceWithNoPortals(
+            fiber: Fiber,
+        ): PublicInstance | null;
+
+        shouldError(fiber: Fiber): boolean | undefined;
+
+        shouldSuspend(fiber: Fiber): boolean;
+
+        injectIntoDevTools(
+            devToolsConfig: DevToolsConfig<Instance, TextInstance, any>
+        ): boolean;
     }
 }
 
