@@ -1,8 +1,8 @@
 // Type definitions for mui-image 1.0
 // Project: https://github.com/benmneb/mui-image
 // Definitions by: benmneb <https://github.com/benmneb>
-//                 Natalia <https://github.com/CodeMeNatalie>
 // Definitions: https://github.com/DefinitelyTyped/mui-image
+// (With a little help from Natalia <https://github.com/CodeMeNatalie>)
 
 import * as React from 'react';
 
