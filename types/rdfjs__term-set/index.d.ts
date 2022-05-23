@@ -10,7 +10,7 @@ interface TermSet<T extends Term = Term> extends Set<T> {
 }
 
 // tslint:disable-next-line no-unnecessary-class
-export class TermSet<T extends Term = Term> {
+declare class TermSet<T extends Term = Term> {
     constructor(values?: T[] | null);
 }
 
