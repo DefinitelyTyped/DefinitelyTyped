@@ -99,6 +99,9 @@ const { h1, a } = builders(schema, {
     img: { nodeType: 'image', src: 'img.png', alt: 'x' },
 });
 
+const args: Parameters<typeof h1> = [p(), { level: 1 }, { tag: { abc: 1 }, flat: [p()] }];
+const ARGS_TEST = args; // $ExpectType Args
+
 const TEST1 = h1; // $ExpectType NodeBuilderMethod<Schema<"doc" | "paragraph" | "blockquote", "em">> || NodeBuilderMethod<Schema<"blockquote" | "doc" | "paragraph", "em">>
 const TEST2 = a; // $ExpectType MarkBuilderMethod<Schema<"doc" | "paragraph" | "blockquote", "em">> || MarkBuilderMethod<Schema<"blockquote" | "doc" | "paragraph", "em">>
 
