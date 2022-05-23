@@ -128,6 +128,10 @@ declare namespace chrome.action {
         popup: string;
     }
 
+    export interface UserSettings {
+        isOnToolbar: boolean;
+    }
+
     export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> { }
 
     export interface TabIconDetails {
@@ -307,6 +311,19 @@ declare namespace chrome.action {
      * () => {...}
      */
     export function setTitle(details: TitleDetails, callback?: () => void): void;
+
+    /**
+     * Since Chrome 91.
+     * Returns the user-specified settings relating to an extension's action.
+     * @param callback The callback parameter should be a function that looks like this:
+     */
+     export function getUserSettings(callback: (userSettings: UserSettings) => void): void;
+
+    /**
+     * Since Chrome 91.
+     * Returns the user-specified settings relating to an extension's action.
+     */
+     export function getUserSettings(): Promise<UserSettings>;
 
     /** Fired when an action icon is clicked. This event will not fire if the action has a popup. */
     export var onClicked: BrowserClickedEvent;
