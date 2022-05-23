@@ -182,29 +182,29 @@ declare class Response {
 }
 
 interface Server {
-    id: string;
-    name: string;
-    address: string;
-    motd: string;
-    status: number;
-    host: string | null;
-    port: number | null;
-    shared: boolean;
-    software: Software;
-    players: Players;
+    readonly id: string;
+    readonly name: string;
+    readonly address: string;
+    readonly motd: string;
+    readonly status: number;
+    readonly host: string | null;
+    readonly port: number | null;
+    readonly shared: boolean;
+    readonly software: Software;
+    readonly players: Players;
 }
 
 interface Software {
-    id: string;
-    name: string;
-    version: string;
+    readonly id: string;
+    readonly name: string;
+    readonly version: string;
 }
 
 declare class Server extends EventEmitter {
     /**
      * Shorthand to get server status constants
      */
-    STATUS: {
+    readonly STATUS: {
         OFFLINE: 0;
         ONLINE: 1;
         STARTING: 2;
@@ -222,53 +222,52 @@ declare class Server extends EventEmitter {
     /**
      * Unique server ID
      */
-    id: string;
+    readonly id: string;
 
     /**
      * Server name
      */
-    name: string;
+    readonly name: string;
 
     /**
      * Full server address (e.g. example.exaroton.me)
      */
-    address: string;
+    readonly address: string;
 
     /**
      * MOTD
      */
-    motd: string;
+    readonly motd: string;
 
     /**
      * Server status
-     * @see ServerStatus
      */
-    status: number;
+    readonly status: number;
 
     /**
      * Host address, only available if the server is online
      */
-    host: string | null;
+    readonly host: string | null;
 
     /**
      * Server port, only available if the server is online
      */
-    port: number | null;
+    readonly port: number | null;
 
     /**
      * Check if this is an owned or shared server
      */
-    shared: false | boolean;
+    readonly shared: false | boolean;
 
     /**
      * Server software
      */
-    software: Software;
+    readonly software: Software;
 
     /**
      * Player lists
      */
-    player: Players;
+    readonly player: Players;
 
     /**
      * Server constructor
@@ -427,17 +426,17 @@ declare class Software {
     /**
      * Software ID
      */
-    id: string;
+    readonly id: string;
 
     /**
      * Software name
      */
-    name: string;
+    readonly name: string;
 
     /**
      * Software version
      */
-    version: string;
+    readonly version: string;
 
     /**
      * Software constructor
@@ -454,22 +453,22 @@ declare class Account {
     /**
      * Username
      */
-    name: string;
+    readonly name: string;
 
     /**
      * Email address
      */
-    email: string;
+    readonly email: string;
 
     /**
      * Email address verification
      */
-    verified: boolean;
+    readonly verified: boolean;
 
     /**
      * The amount of credits currently available
      */
-    credits: number;
+    readonly credits: number;
 
     /**
      * Account constructor
@@ -494,8 +493,8 @@ declare class Account {
 }
 
 declare class RequestError extends Error {
-    statusCode: number;
-    response: Response;
+    readonly statusCode: number;
+    readonly response: Response;
 
     /**
      * Set error and status code from response object
@@ -654,20 +653,7 @@ declare class ServersResponse extends Response {
     getData(): Server[];
 }
 
-interface ServerStatus {
-    OFFLINE: 0;
-    ONLINE: 1;
-    STARTING: 2;
-    STOPPING: 3;
-    RESTARTING: 4;
-    SAVING: 5;
-    LOADING: 6;
-    CRASHED: 7;
-    PENDING: 8;
-    PREPARING: 10;
-}
-
-type PlayerListTypes = 'whitelist' | 'blacklist';
+type PlayerListTypes = 'whitelist' | 'ops' | 'banned-ips' | 'banned-players';
 
 declare class PlayerList {
     /**
@@ -765,7 +751,7 @@ type StreamStatus = 1 | 2 | 3 | 4;
  * @classdesc Websocket client to connect to the websocket for this server
  */
 declare class WebsocketClient extends EventEmitter {
-    protocol: 'wss' | string;
+    readonly protocol: 'wss' | 'ws';
     private client: Client;
     private server: Server;
     private websocket: WebSocket;
@@ -827,7 +813,7 @@ declare class WebsocketClient extends EventEmitter {
 
     getServer(): Server;
 
-    getServerStatus(): Promise<ServerStatus>;
+    getServerStatus(): Promise<number>;
 
     /**
      * Get a stream by name
@@ -854,9 +840,9 @@ declare class Stream extends EventEmitter {
     private client: WebsocketClient;
     private started: false | boolean;
     private shouldStart: false | boolean;
-    name: string;
-    startData: object | string;
-    startStatuses: StreamStatus[];
+    readonly name: string;
+    readonly startData: object | string;
+    readonly startStatuses: StreamStatus[];
 
     /**
      * @param client
@@ -921,27 +907,27 @@ type subscriptionType = 'tick' | 'heap' | 'stats' | 'console';
 
 type tickDataType = 'start' | 'stop' | 'started' | 'tick';
 declare class TickStream extends Stream {
-    name: string;
+    readonly name: string;
     startStatuses: [1];
     onDataMessage(type: tickDataType, message: string): void;
 }
 
 type statsDataType = 'start' | 'stop' | 'started' | 'stats';
 declare class StatsStream extends Stream {
-    name: string;
+    readonly name: string;
     startStatuses: [1];
 }
 
 type heapDataType = 'start' | 'stop' | 'started' | 'heap';
 declare class HeapStream extends Stream {
-    name: string;
+    readonly name: string;
     startStatuses: [1];
 }
 
 type consoleDataType = 'start' | 'stop' | 'command' | 'started' | 'line';
 declare class ConsoleStream extends Stream {
     private ansiRegex: RegExpConstructor;
-    name: string;
+    readonly name: string;
     startData: { tail: 0 };
 
     onDataMessage(type: consoleDataType, message: string): void;
