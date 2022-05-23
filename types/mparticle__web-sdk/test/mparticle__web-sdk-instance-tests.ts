@@ -106,6 +106,7 @@ const config: mParticle.MPConfiguration = {
     dataPlan,
     appVersion: '1.0.0',
     appName: 'testAppName',
+    package: 'com.mparticle.example',
     logLevel: 'warning',
     logger,
     sessionTimeout: 500,

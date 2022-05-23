@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch-core 6.10
+// Type definitions for react-instantsearch-core 6.26
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -60,6 +60,7 @@ interface ConnectedWidget {
 
 export interface ConnectorDescription<TProvided, TExposed> {
   displayName: string;
+  $$type?: string;
   propTypes?: any;
   defaultProps?: any;
 
@@ -154,6 +155,10 @@ export type ConnectorProvided<TProvided> = TProvided & {
   createURL: (...args: any[]) => string;
 } & { searchForItems: (...args: any[]) => any };
 
+interface AdditionalWidgetProperties {
+  $$widgetType?: string;
+}
+
 /**
  * Connectors are the HOC used to transform React components
  * into InstantSearch widgets.
@@ -166,9 +171,13 @@ export type ConnectorProvided<TProvided> = TProvided & {
  */
 export function createConnector<TProvided = {}, TExposed = {}>(
   connectorDesc: ConnectorDescription<TProvided, TExposed>
-): ((stateless: React.FunctionComponent<ConnectorProvided<TProvided>>) => React.ComponentClass<TExposed>) &
+): ((
+    stateless: React.FunctionComponent<ConnectorProvided<TProvided>>,
+    additionalWidgetProperties?: AdditionalWidgetProperties,
+  ) => React.ComponentClass<TExposed>) &
   (<TProps extends Partial<ConnectorProvided<TProvided>>>(
-    Composed: React.ComponentType<TProps>
+    Composed: React.ComponentType<TProps>,
+    additionalWidgetProperties?: AdditionalWidgetProperties,
   ) => ConnectedComponentClass<TProps, ConnectorProvided<TProvided>, TExposed>);
 
 // Utils

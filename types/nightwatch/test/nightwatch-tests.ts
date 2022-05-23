@@ -167,17 +167,17 @@ interface MenuSection
         { apps: AppsSection }
     > {}
 
+const googleCommands = {
+    submit(this: GooglePage) {
+        this.api.pause(1000);
+        return this.waitForElementVisible('@submitButton', 1000)
+            .click('@submitButton')
+            .waitForElementNotPresent('@submitButton');
+    },
+};
+
 const googlePage: PageObjectModel = {
-    commands: [
-        {
-            submit(this: GooglePage) {
-                this.api.pause(1000);
-                return this.waitForElementVisible('@submitButton', 1000)
-                    .click('@submitButton')
-                    .waitForElementNotPresent('@submitButton');
-            },
-        },
-    ],
+    commands: [googleCommands],
     elements: {
         searchBar: {
             selector: 'input[type=text]',
@@ -210,7 +210,7 @@ const iFrame: PageObjectModel = {
 // export = iFrame
 
 interface GooglePage
-    extends EnhancedPageObject<typeof googlePage.commands[0], typeof googlePage.elements, { menu: MenuSection }> {}
+    extends EnhancedPageObject<typeof googleCommands, typeof googlePage.elements, { menu: MenuSection }> {}
 
 interface iFramePage extends EnhancedPageObject<typeof iFrame.commands[0], typeof iFrame.elements> {}
 
@@ -248,13 +248,14 @@ const testPage = {
     },
 
     'Test assertions on page': () => {
-        const google: EnhancedPageObject<GooglePage> = browser.page.google();
+        const google: GooglePage = browser.page.google();
 
         google
             .navigate()
             .assert.title('Google') // deprecated
             .assert.titleEquals('Google') // new in 2.0
             .assert.visible('@searchBar')
+            .moveToElement('@searchBar', 1, 1)
             .setValue('@searchBar', 'nightwatch')
             .click('@submit');
 
