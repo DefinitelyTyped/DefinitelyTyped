@@ -17,7 +17,7 @@ import { Replies, Options, Message, GetMessage, ConsumeMessage, ServerProperties
 export * from './properties';
 
 export interface Connection extends events.EventEmitter {
-    close(): Promise<void>;
+    close(): void;
     createChannel(): Promise<Channel>;
     createConfirmChannel(): Promise<ConfirmChannel>;
     connection: {
