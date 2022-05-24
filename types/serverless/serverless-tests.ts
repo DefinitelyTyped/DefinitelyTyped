@@ -849,6 +849,11 @@ const awsServerless: Aws.Serverless = {
 awsServerless.provider.vpc = 'serverless reference';
 awsServerless.functions![0].vpc = 'serverless reference';
 
+// apiGateway in tracing can be undefined
+awsServerless.provider.tracing = {
+    lambda: true,
+};
+
 const bunchOfConfigs: Aws.Serverless[] = [
     {
         service: 'users',
