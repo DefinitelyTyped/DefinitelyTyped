@@ -1,6 +1,6 @@
 import { JSONValue } from 'k6';
 import { Selection } from 'k6/html';
-import {
+import http, {
     CookieJar,
     CookieJarCookies,
     FileData,
@@ -8,6 +8,7 @@ import {
     Response,
     ResponseType,
     del,
+    head,
     get,
     options,
     patch,
@@ -17,9 +18,12 @@ import {
     batch,
     file,
     cookieJar,
+    expectedStatuses,
+    setResponseCallback
 } from 'k6/http';
 
 const address = 'http://example.com';
+const addressFromHttpURL = http.url`http://example.com/posts/${5}/${'10'}/`;
 
 let response: Response;
 let responseDefault: RefinedResponse<undefined>;
@@ -45,6 +49,7 @@ let jar: CookieJar;
 // del
 del(); // $ExpectError
 del(5); // $ExpectError
+del(addressFromHttpURL);
 responseDefault = del(address);
 del(address, 5); // $ExpectError
 responseDefault = del(address, 'skadoosh');
@@ -54,9 +59,22 @@ del(address, {}, 5); // $ExpectError
 responseBinary = del(address, null, { responseType: 'binary' });
 del(address, {}, {}, 5); // $ExpectError
 
+// head
+head(); // $ExpectError
+head(5); // $ExpectError
+head(addressFromHttpURL);
+responseDefault = head(address);
+head(address, 5); // $ExpectError
+responseDefault = head(address, {});
+responseBinary = head(address, { responseType: 'binary' });
+responseNone = head(address, { responseType: 'none' });
+responseText = head(address, { responseType: 'text' });
+head(address, {}, 5); // $ExpectError
+
 // get
 get(); // $ExpectError
 get(5); // $ExpectError
+get(addressFromHttpURL);
 responseDefault = get(address);
 get(address, 5); // $ExpectError
 responseDefault = get(address, {});
@@ -68,6 +86,7 @@ get(address, {}, 5); // $ExpectError
 // options
 options(); // $ExpectError
 options(5); // $ExpectError
+options(addressFromHttpURL);
 responseDefault = options(address);
 options(address, 5); // $ExpectError
 responseDefault = options(address, 'choices choices');
@@ -81,6 +100,7 @@ options(address, {}, {}, 5); // $ExpectError
 // patch
 patch(); // $ExpectError
 patch(5); // $ExpectError
+patch(addressFromHttpURL);
 responseDefault = patch(address);
 patch(address, 5); // $ExpectError
 responseDefault = patch(address, 'a life of contrasts and patchwork');
@@ -94,6 +114,7 @@ patch(address, {}, {}, 5); // $ExpectError
 // post
 post(); // $ExpectError
 post(5); // $ExpectError
+post(addressFromHttpURL);
 responseDefault = post(address);
 post(address, 5); // $ExpectError
 responseDefault = post(address, 'hello in cyberspace');
@@ -107,6 +128,7 @@ post(address, {}, {}, 5); // $ExpectError
 // put
 put(); // $ExpectError
 put(5); // $ExpectError
+put(addressFromHttpURL);
 responseDefault = put(address);
 put(address, 5); // $ExpectError
 responseDefault = put(address, 'cat in box');
@@ -122,6 +144,7 @@ request(); // $ExpectError
 request(5); // $ExpectError
 request('get'); // $ExpectError
 request('get', 5); // $ExpectError
+request('get', addressFromHttpURL);
 responseDefault = request('get', address);
 request('post', address, 5); // $ExpectError
 responseDefault = request('post', address, 'welcome to the internet');
@@ -144,10 +167,11 @@ batch([ address ], 5); // $ExpectError
 // batch(Array)
 responsesArray = batch([]);
 responsesArrayDefault = batch([ address ]);
+responsesArrayDefault = batch([ addressFromHttpURL ]);
 responsesArrayDefault = batch([ address, address, address ]);
 responsesArrayDefault = batch([
     [ 'GET', address ],
-    [ 'POST', address, 'hello' ],
+    [ 'POST', addressFromHttpURL, 'hello' ],
     [ 'POST', address, { title: 'Hello' }, {} ]
 ]);
 responsesArrayBinary = batch([
@@ -180,13 +204,13 @@ responsesArrayText = batch([
 responsesArray = batch([
     [ 'GET', address, null, { responseType: 'binary' } ],
     [ 'GET', address, null, { responseType: 'none' } ],
-    [ 'GET', address, null, { responseType: 'text' } ]
+    [ 'GET', addressFromHttpURL, null, { responseType: 'text' } ]
 ]);
 responsesArrayDefault = batch([ { method: 'GET', url: address } ]);
 responsesArrayDefault = batch([
     { method: 'GET', url: address },
     { method: 'GET', url: address },
-    { method: 'GET', url: address }
+    { method: 'GET', url: addressFromHttpURL }
 ]);
 responsesArrayBinary = batch([
     { method: 'GET', url: address, params: { responseType: 'binary' } },
@@ -255,6 +279,7 @@ file(); // $ExpectError
 file(5); // $ExpectError
 fileData = file('important data');
 fileData = file([ 1, 2, 3 ]);
+fileData = file(new Uint8Array([10, 12]).buffer);
 file('', 5); // $ExpectError
 fileData = file('important data', 'data.txt');
 file('important data', 'data.txt', 5); // $ExpectError
@@ -353,3 +378,22 @@ jar.set(address, 'session', 'abc123', {
 });
 jar.set('session', 'abc123', {}, 5); // $ExpectError
 jar.set(address, 'session', 'abc123', {}, 5); // $ExpectError
+
+// expectedStatuses
+expectedStatuses(200);
+expectedStatuses({min: 200, max: 300});
+expectedStatuses(200, 400);
+expectedStatuses(200, {min: 200, max: 300}, 400);
+expectedStatuses(200, {min: 200, max: 300}, 400, {min: 500, max: 600});
+expectedStatuses(200, {min: 200, max: 300}, 400, {hola: 500, max: 600}); // $ExpectError
+expectedStatuses(406, 500, {min: 200, max: 204}, 302, {min: 305, max: 405});
+
+http.expectedStatuses(200);
+
+setResponseCallback(); // $ExpectError
+setResponseCallback('hola'); // $ExpectError
+setResponseCallback(expectedStatuses(200));
+
+http.setResponseCallback(http.expectedStatuses(200));
+
+request('post', address, {}, {responseCallback: expectedStatuses(200)});

@@ -67,16 +67,44 @@ const schema: SimpleSchemaDefinition = {
 
 const StringSchema = new SimpleSchema(schema);
 
-StringSchema.validate({
+const testData = {
     basicString: 'Test',
     limitedString: 'pro',
     regExpString: 'id',
-}, {keys: ['basicString']});
+};
+
+const testOptions = {keys: ['basicString']};
+
+StringSchema.validate(testData);
+
+StringSchema.validate(testData, testOptions);
+
+// Static versions
+SimpleSchema.validate(testData, StringSchema);
+
+SimpleSchema.validate(testData, StringSchema, testOptions);
 
 StringSchema.validator();
 
 StringSchema.validator({
-    clean: true
+    modifier: true,
+    upsert: true,
+    extendedCustomContext: {},
+    ignore: ['Error'],
+    keys: ['key']
+});
+
+// If clean: true, clean options can be provided
+StringSchema.validator({
+    clean: true,
+    trimStrings: true,
+    removeNullsFromArrays: true
+});
+
+StringSchema.clean({title: ''}, {
+    removeEmptyStrings: true,
+    removeNullsFromArrays: true,
+    isUpsert: false
 });
 
 const StringSchemaWithOptions = new SimpleSchema({
@@ -118,6 +146,11 @@ new SimpleSchema({
     shortInteger: SimpleSchema.Integer,
     shortDate: Date,
     shortArray: Array,
+    arrayOfString: [String],
+    arrayOfNumber: [Number],
+    arrayOfInteger: [SimpleSchema.Integer],
+    arrayOfSchema: [StringSchema],
+    oneOfTest: SimpleSchema.oneOf(String, SimpleSchema.Integer, Number, Boolean, /regextest/),
     subSchema: StringSchemaWithOptions
 });
 
@@ -128,6 +161,14 @@ StringSchema.extend(
 );
 StringSchema.extend({
     name: { type: String }
+});
+
+StringSchema.extend({
+    name: { type: String, required: false }
+});
+
+StringSchema.extend({
+    name: { type: String, required: () => false }
 });
 
 SimpleSchema.extendOptions(['autoform']);

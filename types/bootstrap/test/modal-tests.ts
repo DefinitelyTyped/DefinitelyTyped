@@ -6,8 +6,10 @@ const element = new Element();
 // $ExpectType Modal
 new Modal(element, { backdrop: 'static' });
 
-// $ExpectType Modal
+// $ExpectType Modal | null
 Modal.getInstance(element);
+// $ExpectType Modal
+Modal.getOrCreateInstance(element);
 
 // $ExpectType string
 Modal.VERSION;
@@ -35,13 +37,13 @@ element.addEventListener(Modal.Events.hidePrevented, event => {
     // do something…
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').modal();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').modal({ backdrop: 'static' });
 
-$('.alert').modal('show'); // $ExpectType void
-$('.alert').modal('hide'); // $ExpectType void
-$('.alert').modal('toggle'); // $ExpectType void
-$('.alert').modal('handleUpdate'); // $ExpectType void
+$('.alert').modal('show'); // $ExpectType JQuery<HTMLElement>
+$('.alert').modal('hide'); // $ExpectType JQuery<HTMLElement>
+$('.alert').modal('toggle'); // $ExpectType JQuery<HTMLElement>
+$('.alert').modal('handleUpdate'); // $ExpectType JQuery<HTMLElement>

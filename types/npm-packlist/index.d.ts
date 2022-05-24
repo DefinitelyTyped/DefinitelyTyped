@@ -1,4 +1,4 @@
-// Type definitions for npm-packlist 1.1
+// Type definitions for npm-packlist 3.0
 // Project: https://github.com/npm/npm-packlist, https://www.npmjs.com/package/npm-packlist
 // Definitions by: Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,9 @@ declare function packlist<T>(options: packlist.Options | undefined, callback: (r
 declare namespace packlist {
     interface Options {
         /** Directory to walk recusively. Defaults to `process.cwd()`. */
-        path?: string;
+        path?: string | undefined;
+        /** packageJsonCache */
+        packageJsonCache?: Map<string, string | { files: string[] }>;
     }
     function sync(options?: Options): string[];
 }

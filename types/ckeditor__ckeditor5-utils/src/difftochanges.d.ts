@@ -1,4 +1,5 @@
-import { Change } from "@ckeditor/ckeditor5-utils/src/diff";
+import { Change } from "./diff";
+import { DeleteChange, InsertChange } from "./fastdiff";
 
 /**
  * Creates a set of changes which need to be applied to the input in order to transform
@@ -21,15 +22,3 @@ import { Change } from "@ckeditor/ckeditor5-utils/src/diff";
  * in order to transform it into the output.
  */
 export default function diffToChanges(diff: Change[], output: string | string[]): Array<DeleteChange | InsertChange>;
-
-export interface DeleteChange {
-    index: number;
-    type: "delete";
-    howMany: number;
-}
-
-export interface InsertChange {
-    index: number;
-    type: "insert";
-    values: string[];
-}

@@ -10,7 +10,7 @@ declare function etag(entity: string | Buffer | etag.StatsLike, options?: etag.O
 
 declare namespace etag {
     interface Options {
-        weak?: boolean;
+        weak?: boolean | undefined;
     }
 
     interface StatsLike {

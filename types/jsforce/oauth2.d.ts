@@ -1,17 +1,17 @@
 export interface OAuth2Options {
-    authzServiceUrl?: string;
-    tokenServiceUrl?: string;
-    clientId?: string;
-    clientSecret?: string;
-    httpProxy?: string;
-    loginUrl?: string;
-    proxyUrl?: string;
-    redirectUri?: string;
-    refreshToken?: string;
-    revokeServiceUrl?: string;
-    authCode?: string;
-    privateKeyFile?: string;
-    privateKey?: string; // Used for sfdx auth files for legacy support reasons
+    authzServiceUrl?: string | undefined;
+    tokenServiceUrl?: string | undefined;
+    clientId?: string | undefined;
+    clientSecret?: string | undefined;
+    httpProxy?: string | undefined;
+    loginUrl?: string | undefined;
+    proxyUrl?: string | undefined;
+    redirectUri?: string | undefined;
+    refreshToken?: string | undefined;
+    revokeServiceUrl?: string | undefined;
+    authCode?: string | undefined;
+    privateKeyFile?: string | undefined;
+    privateKey?: string | undefined; // Used for sfdx auth files for legacy support reasons
 }
 
 export interface TokenResponse {
@@ -31,8 +31,8 @@ export class OAuth2 {
     redirectUri: string;
 
     getAuthorizationUrl(params: {
-        scope?: string,
-        state?: string
+        scope?: string | undefined,
+        state?: string | undefined
     }): string;
     refreshToken(code: string, callback?: (err: Error, tokenResponse: TokenResponse) => void): Promise<TokenResponse>;
     requestToken(code: string, callback?: (err: Error, tokenResponse: TokenResponse) => void): Promise<TokenResponse>;

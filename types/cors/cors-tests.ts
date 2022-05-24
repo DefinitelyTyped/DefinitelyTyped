@@ -39,6 +39,9 @@ app.use(cors({
     origin: [/example\.com$/, /fakeurl\.com$/]
 }));
 app.use(cors({
+    origin: [false, 'http://example.com']
+}));
+app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
             cb(null, true);

@@ -21,8 +21,8 @@ domOutputSpec = ['div', ['div', 0]];
 domOutputSpec = ['div', ['div', { class: 'foo' }]];
 domOutputSpec = ['div', ['div', { class: 'foo' }, 0]];
 
-domOutputSpec = {dom: divNode};
-domOutputSpec = {dom: divNode, contentDOM: parentDivNode};
+domOutputSpec = { dom: divNode };
+domOutputSpec = { dom: divNode, contentDOM: parentDivNode };
 
 export const nodeSpec: model.NodeSpec = {
     attrs: {
@@ -94,3 +94,33 @@ const res4_2: model.Node = res4_1.createAndFill()!;
 
 const res5_1 = new model.MarkType();
 const res5_2: model.Mark = res5_1.isInSet([])!;
+
+// ParseRule
+
+const rule: model.ParseRule = {};
+// $ExpectType boolean | null | undefined
+rule.consuming;
+
+const fragmentTests = () => {
+    const prosemirrorFragment = new model.Fragment();
+
+    // $ExpectType string
+    const textBetweenNoOptionalArgs = prosemirrorFragment.textBetween(1, 2);
+
+    // $ExpectType string
+    const textBetweenSeparatorArg = prosemirrorFragment.textBetween(1, 2, 'separator');
+
+    // $ExpectType string
+    const textBetweenNullSeparatorArg = prosemirrorFragment.textBetween(1, 2, null);
+
+    // $ExpectType string
+    const textBetweenSeparatorAndLeafArgs = prosemirrorFragment.textBetween(1, 2, 'separator', 'leaf');
+
+    // $ExpectType string
+    const textBetweenSeparatorAndNullLeafArgs = prosemirrorFragment.textBetween(1, 2, 'separator', null);
+
+    // $ExpectType string
+    const textBetweenLeafNodeCallbackArgs = prosemirrorFragment.textBetween(1, 2, null, leafNode => {
+        return leafNode.type.name === 'tag' ? leafNode.attrs.tagName : '';
+    });
+};

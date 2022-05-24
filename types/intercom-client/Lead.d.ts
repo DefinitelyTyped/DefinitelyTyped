@@ -49,5 +49,5 @@ export interface List {
   "type": "user.list",
   "total_count": number,
   "contacts": Lead[],
-  "pages": { "next"?: string, "page": number, "per_page": number, "total_pages": number }
+  "pages": { "next"?: string | undefined, "page": number, "per_page": number, "total_pages": number }
 }

@@ -29,7 +29,7 @@ interface ArcDatum {
     oRadius: number;
     sAngle: number;
     eAngle: number;
-    pAngle?: number;
+    pAngle?: number | undefined;
 }
 
 const arcDefaultDatum: d3Shape.DefaultArcObject = {
@@ -173,7 +173,7 @@ canvasArc(arcDefaultDatum);
 // use with svg
 
 const pArc: Selection<SVGPathElement, ArcDatum, any, any> = select<SVGPathElement, ArcDatum>('.arc-paths'); // mock
-const wrongArc1: Selection<SVGCircleElement, ArcDatum, any, any> = select<SVGCircleElement, ArcDatum>('.arc-paths'); // mock
+const wrongArc1: Selection<SVGTextElement, ArcDatum, any, any> = select<SVGTextElement, ArcDatum>('.arc-paths'); // mock
 const wrongArc2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.arc-paths'); // mock
 
 pArc.attr('d', svgArc);
@@ -893,8 +893,10 @@ curveGenerator.areaEnd();
 // Test factories --------------------------------------------------------------------
 
 curveFactory = d3Shape.curveBasis;
-curveFactory = d3Shape.curveBasisOpen;
 curveFactory = d3Shape.curveBasisClosed;
+curveFactory = d3Shape.curveBasisOpen;
+curveFactory = d3Shape.curveBumpX;
+curveFactory = d3Shape.curveBumpY;
 
 let curveBundleFactory: d3Shape.CurveBundleFactory;
 
@@ -978,8 +980,8 @@ declare const defaultLinkDatum: d3Shape.DefaultLinkObject;
 
 const pLink: Selection<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, any, any> =
     select<SVGPathElement, HierarchyPointLink<TreeNodeDatum>>('.link-paths'); // mock
-const wrongLink1: Selection<SVGCircleElement, HierarchyPointLink<TreeNodeDatum>, any, any> =
-    select<SVGCircleElement, HierarchyPointLink<TreeNodeDatum>>('.link-paths'); // mock
+const wrongLink1: Selection<SVGTextElement, HierarchyPointLink<TreeNodeDatum>, any, any> =
+    select<SVGTextElement, HierarchyPointLink<TreeNodeDatum>>('.link-paths'); // mock
 const wrongLink2: Selection<SVGPathElement, d3Shape.DefaultLinkObject, any, any> =
     select<SVGPathElement, d3Shape.DefaultLinkObject>('.link-paths'); // mock
 
@@ -1317,7 +1319,7 @@ const symbolDatum: SymbolDatum = {
 };
 
 const pSymbol: Selection<SVGPathElement, SymbolDatum, any, any> = select<SVGPathElement, SymbolDatum>('.symbol-path'); // mock
-const wrongSymbol1: Selection<SVGCircleElement, SymbolDatum, any, any> = select<SVGCircleElement, SymbolDatum>('.symbol-path'); // mock
+const wrongSymbol1: Selection<SVGTextElement, SymbolDatum, any, any> = select<SVGTextElement, SymbolDatum>('.symbol-path'); // mock
 const wrongSymbol2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.symbol-path'); // mock
 
 pSymbol.attr('d', svgSymbol);
@@ -1382,15 +1384,22 @@ pathStringMaybe = sym.getPathString({ size: 10, type: 'circle' });
 
 // Test pre-fab symbols ===============================================================
 
-const symbolArray: d3Shape.SymbolType[] = d3Shape.symbols;
+let symbolArray: d3Shape.SymbolType[] = d3Shape.symbolsFill;
+symbolArray = d3Shape.symbolsStroke;
 
+customSymbol = d3Shape.symbolAsterisk;
 customSymbol = d3Shape.symbolCircle;
 customSymbol = d3Shape.symbolCross;
 customSymbol = d3Shape.symbolDiamond;
+customSymbol = d3Shape.symbolDiamond2;
+customSymbol = d3Shape.symbolPlus;
 customSymbol = d3Shape.symbolSquare;
+customSymbol = d3Shape.symbolSquare2;
 customSymbol = d3Shape.symbolStar;
 customSymbol = d3Shape.symbolTriangle;
+customSymbol = d3Shape.symbolTriangle2;
 customSymbol = d3Shape.symbolWye;
+customSymbol = d3Shape.symbolX;
 
 // -----------------------------------------------------------------------------------
 // Test pointRadial

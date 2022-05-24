@@ -23,27 +23,27 @@ declare namespace docdown {
          *  The language indicator for code blocks.
          * @default 'js'
          */
-        lang?: string;
+        lang?: string | undefined;
         /**
          * Specify whether entries are sorted.
          * @default true
          */
-        sort?: boolean;
+        sort?: boolean | undefined;
         /**
          * The hash style for links ('default' or 'github').
          * @default 'default'
          */
-        style?: string;
+        style?: string | undefined;
         /**
          * The documentation title.
          * @default '<%= basename(options.path) %> API documentation'
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * The table of contents organization style ('categories' or 'properties').
          * @default 'properties'
          */
-        toc?: string;
+        toc?: string | undefined;
     }
 }
 

@@ -2,13 +2,13 @@ import { ComponentType } from 'react';
 
 declare namespace ContrastChecker {
     interface Props {
-        backgroundColor?: string;
-        children?: never;
-        fallbackBackgroundColor?: string;
-        fallbackTextColor?: string;
-        fontSize?: number;
-        isLargeText?: boolean;
-        textColor?: string;
+        backgroundColor?: string | undefined;
+        children?: never | undefined;
+        fallbackBackgroundColor?: string | undefined;
+        fallbackTextColor?: string | undefined;
+        fontSize?: number | undefined;
+        isLargeText?: boolean | undefined;
+        textColor?: string | undefined;
     }
 }
 declare const ContrastChecker: ComponentType<ContrastChecker.Props>;

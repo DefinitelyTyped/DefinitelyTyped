@@ -7,7 +7,7 @@ declare class Shape {
      * @param [opts] - Options for path drawing.
      * @see {@link https://progressbarjs.readthedocs.io/en/latest/api/shape/#new-shapecontainer-options}
      */
-    constructor(container: SVGPathElement | string | null, opts?: PathDrawingOptions);
+    constructor(container: HTMLElement | string | null, opts?: PathDrawingOptions);
     /**
      * Reference to SVG element where progress bar is drawn.
      */

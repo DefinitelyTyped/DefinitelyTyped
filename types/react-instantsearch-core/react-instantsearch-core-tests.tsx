@@ -1,39 +1,42 @@
 import * as React from 'react';
 import {
-  InstantSearch,
-  Index,
-  createConnector,
-  SearchResults,
-  connectStateResults,
-  SearchBoxProvided,
-  connectSearchBox,
-  connectRefinementList,
-  CurrentRefinementsProvided,
-  connectCurrentRefinements,
-  RefinementListProvided,
-  Refinement,
-  connectHighlight,
-  connectHits,
-  HighlightProvided,
-  HighlightProps,
-  AutocompleteProvided,
-  connectAutoComplete,
-  Hit,
-  TranslatableProvided,
-  translatable,
-  ConnectorProvided,
-  StateResultsProvided,
-  ConnectorSearchResults,
-  BasicDoc,
-  AllSearchResults,
-  connectStats,
-    StatsProvided,
+    AllSearchResults,
+    AutocompleteProvided,
+    BasicDoc,
+    connectAutoComplete,
+    connectCurrentRefinements,
+    connectHighlight,
     connectHitInsights,
-    InsightsClient,
     ConnectHitInsightsProvided,
+    connectHits,
+    ConnectorProvided,
+    ConnectorSearchResults,
+    connectRefinementList,
+    connectSearchBox,
+    connectStateResults,
+    connectStats,
+    connectDynamicWidgets,
+    createConnector,
+    CurrentRefinementsProvided,
+    HighlightProps,
+    HighlightProvided,
+    Hit,
+    Index,
+    InsightsClient,
+    InstantSearch,
+    Refinement,
+    RefinementListProvided,
+    SearchBoxProvided,
+    SearchResults,
+    StateResultsProvided,
+    StatsProvided,
+    translatable,
+    TranslatableProvided,
+    DynamicWidgetsProvided,
+    DynamicWidgets,
 } from 'react-instantsearch-core';
 
-import { Hits } from 'react-instantsearch-dom';
+import { Hits, RefinementList } from 'react-instantsearch-dom';
 
 () => {
   <Index indexName={'test'} indexId="id">
@@ -45,6 +48,7 @@ import { Hits } from 'react-instantsearch-dom';
 () => {
   const CoolWidget = createConnector({
     displayName: 'CoolWidget',
+    $$type: 'coolWidget',
 
     getProvidedProps(props, searchState) {
       // Since the `queryAndPage` searchState entry isn't necessarily defined, we need
@@ -55,6 +59,7 @@ import { Hits } from 'react-instantsearch-dom';
       return {
         query,
         page,
+        refine: (value: string) => this.refine(value),
       };
     },
 
@@ -94,7 +99,9 @@ import { Hits } from 'react-instantsearch-dom';
       */}
       <button onClick={() => props.refine('instantsearch', 15)} />
     </div>
-  ));
+  ), {
+      $$widgetType: 'coolWidget',
+  });
 
   <CoolWidget>
     <div></div>
@@ -165,7 +172,9 @@ import { Hits } from 'react-instantsearch-dom';
       */}
       <button onClick={() => props.refine('instantsearch', 15)} />
     </div>
-  ));
+  ), {
+    $$widgetType: 'typedCoolWidget',
+  });
 
   <TypedCoolWidgetStateless defaultRefinement={'asdf'} startAtPage={10} />;
 
@@ -442,16 +451,16 @@ import { Hits } from 'react-instantsearch-dom';
 () => {
   type Props = SearchBoxProvided &
     TranslatableProvided & {
-      className?: string;
-      showLoadingIndicator?: boolean;
+      className?: string | undefined;
+      showLoadingIndicator?: boolean | undefined;
 
-      submit?: JSX.Element;
-      reset?: JSX.Element;
-      loadingIndicator?: JSX.Element;
+      submit?: JSX.Element | undefined;
+      reset?: JSX.Element | undefined;
+      loadingIndicator?: JSX.Element | undefined;
 
-      onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-      onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-      onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
+      onSubmit?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+      onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+      onChange?: ((event: React.SyntheticEvent<HTMLInputElement>) => any) | undefined;
     };
   interface State {
     query: string | null;
@@ -626,6 +635,7 @@ import { Hits } from 'react-instantsearch-dom';
         isSearchStalled: searchResults.isSearchStalled,
         error: searchResults.error,
         searchingForFacetValues: searchResults.searchingForFacetValues,
+        queryID: results?.queryID,
         props,
       };
     },
@@ -645,19 +655,88 @@ import { Hits } from 'react-instantsearch-dom';
 };
 
 () => {
-    const HitComponent = ({ hit, insights }: ConnectHitInsightsProvided) => (
-        <button
-            onClick={() => {
-                insights('clickedObjectIDsAfterSearch', { eventName: 'hit clicked' });
-            }}
-        >
-            <article>
-                <h1>{hit.name}</h1>
-            </article>
-        </button>
+  const HitComponent = ({ hit, insights }: ConnectHitInsightsProvided) => (
+    <button
+      onClick={() => {
+        insights('clickedObjectIDsAfterSearch', { eventName: 'hit clicked' });
+      }}
+    >
+      <article>
+        <h1>{hit.name}</h1>
+      </article>
+    </button>
+  );
+
+  const HitWithInsights = connectHitInsights(() => {})(HitComponent);
+
+  <Hits hitComponent={HitWithInsights} />;
+};
+
+() => {
+  function getAttribute(component: React.ReactChild): string | undefined {
+    if (typeof component !== 'object') {
+      return undefined;
+    }
+
+    if (component.props.attribute) {
+      return component.props.attribute;
+    }
+    if (Array.isArray(component.props.attributes)) {
+      return component.props.attributes[0];
+    }
+    if (component.props.children) {
+      return getAttribute(React.Children.only(component.props.children));
+    }
+
+    return undefined;
+  }
+
+  const MyDynamicWidgets = ({
+    attributesToRender,
+    fallbackComponent: Fallback = () => null,
+    children
+  }: DynamicWidgetsProvided) => {
+    const widgets = new Map();
+
+    React.Children.forEach(children, (child) => {
+      const attribute = getAttribute(child as React.ReactChild);
+      if (!attribute) {
+        throw new Error('Could not find "attribute" prop');
+      }
+      widgets.set(attribute, child);
+    });
+
+    return (
+      <>
+        {attributesToRender.map((attribute) => (
+          <React.Fragment key={attribute}>
+            {widgets.get(attribute) || <Fallback attribute={attribute} />}
+          </React.Fragment>
+        ))}
+      </>
     );
+  };
 
-    const HitWithInsights = connectHitInsights(() => {})(HitComponent);
+  const ConnectedDynamicWidgets = connectDynamicWidgets(MyDynamicWidgets);
 
-    <Hits hitComponent={HitWithInsights} />;
+  <ConnectedDynamicWidgets
+    transformItems={item => item}
+    fallbackComponent={RefinementList}
+    facets={['*']}
+    maxValuesPerFacet={20}
+  >
+    <RefinementList attribute="brand" />
+  </ConnectedDynamicWidgets>;
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/dynamic-facets/react/
+  <DynamicWidgets
+    transformItems={item => item}
+    fallbackComponent={RefinementList}
+    facets={['*']}
+    maxValuesPerFacet={20}
+  >
+    <RefinementList attribute="brand"/>
+  </DynamicWidgets>;
 };

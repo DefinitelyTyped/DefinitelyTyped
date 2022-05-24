@@ -6,16 +6,16 @@
 
 declare module "graphlib" {
     export interface GraphOptions {
-        directed?: boolean;  // default: true.
-        multigraph?: boolean;  // default: false.
-        compound?: boolean;  // default: false.
+        directed?: boolean | undefined;  // default: true.
+        multigraph?: boolean | undefined;  // default: false.
+        compound?: boolean | undefined;  // default: false.
     }
 
     export interface Edge {
         v: string;
         w: string;
         /** The name that uniquely identifies a multi-edge. */
-        name?: string;
+        name?: string | undefined;
     }
 
     export class Graph {

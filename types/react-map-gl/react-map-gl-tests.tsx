@@ -172,16 +172,35 @@ class MyMap extends React.Component<{}, State> {
                 >
                     Jump to Null Point
                 </button>
+                <button
+                    onClick={() => {
+                        this.setState(prevState => ({
+                            viewport: {
+                                ...prevState.viewport,
+                                width: '100vw',
+                                height: '100vh',
+                            },
+                        }));
+                    }}
+                >
+                    Make map width and height of viewport
+                </button>
             </div>
         );
     }
 
-    private readonly setRefInteractive = (el: InteractiveMap) => {
+    private readonly setRefInteractive = (el: InteractiveMap | null) => {
+        if (el === null) {
+            return;
+        }
         this.map = el;
         this.mapboxMap = el.getMap();
     }
 
-    private readonly setRefStatic = (el: StaticMap) => {
+    private readonly setRefStatic = (el: StaticMap | null) => {
+        if (el === null) {
+            return;
+        }
         this.mapboxMap = el.getMap();
     }
 }

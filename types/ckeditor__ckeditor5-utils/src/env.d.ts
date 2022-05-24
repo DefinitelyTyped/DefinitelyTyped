@@ -1,19 +1,4 @@
 /**
- * Checks if User Agent represented by the string is running on Macintosh.
- *
- */
-export function isMac(userAgent: string): boolean;
-/**
- * Checks if User Agent represented by the string is Firefox (Gecko).
- *
- */
-export function isGecko(userAgent: string): boolean;
-/**
- * Checks if User Agent represented by the string is Safari.
- *
- */
-export function isSafari(userAgent: string): boolean;
-/**
  * Checks if User Agent represented by the string is Android mobile device.
  *
  */
@@ -24,19 +9,46 @@ export function isAndroid(userAgent: string): boolean;
  */
 export function isBlink(userAgent: string): boolean;
 /**
+ * Checks if User Agent represented by the string is Firefox (Gecko).
+ *
+ */
+export function isGecko(userAgent: string): boolean;
+/**
+ * Checks if User Agent represented by the string is running on Macintosh.
+ *
+ */
+export function isMac(userAgent: string): boolean;
+/**
  * Checks if the current environment supports ES2018 Unicode properties like `\p{P}` or `\p{L}`.
  * More information about unicode properties might be found
  * [in Unicode Standard Annex #44](https://www.unicode.org/reports/tr44/#GC_Values_Table).
  *
  */
 export function isRegExpUnicodePropertySupported(): boolean;
+/**
+ * Checks if User Agent represented by the string is Safari.
+ *
+ */
+export function isSafari(userAgent: string): boolean;
+
+/**
+ * Checks if User Agent represented by the string is running on Windows.
+ */
+export function isWindows(userAgent: string): boolean;
+
+/**
+ * Checks if User Agent represented by the string is running in iOS.
+ */
+export function isiOS(userAgent: string): boolean;
 
 interface Env {
     isMac: boolean;
+    isWindows: boolean;
     isGecko: boolean;
     isSafari: boolean;
     isAndroid: boolean;
     isBlink: boolean;
+    isiOS: boolean;
     features: {
         isRegExpUnicodePropertySupported: boolean;
     };

@@ -8,9 +8,9 @@ declare namespace humanparser {
         firstName: string;
         lastName: string;
         fullName: string;
-        suffix?: string;
-        middleName?: string;
-        salutation?: string;
+        suffix?: string | undefined;
+        middleName?: string | undefined;
+        salutation?: string | undefined;
     }
 
     interface FullerNameOutput {
@@ -26,7 +26,7 @@ declare namespace humanparser {
     }
 
     interface HumanparserStatic {
-        parseName (name: string): NameOutput;
+        parseName (name: string, ignoreSuffix?: string[]): NameOutput;
         getFullestName (name: string): FullerNameOutput;
         parseAddress (address: string): AddressOutput;
     }

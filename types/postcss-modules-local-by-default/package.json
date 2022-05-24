@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "postcss": "7.x.x"
+        "postcss": "^8.0.0"
     }
 }

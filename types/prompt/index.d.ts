@@ -1,6 +1,6 @@
 // Type definitions for prompt 1.1
 // Project: https://github.com/flatiron/prompt#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
+// Definitions by: Florian Imdahl <https://github.com/ffflorian>, Matthew Berryman <https://github.com/matthewberryman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -15,9 +15,9 @@ declare namespace prompt {
     type AskFunction = () => boolean;
 
     type RevalidatorSchema = Partial<Revalidator.ISchema<any>> & {
-        ask?: AskFunction;
-        name?: string;
-        raw?: [string, string];
+        ask?: AskFunction | undefined;
+        name?: string | undefined;
+        raw?: [string, string] | undefined;
     };
 
     interface Properties {
@@ -34,14 +34,14 @@ declare namespace prompt {
     }
 
     interface StartOptions {
-        allowEmpty?: boolean;
-        colors?: boolean;
-        delimiter?: string;
-        memory?: number;
-        message?: string;
-        noHandleSIGINT?: boolean;
-        stdin?: ReadStream;
-        stdout?: WriteStream;
+        allowEmpty?: boolean | undefined;
+        colors?: boolean | undefined;
+        delimiter?: string | undefined;
+        memory?: number | undefined;
+        message?: string | undefined;
+        noHandleSIGINT?: boolean | undefined;
+        stdin?: ReadStream | undefined;
+        stdout?: WriteStream | undefined;
     }
 }
 
@@ -63,10 +63,10 @@ declare class prompt extends EventEmitter {
         callback: prompt.GetCallback<prompt.Properties>,
     ): void;
     static get<T extends prompt.Properties>(
-        values: Array<keyof T | prompt.Schema | prompt.RevalidatorSchema>,
+        values: Array<keyof T | prompt.Schema | prompt.RevalidatorSchema> | prompt.Schema | prompt.RevalidatorSchema,
     ): Promise<T>;
     static get<T extends prompt.Properties>(
-        values: Array<keyof T | prompt.Schema | prompt.RevalidatorSchema>,
+        values: Array<keyof T | prompt.Schema | prompt.RevalidatorSchema> | prompt.Schema | prompt.RevalidatorSchema,
         callback: prompt.GetCallback<T>,
     ): void;
     static history(name?: string | number): prompt.History | null;

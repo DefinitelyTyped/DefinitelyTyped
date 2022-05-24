@@ -1,9 +1,5 @@
 declare module 'crypto' {
-    export * from 'node:crypto';
-}
-
-declare module 'node:crypto' {
-    import * as stream from 'node:stream';
+    import * as stream from 'stream';
 
     interface Certificate {
         exportChallenge(spkac: BinaryLike): Buffer;
@@ -116,7 +112,7 @@ declare module 'node:crypto' {
          * For XOF hash functions such as `shake256`, the
          * outputLength option can be used to specify the desired output length in bytes.
          */
-        outputLength?: number;
+        outputLength?: number | undefined;
     }
 
     /** @deprecated since v10.0.0 */
@@ -151,26 +147,27 @@ declare module 'node:crypto' {
     interface KeyExportOptions<T extends KeyFormat> {
         type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1';
         format: T;
-        cipher?: string;
-        passphrase?: string | Buffer;
+        cipher?: string | undefined;
+        passphrase?: string | Buffer | undefined;
     }
 
     class KeyObject {
         private constructor();
-        asymmetricKeyType?: KeyType;
+        asymmetricKeyType?: KeyType | undefined;
         /**
          * For asymmetric keys, this property represents the size of the embedded key in
          * bytes. This property is `undefined` for symmetric keys.
          */
-        asymmetricKeySize?: number;
+        asymmetricKeySize?: number | undefined;
         export(options: KeyExportOptions<'pem'>): string | Buffer;
         export(options?: KeyExportOptions<'der'>): Buffer;
-        symmetricKeySize?: number;
+        symmetricKeySize?: number | undefined;
         type: KeyObjectType;
     }
 
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
+    type CipherOCBTypes = 'aes-128-ocb' | 'aes-192-ocb' | 'aes-256-ocb';
 
     type BinaryLike = string | NodeJS.ArrayBufferView;
 
@@ -180,7 +177,10 @@ declare module 'node:crypto' {
         authTagLength: number;
     }
     interface CipherGCMOptions extends stream.TransformOptions {
-        authTagLength?: number;
+        authTagLength?: number | undefined;
+    }
+    interface CipherOCBOptions extends stream.TransformOptions {
+        authTagLength: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
     function createCipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): CipherCCM;
@@ -192,13 +192,19 @@ declare module 'node:crypto' {
     function createCipheriv(
         algorithm: CipherCCMTypes,
         key: CipherKey,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options: CipherCCMOptions,
     ): CipherCCM;
     function createCipheriv(
+        algorithm: CipherOCBTypes,
+        key: CipherKey,
+        iv: BinaryLike,
+        options: CipherOCBOptions,
+    ): CipherOCB;
+    function createCipheriv(
         algorithm: CipherGCMTypes,
         key: CipherKey,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options?: CipherGCMOptions,
     ): CipherGCM;
     function createCipheriv(
@@ -236,6 +242,10 @@ declare module 'node:crypto' {
         setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
+    interface CipherOCB extends Cipher {
+        setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
+        getAuthTag(): Buffer;
+    }
     /** @deprecated since v10.0.0 use createDecipheriv() */
     function createDecipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): DecipherCCM;
     /** @deprecated since v10.0.0 use createDecipheriv() */
@@ -246,13 +256,19 @@ declare module 'node:crypto' {
     function createDecipheriv(
         algorithm: CipherCCMTypes,
         key: BinaryLike,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options: CipherCCMOptions,
     ): DecipherCCM;
     function createDecipheriv(
+        algorithm: CipherOCBTypes,
+        key: BinaryLike,
+        iv: BinaryLike,
+        options: CipherOCBOptions,
+    ): DecipherOCB;
+    function createDecipheriv(
         algorithm: CipherGCMTypes,
         key: BinaryLike,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options?: CipherGCMOptions,
     ): DecipherGCM;
     function createDecipheriv(
@@ -290,18 +306,22 @@ declare module 'node:crypto' {
         setAuthTag(buffer: NodeJS.ArrayBufferView): this;
         setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
     }
+    interface DecipherOCB extends Decipher {
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
+    }
 
     interface PrivateKeyInput {
         key: string | Buffer;
-        format?: KeyFormat;
-        type?: 'pkcs1' | 'pkcs8' | 'sec1';
-        passphrase?: string | Buffer;
+        format?: KeyFormat | undefined;
+        type?: 'pkcs1' | 'pkcs8' | 'sec1' | undefined;
+        passphrase?: string | Buffer | undefined;
     }
 
     interface PublicKeyInput {
         key: string | Buffer;
-        format?: KeyFormat;
-        type?: 'pkcs1' | 'spki';
+        format?: KeyFormat | undefined;
+        type?: 'pkcs1' | 'spki' | undefined;
     }
 
     function createPrivateKey(key: PrivateKeyInput | string | Buffer): KeyObject;
@@ -316,9 +336,9 @@ declare module 'node:crypto' {
         /**
          * @See crypto.constants.RSA_PKCS1_PADDING
          */
-        padding?: number;
-        saltLength?: number;
-        dsaEncoding?: DSAEncoding;
+        padding?: number | undefined;
+        saltLength?: number | undefined;
+        dsaEncoding?: DSAEncoding | undefined;
     }
 
     interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {}
@@ -447,13 +467,13 @@ declare module 'node:crypto' {
     ): void;
 
     interface ScryptOptions {
-        cost?: number;
-        blockSize?: number;
-        parallelization?: number;
-        N?: number;
-        r?: number;
-        p?: number;
-        maxmem?: number;
+        cost?: number | undefined;
+        blockSize?: number | undefined;
+        parallelization?: number | undefined;
+        N?: number | undefined;
+        r?: number | undefined;
+        p?: number | undefined;
+        maxmem?: number | undefined;
     }
     function scrypt(
         password: BinaryLike,
@@ -472,17 +492,17 @@ declare module 'node:crypto' {
 
     interface RsaPublicKey {
         key: KeyLike;
-        padding?: number;
+        padding?: number | undefined;
     }
     interface RsaPrivateKey {
         key: KeyLike;
-        passphrase?: string;
+        passphrase?: string | undefined;
         /**
          * @default 'sha1'
          */
-        oaepHash?: string;
-        oaepLabel?: NodeJS.TypedArray;
-        padding?: number;
+        oaepHash?: string | undefined;
+        oaepLabel?: NodeJS.TypedArray | undefined;
+        padding?: number | undefined;
     }
     function publicEncrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
     function publicDecrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
@@ -528,8 +548,8 @@ declare module 'node:crypto' {
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
-        cipher?: string;
-        passphrase?: string;
+        cipher?: string | undefined;
+        passphrase?: string | undefined;
     }
 
     interface KeyPairKeyObjectResult {
@@ -577,7 +597,7 @@ declare module 'node:crypto' {
         /**
          * @default 0x10001
          */
-        publicExponent?: number;
+        publicExponent?: number | undefined;
     }
 
     interface DSAKeyPairKeyObjectOptions {
@@ -600,7 +620,7 @@ declare module 'node:crypto' {
         /**
          * @default 0x10001
          */
-        publicExponent?: number;
+        publicExponent?: number | undefined;
 
         publicKeyEncoding: {
             type: 'pkcs1' | 'spki';

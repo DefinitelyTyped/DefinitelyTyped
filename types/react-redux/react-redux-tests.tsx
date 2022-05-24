@@ -1,13 +1,12 @@
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
     Store,
     Dispatch,
-    AnyAction,
     ActionCreator,
     createStore,
     bindActionCreators,
-    ActionCreatorsMapObject,
     Reducer,
 } from 'redux';
 import {
@@ -17,7 +16,6 @@ import {
     Provider,
     DispatchProp,
     MapStateToProps,
-    Options,
     ReactReduxContext,
     ReactReduxContextValue,
     Selector,
@@ -350,6 +348,56 @@ function MapStateFactoryAndDispatchFactory() {
     const verify = <Test foo='bar' />;
 }
 
+function MapNothingAndMerge() {
+    interface OwnProps { foo: string; }
+    interface MergedProps { onClick: () => void; }
+
+    class TestComponent extends React.Component<MergedProps> { }
+
+    const actionCreator = (foo: string) => ({ type: 'AN_ACTION', foo });
+
+    const mergeProps = (stateProps: undefined, { dispatch }: DispatchProp, ownProps: OwnProps) => (
+        { onClick: () => dispatch(actionCreator(ownProps.foo)) }
+    );
+
+    const Test = connect(
+        null,
+        null,
+        mergeProps
+    )(TestComponent);
+
+    const verify = <Test foo='bar' />;
+}
+
+function MapStateAndMerge() {
+    interface OwnProps { foo: string; }
+    interface StateProps { bar: number; }
+    interface MergedProps {
+        bar: number;
+        onClick: () => void;
+    }
+
+    class TestComponent extends React.Component<MergedProps> { }
+
+    const actionCreator = (foo: string) => ({ type: 'AN_ACTION', foo });
+
+    const mapStateToProps = (stateProps: StateProps, ownProps: OwnProps) => ({
+        bar: 1
+    });
+
+    const mergeProps = (stateProps: StateProps, { dispatch }: DispatchProp, ownProps: OwnProps) => (
+        { ...stateProps, onClick: () => dispatch(actionCreator(ownProps.foo)) }
+    );
+
+    const Test = connect(
+        mapStateToProps,
+        null,
+        mergeProps
+    )(TestComponent);
+
+    const verify = <Test foo='bar' />;
+}
+
 function MapStateAndDispatchAndMerge() {
     interface OwnProps { foo: string; }
     interface StateProps { bar: number; }
@@ -478,7 +526,7 @@ const targetEl = document.getElementById('root');
 
 ReactDOM.render((
     <Provider store={store}>
-        {() => <App />}
+        <App />
     </Provider>
 ), targetEl);
 
@@ -510,14 +558,14 @@ declare var counterActionCreators: { [type: string]: (...args: any[]) => any; };
 
 ReactDOM.render(
     <Provider store={store}>
-        {() => <MyRootComponent />}
+        <MyRootComponent />
     </Provider>,
     document.body
 );
 
 // Inject just dispatch and don't listen to store
 
-const AppWrap = (props: DispatchProp & { children?: React.ReactNode }) => <div />;
+const AppWrap = (props: DispatchProp & { children?: React.ReactNode | undefined }) => <div />;
 const WrappedApp = connect()(AppWrap);
 
 <WrappedApp />;
@@ -604,7 +652,7 @@ connect(undefined, mapDispatchToProps6)(TodoApp);
 
 interface TestProp {
     property1: number;
-    someOtherProperty?: string;
+    someOtherProperty?: string | undefined;
 }
 interface TestState {
     isLoaded: boolean;
@@ -625,7 +673,7 @@ interface HelloMessageProps {
     dispatch: Dispatch;
     name: string;
 }
-const HelloMessage: React.StatelessComponent<HelloMessageProps> = (props) => {
+const HelloMessage: React.FunctionComponent<HelloMessageProps> = (props) => {
     return <div>Hello {props.name}</div>;
 };
 const ConnectedHelloMessage = connect()(HelloMessage);
@@ -889,7 +937,7 @@ function TestDispatchToPropsAsObject() {
     };
 
     type Props = { title: string; } & typeof dispatchToProps;
-    const HeaderComponent: React.StatelessComponent<Props> = (props) => {
+    const HeaderComponent: React.FunctionComponent<Props> = (props) => {
         return <h1>{props.title}</h1>;
     };
 
@@ -947,7 +995,7 @@ function TestWrappedComponent() {
     interface InnerProps {
         name: string;
     }
-    const Inner: React.StatelessComponent<InnerProps> = (props) => {
+    const Inner: React.FunctionComponent<InnerProps> = (props) => {
         return <h1>{props.name}</h1>;
     };
 
@@ -984,7 +1032,7 @@ function TestWithoutTOwnPropsDecoratedInference() {
         }
     }
 
-    const WithoutOwnPropsComponentStateless: React.StatelessComponent<ForwardedProps & StateProps & DispatchProp<any>> = () => (<div />);
+    const WithoutOwnPropsComponentStateless: React.FunctionComponent<ForwardedProps & StateProps & DispatchProp<any>> = () => (<div />);
 
     function mapStateToProps4(state: any, ownProps: OwnProps): StateProps {
         return { state: 'string' };
@@ -1053,8 +1101,8 @@ function TestOptionalPropsMergedCorrectly() {
     interface OptionalDecorationProps {
         foo: string;
         bar: number;
-        optionalProp?: boolean;
-        dependsOnDispatch?: () => void;
+        optionalProp?: boolean | undefined;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     class Component extends React.Component<OptionalDecorationProps> {
@@ -1097,8 +1145,8 @@ function TestMoreGeneralDecorationProps() {
     interface MoreGeneralDecorationProps {
         foo: string | number;
         bar: number | 'foo';
-        optionalProp?: boolean | object;
-        dependsOnDispatch?: () => void;
+        optionalProp?: boolean | object | undefined;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     class Component extends React.Component<MoreGeneralDecorationProps> {
@@ -1150,11 +1198,11 @@ function TestFailsMoreSpecificInjectedProps() {
     interface MapStateProps {
         foo: string | number;
         bar: number | 'foo';
-        dependsOnDispatch?: () => void;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     interface MapDispatchProps {
-        dependsOnDispatch?: () => void;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     function mapStateToProps(state: any): MapStateProps {
@@ -1185,6 +1233,11 @@ function TestLibraryManagedAttributes() {
         fn: () => void;
     }
 
+    interface ExternalOwnProps {
+        bar?: number | undefined;
+        fn: () => void;
+    }
+
     interface MapStateProps {
         foo: string;
     }
@@ -1208,8 +1261,43 @@ function TestLibraryManagedAttributes() {
     const ConnectedComponent = connect(mapStateToProps)(Component);
     <ConnectedComponent fn={() => { }} />;
 
-    const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
+    const ConnectedComponent2 = connect<MapStateProps, void, ExternalOwnProps>(mapStateToProps)(Component);
     <ConnectedComponent2 fn={() => { }} />;
+}
+
+function TestPropTypes() {
+    interface OwnProps {
+        bar: number;
+        fn: () => void;
+    }
+
+    interface MapStateProps {
+        foo: string;
+    }
+
+    class Component extends React.Component<OwnProps & MapStateProps> {
+        static propTypes = {
+            foo: PropTypes.string.isRequired,
+            bar: PropTypes.number.isRequired,
+            fn: PropTypes.func.isRequired,
+        };
+
+        render() {
+            return <div />;
+        }
+    }
+
+    function mapStateToProps(state: any): MapStateProps {
+        return {
+            foo: 'foo',
+        };
+    }
+
+    const ConnectedComponent = connect(mapStateToProps)(Component);
+    <ConnectedComponent fn={() => { }} bar={0} />;
+
+    const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
+    <ConnectedComponent2 fn={() => { }} bar={0} />;
 }
 
 function TestNonReactStatics() {
@@ -1281,7 +1369,7 @@ function TestProviderContext() {
 }
 
 function TestSelector() {
-    interface OwnProps { key?: string; }
+    interface OwnProps { key?: string | undefined; }
     interface State { key: string; }
 
     const simpleSelect: Selector<State, string> = (state: State) => state.key;
@@ -1515,7 +1603,7 @@ function testRef() {
     const classLegacyRef: React.LegacyRef<ClassComponent> | undefined = undefined;
     <ConnectedClassComponent ref={classLegacyRef}></ConnectedClassComponent>;
     <ConnectedClassComponent ref={React.createRef<ClassComponent>()}></ConnectedClassComponent>;
-    <ConnectedClassComponent ref={(ref: ClassComponent) => {}}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={(ref: ClassComponent | null) => {}}></ConnectedClassComponent>;
     <ConnectedClassComponent ref={''}></ConnectedClassComponent>;
     // ref type should be the typeof the wrapped component
     <ConnectedClassComponent ref={React.createRef<string>()}></ConnectedClassComponent>; // $ExpectError
@@ -1559,4 +1647,26 @@ function testPreserveDiscriminatedUnions() {
     <ConnectedMyText type="plain" color="red" params={someParams} />; // $ExpectError
     <ConnectedMyText type="localized" color="red" />; // $ExpectError
     <ConnectedMyText type="localized" color="red" params={someParams} />;
+}
+
+/**
+ * The `withStyles` HOC in MUI returns a `JSXElementConstructor` instead of a `ComponentType` as of
+ * https://github.com/mui/material-ui/pull/24746.
+ */
+interface Props {
+    foo: number;
+    bar: boolean;
+}
+declare const TestComponentJSXElementConstructorIsAllowed: React.JSXElementConstructor<Props>;
+
+function testJSXElementConstructorIsAllowed() {
+    interface StoreState {
+        stateThings: number;
+    }
+    const mapStateToProps = (state: StoreState) => ({
+        foo: state.stateThings,
+    });
+
+    const ConnectedComponent = connect(mapStateToProps)(TestComponentJSXElementConstructorIsAllowed);
+    <ConnectedComponent bar />;
 }

@@ -1,8 +1,6 @@
 // Type definitions for Express 4.17
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Michał Lytek <https://github.com/19majkel94>
-//                 Kacper Polak <https://github.com/kacepe>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
 //                 Jose Luis Leon <https://github.com/JoseLion>
@@ -28,6 +26,8 @@ import * as http from 'http';
 import { EventEmitter } from 'events';
 import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from 'range-parser';
 import { ParsedQs } from 'qs';
+
+export {};
 
 export type Query = ParsedQs;
 
@@ -96,10 +96,59 @@ export type RequestHandlerParams<
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
+type RemoveTail<S extends string, Tail extends string> = S extends `${infer P}${Tail}` ? P : S;
+type GetRouteParameter<S extends string> = RemoveTail<
+    RemoveTail<RemoveTail<S, `/${string}`>, `-${string}`>,
+    `.${string}`
+>;
+
+// prettier-ignore
+export type RouteParameters<Route extends string> = string extends Route
+    ? ParamsDictionary
+    : Route extends `${string}(${string}`
+        ? ParamsDictionary //TODO: handling for regex parameters
+        : Route extends `${string}:${infer Rest}`
+            ? (
+            GetRouteParameter<Rest> extends never
+                ? ParamsDictionary
+                : GetRouteParameter<Rest> extends `${infer ParamName}?`
+                    ? { [P in ParamName]?: string }
+                    : { [P in GetRouteParameter<Rest>]: string }
+            ) &
+            (Rest extends `${GetRouteParameter<Rest>}${infer Next}`
+                ? RouteParameters<Next> : unknown)
+            : {};
+
 export interface IRouterMatcher<
     T,
     Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any
 > {
+    <
+        Route extends string,
+        P = RouteParameters<Route>,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends Record<string, any> = Record<string, any>
+    >(
+        // tslint:disable-next-line no-unnecessary-generics (it's used as the default type parameter for P)
+        path: Route,
+        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
+    ): T;
+    <
+        Path extends string,
+        P = RouteParameters<Path>,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends Record<string, any> = Record<string, any>
+    >(
+        // tslint:disable-next-line no-unnecessary-generics (it's used as the default type parameter for P)
+        path: Path,
+        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
+    ): T;
     <
         P = ParamsDictionary,
         ResBody = any,
@@ -125,9 +174,29 @@ export interface IRouterMatcher<
     (path: PathParams, subApplication: Application): T;
 }
 
-export interface IRouterHandler<T> {
-    (...handlers: RequestHandler[]): T;
-    (...handlers: RequestHandlerParams[]): T;
+export interface IRouterHandler<T, Route extends string = string> {
+    (...handlers: Array<RequestHandler<RouteParameters<Route>>>): T;
+    (...handlers: Array<RequestHandlerParams<RouteParameters<Route>>>): T;
+    <
+        P = RouteParameters<Route>,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends Record<string, any> = Record<string, any>
+        >(
+        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
+    ): T;
+    <
+        P = RouteParameters<Route>,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends Record<string, any> = Record<string, any>
+        >(
+        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
+    ): T;
     <
         P = ParamsDictionary,
         ResBody = any,
@@ -221,6 +290,7 @@ export interface IRouter extends RequestHandler {
 
     use: IRouterHandler<this> & IRouterMatcher<this>;
 
+    route<T extends string>(prefix: T): IRoute<T>;
     route(prefix: PathParams): IRoute;
     /**
      * Stack of configured routes
@@ -228,48 +298,48 @@ export interface IRouter extends RequestHandler {
     stack: any[];
 }
 
-export interface IRoute {
+export interface IRoute<Route extends string = string> {
     path: string;
     stack: any;
-    all: IRouterHandler<this>;
-    get: IRouterHandler<this>;
-    post: IRouterHandler<this>;
-    put: IRouterHandler<this>;
-    delete: IRouterHandler<this>;
-    patch: IRouterHandler<this>;
-    options: IRouterHandler<this>;
-    head: IRouterHandler<this>;
+    all: IRouterHandler<this, Route>;
+    get: IRouterHandler<this, Route>;
+    post: IRouterHandler<this, Route>;
+    put: IRouterHandler<this, Route>;
+    delete: IRouterHandler<this, Route>;
+    patch: IRouterHandler<this, Route>;
+    options: IRouterHandler<this, Route>;
+    head: IRouterHandler<this, Route>;
 
-    checkout: IRouterHandler<this>;
-    copy: IRouterHandler<this>;
-    lock: IRouterHandler<this>;
-    merge: IRouterHandler<this>;
-    mkactivity: IRouterHandler<this>;
-    mkcol: IRouterHandler<this>;
-    move: IRouterHandler<this>;
-    'm-search': IRouterHandler<this>;
-    notify: IRouterHandler<this>;
-    purge: IRouterHandler<this>;
-    report: IRouterHandler<this>;
-    search: IRouterHandler<this>;
-    subscribe: IRouterHandler<this>;
-    trace: IRouterHandler<this>;
-    unlock: IRouterHandler<this>;
-    unsubscribe: IRouterHandler<this>;
+    checkout: IRouterHandler<this, Route>;
+    copy: IRouterHandler<this, Route>;
+    lock: IRouterHandler<this, Route>;
+    merge: IRouterHandler<this, Route>;
+    mkactivity: IRouterHandler<this, Route>;
+    mkcol: IRouterHandler<this, Route>;
+    move: IRouterHandler<this, Route>;
+    'm-search': IRouterHandler<this, Route>;
+    notify: IRouterHandler<this, Route>;
+    purge: IRouterHandler<this, Route>;
+    report: IRouterHandler<this, Route>;
+    search: IRouterHandler<this, Route>;
+    subscribe: IRouterHandler<this, Route>;
+    trace: IRouterHandler<this, Route>;
+    unlock: IRouterHandler<this, Route>;
+    unsubscribe: IRouterHandler<this, Route>;
 }
 
 export interface Router extends IRouter {}
 
 export interface CookieOptions {
-    maxAge?: number;
-    signed?: boolean;
-    expires?: Date;
-    httpOnly?: boolean;
-    path?: string;
-    domain?: string;
-    secure?: boolean;
-    encode?: (val: string) => string;
-    sameSite?: boolean | 'lax' | 'strict' | 'none';
+    maxAge?: number | undefined;
+    signed?: boolean | undefined;
+    expires?: Date | undefined;
+    httpOnly?: boolean | undefined;
+    path?: string | undefined;
+    domain?: string | undefined;
+    secure?: boolean | undefined;
+    encode?: ((val: string) => string) | undefined;
+    sameSite?: boolean | 'lax' | 'strict' | 'none' | undefined;
 }
 
 export interface ByteRange {
@@ -573,8 +643,8 @@ export interface Request<
      * After middleware.init executed, Request will contain res and next properties
      * See: express/lib/middleware/init.js
      */
-    res?: Response<ResBody, Locals>;
-    next?: NextFunction;
+    res?: Response<ResBody, Locals> | undefined;
+    next?: NextFunction | undefined;
 }
 
 export interface MediaType {
@@ -847,7 +917,7 @@ export interface Response<
     get(field: string): string;
 
     /** Clear cookie `name`. */
-    clearCookie(name: string, options?: any): this;
+    clearCookie(name: string, options?: CookieOptions): this;
 
     /**
      * Set cookie `name` to `val`, with the given `options`.
@@ -961,7 +1031,7 @@ export interface Response<
      * After middleware.init executed, Response will contain req property
      * See: express/lib/middleware/init.js
      */
-    req?: Request;
+    req: Request;
 }
 
 export interface Handler extends RequestHandler {}
@@ -972,7 +1042,9 @@ export type ApplicationRequestHandler<T> = IRouterHandler<T> &
     IRouterMatcher<T> &
     ((...handlers: RequestHandlerParams[]) => T);
 
-export interface Application extends EventEmitter, IRouter, Express.Application {
+export interface Application<
+    Locals extends Record<string, any> = Record<string, any>
+> extends EventEmitter, IRouter, Express.Application {
     /**
      * Express instance itself is a request handler, which could be invoked without
      * third argument.
@@ -1138,7 +1210,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
 
     map: any;
 
-    locals: Record<string, any>;
+    locals: Locals;
 
     /**
      * The app.routes object houses all of the routes defined mapped by the

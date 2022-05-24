@@ -20,12 +20,12 @@ interface Owner {
 interface MessageModel {
   body: string;
   message_type: string;
-  subject?: string;
+  subject?: string | undefined;
 }
 
 export interface CreateMessage extends MessageModel {
   from: FromToObject;
-  template?: string;
+  template?: string | undefined;
   to: FromToObject;
 }
 

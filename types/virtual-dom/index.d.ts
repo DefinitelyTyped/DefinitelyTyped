@@ -12,7 +12,7 @@ declare namespace VirtualDOM {
   type EventHandler = (...args: any[]) => void;
 
   interface VProperties {
-    attributes?: {[index: string]: string};
+    attributes?: {[index: string]: string} | undefined;
     /**
     I would like to use {[index: string]: string}, but then we couldn't use an
     object literal when setting the styles, since TypeScript doesn't seem to
@@ -31,8 +31,8 @@ declare namespace VirtualDOM {
     tagName: string;
     properties: VProperties;
     children: VTree[];
-    key?: string;
-    namespace?: string;
+    key?: string | undefined;
+    namespace?: string | undefined;
     count: number;
     hasWidgets: boolean;
     hasThunks: boolean;
@@ -96,12 +96,12 @@ declare namespace VirtualDOM {
   type PatchFn<T extends Element> = (rootNode: T, patches: VPatch[], renderOptions: VPatchOptions<T>) => T;
 
   interface VPatchOptions<T extends Element> {
-    patch?: PatchFn<T>;
+    patch?: PatchFn<T> | undefined;
   }
 
   interface createProperties extends VProperties {
-    key?: string;
-    namespace?: string;
+    key?: string | undefined;
+    namespace?: string | undefined;
   }
 
   type VChild = VTree[] | VTree | string[] | string;
@@ -110,8 +110,8 @@ declare namespace VirtualDOM {
   create() calls either document.createElement() or document.createElementNS(),
   for which the common denominator is Element (not HTMLElement).
   */
-  function create(vnode: VText, opts?: {document?: Document; warn?: boolean}): Text;
-  function create(vnode: VNode | Widget | Thunk, opts?: {document?: Document; warn?: boolean}): Element;
+  function create(vnode: VText, opts?: {document?: Document | undefined; warn?: boolean | undefined}): Text;
+  function create(vnode: VNode | Widget | Thunk, opts?: {document?: Document | undefined; warn?: boolean | undefined}): Element;
   function h(tagName: string, properties: createProperties, children: string | VChild[]): VNode;
   function h(tagName: string, children: string | VChild[]): VNode;
   function diff(left: VTree, right: VTree): VPatch[];

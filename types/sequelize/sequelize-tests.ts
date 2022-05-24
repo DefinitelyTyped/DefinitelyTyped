@@ -42,14 +42,14 @@ s.transaction().then( ( a ) => t = a );
 //
 
 interface GUserCreationAttributes {
-    id? : number
-    username? : string;
+    id? : number | undefined
+    username? : string | undefined;
     email: string;
 }
 
 interface GUserAttributes {
     id : number;
-    username? : string;
+    username? : string | undefined;
     email: string;
 }
 
@@ -70,8 +70,8 @@ var schema : Sequelize.DefineAttributes = {
 s.define('user', schema);
 
 interface GTaskAttributes {
-    revision? : number;
-    name? : string;
+    revision? : number | undefined;
+    name? : string | undefined;
 }
 interface GTaskInstance extends Sequelize.Instance<GTaskAttributes> {
   upRevision(): void;
@@ -376,9 +376,9 @@ customer.countBranches({ scope: 'baz' }).then((result: number) => { });
 
 
 interface ProductAttributes {
-    id?: number;
-    name?: string;
-    price?: number;
+    id?: number | undefined;
+    name?: string | undefined;
+    price?: number | undefined;
 };
 
 interface ProductInstance extends Sequelize.Instance<ProductAttributes>, ProductAttributes {
@@ -394,9 +394,9 @@ interface ProductInstance extends Sequelize.Instance<ProductAttributes>, Product
 };
 
 interface BarcodeAttributes {
-    id?: number;
-    code?: string;
-    dateIssued?: Date;
+    id?: number | undefined;
+    code?: string | undefined;
+    dateIssued?: Date | undefined;
 };
 
 interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, BarcodeAttributes {
@@ -407,9 +407,9 @@ interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, Barcode
 };
 
 interface WarehouseAttributes {
-    id?: number;
-    address?: string;
-    capacity?: number;
+    id?: number | undefined;
+    address?: string | undefined;
+    capacity?: number | undefined;
 };
 
 interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, WarehouseAttributes {
@@ -439,9 +439,9 @@ interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, War
 };
 
 interface BranchAttributes {
-    id?: number;
-    address?: string;
-    rank?: number;
+    id?: number | undefined;
+    address?: string | undefined;
+    rank?: number | undefined;
 };
 
 interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAttributes {
@@ -471,15 +471,15 @@ interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAtt
 };
 
 interface WarehouseBranchAttributes {
-    distance?: number;
+    distance?: number | undefined;
 };
 
 interface WarehouseBranchInstance extends Sequelize.Instance<WarehouseBranchAttributes>, WarehouseBranchAttributes { };
 
 interface CustomerAttributes {
-    id?: number;
-    fullname?: string;
-    credit?: number;
+    id?: number | undefined;
+    fullname?: string | undefined;
+    credit?: number | undefined;
 };
 
 interface CustomerInstance extends Sequelize.Instance<CustomerAttributes>, CustomerAttributes {
@@ -944,6 +944,7 @@ User.findAll( {
 } );
 User.findAll( { paranoid : false, where : [' IS NOT NULL '], include : [{ model : User }] } );
 User.findAll( { include : [{ model : Task, paranoid: false }] } );
+User.findAll( { include : { model : Task, include: Task, paranoid: false } } );
 User.findAll( { transaction : t } );
 User.findAll( { where : { data : { name : { last : 's' }, employment : { $ne : 'a' } } }, order : [['id', 'ASC']] } );
 User.findAll( { where : { username : ['boo', 'boo2'] } } );
@@ -1113,6 +1114,7 @@ User.count( { transaction : t } );
 User.count().then( function( c ) { c.toFixed(); } );
 User.count( { where : ["username LIKE '%us%'"] } );
 User.count( { include : [{ model : User, required : false }] } );
+User.count( { include : User } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
 User.count( { attributes : ['data'], group : ['data'] } );
 User.count( { where : { access_level : { gt : 5 } } } );
@@ -1205,6 +1207,7 @@ User.update( { username : 'Bill', secretValue : '43' }, { where : { secretValue 
 User.update( { username : s.cast( '1', 'char' ) }, { where : { username : 'John' } } );
 User.update( { username : s.fn( 'upper', s.col( 'username' ) ) }, { where : { username : 'John' } } );
 User.update( { username : 'Bill' }, { where : { secretValue : '42' }, returning : true } );
+User.update( { deletedAt : new Date() }, { where : { username : 'dan', deleted_at: null } } );
 User.update( { secretValue : '43' }, { where : { username : 'Peter' }, limit : 1 } );
 User.update( { name : Math.random().toString() }, { where : { id : '1' } } );
 User.update( { a : { b : 10, c : 'd' } }, { where : { username : 'Jan' }, sideEffects : false } );

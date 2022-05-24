@@ -68,7 +68,7 @@ export interface EventAbi {
 export interface DataItem {
     name: string;
     type: string;
-    components?: DataItem[];
+    components?: DataItem[] | undefined;
 }
 
 export enum OpCode {
@@ -175,12 +175,12 @@ export interface Transaction {
 }
 
 export interface CallTxDataBase {
-    to?: string;
-    value?: number | string | BigNumber;
-    gas?: number | string | BigNumber;
-    gasPrice?: number | string | BigNumber;
-    data?: string;
-    nonce?: number;
+    to?: string | undefined;
+    value?: number | string | BigNumber | undefined;
+    gas?: number | string | BigNumber | undefined;
+    gasPrice?: number | string | BigNumber | undefined;
+    data?: string | undefined;
+    nonce?: number | undefined;
 }
 
 export interface TxData extends CallTxDataBase {
@@ -188,14 +188,14 @@ export interface TxData extends CallTxDataBase {
 }
 
 export interface CallData extends CallTxDataBase {
-    from?: string;
+    from?: string | undefined;
 }
 
 export interface FilterObject {
-    fromBlock?: number | string;
-    toBlock?: number | string;
-    address?: string;
-    topics?: LogTopic[];
+    fromBlock?: number | string | undefined;
+    toBlock?: number | string | undefined;
+    address?: string | undefined;
+    topics?: LogTopic[] | undefined;
 }
 
 export type LogTopic = null | string | string[];
@@ -225,7 +225,7 @@ export interface LogEntry {
 }
 
 export interface TxDataPayable extends TxData {
-    value?: BigNumber;
+    value?: BigNumber | undefined;
 }
 
 export interface TransactionReceipt {
@@ -287,7 +287,7 @@ export interface TransactionReceiptWithDecodedLogs extends TransactionReceipt {
 }
 
 export interface TraceParams {
-    disableMemory?: boolean;
-    disableStack?: boolean;
-    disableStorage?: boolean;
+    disableMemory?: boolean | undefined;
+    disableStack?: boolean | undefined;
+    disableStorage?: boolean | undefined;
 }

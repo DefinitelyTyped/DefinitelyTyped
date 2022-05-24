@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.2
+// Type definitions for Screeps 3.3
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -9,7 +9,7 @@
 //                 Skyler Kehren <https://github.com/pyrodogg>
 //                 Kieran Carnegie <https://github.com/kotarou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 4.6
 
 // Please contribute types to https://github.com/screepers/typed-screeps
 
@@ -108,7 +108,7 @@ declare const OBSTACLE_OBJECT_TYPES: [
     "terminal",
     "nuker",
     "factory",
-    "invaderCore"
+    "invaderCore",
 ];
 
 declare const ENERGY_REGEN_TIME: 300;
@@ -1453,7 +1453,7 @@ interface Flag extends RoomObject {
      *
      * You can choose the name while creating a new flag, and it cannot be changed later.
      *
-     * This name is a hash key to access the spawn via the `Game.flags` object. The maximum name length is 60 characters.
+     * This name is a hash key to access the flag via the `Game.flags` object. The maximum name length is 60 characters.
      */
     name: string;
     /**
@@ -1567,16 +1567,8 @@ interface Game {
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T>(id: Id<T>): T | null;
-
-    /**
-     * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
-     * @param id The unique identifier.
-     * @returns an object instance or null if it cannot be found.
-     * @deprecated Use Id<T>, instead of strings, to increase type safety
-     */
-    // tslint:disable-next-line:unified-signatures
-    getObjectById<T>(id: string): T | null;
+    getObjectById<T extends Id<_HasId>>(id: T): fromId<T> | null;
+    getObjectById<T extends _HasId>(id: Id<T>): T | null;
 
     /**
      * Send a custom message at your profile email.
@@ -1706,7 +1698,7 @@ interface CPU {
      */
     halt?(): never;
     /**
-     * Generate 1 pixel resource unit for 5000 CPU from your bucket.
+     * Generate 1 pixel resource unit for 10000 CPU from your bucket.
      */
     generatePixel(): OK | ERR_NOT_ENOUGH_RESOURCES;
 
@@ -1905,7 +1897,8 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?(roomName: string, costMatrix: CostMatrix): void | CostMatrix;
+    // tslint:disable-next-line: invalid-void
+    costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
@@ -2014,7 +2007,7 @@ interface _Constructor<T> {
     readonly prototype: T;
 }
 
-interface _ConstructorById<T> extends _Constructor<T> {
+interface _ConstructorById<T extends _HasId> extends _Constructor<T> {
     new (id: Id<T>): T;
     (id: Id<T>): T;
 }
@@ -2026,7 +2019,8 @@ declare namespace Tag {
         private [OpaqueTagSymbol]: T;
     }
 }
-type Id<T> = string & Tag.OpaqueTag<T>;
+type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
+type fromId<T> = T extends Id<infer R> ? R : never;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  * Your script is executed separatedly on each shard, and their `Memory` objects are isolated from each other.
@@ -2180,10 +2174,10 @@ type FIND_RUINS = 123;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant> {
-    filter: FilterFunction<T> | FilterObject | string;
+interface FilterOptions<T extends FindConstant, S extends FindTypes[T] = FindTypes[T]> {
+    filter: FilterFunction<FindTypes[T], S> | FilterObject | string;
 }
-type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
+type FilterFunction<T, S extends T> = (object: T) => object is S;
 interface FilterObject {
     [key: string]: any;
 }
@@ -2965,22 +2959,22 @@ interface MapLineStyle {
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapPolyStyle {
     /**
-     * Fill color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     * Fill color in the following format: #ffffff (hex triplet). Default is undefined (no fill).
      */
-    fill?: string;
+    fill?: string | undefined;
     /**
      * Opacity value, default is 0.5.
      */
     opacity?: number;
     /**
-     * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
+     * Stroke color in the following format: #ffffff (hex triplet). Default is #ffffff.
      */
-    stroke?: string | undefined;
+    stroke?: string;
     /**
      * Stroke line width, default is 0.5.
      */
@@ -2988,7 +2982,7 @@ interface MapPolyStyle {
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapCircleStyle extends MapPolyStyle {
@@ -3022,7 +3016,7 @@ interface MapTextStyle {
     /**
      * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
      */
-    stroke?: string;
+    stroke?: string | undefined;
     /**
      * Stroke width, default is 0.15.
      */
@@ -3030,7 +3024,7 @@ interface MapTextStyle {
     /**
      * Background color in the following format: #ffffff (hex triplet). Default is undefined (no background). When background is enabled, text vertical align is set to middle (default is baseline).
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
     /**
      * Background rectangle padding, default is 2.
      */
@@ -3197,11 +3191,11 @@ interface PriceHistory {
     stddevPrice: number;
 }
 interface Memory {
-    creeps: {[name: string]: CreepMemory};
-    powerCreeps: {[name: string]: PowerCreepMemory};
-    flags: {[name: string]: FlagMemory};
-    rooms: {[name: string]: RoomMemory};
-    spawns: {[name: string]: SpawnMemory};
+    creeps: { [name: string]: CreepMemory };
+    powerCreeps: { [name: string]: PowerCreepMemory };
+    flags: { [name: string]: FlagMemory };
+    rooms: { [name: string]: RoomMemory };
+    spawns: { [name: string]: SpawnMemory };
 }
 
 interface CreepMemory {}
@@ -3237,9 +3231,9 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     id: Id<this>;
     /**
-     * The remaining time after which the deposit will be refilled.
+     * The remaining time after which the deposit will be refilled if is recharging, otherwise undefined.
      */
-    ticksToRegeneration: number;
+    ticksToRegeneration?: number;
 }
 
 interface MineralConstructor extends _Constructor<Mineral>, _ConstructorById<Mineral> {}
@@ -3387,7 +3381,7 @@ interface CostMatrix {
     /**
      * Creates a new CostMatrix containing 0's for all positions.
      */
-    new(): CostMatrix;
+    new (): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -3883,14 +3877,14 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<K extends FindConstant>(
+    findClosestByPath<K extends FindConstant, S extends FindTypes[K]>(
         type: K,
-        opts?: FindPathOpts & Partial<FilterOptions<K>> & { algorithm?: FindClosestByPathAlgorithm },
-    ): FindTypes[K] | null;
-    findClosestByPath<T extends Structure>(
+        opts?: FindPathOpts & Partial<FilterOptions<K, S>> & { algorithm?: FindClosestByPathAlgorithm },
+    ): S | null;
+    findClosestByPath<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & Partial<FilterOptions<FIND_STRUCTURES>> & { algorithm?: FindClosestByPathAlgorithm },
-    ): T | null;
+        opts?: FindPathOpts & Partial<FilterOptions<FIND_STRUCTURES, S>> & { algorithm?: FindClosestByPathAlgorithm },
+    ): S | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of RoomPositions or objects with a RoomPosition
@@ -3906,11 +3900,11 @@ interface RoomPosition {
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant>(type: K, opts?: FilterOptions<K>): FindTypes[K] | null;
-    findClosestByRange<T extends Structure>(
+    findClosestByRange<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<K, S>): S | null;
+    findClosestByRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<FIND_STRUCTURES>,
-    ): T | null;
+        opts?: FilterOptions<FIND_STRUCTURES, S>,
+    ): S | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
@@ -3923,12 +3917,12 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<K extends FindConstant>(type: K, range: number, opts?: FilterOptions<K>): Array<FindTypes[K]>;
-    findInRange<T extends Structure>(
+    findInRange<K extends FindConstant, S extends FindTypes[K]>(type: K, range: number, opts?: FilterOptions<K, S>): S[];
+    findInRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         range: number,
-        opts?: FilterOptions<FIND_STRUCTURES>,
-    ): T[];
+        opts?: FilterOptions<FIND_STRUCTURES, S>,
+    ): S[];
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
@@ -4192,30 +4186,30 @@ interface LineStyle {
     /**
      * Either undefined (solid line), dashed, or dotted.Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface PolyStyle {
     /**
-     * Fill color in any web format, default is #ffffff(white).
+     * Fill color in any web format, default is undefined (no fill).
      */
-    fill?: string;
+    fill?: string | undefined;
     /**
      * Opacity value, default is 0.5.
      */
     opacity?: number;
     /**
-     * Stroke color in any web format, default is undefined (no stroke).
+     * Stroke color in any web format, default is #ffffff (white).
      */
-    stroke?: string | undefined;
+    stroke?: string;
     /**
      * Stroke line width, default is 0.1.
      */
     strokeWidth?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted.Default is undefined.
+     * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface CircleStyle extends PolyStyle {
@@ -4241,7 +4235,7 @@ interface TextStyle {
     /**
      * Stroke color in any web format, default is undefined (no stroke).
      */
-    stroke?: string;
+    stroke?: string | undefined;
     /**
      * Stroke width, default is 0.15.
      */
@@ -4249,7 +4243,7 @@ interface TextStyle {
     /**
      * Background color in any web format, default is undefined (no background).When background is enabled, text vertical align is set to middle (default is baseline).
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
 
     /**
      * Background rectangle padding, default is 0.3.
@@ -4409,11 +4403,11 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<K extends FindConstant>(type: K, opts?: FilterOptions<K>): Array<FindTypes[K]>;
-    find<T extends Structure>(
+    find<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<K, S>): S[];
+    find<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<FIND_STRUCTURES>,
-    ): T[];
+        opts?: FilterOptions<FIND_STRUCTURES, S>,
+    ): S[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
@@ -4833,7 +4827,10 @@ interface SpawnOptions {
     directions?: DirectionConstant[];
 }
 
-interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
+interface SpawningConstructor extends _Constructor<Spawning> {
+    new (id: Id<StructureSpawn>): Spawning;
+    (id: Id<StructureSpawn>): Spawning;
+}
 interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
     /**
      * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
@@ -4845,8 +4842,12 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
     ): UNLIMITED_STORE extends true
         ? null
         : R extends undefined
-        ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
-        : (R extends POSSIBLE_RESOURCES ? number : null);
+        ? ResourceConstant extends POSSIBLE_RESOURCES
+            ? number
+            : null
+        : R extends POSSIBLE_RESOURCES
+        ? number
+        : null;
     /**
      * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
      * @param resource The type of the resource.
@@ -4854,7 +4855,7 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getUsedCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : R extends POSSIBLE_RESOURCES ? number : null;
     /**
      * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
      * @param resource The type of the resource.
@@ -4862,12 +4863,13 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getFreeCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : R extends POSSIBLE_RESOURCES ? number : null;
 }
 
-type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<POSSIBLE_RESOURCES, UNLIMITED_STORE> &
-    { [P in POSSIBLE_RESOURCES]: number } &
-    { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
+type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<
+    POSSIBLE_RESOURCES,
+    UNLIMITED_STORE
+> & { [P in POSSIBLE_RESOURCES]: number } & { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
 
 interface GenericStoreBase {
     /**
@@ -5553,7 +5555,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory.
      * Once set, the level cannot be changed.
      */
-    level: number;
+    level?: number;
     /**
      * An object with the structure contents.
      */

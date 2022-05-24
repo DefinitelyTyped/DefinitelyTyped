@@ -3,7 +3,7 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>,
 //                 Daniel Perez Alvarez <https://github.com/unindented>,
 //                 Alec Custer <https://github.com/alechemy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Options struct for the init() function
@@ -16,84 +16,84 @@ export interface InitOpts {
     /**
      * Only show production dependencies
      */
-    production?: boolean;
+    production?: boolean | undefined;
     /**
      * Only show development dependencies
      */
-    development?: boolean;
+    development?: boolean | undefined;
     /**
      * Report guessed licenses as unknown licenses
      */
-    unknown?: boolean;
+    unknown?: boolean | undefined;
     /**
      * Only list packages with unknown or guessed licenses
      */
-    onlyunknown?: boolean;
+    onlyunknown?: boolean | undefined;
     /**
      * Output in json format
      */
-    json?: boolean;
+    json?: boolean | undefined;
     /**
      * Output in csv format
      */
-    csv?: boolean;
+    csv?: boolean | undefined;
     /**
      * Prefix column for component in csv format.
      */
-    csvComponentPrefix?: string;
+    csvComponentPrefix?: string | undefined;
     /**
      * Write the data to a specific file.
      */
-    out?: string;
+    out?: string | undefined;
     /**
      * To add a custom Format file in JSON
      */
-    customPath?: string | ModuleInfo;
+    customPath?: string | ModuleInfo | undefined;
     /**
      * Exclude modules which licenses are in the comma-separated list from the output
      */
-    exclude?: string[];
+    exclude?: string[] | undefined;
     /**
      * Output the location of the license files as relative paths
      */
-    relativeLicensePath?: boolean;
+    relativeLicensePath?: boolean | undefined;
     /**
      * Output a summary of the license usage
      */
-    summary?: boolean;
+    summary?: boolean | undefined;
     /**
      * Fail (exit with code 1) on the first occurrence of the licenses of the semicolon-separated list
      */
-    failOn?: string;
+    failOn?: string | undefined;
     /**
      * Fail (exit with code 1) on the first occurrence of the licenses not in the semicolon-separated list
      */
-    onlyAllow?: string;
+    onlyAllow?: string | undefined;
     /**
      * Restrict output to the packages (package@version) in the semicolon-separated list
      */
-    packages?: string;
+    packages?: string | undefined;
     /**
      * Restrict output to the packages (package@version) not in the semicolon-separated list
      */
-    excludePackages?: string;
+    excludePackages?: string | undefined;
     /**
      * Restrict output to not include any package marked as private
      */
-    excludePrivatePackages?: boolean;
+    excludePrivatePackages?: boolean | undefined;
     /**
      * Look for direct dependencies only
      */
-    direct?: boolean;
+    direct?: boolean | undefined;
     /**
      * Colorize output
      */
-    color?: boolean;
+    color?: boolean | undefined;
     /**
      * Specify the columns for CSV format
      * or add the specified items for JSON format
      */
-    customFormat?: Record<string, any>;
+    customFormat?: Record<string, any> | undefined;
 }
 
 /**
@@ -103,63 +103,63 @@ export interface ModuleInfo {
     /**
      * Module name
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * Module version
      */
-    version?: string;
+    version?: string | undefined;
     /**
      * Module description
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * Repository URL
      */
-    repository?: string;
+    repository?: string | undefined;
     /**
      * Publisher name
      */
-    publisher?: string;
+    publisher?: string | undefined;
     /**
      * Publisher e-mail
      */
-    email?: string;
+    email?: string | undefined;
     /**
      * Publisher URL
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * Array of licenses
      */
-    licenses?: string | string[];
+    licenses?: string | string[] | undefined;
     /**
      * Path to license file, if available
      */
-    licenseFile?: string;
+    licenseFile?: string | undefined;
     /**
      * Contents of the license
      */
-    licenseText?: string;
+    licenseText?: string | undefined;
     /**
      * Whether the license is modified
      */
-    licenseModified?: string;
+    licenseModified?: string | undefined;
     /**
      * Private module
      */
-    private?: boolean;
+    private?: boolean | undefined;
     /**
      * Path to module
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * Copyright statements
      */
-    copyright?: string;
+    copyright?: string | undefined;
     /**
      * Path of NOTICE file
      */
-    noticeFile?: string;
+    noticeFile?: string | undefined;
 }
 
 export interface ModuleInfos {

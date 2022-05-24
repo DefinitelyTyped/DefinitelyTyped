@@ -9,11 +9,11 @@ declare namespace AMap {
             /**
              * 椭圆的中心
              */
-            center?: LocationValue;
+            center?: LocationValue | undefined;
             /**
              * 椭圆半径
              */
-            radius?: [number, number];
+            radius?: [number, number] | undefined;
         }
         type GetOptionsResult<ExtraData = any> = Merge<Circle.GetOptionsResult<ExtraData>, {
             radius: [number, number];

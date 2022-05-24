@@ -1,4 +1,4 @@
-import Auth0, { UserInfo } from 'react-native-auth0';
+import Auth0 from 'react-native-auth0';
 
 const auth0 = new Auth0({
     domain: 'definitely-typed',
@@ -72,6 +72,7 @@ auth0.webAuth.authorize({
     scope: 'openid',
     language: 'en',
     prompt: 'login',
+    organization: 'orgId',
 });
 
 auth0.webAuth.authorize({
@@ -92,6 +93,7 @@ auth0.webAuth.authorize(
     },
     {
         ephemeralSession: true,
+        customScheme: 'customUrlScheme',
     },
 );
 
@@ -129,7 +131,19 @@ auth0.webAuth
     })
     .then(credentials => credentials.doesNotExist); // $ExpectError
 
+auth0.webAuth
+.authorize({
+    state: 'state',
+    nonce: 'nonce',
+    scope: 'openid',
+    language: 'en',
+    prompt: 'login',
+    customParam1: 'MyValue', // User defined custom string parameter
+    customParam2: 9001, // User defined custom number parameter
+});
+
 auth0.webAuth.clearSession({ federated: false });
+auth0.webAuth.clearSession({ federated: true, customScheme: 'customUrlScheme' });
 auth0.webAuth.clearSession();
 
 auth0.users('token').getUser({ id: 'userId' });
@@ -158,6 +172,8 @@ auth0.auth.passwordlessWithEmail({
 
 auth0.auth.passwordlessWithSMS({
     phoneNumber: '+5491159991000',
+    send: 'code',
+    authParams: { scope: 'openid offline_access' },
 });
 
 auth0.auth.loginWithEmail({

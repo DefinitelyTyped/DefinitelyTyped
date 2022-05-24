@@ -8,7 +8,7 @@ declare namespace metascraper {
 
     interface Options {
         html: string;
-        rules?: Rule[];
+        rules?: Rule[] | undefined;
         url: string;
     }
 }

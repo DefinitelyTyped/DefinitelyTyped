@@ -22,15 +22,15 @@ declare namespace AMap {
              * RB:右下角;
              * 默认位置：LB
              */
-            position?: Position;
+            position?: Position | undefined;
             /**
              * 是否可见
              */
-            visible?: boolean;
+            visible?: boolean | undefined;
             /**
              * 相对于地图容器左上角的偏移量
              */
-            offset?: Pixel;
+            offset?: Pixel | undefined;
         }
     }
 

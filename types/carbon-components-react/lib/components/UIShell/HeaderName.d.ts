@@ -2,9 +2,9 @@ import { RequiresChildrenProps, FCReturn, FCProps } from "../../../typings/share
 import { LinkProps } from "./Link";
 
 export interface HeaderNamePropsBase extends RequiresChildrenProps {
-    className?: string,
-    href?: string,
-    prefix?: string,
+    className?: string | undefined,
+    href?: string | undefined,
+    prefix?: string | undefined,
 }
 
 export type HeaderNameProps<E extends object = {}> = LinkProps<E> & HeaderNamePropsBase;

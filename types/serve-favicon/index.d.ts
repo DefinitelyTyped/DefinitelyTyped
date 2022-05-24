@@ -27,7 +27,7 @@ declare namespace serveFavicon {
          * The cache-control max-age directive in ms, defaulting to 1 day.
          * This can also be a string accepted by the `ms` module.
          */
-        maxAge?: number | string;
+        maxAge?: number | string | undefined;
     }
 }
 

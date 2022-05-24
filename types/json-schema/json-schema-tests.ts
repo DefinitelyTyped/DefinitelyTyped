@@ -81,6 +81,10 @@ import {
         bar: 4,
         format: 'date-time',
     };
+    const c: JSONSchema4 = {
+        id: 'foo',
+        required: true,
+    };
 };
 
 // Class
@@ -183,6 +187,9 @@ class Schema6 implements JSONSchema6 {}
         $ref: 'foo/bar',
         $schema: 'http://json-schema.org/schema#',
         $comment: "I'm but a simple comment",
+        $defs: {
+            foo: { type: 'string' },
+        },
         title: 'foo',
         description: 'bar',
         default: 42,

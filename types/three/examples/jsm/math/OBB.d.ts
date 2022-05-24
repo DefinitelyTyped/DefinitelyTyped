@@ -8,13 +8,13 @@ export class OBB {
     constructor(center?: Vector3, halfSize?: Vector3, rotation?: Matrix3);
     set(center: Vector3, halfSize: Vector3, rotation: Matrix3): this;
     copy(obb: OBB): this;
-    clone(): OBB;
+    clone(): this;
     getSize(result: Vector3): Vector3;
     clampPoint(point: Vector3, result: Vector3): Vector3;
     containsPoint(point: Vector3): boolean;
     intersectsBox3(box3: Box3): boolean;
     intersectsSphere(sphere: Sphere): boolean;
-    intersectsOBB(obb: OBB, epsilon: number): boolean;
+    intersectsOBB(obb: OBB, epsilon?: number): boolean;
     intersectsPlane(plane: Plane): boolean;
     intersectRay(ray: Ray, result: Vector3): Vector3 | null;
     intersectsRay(ray: Ray): boolean;

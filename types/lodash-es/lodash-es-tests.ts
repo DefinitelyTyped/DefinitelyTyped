@@ -15,6 +15,7 @@ import camelCase from "lodash-es/camelCase";
 import capitalize from "lodash-es/capitalize";
 import castArray from "lodash-es/castArray";
 import ceil from "lodash-es/ceil";
+import chain from "lodash-es/chain";
 import chunk from "lodash-es/chunk";
 import clamp from "lodash-es/clamp";
 import clone from "lodash-es/clone";
@@ -554,6 +555,7 @@ import {
   takeRight as takeRight1,
   takeRightWhile as takeRightWhile1,
   takeWhile as takeWhile1,
+  tap as tap1,
   template as template1,
   templateSettings as templateSettings1,
   throttle as throttle1,

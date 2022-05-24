@@ -2,26 +2,26 @@
 // Project: https://github.com/jaydenseric/graphql-upload#readme
 // Definitions by: Mike Marcacci <https://github.com/mike-marcacci>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.1
 
 /* tslint:disable:no-unnecessary-generics */
 
 import { IncomingMessage, ServerResponse } from "http";
 import { GraphQLScalarType } from "graphql";
 import { RequestHandler } from "express";
-import { Middleware } from "koa";
+import { DefaultContext, DefaultState, Middleware } from "koa";
 import { ReadStream } from "fs-capacitor";
 
 export interface UploadOptions {
-  maxFieldSize?: number;
-  maxFileSize?: number;
-  maxFiles?: number;
+  maxFieldSize?: number | undefined;
+  maxFileSize?: number | undefined;
+  maxFiles?: number | undefined;
 }
 
 export interface GraphQLOperation {
   query: string;
-  operationName?: null | string;
-  variables?: null | unknown;
+  operationName?: null | string | undefined;
+  variables?: null | unknown | undefined;
 }
 
 export function processRequest(
@@ -34,9 +34,9 @@ export function graphqlUploadExpress(
   uploadOptions?: UploadOptions
 ): RequestHandler;
 
-export function graphqlUploadKoa <StateT = any, CustomT = {}>(
+export function graphqlUploadKoa <StateT = DefaultState, ContextT = DefaultContext>(
   uploadOptions?: UploadOptions
-): Middleware<StateT, CustomT>;
+): Middleware<StateT, ContextT>;
 
 export const GraphQLUpload: GraphQLScalarType;
 
@@ -45,4 +45,9 @@ export interface FileUpload {
   mimetype: string;
   encoding: string;
   createReadStream(): ReadStream;
+}
+
+export class Upload {
+  promise: Promise<FileUpload>;
+  file?: FileUpload;
 }

@@ -3,11 +3,13 @@ import {
     ConnectionMonitor,
     Consumer,
     createWebSocketURL,
+    createConsumer,
     INTERNAL,
     Subscription,
     Subscriptions,
     MessageTypes,
     DisconnectReasons,
+    logger,
 } from '@rails/actioncable';
 
 INTERNAL.message_types.welcome;
@@ -21,11 +23,13 @@ INTERNAL.disconnect_reasons.invalid_request;
 INTERNAL.disconnect_reasons.server_restart;
 
 createWebSocketURL('url'); // $ExpectType string
+logger.enabled = true;
 
 /**
  * Consumer
  */
 const consumer = new Consumer('url'); // $ExpectType Consumer
+createConsumer('url'); // $ExpectType Consumer
 
 consumer.url; // $ExpectType string
 
@@ -36,7 +40,7 @@ consumer.ensureActiveConnection(); // $ExpectType boolean | void
 
 {
     const subscription = consumer.subscriptions.create(
-        { channel: 'channel', room: 'room' },
+        { channel: 'channel', room: 'room', chat_id: 1 },
         {
             received(data) {
                 this.appendLine(data);
@@ -164,3 +168,14 @@ const subscriptions = new Subscriptions(consumer); // $ExpectType Subscriptions<
 
 subscriptions.create('channel'); // $ExpectType Subscription<Consumer> & Mixin
 subscriptions.create({ channel: 'channel', room: 'room' }); // $ExpectType Subscription<Consumer> & Mixin
+subscriptions.add(subscription); // $ExpectError
+subscriptions.remove(subscription); // $ExpectError
+subscriptions.reject(subscription.identifier); // $ExpectError
+subscriptions.forget(subscription); // $ExpectError
+subscriptions.findAll(subscription.identifier); // $ExpectError
+subscriptions.reload(); // $ExpectError
+subscriptions.notifyAll('callbackName'); // $ExpectError
+subscriptions.notify(subscription, 'callbackName'); // $ExpectError
+subscriptions.subscribe(subscription); // $ExpectError
+subscriptions.confirmSubscription(subscription.identifier); // $ExpectError
+subscriptions.sendCommand(subscription, {}); // $ExpectError

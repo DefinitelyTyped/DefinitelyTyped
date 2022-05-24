@@ -233,7 +233,14 @@ const chartConfig: Chart.ChartConfiguration = {
             },
         ],
     },
-    options: radarChartOptions,
+    options: {
+        ...radarChartOptions,
+        elements: {
+            line: {
+                borderDash: [1, 2, 3, 4]
+            }
+        }
+    },
 };
 const radialChart: Chart = new Chart(new CanvasRenderingContext2D(), chartConfig);
 radialChart.update();
@@ -308,11 +315,9 @@ const linearScaleChart: Chart = new Chart(ctx, {
             },
             xAxes: [{
                 type: 'time',
-                time: {
-                    adapters: {
-                        date: {
-                            locale: 'de'
-                        }
+                adapters: {
+                    date: {
+                        locale: 'de'
                     }
                 },
                 distribution: 'series',
@@ -347,7 +352,9 @@ const customTooltipsPieChart = new Chart(ctx, {
         tooltips: {
             enabled: false,
             custom: (tooltipModel) => {
-                // do whatever
+                const firstColor = tooltipModel.labelColors[0];
+                console.log(firstColor.borderColor);
+                console.log(firstColor.backgroundColor);
             },
         },
     },

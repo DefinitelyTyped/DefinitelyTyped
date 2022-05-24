@@ -12,7 +12,7 @@ connect("mongodb://user:password@localhost:27017/database?authSource=admin").the
         name: string;
         password: string;
         friends: string[];
-        dateCreated?: Date;
+        dateCreated?: Date | undefined;
     }
 
     class User extends CamoDocument<UserSchema> {

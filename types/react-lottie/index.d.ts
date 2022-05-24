@@ -12,34 +12,34 @@ export interface Options {
      * Defines if the animation should play only once or repeatedly in an endless loop
      * or the number of loops that should be completed before the animation ends
      */
-    loop?: boolean | number;
+    loop?: boolean | number | undefined;
     /**
      * Defines if the animation should immediately play when the component enters the DOM
      */
-    autoplay?: boolean;
+    autoplay?: boolean | undefined;
     /**
      * The JSON data exported from Adobe After Effects using the Bodymovin plugin
      */
     animationData: any;
     rendererSettings?: {
-        preserveAspectRatio?: string;
+        preserveAspectRatio?: string | undefined;
         /**
          * The canvas context
          */
         context?: any;
         scaleMode?: any;
-        clearCanvas?: boolean;
+        clearCanvas?: boolean | undefined;
         /**
          * Loads DOM elements when needed. Might speed up initialization for large number of elements. Only with SVG renderer.
          */
-        progressiveLoad?: boolean;
+        progressiveLoad?: boolean | undefined;
         /**
          * Hides elements when opacity reaches 0. Only with SVG renderer.
          * @default true
          */
-        hideOnTransparent?: boolean;
-        className?: string;
-    };
+        hideOnTransparent?: boolean | undefined;
+        className?: string | undefined;
+    } | undefined;
 }
 
 export interface EventListener {
@@ -71,33 +71,33 @@ export interface LottieProps {
      * Height size in pixels
      * @default '100%'
      */
-    height?: number | string;
+    height?: number | string | undefined;
     /**
      * Width size in pixels
      * @default '100%'
      */
-    width?: number | string;
+    width?: number | string | undefined;
     /**
      * Describes if the animation must be in stopped mode
      */
-    isStopped?: boolean;
+    isStopped?: boolean | undefined;
     /**
      * Describes if the animation must be in paused mode
      */
-    isPaused?: boolean;
+    isPaused?: boolean | undefined;
     /**
      * Array of objects containing eventName and a callback function that will be registered as eventListeners on the animation object.
      * Refer to Lottie documentation for a list of available events.
      */
-    eventListeners?: ReadonlyArray<EventListener>;
-    segments?: ReadonlyArray<number>;
-    speed?: number;
-    direction?: number;
-    ariaRole?: string | 'button';
-    ariaLabel?: string | 'animation';
-    isClickToPauseDisabled?: boolean;
-    title?: string;
-    style?: React.CSSProperties;
+    eventListeners?: ReadonlyArray<EventListener> | undefined;
+    segments?: ReadonlyArray<number> | undefined;
+    speed?: number | undefined;
+    direction?: number | undefined;
+    ariaRole?: string | 'button' | undefined;
+    ariaLabel?: string | 'animation' | undefined;
+    isClickToPauseDisabled?: boolean | undefined;
+    title?: string | undefined;
+    style?: React.CSSProperties | undefined;
 }
 
 /**

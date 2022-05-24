@@ -9862,7 +9862,7 @@ interface ICustomLoadingPanel {
     /**
      * Specifies whether the panel is visible.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
     /**
      * Shows the loading panel.
      */

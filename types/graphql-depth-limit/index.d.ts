@@ -9,6 +9,6 @@ export = depthLimit;
 
 declare namespace depthLimit {
     interface Options {
-        ignore: Array<string | RegExp | ((queryDepths: any[]) => boolean)>;
+        ignore?: Array<string | RegExp | ((queryDepths: any[]) => boolean)>;
     }
 }

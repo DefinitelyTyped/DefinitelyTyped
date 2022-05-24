@@ -33,29 +33,29 @@ declare module "pathfinding" {
         }
 
         interface Heuristic {
-            heuristic?: (dx: number, dy: number) => number;
+            heuristic?: ((dx: number, dy: number) => number) | undefined;
         }
 
         interface FinderOptions extends Heuristic {
-            diagonalMovement?: DiagonalMovement;
-            weight?: number;
+            diagonalMovement?: DiagonalMovement | undefined;
+            weight?: number | undefined;
         }
 
         interface IDAStarFinderOptions extends FinderOptions {
-            trackRecursion?: boolean;
-            timeLimit?: number;
+            trackRecursion?: boolean | undefined;
+            timeLimit?: number | undefined;
         }
 
         interface JumpPointFinderBaseOptions extends Heuristic {
-            trackJumpRecursion?: boolean;
+            trackJumpRecursion?: boolean | undefined;
         }
 
         interface JumpPointFinderOptions extends Heuristic {
-            diagonalMovement?: DiagonalMovement;
+            diagonalMovement?: DiagonalMovement | undefined;
         }
 
         interface BiBreadthFirstFinderOptions {
-            diagonalMovement?: DiagonalMovement;
+            diagonalMovement?: DiagonalMovement | undefined;
         }
 
         interface Grid {

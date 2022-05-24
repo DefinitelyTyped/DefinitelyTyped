@@ -4,17 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PopupWindowConfig {
-    name?: string;
-    width?: number;
-    height?: number;
-    left?: number;
-    top?: number;
-    menubar?: boolean;
-    toolbar?: boolean;
-    location?: boolean;
-    status?: boolean;
-    resizable?: boolean;
-    scrollbars?: boolean;
+    name?: string | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    left?: number | undefined;
+    top?: number | undefined;
+    menubar?: boolean | undefined;
+    toolbar?: boolean | undefined;
+    location?: boolean | undefined;
+    status?: boolean | undefined;
+    resizable?: boolean | undefined;
+    scrollbars?: boolean | undefined;
 }
 
 declare class PopupWindow {

@@ -24,10 +24,10 @@ declare namespace Redlock {
     }
 
     interface Options {
-        driftFactor?: number;
-        retryCount?: number;
-        retryDelay?: number;
-        retryJitter?: number;
+        driftFactor?: number | undefined;
+        retryCount?: number | undefined;
+        retryDelay?: number | undefined;
+        retryJitter?: number | undefined;
         lockScript?(origLockScript: string): string;
         unlockScript?(origUnlockScript: string): string;
         extendScript?(origExtendScript: string): string;

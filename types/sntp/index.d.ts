@@ -1,13 +1,13 @@
 // Type definitions for sntp 3.0
 // Project: https://github.com/hueniverse/sntp
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    host?: string;
-    port?: number;
-    resolveReference?: boolean;
-    timeout?: number;
+    host?: string | undefined;
+    port?: number | undefined;
+    resolveReference?: boolean | undefined;
+    timeout?: number | undefined;
 }
 
 export interface TimeOptions {

@@ -3,23 +3,23 @@ import Stroke from './Stroke';
 import TextPlacement from './TextPlacement';
 
 export interface Options {
-    font?: string;
-    maxAngle?: number;
-    offsetX?: number;
-    offsetY?: number;
-    overflow?: boolean;
-    placement?: TextPlacement | string;
-    scale?: number;
-    rotateWithView?: boolean;
-    rotation?: number;
-    text?: string;
-    textAlign?: string;
-    textBaseline?: string;
-    fill?: Fill;
-    stroke?: Stroke;
-    backgroundFill?: Fill;
-    backgroundStroke?: Stroke;
-    padding?: number[];
+    font?: string | undefined;
+    maxAngle?: number | undefined;
+    offsetX?: number | undefined;
+    offsetY?: number | undefined;
+    overflow?: boolean | undefined;
+    placement?: TextPlacement | string | undefined;
+    scale?: number | undefined;
+    rotateWithView?: boolean | undefined;
+    rotation?: number | undefined;
+    text?: string | undefined;
+    textAlign?: string | undefined;
+    textBaseline?: string | undefined;
+    fill?: Fill | undefined;
+    stroke?: Stroke | undefined;
+    backgroundFill?: Fill | undefined;
+    backgroundStroke?: Stroke | undefined;
+    padding?: number[] | undefined;
 }
 export default class Text {
     constructor(opt_options?: Options);

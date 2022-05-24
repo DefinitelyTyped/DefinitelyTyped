@@ -60,31 +60,31 @@ declare namespace createjs {
     }
 
     export type TweenProps = {
-        useTicks?:boolean,
-        ignoreGlobalPause?:boolean,
-        loop?:number,
-        reversed?:boolean,
-        bounce?:boolean,
-        timeScale?:number,
+        useTicks?:boolean | undefined,
+        ignoreGlobalPause?:boolean | undefined,
+        loop?:number | undefined,
+        reversed?:boolean | undefined,
+        bounce?:boolean | undefined,
+        timeScale?:number | undefined,
         pluginData?:any,
-        paused?:boolean,
-        position?:number,
-        onChange?:(e:Event) => void,
-        onComplete?:(e:Event) => void,
-        override?:boolean;
+        paused?:boolean | undefined,
+        position?:number | undefined,
+        onChange?:((e:Event) => void) | undefined,
+        onComplete?:((e:Event) => void) | undefined,
+        override?:boolean | undefined;
     }
 
     export type TimelineProps = {
-        useTicks?:boolean,
-        ignoreGlobalPause?:boolean,
-        loop?:number,
-        reversed?:boolean,
-        bounce?:boolean,
-        timeScale?:number,
-        paused?:boolean,
-        position?:number,
-        onChange?:(e:Event) => void,
-        onComplete?:(e:Event) => void
+        useTicks?:boolean | undefined,
+        ignoreGlobalPause?:boolean | undefined,
+        loop?:number | undefined,
+        reversed?:boolean | undefined,
+        bounce?:boolean | undefined,
+        timeScale?:number | undefined,
+        paused?:boolean | undefined,
+        position?:number | undefined,
+        onChange?:((e:Event) => void) | undefined,
+        onComplete?:((e:Event) => void) | undefined
     }
     
     export class TweenStep {

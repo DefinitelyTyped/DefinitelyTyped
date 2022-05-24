@@ -15,14 +15,14 @@ import { ClassAttributes, ReactNode } from "react";
 import { Classes } from "reactcss";
 
 export interface HSLColor {
-    a?: number;
+    a?: number | undefined;
     h: number;
     l: number;
     s: number;
 }
 
 export interface RGBColor {
-    a?: number;
+    a?: number | undefined;
     b: number;
     g: number;
     r: number;
@@ -39,18 +39,18 @@ export interface ColorResult {
 export type ColorChangeHandler = (color: ColorResult, event: React.ChangeEvent<HTMLInputElement>) => void;
 
 export interface ColorPickerProps<A> extends ClassAttributes<A> {
-    color?: Color;
-    className?: string;
-    styles?: Partial<Classes<any>>;
-    onChange?: ColorChangeHandler;
-    onChangeComplete?: ColorChangeHandler;
+    color?: Color | undefined;
+    className?: string | undefined;
+    styles?: Partial<Classes<any>> | undefined;
+    onChange?: ColorChangeHandler | undefined;
+    onChangeComplete?: ColorChangeHandler | undefined;
 }
 
 export interface CustomPickerProps<A> extends ClassAttributes<A> {
-    color?: Color;
-    pointer?: ReactNode;
-    className?: string;
-    styles?: Partial<Classes<any>>;
+    color?: Color | undefined;
+    pointer?: ReactNode | undefined;
+    className?: string | undefined;
+    styles?: Partial<Classes<any>> | undefined;
     onChange: ColorChangeHandler;
 }
 

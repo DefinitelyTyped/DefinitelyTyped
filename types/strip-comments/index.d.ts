@@ -68,24 +68,24 @@ declare namespace strip {
          * if `false` strip only block comments
          * @default true
          */
-        line?: boolean;
+        line?: boolean | undefined;
         /**
          * if `false` strip only line comments
          * @default true
          */
-        block?: boolean;
+        block?: boolean | undefined;
         /**
          * Keep ignored comments (e.g. `/*!` and `//!`)
          */
-        keepProtected?: boolean;
+        keepProtected?: boolean | undefined;
         /**
          * Preserve newlines after comments are stripped
          */
-        preserveNewlines?: boolean;
+        preserveNewlines?: boolean | undefined;
         /**
          * @default 'javascript'
          */
-        language?: string;
+        language?: string | undefined;
     }
 }
 

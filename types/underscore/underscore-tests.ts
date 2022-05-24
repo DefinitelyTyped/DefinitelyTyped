@@ -246,7 +246,7 @@ explicitDictionaryLiteralItem; // $ExpectType StringRecord
     const collectionFunctionIteratee: _.Iteratee<_.Dictionary<StringRecord> | StringRecord[], string> = (element, key, collection) => {
         element; // $ExpectType StringRecord
         key; // $ExpectType string | number
-        collection; // $ExpectType StringRecord[] | Dictionary<StringRecord>
+        collection; // $ExpectType StringRecord[] | Dictionary<StringRecord> || Dictionary<StringRecord> | StringRecord[]
         return element.a;
     };
     collectionFunctionIteratee(recordDictionary['a'], 'a', recordDictionary); // $ExpectType string
@@ -472,6 +472,70 @@ _(explicitNumberDictionary).each((value, key, collection) => {
     _.forEach(anyValue, anyCollectionIterator); // $ExpectType any
     _(anyValue).forEach(anyCollectionIterator, context); // $ExpectType any
     _.chain(anyValue).forEach(anyCollectionIterator); // // $ExpectType _Chain<any, any>
+}
+
+// get
+
+{
+    // null as object
+    // $ExpectType undefined
+    _.get(null, 'a');
+
+    // null as object, with default value
+    // $ExpectType number
+    _.get(null, 'a', numberValue);
+
+    // no default value
+    // $ExpectType number | undefined
+    _.get({ a: numberValue }, 'a');
+
+    // trying to get the property on a simple path
+    // $ExpectType number
+    _.get({ a: numberValue }, ['a'], numberValue);
+
+    // trying to get the property one level deep
+    // $ExpectType number | { b: number; }
+    _.get({ a: { b: numberValue } }, ['a'], numberValue);
+
+    // trying to get the property one level deep
+    // $ExpectType string | number | { b: number; }
+    _.get({ a: { b: numberValue }, c: "a" }, ['a', 'b'], numberValue);
+
+    // default value if not found of the 'same type'
+    // $ExpectType number
+    _.get({ a: numberValue }, ['b'], numberValue);
+
+    // oop style with null as object
+    // $ExpectType undefined
+    _(null).get(['b']);
+
+    // oop style with null as object and default value
+    // $ExpectType number
+    _(null).get(['b'], numberValue);
+
+    // oop style without default value
+    // $ExpectType number | undefined
+    _({ a: numberValue }).get(['b']);
+
+    // oop style with default value
+    // $ExpectType string | number
+    _({ a: numberValue }).get(['a'], stringValue);
+
+    // chained with null as object
+    // $ExpectType _Chain<undefined, undefined>
+    _.chain(null).get(['a']);
+
+    // chained with null as object and default value
+    // $ExpectType _Chain<number, number>
+    _.chain(null).get(['a'], numberValue);
+
+    // chained without default value
+    // $ExpectType _Chain<string | number | undefined, string | number | undefined>
+    _.chain({ a: numberValue, b: stringValue }).get(['a']);
+
+    // chained with default value
+    // $ExpectType _Chain<string | number, string | number>
+    _.chain({ a: numberValue }).get(['a'], stringValue);
 }
 
 // map, collect

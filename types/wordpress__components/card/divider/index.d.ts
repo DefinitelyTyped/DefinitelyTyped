@@ -5,14 +5,14 @@ declare namespace CardDivider {
         /**
          * `className` of the container.
          */
-        className?: string;
+        className?: string | undefined;
 
-        children?: never;
+        children?: never | undefined;
 
         /**
          * Render as a different element type
          */
-        as?: T;
+        as?: T | undefined;
     } & JSX.IntrinsicElements[T];
 }
 

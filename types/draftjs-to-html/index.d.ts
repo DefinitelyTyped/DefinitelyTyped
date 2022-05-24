@@ -7,8 +7,8 @@
 import { RawDraftContentState } from 'draft-js';
 
 interface HashtagConfig {
-    trigger?: string;
-    separator?: string;
+    trigger?: string | undefined;
+    separator?: string | undefined;
 }
 
 declare function draftToHtml(

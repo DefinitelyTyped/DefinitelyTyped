@@ -39,8 +39,8 @@ export interface HTMLElement {
 }
 
 export interface ParseOptions {
-    lowerCaseTagName?: boolean;
-    pre?: boolean;
-    script?: boolean;
-    style?: boolean;
+    lowerCaseTagName?: boolean | undefined;
+    pre?: boolean | undefined;
+    script?: boolean | undefined;
+    style?: boolean | undefined;
 }

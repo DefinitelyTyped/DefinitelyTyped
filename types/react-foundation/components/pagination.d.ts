@@ -8,9 +8,9 @@ import { FlexboxPropTypes } from '../utils';
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Pagination: React.StatelessComponent<PaginationProps>;
+export declare const Pagination: React.FunctionComponent<PaginationProps>;
 export interface PaginationProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUListElement> {
-    isCentered?: boolean;
+    isCentered?: boolean | undefined;
 }
 /**
  * Pagination item component.
@@ -18,10 +18,10 @@ export interface PaginationProps extends FlexboxPropTypes, React.HTMLAttributes<
  * @param {Object} props
  * @returns {Object}
  */
-export declare const PaginationItem: React.StatelessComponent<PaginationItemProps>;
+export declare const PaginationItem: React.FunctionComponent<PaginationItemProps>;
 export interface PaginationItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
-    isCurrent?: boolean;
-    isDisabled?: boolean;
+    isCurrent?: boolean | undefined;
+    isDisabled?: boolean | undefined;
 }
 /**
  * Pagination previous wrapper-component.
@@ -29,18 +29,18 @@ export interface PaginationItemProps extends FlexboxPropTypes, React.HTMLAttribu
  * @param {Object} props
  * @returns {Object}
  */
-export declare const PaginationPrevious: React.StatelessComponent<PaginationItemProps>;
+export declare const PaginationPrevious: React.FunctionComponent<PaginationItemProps>;
 /**
  * Pagination next wrapper-component.
  *
  * @param {Object} props
  * @returns {Object}
  */
-export declare const PaginationNext: React.StatelessComponent<PaginationItemProps>;
+export declare const PaginationNext: React.FunctionComponent<PaginationItemProps>;
 /**
  * Pagination ellipsis wrapper-component.
  *
  * @param {Object} props
  * @returns {Object}
  */
-export declare const PaginationEllipsis: React.StatelessComponent<PaginationItemProps>;
+export declare const PaginationEllipsis: React.FunctionComponent<PaginationItemProps>;

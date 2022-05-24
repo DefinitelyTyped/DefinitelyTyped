@@ -25,7 +25,7 @@ declare namespace Paystack {
 
             get: (id: number | string) => Promise<Response>;
 
-            list: () => Promise<Response & {data?: any[]; meta?: any}>;
+            list: () => Promise<Response & {data?: any[] | undefined; meta?: any}>;
 
             update: (
                 id: number | string,
@@ -40,7 +40,7 @@ declare namespace Paystack {
         };
 
         page: {
-            create: (params: {name: string; description?: string; amount: number; [key: string]: any}) => Promise<Response>;
+            create: (params: {name: string; description?: string | undefined; amount: number; [key: string]: any}) => Promise<Response>;
 
             get: (id_or_slug: number | string) => Promise<Response>;
 
@@ -48,7 +48,7 @@ declare namespace Paystack {
 
             update: (
                 id_or_slug: number,
-                params: {name?: string; description?: string; amount?: number; active?: boolean},
+                params: {name?: string | undefined; description?: string | undefined; amount?: number | undefined; active?: boolean | undefined},
             ) => Promise<Response>;
 
             slug: (slug: string) => Promise<Response & {data: undefined}>;
@@ -65,7 +65,7 @@ declare namespace Paystack {
         };
 
         subscription: {
-            create: (params: {customer: string; plan: string; authorization: string; start_date?: Date}) => Promise<Response>;
+            create: (params: {customer: string; plan: string; authorization: string; start_date?: Date | undefined}) => Promise<Response>;
 
             disable: (params: {code: string; token: string}) => Promise<Response & {data: undefined}>;
 
@@ -98,7 +98,7 @@ declare namespace Paystack {
 
             initialize: (params: {amount: number; reference: string; name: string; email: string, [key: string]: any}) => Promise<Response>;
 
-            list: () => Promise<Response & {data?: any[]; meta?: any}>;
+            list: () => Promise<Response & {data?: any[] | undefined; meta?: any}>;
 
             totals: () => Promise<Response>;
 

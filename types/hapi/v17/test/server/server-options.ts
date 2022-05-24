@@ -56,9 +56,9 @@ const routeOptions: RouteOptions = {
 
 declare module 'hapi' {
     interface ServerOptionsApp {
-        key1?: string;
-        key2?: string;
-        any_thing?: string;
+        key1?: string | undefined;
+        key2?: string | undefined;
+        any_thing?: string | undefined;
     }
 }
 

@@ -151,24 +151,24 @@ interface LifecycleObject {
      * @param assert
      * @deprecated
      */
-    setup?: (assert: QUnitAssert) => void;
+    setup?: ((assert: QUnitAssert) => void) | undefined;
 
     /**
      * Runs after each test
      * @param assert
      * @deprecated
      */
-    teardown?: (assert: QUnitAssert) => void;
+    teardown?: ((assert: QUnitAssert) => void) | undefined;
     /**
      * Runs before each test
      * @param assert
      */
-    beforeEach?: (assert: QUnitAssert) => void;
+    beforeEach?: ((assert: QUnitAssert) => void) | undefined;
     /**
      * Runs after each test
      * @param assert
      */
-    afterEach?: (assert: QUnitAssert) => void;
+    afterEach?: ((assert: QUnitAssert) => void) | undefined;
 
     /**
      * Any additional properties on the hooks object will be added to that context.

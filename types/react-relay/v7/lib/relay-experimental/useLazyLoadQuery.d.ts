@@ -4,9 +4,9 @@ export function useLazyLoadQuery<TQuery extends OperationType>(
     gqlQuery: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>,
     options?: {
-        fetchKey?: string | number;
-        fetchPolicy?: FetchPolicy;
-        networkCacheConfig?: CacheConfig;
-        UNSTABLE_renderPolicy?: RenderPolicy;
+        fetchKey?: string | number | undefined;
+        fetchPolicy?: FetchPolicy | undefined;
+        networkCacheConfig?: CacheConfig | undefined;
+        UNSTABLE_renderPolicy?: RenderPolicy | undefined;
     },
 ): TQuery['response'];

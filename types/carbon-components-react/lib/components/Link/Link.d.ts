@@ -1,13 +1,14 @@
-import * as React from "react";
-import { ReactAnchorAttr } from "../../../typings/shared";
+import * as React from 'react';
+import { ForwardRefReturn, ReactAnchorAttr } from '../../../typings/shared';
 
-export interface LinkProps extends ReactAnchorAttr { // this is a <p> element when disabled but accounting for it is useless
-    disabled?: boolean,
-    inline?: boolean,
-    size?: "sm" | "lg",
-    visited?: boolean,
+export interface LinkProps extends ReactAnchorAttr {
+    disabled?: boolean | undefined;
+    inline?: boolean | undefined;
+    renderIcon?: React.ComponentType | undefined;
+    size?: 'sm' | 'md' | 'lg' | undefined;
+    visited?: boolean | undefined;
 }
 
-declare const Link: React.FC<LinkProps>;
+declare const Link: ForwardRefReturn<HTMLAnchorElement, LinkProps>;
 
 export default Link;

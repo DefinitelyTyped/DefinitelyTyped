@@ -1,4 +1,4 @@
-// Type definitions for braintree-web-drop-in 1.22
+// Type definitions for braintree-web-drop-in 1.28
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
 //                 Ricard Solé Casas <https://github.com/iamricard>
@@ -22,30 +22,35 @@ import { HostedFieldsField } from 'braintree-web/modules/hosted-fields';
 import { ThreeDSecureVerifyPayload } from 'braintree-web/modules/three-d-secure';
 import { ButtonStyle } from 'paypal-checkout-components';
 
+/**
+ * @description The current version of the SDK, i.e. `3.0.2`.
+ */
+export const VERSION: string;
+
 // Options
 
 export interface Options {
     authorization: string;
     container: string | HTMLElement;
-    locale?: string;
-    translations?: object;
-    paymentOptionPriority?: string[];
-    card?: boolean | cardCreateOptions;
-    paypal?: paypalCreateOptions;
-    paypalCredit?: paypalCreateOptions;
-    venmo?: venmoCreateOptions | boolean;
-    applePay?: applePayCreateOptions;
-    googlePay?: googlePayCreateOptions;
-    dataCollector?: dataCollectorOptions | boolean;
-    threeDSecure?: boolean | threeDSecureOptions;
-    vaultManager?: boolean;
-    preselectVaultedPaymentMethod?: boolean;
+    locale?: string | undefined;
+    translations?: object | undefined;
+    paymentOptionPriority?: string[] | undefined;
+    card?: boolean | cardCreateOptions | undefined;
+    paypal?: paypalCreateOptions | undefined;
+    paypalCredit?: paypalCreateOptions | undefined;
+    venmo?: venmoCreateOptions | boolean | undefined;
+    applePay?: applePayCreateOptions | undefined;
+    googlePay?: googlePayCreateOptions | undefined;
+    dataCollector?: dataCollectorOptions | boolean | undefined;
+    threeDSecure?: boolean | threeDSecureOptions | undefined;
+    vaultManager?: boolean | undefined;
+    preselectVaultedPaymentMethod?: boolean | undefined;
 }
 
 export interface applePayCreateOptions {
-    buttonStyle?: 'black' | 'white' | 'white-outline';
+    buttonStyle?: 'black' | 'white' | 'white-outline' | undefined;
     displayName: string;
-    applePaySessionVersion?: number;
+    applePaySessionVersion?: number | undefined;
     paymentRequest: ApplePayPaymentRequest;
 }
 
@@ -53,41 +58,48 @@ export interface cardCreateOptions {
     cardholderName?:
         | boolean
         | {
-              required?: boolean;
-          };
-    overrides?: {
-        fields?: {
-            number?: HostedFieldsField;
-            cvv?: HostedFieldsField;
-            expirationDate?: HostedFieldsField;
-            postalCode?: HostedFieldsField;
-        };
-        styles?: object;
-    };
-    clearFieldsAfterTokenization?: boolean;
-    vault?: {
-        allowVaultCardOverride?: boolean;
-        vaultCard?: boolean;
-    };
+              required?: boolean | undefined;
+          }
+        | undefined;
+    overrides?:
+        | {
+              fields?:
+                  | {
+                        number?: HostedFieldsField | undefined;
+                        cvv?: HostedFieldsField | undefined;
+                        expirationDate?: HostedFieldsField | undefined;
+                        postalCode?: HostedFieldsField | undefined;
+                    }
+                  | undefined;
+              styles?: object | undefined;
+          }
+        | undefined;
+    clearFieldsAfterTokenization?: boolean | undefined;
+    vault?:
+        | {
+              allowVaultCardOverride?: boolean | undefined;
+              vaultCard?: boolean | undefined;
+          }
+        | undefined;
 }
 
 export interface dataCollectorOptions {
-    kount?: boolean;
+    kount?: boolean | undefined;
 }
 
 export interface googlePayCreateOptions {
     merchantId: string;
-    googlePayVersion?: string;
+    googlePayVersion?: string | undefined;
     transactionInfo: google.payments.api.TransactionInfo;
-    button?: google.payments.api.ButtonOptions;
+    button?: google.payments.api.ButtonOptions | undefined;
 }
 
 export interface paypalCreateOptions {
     flow: 'checkout' | 'vault';
-    amount?: string | number;
-    currency?: string;
-    buttonStyle?: Partial<ButtonStyle>;
-    commit?: boolean;
+    amount?: string | number | undefined;
+    currency?: string | undefined;
+    buttonStyle?: Partial<ButtonStyle> | undefined;
+    commit?: boolean | undefined;
 }
 
 /**
@@ -98,7 +110,7 @@ export interface threeDSecureOptions {
 }
 
 export interface venmoCreateOptions {
-    allowNewBrowserTab?: boolean;
+    allowNewBrowserTab?: boolean | undefined;
 }
 
 // Dropin
@@ -118,9 +130,11 @@ export interface Dropin {
     on(event: 'noPaymentMethodRequestable', handler: () => void): void;
     on(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     on(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
+    on(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
     off(event: 'noPaymentMethodRequestable', handler: () => void): void;
     off(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
     off(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
+    off(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
     requestPaymentMethod(options: PaymentMethodOptions, callback: RequestPaymentMethodCallback): void;
     requestPaymentMethod(callback: RequestPaymentMethodCallback): void;
     requestPaymentMethod(options?: PaymentMethodOptions): Promise<PaymentMethodPayload>;
@@ -131,12 +145,12 @@ export interface Dropin {
 export interface PaymentMethodOptions {
     threeDSecure: {
         amount: string;
-        challengeRequested?: boolean;
-        exemptionRequested?: boolean;
-        email?: string;
-        mobilePhoneNumber?: string;
-        billingAddress?: object;
-        additionalInformation?: object;
+        challengeRequested?: boolean | undefined;
+        exemptionRequested?: boolean | undefined;
+        email?: string | undefined;
+        mobilePhoneNumber?: string | undefined;
+        billingAddress?: object | undefined;
+        additionalInformation?: object | undefined;
     };
 }
 
@@ -163,7 +177,7 @@ export interface binData {
 
 export interface applePayPaymentMethodPayload {
     nonce: string;
-    vaulted?: boolean;
+    vaulted?: boolean | undefined;
     details: {
         cardType: string;
         cardHolderName: string;
@@ -173,7 +187,7 @@ export interface applePayPaymentMethodPayload {
     description: string;
     type: 'ApplePayCard';
     binData: binData;
-    deviceData?: string;
+    deviceData?: string | undefined;
 }
 
 export interface cardPaymentMethodPayload {
@@ -189,11 +203,11 @@ export interface cardPaymentMethodPayload {
     };
     type: 'CreditCard';
     binData: binData;
-    vaulted?: boolean;
-    deviceData?: string;
-    liabilityShifted?: boolean;
-    liabilityShiftPossible?: boolean;
-    threeDSecureInfo?: ThreeDSecureVerifyPayload;
+    vaulted?: boolean | undefined;
+    deviceData?: string | undefined;
+    liabilityShifted?: boolean | undefined;
+    liabilityShiftPossible?: boolean | undefined;
+    threeDSecureInfo?: ThreeDSecureVerifyPayload | undefined;
 }
 
 export interface googlePayPaymentMethodPayload {
@@ -208,7 +222,7 @@ export interface googlePayPaymentMethodPayload {
     };
     type: 'AndroidPayCard';
     binData: binData;
-    deviceData?: string;
+    deviceData?: string | undefined;
 }
 
 export interface Address {
@@ -223,29 +237,44 @@ export interface Address {
 
 export interface paypalPaymentMethodPayload {
     nonce: string;
-    vaulted?: boolean;
+    vaulted?: boolean | undefined;
     details: {
         email: string;
         payerId: string;
         firstName: string;
         lastName: string;
-        countryCode?: string;
-        phone?: string;
-        shippingAddress?: Address;
-        billingAddress?: Address;
+        countryCode?: string | undefined;
+        phone?: string | undefined;
+        shippingAddress?: Address | undefined;
+        billingAddress?: Address | undefined;
     };
     type: 'PayPalAccount';
-    deviceData?: string;
+    deviceData?: string | undefined;
 }
 
 export interface venmoPaymentMethodPayload {
     nonce: string;
-    vaulted?: boolean;
+    vaulted?: boolean | undefined;
     details: {
         username: string;
     };
     type: 'VenmoAccount';
-    deviceData?: string;
+    deviceData?: string | undefined;
+}
+
+export type ActiveView =
+    | 'card'
+    | 'paypal'
+    | 'paypalCredit'
+    | 'venmo'
+    | 'googlePay'
+    | 'applePay'
+    | 'methods'
+    | 'options'
+    | 'delete-confirmation';
+export interface ChangeActiveViewPayload {
+    previousViewId: ActiveView;
+    newViewId: ActiveView;
 }
 
 // Methods

@@ -48,71 +48,71 @@ interface CanvasCameraOptions {
     /**
      * Number, optional, default: 352, width in pixels of the video to capture and the output canvas width in pixels.
      */
-    width?: number;
+    width?: number | undefined;
 
     /**
      * Number, optional, default: 288, height in pixels of the video to capture and the output canvas height in pixels.
      */
-    height?: number;
+    height?: number | undefined;
 
     canvas?: {
         /**
          * Number, optional, default: 352, width in pixels of the video to capture.
          */
-        width?: number,
+        width?: number | undefined,
 
         /**
          * Number, optional, default: 288, height in pixels of the video to capture.
          */
-        height?: number
-    };
+        height?: number | undefined
+    } | undefined;
 
     capture?: {
         /**
          * Number, optional, default: 352, output canvas width in pixels.
          */
-        width?: number,
+        width?: number | undefined,
 
         /**
          * Number, optional, default: 288, output canvas height in pixels.
          */
-        height?: number
-    };
+        height?: number | undefined
+    } | undefined;
 
     /**
      * Number, optional, default: 30, desired number of frames per second.
      */
-    fps?: number;
+    fps?: number | undefined;
 
     /**
      * String, optional, default: 'front', 'front' or 'back'.
      */
-    use?: 'file' | 'data';
+    use?: 'file' | 'data' | undefined;
 
     /**
      * Boolean, optional, default: false, a boolean to set flash mode on/off.
      */
-    flashMode?: boolean;
+    flashMode?: boolean | undefined;
 
     /**
      * Number, optional, default: 1/6, a ratio used to scale down the thumbnail.
      */
-    thumbnailRatio?: number;
+    thumbnailRatio?: number | undefined;
 
     /**
      * String, optional, default: file, file to use files for rendering (lower CPU / higher storage) or data to use base64 jpg data for rendering (higher cpu / lower storage).
      */
-    cameraFacing?: 'front' | 'back';
+    cameraFacing?: 'front' | 'back' | undefined;
 
     /**
      * Function, optional, default : null, callback executed before a frame has been drawn. frame contains the canvas element, the image element, the tracking data.
      */
-    onBeforeDraw?: (frame?: Frame) => void;
+    onBeforeDraw?: ((frame?: Frame) => void) | undefined;
 
     /**
      * Function, optional, default : null, callback executed after a frame has been drawn. frame contains the canvas element, the image element, the tracking data.
      */
-    onAfterDraw?: (frame?: Frame) => void;
+    onAfterDraw?: ((frame?: Frame) => void) | undefined;
 }
 
 declare class Frame {

@@ -13,7 +13,7 @@ declare namespace DataTables {
          * @description Enable and configure the FixedColumns extension for DataTables.
          * @see {@link https://datatables.net/reference/option/fixedColumns}
          */
-        fixedColumns?: boolean | FixedColumnsSettings;
+        fixedColumns?: boolean | FixedColumnsSettings | undefined;
     }
 
     interface FixedColumnsSettings {
@@ -23,19 +23,19 @@ declare namespace DataTables {
          * FixedColumns has three different algorithms that it can use: 'none', 'semiauto', 'auto'
          * @see {@link https://datatables.net/reference/option/fixedColumns.heightMatch}
          */
-        heightMatch?: 'none' | 'semiauto' | 'auto';
+        heightMatch?: 'none' | 'semiauto' | 'auto' | undefined;
 
         /**
          * @description The number of columns on the left hand side of the table to fix in place.
          * @see {@link https://datatables.net/reference/option/fixedColumns.leftColumns}
          */
-        leftColumns?: number;
+        leftColumns?: number | undefined;
 
         /**
          * @description The number of columns on the right hand side of the table to fix in place.
          * @see {@link https://datatables.net/reference/option/fixedColumns.rightColumns}
          */
-        rightColumns?: number;
+        rightColumns?: number | undefined;
     }
 
     interface Api {

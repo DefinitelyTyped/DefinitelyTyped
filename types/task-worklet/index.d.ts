@@ -10,7 +10,7 @@ declare class TaskQueue<T extends TaskQueue.TaskDescriptor = any> {
 }
 
 interface Options {
-    size?: number;
+    size?: number | undefined;
 }
 
 declare namespace TaskQueue {

@@ -3,69 +3,38 @@
 // Definitions by: Zhang Nan <https://github.com/anyone-developer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
+import * as fs from "fs";
+import { PicomatchOptions } from "picomatch";
+
 interface rrdir {
-    async(dir: string, options?: options): Promise<entry[]>;
-    sync(dir: string, options?: options): entry[];
-    (dir: string, options?: options): Promise<entry[]>;
+    async(dir: string, options?: Options): Promise<Array<Entry<string>>>;
+    async(dir: Buffer, options?: Options): Promise<Array<Entry<Buffer>>>;
+
+    sync(dir: string, options?: Options): Array<Entry<string>>;
+    sync(dir: Buffer, options?: Options): Array<Entry<Buffer>>;
+
+    (dir: string, options?: Options): AsyncIterable<Entry<string>>;
+    (dir: Buffer, options?: Options): AsyncIterable<Entry<Buffer>>;
 }
 
 declare const c: rrdir;
 export = c;
 
-interface options {
-    stats?: boolean;
-    followSymlinks?: boolean;
-    exclude?: string[];
-    include?: string[];
-    strict?: boolean;
-    match?: PicomatchOptions;
+interface Options {
+    stats?: boolean | undefined;
+    followSymlinks?: boolean | undefined;
+    exclude?: string[] | undefined;
+    include?: string[] | undefined;
+    strict?: boolean | undefined;
+    match?: PicomatchOptions | undefined;
 }
 
-interface entry {
-    path: string;
-    directory?: boolean;
-    symlink?: boolean;
-    stats?: object;
-    err?: Error;
-}
-
-interface PicomatchOptions {
-    basename?: boolean;
-    bash?: boolean;
-    capture?: boolean;
-    contains?: boolean;
-    cwd?: string;
-    debug?: boolean;
-    dot?: boolean;
-    expandRange?: (a: string, b: string) => string;
-    failglob?: boolean;
-    fastpaths?: boolean;
-    flags?: boolean;
-    format?: (str: string) => string;
-    ignore?: string[];
-    keepQuotes?: boolean;
-    literalBrackets?: boolean;
-    lookbehinds?: boolean;
-    matchBase?: boolean;
-    maxLength?: boolean;
-    nobrace?: boolean;
-    nobracket?: boolean;
-    nocase?: boolean;
-    nodupes?: boolean;
-    noext?: boolean;
-    noextglob?: boolean;
-    noglobstar?: boolean;
-    nonegate?: boolean;
-    noquantifiers?: boolean;
-    onIgnore?: (glob: any, regex: any, input: any, output: any) => void;
-    onMatch?: (glob: any, regex: any, input: any, output: any) => void;
-    onResult?: (glob: any, regex: any, input: any, output: any) => void;
-    posix?: boolean;
-    posixSlashes?: boolean;
-    prepend?: boolean;
-    regex?: boolean;
-    strictBrackets?: boolean;
-    strictSlashes?: boolean;
-    unescape?: boolean;
-    unixify?: boolean;
+interface Entry<T extends string | Buffer> {
+    path: T;
+    directory?: boolean | undefined;
+    symlink?: boolean | undefined;
+    stats?: fs.Stats | undefined;
+    err?: Error | undefined;
 }

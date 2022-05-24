@@ -1,6 +1,7 @@
-// Type definitions for ag-channel 4.0
+// Type definitions for ag-channel 5.0
 // Project: https://github.com/SocketCluster/ag-channel
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import ConsumableStream = require('consumable-stream');

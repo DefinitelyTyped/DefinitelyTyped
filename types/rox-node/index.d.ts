@@ -42,22 +42,22 @@ export function setContext(globalContext: unknown): void;
 export function setup(apiKey: string, options?: RoxSetupOptions): Promise<unknown>;
 
 export interface RoxSetupOptions {
-  version?: string;
+  version?: string | undefined;
   // https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/reporting/configuration-fetched-handler
   configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
-  debugLevel?: 'verbose';
+  debugLevel?: 'verbose' | undefined;
   // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_using_the_impressionhandler_option
   impressionHandler?(reporting: RoxReporting, context: unknown): void;
-  platform?: string;
-  fetchIntervalInSec?: number;
-  disableNetworkFetch?: boolean;
-  devModeSecret?: string;
+  platform?: string | undefined;
+  fetchIntervalInSec?: number | undefined;
+  disableNetworkFetch?: boolean | undefined;
+  devModeSecret?: string | undefined;
   /**
    * Set Roxy's URL for automated tests or local development.
    *
    * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/debugging/microservices-automated-testing-and-local-development
    */
-  roxy?: string;
+  roxy?: string | undefined;
   // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_dynamicpropertyrulehandler
   dynamicPropertyRuleHandler?(propName: string, context: any): any;
 }
@@ -80,7 +80,7 @@ export interface RoxFetcherResult {
   fetcherStatus: RoxFetcherStatus;
   creationDate: Date;
   hasChanges: boolean;
-  errorDetails?: string;
+  errorDetails?: string | undefined;
 }
 
 export interface RoxReporting {

@@ -3,4 +3,6 @@ export interface RecurlyError extends Error {
   message: string;
   classification: string;
   help?: string;
+  fields?: string[];
+  details?: Array<{ field: string, messages: string[] }>;
 }

@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "ESNext.AsyncIterable"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -19,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
+        "rrdir-tests.ts",
         "test/rrdir-tests.cjs.ts"
     ]
 }

@@ -7,3 +7,5 @@ gulp.task('templates', () => {
     .pipe(header('Header'))
     .pipe(gulp.dest('build/file.txt'));
 });
+
+header();

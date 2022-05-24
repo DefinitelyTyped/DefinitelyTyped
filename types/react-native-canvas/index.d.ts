@@ -9,25 +9,25 @@ import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
 export interface CanvasProps {
-    baseUrl?: string;
-    originWhitelist?: string[];
+    baseUrl?: string | undefined;
+    originWhitelist?: string[] | undefined;
     ref: ((canvas: Canvas) => any) | React.RefObject<Canvas>;
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle> | undefined;
 }
 
 export interface DOMMatrix2DInit {
-    a?: number;
-    b?: number;
-    c?: number;
-    d?: number;
-    e?: number;
-    f?: number;
-    m11?: number;
-    m12?: number;
-    m21?: number;
-    m22?: number;
-    m41?: number;
-    m42?: number;
+    a?: number | undefined;
+    b?: number | undefined;
+    c?: number | undefined;
+    d?: number | undefined;
+    e?: number | undefined;
+    f?: number | undefined;
+    m11?: number | undefined;
+    m12?: number | undefined;
+    m21?: number | undefined;
+    m22?: number | undefined;
+    m41?: number | undefined;
+    m42?: number | undefined;
 }
 
 export interface CanvasGradient {
@@ -54,6 +54,7 @@ export interface CanvasRenderingContext2D {
     shadowOffsetY: number;
     strokeStyle: string;
     textAlign: string;
+    textBaseline: string;
     arc: (x: number, y: number, r: number, sAngle: number, eAngle: number, counterClockwise?: boolean) => void;
     arcTo: (x1: number, y1: number, x2: number, y2: number, r: number) => void;
     beginPath: () => void;
@@ -131,7 +132,7 @@ export interface CanvasRenderingContext2D {
 export default class Canvas extends React.Component<CanvasProps> {
     width: number;
     height: number;
-    toDataURL: () => Promise<string>;
+    toDataURL: (type?: string, encoderOptions?: number) => Promise<string>;
     getContext: (context: string) => CanvasRenderingContext2D;
 }
 

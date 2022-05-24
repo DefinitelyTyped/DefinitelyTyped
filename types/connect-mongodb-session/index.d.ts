@@ -3,6 +3,7 @@
 // Definitions by: Nattapong Sirilappanich <https://github.com/NattapongSiri>
 //                 Ravi van Rooijen <https://github.com/HoldYourWaffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 import session = require('express-session');
 import { MongoClient, MongoClientOptions } from 'mongodb';
@@ -26,9 +27,9 @@ declare namespace ConnectMongoDBSession {
     interface MongoDBSessionOptions {
         uri: string;
         collection: string;
-        expires?: number;
-        databaseName?: string;
-        connectionOptions?: MongoClientOptions;
-        idField?: string;
+        expires?: number | undefined;
+        databaseName?: string | undefined;
+        connectionOptions?: MongoClientOptions | undefined;
+        idField?: string | undefined;
     }
 }

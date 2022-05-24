@@ -180,6 +180,16 @@ declare namespace PageJS {
          * This is the click handler used by page to handle routing when a user clicks an anchor like `<a href="/user/profile">`
          */
         clickHandler(e: MouseEvent): void;
+
+        /**
+         * Length of the history stack
+         */
+        len: number;
+
+        /**
+         * Current path
+         */
+        current: string;
     }
 
     interface Route {
@@ -208,12 +218,12 @@ declare namespace PageJS {
          * enable case-sensitive routes
          * @type {[type]}
          */
-        sensitive?: boolean;
+        sensitive?: boolean | undefined;
         /**
          * enable strict matching for trailing slashes
          * @type {[type]}
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 
     interface Options {
@@ -271,17 +281,21 @@ declare namespace PageJS {
          */
         handled: boolean;
         /**
-         *  Pathname including the "base" (if any) and query string "/admin/login?foo=bar".
+         *  Pathname including the "base" (if any) and query string "/admin/login?foo=bar#zee".
          */
         canonicalPath: string;
         /**
-         *  Pathname and query string "/login?foo=bar".
+         *  Pathname and query string "/login?foo=bar#zee".
          */
         path: string;
         /**
          *  Query string void of leading ? such as "foo=bar", defaults to "".
          */
         querystring: string;
+        /**
+         *  Hash void of leading # such as "zee", defaults to "".
+         */
+        hash: string;
         /**
          *  The pathname void of query string "/login".
          */
@@ -301,8 +315,18 @@ declare namespace PageJS {
     }
 }
 
-declare module "page" {
+declare module 'page' {
     const page: PageJS.Static;
+
+    type Callback = PageJS.Callback;
+    type Context = PageJS.Context;
+    type Options = PageJS.Options;
+    type Route = PageJS.Route;
+    type RouteOptions = PageJS.RouteOptions;
+    type Static = PageJS.Static;
+
+    export { Callback, Context, Options, Route, RouteOptions, Static };
+
     export default page;
 }
 

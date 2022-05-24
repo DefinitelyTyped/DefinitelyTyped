@@ -1,3 +1,4 @@
+import https = require('https');
 import {
     WebPushError,
     ContentEncoding,
@@ -180,7 +181,17 @@ requestOptions = {
     proxy: 'http://proxy'
 };
 
+declare const agent: https.Agent;
 requestOptions = {
+    agent,
+};
+
+requestOptions = {
+    timeout: 2000,
+};
+
+requestOptions = {
+    agent,
     headers: {
         someHeader: 'value'
     },
@@ -192,7 +203,8 @@ requestOptions = {
     },
     TTL: 100,
     contentEncoding: supportedContentEncodings.AES_GCM,
-    proxy: 'http://proxy'
+    proxy: 'http://proxy',
+    timeout: 2000,
 };
 
 // ==========================

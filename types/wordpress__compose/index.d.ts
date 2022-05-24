@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/compose 3.4
+// Type definitions for @wordpress/compose 4.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/compose/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,9 +16,9 @@ export { default as createHigherOrderComponent } from './utils/create-higher-ord
  * Composes multiple higher-order components into a single higher-order component. Performs right-to-left function
  * composition, where each successive invocation is supplied the return value of the previous.
  *
- * @param {...Function} hocs The HOC functions to invoke.
+ * @param hocs The HOC functions to invoke.
  *
- * @return {Function} Returns the new composite function.
+ * @return Returns the new composite function.
  */
 export { flowRight as compose };
 

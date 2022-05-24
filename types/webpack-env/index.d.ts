@@ -1,4 +1,4 @@
-// Type definitions for webpack (module API) 1.16
+// Type definitions for webpack (module API) 1.17
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 //                 rhonsby <https://github.com/rhonsby>
@@ -70,7 +70,7 @@ declare namespace __WebpackModuleApi {
         loaded: boolean;
         parent: NodeModule | null | undefined;
         children: NodeModule[];
-        hot?: Hot;
+        hot?: Hot | undefined;
     }
     type ModuleId = string|number;
 
@@ -91,34 +91,34 @@ declare namespace __WebpackModuleApi {
         /**
          * For errors: the module id owning the accept handler.
          */
-        dependencyId?: number;
+        dependencyId?: number | undefined;
         /**
          * For declined/accepted/unaccepted: the chain from where the update was propagated.
          */
-        chain?: number[];
+        chain?: number[] | undefined;
         /**
          * For declined: the module id of the declining parent
          */
-        parentId?: number;
+        parentId?: number | undefined;
         /**
          * For accepted: the modules that are outdated and will be disposed
          */
-        outdatedModules?: number[];
+        outdatedModules?: number[] | undefined;
         /**
          * For accepted: The location of accept handlers that will handle the update
          */
         outdatedDependencies?: {
           [dependencyId: number]: number[];
-        };
+        } | undefined;
         /**
          * For errors: the thrown error
          */
-        error?: Error;
+        error?: Error | undefined;
         /**
          * For self-accept-error-handler-errored: the error thrown by the module
          * before the error handler tried to handle it.
          */
-        originalError?: Error;
+        originalError?: Error | undefined;
       }
 
     interface Hot {
@@ -126,14 +126,16 @@ declare namespace __WebpackModuleApi {
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependencies
          * @param callback
+         * @param errorHandler
          */
-        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void): void;
+        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void, errorHandler?: (err: Error) => void): void;
         /**
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependency
          * @param callback
+         * @param errorHandler
          */
-        accept(dependency: string, callback?: () => void): void;
+        accept(dependency: string, callback?: () => void, errorHandler?: (err: Error) => void): void;
         /**
          * Accept code updates for this module without notification of parents.
          * This should only be used if the module doesn’t export anything.
@@ -186,30 +188,14 @@ declare namespace __WebpackModuleApi {
          * apply() is automatically called with autoApply as options parameter.
          * If autoApply is not set the callback will be called with all modules that will be disposed on apply().
          * @param autoApply
-         * @param callback
          */
-        check(autoApply: boolean, callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
-        /**
-         * Throws an exceptions if status() is not idle.
-         * Check all currently loaded modules for updates and apply updates if found.
-         * If no update was found, the callback is called with null.
-         * The callback will be called with all modules that will be disposed on apply().
-         * @param callback
-         */
-        check(callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
+        check(autoApply?: boolean): Promise<null|ModuleId[]>;
         /**
          * If status() != "ready" it throws an error.
          * Continue the update process.
          * @param options
-         * @param callback
          */
-        apply(options: AcceptOptions, callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
-        /**
-         * If status() != "ready" it throws an error.
-         * Continue the update process.
-         * @param callback
-         */
-        apply(callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
+        apply(options?: AcceptOptions): Promise<ModuleId[]>;
         /**
          * Return one of idle, check, watch, watch-delay, prepare, ready, dispose, apply, abort or fail.
          */
@@ -232,39 +218,39 @@ declare namespace __WebpackModuleApi {
         /**
          * If true the update process continues even if some modules are not accepted (and would bubble to the entry point).
          */
-        ignoreUnaccepted?: boolean;
+        ignoreUnaccepted?: boolean | undefined;
         /**
          * Ignore changes made to declined modules.
          */
-        ignoreDeclined?: boolean;
+        ignoreDeclined?: boolean | undefined;
         /**
          *  Ignore errors throw in accept handlers, error handlers and while reevaluating module.
          */
-        ignoreErrored?: boolean;
+        ignoreErrored?: boolean | undefined;
         /**
          * Notifier for declined modules.
          */
-        onDeclined?: (info: HotNotifierInfo) => void;
+        onDeclined?: ((info: HotNotifierInfo) => void) | undefined;
         /**
          * Notifier for unaccepted modules.
          */
-        onUnaccepted?: (info: HotNotifierInfo) => void;
+        onUnaccepted?: ((info: HotNotifierInfo) => void) | undefined;
         /**
          * Notifier for accepted modules.
          */
-        onAccepted?: (info: HotNotifierInfo) => void;
+        onAccepted?: ((info: HotNotifierInfo) => void) | undefined;
         /**
          * Notifier for disposed modules.
          */
-        onDisposed?: (info: HotNotifierInfo) => void;
+        onDisposed?: ((info: HotNotifierInfo) => void) | undefined;
         /**
          * Notifier for errors.
          */
-        onErrored?: (info: HotNotifierInfo) => void;
+        onErrored?: ((info: HotNotifierInfo) => void) | undefined;
         /**
          * Indicates that apply() is automatically called by check function
          */
-        autoApply?: boolean;
+        autoApply?: boolean | undefined;
     }
     /**
     * Inside env you can pass any variable
@@ -303,9 +289,8 @@ declare var __webpack_require__: any;
  * The internal chunk loading function
  *
  * @param chunkId The id for the chunk to load.
- * @param callback A callback function called once the chunk is loaded.
  */
-declare var __webpack_chunk_load__: (chunkId: any, callback: (require: __WebpackModuleApi.RequireLambda) => void) => void;
+declare var __webpack_chunk_load__: (chunkId: any) => Promise<any>;
 
 /**
  * Access to the internal object of all modules.
@@ -338,17 +323,35 @@ declare var DEBUG: boolean;
 
 interface ImportMeta {
     /**
-     * `import.meta.webpackHot` is an alias for` module.hot` which is also available in strict ESM
+     * `import.meta.url` is the `file:` url of the current file (similar to `__filename` but as file url)
      */
-    webpackHot?: __WebpackModuleApi.Hot;
+    url: string;
     /**
      * `import.meta.webpack` is the webpack major version as number
      */
     webpack: number;
     /**
-     * `import.meta.url` is the `file:` url of the current file (similar to `__filename` but as file url)
+     * `import.meta.webpackHot` is an alias for` module.hot` which is also available in strict ESM
      */
-    url: string;
+    webpackHot?: __WebpackModuleApi.Hot | undefined;
+    /**
+     * `import.meta.webpackContext` as ESM alternative to `require.context`
+     * Available: 5.70.0+
+     */
+    webpackContext?: (
+        request: string,
+        options?: {
+          recursive?: boolean;
+          regExp?: RegExp;
+          include?: RegExp;
+          exclude?: RegExp;
+          preload?: boolean | number;
+          prefetch?: boolean | number;
+          chunkName?: string;
+          exports?: string | string[][];
+          mode?: 'sync' | 'eager' | 'weak' | 'lazy' | 'lazy-once';
+        }
+      ) => __WebpackModuleApi.RequireContext;
 }
 
 interface NodeModule extends NodeJS.Module {}

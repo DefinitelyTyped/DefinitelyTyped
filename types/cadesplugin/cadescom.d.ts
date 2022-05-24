@@ -2,7 +2,7 @@ declare namespace CAdESCOM {
     interface CPSigner {
         Certificate: CAPICOM.Certificate;
         CheckCertificate: boolean;
-
+        AuthenticatedAttributes2: CPAuthenticatedAttributes2;
         KeyPin: string;
         Options: CADES_Common.ValuesOf<CAPICOM.CAPICOM_CERTIFICATE_INCLUDE_OPTION>;
         readonly SignatureTimeStampTime: CADES_Common.VarDate;
@@ -12,6 +12,14 @@ declare namespace CAdESCOM {
         Display(hwndParent?: number, title?: string): void;
 
         Load(fileName: string, password?: string): void;
+    }
+
+    interface CPAuthenticatedAttributes2 {
+        Add(attribute: CPAttribute): void;
+        Clear(): void;
+        Remove(index: number): void;
+        readonly Count: number;
+        Item(index: number): CPAttribute;
     }
 
     interface CadesSignedData {
@@ -24,9 +32,9 @@ declare namespace CAdESCOM {
         Display(hwndParent?: number, title?: string): void;
 
         EnhanceCades(cadesType?: CADES_Common.ValuesOf<CADESCOM_CADES_TYPE>, TSAAddress?: string, encodingType?: CADES_Common.ValuesOf<CAPICOM.CAPICOM_ENCODING_TYPE>): string;
-
+        SignHash(hashedData: CPHashedData, signer: CPSigner, CadesType: CADES_Common.ValuesOf<CADESCOM_CADES_TYPE>, EncodingType?: CADES_Common.ValuesOf<CAPICOM.CAPICOM_ENCODING_TYPE>): string;
         SignCades(signer?: CPSigner, CadesType?: CADES_Common.ValuesOf<CADESCOM_CADES_TYPE>, bDetached?: boolean, EncodingType?: CADES_Common.ValuesOf<CAPICOM.CAPICOM_ENCODING_TYPE>): string;
-
+        VerifyHash(hashedData: CPHashedData, SignedMessage: string, CadesType?: CADES_Common.ValuesOf<CADESCOM_CADES_TYPE>): void;
         VerifyCades(SignedMessage: string, CadesType?: CADES_Common.ValuesOf<CADESCOM_CADES_TYPE>, bDetached?: boolean): void;
     }
 
@@ -74,7 +82,7 @@ declare namespace CAdESCOM {
     }
 
     interface CPHashedData {
-        Algorithm: CADES_Common.ValuesOf<CAPICOM.CAPICOM_HASH_ALGORITHM>;
+        Algorithm: CADES_Common.ValuesOf<CADESCOM_HASH_ALGORITHM & CAPICOM.CAPICOM_HASH_ALGORITHM>;
         DataEncoding: CADES_Common.ValuesOf<CADESCOM_CONTENT_ENCODING_TYPE>;
         Value: string;
 

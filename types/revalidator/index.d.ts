@@ -7,15 +7,15 @@ declare module Revalidator {
 
     interface IOptions {
         /** Enforce format constraints (default true) */
-        validateFormats?: boolean;
+        validateFormats?: boolean | undefined;
         /** When validateFormats is true treat unrecognized formats as validation errors (default false) */
-        validateFormatsStrict?: boolean;
+        validateFormatsStrict?: boolean | undefined;
         /** When validateFormats is true also validate formats defined in validate.formatExtensions (default true) */
-        validateFormatExtensions?: boolean;
+        validateFormatExtensions?: boolean | undefined;
         /** When additionalProperties is true allow additional unvisited properties on the object. (default true) */
-        additionalProperties?: boolean;
+        additionalProperties?: boolean | undefined;
         /** Enforce casting of some types (for integers/numbers are only supported) when it's possible, e.g. "42" => 42, but "forty2" => "forty2" for the integer type. */
-        cast?: boolean;
+        cast?: boolean | undefined;
     }
 
     interface RevalidatorStatic {
@@ -36,9 +36,9 @@ declare module Revalidator {
     }
 
     interface JSONSchema<T> {
-        type?: 'object';
-        properties?: ISchemas<T>;
-        patternProperties?: ISchemas<T>;
+        type?: 'object' | undefined;
+        properties?: ISchemas<T> | undefined;
+        patternProperties?: ISchemas<T> | undefined;
     }
 
     interface ISchemas<T> {
@@ -49,49 +49,49 @@ declare module Revalidator {
         /**The type of value should be equal to the expected value */
         type: Types|Types[];
         /**If true, the value should not be undefined */
-        required?: boolean;
+        required?: boolean | undefined;
         /**The expected value regex needs to be satisfied by the value */
-        pattern?: RegExp|string;
+        pattern?: RegExp|string | undefined;
         /**The length of value must be greater than or equal to expected value */
-        maxLength?: number;
+        maxLength?: number | undefined;
         /**Description for this object */
-        description?: string;
+        description?: string | undefined;
         /**The length of value must be lesser than or equal to expected value */
-        minLength?: number;
+        minLength?: number | undefined;
         /**Value must be greater than or equal to the expected value */
-        minimum?: number;
+        minimum?: number | undefined;
         /**Value must be lesser than or equal to the expected value */
-        maximum?: number;
+        maximum?: number | undefined;
         /**If false, the value must not be an empty string */
-        allowEmpty?: boolean;
+        allowEmpty?: boolean | undefined;
         /**Value must be greater than expected value */
-        exclusiveMinimum?: number;
+        exclusiveMinimum?: number | undefined;
         /**Value must be lesser than expected value */
-        exclusiveMaximum?: number;
+        exclusiveMaximum?: number | undefined;
         /**Value must be divisible by expected value */
-        divisibleBy?: number;
+        divisibleBy?: number | undefined;
         /**Value must contain more than expected number of items */
-        minItems?: number;
+        minItems?: number | undefined;
         /**Value must contain fewer than expected number of items */
-        maxItems?: number;
+        maxItems?: number | undefined;
         /**Value must hold a unique set of values */
-        uniqueItems?: boolean;
+        uniqueItems?: boolean | undefined;
         /**Value must be present in the array of expected values */
-        enum?: any[];
+        enum?: any[] | undefined;
         /**Custom messages for different constraints */
-        message?: string;
+        message?: string | undefined;
         /**Custom messages for different constraints */
-        messages?: {[index: string]: string};
+        messages?: {[index: string]: string} | undefined;
         /**Default value */
         default?: any;
         /**Value must be a valid format */
-        format?: Formats;
+        format?: Formats | undefined;
         /**Value must conform to constraint denoted by expected value */
-        conform?: (value: any, data?: T) => boolean;
+        conform?: ((value: any, data?: T) => boolean) | undefined;
         /**Value is valid only if the dependent value is valid */
-        dependencies?: string;
+        dependencies?: string | undefined;
         /**Property to describe items for type: 'array' */
-        items?: ISchema<T>|JSONSchema<T>
+        items?: ISchema<T>|JSONSchema<T> | undefined
     }
 }
 

@@ -1,9 +1,8 @@
-// Type definitions for socketcluster-client 15.1
+// Type definitions for socketcluster-client 16.0
 // Project: https://github.com/SocketCluster/socketcluster-client, http://socketcluster.io
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { SCAuthEngine } from "sc-auth";
 
 export import factory = require("./lib/factory");
 export import AGClientSocket = require("./lib/clientsocket");

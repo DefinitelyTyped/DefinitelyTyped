@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     AccumulationIce16,
     Layers16,
@@ -17,7 +17,14 @@ import {
     LogoKeybase16,
     Barcode16,
     CalculationAlt16,
-} from '@carbon/icons-react';
+    UserAccess16,
+    TextClearFormat16,
+    IceVision16,
+} from "@carbon/icons-react";
+
+<UserAccess16 />; // $ExpectType Element
+<TextClearFormat16 />; // $ExpectType Element
+<IceVision16 />; // $ExpectType Element
 
 <AccumulationIce16 />; // $ExpectType Element
 <Layers16 />; // $ExpectType Element

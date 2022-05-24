@@ -22,19 +22,24 @@ new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory })
     minified.sourceMap.setSourceContent("bar.css", "");
 });
 
-const inputSourceMapAsString = '{"version":3,"sources":["foo.css"],"names":[],"mappings":"AAAA"}';
+const inputSourceMap = { version: '3', sources: ['foo.css'], names: [], mappings: 'AAAA' };
+new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory })
+  .minify(source, inputSourceMap, (error: any, minified: CleanCSS.Output): void => {
+    // access minified.sourceMap as above
+    console.log(minified.sourceMap);
+});
+
+const inputSourceMapAsString = JSON.stringify(inputSourceMap);
 new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory })
   .minify(source, inputSourceMapAsString, (error: any, minified: CleanCSS.Output): void => {
-    // access minified.sourceMap to access SourceMapGenerator object
-    // see https://github.com/mozilla/source-map/#sourcemapgenerator for more details
-    // see https://github.com/jakubpawlowicz/clean-css/blob/master/bin/cleancss#L114 on how it's used in clean-css' CLI
+    // access minified.sourceMap as above
     console.log(minified.sourceMap);
 });
 
 new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory }).minify({
   'path/to/source/1': {
     styles: source,
-    sourceMap: inputSourceMapAsString
+    sourceMap: inputSourceMap
   },
   'path/to/source/2': {
     styles: source,

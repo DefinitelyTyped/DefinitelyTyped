@@ -104,10 +104,10 @@ export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoExcept
 export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
 export function access(path: string | Buffer, mode?: number): Promise<void>;
 
-export function appendFile(file: string | Buffer | number, data: any, options: { encoding?: string; mode?: number | string; flag?: string; },
+export function appendFile(file: string | Buffer | number, data: any, options: { encoding?: string | undefined; mode?: number | string | undefined; flag?: string | undefined; },
     callback: (err: NodeJS.ErrnoException) => void): void;
 export function appendFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
-export function appendFile(file: string | Buffer | number, data: any, options?: { encoding?: string; mode?: number | string; flag?: string; }): Promise<void>;
+export function appendFile(file: string | Buffer | number, data: any, options?: { encoding?: string | undefined; mode?: number | string | undefined; flag?: string | undefined; }): Promise<void>;
 
 export function chmod(path: string | Buffer, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
 export function chmod(path: string | Buffer, mode: string | number): Promise<void>;
@@ -175,8 +175,12 @@ export function read(fd: number, buffer: Buffer, offset: number, length: number,
 
 export function readFile(file: string | Buffer | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 export function readFile(file: string | Buffer | number, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-export function readFile(file: string | Buffer | number, options: { flag?: string; } | { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-export function readFile(file: string | Buffer | number, options: { flag?: string; } | { encoding: string; flag?: string; }): Promise<string>;
+export function readFile(
+    file: string | Buffer | number,
+    options: { flag?: string | undefined; } | { encoding: string; flag?: string | undefined; },
+    callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+): void;
+export function readFile(file: string | Buffer | number, options: { flag?: string | undefined; } | { encoding: string; flag?: string | undefined; }): Promise<string>;
 // tslint:disable-next-line:unified-signatures
 export function readFile(file: string | Buffer | number, encoding: string): Promise<string>;
 export function readFile(file: string | Buffer | number): Promise<Buffer>;
@@ -188,7 +192,11 @@ export function readlink(path: string | Buffer, callback: (err: NodeJS.ErrnoExce
 export function readlink(path: string | Buffer): Promise<string>;
 
 export function realpath(path: string | Buffer, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
-export function realpath(path: string | Buffer, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
+export function realpath(
+    path: string | Buffer,
+    cache: { [path: string]: string },
+    callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any
+): void;
 export function realpath(path: string | Buffer, cache?: { [path: string]: string }): Promise<string>;
 
 export function rename(oldPath: string, newPath: string, callback: (err: NodeJS.ErrnoException) => void): void;
@@ -259,42 +267,42 @@ export type CopyFilter = ((src: string, dest: string) => boolean) | RegExp;
 export type SymlinkType = "dir" | "file";
 
 export interface CopyOptions {
-    dereference?: boolean;
-    overwrite?: boolean;
-    preserveTimestamps?: boolean;
-    errorOnExist?: boolean;
-    filter?: CopyFilter;
-    recursive?: boolean;
+    dereference?: boolean | undefined;
+    overwrite?: boolean | undefined;
+    preserveTimestamps?: boolean | undefined;
+    errorOnExist?: boolean | undefined;
+    filter?: CopyFilter | undefined;
+    recursive?: boolean | undefined;
 }
 
 export interface EnsureOptions {
-    mode?: number;
+    mode?: number | undefined;
 }
 
 export interface MoveOptions {
-    overwrite?: boolean;
-    limit?: number;
+    overwrite?: boolean | undefined;
+    limit?: number | undefined;
 }
 
 export interface ReadOptions {
-    throws?: boolean;
-    fs?: object;
+    throws?: boolean | undefined;
+    fs?: object | undefined;
     reviver?: any;
-    encoding?: BufferEncoding;
-    flag?: string;
+    encoding?: BufferEncoding | undefined;
+    flag?: string | undefined;
 }
 
 export interface WriteFileOptions {
-    encoding?: BufferEncoding | null;
-    flag?: string;
-    mode?: number;
+    encoding?: BufferEncoding | null | undefined;
+    flag?: string | undefined;
+    mode?: number | undefined;
 }
 
 export interface WriteOptions extends WriteFileOptions {
-    fs?: object;
+    fs?: object | undefined;
     replacer?: any;
-    spaces?: number | string;
-    EOL?: string;
+    spaces?: number | string | undefined;
+    EOL?: string | undefined;
 }
 
 export interface ReadResult {

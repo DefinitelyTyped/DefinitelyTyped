@@ -1,11 +1,7 @@
-declare module 'node:net' {
-    export * from 'net';
-}
-
 declare module 'net' {
-    import * as stream from 'node:stream';
-    import EventEmitter = require('node:events');
-    import * as dns from 'node:dns';
+    import * as stream from 'stream';
+    import EventEmitter = require('events');
+    import * as dns from 'dns';
 
     type LookupFunction = (
         hostname: string,
@@ -20,10 +16,10 @@ declare module 'net' {
     }
 
     interface SocketConstructorOpts {
-        fd?: number;
-        allowHalfOpen?: boolean;
-        readable?: boolean;
-        writable?: boolean;
+        fd?: number | undefined;
+        allowHalfOpen?: boolean | undefined;
+        readable?: boolean | undefined;
+        writable?: boolean | undefined;
     }
 
     interface OnReadOpts {
@@ -42,17 +38,17 @@ declare module 'net' {
          * Note: this will cause the streaming functionality to not provide any data, however events like 'error', 'end', and 'close' will
          * still be emitted as normal and methods like pause() and resume() will also behave as expected.
          */
-        onread?: OnReadOpts;
+        onread?: OnReadOpts | undefined;
     }
 
     interface TcpSocketConnectOpts extends ConnectOpts {
         port: number;
-        host?: string;
-        localAddress?: string;
-        localPort?: number;
-        hints?: number;
-        family?: number;
-        lookup?: LookupFunction;
+        host?: string | undefined;
+        localAddress?: string | undefined;
+        localPort?: number | undefined;
+        hints?: number | undefined;
+        family?: number | undefined;
+        lookup?: LookupFunction | undefined;
     }
 
     interface IpcSocketConnectOpts extends ConnectOpts {
@@ -60,6 +56,7 @@ declare module 'net' {
     }
 
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
+    type SocketReadyState = 'opening' | 'open' | 'readOnly' | 'writeOnly' | 'closed';
 
     class Socket extends stream.Duplex {
         constructor(options?: SocketConstructorOpts);
@@ -90,14 +87,25 @@ declare module 'net' {
         readonly destroyed: boolean;
         readonly localAddress: string;
         readonly localPort: number;
-        readonly remoteAddress?: string;
-        readonly remoteFamily?: string;
-        readonly remotePort?: number;
+        /**
+         * This property represents the state of the connection as a string.
+         * @see {https://nodejs.org/api/net.html#socketreadystate}
+         * @since v0.5.0
+         */
+        readonly readyState: SocketReadyState;
+        readonly remoteAddress?: string | undefined;
+        readonly remoteFamily?: string | undefined;
+        readonly remotePort?: number | undefined;
+        /**
+         * The socket timeout in milliseconds as set by socket.setTimeout(). It is undefined if a timeout has not been set.
+         * @since v10.7.0
+         */
+        readonly timeout?: number | undefined;
 
         // Extended base methods
-        end(cb?: () => void): void;
-        end(buffer: Uint8Array | string, cb?: () => void): void;
-        end(str: Uint8Array | string, encoding?: string, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(buffer: Uint8Array | string, cb?: () => void): this;
+        end(str: Uint8Array | string, encoding?: string, cb?: () => void): this;
 
         /**
          * events.EventEmitter
@@ -118,6 +126,7 @@ declare module 'net' {
         addListener(event: "end", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        addListener(event: "ready", listener: () => void): this;
         addListener(event: "timeout", listener: () => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
@@ -128,6 +137,7 @@ declare module 'net' {
         emit(event: "end"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "lookup", err: Error, address: string, family: string | number, host: string): boolean;
+        emit(event: "ready"): boolean;
         emit(event: "timeout"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
@@ -138,6 +148,7 @@ declare module 'net' {
         on(event: "end", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        on(event: "ready", listener: () => void): this;
         on(event: "timeout", listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
@@ -148,6 +159,7 @@ declare module 'net' {
         once(event: "end", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        once(event: "ready", listener: () => void): this;
         once(event: "timeout", listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
@@ -158,6 +170,7 @@ declare module 'net' {
         prependListener(event: "end", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        prependListener(event: "ready", listener: () => void): this;
         prependListener(event: "timeout", listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
@@ -168,27 +181,28 @@ declare module 'net' {
         prependOnceListener(event: "end", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        prependOnceListener(event: "ready", listener: () => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
     interface ListenOptions {
-        port?: number;
-        host?: string;
-        backlog?: number;
-        path?: string;
-        exclusive?: boolean;
-        readableAll?: boolean;
-        writableAll?: boolean;
+        port?: number | undefined;
+        host?: string | undefined;
+        backlog?: number | undefined;
+        path?: string | undefined;
+        exclusive?: boolean | undefined;
+        readableAll?: boolean | undefined;
+        writableAll?: boolean | undefined;
         /**
          * @default false
          */
-        ipv6Only?: boolean;
+        ipv6Only?: boolean | undefined;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
     class Server extends EventEmitter {
         constructor(connectionListener?: (socket: Socket) => void);
-        constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
+        constructor(options?: { allowHalfOpen?: boolean | undefined, pauseOnConnect?: boolean | undefined }, connectionListener?: (socket: Socket) => void);
 
         listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): this;
         listen(port?: number, hostname?: string, listeningListener?: () => void): this;
@@ -253,17 +267,17 @@ declare module 'net' {
     }
 
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
 
     function createServer(connectionListener?: (socket: Socket) => void): Server;
-    function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
+    function createServer(options?: { allowHalfOpen?: boolean | undefined, pauseOnConnect?: boolean | undefined }, connectionListener?: (socket: Socket) => void): Server;
     function connect(options: NetConnectOpts, connectionListener?: () => void): Socket;
     function connect(port: number, host?: string, connectionListener?: () => void): Socket;
     function connect(path: string, connectionListener?: () => void): Socket;

@@ -2,26 +2,26 @@ import * as React from "react";
 
 export type LocalizationEditorProps = {
     control: {
-        buttonProps?: { [x: string]: any };
-        inputProps?: { [x: string]: any };
-        labelProps?: { [x: string]: any };
-        label?: string;
-        placeholder?: string;
-        language?: string;
+        buttonProps?: { [x: string]: any } | undefined;
+        inputProps?: { [x: string]: any } | undefined;
+        labelProps?: { [x: string]: any } | undefined;
+        label?: string | undefined;
+        placeholder?: string | undefined;
+        language?: string | undefined;
     };
     menu: Array<{
-        inputProps?: { [x: string]: any };
-        placeholder?: string;
-        language?: string;
+        inputProps?: { [x: string]: any } | undefined;
+        placeholder?: string | undefined;
+        language?: string | undefined;
     }>;
-    className?: string;
-    compact?: boolean;
-    disableStyles?: boolean;
-    id?: string;
-    inputClassName?: string;
+    className?: string | undefined;
+    compact?: boolean | undefined;
+    disableStyles?: boolean | undefined;
+    id?: string | undefined;
+    inputClassName?: string | undefined;
     listProps?: any;
     popoverProps?: any;
-    textarea?: boolean;
+    textarea?: boolean | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 declare const LocalizationEditor: React.FunctionComponent<LocalizationEditorProps> & {

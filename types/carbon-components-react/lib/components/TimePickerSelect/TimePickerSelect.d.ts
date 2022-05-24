@@ -1,9 +1,11 @@
 import * as React from "react";
 
 export interface TimePickerSelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "id"> {
-    iconDescription?: string,
+    /**
+     * @deprecated
+     */
+    iconDescription?: string | undefined,
     id: string,
-    inline?: boolean,
     labelText: NonNullable<React.ReactNode>,
 }
 

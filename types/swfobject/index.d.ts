@@ -92,18 +92,18 @@ declare namespace swfobject {
   }
 
   export interface ISwfObjectAttribute {
-    id?: string;
-    width?: string;
-    height?: string;
+    id?: string | undefined;
+    width?: string | undefined;
+    height?: string | undefined;
   }
 
   export interface ISwfObjectParameter {
-    flashvars?: string;
+    flashvars?: string | undefined;
   }
 
   export interface ICallbackObj {
     success: boolean;
     id: string;
-    ref?: HTMLElement;
+    ref?: HTMLElement | undefined;
   }
 }

@@ -1,16 +1,28 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
-        "forceConsistentCasingInFileNames": true,
-        "lib": ["es6"],
         "module": "commonjs",
-        "noEmit": true,
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "typeRoots": ["../"],
-        "types": []
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "webpack": [
+                "./node_modules/webpack"
+            ],
+            "tapable": [
+                "./node_modules/tapable"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

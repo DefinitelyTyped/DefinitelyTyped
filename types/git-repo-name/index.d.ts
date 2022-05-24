@@ -17,7 +17,7 @@ declare namespace gitRepoName {
     function sync(options?: string | Options): string;
 
     interface Options {
-        cwd?: string;
-        path?: string;
+        cwd?: string | undefined;
+        path?: string | undefined;
     }
 }

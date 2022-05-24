@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 export = blossom;
-declare function blossom(edges: number[][], maxCardinality?: number): number[];
+declare function blossom(edges: number[][], maxCardinality?: boolean): number[];

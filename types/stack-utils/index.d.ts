@@ -20,9 +20,9 @@ declare class StackUtils {
 
 declare namespace StackUtils {
     interface Options {
-        internals?: RegExp[];
-        ignoredPackages?: string[];
-        cwd?: string;
+        internals?: RegExp[] | undefined;
+        ignoredPackages?: string[] | undefined;
+        cwd?: string | undefined;
         wrapCallSite?(callSite: CallSite): CallSite;
     }
 
@@ -43,23 +43,23 @@ declare namespace StackUtils {
     }
 
     interface CallSiteLike extends StackData {
-        type?: string;
+        type?: string | undefined;
     }
 
     interface StackLineData extends StackData {
-        evalLine?: number;
-        evalColumn?: number;
-        evalFile?: string;
+        evalLine?: number | undefined;
+        evalColumn?: number | undefined;
+        evalFile?: string | undefined;
     }
 
     interface StackData {
-        line?: number;
-        column?: number;
-        file?: string;
-        constructor?: boolean;
-        evalOrigin?: string;
-        native?: boolean;
-        function?: string;
-        method?: string;
+        line?: number | undefined;
+        column?: number | undefined;
+        file?: string | undefined;
+        constructor?: boolean | undefined;
+        evalOrigin?: string | undefined;
+        native?: boolean | undefined;
+        function?: string | undefined;
+        method?: string | undefined;
     }
 }

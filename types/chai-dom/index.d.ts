@@ -22,6 +22,8 @@ declare namespace Chai {
 
         value(text: string): Assertion;
 
+        style(property: string, value: string): Assertion;
+
         empty: Assertion;
 
         // exist, length, and contain are already defined in @types/chai and have the
@@ -36,9 +38,15 @@ declare namespace Chai {
 
         trimmed: Assertion;
 
+        rendered: Assertion;
+
         visible: Assertion;
 
         tagName(name: string): Assertion;
+
+        focus: Assertion;
+
+        checked: Assertion;
     }
 
     interface Include {

@@ -21,7 +21,11 @@ import {
     graphql,
     getRequest,
     createOperationDescriptor,
+    FragmentRefs,
+    readInlineData,
 } from 'relay-runtime';
+
+import * as multiActorEnvironment from 'relay-runtime/multi-actor-environment';
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -120,7 +124,7 @@ const environment = new Environment({
             case 'network.error':
             case 'network.info':
             case 'network.unsubscribe':
-            case 'execute.info':
+            case 'execute.start':
             case 'queryresource.fetch':
             default:
                 break;
@@ -196,6 +200,18 @@ function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversation
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
     }
     passToHelper(newMessageEdge);
+}
+
+function connectionHandlerWithoutStore() {
+    let connectionId: DataID;
+
+    connectionId = ConnectionHandler.getConnectionID('4', 'ConnectionQuery_friends');
+
+    connectionId = ConnectionHandler.getConnectionID('4', 'ConnectionQuery_friends', null);
+
+    connectionId = ConnectionHandler.getConnectionID('4', 'ConnectionQuery_friends', {
+        orderby: ['first name'],
+    });
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -409,6 +425,48 @@ const nodeFragment: ReaderFragment = {
 };
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// readInlineData
+// ~~~~~~~~~~~~~~~~~~~~~
+
+interface Module_data {
+    readonly id: string;
+    readonly ' $fragmentType': 'Module_data';
+}
+type Module_data$data = Module_data;
+interface Module_data$key {
+    readonly ' $data'?: Module_data$data;
+    readonly ' $fragmentSpreads': FragmentRefs<'Module_data'>;
+}
+
+function readData(
+  dataRef: Module_data$key,
+) {
+  // $ExpectType Module_data
+  readInlineData(
+    graphql`
+      fragment Module_data on Data @inline {
+        id
+      }
+    `,
+    dataRef,
+  );
+}
+
+function readNullableData(
+  dataRef: Module_data$key | null,
+) {
+  // $ExpectType Module_data | null
+  readInlineData(
+    graphql`
+      fragment Module_data on Data @inline {
+        id
+      }
+    `,
+    dataRef,
+  );
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // INTERNAL-ONLY
 // ~~~~~~~~~~~~~~~~~~~~~
 
@@ -434,3 +492,29 @@ const operation = createOperationDescriptor(request, variables);
 const operationWithCacheConfig = createOperationDescriptor(request, variables, cacheConfig);
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
 const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);
+
+// ~~~~~~~~~~~~~~~~~~~~~~~
+// MULTI ACTOR ENVIRONMENT
+// ~~~~~~~~~~~~~~~~~~~~~~~
+
+function multiActors() {
+    const environment = new multiActorEnvironment.MultiActorEnvironment({
+       createNetworkForActor(
+           id // $ExpectType string
+       ) {
+           return network;
+       },
+        createStoreForActor(
+            id // $ExpectType string
+        ) {
+           return store;
+        },
+    });
+
+    // $ExpectType ActorEnvironment
+    const actor = environment.forActor("test");
+
+    environment.execute(actor, {
+        operation
+    }).toPromise();
+}

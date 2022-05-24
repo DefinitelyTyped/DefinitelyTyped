@@ -16,17 +16,17 @@ declare module "react-textarea-autosize" {
         /**
          * Current textarea value
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * Callback on value change
          * @param event
          */
-        onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+        onChange?: ((event: React.ChangeEvent<HTMLTextAreaElement>) => void) | undefined;
         /**
          * Callback on height change
          * @param height
          */
-        onHeightChange?: (height: number) => void;
+        onHeightChange?: ((height: number) => void) | undefined;
         /**
          * Try to cache DOM measurements performed by component so that we don't
          * touch DOM when it's not needed.
@@ -35,23 +35,23 @@ declare module "react-textarea-autosize" {
          * component.
          * @default false
          */
-        useCacheForDOMMeasurements?: boolean;
+        useCacheForDOMMeasurements?: boolean | undefined;
         /**
          * Minimal number of rows to show.
          */
-        rows?: number;
+        rows?: number | undefined;
         /**
          * Alias for `rows`.
          */
-        minRows?: number;
+        minRows?: number | undefined;
         /**
          * Maximum number of rows to show.
          */
-        maxRows?: number;
+        maxRows?: number | undefined;
         /**
          * Allows an owner to retrieve the DOM node.
          */
-        inputRef?: ((node: HTMLTextAreaElement) => void) | React.RefObject<HTMLTextAreaElement>;
+        inputRef?: ((node: HTMLTextAreaElement) => void) | React.RefObject<HTMLTextAreaElement> | undefined;
     }
 
     /**

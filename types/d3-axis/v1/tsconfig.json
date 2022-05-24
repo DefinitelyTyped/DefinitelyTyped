@@ -17,8 +17,17 @@
             "d3-axis": [
                 "d3-axis/v1"
             ],
+            "d3-format": [
+                "d3-format/v1"
+            ],
             "d3-selection": [
                 "d3-selection/v1"
+            ],
+            "d3-time": [
+                "d3-time/v1"
+            ],
+            "d3-transition": [
+                "d3-transition/v1"
             ]
         },
         "types": [],

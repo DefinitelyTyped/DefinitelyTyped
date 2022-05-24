@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Workflow Executions API v1beta 1.0
+// Type definitions for non-npm package Workflow Executions API v1 1.0
 // Project: https://cloud.google.com/workflows
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

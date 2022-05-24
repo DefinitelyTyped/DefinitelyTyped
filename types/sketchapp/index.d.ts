@@ -39,9 +39,9 @@ type SketchMSPatternFillTypeEnum = 0 | 1 | 2 | 3;
 interface SketchMSFill {
     _class: 'fill';
     isEnabled: boolean;
-    color?: SketchMSColor;
+    color?: SketchMSColor | undefined;
     fillType: SketchMSFillTypeEnum;
-    image?: SketchMSImageDataReference;
+    image?: SketchMSImageDataReference | undefined;
     noiseIndex: number;
     noiseIntensity: number;
     patternFillType: SketchMSPatternFillTypeEnum;
@@ -180,18 +180,18 @@ interface SketchMSStyle {
     miterLimit: number;
     startMarkerType: number;
     windingRule: number;
-    startDecorationType?: number;
-    borderOptions?: SketchMSStyleBorderOptions;
-    endDecorationType?: number;
-    contextSettings?: SketchMSGraphicsContextSettings;
-    blur?: SketchMSStyleBlur;
-    textStyle?: SketchMSTextStyle;
-    reflection?: SketchMSStyleReflection;
-    colorControls?: SketchMSStyleColorControls;
-    fills?: SketchMSStyleFill[];
-    borders?: SketchMSStyleBorder[];
-    innerShadows?: SketchMSStyleShadow[];
-    shadows?: SketchMSStyleShadow[];
+    startDecorationType?: number | undefined;
+    borderOptions?: SketchMSStyleBorderOptions | undefined;
+    endDecorationType?: number | undefined;
+    contextSettings?: SketchMSGraphicsContextSettings | undefined;
+    blur?: SketchMSStyleBlur | undefined;
+    textStyle?: SketchMSTextStyle | undefined;
+    reflection?: SketchMSStyleReflection | undefined;
+    colorControls?: SketchMSStyleColorControls | undefined;
+    fills?: SketchMSStyleFill[] | undefined;
+    borders?: SketchMSStyleBorder[] | undefined;
+    innerShadows?: SketchMSStyleShadow[] | undefined;
+    shadows?: SketchMSStyleShadow[] | undefined;
 }
 interface SketchMSAttributedString {
     _class: 'attributedString';
@@ -199,7 +199,7 @@ interface SketchMSAttributedString {
     attributes: SketchMSStringAttribute[];
     archivedAttributedString?: {
       _archive: string;
-    };
+    } | undefined;
 }
 interface SketchMSTextLayer extends SketchMSContainerLayer {
     _class: 'text';
@@ -230,7 +230,7 @@ type SketchMSLayout = SketchMSLayoutGrid | SketchMSLayoutSimpleGrid;
 interface SketchMSFlowConnection {
     _class: 'immutableFlowConnection';
     animationType: number;
-    destinationArtboardID?: string | 'back';
+    destinationArtboardID?: string | 'back' | undefined;
 }
 type SketchMSFlow = SketchMSFlowConnection;
 interface SketchMSImmutableHotspotLayer extends SketchMSLayer {
@@ -339,10 +339,10 @@ interface SketchMSLayer {
     clippingMaskMode: SketchMSLayerClippingMaskMode;
     hasClippingMask: boolean;
     style: SketchMSStyle;
-    layers?: SketchMSLayer[];
+    layers?: SketchMSLayer[] | undefined;
 
     // xLayers custom property
-    css?: string;
+    css?: string | undefined;
 }
 interface SketchMSSharedStyle {
     _class: 'sharedStyle';
@@ -402,11 +402,11 @@ interface SketchMSArtboard {
     frame: SketchMSRect;
     backgroundColor: SketchMSColor;
     hasBackgroundColor: boolean;
-    horizontalRulerData?: SketchMSRulerData;
-    verticalRulerData?: SketchMSRulerData;
-    includeBackgroundColorInExport?: boolean;
-    includeInCloudUpload?: boolean;
-    isFlowHome?: boolean;
+    horizontalRulerData?: SketchMSRulerData | undefined;
+    verticalRulerData?: SketchMSRulerData | undefined;
+    includeBackgroundColorInExport?: boolean | undefined;
+    includeInCloudUpload?: boolean | undefined;
+    isFlowHome?: boolean | undefined;
 }
 interface SketchMSArtboards {
     name: string;

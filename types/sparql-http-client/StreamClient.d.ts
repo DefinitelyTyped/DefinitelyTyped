@@ -11,8 +11,8 @@ interface Constructor<T, Q extends BaseQuad = Quad> {
 
 declare namespace StreamClient {
     interface QueryOptions {
-        headers?: HeadersInit;
-        operation?: 'get' | 'postUrlencoded' | 'postDirect';
+        headers?: HeadersInit | undefined;
+        operation?: 'get' | 'postUrlencoded' | 'postDirect' | undefined;
     }
 
     interface QueryInit {
@@ -48,9 +48,9 @@ declare namespace StreamClient {
 
     interface ClientOptions<TQuery extends Query, Q extends BaseQuad = Quad, TStore extends Store<Q> = never> {
         endpoint: Endpoint;
-        factory?: DataFactory<Q>;
-        Query?: Constructor<TQuery, Q>;
-        Store?: Constructor<TStore, Q>;
+        factory?: DataFactory<Q> | undefined;
+        Query?: Constructor<TQuery, Q> | undefined;
+        Store?: Constructor<TStore, Q> | undefined;
     }
 
     type StreamClientOptions<Q extends BaseQuad = Quad> = EndpointOptions & Pick<ClientOptions<StreamQuery, Q, StreamStore<Q>>, 'factory'>;

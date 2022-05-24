@@ -1,6 +1,6 @@
 // Type definitions for gulp-stylint 4.0
 // Project: https://github.com/danielhusar/gulp-stylint
-// Definitions by: Takesi Tokugawa <https://github.com/TokugawaTakesi>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -13,8 +13,8 @@ interface GulpStylint {
 
 declare namespace GulpStylint {
     interface Options {
-        config?: string;
-        rules?: { [ruleName: string]: any; };
+        config?: string | undefined;
+        rules?: { [ruleName: string]: any; } | undefined;
         reporter?: any;
     }
 

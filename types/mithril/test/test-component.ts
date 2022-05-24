@@ -192,3 +192,37 @@ const comp: Comp<Attrs, State> = {
     },
 };
 export default comp;
+
+///////////////////////////////////////////////////////////
+//
+// Bad hook parameter type
+//
+interface InvalidState1 {
+    oncreate(nope: string): string;
+}
+
+// Using the Comp type will apply the State intersection type for us.
+const invalidComp1: Comp<{}, InvalidState1> = {
+    // $ExpectError
+    oncreate(nope: string) { return nope; },
+    view() {
+        return 'test';
+    },
+};
+
+///////////////////////////////////////////////////////////
+//
+// Bad hook type
+//
+interface InvalidState2 {
+    oncreate: string;
+}
+
+// Using the Comp type will apply the State intersection type for us.
+const invalidComp2: Comp<{}, InvalidState2> = {
+    // $ExpectError
+    oncreate: 'nope',
+    view() {
+        return 'test';
+    },
+};

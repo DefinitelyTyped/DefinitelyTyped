@@ -92,65 +92,65 @@ export interface BuildEnvironmentOptions {
      *  An object responsible for Atom's interaction with the browser process and host OS.
      *  Use buildDefaultApplicationDelegate for a default instance.
      */
-    applicationDelegate?: object;
+    applicationDelegate?: object | undefined;
 
     /** A window global. */
-    window?: Window;
+    window?: Window | undefined;
 
     /** A document global. */
-    document?: Document;
+    document?: Document | undefined;
 
     /** A path to the configuration directory (usually ~/.atom). */
-    configDirPath?: string;
+    configDirPath?: string | undefined;
 
     /**
      *  A boolean indicating whether the Atom environment should save or load state
      *  from the file system. You probably want this to be false.
      */
-    enablePersistence?: boolean;
+    enablePersistence?: boolean | undefined;
 }
 
 export interface HistoryTransactionOptions {
     /** When provided, skip taking snapshot for other selections markerLayers except given one. */
-    selectionsMarkerLayer?: MarkerLayer;
+    selectionsMarkerLayer?: MarkerLayer | undefined;
 }
 
 export interface HistoryTraversalOptions {
     /** Restore snapshot of selections marker layer to given selectionsMarkerLayer. */
-    selectionsMarkerLayer?: MarkerLayer;
+    selectionsMarkerLayer?: MarkerLayer | undefined;
 }
 
 export interface ReadonlyEditOptions {
     /** Whether the readonly protections on the text editor should be ignored. */
-    bypassReadOnly?: boolean;
+    bypassReadOnly?: boolean | undefined;
 }
 
 export interface TextEditOptions {
     /** If true, all line endings will be normalized to match the editor's current mode. */
-    normalizeLineEndings?: boolean;
+    normalizeLineEndings?: boolean | undefined;
 
     /**
      * If skip, skips the undo stack for this operation.
      * @deprecated Call groupLastChanges() on the TextBuffer afterward instead.
      */
-    undo?: 'skip';
+    undo?: 'skip' | undefined;
 }
 
 export interface TextInsertionOptions extends TextEditOptions {
     /** If true, selects the newly added text. */
-    select?: boolean;
+    select?: boolean | undefined;
 
     /** If true, indents all inserted text appropriately. */
-    autoIndent?: boolean;
+    autoIndent?: boolean | undefined;
 
     /** If true, indent newline appropriately. */
-    autoIndentNewline?: boolean;
+    autoIndentNewline?: boolean | undefined;
 
     /**
      *  If true, decreases indent level appropriately (for example, when a closing
      *  bracket is inserted).
      */
-    autoDecreaseIndent?: boolean;
+    autoDecreaseIndent?: boolean | undefined;
 
     /**
      *  By default, when pasting multiple lines, Atom attempts to preserve the relative
@@ -158,7 +158,7 @@ export interface TextInsertionOptions extends TextEditOptions {
      *  level of the first line has changed from the copied text. If this option is
      *  true, this behavior is suppressed.
      */
-    preserveTrailingLineIndentation?: boolean;
+    preserveTrailingLineIndentation?: boolean | undefined;
 }
 
 /** An interface which all custom test runners should implement. */
@@ -215,25 +215,25 @@ export interface Invisibles {
      *  Character used to render newline characters (\n) when the `Show Invisibles`
      *  setting is enabled.
      */
-    eol?: boolean | string;
+    eol?: boolean | string | undefined;
 
     /**
      *  Character used to render leading and trailing space characters when the
      *  `Show Invisibles` setting is enabled.
      */
-    space?: boolean | string;
+    space?: boolean | string | undefined;
 
     /**
      *  Character used to render hard tab characters (\t) when the `Show Invisibles`
      *  setting is enabled.
      */
-    tab?: boolean | string;
+    tab?: boolean | string | undefined;
 
     /**
      *  Character used to render carriage return characters (for Microsoft-style line
      *  endings) when the `Show Invisibles` setting is enabled.
      */
-    cr?: boolean | string;
+    cr?: boolean | string | undefined;
 }
 
 export interface TestRunnerParams {

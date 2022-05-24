@@ -8,7 +8,7 @@ import * as Chart from 'chart.js';
 
 declare module 'chart.js' {
     interface ChartPluginsOptions {
-        crosshair?: CrosshairOptions;
+        crosshair?: CrosshairOptions | undefined;
     }
 
     interface InteractionModeRegistry {
@@ -16,7 +16,7 @@ declare module 'chart.js' {
     }
 
     interface ChartDataSets {
-        interpolate?: boolean;
+        interpolate?: boolean | undefined;
     }
 }
 
@@ -30,43 +30,43 @@ declare global {
 }
 
 export interface CrosshairOptions {
-    line?: LineOptions;
-    sync?: SyncOptions;
-    zoom?: ZoomOptions;
-    snap?: SnapOptions;
-    callbacks?: CallbackOptions;
+    line?: LineOptions | undefined;
+    sync?: SyncOptions | undefined;
+    zoom?: ZoomOptions | undefined;
+    snap?: SnapOptions | undefined;
+    callbacks?: CallbackOptions | undefined;
 }
 
 /** https://chartjs-plugin-crosshair.netlify.app/options.html#crosshair-line-options */
 export interface LineOptions {
-    color?: string;
-    width?: number;
-    dashPattern?: number[];
+    color?: string | undefined;
+    width?: number | undefined;
+    dashPattern?: number[] | undefined;
 }
 
 /** https://chartjs-plugin-crosshair.netlify.app/options.html#chart-interaction-syncing */
 export interface SyncOptions {
-    enabled?: boolean;
-    group?: number;
-    suppressTooltips?: boolean;
+    enabled?: boolean | undefined;
+    group?: number | undefined;
+    suppressTooltips?: boolean | undefined;
 }
 
 /** https://chartjs-plugin-crosshair.netlify.app/options.html#zooming */
 export interface ZoomOptions {
-    enabled?: boolean;
-    zoomboxBackgroundColor?: string;
-    zoomboxBorderColor?: string;
-    zoomButtonText?: string;
-    zoomButtonClass?: string;
+    enabled?: boolean | undefined;
+    zoomboxBackgroundColor?: string | undefined;
+    zoomboxBorderColor?: string | undefined;
+    zoomButtonText?: string | undefined;
+    zoomButtonClass?: string | undefined;
 }
 
 /** https://chartjs-plugin-crosshair.netlify.app/options.html#snapping */
 export interface SnapOptions {
-    enabled?: boolean;
+    enabled?: boolean | undefined;
 }
 
 /** https://chartjs-plugin-crosshair.netlify.app/options.html#callbacks */
 export interface CallbackOptions {
-    beforeZoom?: (start: number, end: number) => boolean;
-    afterZoom?: (start: number, end: number) => void;
+    beforeZoom?: ((start: number, end: number) => boolean) | undefined;
+    afterZoom?: ((start: number, end: number) => void) | undefined;
 }

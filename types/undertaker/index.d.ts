@@ -12,10 +12,10 @@ import { EventEmitter } from "events";
 
 declare namespace Undertaker {
     interface TaskFunctionParams {
-        readonly name?: string;
-        displayName?: string;
-        description?: string;
-        flags?: TaskFlags;
+        readonly name?: string | undefined;
+        displayName?: string | undefined;
+        description?: string | undefined;
+        flags?: TaskFlags | undefined;
     }
 
     interface TaskFlags {
@@ -44,7 +44,7 @@ declare namespace Undertaker {
          * Whether or not the whole tree should be returned.
          * Default: false
          */
-        deep?: boolean;
+        deep?: boolean | undefined;
     }
 
     interface TreeResult {
@@ -55,8 +55,8 @@ declare namespace Undertaker {
     interface Node {
         label: string;
         nodes: Node[];
-        type?: string;
-        branch?: boolean;
+        type?: string | undefined;
+        branch?: boolean | undefined;
     }
 }
 
@@ -67,7 +67,7 @@ declare class Undertaker extends EventEmitter {
      * Returns the wrapped registered function.
      * @param taskName - Task name.
      */
-    task(taskName: string): Undertaker.TaskFunctionWrapped;
+    task(taskName: string): Undertaker.TaskFunctionWrapped | undefined;
 
     /**
      * Register the task by the taskName.

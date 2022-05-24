@@ -6,24 +6,24 @@ declare namespace BaseControl {
          * If this property is added, a label will be generated using label
          * property as the content.
          */
-        label?: ReactNode;
+        label?: ReactNode | undefined;
 
         /**
          * If true, the label will only be visible to screen readers.
          */
-        hideLabelFromVision?: boolean;
+        hideLabelFromVision?: boolean | undefined;
 
         /**
          * If this property is added, a help text will be generated using help
          * property as the content.
          */
-        help?: ReactNode;
+        help?: ReactNode | undefined;
         /**
          * The class that will be added with `"components-base-control"` to
          * the classes of the wrapper div. If undefined, only
          * `"components-base-control"` is used.
          */
-        className?: string;
+        className?: string | undefined;
     }
     interface Props extends ControlProps {
         /**
@@ -37,7 +37,7 @@ declare namespace BaseControl {
         children: ReactNode;
     }
     interface VisualLabelProps {
-        className?: string;
+        className?: string | undefined;
         children: ReactNode;
     }
 }

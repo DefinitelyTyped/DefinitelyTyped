@@ -331,10 +331,10 @@ declare global {
         testTimeout: number;
         scrolltop: boolean;
         urlConfig: {
-            id?: string;
-            label?: string;
-            tooltip?: string;
-            value?: string | string[] | { [key: string]: string };
+            id?: string | undefined;
+            label?: string | undefined;
+            tooltip?: string | undefined;
+            value?: string | string[] | { [key: string]: string } | undefined;
         }[];
     }
 
@@ -343,22 +343,22 @@ declare global {
          * Runs after the last test. If additional tests are defined after the
          * module's queue has emptied, it will not run this hook again.
          */
-        after?: (assert: Assert) => void | Promise<void>;
+        after?: ((assert: Assert) => void | Promise<void>) | undefined;
 
         /**
          * Runs after each test.
          */
-        afterEach?: (assert: Assert) => void | Promise<void>;
+        afterEach?: ((assert: Assert) => void | Promise<void>) | undefined;
 
         /**
          * Runs before the first test.
          */
-        before?: (assert: Assert) => void | Promise<void>;
+        before?: ((assert: Assert) => void | Promise<void>) | undefined;
 
         /**
          * Runs before each test.
          */
-        beforeEach?: (assert: Assert) => void | Promise<void>;
+        beforeEach?: ((assert: Assert) => void | Promise<void>) | undefined;
     }
 
     interface NestedHooks {
@@ -585,6 +585,14 @@ declare global {
          * @param callback Function to close over assertions
          */
         only(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+
+        /**
+         * Handle a global error that should result in a failed test run.
+         *
+         * @since 2.17.0
+         * @param {Error|any} error
+         */
+        onUncaughtException: (error: unknown) => void;
 
         /**
          * DEPRECATED: Report the result of a custom assertion.

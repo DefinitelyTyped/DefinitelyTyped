@@ -1,5 +1,5 @@
 // Type definitions for node-gettext 3.0
-// Project: http://github.com/alexanderwallin/node-gettext
+// Project: https://github.com/alexanderwallin/node-gettext
 // Definitions by: Sameer K.C. <https://github.com/sameercaresu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -8,7 +8,7 @@ declare class GetText {
     static getLanguageCode(locale: string): string;
     readonly locale: string;
     readonly domain: string;
-    constructor(options?: { debug?: boolean; sourceLocale?: string });
+    constructor(options?: { debug?: boolean | undefined; sourceLocale?: string | undefined });
     addTranslations(locale: string, domain: string, translations: object): void;
     dgettext(domain: string, msgid: string): string;
     dngettext(domain: string, msgid: string, msgidPlural: string, count: number): string;

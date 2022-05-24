@@ -1,9 +1,5 @@
-declare module 'node:perf_hooks' {
-    export * from 'perf_hooks';
-}
-
 declare module 'perf_hooks' {
-    import { AsyncResource } from 'node:async_hooks';
+    import { AsyncResource } from 'async_hooks';
 
     interface PerformanceEntry {
         /**
@@ -33,7 +29,7 @@ declare module 'perf_hooks' {
          * the type of garbage collection operation that occurred.
          * The value may be one of perf_hooks.constants.
          */
-        readonly kind?: number;
+        readonly kind?: number | undefined;
     }
 
     interface PerformanceNodeTiming extends PerformanceEntry {
@@ -116,7 +112,7 @@ declare module 'perf_hooks' {
          * @param startMark
          * @param endMark
          */
-        measure(name: string, startMark: string, endMark: string): void;
+        measure(name: string, startMark?: string, endMark?: string): void;
 
         /**
          * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
@@ -186,7 +182,7 @@ declare module 'perf_hooks' {
          * Property buffered defaults to false.
          * @param options
          */
-        observe(options: { entryTypes: ReadonlyArray<string>, buffered?: boolean }): void;
+        observe(options: { entryTypes: ReadonlyArray<string>; buffered?: boolean | undefined }): void;
     }
 
     namespace constants {
@@ -204,7 +200,7 @@ declare module 'perf_hooks' {
          * Must be greater than zero.
          * @default 10
          */
-        resolution?: number;
+        resolution?: number | undefined;
     }
 
     interface EventLoopDelayMonitor {

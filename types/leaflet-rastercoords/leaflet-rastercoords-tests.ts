@@ -20,3 +20,15 @@ map.setView(rc.unproject([img[0], img[1]]), 2);
 L.tileLayer('./tiles/{z}/{x}/{y}.png', {
   noWrap: true
 }).addTo(map);
+
+// $ExpectType LatLng
+const latLng = rc.unproject([img[0], img[1]]);
+
+// $ExpectType Point
+rc.project(latLng);
+
+// $ExpectType number
+rc.zoomLevel();
+
+// $ExpectType LatLngBounds
+rc.getMaxBounds();

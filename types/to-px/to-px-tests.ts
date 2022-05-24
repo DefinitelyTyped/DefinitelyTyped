@@ -1,7 +1,8 @@
 import toPX = require("to-px");
 
-toPX("1em"); // $ExpectType number
-toPX(".23vh"); // $ExpectType number
-toPX("in"); // $ExpectType number
+toPX("incorrect-string"); // $ExpectType number | null
+toPX("1em"); // $ExpectType number | null
+toPX(".23vh"); // $ExpectType number | null
+toPX("in"); // $ExpectType number | null
 
-toPX("in", new HTMLElement()); // $ExpectType number
+toPX("in", new HTMLElement()); // $ExpectType number | null

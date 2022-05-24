@@ -17,7 +17,7 @@ declare namespace contentDisposition {
          * An object of the parameters in the disposition
          * (name of parameter always lower case and extended versions replace non-extended versions)
          */
-        parameters: any;
+        parameters: {[key: string]: string};
     }
 
     interface Options {
@@ -28,14 +28,14 @@ declare namespace contentDisposition {
          * The `type` is normalized to lower-case.
          * @default 'attachment'
          */
-        type?: 'attachment' | 'inline' | string;
+        type?: 'attachment' | 'inline' | string | undefined;
         /**
          * If the filename option is outside ISO-8859-1,
          * then the file name is actually stored in a supplemental field for clients
          * that support Unicode file names and a ISO-8859-1 version of the file name is automatically generated
          * @default true
          */
-        fallback?: string | boolean;
+        fallback?: string | boolean | undefined;
     }
 
     /**

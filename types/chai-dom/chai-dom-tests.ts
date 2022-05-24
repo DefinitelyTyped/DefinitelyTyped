@@ -13,8 +13,10 @@ function test() {
     expect(testElement).to.have.html('foo');
     expect(testElement).to.have.text('foo');
     expect(testElement).to.have.trimmed.text('foo');
+    expect(testElement).to.have.rendered.text('foo');
     expect(testElement).to.have.text(['foo', 'bar']);
     expect(testElement).to.have.value('foo');
+    expect(testElement).to.have.style('color', '#123456');
     expect(testElement).to.be.empty;
     expect(testElement).to.have.length(2);
     expect(testElement).to.exist;
@@ -23,4 +25,6 @@ function test() {
     expect(testElement).to.contain(document.body);
     expect(testElement).to.be.visible;
     expect(testElement).to.have.tagName('foo');
+    expect(testElement).to.have.focus;
+    expect(testElement).to.be.checked;
 }

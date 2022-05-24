@@ -17,7 +17,7 @@ declare namespace jsrsasign.KJUR.asn1 {
 
     interface DateParam {
         date: Date;
-        withMillis?: boolean;
+        withMillis?: boolean | undefined;
     }
 
     interface ExplicitParam {
@@ -79,7 +79,7 @@ declare namespace jsrsasign.KJUR.asn1 {
 
         /**
          * set value by integer value
-         * @param integer value to set
+         * @param value to set
          */
         setByInteger(intValue: number): void;
 

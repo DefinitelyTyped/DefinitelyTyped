@@ -26,30 +26,30 @@ declare module '@keystonejs/keystone' {
         adapter: BaseKeystoneAdapter;
         adapters?: {
             [key: string]: BaseKeystoneAdapter;
-        };
+        } | undefined;
         appVersion?: {
-            version?: string,
-            addVersionToHttpHeaders?: boolean,
-            access?: unknown,
-        };
+            version?: string | undefined,
+            addVersionToHttpHeaders?: boolean | undefined,
+            access?: unknown | undefined,
+        } | undefined;
         cookie?: {
-            secure?: boolean;
-            maxAge?: number;
-            sameSite?: boolean;
-        };
-        cookieSecret?: string;
+            secure?: boolean | undefined;
+            maxAge?: number | undefined;
+            sameSite?: boolean | undefined;
+        } | undefined;
+        cookieSecret?: string | undefined;
         defaultAccess?: {
-            list?: boolean,
-            field?: boolean,
-            custom?: boolean
-        };
-        defaultAdapter?: string;
-        onConnect?: () => void;
+            list?: boolean | undefined,
+            field?: boolean | undefined,
+            custom?: boolean | undefined
+        } | undefined;
+        defaultAdapter?: string | undefined;
+        onConnect?: (() => void) | undefined;
         queryLimits?: {
-            maxTotalResults?: number;
-        };
+            maxTotalResults?: number | undefined;
+        } | undefined;
         sessionStore?: any; // TODO: bring in express session types
-        schemaNames?: string[];
+        schemaNames?: string[] | undefined;
     }
 
     interface KeystonePrepareResult {
@@ -84,11 +84,11 @@ declare module '@keystonejs/keystone' {
         | boolean // Shorthand documented here: https://www.keystonejs.com/api/access-control#booleans
         | AccessCallback
         | {
-              read?: boolean | GraphQLWhereClause | AccessCallback;
-              update?: boolean | AccessCallback;
-              create?: boolean | AccessCallback;
-              delete?: boolean | AccessCallback;
-              auth?: boolean;
+              read?: boolean | GraphQLWhereClause | AccessCallback | undefined;
+              update?: boolean | AccessCallback | undefined;
+              create?: boolean | AccessCallback | undefined;
+              delete?: boolean | AccessCallback | undefined;
+              auth?: boolean | undefined;
           };
 
     type Plugin = any; // TODO: investigate what a plugin is
@@ -133,24 +133,24 @@ declare module '@keystonejs/keystone' {
 
     interface BaseFieldOptions {
         type: FieldType;
-        schemaDoc?: string;
-        defaultValue?: boolean | DefaultValueFunction;
-        isRequired?: boolean;
-        isUnique?: boolean;
-        hooks?: Hooks;
-        access?: Access;
-        label?: string;
+        schemaDoc?: string | undefined;
+        defaultValue?: boolean | DefaultValueFunction | undefined;
+        isRequired?: boolean | undefined;
+        isUnique?: boolean | undefined;
+        hooks?: Hooks | undefined;
+        access?: Access | undefined;
+        label?: string | undefined;
     }
 
     interface AutoIncrementOptions extends BaseFieldOptions {
-        gqlType?: 'Int' | 'ID';
+        gqlType?: 'Int' | 'ID' | undefined;
     }
 
     interface CalendarDayOptions extends BaseFieldOptions {
-        format?: string;
-        yearRangeFrom?: number;
-        yearRangeTo?: number;
-        yearPickerType?: string;
+        format?: string | undefined;
+        yearRangeFrom?: number | undefined;
+        yearRangeTo?: number | undefined;
+        yearPickerType?: string | undefined;
     }
 
     interface ContentOptions extends BaseFieldOptions {
@@ -160,7 +160,7 @@ declare module '@keystonejs/keystone' {
         knexOptions: any; // FIXME: provide a more precise type from the knex adaptor
     }
     interface FileOptions extends BaseFieldOptions {
-        route?: string;
+        route?: string | undefined;
         adapter?: any; // FIXME: provide a file adapter type
     }
 
@@ -222,35 +222,45 @@ declare module '@keystonejs/keystone' {
     interface ListSchema<Fields extends string = string> {
         fields: { [fieldName in Fields]: AllFieldsOptions };
         listAdapterClass?: any; // TODO: investigate if a specific type can be provided
-        schemaDoc?: string;
-        access?: Access;
-        plugins?: Plugin[];
-        hooks?: Hooks;
+        schemaDoc?: string | undefined;
+        access?: Access | undefined;
+        plugins?: Plugin[] | undefined;
+        hooks?: Hooks | undefined;
     }
 
     interface GraphQLExtension<Source = any, Context = any> {
         schema: string;
         resolver: GraphQLFieldResolver<Source, Context>;
-        access?: Access;
+        access?: Access | undefined;
     }
 
     interface GraphQLExtensionSchema {
-        types?: Array<{ type: string }>;
-        queries?: GraphQLExtension[];
-        mutations?: GraphQLExtension[];
+        types?: Array<{ type: string }> | undefined;
+        queries?: GraphQLExtension[] | undefined;
+        mutations?: GraphQLExtension[] | undefined;
     }
 
     class Keystone<ListNames extends string = string> {
         constructor(options: KeystoneOptions);
 
         connect(): Promise<void>;
-        createAuthStrategy(options: { type: BaseAuthStrategy; list: ListNames; config?: any; hooks?: any; plugins?: any[] }): any; // TODO
+        createAuthStrategy(options: { type: BaseAuthStrategy; list: ListNames; config?: any; hooks?: any; plugins?: any[] | undefined }): any; // TODO
         createList(name: string, schema: ListSchema): void;
         disconnect(): Promise<void>;
         extendGraphQLSchema(schema: GraphQLExtensionSchema): void;
-        prepare(options: { apps?: BaseApp[]; cors?: {origin?: boolean; credentials?: boolean}, dev?: boolean, distDir?: string, pinoOptions?: any }): Promise<KeystonePrepareResult>;
+        prepare(options: {
+            apps?: BaseApp[] | undefined;
+            cors?: {
+                origin?: boolean | undefined;
+                credentials?: boolean | undefined
+            } | undefined,
+            dev?: boolean | undefined,
+            distDir?: string | undefined,
+            pinoOptions?: any
+        }): Promise<KeystonePrepareResult>;
+
         // tslint:disable-next-line:no-unnecessary-generics
-        createContext<Context = any>(context: { schemaName?: string, authentication?: AuthenticationContext, skipAccessControl?: boolean; }): Context;
+        createContext<Context = any>(context: { schemaName?: string | undefined, authentication?: AuthenticationContext | undefined, skipAccessControl?: boolean | undefined; }): Context;
         // The return type is actually important info here. I don't believe this generic is unnecessary.
         // tslint:disable-next-line:no-unnecessary-generics
         executeGraphQL<Output = any>(options: {context?: any; query?: any, variables?: any}): Output;

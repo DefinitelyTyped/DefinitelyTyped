@@ -6,8 +6,10 @@ const element = new Element();
 // $ExpectType ScrollSpy
 new ScrollSpy(element, { offset: 10 });
 
-// $ExpectType ScrollSpy
+// $ExpectType ScrollSpy | null
 ScrollSpy.getInstance(element);
+// $ExpectType ScrollSpy
+ScrollSpy.getOrCreateInstance(element);
 
 // $ExpectType string
 ScrollSpy.VERSION;
@@ -19,10 +21,10 @@ element.addEventListener(ScrollSpy.Events.activate, event => {
     // do something…
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').scrollspy();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').scrollspy({ offset: 10 });
 
-$('.alert').scrollspy('refresh'); // $ExpectType void
+$('.alert').scrollspy('refresh'); // $ExpectType JQuery<HTMLElement>

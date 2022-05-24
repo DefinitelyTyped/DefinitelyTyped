@@ -6,12 +6,18 @@ const findChunks = ({
     textToHighlight
 }: FindChunks) => [];
 
-const CustomHighlight: React.FC = ({children}) => (<span>{children}</span>);
+const CustomHighlight: React.FC<{ children?: React.ReactNode; }> = ({children}) => (<span>{children}</span>);
 
 class HighlighterTest extends React.Component {
     render() {
         return (
             <div>
+                <Highlighter
+                    highlightTag="span"
+                    searchWords={[/hello/ig, "or"]}
+                    textToHighlight="Hello World"
+                    customProp="My Custom Prop"
+                />
                 <Highlighter
                     highlightTag="span"
                     searchWords={["el", "or"]}

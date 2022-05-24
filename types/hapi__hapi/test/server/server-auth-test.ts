@@ -5,11 +5,11 @@ import * as Boom from "@hapi/boom";
 
 declare module '@hapi/hapi' {
     interface AuthCredentials {
-        name?: string;
+        name?: string | undefined;
     }
 
     interface AuthArtifacts {
-        token?: string;
+        token?: string | undefined;
     }
 }
 

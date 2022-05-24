@@ -14,17 +14,21 @@ declare class Service {
             Resources: {
                 [key: string]: any;
             };
-            Outputs?: {
-                [key: string]: any;
-            };
+            Outputs?:
+                | {
+                      [key: string]: any;
+                  }
+                | undefined;
         };
 
         name: string;
+        stackTags?: { [key: string]: any };
         stage: string;
         region: string;
-        runtime?: string;
-        timeout?: number;
+        runtime?: string | undefined;
+        timeout?: number | undefined;
         versionFunctions: boolean;
+        layers?: Array<string | Record<string, string>> | undefined;
     };
     serverless: Serverless;
     service: string | null;
@@ -40,8 +44,8 @@ declare class Service {
         | { [key: string]: any };
     package: { [key: string]: any };
     configValidationMode: string;
-    disabledDeprecations?: any[];
-    serviceFilename?: string;
+    disabledDeprecations?: any[] | undefined;
+    serviceFilename?: string | undefined;
     app?: any;
     tenant?: any;
     org?: any;

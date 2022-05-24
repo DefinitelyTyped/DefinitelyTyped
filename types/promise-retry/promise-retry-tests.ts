@@ -90,4 +90,29 @@ describe("Promise-retry tests", () => {
         .then((value: any) => console.log("Finished with value ", value))
         .catch((err: any) => console.error(err.message || err));
     });
+
+    it('should allow an array of timeouts as the param', () => {
+        let count = 0;
+
+        promiseRetry(
+            (retryCb, attemptNumber) => {
+                count += 1;
+
+                return Promise.resolve()
+                .then(() => {
+                    console.log("Count in then()", count);
+                    if (count > 1) return Promise.resolve('final');
+                    else return Promise.reject(new Error('arbitrary excuse to retry'));
+                })
+                .catch((err: any) => {
+                    console.log("Count in catch()", count);
+                    if (count > 1) return Promise.resolve('final');
+                    else return retryCb(err);
+                });
+            },
+            [2000, 3000, 4000]
+        )
+        .then((value: any) => console.log("Finished with value ", value))
+        .catch((err: any) => console.error(err.message || err));
+    });
 });

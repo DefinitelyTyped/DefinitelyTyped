@@ -7,20 +7,20 @@
 import { Component } from 'react';
 
 interface Props {
-    countries?: string[];
-    blackList?: boolean;
-    customLabels?: {[propName: string]: string};
-    selectedSize?: number;
-    optionsSize?: number;
-    defaultCountry?: string;
-    placeholder?: string;
-    className?: string;
-    showSelectedLabel?: boolean;
-    showOptionLabel?: boolean;
-    alignOptions?: string;
-    onSelect?: (countryCode: string) => void;
-    disabled?: boolean;
-    searchable?: boolean;
+    countries?: string[] | undefined;
+    blackList?: boolean | undefined;
+    customLabels?: {[propName: string]: string} | undefined;
+    selectedSize?: number | undefined;
+    optionsSize?: number | undefined;
+    defaultCountry?: string | undefined;
+    placeholder?: string | undefined;
+    className?: string | undefined;
+    showSelectedLabel?: boolean | undefined;
+    showOptionLabel?: boolean | undefined;
+    alignOptions?: string | undefined;
+    onSelect?: ((countryCode: string) => void) | undefined;
+    disabled?: boolean | undefined;
+    searchable?: boolean | undefined;
 }
 declare class ReactFlagsSelect extends Component<Props> {
     updateSelected(countryCode: string): void;

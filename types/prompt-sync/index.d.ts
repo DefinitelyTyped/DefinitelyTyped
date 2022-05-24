@@ -30,16 +30,16 @@ declare namespace PromptSync {
     }
 
     export interface Option {
-        ask?: string;
-        echo?: string;
-        autocomplete?: AutoCompleteFunction;
-        value?: string;
+        ask?: string | undefined;
+        echo?: string | undefined;
+        autocomplete?: AutoCompleteFunction | undefined;
+        value?: string | undefined;
     }
 
     export interface Config {
-        sigint?: boolean;
-        autocomplete?: AutoCompleteFunction;
-        history?: History;
+        sigint?: boolean | undefined;
+        autocomplete?: AutoCompleteFunction | undefined;
+        history?: History | undefined;
     }
 
     export interface History {

@@ -21,19 +21,19 @@ declare namespace RSMQWorker {
     }
 
     export interface Options {
-        interval?: number;
-        maxReceiveCount?: number;
-        invisibletime?: number;
-        defaultDelay?: number;
-        autostart?: boolean;
-        timeout?: number;
-        customExceedCheck?: CustomExceedCheckCallback;
-        rsmq?: RedisSMQ.Client;
-        redis?: redis.RedisClient;
-        redisPrefix?: string;
-        host?: string;
-        port?: number;
-        options?: redis.ClientOpts;
+        interval?: number | undefined;
+        maxReceiveCount?: number | undefined;
+        invisibletime?: number | undefined;
+        defaultDelay?: number | undefined;
+        autostart?: boolean | undefined;
+        timeout?: number | undefined;
+        customExceedCheck?: CustomExceedCheckCallback | undefined;
+        rsmq?: RedisSMQ.Client | undefined;
+        redis?: redis.RedisClient | undefined;
+        redisPrefix?: string | undefined;
+        host?: string | undefined;
+        port?: number | undefined;
+        options?: redis.ClientOpts | undefined;
     }
 
     export interface CustomExceedCheckCallback {

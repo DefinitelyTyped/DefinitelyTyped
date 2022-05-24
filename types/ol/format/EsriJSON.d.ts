@@ -22,9 +22,9 @@ export type EsriJSONGeometry = Geometry;
 export type EsriJSONHasZM = HasZM;
 export interface EsriJSONMultiPolygon {
     rings: number[][][][];
-    hasM?: boolean;
-    hasZ?: boolean;
-    spatialReference?: EsriJSONSpatialReferenceWkid;
+    hasM?: boolean | undefined;
+    hasZ?: boolean | undefined;
+    spatialReference?: EsriJSONSpatialReferenceWkid | undefined;
 }
 export type EsriJSONMultipoint = Multipoint;
 export type EsriJSONPoint = Point;
@@ -33,7 +33,7 @@ export type EsriJSONPolyline = Polyline;
 export type EsriJSONPosition = Position;
 export type EsriJSONSpatialReferenceWkid = SpatialReferenceWkid;
 export interface Options {
-    geometryName?: string;
+    geometryName?: string | undefined;
 }
 export default class EsriJSON extends JSONFeature {
     constructor(opt_options?: Options);

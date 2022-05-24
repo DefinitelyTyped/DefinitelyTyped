@@ -150,13 +150,13 @@ declare namespace my {
 
     interface PromptOptions extends BaseOptions {
         /** prompt框标题 */
-        title?: string;
+        title?: string | undefined;
         /** prompt框文本，默认‘请输入内容’ */
-        message?: string;
+        message?: string | undefined;
         /** 输入框内的提示文案 */
-        placeholder?: string;
+        placeholder?: string | undefined;
         /** message对齐方式，可用枚举left/center/right，iOS ‘center’, android ‘left’ */
-        align?: 'left' | 'center' | 'right' | string;
+        align?: 'left' | 'center' | 'right' | string | undefined;
         /** 确认按钮文字，默认‘确定’ */
         okButtonText: string;
         /** 确认按钮文字，默认‘取消’ */
@@ -171,11 +171,11 @@ declare namespace my {
          */
         content: string;
         /** toast 类型，展示相应图标，默认 none，支持 success / fail / exception / none’。其中 exception 类型必须传文字信息 */
-        type?: 'none' | 'success' | 'fail' | 'exception' | string;
+        type?: 'none' | 'success' | 'fail' | 'exception' | string | undefined;
         /**
          * 显示时长，单位为 ms，默认 2000
          */
-        duration?: number;
+        duration?: number | undefined;
     }
     /**
      * 显示消息提示框
@@ -187,11 +187,11 @@ declare namespace my {
         /**
          * loading的文字内容
          */
-        content?: string;
+        content?: string | undefined;
         /**
          * 延迟显示，单位 ms，默认 0。如果在此时间之前调用了 my.hideLoading 则不会显示
          */
-        delay?: number;
+        delay?: number | undefined;
     }
     /**
      * 显示加载提示
@@ -227,7 +227,7 @@ declare namespace my {
     }
     interface ActionSheetOptions extends BaseOptions {
         /** 菜单标题 */
-        title?: string;
+        title?: string | undefined;
         /**
          * 菜单按钮文字数组
          */
@@ -235,15 +235,15 @@ declare namespace my {
         /**
          * 取消按钮文案。默认为‘取消’。注：Android平台此字段无效，不会显示取消按钮。
          */
-        cancelButtonText?: string;
+        cancelButtonText?: string | undefined;
         /**
          * （iOS特殊处理）指定按钮的索引号，从0开始，使用场景：需要删除或清除数据等类似场景，默认红色
          */
-        destructiveBtnIndex?: number;
+        destructiveBtnIndex?: number | undefined;
         /**
          * 需飘红选项的数组，数组内部对象字段见下表
          */
-        badges?: Array<Partial<Badge>>;
+        badges?: Array<Partial<Badge>> | undefined;
         /**
          * 接口调用成功的回调函数
          */
@@ -343,13 +343,13 @@ declare namespace my {
         /** 选择类型，值为single（单选）或者 multi（多选） */
         chooseType: 'single' | 'multi' | string;
         /** 包含手机通讯录联系人的模式：默认为不包含（none）、或者仅仅包含双向通讯录联系人（known）、或者包含手机通讯录联系人（all） */
-        includeMobileContactMode?: 'none' | 'known' | 'all' | string;
+        includeMobileContactMode?: 'none' | 'known' | 'all' | string | undefined;
         /** 是否包含自己 */
-        includeMe?: boolean;
+        includeMe?: boolean | undefined;
         /** 最大选择人数，仅 chooseType 为 multi 时才有效 */
-        multiChooseMax?: number;
+        multiChooseMax?: number | undefined;
         /** 多选达到上限的文案，仅 chooseType 为 multi 时才有效 */
-        multiChooseMaxTips?: string;
+        multiChooseMaxTips?: string | undefined;
 
         success(result: {
             contactsDicArray: ContactsDic[];
@@ -365,7 +365,7 @@ declare namespace my {
     interface City {
         city: string;    // 城市名
         adCode: string;    // 行政区划代码
-        spell?: string;    // 城市名对应拼音拼写，方便用户搜索
+        spell?: string | undefined;    // 城市名对应拼音拼写，方便用户搜索
     }
     interface ChooseCityOptions extends BaseOptions {
         showLocatedCity: boolean;    //     是否显示当前定位城市，默认 false
@@ -1082,13 +1082,13 @@ declare namespace my {
     //#region 级联选择 https://docs.alipay.com/mini/api/ewdxl3
     interface MultiLevelSelectItem {
         name: string;
-        subList?: MultiLevelSelectItem[];
+        subList?: MultiLevelSelectItem[] | undefined;
     }
     interface MultiLevelSelectOptions extends BaseOptions {
-        title?: string;                        // 标题
-        list?: MultiLevelSelectItem[];        // 选择数据列表
-        name?: string;                        // 条目名称
-        subList?: MultiLevelSelectItem[];    // 子条目列表
+        title?: string | undefined;                        // 标题
+        list?: MultiLevelSelectItem[] | undefined;        // 选择数据列表
+        name?: string | undefined;                        // 条目名称
+        subList?: MultiLevelSelectItem[] | undefined;    // 子条目列表
         success?(res: {
             success: boolean;                // 是否选择完成,取消返回false
             result: MultiLevelSelectItem[];    // 选择的结果，如[{“name”:”杭州市”},{“name”:”上城区”},{“name”:”古翠街道”}]
@@ -1103,7 +1103,7 @@ declare namespace my {
 declare namespace my {
     //#region 用户授权 https://docs.alipay.com/mini/api/openapi-authorize
     interface GetAuthCodeOptions extends BaseOptions {
-        scopes?: string | string[];    // 授权类型，默认 auth_base。支持 auth_base（静默授权）/ auth_user（主动授权） / auth_zhima（芝麻信用）
+        scopes?: string | string[] | undefined;    // 授权类型，默认 auth_base。支持 auth_base（静默授权）/ auth_user（主动授权） / auth_zhima（芝麻信用）
         success?(res: {
             authCode: string;    // 授权码
             authErrorScope: {
@@ -1135,7 +1135,7 @@ declare namespace my {
 
     //#region 小程序唤起支付 https://docs.alipay.com/mini/api/openapi-pay
     interface TradePayOptions extends BaseOptions {
-        tradeNO?: string;    // 接入小程序支付时传入此参数。此参数为支付宝交易号
+        tradeNO?: string | undefined;    // 接入小程序支付时传入此参数。此参数为支付宝交易号
         success?(res: {
             // resultCode | 描述
             // -----------|------
@@ -1332,7 +1332,7 @@ declare namespace my {
         success?(res: {
             token: string;    // 认证标识
             passed: string;    // 认证是否通过
-            reason?: string;    // 认证不通过原因
+            reason?: string | undefined;    // 认证不通过原因
         }): void;
     }
     /**
@@ -1386,7 +1386,7 @@ declare namespace my {
          * N: 不支持
          * 注：支付押金的金额等同于deposit_amount。
          */
-        deposit_state?: string;    // 该字段目前默认传Y；
+        deposit_state?: string | undefined;    // 该字段目前默认传Y；
         /**
          * 回调到商户的小程序schema地址。说明：商户的回调地址可以在商户后台里进行配置，服务端回调时，首先根据参数：invoke_type 查询是否有对应的配置地址，如果有，则使用已定义的地址，否则，使用该字段定义的地址执行回调；
          * 参考表格下方的说明一；
@@ -1400,13 +1400,13 @@ declare namespace my {
          *         小程序回调地址示例一：alipays://platformapi/startapp?appId=1999；
          *         小程序回调地址示例二：alipays://platformapi/startapp?appId=1999&page=pages/map；
          */
-        invoke_return_url?: string;
+        invoke_return_url?: string | undefined;
         /**
          * 商户访问蚂蚁的对接模式，默认传TINYAPP：
          * TINYAPP：回跳至小程序地址；
          * WINDOWS：支付宝服务窗，默认值；
          */
-        invoke_type?: 'TINYAPP' | 'TINYAPP' | 'WINDOWS' | string;
+        invoke_type?: 'TINYAPP' | 'TINYAPP' | 'WINDOWS' | string | undefined;
         /**
          * 信用业务服务，注意：该字段不能为空，且必须根据说明的指引配置商户专属的场景ID，商户自助接入时，登录后台可配置场景ID，将后台配置的场景ID作为该字段的输入；
          * 参考说明一自助进行配置；
@@ -1415,7 +1415,7 @@ declare namespace my {
         /**
          * 商户订单创建的起始借用时间，格式：YYYY - MM - DD HH: MM: SS。如果不传入或者为空，则认为订单创建起始时间为调用此接口时的时间。
          */
-        borrow_time?: string;
+        borrow_time?: string | undefined;
         /**
          * 到期时间，不允许为空，请根据实际业务合理设置该值，格式：YYYY - MM - DD HH: MM: SS，是指最晚归还时间，表示借用用户如果超过此时间还未完结订单（未归还物品或者未支付租金）将会进入逾期状态，芝麻会给借用用户发送催收提醒；需要晚于borrow_time。
          */
@@ -1423,17 +1423,17 @@ declare namespace my {
         /**
          * 借用用户的手机号码，可选字段。推荐商户传入此值，会将此手机号码与用户身份信息进行匹配验证，防范欺诈风险。
          */
-        mobile_no?: string;
+        mobile_no?: string | undefined;
         /**
          * 物品借用地点的描述，便于用户知道物品是在哪里借的。可为空
          *
          */
-        borrow_shop_name?: string;
+        borrow_shop_name?: string | undefined;
         /**
          * 租金的结算方式，非必填字段，默认是支付宝租金结算支付 merchant：表示商户自行结算，信用借还不提供租金支付能力； alipay：表示使用支付宝支付功能，给用户提供租金代扣及赔偿金支付能力；
          *
          */
-        rent_settle_type?: 'merchant' | 'alipay' | string;
+        rent_settle_type?: 'merchant' | 'alipay' | string | undefined;
         /**
          * 商户请求状态上下文。商户发起借用服务时，需要在借用结束后返回给商户的参数，格式：json；
          * 如果json的某一项值包含中文，请使用encodeURIComponent对该值进行编码；
@@ -1445,23 +1445,23 @@ declare namespace my {
          *     invoke_state: JSON.stringify(ext)
          * }
          */
-        invoke_state?: string;
+        invoke_state?: string | undefined;
         /**
          * 租金信息描述, 长度不超过14个汉字，只用于页面展示给C端用户，除此之外无其他意义。
          */
-        rent_info?: string;
+        rent_info?: string | undefined;
         /**
          * 借用用户的真实姓名，非必填字段。但name和cert_no必须同时非空，或者同时为空，一旦传入会对用户身份进行校验。
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * 借用用户的真实身份证号，非必填字段。但name和cert_no必须同时非空，或者同时为空，一旦传入会对用户身份进行校验。
          */
-        cert_no?: string;
+        cert_no?: string | undefined;
         /**
          * 借用用户的收货地址，可选字段，最大长度128。推荐商户传入此值，会将此手机号码与用户身份信息进行匹配验证，防范欺诈风险。
          */
-        address?: string;
+        address?: string | undefined;
         success?(res: {
             /**
              * 6001    用户取消了业务流程
@@ -1526,11 +1526,11 @@ declare namespace my {
                 /**
                  * 仅当识别命中了 type 为 keyword 时，才会返回该字段
                  */
-                hitKeywords?: string[];
+                hitKeywords?: string[] | undefined;
                 /**
                  * 识别命中得分，最高分100分。仅当识别没有命中 keyword ，但入参中包含了广告或涉政或涉黄时，才会返回该字段
                  */
-                score?: string;
+                score?: string | undefined;
             };
             fail?(res: {
                 /**
@@ -1559,7 +1559,7 @@ declare namespace my {
         /**
          * 打开的页面路径，如果为空则打开首页
          */
-        path?: string;
+        path?: string | undefined;
         /**
          * 需要传递给目标小程序的数据，目标小程序可在 App.onLaunch() ，App.onShow() 中获取到这份数据
          */
@@ -1567,7 +1567,7 @@ declare namespace my {
         /**
          * 要打开的小程序版本，有效值 develop（开发版），trial（体验版），release（正式版） ，仅在当前小程序为开发版或体验版时此参数有效；如果当前小程序是正式版，则打开的小程序必定是正式版。默认值 release
          */
-        envVersion?: 'develop' | 'trial' | 'release' | string;
+        envVersion?: 'develop' | 'trial' | 'release' | string | undefined;
     }
     /**
      * 跳转到其他小程序。详细接入参考[指引](https://docs.alipay.com/mini/introduce/open-miniprogram)
@@ -1623,7 +1623,7 @@ declare namespace my {
 
     interface PreviewImageOptions extends BaseOptions {
         /** 当当前显示图片索引，默认 0 */
-        current?: number;
+        current?: number | undefined;
         /** 要预览的图片链接列表 */
         urls: string[];
     }
@@ -1660,7 +1660,7 @@ declare namespace my {
          * 3 | 不压缩
          * 4 | 根据网络适应
          */
-        compressLevel?: 0 | 1 | 2 | 3 | 4;
+        compressLevel?: 0 | 1 | 2 | 3 | 4 | undefined;
         success?(res: {
             /**
              * 压缩后的路径数组
@@ -1817,7 +1817,7 @@ declare namespace my {
         /** 文件路径 */
         apFilePath: string;
         /** 摘要算法，支持md5和sha1，默认为md5 */
-        digestAlgorithm?: 'md5' | 'sha1';
+        digestAlgorithm?: 'md5' | 'sha1' | undefined;
         success?(options: GetFileInfoSuccess): void;
     }
     /**
@@ -1886,45 +1886,45 @@ declare namespace my {
         /**
          * 国家(type>0生效)
          */
-        country?: string;
+        country?: string | undefined;
         /**
          * 国家编号 (type>0生效)
          */
-        countryCode?: string;
+        countryCode?: string | undefined;
         /**
          * 省份(type>0生效)
          */
-        province?: string;
+        province?: string | undefined;
         /**
          * 城市(type>0生效)
          */
-        city?: string;
+        city?: string | undefined;
         /**
          * 城市级别的地区代码(type>0生效)
          */
-        cityAdcode?: string;
+        cityAdcode?: string | undefined;
         /**
          * 区县(type>0生效)
          */
-        district?: string;
+        district?: string | undefined;
         /**
          * 区县级别的地区代码(type>0生效)
          */
-        districtAdcode?: string;
+        districtAdcode?: string | undefined;
         /**
          * 需要街道级别逆地理的才会有的字段,街道门牌信息，结构是：{ street, number } (type > 1生效)
          */
         streetNumber?: {
             street: string;
             number: string;
-        };
+        } | undefined;
         /**
          * 需要POI级别逆地理的才会有的字段, 定位点附近的 POI 信息，结构是：{ name, address } （type > 2生效）
          */
         pois?: Array<{
             name: string;
             address: string;
-        }>;
+        }> | undefined;
     }
     interface GetLocationOptions extends BaseOptions {
         /**
@@ -1956,7 +1956,7 @@ declare namespace my {
         /** 地址的详细说明 */
         address: string;
         /** 缩放比例，范围 3~19，默认为 15 */
-        scale?: number;
+        scale?: number | undefined;
     }
     /**
      * 使用微信内置地图查看位置
@@ -2001,17 +2001,17 @@ declare namespace my {
         /** 目标服务器url */
         url: string;
         /** 设置请求的 HTTP 头，默认 {'Content-Type': 'application/x-www-form-urlencoded'} */
-        header?: RequestHeader;
+        header?: RequestHeader | undefined;
         /** 默认GET，目前支持GET，POST */
-        method?: "GET" | "POST";
+        method?: "GET" | "POST" | undefined;
         /** 请求的参数 */
         data?: any;
         /**
          * 超时时间，单位ms，默认30000
          */
-        timeout?: number;
+        timeout?: number | undefined;
         /** 期望返回的数据格式，默认json，支持json，text，base64 */
-        dataType?: 'json' | 'text' | 'base64';
+        dataType?: 'json' | 'text' | 'base64' | undefined;
         /** 收到开发者服务成功返回的回调函数，res = {data: '开发者服务器返回的内容'} */
         success?(res: DataResponse): void;
     }
@@ -2029,7 +2029,7 @@ declare namespace my {
          */
         fileType: 'image' | 'video' | 'audio';
         /** HTTP 请求 Header */
-        header?: RequestHeader;
+        header?: RequestHeader | undefined;
         /** HTTP 请求中其他额外的 form 数据 */
         formData?: any;
         success?(res: {
@@ -2049,7 +2049,7 @@ declare namespace my {
         /** 下载文件地址 */
         url: string;
         /** HTTP 请求 Header */
-        header?: RequestHeader;
+        header?: RequestHeader | undefined;
         /** 下载成功后以 tempFilePath 的形式传给页面，res = {tempFilePath: '文件的临时路径'} */
         success?(res: TempFileResponse): void;
     }
@@ -2064,8 +2064,8 @@ declare namespace my {
         /** 请求的参数 */
         data?: any;
         /** 设置请求的头部 */
-        header?: RequestHeader;
-        method?: 'GET' | 'POST';    // todo missing in api
+        header?: RequestHeader | undefined;
+        method?: 'GET' | 'POST' | undefined;    // todo missing in api
     }
     /**
      * 创建一个 WebSocket 的连接；
@@ -2106,7 +2106,7 @@ declare namespace my {
         /**
          * 如果需要发送二进制数据，需要将入参数据经 base64 编码成 String 后赋值 data，同时将此字段设置为true，否则如果是普通的文本内容 String，不需要设置此字段
          */
-        isBuffer?: boolean;
+        isBuffer?: boolean | undefined;
     }
     /**
      * 通过 WebSocket 连接发送数据，需要先使用 my.connectSocket 发起建连，并在 my.onSocketOpen 回调之后再发送数据。
@@ -2124,7 +2124,7 @@ declare namespace my {
         /**
          * 如果需要发送二进制数据，需要将入参数据经 base64 编码成 String 后赋值 data，同时将此字段设置为true，否则如果是普通的文本内容 String，不需要设置此字段
          */
-        isBuffer?: boolean;
+        isBuffer?: boolean | undefined;
     }) => void): void;
     function offSocketMessage(callback: (error: any) => void): void;
 
@@ -2411,11 +2411,11 @@ declare namespace my {
          * 1. qr,扫码框样式为二维码扫码框
          * 1. bar，扫码样式为条形码扫码框
          */
-        type?: scanType;
+        type?: scanType | undefined;
         /**
          * 是否隐藏相册（不允许从相册选择图片），只能从相机扫码
          */
-        hideAlbum?: boolean;
+        hideAlbum?: boolean | undefined;
         success?(res: ScanCodeData): void;
     }
     /**
@@ -2477,15 +2477,15 @@ declare namespace my {
          * 蓝牙设备主 service 的 uuid 列表
          * 某些蓝牙设备会广播自己的主 service 的 uuid。如果这里传入该数组，那么根据该 uuid 列表，只搜索有这个主服务的设备。
          */
-        services?: string[];
+        services?: string[] | undefined;
         /**
          * 否允许重复上报同一设备， 如果允许重复上报，则onDeviceFound 方法会多次上报同一设备，但是 RSSI 值会有不同
          */
-        allowDuplicatesKey?: boolean;
+        allowDuplicatesKey?: boolean | undefined;
         /**
          * 上报设备的间隔，默认为0，意思是找到新设备立即上报，否则根据传入的间隔上报
          */
-        interval?: number;
+        interval?: number | undefined;
     }
     /**
      * 开始搜寻附近的蓝牙外围设备。搜索结果将在 my.onBluetoothDeviceFound 事件中返回。
@@ -2546,7 +2546,7 @@ declare namespace my {
     function getBluetoothDevices(options: GetBluetoothDevicesOptions): void;
 
     interface GetConnectedBluetoothDevicesOptions extends BaseOptions {
-        services?: string[];
+        services?: string[] | undefined;
         success(
             res: {
                 devices: BluetoothDevice[];
@@ -2653,11 +2653,11 @@ declare namespace my {
         /**
          * notify 的 descriptor 的 uuid （只有android 会用到，非必填，默认值00002902-0000-10008000-00805f9b34fb）
          */
-        descriptorId?: string;
+        descriptorId?: string | undefined;
         /**
          * 是否启用notify或indicate
          */
-        state?: boolean;
+        state?: boolean | undefined;
     }
     function notifyBLECharacteristicValueChange(optons: NotifyBLECharacteristicValueChangeOptions): void;
 
@@ -2677,7 +2677,7 @@ declare namespace my {
         /**
          * notify 的 descriptor 的 uuid （只有android 会用到，非必填，默认值00002902-0000-10008000-00805f9b34fb）
          */
-        descriptorId?: string;
+        descriptorId?: string | undefined;
         /**
          * true: 启用 notify; false: 停用 notify
          */
@@ -3036,46 +3036,46 @@ declare namespace my {
          * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
          * 生命周期函数
          */
-        onLaunch?: (this: App, option: LaunchOptions) => void;
+        onLaunch?: ((this: App, option: LaunchOptions) => void) | undefined;
         /**
          * 监听小程序显示。
          * 当小程序启动，或从后台进入前台显示，会触发 onShow
          * 生命周期函数
          */
-        onShow?: (this: App, option: LaunchOptions) => void;
+        onShow?: ((this: App, option: LaunchOptions) => void) | undefined;
         /**
          * 监听小程序隐藏。
          * 当小程序从前台进入后台，会触发 onHide
          * 生命周期函数
          */
-        onHide?: (this: App) => void;
+        onHide?: ((this: App) => void) | undefined;
         /**
          * 错误监听函数
          * 当小程序发生脚本错误或者 api 调用失败时
          * 会触发 onError 并带上错误信息
          */
-        onError?: (this: App, msg: string) => void;
+        onError?: ((this: App, msg: string) => void) | undefined;
         /**
          * 小程序退出时触发
          */
-        onUnlaunch?: (this: App) => void;
+        onUnlaunch?: ((this: App) => void) | undefined;
         /**
          * 全局Data
          */
-        globalData?: object;
+        globalData?: object | undefined;
         [key: string]: any;
     }
     interface CreateIntersectionObserverOption {
-        thresholds?: [number, number];
-        initialRatio?: number;
-        selectAll?: boolean;
+        thresholds?: [number, number] | undefined;
+        initialRatio?: number | undefined;
+        selectAll?: boolean | undefined;
     }
 
     interface Margins {
-        left?: number;
-        right?: number;
-        top?: number;
-        bottom?: number;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
+        bottom?: number | undefined;
     }
     interface ObserveResponse {
         id: string;
@@ -3099,13 +3099,13 @@ declare namespace my {
         /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
         type: "parent" | "child" | "ancestor" | "descendant";
         /** 如果这一项被设置，则它表示关联的目标节点所应具有的behavior，所有拥有这一behavior的组件节点都会被关联 */
-        target?: string;
+        target?: string | undefined;
         /** 关系生命周期函数，当关系被建立在页面节点树中时触发，触发时机在组件attached生命周期之后 */
-        linked?: (target: Component) => void;
+        linked?: ((target: Component) => void) | undefined;
         /** 关系生命周期函数，当关系在页面节点树中发生改变时触发，触发时机在组件moved生命周期之后 */
-        linkChanged?: (target: Component) => void;
+        linkChanged?: ((target: Component) => void) | undefined;
         /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
-        unlinked?: (target: Component) => void;
+        unlinked?: ((target: Component) => void) | undefined;
     }
     interface Component {
         /**

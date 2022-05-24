@@ -6,8 +6,10 @@ const element = new Element();
 // $ExpectType Toast
 new Toast(element, { animation: false });
 
-// $ExpectType Toast
+// $ExpectType Toast | null
 Toast.getInstance(element);
+// $ExpectType Toast
+Toast.getOrCreateInstance(element);
 
 // $ExpectType string
 Toast.VERSION;
@@ -31,11 +33,11 @@ element.addEventListener(Toast.Events.shown, event => {
     // do something…
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').toast();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').toast({ animation: false });
 
-$('.alert').toast('hide'); // $ExpectType void
-$('.alert').toast('show'); // $ExpectType void
+$('.alert').toast('hide'); // $ExpectType JQuery<HTMLElement>
+$('.alert').toast('show'); // $ExpectType JQuery<HTMLElement>

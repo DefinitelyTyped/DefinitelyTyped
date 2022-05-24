@@ -182,13 +182,11 @@ export class Binding {
     constantViolations: NodePath[];
 }
 
-export type Visitor<S = {}> = VisitNodeObject<S, Node> &
-    {
-        [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
-    } &
-    {
-        [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
-    };
+export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
+    [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
+} & {
+    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
+};
 
 export type VisitNode<S, P extends Node> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
 
@@ -224,7 +222,7 @@ export class NodePath<T = Node> {
     state: any;
     opts: object;
     skipKeys: object;
-    parentPath: NodePath;
+    parentPath: T extends t.Program ? null : NodePath;
     context: TraversalContext;
     container: object | object[];
     listKey: string;
@@ -241,6 +239,8 @@ export class NodePath<T = Node> {
     setData(key: string, val: any): any;
 
     getData(key: string, def?: any): any;
+
+    hasNode(): this is NodePath<NonNullable<this['node']>>;
 
     buildCodeFrameError<TError extends Error>(msg: string, Error?: new (msg: string) => TError): TError;
 
@@ -526,6 +526,8 @@ export class NodePath<T = Node> {
     getCompletionRecords(): NodePath[];
 
     getSibling(key: string | number): NodePath;
+    getPrevSibling(): NodePath;
+    getNextSibling(): NodePath;
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 

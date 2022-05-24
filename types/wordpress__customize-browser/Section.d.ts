@@ -3,8 +3,8 @@ import { Control } from './Control';
 import { Value } from './Value';
 
 export interface Section_Params extends Container_Params {
-    panel?: string | null;
-    customizeAction?: string;
+    panel?: string | null | undefined;
+    customizeAction?: string | undefined;
 }
 
 export class Section extends Container {

@@ -292,16 +292,16 @@ export function createRoutine<
 >(
     typePrefix: string,
     payloadCreator: {
-        TRIGGER?: TTriggerPayloadCreator;
-        trigger?: TTriggerPayloadCreator;
-        REQUEST?: TRequestPayloadCreator;
-        request?: TRequestPayloadCreator;
-        SUCCESS?: TSuccessPayloadCreator;
-        success?: TSuccessPayloadCreator;
-        FAILURE?: TFailurePayloadCreator;
-        failure?: TFailurePayloadCreator;
-        FULFILL?: TFulfillPayloadCreator;
-        fulfill?: TFulfillPayloadCreator;
+        TRIGGER?: TTriggerPayloadCreator | undefined;
+        trigger?: TTriggerPayloadCreator | undefined;
+        REQUEST?: TRequestPayloadCreator | undefined;
+        request?: TRequestPayloadCreator | undefined;
+        SUCCESS?: TSuccessPayloadCreator | undefined;
+        success?: TSuccessPayloadCreator | undefined;
+        FAILURE?: TFailurePayloadCreator | undefined;
+        failure?: TFailurePayloadCreator | undefined;
+        FULFILL?: TFulfillPayloadCreator | undefined;
+        fulfill?: TFulfillPayloadCreator | undefined;
     },
 ): Routine<
     ResolveActionCreatorByPayload<TTriggerPayloadCreator>,
@@ -321,16 +321,16 @@ export function createRoutine<
     typePrefix: string,
     payloadCreator: null | undefined,
     metaCreator: {
-        TRIGGER?: TTriggerMetaCreator;
-        trigger?: TTriggerMetaCreator;
-        REQUEST?: TRequestMetaCreator;
-        request?: TRequestMetaCreator;
-        SUCCESS?: TSuccessMetaCreator;
-        success?: TSuccessMetaCreator;
-        FAILURE?: TFailureMetaCreator;
-        failure?: TFailureMetaCreator;
-        FULFILL?: TFulfillMetaCreator;
-        fulfill?: TFulfillMetaCreator;
+        TRIGGER?: TTriggerMetaCreator | undefined;
+        trigger?: TTriggerMetaCreator | undefined;
+        REQUEST?: TRequestMetaCreator | undefined;
+        request?: TRequestMetaCreator | undefined;
+        SUCCESS?: TSuccessMetaCreator | undefined;
+        success?: TSuccessMetaCreator | undefined;
+        FAILURE?: TFailureMetaCreator | undefined;
+        failure?: TFailureMetaCreator | undefined;
+        FULFILL?: TFulfillMetaCreator | undefined;
+        fulfill?: TFulfillMetaCreator | undefined;
     },
 ): Routine<
     ResolveActionCreatorByMeta<TTriggerMetaCreator>,
@@ -354,28 +354,28 @@ export function createRoutine<
 >(
     typePrefix: string,
     payloadCreator: {
-        TRIGGER?: TTriggerPayloadCreator;
-        trigger?: TTriggerPayloadCreator;
-        REQUEST?: TRequestPayloadCreator;
-        request?: TRequestPayloadCreator;
-        SUCCESS?: TSuccessPayloadCreator;
-        success?: TSuccessPayloadCreator;
-        FAILURE?: TFailurePayloadCreator;
-        failure?: TFailurePayloadCreator;
-        FULFILL?: TFulfillPayloadCreator;
-        fulfill?: TFulfillPayloadCreator;
+        TRIGGER?: TTriggerPayloadCreator | undefined;
+        trigger?: TTriggerPayloadCreator | undefined;
+        REQUEST?: TRequestPayloadCreator | undefined;
+        request?: TRequestPayloadCreator | undefined;
+        SUCCESS?: TSuccessPayloadCreator | undefined;
+        success?: TSuccessPayloadCreator | undefined;
+        FAILURE?: TFailurePayloadCreator | undefined;
+        failure?: TFailurePayloadCreator | undefined;
+        FULFILL?: TFulfillPayloadCreator | undefined;
+        fulfill?: TFulfillPayloadCreator | undefined;
     },
     metaCreator: {
-        TRIGGER?: TTriggerMetaCreator;
-        trigger?: TTriggerMetaCreator;
-        REQUEST?: TRequestMetaCreator;
-        request?: TRequestMetaCreator;
-        SUCCESS?: TSuccessMetaCreator;
-        success?: TSuccessMetaCreator;
-        FAILURE?: TFailureMetaCreator;
-        failure?: TFailureMetaCreator;
-        FULFILL?: TFulfillMetaCreator;
-        fulfill?: TFulfillMetaCreator;
+        TRIGGER?: TTriggerMetaCreator | undefined;
+        trigger?: TTriggerMetaCreator | undefined;
+        REQUEST?: TRequestMetaCreator | undefined;
+        request?: TRequestMetaCreator | undefined;
+        SUCCESS?: TSuccessMetaCreator | undefined;
+        success?: TSuccessMetaCreator | undefined;
+        FAILURE?: TFailureMetaCreator | undefined;
+        failure?: TFailureMetaCreator | undefined;
+        FULFILL?: TFulfillMetaCreator | undefined;
+        fulfill?: TFulfillMetaCreator | undefined;
     },
 ): Routine<
     ResolveActionCreatorByPayloadMeta<TTriggerPayloadCreator, TTriggerMetaCreator>,

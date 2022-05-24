@@ -25,3 +25,4 @@ options = { emitFile: () => true }; // $ExpectError
 options = { regExp: /regex/ }; // $ExpectType { regExp: RegExp; }
 options = { regExp: 'regex' }; // $ExpectError
 options = { postTransformPublicPath: '' }; // $ExpectError
+options = { esModule: true }; // $ExpectType { esModule: true; }

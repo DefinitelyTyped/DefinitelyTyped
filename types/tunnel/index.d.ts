@@ -13,35 +13,35 @@ export function httpOverHttps(options?: HttpOverHttpsOptions): HttpsAgent;
 export function httpsOverHttps(options?: HttpsOverHttpsOptions): HttpsAgent;
 
 export interface HttpOptions {
-    maxSockets?: number;
-    proxy?: ProxyOptions;
+    maxSockets?: number | undefined;
+    proxy?: ProxyOptions | undefined;
 }
 
 export interface HttpsOverHttpOptions extends HttpOptions {
-    ca?: Buffer[];
-    key?: Buffer;
-    cert?: Buffer;
+    ca?: Buffer[] | undefined;
+    key?: Buffer | undefined;
+    cert?: Buffer | undefined;
 }
 
 export interface HttpOverHttpsOptions extends HttpOptions {
-    proxy?: HttpsProxyOptions;
+    proxy?: HttpsProxyOptions | undefined;
 }
 
 export interface HttpsOverHttpsOptions extends HttpsOverHttpOptions {
-    proxy?: HttpsProxyOptions;
+    proxy?: HttpsProxyOptions | undefined;
 }
 
 export interface ProxyOptions {
     host: string;
     port: number;
-    localAddress?: string;
-    proxyAuth?: string;
-    headers?: { [key: string]: any };
+    localAddress?: string | undefined;
+    proxyAuth?: string | undefined;
+    headers?: { [key: string]: any } | undefined;
 }
 
 export interface HttpsProxyOptions extends ProxyOptions {
-    ca?: Buffer[];
-    servername?: string;
-    key?: Buffer;
-    cert?: Buffer;
+    ca?: Buffer[] | undefined;
+    servername?: string | undefined;
+    key?: Buffer | undefined;
+    cert?: Buffer | undefined;
 }

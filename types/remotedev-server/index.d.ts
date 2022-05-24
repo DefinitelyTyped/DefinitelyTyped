@@ -18,24 +18,24 @@ declare namespace remotedev {
 
     interface Options {
         /** The cert file for running a HTTPS server (`protocol` must be set to "https"). */
-        cert?: string;
+        cert?: string | undefined;
         /** Database configuration, can be an object or a path to a JSON configuration file. */
-        dbOptions?: string;
+        dbOptions?: string | undefined;
         /** Hostname. */
-        hostname?: string;
+        hostname?: string | undefined;
         /** The key file for running a HTTPS server (`protocol` must be set to "https"). */
-        key?: string;
-        logHTTPRequests?: boolean;
+        key?: string | undefined;
+        logHTTPRequests?: boolean | undefined;
         /** The socket server log level. */
-        logLevel?: LogLevel;
+        logLevel?: LogLevel | undefined;
         /** The key passphrase for running a HTTPS server (`protocol` must be set to "https"). */
-        passphrase?: string;
+        passphrase?: string | undefined;
         /** Port. */
-        port?: number;
+        port?: number | undefined;
         /** Protocol. */
-        protocol?: 'http' | 'https';
+        protocol?: 'http' | 'https' | undefined;
         /** The socket server websocket engine. */
-        wsEngine?: string;
+        wsEngine?: string | undefined;
     }
 
     interface PortUsedError {

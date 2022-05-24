@@ -980,7 +980,7 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string>>;
+        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string[]>>;
     }
     interface CollectionChain<T> {
         /**

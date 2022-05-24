@@ -70,7 +70,7 @@ declare namespace GoogleAppsScript {
             remove(userId: string, forwardingEmail: string): void;
           }
           interface SendAsCollection {
-            SmimeInfo?: Gmail.Collection.Users.Settings.SendAs.SmimeInfoCollection;
+            SmimeInfo?: Gmail.Collection.Users.Settings.SendAs.SmimeInfoCollection | undefined;
             // Creates a custom "from" send-as alias. If an SMTP MSA is specified, Gmail will attempt to connect to the SMTP service to validate the configuration before creating the alias. If ownership verification is required for the alias, a message will be sent to the email address and the resource's verification status will be set to pending; otherwise, the resource will be created with verification status set to accepted. If a signature is provided, Gmail will sanitize the HTML before saving it with the alias.
             // This method is only available to service account clients that have been delegated domain-wide authority.
             create(resource: Schema.SendAs, userId: string): Gmail.Schema.SendAs;
@@ -137,7 +137,7 @@ declare namespace GoogleAppsScript {
           update(resource: Schema.Label, userId: string, id: string): Gmail.Schema.Label;
         }
         interface MessagesCollection {
-          Attachments?: Gmail.Collection.Users.Messages.AttachmentsCollection;
+          Attachments?: Gmail.Collection.Users.Messages.AttachmentsCollection | undefined;
           // Deletes many messages by message ID. Provides no guarantees that messages were not already deleted or even existed at all.
           batchDelete(resource: Schema.BatchDeleteMessagesRequest, userId: string): void;
           // Modifies the labels on the specified messages.
@@ -176,10 +176,10 @@ declare namespace GoogleAppsScript {
           untrash(userId: string, id: string): Gmail.Schema.Message;
         }
         interface SettingsCollection {
-          Delegates?: Gmail.Collection.Users.Settings.DelegatesCollection;
-          Filters?: Gmail.Collection.Users.Settings.FiltersCollection;
-          ForwardingAddresses?: Gmail.Collection.Users.Settings.ForwardingAddressesCollection;
-          SendAs?: Gmail.Collection.Users.Settings.SendAsCollection;
+          Delegates?: Gmail.Collection.Users.Settings.DelegatesCollection | undefined;
+          Filters?: Gmail.Collection.Users.Settings.FiltersCollection | undefined;
+          ForwardingAddresses?: Gmail.Collection.Users.Settings.ForwardingAddressesCollection | undefined;
+          SendAs?: Gmail.Collection.Users.Settings.SendAsCollection | undefined;
           // Gets the auto-forwarding setting for the specified account.
           getAutoForwarding(userId: string): Gmail.Schema.AutoForwarding;
           // Gets IMAP settings.
@@ -218,12 +218,12 @@ declare namespace GoogleAppsScript {
         }
       }
       interface UsersCollection {
-        Drafts?: Gmail.Collection.Users.DraftsCollection;
-        History?: Gmail.Collection.Users.HistoryCollection;
-        Labels?: Gmail.Collection.Users.LabelsCollection;
-        Messages?: Gmail.Collection.Users.MessagesCollection;
-        Settings?: Gmail.Collection.Users.SettingsCollection;
-        Threads?: Gmail.Collection.Users.ThreadsCollection;
+        Drafts?: Gmail.Collection.Users.DraftsCollection | undefined;
+        History?: Gmail.Collection.Users.HistoryCollection | undefined;
+        Labels?: Gmail.Collection.Users.LabelsCollection | undefined;
+        Messages?: Gmail.Collection.Users.MessagesCollection | undefined;
+        Settings?: Gmail.Collection.Users.SettingsCollection | undefined;
+        Threads?: Gmail.Collection.Users.ThreadsCollection | undefined;
         // Gets the current user's Gmail profile.
         getProfile(userId: string): Gmail.Schema.Profile;
         // Stop receiving push notifications for the given user mailbox.
@@ -234,235 +234,235 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface AutoForwarding {
-        disposition?: string;
-        emailAddress?: string;
-        enabled?: boolean;
+        disposition?: string | undefined;
+        emailAddress?: string | undefined;
+        enabled?: boolean | undefined;
       }
       interface BatchDeleteMessagesRequest {
-        ids?: string[];
+        ids?: string[] | undefined;
       }
       interface BatchModifyMessagesRequest {
-        addLabelIds?: string[];
-        ids?: string[];
-        removeLabelIds?: string[];
+        addLabelIds?: string[] | undefined;
+        ids?: string[] | undefined;
+        removeLabelIds?: string[] | undefined;
       }
       interface Delegate {
-        delegateEmail?: string;
-        verificationStatus?: string;
+        delegateEmail?: string | undefined;
+        verificationStatus?: string | undefined;
       }
       interface Draft {
-        id?: string;
-        message?: Gmail.Schema.Message;
+        id?: string | undefined;
+        message?: Gmail.Schema.Message | undefined;
       }
       interface Filter {
-        action?: Gmail.Schema.FilterAction;
-        criteria?: Gmail.Schema.FilterCriteria;
-        id?: string;
+        action?: Gmail.Schema.FilterAction | undefined;
+        criteria?: Gmail.Schema.FilterCriteria | undefined;
+        id?: string | undefined;
       }
       interface FilterAction {
-        addLabelIds?: string[];
-        forward?: string;
-        removeLabelIds?: string[];
+        addLabelIds?: string[] | undefined;
+        forward?: string | undefined;
+        removeLabelIds?: string[] | undefined;
       }
       interface FilterCriteria {
-        excludeChats?: boolean;
-        from?: string;
-        hasAttachment?: boolean;
-        negatedQuery?: string;
-        query?: string;
-        size?: number;
-        sizeComparison?: string;
-        subject?: string;
-        to?: string;
+        excludeChats?: boolean | undefined;
+        from?: string | undefined;
+        hasAttachment?: boolean | undefined;
+        negatedQuery?: string | undefined;
+        query?: string | undefined;
+        size?: number | undefined;
+        sizeComparison?: string | undefined;
+        subject?: string | undefined;
+        to?: string | undefined;
       }
       interface ForwardingAddress {
-        forwardingEmail?: string;
-        verificationStatus?: string;
+        forwardingEmail?: string | undefined;
+        verificationStatus?: string | undefined;
       }
       interface History {
-        id?: string;
-        labelsAdded?: Gmail.Schema.HistoryLabelAdded[];
-        labelsRemoved?: Gmail.Schema.HistoryLabelRemoved[];
-        messages?: Gmail.Schema.Message[];
-        messagesAdded?: Gmail.Schema.HistoryMessageAdded[];
-        messagesDeleted?: Gmail.Schema.HistoryMessageDeleted[];
+        id?: string | undefined;
+        labelsAdded?: Gmail.Schema.HistoryLabelAdded[] | undefined;
+        labelsRemoved?: Gmail.Schema.HistoryLabelRemoved[] | undefined;
+        messages?: Gmail.Schema.Message[] | undefined;
+        messagesAdded?: Gmail.Schema.HistoryMessageAdded[] | undefined;
+        messagesDeleted?: Gmail.Schema.HistoryMessageDeleted[] | undefined;
       }
       interface HistoryLabelAdded {
-        labelIds?: string[];
-        message?: Gmail.Schema.Message;
+        labelIds?: string[] | undefined;
+        message?: Gmail.Schema.Message | undefined;
       }
       interface HistoryLabelRemoved {
-        labelIds?: string[];
-        message?: Gmail.Schema.Message;
+        labelIds?: string[] | undefined;
+        message?: Gmail.Schema.Message | undefined;
       }
       interface HistoryMessageAdded {
-        message?: Gmail.Schema.Message;
+        message?: Gmail.Schema.Message | undefined;
       }
       interface HistoryMessageDeleted {
-        message?: Gmail.Schema.Message;
+        message?: Gmail.Schema.Message | undefined;
       }
       interface ImapSettings {
-        autoExpunge?: boolean;
-        enabled?: boolean;
-        expungeBehavior?: string;
-        maxFolderSize?: number;
+        autoExpunge?: boolean | undefined;
+        enabled?: boolean | undefined;
+        expungeBehavior?: string | undefined;
+        maxFolderSize?: number | undefined;
       }
       interface Label {
-        color?: Gmail.Schema.LabelColor;
-        id?: string;
-        labelListVisibility?: string;
-        messageListVisibility?: string;
-        messagesTotal?: number;
-        messagesUnread?: number;
-        name?: string;
-        threadsTotal?: number;
-        threadsUnread?: number;
-        type?: string;
+        color?: Gmail.Schema.LabelColor | undefined;
+        id?: string | undefined;
+        labelListVisibility?: string | undefined;
+        messageListVisibility?: string | undefined;
+        messagesTotal?: number | undefined;
+        messagesUnread?: number | undefined;
+        name?: string | undefined;
+        threadsTotal?: number | undefined;
+        threadsUnread?: number | undefined;
+        type?: string | undefined;
       }
       interface LabelColor {
-        backgroundColor?: string;
-        textColor?: string;
+        backgroundColor?: string | undefined;
+        textColor?: string | undefined;
       }
       interface ListDelegatesResponse {
-        delegates?: Gmail.Schema.Delegate[];
+        delegates?: Gmail.Schema.Delegate[] | undefined;
       }
       interface ListDraftsResponse {
-        drafts?: Gmail.Schema.Draft[];
-        nextPageToken?: string;
-        resultSizeEstimate?: number;
+        drafts?: Gmail.Schema.Draft[] | undefined;
+        nextPageToken?: string | undefined;
+        resultSizeEstimate?: number | undefined;
       }
       interface ListFiltersResponse {
-        filter?: Gmail.Schema.Filter[];
+        filter?: Gmail.Schema.Filter[] | undefined;
       }
       interface ListForwardingAddressesResponse {
-        forwardingAddresses?: Gmail.Schema.ForwardingAddress[];
+        forwardingAddresses?: Gmail.Schema.ForwardingAddress[] | undefined;
       }
       interface ListHistoryResponse {
-        history?: Gmail.Schema.History[];
-        historyId?: string;
-        nextPageToken?: string;
+        history?: Gmail.Schema.History[] | undefined;
+        historyId?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ListLabelsResponse {
-        labels?: Gmail.Schema.Label[];
+        labels?: Gmail.Schema.Label[] | undefined;
       }
       interface ListMessagesResponse {
-        messages?: Gmail.Schema.Message[];
-        nextPageToken?: string;
-        resultSizeEstimate?: number;
+        messages?: Gmail.Schema.Message[] | undefined;
+        nextPageToken?: string | undefined;
+        resultSizeEstimate?: number | undefined;
       }
       interface ListSendAsResponse {
-        sendAs?: Gmail.Schema.SendAs[];
+        sendAs?: Gmail.Schema.SendAs[] | undefined;
       }
       interface ListSmimeInfoResponse {
-        smimeInfo?: Gmail.Schema.SmimeInfo[];
+        smimeInfo?: Gmail.Schema.SmimeInfo[] | undefined;
       }
       interface ListThreadsResponse {
-        nextPageToken?: string;
-        resultSizeEstimate?: number;
-        threads?: Gmail.Schema.Thread[];
+        nextPageToken?: string | undefined;
+        resultSizeEstimate?: number | undefined;
+        threads?: Gmail.Schema.Thread[] | undefined;
       }
       interface Message {
-        historyId?: string;
-        id?: string;
-        internalDate?: string;
-        labelIds?: string[];
-        payload?: Gmail.Schema.MessagePart;
-        raw?: string;
-        sizeEstimate?: number;
-        snippet?: string;
-        threadId?: string;
+        historyId?: string | undefined;
+        id?: string | undefined;
+        internalDate?: string | undefined;
+        labelIds?: string[] | undefined;
+        payload?: Gmail.Schema.MessagePart | undefined;
+        raw?: string | undefined;
+        sizeEstimate?: number | undefined;
+        snippet?: string | undefined;
+        threadId?: string | undefined;
       }
       interface MessagePart {
-        body?: Gmail.Schema.MessagePartBody;
-        filename?: string;
-        headers?: Gmail.Schema.MessagePartHeader[];
-        mimeType?: string;
-        partId?: string;
-        parts?: Gmail.Schema.MessagePart[];
+        body?: Gmail.Schema.MessagePartBody | undefined;
+        filename?: string | undefined;
+        headers?: Gmail.Schema.MessagePartHeader[] | undefined;
+        mimeType?: string | undefined;
+        partId?: string | undefined;
+        parts?: Gmail.Schema.MessagePart[] | undefined;
       }
       interface MessagePartBody {
-        attachmentId?: string;
-        data?: string;
-        size?: number;
+        attachmentId?: string | undefined;
+        data?: string | undefined;
+        size?: number | undefined;
       }
       interface MessagePartHeader {
-        name?: string;
-        value?: string;
+        name?: string | undefined;
+        value?: string | undefined;
       }
       interface ModifyMessageRequest {
-        addLabelIds?: string[];
-        removeLabelIds?: string[];
+        addLabelIds?: string[] | undefined;
+        removeLabelIds?: string[] | undefined;
       }
       interface ModifyThreadRequest {
-        addLabelIds?: string[];
-        removeLabelIds?: string[];
+        addLabelIds?: string[] | undefined;
+        removeLabelIds?: string[] | undefined;
       }
       interface PopSettings {
-        accessWindow?: string;
-        disposition?: string;
+        accessWindow?: string | undefined;
+        disposition?: string | undefined;
       }
       interface Profile {
-        emailAddress?: string;
-        historyId?: string;
-        messagesTotal?: number;
-        threadsTotal?: number;
+        emailAddress?: string | undefined;
+        historyId?: string | undefined;
+        messagesTotal?: number | undefined;
+        threadsTotal?: number | undefined;
       }
       interface SendAs {
-        displayName?: string;
-        isDefault?: boolean;
-        isPrimary?: boolean;
-        replyToAddress?: string;
-        sendAsEmail?: string;
-        signature?: string;
-        smtpMsa?: Gmail.Schema.SmtpMsa;
-        treatAsAlias?: boolean;
-        verificationStatus?: string;
+        displayName?: string | undefined;
+        isDefault?: boolean | undefined;
+        isPrimary?: boolean | undefined;
+        replyToAddress?: string | undefined;
+        sendAsEmail?: string | undefined;
+        signature?: string | undefined;
+        smtpMsa?: Gmail.Schema.SmtpMsa | undefined;
+        treatAsAlias?: boolean | undefined;
+        verificationStatus?: string | undefined;
       }
       interface SmimeInfo {
-        encryptedKeyPassword?: string;
-        expiration?: string;
-        id?: string;
-        isDefault?: boolean;
-        issuerCn?: string;
-        pem?: string;
-        pkcs12?: string;
+        encryptedKeyPassword?: string | undefined;
+        expiration?: string | undefined;
+        id?: string | undefined;
+        isDefault?: boolean | undefined;
+        issuerCn?: string | undefined;
+        pem?: string | undefined;
+        pkcs12?: string | undefined;
       }
       interface SmtpMsa {
-        host?: string;
-        password?: string;
-        port?: number;
-        securityMode?: string;
-        username?: string;
+        host?: string | undefined;
+        password?: string | undefined;
+        port?: number | undefined;
+        securityMode?: string | undefined;
+        username?: string | undefined;
       }
       interface Thread {
-        historyId?: string;
-        id?: string;
-        messages?: Gmail.Schema.Message[];
-        snippet?: string;
+        historyId?: string | undefined;
+        id?: string | undefined;
+        messages?: Gmail.Schema.Message[] | undefined;
+        snippet?: string | undefined;
       }
       interface VacationSettings {
-        enableAutoReply?: boolean;
-        endTime?: string;
-        responseBodyHtml?: string;
-        responseBodyPlainText?: string;
-        responseSubject?: string;
-        restrictToContacts?: boolean;
-        restrictToDomain?: boolean;
-        startTime?: string;
+        enableAutoReply?: boolean | undefined;
+        endTime?: string | undefined;
+        responseBodyHtml?: string | undefined;
+        responseBodyPlainText?: string | undefined;
+        responseSubject?: string | undefined;
+        restrictToContacts?: boolean | undefined;
+        restrictToDomain?: boolean | undefined;
+        startTime?: string | undefined;
       }
       interface WatchRequest {
-        labelFilterAction?: string;
-        labelIds?: string[];
-        topicName?: string;
+        labelFilterAction?: string | undefined;
+        labelIds?: string[] | undefined;
+        topicName?: string | undefined;
       }
       interface WatchResponse {
-        expiration?: string;
-        historyId?: string;
+        expiration?: string | undefined;
+        historyId?: string | undefined;
       }
     }
   }
   interface Gmail {
-    Users?: Gmail.Collection.UsersCollection;
+    Users?: Gmail.Collection.UsersCollection | undefined;
     // Create a new instance of AutoForwarding
     newAutoForwarding(): Gmail.Schema.AutoForwarding;
     // Create a new instance of BatchDeleteMessagesRequest

@@ -9,21 +9,21 @@ import PluggableMap from './PluggableMap';
 import { Size } from './size';
 
 export interface Options {
-    id?: number | string;
-    element?: HTMLElement;
-    offset?: number[];
-    position?: Coordinate;
-    positioning?: OverlayPositioning;
-    stopEvent?: boolean;
-    insertFirst?: boolean;
-    autoPan?: boolean;
-    autoPanAnimation?: PanOptions;
-    autoPanMargin?: number;
-    className?: string;
+    id?: number | string | undefined;
+    element?: HTMLElement | undefined;
+    offset?: number[] | undefined;
+    position?: Coordinate | undefined;
+    positioning?: OverlayPositioning | undefined;
+    stopEvent?: boolean | undefined;
+    insertFirst?: boolean | undefined;
+    autoPan?: boolean | undefined;
+    autoPanAnimation?: PanOptions | undefined;
+    autoPanMargin?: number | undefined;
+    className?: string | undefined;
 }
 export interface PanOptions {
-    duration?: number;
-    easing?: (p0: number) => number;
+    duration?: number | undefined;
+    easing?: ((p0: number) => number) | undefined;
 }
 export default class Overlay extends BaseObject {
     constructor(options: Options);

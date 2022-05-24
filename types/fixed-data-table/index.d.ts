@@ -71,7 +71,10 @@ declare namespace FixedDataTable {
       * horizontally.
       *
       */
-    export interface TableProps extends React.Props<Table> {
+    export interface TableProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<Table> | undefined;
+
         /**
           * Pixel width of table. If all columns do not fit, a
           * horizontal scrollbar will appear.
@@ -84,7 +87,7 @@ declare namespace FixedDataTable {
           *
           * Either height or maxHeight must be specified.
           */
-        height?: number;
+        height?: number | undefined;
 
         /**
           * Maximum pixel height of table. If all rows do not fit,
@@ -92,7 +95,7 @@ declare namespace FixedDataTable {
           *
           * Either height or maxHeight must be specified.
           */
-        maxHeight?: number;
+        maxHeight?: number | undefined;
 
         /**
           * Pixel height of table's owner, this is used in a managed
@@ -109,17 +112,17 @@ declare namespace FixedDataTable {
           *
           * This is used if ownerHeight < height (or maxHeight).
           */
-        ownerHeight?: number;
+        ownerHeight?: number | undefined;
 
         /**
           * 'hidden'|'auto'
           */
-        overflowX?: string;
+        overflowX?: string | undefined;
 
         /**
           * 'hidden'|'auto'
           */
-        overflowY?: string;
+        overflowY?: string | undefined;
 
         /**
           * Number of rows in the table.
@@ -137,70 +140,70 @@ declare namespace FixedDataTable {
           * row and the returned value overrides rowHeight for
           * particular row.
           */
-        rowHeightGetter?: (index: number) => number;
+        rowHeightGetter?: ((index: number) => number) | undefined;
 
         /**
           * To get any additional CSS classes that should be added to
           *  a row, rowClassNameGetter(index) is called.
           */
-        rowClassNameGetter?: (index: number) => string;
+        rowClassNameGetter?: ((index: number) => string) | undefined;
 
         /**
           * Pixel height of the column group header.
           *
           * defaultValue: 0
           */
-        groupHeaderHeight?: number;
+        groupHeaderHeight?: number | undefined;
 
         /**
           * Pixel height of the header.
           *
           * defaultValue: 0
           */
-        headerHeight?: number;
+        headerHeight?: number | undefined;
 
         /**
           * Pixel height of the footer.
           *
           * defaultValue: 0
           */
-        footerHeight?: number;
+        footerHeight?: number | undefined;
 
         /**
           * Value of horizontal scroll.
           *
           * defaultValue: 0
           */
-        scrollLeft?: number;
+        scrollLeft?: number | undefined;
 
         /**
           * Index of column to scroll to.
           */
-        scrollToColumn?: number;
+        scrollToColumn?: number | undefined;
 
         /**
           * Value of vertical scroll.
           *
           * defaultValue: 0
           */
-        scrollTop?: number;
+        scrollTop?: number | undefined;
 
         /**
           * Index of row to scroll to.
           */
-        scrollToRow?: number;
+        scrollToRow?: number | undefined;
 
         /**
           * Callback that is called when scrolling starts with
           * current horizontal and vertical scroll values.
           */
-        onScrollStart?: (x: number, y: number) => void;
+        onScrollStart?: ((x: number, y: number) => void) | undefined;
 
         /**
           * Callback that is called when scrolling ends or stops with
           * new horizontal and vertical scroll values.
           */
-        onScrollEnd?: (x: number, y: number) => void;
+        onScrollEnd?: ((x: number, y: number) => void) | undefined;
 
         /**
           * Callback that is called when rowHeightGetter returns a
@@ -208,35 +211,35 @@ declare namespace FixedDataTable {
           *  is necessary because initially table estimates heights
           * of some parts of the content.
           */
-        onContentHeightChange?: (newHeight: number) => void;
+        onContentHeightChange?: ((newHeight: number) => void) | undefined;
 
         /**
           * Callback that is called when a row is clicked.
           */
-        onRowClick?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+        onRowClick?: ((event: React.SyntheticEvent<Table>, rowIndex: number) => void) | undefined;
 
         /**
           * Callback that is called when a row is double clicked.
           */
-        onRowDoubleClick?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+        onRowDoubleClick?: ((event: React.SyntheticEvent<Table>, rowIndex: number) => void) | undefined;
 
         /**
           * Callback that is called when a mouse-down event happens
           * on a row.
           */
-        onRowMouseDown?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+        onRowMouseDown?: ((event: React.SyntheticEvent<Table>, rowIndex: number) => void) | undefined;
 
         /**
           * Callback that is called when a mouse-enter event happens
           * on a row.
           */
-        onRowMouseEnter?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+        onRowMouseEnter?: ((event: React.SyntheticEvent<Table>, rowIndex: number) => void) | undefined;
 
         /**
           * Callback that is called when a mouse-leave event happens
           * on a row.
           */
-        onRowMouseLeave?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+        onRowMouseLeave?: ((event: React.SyntheticEvent<Table>, rowIndex: number) => void) | undefined;
 
         /**
           * Callback that is called when resizer has been released
@@ -245,24 +248,27 @@ declare namespace FixedDataTable {
           * Required if the isResizable property is true on any
           * column.
           */
-        onColumnResizeEndCallback?: (newColumnWidth: number, columnKey: string) => void;
+        onColumnResizeEndCallback?: ((newColumnWidth: number, columnKey: string) => void) | undefined;
 
         /**
           * Whether a column is currently being resized.
           */
-        isColumnResizing?: boolean;
+        isColumnResizing?: boolean | undefined;
     }
 
     /**
      * Component that defines the attributes of table column.
      */
-    interface ColumnProps extends React.Props<Column> {
+    interface ColumnProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<Column>;
+
         /**
           * The horizontal alignment of the table cell content.
           *
           * 'left'|'center'|'right'
           */
-        align?: string;
+        align?: string | undefined;
 
         /**
           * Controls if the column is fixed when scrolling in the X
@@ -270,7 +276,7 @@ declare namespace FixedDataTable {
           *
           * defaultValue: false
           */
-        fixed?: boolean;
+        fixed?: boolean | undefined;
 
         /**
           * The header cell for this column. This can either be a
@@ -291,7 +297,7 @@ declare namespace FixedDataTable {
           *
           * If you pass in a function, you will receive the same props object as the first argument.
           */
-        header?: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement));
+        header?: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement)) | undefined;
 
         /**
           * This is the body cell that will be cloned for this
@@ -315,7 +321,7 @@ declare namespace FixedDataTable {
           * If you pass in a function, you will receive the same
           * props object as the first argument.
           */
-        cell?: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement));
+        cell?: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement)) | undefined;
 
          /**
           * The footer cell for this column. This can either be a
@@ -338,14 +344,14 @@ declare namespace FixedDataTable {
           * If you pass in a function, you will receive the same
           * props object as the first argument.
           */
-        footer?: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement));
+        footer?: string | React.ReactElement | ((props: CellProps) => (string | React.ReactElement)) | undefined;
 
         /**
           * This is used to uniquely identify the column, and is not
           * required unless you a resizing columns. This will be the
           * key given in the onColumnResizeEndCallback on the Table.
           */
-        columnKey?: string | number;
+        columnKey?: string | number | undefined;
 
         /**
           * The pixel width of the column.
@@ -356,13 +362,13 @@ declare namespace FixedDataTable {
           * If this is a resizable column this is its minimum pixel
           * width.
           */
-        minWidth?: number;
+        minWidth?: number | undefined;
 
         /**
           * If this is a resizable column this is its maximum pixel
           * width.
           */
-        maxWidth?: number;
+        maxWidth?: number | undefined;
 
         /**
           * The grow factor relative to other columns. Same as the
@@ -371,7 +377,7 @@ declare namespace FixedDataTable {
           * it proportionally according to all columns' flexGrow
           * values. Defaults to zero (no-flexing).
           */
-        flexGrow?: number;
+        flexGrow?: number | undefined;
 
         /**
          * Whether the column can be resized with the
@@ -384,7 +390,7 @@ declare namespace FixedDataTable {
          * onColumnResizeEndCallback table property and render your
          * columns appropriately.
          */
-        isResizable?: boolean;
+        isResizable?: boolean | undefined;
 
         /**
           * Whether cells in this column can be removed from document
@@ -399,18 +405,21 @@ declare namespace FixedDataTable {
           *
           * defaultValue: false
           */
-        allowCellsRecycling?: boolean;
+        allowCellsRecycling?: boolean | undefined;
     }
 
     /**
      * Component that defines the attributes of a table column group.
      */
-    export interface ColumnGroupProps extends React.Props<ColumnGroup> {
+    export interface ColumnGroupProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<ColumnGroup>;
+
         /**
          * The horizontal alignment of the table cell content.
          * 'left', 'center', 'right'
          */
-        align?: string;
+        align?: string | undefined;
 
         /**
          * Controls if the column group is fixed when scrolling in the X
@@ -418,7 +427,7 @@ declare namespace FixedDataTable {
          *
          * defaultValue: false
          */
-        fixed?: boolean;
+        fixed?: boolean | undefined;
 
         /**
           * The header cell for this column group. This can either be
@@ -469,24 +478,24 @@ declare namespace FixedDataTable {
         /**
          * The row index of the cell.
          */
-        rowIndex?: number;
+        rowIndex?: number | undefined;
 
         /**
          * Outer height of the cell.
          */
-        height?: number;
+        height?: number | undefined;
 
         /**
          * Outer width of the cell.
          */
-        width?: number;
+        width?: number | undefined;
 
         /**
          * Optional prop that if specified on the Column will be
          * passed to the cell. It can be used to uniquely identify
          * which column is the cell is in.
          */
-        columnKey?: string | number;
+        columnKey?: string | number | undefined;
     }
 
     export class Table extends React.Component<TableProps> {

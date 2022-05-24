@@ -1,4 +1,4 @@
-// Type definitions for node-schedule 1.3
+// Type definitions for node-schedule 2.1
 // Project: https://github.com/node-schedule/node-schedule
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Florian Plattner <https://github.com/flowpl>
@@ -11,7 +11,7 @@
 import { EventEmitter } from 'events';
 
 /** The callback executed by a Job */
-export type JobCallback = (fireDate: Date) => void;
+export type JobCallback = (fireDate: Date) => void | Promise<any>;
 
 /** Scheduler jobs. */
 export class Job extends EventEmitter {
@@ -135,11 +135,11 @@ export interface RecurrenceSpecDateRange {
     /**
      * Starting date in date range.
      */
-    start?: Date | string | number;
+    start?: Date | string | number | undefined;
     /**
      * Ending date in date range.
      */
-    end?: Date | string | number;
+    end?: Date | string | number | undefined;
     /**
      * Cron expression string.
      */
@@ -147,7 +147,7 @@ export interface RecurrenceSpecDateRange {
     /**
      * Timezone
      */
-    tz?: Timezone;
+    tz?: Timezone | undefined;
 }
 
 /**
@@ -157,17 +157,17 @@ export interface RecurrenceSpecObjLit {
     /**
      * Day of the month.
      */
-    date?: RecurrenceSegment;
-    dayOfWeek?: RecurrenceSegment;
-    hour?: RecurrenceSegment;
-    minute?: RecurrenceSegment;
-    month?: RecurrenceSegment;
-    second?: RecurrenceSegment;
-    year?: RecurrenceSegment;
+    date?: RecurrenceSegment | undefined;
+    dayOfWeek?: RecurrenceSegment | undefined;
+    hour?: RecurrenceSegment | undefined;
+    minute?: RecurrenceSegment | undefined;
+    month?: RecurrenceSegment | undefined;
+    second?: RecurrenceSegment | undefined;
+    year?: RecurrenceSegment | undefined;
     /**
      * Timezone
      */
-    tz?: Timezone;
+    tz?: Timezone | undefined;
 }
 
 export class Invocation {
@@ -212,3 +212,10 @@ export let scheduledJobs: {[jobName: string]: Job};
  * @returns Whether the job has been cancelled with success.
  */
 export function cancelJob(job: Job|string): boolean;
+
+/**
+ * Gracefullly cancels all jobs.
+ *
+ * @returns Promise that resolves when all running jobs have stopped.
+ */
+ export function gracefulShutdown(): Promise<void>;

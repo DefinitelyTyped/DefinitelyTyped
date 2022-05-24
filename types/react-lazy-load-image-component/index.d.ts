@@ -26,34 +26,34 @@ export interface ScrollPosition {
 
 export interface CommonProps {
     /** Function called after the image has been completely loaded. */
-    afterLoad?: () => any;
+    afterLoad?: (() => any) | undefined;
     /** Function called right before the placeholder is replaced with the image element. */
-    beforeLoad?: () => any;
+    beforeLoad?: (() => any) | undefined;
     /* Method from lodash to use to delay the scroll/resize events. */
-    delayMethod?: DelayMethod;
+    delayMethod?: DelayMethod | undefined;
     /** Time in ms sent to the delayMethod. */
-    delayTime?: number;
+    delayTime?: number | undefined;
     /** Threshold in pixels. So the image starts loading before it appears in the viewport. */
-    threshold?: number;
+    threshold?: number | undefined;
     /** Whether to use browser's IntersectionObserver when available. */
-    useIntersectionObserver?: boolean;
+    useIntersectionObserver?: boolean | undefined;
     /** Whether the image must be visible from the beginning. */
-    visibleByDefault?: boolean;
+    visibleByDefault?: boolean | undefined;
     /** React element to use as a placeholder. Default is <span>. */
-    placeholder?: ReactElement | null;
+    placeholder?: ReactElement | null | undefined;
     /** See trackWindowScroll(). */
-    scrollPosition?: ScrollPosition;
+    scrollPosition?: ScrollPosition | undefined;
 }
 
 export interface LazyLoadImageProps extends CommonProps, Omit<ImgHTMLAttributes<HTMLImageElement>, 'placeholder' | 'onload'>  {
     /** Name of the effect to use. Requires importing CSS, see README.md. */
-    effect?: Effect;
+    effect?: Effect | undefined;
     /** Image src to display while the image is not visible or loaded. */
-    placeholderSrc?: string;
+    placeholderSrc?: string | undefined;
     /** In some occasions (for example, when using a placeholderSrc) a wrapper span tag is rendered. This prop allows setting a class to that element. */
-    wrapperClassName?: string;
+    wrapperClassName?: string | undefined;
     /** Props that should be passed to the wrapper span when it is rendered (for example, when using placeholderSrc or effect) */
-    wrapperProps?: React.HTMLAttributes<HTMLSpanElement>;
+    wrapperProps?: React.HTMLAttributes<HTMLSpanElement> | undefined;
 }
 
 export const LazyLoadImage: FunctionComponent<LazyLoadImageProps>;
@@ -68,7 +68,7 @@ export function trackWindowScroll<P extends LazyComponentProps>(
 
 export interface LazyLoadComponentProps extends CommonProps {
     children: ReactNode;
-    style?: CSSProperties;
+    style?: CSSProperties | undefined;
 }
 
 export const LazyLoadComponent: FunctionComponent<LazyLoadComponentProps>;

@@ -2,7 +2,7 @@
 // Project: https://github.com/devconcept/multer-gridfs-storage
 // Definitions by: devconcept <https://github.com/devconcept>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+// Minimum TypeScript Version: 4.1
 
 import { EventEmitter } from 'events';
 import { Express } from 'express';
@@ -34,13 +34,13 @@ interface GridFile {
 }
 
 interface MulterGfsOptions {
-    filename?: ConfigFn<NodeCb<string>>;
-    identifier?: ConfigFn<NodeCb<any>>;
-    metadata?: ConfigFn<NodeCb<any>>;
-    chunkSize?: number | ConfigFn<NodeCb<number>>;
-    root?: string | ConfigFn<NodeCb<string>>;
-    log?: boolean | NodeCb<StorageLog>;
-    logLevel?: logConfig;
+    filename?: ConfigFn<NodeCb<string>> | undefined;
+    identifier?: ConfigFn<NodeCb<any>> | undefined;
+    metadata?: ConfigFn<NodeCb<any>> | undefined;
+    chunkSize?: number | ConfigFn<NodeCb<number>> | undefined;
+    root?: string | ConfigFn<NodeCb<string>> | undefined;
+    log?: boolean | NodeCb<StorageLog> | undefined;
+    logLevel?: logConfig | undefined;
 }
 
 declare class MulterGridfsStorage extends EventEmitter implements Multer.StorageEngine {

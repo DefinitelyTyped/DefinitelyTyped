@@ -17,11 +17,11 @@
 //                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
 //                  Bui Tan Loc <https://github.com/buitanloc>
-//                  Linus Unnebäck <https://github.com/LinusU>
 //                  Jerome De Leon <https://github.com/JeromeDeLeon>
 //                  Kent Robin Haugen <https://github.com/kentrh>
 //                  Asen Lekov <https://github.com/L3K0V>
 //                  Switt Kongdachalert <https://github.com/swittk>
+//                  Dan Syrstad <https://github.com/dsyrstad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -103,49 +103,53 @@ declare global {
         let encryptedUser: boolean;
 
         interface BatchSizeOption {
-            batchSize?: number;
+            batchSize?: number | undefined;
         }
 
         interface CascadeSaveOption {
             /** If `false`, nested objects will not be saved (default is `true`). */
-            cascadeSave?: boolean;
+            cascadeSave?: boolean | undefined;
         }
 
         interface SuccessOption {
-            success?: Function;
+            success?: Function | undefined;
         }
 
         interface ErrorOption {
-            error?: Function;
+            error?: Function | undefined;
+        }
+
+        interface ContextOption {
+            context?: { [key: string]: any };
         }
 
         interface FullOptions {
-            success?: Function;
-            error?: Function;
-            useMasterKey?: boolean;
-            sessionToken?: string;
-            installationId?: string;
-            progress?: Function;
+            success?: Function | undefined;
+            error?: Function | undefined;
+            useMasterKey?: boolean | undefined;
+            sessionToken?: string | undefined;
+            installationId?: string | undefined;
+            progress?: Function | undefined;
         }
 
         interface RequestOptions {
-            useMasterKey?: boolean;
-            sessionToken?: string;
-            installationId?: string;
-            batchSize?: number;
-            include?: string | string[];
-            progress?: Function;
+            useMasterKey?: boolean | undefined;
+            sessionToken?: string | undefined;
+            installationId?: string | undefined;
+            batchSize?: number | undefined;
+            include?: string | string[] | undefined;
+            progress?: Function | undefined;
         }
 
         interface SuccessFailureOptions extends SuccessOption, ErrorOption {}
 
         interface SignUpOptions {
-            useMasterKey?: boolean;
-            installationId?: string;
+            useMasterKey?: boolean | undefined;
+            installationId?: string | undefined;
         }
 
         interface SessionTokenOption {
-            sessionToken?: string;
+            sessionToken?: string | undefined;
         }
 
         interface WaitOption {
@@ -153,14 +157,14 @@ declare global {
              * Set to true to wait for the server to confirm success
              * before triggering an event.
              */
-            wait?: boolean;
+            wait?: boolean | undefined;
         }
 
         interface UseMasterKeyOption {
             /**
              * In Cloud Code and Node only, causes the Master Key to be used for this request.
              */
-            useMasterKey?: boolean;
+            useMasterKey?: boolean | undefined;
         }
 
         interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {}
@@ -169,7 +173,7 @@ declare global {
             /**
              * Set to true to avoid firing the event.
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
         }
 
         interface Pointer {
@@ -194,7 +198,7 @@ declare global {
             /**
              * (Optional) Called when service is unlinked. Handle any cleanup here.
              */
-            deauthenticate?: () => void;
+            deauthenticate?: (() => void) | undefined;
             /**
              * Unique identifier for this Auth Provider.
              */
@@ -302,7 +306,7 @@ declare global {
              * @returns Promise that is resolved with base64 data
              */
             getData(): Promise<string>;
-            url(options?: { forceSecure?: boolean }): string;
+            url(options?: { forceSecure?: boolean | undefined }): string;
             metadata(): Record<string, any>;
             tags(): Record<string, any>;
             name(): string;
@@ -457,26 +461,23 @@ declare global {
             remove: this['add'];
             removeAll: this['addAll'];
             revert(...keys: Array<Extract<keyof (T & CommonAttributes), string>>): void;
+            // "Pick<T, K> | T" is a trick to keep IntelliSense working, see:
+            // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/3bdadbf9583c2335197c7e999b9a30880e055f62/types/react/index.d.ts#L482
             save<K extends Extract<keyof T, string>>(
-                attrs?:
-                    | (((x: T) => void) extends (x: Attributes) => void
-                          ? Partial<T>
-                          : {
-                                [key in K]: T[key];
-                            })
-                    | null,
+                attrs?: Pick<T, K> | T | null,
                 options?: Object.SaveOptions,
             ): Promise<this>;
-            save<K extends Extract<keyof T, string>>(key: K, value: T[K], options?: Object.SaveOptions): Promise<this>;
+            save<K extends Extract<keyof T, string>>(
+                key: K,
+                value: T[K] extends undefined ? never : T[K],
+                options?: Object.SaveOptions,
+            ): Promise<this>;
+            set<K extends Extract<keyof T, string>>(attrs: Pick<T, K> | T, options?: Object.SetOptions): this | false;
             set<K extends Extract<keyof T, string>>(
-                attrs: ((x: T) => void) extends (x: Attributes) => void
-                    ? Partial<T>
-                    : {
-                          [key in K]: T[key];
-                      },
+                key: K,
+                value: T[K] extends undefined ? never : T[K],
                 options?: Object.SetOptions,
             ): this | false;
-            set<K extends Extract<keyof T, string>>(key: K, value: T[K], options?: Object.SetOptions): this | false;
             setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
             toJSON(): Object.ToJSON<T> & JSONBaseAttributes;
             toPointer(): Pointer;
@@ -531,6 +532,7 @@ declare global {
                     SuccessFailureOptions,
                     SilentOption,
                     ScopeOptions,
+                    ContextOption,
                     WaitOption {}
 
             interface SaveAllOptions extends BatchSizeOption, ScopeOptions {}
@@ -549,7 +551,8 @@ declare global {
                 : T extends RegExp
                 ? string
                 : T extends Array<infer R>
-                ? Array<Encode<R>>
+                ? // This recursion is unsupported in <=3.6
+                  Array<Encode<R>>
                 : T extends object
                 ? ToJSON<T>
                 : T;
@@ -680,7 +683,7 @@ declare global {
             doesNotMatchKeyInQuery<
                 U extends Object,
                 K extends keyof T['attributes'] | keyof BaseAttributes,
-                X extends Extract<keyof U['attributes'], string>
+                X extends Extract<keyof U['attributes'], string>,
             >(key: K, queryKey: X, query: Query<U>): this;
             doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
             distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V[]>;
@@ -758,7 +761,7 @@ declare global {
             matchesKeyInQuery<
                 U extends Object,
                 K extends keyof T['attributes'],
-                X extends Extract<keyof U['attributes'], string>
+                X extends Extract<keyof U['attributes'], string>,
             >(key: K, queryKey: X, query: Query<U>): this;
             matchesQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
             near<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, point: GeoPoint): this;
@@ -820,26 +823,58 @@ declare global {
 
             // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
             interface AggregationOptions {
-                group?: { objectId?: string; [key: string]: any };
-                match?: { [key: string]: any };
-                project?: { [key: string]: any };
-                limit?: number;
-                skip?: number;
+                group?: (Record<string, any> & { objectId?: string }) | undefined;
+                match?: Record<string, any> | undefined;
+                project?: Record<string, any> | undefined;
+                limit?: number | undefined;
+                skip?: number | undefined;
                 // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
-                sort?: { [key: string]: 1 | -1 };
+                sort?: Record<string, 1 | -1> | undefined;
                 // Sample documentation: https://docs.mongodb.com/v3.2/reference/operator/aggregation/sample/
-                sample?: { size: number };
+                sample?: { size: number } | undefined;
+                // Count documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/count/
+                count?: string | undefined;
+                // Lookup documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/
+                lookup?:
+                    | {
+                          from: string;
+                          localField: string;
+                          foreignField: string;
+                          as: string;
+                      }
+                    | {
+                          from: string;
+                          let?: Record<string, any>;
+                          pipeline: Record<string, any>;
+                          as: string;
+                      }
+                    | undefined;
+                // Graph Lookup documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/graphLookup/
+                graphLookup?:
+                    | {
+                          from: string;
+                          startWith?: string;
+                          connectFromField: string;
+                          connectToField: string;
+                          as: string;
+                          maxDepth?: number;
+                          depthField?: string;
+                          restrictSearchWithMatch?: Record<string, any>;
+                      }
+                    | undefined;
+                // Facet documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/facet/
+                facet?: Record<string, Array<Record<string, any>>> | undefined;
             }
 
             // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
             interface FullTextOptions {
-                language?: string;
-                caseSensitive?: boolean;
-                diacriticSensitive?: boolean;
+                language?: string | undefined;
+                caseSensitive?: boolean | undefined;
+                diacriticSensitive?: boolean | undefined;
             }
 
             interface BatchOptions extends FullOptions {
-                batchSize?: number;
+                batchSize?: number | undefined;
             }
         }
 
@@ -1000,7 +1035,7 @@ declare global {
 
             linkWith: (
                 provider: string | AuthProvider,
-                options: { authData?: AuthData },
+                options: { authData?: AuthData | undefined },
                 saveOpts?: FullOptions,
             ) => Promise<this>;
             _isLinked: (provider: string | AuthProvider) => boolean;
@@ -1018,17 +1053,43 @@ declare global {
             logIn<T extends User>(username: string, password: string, options?: FullOptions): Promise<T>;
             logOut<T extends User>(): Promise<T>;
             requestPasswordReset<T extends User>(email: string, options?: SuccessFailureOptions): Promise<T>;
+            requestEmailVerification<T extends User>(email: string, options?: UseMasterKeyOption): Promise<T>;
             extend(protoProps?: any, classProps?: any): any;
             hydrate<T extends User>(userJSON: any): Promise<T>;
             enableUnsafeCurrentUser(): void;
             logInWith<T extends User>(
                 provider: string | AuthProvider,
-                options: { authData?: AuthData },
+                options: { authData?: AuthData | undefined },
                 saveOpts?: FullOptions,
             ): Promise<T>;
             _registerAuthenticationProvider: (provider: AuthProvider) => void;
         }
         const User: UserConstructor;
+
+        /**
+         * The raw schema response returned from the `GET /parse/schemas` endpoint.
+         * This is defined here: https://docs.parseplatform.org/js/guide/#schema.
+         * Unfortunately, `Schema.all()` and `Schema.prototype.get()` return this rather
+         * than a `Schema`. It is also the only object which provides introspection on
+         * the schema - such as `className` and `fields`.
+         */
+        interface RestSchema {
+            className: string;
+            fields: {
+                [key: string]: {
+                    type: string;
+                    targetClass?: string;
+                    required?: boolean;
+                    defaultValue?: string;
+                };
+            };
+            classLevelPermissions: Schema.CLP;
+            indexes?: {
+                [key: string]: {
+                    [key: string]: any;
+                };
+            };
+        }
 
         /**
          * A Parse.Schema object is for handling schema data from Parse.
@@ -1054,7 +1115,7 @@ declare global {
              * @return A promise that is resolved with the result when
              * the query completes.
              */
-            static all(): Promise<Schema[]>;
+            static all(): Promise<RestSchema[]>;
 
             addArray(key: Schema.AttrType<T, any[]>, options?: Schema.FieldOptions<any[]>): this;
             addBoolean(key: Schema.AttrType<T, boolean>, options?: Schema.FieldOptions<boolean>): this;
@@ -1131,7 +1192,7 @@ declare global {
             /**
              * Get the Schema from Parse
              */
-            get(): Promise<Schema>;
+            get(): Promise<RestSchema>;
 
             /**
              * Removes all objects from a Schema (class) in  EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
@@ -1198,10 +1259,10 @@ declare global {
                     | any[]
                     | object
                     | Pointer
-                    | Relation = any
+                    | Relation = any,
             > {
-                required?: boolean;
-                defaultValue?: T;
+                required?: boolean | undefined;
+                defaultValue?: T | undefined;
             }
 
             interface Index {
@@ -1217,24 +1278,28 @@ declare global {
              *  'idOfASpecificUser': true
              */
             interface CLPField {
-                '*'?: boolean;
-                requiresAuthentication?: boolean;
+                '*'?: boolean | undefined;
+                requiresAuthentication?: boolean | undefined;
                 /** `role:Admin` */
                 [userIdOrRoleName: string]: boolean | undefined;
             }
 
             interface CLP {
-                find?: CLPField;
-                get?: CLPField;
-                count?: CLPField;
-                create?: CLPField;
-                update?: CLPField;
-                delete?: CLPField;
-                addField?: CLPField;
+                find?: CLPField | undefined;
+                get?: CLPField | undefined;
+                count?: CLPField | undefined;
+                create?: CLPField | undefined;
+                update?: CLPField | undefined;
+                delete?: CLPField | undefined;
+                addField?: CLPField | undefined;
                 /** Array of fields that point to a `_User` object's ID or a `Role` object's name */
-                readUserFields?: string[];
+                readUserFields?: string[] | undefined;
                 /** Array of fields that point to a `_User` object's ID or a `Role` object's name */
-                writeUserFields?: string[];
+                writeUserFields?: string[] | undefined;
+                protectedFields?: {
+                    /** '*', user id, or role: followed by a list of fields. */
+                    [userIdOrRoleName: string]: string[];
+                };
             }
         }
 
@@ -1272,21 +1337,21 @@ declare global {
          */
         namespace Cloud {
             interface CookieOptions {
-                domain?: string;
-                expires?: Date;
-                httpOnly?: boolean;
-                maxAge?: number;
-                path?: string;
-                secure?: boolean;
+                domain?: string | undefined;
+                expires?: Date | undefined;
+                httpOnly?: boolean | undefined;
+                maxAge?: number | undefined;
+                path?: string | undefined;
+                secure?: boolean | undefined;
             }
 
             interface HttpResponse {
-                buffer?: Buffer;
+                buffer?: Buffer | undefined;
                 cookies?: any;
                 data?: any;
                 headers?: any;
-                status?: number;
-                text?: string;
+                status?: number | undefined;
+                text?: string | undefined;
             }
 
             interface JobRequest<T extends Params = Params> {
@@ -1299,37 +1364,59 @@ declare global {
             }
 
             interface FunctionRequest<T extends Params = Params> {
-                installationId?: string;
-                master?: boolean;
+                installationId?: string | undefined;
+                master?: boolean | undefined;
                 params: T;
-                user?: User;
+                user?: User | undefined;
+            }
+
+            interface ValidatorField {
+                type?: any;
+                constant?: boolean | undefined;
+                default?: any;
+                options?: any[] | Function | undefined;
+                error?: String | undefined;
+                required?: boolean;
+            }
+            interface ValidatorFields {
+                [field: string]: ValidatorField;
+            }
+            interface Validator {
+                requireUser?: boolean | undefined;
+                requireMaster?: boolean | undefined;
+                validateMasterKey?: boolean | undefined;
+                skipWithMasterKey?: boolean | undefined;
+                requireAnyUserRoles?: String[] | Function | undefined;
+                requireAllUserRoles?: String[] | Function | undefined;
+                fields?: ValidatorFields | String[] | undefined;
+                requireUserKeys?: ValidatorFields | String[] | undefined;
             }
 
             interface Cookie {
-                name?: string;
-                options?: CookieOptions;
-                value?: string;
+                name?: string | undefined;
+                options?: CookieOptions | undefined;
+                value?: string | undefined;
             }
 
             interface TriggerRequest<T = Object> {
-                installationId?: string;
-                master?: boolean;
-                user?: User;
+                installationId?: string | undefined;
+                master?: boolean | undefined;
+                user?: User | undefined;
                 ip: string;
                 headers: any;
                 triggerName: string;
                 log: any;
                 object: T;
-                original?: T;
+                original?: T | undefined;
             }
 
             interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
-                context: object;
+                context: Record<string, unknown>;
             }
             interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
             interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
             interface BeforeSaveRequest<T = Object> extends TriggerRequest<T> {
-                context: object;
+                context: Record<string, unknown>;
             }
 
             interface FileTriggerRequest extends TriggerRequest<File> {
@@ -1351,7 +1438,7 @@ declare global {
                 query: Query<T>;
                 count: boolean;
                 isGet: boolean;
-                readPreference?: ReadPreferenceOption;
+                readPreference?: ReadPreferenceOption | undefined;
             }
 
             interface AfterFindRequest<T = Object> extends TriggerRequest<T> {
@@ -1361,45 +1448,75 @@ declare global {
             function afterDelete<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: AfterDeleteRequest<T>) => Promise<void> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function afterSave<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: AfterSaveRequest<T>) => Promise<void> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function beforeDelete<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: BeforeDeleteRequest<T>) => Promise<void> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function beforeSave<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: BeforeSaveRequest<T>) => Promise<void> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function beforeFind<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: BeforeFindRequest<T>) => Promise<Query<T>> | Promise<void> | Query<T> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function afterFind<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: AfterFindRequest<T>) => any,
+                validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
 
             function beforeLogin(func?: (request: TriggerRequest<User>) => PromiseLike<void> | void): void;
-            function afterLogin(func?: (request: TriggerRequest<User>) => PromiseLike<void> | void): void;
-            function afterLogout(func?: (request: TriggerRequest<Session>) => PromiseLike<void> | void): void;
+            function afterLogin(
+                func?: (request: TriggerRequest<User>) => PromiseLike<void> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
+            ): void;
+            function afterLogout(
+                func?: (request: TriggerRequest<Session>) => PromiseLike<void> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
+            ): void;
 
-            function beforeSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<File> | void): void;
-            function afterSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
-            function beforeDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
-            function afterDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
+            function beforeSaveFile(
+                func?: (request: FileTriggerRequest) => PromiseLike<File> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
+            ): void;
+            function afterSaveFile(
+                func?: (request: FileTriggerRequest) => PromiseLike<void> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
+            ): void;
+            function beforeDeleteFile(
+                func?: (request: FileTriggerRequest) => PromiseLike<void> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
+            ): void;
+            function afterDeleteFile(
+                func?: (request: FileTriggerRequest) => PromiseLike<void> | void,
+                validator?: Validator | ((request: FunctionRequest) => any),
+            ): void;
 
-            function define(name: string, func: (request: FunctionRequest) => any): void;
+            function define(
+                name: string,
+                func: (request: FunctionRequest) => any,
+                validator?: Validator | ((request: FunctionRequest) => any),
+            ): void;
             function define<T extends () => any>(
                 name: string,
                 func: (request: FunctionRequest<{}>) => Promise<ReturnType<T>> | ReturnType<T>,
+                validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function define<T extends (param: { [P in keyof Parameters<T>[0]]: Parameters<T>[0][P] }) => any>(
                 name: string,
                 func: (request: FunctionRequest<Parameters<T>[0]>) => Promise<ReturnType<T>> | ReturnType<T>,
+                validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             /**
              * Gets data for the current set of cloud jobs.
@@ -1445,21 +1562,23 @@ declare global {
                  * You can also set this to a Buffer object to send raw bytes.
                  * If you use a Buffer, you should also set the Content-Type header explicitly to describe what these bytes represent.
                  */
-                body?: string | Buffer | object;
+                body?: string | Buffer | object | undefined;
                 /**
                  * Defaults to 'false'.
                  */
-                followRedirects?: boolean;
+                followRedirects?: boolean | undefined;
                 /**
                  * The headers for the request.
                  */
-                headers?: {
-                    [headerName: string]: string | number | boolean;
-                };
+                headers?:
+                    | {
+                          [headerName: string]: string | number | boolean;
+                      }
+                    | undefined;
                 /**
                  * The method of the request (i.e GET, POST, etc).
                  */
-                method?: string;
+                method?: string | undefined;
                 /**
                  * The query portion of the url.
                  */
@@ -1469,8 +1588,8 @@ declare global {
                  */
                 url: string;
 
-                success?: (response: any) => void;
-                error?: (response: any) => void;
+                success?: ((response: any) => void) | undefined;
+                error?: ((response: any) => void) | undefined;
             }
         }
 
@@ -1589,23 +1708,23 @@ declare global {
             function send<T>(data: PushData, options?: SendOptions): Promise<T>;
 
             interface PushData {
-                channels?: string[];
-                push_time?: Date;
-                expiration_time?: Date;
-                expiration_interval?: number;
-                where?: Query<Installation>;
+                channels?: string[] | undefined;
+                push_time?: Date | undefined;
+                expiration_time?: Date | undefined;
+                expiration_interval?: number | undefined;
+                where?: Query<Installation> | undefined;
                 data?: any;
-                alert?: string;
-                badge?: string;
-                sound?: string;
-                title?: string;
+                alert?: string | undefined;
+                badge?: string | undefined;
+                sound?: string | undefined;
+                title?: string | undefined;
                 notification?: any;
                 content_available?: any;
             }
 
             interface SendOptions extends UseMasterKeyOption {
-                success?: () => void;
-                error?: (error: Error) => void;
+                success?: (() => void) | undefined;
+                error?: ((error: Error) => void) | undefined;
             }
         }
 

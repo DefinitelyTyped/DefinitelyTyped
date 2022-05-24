@@ -3,9 +3,10 @@
 // Definitions by: Devin Spikowski <https://github.com/vegeta897>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function timestring(
-    input: string,
-    returnUnit?:
+declare function timestring(input: string, returnUnit?: timestring.ReturnUnit, opts?: timestring.Options): number;
+
+declare namespace timestring {
+    type ReturnUnit =
         | 'ms'
         | 'milli'
         | 'millisecond'
@@ -40,14 +41,30 @@ declare function timestring(
         | 'yr'
         | 'yrs'
         | 'year'
-        | 'years',
-    opts?: {
-        hoursPerDay?: number;
-        daysPerWeek?: number;
-        weeksPerMonth?: number;
-        monthsPerYear?: number;
-        daysPerYear?: number;
-    },
-): number;
+        | 'years';
+
+    interface Options {
+        /**
+         * @default 24
+         */
+        hoursPerDay?: number | undefined;
+        /**
+         * @default 7
+         */
+        daysPerWeek?: number | undefined;
+        /**
+         * @default 4
+         */
+        weeksPerMonth?: number | undefined;
+        /**
+         * @default 12
+         */
+        monthsPerYear?: number | undefined;
+        /**
+         * @default 365.25s
+         */
+        daysPerYear?: number | undefined;
+    }
+}
 
 export = timestring;

@@ -4,10 +4,30 @@ import * as $ from 'jquery';
 const element = new Element();
 
 // $ExpectType Carousel
-new Carousel(element, { interval: 1000 });
-
+new Carousel(element);
 // $ExpectType Carousel
+new Carousel(element, {
+    interval: 5000,
+    keyboard: true,
+    pause: 'hover',
+    ride: 'carousel',
+    wrap: true,
+    touch: true,
+});
+
+// $ExpectType Carousel | null
 Carousel.getInstance(element);
+// $ExpectType Carousel
+Carousel.getOrCreateInstance(element);
+// $ExpectType Carousel
+Carousel.getOrCreateInstance(element, {
+    interval: 5000,
+    keyboard: true,
+    pause: 'hover',
+    ride: 'carousel',
+    wrap: true,
+    touch: true,
+});
 
 // $ExpectType string
 Carousel.VERSION;
@@ -16,24 +36,32 @@ Carousel.VERSION;
 Carousel.Default;
 
 element.addEventListener(Carousel.Events.slid, event => {
-    // do something…
+    event.direction; // $ExpectType Direction
+    event.relatedTarget; // $ExpectType Element
+    event.from; // $ExpectType number
+    event.to; // $ExpectType number
 });
 
 element.addEventListener(Carousel.Events.slide, event => {
-    // do something…
+    event.direction; // $ExpectType Direction
+    event.relatedTarget; // $ExpectType Element
+    event.from; // $ExpectType number
+    event.to; // $ExpectType number
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').carousel();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').carousel({ interval: 1000 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').carousel(0);
 
-$('.alert').carousel('cycle'); // $ExpectType void
-$('.alert').carousel('pause'); // $ExpectType void
-$('.alert').carousel('prev'); // $ExpectType void
-$('.alert').carousel('next'); // $ExpectType void
-$('.alert').carousel('nextWhenVisible'); // $ExpectType void
+$('.alert').carousel('cycle'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('pause'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('prev'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('next'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('nextWhenVisible'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('to'); // $ExpectType JQuery<HTMLElement>
+$('.alert').carousel('dispose'); // $ExpectType JQuery<HTMLElement>

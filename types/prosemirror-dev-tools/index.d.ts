@@ -7,7 +7,7 @@
 import { EditorView } from 'prosemirror-view';
 
 export interface ApplyDevToolsOptions {
-    diffWorker?: Worker;
+    diffWorker?: Worker | undefined;
 }
 
 /**

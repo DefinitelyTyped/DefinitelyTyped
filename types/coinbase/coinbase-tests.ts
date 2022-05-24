@@ -27,6 +27,8 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
 
     account.getBuys(null, (error: Error | null, buy: coinbase.Buy[]): void => undefined);
 
+    account.getBuys({ next_starting_after: "abcdef" }, (error: Error | null, buy: coinbase.Buy[], pagination: coinbase.Pagination): void => undefined);
+
     account.getDeposit("abcdef", (error: Error | null, deposit: coinbase.Deposit): void => undefined);
 
     account.getDeposits((error: Error | null, deposit: coinbase.Deposit[]): void => undefined);
@@ -35,13 +37,19 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
 
     account.getSells(null, (error: Error | null, deposit: coinbase.Sell[]): void => undefined);
 
-    account.getTransaction("abcdef", (error: Error | null, deposit: coinbase.Transaction): void => undefined);
+    account.getSells({ next_starting_after: "abcdef" }, (error: Error | null, deposit: coinbase.Sell[], pagination: coinbase.Pagination): void => undefined);
 
-    account.getTransactions({}, (error: Error | null, deposit: coinbase.Transaction[]): void => undefined);
+    account.getTransaction("abcdef", (error: Error | null, transaction: coinbase.Transaction): void => {
+        transaction.updated_at;
+    });
 
-    account.getWithdrawal("abcdef", (error: Error | null, deposit: coinbase.Withdrawal): void => undefined);
+    account.getTransactions({}, (error: Error | null, transactions: coinbase.Transaction[]): void => undefined);
 
-    account.getWithdrawals((error: Error | null, deposit: coinbase.Withdrawal[]): void => undefined);
+    account.getTransactions({ next_starting_after: "abcdef" }, (error: Error | null, deposit: coinbase.Transaction[], pagination: coinbase.Pagination): void => undefined);
+
+    account.getWithdrawal("abcdef", (error: Error | null, withdrawal: coinbase.Withdrawal): void => undefined);
+
+    account.getWithdrawals((error: Error | null, withdrawal: coinbase.Withdrawal[]): void => undefined);
 
     account.requestMoney(
         { amount: "1", currency: "EUR", description: "foo", to: "bar", type: "request" },

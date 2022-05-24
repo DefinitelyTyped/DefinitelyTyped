@@ -1,18 +1,18 @@
-import katexLib = require('katex');
-import renderMathInElement, { RenderMathInElementOptions } from 'katex/dist/contrib/auto-render';
-import katexReplaceWithTex from 'katex/contrib/copy-tex/katex2tex';
+import katex, { KatexOptions, ParseError } from 'katex';
+import renderMathInElement, { RenderMathInElementOptions } from 'katex/contrib/auto-render';
+import katexReplaceWithTex from 'katex/contrib/katex2tex';
 
 class KatexTest {
     constructor() {
-        katexLib.render('My Latex String', document.createElement('div'));
+        katex.render('My Latex String', document.createElement('div'));
 
         try {
-            let options: katexLib.KatexOptions = {
+            let options: KatexOptions = {
                 throwOnError: true,
             };
-            let value: string = katexLib.renderToString('My Latex String', options);
+            let value: string = katex.renderToString('My Latex String', options);
         } catch (error) {
-            if (error instanceof katexLib.ParseError) {
+            if (error instanceof ParseError) {
                 //do something with this error
             }
         }

@@ -9,11 +9,11 @@ import * as L from 'leaflet';
 declare module 'leaflet' {
     namespace TileLayer {
         interface DeepZoomOptions {
-            width?: number;
-            height?: number;
-            imageFormat?: string;
-            tileSize?: number;
-            maxZoom?: number;
+            width?: number | undefined;
+            height?: number | undefined;
+            imageFormat?: string | undefined;
+            tileSize?: number | undefined;
+            maxZoom?: number | undefined;
         }
 
         class DeepZoom extends TileLayer {

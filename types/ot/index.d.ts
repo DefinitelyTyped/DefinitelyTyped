@@ -268,7 +268,7 @@ export namespace Client {
 
 export class Server {
     document: string;
-    operations?: TextOperation[];
+    operations?: TextOperation[] | undefined;
     /**
      * Constructor. Takes the current document as a string and optionally the array
      * of all operations.
@@ -433,7 +433,7 @@ export interface ServerAdapterCallbacks {
 
 export interface ClientObj {
     clientId: string;
-    name?: string;
+    name?: string | undefined;
     selection: string;
 }
 

@@ -88,60 +88,60 @@ declare namespace Vivus {
          * Can be `'delayed'`, `'sync'`, `'oneByOne'`, `'script'`, `'scenario'`, or `'scenario-sync'`.
          * (default: `'delayed'`)
          */
-        type?: 'delayed' | 'sync' | 'oneByOne' | 'script' | 'scenario' | 'scenario-sync';
+        type?: 'delayed' | 'sync' | 'oneByOne' | 'script' | 'scenario' | 'scenario-sync' | undefined;
         /**
          * Link to the SVG to animate.
          * If set, Vivus will create an object tag and append it to the DOM element given to the constructor.
          * Be careful, use the `onReady` callback before playing with the Vivus instance.
          */
-        file?: string;
+        file?: string | undefined;
         /**
          * Animation duration, in frames.
          * (default: `200`)
          */
-        duration?: number;
+        duration?: number | undefined;
         /**
          * Automatically starts the animation.
          * Can be `'inViewport'`, `'manual'`, or `'autostart'`
          * (default: `'inViewport'`)
          */
-        start?: 'inViewport' | 'manual' | 'autostart';
+        start?: 'inViewport' | 'manual' | 'autostart' | undefined;
         /**
          *     Time between the drawing of first and last path, in frames (only for `delayed` animations).
          */
-        delay?: number;
+        delay?: number | undefined;
         /**
          * Function called when the instance is ready to play.
          */
-        onReady?: (vivusInstance: Vivus) => void;
+        onReady?: ((vivusInstance: Vivus) => void) | undefined;
         /**
          * Timing animation function for each path element of the SVG.
          * It must accept a `number` as a parameter (between 0 to 1), and return a `number` (also between 0 and 1) as a result.
          *
          * See the [timing function documentation](https://github.com/maxwellito/vivus#timing-function).
          */
-        pathTimingFunction?: TimingFunction;
+        pathTimingFunction?: TimingFunction | undefined;
         /**
          * Timing animation function for the complete SVG.
          * It must accept a `number` as a parameter (between 0 to 1), and return a `number` (also between 0 and 1) as a result.
          *
          * See the [timing function documentation](https://github.com/maxwellito/vivus#timing-function).
          */
-        animTimingFunction?: TimingFunction;
+        animTimingFunction?: TimingFunction | undefined;
         /**
          * Whitespace extra margin between dashes.
          * Increase it in case of glitches at the initial state of the animation.
          *
          * (default: `2`)
          */
-        dashGap?: number;
+        dashGap?: number | undefined;
         /**
          * Force the browser to re-render all updated path items.
          * By default, the value is `true` on IE only.
          *
          * See [the troubleshooting documentation for more details](https://github.com/maxwellito/vivus#troubleshoot).
          */
-        forceRender?: boolean;
+        forceRender?: boolean | undefined;
         /**
          * Reverse the order of execution.
          * The default behaviour is to render from the first 'path' in the SVG to the last one.
@@ -149,10 +149,10 @@ declare namespace Vivus {
          *
          * (default: `false`)
          */
-        reverseStack?: boolean;
+        reverseStack?: boolean | undefined;
         /**
          * Removes all extra styling on the SVG, and leaves it as original.
          */
-        selfDestroy?: boolean;
+        selfDestroy?: boolean | undefined;
     }
 }

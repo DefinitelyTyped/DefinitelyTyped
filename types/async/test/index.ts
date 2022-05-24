@@ -72,13 +72,16 @@ function reducer(memo: any, item: any, callback: any) {
     process.nextTick(() => { callback(null, memo + item); });
 }
 
-async.reduce(numArray, 0, reducer, (err, result) => { });
+async.reduce(numArray, 0, reducer, (err, result) => { }); // $ExpectType void
+async.reduce<number, number>(numArray, 0, reducer); // $ExpectType Promise<number>
+async.reduce<number, string>(numArray, '0', reducer); // $ExpectType Promise<string>
 async.inject(numArray, 0, reducer, (err, result) => { });
 async.foldl(numArray, 0, reducer, (err, result) => { });
 async.reduceRight(numArray, 0, reducer, (err, result) => { });
 async.foldr(numArray, 0, reducer, (err, result) => { });
 
-async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: string) => { });
+async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: string) => { }); // $ExpectType void
+async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean); // $ExpectType Promise<string>
 async.detectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err, result) => { });
 async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err, result) => { });
 
@@ -94,8 +97,11 @@ async.every(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, re
 async.everyLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 
-async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
+async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { }); // $ExpectType void
+async.concat<fs.PathLike, string>(['dir1', 'dir2', 'dir3'], fs.readdir); // $ExpectType Promise<string[]>
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
+async.concatLimit(['dir1', 'dir2', 'dir3'], 2, fs.readdir, (err, files) => { });
+async.concatLimit<string, string>(['dir1', 'dir2', 'dir3'], 2, fs.readdir); // $ExpectType Promise<string[]>
 
 // Control Flow //
 
@@ -150,19 +156,16 @@ async.parallelLimit({
     (err, results) => { }
 );
 
-function whileFn(callback: any) {
+function whileFn(callback: (err: any, ...rest: any[]) => void) {
     setTimeout(() => callback(null, ++count), 1000);
 }
-
-function whileTest() { return count < 5; }
-function whilstTest(callback: (error: any, truth: boolean) => boolean) { return callback(null, count < 5); }
-function doWhileTest(count: number) { return count < 5; }
+function whileTest(callback: (err: any, truth: boolean) => void) { callback(null, count < 5); }
 
 let count = 0;
-async.whilst(whilstTest, whileFn, err => { });
+async.whilst(whileTest, whileFn, err => { });
 async.until(whileTest, whileFn, err => { });
-async.doWhilst(whileFn, doWhileTest, err => { });
-async.doUntil(whileFn, doWhileTest, err => { });
+async.doWhilst(whileFn, whileTest, err => { });
+async.doUntil(whileFn, whileTest, err => { });
 
 async.during(testCallback => { testCallback(new Error(), false); }, callback => { callback(); }, error => { console.log(error); });
 async.doDuring(callback => { callback(); }, testCallback => { testCallback(new Error(), false); }, error => { console.log(error); });
@@ -293,8 +296,17 @@ cargo.push({ name: 'foo' }, (err: Error) => { console.log('finished processing f
 cargo.push({ name: 'bar' }, (err: Error) => { console.log('finished processing bar'); });
 cargo.push({ name: 'baz' }, (err: Error) => { console.log('finished processing baz'); });
 
+interface A {
+    get_data: any;
+    make_folder: any;
+    write_file: any;
+    email_link: any;
+}
+
 const filename = '';
-async.auto({
+
+// $ExpectType void
+async.auto<A>({
     get_data: (callback: AsyncResultCallback<any>) => { },
     make_folder: (callback: AsyncResultCallback<any>) => { },
 
@@ -305,9 +317,24 @@ async.auto({
 
     // arrays with different types are not accepted by TypeScript.
     email_link: ['write_file', ((callback: AsyncResultCallback<any>, results: any) => { }) as any]
+}, (err, results) => { console.log('finished auto'); });
+
+// $ExpectType Promise<A>
+async.auto<A>({
+    get_data: async () => { },
+    make_folder: async () => { },
+
+    // arrays with different types are not accepted by TypeScript.
+    write_file: ['get_data', 'make_folder', (async () => {
+        return filename;
+    }) as any],
+
+    // arrays with different types are not accepted by TypeScript.
+    email_link: ['write_file', (async (results: any) => { }) as any]
 });
 
-async.auto({
+// $ExpectType void
+async.auto<A>({
         get_data: (callback: AsyncResultCallback<any>) => { },
         make_folder: (callback: AsyncResultCallback<any>) => { },
 
@@ -320,13 +347,23 @@ async.auto({
     (err, results) => { console.log('finished auto'); }
 );
 
-interface A {
-    get_data: any;
-    make_folder: any;
-    write_file: any;
-    email_link: any;
-}
+// $ExpectType Promise<A>
+async.auto<A>({
+        get_data: async () => { },
+        make_folder: async () => { },
 
+        // arrays with different types are not accepted by TypeScript.
+        write_file: ['get_data', 'make_folder', (async () => {
+            return filename;
+        }) as any],
+
+        // arrays with different types are not accepted by TypeScript.
+        email_link: ['write_file', (async (results: any) => { }) as any]
+    },
+    1
+);
+
+// $ExpectType void
 async.auto<A>({
         get_data: (callback: AsyncResultCallback<any>) => { },
         make_folder: (callback: AsyncResultCallback<any>) => { },
@@ -341,31 +378,26 @@ async.auto<A>({
     (err, results) => { console.log('finished auto'); }
 );
 
-async.retry(); // $ExpectType Promise<void>
-async.retry(3); // $ExpectType Promise<void>
-// $ExpectType Promise<void>
-async.retry(
-    3,
-    (callback, results) => {},
-);
-// $ExpectType void
-async.retry(
-    { times: 3, interval: 200 },
-    (callback, results) => {},
-    (err, result) => {},
-);
-// $ExpectType void
-async.retry(
-    { times: 3, interval: retryCount => 200 * retryCount },
-    (callback, results) => {},
-    (err, result) => {},
-);
-// $ExpectType void
-async.retry(
-    { times: 3, interval: 200, errorFilter: err => true },
-    (callback, results) => {},
-    (err, result) => {},
-);
+async.retry(); // $ExpectError
+async.retry(3); // $ExpectError
+
+async.retry(async () => 2); // $ExpectType Promise<number>
+async.retry<number>(async () => 2); // $ExpectType Promise<number>
+
+// dtslint doesn't seem to handle $ExpectType Promise<unknown>, expects Promise<{}>
+const xx: Promise<number> = async.retry(cb => { cb(null, 2); });
+async.retry<number>(cb => { cb(null, 2); }); // $ExpectType Promise<number>
+
+async.retry(1, async () => 2); // $ExpectType Promise<number>
+async.retry<number>(1, async () => 2); // $ExpectType Promise<number>
+
+async.retry<number>(1, cb => { cb(null, 2); }); // $ExpectType Promise<number>
+async.retry<number>({ times: 3, interval: 200 }, cb => { cb(null, 2); }); // $ExpectType Promise<number>
+async.retry<number>(cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number>(1, cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number>({ times: 3, interval: 200 }, cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number>({ interval: rc => 200 * rc }, cb => { cb(null, 2); }, (err: Error, r: number) => {}); // $ExpectType void
+async.retry<number, string>({ errorFilter: (x: string) => true }, cb => { cb("oh no"); }); // $ExpectType Promise<number>
 
 async.retryable(
     (callback) => {},
@@ -515,6 +547,24 @@ async.map<number, string>(
     },
     (err: Error, results: string[]) => { console.log("async.map: done with results", results); }
 );
+
+async function promiseTest() {
+    const promiseMap = await async.map<number, string>(
+        { a: 1, b: 2, c: 3 },
+        async (val: number) => {
+            return new Promise<string>((resolve, reject) => {
+                setTimeout(
+                    () => {
+                        console.log(`async.map: ${val}`);
+                        resolve(val.toString());
+                    },
+                    500);
+            });
+        }
+    );
+    console.log("async.map promise: done with results", promiseMap);
+}
+promiseTest();
 
 async.mapSeries<number, string>(
     { a: 1, b: 2, c: 3 },

@@ -186,19 +186,19 @@ export const FuncExample = (props: FuncExampleProps) => {
     );
 };
 
-export const BooleanCustomWidget: React.SFC<WidgetProps> = props => (
+export const BooleanCustomWidget: React.FC<WidgetProps> = props => (
     <input onFocus={() => props.onFocus('id', true)} onBlur={() => props.onFocus('id', true)} />
 );
 
-export const NumberCustomWidget: React.SFC<WidgetProps> = props => (
+export const NumberCustomWidget: React.FC<WidgetProps> = props => (
     <input onFocus={() => props.onFocus('id', 0)} onBlur={() => props.onFocus('id', 0)} />
 );
 
-export const StringCustomWidget: React.SFC<WidgetProps> = props => (
+export const StringCustomWidget: React.FC<WidgetProps> = props => (
     <input onFocus={() => props.onFocus('id', 'value')} onBlur={() => props.onFocus('id', 'value')} />
 );
 
-export const NullCustomWidget: React.SFC<WidgetProps> = props => (
+export const NullCustomWidget: React.FC<WidgetProps> = props => (
     <input onFocus={() => props.onFocus('id', null)} onBlur={() => props.onFocus('id', null)} />
 );
 

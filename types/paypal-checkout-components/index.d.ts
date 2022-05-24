@@ -5,7 +5,7 @@
 // TypeScript Version: 3.1
 
 import {
-  ButtonRenderer, FundingOption
+  ButtonRenderer, ButtonsRenderer, FundingOption
 } from './modules/button';
 
 import {
@@ -34,6 +34,8 @@ import {
 
 export const Button: ButtonRenderer;
 
+export const Buttons: ButtonsRenderer;
+
 export {
   Address,
   AuthorizationData,
@@ -43,6 +45,7 @@ export {
   AuthorizationResponseDetails,
   AuthorizationResponseDetails as TokenizePayloadDetails, // maintain backwards compatibility
   ButtonRenderer,
+  ButtonsRenderer,
   ButtonColorOption,
   ButtonLabelOption,
   ButtonShapeOption,

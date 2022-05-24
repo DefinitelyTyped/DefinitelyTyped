@@ -1,12 +1,10 @@
 // Type definitions for react-redux 7.1
 // Project: https://github.com/reduxjs/react-redux
-// Definitions by: Qubo <https://github.com/tkqubo>,
-//                 Kenzie Togami <https://github.com/kenzierocks>,
+// Definitions by: Qubo <https://github.com/tkqubo>
 //                 Curits Layne <https://github.com/clayne11>
 //                 Frank Tan <https://github.com/tansongyang>
 //                 Nicholas Boll <https://github.com/nicholasboll>
 //                 Dibyo Majumdar <https://github.com/mdibyo>
-//                 Thomas Charlat <https://github.com/kallikrein>
 //                 Valentin Descamps <https://github.com/val1984>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Anatoli Papirovski <https://github.com/apapirovski>
@@ -27,15 +25,14 @@ import {
     ClassAttributes,
     Component,
     ComponentClass,
-    ComponentType,
-    StatelessComponent,
     Context,
-    NamedExoticComponent
+    JSXElementConstructor,
+    NamedExoticComponent,
+    ReactNode
 } from 'react';
 
 import {
     Action,
-    ActionCreator,
     AnyAction,
     Dispatch,
     Store
@@ -65,7 +62,7 @@ export interface DispatchProp<A extends Action = AnyAction> {
 }
 
 export type AdvancedComponentDecorator<TProps, TOwnProps> =
-    (component: ComponentType<TProps>) => NamedExoticComponent<TOwnProps>;
+    (component: JSXElementConstructor<TProps>) => NamedExoticComponent<TOwnProps>;
 
 /**
  * A property P will be present if:
@@ -105,16 +102,19 @@ export type Shared<
     };
 
 // Infers prop type from component C
-export type GetProps<C> = C extends ComponentType<infer P>
+export type GetProps<C> = C extends JSXElementConstructor<infer P>
     ? C extends ComponentClass<P> ? ClassAttributes<InstanceType<C>> & P : P
     : never;
 
 // Applies LibraryManagedAttributes (proper handling of defaultProps
-// and propTypes), as well as defines WrappedComponent.
+// and propTypes).
+export type GetLibraryManagedProps<C> = JSX.LibraryManagedAttributes<C, GetProps<C>>;
+
+// Defines WrappedComponent and derives non-react statics.
 export type ConnectedComponent<
-    C extends ComponentType<any>,
+    C extends JSXElementConstructor<any>,
     P
-> = NamedExoticComponent<JSX.LibraryManagedAttributes<C, P>> & hoistNonReactStatics.NonReactStatics<C> & {
+> = NamedExoticComponent<P> & hoistNonReactStatics.NonReactStatics<C> & {
     WrappedComponent: C;
 };
 
@@ -123,9 +123,9 @@ export type ConnectedComponent<
 // render. Also adds new prop requirements from TNeedsProps.
 // Uses distributive omit to preserve discriminated unions part of original prop type
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
-    <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
+    <C extends JSXElementConstructor<Matching<TInjectedProps, GetProps<C>>>>(
         component: C
-    ) => ConnectedComponent<C, DistributiveOmit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
+    ) => ConnectedComponent<C, DistributiveOmit<GetLibraryManagedProps<C>, keyof Shared<TInjectedProps, GetLibraryManagedProps<C>>> & TNeedsProps>;
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
@@ -233,13 +233,13 @@ export interface Connect<DefaultState = DefaultRootState> {
     <no_state = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
         mapStateToProps: null | undefined,
         mapDispatchToProps: null | undefined,
-        mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<undefined, DispatchProp, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: null | undefined,
-        mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<TStateProps, DispatchProp, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
@@ -348,38 +348,38 @@ export interface Options<State = DefaultRootState, TStateProps = {}, TOwnProps =
      * Defaults to true.
      * @default true
      */
-    pure?: boolean;
+    pure?: boolean | undefined;
 
     /**
      * When pure, compares incoming store state to its previous value.
      * @default strictEqual
      */
-    areStatesEqual?: (nextState: State, prevState: State) => boolean;
+    areStatesEqual?: ((nextState: State, prevState: State) => boolean) | undefined;
 
     /**
      * When pure, compares incoming props to its previous value.
      * @default shallowEqual
      */
-    areOwnPropsEqual?: (nextOwnProps: TOwnProps, prevOwnProps: TOwnProps) => boolean;
+    areOwnPropsEqual?: ((nextOwnProps: TOwnProps, prevOwnProps: TOwnProps) => boolean) | undefined;
 
     /**
      * When pure, compares the result of mapStateToProps to its previous value.
      * @default shallowEqual
      */
-    areStatePropsEqual?: (nextStateProps: TStateProps, prevStateProps: TStateProps) => boolean;
+    areStatePropsEqual?: ((nextStateProps: TStateProps, prevStateProps: TStateProps) => boolean) | undefined;
 
     /**
      * When pure, compares the result of mergeProps to its previous value.
      * @default shallowEqual
      */
-    areMergedPropsEqual?: (nextMergedProps: TMergedProps, prevMergedProps: TMergedProps) => boolean;
+    areMergedPropsEqual?: ((nextMergedProps: TMergedProps, prevMergedProps: TMergedProps) => boolean) | undefined;
 
     /**
      * If true, use React's forwardRef to expose a ref of the wrapped component
      *
      * @default false
      */
-    forwardRef?: boolean;
+    forwardRef?: boolean | undefined;
 }
 
 /**
@@ -421,13 +421,13 @@ export interface ConnectOptions {
      * @default name => 'ConnectAdvanced('+name+')'
      * @param componentName
      */
-    getDisplayName?: (componentName: string) => string;
+    getDisplayName?: ((componentName: string) => string) | undefined;
     /**
      * Shown in error messages. Usually overridden by wrapper functions.
      *
      * @default 'connectAdvanced'
      */
-    methodName?: string;
+    methodName?: string | undefined;
     /**
      * If defined, a property named this value will be added to the props passed to the wrapped component. Its value
      * will be the number of times the component has been rendered, which can be useful for tracking down unnecessary
@@ -435,33 +435,33 @@ export interface ConnectOptions {
      *
      * @default undefined
      */
-    renderCountProp?: string;
+    renderCountProp?: string | undefined;
     /**
      * Controls whether the connector component subscribes to redux store state changes. If set to false, it will only
      * re-render on <code>componentWillReceiveProps</code>.
      *
      * @default true
      */
-    shouldHandleStateChanges?: boolean;
+    shouldHandleStateChanges?: boolean | undefined;
     /**
      * The key of props/context to get the store. You probably only need this if you are in the inadvisable position of
      * having multiple stores.
      *
      * @default 'store'
      */
-    storeKey?: string;
+    storeKey?: string | undefined;
     /**
      * @deprecated Use forwardRef
      *
      * @default false
      */
-    withRef?: boolean;
+    withRef?: boolean | undefined;
     /**
      * The react context to get the store from.
      *
      * @default ReactReduxContext
      */
-    context?: Context<ReactReduxContextValue>;
+    context?: Context<ReactReduxContextValue> | undefined;
 }
 
 export interface ReactReduxContextValue<SS = any, A extends Action = AnyAction> {
@@ -479,7 +479,8 @@ export interface ProviderProps<A extends Action = AnyAction> {
      * If this is used, generate own connect HOC by using connectAdvanced, supplying the same context provided to the
      * Provider. Initial value doesn't matter, as it is overwritten with the internal state of Provider.
      */
-    context?: Context<ReactReduxContextValue>;
+    context?: Context<ReactReduxContextValue> | undefined;
+    children?: ReactNode;
 }
 
 /**

@@ -4,48 +4,43 @@ import { Size } from '../size';
 import Fill from '../style/Fill';
 import Stroke from '../style/Stroke';
 import { Transform } from '../transform';
+import { ReplayImageOrLabelArgs } from './canvas/Executor';
 
-/**
- * Container for decluttered replay instructions that need to be rendered or
- * omitted together, i.e. when styles render both an image and text, or for the
- * characters that form text along lines. The basic elements of this array are
- * [minX, minY, maxX, maxY, count], where the first four entries are the
- * rendered extent of the group in pixel space. count is the number of styles
- * in the group, i.e. 2 when an image and a text are grouped, or 1 otherwise.
- * In addition to these four elements, declutter instruction arrays (i.e. the
- * arguments to {@link module:ol/render/canvas~drawImage} are appended to the array.
- */
-export type DeclutterGroup = any[];
-/**
- * Declutter groups for support of multi geometries.
- */
-export type DeclutterGroups = DeclutterGroup[];
+export type DeclutterImageWithText = { [key: number]: ReplayImageOrLabelArgs };
 export interface FillState {
     fillStyle: ColorLike;
 }
 export interface FillStrokeState {
-    currentFillStyle?: ColorLike;
-    currentStrokeStyle?: ColorLike;
-    currentLineCap?: CanvasLineCap;
+    currentFillStyle?: ColorLike | undefined;
+    currentStrokeStyle?: ColorLike | undefined;
+    currentLineCap?: CanvasLineCap | undefined;
     currentLineDash: number[];
-    currentLineDashOffset?: number;
-    currentLineJoin?: CanvasLineJoin;
-    currentLineWidth?: number;
-    currentMiterLimit?: number;
-    lastStroke?: number;
-    fillStyle?: ColorLike;
-    strokeStyle?: ColorLike;
-    lineCap?: CanvasLineCap;
+    currentLineDashOffset?: number | undefined;
+    currentLineJoin?: CanvasLineJoin | undefined;
+    currentLineWidth?: number | undefined;
+    currentMiterLimit?: number | undefined;
+    lastStroke?: number | undefined;
+    fillStyle?: ColorLike | undefined;
+    strokeStyle?: ColorLike | undefined;
+    lineCap?: CanvasLineCap | undefined;
     lineDash: number[];
-    lineDashOffset?: number;
-    lineJoin?: CanvasLineJoin;
-    lineWidth?: number;
-    miterLimit?: number;
+    lineDashOffset?: number | undefined;
+    lineJoin?: CanvasLineJoin | undefined;
+    lineWidth?: number | undefined;
+    miterLimit?: number | undefined;
 }
 export interface Label {
     width: number;
     height: number;
     contextInstructions: (string | number)[];
+}
+export interface SerializableInstructions {
+    instructions: any[];
+    hitDetectionInstructions: any[];
+    coordinates: number[];
+    textStates?: { [key: string]: TextState } | undefined;
+    fillStates?: { [key: string]: FillState } | undefined;
+    strokeStates?: { [key: string]: StrokeState } | undefined;
 }
 export interface StrokeState {
     lineCap: CanvasLineCap;
@@ -58,15 +53,15 @@ export interface StrokeState {
 }
 export interface TextState {
     font: string;
-    textAlign?: string;
+    textAlign?: string | undefined;
     textBaseline: string;
-    placement?: string;
-    maxAngle?: number;
-    overflow?: boolean;
-    backgroundFill?: Fill;
-    backgroundStroke?: Stroke;
-    scale?: Size;
-    padding?: number[];
+    placement?: string | undefined;
+    maxAngle?: number | undefined;
+    overflow?: boolean | undefined;
+    backgroundFill?: Fill | undefined;
+    backgroundStroke?: Stroke | undefined;
+    scale?: Size | undefined;
+    padding?: number[] | undefined;
 }
 export const checkedFonts: BaseObject;
 export const defaultFillStyle: ColorLike;
@@ -87,7 +82,6 @@ export const defaultTextBaseline: string;
  * Deprecated - there is no label cache any more.
  */
 export const labelCache: any;
-export const measureTextHeight: (font: string) => Size;
 /**
  * Clears the label cache when a font becomes available.
  */
@@ -111,6 +105,7 @@ export function drawImageOrLabel(
  * Measure text width using a cache.
  */
 export function measureAndCacheTextWidth(font: string, text: string, cache: { [key: string]: number }): number;
+export function measureTextHeight(font: string): Size;
 export function measureTextWidth(font: string, text: string): number;
 export function measureTextWidths(font: string, lines: string[], widths: number[]): number;
 export function rotateAtOffset(

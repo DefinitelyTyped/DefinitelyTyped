@@ -1,4 +1,4 @@
-// Type definitions for @babel/traverse 7.11
+// Type definitions for @babel/traverse 7.17
 // Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
@@ -7,6 +7,7 @@
 //                 Dean L. <https://github.com/dlgrit>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 Daniel Tschinder <https://github.com/danez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as t from '@babel/types';
@@ -60,8 +61,8 @@ export namespace visitors {
 export default traverse;
 
 export interface TraverseOptions<S = Node> extends Visitor<S> {
-    scope?: Scope;
-    noScope?: boolean;
+    scope?: Scope | undefined;
+    noScope?: boolean | undefined;
 }
 
 export type ArrayKeys<T> = keyof { [P in keyof T as T[P] extends any[] ? P : never]: P };
@@ -139,7 +140,12 @@ export class Scope {
 
     crawl(): void;
 
-    push(opts: { id: t.LVal; init?: t.Expression; unique?: boolean; kind?: 'var' | 'let' | 'const' }): void;
+    push(opts: {
+        id: t.LVal;
+        init?: t.Expression | undefined;
+        unique?: boolean | undefined;
+        kind?: 'var' | 'let' | 'const' | undefined;
+    }): void;
 
     getProgramParent(): Scope;
 
@@ -193,13 +199,11 @@ export class Binding {
     constantViolations: NodePath[];
 }
 
-export type Visitor<S = {}> = VisitNodeObject<S, Node> &
-    {
-        [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
-    } &
-    {
-        [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
-    };
+export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
+    [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
+} & {
+    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
+};
 
 export type VisitNode<S, P extends Node> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
 
@@ -208,13 +212,13 @@ export type VisitNodeFunction<S, P extends Node> = (this: S, path: NodePath<P>, 
 type NodeType = Node['type'] | keyof t.Aliases;
 
 export interface VisitNodeObject<S, P extends Node> {
-    enter?: VisitNodeFunction<S, P>;
-    exit?: VisitNodeFunction<S, P>;
-    denylist?: NodeType[];
+    enter?: VisitNodeFunction<S, P> | undefined;
+    exit?: VisitNodeFunction<S, P> | undefined;
+    denylist?: NodeType[] | undefined;
     /**
      * @deprecated will be removed in Babel 8
      */
-    blacklist?: NodeType[];
+    blacklist?: NodeType[] | undefined;
 }
 
 export type NodePaths<T extends Node | readonly Node[]> = T extends readonly Node[]
@@ -235,7 +239,7 @@ export class NodePath<T = Node> {
     state: any;
     opts: object;
     skipKeys: object;
-    parentPath: NodePath;
+    parentPath: T extends t.Program ? null : NodePath;
     context: TraversalContext;
     container: object | object[];
     listKey: string;
@@ -252,6 +256,8 @@ export class NodePath<T = Node> {
     setData(key: string, val: any): any;
 
     getData(key: string, def?: any): any;
+
+    hasNode(): this is NodePath<NonNullable<this['node']>>;
 
     buildCodeFrameError<TError extends Error>(msg: string, Error?: new (msg: string) => TError): TError;
 
@@ -270,7 +276,7 @@ export class NodePath<T = Node> {
         parentPath: NodePath | null;
         parent: Node;
         container: C;
-        listKey?: string;
+        listKey?: string | undefined;
         key: K;
     }): NodePath<C[K]>;
 
@@ -537,6 +543,8 @@ export class NodePath<T = Node> {
     getCompletionRecords(): NodePath[];
 
     getSibling(key: string | number): NodePath;
+    getPrevSibling(): NodePath;
+    getNextSibling(): NodePath;
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 
@@ -545,6 +553,8 @@ export class NodePath<T = Node> {
         context?: boolean | TraversalContext,
     ): T[K] extends Array<Node | null | undefined>
         ? Array<NodePath<T[K][number]>>
+        : T[K] extends Array<Node | null | undefined> | null | undefined
+        ? Array<NodePath<NonNullable<T[K]>[number]>> | NodePath<null | undefined>
         : T[K] extends Node | null | undefined
         ? NodePath<T[K]>
         : never;

@@ -20,7 +20,7 @@ server.inject('/').then(res => console.log(res.result));
 
 declare module '@hapi/hapi' {
     interface ApplicationState {
-        injectState?: number;
+        injectState?: number | undefined;
     }
 }
 

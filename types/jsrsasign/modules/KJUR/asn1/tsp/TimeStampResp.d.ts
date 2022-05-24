@@ -12,8 +12,8 @@ declare namespace jsrsasign.KJUR.asn1.tsp {
     class TimeStampResp extends ASN1Object {
         constructor(params?: {
             status: {
-                failinfo?: NameParam | IntegerParam;
-                statstr?: ArrayParam<string>;
+                failinfo?: NameParam | IntegerParam | undefined;
+                statstr?: ArrayParam<string> | undefined;
                 status: NameParam;
             };
             tst: ASN1Object;

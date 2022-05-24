@@ -17,7 +17,7 @@ declare module 'angular' {
             closeOnSelect: boolean;
             dropdownPosition: string;
             generateId(): number;
-            paste?: IPasteFn;
+            paste?: IPasteFn | undefined;
             placeholder: string;
             refreshDelay: number;
             removeSelected: boolean;
@@ -39,12 +39,12 @@ declare module 'angular' {
             dropdownPosition: string;
             focus: boolean;
             isEmpty(): boolean;
-            isGrouped?: boolean;
+            isGrouped?: boolean | undefined;
             isLocked(): boolean;
-            itemProperty?: string;
+            itemProperty?: string | undefined;
             open: boolean;
-            parserResult?: IRepeatExpression;
-            paste?: IPasteFn;
+            parserResult?: IRepeatExpression | undefined;
+            paste?: IPasteFn | undefined;
             placeholder: string;
             refreshDelay: number;
             refreshing: boolean;

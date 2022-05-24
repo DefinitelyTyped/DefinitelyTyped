@@ -3,15 +3,15 @@ import { Readable } from 'stream';
 import { RecordResult } from './record-result';
 
 export interface ExecuteOptions {
-    autoFetch?: boolean;
-    maxFetch?: number;
-    headers?: object;
-    scanAll?: boolean;
+    autoFetch?: boolean | undefined;
+    maxFetch?: number | undefined;
+    headers?: object | undefined;
+    scanAll?: boolean | undefined;
 }
 
 export interface QueryResult<T> {
     done: boolean;
-    nextRecordsUrl?: string;
+    nextRecordsUrl?: string | undefined;
     totalSize: number;
     records: T[];
 }
@@ -49,7 +49,7 @@ export class Query<T> extends Readable implements Promise<T> {
 
     destroy(type?: string, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult[]>;
     destroy(callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult[]>;
-    destroy(error?: Error): void;
+    destroy(error?: Error): this;
 
     explain(callback?: (err: Error, info: ExplainInfo) => void): Promise<ExplainInfo>;
 
@@ -63,12 +63,16 @@ export class Query<T> extends Readable implements Promise<T> {
 
     toSOQL(callback: (err: Error, soql: string) => void): Promise<string>;
 
-    update(mapping: any, type: string, callback: (err: Error, records: RecordResult[]) => void): Promise<RecordResult[]>;
-    update(mapping: any, callback: (err: Error, records: RecordResult[]) => void): Promise<RecordResult[]>;
+    update(
+        mapping: any,
+        type: string,
+        callback?: (err: Error, records: RecordResult[]) => void,
+    ): Promise<RecordResult[]>;
+    update(mapping: any, callback?: (err: Error, records: RecordResult[]) => void): Promise<RecordResult[]>;
 
     where(conditions: Object | string): Query<T>;
 
-    finally<never>(): Promise<T>;
+    finally(): Promise<T>;
 
     [Symbol.toStringTag]: 'Promise';
 

@@ -1,4 +1,4 @@
-// Type definitions for supercluster 5.0
+// Type definitions for supercluster 7.1
 // Project: https://github.com/mapbox/supercluster
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 //                 Nick Zahn <https://github.com/Manc>
@@ -16,42 +16,56 @@ declare namespace Supercluster {
          *
          * @default 0
          */
-        minZoom?: number;
+        minZoom?: number | undefined;
 
         /**
          * Maximum zoom level at which clusters are generated.
          *
          * @default 16
          */
-        maxZoom?: number;
+        maxZoom?: number | undefined;
+
+        /**
+         * Minimum number of points to form a cluster.
+         *
+         * @default 2
+         */
+        minPoints?: number | undefined;
 
         /**
          * Cluster radius, in pixels.
          *
          * @default 40
          */
-        radius?: number;
+        radius?: number | undefined;
 
         /**
          * (Tiles) Tile extent. Radius is calculated relative to this value.
          *
          * @default 512
          */
-        extent?: number;
+        extent?: number | undefined;
 
         /**
          * Size of the KD-tree leaf node. Affects performance.
          *
          * @default 64
          */
-        nodeSize?: number;
+        nodeSize?: number | undefined;
 
         /**
          * Whether timing info should be logged.
          *
          * @default false
          */
-        log?: boolean;
+        log?: boolean | undefined;
+
+        /**
+         * Whether to generate ids for input features in vector tiles.
+         *
+         * @default false
+         */
+        generateId?: boolean | undefined;
 
         /**
          * A function that returns cluster properties corresponding to a single point.
@@ -59,7 +73,7 @@ declare namespace Supercluster {
          * @example
          * (props) => ({sum: props.myValue})
          */
-        map?: (props: P) => C;
+        map?: ((props: P) => C) | undefined;
 
         /**
          * A reduce function that merges properties of two clusters into one.
@@ -67,7 +81,7 @@ declare namespace Supercluster {
          * @example
          * (accumulated, props) => { accumulated.sum += props.sum; }
          */
-        reduce?: (accumulated: C, props: Readonly<C>) => void;
+        reduce?: ((accumulated: C, props: Readonly<C>) => void) | undefined;
     }
 
     /**
@@ -120,7 +134,10 @@ declare namespace Supercluster {
 /**
  * A very fast geospatial point clustering library for browsers and Node.
  */
-declare class Supercluster<P extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps, C extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps> {
+declare class Supercluster<
+    P extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps,
+    C extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps,
+> {
     constructor(options?: Supercluster.Options<P, C>);
 
     /**

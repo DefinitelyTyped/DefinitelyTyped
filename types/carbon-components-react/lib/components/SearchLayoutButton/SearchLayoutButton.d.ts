@@ -6,10 +6,10 @@ export type SearchLayoutButtonFormat = "grid" | "list";
  * @deprecated
  */
 export interface SearchLayoutButtonProps {
-    format?: SearchLayoutButtonFormat,
-    iconDescriptionGrid?: string,
-    iconDescriptionList?: string,
-    labelText?: string,
+    format?: SearchLayoutButtonFormat | undefined,
+    iconDescriptionGrid?: string | undefined,
+    iconDescriptionList?: string | undefined,
+    labelText?: string | undefined,
     onChangeFormat?(data: { format: NonNullable<SearchLayoutButtonProps["format"]> }): void,
 }
 

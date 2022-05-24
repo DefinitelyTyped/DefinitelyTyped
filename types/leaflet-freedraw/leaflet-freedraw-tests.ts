@@ -20,3 +20,9 @@ document.addEventListener('keydown', event => {
 });
 
 freeDraw.off('markers');
+
+const windowFreeDraw = window.FreeDraw;
+const freeDraw2 = new windowFreeDraw({
+    mode: windowFreeDraw.CREATE | windowFreeDraw.DELETE
+});
+map.addLayer(freeDraw2);

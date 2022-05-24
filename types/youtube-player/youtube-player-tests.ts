@@ -9,6 +9,7 @@ const player: YouTubePlayer = youTubePlayerFactory(
         width: 640,
         height: 300,
         videoId: 'aaaaaaaaaa',
+        host: 'https://github.com',
         playerVars: {
             autoplay: 1,
             cc_lang_pref: 'en_US',
@@ -34,8 +35,8 @@ const player: YouTubePlayer = youTubePlayerFactory(
         },
         events: {
             ready: (event: CustomEvent): void => {},
-            stateChange: (event: CustomEvent): void => {
-                console.log(player.getPlayerState() === PlayerStates.PLAYING);
+            stateChange: async (event: CustomEvent): Promise<void> => {
+                console.log((await player.getPlayerState()) === PlayerStates.PLAYING);
             },
             playbackQualityChange: (event: CustomEvent): void => {},
             playbackRateChange: (event: CustomEvent): void => {},
@@ -52,12 +53,14 @@ player.loadVideoById('doesNotExist');
 player.playVideo();
 player.pauseVideo();
 player.setSize(320, 200);
-if (player.isMuted()) {
-    player.unMute();
-} else {
-    player.mute();
-}
-player.setVolume(player.getVolume() / 2);
+(async () => {
+    if (await player.isMuted()) {
+        player.unMute();
+    } else {
+        player.mute();
+    }
+})();
+(async () => player.setVolume((await player.getVolume()) / 2))();
 
 player.on('stateChange', (event: CustomEvent<void> & {data: number}) => {
     switch (event.data) {

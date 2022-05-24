@@ -1,9 +1,6 @@
-import config = require("esri/config");
 import Map = require("esri/Map");
 import MapView = require("esri/views/MapView");
 import Point = require("esri/geometry/Point");
-
-console.log(config.assetsPath);
 
 class MapController {
   map: Map;
@@ -29,3 +26,7 @@ class MapController {
     });
   }
 }
+
+import esriId = require("esri/identity/IdentityManager");
+esriId.enablePostMessageAuth();
+esriId.disablePostMessageAuth();

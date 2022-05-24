@@ -14,7 +14,7 @@ import ImageStyle from '../style/Image';
 import Stroke from '../style/Stroke';
 import Style from '../style/Style';
 import Text from '../style/Text';
-import { DeclutterGroup, DeclutterGroups } from './canvas';
+import { DeclutterImageWithText } from './canvas';
 import RenderFeature from './Feature';
 
 export default class VectorContext {
@@ -38,10 +38,10 @@ export default class VectorContext {
     drawPolygon(polygonGeometry: Polygon | RenderFeature, feature: FeatureLike): void;
     drawText(geometry: SimpleGeometry | RenderFeature, feature: FeatureLike): void;
     setFillStrokeStyle(fillStyle: Fill, strokeStyle: Stroke): void;
-    setImageStyle(imageStyle: ImageStyle, opt_declutterGroup?: DeclutterGroup): void;
+    setImageStyle(imageStyle: ImageStyle, opt_declutterImageWithText?: DeclutterImageWithText): void;
     /**
      * Set the rendering style.
      */
     setStyle(style: Style): void;
-    setTextStyle(textStyle: Text, opt_declutterGroups?: DeclutterGroups): void;
+    setTextStyle(textStyle: Text, opt_declutterImageWithText?: DeclutterImageWithText): void;
 }

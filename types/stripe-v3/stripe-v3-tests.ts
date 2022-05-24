@@ -216,6 +216,8 @@ describe("Stripe elements", () => {
         const prButton = elements.create('paymentRequestButton', { paymentRequest });
         paymentRequest.canMakePayment().then(result => {
             if (result) {
+                result.applePay; // $ExpectType boolean | undefined
+                result.googlePay; // $ExpectType boolean | undefined
                 prButton.mount('#payment-request-button');
             } else {
                 document.getElementById('payment-request-button')!.style.display = 'none';
@@ -444,6 +446,20 @@ describe("Stripe elements", () => {
             .confirmPaymentIntent('{PAYMENT_INTENT_CLIENT_SECRET}', {
                 payment_method: '{PAYMENT_METHOD_ID}',
                 return_url: 'https://example.com/return_url',
+            })
+            .then(_result => {
+                // Handle result.error or result.paymentIntent
+            });
+
+        // stripe.confirmSofortPayment(clientSecret,data?)
+        stripe
+            .confirmSofortPayment('{PAYMENT_INTENT_CLIENT_SECRET}', {
+                payment_method: {
+                  sofort: {
+                    country: 'DE'
+                  }
+                },
+                return_url: 'https://example.com/return_url'
             })
             .then(_result => {
                 // Handle result.error or result.paymentIntent

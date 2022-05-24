@@ -3,7 +3,9 @@ import assert = require('node:assert');
 import { promisify } from 'node:util';
 
 {
-    const copied: crypto.Hash = crypto.createHash('md5').copy();
+    const copied: crypto.Hash = crypto.createHash('md5').copy().copy({
+        encoding: 'ascii',
+    });
 }
 
 {
@@ -63,13 +65,19 @@ import { promisify } from 'node:util';
     let hmac: crypto.Hmac;
     (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
         const hash: Buffer | string = hmac.read();
-    });
+    }).end();
 }
 
 {
     // update Hmac with base64 encoded string
     const message = Buffer.from('message').toString('base64');
     crypto.createHmac('sha256', 'key').update(message, 'base64').digest();
+}
+
+{
+    // update Hmac with base64url encoded string
+    const message = Buffer.from('message').toString('base64url');
+    crypto.createHmac('sha256', 'key').update(message, 'base64url').digest();
 }
 
 {
@@ -130,6 +138,7 @@ import { promisify } from 'node:util';
 }
 
 {
+    // crypto_cipheriv_decipheriv_aad_ccm_test
     const key: string | null = 'keykeykeykeykeykeykeykey';
     const nonce = crypto.randomBytes(12);
     const aad = Buffer.from('0123456789', 'hex');
@@ -157,6 +166,7 @@ import { promisify } from 'node:util';
 }
 
 {
+    // crypto_cipheriv_decipheriv_aad_gcm_test
     const key = 'keykeykeykeykeykeykeykey';
     const nonce = crypto.randomBytes(12);
     const aad = Buffer.from('0123456789', 'hex');
@@ -180,29 +190,81 @@ import { promisify } from 'node:util';
 }
 
 {
-    const key: string | null = 'keykeykeykeykeykeykeykey';
-    const nonce = crypto.randomBytes(12);
+    // crypto_cipheriv_decipheriv_aad_ocb_test
+    const key = 'keykeykeykeykeykeykeykey';
+    const iv = crypto.randomBytes(12);
     const aad = Buffer.from('0123456789', 'hex');
 
-    const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
-        authTagLength: 16,
-    });
+    const cipher = crypto.createCipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
     const plaintext = 'Hello world';
     cipher.setAAD(aad, {
         plaintextLength: Buffer.byteLength(plaintext),
     });
-    const ciphertext = cipher.update(plaintext, 'utf8');
-    cipher.final();
+    const ciphertext = Buffer.concat([
+        cipher.update(plaintext, 'utf8'),
+        cipher.final(),
+    ]);
     const tag = cipher.getAuthTag();
 
-    const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
-        authTagLength: 16,
-    });
+    const decipher = crypto.createDecipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
     decipher.setAuthTag(tag);
     decipher.setAAD(aad, {
         plaintextLength: ciphertext.length,
     });
-    const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
+    const receivedPlaintext: Buffer = Buffer.concat([
+        decipher.update(ciphertext),
+        decipher.final(),
+    ]);
+}
+
+{
+    // crypto_cipheriv_decipheriv_cbc_string_encoding_test
+    const key: string | null = 'keykeykeykeykeykeykeykey';
+    const nonce = crypto.randomBytes(12);
+
+    const cipher = crypto.createCipheriv('aes-192-cbc', key, nonce);
+    const plaintext = 'Hello world';
+     // $ExpectType string
+    const ciphertext = cipher.update(plaintext, 'utf8', 'binary');
+    cipher.final();
+
+    const decipher = crypto.createDecipheriv('aes-192-cbc', key, nonce);
+     // $ExpectType string
+    const receivedPlaintext = decipher.update(ciphertext, 'binary', 'utf8');
+    decipher.final();
+}
+
+{
+    // crypto_cipheriv_decipheriv_cbc_buffer_encoding_test
+    const key: string | null = 'keykeykeykeykeykeykeykey';
+    const nonce = crypto.randomBytes(12);
+
+    const cipher = crypto.createCipheriv('aes-192-cbc', key, nonce);
+    const plaintext = 'Hello world';
+     // $ExpectType Buffer
+    const cipherBuf = cipher.update(plaintext, 'utf8');
+    cipher.final();
+
+    const decipher = crypto.createDecipheriv('aes-192-cbc', key, nonce);
+     // $ExpectType string
+    const receivedPlaintext = decipher.update(cipherBuf, undefined, 'utf8');
+    decipher.final();
+}
+
+{
+    // crypto_cipheriv_decipheriv_cbc_buffer_encoding_test
+    const key: string | null = 'keykeykeykeykeykeykeykey';
+    const nonce = crypto.randomBytes(12);
+
+    const cipher = crypto.createCipheriv('aes-192-cbc', key, nonce);
+    const plaintext = 'Hello world';
+     // $ExpectType Buffer
+    const cipherBuf = cipher.update(plaintext, 'utf8');
+    cipher.final();
+
+    const decipher = crypto.createDecipheriv('aes-192-cbc', key, nonce);
+     // $ExpectType Buffer
+    const receivedPlaintext = decipher.update(cipherBuf);
     decipher.final();
 }
 
@@ -370,6 +432,72 @@ import { promisify } from 'node:util';
 }
 
 {
+    crypto.generateKey(
+        'hmac',
+        {
+            length: 123,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 128,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 192,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 256,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+}
+
+{
+    const generateKeyPromisified = promisify(crypto.generateKey);
+
+    const resHmac: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'hmac',
+        {
+            length: 123,
+        },
+    );
+
+    const resAes128: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 128,
+        },
+    );
+
+    const resAes192: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 192,
+        },
+    );
+
+    const resAes256: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 256,
+        },
+    );
+}
+
+{
     const rsaRes: {
         publicKey: Buffer;
         privateKey: string;
@@ -395,6 +523,38 @@ import { promisify } from 'node:util';
         publicKeyEncoding: {
             format: 'der',
             type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
+    const rsaPssRes: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            cipher: 'some-cipher',
+            format: 'pem',
+            passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
+    const rsaPssResNoPassphrase: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
         },
         privateKeyEncoding: {
             format: 'pem',
@@ -477,6 +637,24 @@ import { promisify } from 'node:util';
             publicKeyEncoding: {
                 format: 'der',
                 type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: string) => {},
+    );
+
+    crypto.generateKeyPair(
+        'rsa-pss',
+        {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'spki',
             },
             privateKeyEncoding: {
                 cipher: 'some-cipher',
@@ -576,6 +754,23 @@ import { promisify } from 'node:util';
         },
     });
 
+    const rsaPssRes: Promise<{
+        publicKey: Buffer;
+        privateKey: string;
+    }> = generateKeyPairPromisified('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            cipher: 'some-cipher',
+            format: 'pem',
+            passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
     const dsaRes: Promise<{
         publicKey: string;
         privateKey: Buffer;
@@ -657,6 +852,7 @@ import { promisify } from 'node:util';
     keyObject instanceof crypto.KeyObject;
     assert.equal(keyObject.symmetricKeySize, 4);
     assert.equal(keyObject.type, 'secret');
+    crypto.createSecretKey('ascii', 'ascii');
 }
 
 {
@@ -664,19 +860,18 @@ import { promisify } from 'node:util';
         namedCurve: 'sect239k1',
     });
 
-    const sign: crypto.Signer = crypto.createSign('SHA256');
+    const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.write('some data to sign');
-    sign.end();
+    sign.end().end();
     const signature: string = sign.sign(privateKey, 'hex');
 
     const verify: crypto.Verify = crypto.createVerify('SHA256');
     verify.write('some data to sign');
-    verify.end();
-    verify.verify(publicKey, signature); // $ExpectType boolean
+    verify.end().verify(publicKey, signature); // $ExpectType boolean
 
     // ensure that instanceof works
     verify instanceof crypto.Verify;
-    sign instanceof crypto.Signer;
+    sign instanceof crypto.Sign;
 }
 
 {
@@ -684,15 +879,14 @@ import { promisify } from 'node:util';
         modulusLength: 2048,
     });
 
-    const sign: crypto.Signer = crypto.createSign('SHA256');
+    const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.update('some data to sign');
-    sign.end();
+    sign.end().end();
     const signature: Buffer = sign.sign(privateKey);
 
     const verify: crypto.Verify = crypto.createVerify('SHA256');
     verify.update('some data to sign');
-    verify.end();
-    verify.verify(publicKey, signature); // $ExpectType boolean
+    verify.end().verify(publicKey, signature); // $ExpectType boolean
 }
 
 {
@@ -803,7 +997,11 @@ import { promisify } from 'node:util';
 
 {
     const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
+
+    crypto.sign('md5', Buffer.from(''), 'mykey', (error: Error | null, data: Buffer) => { });
+
     const correct: boolean = crypto.verify('md5', sig, 'mykey', sig);
+    crypto.verify('md5', sig, 'mykey', sig, (error: Error | null, result: boolean) => { });
 }
 
 {
@@ -830,6 +1028,7 @@ import { promisify } from 'node:util';
 }
 
 {
+    const callback = (error: Error | null, signature: Buffer): void => {};
     const key = crypto.createPrivateKey('pkey');
     crypto.sign('sha256', Buffer.from('asd'), {
         key: Buffer.from('keylike'),
@@ -846,6 +1045,14 @@ import { promisify } from 'node:util';
         key,
         dsaEncoding: 'der',
     });
+    crypto.sign('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der',
+    }, callback);
+    promisify(crypto.sign)('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der',
+    }).then((signature: Buffer) => {});
     crypto.createSign('sha256').update(Buffer.from('asd')).sign({
         key,
         dsaEncoding: 'der',
@@ -853,6 +1060,7 @@ import { promisify } from 'node:util';
 }
 
 {
+    const callback = (error: Error | null, result: boolean): void => {};
     const key = crypto.createPublicKey('pkey');
     crypto.verify(
         'sha256',
@@ -882,6 +1090,25 @@ import { promisify } from 'node:util';
         },
         Buffer.from('sig'),
     );
+    crypto.verify(
+        'sha256',
+        Buffer.from('asd'),
+        {
+            key,
+            dsaEncoding: 'der',
+        },
+        Buffer.from('sig'),
+        callback
+    );
+    promisify(crypto.verify)(
+        'sha256',
+        Buffer.from('asd'),
+        {
+            key,
+            dsaEncoding: 'der',
+        },
+        Buffer.from('sig'),
+    ).then((result: boolean) => {});
     crypto.createVerify('sha256').update(Buffer.from('asd')).verify(
         {
             key,
@@ -933,4 +1160,153 @@ import { promisify } from 'node:util';
 
 {
     crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
+}
+
+{
+    crypto.hkdf("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42, (err, derivedKey) => {});
+}
+
+{
+    const derivedKey = crypto.hkdfSync("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42);
+}
+
+{
+    const usage: crypto.SecureHeapUsage = crypto.secureHeapUsed();
+}
+
+{
+    crypto.randomUUID({});
+    crypto.randomUUID({ disableEntropyCache: true });
+    crypto.randomUUID({ disableEntropyCache: false });
+    crypto.randomUUID();
+}
+
+{
+    const cert = new crypto.X509Certificate('dummy');
+    cert.ca; // $ExpectType boolean
+    cert.fingerprint; // $ExpectType string
+    cert.fingerprint256; // $ExpectType string
+    cert.fingerprint512; // $ExpectType string
+    cert.infoAccess; // $ExpectType string | undefined
+    cert.issuer; // $ExpectType string
+    cert.issuerCertificate; // $ExpectType X509Certificate | undefined
+    cert.keyUsage; // $ExpectType string[]
+    cert.publicKey; // $ExpectType KeyObject
+    cert.raw; // $ExpectType Buffer
+    cert.serialNumber; // $ExpectType string
+    cert.subject; // $ExpectType string
+    cert.subjectAltName; // $ExpectType string | undefined
+    cert.validFrom; // $ExpectType string
+    cert.validTo; // $ExpectType string
+
+    const checkOpts: crypto.X509CheckOptions = {
+        multiLabelWildcards: true,
+        partialWildcards: true,
+        singleLabelSubdomains: true,
+        subject: 'always',
+        wildcards: true,
+    };
+
+    cert.checkEmail('test@test.com'); // $ExpectType string | undefined
+    cert.checkEmail('test@test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkEmail('test@test.com', { subject: 'always' }); // $ExpectType string | undefined
+    cert.checkHost('test.com'); // $ExpectType string | undefined
+    cert.checkHost('test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkIP('1.1.1.1'); // $ExpectType string | undefined
+    cert.checkIssued(new crypto.X509Certificate('dummycert')); // $ExpectType boolean
+    cert.checkPrivateKey(crypto.createPrivateKey('dummy')); // $ExpectType boolean
+    cert.toLegacyObject(); // $ExpectType PeerCertificate
+    cert.toJSON(); // $ExpectType string
+    cert.toString(); // $ExpectType string
+}
+
+{
+    crypto.generatePrime(123, (err: Error | null, prime: ArrayBuffer) => {});
+    crypto.generatePrime(123, { rem: 123n, add: 123n }, (err: Error | null, prime: ArrayBuffer) => {});
+    crypto.generatePrime(123, { bigint: true }, (err: Error | null, prime: bigint) => {});
+    crypto.generatePrime(123, { bigint: Math.random() > 0 }, (err: Error | null, prime: ArrayBuffer | bigint) => {});
+
+    crypto.generatePrimeSync(123); // $ExpectType ArrayBuffer
+    crypto.generatePrimeSync(123, { rem: 123n, add: 123n }); // $ExpectType ArrayBuffer
+    crypto.generatePrimeSync(123, { bigint: true }); // $ExpectType bigint
+    crypto.generatePrimeSync(123, { bigint: Math.random() > 0 }); // $ExpectType bigint | ArrayBuffer
+
+    crypto.checkPrime(123n, (err: Error | null, result: boolean) => {});
+    crypto.checkPrime(123n, { checks: 123 }, (err: Error | null, result: boolean) => {});
+
+    crypto.checkPrimeSync(123n); // $ExpectType boolean
+    crypto.checkPrimeSync(123n, { checks: 123 }); // $ExpectType boolean
+}
+
+{
+    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
+        for (const keyObject of [publicKey, privateKey]) {
+            if (keyObject.asymmetricKeyDetails) {
+                if (keyObject.asymmetricKeyDetails.modulusLength) {
+                    const modulusLength: number = keyObject.asymmetricKeyDetails.modulusLength;
+                }
+                if (keyObject.asymmetricKeyDetails.publicExponent) {
+                    const publicExponent: bigint = keyObject.asymmetricKeyDetails.publicExponent;
+                }
+                if (keyObject.asymmetricKeyDetails.divisorLength) {
+                    const divisorLength: number = keyObject.asymmetricKeyDetails.divisorLength;
+                }
+                if (keyObject.asymmetricKeyDetails.namedCurve) {
+                    const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
+                }
+                if (keyObject.asymmetricKeyDetails.mgf1HashAlgorithm) {
+                    const mgf1HashAlgorithm: string = keyObject.asymmetricKeyDetails.mgf1HashAlgorithm;
+                }
+                if (keyObject.asymmetricKeyDetails.hashAlgorithm) {
+                    const hashAlgorithm: string = keyObject.asymmetricKeyDetails.hashAlgorithm;
+                }
+                if (keyObject.asymmetricKeyDetails.saltLength) {
+                    const saltLength: number = keyObject.asymmetricKeyDetails.saltLength;
+                }
+            }
+        }
+    });
+    const secretKeyObject = crypto.createSecretKey(Buffer.from('secret'));
+    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
+        for (const keyObject of [publicKey, privateKey, secretKeyObject]) {
+            const jwk = keyObject.export({ format: 'jwk' });
+            jwk.crv;
+            jwk.d;
+            jwk.dp;
+            jwk.dq;
+            jwk.e;
+            jwk.k;
+            jwk.kty;
+            jwk.n;
+            jwk.p;
+            jwk.q;
+            jwk.qi;
+            jwk.x;
+            jwk.y;
+            crypto.createPublicKey({ key: jwk, format: 'jwk' });
+            crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+        }
+    });
+}
+
+{
+    const jwk = {
+        alg: 'ES256',
+        crv: 'P-256',
+        kty: 'EC',
+        x: 'ySK38C1jBdLwDsNWKzzBHqKYEE5Cgv-qjWvorUXk9fw',
+        y: '_LeQBw07cf5t57Iavn4j-BqJsAD1dpoz8gokd3sBsOo',
+        key_ops: ['sign'],
+    };
+    crypto.createPublicKey({ key: jwk, format: 'jwk' });
+    crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+}
+
+{
+    // tslint:disable-next-line no-object-literal-type-assertion (webcrypto.CryptoKey is a placeholder)
+    crypto.KeyObject.from({} as crypto.webcrypto.CryptoKey); // $ExpectType KeyObject
+}
+
+{
+    crypto.generateKeySync('aes', { length: 128 }); // $ExpectType KeyObject
 }

@@ -1,8 +1,8 @@
 import * as React from "react";
 
 export interface SideNavDetailsProps {
-    children?: React.ReactNode,
-    className?: string,
+    children?: React.ReactNode | undefined,
+    className?: string | undefined,
     title: string,
 }
 

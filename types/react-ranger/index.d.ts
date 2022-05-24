@@ -11,15 +11,15 @@ export interface RangerOptions {
     min: number;
     max: number;
     stepSize: number;
-    steps?: number[];
-    tickSize?: number;
-    ticks?: number[];
-    onChange?: (values: number[]) => void;
-    onDrag?: (values: number[]) => void;
+    steps?: number[] | undefined;
+    tickSize?: number | undefined;
+    ticks?: number[] | undefined;
+    onChange?: ((values: number[]) => void) | undefined;
+    onDrag?: ((values: number[]) => void) | undefined;
     interpolator?: {
         getPercentageForValue: (val: number, min: number, max: number) => number;
         getValueForClientX: (clientX: number, trackDims: object, min: number, max: number) => number;
-    };
+    } | undefined;
 }
 
 export interface TrackProps {

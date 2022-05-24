@@ -1,4 +1,4 @@
-// Type definitions for Selenium WebDriverJS 4.0
+// Type definitions for Selenium WebDriverJS 4.1
 // Project: https://github.com/SeleniumHQ/selenium
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
 //   Yuki Kokubun <https://github.com/Kuniwak>,
@@ -8,6 +8,8 @@
 //   Ziyu <https://github.com/oddui>
 //   Johann Wolf <https://github.com/beta-vulgaris>
 //   Aleksey Chemakin <https://github.com/Dzenly>
+//   David Burns <https://github.com/AutomatedTester>
+//   Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -24,6 +26,9 @@ import { promise } from './lib/promise';
 import * as logging from './lib/logging';
 import * as until from './lib/until';
 import * as safari from './safari';
+import { ShadowRootPromise } from './lib/webdriver';
+import { WebSocket } from 'ws';
+import { HttpResponse } from './networkinterceptor'
 
 export { By, ByHash } from './lib/by';
 export { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
@@ -47,7 +52,7 @@ export namespace error {
    */
   class WebDriverError extends IError {
     constructor(message?: string);
-    remoteStacktrace?: string;
+    remoteStacktrace?: string | undefined;
   }
 
   /**
@@ -272,9 +277,9 @@ export namespace error {
   function checkResponse(data: Response): Response;
 
   interface MaybeLegacyResponse {
-    status?: number;
-    value?: {message: string};
-    message?: string;
+    status?: number | undefined;
+    value?: {message: string} | undefined;
+    message?: string | undefined;
     getAlertText?(): string;
   }
 
@@ -307,6 +312,8 @@ export namespace error {
   function encodeError(err: any): {error: string, message: string};
 }
 
+type ConditionFn<T> = (webdriver: WebDriver) => T | null | Promise<T | null>;
+
 /**
  * Defines a condition for use with WebDriver's WebDriver#wait wait command.
  */
@@ -318,13 +325,13 @@ export class Condition<T> {
    *     evaluate on each iteration of the wait loop.
    * @constructor
    */
-  constructor(message: string, fn: (webdriver: WebDriver) => T);
+  constructor(message: string, fn: ConditionFn<T>);
 
   /** @return {string} A description of this condition. */
   description(): string;
 
   /** @type {function(!WebDriver): OUT} */
-  fn(webdriver: WebDriver): T;
+  fn(webdriver: WebDriver): ConditionFn<T>;
 }
 
 /**
@@ -589,14 +596,14 @@ export class AlertPromise extends Alert {
  */
 export interface ProxyConfig {
   proxyType: string;
-  proxyAutoconfigUrl?: string;
-  ftpProxy?: string;
-  httpProxy?: string;
-  sslProxy?: string;
-  noProxy?: string;
-  socksProxy?: string;
-  socksUsername?: string;
-  socksPassword?: string;
+  proxyAutoconfigUrl?: string | undefined;
+  ftpProxy?: string | undefined;
+  httpProxy?: string | undefined;
+  sslProxy?: string | undefined;
+  noProxy?: string | undefined;
+  socksProxy?: string | undefined;
+  socksUsername?: string | undefined;
+  socksPassword?: string | undefined;
 }
 
 /**
@@ -1064,25 +1071,25 @@ export interface IWebDriverOptionsCookie {
   /**
    * The cookie path. Defaults to "/" when adding a cookie.
    */
-  path?: string;
+  path?: string | undefined;
 
   /**
    * The domain the cookie is visible to. Defaults to the current browsing
    * context's document's URL when adding a cookie.
    */
-  domain?: string;
+  domain?: string | undefined;
 
   /**
    * Whether the cookie is a secure cookie. Defaults to false when adding a new
    * cookie.
    */
-  secure?: boolean;
+  secure?: boolean | undefined;
 
   /**
    * Whether the cookie is an HTTP only cookie. Defaults to false when adding a
    * new cookie.
    */
-  httpOnly?: boolean;
+  httpOnly?: boolean | undefined;
 
   /**
    * When the cookie expires.
@@ -1096,7 +1103,7 @@ export interface IWebDriverOptionsCookie {
    *
    * @type {(!Date|number|undefined)}
    */
-  expiry?: number|Date;
+  expiry?: number|Date | undefined;
 }
 
 export interface IWebDriverCookie extends IWebDriverOptionsCookie {
@@ -1108,7 +1115,7 @@ export interface IWebDriverCookie extends IWebDriverOptionsCookie {
    *
    * @type {(!number|undefined)}
    */
-  expiry?: number;
+  expiry?: number | undefined;
 }
 
 /**
@@ -1266,11 +1273,34 @@ export class Window {
   setRect({x, y, width, height}: Partial<IRectangle>): Promise<IRectangle>;
 
   /**
-   * Maximizes the current window.
+   * Maximizes the current window. The exact behavior of this command is
+   * specific to individual window managers, but typically involves increasing
+   * the window to the maximum available size without going full-screen.
    * @return {!Promise} A promise that will be resolved when the
    *     command has completed.
    */
   maximize(): Promise<void>;
+
+  /**
+   * Minimizes the current window. The exact behavior of this command is
+   * specific to individual window managers, but typically involves hiding
+   * the window in the system tray.
+   * @return {!Promise} A promise that will be resolved when the
+   *     command has completed.
+   */
+  minimize(): Promise<void>;
+
+  /**
+   * Invokes the "full screen" operation on the current window. The exact
+   * behavior of this command is specific to individual window managers, but
+   * this will typically increase the window size to the size of the physical
+   * display and hide the browser chrome.
+   *
+   * @return {!Promise<void>} A promise that will be resolved when the command
+   *     has completed.
+   * @see <https://fullscreen.spec.whatwg.org/#fullscreen-an-element>
+   */
+  fullsceen(): Promise<void>;
 
   // endregion
 }
@@ -1456,7 +1486,7 @@ export class FileDetector {
 }
 
 export type CreateSessionCapabilities =
-    Capabilities | {desired?: Capabilities, required?: Capabilities};
+    Capabilities | {desired?: Capabilities | undefined, required?: Capabilities | undefined};
 
 /**
  * Creates a new WebDriver client, which provides control over a browser.
@@ -1774,12 +1804,13 @@ export class WebDriver {
    * @param {number=} opt_timeout How long to wait for the condition to be true.
    * @param {string=} opt_message An optional message to use if the wait times
    *     out.
+   * @param {number=} opt_pollTimeout How long to wait between polling the condition.
    * @return {!WebElementPromise} A promise that will be fulfilled
    *     with the first truthy value returned by the condition function, or
    *     rejected if the condition times out.
    * @template T
    */
-  wait(condition: WebElementCondition, opt_timeout?: number, opt_message?: string):
+  wait(condition: WebElementCondition, opt_timeout?: number, opt_message?: string, opt_pollTimeout?: number):
       WebElementPromise;
 
   /**
@@ -1977,7 +2008,233 @@ export class WebDriver {
    */
   switchTo(): TargetLocator;
 
+  /**
+   * @param {!Function} webElementPromise The webElement in unresolved state
+   * @return {!Promise<!WebElement>} First single WebElement from array of resolved promises
+   */
+  normalize_(webElementPromise: Function): Promise<WebElement>;
+
+  /**
+   * @param {!Function} locatorFn The locator function to use.
+   * @param {!(WebDriver|WebElement)} context The search context.
+   * @return {!Promise<!WebElement>} A promise that will resolve to a list of
+   *     WebElements.
+   * @private
+   */
+  findElementInternal_(locatorFn: Function, context: WebDriver | WebElement): Promise<WebElement>;
+
+  /**
+   * @param {!Function} locatorFn The locator function to use.
+   * @param {!(WebDriver|WebElement)} context The search context.
+   * @return {!Promise<!Array<!WebElement>>} A promise that will resolve to an
+   *     array of WebElements.
+   * @private
+   */
+  findElementsInternal_(locatorFn: Function, context: WebDriver | WebElement): Promise<WebElement[]>;
+
+  /**
+   * Creates a new WebSocket connection.
+   * @return {!Promise<resolved>} A new CDP instance.
+   */
+  createCDPConnection(target: string): Promise<any>;
+
+  /**
+   * Retrieves 'webSocketDebuggerUrl' by sending a http request using debugger address
+   * @param {string} debuggerAddress
+   * @param target
+   * @param caps
+   * @return {string} Returns parsed webSocketDebuggerUrl obtained from the http request
+   */
+  getWsUrl(debuggerAddress: string, target: string, caps: Capabilities): Promise<string>;
+
+  /**
+   * Sets a listener for Fetch.authRequired event from CDP
+   * If event is triggered, it enter username and password
+   * and allows the test to move forward
+   * @param {string} username
+   * @param {string} password
+   * @param connection CDP Connection
+   */
+  register(username: string, password: string, connection: any): Promise<void>;
+
+  /**
+   * Handle Network interception requests
+   * @param connection WebSocket connection to the browser
+   * @param httpResponse Object representing what we are intercepting
+   *                     as well as what should be returned.
+   * @param callback callback called when we intercept requests.
+   */
+  onIntercept(connection: WebSocket, httpResponse: HttpResponse, callback: () => void): Promise<void>;
+
+  /**
+   *
+   * @param connection
+   * @param callback
+   * @returns {Promise<void>}
+   */
+  onLogEvent(connection: WebSocket, callback: (event: any) => void): Promise<void>;
+
+    /**
+   *
+   * @param connection
+   * @param callback
+   * @returns {Promise<void>}
+   */
+  onLogException(connection: WebSocket, callback: (event: any) => void): Promise<void>;
+
+  /**
+   * @param connection
+   * @param callback
+   * @returns {Promise<void>}
+   */
+  logMutationEvents(connection: WebSocket, callback: (event: any) => void): Promise<void>;
   // endregion
+}
+
+/**
+ * Creates a new WebDriver client for Chromium-based browsers.
+ */
+export class ChromiumWebDriver extends WebDriver {
+  /**
+   * This function is a no-op as file detectors are not supported by this
+   * implementation.
+   * @override
+   */
+  setFileDetector(): void;
+
+  /**
+   * Schedules a command to launch Chrome App with given ID.
+   * @param {string} id ID of the App to launch.
+   * @return {!Promise<void>} A promise that will be resolved
+   *     when app is launched.
+   */
+  launchApp(id: string): Promise<void>;
+
+  /**
+   * Schedules a command to get Chromium network emulation settings.
+   * @return {!Promise} A promise that will be resolved when network
+   *     emulation settings are retrievied.
+   */
+  getNetworkConditions(): Promise<any>;
+
+  /**
+   * Schedules a command to delete Chromium network emulation settings.
+   * @return {!Promise} A promise that will be resolved when network
+   *     emulation settings have been deleted.
+   */
+  deleteNetworkConditions(): Promise<any>;
+
+  /**
+   * Schedules a command to set Chromium network emulation settings.
+   *
+   * __Sample Usage:__
+   *
+   *  driver.setNetworkConditions({
+   *    offline: false,
+   *    latency: 5, // Additional latency (ms).
+   *    download_throughput: 500 * 1024, // Maximal aggregated download throughput.
+   *    upload_throughput: 500 * 1024 // Maximal aggregated upload throughput.
+   * });
+   *
+   * @param {Object} spec Defines the network conditions to set
+   * @return {!Promise<void>} A promise that will be resolved when network
+   *     emulation settings are set.
+   */
+  setNetworkConditions(spec: Object): Promise<void>;
+
+  /**
+   * Sends an arbitrary devtools command to the browser.
+   *
+   * @param {string} cmd The name of the command to send.
+   * @param {Object=} params The command parameters.
+   * @return {!Promise<void>} A promise that will be resolved when the command
+   *     has finished.
+   * @see <https://chromedevtools.github.io/devtools-protocol/>
+   */
+  sendDevToolsCommand(cmd: string, params: Object): Promise<void>;
+
+  /**
+   * Sends an arbitrary devtools command to the browser and get the result.
+   *
+   * @param {string} cmd The name of the command to send.
+   * @param {Object=} params The command parameters.
+   * @return {!Promise<string>} A promise that will be resolved when the command
+   *     has finished.
+   * @see <https://chromedevtools.github.io/devtools-protocol/>
+   */
+  sendAndGetDevToolsCommand(cmd: string, params: Object): Promise<string>;
+
+  /**
+   * Set a permission state to the given value.
+   *
+   * @param {string} name A name of the permission to update.
+   * @param {('granted'|'denied'|'prompt')} state State to set permission to.
+   * @returns {!Promise<Object>} A promise that will be resolved when the
+   *     command has finished.
+   * @see <https://w3c.github.io/permissions/#permission-registry> for valid
+   *     names
+   */
+  setPermission(name: string, state: 'granted' | 'denied' | 'prompt'): Promise<Object>;
+
+  /**
+   * Sends a DevTools command to change the browser's download directory.
+   *
+   * @param {string} path The desired download directory.
+   * @return {!Promise<void>} A promise that will be resolved when the command
+   *     has finished.
+   * @see #sendDevToolsCommand
+   */
+  setDownloadPath(path: string): Promise<void>;
+
+  /**
+   * Returns the list of cast sinks (Cast devices) available to the Chrome media router.
+   *
+   * @return {!promise.Thenable<void>} A promise that will be resolved with an array of Strings
+   *   containing the friendly device names of available cast sink targets.
+   */
+  getCastSinks(): Promise<string[]>;
+
+  /**
+   * Selects a cast sink (Cast device) as the recipient of media router intents (connect or play).
+   *
+   * @param {String} deviceName name of the target device.
+   * @return {!promise.Thenable<void>} A promise that will be resolved
+   *     when the target device has been selected to respond further webdriver commands.
+   */
+  setCastSinkToUse(deviceName: string): Promise<void>;
+  /**
+   * Initiates desktop mirroring for the current browser tab on the specified device.
+   *
+   * @param {String} deviceName name of the target device.
+   * @return {!promise.Thenable<void>} A promise that will be resolved
+   *     when the mirror command has been issued to the device.
+   */
+   startDesktopMirroring(deviceName: string): Promise<void>;
+
+  /**
+   * Initiates tab mirroring for the current browser tab on the specified device.
+   *
+   * @param {String} deviceName name of the target device.
+   * @return {!promise.Thenable<void>} A promise that will be resolved
+   *     when the mirror command has been issued to the device.
+   */
+  startCastTabMirroring(deviceName: string): Promise<void>;
+
+  /**
+   * Returns an error message when there is any issue in a Cast session.
+   * @return {!promise.Thenable<void>} A promise that will be resolved
+   *     when the mirror command has been issued to the device.
+   */
+  getCastIssueMessage(): Promise<string>;
+
+  /**
+   * Stops casting from media router to the specified device, if connected.
+   *
+   * @param {String} deviceName name of the target device.
+   * @return {!promise.Thenable<void>} A promise that will be resolved
+   *     when the stop command has been issued to the device.
+   */
+  stopCasting(deviceName: string): Promise<void>;
 }
 
 /**
@@ -2625,6 +2882,14 @@ export class WebElement implements Serializable<IWebElementId> {
    *     resolved to the screenshot as a base-64 encoded PNG.
    */
   takeScreenshot(opt_scroll?: boolean): Promise<string>;
+
+  /**
+   * Get the shadow root of the current web element.
+   * @returns {!Promise<ShadowRoot>} A promise that will be
+   *      resolved with the elements shadow root or rejected
+   *      with {@link NoSuchShadowRootError}
+   */
+  getShadowRoot(): ShadowRootPromise;
 
   /** @override */
   serialize(): Promise<IWebElementId>;

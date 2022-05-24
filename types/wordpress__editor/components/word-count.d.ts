@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 
 declare namespace WordCount {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const WordCount: ComponentType<WordCount.Props>;

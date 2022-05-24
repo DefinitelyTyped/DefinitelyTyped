@@ -1,4 +1,4 @@
-// Type definitions for hafas-client 5.12
+// Type definitions for hafas-client 5.22
 // Project: https://github.com/public-transport/hafas-client
 // Definitions by: Jürgen Bergmann <https://github.com/bergmannjg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,10 +33,12 @@ declare namespace createClient {
         trip?: boolean;
         radar?: boolean;
         refreshJourney?: boolean;
+        journeysFromTrip?: boolean;
         reachableFrom?: boolean;
         journeysWalkingSpeed?: boolean;
         tripsByName?: boolean;
         remarks?: boolean;
+        remarksGetPolyline?: boolean;
         lines?: boolean;
     }
     /**
@@ -82,6 +84,7 @@ declare namespace createClient {
         station?: Station;
         location?: Location;
         products?: Products;
+        lines?: ReadonlyArray<Line>;
         isMeta?: boolean;
         /** region ids */
         regions?: ReadonlyArray<string>;
@@ -107,6 +110,7 @@ declare namespace createClient {
         id?: string;
         name?: string;
         location?: Location;
+        station?: Station;
         products?: Products;
         lines?: ReadonlyArray<Line>;
         isMeta?: boolean;
@@ -146,6 +150,7 @@ declare namespace createClient {
         nr?: number;
         symbol?: string;
         directions?: ReadonlyArray<string>;
+        productName?: string;
     }
     /**
      * A route represents a single set of stations, of a single line.
@@ -193,25 +198,51 @@ declare namespace createClient {
         text: string;
         tripId?: string;
     }
-    interface Warning {
-        type: 'status' | 'warning';
-        id?: number;
-        icon?: string;
+    interface Status {
+        type: 'hint' | 'status' | 'foreign-id' | 'local-fare-zone' | 'stop-website' | 'stop-dhid' | 'transit-authority';
+        code?: string;
         summary?: string;
         text: string;
-        category?: string;
+        tripId?: string;
+    }
+    interface IcoCrd {
+        x: number;
+        y: number;
+        type?: string;
+    }
+    interface Edge {
+        fromLoc?: Station | Stop | Location;
+        toLoc?: Station | Stop | Location;
+        icon?: object;
+        dir?: number;
+        icoCrd?: IcoCrd;
+    }
+    interface Event {
+        fromLoc?: Station | Stop | Location;
+        toLoc?: Station | Stop | Location;
+        start?: string;
+        end?: string;
+        sections?: string[];
+    }
+    interface Warning {
+        type: 'status' | 'warning';
+        id?: string;
+        icon?: object;
+        summary?: string;
+        text?: string;
+        category?: string | number;
         priority?: number;
         products?: Products;
-        edges?: any[];
-        events?: any[];
-        validFrom?: string;
-        validUntil?: string;
-        modified?: string;
-        company?: any;
-        categories?: any[];
+        edges?: Edge[];
+        events?: Event[];
+        validFrom?: string | number;
+        validUntil?: string | number;
+        modified?: string | number;
+        company?: string;
+        categories?: number[];
         affectedLines?: Line[];
-        fromStops?: any[];
-        toStops?: any[];
+        fromStops?: ReadonlyArray<Station | Stop | Location>;
+        toStops?: ReadonlyArray<Station | Stop | Location>;
     }
     interface Geometry {
         type: 'Point';
@@ -219,7 +250,7 @@ declare namespace createClient {
     }
     interface Feature {
         type: 'Feature';
-        properties?: Station | Stop | object;
+        properties: object;
         geometry: Geometry;
     }
     interface FeatureCollection {
@@ -230,7 +261,7 @@ declare namespace createClient {
      * A stopover represents a vehicle stopping at a stop/station at a specific time.
      */
     interface StopOver {
-        stop: Station | Stop;
+        stop?: Station | Stop;
         /** null, if last stopOver of trip */
         departure?: string;
         departureDelay?: number;
@@ -247,7 +278,7 @@ declare namespace createClient {
         arrivalPlatform?: string;
         prognosedArrivalPlatform?: string;
         plannedArrivalPlatform?: string;
-        remarks?: ReadonlyArray<Hint | Warning>;
+        remarks?: ReadonlyArray<Hint | Status | Warning>;
         passBy?: boolean;
         cancelled?: boolean;
     }
@@ -256,8 +287,8 @@ declare namespace createClient {
      */
     interface Trip {
         id: string;
-        origin: Station | Stop;
-        destination: Station | Stop;
+        origin?: Station | Stop | Location;
+        destination?: Station | Stop | Location;
         departure?: string;
         plannedDeparture?: string;
         prognosedArrival?: string;
@@ -288,7 +319,7 @@ declare namespace createClient {
         cycle?: Cycle;
         alternatives?: ReadonlyArray<Alternative>;
         polyline?: FeatureCollection;
-        remarks?: ReadonlyArray<Hint | Warning>;
+        remarks?: ReadonlyArray<Hint | Status | Warning>;
     }
     interface Price {
         amount: number;
@@ -298,6 +329,7 @@ declare namespace createClient {
     interface Alternative {
         tripId: string;
         direction?: string;
+        location?: Location;
         line?: Line;
         stop?: Station | Stop;
         when?: string;
@@ -307,20 +339,23 @@ declare namespace createClient {
         platform?: string;
         plannedPlatform?: string;
         prognosedPlatform?: string;
-        remarks?: ReadonlyArray<Hint | Warning>;
+        remarks?: ReadonlyArray<Hint | Status | Warning>;
         cancelled?: boolean;
         loadFactor?: string;
         provenance?: string;
         previousStopovers?: ReadonlyArray<StopOver>;
         nextStopovers?: ReadonlyArray<StopOver>;
+        frames?: Frame[];
+        polyline?: FeatureCollection;
+        currentTripPosition?: Location;
     }
     /**
      * Leg of journey
      */
     interface Leg {
         tripId?: string;
-        origin: Station | Stop;
-        destination: Station | Stop;
+        origin?: Station | Stop | Location;
+        destination?: Station | Stop | Location;
         departure?: string;
         plannedDeparture?: string;
         prognosedArrival?: string;
@@ -351,7 +386,8 @@ declare namespace createClient {
         cycle?: Cycle;
         alternatives?: ReadonlyArray<Alternative>;
         polyline?: FeatureCollection;
-        remarks?: ReadonlyArray<Hint | Warning>;
+        remarks?: ReadonlyArray<Hint | Status | Warning>;
+        currentLocation?: Location;
     }
     interface ScheduledDays {
         [day: string]: boolean;
@@ -364,7 +400,7 @@ declare namespace createClient {
         type: 'journey';
         legs: ReadonlyArray<Leg>;
         refreshToken?: string;
-        remarks?: ReadonlyArray<Hint | Warning>;
+        remarks?: ReadonlyArray<Hint | Status | Warning>;
         price?: Price;
         cycle?: Cycle;
         scheduledDays?: ScheduledDays;
@@ -398,6 +434,10 @@ declare namespace createClient {
         timetableEnd?: string;
         serverTime?: string | number;
         realtimeDataUpdatedAt?: number;
+    }
+    interface LoyaltyCard {
+        type: string;
+        discount?: number;
     }
     interface JourneysOptions {
         /**
@@ -502,9 +542,70 @@ declare namespace createClient {
          */
         scheduledDays?: boolean;
         /**
+         * firstClass
+         * @default false
+         */
+        firstClass?: boolean;
+        /**
+         *  LoyaltyCard
+         *  @default none
+         */
+        loyaltyCard?: LoyaltyCard;
+        /**
          * @deprecated
          */
         when?: Date;
+    }
+    interface JourneysFromTripOptions {
+        /**
+         * return stations on the way?
+         * @default false
+         */
+        stopovers?: boolean;
+        /**
+         * minimum time for a single transfer in minutes
+         * @default 0
+         */
+        transferTime?: number;
+        /**
+         * 'none', 'partial' or 'complete'
+         * @default 'none'
+         */
+        accessibility?: string;
+        /**
+         * return stations on the way?
+         * @default false
+         */
+        /**
+         * return tickets?
+         * @default false
+         */
+        tickets?: boolean;
+        /**
+         * return leg shapes?
+         * @default false
+         */
+        polylines?: boolean;
+        /**
+         * parse & expose sub-stops of stations?
+         * @default true
+         */
+        subStops?: boolean;
+        /**
+         * parse & expose entrances of stops/stations?
+         * @default true
+         */
+        entrances?: boolean;
+        /**
+         * parse & expose hints & warnings?
+         * @default true
+         */
+        remarks?: boolean;
+        /**
+         * products
+         * @default undefined
+         */
+        products?: Products;
     }
     interface LocationsOptions {
         /**
@@ -669,6 +770,11 @@ declare namespace createClient {
          */
         includeRelatedStations?: boolean;
         /**
+         * products
+         * @default undefined
+         */
+        products?: Products;
+        /**
          * language
          * @default en
          */
@@ -733,6 +839,11 @@ declare namespace createClient {
          */
         stops?: boolean;
         /**
+         * products
+         * @default undefined
+         */
+        products?: Products;
+        /**
          * parse & expose sub-stops of stations?
          * @default true
          */
@@ -784,6 +895,11 @@ declare namespace createClient {
          * @default true
          */
         entrances?: boolean;
+        /**
+         * return leg shapes?
+         * @default false
+         */
+        polylines?: boolean;
     }
     interface BoundingBox {
         north: number;
@@ -806,7 +922,7 @@ declare namespace createClient {
          * optionally an object of booleans
          * @default null
          */
-        products?: boolean | object;
+        products?: Products;
         /**
          * compute frames for the next n seconds
          * @default 20
@@ -833,12 +949,25 @@ declare namespace createClient {
          */
         when?: Date;
     }
+    interface Filter {
+        type: string;
+        mode: string;
+        value: string;
+    }
     interface TripsByNameOptions {
         /**
          * departure date, undefined corresponds to Date.Now
          * @default undefined
          */
         when?: Date;
+        fromWhen?: Date;
+        untilWhen?: Date;
+        onlyCurrentlyRunning?: boolean;
+        products?: Products;
+        currentlyStoppingAt?: null;
+        lineName?: string;
+        operatorNames?: string[];
+        additionalFilters?: Filter[];
     }
     interface RemarksOptions {
         from?: Date | number;
@@ -849,6 +978,11 @@ declare namespace createClient {
          */
         results?: number;
         products?: Products;
+        /**
+         * return leg shapes? (not supported by all endpoints)
+         * @default false
+         */
+        polylines?: boolean;
         /**
          * Language of the results
          * @default en
@@ -876,7 +1010,7 @@ declare namespace createClient {
          * @param to uid of station
          * @param options options
          */
-        journeys: (from: string | Station | Location, to: string | Station | Location, options: JourneysOptions | undefined) => Promise<Journeys>;
+        journeys: (from: string | Station | Stop | Location, to: string | Station | Stop | Location, options: JourneysOptions | undefined) => Promise<Journeys>;
         /**
          * refreshes a Journey
          * @param refreshToken refreshToken must be a string, taken from {@link journey#refreshToken}
@@ -895,13 +1029,21 @@ declare namespace createClient {
          * @param station uid of station
          * @param options options
          */
-        departures: (station: string | Station, options: DeparturesArrivalsOptions | undefined) => Promise<ReadonlyArray<Alternative>>;
+        departures: (station: string | Station | Stop | Location, options: DeparturesArrivalsOptions | undefined) => Promise<ReadonlyArray<Alternative>>;
         /**
          * Retrieves arrivals
          * @param station uid of station
          * @param options options
          */
-        arrivals: (station: string | Station, options: DeparturesArrivalsOptions | undefined) => Promise<ReadonlyArray<Alternative>>;
+        arrivals: (station: string | Station | Stop | Location, options: DeparturesArrivalsOptions | undefined) => Promise<ReadonlyArray<Alternative>>;
+        /**
+         * Retrieves journeys from trip id to station
+         * @param fromTripId id of trip
+         * @param previousStopover previous stopover
+         * @param to uid of station or Station or Stop
+         * @param options options
+         */
+        journeysFromTrip?: (fromTripId: string, previousStopover: StopOver, to: string | Station | Stop | Location, opt: JourneysFromTripOptions | undefined) => Promise<ReadonlyArray<Journey>>;
         /**
          * Retrieves locations or stops
          * @param name name of station
@@ -913,7 +1055,7 @@ declare namespace createClient {
          * @param id uid of station
          * @param options options for search
          */
-        stop: (id: string, options: StopOptions | undefined) => Promise<Station | Stop | Location>;
+        stop: (id: string | Stop, options: StopOptions | undefined) => Promise<Station | Stop | Location>;
         /**
          * Retrieves nearby stops from location
          * @param location location

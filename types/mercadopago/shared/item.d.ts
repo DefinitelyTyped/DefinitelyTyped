@@ -1,14 +1,14 @@
 export interface Item {
   /** Nome do item. */
-  title?: string;
+  title?: string | undefined;
   /** Descrição do artigo. */
-  description?: string;
+  description?: string | undefined;
   /** URL da imagem. */
-  picture_url?: string;
+  picture_url?: string | undefined;
   /** Categoria do item. */
-  category_id?: string;
+  category_id?: string | undefined;
   /** Quantidade de itens. */
-  quantity?: number;
+  quantity?: number | undefined;
   /** Preço unitário. */
-  unit_price?: number;
+  unit_price?: number | undefined;
 }

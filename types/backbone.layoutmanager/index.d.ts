@@ -1,7 +1,7 @@
 // Type definitions for Backbone.LayoutManager 0.9
 // Project: http://layoutmanager.org/
 // Definitions by: He Jiang <https://github.com/hejiang2000>
-// Definitions: https://github.com/hejiang2000/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /// <reference types="jquery" />
@@ -10,13 +10,13 @@ import * as Backbone from 'backbone';
 
 declare module 'backbone' {
     interface LayoutOptions<TModel extends Model> extends ViewOptions<TModel> {
-        template?: string;
-        views?: { [viewName: string]: View<TModel> };
+        template?: string | undefined;
+        views?: { [viewName: string]: View<TModel> } | undefined;
     }
 
     interface LayoutManagerOptions {
-        manage?: boolean;
-        el?: boolean;
+        manage?: boolean | undefined;
+        el?: boolean | undefined;
     }
 
     class Layout<TModel extends Model> extends View<TModel> {

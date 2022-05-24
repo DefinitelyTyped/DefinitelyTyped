@@ -8,3 +8,7 @@ offset(mouseEvent);
 declare const touchEvent: TouchEvent;
 // $ExpectType [number, number]
 offset(touchEvent);
+
+const div = document.createElement('div');
+
+offset(touchEvent, div);

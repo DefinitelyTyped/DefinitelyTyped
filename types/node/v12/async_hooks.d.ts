@@ -1,13 +1,6 @@
 /**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
  */
-declare module 'node:async_hooks' {
-    export * from 'async_hooks';
-}
-
-/**
- * Async Hooks module: https://nodejs.org/api/async_hooks.html
- */
 declare module 'async_hooks' {
     /**
      * Returns the asyncId of the current execution context.
@@ -92,18 +85,18 @@ declare module 'async_hooks' {
     interface AsyncResourceOptions {
       /**
        * The ID of the execution context that created this async event.
-       * Default: `executionAsyncId()`
+       * @default executionAsyncId()
        */
-      triggerAsyncId?: number;
+      triggerAsyncId?: number | undefined;
 
       /**
        * Disables automatic `emitDestroy` when the object is garbage collected.
        * This usually does not need to be set (even if `emitDestroy` is called
        * manually), unless the resource's `asyncId` is retrieved and the
        * sensitive API's `emitDestroy` is called with it.
-       * Default: `false`
+       * @default false
        */
-      requireManualDestroy?: boolean;
+      requireManualDestroy?: boolean | undefined;
     }
 
     /**
@@ -118,7 +111,7 @@ declare module 'async_hooks' {
          * @param type The type of async event.
          * @param triggerAsyncId The ID of the execution context that created
          *   this async event (default: `executionAsyncId()`), or an
-         *   AsyncResourceOptions object (since 9.3)
+         *   AsyncResourceOptions object (since v9.3.0)
          */
         constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
 
@@ -151,7 +144,7 @@ declare module 'async_hooks' {
         /**
          * Call AsyncHooks destroy callbacks.
          */
-        emitDestroy(): void;
+        emitDestroy(): this;
 
         /**
          * @return the unique ID assigned to this AsyncResource instance.

@@ -1,5 +1,5 @@
-import * as net from 'node:net';
-import { LookupOneOptions } from 'node:dns';
+import * as net from 'net';
+import { LookupOneOptions } from 'dns';
 
 {
     const connectOpts: net.NetConnectOpts = {
@@ -12,6 +12,32 @@ import { LookupOneOptions } from 'node:dns';
     const socket: net.Socket = net.createConnection(connectOpts, (): void => {
         // nothing
     });
+}
+
+{
+    let _socket: net.Socket = new net.Socket({
+        fd: 1,
+        allowHalfOpen: false,
+        readable: false,
+        writable: false,
+    });
+
+    let bool: boolean;
+
+    bool = _socket.connecting;
+    bool = _socket.destroyed;
+
+    const _timeout: number | undefined = _socket.timeout;
+    _socket = _socket.setTimeout(500);
+
+    _socket = _socket.setNoDelay(true);
+    _socket = _socket.setKeepAlive(true, 10);
+    _socket = _socket.setEncoding('utf8');
+    _socket = _socket.resume();
+    _socket = _socket.resume();
+
+    _socket = _socket.end();
+    _socket = _socket.destroy();
 }
 
 {
@@ -111,6 +137,7 @@ import { LookupOneOptions } from 'node:dns';
 
         str = host;
     });
+    _socket = _socket.addListener("ready", () => { });
     _socket = _socket.addListener("timeout", () => { });
 
     /// emit
@@ -122,6 +149,7 @@ import { LookupOneOptions } from 'node:dns';
     bool = _socket.emit("error", error);
     bool = _socket.emit("lookup", error, str, str, str);
     bool = _socket.emit("lookup", error, str, num, str);
+    bool = _socket.emit("ready");
     bool = _socket.emit("timeout");
 
     /// on
@@ -148,6 +176,7 @@ import { LookupOneOptions } from 'node:dns';
 
         str = host;
     });
+    _socket = _socket.on("ready", () => { });
     _socket = _socket.on("timeout", () => { });
 
     /// once
@@ -174,6 +203,7 @@ import { LookupOneOptions } from 'node:dns';
 
         str = host;
     });
+    _socket = _socket.once("ready", () => { });
     _socket = _socket.once("timeout", () => { });
 
     /// prependListener
@@ -200,6 +230,7 @@ import { LookupOneOptions } from 'node:dns';
 
         str = host;
     });
+    _socket = _socket.prependListener("ready", () => { });
     _socket = _socket.prependListener("timeout", () => { });
 
     /// prependOnceListener
@@ -226,11 +257,11 @@ import { LookupOneOptions } from 'node:dns';
 
         str = host;
     });
+    _socket = _socket.prependOnceListener("ready", () => { });
     _socket = _socket.prependOnceListener("timeout", () => { });
 
-    bool = _socket.connecting;
-    bool = _socket.destroyed;
     _socket.destroy();
+    _socket.readyState; // $ExpectType SocketReadyState
 }
 
 {
@@ -292,4 +323,7 @@ import { LookupOneOptions } from 'node:dns';
         error = err;
     });
     _server = _server.prependOnceListener("listening", () => { });
+
+    _socket.destroy();
+    _server.close();
 }

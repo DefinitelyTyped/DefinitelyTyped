@@ -1,6 +1,8 @@
 // $ExpectType Static
 const glide = new Glide('.glide');
 
+new Glide('.glide', { direction: 'rtl' });
+
 glide.on('mount.after', () => {});
 
 const Transformer: Glide.TransformerFunction = (_Glide, _Components, _Events) => {

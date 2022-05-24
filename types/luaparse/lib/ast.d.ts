@@ -9,7 +9,7 @@ export interface Base<TType extends string> {
             line: number;
             column: number;
         };
-    };
+    } | undefined;
 }
 
 export interface LabelStatement extends Base<"LabelStatement"> {
@@ -95,7 +95,7 @@ export interface ForGenericStatement extends Base<"ForGenericStatement"> {
 
 export interface Chunk extends Base<"Chunk"> {
     body: Statement[];
-    comments?: string[];
+    comments?: string[] | undefined;
 }
 
 export interface Identifier extends Base<"Identifier"> {

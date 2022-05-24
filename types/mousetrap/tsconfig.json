@@ -20,7 +20,6 @@
     "files": [
         "index.d.ts",
         "test/index.ts",
-        "test/index-module.ts",
-        "test/global-bind.ts"
+        "test/index-module.ts"
     ]
 }

@@ -7,8 +7,8 @@
 
 interface LineReaderOptions {
     separator?: any;
-    encoding?: string;
-    bufferSize?: number;
+    encoding?: string | undefined;
+    bufferSize?: number | undefined;
 }
 
 interface Reader {

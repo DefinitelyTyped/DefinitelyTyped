@@ -1,5 +1,5 @@
 // Type definitions for printer 0.4
-// Project: http://github.com/tojocky/node-printer
+// Project: https://github.com/tojocky/node-printer
 // Definitions by: Christos Panagiotakopoulos <https://github.com/chrispanag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -19,18 +19,18 @@ export function getSupportedJobCommands(): string[];
 
 export interface PrintDirectOptions {
     data: string | Buffer;
-    printer?: string;
-    type?: 'RAW' | 'TEXT' | 'PDF' | 'JPEG' | 'POSTSCRIPT' | 'COMMAND' | 'AUTO';
-    options?: { [key: string]: string };
-    success?: PrintOnSuccessFunction;
-    error?: PrintOnErrorFunction;
+    printer?: string | undefined;
+    type?: 'RAW' | 'TEXT' | 'PDF' | 'JPEG' | 'POSTSCRIPT' | 'COMMAND' | 'AUTO' | undefined;
+    options?: { [key: string]: string } | undefined;
+    success?: PrintOnSuccessFunction | undefined;
+    error?: PrintOnErrorFunction | undefined;
 }
 
 export interface PrintFileOptions {
     filename: string;
-    printer?: string;
-    success?: PrintOnSuccessFunction;
-    error?: PrintOnErrorFunction;
+    printer?: string | undefined;
+    success?: PrintOnSuccessFunction | undefined;
+    error?: PrintOnErrorFunction | undefined;
 }
 
 export type PrintOnSuccessFunction = (jobId: string) => any;

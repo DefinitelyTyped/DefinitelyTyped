@@ -12,12 +12,12 @@
 
     md.use(markdownitEmoji, {
         defs: {
-            one: '!!!one!!!',
-            fifty: '!!50!!',
+            one: "!!!one!!!",
+            fifty: "!!50!!",
         },
         shortcuts: {
-            fifty: [':50', '|50'],
-            one: ':uno',
+            fifty: [":50", "|50"],
+            one: ":uno",
         },
     });
 }

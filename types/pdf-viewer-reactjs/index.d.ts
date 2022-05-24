@@ -7,26 +7,26 @@
 import { Component } from 'react';
 
 interface Document {
-    url?: string;
-    base64?: string;
+    url?: string | undefined;
+    base64?: string | undefined;
 }
 
 interface ShowThumbnail {
-    scale?: number;
-    rotationAngle?: number;
-    onTop?: boolean;
-    backgroundColor?: string;
-    thumbCss?: string;
-    selectedThumbCss?: string;
+    scale?: number | undefined;
+    rotationAngle?: number | undefined;
+    onTop?: boolean | undefined;
+    backgroundColor?: string | undefined;
+    thumbCss?: string | undefined;
+    selectedThumbCss?: string | undefined;
 }
 
 interface Watermark {
-    text?: string;
-    diagonal?: boolean;
-    opacity?: string;
-    font?: string;
-    size?: string;
-    color?: string;
+    text?: string | undefined;
+    diagonal?: boolean | undefined;
+    opacity?: string | undefined;
+    font?: string | undefined;
+    size?: string | undefined;
+    color?: string | undefined;
 }
 
 interface Err {
@@ -42,32 +42,32 @@ type MaxPageCount = (pageCount: number) => void;
 
 interface PDFViewerProps {
     document: Document;
-    withCredentials?: boolean;
-    password?: string;
-    loader?: React.ReactNode;
-    externalInput?: boolean;
-    page?: number;
-    scale?: number;
-    scaleStep?: number;
-    maxScale?: number;
-    minScale?: number;
-    css?: string;
-    canvasCss?: string;
-    rotationAngle?: number;
-    onDocumentClick?: DocClickHandler;
-    onPrevBtnClick?: BtnClickHandler;
-    onNextBtnClick?: BtnClickHandler;
-    onZoom?: ZoomClickHandler;
-    onRotation?: RotationClickHandler;
-    getMaxPageCount?: MaxPageCount;
-    hideNavbar?: boolean;
-    navbarOnTop?: boolean;
-    hideZoom?: boolean;
-    hideRotation?: boolean;
-    showThumbnail?: ShowThumbnail;
-    protectContent?: boolean;
-    watermark?: Watermark;
-    alert?: AlertHandler;
+    withCredentials?: boolean | undefined;
+    password?: string | undefined;
+    loader?: React.ReactNode | undefined;
+    externalInput?: boolean | undefined;
+    page?: number | undefined;
+    scale?: number | undefined;
+    scaleStep?: number | undefined;
+    maxScale?: number | undefined;
+    minScale?: number | undefined;
+    css?: string | undefined;
+    canvasCss?: string | undefined;
+    rotationAngle?: number | undefined;
+    onDocumentClick?: DocClickHandler | undefined;
+    onPrevBtnClick?: BtnClickHandler | undefined;
+    onNextBtnClick?: BtnClickHandler | undefined;
+    onZoom?: ZoomClickHandler | undefined;
+    onRotation?: RotationClickHandler | undefined;
+    getMaxPageCount?: MaxPageCount | undefined;
+    hideNavbar?: boolean | undefined;
+    navbarOnTop?: boolean | undefined;
+    hideZoom?: boolean | undefined;
+    hideRotation?: boolean | undefined;
+    showThumbnail?: ShowThumbnail | undefined;
+    protectContent?: boolean | undefined;
+    watermark?: Watermark | undefined;
+    alert?: AlertHandler | undefined;
     navigation?: any;
 }
 

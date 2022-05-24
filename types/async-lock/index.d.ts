@@ -1,7 +1,6 @@
 // Type definitions for async-lock 1.1
 // Project: https://github.com/rain1017/async-lock, https://github.com/rogierschouten/async-lock
-// Definitions by: Elisée MAURER <https://github.com/elisee>
-//                 Alejandro <https://github.com/afharo>
+// Definitions by: Alejandro <https://github.com/afharo>
 //                 Anatoly <https://github.com/rhymmor>
 //                 Humulus <https://github.com/humulus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,11 +9,12 @@
 type AsyncLockDoneCallback<T> = (err?: Error, ret?: T) => void;
 
 interface AsyncLockOptions {
-    timeout?: number;
-    maxPending?: number;
-    domainReentrant?: boolean;
+    timeout?: number | undefined;
+    maxPending?: number | undefined;
+    maxOccupationTime?: number | undefined;
+    domainReentrant?: boolean | undefined;
     Promise?: any;
-    skipQueue?: boolean;
+    skipQueue?: boolean | undefined;
 }
 
 declare class AsyncLock {

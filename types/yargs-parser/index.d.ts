@@ -1,4 +1,4 @@
-// Type definitions for yargs-parser 20.2
+// Type definitions for yargs-parser 21.0
 // Project: https://github.com/yargs/yargs-parser#readme
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,9 +7,9 @@
 declare namespace yargsParser {
     interface Arguments {
         /** Non-option arguments */
-        _: string[];
-        /** The script name or node command */
-        $0: string;
+        _: Array<string | number>;
+        /** Arguments after the end-of-options flag `--` */
+        '--'?: Array<string | number>;
         /** All remaining options */
         [argName: string]: any;
     }
@@ -68,43 +68,49 @@ declare namespace yargsParser {
 
     interface Options {
         /** An object representing the set of aliases for a key: `{ alias: { foo: ['f']} }`. */
-        alias?: { [key: string]: string | string[] };
+        alias?: { [key: string]: string | string[] } | undefined;
         /**
          * Indicate that keys should be parsed as an array: `{ array: ['foo', 'bar'] }`.
          * Indicate that keys should be parsed as an array and coerced to booleans / numbers:
          * { array: [ { key: 'foo', boolean: true }, {key: 'bar', number: true} ] }`.
          */
-        array?: string[] | Array<{ key: string; boolean?: boolean, number?: boolean }>;
+        array?:
+            | string[]
+            | Array<{ key: string; boolean?: boolean | undefined; number?: boolean | undefined }>
+            | undefined;
         /** Arguments should be parsed as booleans: `{ boolean: ['x', 'y'] }`. */
-        boolean?: string[];
+        boolean?: string[] | undefined;
         /** Indicate a key that represents a path to a configuration file (this file will be loaded and parsed). */
-        config?: string | string[] | { [key: string]: boolean };
+        config?: string | string[] | { [key: string]: boolean } | undefined;
         /** Provide configuration options to the yargs-parser. */
-        configuration?: Partial<Configuration>;
+        configuration?: Partial<Configuration> | undefined;
         /**
          * Provide a custom synchronous function that returns a coerced value from the argument provided (or throws an error), e.g.
          * `{ coerce: { foo: function (arg) { return modifiedArg } } }`.
          */
-        coerce?: { [key: string]: (arg: any) => any };
+        coerce?: { [key: string]: (arg: any) => any } | undefined;
         /** Indicate a key that should be used as a counter, e.g., `-vvv = {v: 3}`. */
-        count?: string[];
+        count?: string[] | undefined;
         /** Provide default values for keys: `{ default: { x: 33, y: 'hello world!' } }`. */
-        default?: { [key: string]: any };
+        default?: { [key: string]: any } | undefined;
         /** Environment variables (`process.env`) with the prefix provided should be parsed. */
-        envPrefix?: string;
+        envPrefix?: string | undefined;
         /** Specify that a key requires n arguments: `{ narg: {x: 2} }`. */
-        narg?: { [key: string]: number };
+        narg?: { [key: string]: number } | undefined;
         /** `path.normalize()` will be applied to values set to this key. */
-        normalize?: string[];
+        normalize?: string[] | undefined;
         /** Keys should be treated as strings (even if they resemble a number `-x 33`). */
-        string?: string[];
+        string?: string[] | undefined;
         /** Keys should be treated as numbers. */
-        number?: string[];
+        number?: string[] | undefined;
     }
 
     interface Parser {
         (argv: string | string[], opts?: Options): Arguments;
         detailed(argv: string | string[], opts?: Options): DetailedArguments;
+        camelCase(str: string): string;
+        decamelize(str: string, joinString?: string): string;
+        looksLikeNumber(value: string | number | null | undefined): boolean;
     }
 }
 

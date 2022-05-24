@@ -26,8 +26,8 @@ s.transaction().then( ( a ) => t = a );
 //
 
 interface GUserAttributes {
-    id? : number;
-    username? : string;
+    id? : number | undefined;
+    username? : string | undefined;
 }
 
 interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
@@ -42,8 +42,8 @@ var schema : Sequelize.DefineAttributes = {
 s.define('user', schema);
 
 interface GTaskAttributes {
-    revision? : number;
-    name? : string;
+    revision? : number | undefined;
+    name? : string | undefined;
 }
 interface GTaskInstance extends Sequelize.Instance<GTaskAttributes> {
   upRevision(): void;
@@ -340,9 +340,9 @@ customer.countBranches({ scope: 'baz' }).then((result: number) => { });
 
 
 interface ProductAttributes {
-    id?: number;
-    name?: string;
-    price?: number;
+    id?: number | undefined;
+    name?: string | undefined;
+    price?: number | undefined;
 };
 
 interface ProductInstance extends Sequelize.Instance<ProductAttributes>, ProductAttributes {
@@ -358,9 +358,9 @@ interface ProductInstance extends Sequelize.Instance<ProductAttributes>, Product
 };
 
 interface BarcodeAttributes {
-    id?: number;
-    code?: string;
-    dateIssued?: Date;
+    id?: number | undefined;
+    code?: string | undefined;
+    dateIssued?: Date | undefined;
 };
 
 interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, BarcodeAttributes {
@@ -371,9 +371,9 @@ interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, Barcode
 };
 
 interface WarehouseAttributes {
-    id?: number;
-    address?: string;
-    capacity?: number;
+    id?: number | undefined;
+    address?: string | undefined;
+    capacity?: number | undefined;
 };
 
 interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, WarehouseAttributes {
@@ -403,9 +403,9 @@ interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, War
 };
 
 interface BranchAttributes {
-    id?: number;
-    address?: string;
-    rank?: number;
+    id?: number | undefined;
+    address?: string | undefined;
+    rank?: number | undefined;
 };
 
 interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAttributes {
@@ -435,15 +435,15 @@ interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAtt
 };
 
 interface WarehouseBranchAttributes {
-    distance?: number;
+    distance?: number | undefined;
 };
 
 interface WarehouseBranchInstance extends Sequelize.Instance<WarehouseBranchAttributes>, WarehouseBranchAttributes { };
 
 interface CustomerAttributes {
-    id?: number;
-    fullname?: string;
-    credit?: number;
+    id?: number | undefined;
+    fullname?: string | undefined;
+    credit?: number | undefined;
 };
 
 interface CustomerInstance extends Sequelize.Instance<CustomerAttributes>, CustomerAttributes {

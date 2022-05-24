@@ -37,6 +37,8 @@ export class CylinderGeometry extends BufferGeometry {
         thetaStart: number;
         thetaLength: number;
     };
+
+    static fromJSON(data: any): CylinderGeometry;
 }
 
 export { CylinderGeometry as CylinderBufferGeometry };

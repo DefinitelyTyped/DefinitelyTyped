@@ -6,8 +6,13 @@ const element = new Element();
 // $ExpectType Button
 new Button(element);
 
-// $ExpectType void
+// $ExpectType Button | null
+Button.getInstance(element);
+// $ExpectType Button
+Button.getOrCreateInstance(element);
+
+// $ExpectType JQuery<HTMLElement>
 $('.alert').button();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').button('toggle');

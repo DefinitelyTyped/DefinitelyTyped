@@ -18,6 +18,7 @@ const strategyOptions: StrategyOptions = {
 const verifyFunction: VerifyFunction = (
     accessToken: string,
     refreshToken: string,
+    expires_in: number,
     profile: Profile,
     done: VerifyCallback,
 ) => {
@@ -25,6 +26,7 @@ const verifyFunction: VerifyFunction = (
         profile,
         accessToken,
         refreshToken,
+        expires_in
     };
 
     done(null, user);
@@ -43,6 +45,7 @@ const verifyFunctionWithRequest: VerifyFunctionWithRequest = (
     req: Request,
     accessToken: string,
     refreshToken: string,
+    expires_in: number,
     profile: Profile,
     done: VerifyCallback,
 ) => {
@@ -50,6 +53,7 @@ const verifyFunctionWithRequest: VerifyFunctionWithRequest = (
         profile,
         accessToken,
         refreshToken,
+        expires_in
     };
 
     done(null, user);

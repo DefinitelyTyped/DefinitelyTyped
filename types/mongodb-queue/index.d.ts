@@ -3,7 +3,7 @@
 // Definitions by: FiveOFive <https://github.com/FiveOFive>
 //                 codejockie <https://github.com/codejockie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 4.1
 
 import { Db, MongoError } from 'mongodb';
 
@@ -34,10 +34,10 @@ declare namespace mongodbQueue {
     type ArrayPayload = Array<string | Record<string, unknown>>;
 
     interface QueueOptions {
-        deadQueue?: Queue;
-        delay?: number;
-        maxRetries?: number;
-        visibility?: number;
+        deadQueue?: Queue | undefined;
+        delay?: number | undefined;
+        maxRetries?: number | undefined;
+        visibility?: number | undefined;
     }
 
     interface QueueMessage {

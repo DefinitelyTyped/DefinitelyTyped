@@ -1,12 +1,8 @@
-declare module 'node:worker_threads' {
-    export * from 'worker_threads';
-}
-
 declare module 'worker_threads' {
-    import { Context } from 'node:vm';
-    import EventEmitter = require('node:events');
-    import { Readable, Writable } from 'node:stream';
-    import { promises } from 'node:fs';
+    import { Context } from 'vm';
+    import EventEmitter = require('events');
+    import { Readable, Writable } from 'stream';
+    import { promises } from 'fs';
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -63,39 +59,39 @@ declare module 'worker_threads' {
     }
 
     interface WorkerOptions {
-        eval?: boolean;
-        env?: NodeJS.ProcessEnv | typeof SHARE_ENV;
+        eval?: boolean | undefined;
+        env?: NodeJS.ProcessEnv | typeof SHARE_ENV | undefined;
         workerData?: any;
-        stdin?: boolean;
-        stdout?: boolean;
-        stderr?: boolean;
-        execArgv?: string[];
-        resourceLimits?: ResourceLimits;
+        stdin?: boolean | undefined;
+        stdout?: boolean | undefined;
+        stderr?: boolean | undefined;
+        execArgv?: string[] | undefined;
+        resourceLimits?: ResourceLimits | undefined;
         /**
          * Additional data to send in the first worker message.
          */
-        transferList?: TransferListItem[];
-        trackUnmanagedFds?: boolean;
+        transferList?: TransferListItem[] | undefined;
+        trackUnmanagedFds?: boolean | undefined;
     }
 
     interface ResourceLimits {
         /**
          * The maximum size of a heap space for recently created objects.
          */
-        maxYoungGenerationSizeMb?: number;
+        maxYoungGenerationSizeMb?: number | undefined;
         /**
          * The maximum size of the main heap in MB.
          */
-        maxOldGenerationSizeMb?: number;
+        maxOldGenerationSizeMb?: number | undefined;
         /**
          * The size of a pre-allocated memory range used for generated code.
          */
-        codeRangeSizeMb?: number;
+        codeRangeSizeMb?: number | undefined;
         /**
          * The default maximum stack size for the thread. Small values may lead to unusable Worker instances.
          * @default 4
          */
-        stackSizeMb?: number;
+        stackSizeMb?: number | undefined;
     }
 
     class Worker extends EventEmitter {
@@ -103,7 +99,7 @@ declare module 'worker_threads' {
         readonly stdout: Readable;
         readonly stderr: Readable;
         readonly threadId: number;
-        readonly resourceLimits?: ResourceLimits;
+        readonly resourceLimits?: ResourceLimits | undefined;
 
         constructor(filename: string, options?: WorkerOptions);
 

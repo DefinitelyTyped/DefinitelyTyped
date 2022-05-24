@@ -2,6 +2,7 @@
 // Project: https://github.com/nswbmw/koa-mongo
 // Definitions by: Andrea Giurgola <https://github.com/Shqrp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 import { Middleware } from "koa";
 import { Db, MongoClient, MongoClientOptions } from "mongodb";
@@ -16,12 +17,12 @@ declare module "koa" {
 
 declare namespace mongo {
   interface ConnectionOptions extends Options {
-    host?: string;
-    port?: number;
-    db?: string;
-    authSource?: string;
-    uri?: string;
-    url?: string;
+    host?: string | undefined;
+    port?: number | undefined;
+    db?: string | undefined;
+    authSource?: string | undefined;
+    uri?: string | undefined;
+    url?: string | undefined;
   }
 }
 

@@ -21,6 +21,7 @@ export class Timestamp extends jspb.Message {
   static serializeBinaryToWriter(message: Timestamp, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): Timestamp;
   static deserializeBinaryFromReader(message: Timestamp, reader: jspb.BinaryReader): Timestamp;
+  static fromDate(date: Date): Timestamp;
 }
 
 export namespace Timestamp {

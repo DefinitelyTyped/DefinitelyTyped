@@ -7,9 +7,9 @@
 
 
 interface IOptions {
-    base?: string;
-    cwd?: string;
-    merge?: boolean;
+    base?: string | undefined;
+    cwd?: string | undefined;
+    merge?: boolean | undefined;
 }
 
 interface IRev {

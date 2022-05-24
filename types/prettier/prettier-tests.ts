@@ -1,16 +1,18 @@
 import * as prettier from 'prettier';
 import { ExpressionStatement, CallExpression, Identifier } from 'babel-types';
 import * as prettierStandalone from 'prettier/standalone';
-import typescriptParser = require('prettier/parser-typescript');
-import graphqlParser = require('prettier/parser-graphql');
+import angularParser = require('prettier/parser-angular');
 import babelParser = require('prettier/parser-babel');
+import espreeParser = require('prettier/parser-espree');
+import flowParser = require('prettier/parser-flow');
+import glimmerParser = require('prettier/parser-glimmer');
+import graphqlParser = require('prettier/parser-graphql');
 import htmlParser = require('prettier/parser-html');
 import markdownParser = require('prettier/parser-markdown');
-import postcssParser = require('prettier/parser-postcss');
-import yamlParser = require('prettier/parser-yaml');
 import meriyahParser = require('prettier/parser-meriyah');
-import espreeParser = require('prettier/parser-espree');
-import glimmerParser = require('prettier/parser-glimmer');
+import postcssParser = require('prettier/parser-postcss');
+import typescriptParser = require('prettier/parser-typescript');
+import yamlParser = require('prettier/parser-yaml');
 import * as doc from 'prettier/doc';
 
 const formatted = prettier.format('foo ( );', { semi: false });
@@ -73,20 +75,26 @@ prettier.clearConfigCache();
 const currentSupportInfo = prettier.getSupportInfo();
 
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel' });
+// $ExpectError
+prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', rangeStart: 2 });
+// $ExpectError
+prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', rangeEnd: 2 });
 
 prettierStandalone.format(' 1', { parser: 'babel' });
 prettierStandalone.check(' console.log(b)');
 
-typescriptParser.parsers.typescript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
-graphqlParser.parsers.graphql.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+angularParser.parsers.__ng_action.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 babelParser.parsers.babel.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+espreeParser.parsers.espree.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+flowParser.parsers.flow.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+glimmerParser.parsers.glimmer.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+graphqlParser.parsers.graphql.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 htmlParser.parsers.html.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+meriyahParser.parsers.meriyah.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 postcssParser.parsers.css.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+typescriptParser.parsers.typescript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
-meriyahParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
-espreeParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
-glimmerParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 
 prettier.format('hello world', {
     plugins: [typescriptParser, graphqlParser, babelParser, htmlParser, markdownParser, postcssParser, yamlParser],
@@ -128,8 +136,8 @@ const plugin: prettier.Plugin<PluginAST> = {
     printers: {
         lines: {
             print(path, options, print) {
-                path; // $ExpectType FastPath<PluginAST>
-                print; // $ExpectType (path: FastPath<PluginAST>) => Doc
+                path; // $ExpectType AstPath<PluginAST>
+                print; // $ExpectType (path: AstPath<PluginAST>) => Doc
 
                 const node = path.getValue();
                 node; // $ExpectType PluginAST
@@ -218,7 +226,177 @@ const plugin: prettier.Plugin<PluginAST> = {
             array: true,
             default: [{ value: ['./pathA.js', './pathB.js'] }],
         },
+        testNoDefaultOption: {
+            since: '1.0.0',
+            type: 'path',
+            category: 'Test',
+        },
     },
 };
 
 prettier.format('a line!', { parser: 'lines', plugins: [plugin] });
+
+prettier.format('pluginSearchDir is empty', {
+    pluginSearchDirs: [],
+});
+
+prettier.format('pluginSearchDir is not empty', {
+    pluginSearchDirs: ['/a', '/b'],
+});
+
+prettier.format('pluginSearchDir is not empty and mixed with weird stuff', {
+    pluginSearchDirs: ['c', 'd', ''],
+});
+
+prettier.format('pluginSearchDir is false', {
+    pluginSearchDirs: false,
+});
+
+prettier.format('pluginSearchDir can not be true', {
+    // $ExpectError
+    pluginSearchDirs: true,
+});
+
+prettier.format('singleAttributePerLine is available', {
+    singleAttributePerLine: true,
+});
+
+type NestedAst = Nested1 | Nested2 | Nested3;
+interface Nested1 {
+    kind: '1';
+    item2: Nested2;
+    list2: Nested2[];
+}
+interface Nested2 {
+    kind: '2';
+    item3: Nested3;
+    list3: Nested3[];
+}
+interface Nested3 {
+    kind: '3';
+    item1: Nested1;
+    list1: Nested1[];
+}
+
+function print(
+    // Using Nested1 because we're assuming you've already determined the kind
+    // of node based on some discriminated union. If you're determining the kind
+    // of node within the same place that you need access to the path, it's
+    // easiest to do something the to effect of:
+    //
+    //     if (node.kind === "1") {
+    //       const nodePath = path as AstPath<typeof node>;
+    //     }
+    //
+    // In the example above, nodePath will then be a type-narrowed version of
+    // the path variable that you can then use to correctly type the tree-walk
+    // functions.
+    path: prettier.AstPath<Nested1>,
+    options: prettier.ParserOptions<NestedAst>,
+    print: (path: prettier.AstPath<NestedAst>) => prettier.doc.builders.Doc,
+): prettier.doc.builders.Doc {
+    path.call(child => {
+        child; // $ExpectType AstPath<Nested1>
+    });
+
+    path.call(child => {
+        child; // $ExpectType AstPath<Nested2>
+    }, 'item2');
+
+    path.call(
+        child => {
+            child; // $ExpectType AstPath<Nested3>
+        },
+        'item2',
+        'item3',
+    );
+
+    path.call(
+        child => {
+            child; // $ExpectType AstPath<Nested1>
+        },
+        'item2',
+        'item3',
+        'item1',
+    );
+
+    path.call(
+        child => {
+            child; // $ExpectType AstPath<Nested2>
+        },
+        'item2',
+        'item3',
+        'item1',
+        'item2',
+    );
+
+    path.call(
+        child => {
+            child; // $ExpectType AstPath<any>
+        },
+        'item2',
+        'item3',
+        'item1',
+        'item2',
+        'item3',
+    );
+
+    path.each(child => {
+        child; // $ExpectType AstPath<Nested2>
+    }, 'list2');
+
+    path.each(
+        child => {
+            child; // $ExpectType AstPath<Nested3>
+        },
+        'list2',
+        0,
+        'list3',
+    );
+
+    path.each(
+        child => {
+            child; // $ExpectType AstPath<any>
+        },
+        'list2',
+        0,
+        'list3',
+        0,
+        'list1',
+    );
+
+    path.map(child => {
+        child; // $ExpectType AstPath<Nested2>
+    }, 'list2');
+
+    path.map(
+        child => {
+            child; // $ExpectType AstPath<Nested3>
+        },
+        'list2',
+        0,
+        'list3',
+    );
+
+    path.map(
+        child => {
+            child; // $ExpectType AstPath<any>
+        },
+        'list2',
+        0,
+        'list3',
+        0,
+        'list1',
+    );
+
+    path.call(print, 'list2'); // $ExpectError
+    path.call(print, 'item2', 'list3'); // $ExpectError
+
+    path.each(print, 'item2'); // $ExpectError
+    path.each(print, 'item2', 'item3'); // $ExpectError
+
+    path.map(print, 'item2'); // $ExpectError
+    path.map(print, 'item2', 'item3'); // $ExpectError
+
+    return '';
+}

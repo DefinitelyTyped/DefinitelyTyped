@@ -12,7 +12,8 @@ import {
 import { IndexRouteProps } from "react-router/lib/IndexRoute";
 
 export interface RouteProps<Props = any> extends IndexRouteProps<Props> {
-    path?: RoutePattern;
+    children?: React.ReactNode;
+    path?: RoutePattern | undefined;
 }
 
 type Route = ComponentClass<RouteProps>;
@@ -24,8 +25,8 @@ type RouteCallback = (err: any, route: PlainRoute) => void;
 type RoutesCallback = (err: any, routesArray: PlainRoute[]) => void;
 
 export interface PlainRoute<Props = any> extends RouteProps<Props> {
-    childRoutes?: PlainRoute[];
+    childRoutes?: PlainRoute[] | undefined;
     getChildRoutes?(partialNextState: LocationState, callback: RoutesCallback): void;
-    indexRoute?: PlainRoute;
+    indexRoute?: PlainRoute | undefined;
     getIndexRoute?(partialNextState: LocationState, callback: RouteCallback): void;
 }

@@ -16,17 +16,35 @@ const cbNumber = (err: Error | null, result: any) => {
 
 redis.set('foo', 'bar');
 redis.get('foo', cb);
+redis.getdel('foo', cb);
 
-redis.getrangeBuffer("foo", 0, 1, cb);
-redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
+redis.set('foo', 'bar');
+redis.getex('foo', cb);
+redis.getex('key', 'PX', 10);
+redis.getex('key', (err, data) => {});
+redis.getex('key', 'PX', 10, (err, data) => {});
+redis.getdel('foo', cb);
+
+redis.set('foo', 'bar');
+redis.getrangeBuffer('foo', 0, 1, cb);
+redis.getrangeBuffer('foo', 0, 1).then(b => cb(null, b));
 
 // Static check that returned value is always a number
 redis.del('foo', 'bar').then(result => result * 1);
 
 // Test OverloadedListCommand
+redis.del('foo').then(result => result * 1);
 redis.del(['foo', 'bar']).then(result => result * 1);
 redis.del('foo', 'bar', cbNumber);
 redis.del(['foo', 'bar'], cbNumber);
+redis.rpop('list', cb);
+redis.rpop('list', 2, cb);
+redis.rpop('list').then(console.log);
+redis.rpop('list', 2).then(console.log);
+redis.lpop('list', cb);
+redis.lpop('list', 2, cb);
+redis.lpop('list').then(console.log);
+redis.lpop('list', 2).then(console.log);
 redis.brpop('list', 0).then(console.log);
 redis.brpop('listA', 'listB', 0).then(console.log);
 redis.brpop(['listA', 'listB', 0]).then(console.log);
@@ -59,6 +77,7 @@ redis.mget('key').then(console.log);
 redis.mget('key', cbNumber);
 redis.mget('key', 'foo', 'bar').then(console.log);
 redis.mget('key', 'foo', 'bar', cbNumber);
+redis.mgetBuffer('key', 'foo', 'bar');
 redis.pfcount('key').then(console.log);
 redis.pfcount('key', cbNumber);
 redis.pfcount('key', 'foo', 'bar').then(console.log);
@@ -69,11 +88,18 @@ redis.sinter('keya', 'keyb').then(console.log);
 redis.sinter('keya', 'keyb', cb);
 redis.sunion('keya', 'keyb').then(console.log);
 redis.sunion('keya', 'keyb', cb);
+redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '6', '7', '8', cb);
+redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '6', '7', '8').then(console.log);
 
 // Test list index command
 redis.rpush('lposlist', 'foo', 'bar', 'baz');
 redis.lpos('lposlist', 'foo').then(console.log);
 redis.lpos('lposlist', 'baz', 0, 1, 3).then(console.log);
+
+redis.lmove('source', 'destination', 'LEFT', 'RIGHT').then(console.log);
+redis.lmove('source', 'destination', 'RIGHT', 'LEFT', cb);
+redis.blmove('source', 'destination', 'LEFT', 'RIGHT', 0).then(console.log);
+redis.blmove('source', 'destination', 'RIGHT', 'LEFT', 0, cb);
 
 // Test OverloadedKeyCommand
 redis.hdel('foo', 'bar').then(console.log);
@@ -122,6 +148,12 @@ redis.zadd('myset', 'NX', 'CH', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 1, 'member', cb);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member', cb);
+redis.zscore('myset', 'member').then(console.log);
+redis.zscore('myset', 'member', cb);
+redis.zmscore('myset', 'member').then(console.log);
+redis.zmscore('myset', 'member', cb);
+redis.zmscore('myset', 'member', 'member2').then(console.log);
+redis.zmscore('myset', 'member', 'member2', cb);
 redis.zrem('myset', 'member').then(console.log);
 redis.zrem('myset', 'member', cbNumber);
 redis.zrem('myset', 'member', 'member2').then(console.log);
@@ -156,6 +188,8 @@ redis.zscan('key', 0, 'MATCH', '*foo*', 'COUNT', 100).then(console.log);
 redis.zscan('key', 0, 'MATCH', '*foo*', 'COUNT', 100, cb);
 redis.pfadd('key', 'a', 'b', 'c').then(console.log);
 redis.pfadd('key', 'a', 'b', 'c', cbNumber);
+redis.bitfield('key', ['INCRBY', 'i5', '100', '1', 'GET', 'u4', '0'], cb);
+redis.bitfield('key', ['INCRBY', 'i5', '100', '1', 'GET', 'u4', '0']).then(console.log);
 
 // Test OverloadedKeyedHashCommand for hset
 redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);
@@ -179,11 +213,24 @@ redis.hmset('foo', { a: 'b', c: 4 }).then(console.log);
 redis.hmset('foo', { a: 'b', c: 4 }, cb);
 redis.hmset('foo', new Map<string, number>(), cb);
 
+// Test OverloadedKeyedHashCommand for hmset
+redis.hmgetBuffer('foo', '1', '2', '3', '4', '5').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', '3', '4', '5', cb);
+redis.hmgetBuffer('foo', '1', '2', '3', '4').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', '3', '4', cb);
+redis.hmgetBuffer('foo', '1', '2', '3').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', '3', cb);
+redis.hmgetBuffer('foo', '1', '2').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', cb);
+redis.hmgetBuffer('foo', '1').then(console.log);
+redis.hmgetBuffer('foo', '1', cb);
+
 // Test OverloadedHashCommand
 redis.mset('1', '2', '3', 4, '5', new Buffer([])).then(console.log);
 redis.mset('1', '2', '3', 4, '5', new Buffer([]), cb);
 redis.mset('1', '2', '3', 4).then(console.log);
 redis.mset('1', '2', '3', 4);
+redis.msetBuffer('1', ('Buffer.from2'), '3', Buffer.from('4'));
 redis.mset('1', '2').then(console.log);
 redis.mset('1', ['1', 2]);
 redis.mset({ a: 'b', c: 4 }).then(console.log);
@@ -201,13 +248,19 @@ redis.msetnx(new Map<string, number>(), cbNumber);
 
 // Test for GEO commands
 redis.geoadd('Sicily', 13.361389, 38.115556, 'Palermo', cbNumber);
-redis.geoadd('Sicily', 15.087269 , 37.502669, 'Catania').then(console.log);
+redis.geoadd('Sicily', 15.087269, 37.502669, 'Catania').then(console.log);
 redis.geodist('Sicily', 'Palermo', 'Catania', 'km', cb);
 redis.geodist('Sicily', 'Palermo', 'Catania', 'km').then(console.log);
 redis.geohash('Sicily', 'Palermo', 'Catania').then(console.log);
 redis.geopos('Sicily', 'Palermo', 'Catania').then(console.log);
 redis.georadius('Sicily', 15, 37, 200, 'km').then(console.log);
 redis.georadiusbymember('Sicily', 'Palermo', 200, 'km').then(console.log);
+redis
+    .geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYBOX', 200, 300, 'km', 'ASC', 'WITHCOORD', 'WITHDIST')
+    .then(console.log);
+redis.geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYBOX', 200, 300, 'km', 'COUNT', 1, 'ASC').then(console.log);
+redis.geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYRADIUS', 200, 'km', 'ASC').then(console.log);
+redis.geosearch('Sicily', 'FROMMEMBER', 'Catania', 'BYBOX', 200, 300, 'km', 'ASC').then(console.log);
 
 // Test for memory usage
 redis.memory('USAGE', 'foo').then(console.log);
@@ -236,6 +289,18 @@ redis.get('foo').then((result: string | null) => {
 redis.sadd('set', 1, 3, 5, 7);
 redis.sadd('set', [1, 3, 5, 7]);
 
+// Test for ISMEMBER and MISMEMBER
+redis.sadd('set', 'val1', 'val2');
+redis.sismember('set', 'val1').then(console.log);
+redis.smismember('set', ...['val1', 'val2', 'val3']).then(console.log);
+
+// Test for flushdb
+redis.set('test', 'random');
+redis.flushdb('async');
+redis.get('test').then(result => {
+    console.log('result should be null', result);
+});
+
 // All arguments are passed directly to the redis server:
 redis.set('key', '100');
 redis.set('key', '100', 'XX');
@@ -263,6 +328,15 @@ const listData = ['foo', 'bar', 'baz'];
 listData.forEach(value => {
     redis.rpushBuffer('bufferlist', Buffer.from(value));
 });
+
+redis.lindexBuffer('bufferlist', 0, (err, result) => {
+    if (result.toString() !== listData[0]) {
+        console.log(result.toString());
+    }
+});
+
+redis.lindexBuffer('bufferlist', 0).then(console.log);
+
 redis.lpopBuffer('bufferlist', (err, result) => {
     if (result.toString() !== listData[0]) {
         console.log(result.toString());
@@ -275,6 +349,11 @@ redis.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, results) => {
         }
     });
 });
+
+// Test redis disconnect
+redis.disconnect();
+redis.disconnect(true);
+redis.disconnect(false);
 
 // Test OverloadedSubCommand
 redis.cluster('INFO').then(console.log);
@@ -317,6 +396,9 @@ new Redis({
     port: 6379, // Redis port
     host: '127.0.0.1', // Redis host
     family: 4, // 4 (IPv4) or 6 (IPv6)
+    noDelay: true,
+    stringNumbers: false,
+    maxScriptsCachingTime: 60000,
     username: 'user',
     password: 'auth',
     db: 0,
@@ -328,7 +410,12 @@ new Redis({
     tls: {
         servername: 'tlsservername',
     },
-    enableAutoPipelining: true
+    enableAutoPipelining: true,
+    disconnectTimeout: 1000
+});
+// Test commandTimeout
+new Redis({
+    commandTimeout: 5000
 });
 
 const pub = new Redis();
@@ -397,6 +484,14 @@ Redis.Command.setArgumentTransformer('set', args => {
 
 Redis.Command.setReplyTransformer('get', (result: any) => {
     return result;
+});
+
+redis.scan(0).then(([nextCursor, keys]) => {
+    // nextCursor is always a string
+    if (nextCursor === '0') {
+        // keys is always an array of strings and it might be empty
+        return keys.map(key => key.trim());
+    }
 });
 
 redis.scan(0, 'match', '*foo*', 'count', 20).then(([nextCursor, keys]) => {
@@ -496,13 +591,15 @@ redis.xadd('streamName', 'MAXLEN', 100, '*', 'field', 'name');
 redis.xadd('streamName', 'MAXLEN', '~', 100, '*', 'field', 'name');
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id').then(console.log);
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id', cb);
+redis.xautoclaim('streamName', 'groupName', 'consumerName', 3600000, 'id').then(console.log);
 redis.xdel('streamName', 'id').then(console.log);
 redis.xdel('streamName', 'id', cbNumber);
 redis.xgroup('CREATE', 'streamName', 'groupName', '$').then(console.log);
 redis.xgroup('CREATE', 'streamName', 'groupName', '$', cb);
 redis.xgroup('SETUP', 'streamName', 'groupName', '$');
 redis.xgroup('DESTROY', 'streamName', 'groupName');
-redis.xgroup('DELCONSUMER', 'streamName', 'groupName', 'consumerName');
+redis.xgroup('CREATECONSUMER', 'streamName', 'groupName', 'consumerName').then(console.log);
+redis.xgroup('DELCONSUMER', 'streamName', 'groupName', 'consumerName').then(console.log);
 redis.xinfo('CONSUMERS', 'streamName', 'groupName').then(console.log);
 redis.xinfo('CONSUMERS', 'streamName', 'groupName', cb);
 redis.xinfo('GROUPS', 'streamName');
@@ -586,16 +683,22 @@ new Redis.Cluster([], {
 });
 
 // Cluster types
+const clusterNodes: Redis.ClusterNode[] = [
+    {
+        host: 'localhost',
+        port: 6379,
+    },
+];
+
 const clusterOptions: Redis.ClusterOptions = {};
-const cluster = new Redis.Cluster(
-    [
-        {
-            host: 'localhost',
-            port: 6379,
-        },
-    ],
-    clusterOptions,
-);
+
+const cluster = new Redis.Cluster(clusterNodes, clusterOptions);
+
+cluster.duplicate(); // $ExpectType Cluster
+cluster.duplicate(clusterNodes); // $ExpectType Cluster
+cluster.duplicate(clusterNodes, clusterOptions); // $ExpectType Cluster
+cluster.duplicate(undefined, clusterOptions); // $ExpectType Cluster
+
 cluster.on('end', () => console.log('on end'));
 cluster.nodes().map(node => {
     node.pipeline()
@@ -702,6 +805,7 @@ cluster.hgetall('key', cb);
 cluster.incrby('key', 15).then(console.log);
 cluster.incrby('key', 15, cb);
 
+cluster.disconnect(true);
 cluster.disconnect();
 cluster.quit(result => {
     console.log(result);
@@ -724,7 +828,8 @@ new Command('mget', ['key1', 'key2']);
 new Command('get', ['key2'], { replyEncoding: 'utf8' });
 
 // Test all z*bylex commands in a single pipeline
-redis.pipeline()
+redis
+    .pipeline()
     .zrangebylex('foo', '-', '+', (err: Error | null, res: string[]) => {
         // do something with res or err
     })
@@ -746,8 +851,20 @@ redis.pipeline()
         // do something with res or err
     });
 
+// Test rpushx and lpushx for pushing several elements
+redis.pipeline()
+    .lpush('lpushxlist', 'foo')
+    .lpushx('lpushxlist', 'bar', 1)
+    .rpushx('rpushxlist', 'hoge', 2);
+
+// Test mgetBuffer and msetBuffer
+redis.pipeline()
+    .msetBuffer('msetbuffer1', Buffer.from('msetBuffer'), 'msetbuffer2', Buffer.from('msetBuffer'))
+    .mgetBuffer('msetbuffer1', 'msetbuffer2');
+
 redis.options.host;
 redis.status;
+cluster.isCluster;
 cluster.options.maxRedirections;
 cluster.status;
 

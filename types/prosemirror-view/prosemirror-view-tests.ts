@@ -14,6 +14,8 @@ Decoration.widget(0, x => x.dom, 'this argument should be an object, not a strin
 const widgetDecoration = Decoration.widget<{ a: number }>(0, x => x.dom, { a: 1 });
 widgetDecoration.spec.a; // $ExpectType number
 widgetDecoration.spec.stopEvent; // $ExpectType ((event: Event) => boolean) | null | undefined
+widgetDecoration.spec.ignoreSelection; // $ExpectType boolean | undefined
+widgetDecoration.spec.destroy; // $ExpectType ((node: Node) => void) | undefined
 
 Decoration.node<{ a: number }>(0, 10, {}, { a: '' }); // $ExpectError
 const nodeDecoration = Decoration.node<{ a: number }>(0, 10, {}, { a: 1 });
@@ -51,6 +53,8 @@ const res4_plugin = new state.Plugin<string, typeof schema.schema>({
 
 const res5_view = new view.EditorView<typeof schema.schema>(undefined, {
     state: {} as any, // this is not part of the test
+
+    plugins: [],
 
     dispatchTransaction(tr) {
         // From DirectEditorProps

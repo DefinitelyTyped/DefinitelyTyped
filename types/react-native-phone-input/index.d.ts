@@ -30,97 +30,97 @@ export interface ReactNativePhoneInputProps<TextComponentType extends React.Comp
     /**
      * Initial selected country
      */
-    initialCountry?: string;
+    initialCountry?: string | undefined;
     /**
      * Allow user input 0 after country code
      */
-    allowZeroAfterCountryCode?: boolean;
+    allowZeroAfterCountryCode?: boolean | undefined;
     /**
      * If true, disable all interaction of this component
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * Initial phone number
      */
-    value?: string;
+    value?: string | undefined;
     /**
      * Custom styles to be applied if supplied
      */
-    style?: ViewStyle;
+    style?: ViewStyle | undefined;
     /**
      * Custom styles for flag image eg. {{width: 50, height: 30, borderWidth:0}}
      */
-    flagStyle?: ViewStyle;
+    flagStyle?: ViewStyle | undefined;
     /**
      * Custom styles for phone number text input eg. {{fontSize: 14}}
      */
-    textStyle?: TextStyle;
+    textStyle?: TextStyle | undefined;
     /**
      * Properties for phone number text input eg. {{placeholder: 'Telephone number'}}
      */
-    textProps?: React.ComponentProps<TextComponentType>;
+    textProps?: React.ComponentProps<TextComponentType> | undefined;
     /**
      * The input component to use
      */
-    textComponent?: TextComponentType;
+    textComponent?: TextComponentType | undefined;
     /**
      * Distance between flag and phone number
      */
-    offset?: number;
+    offset?: number | undefined;
     /**
      * Set button color of country picker
      */
-    pickerButtonColor?: string;
+    pickerButtonColor?: string | undefined;
     /**
      * Set background color of country picker
      */
-    pickerBackgroundColor?: string;
+    pickerBackgroundColor?: string | undefined;
     /**
      * Custom styles for text in country picker eg. {{fontSize: 14}}
      */
-    pickerItemStyle?: ViewStyle;
+    pickerItemStyle?: ViewStyle | undefined;
     /**
      * Cancel word
      */
-    cancelText?: string;
+    cancelText?: string | undefined;
     /**
      * Confirm word
      */
-    confirmText?: string;
+    confirmText?: string | undefined;
     /**
      * Custom styles for country picker button
      */
-    buttonTextStyle?: TextStyle;
+    buttonTextStyle?: TextStyle | undefined;
     /**
      * Function to be invoked when phone number is changed
      */
-    onChangePhoneNumber?: (number: string) => void;
+    onChangePhoneNumber?: ((number: string) => void) | undefined;
     /**
      * Function to be invoked when country picker is selected
      */
-    onSelectCountry?: (iso2: string) => void;
+    onSelectCountry?: ((iso2: string) => void) | undefined;
     /**
      * Function to be invoked when press on flag image
      */
-    onPressFlag?: () => void;
+    onPressFlag?: (() => void) | undefined;
     /**
      * Custom countries list
      */
-    countriesList?: ReadonlyArray<CountriesListItem>;
+    countriesList?: ReadonlyArray<CountriesListItem> | undefined;
     /**
      * Function to be invoked when cancelling country picker selection
      */
-    onPressCancel?: () => void;
+    onPressCancel?: (() => void) | undefined;
     /**
      * Function to be invoked when confirming country picker selection
      */
-    onPressConfirm?: () => void;
+    onPressConfirm?: (() => void) | undefined;
 }
 
 export default class ReactNativePhoneInput<
                    TextComponentType extends React.ComponentType = typeof TextInput
                > extends React.Component<ReactNativePhoneInputProps<TextComponentType>> {
-                   picker?: React.Ref<ThisType<ReactNativePhoneInput>>;
+                   picker?: React.Ref<ThisType<ReactNativePhoneInput>> | undefined;
                    /**
                     * Return true if current phone number is valid
                     */

@@ -6,7 +6,7 @@
 
 declare function quantile(p: number, options?: Options): number;
 declare function quantile(p: number[], options?: Options & { dtype?: undefined }): number[];
-declare function quantile(p: Data, options?: Options & { dtype?: 'float64' }): Float64Array;
+declare function quantile(p: Data, options?: Options & { dtype?: 'float64' | undefined }): Float64Array;
 declare function quantile(p: Data, options: Options & { dtype: 'int8' }): Int8Array;
 declare function quantile(p: Data, options: Options & { dtype: 'uint8' }): Uint8Array;
 declare function quantile(p: Data, options: Options & { dtype: 'uint8_clamped' }): Uint8ClampedArray;
@@ -65,17 +65,17 @@ interface MatrixLike {
 
 interface Options {
     /** mean parameter, default=1 */
-    lambda?: number;
+    lambda?: number | undefined;
     /** boolean indicating if the function should return a new data structure, default=true */
-    copy?: boolean;
+    copy?: boolean | undefined;
     /** accessor function for accessing array values */
-    accessor?: (d: Data, i: number) => any;
+    accessor?: ((d: Data, i: number) => any) | undefined;
     /** deep get/set key path */
-    path?: string;
+    path?: string | undefined;
     /** deep get/set key path separator, default="." */
-    sep?: string;
+    sep?: string | undefined;
     /** output data type, default="float64" */
-    dtype?: DataType;
+    dtype?: DataType | undefined;
 }
 
 export = quantile;

@@ -15,12 +15,12 @@ import {
 export interface ButtonProps
     extends TouchableOpacityProps,
     Pick<TextProps, 'allowFontScaling'> {
-    containerStyle?: StyleProp<ViewStyle>;
-    disabledContainerStyle?: StyleProp<ViewStyle>;
-    style?: StyleProp<TextStyle>;
-    styleDisabled?: StyleProp<TextStyle>;
-    childGroupStyle?: StyleProp<ViewStyle>;
-    androidBackground?: object;
+    containerStyle?: StyleProp<ViewStyle> | undefined;
+    disabledContainerStyle?: StyleProp<ViewStyle> | undefined;
+    style?: StyleProp<TextStyle> | undefined;
+    styleDisabled?: StyleProp<TextStyle> | undefined;
+    childGroupStyle?: StyleProp<ViewStyle> | undefined;
+    androidBackground?: object | undefined;
 }
 
 export default class Button extends Component<ButtonProps> {

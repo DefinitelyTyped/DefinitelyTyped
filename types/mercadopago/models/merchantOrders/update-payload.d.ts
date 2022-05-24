@@ -7,5 +7,5 @@ export interface  UpdateMerchantOrderItem extends Omit<MerchantOrderItem, 'id'> 
 
 export interface UpdateMerchantOrderPayload extends Omit<CreateMerchantOrderPayload, 'items'> {
   id: number | string;
-  items?: UpdateMerchantOrderItem[];
+  items?: UpdateMerchantOrderItem[] | undefined;
 }

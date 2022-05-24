@@ -28,12 +28,12 @@ export interface ResultCallback<T> {
 }
 
 export interface StreamOptions<TStream extends Stream<TByteType>, TByteType = any> {
-    highWaterMark?: number;
-    byteLength?: ByteLengthFunction<TStream, TByteType>;
-    open?: (this: TStream, cb: Callback) => void;
-    destroy?: (this: TStream, cb: Callback) => void;
-    predestroy?: (this: TStream, cb: Callback) => void;
-    signal?: AbortSignalLike;
+    highWaterMark?: number | undefined;
+    byteLength?: ByteLengthFunction<TStream, TByteType> | undefined;
+    open?: ((this: TStream, cb: Callback) => void) | undefined;
+    destroy?: ((this: TStream, cb: Callback) => void) | undefined;
+    predestroy?: ((this: TStream, cb: Callback) => void) | undefined;
+    signal?: AbortSignalLike | undefined;
 }
 
 /* tslint:disable-next-line interface-over-type-literal - cause: https://github.com/microsoft/TypeScript/issues/15300 */
@@ -101,8 +101,8 @@ export interface BaseReadableOptions<
     TMapType,
     TByteType
 > extends StreamOptions<TStream, TByteType> {
-    read?: (this: TStream, cb: ResultCallback<TType>) => void;
-    byteLengthReadable?: ByteLengthFunction<TStream, TByteType>;
+    read?: ((this: TStream, cb: ResultCallback<TType>) => void) | undefined;
+    byteLengthReadable?: ByteLengthFunction<TStream, TByteType> | undefined;
 }
 
 export type ReadableOptions<
@@ -115,7 +115,7 @@ export type ReadableOptions<
     (
         | {}
         | {
-              map?: TMapFallback;
+              map?: TMapFallback | undefined;
               mapReadable: MapFunction<TStream, TType, TMapType>;
           }
         | {
@@ -170,10 +170,10 @@ export interface BaseWritableOptions<
     TMapType,
     TByteType
 > extends StreamOptions<TStream, TByteType> {
-    writev?: (this: TStream, batch: TMapType[], cb: Callback) => void;
-    write?: (this: TStream, data: TMapType, cb: Callback) => void;
-    final?: (this: TStream, cb: Callback) => void;
-    byteLengthWritable?: ByteLengthFunction<TStream, TByteType>;
+    writev?: ((this: TStream, batch: TMapType[], cb: Callback) => void) | undefined;
+    write?: ((this: TStream, data: TMapType, cb: Callback) => void) | undefined;
+    final?: ((this: TStream, cb: Callback) => void) | undefined;
+    byteLengthWritable?: ByteLengthFunction<TStream, TByteType> | undefined;
 }
 
 export type WritableOptions<
@@ -186,7 +186,7 @@ export type WritableOptions<
     (
         | {}
         | {
-              map?: TMapFallback;
+              map?: TMapFallback | undefined;
               mapWritable: MapFunction<TStream, TType, TMapType>;
           }
         | {
@@ -228,9 +228,9 @@ export type DuplexOptions<
     TWritable extends boolean = boolean
 > = BaseReadableOptions<TStream, TInternal, TReadType, TByteType> &
     BaseWritableOptions<TStream, TWriteType, TInternal, TInternal> & {
-        map?: MapFunction<TStream, TByteType, TByteType>;
-        mapReadable?: MapFunction<TStream, TInternal, TReadType>;
-        mapWritable?: MapFunction<TStream, TWriteType, TInternal>;
+        map?: MapFunction<TStream, TByteType, TByteType> | undefined;
+        mapReadable?: MapFunction<TStream, TInternal, TReadType> | undefined;
+        mapWritable?: MapFunction<TStream, TWriteType, TInternal> | undefined;
     };
 
 export type DuplexEvents<TWriteType, TReadType> = ReadableEvents<TReadType> & WritableEvents<TWriteType>;
@@ -273,8 +273,8 @@ export interface TransformOptions<
     TReadable extends boolean = true,
     TWritable extends boolean = true
 > extends DuplexOptions<TStream, TWriteType, TReadType, TInternal, TByteType, TReadable, TWritable> {
-    transform?: (this: TStream, data: TWriteType, cb: ResultCallback<TReadType>) => void;
-    flush?: (this: TStream, cb: Callback) => void;
+    transform?: ((this: TStream, data: TWriteType, cb: ResultCallback<TReadType>) => void) | undefined;
+    flush?: ((this: TStream, cb: Callback) => void) | undefined;
 }
 
 export class Transform<

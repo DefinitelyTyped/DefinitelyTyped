@@ -1,4 +1,4 @@
-// Type definitions for opentok v2.10.0
+// Type definitions for opentok v2.13.0
 // Project: https://github.com/opentok/opentok-node
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
@@ -18,7 +18,8 @@ declare module 'opentok' {
       duration: string;
       id: string;
       name: string;
-      partnerId: string;
+      partnerId?: string;
+      projectId?: string;
       reason: string;
       sessionId: string;
       size: number;
@@ -26,17 +27,20 @@ declare module 'opentok' {
       hasAudio: boolean;
       hasVideo: boolean;
       outputMode: OutputMode;
-      resolution?: '640x480' | '1280x720';
+      resolution?: '640x480' | '1280x720' | undefined;
+      streamMode?: 'auto' | 'manual' | undefined;
+      streams?: Stream[] | undefined;
       url: string;
     }
 
     export interface ArchiveOptions {
-      name?: string;
-      hasAudio?: boolean;
-      hasVideo?: boolean;
-      outputMode?: OutputMode;
-      layout?: ArchiveLayoutOptions;
-      resolution?: string;
+      name?: string | undefined;
+      hasAudio?: boolean | undefined;
+      hasVideo?: boolean | undefined;
+      outputMode?: OutputMode | undefined;
+      layout?: ArchiveLayoutOptions | undefined;
+      resolution?: string | undefined;
+      streamMode?: 'auto' | 'manual' | undefined;
     }
 
     export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions;
@@ -55,9 +59,20 @@ declare module 'opentok' {
     export type ArchiveMode = 'manual' | 'always';
 
     export interface SessionOptions {
-      mediaMode?: MediaMode;
-      archiveMode?: ArchiveMode;
-      location?: string;
+      mediaMode?: MediaMode | undefined;
+      archiveMode?: ArchiveMode | undefined;
+      location?: string | undefined;
+    }
+
+    export interface Stream {
+      streamId: string;
+      hasAudio: boolean;
+      hasVideo: boolean;
+    }
+
+    export interface PatchStream {
+      hasAudio?: boolean | undefined;
+      hasVideo?: boolean | undefined;
     }
 
     export interface Session {
@@ -67,31 +82,33 @@ declare module 'opentok' {
     export type Token = string;
 
     export interface DialOptions {
-      headers?: { [key: string]: string };
-      auth?: { [key: string]: string };
+      headers?: { [key: string]: string } | undefined;
+      auth?: { [key: string]: string } | undefined;
       secure: boolean;
       from: string;
+      video?: boolean;
+      observeForceMute?: boolean;
     }
 
     export type Role = 'subscriber' | 'publisher' | 'moderator';
 
     export interface TokenOptions {
-      role?: Role;
-      data?: string;
-      expireTime?: number;
-      initialLayoutClassList?: string[];
+      role?: Role | undefined;
+      data?: string | undefined;
+      expireTime?: number | undefined;
+      initialLayoutClassList?: string[] | undefined;
     }
 
     export interface ListArchivesOptions {
-      count?: number;
-      offset?: number;
-      sessionId?: string;
+      count?: number | undefined;
+      offset?: number | undefined;
+      sessionId?: string | undefined;
     }
 
     export type BroadcastLayoutType = 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation' | 'focus';
 
     export interface BroadcastLayoutOptions {
-      type?: BroadcastLayoutType;
+      type?: BroadcastLayoutType | undefined;
     }
 
     export interface CustomBroadcastLayoutOptions {
@@ -105,30 +122,31 @@ declare module 'opentok' {
       id: string;
       serverUrl: string;
       streamName: string;
-      status?: string;
+      status?: string | undefined;
     }
 
     export interface BroadcastOutputOptions {
-      hls?: {};
-      rtmp?: BroadcastOutputOptionsRtmp[];
+      hls?: {} | undefined;
+      rtmp?: BroadcastOutputOptionsRtmp[] | undefined;
     }
 
     export interface BroadcastOptions {
       outputs: BroadcastOutputOptions;
-      maxDuration?: number;
-      resolution?: '640x480' | '1280x720';
+      maxDuration?: number | undefined;
+      resolution?: '640x480' | '1280x720' | undefined;
+      streamMode?: 'auto' | 'manual' | undefined;
       layout: BroadcastLayout;
     }
 
     export interface ListBroadcastsOptions {
-      count?: number;
-      offset?: number;
-      sessionId?: string;
+      count?: number | undefined;
+      offset?: number | undefined;
+      sessionId?: string | undefined;
     }
 
     export interface BroadcastUrlsResponse {
-      hls?: string;
-      rtmp?: BroadcastOutputOptionsRtmp[];
+      hls?: string | undefined;
+      rtmp?: BroadcastOutputOptionsRtmp[] | undefined;
     }
 
     export interface Broadcast {
@@ -169,7 +187,7 @@ declare module 'opentok' {
       id: string;
       name: string;
       layoutClassList: string[];
-      videoType: 'camera' | 'screen';
+      videoType: 'camera' | 'screen' | 'custom';
     }
   }
 
@@ -186,7 +204,8 @@ declare module 'opentok' {
       token: OpenTok.Token,
       sipUri: string,
       options: OpenTok.DialOptions,
-    ): OpenTok.SipInterconnect;
+      callback: (error: Error | null, sipInterconnect: OpenTok.SipInterconnect) => void,
+    ): void;
     public forceDisconnect(sessionId: string, connectionId: string, callback: (error: Error | null) => void): void;
     public generateToken(sessionId: string, options?: OpenTok.TokenOptions): OpenTok.Token;
     public getArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
@@ -208,6 +227,20 @@ declare module 'opentok' {
       callback: (error: Error | null, broadcasts?: OpenTok.Broadcast[]) => void,
     ): void;
     public listStreams(sessionId: string, callback: (error: Error | null, streams?: OpenTok.Stream[]) => void): void;
+    public addArchiveStream(archiveId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
+    public removeArchiveStream(archiveId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
+    public addBroadcastStream(broadcastId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
+    public removeBroadcastStream(broadcastId: string, streamId: string, options: OpenTok.PatchStream,
+      callback: (error: Error | null) => void): void;
+    public playDTMF(
+      sessionId: string,
+      connectionId: string,
+      digits: string,
+      callback: (error: Error | null) => void,
+    ): void;
     public setArchiveLayout(
       archiveId: string,
       type: OpenTok.BroadcastLayoutType | 'custom',

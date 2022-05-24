@@ -90,7 +90,7 @@ export function fetchQuery<TQuery extends OperationType>(
     query: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>,
     options?: {
-        fetchPolicy?: FetchQueryFetchPolicy;
-        networkCacheConfig?: CacheConfig;
+        fetchPolicy?: FetchQueryFetchPolicy | undefined;
+        networkCacheConfig?: CacheConfig | undefined;
     },
 ): Observable<TQuery['response']>;

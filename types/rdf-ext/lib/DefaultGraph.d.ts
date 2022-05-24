@@ -9,4 +9,6 @@ interface DefaultGraphExt extends DefaultGraph {
   };
 }
 
+declare class DefaultGraphExt {}
+
 export = DefaultGraphExt;

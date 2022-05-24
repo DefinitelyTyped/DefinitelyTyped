@@ -1,7 +1,7 @@
 // Type definitions for Commangular Mock 0.9.0
 // Project: http://commangular.org
 // Definitions by: Hiraash Thawfeek <https://github.com/hiraash>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module commangular {
 

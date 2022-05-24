@@ -22,10 +22,24 @@
     permissionState = await fileHandle.requestPermission({ mode: 'read' });
     permissionState = await fileHandle.requestPermission({ mode: 'readwrite' });
 
-    fileHandle = await showSaveFilePicker();
-    fileHandle = await showSaveFilePicker({
+    const saveFilePickerOptions = {
+        suggestedName: 'image.svg'
+    };
+    const filePickerOptions = {
         excludeAcceptAllOption: true,
         types: [{ description: 'SVG images', accept: { 'image/svg': ['svg'] } }],
+    };
+
+    fileHandle = await showSaveFilePicker();
+    fileHandle = await showSaveFilePicker({
+        ...filePickerOptions
+    });
+    fileHandle = await showSaveFilePicker({
+        ...saveFilePickerOptions
+    });
+    fileHandle = await showSaveFilePicker({
+        ...saveFilePickerOptions,
+        ...filePickerOptions
     });
 
     const file: File = await fileHandle.getFile();
@@ -72,7 +86,6 @@
     });
     fileHandle = await chooseFileSystemEntries({ type: 'save-file' });
     dirHandle = await chooseFileSystemEntries({ type: 'open-directory' });
-    dirHandle = await FileSystemDirectoryHandle.getSystemDirectory({ type: 'sandbox' });
     dirHandle = await dirHandle.getDirectory('subdir', { create: true });
     fileHandle = await dirHandle.getFile('file.txt');
 

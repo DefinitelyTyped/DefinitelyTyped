@@ -49,17 +49,32 @@ declare namespace HelloSign {
 
     type HelloSignOptions =
         | {
-            key: string;
-        }
+              key: string;
+          }
         | {
-            username: string;
-            password: string;
-        }
+              username: string;
+              password: string;
+          }
         | {
-            key: string;
-            client_id: string;
-            client_secret: string;
+              key: string;
+              client_id: string;
+              client_secret: string;
+          };
+
+    interface BaseResponse {
+        resHeaders: IncomingMessage['headers'];
+        statusCode?: IncomingMessage['statusCode'];
+        statusMessage?: IncomingMessage['statusMessage'];
+    }
+
+    interface ListInfo {
+        list_info: {
+            num_pages: number;
+            num_results: number;
+            page: number;
+            page_size: number;
         };
+    }
 
     interface BaseAccount {
         account_id: string;
@@ -78,12 +93,12 @@ declare namespace HelloSign {
         callback_url: string;
         role_code: string;
     }
-    interface AccountResponse {
+    interface AccountResponse extends BaseResponse {
         account: Account;
     }
     interface AccountModule {
         get(): Promise<AccountResponse>;
-        update(options: { callback_url?: string }): Promise<AccountResponse>;
+        update(options: { callback_url?: string | undefined }): Promise<AccountResponse>;
         create(options: { email_address: string }): Promise<AccountResponse>;
         verify(options: { email_address: string }): Promise<AccountResponse>;
     }
@@ -137,14 +152,23 @@ declare namespace HelloSign {
         details_url: string;
         cc_email_addresses: string | string[];
         signing_redirect_url: string;
-        custom_fields?: Array<{
-            name: string;
-            type: 'text' | 'checkbox';
-            value: string;
-            required: boolean;
-            api_id: string;
-            editor: string;
-        }>;
+        custom_fields?:
+            | Array<{
+                  name: string;
+                  type: 'text';
+                  value: string;
+                  required: boolean;
+                  api_id: string;
+                  editor: string;
+              } | {
+                  name: string;
+                  type: 'checkbox';
+                  value: boolean;
+                  required: boolean;
+                  api_id: string;
+                  editor: string;
+              }>
+            | undefined;
         response_data: Array<{
             api_id: string;
             signature_id: string;
@@ -165,108 +189,138 @@ declare namespace HelloSign {
         height: number;
         required: boolean;
         signer: number;
-        name?: string;
+        name?: string | undefined;
         validation_type?:
-        | 'numbers_only'
-        | 'letters_only'
-        | 'phone_number'
-        | 'bank_routing_number'
-        | 'bank_account_number'
-        | 'email_address'
-        | 'zip_code'
-        | 'social_security_number'
-        | 'employer_identification_number'
-        | 'custom_regex';
+            | 'numbers_only'
+            | 'letters_only'
+            | 'phone_number'
+            | 'bank_routing_number'
+            | 'bank_account_number'
+            | 'email_address'
+            | 'zip_code'
+            | 'social_security_number'
+            | 'employer_identification_number'
+            | 'custom_regex'
+            | undefined;
     }
     interface SignatureRequestRequestOptions<Metadata = GenericObject> {
-        test_mode?: number;
-        clientId: string;
-        files: string[];
-        title?: string;
-        subject?: string;
-        message?: string;
-        template_id?: string;
+        test_mode?: number | undefined;
+        clientId?: string;
+        file?: string[] | undefined;
+        file_url?: string[] | undefined;
+        title?: string | undefined;
+        subject?: string | undefined;
+        message?: string | undefined;
+        template_id?: string | undefined;
+        template_ids?: string[] | undefined;
         signers: Array<{
             email_address: string;
             name: string;
-            role?: string;
-            order?: number;
-            pin?: string;
-            sms_phone_number?: string;
+            role?: string | undefined;
+            order?: number | undefined;
+            pin?: string | undefined;
+            sms_phone_number?: string | undefined;
         }>;
-        attachments?: Array<{
-            name?: string;
-            instructions?: string;
-            signer_index?: string;
-            required?: boolean;
-        }>;
-        custom_fields?: Array<{
-            name: string;
-            value: string;
-            editor?: string;
-            required?: boolean;
-        }>;
-        cc_email_addresses?: string[];
-        use_text_tags?: number;
-        hide_text_tags?: number;
-        metadata?: GenericObject<Metadata>;
-        allow_decline?: number;
-        allow_reassign?: number;
-        form_fields_per_document?: FormField[][];
-        signing_options?: {
-            draw?: boolean;
-            type?: boolean;
-            upload?: boolean;
-            phone?: boolean;
-            default: string;
-        };
-        field_options?: {
-            date_format:
-            | 'MM / DD / YYYY'
-            | 'MM - DD - YYYY'
-            | 'DD / MM / YYYY'
-            | 'DD - MM - YYYY'
-            | 'YYYY / MM / DD'
-            | 'YYYY - MM - DD';
-        };
+        attachments?:
+            | Array<{
+                  name?: string | undefined;
+                  instructions?: string | undefined;
+                  signer_index?: string | undefined;
+                  required?: boolean | undefined;
+              }>
+            | undefined;
+        custom_fields?:
+            | Array<{
+                  name: string;
+                  value: string | boolean;
+                  editor?: string | undefined;
+                  required?: boolean | undefined;
+              }>
+            | undefined;
+        cc_email_addresses?: string[] | undefined;
+        ccs?: Record<string, { email_address: string }> | undefined;
+        use_text_tags?: number | undefined;
+        hide_text_tags?: number | undefined;
+        metadata?: GenericObject<Metadata> | undefined;
+        allow_decline?: number | undefined;
+        allow_reassign?: number | undefined;
+        form_fields_per_document?: FormField[][] | undefined;
+        signing_options?:
+            | {
+                  draw?: boolean | undefined;
+                  type?: boolean | undefined;
+                  upload?: boolean | undefined;
+                  phone?: boolean | undefined;
+                  default: string;
+              }
+            | undefined;
+        field_options?:
+            | {
+                  date_format:
+                      | 'MM / DD / YYYY'
+                      | 'MM - DD - YYYY'
+                      | 'DD / MM / YYYY'
+                      | 'DD - MM - YYYY'
+                      | 'YYYY / MM / DD'
+                      | 'YYYY - MM - DD';
+              }
+            | undefined;
+        signing_redirect_url?: string | undefined;
     }
-    interface SignatureRequestResponse {
+    interface SignatureRequestResponse extends BaseResponse {
         signature_request: SignatureRequest;
     }
+    interface SignatureListRequestResponse extends BaseResponse, ListInfo {
+        signature_requests: SignatureRequest[];
+    }
+    interface DownloadResponse extends BaseResponse {
+        file_url?: string | undefined;
+        expires_at?: number | undefined;
+    }
+    type FilesOptions = { file_type: 'pdf'; get_url?: boolean; get_data_uri?: boolean } | { file_type: 'zip' };
     interface SignatureRequestModule {
         get(signatureRequestId: string): Promise<SignatureRequestResponse>;
         list(params?: {
-            page?: number;
-            page_size?: number;
-            query?: string;
-        }): Promise<{ signature_requests: SignatureRequest[] }>;
+            page?: number | undefined;
+            page_size?: number | undefined;
+            query?: string | undefined;
+        }): Promise<SignatureListRequestResponse>;
         send(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
         sendWithTemplate(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
         remind(requestId: string, options: any): Promise<SignatureRequestResponse>;
-        download(
+        download<Options extends FilesOptions | undefined>(
             requestId: string,
-            options: { file_type: string },
-            callback: (err: Error, response: IncomingMessage) => void,
-        ): void;
-        cancel(requestId: string): Promise<any>;
-        removeAccess(requestId: string): Promise<any>;
-        createEmbedded(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
-        createEmbeddedWithTemplate(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
-        releaseHold(requestId: string): Promise<any>;
+            options?: Options,
+        ): Promise<
+            Options extends { file_type: 'pdf'; get_url: true }
+                ? { file_url: string; expires_at: Date } & BaseResponse
+                : Options extends { file_type: 'pdf'; get_data_uri: true }
+                ? { data_uri: string; expires_at: Date } & BaseResponse
+                : IncomingMessage
+        >;
+        cancel(requestId: string): Promise<BaseResponse>;
+        removeAccess(requestId: string): Promise<BaseResponse>;
+        createEmbedded(
+            options: Omit<SignatureRequestRequestOptions, 'signing_redirect_url'>,
+        ): Promise<SignatureRequestResponse>;
+        createEmbeddedWithTemplate(
+            options: Omit<SignatureRequestRequestOptions, 'signing_redirect_url'>,
+        ): Promise<SignatureRequestResponse>;
+        releaseHold(requestId: string): Promise<BaseResponse>;
     }
 
-    interface EmbeddedResponse {
+    interface EmbeddedResponse extends BaseResponse {
         embedded: {
             sign_url: string;
             expires_at: number;
-            edit_url?: string;
+            edit_url?: string | undefined;
         };
     }
     interface EmbeddedRequestOptions {
-        test_mode?: number;
+        test_mode?: number | undefined;
         template_id: string;
-        cc_roles?: any[];
-        merge_fields?: any[];
+        cc_roles?: any[] | undefined;
+        merge_fields?: any[] | undefined;
         /**
          * @deprecated May 2020 use `force_signer_roles` instead
          */
@@ -277,10 +331,12 @@ declare namespace HelloSign {
         skip_subject_message?: any;
         force_signer_roles?: any;
         force_subject_message?: any;
-        editor_options?: {
-            allow_edit_signers?: boolean;
-            allow_edit_documents?: boolean;
-        };
+        editor_options?:
+            | {
+                  allow_edit_signers?: boolean | undefined;
+                  allow_edit_documents?: boolean | undefined;
+              }
+            | undefined;
     }
     interface EmbeddedModule {
         getSignUrl(signatureId: string): Promise<EmbeddedResponse>;
@@ -289,15 +345,15 @@ declare namespace HelloSign {
     }
 
     interface ReportsRequestOptions {
-        test_mode?: number;
+        test_mode?: number | undefined;
         start_date: string;
         end_date: string;
         report_type: string[];
     }
     interface Report extends Omit<ReportsRequestOptions, 'test_mode'> {
-        success?: string;
+        success?: string | undefined;
     }
-    interface ReportResponse {
+    interface ReportResponse extends BaseResponse {
         report: Report;
     }
     interface ReportsModule {
@@ -309,9 +365,9 @@ declare namespace HelloSign {
         code: string;
     }
     interface OAuth extends GenericObject {
-        refresh_token?: string;
+        refresh_token?: string | undefined;
     }
-    interface OAuthResponse {
+    interface OAuthResponse extends BaseResponse {
         oauth: OAuth;
     }
     interface OAuthModule {
@@ -338,18 +394,43 @@ declare namespace HelloSign {
             email_address: string;
         }>;
     }
-    interface TeamResponse {
+    interface TeamResponse extends BaseResponse {
         team: Team;
     }
     interface TeamModule {
         get(): Promise<TeamResponse>;
         create(options: Pick<Team, 'name'>): Promise<TeamResponse>;
         update(options: Pick<Team, 'name'>): Promise<TeamResponse>;
-        destroy(): Promise<void>;
+        destroy(): Promise<BaseResponse>;
         addMember(options: AccountIdOrEmailRequestOptions): Promise<TeamResponse>;
         removeMember(
-            options: { new_owner_email_address?: string } & AccountIdOrEmailRequestOptions,
+            options: { new_owner_email_address?: string | undefined } & AccountIdOrEmailRequestOptions,
         ): Promise<TeamResponse>;
+    }
+
+    interface CustomFieldTemplate {
+        name: string;
+        type: string;
+        signer?: string | undefined;
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+        required: boolean;
+        api_id: string;
+        group?: string | undefined;
+        avg_text_length: {
+            num_lines: number;
+            num_chars_per_line: number;
+        };
+        /**
+         * @deprecated Use `form_fields` under the `documents` array instead.
+         */
+        named_form_fields: string;
+        /**
+         * @deprecated
+         */
+        reusable_form_id: string;
     }
 
     interface Template<Metadata = GenericObject>
@@ -381,110 +462,117 @@ declare namespace HelloSign {
                     width: number;
                     height: number;
                     required: boolean;
-                    group?: string;
+                    group?: string | undefined;
                 }>;
-                custom_fields: {
-                    name: string;
-                    type: string;
-                    x: number;
-                    y: number;
-                    width: number;
-                    height: number;
-                    required: string;
-                    group: string;
-                    avg_text_length: {
-                        num_lines: number;
-                        num_chars_per_line: number;
-                    };
-                    /**
-                     * @deprecated Use `form_fields` under the `documents` array instead.
-                     */
-                    named_form_fields: string;
-                    /**
-                     * @deprecated
-                     */
-                    reusable_form_id: string;
-                };
+                custom_fields: CustomFieldTemplate[];
             }>;
+            custom_fields: CustomFieldTemplate[];
             accounts: BaseAccount[];
             is_creator: boolean;
             is_embedded: boolean;
             can_edit: boolean;
             is_locked: boolean;
-        }> { }
-    interface TemplateResponse {
+        }> {}
+    interface TemplateResponse extends BaseResponse {
         template: Template;
     }
+    interface TemplatesResponse extends BaseResponse, ListInfo {
+        templates: Template[];
+    }
     interface TemplateModule {
-        list(): Promise<{ templates: Template[] }>;
+        list(params?: {
+            page?: number | undefined;
+            page_size?: number | undefined;
+            query?: string | undefined;
+        }): Promise<TemplatesResponse>;
         get(templateId: string): Promise<TemplateResponse>;
         addUser(templateId: string, user: AccountIdOrEmailRequestOptions): Promise<TemplateResponse>;
         removeUser(templateId: string, user: AccountIdOrEmailRequestOptions): Promise<TemplateResponse>;
         createEmbeddedDraft(options: Template): Promise<TemplateResponse>;
-        delete(templateId: string): Promise<any>;
+        delete(templateId: string): Promise<BaseResponse>;
+        files: <Options extends FilesOptions | undefined>(
+            templateId: string,
+            options?: Options,
+        ) => Promise<
+            Options extends { file_type: 'pdf'; get_url: true }
+                ? { file_url: string; expires_at: Date } & BaseResponse
+                : Options extends { file_type: 'pdf'; get_data_uri: true }
+                ? { data_uri: string; expires_at: Date } & BaseResponse
+                : IncomingMessage
+        >;
     }
 
     interface UnclaimedDraft {
         signature_request_id: string;
         claim_url: string;
         signing_redirect_url: string;
-        requesting_redirect_url?: string;
+        requesting_redirect_url?: string | undefined;
         expires_at: number;
-        test_mode?: number;
+        test_mode?: number | undefined;
     }
-    interface UnclaimedDraftResponse {
+    interface UnclaimedDraftResponse extends BaseResponse {
         unclaimed_draft: UnclaimedDraft;
     }
     interface UnclaimedDraftRequestOptions<Metadata = GenericObject> {
-        test_mode?: number;
-        file?: string[];
-        file_url?: string[];
+        test_mode?: number | undefined;
+        file?: string[] | undefined;
+        file_url?: string[] | undefined;
         type: string;
-        subject?: string;
-        message?: string;
-        signers?: Array<{
-            email_address?: string;
-            name?: string;
-            order?: number;
-        }>;
-        attachments?: Array<{
-            name?: string;
-            instructions?: string;
-            signer_index?: string;
-            required?: boolean;
-        }>;
-        custom_fields?: Array<{
-            name: string;
-            value: string;
-            editor?: string;
-            required?: boolean;
-        }>;
-        cc_email_addresses?: string[];
-        signing_redirect_url?: string;
-        requesting_redirect_url?: string;
-        use_text_tags?: number;
-        use_preexisting_fields?: boolean;
-        hide_text_tags?: number;
-        metadata?: GenericObject<Metadata>;
-        allow_decline?: number;
-        form_fields_per_document?: FormField[][];
-        signing_options?: {
-            draw?: boolean;
-            type?: boolean;
-            upload?: boolean;
-            phone?: boolean;
-            default: string;
-        };
-        field_options?: {
-            date_format:
-            | 'MM / DD / YYYY'
-            | 'MM - DD - YYYY'
-            | 'DD / MM / YYYY'
-            | 'DD - MM - YYYY'
-            | 'YYYY / MM / DD'
-            | 'YYYY - MM - DD';
-        };
-        is_for_embedded_signing?: number;
+        subject?: string | undefined;
+        message?: string | undefined;
+        signers?:
+            | Array<{
+                  email_address?: string | undefined;
+                  name?: string | undefined;
+                  order?: number | undefined;
+              }>
+            | undefined;
+        attachments?:
+            | Array<{
+                  name?: string | undefined;
+                  instructions?: string | undefined;
+                  signer_index?: string | undefined;
+                  required?: boolean | undefined;
+              }>
+            | undefined;
+        custom_fields?:
+            | Array<{
+                  name: string;
+                  value: string | boolean;
+                  editor?: string | undefined;
+                  required?: boolean | undefined;
+              }>
+            | undefined;
+        cc_email_addresses?: string[] | undefined;
+        signing_redirect_url?: string | undefined;
+        requesting_redirect_url?: string | undefined;
+        use_text_tags?: number | undefined;
+        use_preexisting_fields?: boolean | undefined;
+        hide_text_tags?: number | undefined;
+        metadata?: GenericObject<Metadata> | undefined;
+        allow_decline?: number | undefined;
+        form_fields_per_document?: FormField[][] | undefined;
+        signing_options?:
+            | {
+                  draw?: boolean | undefined;
+                  type?: boolean | undefined;
+                  upload?: boolean | undefined;
+                  phone?: boolean | undefined;
+                  default: string;
+              }
+            | undefined;
+        field_options?:
+            | {
+                  date_format:
+                      | 'MM / DD / YYYY'
+                      | 'MM - DD - YYYY'
+                      | 'DD / MM / YYYY'
+                      | 'DD - MM - YYYY'
+                      | 'YYYY / MM / DD'
+                      | 'YYYY - MM - DD';
+              }
+            | undefined;
+        is_for_embedded_signing?: number | undefined;
     }
     interface UnclaimedDraftModule {
         create(options: UnclaimedDraftRequestOptions): Promise<UnclaimedDraftResponse>;
@@ -532,7 +620,7 @@ declare namespace HelloSign {
             event_hash: string;
             event_metadata: GenericObject<
                 {
-                    related_signature_id?: string;
+                    related_signature_id?: string | undefined;
                     reported_for_account_id: string;
                     reported_for_app_id: string;
                 } & Metadata
@@ -567,29 +655,36 @@ declare namespace HelloSign {
         };
         white_labeling_options: GenericObject;
     }
-    interface ApiAppResponse {
+    interface ApiAppResponse extends BaseResponse {
         api_app: ApiApp;
     }
+    interface ApiAppListResponse extends BaseResponse, ListInfo {
+        api_apps: ApiApp[];
+    }
     interface ApiAppRequestOptions {
-        name?: string;
-        domain?: string;
-        callback_url?: string;
+        name?: string | undefined;
+        domain?: string | undefined;
+        callback_url?: string | undefined;
         custom_logo_file?: any;
-        oauth?: {
-            callback_url: string;
-            scopes: string;
-        };
-        white_labeling_options?: any[];
-        options?: {
-            can_insert_everywhere?: boolean;
-        };
+        oauth?:
+            | {
+                  callback_url: string;
+                  scopes: string;
+              }
+            | undefined;
+        white_labeling_options?: any[] | undefined;
+        options?:
+            | {
+                  can_insert_everywhere?: boolean | undefined;
+              }
+            | undefined;
     }
     interface ApiAppModule {
         get(clientId: string): Promise<ApiAppResponse>;
-        list(): Promise<{ api_apps: ApiApp[] }>;
+        list(params?: { page?: number | undefined; page_size?: number | undefined }): Promise<ApiAppListResponse>;
         create(clientId: string, options: ApiAppRequestOptions): Promise<ApiAppResponse>;
         update(clientId: string, options: ApiAppRequestOptions): Promise<ApiAppResponse>;
-        delete(clientId: string): Promise<any>;
+        delete(clientId: string): Promise<BaseResponse>;
     }
 }
 

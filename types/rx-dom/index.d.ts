@@ -1,7 +1,7 @@
 // Type definitions for RxJS 7.0
 // Project: https://github.com/Reactive-Extensions/RxJS-DOM
 // Definitions by: oliver Weichhold <https://github.com/oliverw>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
 import * as Rx from 'rx';
@@ -9,18 +9,18 @@ import * as Rx from 'rx';
 declare module 'rx' {
   namespace DOM {
     interface AjaxSettings {
-      async?: boolean;
-      body?: string;
+      async?: boolean | undefined;
+      body?: string | undefined;
       // This options does not seem to be used in the code yet
       // contentType?: string;
-      crossDomain?: boolean;
+      crossDomain?: boolean | undefined;
       headers?: any;
-      method?: string;
-      password?: string;
-      progressObserver?: Rx.Observer<any>;
-      responseType?: string;
-      url?: string;
-      user?: string;
+      method?: string | undefined;
+      password?: string | undefined;
+      progressObserver?: Rx.Observer<any> | undefined;
+      responseType?: string | undefined;
+      url?: string | undefined;
+      user?: string | undefined;
     }
 
     interface AjaxSuccessResponse {
@@ -39,10 +39,10 @@ declare module 'rx' {
     }
 
     interface JsonpSettings {
-      async?: boolean;
-      jsonp?: string;
-      jsonpCallback?: string;
-      url?: string;
+      async?: boolean | undefined;
+      jsonp?: string | undefined;
+      jsonpCallback?: string | undefined;
+      url?: string | undefined;
     }
 
     interface JsonpSuccessResponse {
@@ -59,9 +59,9 @@ declare module 'rx' {
     }
 
     interface GeolocationOptions {
-      enableHighAccuracy?: boolean;
-      timeout?: number;
-      maximumAge?: number;
+      enableHighAccuracy?: boolean | undefined;
+      timeout?: number | undefined;
+      maximumAge?: number | undefined;
     }
 
     // Events

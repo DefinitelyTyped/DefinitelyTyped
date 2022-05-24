@@ -1,3 +1,4 @@
+import { WebGLCapabilities } from './WebGLCapabilities';
 import { Scene } from './../../scenes/Scene';
 import { Camera } from './../../cameras/Camera';
 import { WebGLRenderer } from '../WebGLRenderer';
@@ -6,7 +7,7 @@ import { WebGLObjects } from './WebGLObjects';
 import { Light } from '../../lights/Light';
 
 export class WebGLShadowMap {
-    constructor(_renderer: WebGLRenderer, _objects: WebGLObjects, maxTextureSize: number);
+    constructor(_renderer: WebGLRenderer, _objects: WebGLObjects, _capabilities: WebGLCapabilities);
 
     /**
      * @default false

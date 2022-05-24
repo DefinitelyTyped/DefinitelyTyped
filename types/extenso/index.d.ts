@@ -5,24 +5,24 @@
 
 declare namespace Extenso {
     interface BaseOptions {
-        negative?: 'formal' | 'informal';
-        locale?: 'br' | 'pt';
-        scale?: 'short' | 'long';
+        negative?: 'formal' | 'informal' | undefined;
+        locale?: 'br' | 'pt' | undefined;
+        scale?: 'short' | 'long' | undefined;
     }
 
     interface NumberModeOptions extends BaseOptions {
-        mode?: 'number';
+        mode?: 'number' | undefined;
         number?: {
-            gender?: 'm' | 'f';
-            decimal?: 'formal' | 'informal';
-        };
+            gender?: 'm' | 'f' | undefined;
+            decimal?: 'formal' | 'informal' | undefined;
+        } | undefined;
     }
 
     interface CurrencyModeOptions extends BaseOptions {
         mode: 'currency';
         currency?: {
-            type?: 'BRL' | 'EUR';
-        };
+            type?: 'BRL' | 'EUR' | undefined;
+        } | undefined;
     }
 
     type Options = NumberModeOptions | CurrencyModeOptions;

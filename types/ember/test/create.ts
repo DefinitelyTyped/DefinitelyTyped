@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { assertType } from './lib/assert';
+import { UnwrapComputedPropertyGetter } from "@ember/object/-private/types";
 
 /**
  * Zero-argument case
@@ -10,7 +11,7 @@ assertType<object>(o);
 // object returned by create type-checks as an instance of Ember.Object
 assertType<boolean>(o.isDestroyed); // from instance
 assertType<boolean>(o.isDestroying); // from instance
-assertType<(key: string) => any>(o.get); // from prototype
+assertType<<K extends keyof Ember.Object>(key: K) => UnwrapComputedPropertyGetter<Ember.Object[K]>>(o.get); // from prototype
 
 /**
  * One-argument case
@@ -31,9 +32,9 @@ export class Person extends Ember.Object.extend({
         return [this.firstName + this.lastName].join(' ');
     }),
 }) {
-    firstName: string;
-    lastName: string;
-    age: number;
+    declare firstName: string;
+    declare lastName: string;
+    declare age: number;
 }
 const p = new Person();
 

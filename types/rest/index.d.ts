@@ -21,20 +21,20 @@ declare module "rest" {
         export function wrap<T>(interceptor: Interceptor<T>, config?: T): Client;
 
         export interface Request {
-            method?: string;
-            path?: string;
+            method?: string | undefined;
+            path?: string | undefined;
             params?: any;
             headers?: any;
             entity?: any;
-            canceled?: boolean;
-            cancel?: () => void;
-            originator?: (request?: Request) => ResponsePromise;
+            canceled?: boolean | undefined;
+            cancel?: (() => void) | undefined;
+            originator?: ((request?: Request) => ResponsePromise) | undefined;
             mixin?: any;
         }
 
         export interface Status {
             code: number;
-            text?: string;
+            text?: string | undefined;
         }
 
         export interface Headers {
@@ -83,11 +83,11 @@ declare module "rest/interceptor" {
 
     namespace interceptor {
         interface Config<T, U> {
-            init?: (config: T) => U;
-            request?: (request: rest.Request, config: U, meta: rest.Meta) => rest.Request | when.Promise<rest.Request>;
-            response?: (response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
-            success?: (response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
-            error?: (response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>;
+            init?: ((config: T) => U) | undefined;
+            request?: ((request: rest.Request, config: U, meta: rest.Meta) => rest.Request | when.Promise<rest.Request>) | undefined;
+            response?: ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>) | undefined;
+            success?: ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>) | undefined;
+            error?: ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>) | undefined;
         }
     }
 
@@ -101,8 +101,8 @@ declare module "rest/interceptor/defaultRequest" {
 
     namespace defaultRequest {
         interface Config {
-            method?: string;
-            path?: string;
+            method?: string | undefined;
+            path?: string | undefined;
             params?: any;
             headers?: any;
             entity?: any;
@@ -120,8 +120,8 @@ declare module "rest/interceptor/hateoas" {
 
     namespace hateoas {
         interface Config {
-            target?: string;
-            client?: rest.Client;
+            target?: string | undefined;
+            client?: rest.Client | undefined;
         }
     }
 
@@ -135,8 +135,8 @@ declare module "rest/interceptor/location" {
 
     namespace location {
         interface Config {
-            client?: rest.Client;
-            code?: number;
+            client?: rest.Client | undefined;
+            code?: number | undefined;
         }
     }
 
@@ -151,10 +151,10 @@ declare module "rest/interceptor/mime" {
 
     namespace mime {
         interface Config {
-            mime?: string;
-            accept?: string;
-            registry?: registry.Registry;
-            permissive?: boolean;
+            mime?: string | undefined;
+            accept?: string | undefined;
+            registry?: registry.Registry | undefined;
+            permissive?: boolean | undefined;
         }
     }
 
@@ -168,7 +168,7 @@ declare module "rest/interceptor/pathPrefix" {
 
     namespace pathPrefix {
         interface Config {
-            prefix?: string;
+            prefix?: string | undefined;
         }
     }
 
@@ -182,8 +182,8 @@ declare module "rest/interceptor/basicAuth" {
 
     namespace basicAuth {
         interface Config {
-            username?: string;
-            password?: string;
+            username?: string | undefined;
+            password?: string | undefined;
         }
     }
 
@@ -200,14 +200,14 @@ declare module "rest/interceptor/oAuth" {
             (): void;
         }
         interface Config {
-            token?: string;
-            clientId?: string;
-            scope?: string;
-            authorizationUrl?: string;
-            redirectUrl?: string;
-            windowStrategy?: (url: string) => DismissWindow;
-            oAuthCallback?: (hash: string) => void;
-            oAuthCallbackName?: string;
+            token?: string | undefined;
+            clientId?: string | undefined;
+            scope?: string | undefined;
+            authorizationUrl?: string | undefined;
+            redirectUrl?: string | undefined;
+            windowStrategy?: ((url: string) => DismissWindow) | undefined;
+            oAuthCallback?: ((hash: string) => void) | undefined;
+            oAuthCallbackName?: string | undefined;
         }
     }
 
@@ -221,8 +221,8 @@ declare module "rest/interceptor/csrf" {
 
     namespace csrf {
         interface Config {
-            name?: string;
-            token?: string;
+            name?: string | undefined;
+            token?: string | undefined;
         }
     }
 
@@ -236,7 +236,7 @@ declare module "rest/interceptor/errorCode" {
 
     namespace errorCode {
         interface Config {
-            code?: number;
+            code?: number | undefined;
         }
     }
 
@@ -250,9 +250,9 @@ declare module "rest/interceptor/retry" {
 
     namespace retry {
         interface Config {
-            initial?: number;
-            multiplier?: number;
-            max?: number;
+            initial?: number | undefined;
+            multiplier?: number | undefined;
+            max?: number | undefined;
         }
     }
 
@@ -266,10 +266,10 @@ declare module "rest/interceptor/template" {
 
     namespace template {
         interface Config {
-            template?: string;
+            template?: string | undefined;
             params?: {
                 [name: string]: any;
-            };
+            } | undefined;
         }
     }
 
@@ -283,8 +283,8 @@ declare module "rest/interceptor/timeout" {
 
     namespace timeout {
         interface Config {
-            timeout?: number;
-            transient?: boolean;
+            timeout?: number | undefined;
+            transient?: boolean | undefined;
         }
     }
 
@@ -299,10 +299,10 @@ declare module "rest/interceptor/jsonp" {
     namespace jsonp {
         interface Config {
             callback?: {
-                param?: string;
-                prefix?: string;
-                name?: string;
-            }
+                param?: string | undefined;
+                prefix?: string | undefined;
+                name?: string | undefined;
+            } | undefined
         }
     }
 

@@ -1,5 +1,16 @@
 import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
+// $ExpectType boolean
+window.HELP_IMPROVE_VIDEOJS;
+// $ExpectType boolean | undefined
+window.VIDEOJS_NO_DYNAMIC_STYLE;
+
+const videoElement = document.createElement('video');
+// $ExpectType VideoJsPlayer
+videojs(videoElement);
+
+const audioElement = document.createElement('audio');
+
 const playerOptions: VideoJsPlayerOptions = {
     autoplay: 'muted',
     bigPlayButton: false,
@@ -8,6 +19,7 @@ const playerOptions: VideoJsPlayerOptions = {
         playToggle: false,
         captionsButton: false,
         chaptersButton: false,
+        pictureInPictureToggle: audioElement.tagName !== 'AUDIO',
     },
     height: 10,
     loop: true,
@@ -30,11 +42,14 @@ const playerOptions: VideoJsPlayerOptions = {
     nativeControlsForTouch: true,
     notSupportedMessage: 'Oh no! :(',
     playbackRates: [0.5, 1],
+    noUITitleAttributes: true,
     plugins: {
         myPlugin: {
             myOption: true,
         },
     },
+    fill: false,
+    responsive: false,
     sources: [
         {
             src: 'https://example.com/video.mp4',
@@ -43,6 +58,7 @@ const playerOptions: VideoJsPlayerOptions = {
     ],
     techOrder: ['html5', 'anotherTech'],
     userActions: {
+        click: event => {},
         doubleClick: event => {},
         hotkeys: true,
     },
@@ -70,7 +86,7 @@ playerOptions.controlBar! = {
     timeDivider: false,
 };
 
-videojs('example_video_1', playerOptions).ready(function() {
+videojs('example_video_1', playerOptions).ready(function playerReady() {
     // EXAMPLE: Start playing the video.
     const playPromise = this.play();
 
@@ -108,6 +124,7 @@ videojs('example_video_1', playerOptions).ready(function() {
     liveTracker.seekToLiveEdge();
     liveTracker.startTracking();
     liveTracker.stopTracking();
+    liveTracker.nextSeekedFromUser();
     const isTracking: boolean = liveTracker.isTracking();
 
     const whereYouAt: number = this.currentTime();
@@ -144,9 +161,37 @@ videojs('example_video_1', playerOptions).ready(function() {
 
     const readyState: videojs.ReadyState = this.readyState();
 
+    // $ExpectType string
+    const currentBreakPoint = this.currentBreakpoint();
+
+    // $ExpectType string
+    const currentBreakpointClass: string = this.currentBreakpointClass();
+
     this.requestFullscreen();
 
+    this.requestPictureInPicture().then(pipWindow => {
+        // $ExpectType PictureInPictureWindow
+        pipWindow;
+    });
+
+    // $ExpectType string | undefined
+    this.requestNamedAnimationFrame('animationFrameName', () => {});
+
+    // $ExpectType void
+    this.cancelNamedAnimationFrame('animationFrameName');
+
+    // $ExpectType Promise<void>
+    this.exitPictureInPicture();
+
     const networkState: videojs.NetworkState = this.networkState();
+
+    const responsive: boolean = this.responsive();
+
+    this.responsive(false);
+
+    const fill: boolean = this.fill();
+
+    this.fill(false);
 
     testEvents(this);
 
@@ -157,6 +202,15 @@ videojs('example_video_1', playerOptions).ready(function() {
     testLogger();
 
     testMiddleware();
+
+    // $ExpectType CanPlayTypeResult
+    this.canPlayType('video/mp4');
+
+    testTracks(this);
+
+    testVideoElement(this);
+
+    testControlBarElements(this);
 });
 
 function testEvents(player: videojs.Player) {
@@ -193,6 +247,30 @@ function testComponents(player: videojs.Player) {
     myWindow.open();
     myWindow.close();
     myWindow.myFunction();
+    myWindow.isDisposed(); // $ExpectType boolean
+    myWindow.dispose(); // $ExpectType void
+
+    const MyOtherWindow = videojs.extend(videojs.getComponent('ModalDialog'), {
+        myFunction() {
+            this.player().play();
+        },
+        myOtherFunction(arg: string) {
+            console.log(arg);
+            return arg;
+        },
+    });
+
+    const myOtherWindow = new MyOtherWindow(player, {});
+    myOtherWindow.controlText('My text');
+    myOtherWindow.open();
+    myOtherWindow.close();
+    myOtherWindow.myFunction(); // $ExpectType void
+    myOtherWindow.myOtherFunction('test'); // $ExpectType string
+
+    const MyClickableComponent = videojs.extend(videojs.getComponent('clickablecomponent'));
+    const myClickable = new MyClickableComponent(player, {
+        clickHandler: () => {},
+    });
 }
 
 function testPlugin(player: videojs.Player, options: {}) {
@@ -248,12 +326,12 @@ function testPlugin(player: videojs.Player, options: {}) {
 }
 
 function testLogger() {
-    const mylogger = videojs.log.createLogger('mylogger');
-    const anotherlogger = mylogger.createLogger('anotherlogger');
+    const myLogger = videojs.log.createLogger('mylogger');
+    const anotherLogger = myLogger.createLogger('anotherlogger');
 
     videojs.log('hello');
-    mylogger('how are you');
-    anotherlogger('today');
+    myLogger('how are you');
+    anotherLogger('today');
 
     const currentLevel = videojs.log.level();
     videojs.log.level(videojs.log.levels.DEFAULT);
@@ -263,4 +341,54 @@ function testMiddleware() {
     videojs.use('*', () => ({
         setSource: (srcObj, next) => next(null, srcObj),
     }));
+}
+
+function testTech() {
+    // $ExpectType CanPlayTypeResult
+    videojs.Tech.canPlaySource(
+        {
+            src: 'http://www.example.com/path/to/video.mp4',
+            type: 'video/mp4',
+        },
+        {},
+    );
+    // $ExpectType CanPlayTypeResult
+    videojs.Tech.canPlayType('video/mp4');
+}
+
+function testTracks(player: VideoJsPlayer) {
+    // $ExpectType AudioTrackList
+    player.audioTracks();
+
+    // $ExpectType TextTrackList
+    player.textTracks();
+}
+
+function testVideoElement(player: VideoJsPlayer) {
+    // $ExpectType HTMLVideoElement | HTMLAudioElement
+    player.tech(true).el();
+}
+
+function testControlBarElements(player: VideoJsPlayer) {
+    // $ExpectType PlaybackRateMenuButton | undefined
+    const child = player.controlBar.getChild('playbackRateMenuButton');
+
+    if (child) {
+        // $ExpectType HTMLDivElement
+        child.el();
+    }
+}
+
+function testGetDescendants(player: VideoJsPlayer) {
+    // $ExpectType Component | undefined
+    player.getDescendant('string');
+
+    // $ExpectType Component | undefined
+    player.getDescendant('multiple', 'strings');
+
+    // $ExpectType Component | undefined
+    player.getDescendant(['string', 'in', 'array']);
+
+    // $ExpectType Component | undefined
+    player.getDescendant(['string', 'in', 'array'], 'and', 'strings');
 }

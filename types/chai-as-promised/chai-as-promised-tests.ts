@@ -10,6 +10,11 @@ class TestClass {}
 var thenableNum: PromiseLike<number> = Promise.resolve(3);
 thenableNum = chai.expect(thenableNum).to.eventually.equal(3);
 thenableNum = chai.expect(thenableNum).to.eventually.have.property('foo');
+thenableNum = chai.expect(thenableNum).to.eventually.have.property(Symbol.for('bar'));
+thenableNum = chai.expect(thenableNum).to.eventually.have.ownProperty('foo');
+thenableNum = chai.expect(thenableNum).to.eventually.have.ownProperty(Symbol.for('bar'));
+thenableNum = chai.expect(thenableNum).to.eventually.have.ownPropertyDescriptor('foo');
+thenableNum = chai.expect(thenableNum).to.eventually.have.ownPropertyDescriptor(Symbol.for('bar'));
 thenableNum = chai.expect(thenableNum).to.become(3);
 thenableNum = chai.expect(thenableNum).to.be.fulfilled;
 thenableNum = chai.expect(thenableNum).to.be.rejected;
@@ -60,6 +65,9 @@ thenableVoid = chai.assert.doesNotBecome(thenableNum, "foo", "optional message")
 thenableVoid = chai.assert.isRejected(thenableNum, "optional message");
 thenableVoid = chai.assert.isRejected(thenableNum, Error, "optional message");
 thenableVoid = chai.assert.isRejected(thenableNum, /error message matcher/, "optional message");
+thenableVoid = chai.assert.eventually.equal(thenableNum, 3);
+thenableVoid = chai.assert.eventually.closeTo(thenableNum, 3.001, 0.1);
+thenableVoid = chai.assert.eventually.property(thenableNum, 'foo');
 
 // Check that original chai assertions are not broken
 var undef: void;

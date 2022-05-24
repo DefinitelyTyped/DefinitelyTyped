@@ -16,7 +16,12 @@ const request: JsReport.Request = {
     options,
 };
 
-const jsreport = JsReport();
+const jsreport = JsReport({
+    blobStorage: {
+        provider: 'fs',
+        dataDirectory: 'data/storage'
+    }
+});
 jsreport.init().then(() => {
     return jsreport.render(request).then((resp) => {
         // prints pdf with headline Hello world
@@ -25,3 +30,7 @@ jsreport.init().then(() => {
 }).catch((e) => {
     console.log(e);
 });
+
+const store = jsreport.documentStore;
+store.registerEntitySet('UserType', { test: { type: 'Edm.String', key: true }});
+store.init();

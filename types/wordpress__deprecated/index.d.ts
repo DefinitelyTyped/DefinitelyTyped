@@ -8,23 +8,23 @@ export interface DeprecatedOptions {
     /**
      * Feature to use instead.
      */
-    alternative?: string;
+    alternative?: string | undefined;
     /**
      * Additional message to help transition away from the deprecated feature.
      */
-    hint?: string;
+    hint?: string | undefined;
     /**
      * Link to documentation.
      */
-    link?: string;
+    link?: string | undefined;
     /**
      * Plugin name if it's a plugin feature.
      */
-    plugin?: string;
+    plugin?: string | undefined;
     /**
      * Version in which the feature will be removed.
      */
-    version?: string;
+    version?: string | undefined;
 }
 
 /**

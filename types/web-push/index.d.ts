@@ -2,10 +2,9 @@
 // Project: https://github.com/web-push-libs/web-push
 // Definitions by: Paul Lessing <https://github.com/paullessing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
 
 /// <reference types="node" />
-
+import https = require('https');
 /**
  * To send a push notification call this method with a subscription, optional payload and any options.
  *
@@ -87,7 +86,7 @@ export function getVapidHeaders(
     audience: string, subject: string, publicKey: string, privateKey: string, contentEncoding: ContentEncoding, expiration?: number
 ): {
     Authorization: string;
-    'Crypto-Key'?: string;
+    'Crypto-Key'?: string | undefined;
 };
 
 /**
@@ -174,16 +173,24 @@ export interface Headers {
  * Options for configuring the outgoing request in generateRequestDetails() or sendNotification().
  */
 export interface RequestOptions {
-    headers?: Headers;
-    gcmAPIKey?: string; // can be a GCM API key to be used for this request and this request only. This overrides any API key set via setGCMAPIKey().
+    /** Is the HTTPS Agent instance which will be used in the https.request method. If the proxy options defined, agent will be ignored! */
+    agent?: https.Agent | undefined;
+    headers?: Headers | undefined;
+    gcmAPIKey?: string | undefined; // can be a GCM API key to be used for this request and this request only. This overrides any API key set via setGCMAPIKey().
     vapidDetails?: { // should be an object with subject, publicKey and privateKey values defined. These values should follow the VAPID Spec. (https://tools.ietf.org/html/draft-thomson-webpush-vapid)
         subject: string;
         publicKey: string;
         privateKey: string;
-    };
-    TTL?: number; // a value in seconds that describes how long a push message is retained by the push service (by default, four weeks).
-    contentEncoding?: ContentEncoding; // the type of push encoding to use (e.g. 'aesgcm', by default, or 'aes128gcm').
-    proxy?: string; // proxy hostname/ip and a port to tunnel your requests through (eg. http://< hostname >:< port >).
+    } | undefined;
+    TTL?: number | undefined; // a value in seconds that describes how long a push message is retained by the push service (by default, four weeks).
+    contentEncoding?: ContentEncoding | undefined; // the type of push encoding to use (e.g. 'aesgcm', by default, or 'aes128gcm').
+    proxy?: string | undefined; // proxy hostname/ip and a port to tunnel your requests through (eg. http://< hostname >:< port >).
+    /**
+     * Is the timeout to receive the full response. So if you have a socket timeout of 1 second, and a response comprised of 3 TCP packets,
+     * where each response packet takes 0.9 seconds to arrive, for a total response time of 2.7 seconds, then there will be no timeout.
+     * Once a socket 'timeout' triggers the request will be aborted by the library (by default undefined).
+     */
+    timeout?: number | undefined;
 }
 
 /**
@@ -195,7 +202,7 @@ export interface RequestDetails {
     headers: Headers;
     body: Buffer | null;
     endpoint: string;
-    proxy?: string;
+    proxy?: string | undefined;
 }
 
 /**

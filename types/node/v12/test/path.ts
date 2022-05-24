@@ -1,4 +1,4 @@
-import * as path from 'node:path';
+import * as path from 'path';
 
 path.normalize('/foo/bar//baz/asdf/quux/..');
 

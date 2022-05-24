@@ -17,13 +17,13 @@ declare namespace com.fontoxml
             //The edit session token to use for accessing the CMS endpoints.
                 editSessionToken: string;
                 //User information.
-        user?: IUserInfo;
+        user?: IUserInfo | undefined;
         //Workflow information.
-        workflow?: IWorkflowInfo;
+        workflow?: IWorkflowInfo | undefined;
         //Allow/disallow auto-save functionality.
-        autosave?: boolean;
+        autosave?: boolean | undefined;
         //If set to a positive integer, enable the Heartbeat API to send every x seconds.
-        heartbeat?: number;
+        heartbeat?: number | undefined;
     }
 
     export interface IWorkflowInfo

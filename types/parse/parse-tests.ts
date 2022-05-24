@@ -161,6 +161,53 @@ function test_query() {
         },
     });
 
+    query.aggregate({
+        count: 'total',
+    });
+
+    query.aggregate({
+        lookup: {
+            from: 'Collection',
+            foreignField: 'id',
+            localField: 'id',
+            as: 'result',
+        },
+    });
+    query.aggregate({
+        lookup: {
+            from: 'Target',
+            let: { foo: 'bar', baz: 123 },
+            pipeline: [],
+            as: 'result',
+        },
+    });
+
+    query.aggregate({
+        graphLookup: {
+            from: 'Target',
+            connectFromField: 'objectId',
+            connectToField: 'newId',
+            as: 'result',
+        },
+    });
+
+    query.aggregate({
+        facet: {
+            foo: [
+                {
+                    count: 'total',
+                },
+            ],
+            bar: [
+                {
+                    group: {
+                        objectId: '$name',
+                    },
+                },
+            ],
+        },
+    });
+
     // Find objects with distinct key
     query.distinct('name');
 
@@ -434,6 +481,15 @@ function test_user_acl_roles() {
         },
     );
 
+    Parse.User.requestEmailVerification('email@example.com').then(
+        data => {
+            // The current user is now set to user.
+        },
+        error => {
+            // The token could not be validated.
+        },
+    );
+
     // By specifying no write privileges for the ACL, we can ensure the role cannot be altered.
     const role = new Parse.Role('Administrator', groupACL);
     role.getUsers().add(userList[0]);
@@ -635,6 +691,39 @@ async function test_cloud_functions() {
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
         return 'Some result';
     });
+
+    Parse.Cloud.define(
+        'AFunc',
+        (request: Parse.Cloud.FunctionRequest) => {
+            return 'Some result';
+        },
+        {
+            requireUser: true,
+            requireMaster: true,
+            validateMasterKey: true,
+            skipWithMasterKey: true,
+            requireAnyUserRoles: ['a'],
+            requireAllUserRoles: ['a'],
+            fields: {
+                name: {
+                    type: String,
+                    constant: true,
+                    default: true,
+                    options: [],
+                    error: 'invalid field.',
+                },
+            },
+            requireUserKeys: {
+                name: {
+                    type: String,
+                    constant: true,
+                    default: true,
+                    options: [],
+                    error: 'invalid field.',
+                },
+            },
+        },
+    );
 
     Parse.Cloud.define('AFunc', request => {
         // $ExpectType Params
@@ -883,7 +972,8 @@ async function test_schema(
     notPointer: Exclude<FieldType, Parse.Pointer>,
     notPolygon: Exclude<FieldType, Parse.Polygon>,
 ) {
-    Parse.Schema.all();
+    // $ExpectType RestSchema[]
+    await Parse.Schema.all();
 
     const schema = new Parse.Schema('TestSchema');
 
@@ -893,7 +983,7 @@ async function test_schema(
     schema.addArray('arrayField', { defaultValue: notArray });
 
     /**
-     * @todo Enable type check for defaul value
+     * @todo Enable type check for default value
      */
     schema.addField('defaultFieldString');
     schema.addField('defaultFieldString', 'String', { defaultValue: anyField });
@@ -966,7 +1056,8 @@ async function test_schema(
     schema.deleteField('defaultFieldString');
     schema.deleteIndex('testIndex');
     schema.delete().then(results => {});
-    schema.get().then(results => {});
+    // $ExpectType RestSchema
+    await schema.get();
     schema.purge().then(results => {});
     schema.save().then(results => {});
     schema.update().then(results => {});
@@ -1369,10 +1460,19 @@ function testObject() {
         // $ExpectError
         objTyped.revert('other');
     }
+    interface ObjectAttributes {
+        example: boolean;
+        someString: string;
+    }
+    interface OptionalObjectAttributes {
+        example?: boolean | undefined;
+        another?: string | undefined;
+    }
 
     async function testSave(
         objUntyped: Parse.Object,
-        objTyped: Parse.Object<{ example: boolean; someString: string }>,
+        objTyped: Parse.Object<ObjectAttributes>,
+        objTypedOptional: Parse.Object<OptionalObjectAttributes>,
     ) {
         // $ExpectType Object<Attributes>
         await objUntyped.save({ whatever: 100 });
@@ -1380,16 +1480,16 @@ function testObject() {
         // $ExpectType Object<Attributes>
         await objUntyped.save('whatever', 100);
 
-        // $ExpectType Object<{ example: boolean; someString: string; }>
+        // $ExpectType Object<ObjectAttributes>
         await objTyped.save({ example: true });
 
-        // $ExpectType Object<{ example: boolean; someString: string; }>
+        // $ExpectType Object<ObjectAttributes>
         await objTyped.save({ example: true, someString: 'hello' });
 
         // $ExpectError
         await objTyped.save({ example: 'hello', someString: true });
 
-        // $ExpectType Object<{ example: boolean; someString: string; }>
+        // $ExpectType Object<ObjectAttributes>
         await objTyped.save('example', true);
 
         // $ExpectError
@@ -1403,25 +1503,47 @@ function testObject() {
 
         // $ExpectError
         await objTyped.save('wrongProp', true);
+
+        // $ExpectError
+        await objTyped.save({ example: undefined });
+
+        // $ExpectError
+        await objTyped.save('example', undefined);
+
+        // $ExpectType Object<ObjectAttributes>
+        await objTyped.save({});
+
+        // $ExpectType Object<OptionalObjectAttributes>
+        await objTypedOptional.save({ example: undefined });
+
+        // $ExpectType Object<OptionalObjectAttributes>
+        await objTypedOptional.save('example', undefined);
+
+        // $ExpectType Object<OptionalObjectAttributes>
+        await objTypedOptional.save({});
     }
 
-    function testSet(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: boolean; another: number }>) {
+    function testSet(
+        objUntyped: Parse.Object,
+        objTyped: Parse.Object<ObjectAttributes>,
+        objTypedOptional: Parse.Object<OptionalObjectAttributes>,
+    ) {
         // $ExpectType false | Object<Attributes>
         objUntyped.set('propA', 'some value');
 
         // $ExpectType false | Object<Attributes>
         objUntyped.set({ propA: undefined });
 
-        // $ExpectType false | Object<{ example: boolean; another: number; }>
+        // $ExpectType false | Object<ObjectAttributes>
         objTyped.set({ example: false });
 
-        // $ExpectType false | Object<{ example: boolean; another: number; }>
-        objTyped.set({ example: true, another: 123 });
+        // $ExpectType false | Object<ObjectAttributes>
+        objTyped.set({ example: true, someString: 'abc' });
 
         // $ExpectError
-        objTyped.set({ example: 123, another: true });
+        objTyped.set({ example: 123, someString: 'abc' });
 
-        // $ExpectType false | Object<{ example: boolean; another: number; }>
+        // $ExpectType false | Object<ObjectAttributes>
         objTyped.set('example', true);
 
         // $ExpectError
@@ -1435,6 +1557,24 @@ function testObject() {
 
         // $ExpectError
         objTyped.set('other', 100);
+
+        // $ExpectError
+        objTyped.set({ example: undefined });
+
+        // $ExpectType false | Object<ObjectAttributes>
+        objTyped.set({});
+
+        // $ExpectError
+        objTyped.set('example', undefined);
+
+        // $ExpectType false | Object<OptionalObjectAttributes>
+        objTypedOptional.set({ example: undefined });
+
+        // $ExpectError false | Object<OptionalObjectAttributes>
+        objTypedOptional.set('example', undefined);
+
+        // $ExpectType false | Object<OptionalObjectAttributes>
+        objTypedOptional.set({});
     }
 
     interface AttributesAllTypes {

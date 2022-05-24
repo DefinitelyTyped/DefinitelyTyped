@@ -189,6 +189,19 @@ conn2.on('ready', () => {
     });
 });
 
+// Host verification:
+new ssh2.Client().connect({
+    hostVerifier: (hash: string) => {
+        return hash === 'cool'
+    }
+});
+
+new ssh2.Client().connect({
+    hostVerifier: (hash, callback) => {
+        callback(hash === 'cool');
+    }
+});
+
 // Forward X11 connections (xeyes):
 
 var net = require('net'),
@@ -301,7 +314,7 @@ const sshconfig: ssh2.ConnectConfig = {
     port: 22,
     username: 'ubuntu',
     password: 'password',
-    authHandler: (methodsLeft: any, partialSuccess: any, callback: any) => { if(!methodsLeft) callback('password') }
+    authHandler: (methodsLeft, partialSuccess, callback) => { if(!methodsLeft) callback('password') }
 };
 
 //
@@ -316,6 +329,10 @@ var buffersEqual = require('buffer-equal-constant-time'),
 
 var pubKey = utils.parseKey(fs.readFileSync('user.pub')) as ssh2_streams.ParsedKey;
 var pubKeySSH = Buffer.from(pubKey.getPublicSSH());
+
+var flags = utils.sftp.OPEN_MODE.READ | utils.sftp.OPEN_MODE.WRITE;
+var flagsString = utils.sftp.flagsToString(flags);
+utils.sftp.stringToFlags(flagsString!);
 
 new ssh2.Server({
     hostKeys: [fs.readFileSync('host.key')]
@@ -430,7 +447,18 @@ new ssh2.Server({
         console.log('Listening on port ' + this.address().port);
     });
 
+// ssh agents
+new ssh2.Client().connect({
+    agent: ssh2.createAgent('openssh')
+});
 
-
-
-
+new ssh2.Client().connect({
+    agent: new (class extends ssh2.BaseAgent<string> {
+        getIdentities(callback: (err: Error | undefined, publicKeys?: string[]) => void): void {
+            callback(undefined, ['some key'])
+        }
+        sign(publicKey: string, data: Buffer, options: ssh2.SigningRequestOptions, callback: (err: Error | undefined, signature?: Buffer) => void): void {
+            callback(undefined, Buffer.concat([Buffer.from(publicKey), data]));
+        }
+    })()
+});

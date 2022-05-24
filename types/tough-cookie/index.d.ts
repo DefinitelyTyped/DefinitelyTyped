@@ -132,26 +132,26 @@ export class Cookie {
 
 export namespace Cookie {
     interface ParseOptions {
-        loose?: boolean;
+        loose?: boolean | undefined;
     }
 
     interface Properties {
-        key?: string;
-        value?: string;
-        expires?: Date;
-        maxAge?: number | 'Infinity' | '-Infinity';
-        domain?: string;
-        path?: string;
-        secure?: boolean;
-        httpOnly?: boolean;
-        extensions?: string[];
-        creation?: Date;
-        creationIndex?: number;
+        key?: string | undefined;
+        value?: string | undefined;
+        expires?: Date | 'Infinity' | undefined;
+        maxAge?: number | 'Infinity' | '-Infinity' | undefined;
+        domain?: string | undefined;
+        path?: string | undefined;
+        secure?: boolean | undefined;
+        httpOnly?: boolean | undefined;
+        extensions?: string[] | undefined;
+        creation?: Date | undefined;
+        creationIndex?: number | undefined;
 
-        hostOnly?: boolean;
-        pathIsDefault?: boolean;
-        lastAccessed?: Date;
-        sameSite?: string;
+        hostOnly?: boolean | undefined;
+        pathIsDefault?: boolean | undefined;
+        lastAccessed?: Date | undefined;
+        sameSite?: string | undefined;
     }
 
     interface Serialized {
@@ -215,25 +215,25 @@ export class CookieJar {
 
 export namespace CookieJar {
     interface Options {
-        allowSpecialUseDomain?: boolean;
-        looseMode?: boolean;
-        rejectPublicSuffixes?: boolean;
-        prefixSecurity?: string;
+        allowSpecialUseDomain?: boolean | undefined;
+        looseMode?: boolean | undefined;
+        rejectPublicSuffixes?: boolean | undefined;
+        prefixSecurity?: string | undefined;
     }
 
     interface SetCookieOptions {
-        http?: boolean;
-        secure?: boolean;
-        now?: Date;
-        ignoreError?: boolean;
+        http?: boolean | undefined;
+        secure?: boolean | undefined;
+        now?: Date | undefined;
+        ignoreError?: boolean | undefined;
     }
 
     interface GetCookiesOptions {
-        http?: boolean;
-        secure?: boolean;
-        now?: Date;
-        expire?: boolean;
-        allPaths?: boolean;
+        http?: boolean | undefined;
+        secure?: boolean | undefined;
+        now?: Date | undefined;
+        expire?: boolean | undefined;
+        allPaths?: boolean | undefined;
     }
 
     interface Serialized {
@@ -262,4 +262,26 @@ export abstract class Store {
     getAllCookies(cb: (err: Error | null, cookie: Cookie[]) => void): void;
 }
 
-export class MemoryCookieStore extends Store { }
+export class MemoryCookieStore extends Store {
+    findCookie(domain: string, path: string, key: string, cb: (err: Error | null, cookie: Cookie | null) => void): void;
+    findCookie(domain: string, path: string, key: string): Promise<Cookie | null>;
+
+    findCookies(domain: string, path: string, allowSpecialUseDomain: boolean, cb: (err: Error | null, cookie: Cookie[]) => void): void;
+    findCookies(domain: string, path: string, cb: (err: Error | null, cookie: Cookie[]) => void): void;
+    findCookies(domain: string, path: string, allowSpecialUseDomain?: boolean): Promise<Cookie[]>;
+
+    putCookie(cookie: Cookie, cb: (err: Error | null) => void): void;
+    putCookie(cookie: Cookie): Promise<void>;
+
+    updateCookie(oldCookie: Cookie, newCookie: Cookie, cb: (err: Error | null) => void): void;
+    updateCookie(oldCookie: Cookie, newCookie: Cookie): Promise<void>;
+
+    removeCookie(domain: string, path: string, key: string, cb: (err: Error | null) => void): void;
+    removeCookie(domain: string, path: string, key: string): Promise<void>;
+
+    removeCookies(domain: string, path: string, cb: (err: Error | null) => void): void;
+    removeCookies(domain: string, path: string): Promise<void>;
+
+    getAllCookies(cb: (err: Error | null, cookie: Cookie[]) => void): void;
+    getAllCookies(): Promise<Cookie[]>;
+}

@@ -17,19 +17,19 @@ interface IntlContext {
 
 interface IntlProviderProps {
     children: JSX.Element | JSX.Element[];
-    definition?: {};
-    mark?: boolean;
-    scope?: string;
+    definition?: {} | undefined;
+    mark?: boolean | undefined;
+    scope?: string | undefined;
 }
 
 interface LocalizerProps {
     children: JSX.Element | JSX.Element[];
 }
 interface TextProps {
-    children?: string;
+    children?: string | undefined;
     id: string;
-    fields?: {};
-    plural?: number;
+    fields?: {} | undefined;
+    plural?: number | undefined;
 }
 
 export const IntlContext: Context<IntlContext>;
@@ -61,7 +61,7 @@ export function withText<Props, Context = IntlContext>(mapping: {}): (
     // tslint:disable-next-line:no-unnecessary-generics
 ) => new (props?: Props, context?: Context) => any;
 
-export function intl(Child: Component, options?: { scope?: string; definition?: {} }): VNode;
+export function intl(Child: Component, options?: { scope?: string | undefined; definition?: {} | undefined }): VNode;
 
 declare enum Intl {
     intl,

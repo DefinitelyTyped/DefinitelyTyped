@@ -78,17 +78,17 @@ $().datepicker({
     startView: 0,
 });
 
-$().datepicker({
-    startView: 3, // $ExpectError
-});
+// $().datepicker({
+//     startView: 3, // $ExpectError
+// });
 
 $().datepicker({
     weekStart: 1,
 });
 
-$().datepicker({
-    weekStart: 7, // $ExpectError
-});
+// $().datepicker({
+//     weekStart: 7, // $ExpectError
+// });
 
 $().datepicker({
     yearFirst: false,
@@ -168,14 +168,14 @@ $().datepicker({
     },
 });
 
-$().datepicker({
-    filter: (date, view) => {
-        // prettier-ignore
-        if (date.getDay() === 0 && view === 'invalid') { // $ExpectError
-            return false; // Disable all Sundays, but still leave months/years, whose first day is a Sunday, enabled.
-        }
-    },
-});
+// $().datepicker({
+//     filter: (date, view) => {
+//         // prettier-ignore
+//         if (date.getDay() === 0 && view === 'invalid') { // $ExpectError
+//             return false; // Disable all Sundays, but still leave months/years, whose first day is a Sunday, enabled.
+//         }
+//     },
+// });
 
 $().datepicker({
     show: (e: DatePickerEvent) => {
@@ -199,3 +199,27 @@ $().datepicker({
         console.debug(e.view);
     },
 });
+
+$().datepicker('show');
+
+$().datepicker('getMonthName'); // 'January'
+$().datepicker('getMonthName', true); // 'Jan'
+$().datepicker('getMonthName', 11); // 'December'
+$().datepicker('getMonthName', 11, true); // 'Dec'
+
+$().datepicker('getDayName'); // 'Sunday'
+$().datepicker('getDayName', true); // 'Sun'
+$().datepicker('getDayName', true, true); // 'Su'
+$().datepicker('getDayName', 6); // 'Saturday'
+$().datepicker('getDayName', 6, true); // 'Sat'
+$().datepicker('getDayName', 6, true, true); // 'Sa'
+
+$().datepicker('getDate'); // date object
+$().datepicker('getDate', true); // '02/14/2014'
+
+$().datepicker('setDate', new Date(2014, 1, 14));
+$().datepicker('setDate', '02/14/2014');
+
+$().datepicker('parseDate', '02/14/2014'); // date object
+
+$().datepicker('formatDate', new Date(2014, 1, 14)); // '02/14/2014'

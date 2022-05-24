@@ -12,8 +12,8 @@ type CancelFn = () => void;
 type RequestCallback = (error: Error | null, data: any) => void;
 
 interface Options {
-    param?: string;
-    prefix?: string;
-    name?: string;
-    timeout?: number;
+    param?: string | undefined;
+    prefix?: string | undefined;
+    name?: string | undefined;
+    timeout?: number | undefined;
 }

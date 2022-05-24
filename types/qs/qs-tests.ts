@@ -10,7 +10,7 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 () => {
     let obj = qs.parse('a=z&b[c]=z&d=z&d=z&e[][f]=z');
     obj; // $ExpectType ParsedQs
-    obj.a; // $ExpectType string | ParsedQs | string[] | ParsedQs[] | undefined
+    obj.a; // $ExpectType string | ParsedQs | string[] | ParsedQs[] | undefined || string | string[] | ParsedQs | ParsedQs[] | undefined
     assert.deepEqual(obj, { a: 'c' });
 
     var str = qs.stringify(obj);
@@ -342,10 +342,10 @@ qs.parse('a=b&c=d', { delimiter: '&' });
     });
 }
 
-declare const myQuery: { a: string; b?: string }
+declare const myQuery: { a: string; b?: string | undefined }
 const myQueryCopy: qs.ParsedQs = myQuery;
 
 interface MyQuery extends qs.ParsedQs {
     a: string;
-    b?: string;
+    b?: string | undefined;
 }

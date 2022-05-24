@@ -3,7 +3,7 @@
 // Definitions by: Dominik Einkemmer <https://github.com/dominikeinkemmer>
 //                 Eduard Marbach <https://github.com/BlackDark>
 //                 Bryan Donovan <https://github.com/BryanDonovan>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 export interface CachingConfig {
@@ -32,7 +32,7 @@ export interface StoreConfig extends CachingConfig {
     store: 'memory' | 'none' | Store | {
         create(...args: any[]): Store;
     };
-    max?: number;
+    max?: number | undefined;
 
     /**
      * You may pass in any other arguments these will be passed on to the `create` method of your store,
@@ -50,7 +50,12 @@ export interface CacheOptions {
 }
 
 export type CallbackFunc<T> = (error: any, result: T) => void;
-export type WrapArgsType<T> = string | ((callback: CallbackFunc<T>) => void) | CachingConfig | CallbackFunc<T>;
+export type WrapArgsType<T> =
+  | string
+  | ((callback: CallbackFunc<T>) => void)
+  | CachingConfig
+  | CallbackFunc<T>
+  | (() => PromiseLike<T> | T);
 
 export interface Cache {
     set<T>(key: string, value: T, options?: CachingConfig): Promise<T>;

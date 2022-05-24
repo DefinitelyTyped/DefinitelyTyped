@@ -7,6 +7,8 @@
 import * as React from 'react';
 
 export interface ScrollspyProps {
+    children?: React.ReactNode;
+
     // Array of target element IDs
     items: ReadonlyArray<string>;
 
@@ -14,25 +16,25 @@ export interface ScrollspyProps {
     currentClassName: string;
 
     // Class name that apply to the navigation elements that have been scrolled past
-    scrolledPastClassName?: string;
+    scrolledPastClassName?: string | undefined;
 
     // HTML tag for Scrollspy component if you want to use other than ul
-    componentTag?: string | React.ComponentType;
+    componentTag?: string | React.ComponentType | undefined;
 
     // Style attribute to be passed to the generated <ul /> element
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 
     // Offset value that adjusts to determine the elements are in the viewport
-    offset?: number;
+    offset?: number | undefined;
 
     // Selector for the element of scrollable container that can be used with querySelector
-    rootEl?: string;
+    rootEl?: string | undefined;
 
     // Function to be executed when the active item has been updated
-    onUpdate?: (item: HTMLElement) => void;
+    onUpdate?: ((item: HTMLElement) => void) | undefined;
 
     // ClassName attribute to be passed to the generated <ul /> element
-    className?: string;
+    className?: string | undefined;
 }
 
 export default class Scrollspy extends React.Component<ScrollspyProps> {

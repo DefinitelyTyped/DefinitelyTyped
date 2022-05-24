@@ -133,7 +133,7 @@ function init() {
 
     controls.dynamicDampingFactor = 0.15;
 
-    controls.keys = [65, 83, 68];
+    controls.keys = ['KeyA', 'KeyS', 'KeyD'];
 
     //
 

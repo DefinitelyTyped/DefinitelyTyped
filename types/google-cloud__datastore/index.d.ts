@@ -84,11 +84,11 @@ declare module '@google-cloud/datastore' {
     }
 
     interface InitOptions {
-        apiEndpoint?: string;
-        namespace?: string;
-        projectId?: string;
-        keyFilename?: string;
-        credentials?: object;
+        apiEndpoint?: string | undefined;
+        namespace?: string | undefined;
+        projectId?: string | undefined;
+        keyFilename?: string | undefined;
+        credentials?: object | undefined;
     }
 }
 
@@ -121,18 +121,18 @@ declare module '@google-cloud/datastore/entity' {
     type DatastoreKeyPath = PathElement[];
 
     interface DatastoreKeyOptions {
-        namespace?: string;
+        namespace?: string | undefined;
         path: DatastoreKeyPath;
     }
 
     interface DatastoreKey {
         kind: string;
-        id?: string;
-        name?: string;
+        id?: string | undefined;
+        name?: string | undefined;
 
         readonly path: DatastoreKeyPath;
 
-        parent?: DatastoreKey;
+        parent?: DatastoreKey | undefined;
     }
 
     type KEY_SYMBOL = typeof Datastore.KEY;
@@ -141,7 +141,7 @@ declare module '@google-cloud/datastore/entity' {
         key: DatastoreKey;
         // TODO Include possibility of 'raw data' with indexing options, etc
         data: T | object;
-        excludeFromIndexes?: string[];
+        excludeFromIndexes?: string[] | undefined;
     }
 
     /**
@@ -195,12 +195,12 @@ declare module '@google-cloud/datastore/query' {
     }
 
     interface QueryOptions {
-        consistency?: 'strong' | 'eventual';
-        maxApiCalls?: number;
+        consistency?: 'strong' | 'eventual' | undefined;
+        maxApiCalls?: number | undefined;
     }
 
     interface QueryInfo {
-        endCursor?: string;
+        endCursor?: string | undefined;
         readonly moreResults: MoreResultsAfterCursor | MoreResultsAfterLimit | NoMoreResults;
     }
 

@@ -3,15 +3,17 @@ import { Text, TextStyle, View, ViewStyle } from 'react-native';
 import ScrollableTabView, { ScrollableTabBar, TabProps, DefaultTabBar } from 'react-native-scrollable-tab-view';
 
 interface MyTextProps {
-    style?: TextStyle;
+    children?: React.ReactNode;
+    style?: TextStyle | undefined;
 }
 
-const MyText: React.SFC<TabProps<MyTextProps>> = (props) => (
+const MyText: React.FC<TabProps<MyTextProps>> = (props) => (
     <Text style={props.style}>{props.children}</Text>
 );
 
 interface MyViewProps {
-    style?: ViewStyle;
+    children?: React.ReactNode;
+    style?: ViewStyle | undefined;
 }
 
 class MyView extends React.Component<TabProps<MyViewProps>> {

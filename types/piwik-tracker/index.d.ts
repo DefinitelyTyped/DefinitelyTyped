@@ -17,74 +17,74 @@ interface PiwikTrackOptions {
     url: string;
 
     // Recommended parameters
-    action_name?: string;
-    _id?: string;
-    rand?: string;
-    apiv?: number;
+    action_name?: string | undefined;
+    _id?: string | undefined;
+    rand?: string | undefined;
+    apiv?: number | undefined;
 
     // Optional User info
-    urlref?: string;
-    _cvar?: string;
-    _idvc?: string;
-    _viewts?: string;
-    _idts?: string;
-    _rcn?: string;
-    _rck?: string;
-    res?: string;
-    h?: number;
-    m?: number;
-    s?: number;
-    ua?: string;
-    lang?: string;
-    uid?: string;
-    cid?: string;
-    new_visit?: number;
+    urlref?: string | undefined;
+    _cvar?: string | undefined;
+    _idvc?: string | undefined;
+    _viewts?: string | undefined;
+    _idts?: string | undefined;
+    _rcn?: string | undefined;
+    _rck?: string | undefined;
+    res?: string | undefined;
+    h?: number | undefined;
+    m?: number | undefined;
+    s?: number | undefined;
+    ua?: string | undefined;
+    lang?: string | undefined;
+    uid?: string | undefined;
+    cid?: string | undefined;
+    new_visit?: number | undefined;
 
     // Optional Action info
-    cvar?: string;
-    link?: string;
-    download?: string;
-    search?: string;
-    search_cat?: string;
-    search_count?: number;
-    idgoal?: number;
-    revenue?: number;
-    gt_ms?: number;
-    cs?: string;
+    cvar?: string | undefined;
+    link?: string | undefined;
+    download?: string | undefined;
+    search?: string | undefined;
+    search_cat?: string | undefined;
+    search_count?: number | undefined;
+    idgoal?: number | undefined;
+    revenue?: number | undefined;
+    gt_ms?: number | undefined;
+    cs?: string | undefined;
 
     // Optional Event Tracking info
-    e_c?: string;
-    e_a?: string;
-    e_n?: string;
-    e_v?: string;
+    e_c?: string | undefined;
+    e_a?: string | undefined;
+    e_n?: string | undefined;
+    e_v?: string | undefined;
 
     // Optional Content Tracking info
-    c_n?: string;
-    c_p?: string;
-    c_t?: string;
-    c_i?: string;
+    c_n?: string | undefined;
+    c_p?: string | undefined;
+    c_t?: string | undefined;
+    c_i?: string | undefined;
 
     // Optional Ecommerce info
-    ec_id?: string;
-    ec_items?: string;
-    ec_st?: number;
-    ec_tx?: number;
-    ec_sh?: number;
-    ec_dt?: number;
-    _ects?: number;
+    ec_id?: string | undefined;
+    ec_items?: string | undefined;
+    ec_st?: number | undefined;
+    ec_tx?: number | undefined;
+    ec_sh?: number | undefined;
+    ec_dt?: number | undefined;
+    _ects?: number | undefined;
 
     // Other parameters (require authentication via token_auth)
-    token_auth?: string;
-    cip?: string;
-    cdt?: string;
-    country?: string;
-    region?: string;
-    city?: string;
-    lat?: string;
-    long?: string;
+    token_auth?: string | undefined;
+    cip?: string | undefined;
+    cdt?: string | undefined;
+    country?: string | undefined;
+    region?: string | undefined;
+    city?: string | undefined;
+    lat?: string | undefined;
+    long?: string | undefined;
 
     // Other parameters
-    send_image?: number;
+    send_image?: number | undefined;
 }
 
 declare class PiwikTracker extends events.EventEmitter {

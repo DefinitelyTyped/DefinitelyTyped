@@ -14,6 +14,6 @@ declare module 'karma' {
          * One reason to do this is to have a permanent Chrome user data directory inside the project directory
          * to be able to install plugins there (e.g. JetBrains IDE Support plugin).
          */
-        chromeDataDir?: string;
+        chromeDataDir?: string | undefined;
     }
 }

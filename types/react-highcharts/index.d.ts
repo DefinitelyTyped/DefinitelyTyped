@@ -24,7 +24,7 @@ interface ReactHighchartsProps {
     /**
      * Chart will not rerender if the config is referentially equal to previous and this property is true
      */
-    isPureConfig?: boolean;
+    isPureConfig?: boolean | undefined;
 }
 
 /**

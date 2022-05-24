@@ -21,17 +21,26 @@ const tokenOptions: OpenTok.TokenOptions = {
 
 const token = client.generateToken('SESSION_ID', tokenOptions);
 
-client.dial('SESSION_ID', token, 'SIP_URI', {
-  from: 'Anna',
-  secure: true,
-  auth: {
-    username: 'anna',
-    password: 'password123',
+client.dial(
+  'SESSION_ID',
+  token,
+  'SIP_URI',
+  {
+    from: 'Anna',
+    secure: true,
+    auth: {
+      username: 'anna',
+      password: 'password123'
+    },
+    headers: {
+      'x-auth': 'foo,bar'
+    }
   },
-  headers: {
-    'x-auth': 'foo,bar',
-  },
-});
+  (err: Error | null, sipInterconnect: OpenTok.SipInterconnect) => {
+    if (err) return console.log(err);
+    console.log(sipInterconnect.id);
+  }
+);
 
 const archiveOptions: OpenTok.ArchiveOptions = {
   name: 'name',
@@ -55,9 +64,22 @@ const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
   },
 };
 
+const patchStream: OpenTok.PatchStream = {
+  hasAudio: false,
+  hasVideo: true
+}
+
 client.startArchive('SESSION_ID', archiveOptions, (err: Error, archive: OpenTok.Archive) => {
   if (err) return console.log(err);
   console.log(archive.id);
+});
+
+client.addArchiveStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
+});
+
+client.removeArchiveStream('ARCHIVE_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
 });
 
 client.stopArchive('ARCHIVE_ID', (err: Error, archive: OpenTok.Archive) => {
@@ -73,6 +95,14 @@ client.getArchive('ARCHIVE_ID', (err: Error, archive: OpenTok.Archive) => {
 client.getBroadcast('BROADCAST_ID', (err: Error, broadcast: OpenTok.Broadcast) => {
   if (err) return console.log(err);
   console.log(broadcast);
+});
+
+client.addBroadcastStream('BROADCAST_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
+});
+
+client.removeBroadcastStream('BROADCAST_ID', 'STREAM_ID', patchStream, (err: Error) => {
+  if (err) return console.log(err);
 });
 
 client.getStream('SESSION_ID', 'STREAM_ID', (err: Error, stream: OpenTok.Stream) => {
@@ -100,6 +130,11 @@ client.listArchives(listArchivesOptions, (err: Error, archives: OpenTok.Archive[
   }
 });
 
+client.playDTMF('SESSION_ID', 'CONNECTION_ID', '0', (err: Error) => {
+  if (err) return console.log(err);
+  console.log('success');
+});
+
 const broadcastOptions: OpenTok.BroadcastOptions = {
   outputs: {
     hls: {},
@@ -107,6 +142,7 @@ const broadcastOptions: OpenTok.BroadcastOptions = {
   layout: {
     type: 'bestFit',
   },
+  streamMode: 'auto'
 };
 
 client.startBroadcast('SESSION_ID', broadcastOptions, (err: Error, broadcast: OpenTok.Broadcast) => {

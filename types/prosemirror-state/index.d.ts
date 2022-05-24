@@ -1,10 +1,11 @@
-// Type definitions for prosemirror-state 1.2
+// Type definitions for prosemirror-state 1.3
 // Project: https://github.com/ProseMirror/prosemirror-state, https://github.com/prosemirror/prosemirror
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Mike Morearty <https://github.com/mmorearty>
+//                 Ocavue <https://github.com/ocavue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -22,19 +23,19 @@ export interface PluginSpec<T = any, S extends Schema = any> {
      * that are functions will be bound to have the plugin instance as
      * their `this` binding.
      */
-    props?: EditorProps<Plugin<T, S>, S> | null;
+    props?: EditorProps<Plugin<T, S>, S> | null | undefined;
     /**
      * Allows a plugin to define a [state field](#state.StateField), an
      * extra slot in the state object in which it can keep its own data.
      */
-    state?: StateField<T, S> | null;
+    state?: StateField<T, S> | null | undefined;
     /**
      * Can be used to make this a keyed plugin. You can have only one
      * plugin with a given key in a given state, but it is possible to
      * access the plugin's configuration and state through the key,
      * without having access to the plugin instance object.
      */
-    key?: PluginKey<T, S> | null;
+    key?: PluginKey<T, S> | null | undefined;
     /**
      * When the plugin needs to interact with the editor view, or
      * set something up in the DOM, use this field. The function
@@ -45,16 +46,16 @@ export interface PluginSpec<T = any, S extends Schema = any> {
         | ((
               p: EditorView<S>,
           ) => {
-              update?: ((view: EditorView<S>, prevState: EditorState<S>) => void) | null;
-              destroy?: (() => void) | null;
+              update?: ((view: EditorView<S>, prevState: EditorState<S>) => void) | null | undefined;
+              destroy?: (() => void) | null | undefined;
           })
-        | null;
+        | null | undefined;
     /**
      * When present, this will be called before a transaction is
      * applied by the state, allowing the plugin to cancel it (by
      * returning false).
      */
-    filterTransaction?: ((p1: Transaction<S>, p2: EditorState<S>) => boolean) | null;
+    filterTransaction?: ((p1: Transaction<S>, p2: EditorState<S>) => boolean) | null | undefined;
     /**
      * Allows the plugin to append another transaction to be applied
      * after the given array of transactions. When another plugin
@@ -69,7 +70,7 @@ export interface PluginSpec<T = any, S extends Schema = any> {
               oldState: EditorState<S>,
               newState: EditorState<S>,
           ) => Transaction<S> | null | undefined | void)
-        | null;
+        | null | undefined;
 }
 /**
  * Plugins bundle functionality that can be added to an editor.
@@ -119,12 +120,12 @@ export interface StateField<T = any, S extends Schema = Schema> {
      * Convert this field to JSON. Optional, can be left off to disable
      * JSON serialization for the field.
      */
-    toJSON?: ((this: Plugin<T, S>, value: T) => any) | null;
+    toJSON?: ((this: Plugin<T, S>, value: T) => any) | null | undefined;
     /**
      * Deserialize the JSON representation of this field. Note that the
      * `state` argument is again a half-initialized state.
      */
-    fromJSON?: ((this: Plugin<T, S>, config: { [key: string]: any }, value: any, state: EditorState<S>) => T) | null;
+    fromJSON?: ((this: Plugin<T, S>, config: { [key: string]: any }, value: any, state: EditorState<S>) => T) | null | undefined;
 }
 /**
  * A key is used to [tag](#state.PluginSpec.key)
@@ -336,7 +337,7 @@ export class TextSelection<S extends Schema = any> extends Selection<S> {
      * Returns a resolved position if this is a cursor selection (an
      * empty text selection), and null otherwise.
      */
-    $cursor?: ResolvedPos<S> | null;
+    $cursor?: ResolvedPos<S> | null | undefined;
     /**
      * Create a text selection from non-resolved positions.
      */
@@ -412,7 +413,7 @@ export class EditorState<S extends Schema = any> {
      * A set of marks to apply to the next input. Will be null when
      * no explicit marks have been set.
      */
-    storedMarks?: Array<Mark<S>> | null;
+    storedMarks?: Array<Mark<S>> | null | undefined;
     /**
      * The schema of the state's document.
      */
@@ -445,7 +446,7 @@ export class EditorState<S extends Schema = any> {
      * [`init`](#state.StateField.init) method, passing in the new
      * configuration object..
      */
-    reconfigure(config: { schema?: S | null; plugins?: Array<Plugin<any, S>> | null }): EditorState<S>;
+    reconfigure(config: { schema?: S | null | undefined; plugins?: Array<Plugin<any, S>> | null | undefined }): EditorState<S>;
     /**
      * Serialize this state to JSON. If you want to serialize the state
      * of plugins, pass an object mapping property names to use in the
@@ -456,11 +457,26 @@ export class EditorState<S extends Schema = any> {
      * Create a new state.
      */
     static create<S extends Schema = any>(config: {
-        schema?: S | null;
-        doc?: ProsemirrorNode<S> | null;
-        selection?: Selection<S> | null;
-        storedMarks?: Mark[] | null;
-        plugins?: Array<Plugin<any, S>> | null;
+        /**
+         * The schema to use (only relevant if no `doc` is specified).
+         */
+        schema?: S | null | undefined;
+        /**
+         * The starting document.
+         */
+        doc?: ProsemirrorNode<S> | null | undefined;
+        /**
+         * A valid selection in the document.
+         */
+        selection?: Selection<S> | null | undefined;
+        /**
+         * The initial set of [stored marks](#state.EditorState.storedMarks).
+         */
+        storedMarks?: Mark[] | null | undefined;
+        /**
+         * The plugins that should be active in this state.
+         */
+        plugins?: Array<Plugin<any, S>> | null | undefined;
     }): EditorState<S>;
     /**
      * Deserialize a JSON representation of a state. `config` should
@@ -470,7 +486,7 @@ export class EditorState<S extends Schema = any> {
      * instances with the property names they use in the JSON object.
      */
     static fromJSON<S extends Schema = any>(
-        config: { schema: S; plugins?: Array<Plugin<any, S>> | null },
+        config: { schema: S; plugins?: Array<Plugin<any, S>> | null | undefined },
         json: { [key: string]: any },
         pluginFields?: { [name: string]: Plugin<any, S> },
     ): EditorState<S>;
@@ -495,6 +511,8 @@ export class EditorState<S extends Schema = any> {
  * a `"paste"` property of true to transactions caused by a paste..
  */
 export class Transaction<S extends Schema = any> extends Transform<S> {
+    private constructor(state: EditorState);
+
     /**
      * The timestamp associated with this transaction, in the same
      * format as `Date.now()`.
@@ -503,7 +521,7 @@ export class Transaction<S extends Schema = any> extends Transform<S> {
     /**
      * The stored marks set by this transaction, if any.
      */
-    storedMarks?: Mark[] | null;
+    storedMarks?: Mark[] | null | undefined;
     /**
      * The transaction's current selection. This defaults to the editor
      * selection [mapped](#state.Selection.map) through the steps in the

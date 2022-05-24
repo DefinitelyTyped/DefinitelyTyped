@@ -1,4 +1,4 @@
-// Type definitions for connect-livereload v0.5.3
+// Type definitions for connect-livereload 0.6
 // Project: https://github.com/intesso/connect-livereload
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,17 +18,18 @@ declare namespace livereload {
     }
 
     export interface Options {
-        ignore?: FileMatcher[];
-        excludeList?: FileMatcher[];
+        ignore?: FileMatcher[] | undefined;
+        excludeList?: FileMatcher[] | undefined;
 
-        include?: FileMatcher[];
-        html?: (val: string) => boolean;
-        rules?: Rule[];
-        disableCompression?: boolean;
+        include?: FileMatcher[] | undefined;
+        html?: ((val: string) => boolean) | undefined;
+        rules?: Rule[] | undefined;
+        disableCompression?: boolean | undefined;
 
-        hostname?: string;
-        port?: number;
-        src?: string;
+        hostname?: string | undefined;
+        port?: number | undefined;
+        src?: string | undefined;
+        plugins?: string[] | undefined;
     }
 }
 

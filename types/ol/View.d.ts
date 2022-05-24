@@ -17,13 +17,13 @@ import ViewHint from './ViewHint';
  * An animation configuration
  */
 export interface Animation {
-    sourceCenter?: Coordinate;
-    targetCenter?: Coordinate;
-    sourceResolution?: number;
-    targetResolution?: number;
-    sourceRotation?: number;
-    targetRotation?: number;
-    anchor?: Coordinate;
+    sourceCenter?: Coordinate | undefined;
+    targetCenter?: Coordinate | undefined;
+    sourceResolution?: number | undefined;
+    targetResolution?: number | undefined;
+    sourceRotation?: number | undefined;
+    targetRotation?: number | undefined;
+    anchor?: Coordinate | undefined;
     start: number;
     duration: number;
     complete: boolean;
@@ -31,13 +31,13 @@ export interface Animation {
     callback: (p0: boolean) => void;
 }
 export interface AnimationOptions {
-    center?: Coordinate;
-    zoom?: number;
-    resolution?: number;
-    rotation?: number;
-    anchor?: Coordinate;
-    duration?: number;
-    easing?: (p0: number) => number;
+    center?: Coordinate | undefined;
+    zoom?: number | undefined;
+    resolution?: number | undefined;
+    rotation?: number | undefined;
+    anchor?: Coordinate | undefined;
+    duration?: number | undefined;
+    easing?: ((p0: number) => number) | undefined;
 }
 export interface Constraints {
     center: Type;
@@ -45,14 +45,14 @@ export interface Constraints {
     rotation: Type_2;
 }
 export interface FitOptions {
-    size?: Size;
-    padding?: number[];
-    nearest?: boolean;
-    minResolution?: number;
-    maxZoom?: number;
-    duration?: number;
-    easing?: (p0: number) => number;
-    callback?: (p0: boolean) => void;
+    size?: Size | undefined;
+    padding?: number[] | undefined;
+    nearest?: boolean | undefined;
+    minResolution?: number | undefined;
+    maxZoom?: number | undefined;
+    duration?: number | undefined;
+    easing?: ((p0: number) => number) | undefined;
+    callback?: ((p0: boolean) => void) | undefined;
 }
 export interface State {
     center: Coordinate;
@@ -62,29 +62,38 @@ export interface State {
     zoom: number;
 }
 export interface ViewOptions {
-    center?: Coordinate;
-    constrainRotation?: boolean | number;
-    enableRotation?: boolean;
-    extent?: Extent;
-    constrainOnlyCenter?: boolean;
-    smoothExtentConstraint?: boolean;
-    maxResolution?: number;
-    minResolution?: number;
-    maxZoom?: number;
-    minZoom?: number;
-    multiWorld?: boolean;
-    constrainResolution?: boolean;
-    smoothResolutionConstraint?: boolean;
-    showFullExtent?: boolean;
-    projection?: ProjectionLike;
-    resolution?: number;
-    resolutions?: number[];
-    rotation?: number;
-    zoom?: number;
-    zoomFactor?: number;
+    center?: Coordinate | undefined;
+    constrainRotation?: boolean | number | undefined;
+    enableRotation?: boolean | undefined;
+    extent?: Extent | undefined;
+    constrainOnlyCenter?: boolean | undefined;
+    smoothExtentConstraint?: boolean | undefined;
+    maxResolution?: number | undefined;
+    minResolution?: number | undefined;
+    maxZoom?: number | undefined;
+    minZoom?: number | undefined;
+    multiWorld?: boolean | undefined;
+    constrainResolution?: boolean | undefined;
+    smoothResolutionConstraint?: boolean | undefined;
+    showFullExtent?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    resolution?: number | undefined;
+    resolutions?: number[] | undefined;
+    rotation?: number | undefined;
+    zoom?: number | undefined;
+    zoomFactor?: number | undefined;
+    padding?: number[] | undefined;
 }
 export default class View extends BaseObject {
     constructor(opt_options?: ViewOptions);
+    /**
+     * Padding (in css pixels).
+     * If the map viewport is partially covered with other content (overlays) along
+     * its edges, this setting allows to shift the center of the viewport away from that
+     * content. The order of the values in the array is top, right, bottom, left.
+     * The default is no padding, which is equivalent to [0, 0, 0, 0].
+     */
+    padding: number[];
     /**
      * Adds relative coordinates to the center of the view. Any extent constraint will apply.
      */
@@ -118,12 +127,12 @@ export default class View extends BaseObject {
      * Animate the view.  The view's center, zoom (or resolution), and rotation
      * can be animated for smooth transitions between view states.  For example,
      * to animate the view to a new zoom level:
-     * By default, the animation lasts one second and uses in-and-out easing.  You
+     * <code>view.animate({zoom: view.getZoom() + 1});</code>By default, the animation lasts one second and uses in-and-out easing.  You
      * can customize this behavior by including duration (in milliseconds) and
      * easing options (see {@link module:ol/easing}).
      * To chain together multiple animations, call the method with multiple
      * animation objects.  For example, to first zoom and then pan:
-     * If you provide a function as the last argument to the animate method, it
+     * <code>view.animate({zoom: 10}, {center: [0, 0]});</code>If you provide a function as the last argument to the animate method, it
      * will get called at the end of an animation series.  The callback will be
      * called with true if the animation series completed on its own or false
      * if it was cancelled.
@@ -144,6 +153,10 @@ export default class View extends BaseObject {
      */
     beginInteraction(): void;
     calculateCenterRotate(rotation: number, anchor: Coordinate): Coordinate | undefined;
+    /**
+     * Calculates the shift between map and viewport center.
+     */
+    calculateCenterShift(center: Coordinate, resolution: number, rotation: number, size: Size): number[] | undefined;
     calculateCenterZoom(resolution: number, anchor: Coordinate): Coordinate | undefined;
     /**
      * Calculate the extent for the current view state and the passed size.

@@ -11,6 +11,6 @@ export type UseBeforeunloadHandler = ((arg: Event) => string | undefined) | ((ar
 export function useBeforeunload(handler?: UseBeforeunloadHandler): void;
 
 export const Beforeunload: React.FC<{
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
     onBeforeunload: UseBeforeunloadHandler;
 }>;

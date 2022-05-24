@@ -79,6 +79,7 @@ class BasicExample extends React.Component {
                 <Typeahead options={stateNames} placeholder="Choose a name" />
                 <Typeahead options={stateNames} size="large" />
                 <Typeahead
+                    className='is-valid'
                     options={stateNames}
                     placeholder="Choose a name"
                     multiple

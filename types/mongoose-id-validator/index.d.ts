@@ -2,7 +2,7 @@
 // Project: https://github.com/CampbellSoftwareSolutions/mongoose-id-validator
 // Definitions by: Kerollos Magdy <https://github.com/kerolloz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+// Minimum TypeScript Version: 4.1
 
 import { Schema, Connection } from 'mongoose';
 
@@ -11,14 +11,14 @@ interface MongooseIdValidatorOptions {
      * with the relevant schema path that contains an invalid
      * document ID.
      */
-    message?: string;
+    message?: string | undefined;
 
     /* Optional, mongoose connection object to use if you are
      * using multiple connections in your application.
      *
      * Defaults to built-in mongoose connection if not specified.
      */
-    connection?: Connection;
+    connection?: Connection | undefined;
 
     /* Optional, applies to validation of arrays of ID references only. Set
      * to true if you sometimes have the same object ID reference
@@ -28,7 +28,7 @@ interface MongooseIdValidatorOptions {
      *
      * Defaults to false
      */
-    allowDuplicates?: boolean;
+    allowDuplicates?: boolean | undefined;
 }
 
 declare function mongooseIdValidator(schema: Schema, options?: MongooseIdValidatorOptions): void;

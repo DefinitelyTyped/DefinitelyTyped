@@ -21,13 +21,13 @@ declare namespace ncp {
     }
 
     interface Options {
-        filter?: RegExp | ((filename: string) => boolean);
-        transform?: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream, file: File) => void;
-        clobber?: boolean;
-        dereference?: boolean;
-        stopOnErr?: boolean;
-        errs?: fs.PathLike;
-        limit?: number;
+        filter?: RegExp | ((filename: string) => boolean) | undefined;
+        transform?: ((read: NodeJS.ReadableStream, write: NodeJS.WritableStream, file: File) => void) | undefined;
+        clobber?: boolean | undefined;
+        dereference?: boolean | undefined;
+        stopOnErr?: boolean | undefined;
+        errs?: fs.PathLike | undefined;
+        limit?: number | undefined;
     }
 }
 

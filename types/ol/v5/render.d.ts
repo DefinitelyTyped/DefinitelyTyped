@@ -13,7 +13,7 @@ export interface State {
     rotation: number;
 }
 export interface ToContextOptions {
-    size?: Size;
-    pixelRatio?: number;
+    size?: Size | undefined;
+    pixelRatio?: number | undefined;
 }
 export function toContext(context: CanvasRenderingContext2D, opt_options?: ToContextOptions): CanvasImmediateRenderer;

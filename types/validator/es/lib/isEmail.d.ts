@@ -1,3 +1,3 @@
-import validator from '../../';
-export type IsEmailOptions = validator.IsEmailOptions;
-export default validator.isEmail;
+import isEmail, { IsEmailOptions } from '../../lib/isEmail';
+export default isEmail;
+export { IsEmailOptions };

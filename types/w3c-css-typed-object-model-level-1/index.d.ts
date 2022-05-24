@@ -2,7 +2,7 @@
 // Project: https://www.w3.org/TR/css-typed-om-1/
 // Definitions by: Nathan Shively-Sanders <https://github.com/sandersn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
+// Minimum TypeScript Version: 4.4
 
 declare class CSSStyleValue {
     static parse(property: string, cssText: string): CSSStyleValue;
@@ -13,7 +13,7 @@ declare class CSSStyleValue {
 declare class CSSVariableReferenceValue {
     constructor(variable: string, fallback?: CSSUnparsedValue)
     variable: string;
-    readonly fallback?: CSSUnparsedValue;
+    readonly fallback?: CSSUnparsedValue | undefined;
 }
 
 type CSSUnparsedSegment = string | CSSVariableReferenceValue;
@@ -30,7 +30,7 @@ declare class CSSKeywordValue extends CSSStyleValue {
     value: string;
 }
 
-type CSSNumberish = number | CSSNumericValue;
+type CSSNumberOrNumeric = CSSNumberish | CSSNumericValue;
 
 declare enum CSSNumericBaseType {
     'length',
@@ -54,14 +54,14 @@ interface CSSNumericType {
 }
 
 declare class CSSNumericValue extends CSSStyleValue {
-    add(...values: CSSNumberish[]): CSSNumericValue;
-    sub(...values: CSSNumberish[]): CSSNumericValue;
-    mul(...values: CSSNumberish[]): CSSNumericValue;
-    div(...values: CSSNumberish[]): CSSNumericValue;
-    min(...values: CSSNumberish[]): CSSNumericValue;
-    max(...values: CSSNumberish[]): CSSNumericValue;
+    add(...values: CSSNumberOrNumeric[]): CSSNumericValue;
+    sub(...values: CSSNumberOrNumeric[]): CSSNumericValue;
+    mul(...values: CSSNumberOrNumeric[]): CSSNumericValue;
+    div(...values: CSSNumberOrNumeric[]): CSSNumericValue;
+    min(...values: CSSNumberOrNumeric[]): CSSNumericValue;
+    max(...values: CSSNumberOrNumeric[]): CSSNumericValue;
 
-    equals(...values: CSSNumberish[]): boolean;
+    equals(...values: CSSNumberOrNumeric[]): boolean;
 
     to(unit: string): CSSUnitValue;
     toSum(...units: string[]): CSSMathSum;
@@ -81,32 +81,32 @@ declare class CSSMathValue extends CSSNumericValue {
 }
 
 declare class CSSMathSum extends CSSMathValue {
-    constructor(...args: CSSNumberish[]);
+    constructor(...args: CSSNumberOrNumeric[]);
     readonly values: CSSNumericArray;
 }
 
 declare class CSSMathProduct extends CSSMathValue {
-    constructor(...args: CSSNumberish[])
+    constructor(...args: CSSNumberOrNumeric[])
     readonly values: CSSNumericArray;
 }
 
 declare class CSSMathNegate extends CSSMathValue {
-    constructor(arg: CSSNumberish)
+    constructor(arg: CSSNumberOrNumeric)
     readonly value: CSSNumericValue;
 }
 
 declare class CSSMathInvert extends CSSMathValue {
-    constructor(arg: CSSNumberish)
+    constructor(arg: CSSNumberOrNumeric)
     readonly value: CSSNumericValue;
 }
 
 declare class CSSMathMin extends CSSMathValue {
-    constructor(...args: CSSNumberish[])
+    constructor(...args: CSSNumberOrNumeric[])
     readonly values: CSSNumericArray;
 }
 
 declare class CSSMathMax extends CSSMathValue {
-    constructor(...args: CSSNumberish[])
+    constructor(...args: CSSNumberOrNumeric[])
     readonly values: CSSNumericArray;
 }
 
@@ -114,7 +114,7 @@ declare class CSSMathMax extends CSSMathValue {
 // Since there is no support for this class in any browser, it's better
 // wait for the implementation.
 // declare class CSSMathClamp extends CSSMathValue {
-// constructor(min: CSSNumberish, val: CSSNumberish, max: CSSNumberish);
+// constructor(min: CSSNumberOrNumeric, val: CSSNumberOrNumeric, max: CSSNumberOrNumeric);
 //     readonly min: CSSNumericValue;
 //     readonly val: CSSNumericValue;
 //     readonly max: CSSNumericValue;
@@ -160,18 +160,18 @@ declare class CSSTranslate extends CSSTransformComponent {
 
 declare class CSSRotate extends CSSTransformComponent {
     constructor(angle: CSSNumericValue);
-    constructor(x: CSSNumberish, y: CSSNumberish, z: CSSNumberish, angle: CSSNumericValue)
-    x: CSSNumberish;
-    y: CSSNumberish;
-    z: CSSNumberish;
+    constructor(x: CSSNumberOrNumeric, y: CSSNumberOrNumeric, z: CSSNumberOrNumeric, angle: CSSNumericValue)
+    x: CSSNumberOrNumeric;
+    y: CSSNumberOrNumeric;
+    z: CSSNumberOrNumeric;
     angle: CSSNumericValue;
 }
 
 declare class CSSScale extends CSSTransformComponent {
-    constructor(x: CSSNumberish, y: CSSNumberish, z?: CSSNumberish)
-    x: CSSNumberish;
-    y: CSSNumberish;
-    z: CSSNumberish;
+    constructor(x: CSSNumberOrNumeric, y: CSSNumberOrNumeric, z?: CSSNumberOrNumeric)
+    x: CSSNumberOrNumeric;
+    y: CSSNumberOrNumeric;
+    z: CSSNumberOrNumeric;
 }
 
 declare class CSSSkew extends CSSTransformComponent {

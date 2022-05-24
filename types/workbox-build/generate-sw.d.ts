@@ -16,7 +16,7 @@ export interface GenerateSWConfig {
      * A list of entries to be precached, in addition to any entries that are
      * generated as part of the build configuration.
      */
-    additionalManifestEntries?: ManifestEntry[];
+    additionalManifestEntries?: ManifestEntry[] | undefined;
 
     /**
      * The [targets](https://babeljs.io/docs/en/babel-preset-env#targets) to pass to
@@ -24,14 +24,14 @@ export interface GenerateSWConfig {
      *
      * @default ['chrome >= 56']
      */
-    babelPresetEnvTargets?: string[];
+    babelPresetEnvTargets?: string[] | undefined;
 
     /**
      * An optional ID to be prepended to cache names. This is primarily useful for
      * local development where multiple sites may be served from the same
      * `http://localhost:port` origin.
      */
-    cacheId?: string;
+    cacheId?: string | undefined;
 
     /**
      * Whether or not Workbox should attempt to identify an delete any precaches
@@ -39,7 +39,7 @@ export interface GenerateSWConfig {
      *
      * @default false
      */
-    cleanupOutdatedCaches?: boolean;
+    cleanupOutdatedCaches?: boolean | undefined;
 
     /**
      * Whether or not the service worker should [start controlling](https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#clientsclaim)
@@ -47,7 +47,7 @@ export interface GenerateSWConfig {
      *
      * @default false
      */
-    clientsClaim?: boolean;
+    clientsClaim?: boolean | undefined;
 
     /**
      * If a navigation request for a URL ending in `/` fails to match a precached
@@ -57,7 +57,7 @@ export interface GenerateSWConfig {
      *
      * @default 'index.html'
      */
-    directoryIndex?: string;
+    directoryIndex?: string | undefined;
 
     /**
      * Assets that match this will be assumed to be uniquely versioned via their
@@ -67,7 +67,7 @@ export interface GenerateSWConfig {
      * you provide a RegExp that will detect that, as it will reduce the bandwidth
      * consumed when precaching.
      */
-    dontCacheBustURLsMatching?: RegExp;
+    dontCacheBustURLsMatching?: RegExp | undefined;
 
     /**
      * Determines whether or not symlinks are followed when generating the precache
@@ -76,7 +76,7 @@ export interface GenerateSWConfig {
      *
      * @default true
      */
-    globFollow?: boolean;
+    globFollow?: boolean | undefined;
 
     /**
      * A set of patterns matching files to always exclude when generating the
@@ -85,7 +85,7 @@ export interface GenerateSWConfig {
      *
      * @default ['node_modules/**']
      */
-    globIgnores?: string[];
+    globIgnores?: string[] | undefined;
 
     /**
      * Files matching any of these patterns will be included in the precache
@@ -94,7 +94,7 @@ export interface GenerateSWConfig {
      *
      * @default ['**.{js,css,html}']
      */
-    globPatterns?: string[];
+    globPatterns?: string[] | undefined;
 
     /**
      * If true, an error reading a directory when generating a precache manifest
@@ -104,7 +104,7 @@ export interface GenerateSWConfig {
      *
      * @default true
      */
-    globStrict?: boolean;
+    globStrict?: boolean | undefined;
 
     /**
      * Any search parameter names that match against one of the RegExp in this array
@@ -114,7 +114,7 @@ export interface GenerateSWConfig {
      *
      * @default [/^utm_/]
      */
-    ignoreURLParametersMatching?: RegExp[];
+    ignoreURLParametersMatching?: RegExp[] | undefined;
 
     /**
      * A list of JavaScript files that should be passed to [`importScripts()`](https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts)
@@ -122,7 +122,7 @@ export interface GenerateSWConfig {
      * let Workbox create your top-level service worker file, but want to include
      * some additional code, such as a push event listener.
      */
-    importScripts?: string[];
+    importScripts?: string[] | undefined;
 
     /**
      * Whether the runtime code for the Workbox library should be included in the
@@ -132,14 +132,14 @@ export interface GenerateSWConfig {
      *
      * @default false
      */
-    inlineWorkboxRuntime?: boolean;
+    inlineWorkboxRuntime?: boolean | undefined;
 
     /**
      * One or more functions which will be applied sequentially against the
      * generated manifest. If `modifyURLPrefix` or `dontCacheBustURLsMatching` are
      * also specified, their corresponding transformations will be applied first.
      */
-    manifestTransforms?: ManifestTransform[];
+    manifestTransforms?: ManifestTransform[] | undefined;
 
     /**
      * This value can be used to determine the maximum size of files that will be
@@ -148,14 +148,14 @@ export interface GenerateSWConfig {
      *
      * @default 2097152
      */
-    maximumFileSizeToCacheInBytes?: number;
+    maximumFileSizeToCacheInBytes?: number | undefined;
 
     /**
      * If set to 'production', then an optimized service worker bundle that excludes
      * debugging info will be produced. If not explicitly configured here, the `mode`
      * value configured in the current `webpack` compiltion will be used.
      */
-    mode?: string;
+    mode?: string | undefined;
 
     /**
      * A mapping of prefixes that, if present in an entry in the precache manifest,
@@ -167,7 +167,7 @@ export interface GenerateSWConfig {
      */
     modifyURLPrefix?: {
         [key: string]: string;
-    };
+    } | undefined;
 
     /**
      * If specified, all [navigation requests](https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests)
@@ -176,7 +176,7 @@ export interface GenerateSWConfig {
      * precache manifest. This is meant to be used in a Single Page App scenario, in
      * which you want all navigations to use common [App Shell HTML](https://developers.google.com/web/fundamentals/architecture/app-shell).
      */
-    navigateFallback?: string;
+    navigateFallback?: string | undefined;
 
     /**
      * An optional array of regular expressions that restricts which URLs the configured
@@ -186,7 +186,7 @@ export interface GenerateSWConfig {
      * both `navigateFallbackDenylist` and `navigateFallbackAllowlist` are
      * configured, the denylist takes precedent.
      */
-    navigateFallbackDenylist?: RegExp[];
+    navigateFallbackDenylist?: RegExp[] | undefined;
 
     /**
      * An optional array of regular expressions that restricts which URLs the configured
@@ -196,7 +196,7 @@ export interface GenerateSWConfig {
      * both `navigateFallbackDenylist` and `navigateFallbackAllowlist` are
      * configured, the denylist takes precedent.
      */
-    navigateFallbackAllowlist?: RegExp[];
+    navigateFallbackAllowlist?: RegExp[] | undefined;
 
     /**
      * Whether or not to enable [navigation preload](https://developers.google.com/web/tools/workbox/modules/workbox-navigation-preload)
@@ -206,7 +206,7 @@ export interface GenerateSWConfig {
      *
      * @default false
      */
-    navigationPreload?: boolean;
+    navigationPreload?: boolean | undefined;
 
     /**
      * Controls whether or not to include support for [offline Google Analytics](https://developers.google.com/web/tools/workbox/guides/enable-offline-analytics).
@@ -217,9 +217,9 @@ export interface GenerateSWConfig {
      *
      * @default false
      */
-    offlineGoogleAnalytics?: boolean | object;
+    offlineGoogleAnalytics?: boolean | object | undefined;
 
-    runtimeCaching?: RuntimeCachingEntry[];
+    runtimeCaching?: RuntimeCachingEntry[] | undefined;
 
     /**
      * Whether to add an unconditional call to [`skipWaiting()`](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.skipWaiting)
@@ -228,14 +228,14 @@ export interface GenerateSWConfig {
      *
      * @default false
      */
-    skipWaiting?: boolean;
+    skipWaiting?: boolean | undefined;
 
     /**
      * Whether to create a sourcemap for the generated service worker files.
      *
      * @default true
      */
-    sourcemap?: boolean;
+    sourcemap?: boolean | undefined;
 
     /**
      * If a URL is rendered based on some server-side logic, its contents may depend
@@ -246,7 +246,7 @@ export interface GenerateSWConfig {
      * it will be interpreted as unique versioning information that you've generated
      * for a given URL.
      */
-    templatedURLs?: object;
+    templatedURLs?: object | undefined;
 }
 
 /**

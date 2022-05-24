@@ -1,19 +1,28 @@
 import throng = require("throng");
 
 function masterFunction() { }
-function startFunction(id: number) { }
+function startFunction(id: number, disconnect: () => void) { }
 
 throng((id: number) => {});
 
 throng(startFunction);
 throng(3, startFunction);
 
-throng({
+const result: Promise<void> = throng({
     workers: 4,
     signals: ["EXAMPLE"],
     master: masterFunction,
     start: startFunction
 });
+
+(async () => {
+    await throng({
+        workers: 4,
+        signals: ['EXAMPLE'],
+        master: masterFunction,
+        start: startFunction,
+    });
+})();
 
 throng({
     workers: 16,

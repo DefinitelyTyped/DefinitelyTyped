@@ -1,6 +1,6 @@
 // Type definitions for react-native-bcrypt 2.4
 // Project: https://github.com/emiraydin/react-native-bcrypt/#readme
-// Definitions by: KyiMoeMin <https://github.com/Kyi-Moe-Min>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
@@ -18,7 +18,7 @@ interface ReactNativeBcrypt {
      *  is seeded properly!
      * @param random Function taking the number of bytes to generate as its
      *  sole argument, returning the corresponding array of cryptographically secure random byte values.
-     * @see http://nodejs.org/api/crypto.html
+     * @see https://nodejs.org/api/crypto.html
      * @see http://www.w3.org/TR/WebCryptoAPI/
      */
     setRandomFallback(random?: (number: number) => number[]): void;

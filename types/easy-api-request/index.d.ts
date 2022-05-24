@@ -17,12 +17,12 @@ export declare function create(opts: {
     name: any;
     config: {
         url: string;
-        internal?: boolean;
-        headers?: string[];
-        cookies?: string[];
-        replyCookies?: string[];
-        jSend?: boolean;
-        opts?: Object;
+        internal?: boolean | undefined;
+        headers?: string[] | undefined;
+        cookies?: string[] | undefined;
+        replyCookies?: string[] | undefined;
+        jSend?: boolean | undefined;
+        opts?: Object | undefined;
     };
 }): void;
 

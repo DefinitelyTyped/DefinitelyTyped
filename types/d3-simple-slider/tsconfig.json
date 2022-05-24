@@ -14,8 +14,8 @@
             "../"
         ],
         "paths": {
-            "d3-selection": [
-                "d3-selection/v1"
+            "d3-format": [
+                "d3-format/v2"
             ]
         },
         "types": [],

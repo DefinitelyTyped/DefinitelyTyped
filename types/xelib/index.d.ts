@@ -304,23 +304,23 @@ export interface GetREFRsOptions {
      * Pass true to exclude deleted REFRs.
      * @default false
      */
-    excludeDeleted?: boolean;
+    excludeDeleted?: boolean | undefined;
     /**
      * Pass true to exclude disabled REFRs.
      * @default false
      */
-    excludeDisabled?: boolean;
+    excludeDisabled?: boolean | undefined;
     /**
      * Pass true to exclude REFRs which have an XESP element.
      * @default false
      */
-    excludeXESP?: boolean;
+    excludeXESP?: boolean | undefined;
 }
 
 export interface Vector {
-    X?: number;
-    Y?: number;
-    Z?: number;
+    X?: number | undefined;
+    Y?: number | undefined;
+    Z?: number | undefined;
 }
 
 /**
@@ -1573,7 +1573,7 @@ export interface XELib
     /**
      * @see CreateHandleGroup
      */
-    HandleGroup?: Handle[];
+    HandleGroup?: Handle[] | undefined;
     /**
      * Releases all handles in `xelib.HandleGroup`.
      * After calling this, handles retrieved from xelib

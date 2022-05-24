@@ -9,6 +9,14 @@ ibmdb.open("DATABASE=<dbname>;HOSTNAME=<myhost>;UID=db2user;PWD=password;PORT=<d
       //
     });
   });
+
+    // ibmdb.ODBCResult
+    conn.queryResult('select 1 from sysibm.sysdummy1', (err, data) => {
+      data.getColumnMetadataSync();
+      data.fetchAll({fetchMode: 3}, (err, data) => {
+        //
+      });
+    });
 });
 
 /** imdb.ODBCStatement */

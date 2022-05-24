@@ -7,38 +7,68 @@ declare namespace Plugin {
 
     interface Commands {
         [command: string]: {
-            usage?: string;
-            lifecycleEvents?: string[];
-            commands?: { [command: string]: {} };
-            options?: {
-                [option: string]: {
-                    usage?: string;
-                    required?: boolean;
-                    shortcut?: string;
-                };
-            };
+            usage?: string | undefined;
+            lifecycleEvents?: string[] | undefined;
+            commands?: { [command: string]: {} } | undefined;
+            options?:
+                | {
+                      [option: string]: {
+                          usage?: string | undefined;
+                          required?: boolean | undefined;
+                          shortcut?: string | undefined;
+                      };
+                  }
+                | undefined;
         };
     }
 
     type VariableResolver = (variableSource: string) => Promise<any>;
 
     interface VariableResolvers {
-        [variablePrefix: string]: VariableResolver | {
-            resolver: VariableResolver,
-            isDisabledAtPrepopulation?: boolean,
-            serviceName?: string
+        [variablePrefix: string]:
+            | VariableResolver
+            | {
+                  resolver: VariableResolver;
+                  isDisabledAtPrepopulation?: boolean | undefined;
+                  serviceName?: string | undefined;
+              };
+    }
+
+    type ConfigurationVariablesSource = (variableSource: any) => Promise<any>;
+
+    interface ConfigurationVariablesSources {
+        [variablePrefix: string]:
+            | ConfigurationVariablesSource
+            | {
+                  resolve: ConfigurationVariablesSource;
+                  isDisabledAtPrepopulation?: boolean | undefined;
+                  serviceName?: string | undefined;
+              };
+    }
+
+    interface Logging {
+        log: {
+            error: (text: string) => void;
+            warning: (text: string) => void;
+            notice: (text: string) => void;
+            info: (text: string) => void;
+            debug: (text: string) => void;
+            verbose: (text: string) => void;
+            success: (text: string) => void;
         };
+        writeText: (text: string | string[]) => void;
     }
 
     interface PluginStatic {
-        new (serverless: Serverless, options: Serverless.Options): Plugin;
+        new (serverless: Serverless, options: Serverless.Options, logging: Logging): Plugin;
     }
 }
 
 interface Plugin {
     hooks: Plugin.Hooks;
-    commands?: Plugin.Commands;
-    variableResolvers?: Plugin.VariableResolvers;
+    commands?: Plugin.Commands | undefined;
+    variableResolvers?: Plugin.VariableResolvers | undefined;
+    configurationVariablesSources?: Plugin.ConfigurationVariablesSources | undefined;
 }
 
 export = Plugin;
