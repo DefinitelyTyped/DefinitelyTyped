@@ -266,7 +266,7 @@ declare namespace Aws {
     }
 
     interface Tracing {
-        apiGateway: boolean;
+        apiGateway?: boolean;
         lambda?: 'Active' | 'PassThrough' | boolean | undefined;
     }
 
