@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "analytics": "^0.8.1",
+        "react": "^18.1.0"
+    }
+}
