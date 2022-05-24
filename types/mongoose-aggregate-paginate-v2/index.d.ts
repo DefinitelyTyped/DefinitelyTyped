@@ -11,17 +11,17 @@
 
 declare module 'mongoose' {
     interface CustomLabels<T = string | undefined | boolean> {
-        totalDocs?: T;
-        docs?: T;
-        limit?: T;
-        page?: T;
-        nextPage?: T;
-        prevPage?: T;
-        hasNextPage?: T;
-        hasPrevPage?: T;
-        totalPages?: T;
-        pagingCounter?: T;
-        meta?: T;
+        totalDocs?: T | undefined;
+        docs?: T | undefined;
+        limit?: T | undefined;
+        page?: T | undefined;
+        nextPage?: T | undefined;
+        prevPage?: T | undefined;
+        hasNextPage?: T | undefined;
+        hasPrevPage?: T | undefined;
+        totalPages?: T | undefined;
+        pagingCounter?: T | undefined;
+        meta?: T | undefined;
     }
 
     interface PaginateOptions {
