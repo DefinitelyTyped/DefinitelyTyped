@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { AnalyticsInstance } from 'analytics';
-import { Consumer, Context, Provider, createContext } from 'react';
+import { Consumer, Context, Provider } from 'react';
 
 export type TrackFunction = () => void;
 export type PageFunction = () => void;
