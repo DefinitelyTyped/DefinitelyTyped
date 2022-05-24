@@ -1,4 +1,7 @@
+// Type definitions for resumable-chunk-upload
+// Project: https://github.com/heryTz/resumable-chunk-upload
 // Definitions by: Hery Nirintsoa <https://github.com/herytz>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface UploadProgress {
     /** Percentage */
