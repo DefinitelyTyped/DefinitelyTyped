@@ -18,7 +18,7 @@ import * as chrome from './chrome';
 import * as edge from './edge';
 import * as firefox from './firefox';
 import * as ie from './ie';
-import { By, ByHash } from './lib/by';
+import { By, ByHash, RelativeBy } from './lib/by';
 import { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
 import * as command from './lib/command';
 import * as http from './http';
@@ -904,7 +904,7 @@ export class Builder {
   // endregion
 }
 
-export type Locator = By | Function | ByHash;
+export type Locator = By | Function | ByHash | RelativeBy;
 
 /**
  * Describes an event listener registered on an {@linkplain EventEmitter}.
