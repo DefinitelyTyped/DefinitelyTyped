@@ -125,3 +125,26 @@ const hrtimeBigint: bigint = process.hrtime.bigint();
 process.allowedNodeEnvironmentFlags.has('asdf');
 
 process.env.TZ = 'test';
+
+{
+    // $ExpectError
+    process.getgid();
+    // $ExpectError
+    process.setgid(1);
+    // $ExpectError
+    process.getuid();
+    // $ExpectError
+    process.setuid(1);
+    // $ExpectError
+    process.geteuid();
+    // $ExpectError
+    process.seteuid(1);
+    // $ExpectError
+    process.getegid();
+    // $ExpectError
+    process.setegid(1);
+    // $ExpectError
+    process.getgroups();
+    // $ExpectError
+    process.setgroups([1]);
+}
