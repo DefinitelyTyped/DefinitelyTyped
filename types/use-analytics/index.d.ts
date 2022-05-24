@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { AnalyticsInstance } from 'analytics';
-import { Consumer, Context, Provider } from 'react';
+import * as React from 'react';
 
 export type TrackFunction = () => void;
 export type PageFunction = () => void;
@@ -22,12 +22,12 @@ export function useIdentify(): AnalyticsInstance['identify'];
 
 export function withAnalytics(Component: any): any;
 
-export const AnalyticsContext: Context<{
+export const AnalyticsContext: React.Context<{
     instance: AnalyticsInstance;
 }>;
-export const AnalyticsProvider: Provider<{
+export const AnalyticsProvider: React.Provider<{
     instance: AnalyticsInstance;
 }>;
-export const AnalyticsConsumer: Consumer<{
+export const AnalyticsConsumer: React.Consumer<{
     instance: AnalyticsInstance;
 }>;
