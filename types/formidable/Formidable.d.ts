@@ -1,6 +1,12 @@
-import { IncomingMessage } from "http";
-import { EmitData, EventData, Fields, File, Files, Options, Part, PluginFunction, DefaultOptions } from "./";
-declare class IncomingForm {
+/**
+ * Docs: https://github.com/node-formidable/formidable/blob/master/src/Formidable.js#L45
+ */
+
+import { IncomingMessage } from 'http';
+import { EventEmitter } from 'stream';
+import { EmitData, EventData, Fields, File, Files, Options, Part, PluginFunction, DefaultOptions } from './';
+
+declare class IncomingForm extends EventEmitter {
     static readonly DEFAULT_OPTIONS: DefaultOptions;
     constructor(options?: Partial<Options>);
 
@@ -10,19 +16,19 @@ declare class IncomingForm {
      *
      * @link https://github.com/node-formidable/formidable#parserequest-callback
      */
-    parse(request: IncomingMessage, callback: (err: any, fields: Fields, files: Files) => void): void;
+    parse(request: IncomingMessage, callback?: (err: any, fields: Fields, files: Files) => void): void;
 
-    once(name: "end", callback: () => void): void;
-    once(name: "error", callback: (err: any) => void): void;
+    once(eventName: 'end', listener: () => void): this;
+    once(eventName: 'error', listener: (err: any) => void): this;
 
-    on(name: "data", callback: (data: EventData) => void): void;
-    on(name: "error", callback: (err: any) => void): void;
-    on(name: "field", callback: (name: string, value: string) => void): void;
-    on(name: "fileBegin" | "file", callback: (formName: string, file: File) => void): void;
-    on(name: "progress", callback: (bytesReceived: number, bytesExpected: number) => void): void;
-    on(name: string, callback: () => void): void;
+    on(eventName: 'data', listener: (data: EventData) => void): this;
+    on(eventName: 'error', listener: (err: any) => void): this;
+    on(eventName: 'field', listener: (name: string, value: string) => void): this;
+    on(eventName: 'fileBegin' | 'file', listener: (formName: string, file: File) => void): this;
+    on(eventName: 'progress', listener: (bytesReceived: number, bytesExpected: number) => void): this;
+    on(eventName: string, listener: () => void): this;
 
-    emit(name: "data", data: EmitData): void;
+    emit(eventName: 'data', data: EmitData): boolean;
 
     /**
      * A method that allows you to extend the Formidable library. By default we include 4 plugins,
@@ -40,7 +46,7 @@ declare class IncomingForm {
      */
     onPart(part: Part): void;
 
-    handlePart(part: Part): void;
+    _handlePart(part: Part): void;
 }
 
 export = IncomingForm;

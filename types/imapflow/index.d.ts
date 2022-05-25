@@ -1,6 +1,8 @@
 // Type definitions for imapflow 1.0
 // Project: https://imapflow.com/
 // Definitions by: Jeffrey Ratton <https://github.com/jeffreyratton98>
+//                 Martin Badin <https://github.com/martin-badin>
+//                 Northern Star <https://github.com/grayson-code>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -12,12 +14,12 @@ export type Readable = import('stream').Readable;
 export class ImapFlow extends EventEmitter {
     constructor(options: ImapFlowOptions);
     authenticated: string | boolean;
-    capabilities: string | boolean;
+    capabilities: Map<string, (boolean|number)>;
     emitLogs: boolean;
     enabled: Set<string>;
     id: string;
     idling: boolean;
-    mailbox: MailboxObject;
+    mailbox: MailboxObject | boolean;
     secureConnection: boolean;
     serverInfo: IdInfoObject;
     usable: boolean;
@@ -35,7 +37,7 @@ export class ImapFlow extends EventEmitter {
     download(
         range: SequenceString,
         part?: string,
-        options?: { uid?: boolean; maxBytes?: number },
+        options?: { uid?: boolean; maxBytes?: number, chunkSize?: number },
     ): Promise<DownloadObject>;
 
     getMailboxLock(path: string, options?: null | { readonly?: boolean }): Promise<MailboxLockObject>;
@@ -44,7 +46,10 @@ export class ImapFlow extends EventEmitter {
 
     idle(): Promise<boolean>;
 
-    list(): Promise<ListResponse>;
+    /**
+     * @see {@link https://imapflow.com/module-imapflow-ImapFlow.html#list}
+     */
+    list(): Promise<ListResponse[]>;
 
     listTree(): Promise<ListTreeResponse>;
 
@@ -52,7 +57,7 @@ export class ImapFlow extends EventEmitter {
 
     mailboxCreate(path: string | any[]): Promise<MailboxCreateResponse>;
 
-    maiboxDelete(path: string | any[]): Promise<MailboxDeleteResponse>;
+    mailboxDelete(path: string | any[]): Promise<MailboxDeleteResponse>;
 
     mailboxOpen(path: string | any[], options?: { readOnly?: boolean }): Promise<MailboxObject>;
 
@@ -130,7 +135,8 @@ export interface ImapFlowOptions {
     port: number;
     auth: {
         user: string;
-        pass: string;
+        pass?: string;
+        accessToken?: string;
     };
     secure?: boolean;
     servername?: string;

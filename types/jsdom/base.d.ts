@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

@@ -1,4 +1,4 @@
-// Type definitions for eslint 8.2
+// Type definitions for eslint 8.4
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -718,7 +718,7 @@ export namespace Linter {
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | "latest" |undefined;
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | "latest" | undefined;
         sourceType?: "script" | "module" | undefined;
         ecmaFeatures?: {
             globalReturn?: boolean | undefined;
@@ -761,6 +761,15 @@ export namespace Linter {
         /** @deprecated Use `linter.getSourceCode()` */
         source?: string | null | undefined;
         suggestions?: LintSuggestion[] | undefined;
+    }
+
+    interface LintSuppression {
+        kind: string;
+        justification: string;
+    }
+
+    interface SuppressedLintMessage extends LintMessage {
+        suppressions: LintSuppression[];
     }
 
     interface FixOptions extends LintOptions {
@@ -861,6 +870,7 @@ export namespace ESLint {
     interface LintResult {
         filePath: string;
         messages: Linter.LintMessage[];
+        suppressedMessages: Linter.SuppressedLintMessage[];
         errorCount: number;
         fatalErrorCount: number;
         warningCount: number;
@@ -872,6 +882,7 @@ export namespace ESLint {
     }
 
     interface LintResultData {
+        cwd: string;
         rulesMeta: {
             [ruleId: string]: Rule.RuleMetaData;
         };
@@ -883,7 +894,7 @@ export namespace ESLint {
     }
 
     interface Formatter {
-        format(results: LintResult[], data?: LintResultData): string;
+        format(results: LintResult[], data?: LintResultData): string | Promise<string>;
     }
 
     // Docs reference the type by this name
@@ -913,6 +924,7 @@ export class RuleTester {
 
 export namespace RuleTester {
     interface ValidTestCase {
+        name?: string;
         code: string;
         options?: any;
         filename?: string | undefined;

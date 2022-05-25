@@ -45,6 +45,8 @@ declare namespace Chai {
         tagName(name: string): Assertion;
 
         focus: Assertion;
+
+        checked: Assertion;
     }
 
     interface Include {

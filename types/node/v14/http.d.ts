@@ -279,6 +279,8 @@ declare module 'http' {
         aborted: boolean;
         host: string;
         protocol: string;
+        reusedSocket: boolean;
+        maxHeadersCount: number;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
@@ -406,7 +408,7 @@ declare module 'http' {
          * Only valid for response obtained from http.ClientRequest.
          */
         statusMessage?: string | undefined;
-        destroy(error?: Error): void;
+        destroy(error?: Error): this;
     }
 
     interface AgentOptions {

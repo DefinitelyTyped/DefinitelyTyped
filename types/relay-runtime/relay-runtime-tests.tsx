@@ -25,6 +25,8 @@ import {
     readInlineData,
 } from 'relay-runtime';
 
+import * as multiActorEnvironment from 'relay-runtime/multi-actor-environment';
+
 const source = new RecordSource();
 const store = new Store(source);
 const storeWithNullOptions = new Store(source, {
@@ -428,12 +430,12 @@ const nodeFragment: ReaderFragment = {
 
 interface Module_data {
     readonly id: string;
-    readonly ' $refType': 'Module_data';
+    readonly ' $fragmentType': 'Module_data';
 }
 type Module_data$data = Module_data;
 interface Module_data$key {
     readonly ' $data'?: Module_data$data;
-    readonly ' $fragmentRefs': FragmentRefs<'Module_data'>;
+    readonly ' $fragmentSpreads': FragmentRefs<'Module_data'>;
 }
 
 function readData(
@@ -490,3 +492,29 @@ const operation = createOperationDescriptor(request, variables);
 const operationWithCacheConfig = createOperationDescriptor(request, variables, cacheConfig);
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
 const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);
+
+// ~~~~~~~~~~~~~~~~~~~~~~~
+// MULTI ACTOR ENVIRONMENT
+// ~~~~~~~~~~~~~~~~~~~~~~~
+
+function multiActors() {
+    const environment = new multiActorEnvironment.MultiActorEnvironment({
+       createNetworkForActor(
+           id // $ExpectType string
+       ) {
+           return network;
+       },
+        createStoreForActor(
+            id // $ExpectType string
+        ) {
+           return store;
+        },
+    });
+
+    // $ExpectType ActorEnvironment
+    const actor = environment.forActor("test");
+
+    environment.execute(actor, {
+        operation
+    }).toPromise();
+}

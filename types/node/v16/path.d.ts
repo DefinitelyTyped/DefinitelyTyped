@@ -170,3 +170,11 @@ declare module 'node:path' {
     import path = require('path');
     export = path;
 }
+declare module 'node:path/posix' {
+    import path = require('path/posix');
+    export = path;
+}
+declare module 'node:path/win32' {
+    import path = require('path/win32');
+    export = path;
+}

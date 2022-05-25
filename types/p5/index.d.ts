@@ -1,14 +1,15 @@
-// Type definitions for p5 1.3
+// Type definitions for p5 1.4
 // Project: https://github.com/processing/p5.js
 // Definitions by: p5-types <https://github.com/p5-types>
 //                 Pierre Krafft <https://github.com/Zalastax>
 //                 Rahul V <https://github.com/rahulv4667>
+//                 Gareth Williams <https://github.com/gaweph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
 // This file was auto-generated. Please do not edit it.
-
-/// <reference path="./lib/addons/p5.dom.d.ts" />
+/// <reference path="./src/accessibility/describe.d.ts" />
+/// <reference path="./src/accessibility/outputs.d.ts" />
 /// <reference path="./src/color/creating_reading.d.ts" />
 /// <reference path="./src/color/setting.d.ts" />
 /// <reference path="./src/core/shape/2d_primitives.d.ts" />
@@ -22,6 +23,7 @@
 /// <reference path="./src/core/transform.d.ts" />
 /// <reference path="./src/data/local_storage.d.ts" />
 /// <reference path="./src/data/p5.TypedDict.d.ts" />
+/// <reference path="./src/dom/dom.d.ts" />
 /// <reference path="./src/events/acceleration.d.ts" />
 /// <reference path="./src/events/keyboard.d.ts" />
 /// <reference path="./src/events/mouse.d.ts" />
@@ -99,7 +101,7 @@ declare class p5 {
      *   function. If asynchronous loading is preferred,
      *   the load methods can instead be called in setup()
      *   or anywhere else with the use of a callback
-     *   parameter.  By default the text "loading..." will
+     *   parameter. By default the text "loading..." will
      *   be displayed. To make your own loading page,
      *   include an HTML element with id "p5_loading" in
      *   your page. More information here.
@@ -114,8 +116,8 @@ declare class p5 {
      *   and fonts as the program starts. There can only be
      *   one setup() function for each program and it
      *   shouldn't be called again after its initial
-     *   execution.  Note: Variables declared within
-     *   setup() are not accessible within other functions,
+     *   execution. Note: Variables declared within setup()
+     *   are not accessible within other functions,
      *   including draw().
      */
     setup(): void;
@@ -127,7 +129,7 @@ declare class p5 {
      *   noLoop() is called. Note if noLoop() is called in
      *   setup(), draw() will still be executed once before
      *   stopping. draw() is called automatically and
-     *   should never be called explicitly.  It should
+     *   should never be called explicitly. It should
      *   always be controlled with noLoop(), redraw() and
      *   loop(). After noLoop() stops the code in draw()
      *   from executing, redraw() causes the code inside
@@ -135,10 +137,8 @@ declare class p5 {
      *   code inside draw() to resume executing
      *   continuously.
      *
-     *
      *   The number of times draw() executes in each second
      *   may be controlled with the frameRate() function.
-     *
      *
      *   There can only be one draw() function for each
      *   sketch, and draw() must exist if you want the code
@@ -146,7 +146,6 @@ declare class p5 {
      *   mousePressed(). Sometimes, you might have an empty
      *   call to draw() in your program, as shown in the
      *   above example.
-     *
      *
      *   It is important to note that the drawing
      *   coordinate system will be reset at the beginning
@@ -175,9 +174,17 @@ declare class p5 {
     remove(): void;
 
     /**
-     *   Allows for the friendly error system (FES) to be
-     *   turned off when creating a sketch, which can give
-     *   a significant boost to performance when needed.
+     *   Turn off some features of the friendly error
+     *   system (FES), which can give a significant boost
+     *   to performance when needed. Note that this will
+     *   disable the parts of the FES that cause
+     *   performance slowdown (like argument checking).
+     *   Friendly errors that have no performance cost
+     *   (like giving an descriptive error if a file load
+     *   fails, or warning you if you try to override p5.js
+     *   functions in the global space), will remain in
+     *   place.
+     *
      *   See  disabling the friendly error system.
      */
     disableFriendlyErrors: boolean;

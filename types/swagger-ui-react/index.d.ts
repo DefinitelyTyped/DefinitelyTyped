@@ -1,7 +1,6 @@
-// Type definitions for swagger-ui-react 4.1
+// Type definitions for swagger-ui-react 4.11
 // Project: https://github.com/swagger-api/swagger-ui#readme
 // Definitions by: viki.green <https://github.com/VictoriaGreen93>
-//                 Mendes <https://github.com/fernando-msj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -31,6 +30,8 @@ export interface SwaggerUIProps {
     docExpansion?: 'list' | 'full' | 'none' | undefined;
     defaultModelExpandDepth?: number | undefined;
     defaultModelsExpandDepth?: number | undefined;
+    defaultModelRendering?: "example" | "model";
+    queryConfigEnabled?: boolean;
     plugins?: Plugin[] | undefined;
     supportedSubmitMethods?: string[] | undefined;
     deepLinking?: boolean | undefined;
@@ -42,6 +43,9 @@ export interface SwaggerUIProps {
     requestSnippets?: object | undefined;
     displayOperationId?: boolean | undefined;
     tryItOutEnabled?: boolean | undefined;
+    displayRequestDuration?: boolean;
+    persistAuthorization?: boolean;
+    withCredentials?: boolean;
 }
 
 declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}

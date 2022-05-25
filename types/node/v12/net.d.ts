@@ -56,6 +56,7 @@ declare module 'net' {
     }
 
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
+    type SocketReadyState = 'opening' | 'open' | 'readOnly' | 'writeOnly' | 'closed';
 
     class Socket extends stream.Duplex {
         constructor(options?: SocketConstructorOpts);
@@ -86,14 +87,25 @@ declare module 'net' {
         readonly destroyed: boolean;
         readonly localAddress: string;
         readonly localPort: number;
+        /**
+         * This property represents the state of the connection as a string.
+         * @see {https://nodejs.org/api/net.html#socketreadystate}
+         * @since v0.5.0
+         */
+        readonly readyState: SocketReadyState;
         readonly remoteAddress?: string | undefined;
         readonly remoteFamily?: string | undefined;
         readonly remotePort?: number | undefined;
+        /**
+         * The socket timeout in milliseconds as set by socket.setTimeout(). It is undefined if a timeout has not been set.
+         * @since v10.7.0
+         */
+        readonly timeout?: number | undefined;
 
         // Extended base methods
-        end(cb?: () => void): void;
-        end(buffer: Uint8Array | string, cb?: () => void): void;
-        end(str: Uint8Array | string, encoding?: string, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(buffer: Uint8Array | string, cb?: () => void): this;
+        end(str: Uint8Array | string, encoding?: string, cb?: () => void): this;
 
         /**
          * events.EventEmitter

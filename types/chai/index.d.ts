@@ -409,7 +409,7 @@ declare namespace Chai {
          * @param expression    Expression to test for truthiness.
          * @param message    Message to display on error.
          */
-        (expression: any, message?: string): void;
+        (expression: any, message?: string): asserts expression;
 
         /**
          * Throws a failure.

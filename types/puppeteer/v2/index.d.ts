@@ -251,6 +251,16 @@ export interface JSEvalable<A = any> {
     ): Promise<JSHandle>;
 }
 
+export interface KeyboardDownOptions {
+    text?: string | undefined;
+}
+
+export interface KeyboardTypeOptions {
+    delay?: number | undefined;
+}
+
+export interface KeyboardPressOptions extends KeyboardDownOptions, KeyboardTypeOptions {}
+
 /** Keyboard provides an api for managing a virtual keyboard. */
 export interface Keyboard {
   /**
@@ -258,10 +268,10 @@ export interface Keyboard {
    * @param key Name of key to press, such as ArrowLeft.
    * @param options Specifies a input text event.
    */
-  down(key: string, options?: { text?: string | undefined }): Promise<void>;
+  down(key: string, options?: KeyboardDownOptions): Promise<void>;
 
   /** Shortcut for `keyboard.down` and `keyboard.up`. */
-  press(key: string, options?: { text?: string | undefined, delay?: number | undefined }): Promise<void>;
+  press(key: string, options?: KeyboardPressOptions): Promise<void>;
 
   /** Dispatches a `keypress` and `input` event. This does not send a `keydown` or keyup `event`. */
   sendCharacter(char: string): Promise<void>;
@@ -271,7 +281,7 @@ export interface Keyboard {
    * @param text A text to type into a focused element.
    * @param options Specifies the typing options.
    */
-  type(text: string, options?: { delay?: number | undefined }): Promise<void>;
+  type(text: string, options?: KeyboardTypeOptions): Promise<void>;
 
   /**
    * Dispatches a keyup event.
@@ -2116,7 +2126,7 @@ export interface ChromeArgOptions {
     headless?: boolean | undefined;
     /**
      * Additional arguments to pass to the browser instance.
-     * The list of Chromium flags can be found here.
+     * The list of Chromium flags can be found here: https://peter.sh/experiments/chromium-command-line-switches
      */
     args?: string[] | undefined;
     /**

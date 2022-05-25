@@ -39,6 +39,15 @@ import React = require('./next');
 export {};
 
 declare module '.' {
+    export interface SuspenseProps {
+        /**
+         * The presence of this prop indicates that the content is computationally expensive to render.
+         * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
+         * @see {@link https://github.com/facebook/react/pull/19936}
+         */
+        unstable_expectedLoadTime?: number | undefined;
+    }
+
     export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
     export type SuspenseListTailMode = 'collapsed' | 'hidden';
 
@@ -93,12 +102,4 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
     export const SuspenseList: ExoticComponent<SuspenseListProps>;
-
-    /**
-     * @param effect Imperative function that can return a cleanup function
-     * @param deps If present, effect will only activate if the values in the list change.
-     *
-     * @see https://github.com/facebook/react/pull/21913
-     */
-     export function unstable_useInsertionEffect(effect: EffectCallback, deps?: DependencyList): void;
 }

@@ -8,8 +8,8 @@ let returnedValue: string;
 
 returnedValue = memoryCache.put(key, value);
 returnedValue = memoryCache.put(key, value, num);
-returnedValue = memoryCache.put(key, value, num, (key) => { });
-returnedValue = memoryCache.put(key, value, num, (key, value) => { });
+returnedValue = memoryCache.put(key, value, num, key => {});
+returnedValue = memoryCache.put(key, value, num, (key, value) => {});
 
 value = memoryCache.get(key);
 memoryCache.del(key);
@@ -32,3 +32,11 @@ customValue = customCache.put(customKey, customValue);
 customCache.get(customKey);
 customCache.del(customKey);
 customKeys = customCache.keys();
+
+memoryCache.importJson('{}');
+memoryCache.importJson('{}', { skipDuplicates: true });
+memoryCache.exportJson(); // $ExpectType string
+
+customCache.importJson('{}');
+customCache.importJson('{}', { skipDuplicates: true });
+customCache.exportJson(); // $ExpectType string

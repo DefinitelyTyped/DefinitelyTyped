@@ -1,4 +1,4 @@
-// Type definitions for react-resizable 1.7
+// Type definitions for react-resizable 3.0
 // Project: https://github.com/STRML/react-resizable
 // Definitions by: Harry Brrundage <https://github.com/airhorns>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -38,7 +38,7 @@ export interface ResizableProps {
     className?: string | undefined;
     width: number;
     height: number;
-    handle?: React.ReactNode | ((resizeHandle: ResizeHandle) => React.ReactNode) | undefined;
+    handle?: React.ReactNode | ((resizeHandle: ResizeHandle, ref: React.RefObject<any>) => React.ReactNode) | undefined;
     handleSize?: [number, number] | undefined;
     lockAspectRatio?: boolean | undefined;
     axis?: Axis | undefined;

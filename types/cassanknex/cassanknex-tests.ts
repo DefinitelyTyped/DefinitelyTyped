@@ -14,6 +14,9 @@ interface BirdRow {
     canFly: boolean;
 }
 
+const create1 = knex("keyspace").createColumnFamily("family").primary("primary");
+const create2 = knex("keyspace").createColumnFamily("family").primary(["primary", "primary2"]);
+
 const qb = knex("animals")
     .insert<BirdRow>({
         type: 'Stork',

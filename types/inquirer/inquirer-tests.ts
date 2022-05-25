@@ -1,5 +1,5 @@
 import { createInterface } from 'readline';
-import { Separator } from 'inquirer';
+import { DistinctQuestion, Separator } from 'inquirer';
 import inquirer = require('inquirer');
 import InputPrompt = require('inquirer/lib/prompts/input');
 import { fetchAsyncQuestionProperty } from 'inquirer/lib/utils/utils';
@@ -7,6 +7,7 @@ import incrementListIndex = require('inquirer/lib/utils/incrementListIndex');
 import Choices = require('inquirer/lib/objects/choices');
 import Paginator = require('inquirer/lib/utils/paginator');
 import ScreenManager = require('inquirer/lib/utils/screen-manager');
+import { Subject } from 'rxjs';
 
 {
     new inquirer.Separator('');
@@ -30,18 +31,22 @@ import ScreenManager = require('inquirer/lib/utils/screen-manager');
 {
     const checkBoxQuestion: inquirer.CheckboxQuestion = {
         type: 'checkbox',
+        askAnswered: true,
     };
 
     const listQuestion: inquirer.ListQuestion = {
         type: 'list',
+        askAnswered: true,
     };
 
     const rawListQuestion: inquirer.RawListQuestion = {
         type: 'rawlist',
+        askAnswered: true,
     };
 
     const expandQuestion: inquirer.ExpandQuestion = {
         type: 'expand',
+        askAnswered: true,
     };
 
     // $ExpectError
@@ -171,4 +176,49 @@ fetchAsyncQuestionProperty(
     const paginator = new Paginator(screen);
     paginator.paginate('test', 0);
     paginator.paginate('test', 0, 0);
+}
+
+{
+    const prompts = new Subject<DistinctQuestion>();
+    const promptResult = inquirer.prompt(prompts);
+    promptResult.ui.process.subscribe({
+        next: (value: {name: string, answer: any}) => {
+            // DO NOTHING
+        },
+    });
+    // $ExpectError
+    promptResult.ui.process.subscribe({
+        next: (value: {name_: string, answer: number}) => {
+            // DO NOTHING
+        },
+    });
+    prompts.complete();
+}
+
+{
+    const prompts = new Subject<DistinctQuestion<{str: string; num: number}>>();
+    const promptResult = inquirer.prompt(prompts);
+    promptResult.ui.process.subscribe({
+        next: (value: {name: 'str', answer: string} | {name: 'num', answer: number}) => {
+            // DO NOTHING
+        },
+    });
+    promptResult.ui.process.subscribe({
+        next: (value) => {
+            if (value.name === "str") {
+                // $ExpectType string
+                value.answer;
+            } else {
+                // $ExpectType number
+                value.answer;
+            }
+        },
+    });
+    // $ExpectError
+    promptResult.ui.process.subscribe({
+        next: (value: {name: string, answer: number}) => {
+            // DO NOTHING
+        },
+    });
+    prompts.complete();
 }

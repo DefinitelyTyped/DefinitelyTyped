@@ -557,8 +557,10 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
+    type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
+
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
+        (props: PropsWithChildren<P>, ref: ForwardedRef<T>): ReactElement | null;
         displayName?: string | undefined;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -1105,18 +1107,6 @@ declare namespace React {
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
-     * Usage note: if calling `useMemo` with a referentially stable function, also give it as the input in
-     * the second argument.
-     *
-     * ```ts
-     * function expensive () { ... }
-     *
-     * function Component () {
-     *   const expensiveResult = useMemo(expensive, [expensive])
-     *   return ...
-     * }
-     * ```
-     *
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usememo
      */
@@ -1398,7 +1388,9 @@ declare namespace React {
         // Keyboard Events
         onKeyDown?: KeyboardEventHandler<T> | undefined;
         onKeyDownCapture?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPress?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPressCapture?: KeyboardEventHandler<T> | undefined;
         onKeyUp?: KeyboardEventHandler<T> | undefined;
         onKeyUpCapture?: KeyboardEventHandler<T> | undefined;
@@ -2092,6 +2084,8 @@ declare namespace React {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        onCancel?: ReactEventHandler<T> |  undefined;
+        onClose?: ReactEventHandler<T> |  undefined;
         open?: boolean | undefined;
     }
 
@@ -3058,6 +3052,8 @@ type MergePropTypes<P, T> =
                 & Pick<P, Exclude<keyof P, keyof T>>
         : never;
 
+type InexactPartial<T> = { [K in keyof T]?: T[K] | undefined };
+
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
 // If declared props have indexed properties, ignore default props entirely as keyof gets widened
@@ -3065,8 +3061,8 @@ type MergePropTypes<P, T> =
 type Defaultize<P, D> = P extends any
     ? string extends keyof P ? P :
         & Pick<P, Exclude<keyof P, keyof D>>
-        & Partial<Pick<P, Extract<keyof P, keyof D>>>
-        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
+        & InexactPartial<Pick<P, Extract<keyof P, keyof D>>>
+        & InexactPartial<Pick<D, Exclude<keyof D, keyof P>>>
     : never;
 
 type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }

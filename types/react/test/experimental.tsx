@@ -2,14 +2,18 @@
 
 import React = require('react');
 
-function useExperimentalHooks() {
-    const [toggle, setToggle] = React.useState(false);
+function suspenseTest() {
+    function DisplayData() {
+        return null;
+    }
 
-    React.unstable_useInsertionEffect(() => {});
-    React.unstable_useInsertionEffect(() => {}, []);
-    React.unstable_useInsertionEffect(() => {
-        return () => {};
-    }, [toggle]);
+    function FlameChart() {
+        return (
+            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
+                <DisplayData />
+            </React.Suspense>
+        );
+    }
 }
 
 // Unsupported `revealOrder` triggers a runtime warning

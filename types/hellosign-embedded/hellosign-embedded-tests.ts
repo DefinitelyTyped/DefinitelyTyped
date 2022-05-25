@@ -57,6 +57,8 @@ client.off(HelloSign.events.CLOSE);
 const cb = () => {};
 client.off(HelloSign.events.CLOSE, cb);
 
+client.off('cancel');
+
 // getters
 client.isOpen;
 client.isReady;

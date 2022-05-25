@@ -1,5 +1,6 @@
 import logger = require('npmlog');
 import pacote = require('pacote');
+import type { Packument } from 'pacote';
 import { Integrity } from 'ssri';
 
 const opts: pacote.Options = {
@@ -16,6 +17,7 @@ const opts: pacote.Options = {
     defaultTag: 'latest',
     registry: 'https://registry.npmjs.org',
     fullMetadata: false,
+    packumentCache: new Map<string, Packument>(),
 };
 
 pacote.resolve('pacote'); // $ExpectType Promise<string>

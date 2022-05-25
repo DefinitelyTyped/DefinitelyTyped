@@ -193,3 +193,11 @@ const policyPlatformType: MicrosoftGraph.PolicyPlatformType = "androidForWork";
 const dataSubjectType: MicrosoftGraph.DataSubjectType = "teacher";
 
 const advancedConfigState: MicrosoftGraph.AdvancedConfigState = "disabled";
+
+const messageActionFlag: MicrosoftGraph.MessageActionFlag = "read";
+
+const stagedFeatureName: MicrosoftGraph.StagedFeatureName = "seamlessSso";
+
+const accessReviewExpirationBehavior: MicrosoftGraph.AccessReviewExpirationBehavior = "acceptAccessRecommendation";
+
+const roleEligibilityScheduleFilterByCurrentUserOptions: MicrosoftGraph.RoleEligibilityScheduleFilterByCurrentUserOptions = "principal";

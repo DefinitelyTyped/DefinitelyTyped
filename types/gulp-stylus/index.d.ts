@@ -1,6 +1,6 @@
 // Type definitions for gulp-stylus 2.7
 // Project: https://github.com/stevelacy/gulp-stylus
-// Definitions by: Takesi Tokugawa <https://github.com/TokugawaTakesi>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>

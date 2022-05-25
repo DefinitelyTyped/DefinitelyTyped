@@ -1,7 +1,6 @@
 // Type definitions for json-schema 4.0, 6.0 and 7.0
 // Project: https://github.com/kriszyp/json-schema
 // Definitions by: Boris Cherny <https://github.com/bcherny>
-//                 Cyrille Tuzi <https://github.com/cyrilletuzi>
 //                 Lucian Buzzo <https://github.com/lucianbuzzo>
 //                 Roland Groza <https://github.com/rolandjitsu>
 //                 Jason Kwok <https://github.com/JasonHK>
@@ -620,6 +619,14 @@ export interface JSONSchema7 {
     $ref?: string | undefined;
     $schema?: JSONSchema7Version | undefined;
     $comment?: string | undefined;
+
+    /**
+     * @see https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-00#section-8.2.4
+     * @see https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#appendix-A
+     */
+    $defs?: {
+              [key: string]: JSONSchema7Definition;
+    } | undefined;
 
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.1

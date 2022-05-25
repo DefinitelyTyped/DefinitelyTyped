@@ -3,16 +3,44 @@ import { LookupOneOptions } from 'node:dns';
 import { Socket } from 'node:dgram';
 
 {
+    const abort = new AbortController();
     const connectOpts: net.NetConnectOpts = {
         allowHalfOpen: true,
         family: 4,
         host: "localhost",
         port: 443,
+        signal: abort.signal,
         timeout: 10E3
     };
     const socket: net.Socket = net.createConnection(connectOpts, (): void => {
         // nothing
     });
+}
+
+{
+    let _socket: net.Socket = new net.Socket({
+        fd: 1,
+        allowHalfOpen: false,
+        readable: false,
+        writable: false,
+    });
+
+    let bool: boolean;
+
+    bool = _socket.connecting;
+    bool = _socket.destroyed;
+
+    const _timeout: number | undefined = _socket.timeout;
+    _socket = _socket.setTimeout(500);
+
+    _socket = _socket.setNoDelay(true);
+    _socket = _socket.setKeepAlive(true, 10);
+    _socket = _socket.setEncoding('utf8');
+    _socket = _socket.resume();
+    _socket = _socket.resume();
+
+    _socket = _socket.end();
+    _socket = _socket.destroy();
 }
 
 {
@@ -239,9 +267,8 @@ import { Socket } from 'node:dgram';
     _socket = _socket.prependOnceListener("ready", () => { });
     _socket = _socket.prependOnceListener("timeout", () => { });
 
-    bool = _socket.connecting;
-    bool = _socket.destroyed;
     _socket.destroy();
+    _socket.readyState; // $ExpectType SocketReadyState
 }
 
 {
@@ -303,6 +330,9 @@ import { Socket } from 'node:dgram';
         error = err;
     });
     _server = _server.prependOnceListener("listening", () => { });
+
+    _socket.destroy();
+    _server.close();
 }
 
 {

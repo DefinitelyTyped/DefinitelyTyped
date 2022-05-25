@@ -10,7 +10,6 @@
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
 //                 Simon Archer <https://github.com/archy-bold>
 //                 Ken Elkabany <https://github.com/braincore>
-//                 Francesco Benedetto <https://github.com/frabnt>
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
 //                 Manuel Heidrich <https://github.com/mahnuh>
 //                 Conrad Holtzhausen <https://github.com/Conrad777>
@@ -532,7 +531,7 @@ declare namespace Chart {
         borderWidth?: number | Scriptable<number> | undefined;
         borderColor?: ChartColor | Scriptable<ChartColor> | undefined;
         borderCapStyle?: string | Scriptable<string> | undefined;
-        borderDash?: any[] | Scriptable<any[]> | undefined;
+        borderDash?: number[] | Scriptable<number[]> | undefined;
         borderDashOffset?: number | Scriptable<number> | undefined;
         borderJoinStyle?: string | Scriptable<string> | undefined;
         capBezierPoints?: boolean | Scriptable<boolean> | undefined;
@@ -771,6 +770,7 @@ declare namespace Chart {
         gridLines?: GridLineOptions | undefined;
         scaleLabel?: ScaleTitleOptions | undefined;
         time?: TimeScale | undefined;
+        adapters?: DateAdapterOptions | undefined;
         offset?: boolean | undefined;
         beforeUpdate?(scale?: any): void;
         beforeSetDimension?(scale?: any): void;
@@ -821,7 +821,6 @@ declare namespace Chart {
     }
 
     interface TimeScale extends ChartScales {
-        adapters?: DateAdapterOptions | undefined;
         displayFormats?: TimeDisplayFormat | undefined;
         isoWeekday?: boolean | undefined;
         max?: string | undefined;

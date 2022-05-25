@@ -51,7 +51,7 @@ interface MondayClientSdk {
      * Placeholders may be used, which will be substituted by the variables object passed within the options.
      * @param options
      */
-    api(query: string, options?: APIOptions): Promise<any>;
+    api(query: string, options?: APIOptions): Promise<{ data: object }>;
 
     /**
      * Instead of passing the API token to the `api()` method on each request, you can set the API token once using:
@@ -79,7 +79,7 @@ interface MondayClientSdk {
      */
     listen(
         typeOrTypes: SubscribableEvents | ReadonlyArray<SubscribableEvents>,
-        callback: (res: any) => void,
+        callback: (res: { data: object }) => void,
         params?: object,
     ): void;
 
@@ -135,7 +135,7 @@ interface MondayClientSdk {
              */
             excludeCancelButton?: boolean | undefined;
         },
-    ): Promise<any>;
+    ): Promise<{ data: { confirm: boolean } }>;
     /**
      * Display a message at the top of the user's page. Useful for success, error & general messages.
      * @param type Which action to perform
@@ -162,6 +162,108 @@ interface MondayClientSdk {
             timeout?: number | undefined;
         },
     ): Promise<any>;
+    /**
+     * Opens a modal with the preview of an asset
+     * @param type Which action to perform
+     * @param params Optional parameters for the action
+     */
+    execute(
+        type: 'openFilesDialog',
+        params: {
+            /**
+             * The ID of the board
+             */
+            boardId: number;
+
+            /**
+             * The ID of the item, which contains an asset
+             */
+            itemId: number;
+
+            /**
+             * The ID of the column, which contains an asset
+             */
+            columnId: string;
+
+            /**
+             * The ID of the asset to open
+             */
+            assetId: number;
+        },
+    ): Promise<any>;
+    /**
+     * Opens a modal to let the current user upload a file to a specific file column.
+     *
+     * Returns a promise. In case of error, the promise is rejected
+     *
+     * After the file is successfully uploaded, the "change_column_value" event will be triggered. See the {@link listen} method to subscribe to these events.
+     *
+     * _Requires boards:write scope_
+     * @param type Which action to perform
+     * @param params Optional parameters for the action
+     */
+    execute(
+        type: 'triggerFilesUpload',
+        params: {
+            /**
+             * The ID of the board
+             */
+            boardId: number;
+
+            /**
+             * The ID of the item, which contains an asset
+             */
+            itemId: number;
+
+            /**
+             * The ID of the file column, where file should be uploaded
+             */
+            columnId: string;
+        },
+    ): Promise<any>;
+    /**
+     * Opens a new modal window as an iFrame.
+     * @param type Which action to perform
+     * @param params Optional parameters for the action
+     */
+    execute(
+        type: 'openAppFeatureModal',
+        params: {
+            /**
+             * The URL of the page displayed in the modal
+             * Defaults to current iFrame's URL
+             */
+            url?: string;
+
+            /**
+             * Subdirectory or path of the URL to open
+             */
+            urlPath?: string;
+
+            /**
+             * Query parameters for the URL
+             */
+            urlParams?: Record<string, string>;
+
+            /**
+             * The width of the modal
+             * Defaults to "0px"
+             */
+            width?: string;
+
+            /**
+             * The height of the modal
+             * Defaults to "0px"
+             */
+            height?: string;
+        },
+    ): Promise<{ data: any }>;
+    /**
+     * Closes the modal window.
+     * @param type Which action to perform
+     * @param params Optional parameters for the action
+     */
+    execute(type: 'closeAppFeatureModal'): Promise<{ data: any }>;
 
     /**
      * Performs a client-side redirection of the user to the monday OAuth screen with your client ID embedded in the URL,
@@ -185,7 +287,7 @@ interface MondayClientSdk {
              * Returns a stored value from the database under `key`
              * @param key
              */
-            getItem(key: string): Promise<GetResponse>;
+            getItem(key: string): Promise<{ data: GetResponse }>;
 
             /**
              * Stores `value` under `key` in the database
@@ -200,7 +302,7 @@ interface MondayClientSdk {
 interface MondayServerSdk {
     setToken(token: string): void;
 
-    api(query: string, options?: Partial<{ token: string }>): Promise<any>;
+    api(query: string, options?: Partial<{ token: string, variables: object } >): Promise<any>;
 
     oauthToken(code: string, clientId: string, clientSecret: string): Promise<any>;
 }

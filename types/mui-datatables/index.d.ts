@@ -727,6 +727,11 @@ export type MUIDataTableOptions = Partial<{
      */
     searchOpen: boolean;
     /**
+     * Always displays search bar, and hides search icon in toolbar.
+     * @default false
+     */
+    searchAlwaysOpen: boolean;
+    /**
      * Props applied to the search text box. You can set method callbacks like onBlur, onKeyUp, etc, this way.
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-search/index.js)
@@ -845,6 +850,10 @@ export type MUIDataTableOptions = Partial<{
      * @default true
      */
     viewColumns: ToolbarButton;
+    /**
+     * Local storage key used to store the table state.
+     */
+    storageKey: string;
 }>;
 
 export type MUIDataTableColumnDef = string | MUIDataTableColumn;

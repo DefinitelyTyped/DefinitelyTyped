@@ -1,11 +1,10 @@
 // Type definitions for karma 6.3
-// Project: https://github.com/karma-runner/karma, http://karma-runner.github.io
+// Project: https://github.com/karma-runner/karma
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
 //                 Yaroslav Admin <https://github.com/devoto13>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
@@ -14,9 +13,10 @@ import https = require("https");
 import { Appender } from "log4js";
 import { EventEmitter } from "events";
 import * as constants from "./lib/constants";
-import { VERSION } from "./lib/constants";
 
-export { constants, VERSION };
+export { constants };
+
+export const VERSION: typeof constants.VERSION;
 export const runner: Runner;
 export const stopper: Stopper;
 
@@ -86,6 +86,7 @@ export class Server extends EventEmitter {
      * Force a refresh of the file list
      */
     refreshFiles(): Promise<any>;
+    refreshFile(path: string): Promise<any>;
 
     on(event: string, listener: (...args: any[]) => void): this;
 

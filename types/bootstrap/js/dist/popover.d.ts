@@ -77,7 +77,7 @@ declare class Popover extends BaseComponent {
     /**
      * Toggles the ability for an element’s popover to be shown or hidden.
      */
-    toggleEnable(): void;
+    toggleEnabled(): void;
 
     /**
      * Updates the position of an element’s popover.
@@ -128,7 +128,7 @@ declare namespace Popover {
          *
          * @default ''
          */
-        content: string | Element | ((this: HTMLElement) => string);
+        content: string | Element | JQuery | ((this: HTMLElement) => string | Element | JQuery);
 
         /**
          * To change Bootstrap's default Popper.js config
@@ -153,10 +153,10 @@ declare namespace Popover {
             | 'toggle'
             | 'enable'
             | 'disable'
-            | 'toggleEnable'
+            | 'toggleEnabled'
             | 'update'
             | 'dispose',
-    ) => void;
+    ) => JQuery;
 }
 
 export default Popover;

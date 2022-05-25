@@ -13,9 +13,6 @@ import {
     StencilOp,
     PixelFormat,
 } from '../constants';
-import { ColorRepresentation } from '../utils';
-import { Color } from '../math/Color';
-import { Texture } from '../textures/Texture';
 
 export interface MaterialParameters {
     alphaTest?: number | undefined;
@@ -35,7 +32,6 @@ export interface MaterialParameters {
     depthFunc?: DepthModes | undefined;
     depthTest?: boolean | undefined;
     depthWrite?: boolean | undefined;
-    fog?: boolean | undefined;
     name?: string | undefined;
     opacity?: number | undefined;
     polygonOffset?: boolean | undefined;
@@ -174,18 +170,6 @@ export class Material extends EventDispatcher {
      * @default true
      */
     depthWrite: boolean;
-
-    /**
-     * Whether the material is affected by fog. Default is true.
-     * @default fog
-     */
-    fog: boolean;
-
-    /**
-     * When this property is set to THREE.RGBFormat, the material is considered to be opaque and alpha values are ignored.
-     * @default THREE.RGBAFormat
-     */
-    format: PixelFormat;
 
     /**
      * Unique number of this material instance.

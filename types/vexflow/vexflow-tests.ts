@@ -1,10 +1,30 @@
 var canvas = document.getElementById('canvas');
-var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
+var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.SVG);
 var ctx = renderer.getContext();
 
 // Add a treble clef and time signature
 var stave = new Vex.Flow.Stave(10, 0, 550);
 stave.setContext(ctx).addClef('treble').addKeySignature('A').addTimeSignature('4/4');
+stave.setNumLines(5);
+stave.options.line_config = [
+    { visible: true },
+    { visible: true },
+    { visible: true },
+    { visible: true },
+    { visible: true },
+];
+// TODO add test where only some lines visible
+
+// this isn't pretty, but so isn't vexflow 1's modifier typing ;)
+const timesignature: Vex.Flow.StaveModifier = stave.getModifiers(Vex.Flow.Modifier.Position.LEFT, 'timesignatures')[0];
+//  could also type as TimeSignature instead of StaveModifier
+timesignature.setStyle({fillStyle: "#FF0000"});
+timesignature.getStyle().strokeStyle = "#FF0000";
+
+if (stave.endClef) {
+    stave.endClef.setPadding(5);
+}
+// TODO add test where endClef is added with addEndClef
 
 // Dotted eighth E##, sixteenth Eb, half D, quarter Cm#5
 var notes1 = [
@@ -17,6 +37,12 @@ var notes1 = [
         .addAccidental(1, new Vex.Flow.Accidental('b'))
         .addAccidental(2, new Vex.Flow.Accidental('#')),
 ];
+
+const stringnumber: Vex.Flow.StringNumber = new Vex.Flow.StringNumber(0);
+stringnumber.radius = 0; // remove the circle around the number
+notes1[1].addModifier(0, stringnumber);
+stringnumber.setStyle({strokeStyle: "#00FF00"});
+stringnumber.getStyle().fillStyle = "#00FF00";
 
 // Create a beam for the first two notes
 var beam = new Vex.Flow.Beam(notes1.slice(0, 2));
@@ -39,6 +65,11 @@ var voice1 = new Vex.Flow.Voice({
     resolution: Vex.Flow.RESOLUTION,
 }).addTickables(tickable1);
 
+var fraction = new Vex.Flow.Fraction(3, 4);
+if (fraction.numerator === 3 && fraction.denominator === 4) {
+    fraction.numerator = 4;
+}
+
 // Create a second voice with just one whole note
 var voice2 = new Vex.Flow.Voice(Vex.Flow.TIME4_4).addTickables([
     new Vex.Flow.StaveNote({ keys: ['c/4'], duration: 'w' }),
@@ -53,7 +84,9 @@ var formatter = new Vex.Flow.Formatter({softmaxFactor: null, maxIterations: 2})
 stave.draw();
 
 // Render voices
+ctx.openGroup("voice", "voice1");
 voice1.draw(ctx, stave);
+ctx.closeGroup();
 voice2.draw(ctx, stave);
 
 // Render beam

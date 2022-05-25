@@ -21,7 +21,11 @@ export class Driver extends webdriver.WebDriver {
      *     to use the currently active flow.
      * @return {!Driver} A new driver instance.
      */
-    static createSession(opt_config?: Options | webdriver.CreateSessionCapabilities, opt_service?: remote.DriverService | http.Executor, opt_flow?: webdriver.promise.ControlFlow): Driver;
+    static createSession(
+        opt_config?: Options | webdriver.CreateSessionCapabilities,
+        opt_service?: remote.DriverService | http.Executor,
+        opt_flow?: webdriver.promise.ControlFlow,
+    ): Driver;
 }
 
 export interface IOptionsValues {
@@ -237,11 +241,11 @@ export class Options {
     setChromeLogFile(path: string): Options;
 
     /**
-         * Sets the directory to store Chrome minidumps in. This option is only
-         * supported when ChromeDriver is running on Linux.
-         * @param {string} path The directory path.
-         * @return {!Options} A self reference.
-         */
+     * Sets the directory to store Chrome minidumps in. This option is only
+     * supported when ChromeDriver is running on Linux.
+     * @param {string} path The directory path.
+     * @return {!Options} A self reference.
+     */
     setChromeMinidumpPath(path: string): Options;
 
     /**

@@ -23,3 +23,8 @@ export function isLinkableElement(element: Element, schema: Schema): boolean;
 export function isEmail(value: string): boolean;
 
 export function addLinkProtocolIfApplicable(link: string, defaultProtocol: string): boolean;
+
+/**
+ * Opens the link in a new browser tab.
+ */
+export function openLink(link: string): void;

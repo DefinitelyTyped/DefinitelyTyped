@@ -1,4 +1,4 @@
-import { DrawingContextAttributes } from "../types/util";
+import { DrawingContextAttributes } from '../types/util';
 
 export default class CanvasEntry {
     constructor();
@@ -41,6 +41,8 @@ export default class CanvasEntry {
     ): void;
     /** Draw a rectangle for wave and progress. */
     fillRects(x: number, y: number, width: number, height: number, radius: number): void;
+    /** Utility function to handle wave color arguments. */
+    getFillStyle(ctx: CanvasRenderingContext2D, color: string): string | CanvasGradient;
     /** Return image data of the wave canvas element. */
     getImage(format: string, quality: number, type: string): string | Promise<string>;
     /** Store the progress wave canvas element and create the 2D rendering context. */

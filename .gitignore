@@ -33,10 +33,6 @@ _infrastructure/tests/build
 
 *.js.map
 !*.js/
-!scripts/not-needed.cjs
-!scripts/close-old-issues.cjs
-!scripts/remove-empty.cjs
-!scripts/update-codeowners.cjs
 
 # npm
 node_modules

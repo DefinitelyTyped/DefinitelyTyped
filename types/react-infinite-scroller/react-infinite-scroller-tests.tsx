@@ -50,6 +50,24 @@ class Test3 extends React.Component {
     }
 }
 
+const Test4Component = ({}) => <div></div>;
+class Test4 extends React.Component {
+    inputRef = React.createRef<HTMLDivElement>();
+
+    render() {
+        return (
+            <div ref={this.inputRef}>
+                <InfiniteScroll
+                  element={<Test4Component />}
+                  loadMore={(page) => {}}
+                >
+                    <span>Test 4</span>
+                </InfiniteScroll>
+            </div>
+        );
+    }
+}
+
 class InfiniteScrollOverride extends InfiniteScroll {
     getParentElement(el: HTMLElement) {
         if (document.getElementById("scroll-header")) {

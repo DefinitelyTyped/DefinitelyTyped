@@ -2,7 +2,7 @@
 import * as chai from 'chai';
 
 const expect = chai.expect;
-const assert = chai.assert;
+const assert: typeof chai.assert = chai.assert; // assertion aliases require explicit type annotation
 const should = chai.should();
 const util = chai.util;
 
@@ -1406,7 +1406,10 @@ suite('assert', () => {
         const foo = 'bar' as string;
         assert(foo === 'bar', 'expected foo to equal `bar`');
 
-        assert(foo === 'baz', 'expected foo to equal `bar`');
+        function assertTypeNever(_: never) {}
+        if (foo !== 'bar') {
+            assertTypeNever(foo);
+        }
     });
 
     test('isTrue', () => {

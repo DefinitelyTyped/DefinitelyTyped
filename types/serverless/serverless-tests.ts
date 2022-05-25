@@ -32,7 +32,7 @@ class CustomPlugin implements Plugin {
     hooks: Plugin.Hooks;
     variableResolvers: Plugin.VariableResolvers;
 
-    constructor(serverless: Serverless, options: Serverless.Options) {
+    constructor(serverless: Serverless, options: Serverless.Options, logging: Plugin.Logging) {
         this.hooks = {
             'command:start': () => {},
         };
@@ -174,6 +174,7 @@ const awsServerless: Aws.Serverless = {
         rolePermissionsBoundary: 'testrolePermissionsBoundary',
         cfnRole: 'testcfnRole',
         versionFunctions: true,
+        architecture: 'x86_64',
         environment: {
             testenvironmentkey: 'testenvironmentvalue'
         },
@@ -267,7 +268,8 @@ const awsServerless: Aws.Serverless = {
                     issuerUrl: 'testissuerUrl',
                     audience: ['testaudience']
                 }
-            }
+            },
+            useProviderTags: true
         },
         usagePlan: {
             quota: {
@@ -363,7 +365,11 @@ const awsServerless: Aws.Serverless = {
                 format: 'testformat'
             },
             frameworkLambda: false
-        }
+        },
+        eventBridge: {
+            useCloudFormation: true
+        },
+        layers: ['arn:aws:lambda:us-east-2:451483290750:layer:NewRelicNodeJS14X:45']
     },
     package: {
         include: ['testinclude'],
@@ -549,7 +555,54 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         maximumRetryAttempts: 1,
-                        enabled: true
+                        enabled: true,
+                        functionResponseType: 'ReportBatchItemFailures',
+                        filterPatterns: [
+                            {
+                                UserID: [null]
+                            },
+                            {
+                                LastName: ['']
+                            },
+                            {
+                                Name: ['Alice']
+                            },
+                            {
+                                Location: ['New York'],
+                                Day: ['Monday']
+                            },
+                            {
+                                PaymentType: ['Credit', 'Debit']
+                            },
+                            {
+                                Weather: [
+                                    {
+                                        'anything-but': ['Raining']
+                                    }
+                                ]
+                            },
+                            {
+                                Price: [
+                                    {
+                                        numeric: [ '=', 100 ]
+                                    }
+                                ]
+                            },
+                            {
+                                ProductName: [
+                                    {
+                                        exists: true
+                                    }
+                                ]
+                            },
+                            {
+                                Region: [
+                                    {
+                                        prefix: 'us-'
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }, {
                     activemq: {
@@ -572,7 +625,53 @@ const awsServerless: Aws.Serverless = {
                         arn: 'testarn',
                         batchSize: 1,
                         startingPosition: 1,
-                        enabled: true
+                        enabled: true,
+                        filterPatterns: [
+                            {
+                                UserID: [null]
+                            },
+                            {
+                                LastName: ['']
+                            },
+                            {
+                                Name: ['Alice']
+                            },
+                            {
+                                Location: ['New York'],
+                                Day: ['Monday']
+                            },
+                            {
+                                PaymentType: ['Credit', 'Debit']
+                            },
+                            {
+                                Weather: [
+                                    {
+                                        'anything-but': ['Raining']
+                                    }
+                                ]
+                            },
+                            {
+                                Price: [
+                                    {
+                                        numeric: [ '=', 100 ]
+                                    }
+                                ]
+                            },
+                            {
+                                ProductName: [
+                                    {
+                                        exists: true
+                                    }
+                                ]
+                            },
+                            {
+                                Region: [
+                                    {
+                                        prefix: 'us-'
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }, {
                     msk: {
@@ -673,8 +772,19 @@ const awsServerless: Aws.Serverless = {
                         }
                     }
                 }
-            ]
-        }
+            ],
+            url: {
+                cors: {
+                    allowedOrigins: ['https://url1.com', 'https://url2.com'],
+                    allowedHeaders: ['Content-Type', 'Authorization'],
+                    allowedMethods: ['GET'],
+                    allowCredentials: true,
+                    exposedResponseHeaders: ['Special-Response-Header'],
+                    maxAge: 6000,
+                },
+                authorizer: 'aws_iam',
+            },
+        },
     },
     layers: {
         testLayer: {
@@ -689,9 +799,15 @@ const awsServerless: Aws.Serverless = {
     },
     resources: {
         Description: 'testStackDescription',
+        Conditions: {
+            TestCondition: {
+                'Fn::Equals': ['testcond', 'testcond']
+            }
+        },
         Resources: {
             testcloudformationresource: {
                 Type: 'testType',
+                Condition: 'TestCondition',
                 Properties: {
                     testpropertykey: 'testpropertyvalue'
                 },
@@ -834,6 +950,18 @@ const bunchOfConfigs: Aws.Serverless[] = [
             },
         },
         functions: {},
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+        },
+        functions: {
+            basicLambdaFnUrl: {
+                handler: 'main.js',
+                url: true,
+            },
+        },
     },
 ];
 

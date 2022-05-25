@@ -8,17 +8,17 @@ interface RegistryProxyMixin {
     /**
      * Given a fullName return the corresponding factory.
      */
-    resolveRegistration(fullName: string): any;
+    resolveRegistration(fullName: string): unknown;
     /**
      * Registers a factory or value that can be used for dependency injection (with
      * `inject`) or for service lookup. Each factory is registered with
      * a full name including two parts: `type:name`.
      */
-    register(fullName: string, factory: any, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): any;
+    register(fullName: string, factory: unknown, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): unknown;
     /**
      * Unregister a factory.
      */
-    unregister(fullName: string): any;
+    unregister(fullName: string): unknown;
     /**
      * Check if a factory is registered.
      */
@@ -26,7 +26,7 @@ interface RegistryProxyMixin {
     /**
      * Register an option for a particular factory.
      */
-    registerOption(fullName: string, optionName: string, options: {}): any;
+    registerOption(fullName: string, optionName: string, options: {}): unknown;
     /**
      * Return a specific registered option for a particular factory.
      */
@@ -34,7 +34,7 @@ interface RegistryProxyMixin {
     /**
      * Register options for a particular factory.
      */
-    registerOptions(fullName: string, options: {}): any;
+    registerOptions(fullName: string, options: {}): unknown;
     /**
      * Return registered options for a particular factory.
      */
@@ -42,7 +42,7 @@ interface RegistryProxyMixin {
     /**
      * Allow registering options for all factories of a type.
      */
-    registerOptionsForType(type: string, options: {}): any;
+    registerOptionsForType(type: string, options: {}): unknown;
     /**
      * Return the registered options for all factories of a type.
      */
@@ -51,7 +51,7 @@ interface RegistryProxyMixin {
      * Define a dependency injection onto a specific factory or all factories
      * of a type.
      */
-    inject(factoryNameOrType: string, property: string, injectionName: string): any;
+    inject(factoryNameOrType: string, property: string, injectionName: string): unknown;
 }
 declare const RegistryProxyMixin: Mixin<RegistryProxyMixin>;
 export default RegistryProxyMixin;
