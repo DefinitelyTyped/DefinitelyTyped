@@ -1100,7 +1100,7 @@ export interface ResponseToolkit {
      * There is no difference between throwing the error or passing it with the h.unauthenticated() method is no credentials are passed, but it might still be helpful for code clarity.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hunauthenticatederror-data)
      */
-    unauthenticated(error: Error, data?: AuthenticationData): void;
+    unauthenticated(error: Error, data?: AuthenticationData): Auth;
 
     /**
      * Clears a response cookie using the same arguments as
