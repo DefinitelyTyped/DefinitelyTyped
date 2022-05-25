@@ -81,3 +81,93 @@ declare var OffscreenCanvas: {
     prototype: OffscreenCanvas;
     new(width: number, height: number): OffscreenCanvas;
 };
+
+interface WebGL2RenderingContextBase {
+    texImage3D(
+        target: GLenum,
+        level: GLint,
+        internalformat: GLint,
+        width: GLsizei,
+        height: GLsizei,
+        depth: GLsizei,
+        border: GLint,
+        format: GLenum,
+        type: GLenum,
+        source: TexImageSource | OffscreenCanvas,
+    ): void;
+    texSubImage3D(
+        target: GLenum,
+        level: GLint,
+        xoffset: GLint,
+        yoffset: GLint,
+        zoffset: GLint,
+        width: GLsizei,
+        height: GLsizei,
+        depth: GLsizei,
+        format: GLenum,
+        type: GLenum,
+        source: TexImageSource | OffscreenCanvas,
+    ): void;
+}
+
+interface WebGL2RenderingContextOverloads {
+    texImage2D(
+        target: GLenum,
+        level: GLint,
+        internalformat: GLint,
+        format: GLenum,
+        type: GLenum,
+        source: TexImageSource | OffscreenCanvas,
+    ): void;
+    texImage2D(
+        target: GLenum,
+        level: GLint,
+        internalformat: GLint,
+        width: GLsizei,
+        height: GLsizei,
+        border: GLint,
+        format: GLenum,
+        type: GLenum,
+        source: TexImageSource | OffscreenCanvas,
+    ): void;
+    texSubImage2D(
+        target: GLenum,
+        level: GLint,
+        xoffset: GLint,
+        yoffset: GLint,
+        format: GLenum,
+        type: GLenum,
+        source: TexImageSource | OffscreenCanvas,
+    ): void;
+    texSubImage2D(
+        target: GLenum,
+        level: GLint,
+        xoffset: GLint,
+        yoffset: GLint,
+        width: GLsizei,
+        height: GLsizei,
+        format: GLenum,
+        type: GLenum,
+        source: TexImageSource | OffscreenCanvas,
+    ): void;
+}
+
+interface WebGLRenderingContextOverloads {
+    texImage2D(
+        target: GLenum,
+        level: GLint,
+        internalformat: GLint,
+        format: GLenum,
+        type: GLenum,
+        source: TexImageSource | OffscreenCanvas,
+    ): void;
+    texSubImage2D(
+        target: GLenum,
+        level: GLint,
+        xoffset: GLint,
+        yoffset: GLint,
+        format: GLenum,
+        type: GLenum,
+        source: TexImageSource | OffscreenCanvas,
+    ): void;
+}

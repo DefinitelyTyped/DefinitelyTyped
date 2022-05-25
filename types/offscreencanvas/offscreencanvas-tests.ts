@@ -43,3 +43,12 @@ const channel = new MessageChannel();
 channel.port1.postMessage({canvas: offscreenCanvas}, [offscreenCanvas]);
 
 window.postMessage({canvas: offscreenCanvas}, "http://example.org:8080", [offscreenCanvas]);
+
+// Test creating a texture
+const texWebgl: WebGLTexture | null = ctxWebgl!.createTexture();
+ctxWebgl!.bindTexture(ctxWebgl!.TEXTURE, texWebgl);
+ctxWebgl!.texImage2D(ctxWebgl!.TEXTURE, 0, ctxWebgl!.RGB, ctxWebgl!.RGB, ctxWebgl!.UNSIGNED_BYTE, offscreenCanvas);
+
+const texWebgl2: WebGLTexture | null = ctxWebgl2!.createTexture();
+ctxWebgl2!.bindTexture(ctxWebgl!.TEXTURE, texWebgl2);
+ctxWebgl2!.texImage2D(ctxWebgl2!.TEXTURE, 0, ctxWebgl2!.RGB, ctxWebgl2!.RGB, ctxWebgl2!.UNSIGNED_BYTE, offscreenCanvas);
