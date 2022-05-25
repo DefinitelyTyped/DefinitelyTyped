@@ -1090,7 +1090,7 @@ declare namespace Autodesk {
             createControls(): void;
             initialize(): any;
             setUp(config: any): void;
-            tearDown(): void;
+            tearDown(isUnloadModelsWanted?: boolean): void;
             run(): void;
             localize(): void;
             uninitialize(): void;
