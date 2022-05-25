@@ -318,6 +318,7 @@ declare namespace Autodesk {
         const AGGREGATE_SELECTION_CHANGED_EVENT = 'aggregateSelection';
         const ANIM_ENDED = 'animEnded';
         const ANIMATION_READY_EVENT = 'animationReady';
+        const BEFORE_MODEL_UNLOAD_EVENT = 'beforeModelUnload';
         const CAMERA_CHANGE_EVENT = 'cameraChanged';
         const CAMERA_TRANSITION_COMPLETED = 'cameraTransitionCompleted';
         const CUTPLANES_CHANGE_EVENT = 'cutplanesChanged';
