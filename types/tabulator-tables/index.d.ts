@@ -2831,6 +2831,7 @@ declare class ResponsiveLayoutModule { }
 declare class SelectRowModule { }
 declare class SortModule { }
 declare class TabulatorFull extends Tabulator { }
+declare class TooltipModule {}
 declare class ValidateModule { }
 
 export {
@@ -2870,5 +2871,6 @@ export {
     SortModule,
     Tabulator,
     TabulatorFull,
+    TooltipModule,
     ValidateModule,
 };

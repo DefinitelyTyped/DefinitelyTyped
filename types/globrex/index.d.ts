@@ -66,6 +66,11 @@ declare namespace globrex {
          */
         strict?: boolean | undefined;
         /**
+         * RegExp flags (e.g. `'i'` ) to pass to the RegExp constructor.
+         * @default ''
+         */
+        flags?: string | undefined;
+        /**
          * Parse input strings as it was a file path for special path related features.
          * This feature only makes sense if the input is a POSIX path like /foo/bar/hello.js or URLs.
          * When true the returned object will have an additional path object.

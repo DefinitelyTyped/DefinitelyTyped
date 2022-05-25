@@ -38,7 +38,7 @@ declare namespace bodyParser {
         /**
          * requested encoding. Default is utf-8 by co-body
          */
-        encode?: string | undefined;
+        encoding?: string | undefined;
 
         /**
          * limit of the urlencoded body. If the body ends up being larger than this limit
@@ -75,9 +75,9 @@ declare namespace bodyParser {
          * support extend types
          */
         extendTypes?: {
-            json?: string[] | undefined;
-            form?: string[] | undefined;
-            text?: string[] | undefined;
+            json?: string[] | string | undefined;
+            form?: string[] | string | undefined;
+            text?: string[] | string | undefined;
         } | undefined;
 
         /**

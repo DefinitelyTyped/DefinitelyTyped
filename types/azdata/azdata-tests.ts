@@ -57,10 +57,18 @@ const testLoadingComponent: azdata.LoadingComponent = {
 testLoadingComponent.validate();
 
 azdata.window.createModelViewDialog('MyTitle', 'MyDialog', 'narrow');
+azdata.window.createModelViewDialog('MyTitle2', 'MyDialog2', 'narrow', 'callout', 'below', true, true, { xPos: 0, yPos: 0, width: 100, height: 100 });
 azdata.window.createModelViewDashboard('MyDashboardTitle', 'MyDashboard', { showIcon: true, alwaysShowTabs: false });
 
 const testCard: azdata.CardProperties = {
     label: 'test-label',
     iconHeight: '16px',
     iconWidth: '16px'
+};
+
+const updateDisplayData: azdata.nb.IUpdateDisplayData = {
+    output_type: 'update_display_data',
+    data: {
+        key1: 'value1'
+    }
 };

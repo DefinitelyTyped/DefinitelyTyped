@@ -52,6 +52,7 @@ export interface PoolConfig extends ClientConfig {
     log?: ((...messages: any[]) => void) | undefined;
     Promise?: PromiseConstructorLike | undefined;
     allowExitOnIdle?: boolean | undefined;
+    maxUses?: number | undefined;
 }
 
 export interface QueryConfig<I extends any[] = any[]> {

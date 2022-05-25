@@ -25,16 +25,14 @@ import {
     ClassAttributes,
     Component,
     ComponentClass,
-    ComponentType,
-    FunctionComponent,
     Context,
+    JSXElementConstructor,
     NamedExoticComponent,
     ReactNode
 } from 'react';
 
 import {
     Action,
-    ActionCreator,
     AnyAction,
     Dispatch,
     Store
@@ -64,7 +62,7 @@ export interface DispatchProp<A extends Action = AnyAction> {
 }
 
 export type AdvancedComponentDecorator<TProps, TOwnProps> =
-    (component: ComponentType<TProps>) => NamedExoticComponent<TOwnProps>;
+    (component: JSXElementConstructor<TProps>) => NamedExoticComponent<TOwnProps>;
 
 /**
  * A property P will be present if:
@@ -104,7 +102,7 @@ export type Shared<
     };
 
 // Infers prop type from component C
-export type GetProps<C> = C extends ComponentType<infer P>
+export type GetProps<C> = C extends JSXElementConstructor<infer P>
     ? C extends ComponentClass<P> ? ClassAttributes<InstanceType<C>> & P : P
     : never;
 
@@ -114,7 +112,7 @@ export type GetLibraryManagedProps<C> = JSX.LibraryManagedAttributes<C, GetProps
 
 // Defines WrappedComponent and derives non-react statics.
 export type ConnectedComponent<
-    C extends ComponentType<any>,
+    C extends JSXElementConstructor<any>,
     P
 > = NamedExoticComponent<P> & hoistNonReactStatics.NonReactStatics<C> & {
     WrappedComponent: C;
@@ -125,7 +123,7 @@ export type ConnectedComponent<
 // render. Also adds new prop requirements from TNeedsProps.
 // Uses distributive omit to preserve discriminated unions part of original prop type
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
-    <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
+    <C extends JSXElementConstructor<Matching<TInjectedProps, GetProps<C>>>>(
         component: C
     ) => ConnectedComponent<C, DistributiveOmit<GetLibraryManagedProps<C>, keyof Shared<TInjectedProps, GetLibraryManagedProps<C>>> & TNeedsProps>;
 
@@ -235,13 +233,13 @@ export interface Connect<DefaultState = DefaultRootState> {
     <no_state = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
         mapStateToProps: null | undefined,
         mapDispatchToProps: null | undefined,
-        mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<undefined, DispatchProp, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: null | undefined,
-        mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<TStateProps, DispatchProp, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(

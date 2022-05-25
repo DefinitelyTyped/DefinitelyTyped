@@ -2512,49 +2512,49 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.groupBy
 {
-    _.groupBy(""); // $ExpectType Dictionary<[string, ...string[]]>
-    _.groupBy("", stringIterator); // $ExpectType Dictionary<[string, ...string[]]>
-    _.groupBy(list); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    _.groupBy(list, valueIterator); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    _.groupBy(list, "a"); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    _.groupBy(list, { a: 42 }); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    _.groupBy(dictionary); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    _.groupBy(dictionary, valueIterator); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    _.groupBy(dictionary, ""); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    _.groupBy(dictionary, { a: 42 }); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
+    _.groupBy(""); // $ExpectType Dictionary<string[]>
+    _.groupBy("", stringIterator); // $ExpectType Dictionary<string[]>
+    _.groupBy(list); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(list, valueIterator); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(list, "a"); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(list, { a: 42 }); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(dictionary); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(dictionary, valueIterator); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(dictionary, ""); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(dictionary, { a: 42 }); // $ExpectType Dictionary<AbcObject[]>
 
-    _("").groupBy(); // $ExpectType Object<Dictionary<[string, ...string[]]>>
-    _("").groupBy(stringIterator); // $ExpectType Object<Dictionary<[string, ...string[]]>>
-    _(list).groupBy(); // $ExpectType Object<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _(list).groupBy(valueIterator); // $ExpectType Object<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _(list).groupBy(""); // $ExpectType Object<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _(list).groupBy({ a: 42 }); // $ExpectType Object<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _(dictionary).groupBy(); // $ExpectType Object<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _(dictionary).groupBy(valueIterator); // $ExpectType Object<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _(dictionary).groupBy(""); // $ExpectType Object<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _(dictionary).groupBy({ a: 42 }); // $ExpectType Object<Dictionary<[AbcObject, ...AbcObject[]]>>
+    _("").groupBy(); // $ExpectType Object<Dictionary<string[]>>
+    _("").groupBy(stringIterator); // $ExpectType Object<Dictionary<string[]>>
+    _(list).groupBy(); // $ExpectType Object<Dictionary<AbcObject[]>>
+    _(list).groupBy(valueIterator); // $ExpectType Object<Dictionary<AbcObject[]>>
+    _(list).groupBy(""); // $ExpectType Object<Dictionary<AbcObject[]>>
+    _(list).groupBy({ a: 42 }); // $ExpectType Object<Dictionary<AbcObject[]>>
+    _(dictionary).groupBy(); // $ExpectType Object<Dictionary<AbcObject[]>>
+    _(dictionary).groupBy(valueIterator); // $ExpectType Object<Dictionary<AbcObject[]>>
+    _(dictionary).groupBy(""); // $ExpectType Object<Dictionary<AbcObject[]>>
+    _(dictionary).groupBy({ a: 42 }); // $ExpectType Object<Dictionary<AbcObject[]>>
 
-    _.chain("").groupBy(); // $ExpectType ObjectChain<Dictionary<[string, ...string[]]>>
-    _.chain("").groupBy(stringIterator); // $ExpectType ObjectChain<Dictionary<[string, ...string[]]>>
-    _.chain(list).groupBy(); // $ExpectType ObjectChain<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _.chain(list).groupBy(valueIterator); // $ExpectType ObjectChain<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _.chain(list).groupBy(""); // $ExpectType ObjectChain<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _.chain(list).groupBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _.chain(dictionary).groupBy(); // $ExpectType ObjectChain<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _.chain(dictionary).groupBy(valueIterator); // $ExpectType ObjectChain<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _.chain(dictionary).groupBy(""); // $ExpectType ObjectChain<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _.chain(dictionary).groupBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<[AbcObject, ...AbcObject[]]>>
-    _.chain(nullableString).groupBy(); // $ExpectType ObjectChain<Dictionary<[string, ...string[]]>>
+    _.chain("").groupBy(); // $ExpectType ObjectChain<Dictionary<string[]>>
+    _.chain("").groupBy(stringIterator); // $ExpectType ObjectChain<Dictionary<string[]>>
+    _.chain(list).groupBy(); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(list).groupBy(valueIterator); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(list).groupBy(""); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(list).groupBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(dictionary).groupBy(); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(dictionary).groupBy(valueIterator); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(dictionary).groupBy(""); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(dictionary).groupBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(nullableString).groupBy(); // $ExpectType ObjectChain<Dictionary<string[]>>
 
-    fp.groupBy(valueIterator, list); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    fp.groupBy(valueIterator)(list); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    fp.groupBy("a", list); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    fp.groupBy({ a: 42 }, list); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    fp.groupBy(["a", 42], list); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    fp.groupBy(valueIterator, dictionary); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    fp.groupBy("a", dictionary); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    fp.groupBy({ a: 42 }, dictionary); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
-    fp.groupBy(["a", 42], dictionary); // $ExpectType Dictionary<[AbcObject, ...AbcObject[]]>
+    fp.groupBy(valueIterator, list); // $ExpectType Dictionary<AbcObject[]>
+    fp.groupBy(valueIterator)(list); // $ExpectType Dictionary<AbcObject[]>
+    fp.groupBy("a", list); // $ExpectType Dictionary<AbcObject[]>
+    fp.groupBy({ a: 42 }, list); // $ExpectType Dictionary<AbcObject[]>
+    fp.groupBy(["a", 42], list); // $ExpectType Dictionary<AbcObject[]>
+    fp.groupBy(valueIterator, dictionary); // $ExpectType Dictionary<AbcObject[]>
+    fp.groupBy("a", dictionary); // $ExpectType Dictionary<AbcObject[]>
+    fp.groupBy({ a: 42 }, dictionary); // $ExpectType Dictionary<AbcObject[]>
+    fp.groupBy(["a", 42], dictionary); // $ExpectType Dictionary<AbcObject[]>
 }
 
 // _.includes
@@ -3393,6 +3393,11 @@ fp.now(); // $ExpectType number
 {
     const func = (n: number, s: string): boolean => true;
     const options: _.DebounceSettings = {
+        leading: false,
+        maxWait: 100,
+        trailing: false,
+    };
+    const optionsWithLeading: _.DebounceSettingsLeading = {
         leading: true,
         maxWait: 100,
         trailing: false,
@@ -3403,9 +3408,16 @@ fp.now(); // $ExpectType number
     result.flush(); // $ExpectType boolean | undefined
     _.debounce(func, 42); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
     _.debounce(func, 42, options); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
+    _.debounce(func, 42, optionsWithLeading); // $ExpectType DebouncedFuncLeading<(n: number, s: string) => boolean>
 
+    _(func).debounce(); // $ExpectType Function<DebouncedFunc<(n: number, s: string) => boolean>>
+    _(func).debounce(42); // $ExpectType Function<DebouncedFunc<(n: number, s: string) => boolean>>
     _(func).debounce(42, options); // $ExpectType Function<DebouncedFunc<(n: number, s: string) => boolean>>
+    _(func).debounce(42, optionsWithLeading); // $ExpectType Function<DebouncedFuncLeading<(n: number, s: string) => boolean>>
+    _.chain(func).debounce(); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
+    _.chain(func).debounce(42); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
     _.chain(func).debounce(42, options); // $ExpectType FunctionChain<DebouncedFunc<(n: number, s: string) => boolean>>
+    _.chain(func).debounce(42, optionsWithLeading); // $ExpectType FunctionChain<DebouncedFuncLeading<(n: number, s: string) => boolean>>
     fp.debounce(42, func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
     fp.debounce(42)(func); // $ExpectType DebouncedFunc<(n: number, s: string) => boolean>
 }
@@ -6688,6 +6700,14 @@ fp.now(); // $ExpectType number
 
     _.cond([[pairPred1, pairRes1], [pairPred2, pairRes2]])("hello"); // $ExpectType number
     fp.cond([[pairPred1, pairRes1], [pairPred2, pairRes2]])("hello"); // $ExpectType number
+
+    const nullaryPred1 = () => true;
+    const nullaryPred2 = () => false;
+    const nullaryRes1 = () => 1;
+    const nullaryRes2 = () => 2;
+
+    _.cond([[nullaryPred1, nullaryRes1], [nullaryPred2, nullaryRes2]])(); // $ExpectType number
+    fp.cond([[nullaryPred1, nullaryRes1], [nullaryPred2, nullaryRes2]])(); // $ExpectType number
 }
 
 // _.constant

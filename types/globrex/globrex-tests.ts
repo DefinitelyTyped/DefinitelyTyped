@@ -9,6 +9,7 @@ const options: Options = {
     filepath: true,
     globstar: true,
     strict: true,
+    flags: 'i',
 };
 const resultWithOptions: Results = globrex('p*uck', options); // $ExpectType Results
 result.regex.test('pluck'); // $ExpectType boolean

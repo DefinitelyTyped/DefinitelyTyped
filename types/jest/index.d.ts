@@ -1,4 +1,4 @@
-// Type definitions for Jest 27.4
+// Type definitions for Jest 27.5
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -146,7 +146,8 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function doMock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    // tslint:disable-next-line no-unnecessary-generics
+    function doMock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module from require() (e.g. that it should always return the real module).
@@ -177,7 +178,8 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function mock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    // tslint:disable-next-line no-unnecessary-generics
+    function mock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
 
     /**
      * The mocked test helper provides typings on your mocked modules and even
@@ -485,35 +487,6 @@ declare namespace jest {
         each: Each;
     }
 
-    type PrintLabel = (string: string) => string;
-
-    type MatcherHintColor = (arg: string) => string;
-
-    interface MatcherHintOptions {
-        comment?: string | undefined;
-        expectedColor?: MatcherHintColor | undefined;
-        isDirectExpectCall?: boolean | undefined;
-        isNot?: boolean | undefined;
-        promise?: string | undefined;
-        receivedColor?: MatcherHintColor | undefined;
-        secondArgument?: string | undefined;
-        secondArgumentColor?: MatcherHintColor | undefined;
-    }
-
-    interface ChalkFunction {
-        (text: TemplateStringsArray, ...placeholders: any[]): string;
-        (...text: any[]): string;
-    }
-
-    interface ChalkColorSupport {
-        level: 0 | 1 | 2 | 3;
-        hasBasic: boolean;
-        has256: boolean;
-        has16m: boolean;
-    }
-
-    type MatcherColorFn = ChalkFunction & { supportsColor: ChalkColorSupport };
-
     type EqualityTester = (a: any, b: any) => boolean | undefined;
 
     interface MatcherUtils {
@@ -527,41 +500,7 @@ declare namespace jest {
         readonly expand: boolean;
         readonly testPath: string;
         readonly currentTestName: string;
-        utils: {
-            readonly EXPECTED_COLOR: MatcherColorFn;
-            readonly RECEIVED_COLOR: MatcherColorFn;
-            readonly INVERTED_COLOR: MatcherColorFn;
-            readonly BOLD_WEIGHT: MatcherColorFn;
-            readonly DIM_COLOR: MatcherColorFn;
-            readonly SUGGEST_TO_CONTAIN_EQUAL: string;
-            diff(a: any, b: any, options?: import("jest-diff").DiffOptions): string | null;
-            ensureActualIsNumber(actual: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureExpectedIsNumber(actual: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureNoExpected(actual: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureNumbers(actual: any, expected: any, matcherName: string, options?: MatcherHintOptions): void;
-            ensureExpectedIsNonNegativeInteger(expected: any, matcherName: string, options?: MatcherHintOptions): void;
-            matcherHint(
-                matcherName: string,
-                received?: string,
-                expected?: string,
-                options?: MatcherHintOptions
-            ): string;
-            matcherErrorMessage(
-              hint: string,
-              generic: string,
-              specific: string
-            ): string;
-            pluralize(word: string, count: number): string;
-            printReceived(object: any): string;
-            printExpected(value: any): string;
-            printWithType(name: string, value: any, print: (value: any) => string): string;
-            stringify(object: {}, maxDepth?: number): string;
-            highlightTrailingWhitespace(text: string): string;
-
-            printDiffOrStringify(expected: any, received: any, expectedLabel: string, receivedLabel: string, expand: boolean): string;
-
-            getLabelPrinter(...strings: string[]): PrintLabel;
-
+        utils: typeof import('jest-matcher-utils') & {
             iterableEquality: EqualityTester;
             subsetEquality: EqualityTester;
         };
@@ -1372,6 +1311,7 @@ declare namespace jest {
     type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
 
     interface MockContext<T, Y extends any[]> {
+        lastCall: Y;
         calls: Y[];
         instances: T[];
         invocationCallOrder: number[];

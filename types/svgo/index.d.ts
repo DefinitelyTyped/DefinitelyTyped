@@ -146,13 +146,13 @@ export type ConvertPathDataPlugin = DefaultPlugin<
         /** @default true */
         applyTransformsStroked?: boolean | undefined;
         makeArcs?:
-            | {
-                  /** @default 2.5 */
-                  threshold?: number | undefined;
-                  /** @default 0.5 */
-                  tolerance?: number | undefined;
-              }
-            | undefined;
+        | {
+            /** @default 2.5 */
+            threshold?: number | undefined;
+            /** @default 0.5 */
+            tolerance?: number | undefined;
+        }
+        | undefined;
         /** @default true */
         straightCurves?: boolean | undefined;
         /** @default true */
@@ -308,12 +308,62 @@ export type MoveGroupAttrsToElemsPlugin = DefaultPlugin<'moveGroupAttrsToElems'>
  */
 export type PluginsPlugin = DefaultPlugin<'plugins'>;
 
+export interface XastDoctype {
+    type: 'doctype';
+    name: string;
+    data: {
+        doctype: string;
+    };
+}
+
+export interface XastInstruction {
+    type: 'instruction';
+    name: string;
+    value: string;
+}
+
+export interface XastComment {
+    type: 'comment';
+    value: string;
+}
+
+export interface XastCdata {
+    type: 'cdata';
+    value: string;
+}
+
+export interface XastText {
+    type: 'text';
+    value: string;
+}
+
+export type XastChild =
+    | XastDoctype
+    | XastInstruction
+    | XastComment
+    | XastCdata
+    | XastText
+    | XastElement;
+
+export interface XastElement {
+    type: 'element';
+    name: string;
+    attributes: Record<string, string>;
+    children: XastChild[];
+}
+
+export interface PluginInfo {
+    path?: string;
+    multipassCount: number;
+}
+
 /**
  * prefix IDs
  */
 export type PrefixIdsPlugin = DefaultPlugin<
     'prefixIds',
     {
+        prefix?: boolean | string | ((node: XastElement, info: PluginInfo) => string) | undefined;
         /** @default '__' */
         delim?: string | undefined;
         /** @default true */

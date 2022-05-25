@@ -16,11 +16,11 @@ jobs:
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
             fetch-depth: 0
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
 
       - run: git config --global user.email "bot@typescriptlang.org"
       - run: git config --global user.name "TS Bot"

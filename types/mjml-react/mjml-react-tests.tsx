@@ -34,9 +34,12 @@ import {
     MjmlStyle,
     MjmlTable,
     MjmlWrapper,
+    MjmlHtmlAttributes,
+    MjmlSelector,
+    MjmlHtmlAttribute
 } from 'mjml-react';
 
-import { MjmlComment, MjmlConditionalComment, MjmlTrackingPixel, MjmlYahooStyle } from 'mjml-react/extensions';
+import { MjmlComment, MjmlConditionalComment, MjmlTrackingPixel, MjmlYahooStyle, MjmlHtml } from 'mjml-react/extensions';
 
 import {
     addQueryParams,
@@ -45,6 +48,8 @@ import {
     namedEntityToHexCode,
     toMobileFontSize,
     useHttps,
+    renderToJson,
+    renderToJson2
 } from 'mjml-react/utils';
 
 function renderOutTestEmail() {
@@ -111,6 +116,21 @@ function renderOutTestEmail() {
             child
         </MjmlClass>
     );
+}
+// TestMjmlHtmlAttributesTag
+{
+    const minProps: React.ReactNode = <MjmlHtmlAttributes />;
+    const maxProps: React.ReactNode = <MjmlHtmlAttributes>child</MjmlHtmlAttributes>;
+}
+// TestMjmlSelectorTag
+{
+    const minProps: React.ReactNode = <MjmlSelector path="div.hello" />;
+    const maxProps: React.ReactNode = <MjmlSelector path="div.hello">child</MjmlSelector>;
+}
+// TestMjmlHtmlAttributesTag
+{
+    const minProps: React.ReactNode = <MjmlHtmlAttribute name="data-testid" />;
+    const maxProps: React.ReactNode = <MjmlHtmlAttribute name="data-testid">child</MjmlHtmlAttribute>;
 }
 // TestMjmlBreakpointTag
 {
@@ -240,22 +260,70 @@ function renderOutTestEmail() {
 {
     {
         const minProps: React.ReactNode = <MjmlAccordion />;
-        const maxProps: React.ReactNode = <MjmlAccordion>child</MjmlAccordion>;
+        const maxProps: React.ReactNode = (
+            <MjmlAccordion
+                border="0"
+                containerBackgroundColor="#ffffff"
+                fontFamily="Arial"
+                iconAlign="left"
+                iconHeight="20px"
+                iconPosition="right"
+                iconUnwrappedAlt="close"
+                iconUnwrappedUrl="open.png"
+                iconWidth="20px"
+                iconWrappedAlt="open"
+                iconWrappedUrl="close.png"
+            >
+                child
+            </MjmlAccordion>
+        );
     }
     // MjmlAccordionElement
     {
         const minProps: React.ReactNode = <MjmlAccordionElement />;
-        const maxProps: React.ReactNode = <MjmlAccordionElement>child</MjmlAccordionElement>;
-    }
-    // MjmlAccordionText
-    {
-        const minProps: React.ReactNode = <MjmlAccordionText />;
-        const maxProps: React.ReactNode = <MjmlAccordionText>child</MjmlAccordionText>;
+        const maxProps: React.ReactNode = (
+            <MjmlAccordionElement
+                border="0"
+                backgroundColor="#ffffff"
+                fontFamily="Arial"
+                iconAlign="left"
+                iconHeight="20px"
+                iconPosition="right"
+                iconUnwrappedAlt="close"
+                iconUnwrappedUrl="open.png"
+                iconWidth="20px"
+                iconWrappedAlt="open"
+                iconWrappedUrl="close.png"
+            >
+                child
+            </MjmlAccordionElement>
+        );
     }
     // TestMjmlAccordionTitleTag
     {
         const minProps: React.ReactNode = <MjmlAccordionTitle />;
-        const maxProps: React.ReactNode = <MjmlAccordionTitle>child</MjmlAccordionTitle>;
+        const maxProps: React.ReactNode = (
+            <MjmlAccordionTitle backgroundColor="#ffffff" color="#000000" fontFamily="Arial" fontSize="20px">
+                child
+            </MjmlAccordionTitle>
+        );
+    }
+    // MjmlAccordionText
+    {
+        const minProps: React.ReactNode = <MjmlAccordionText />;
+        const maxProps: React.ReactNode = (
+            <MjmlAccordionText
+                backgroundColor="#ffffff"
+                color="#000000"
+                fontFamily="Arial"
+                fontSize="20px"
+                fontWeight="5"
+                letterSpacing="1.5"
+                lineHeight="2"
+            >
+                child
+            </MjmlAccordionText>
+        );
     }
 }
 // TestMjmlCarouselTag

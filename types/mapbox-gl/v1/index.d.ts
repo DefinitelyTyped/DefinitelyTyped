@@ -1,7 +1,6 @@
 // Type definitions for Mapbox GL JS 1.13
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
-//                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>

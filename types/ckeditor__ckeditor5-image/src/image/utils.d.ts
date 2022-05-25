@@ -7,22 +7,22 @@ import ModelSelection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import { MatcherPattern } from '@ckeditor/ckeditor5-engine/src/view/matcher';
 
 /**
- * Creates a view element representing the image of provided image type.
- *
- * An 'imageBlock' type (block image):
- *
- *    <figure class="image"><img></img></figure>
- *
- * An 'imageInline' type (inline image):
+ * Creates a view element representing the inline image.
  *
  *    <span class="image-inline"><img></img></span>
  *
  * Note that `alt` and `src` attributes are converted separately, so they are not included.
  */
-export function createImageViewElement(
-    writer: DowncastWriter,
-    imageType: 'imageBlock' | 'imageInline',
-): ContainerElement;
+export function createInlineImageViewElement(writer: DowncastWriter): ContainerElement;
+
+/**
+ * Creates a view element representing the block image.
+ *
+ *    <figure class="image"><img></img></figure>
+ *
+ * Note that `alt` and `src` attributes are converted separately, so they are not included.
+ */
+export function createBlockImageViewElement(writer: DowncastWriter): ContainerElement;
 
 /**
  * A function returning a `MatcherPattern` for a particular type of View images.

@@ -15,6 +15,30 @@ declare class SteamChatRoomClient extends EventEmitter {
     removeAllListeners(event?: keyof ChatEvents): this;
 
     /**
+     * Creates a new chat room group.
+     * @param [inviteeSteamIDs] - An array of users to invite to this new group, as SteamID objects or strings that can parse into SteamIDs
+     * @param [name] - A name for this group. Pass an empty string '' to create an "ad-hoc" group chat (see below)
+     * @param [callback]
+     * @since v4.21.0
+     */
+    createGroup(inviteeSteamIDs?: SteamID[] | string[] | string, name?: string, callback?: (
+        err: Error | null,
+        response: { chat_group_id: string, state: ChatRoomGroupState, user_chat_state: UserChatRoomGroupState }
+    ) => void
+    ): Promise<{ chat_group_id: string, state: ChatRoomGroupState, user_chat_state: UserChatRoomGroupState }>;
+
+    /**
+     * Converts an "ad-hoc" multi-user group chat into a full-fledged chat room group, which can contain multiple channels.
+     * Anyone in a group chat can save it, not just the owner of the group chat.
+     * Upon saving, you will become the owner of the saved chat room group.
+     * @param groupId - The ID of the chat room group you want to save and convert into a full-fledged chat room group
+     * @param name - The name for your new chat room group
+     * @param [callback]
+     * @since v4.21.0
+     */
+    saveGroup(groupId: string, name: string, callback?: (err: Error | null) => void): Promise<void>;
+
+    /**
      * Get a list of the chat room groups you're in.
      * @param [callback]
      */
@@ -26,7 +50,7 @@ declare class SteamChatRoomClient extends EventEmitter {
      * @param groupIDs - Array of group IDs you want data for
      * @param [callback]
      */
-    setSessionActiveGroups(groupIDs: number[]  |string[] | number | string, callback?: (
+    setSessionActiveGroups(groupIDs: number[]  | string[] | number | string, callback?: (
          err: Error | null,
          response: { chat_room_groups: Record<string, ChatRoomGroupState> },
         ) => void
@@ -61,6 +85,14 @@ declare class SteamChatRoomClient extends EventEmitter {
         response: { state: ChatRoomGroupState; user_chat_state: UserChatRoomGroupState },
         ) => void
     ): Promise<{ state: ChatRoomGroupState; user_chat_state: UserChatRoomGroupState }>;
+
+    /**
+     * Leaves a chat room group you have previously joined.
+     * @param groupId - The chat group ID you want to leave
+     * @param [callback]
+     * @since v4.21.0
+     */
+    leaveGroup(groupId: string, callback?: (err: Error | null) => void): Promise<void>;
 
     /**
      * Invite a friend to a chat room group.
@@ -198,6 +230,16 @@ declare class SteamChatRoomClient extends EventEmitter {
     setGroupUserBanState(groupId: number | string, userSteamId: SteamID | string, banState: boolean, callback?: (err: Error | null) => void): Promise<void>;
 
     /**
+     * Adds or removes a role on a user in a chat room group, provided you have access to do so.
+     * @param groupId - The ID of the chat room group you want to manage someone's roles in
+     * @param userSteamId - The SteamID of the user who you want to manage roles on, as a SteamID object or a string that can parse into one
+     * @param roleId - The ID of the role you want to manage
+     * @param roleState - `true` to add the role, or `false` to remove it
+     * @param [callback]
+     */
+    setGroupUserRoleState(groupId: string, userSteamId: SteamID | string, roleId: string, roleState: boolean, callback?: (err: Error | null) => void): Promise<void>;
+
+    /**
      * Get a list of which friends we have "active" (recent) message sessions with.
      * @param [options]
      * @param [callback]
@@ -251,6 +293,10 @@ interface ChatEvents {
     friendLeftConversationEcho: [message: IncomingFriendMessage];
     chatMessage: [message: IncomingChatMessage];
     chatMessagesModified: [details: ModifiedMessage[]];
+    chatRoomGroupSelfStateChange: [details: groupSelfStateChangeDetails];
+    chatRoomGroupMemberStateChange: [details: groupMemberStateChangeDetails];
+    chatRoomGroupHeaderStateChange: [details: groupHeaderStateChangeDetails];
+    chatRoomGroupRoomsChange: [details: groupRoomsStateChangeDetails];
 }
 //#endregion "Events"
 
@@ -481,4 +527,28 @@ interface ChatRoomGroupSummary {
 interface ChatRoomGroup {
     group_summary: ChatRoomGroupSummary;
 }
+
+interface groupSelfStateChangeDetails {
+    chat_group_id: string;
+    user_action: SteamUser.EChatRoomMemberStateChange;
+    user_chat_group_state: UserChatRoomGroupState;
+    group_summary: ChatRoomGroupSummary;
+}
+
+interface groupMemberStateChangeDetails {
+    chat_group_id: string;
+    member: ChatRoomMember;
+    change: SteamUser.EChatRoomMemberStateChange;
+}
+interface groupHeaderStateChangeDetails {
+    chat_group_id: string;
+    header_state: ChatRoomGroupHeaderState;
+}
+
+interface groupRoomsStateChangeDetails {
+    chat_group_id: string;
+    default_chat_id: string;
+    chat_rooms: ChatRoomState[];
+}
+
 //#endregion "Interfaces"

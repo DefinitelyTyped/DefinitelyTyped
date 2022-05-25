@@ -53,4 +53,4 @@ declare class PackageGraph extends Map {
      */
     remove(candidateNode: PackageGraphNode): void;
 }
-export { PackageGraph };
+export { PackageGraph, PackageGraphNode };

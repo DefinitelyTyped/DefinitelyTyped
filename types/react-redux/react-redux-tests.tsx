@@ -4,11 +4,9 @@ import * as ReactDOM from 'react-dom';
 import {
     Store,
     Dispatch,
-    AnyAction,
     ActionCreator,
     createStore,
     bindActionCreators,
-    ActionCreatorsMapObject,
     Reducer,
 } from 'redux';
 import {
@@ -18,7 +16,6 @@ import {
     Provider,
     DispatchProp,
     MapStateToProps,
-    Options,
     ReactReduxContext,
     ReactReduxContextValue,
     Selector,
@@ -346,6 +343,56 @@ function MapStateFactoryAndDispatchFactory() {
     const Test = connect(
         mapStateToPropsFactory,
         mapDispatchToPropsFactory,
+    )(TestComponent);
+
+    const verify = <Test foo='bar' />;
+}
+
+function MapNothingAndMerge() {
+    interface OwnProps { foo: string; }
+    interface MergedProps { onClick: () => void; }
+
+    class TestComponent extends React.Component<MergedProps> { }
+
+    const actionCreator = (foo: string) => ({ type: 'AN_ACTION', foo });
+
+    const mergeProps = (stateProps: undefined, { dispatch }: DispatchProp, ownProps: OwnProps) => (
+        { onClick: () => dispatch(actionCreator(ownProps.foo)) }
+    );
+
+    const Test = connect(
+        null,
+        null,
+        mergeProps
+    )(TestComponent);
+
+    const verify = <Test foo='bar' />;
+}
+
+function MapStateAndMerge() {
+    interface OwnProps { foo: string; }
+    interface StateProps { bar: number; }
+    interface MergedProps {
+        bar: number;
+        onClick: () => void;
+    }
+
+    class TestComponent extends React.Component<MergedProps> { }
+
+    const actionCreator = (foo: string) => ({ type: 'AN_ACTION', foo });
+
+    const mapStateToProps = (stateProps: StateProps, ownProps: OwnProps) => ({
+        bar: 1
+    });
+
+    const mergeProps = (stateProps: StateProps, { dispatch }: DispatchProp, ownProps: OwnProps) => (
+        { ...stateProps, onClick: () => dispatch(actionCreator(ownProps.foo)) }
+    );
+
+    const Test = connect(
+        mapStateToProps,
+        null,
+        mergeProps
     )(TestComponent);
 
     const verify = <Test foo='bar' />;
@@ -1556,7 +1603,7 @@ function testRef() {
     const classLegacyRef: React.LegacyRef<ClassComponent> | undefined = undefined;
     <ConnectedClassComponent ref={classLegacyRef}></ConnectedClassComponent>;
     <ConnectedClassComponent ref={React.createRef<ClassComponent>()}></ConnectedClassComponent>;
-    <ConnectedClassComponent ref={(ref: ClassComponent) => {}}></ConnectedClassComponent>;
+    <ConnectedClassComponent ref={(ref: ClassComponent | null) => {}}></ConnectedClassComponent>;
     <ConnectedClassComponent ref={''}></ConnectedClassComponent>;
     // ref type should be the typeof the wrapped component
     <ConnectedClassComponent ref={React.createRef<string>()}></ConnectedClassComponent>; // $ExpectError
@@ -1600,4 +1647,26 @@ function testPreserveDiscriminatedUnions() {
     <ConnectedMyText type="plain" color="red" params={someParams} />; // $ExpectError
     <ConnectedMyText type="localized" color="red" />; // $ExpectError
     <ConnectedMyText type="localized" color="red" params={someParams} />;
+}
+
+/**
+ * The `withStyles` HOC in MUI returns a `JSXElementConstructor` instead of a `ComponentType` as of
+ * https://github.com/mui/material-ui/pull/24746.
+ */
+interface Props {
+    foo: number;
+    bar: boolean;
+}
+declare const TestComponentJSXElementConstructorIsAllowed: React.JSXElementConstructor<Props>;
+
+function testJSXElementConstructorIsAllowed() {
+    interface StoreState {
+        stateThings: number;
+    }
+    const mapStateToProps = (state: StoreState) => ({
+        foo: state.stateThings,
+    });
+
+    const ConnectedComponent = connect(mapStateToProps)(TestComponentJSXElementConstructorIsAllowed);
+    <ConnectedComponent bar />;
 }

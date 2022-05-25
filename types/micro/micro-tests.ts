@@ -1,5 +1,5 @@
 import micro, { json, RequestHandler, buffer, text, send, createError } from 'micro';
-import socketIO = require('socket.io');
+import { Server as HttpServer } from 'http';
 
 // Json sample
 
@@ -10,7 +10,7 @@ export const jsonHandler: RequestHandler = async (req, res) => {
     return 'Data logged to your console';
 };
 
-// socket.io chat app sample
+// `http` Server sample
 
 const html = '<div>some html stuff</div>';
 
@@ -19,7 +19,7 @@ const server = micro(async (req, res) => {
     res.end(html);
 });
 
-const io = socketIO(server);
+const httpServer: HttpServer = server;
 
 server.listen(4000);
 

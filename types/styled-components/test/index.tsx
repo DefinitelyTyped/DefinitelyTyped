@@ -490,6 +490,12 @@ const ComponentWithTheme = withTheme(Component);
 <ComponentWithTheme text={'hi'} theme={{ color: 'red' }} />; // ok
 <ThemeConsumer>{theme => <Component text="hi" theme={theme} />}</ThemeConsumer>;
 
+// should consider default props of a component
+const ComponentWithDefaultProps = ({ text }: WithThemeProps) => <div>{text}</div>;
+ComponentWithDefaultProps.defaultProps = { text: 'hi' };
+const ComponentWithDefaultPropsAndTheme = withTheme(ComponentWithDefaultProps);
+<ComponentWithDefaultPropsAndTheme />;
+
 /**
  * isStyledComponent utility
  */
@@ -1137,8 +1143,7 @@ export class WrapperClass extends React.Component<WrapperProps> {
     }
 }
 const StyledWrapperClass = styled(WrapperClass)``;
-// React.Component typings always add `children` to props, so this should accept children
-const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>;
+const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>; // $ExpectError
 
 export class WrapperClassFuncChild extends React.Component<WrapperProps & { children: () => any }> {
     render() {
@@ -1146,7 +1151,6 @@ export class WrapperClassFuncChild extends React.Component<WrapperProps & { chil
     }
 }
 const StyledWrapperClassFuncChild = styled(WrapperClassFuncChild)``;
-// React.Component typings always add `children` to props, so this should accept children
 const wrapperClassNoChildrenGood = <StyledWrapperClassFuncChild>{() => 'text'}</StyledWrapperClassFuncChild>;
 const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperClassFuncChild>; // $ExpectError
 

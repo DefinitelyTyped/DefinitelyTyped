@@ -103,6 +103,6 @@ class InnerRefObjectTest extends React.Component {
 
 class InnerRefCallbackTest extends React.Component {
     render() {
-        return <ReactGridLayout innerRef={(_: HTMLDivElement) => {}} />;
+        return <ReactGridLayout innerRef={(_: HTMLDivElement | null) => {}} />;
     }
 }

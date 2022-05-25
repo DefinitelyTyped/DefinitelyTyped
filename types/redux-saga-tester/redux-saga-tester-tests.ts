@@ -9,12 +9,14 @@ new SagaTester({
         orders: (state, action) => state,
     },
     middlewares: [
-        ({dispatch, getState}) => (next) => (action) => {
-            dispatch({type: 'BLA'});
-            getState();
+        ({ dispatch, getState }) =>
+            next =>
+            action => {
+                dispatch({ type: 'BLA' });
+                getState();
 
-            return next(action);
-        },
+                return next(action);
+            },
     ],
     ignoreReduxActions: false,
     options: {
@@ -33,7 +35,7 @@ new SagaTester({
         a: (state, action) => state,
         b: (state, action) => state,
         c: (state, action) => state,
-    }
+    },
 });
 
 // constructor with no options
@@ -41,7 +43,12 @@ interface MockStateType {
     orders: Array<{ name: string }>;
 }
 
-const sagaTester = new SagaTester<MockStateType>({initialState: {orders: []}});
+const sagaTester = new SagaTester<MockStateType>({ initialState: { orders: [] } });
+
+// store
+const store = sagaTester.store;
+store.dispatch({ type: 'LOAD_ORDERS', orders: [] });
+store.getState().orders;
 
 // start
 function* fakeSaga() {
@@ -56,19 +63,17 @@ sagaTester.start(fakeSaga);
 sagaTester.start(fakeSagaWithParams, 'foo', 3);
 
 // dispatch
-sagaTester.dispatch({type: 'LOAD_ORDERS', orders: []});
+sagaTester.dispatch({ type: 'LOAD_ORDERS', orders: [] });
 
 // updateState
-sagaTester.updateState({orders: []});
+sagaTester.updateState({ orders: [] });
 
 // getState
 sagaTester.getState().orders;
 
 // waitFor
-sagaTester.waitFor('LOAD_ORDERS').then(() => {
-});
-sagaTester.waitFor('LOAD_ORDERS', true).then(() => {
-});
+sagaTester.waitFor('LOAD_ORDERS').then(() => {});
+sagaTester.waitFor('LOAD_ORDERS', true).then(() => {});
 
 // wasCalled
 sagaTester.wasCalled('LOAD_ORDERS');

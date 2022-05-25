@@ -360,7 +360,7 @@ export interface HostComponent<P> extends Pick<React.ComponentClass<P>, Exclude<
 
 // see react-jsx.d.ts
 export function createElement<P>(
-    type: React.ReactType,
+    type: React.ElementType,
     props?: P,
     ...children: React.ReactNode[]
 ): React.ReactElement<P>;
@@ -7007,7 +7007,7 @@ export interface ActionSheetIOSOptions {
     title?: string | undefined;
     options: string[];
     cancelButtonIndex?: number | undefined;
-    destructiveButtonIndex?: number | undefined;
+    destructiveButtonIndex?: number | number[] | undefined | null;
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;

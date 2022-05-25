@@ -1,5 +1,5 @@
-import { EditText, EditTextarea, onSaveProps } from 'react-edit-text';
 import * as React from 'react';
+import { EditText, EditTextarea, onSaveProps } from 'react-edit-text';
 
 const onSaveTest = ({ name, value, previousValue }: onSaveProps) => {
     console.log(name + value + previousValue);
@@ -8,6 +8,12 @@ const onSaveTest = ({ name, value, previousValue }: onSaveProps) => {
 const onChangeTest = (value: string) => {
     console.log(value);
 };
+
+const formatDisplayTextTest = (value: string) => {
+    return '$' + value;
+};
+
+const TestEditButton = <div>Edit</div>;
 
 <EditText />;
 <EditText id="firstName" />;
@@ -22,6 +28,12 @@ const onChangeTest = (value: string) => {
 <EditText inline />;
 <EditText style={{ margin: 0 }} />;
 <EditText readonly />;
+<EditText type="number" value="100" formatDisplayText={formatDisplayTextTest} />;
+<EditText showEditButton />;
+<EditText showEditButton editButtonContent="Edit" />;
+<EditText showEditButton editButtonContent={<i className="editIcon" />} />;
+<EditText showEditButton editButtonProps={{ style: { marginTop: 10, padding: 0 }, id: 'test', className: 'test' }} />;
+<EditText showEditButton editButtonContent={TestEditButton} editButtonProps={{ autoFocus: true }} />;
 
 <EditTextarea />;
 <EditTextarea id="desc" />;
@@ -35,3 +47,4 @@ const onChangeTest = (value: string) => {
 <EditTextarea rows={5} />;
 <EditTextarea style={{ padding: 0 }} />;
 <EditTextarea readonly />;
+<EditTextarea value="100" formatDisplayText={formatDisplayTextTest} />;

@@ -13,6 +13,7 @@ autocannon({
     excludeErrorStats: true,
     body: 'ok',
     headers: { 'accept-language': 'en-US' },
+    workers: 4,
     setupClient: client => {
         client.setHeaders({ 'content-type': 'application/json' });
         client.setBody(Buffer.from('ok'));
@@ -43,6 +44,7 @@ autocannon({
     console.log(result.start, result.finish);
     console.log(result.latency.mean);
     console.log(result.non2xx);
+    console.log(autocannon.printResult(result));
 });
 
 const instance = autocannon({ url: 'http://localhost:3000' }, (err, result) => {

@@ -1,7 +1,12 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { Value } from '@wordpress/rich-text';
-import { createRef, MouseEvent as ReactMouseEvent } from 'react';
+import {
+    createRef,
+    KeyboardEvent as ReactKeyboardEvent,
+    MouseEvent as ReactMouseEvent,
+    FocusEvent as ReactFocusEvent
+} from 'react';
 
 //
 // primitives
@@ -322,6 +327,21 @@ const buttonGroupRef = createRef<HTMLDivElement>();
         },
     ]}
 />;
+<C.DropdownMenu
+    icon={<span>icon</span>}
+    label="Select a direction"
+    controls={[
+        {
+            title: 'Up',
+            icon: 'arrow-up-alt',
+            onClick: () => console.log('up'),
+        },
+    ]}
+    menuProps={{ orientation: 'vertical' }}
+    popoverProps={{ animate: true }}
+    toggleProps={{ variant: 'primary' }}
+    disableOpenOnArrowDown={true}
+/>;
 
 //
 // external-link
@@ -518,7 +538,12 @@ const kbshortcuts = {
 //
 // modal
 //
-<C.Modal title="This is my modal" isDismissible={true} onRequestClose={() => console.log('closing modal')}>
+<C.Modal title="This is my modal"
+    isDismissible={true}
+    onRequestClose={
+        (event: ReactKeyboardEvent | ReactMouseEvent | ReactMouseEvent) => console.log(`The ${event.type} event told me to close myself!`)
+    }
+>
     <button onClick={() => console.log('clicked')}>My custom close button</button>
 </C.Modal>;
 

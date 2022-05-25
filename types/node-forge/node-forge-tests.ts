@@ -552,6 +552,13 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    let key = null;
+    let cert = forge.pki.createCertificate();
+    let password = null;
+    let p17 = forge.pkcs12.toPkcs12Asn1(key, cert, password);
+}
+
+{
     let plainText = 'content'
     let cipher = publicKeyRsa.encrypt(plainText);
     let result = privateKeyRsa.decrypt(cipher);
@@ -653,4 +660,14 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     isBigInteger = bn.gcd(bn);
     isBigInteger = bn.modInverse(bn);
     isBoolean = bn.isProbablePrime(0);
+}
+
+{
+    forge.pki.rsa.generateKeyPair({ bits: 2048,}, (err, keypair) => {
+        if (err) {
+            throw err;
+        }
+        const msg = '0102030405060708090a0b0c0d0e0f00';
+        keypair.privateKey.sign(forge.util.hexToBytes(msg), 'NONE');
+    });
 }
