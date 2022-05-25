@@ -21,13 +21,13 @@ const identify = useIdentify();
 // $ExpectType Page
 const page = usePage();
 
-// $ExpectType React.Consumer<{instance: AnalyticsInstance;}>
+// $ExpectType Consumer<{ instance: AnalyticsInstance; }>
 const consumer = AnalyticsConsumer;
 
-// $ExpectType React.Context<{instance: AnalyticsInstance;}>
+// $ExpectType Context<{ instance: AnalyticsInstance; }>
 const context = AnalyticsContext;
 
-// $ExpectType React.Provider<{instance: AnalyticsInstance;}>
+// $ExpectType Provider<{ instance: AnalyticsInstance; }>
 const provider = AnalyticsProvider;
 
 // $ExpectType any
