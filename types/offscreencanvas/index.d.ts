@@ -96,6 +96,10 @@ interface Worker {
     postMessage(message: any, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 
+interface DedicatedWorkerGlobalScope {
+    postMessage(message: any, transfer?: Array<Transferable | OffscreenCanvas>): void;
+}
+
 interface ServiceWorker {
     postMessage(message: any, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
