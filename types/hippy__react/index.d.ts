@@ -231,6 +231,7 @@ interface ViewStyle {
     borderLeftColor?: string | number;
     borderBottomColor?: string | number;
     borderRightColor?: string | number;
+    borderStyle?: 'solid' | 'dotted' | 'dashed';
     boxShadowOpacity?: number;
     boxShadowRadius?: number;
     boxShadowColor?: string;
@@ -255,7 +256,7 @@ interface ViewStyle {
         | 'stretch';
     alignItems?: 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'baseline';
     alignSelf?: 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'baseline';
-    overflow?: 'hidden' | 'scroll';
+    overflow?: 'hidden' | 'visible';
     flex?: any;
     flexGrow?: number;
     flexShrink?: number;
@@ -1177,7 +1178,7 @@ interface ViewPagerProps extends LayoutableProps {
      *
      * Default: 0
      */
-    initialPage: number;
+    initialPage?: number;
 
     /**
      * When `false`, the view cannot be scrolled via touch interaction.
