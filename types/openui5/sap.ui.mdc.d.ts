@@ -1,4 +1,4 @@
-// For Library Version: 1.101.0
+// For Library Version: 1.102.0
 
 declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
   import Metadata from "sap/ui/base/Metadata";
@@ -29,6 +29,8 @@ declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.mdc.filterbar.IFilterContainer.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -47,6 +49,8 @@ declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.mdc.filterbar.vh.FilterContainer.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): Metadata;
   }

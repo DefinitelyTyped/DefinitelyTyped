@@ -48,6 +48,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
 () => {
   const CoolWidget = createConnector({
     displayName: 'CoolWidget',
+    $$type: 'coolWidget',
 
     getProvidedProps(props, searchState) {
       // Since the `queryAndPage` searchState entry isn't necessarily defined, we need
@@ -98,7 +99,9 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
       */}
       <button onClick={() => props.refine('instantsearch', 15)} />
     </div>
-  ));
+  ), {
+      $$widgetType: 'coolWidget',
+  });
 
   <CoolWidget>
     <div></div>
@@ -169,7 +172,9 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
       */}
       <button onClick={() => props.refine('instantsearch', 15)} />
     </div>
-  ));
+  ), {
+    $$widgetType: 'typedCoolWidget',
+  });
 
   <TypedCoolWidgetStateless defaultRefinement={'asdf'} startAtPage={10} />;
 

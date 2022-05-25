@@ -3,7 +3,7 @@ import * as R from 'ramda';
 () => {
     const list = ['foo', 'bar', 'baz', 'quux'];
 
-    // $ExpectType { <T>(list: readonly T[]): T | undefined; (list: string): string; }
+    // $ExpectType <T extends string | readonly any[]>(list: T) => (T extends (infer E)[] ? E : string) | undefined
     R.nth(1); // => 'b'
 
     // $ExpectType string | undefined
@@ -34,10 +34,10 @@ import * as R from 'ramda';
     // $ExpectType string
     R.nth(99, str); // => ''
 
-    // $ExpectType string
+    // $ExpectType string | undefined
     R.nth(1)(str); // => 'b'
 
-    // $ExpectType string
+    // $ExpectType string | undefined
     R.nth(-99)(str); // => ''
 };
 
@@ -50,4 +50,11 @@ import * as R from 'ramda';
 
     // $ExpectError
     R.nth(1, '', 1);
+};
+
+async () => {
+    const promise = Promise.resolve([1, 2, 3]);
+
+    // $ExpectType number | undefined
+    const el = await promise.then(R.nth(0));
 };

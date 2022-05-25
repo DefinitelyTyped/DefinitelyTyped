@@ -207,7 +207,7 @@ string = htmlTag('a', { href: 'http://zespia.tw' }, 'My blog');
 let permalink = new Permalink(':year/:month/:day/:title');
 
 permalink.rule === ':year/:month/:day/:title';
-permalink.regex === /^(.+?)\/(.+?)\/(.+?)\/(.+?)$/;
+permalink.regex; // $ExpectType RegExp
 permalink.params.should.eql(['year', 'month', 'day', 'title']);
 
 permalink = new Permalink(':year/:month/:day/:title', {
@@ -219,7 +219,7 @@ permalink = new Permalink(':year/:month/:day/:title', {
 });
 
 permalink.rule === ':year/:month/:day/:title';
-permalink.regex === /^(\d{4})\/(\d{2})\/(\d{2})\/(.+?)$/;
+permalink.regex; // $ExpectType RegExp
 permalink.params.should.eql(['year', 'month', 'day', 'title']);
 permalink.test('2014/01/31/test');
 !permalink.test('foweirojwoier');

@@ -2,7 +2,6 @@
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>
 //                 otiai10 <https://github.com/otiai10>
-//                 RReverser <https://github.com/rreverser>
 //                 sreimer15 <https://github.com/sreimer15>
 //                 MatCarlson <https://github.com/MatCarlson>
 //                 ekinsol <https://github.com/ekinsol>
@@ -7362,6 +7361,12 @@ declare namespace chrome.runtime {
      * @param callback Called with results
      */
     export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
+    /**
+     * Returns information about the current platform.
+     * @since Chrome 29.
+     * @return The `getPlatformInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getPlatformInfo(): Promise<PlatformInfo>;
     /**
      * Converts a relative path within an app/extension install directory to a fully-qualified URL.
      * @param path A path to a resource within an app/extension expressed relative to its install directory.
