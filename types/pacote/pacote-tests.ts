@@ -30,9 +30,11 @@ pacote.manifest('pacote', opts); // $ExpectType Promise<AbbreviatedManifest & Ma
 pacote.manifest('pacote', { before: new Date() }); // $ExpectType Promise<Manifest & ManifestResult>
 pacote.manifest('pacote', { fullMetadata: true }); // $ExpectType Promise<Manifest & ManifestResult>
 
-pacote.packument('pacote'); // $ExpectType Promise<AbbreviatedPackument>
-pacote.packument('pacote', opts); // $ExpectType Promise<AbbreviatedPackument>
-pacote.packument('pacote', { fullMetadata: true }); // $ExpectType Promise<Packument>
+// tslint:disable-next-line:expect
+pacote.packument('pacote'); // $ExpectType Promise<AbbreviatedPackument & PackumentResult>
+// tslint:disable-next-line:expect
+pacote.packument('pacote', opts); // $ExpectType Promise<AbbreviatedPackument & PackumentResult>
+pacote.packument('pacote', { fullMetadata: true }); // $ExpectType Promise<Packument & PackumentResult>
 
 pacote.extract('pacote', './'); // $ExpectType Promise<FetchResult>
 pacote.extract('pacote', './', opts); // $ExpectType Promise<FetchResult>
