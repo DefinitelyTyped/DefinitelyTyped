@@ -1,6 +1,6 @@
 // Type definitions for authenticator 1.1
 // Project: https://git.coolaj86.com/coolaj86/node-authenticator.js#readme
-// Definitions by: Wilfred Tan <https://github.com/wilfredtan>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

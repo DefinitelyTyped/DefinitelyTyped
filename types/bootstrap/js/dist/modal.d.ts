@@ -113,7 +113,7 @@ declare namespace Modal {
 
     type jQueryInterface = (
         config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'handleUpdate' | 'dispose',
-    ) => void;
+    ) => JQuery;
 }
 
 export default Modal;

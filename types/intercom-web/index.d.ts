@@ -11,6 +11,7 @@ declare namespace Intercom_ {
     interface IntercomSettings {
         // Messenger attributes
         app_id?: string | undefined;
+        api_base?: string | undefined;
         alignment?: string | undefined;
         custom_launcher_selector?: string | undefined;
         hide_default_launcher?: boolean | undefined;
@@ -36,12 +37,14 @@ declare namespace Intercom_ {
         utm_term?: string | undefined;
         company?: IntercomCompany | undefined;
         companies?: IntercomCompany[] | undefined;
-        avatar?:
-            | {
-                  type: 'avatar';
-                  image_url: string;
-              }
-            | undefined;
+        avatar?: IntercomAvatar | undefined;
+
+        // Custom attributes
+        [custom_attribute: string]:
+            | IntercomCompany
+            | IntercomCompany[]
+            | IntercomAvatar
+            | IntercomCustomAttribute;
     }
 
     interface IntercomCommandSignature {
@@ -59,6 +62,7 @@ declare namespace Intercom_ {
         trackEvent: (tag?: string, metadata?: any) => void;
         getVisitorId: () => string;
         startTour: (tourId: number) => void;
+        showArticle: (articleId: number) => void;
     }
 
     type IntercomCommand = keyof IntercomCommandSignature;
@@ -83,7 +87,20 @@ declare namespace Intercom_ {
         size?: number | undefined;
         website?: string | undefined;
         industry?: string | undefined;
+        [custom_attribute: string]: IntercomCustomAttribute;
     }
+
+    interface IntercomAvatar {
+        type: 'avatar';
+        image_url: string;
+    }
+
+    type IntercomCustomAttribute =
+        | string
+        | number
+        | boolean
+        | null
+        | undefined;
 }
 
 declare var Intercom: Intercom_.IntercomStatic;

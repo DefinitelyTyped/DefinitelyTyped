@@ -129,12 +129,27 @@ interface SettingsClientCommands {
     setGeoLocation(location: Location, isEmulator?: boolean): Promise<void>;
 
     /**
-     * Get the current geo location from the device under test.
+     * Get the current cached GPS location from the device under test.
      *
      * @returns The current location
      * @throws If the current location cannot be retrieved
      */
     getGeoLocation(): Promise<Location>;
+
+    /**
+     * Sends an async request to refresh the GPS cache.
+     * This feature only works if the device under test has
+     * Google Play Services installed. In case the vanilla
+     * LocationManager is used the device API level must be at
+     * version 30 (Android R) or higher.
+     *
+     * @param timeoutMs [20000] The maximum number of milliseconds
+     * to block until GPS cache is refreshed. Providing zero or a negative
+     * value to it skips waiting completely.
+     *
+     * @throws If the GPS cache cannot be refreshed.
+     */
+    refreshGeoLocationCache(timeoutMs?: number): Promise<void>;
 
     /**
      * Performs the given editor action on the focused input field.
@@ -263,4 +278,14 @@ interface SettingsClientCommands {
      * @returns `true` if the input text has been successfully sent to adb
      */
     typeUnicode(text: string): Promise<boolean>;
+
+    /**
+     * Performs recursive media scan at the given destination.
+     * All successfully scanned items are being added to the device's
+     * media library.
+     *
+     * @param destination File/folder path on the remote device.
+     * @throws If there was an unexpected error by scanning.
+     */
+    scanMedia(destination: string): Promise<void>;
 }

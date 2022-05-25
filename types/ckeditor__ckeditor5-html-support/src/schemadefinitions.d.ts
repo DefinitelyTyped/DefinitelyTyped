@@ -247,14 +247,7 @@ declare const _default: {
             model: 'htmlHgroup';
             view: 'hgroup';
             modelSchema: {
-                allowChildren: [
-                    'htmlH1',
-                    'htmlH2',
-                    'htmlH3',
-                    'htmlH4',
-                    'htmlH5',
-                    'htmlH6',
-                ];
+                allowChildren: ['htmlH1', 'htmlH2', 'htmlH3', 'htmlH4', 'htmlH5', 'htmlH6'];
                 isBlock: true;
             };
         },
@@ -755,6 +748,14 @@ declare const _default: {
             isObject: true;
             modelSchema: {
                 inheritAllFrom: '$htmlObjectInline';
+            };
+        },
+        {
+            model: 'htmlStyle';
+            view: 'style';
+            modelSchema: {
+                allowWhere: ['$text', '$block'];
+                isInline: true;
             };
         },
     ];

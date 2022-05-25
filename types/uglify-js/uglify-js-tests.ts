@@ -67,6 +67,7 @@ const compressOptions: CompressOptions = {
     templates: false,
     unused: true,
     varify: true,
+    webkit: true,
 };
 minify(code, {
     compress: compressOptions,

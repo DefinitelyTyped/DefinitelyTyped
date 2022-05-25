@@ -126,7 +126,7 @@ declare namespace yargs {
          * @param description Use to provide a description for each command your application accepts (the values stored in `argv._`).
          * Set `description` to false to create a hidden command. Hidden commands don't show up in the help output and aren't available for completion.
          * @param [builder] Object to give hints about the options that your command accepts.
-         * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command specific help.
+         * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command-specific help.
          *
          * Note that when `void` is returned, the handler `argv` object type will not include command-specific arguments.
          * @param [handler] Function, which will be executed with the parsed `argv` object.

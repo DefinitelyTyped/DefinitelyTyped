@@ -15,6 +15,32 @@ import { LookupOneOptions } from 'dns';
 }
 
 {
+    let _socket: net.Socket = new net.Socket({
+        fd: 1,
+        allowHalfOpen: false,
+        readable: false,
+        writable: false,
+    });
+
+    let bool: boolean;
+
+    bool = _socket.connecting;
+    bool = _socket.destroyed;
+
+    const _timeout: number | undefined = _socket.timeout;
+    _socket = _socket.setTimeout(500);
+
+    _socket = _socket.setNoDelay(true);
+    _socket = _socket.setKeepAlive(true, 10);
+    _socket = _socket.setEncoding('utf8');
+    _socket = _socket.resume();
+    _socket = _socket.resume();
+
+    _socket = _socket.end();
+    _socket = _socket.destroy();
+}
+
+{
     let server = net.createServer();
     // Check methods which return server instances by chaining calls
     server = server.listen(0)
@@ -234,9 +260,8 @@ import { LookupOneOptions } from 'dns';
     _socket = _socket.prependOnceListener("ready", () => { });
     _socket = _socket.prependOnceListener("timeout", () => { });
 
-    bool = _socket.connecting;
-    bool = _socket.destroyed;
     _socket.destroy();
+    _socket.readyState; // $ExpectType SocketReadyState
 }
 
 {
@@ -298,4 +323,7 @@ import { LookupOneOptions } from 'dns';
         error = err;
     });
     _server = _server.prependOnceListener("listening", () => { });
+
+    _socket.destroy();
+    _server.close();
 }

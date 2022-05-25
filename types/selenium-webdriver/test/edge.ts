@@ -29,8 +29,10 @@ function TestEdgeOptions() {
     options = options.androidProcess('com.android.edge');
     options = options.androidUseRunningApp(true);
     options = options.setPerfLoggingPrefs({
-        enableNetwork: true, enablePage: true,
-        traceCategories: 'category', bufferUsageReportingInterval: 1000
+        enableNetwork: true,
+        enablePage: true,
+        traceCategories: 'category',
+        bufferUsageReportingInterval: 1000,
     });
     options = options.setUserPreferences('preferences');
 }

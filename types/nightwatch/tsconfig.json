@@ -15,10 +15,13 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "nightwatch-tests.ts"
+        "test/nightwatch-tests.ts",
+        "test/react.tsx",
+        "test/testComponent.ts"
     ]
 }

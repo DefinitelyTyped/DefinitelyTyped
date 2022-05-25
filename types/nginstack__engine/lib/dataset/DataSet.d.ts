@@ -58,8 +58,8 @@ declare class DataSet {
     prior(): void;
     del(): void;
     close(): void;
-    clone(dataSource: DataSet, opt_options?: any): void;
-    copy(dataSource: DataSet): void;
+    clone(source: DataSet, opt_options?: any): void;
+    copy(source: DataSet): void;
     empty(): void;
     find(searchValues: any): boolean;
     findNearest(searchValues: any): void;

@@ -230,7 +230,7 @@ export default class RouterService extends Service {
     ): Transition;
     transitionTo(options: { queryParams: object }): Transition;
 
-    // https://emberjs.com/api/ember/4.0/classes/RouterService/methods/isActive?anchor=urlFor
+    // https://emberjs.com/api/ember/4.3.0/classes/RouterService/methods/isActive?anchor=urlFor
     /**
      * Generate a URL based on the supplied route name.
      *
@@ -241,33 +241,7 @@ export default class RouterService extends Service {
      *                  a mapping of query parameters
      * @returns         the string representing the generated URL
      */
-    urlFor(routeName: string, options?: { queryParams: object }): string;
-    urlFor(
-        routeName: string,
-        models: RouteModel,
-        options?: { queryParams: object }
-    ): string;
-    urlFor(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        options?: { queryParams: object }
-    ): string;
-    urlFor(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        modelsC: RouteModel,
-        options?: { queryParams: object }
-    ): string;
-    urlFor(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        modelsC: RouteModel,
-        modelsD: RouteModel,
-        options?: { queryParams: object }
-    ): string;
+    urlFor(routeName: string, ...args: RouteModel[] | [...RouteModel[], { queryParams: object }]): string;
 
     // https://api.emberjs.com/ember/3.6/classes/RouterService/events/routeDidChange?anchor=routeDidChange
     /**
@@ -287,6 +261,61 @@ export default class RouterService extends Service {
         name: 'routeDidChange' | 'routeWillChange',
         callback: (transition: Transition) => void
     ): RouterService;
+
+     // https://api.emberjs.com/ember/3.28/classes/Evented/methods/off?anchor=off
+    /**
+     * Removes a callback for an event.
+     *
+     * The `routeWillChange` event is fired at the beginning of any attempted transition with a `Transition` object as the sole argument.
+     * This action can be used for aborting, redirecting, or decorating the transition from the currently active routes.
+     *
+     * The `routeDidChange` event only fires once a transition has settled.
+     * This includes aborts and error substates.
+     *
+     * @param name     the name of the event 'routeWillChange' | 'routeDidChange'
+     * @param callback the callback to remove
+     */
+    off(
+        name: 'routeDidChange' | 'routeWillChange',
+        callback: (transition: Transition) => void
+    ): RouterService;
+
+    /**
+     * https://api.emberjs.com/ember/3.28/classes/Evented/methods/off?anchor=has
+     *
+     * Checks to see if object has any subscriptions for named event.
+     *
+     * @param name
+     */
+    has(name: string): boolean;
+
+    /**
+     * https://api.emberjs.com/ember/3.28/classes/Evented/methods/off?anchor=one
+     *
+     * Subscribes a function to a named event and then cancels the subscription after the first time the
+     * event is triggered. It is good to use one when you only care about the first time an event has taken place.
+     *
+     * @param name     the name of the event
+     * @param callback the callback to execute
+     */
+    one(
+        name: 'routeDidChange' | 'routeWillChange',
+        callback: (transition: Transition) => void
+    ): RouterService;
+
+    /**
+     * https://api.emberjs.com/ember/3.28/classes/Evented/methods/off?anchor=trigger
+     *
+     * Triggers a named event for the object.
+     * Any additional arguments will be passed as parameters to the functions that are subscribed to the event.
+     *
+     * @param name the name of the event
+     * @param args arguments to pass to the event
+     */
+    trigger(
+        name: string,
+        args: any
+    ): void;
 
     /**
      * Takes a string URL and returns a `RouteInfo` for the leafmost route represented
