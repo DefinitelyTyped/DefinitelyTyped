@@ -554,7 +554,7 @@ const awsServerless: Aws.Serverless = {
                     sqs: {
                         arn: 'testarn',
                         batchSize: 1,
-                        maximumRetryAttempts: 1,
+                        maximumBatchingWindow: 10,
                         enabled: true,
                         functionResponseType: 'ReportBatchItemFailures',
                         filterPatterns: [
