@@ -1,15 +1,45 @@
-import { AnalyticsConsumer, AnalyticsContext, AnalyticsProvider, useAnalytics, withAnalytics } from 'use-analytics';
+import {
+    AnalyticsConsumer,
+    AnalyticsContext,
+    AnalyticsProvider,
+    useAnalytics,
+    useIdentify,
+    usePage,
+    useTrack,
+    withAnalytics,
+} from 'use-analytics';
 import * as React from 'react';
 import { AnalyticsInstance } from 'analytics';
 
-// useAnalytics
+// Hooks
 {
-    const { track, page, identify, user } = useAnalytics();
+    // useAnalytics
+    {
+        const { track, page, identify, user } = useAnalytics();
 
-    track('trackThing');
-    page();
-    identify('userId', { email: 'user@example.com' });
-    user('userId');
+        track('trackThing');
+        page();
+        identify('userId', { email: 'user@example.com' });
+        user('userId');
+    }
+
+    // useTrack
+    {
+        const track = useTrack();
+        track('trackThing');
+    }
+
+    // usePage
+    {
+        const page = usePage();
+        page();
+    }
+
+    // useIdentify
+    {
+        const identify = useIdentify();
+        identify('userId', { email: 'user@example.com' });
+    }
 }
 
 // AnalyticsContext

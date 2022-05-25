@@ -8,6 +8,10 @@ import { AnalyticsInstance } from 'analytics';
 
 export function useAnalytics(): AnalyticsInstance;
 
+export function useTrack(): AnalyticsInstance['track']
+export function usePage(): AnalyticsInstance['page']
+export function useIdentify(): AnalyticsInstance['identify']
+
 export const AnalyticsContext: React.Context<AnalyticsInstance>;
 
 export interface AnalyticsProviderProps {
