@@ -166,8 +166,8 @@ export class OrgChart<Datum> {
     toDataUrl(url: string, callback: (result: string | ArrayBuffer) => void): void;
     exportImg(params?: { full?: boolean, scale?: number, onLoad?: (s: string) => void, save?: boolean }): void;
     exportSvg(): this;
-    expandAll(): void;
-    collapseAll(): void;
+    expandAll(): this;
+    collapseAll(): this;
     downloadImage(params?: { node: SVGElement, scale?: number, isSvg?: boolean, save?: boolean, onAlreadySerialized?: () => void, onLoad?: (s: string) => void }): void;
     getTextWidth(text: string, params: { fontSize?: number, fontWeight?: number, defaultFont?: string, ctx: CanvasRenderingContext2D }): number;
 }
