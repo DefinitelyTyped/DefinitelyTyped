@@ -1269,6 +1269,14 @@ declare namespace echarts {
                 gridIndex?: number | undefined;
 
                 /**
+                 * When multiple axes are value axes, you can enable this configuration item to automatically align the scale.
+                 * Only valid for axes of type 'value' and 'log'.
+                 * 
+                 * @see https://echarts.apache.org/zh/option.html#yAxis.alignTicks
+                 */
+                alignTicks?: boolean | undefined;
+
+                /**
                  * Offset of this axis relative to default position.
                  * Useful when multiple axis of this type has same position value.
                  *
