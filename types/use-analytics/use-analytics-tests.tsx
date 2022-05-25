@@ -1,4 +1,4 @@
-import { AnalyticsConsumer, AnalyticsContext, AnalyticsProvider, useAnalytics, withAnalytics } from './index';
+import { AnalyticsConsumer, AnalyticsContext, AnalyticsProvider, useAnalytics, withAnalytics } from 'use-analytics';
 import * as React from 'react';
 import { AnalyticsInstance } from 'analytics';
 
@@ -36,7 +36,10 @@ import { AnalyticsInstance } from 'analytics';
 
 // withAnalytics
 {
-    type Props = { analytics: AnalyticsInstance; otherProp: number };
+    interface Props {
+        analytics: AnalyticsInstance;
+        otherProp: number;
+    }
 
     const App = ({ analytics, otherProp }: Props) => {
         const { track, page, identify, user } = analytics;
