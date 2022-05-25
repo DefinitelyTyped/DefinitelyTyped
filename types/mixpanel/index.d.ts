@@ -75,17 +75,17 @@ interface Mixpanel {
      * Track an event. With a predefined EventType
      *
      * ### Usage:
-     *      
+     *
      *     // Create the event type, extending the EventBaseType
      *     interface ErrorEvent {
      *          eventName: 'ERROR' | 'VERY_BAD_ERROR';
      *          properties: {
      *              message: string;
      *              id: number;
-     *          } 
+     *          }
      *     }
-     *       
-     *     // Track the error event with the generic 
+     *
+     *     // Track the error event with the generic
      *     mixpanel.track<ErrorEvent>('ERROR', { message: 'on no!', id: 1 });
      *
      * @param eventName The name of the event. This can be anything the user does - 'Button Click', 'Sign Up', 'Item Purchased', etc.
