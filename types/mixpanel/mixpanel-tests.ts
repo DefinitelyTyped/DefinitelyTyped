@@ -12,6 +12,23 @@ function mixpanel_base() {
     mixpanel.track('Registered', {Gender: 'Male', Age: 21});
     mixpanel.track('Registered', {Gender: 'Male', Age: 21}, () => {});
 
+    // Genreric Track
+    enum ErrorNames {
+        ERROR1 = '1',
+        ERROR2 = '2',
+    }
+    
+    interface ErrorEvent extends Mixpanel.EventBaseType {
+        eventName: ErrorNames;
+        properties: {
+            id: string;
+            message: string;
+        };
+    }
+    
+    mixpanel.track<ErrorEvent>(ErrorNames.ERROR1, { id: '1111', message: 'Bad error' });
+    mixpanel.track<ErrorEvent>(ErrorNames.ERROR2, { id: '1111', message: 'Bad error' });
+
     mixpanel.track_links('#nav', 'Clicked Nav Link');
     mixpanel.track_links('#nav', 'Clicked Nav Link', { prop: 'A' });
 
