@@ -1620,7 +1620,7 @@ export interface RouteOptionsSecureObject {
      * Note: this setting can create a security vulnerability in versions of Internet Exploere below 8, as well as unpatched versions of IE8. See here and here for more information. If you actively
      * support old versions of IE, it may be wise to explicitly set this flag to false.
      */
-    xss: boolean;
+    xss?: boolean | undefined;
     /**
      * boolean controlling the 'X-Download-Options' header for Internet Explorer, preventing downloads from executing in your context. Defaults to true setting the header to 'noopen'.
      */
