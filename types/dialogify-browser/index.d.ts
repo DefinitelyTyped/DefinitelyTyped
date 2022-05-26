@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Dialogify 1.0
+// Type definitions for non-npm package dialogify-browser 1.0
 // Project: https://github.com/OneupNetwork/dialogify
 // Definitions by: moontai0724 <https://github.com/moontai0724>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

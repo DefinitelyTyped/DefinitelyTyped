@@ -21,9 +21,10 @@ declare namespace Dialogify {
         /** Query string or object to pass to ajax target. */
         ajaxData?: string | object;
         /**
-         * Callback function when ajax done, will refer `this` to Dialogify instance.
+         * Callback function when ajax done
+         * @param this Dialogify instance.
          */
-        ajaxComplete?: () => void;
+        ajaxComplete?: (this: Dialogify) => void;
     }
 
     interface SimpleDialogOptions {
@@ -33,25 +34,39 @@ declare namespace Dialogify {
 
     interface AlertDialogOptions extends SimpleDialogOptions {
         /**
-         * Callback function when dialog closed, will refer `this` to Dialogify instance.
+         * Callback function when dialog closed
+         * @param this Dialogify instance.
          */
-        close?: () => void;
+        close?: (this: Dialogify) => void;
     }
 
     interface ConfirmDialogOptions extends SimpleDialogOptions {
         /**
-         * Callback function when dialog confirmed, will refer `this` to Dialogify instance.
+         * Callback function when dialog confirmed
+         * @param this Dialogify instance.
          */
-        ok?: () => void;
+        ok?: (this: Dialogify) => void;
         /**
-         * Callback function when dialog dismissed, will refer `this` to Dialogify instance.
+         * Callback function when dialog dismissed
+         * @param this Dialogify instance.
          */
-        cancel?: () => void;
+        cancel?: (this: Dialogify) => void;
     }
 
-    interface PromptDialogOptions extends ConfirmDialogOptions {
+    interface PromptDialogOptions extends SimpleDialogOptions {
         /** Placeholder in text input. */
         placeholder?: string;
+        /**
+         * Callback function when dialog confirmed.
+         * @param this Dialogify instance.
+         * @param value User inputed value.
+         */
+        ok?: (this: Dialogify, value: string) => void;
+        /**
+         * Callback function when dialog dismissed
+         * @param this Dialogify instance.
+         */
+        cancel?: (this: Dialogify) => void;
     }
 
     interface DialogStyle {
@@ -83,9 +98,11 @@ declare namespace Dialogify {
         /** Button text content, "關閉" by default. */
         text?: string;
         /**
-         * Callback function when button clicked, will refer `this` to Dialogify instance.
+         * Callback function when button clicked
+         * @param this Dialogify instance.
+         * @param event Mouse click event
          */
-        click?: () => void;
+        click?: (this: Dialogify, event: MouseEvent) => void;
         /** Set `autofocus` property or not, `false` by default. */
         focused?: boolean;
         /** Set button as disabled or not, `false` by default. */
@@ -162,7 +179,7 @@ declare class Dialogify {
      * @param callback Callback function.
      * @returns Dialogify instance for chaining.
      */
-    on(event: Dialogify.DialogifyEvent, callback: () => void): Dialogify;
+    on(event: Dialogify.DialogifyEvent, callback: (this: Dialogify) => void): Dialogify;
 
     /**
      * Shows a dialog directly.
