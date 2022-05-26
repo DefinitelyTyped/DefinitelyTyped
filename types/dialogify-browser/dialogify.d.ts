@@ -2,6 +2,13 @@
 
 declare namespace Dialogify {
     type DialogifyEvent = 'show' | 'close' | 'cancel';
+    type locale = 'zh_TW' | 'zh_CN' | 'en_US';
+
+    interface LocalizableButtonActions {
+        ok: string;
+        cancel: string;
+        close: string;
+    }
 
     interface DialogOptions {
         /** CSS class name to be used by dialog, or `Dialogify.SIZE_LARGE` to use style provided by Dialogify. */
@@ -135,9 +142,11 @@ declare namespace Dialogify {
     type BUTTON_PRIMARY = 'btn-primary';
     type BUTTON_DANGER = 'btn-danger';
 
+    const LOCALE: { [key in locale]: LocalizableButtonActions };
+
     interface DialogifyConfig {
         /** Locale for default button text, `zh_TW` by default. */
-        locale: 'zh_TW' | 'zh_CN' | 'en_US';
+        locale: locale;
         /** Custom dialog styles. */
         dialog?: DialogStyle;
         /** Top=right close button style. */
