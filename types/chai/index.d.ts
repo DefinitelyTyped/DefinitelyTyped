@@ -438,7 +438,7 @@ declare namespace Chai {
          * @param object   Object to test.
          * @param message    Message to display on error.
          */
-        isOk<T>(value: T, message?: string): void;
+        isOk<T>(value: T, message?: string): asserts value;
 
         /**
          * Asserts that object is truthy.
@@ -447,7 +447,7 @@ declare namespace Chai {
          * @param object   Object to test.
          * @param message    Message to display on error.
          */
-        ok<T>(value: T, message?: string): void;
+        ok<T>(value: T, message?: string): asserts value;
 
         /**
          * Asserts that object is falsy.
@@ -580,7 +580,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isTrue<T>(value: T, message?: string): void;
+        isTrue<T>(value: T, message?: string): asserts value is (T extends true ? T : never);
 
         /**
          * Asserts that value is false.
@@ -589,7 +589,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isFalse<T>(value: T, message?: string): void;
+        isFalse<T>(value: T, message?: string): asserts value is (T extends false ? T : never);
 
         /**
          * Asserts that value is not true.
@@ -598,7 +598,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotTrue<T>(value: T, message?: string): void;
+        isNotTrue<T>(value: T, message?: string): asserts value is (T extends true ? never : T);
 
         /**
          * Asserts that value is not false.
@@ -607,7 +607,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotFalse<T>(value: T, message?: string): void;
+        isNotFalse<T>(value: T, message?: string): asserts value is (T extends false ? never : T);
 
         /**
          * Asserts that value is null.
@@ -616,7 +616,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNull<T>(value: T, message?: string): void;
+        isNull<T>(value: T, message?: string): asserts value is (T extends null ? T : never);
 
         /**
          * Asserts that value is not null.
@@ -625,7 +625,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotNull<T>(value: T, message?: string): void;
+        isNotNull<T>(value: T, message?: string): asserts value is (T extends null ? never : T);
 
         /**
          * Asserts that value is NaN.
@@ -652,7 +652,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message    Message to display on error.
          */
-        exists<T>(value: T, message?: string): void;
+        exists<T>(value: T, message?: string): asserts value is (T extends undefined | null ? never : T);
 
         /**
          * Asserts that the target is either null or undefined.
@@ -661,7 +661,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message    Message to display on error.
          */
-        notExists<T>(value: T, message?: string): void;
+        notExists<T>(value: T, message?: string): asserts value is (T extends undefined | null ? T : never);
 
         /**
          * Asserts that value is undefined.
@@ -670,7 +670,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isUndefined<T>(value: T, message?: string): void;
+        isUndefined<T>(value: T, message?: string): asserts value is (T extends undefined ? T : never);
 
         /**
          * Asserts that value is not undefined.
@@ -679,7 +679,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isDefined<T>(value: T, message?: string): void;
+        isDefined<T>(value: T, message?: string): asserts value is (T extends undefined ? never : T);
 
         /**
          * Asserts that value is a function.
@@ -688,7 +688,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isFunction<T>(value: T, message?: string): void;
+        isFunction<T>(value: T, message?: string): asserts value is (T extends Function ? T : never);
 
         /**
          * Asserts that value is not a function.
@@ -697,7 +697,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotFunction<T>(value: T, message?: string): void;
+        isNotFunction<T>(value: T, message?: string): asserts value is (T extends Function ? never : T);
 
         /**
          * Asserts that value is an object of type 'Object'
@@ -708,7 +708,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          * @remarks The assertion does not match subclassed objects.
          */
-        isObject<T>(value: T, message?: string): void;
+        isObject<T>(value: T, message?: string): asserts value is (T extends object ? T : never);
 
         /**
          * Asserts that value is not an object of type 'Object'
@@ -718,7 +718,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotObject<T>(value: T, message?: string): void;
+        isNotObject<T>(value: T, message?: string): asserts value is (T extends object ? never : T);
 
         /**
          * Asserts that value is an array.
@@ -727,7 +727,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isArray<T>(value: T, message?: string): void;
+        isArray<T>(value: T, message?: string): asserts value is (T extends readonly any[] ? T : never);
 
         /**
          * Asserts that value is not an array.
@@ -736,7 +736,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotArray<T>(value: T, message?: string): void;
+        isNotArray<T>(value: T, message?: string): asserts value is (T extends readonly any[] ? never : T);
 
         /**
          * Asserts that value is a string.
@@ -745,7 +745,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isString<T>(value: T, message?: string): void;
+        isString<T>(value: T, message?: string): asserts value is (T extends string ? T : never);
 
         /**
          * Asserts that value is not a string.
@@ -754,7 +754,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotString<T>(value: T, message?: string): void;
+        isNotString<T>(value: T, message?: string): asserts value is (T extends string ? never : T);
 
         /**
          * Asserts that value is a number.
@@ -763,7 +763,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNumber<T>(value: T, message?: string): void;
+        isNumber<T>(value: T, message?: string): asserts value is (T extends number ? T : never);
 
         /**
          * Asserts that value is not a number.
@@ -772,7 +772,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotNumber<T>(value: T, message?: string): void;
+        isNotNumber<T>(value: T, message?: string): asserts value is (T extends number ? never : T);
 
         /**
          * Asserts that value is a finite number.
@@ -782,7 +782,7 @@ declare namespace Chai {
          * @param value    Actual value
          * @param message   Message to display on error.
          */
-        isFinite<T>(value: T, message?: string): void;
+        isFinite<T>(value: T, message?: string): asserts value is (T extends number ? T : never);
 
         /**
          * Asserts that value is a boolean.
@@ -791,7 +791,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isBoolean<T>(value: T, message?: string): void;
+        isBoolean<T>(value: T, message?: string): asserts value is (T extends boolean ? T : never);
 
         /**
          * Asserts that value is not a boolean.
@@ -800,7 +800,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotBoolean<T>(value: T, message?: string): void;
+        isNotBoolean<T>(value: T, message?: string): asserts value is (T extends boolean ? never : T);
 
         /**
          * Asserts that value's type is name, as determined by Object.prototype.toString.
@@ -840,7 +840,7 @@ declare namespace Chai {
          * @param constructor   Potential expected contructor of value.
          * @param message   Message to display on error.
          */
-        notInstanceOf<T extends object, F extends new(...args: any) => any>(value: T, constructor: F, message?: string): asserts value is Exclude<T, InstanceType<F>>;
+        notInstanceOf<T extends object, F extends new(...args: any) => any>(value: T, constructor: F, message?: string): void;
 
         /**
          * Asserts that haystack includes needle.

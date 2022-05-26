@@ -1413,10 +1413,40 @@ suite('assert', () => {
     });
 
     test('isTrue', () => {
-        assert.isTrue(true);
-        assert.isTrue(false);
-        assert.isTrue(1);
-        assert.isTrue('test');
+        {
+            const value = true;
+            assert.isTrue(value);
+            // $ExpectType true
+            value;
+        }
+
+        {
+            const value = false;
+            assert.isTrue(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = 1;
+            assert.isTrue(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = 'test';
+            assert.isTrue(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? true : false;
+            assert.isTrue(value);
+            // $ExpectType true
+            value;
+        }
     });
 
     test('ok', () => {
@@ -1444,9 +1474,40 @@ suite('assert', () => {
     });
 
     test('isFalse', () => {
-        assert.isFalse(false);
-        assert.isFalse(true);
-        assert.isFalse(0);
+        {
+            const value = false;
+            assert.isFalse(value);
+            // $ExpectType false
+            value;
+        }
+
+        {
+            const value = false;
+            assert.isFalse(value);
+            // $ExpectType false
+            value;
+        }
+
+        {
+            const value = 1;
+            assert.isFalse(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = 'test';
+            assert.isFalse(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? true : false;
+            assert.isFalse(value);
+            // $ExpectType false
+            value;
+        }
     });
 
     test('finite', () => {
@@ -1489,14 +1550,14 @@ suite('assert', () => {
         {
             const value: Foo | CrashyObject = Math.random() > 0.5 ? new Foo() : new CrashyObject();
             assert.notInstanceOf(value, Foo);
-            // $ExpectType CrashyObject
+            // $ExpectType Foo | CrashyObject
             value;
         }
 
         {
             const value: Foo | CrashyObject = Math.random() > 0.5 ? new Foo() : new CrashyObject();
             assert.notInstanceOf(value, CrashyObject);
-            // $ExpectType Foo
+            // $ExpectType Foo | CrashyObject
             value;
         }
     });
@@ -1611,21 +1672,49 @@ suite('assert', () => {
     });
 
     test('isNull', () => {
+        {
+            const value: null | undefined = Math.random() > 0.5 ? null : undefined;
+            assert.isNull(value);
+            // $ExpectType null
+            value;
+        }
+
         assert.isNull(null);
         assert.isNull(undefined);
     });
 
     test('isNotNull', () => {
+        {
+            const value: null | undefined = Math.random() > 0.5 ? null : undefined;
+            assert.isNotNull(value);
+            // $ExpectType undefined
+            value;
+        }
+
         assert.isNotNull(undefined);
         assert.isNotNull(null);
     });
 
     test('isUndefined', () => {
+        {
+            const value: null | undefined = Math.random() > 0.5 ? null : undefined;
+            assert.isUndefined(value);
+            // $ExpectType undefined
+            value;
+        }
+
         assert.isUndefined(undefined);
         assert.isUndefined(null);
     });
 
     test('isDefined', () => {
+        {
+            const value: null | undefined = Math.random() > 0.5 ? null : undefined;
+            assert.isDefined(value);
+            // $ExpectType null
+            value;
+        }
+
         assert.isDefined(null);
         assert.isDefined(undefined);
     });
@@ -1654,15 +1743,63 @@ suite('assert', () => {
     });
 
     test('isArray', () => {
-        assert.isArray([]);
-        assert.isArray(new Array<any>());
-        assert.isArray({});
+        {
+            const value = 'string';
+            assert.isArray(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? [1, 2, 3] : 0;
+            assert.isArray(value);
+            // $ExpectType number[]
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? [1, 2, 3] as const : undefined;
+            assert.isArray(value);
+            // $ExpectType readonly [1, 2, 3]
+            value;
+        }
+
+        {
+            const value: [number, number, string] | undefined = Math.random() > 0.5 ? [1, 2, "3"] : undefined;
+            assert.isArray(value);
+            // $ExpectType [number, number, string]
+            value;
+        }
     });
 
     test('isNotArray', () => {
-        assert.isNotArray(3);
-        assert.isNotArray([]);
-        assert.isNotArray(new Array<any>());
+        {
+            const value = 'string';
+            assert.isNotArray(value);
+            // $ExpectType "string"
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? [1, 2, 3] : 0;
+            assert.isNotArray(value);
+            // $ExpectType 0
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? [1, 2, 3] as const : undefined;
+            assert.isNotArray(value);
+            // $ExpectType undefined
+            value;
+        }
+
+        {
+            const value: [number, number, string] | undefined = Math.random() > 0.5 ? [1, 2, "3"] : undefined;
+            assert.isNotArray(value);
+            // $ExpectType undefined
+            value;
+        }
     });
 
     test('isString', () => {
