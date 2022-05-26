@@ -81,7 +81,9 @@ untypedCallback(null, { bar: 123 });
 // $ExpectError
 untypedCallback(null, anyObj, anyObj);
 
-interface TestResult { foo: number; }
+interface TestResult {
+    foo: number;
+}
 declare const typedCallback: AWSLambda.Callback<TestResult>;
 typedCallback();
 typedCallback(undefined);
@@ -142,12 +144,12 @@ const untypedNonAsyncHandler: AWSLambda.NonAsyncHandler = (event, context, cb) =
 };
 
 // The Handler type is the union of the two sub-types
-const nonAsyncIsHandler: AWSLambda.Handler = untypedNonAsyncHandler
-const asyncIsHandler: AWSLambda.Handler = untypedAsyncHandler
+const nonAsyncIsHandler: AWSLambda.Handler = untypedNonAsyncHandler;
+const asyncIsHandler: AWSLambda.Handler = untypedAsyncHandler;
 
 /* In node8.10 runtime, handlers may return a promise for the result value, so existing async
  * handlers that return Promise<void> before calling the callback will now have a `null` result.
- * Be safe and make that badly typed with a major verson bump to 8.10 so users expect the breaking change,
+ * Be safe and make that badly typed with a major version bump to 8.10 so users expect the breaking change,
  * since the upgrade effort should be pretty low in most cases, and it points them at a nicer solution.
  */
 
