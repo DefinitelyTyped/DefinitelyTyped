@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.61
+// Type definitions for non-npm package Forge Viewer 7.69
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/overview/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -318,6 +318,7 @@ declare namespace Autodesk {
         const AGGREGATE_SELECTION_CHANGED_EVENT = 'aggregateSelection';
         const ANIM_ENDED = 'animEnded';
         const ANIMATION_READY_EVENT = 'animationReady';
+        const BEFORE_MODEL_UNLOAD_EVENT = 'beforeModelUnload';
         const CAMERA_CHANGE_EVENT = 'cameraChanged';
         const CAMERA_TRANSITION_COMPLETED = 'cameraTransitionCompleted';
         const CUTPLANES_CHANGE_EVENT = 'cutplanesChanged';
@@ -1089,7 +1090,7 @@ declare namespace Autodesk {
             createControls(): void;
             initialize(): any;
             setUp(config: any): void;
-            tearDown(): void;
+            tearDown(isUnloadModelsWanted?: boolean): void;
             run(): void;
             localize(): void;
             uninitialize(): void;
@@ -1613,7 +1614,9 @@ declare namespace Autodesk {
             function fadeValue(startValue: number, endValue: number, duration: number, setParam: (value: number) => void, onFinished?: () => void): any;
             function formatValueWithUnits(value: number, units: string, type: number, precision: number,
               options?: { noMixedArea?: boolean | undefined; noMixedVolume?: boolean | undefined, preferLetters?: boolean | undefined; }): string;
+            function getAndroidVersion(ua: any): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
+            function getIOSVersion(ua: any): string;
             function lerp(x: number, y: number, t: number): number;
 
             interface FragmentList {
