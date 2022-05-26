@@ -1,13 +1,88 @@
 /**
+ * The interface that AWS Lambda will invoke your handler with if a non-async handler.
+ *
+ * @example <caption>HTTP Request with Callback</caption>
+ * import { NonAsyncHandler } from 'aws-lambda'
+ * import https from 'https'
+ *
+ * let url = "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html"
+ *
+ * export const handler: NonAsyncHandler<void, number> = (event, context, callback) => {
+ *  https.get(url, (res) => {
+ *    callback(null, res.statusCode)
+ *  }).on('error', (e) => {
+ *    callback(Error(e))
+ *  })
+ * }
+ *
+ * @param event
+ *      Parsed JSON data in the lambda request payload. For an AWS service triggered
+ *      lambda this should be in the format of a type ending in Event, for example the
+ *      S3Handler receives an event of type S3Event.
+ * @param context
+ *      Runtime contextual information of the current invocation, for example the caller
+ *      identity, available memory and time remaining, legacy completion callbacks, and
+ *      a mutable property controlling when the lambda execution completes.
+ * @param callback
+ *      NodeJS-style completion callback that the AWS Lambda runtime will provide that can
+ *      be used to provide the lambda result payload value, or any execution error.
+ */
+export type NonAsyncHandler<TEvent = any, TResult = any> = (
+    event: TEvent,
+    context: Context,
+    callback: Callback<TResult>,
+) => void;
+
+/**
+ * The interface that AWS Lambda will invoke your handler with if using an async handler.
+ *
+ * @example <caption>Logs the contents of the event object and returns the location of the logs</caption>
+ * import { AsyncHandler } from 'aws-lambda'
+ *
+ * export const handler: AsyncHandler = async (event, context) => {
+ *   console.log("EVENT: \n" + JSON.stringify(event, null, 2))
+ *   return context.logStreamName
+ * }
+ *
+ * @example <caption>AWS SDK with Async Function and Promises</caption>
+ * import { AsyncHandler } from 'aws-lambda'
+ * import AWS from 'aws-sdk'
+ *
+ * const s3 = new AWS.S3()
+ *
+ * export const handler: AsyncHandler = async (event) => {
+ *   const response = await s3.listBuckets().promise()
+ *   return response?.Buckets.map((bucket) => bucket.Name)
+ * }
+ *
+ * @param event
+ *      Parsed JSON data in the lambda request payload. For an AWS service triggered
+ *      lambda this should be in the format of a type ending in Event, for example the
+ *      S3Handler receives an event of type S3Event.
+ * @param context
+ *      Runtime contextual information of the current invocation, for example the caller
+ *      identity, available memory and time remaining, legacy completion callbacks, and
+ *      a mutable property controlling when the lambda execution completes.
+ * @return
+ *      A promise that resolves with the lambda result payload value, or rejects with the
+ *      execution error. Note that if you implement your handler as an async function,
+ *      you will automatically return a promise that will resolve with a returned value,
+ *      or reject with a thrown value.
+ */
+export type AsyncHandler<TEvent = any, TResult = any> = (event: TEvent, context: Context) => Promise<TResult>;
+
+/**
  * The interface that AWS Lambda will invoke your handler with.
  * There are more specialized types for many cases where AWS services
  * invoke your lambda, but you can directly use this type for when you are invoking
  * your lambda directly.
  *
- * See the {@link http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html AWS documentation}
+ * See the {@link https://docs.aws.amazon.com/lambda/latest/dg/nodejs-handler.html AWS documentation}
  * for more information about the runtime behavior, and the
  * {@link https://aws.amazon.com/blogs/compute/node-js-8-10-runtime-now-available-in-aws-lambda/ AWS Blog post}
  * introducing the async handler behavior in the 8.10 runtime.
+ *
+ * This type is the union of the two handler invocation styles: {@link AsyncHandler} and {@link NonAsyncHandler}
  *
  * @example <caption>Defining a custom handler type</caption>
  * import { Handler } from 'aws-lambda'
@@ -29,63 +104,8 @@
  *   return { firstName, middleNames: names, lastName }
  * }
  *
- * @example <caption>Logs the contents of the event object and returns the location of the logs</caption>
- * import { Handler } from 'aws-lambda'
- *
- * export const handler: Handler = async (event, context) => {
- *   console.log("EVENT: \n" + JSON.stringify(event, null, 2))
- *   return context.logStreamName
- * }
- *
- * @example <caption>AWS SDK with Async Function and Promises</caption>
- * import { Handler } from 'aws-lambda'
- * import AWS from 'aws-sdk'
- *
- * const s3 = new AWS.S3()
- *
- * export const handler: Handler = async (event) => {
- *   const response = await s3.listBuckets().promise()
- *   return response?.Buckets.map((bucket) => bucket.Name)
- * }
- *
- * @example <caption>HTTP Request with Callback</caption>
- * import { Handler } from 'aws-lambda'
- * import https from 'https'
- *
- * let url = "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html"
- *
- * export const handler: Handler<void, number> = (event, context, callback) => {
- *  https.get(url, (res) => {
- *    callback(null, res.statusCode)
- *  }).on('error', (e) => {
- *    callback(Error(e))
- *  })
- * }
- *
- * @param event
- *      Parsed JSON data in the lambda request payload. For an AWS service triggered
- *      lambda this should be in the format of a type ending in Event, for example the
- *      S3Handler receives an event of type S3Event.
- * @param context
- *      Runtime contextual information of the current invocation, for example the caller
- *      identity, available memory and time remaining, legacy completion callbacks, and
- *      a mutable property controlling when the lambda execution completes.
- * @param callback
- *      NodeJS-style completion callback that the AWS Lambda runtime will provide that can
- *      be used to provide the lambda result payload value, or any execution error. Can
- *      instead return a promise that resolves with the result payload value or rejects
- *      with the execution error.
- * @return
- *      A promise that resolves with the lambda result payload value, or rejects with the
- *      execution error. Note that if you implement your handler as an async function,
- *      you will automatically return a promise that will resolve with a returned value,
- *      or reject with a thrown value.
  */
-export type Handler<TEvent = any, TResult = any> = (
-    event: TEvent,
-    context: Context,
-    callback: Callback<TResult>,
-) => void | Promise<TResult>;
+export type Handler<TEvent = any, TResult = any> = AsyncHandler<TEvent, TResult> | NonAsyncHandler<TEvent, TResult>;
 
 /**
  * {@link Handler} context parameter.

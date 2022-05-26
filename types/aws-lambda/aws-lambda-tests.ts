@@ -117,15 +117,11 @@ type CustomHandler = AWSLambda.Handler<CustomEvent, CustomResult>;
 type CustomCallback = AWSLambda.Callback<CustomResult>;
 
 // Untyped handlers should work
-const untypedAsyncHandler: AWSLambda.Handler = async (event, context, cb) => {
+const untypedAsyncHandler: AWSLambda.AsyncHandler = async (event, context) => {
     // $ExpectType any
     event;
     // $ExpectType Context
     context;
-    // $ExpectType Callback<any>
-    cb;
-    // Can still use callback
-    cb(null, { resultString: str });
     if (bool) {
         // Uncaught error
         return { resultString: bool };
@@ -133,7 +129,7 @@ const untypedAsyncHandler: AWSLambda.Handler = async (event, context, cb) => {
     return { resultString: str };
 };
 
-const untypedCallbackHandler: AWSLambda.Handler = (event, context, cb) => {
+const untypedNonAsyncHandler: AWSLambda.NonAsyncHandler = (event, context, cb) => {
     // $ExpectType any
     event;
     // $ExpectType Context
@@ -144,6 +140,10 @@ const untypedCallbackHandler: AWSLambda.Handler = (event, context, cb) => {
     // Uncaught error
     cb(null, { resultString: bool });
 };
+
+// The Handler type is the union of the two sub-types
+const nonAsyncIsHandler: AWSLambda.Handler = untypedNonAsyncHandler
+const asyncIsHandler: AWSLambda.Handler = untypedAsyncHandler
 
 /* In node8.10 runtime, handlers may return a promise for the result value, so existing async
  * handlers that return Promise<void> before calling the callback will now have a `null` result.
