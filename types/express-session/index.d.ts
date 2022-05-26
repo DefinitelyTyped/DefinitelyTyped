@@ -15,6 +15,8 @@ import { EventEmitter } from 'events';
 
 declare global {
     namespace Express {
+        type SessionStore = session.Store & { generate: (req: Request) => void };
+
         // Inject additional properties on express.Request
         interface Request {
             /**
@@ -37,7 +39,7 @@ declare global {
              * Even though this property isn't marked as optional, it won't exist until you use the `express-session` middleware
              * The function `generate` is added by express-session
              */
-            sessionStore: session.Store & { generate: (req: express.Request) => void };
+            sessionStore: SessionStore;
         }
     }
 }
