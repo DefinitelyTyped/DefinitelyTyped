@@ -77,13 +77,13 @@ dialog.buttons(buttons, options, '');
 // $ExpectError
 dialog.on();
 // $ExpectError
-dialog.on('', () => void 0);
+dialog.on('', () => {});
 // $ExpectType Dialogify
-dialog.on('show', () => void 0);
+dialog.on('show', () => {});
 // $ExpectType Dialogify
-dialog.on('close', () => void 0);
+dialog.on('close', () => {});
 // $ExpectType Dialogify
-dialog.on('cancel', () => void 0);
+dialog.on('cancel', () => {});
 // $ExpectError
 dialog.on('', {});
 
