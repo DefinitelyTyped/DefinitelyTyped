@@ -228,3 +228,17 @@ naver.maps.Service.reverseGeocode(
         v2Status.message;
     },
 );
+
+const panoramaOptions = {
+    size: new naver.maps.Size(256, 256),
+    panoId: 'aaa',
+    position: new naver.maps.LatLng(37.3599605, 127.1058814),
+    pov: {
+        pan: -135,
+        tilt: 29,
+        fov: 100,
+    },
+    flightSpot: true,
+};
+
+const pano = new naver.maps.Panorama('pano', panoramaOptions);

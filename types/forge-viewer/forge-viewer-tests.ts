@@ -56,6 +56,8 @@ Autodesk.Viewing.Initializer(options, async () => {
     await streamLineTests(viewer);
     await stringExtractorTests(viewer);
     await visualClustersTests(viewer);
+    // shutdown the viewer
+    viewer.tearDown();
 });
 
 function globalTests(): void {
