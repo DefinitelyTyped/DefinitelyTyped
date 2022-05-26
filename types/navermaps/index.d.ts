@@ -3,6 +3,7 @@
 // Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
 //                 DongKyuuuu <https://github.com/DongKyuuuu>
 //                 Minchul Joh <https://github.com/fclemonschool>
+//                 Suhwan Cha <https://github.com/suhwancha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace naver.maps {
     /**
