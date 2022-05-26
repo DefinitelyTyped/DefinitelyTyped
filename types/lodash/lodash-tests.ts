@@ -4139,41 +4139,21 @@ fp.now(); // $ExpectType number
         anything; // $ExpectType any
     }
 
-    const string: string | undefined = '';
+    let string: string | undefined;
+    if (Math.random()) {
+        string = '';
+    }
     if (_.isEmpty(string)) {
-        const result: '' | undefined = string;
+        string; // $ExpectType '' | undefined
     } else {
         string; // $ExpectType string
     }
 
     const array: Array<{ value: boolean }> = [];
     if (_.isEmpty(array)) {
-        const result2: Array<{ value: boolean }> = array;
         array.push({ value: true });
     } else {
-        array; // $ExpectType { value: boolean; }[]
-    }
-
-    const roarray: ReadonlyArray<{ value: boolean }> = [];
-    if (_.isEmpty(roarray)) {
-        const writable: never[] = roarray; // $ExpectError
-        const result: Readonly<[]> = roarray;
-    } else {
-        roarray; // $ExpectType readonly { value: boolean; }[]
-    }
-
-    const tuple: Readonly<[{ value: boolean }?]> = [{ value: true }];
-    if (_.isEmpty(tuple)) {
-        const result: Readonly<[]> = tuple;
-    }
-    let tuple2: Readonly<[] | [number]> = [1];
-    if (Math.random()) {
-        tuple2 = [];
-    }
-    if (_.isEmpty(tuple2)) {
-        const result: Readonly<[]> = tuple2;
-    } else {
-        tuple2; // $ExpectType readonly [number]
+        array.push({ value: false });
     }
 
     const obj: { value?: boolean } = {};
