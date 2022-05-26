@@ -1614,7 +1614,9 @@ declare namespace Autodesk {
             function fadeValue(startValue: number, endValue: number, duration: number, setParam: (value: number) => void, onFinished?: () => void): any;
             function formatValueWithUnits(value: number, units: string, type: number, precision: number,
               options?: { noMixedArea?: boolean | undefined; noMixedVolume?: boolean | undefined, preferLetters?: boolean | undefined; }): string;
+            function getAndroidVersion(ua: any): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
+            function getIOSVersion(ua: any): string;
             function lerp(x: number, y: number, t: number): number;
 
             interface FragmentList {
