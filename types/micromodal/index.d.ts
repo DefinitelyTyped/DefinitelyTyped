@@ -8,10 +8,10 @@
  */
 export interface MicroModalConfig {
     /** This is fired when the modal is opening. */
-    onShow?: ((modal?: HTMLElement) => void) | undefined;
+    onShow?: ((modal?: HTMLElement, trigger?: HTMLElement, event?: Event) => void) | undefined;
 
     /** This is fired when the modal is closing. */
-    onClose?: ((modal?: HTMLElement) => void) | undefined;
+    onClose?: ((modal?: HTMLElement, trigger?: HTMLElement, event?: Event) => void) | undefined;
 
     /** Custom data attribute to open modal. Default is data-micromodal-trigger. */
     openTrigger?: string | undefined;
