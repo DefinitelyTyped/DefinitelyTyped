@@ -10,6 +10,7 @@ interface PromptResponseObject {
     readonly platform: string;
 }
 
+// https://github.com/w3c/manifest/wiki/Platforms
 type BeforeInstallPromptEventPlatform =
     | 'chrome_web_store'
     | 'play'
