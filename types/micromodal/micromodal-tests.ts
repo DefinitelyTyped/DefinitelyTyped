@@ -1,8 +1,8 @@
 import MicroModal, { MicroModalConfig } from 'micromodal';
 
 const config: MicroModalConfig = {
-    onShow: (modal) => { console.log(modal!.id); },
-    onClose: (modal) => { console.log(modal!.id); },
+    onShow: (modal, trigger, event) => { console.log(modal!.id);console.log(trigger);console.log(event); },
+    onClose: (modal, trigger, event) => { console.log(modal!.id);console.log(trigger);console.log(event); },
     openTrigger: 'data-modal-open',
     closeTrigger: 'data-modal-close',
     openClass: "opened",
