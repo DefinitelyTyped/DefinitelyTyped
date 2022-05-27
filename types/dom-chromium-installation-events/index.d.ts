@@ -3,28 +3,25 @@
 // Definitions by: Sergey Kozlov <https://github.com/dartess>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type AppBannerPromptOutcome = 'accepted' | 'dismissed';
+type AppBannerPromptOutcome = 'accepted' | 'dismissed';
 
-export interface PromptResponseObject {
+interface PromptResponseObject {
     readonly outcome: AppBannerPromptOutcome;
     readonly platform: string;
 }
 
-declare global {
-    class BeforeInstallPromptEvent extends Event {
-        constructor(type: string, eventInitDict?: EventInit);
-        prompt(): Promise<void>;
-        readonly platforms: string[];
-        readonly userChoice: Promise<PromptResponseObject>;
-    }
+interface BeforeInstallPromptEvent extends Event {
+    prompt(): Promise<void>;
+    readonly platforms: string[];
+    readonly userChoice: Promise<PromptResponseObject>;
+}
 
-    interface WindowEventMap {
-        beforeinstallprompt: BeforeInstallPromptEvent;
-        appinstalled: Event;
-    }
+interface WindowEventMap {
+    beforeinstallprompt: BeforeInstallPromptEvent;
+    appinstalled: Event;
+}
 
-    interface Window {
-        onappinstalled?: ((this: Window, ev: Event) => any) | null;
-        onbeforeinstallprompt?: ((this: Window, ev: BeforeInstallPromptEvent) => any) | null;
-    }
+interface Window {
+    onappinstalled?: ((this: Window, ev: Event) => any) | null;
+    onbeforeinstallprompt?: ((this: Window, ev: BeforeInstallPromptEvent) => any) | null;
 }
