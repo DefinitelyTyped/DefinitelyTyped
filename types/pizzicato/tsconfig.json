@@ -20,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
-        "pizzicato-tests.ts"
+        "test/pizzicato-module.test.ts",
+        "test/pizzicato-global.test.ts"
     ]
 }

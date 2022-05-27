@@ -565,3 +565,6 @@ export namespace Effects {
     type Tremolo = BaseEffect & Required<TremoloOptions>;
     const Tremolo: Tremolo & { new (options?: TremoloOptions): Tremolo };
 }
+
+export as namespace Pizzicato;
+export as namespace Pz;
