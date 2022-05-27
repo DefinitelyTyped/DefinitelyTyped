@@ -243,6 +243,6 @@ const panoramaOptions = {
 
 const pano = new naver.maps.Panorama('pano', panoramaOptions);
 if (pano.aroundControl) {
-    pano.aroundControl.getElement()
+    pano.aroundControl.getElement();
 }
 pano.controls[0].clear();
