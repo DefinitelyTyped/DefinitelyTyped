@@ -55,7 +55,7 @@ declare module 'stream' {
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
             /**
              * A utility method for convert Node stream to WHATWG stream
-             * @since 17.0.0
+             * @since v17.0.0
              */
             static toWeb<R = ArrayBuffer>(streamReadable: Readable): webStreams.ReadableStream<R>;
             /**
@@ -498,26 +498,26 @@ declare module 'stream' {
             ): void;
             final?(this: Writable, callback: (error?: Error | null) => void): void;
         }
-        type FromWebOptions = {
+        interface WriteableFromWebOptions {
             decodeStrings?: boolean;
             highWaterMark?: number;
             objectMode?: boolean;
             signal?: AbortSignal;
-        };        
+        }
         /**
          * @since v0.9.4
          */
         class Writable extends Stream implements NodeJS.WritableStream {
             /**
              * A utility method for convert WHATWG stream to Node stream
-             * @since 17.0.0
+             * @since v17.0.0
              */
-            static fromWeb(writableStream: webStreams.WritableStream, options?: FromWebOptions): Writable;
+            static fromWeb(writableStream: webStreams.WritableStream, options?: WriteableFromWebOptions): Writable;
             /**
              * A utility method for convert Node stream to WHATWG stream
-             * @since 17.0.0
+             * @since v17.0.0
              */
-            static toWeb<W=any>(streamWritable: Writable): webStreams.WritableStream<W>;          
+            static toWeb<W=any>(streamWritable: Writable): webStreams.WritableStream<W>;
             /**
              * Is `true` if it is safe to call `writable.write()`, which means
              * the stream has not been destroyed, errored or ended.
@@ -811,6 +811,9 @@ declare module 'stream' {
             final?(this: Duplex, callback: (error?: Error | null) => void): void;
             destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
         }
+        interface DuplexFromWebOptions extends WriteableFromWebOptions {
+            allowHalfOpen?: boolean;
+        }
         /**
          * Duplex streams are streams that implement both the `Readable` and `Writable` interfaces.
          *
@@ -829,6 +832,19 @@ declare module 'stream' {
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
             readonly writableCorked: number;
+            /**
+             * A utility method for convert WHATWG streams to Node stream
+             * @since v17.0.0
+             */
+            static fromWeb(pair: {readble: webStreams.ReadableStream, writable: webStreams.WritableStream}, options?: DuplexFromWebOptions): Duplex;
+             /**
+              * A utility method for convert Node stream to WHATWG streams
+              * @since v17.0.0
+              */
+            static toWeb<R = ArrayBuffer, W=any>(streamDuplex: Duplex): {
+                readable: webStreams.ReadableStream<R>; 
+                writable: webStreams.WritableStream<W>;
+            }
             /**
              * If `false` then the stream will automatically end the writable side when the
              * readable side ends. Set initially by the `allowHalfOpen` constructor option,
