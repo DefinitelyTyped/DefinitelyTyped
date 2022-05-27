@@ -33,7 +33,7 @@ const dialog = new Dialogify('source', dialogOptions);
 
 // $ExpectType JQuery<HTMLElement>
 dialog.$content;
-// $ExpectType { [key: string]: ButtonImpl; [key: number]: ButtonImpl; }
+// $ExpectType Record<string | number, ButtonImpl>
 dialog.$buttonList;
 
 // $ExpectError

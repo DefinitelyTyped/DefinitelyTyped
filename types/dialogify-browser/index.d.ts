@@ -2,7 +2,6 @@
 // Project: https://github.com/OneupNetwork/dialogify
 // Definitions by: moontai0724 <https://github.com/moontai0724>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
 
 /// <reference path="dialogify.d.ts" />
 

@@ -165,7 +165,7 @@ declare class Dialogify {
     $content: JQuery;
 
     /** An object contain buttons, will use button order index as key or if `id` of button is set, will use `id` as key. */
-    $buttonList: { [key: string | number]: Dialogify.ButtonImpl };
+    $buttonList: Record<string | number, Dialogify.ButtonImpl>;
 
     /**
      * Set dialog title.
