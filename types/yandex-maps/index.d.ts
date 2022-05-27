@@ -837,7 +837,7 @@ declare namespace ymaps {
             getLength(): number;
         }
 
-        class Manager<TargetGeometry = {}> implements IEventManager<TargetGeometry> {
+        class Manager<TargetGeometry extends {} = {}> implements IEventManager<TargetGeometry> {
             constructor(params?: { context?: object | undefined; controllers?: IEventWorkflowController[] | undefined; parent?: IEventManager | undefined });
 
             add<K extends keyof EventMap>(types: K, callback: (event: (IEvent<EventMap[K], TargetGeometry>)) => void, context?: object, priority?: number): this;
@@ -3259,7 +3259,7 @@ declare namespace ymaps {
         };
     }
 
-    class GeoObject<T = IGeometry, TargetGeometry = {}> implements IGeoObject<T> {
+    class GeoObject<T = IGeometry, TargetGeometry extends {} = {}> implements IGeoObject<T> {
         constructor(feature?: IGeoObjectFeature, options?: IGeoObjectOptions);
 
         geometry: T | null;

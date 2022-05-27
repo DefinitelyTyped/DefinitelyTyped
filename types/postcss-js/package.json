@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "postcss": "^8.3.3"
+    }
+}

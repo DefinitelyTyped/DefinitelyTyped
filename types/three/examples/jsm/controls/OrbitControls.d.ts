@@ -52,7 +52,7 @@ export class OrbitControls {
 
     update(): boolean;
 
-    listenToKeyEvents(domElement: HTMLElement): void;
+    listenToKeyEvents(domElement: HTMLElement | Window): void;
 
     saveState(): void;
 

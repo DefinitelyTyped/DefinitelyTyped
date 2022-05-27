@@ -17,14 +17,14 @@ jobs:
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
 
       - run: npm install --no-package-lock
-      - run: node ./scripts/ghostbuster.cjs
+      - run: node ./scripts/ghostbuster.js
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_API_READ }}
 
@@ -41,7 +41,7 @@ jobs:
           fi
 
       - if: ${{ inputs.skipPR != 'true' }}
-        uses: peter-evans/create-pull-request@v3.12.0
+        uses: peter-evans/create-pull-request@v4.0.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Remove contributors with deleted accounts #no-publishing-comment"

@@ -61,10 +61,10 @@ declare class WebSocket extends EventEmitter {
     /** The connection is closed. */
     readonly CLOSED: 3;
 
-    onopen: (event: WebSocket.Event) => void;
-    onerror: (event: WebSocket.ErrorEvent) => void;
-    onclose: (event: WebSocket.CloseEvent) => void;
-    onmessage: (event: WebSocket.MessageEvent) => void;
+    onopen: ((event: WebSocket.Event) => void) | null;
+    onerror: ((event: WebSocket.ErrorEvent) => void) | null;
+    onclose: ((event: WebSocket.CloseEvent) => void) | null;
+    onmessage: ((event: WebSocket.MessageEvent) => void) | null;
 
     constructor(address: null);
     constructor(address: string | URL, options?: WebSocket.ClientOptions | ClientRequestArgs);

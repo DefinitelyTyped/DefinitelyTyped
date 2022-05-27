@@ -1372,7 +1372,7 @@ describe('RequestStub', () => {
         this.RequestStub = getJasmineRequireObj().AjaxRequestStub();
 
         jasmine.addMatchers({
-            toMatchRequest(a, b) {
+            toMatchRequest() {
                 return {
                     compare(actual): jasmine.CustomMatcherResult {
                         return {
@@ -1452,11 +1452,11 @@ describe('RequestStub', () => {
         jasmine.Ajax.stubRequest('/barbaz').andCallFunction((xhr) => {
             xhr.url === '/barbaz';
             xhr.method === 'POST';
-            xhr.params === {};
+            xhr.params;
             xhr.username === 'jane_coder';
             xhr.password === '12345';
-            xhr.requestHeaders === {Accept: 'application/json'};
-            xhr.data() === {query: 'bananas'};
+            xhr.requestHeaders.Accept === 'application/json';
+            xhr.data(); // $ExpectType string | object
             xhr.respondWith({
                 status: 200,
                 contentType: 'application/json',

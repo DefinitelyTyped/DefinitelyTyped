@@ -534,6 +534,7 @@ declare namespace Pubnub {
             maxSockets?: number | undefined;
             maxFreeSockets?: number | undefined;
         } | undefined;
+        subscribeRequestTimeout?: number | undefined;
         suppressLeaveEvents?: boolean | undefined;
         secretKey?: string | undefined;
         requestMessageCountThreshold?: number | undefined;

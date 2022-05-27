@@ -24,6 +24,7 @@ export interface MeshLambertMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number | undefined;
     wireframeLinecap?: string | undefined;
     wireframeLinejoin?: string | undefined;
+    fog?: boolean | undefined;
 }
 
 export class MeshLambertMaterial extends Material {
@@ -128,6 +129,12 @@ export class MeshLambertMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: MeshLambertMaterialParameters): void;
 }

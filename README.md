@@ -423,7 +423,7 @@ No. We've explored trying to make DT's code-formatting consistent before but rea
 
 #### Can I request a definition?
 
-Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### What about type definitions for the DOM?
 

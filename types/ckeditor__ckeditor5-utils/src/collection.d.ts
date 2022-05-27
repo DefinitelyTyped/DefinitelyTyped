@@ -1,11 +1,12 @@
-import EventInfo from './eventinfo';
-import { PriorityString } from './priorities';
-import { Emitter, EmitterMixinDelegateChain } from './emittermixin';
+import { Emitter } from './emittermixin';
 
 export interface CollectionBindTo<T> {
     as: (Class: { new (item: T): any }) => void;
     using: (callbackOrProperty: keyof T | ((item: T) => any)) => void;
 }
+
+// tslint:disable-next-line:no-empty-interface
+export default interface Collection extends Emitter {}
 
 /**
  * Collections are ordered sets of objects. Items in the collection can be retrieved by their indexes
@@ -18,8 +19,8 @@ export interface CollectionBindTo<T> {
  * configured through the constructor of the collection.
  *
  */
-export default class Collection<T extends Record<string, any> = Record<string, any>, I extends string = 'id'>
-    implements Iterable<T>, Emitter {
+// prettier-ignore
+export default class Collection<T extends Record<string, any> = Record<string, any>, I extends string = 'id'> implements Iterable<T>, Emitter {
     /**
      * Creates a new Collection instance.
      *
@@ -116,12 +117,7 @@ export default class Collection<T extends Record<string, any> = Record<string, a
      *
      */
     find<S extends T & { [x in I]: string }>(
-        predicate: (
-            this: undefined,
-            value: S,
-            index: number,
-            obj: S[]
-        ) => boolean,
+        predicate: (this: undefined, value: S, index: number, obj: S[]) => boolean,
         thisArg?: any,
     ): S | undefined;
     /**
@@ -129,11 +125,7 @@ export default class Collection<T extends Record<string, any> = Record<string, a
      *
      */
     filter<S extends T & { [x in I]: string }>(
-        predicate: (
-            value: S,
-            index: number,
-            array: S[]
-        ) => boolean,
+        predicate: (value: S, index: number, array: S[]) => boolean,
         thisArg?: any,
     ): S[];
     /**
@@ -237,36 +229,12 @@ export default class Collection<T extends Record<string, any> = Record<string, a
      * **Note**: {@link #clear} can be used to break the binding.
      *
      */
-    bindTo<T, I extends string>(externalCollection: Collection<T, I>): CollectionBindTo<T & {[x in I]: string}>;
+    bindTo<T extends Record<string, any>, I extends string>(
+        externalCollection: Collection<T, I>,
+    ): CollectionBindTo<T & { [x in I]: string }>;
     /**
      * Iterable interface.
      *
      */
     [Symbol.iterator](): Iterator<T & { [x in I]: string }>;
-
-    on<K extends string>(
-        event: K,
-        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
-    ): void;
-    once<K extends string>(
-        event: K,
-        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
-    ): void;
-    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
-    listenTo<P extends string, E extends Emitter>(
-        emitter: E,
-        event: P,
-        callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
-    ): void;
-    stopListening<E extends Emitter, P extends string>(
-        emitter?: E,
-        event?: P,
-        callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-    ): void;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
-    delegate(...events: string[]): EmitterMixinDelegateChain;
-    stopDelegating(event?: string, emitter?: Emitter): void;
 }

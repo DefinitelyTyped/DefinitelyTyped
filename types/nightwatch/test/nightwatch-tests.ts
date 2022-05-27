@@ -4,8 +4,15 @@ import {
     EnhancedSectionInstance,
     NightwatchAPI,
     NightwatchAssertion,
-    NightwatchBrowser,
     NightwatchTests,
+    describe,
+    it,
+    before,
+    after,
+    xit,
+    xdescribe,
+    test,
+    PageObjectModel,
 } from 'nightwatch';
 
 //
@@ -62,7 +69,48 @@ const testGeneral: NightwatchTests = {
     'step two: click input': () => {
         browser.click('input[name=btnK]').pause(1000).assert.containsText('#main', 'Night Watch').end();
     },
+
+    'test user defined globals': () => {
+        browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
+    },
 };
+
+describe('Ecosia', () => {
+    before(browser => browser.url('https://www.ecosia.org/'));
+
+    it('Demo test ecosia.org', () => {
+        browser
+            .waitForElementVisible('body')
+            .assert.titleContains('Ecosia')
+            .assert.titleContains('Ecosia')
+            .assert.visible('input[type=search]')
+            .setValue('input[type=search]', 'nightwatch')
+            .assert.visible('button[type=submit]')
+            .click('button[type=submit]');
+    });
+
+    xit('this test will be skipped', () => {
+        browser.waitForElementVisible('body');
+    });
+
+    after(browser => browser.end());
+});
+
+xdescribe('whole describle block will be skipped', () => {
+    test('ecosia', () => {
+        browser.url('https://ecosia.org').end();
+    });
+});
+
+describe('Async Ecosia', () => {
+    before(browser => browser.url('https://www.ecosia.org/'));
+
+    it('Demo test ecosia.org', async () => {
+        browser.waitForElementVisible('body');
+    });
+
+    after(browser => browser.end());
+});
 
 //
 // ./pages/google.ts
@@ -119,17 +167,17 @@ interface MenuSection
         { apps: AppsSection }
     > {}
 
-const googlePage = {
-    commands: [
-        {
-            submit(this: GooglePage) {
-                this.api.pause(1000);
-                return this.waitForElementVisible('@submitButton', 1000)
-                    .click('@submitButton')
-                    .waitForElementNotPresent('@submitButton');
-            },
-        },
-    ],
+const googleCommands = {
+    submit(this: GooglePage) {
+        this.api.pause(1000);
+        return this.waitForElementVisible('@submitButton', 1000)
+            .click('@submitButton')
+            .waitForElementNotPresent('@submitButton');
+    },
+};
+
+const googlePage: PageObjectModel = {
+    commands: [googleCommands],
     elements: {
         searchBar: {
             selector: 'input[type=text]',
@@ -145,7 +193,7 @@ const googlePage = {
 
 // export = googlePage;
 
-const iFrame = {
+const iFrame: PageObjectModel = {
     elements: {
         iframe: '#mce_0_ifr',
         textbox: 'body#tinymce p',
@@ -162,7 +210,7 @@ const iFrame = {
 // export = iFrame
 
 interface GooglePage
-    extends EnhancedPageObject<typeof googlePage.commands[0], typeof googlePage.elements, { menu: MenuSection }> {}
+    extends EnhancedPageObject<typeof googleCommands, typeof googlePage.elements, { menu: MenuSection }> {}
 
 interface iFramePage extends EnhancedPageObject<typeof iFrame.commands[0], typeof iFrame.elements> {}
 
@@ -200,12 +248,14 @@ const testPage = {
     },
 
     'Test assertions on page': () => {
-        const google = browser.page.google();
+        const google: GooglePage = browser.page.google();
 
         google
             .navigate()
-            .assert.title('Google')
+            .assert.title('Google') // deprecated
+            .assert.titleEquals('Google') // new in 2.0
             .assert.visible('@searchBar')
+            .moveToElement('@searchBar', 1, 1)
             .setValue('@searchBar', 'nightwatch')
             .click('@submit');
 
@@ -221,6 +271,10 @@ const testPage = {
         iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
 
         browser.end();
+    },
+
+    'Test nested page objects': () => {
+        const google = browser.page.subfolder1.subfolder2.subfolder3.google();
     },
 };
 

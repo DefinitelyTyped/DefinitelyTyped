@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 2.6
+// Type definitions for Mapbox GL JS 2.7
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
@@ -7,6 +7,7 @@
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 André Fonseca <https://github.com/amxfonseca>
 //                 makspetrov <https://github.com/Nosfit>
+//                 Michael Bullington <https://github.com/mbullington>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -86,6 +87,7 @@ declare namespace mapboxgl {
         | 'format'
         | 'literal'
         | 'number'
+        | 'number-format'
         | 'object'
         | 'string'
         | 'image'
@@ -139,6 +141,7 @@ declare namespace mapboxgl {
         // Color
         | 'rgb'
         | 'rgba'
+        | 'to-rgba'
         // Math
         | '-'
         | '*'
@@ -769,6 +772,17 @@ declare namespace mapboxgl {
         pitch?: number | undefined;
 
         /**
+         * A style's projection property sets which projection a map is rendered in.
+         *
+         * @default 'mercator'
+         */
+         projection?: {
+            name: 'albers' | 'equalEarth' | 'equirectangular' | 'lambertConformalConic' | 'mercator' | 'naturalEarth' | 'winkelTripel' | 'globe',
+            center?: [number, number],
+            parallels?: [number, number]
+        };
+
+        /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
          *
          * @default true
@@ -1280,16 +1294,17 @@ declare namespace mapboxgl {
     }
 
     export interface Style {
+        layers: AnyLayer[];
+        sources: Sources;
+
         bearing?: number | undefined;
         center?: number[] | undefined;
         fog?: Fog | undefined;
         glyphs?: string | undefined;
-        layers?: AnyLayer[] | undefined;
         metadata?: any;
         name?: string | undefined;
         pitch?: number | undefined;
         light?: Light | undefined;
-        sources?: Sources | undefined;
         sprite?: string | undefined;
         terrain?: TerrainSpecification | undefined;
         transition?: Transition | undefined;
@@ -1517,9 +1532,29 @@ declare namespace mapboxgl {
         exaggeration?: PropertyValueSpecification<number> | undefined;
     }
 
+    /**
+     * @see https://github.com/mapbox/tilejson-spec/tree/master/3.0.0#33-vector_layers
+     */
+    type SourceVectorLayer = {
+        id: string;
+        fields?: Record<string, string>;
+        description?: string;
+        minzoom?: number;
+        maxzoom?: number;
+
+        // Non standard extensions that are valid in a Mapbox context.
+        source?: string;
+        source_name?: string;
+    };
+
     interface VectorSource extends Source {
         type: 'vector';
+        format?: 'pbf';
+
         url?: string | undefined;
+        id?: string;
+        name?: string;
+
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
         scheme?: 'xyz' | 'tms' | undefined;
@@ -1527,10 +1562,16 @@ declare namespace mapboxgl {
         maxzoom?: number | undefined;
         attribution?: string | undefined;
         promoteId?: PromoteIdSpecification | undefined;
+
+        vector_layers?: SourceVectorLayer[];
     }
 
     interface RasterSource extends Source {
+        name?: string;
         type: 'raster';
+        id?: string;
+        format?: 'webp' | string;
+
         url?: string | undefined;
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
@@ -1542,7 +1583,10 @@ declare namespace mapboxgl {
     }
 
     interface RasterDemSource extends Source {
+        name?: string;
         type: 'raster-dem';
+        id?: string;
+
         url?: string | undefined;
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;

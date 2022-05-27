@@ -334,7 +334,7 @@ npm 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간�
 
 #### 자료형 정의(Type definition)을 요청할 수 있나요?
 
-이미 요청된 자료형 정의(Type definition)들을 [여기서](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest) 보실 수 있습니다.
+이미 요청된 자료형 정의(Type definition)들을 [여기서](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package) 보실 수 있습니다.
 
 #### DOM 을 위한 자료형 정의(Type definitions)는요?
 

@@ -54,6 +54,8 @@ const res4_plugin = new state.Plugin<string, typeof schema.schema>({
 const res5_view = new view.EditorView<typeof schema.schema>(undefined, {
     state: {} as any, // this is not part of the test
 
+    plugins: [],
+
     dispatchTransaction(tr) {
         // From DirectEditorProps
         // Ensure that `this` is bound to type EditorView<schema.schema>

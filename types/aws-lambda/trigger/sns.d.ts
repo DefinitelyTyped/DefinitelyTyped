@@ -24,6 +24,7 @@ export interface SNSMessage {
     UnsubscribeUrl: string;
     TopicArn: string;
     Subject: string;
+    Token?: string;
 }
 
 export interface SNSEventRecord {

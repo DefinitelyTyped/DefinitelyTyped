@@ -2,9 +2,12 @@
 // Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
 // Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Mauricio Rojas <https://github.com/orellabac>
+//                 Ron Jones <https://github.com/boatilus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+import { Pool, Options as PoolOptions } from 'generic-pool';
 
 /**
  * ### Related Docs
@@ -240,6 +243,11 @@ export interface ConnectionOptions {
     jsTreatIntegerAsBigInt?: boolean | undefined;
 
     /**
+     * Specifies the name of the client application connecting to Snowflake.
+     */
+    application?: string;
+
+    /**
      * Specifies the authenticator to use for verifying user login credentials. You can set this to one of the following values:
      *  - SNOWFLAKE: Use the internal Snowflake authenticator. You must also set the password option.
      *  - EXTERNALBROWSER: Use your web browser to authenticate with Okta, ADFS, or any other SAML 2.0-compliant identity provider
@@ -304,9 +312,74 @@ export interface Column {
     getScale(): number;
 
     /**
-     * Retuns the type associated with this column.
+     * Returns the type associated with this column.
      */
     getType(): string;
+
+    /**
+     * Returns true if this column is type STRING.
+     */
+    isString(): boolean;
+
+    /**
+     * Returns true if this column is type BINARY.
+     */
+    isBinary(): boolean;
+
+    /**
+     * Returns true if this column is type NUMBER.
+     */
+    isNumber(): boolean;
+
+    /**
+     * Returns true if this column is type BOOLEAN.
+     */
+    isBoolean(): boolean;
+
+    /**
+     * Returns true if this column is type DATE.
+     */
+    isDate(): boolean;
+
+    /**
+     * Returns true if this column is type TIME.
+     */
+    isTime(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP.
+     */
+    isTimestamp(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_LTZ.
+     */
+    isTimestampLtz(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_NTZ.
+     */
+    isTimestampNtz(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_TZ.
+     */
+    isTimestampTz(): boolean;
+
+    /**
+     * Returns true if this column is type VARIANT.
+     */
+    isVariant(): boolean;
+
+    /**
+     * Returns true if this column is type OBJECT.
+     */
+    isObject(): boolean;
+
+    /**
+     * Returns true if this column is type ARRAY.
+     */
+    isArray(): boolean;
 }
 
 export enum StatementStatus {
@@ -539,3 +612,8 @@ export function serializeConnection(connection: Connection): string;
  * Configures this instance of the Snowflake core module.
  */
 export function configure(options?: ConfigureOptions): void;
+
+/**
+ * Creates a connection pool for Snowflake connections.
+ */
+export function createPool(options: ConnectionOptions, poolOptions?: PoolOptions): Pool<Connection>;

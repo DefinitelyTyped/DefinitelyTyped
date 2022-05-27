@@ -15,6 +15,14 @@ tokenizer.emStrong = function emStrong(src, _maskedSrc, _prevChar) {
     return token;
 };
 
+tokenizer.inlineText = function inlineText(...args: Parameters<marked.Tokenizer['inlineText']>) {
+    const p = this.inlineText(...args);
+
+    if (p) p.raw = p.text;
+
+    return p;
+};
+
 let options: marked.MarkedOptions = {
     baseUrl: '',
     gfm: true,

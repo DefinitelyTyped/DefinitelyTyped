@@ -386,4 +386,9 @@ declare module 'ws' {
 
     // $ExpectError
     ws.isPaused = true;
+
+    ws.onopen = null;
+    ws.onerror = null;
+    ws.onclose = null;
+    ws.onmessage = null;
 }

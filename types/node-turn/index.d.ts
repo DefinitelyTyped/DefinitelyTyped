@@ -36,9 +36,9 @@ interface TurnOptions extends Partial<TurnProps> {
     credentials?: TurnCredentials;
 }
 
-interface Turn extends Readonly<TurnProps> {}
+interface TurnServer extends Readonly<TurnProps> {}
 
-declare class Turn extends EventEmitter {
+declare class TurnServer extends EventEmitter {
     constructor(options?: TurnOptions);
 
     start(): void;
@@ -51,4 +51,8 @@ declare class Turn extends EventEmitter {
     readonly staticCredentials: TurnCredentials;
 }
 
-export = Turn;
+declare namespace TurnServer {
+    export { TurnOptions, TurnProps, TurnCredentials, TurnAuthMech, TurnDebugLevel };
+}
+
+export = TurnServer;

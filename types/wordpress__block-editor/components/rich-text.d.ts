@@ -7,6 +7,11 @@ import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
 declare namespace RichText {
     interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, 'onChange'> {
         /**
+         * By default, all registered formats are allowed. This setting can be used to fine-tune
+         * the allowed formats.
+         */
+        allowedFormats?: string[] | undefined;
+        /**
          * A list of autocompleters to use instead of the default.
          */
         autocompleters?: Array<Autocomplete.Completer<any>> | undefined;

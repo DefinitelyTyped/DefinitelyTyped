@@ -9,6 +9,10 @@ const client: Client = createClient({
 
 const zendeskCallback = () => {};
 
+const listPayload = client.organizations.list(() => {});
+listPayload.next_page; // $ExpectType string | null
+listPayload.previous_page; // $ExpectType string | null
+
 /** Job Statuses Methods */
 client.jobstatuses.show(123, zendeskCallback);
 client.jobstatuses.show(123).then(zendeskCallback);
@@ -147,6 +151,19 @@ client.tickets.exportAudit(123, zendeskCallback);
 client.tickets.exportAudit(123).then(zendeskCallback);
 client.tickets.addTags(123, ["foo", "bar"], zendeskCallback);
 client.tickets.addTags(123, ["foo", "bar"]).then(zendeskCallback);
+
+/** Ticket Fields */
+client.ticketfields.create(
+    {
+        type: "subject",
+        title: "Subject",
+        description: "This is the agent only description for the subject field",
+        position: 0,
+        active: true,
+        key: "subject"
+    },
+    zendeskCallback,
+);
 
 /** Users Methods */
 client.users.auth(zendeskCallback);
