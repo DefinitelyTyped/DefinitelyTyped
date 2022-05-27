@@ -1079,6 +1079,8 @@ declare namespace naver.maps {
     }
     class Panorama extends KVO {
         constructor(panoramaDiv: string | HTMLElement, panoramaOptions: PanoramaOptions);
+        aroundControl: AroundControl | null;
+        controls: KVOArray[];
         getLocation(): PanoramaLocation;
         getMaxScale(): number;
         getMaxZoom(): number;
