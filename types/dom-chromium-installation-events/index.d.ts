@@ -10,9 +10,19 @@ interface PromptResponseObject {
     readonly platform: string;
 }
 
+type BeforeInstallPromptEventPlatform =
+    | 'chrome_web_store'
+    | 'play'
+    | 'itunes'
+    | 'webapp'
+    | 'windows'
+    | 'f-droid'
+    | 'amazon';
+
 interface BeforeInstallPromptEvent extends Event {
     prompt(): Promise<void>;
-    readonly platforms: string[];
+
+    readonly platforms: BeforeInstallPromptEventPlatform[];
     readonly userChoice: Promise<PromptResponseObject>;
 }
 
