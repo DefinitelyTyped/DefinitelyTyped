@@ -1,4 +1,4 @@
-import Pizzicato from 'pizzicato';
+import Pizzicato = require('pizzicato');
 
 Pizzicato.context; // $ExpectType AudioContext
 Pizzicato.masterGainNode; // $ExpectType GainNode
