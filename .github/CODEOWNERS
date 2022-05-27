@@ -2271,7 +2271,7 @@
 /types/gamepad/                                         @Lange
 /types/gamequery/                                       @Laubi
 /types/gandi-livedns/                                   @xstoudi
-/types/gapi/                                            @sgtfrankieboy @grant
+/types/gapi/                                            @sgtfrankieboy
 /types/gapi.analytics/                                  @gatsbimantico
 /types/gapi.auth2/                                      @flawless2011
 /types/gapi.calendar/                                   @tkrotoff

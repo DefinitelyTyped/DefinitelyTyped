@@ -64,6 +64,7 @@ import {
     UseSortByState,
     useTable,
     defaultOrderByFn,
+    FooterProps,
 } from 'react-table';
 
 // test heavily based up https://github.com/tannerlinsley/react-table/blob/master/examples/kitchen-sink-controlled/src/App.js
@@ -357,6 +358,7 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
         getTableProps,
         getTableBodyProps,
         headerGroups,
+        footerGroups,
         prepareRow,
         page, // Instead of using 'rows', we'll use page,
         // which has only the rows for the active page
@@ -503,6 +505,17 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                         );
                     })}
                 </tbody>
+                <tfoot>
+                    {footerGroups.map((footerGroup) => (
+                        <tr {...footerGroup.getFooterGroupProps()}>
+                            {footerGroup.headers.map((column) => (
+                                <td {...column.getFooterProps()}>
+                                    {column.render('Footer')}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tfoot>
             </table>
             {/*
         Pagination can be built however you'd like.
@@ -652,6 +665,9 @@ const Component = (props: {}) => {
                         const v = value; // $ExpectType string
                         return <>{value}</>;
                     },
+                    Footer: ({column}: FooterProps<Data>) => {
+                        return <>{column.id}</>;
+                    }
                 },
                 {
                     Header: 'Last Name',

@@ -7,7 +7,7 @@ import * as remote from './remote';
  *
  * @extends {webdriver.WebDriver}
  */
-export class Driver extends webdriver.WebDriver {
+export class Driver extends webdriver.ChromiumWebDriver {
   /**
    * Creates a new session with the ChromeDriver.
    *
@@ -22,15 +22,6 @@ export class Driver extends webdriver.WebDriver {
   static createSession(
       opt_config?: Options|webdriver.CreateSessionCapabilities,
       opt_service?: remote.DriverService|http.Executor): Driver;
-
-  /**
-   * Sends a DevTools command to change the browser's download directory.
-   *
-   * @param {string} path The desired download directory.
-   * @return {!Promise<void>} A promise that will be resolved when the command
-   *     has finished.
-  */
-  setDownloadPath(path: string): Promise<void>;
 }
 
 export interface IOptionsValues {
@@ -357,3 +348,11 @@ export function getDefaultService(): remote.DriverService;
  * @throws {Error} If the default service is currently running.
  */
 export function setDefaultService(service: remote.DriverService): void;
+
+/**
+ * _Synchronously_ attempts to locate the chromedriver executable on the current
+ * system.
+ *
+ * @return {?string} the located executable, or `null`.
+ */
+export function locateSynchronously(): string | null;

@@ -329,7 +329,7 @@ declare namespace Tooltip {
             | 'toggleEnabled'
             | 'update'
             | 'dispose',
-    ) => void;
+    ) => JQuery;
 }
 
 export default Tooltip;

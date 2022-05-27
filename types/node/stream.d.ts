@@ -1238,6 +1238,19 @@ declare module 'stream' {
             ref(): void;
             unref(): void;
         }
+
+        /**
+         * Returns whether the stream has encountered an error.
+         * @since v17.3.0
+         */
+        function isErrored(stream: Readable | Writable | NodeJS.ReadableStream | NodeJS.WritableStream): boolean;
+
+        /**
+         * Returns whether the stream is readable.
+         * @since v17.4.0
+         */
+        function isReadable(stream: Readable | NodeJS.ReadableStream): boolean;
+
         const promises: typeof streamPromises;
         const consumers: typeof streamConsumers;
     }

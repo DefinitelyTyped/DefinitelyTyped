@@ -6,3 +6,4 @@ discordrpc.register('0'); // $ExpectType boolean
 discordrpc.register(0); // $ExpectError
 
 const client = new discordrpc.Client({ transport: 'ipc' });
+client.subscribe('ACTIVITY_JOIN', {}, () => {}); // $ExpectError

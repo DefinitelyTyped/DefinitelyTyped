@@ -6,12 +6,5 @@
 
 import { Term } from "rdf-js";
 
-interface TermSet<T extends Term = Term> extends Set<T> {
+export default class TermSet<T extends Term = Term> extends Set<T> {
 }
-
-// tslint:disable-next-line no-unnecessary-class
-export class TermSet<T extends Term = Term> {
-    constructor(values?: T[] | null);
-}
-
-export default TermSet;

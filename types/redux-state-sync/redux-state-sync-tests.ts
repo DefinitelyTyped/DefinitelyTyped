@@ -6,6 +6,11 @@ interface TestState {
     b: string;
     c: string;
 }
+const initialState: TestState = {
+    a: 0,
+    b: '',
+    c: '',
+};
 const middleware = createStateSyncMiddleware({
     channel: 'test',
     predicate: (action) => true,
@@ -18,10 +23,13 @@ const middleware = createStateSyncMiddleware({
 // $ExpectError
 const middlewareError = createStateSyncMiddleware({ broadcastChannelOption: null });
 
-function rootReducer(state: TestState, action: Action): TestState {
+function rootReducer(state: TestState = initialState, action: Action): TestState {
     return state;
 }
 
-const store = createStore(withReduxStateSync(rootReducer, (state) => state), ['test'], applyMiddleware(middleware));
+const store = createStore(withReduxStateSync(rootReducer, (state) => state), initialState, applyMiddleware(middleware));
 initStateWithPrevTab(store);
 initMessageListener(store);
+store.getState().a; // $ExpectType number
+store.getState().b; // $ExpectType string
+store.getState().missingProperty; // $ExpectError

@@ -250,6 +250,13 @@ stratificatorizer = stratificatorizer.parentId((d, i, data) => {
 
 idStringAccessor = stratificatorizer.parentId();
 
+// path(...)
+
+stratificatorizer = stratificatorizer.path((d, i, data) => d.name);
+
+let pathStringAccessor: ((d: TabularHierarchyDatum, i: number, data: TabularHierarchyDatum[]) => string) | null | undefined;
+pathStringAccessor = stratificatorizer.path();
+
 // Use Stratify Operator  ------------------------------------------------
 
 const stratifiedRootNode: d3Hierarchy.HierarchyNode<TabularHierarchyDatum> = stratificatorizer(tabularData);

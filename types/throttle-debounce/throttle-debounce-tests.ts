@@ -70,12 +70,60 @@ func3.cancel();
 
 // --------------- debounce ---------------
 
-const debounceWithoutCancel1: Proc = debounce(42, true, proc);
-const debounceWithoutCancel2: Proc = debounce(42, proc);
-debounceWithoutCancel1();
+// Examples of available options.
+debounce(42, proc);
+debounce(42, proc, {});
+debounce(42, proc, { atBegin: true });
+debounce(42, proc, { atBegin: false });
+
+// Examples of invalid options.
 // $ExpectError
-debounceWithoutCancel1.cancel();
-const debounceWithCancel1: debounce<Proc> = debounce(42, true, proc);
-const debounceWithCancel2: debounce<Proc> = debounce(42, proc);
-debounceWithCancel1();
-debounceWithCancel1.cancel();
+debounce();
+// $ExpectError
+debounce(func);
+// $ExpectError
+debounce('', func);
+// $ExpectError
+debounce(10);
+// $ExpectError
+debounce(10, 0);
+// $ExpectError
+debounce(10, func, { atBegin: 0 });
+// $ExpectError
+debounce(10, true, func);
+
+// Debounced functions should be subtype of `typeof callback` if `callback` will not return value.
+const proc4: Proc = debounce(1, proc);
+
+// Debounced functions should have `cancel`.
+const proc5 = debounce(1, proc);
+// $ExpectType void
+proc5();
+// $ExpectType void
+proc5.cancel();
+
+// Debounced functions should not be subtype of `typeof callback` if `callback` will return value.
+// $ExpectError
+const func4: Func = debounce(1, func);
+
+const func5 = debounce(1, func);
+// Debounced function should accept arguments if `callback` accept them.
+// $ExpectType void
+func5(100);
+// Debounced function should reject arguments if `callback` reject them.
+// $ExpectError
+func5('abc');
+// $ExpectError
+func5();
+// Debounced function should have `cancel`.
+// $ExpectType void
+func5.cancel();
+// `cancel` should accept options with optional `upcomingOnly` boolean flag
+// $ExpectType void
+func5.cancel({ upcomingOnly: true });
+// $ExpectError
+func5.cancel({ upcomingOnly: 'true' });
+// $ExpectError
+func5.cancel({ upcomingOnly: 0 });
+// $ExpectError
+func5.cancel(true);
