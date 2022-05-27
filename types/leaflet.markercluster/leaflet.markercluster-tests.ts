@@ -7,6 +7,7 @@ const icon: L.Icon = L.icon({ iconUrl: 'foo' });
 
 let markerClusterGroupOptions: L.MarkerClusterGroupOptions = {};
 markerClusterGroupOptions = {
+    spiderfyOnEveryZoom: true,
     showCoverageOnHover: true,
     zoomToBoundsOnClick: false,
     spiderfyOnMaxZoom: true,

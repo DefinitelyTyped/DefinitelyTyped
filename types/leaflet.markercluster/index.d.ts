@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.markercluster 1.5.1
+// Type definitions for Leaflet.markercluster 1.6
 // Project: https://github.com/Leaflet/Leaflet.markercluster
 // Definitions by: Robert Imig <https://github.com/rimig>, Nenad Filipovic <https://github.com/nenadfilipovic>, Yaroslav Kormushyn <https://github.com/YaroslavKormushyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -40,7 +40,6 @@ declare module 'leaflet' {
     }
 
     interface MarkerClusterGroupOptions extends LayerOptions {
-
         /*
         * The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
         * Decreasing will make more, smaller clusters. You can also use a function that accepts
@@ -114,7 +113,7 @@ declare module 'leaflet' {
         /*
         * Custom function to calculate spiderfy shape positions
         */
-        spiderfyShapePositions: ((count: number, centerPoint: Point) => Point[]) | undefined,
+        spiderfyShapePositions?: ((count: number, centerPoint: Point) => Point[]) | undefined;
 
         /*
         * Increase from 1 to increase the distance away from the center that spiderfied markers are placed.
