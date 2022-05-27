@@ -20,6 +20,7 @@ declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
     import * as streamPromises from 'node:stream/promises';
     import * as streamConsumers from 'node:stream/consumers';
+    import * as webStreams from 'node:stream/web';
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
@@ -52,6 +53,11 @@ declare module 'stream' {
              * A utility method for creating Readable Streams out of iterators.
              */
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
+            /**
+             * A utility method for convert Node stream to WHATWG stream
+             * @since 17.0.0
+             */
+            static toWeb<R = ArrayBuffer>(streamReadable: Readable): webStreams.ReadableStream<R>;
             /**
              * Returns whether the stream has been read from or cancelled.
              * @since v16.8.0
@@ -492,10 +498,26 @@ declare module 'stream' {
             ): void;
             final?(this: Writable, callback: (error?: Error | null) => void): void;
         }
+        type FromWebOptions = {
+            decodeStrings?: boolean;
+            highWaterMark?: number;
+            objectMode?: boolean;
+            signal?: AbortSignal;
+        };        
         /**
          * @since v0.9.4
          */
         class Writable extends Stream implements NodeJS.WritableStream {
+            /**
+             * A utility method for convert WHATWG stream to Node stream
+             * @since 17.0.0
+             */
+            static fromWeb(writableStream: webStreams.WritableStream, options?: FromWebOptions): Writable;
+            /**
+             * A utility method for convert Node stream to WHATWG stream
+             * @since 17.0.0
+             */
+            static toWeb<W=any>(streamWritable: Writable): webStreams.WritableStream<W>;          
             /**
              * Is `true` if it is safe to call `writable.write()`, which means
              * the stream has not been destroyed, errored or ended.
