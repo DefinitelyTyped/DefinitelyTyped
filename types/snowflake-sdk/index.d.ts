@@ -3,11 +3,13 @@
 // Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Mauricio Rojas <https://github.com/orellabac>
 //                 Ron Jones <https://github.com/boatilus>
+//                 Brian Gottfried <https://github.com/briangottfried>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import { Pool, Options as PoolOptions } from 'generic-pool';
+import { Readable } from 'stream';
 
 /**
  * ### Related Docs
@@ -446,7 +448,7 @@ export interface Statement {
      */
     cancel(fn: (err: SnowflakeError | undefined, stmt: Statement) => void): void;
 
-    streamRows(): NodeJS.ReadableStream;
+    streamRows(): Readable;
 }
 
 export type Bind = string | number;
@@ -547,8 +549,8 @@ export type Connection = NodeJS.EventEmitter & {
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
         fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
-        complete: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
-    }): void;
+        complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
+    }): Statement;
 
     /**
      * Fetches the result of a previously issued statement.

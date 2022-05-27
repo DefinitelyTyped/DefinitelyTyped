@@ -74,6 +74,16 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
             //
         },
     });
+
+    // $ExpectType Statement
+    const statement = conn.execute({
+        sqlText: ''
+    });
+    // $ExpectType Readable
+    const stream = statement.streamRows();
+    stream.on('data', data => {
+        //
+    });
 };
 connection.connect(connectCallback);
 connection.connectAsync(connectCallback);
