@@ -99,6 +99,14 @@ const marker2 = new naver.maps.Marker({
     map: map3,
     position: cityhall,
 });
+const marker3 = new naver.maps.Marker({
+    map: map3,
+    position: cityhall,
+    animation: naver.maps.Animation.BOUNCE,
+    icon: {
+        content: '<p>Test</p>'
+    }
+});
 
 const contentString = [
     `<div class="iw_inner">
