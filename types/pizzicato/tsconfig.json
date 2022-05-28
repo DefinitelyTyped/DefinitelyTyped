@@ -15,11 +15,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "googletag-tests.ts"
+        "test/pizzicato-module.test.ts",
+        "test/pizzicato-global.test.ts"
     ]
 }
