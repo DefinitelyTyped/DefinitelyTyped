@@ -1,6 +1,7 @@
 // Type definitions for Deno v1.22.1
 // Project: https://github.com/denoland/deno
-// Definitions by: andre4ik3 <https://github.com/andre4ik3>
+// Definitions by: denoland <https://github.com/denoland>
+//                andre4ik3 <https://github.com/andre4ik3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Original authors: https://github.com/denoland/deno/contributors
 // From: https://github.com/denoland/deno/releases/tag/v1.22.1 lib.deno.d.ts
