@@ -217,7 +217,7 @@ declare class Server extends EventEmitter {
         PREPARING: 10;
     };
 
-    private client: Client;
+    private readonly client: Client;
 
     /**
      * Unique server ID
@@ -398,14 +398,14 @@ declare class Server extends EventEmitter {
      *
      * @param streams
      */
-    subscribe(streams?: subscriptionType[] | subscriptionType): boolean;
+    subscribe(streams?: SubscriptionType[] | SubscriptionType): boolean;
 
     /**
      * Unsubscribe from one, multiple or all streams
      *
      * @param streams
      */
-    unsubscribe(streams?: subscriptionType[] | subscriptionType): boolean;
+    unsubscribe(streams?: SubscriptionType[] | SubscriptionType): boolean;
 
     /**
      * Map raw object to this instance
@@ -448,7 +448,7 @@ declare class Software {
 
 // Internal types
 declare class Account {
-    private client: Client;
+    private readonly client: Client;
 
     /**
      * Username
@@ -837,7 +837,7 @@ declare class WebsocketClient extends EventEmitter {
 }
 
 declare class Stream extends EventEmitter {
-    private client: WebsocketClient;
+    private readonly client: WebsocketClient;
     private started: false | boolean;
     private shouldStart: false | boolean;
     readonly name: string;
@@ -849,7 +849,7 @@ declare class Stream extends EventEmitter {
      */
     constructor(client: WebsocketClient);
 
-    send(type: subscriptionType, data: any): boolean;
+    send(type: SubscriptionType, data: any): boolean;
 
     /**
      * Status change event
@@ -903,34 +903,34 @@ declare class Stream extends EventEmitter {
     isStarted(): boolean;
 }
 
-type subscriptionType = 'tick' | 'heap' | 'stats' | 'console';
+type SubscriptionType = 'tick' | 'heap' | 'stats' | 'console';
 
-type tickDataType = 'start' | 'stop' | 'started' | 'tick';
+type TickDataType = 'start' | 'stop' | 'started' | 'tick';
 declare class TickStream extends Stream {
     readonly name: string;
     startStatuses: [1];
-    onDataMessage(type: tickDataType, message: string): void;
+    onDataMessage(type: TickDataType, message: string): void;
 }
 
-type statsDataType = 'start' | 'stop' | 'started' | 'stats';
+type StatsDataType = 'start' | 'stop' | 'started' | 'stats';
 declare class StatsStream extends Stream {
     readonly name: string;
     startStatuses: [1];
 }
 
-type heapDataType = 'start' | 'stop' | 'started' | 'heap';
+type HeapDataType = 'start' | 'stop' | 'started' | 'heap';
 declare class HeapStream extends Stream {
     readonly name: string;
     startStatuses: [1];
 }
 
-type consoleDataType = 'start' | 'stop' | 'command' | 'started' | 'line';
+type ConsoleDataType = 'start' | 'stop' | 'command' | 'started' | 'line';
 declare class ConsoleStream extends Stream {
     private ansiRegex: RegExpConstructor;
     readonly name: string;
     startData: { tail: 0 };
 
-    onDataMessage(type: consoleDataType, message: string): void;
+    onDataMessage(type: ConsoleDataType, message: string): void;
 
     parseReturns(string: string): string;
 
