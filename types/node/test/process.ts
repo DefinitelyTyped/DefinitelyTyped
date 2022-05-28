@@ -127,6 +127,10 @@ process.allowedNodeEnvironmentFlags.has('asdf');
 process.env.TZ = 'test';
 
 {
+    const arch: NodeJS.Architecture = process.arch;
+}
+
+{
     // $ExpectError
     process.getgid();
     // $ExpectError

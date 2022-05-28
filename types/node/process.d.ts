@@ -49,6 +49,7 @@ declare module 'process' {
                 openssl: string;
             }
             type Platform = 'aix' | 'android' | 'darwin' | 'freebsd' | 'haiku' | 'linux' | 'openbsd' | 'sunos' | 'win32' | 'cygwin' | 'netbsd';
+            type Architecture = 'arm' | 'arm64' | 'ia32' | 'mips' | 'mipsel' | 'ppc' | 'ppc64' | 's390' | 's390x' | 'x64';
             type Signals =
                 | 'SIGABRT'
                 | 'SIGALRM'
@@ -1049,7 +1050,7 @@ declare module 'process' {
                  * ```
                  * @since v0.5.0
                  */
-                readonly arch: string;
+                readonly arch: Architecture;
                 /**
                  * The `process.platform` property returns a string identifying the operating
                  * system platform on which the Node.js process is running.

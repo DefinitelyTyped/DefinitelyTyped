@@ -593,7 +593,24 @@ management
     })
     .then(results => console.log(results));
 
+management
+    .importUsersJob({
+        users: 'some file data',
+        connection_id: 'con_id',
+        upsert: true,
+    })
+    .then(results => console.log(results));
+
 management.importUsers(
+    {
+        users: 'some file data',
+        connection_id: 'con_id',
+        upsert: true,
+    },
+    (err, data) => console.log(data),
+);
+
+management.importUsersJob(
     {
         users: 'some file data',
         connection_id: 'con_id',

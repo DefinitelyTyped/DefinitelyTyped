@@ -1,4 +1,4 @@
-import { Locator, WebDriver } from '../';
+import { Locator, WebDriver, WebElement } from '../';
 
 /**
  * Typings for lib/by.js
@@ -105,6 +105,66 @@ export class By {
      */
     static xpath(xpath: string): By;
 
+    toObject(): Object;
+
+    /** @override */
+    toString(): string;
+}
+
+/**
+ * Describes a mechanism for locating an element relative to others
+ * on the page.
+ * @final
+ */
+export class RelativeBy {
+    /**
+    * @param {By} findDetails
+    * @param {Array<Object>} filters
+    */
+    constructor(findDetails: By, filters: Object[]);
+
+    /**
+     * Look for elements above the root element passed in
+     * @param {string|WebElement} locatorOrElement
+     * @return {!RelativeBy} Return this object
+     */
+    above(locatorOrElement: Locator | WebElement): RelativeBy;
+
+    /**
+     * Look for elements below the root element passed in
+     * @param {Locator|WebElement} locatorOrElement
+     * @return {!RelativeBy} Return this object
+     */
+    below(locatorOrElement: Locator | WebElement): RelativeBy;
+
+    /**
+     * Look for elements left the root element passed in
+     * @param {Locator|WebElement} locatorOrElement
+     * @return {!RelativeBy} Return this object
+     */
+    toLeftOf(locatorOrElement: Locator | WebElement): RelativeBy;
+
+    /**
+     * Look for elements right the root element passed in
+     * @param {Locator|WebElement} locatorOrElement
+     * @return {!RelativeBy} Return this object
+     */
+    toRightOf(locatorOrElement: Locator | WebElement): RelativeBy;
+
+    /**
+     * Look for elements near the root element passed in
+     * @param {Locator|WebElement} locatorOrElement
+     * @return {!RelativeBy} Return this object
+     */
+    near(locatorOrElement: Locator | WebElement): RelativeBy;
+
+    /**
+     * Returns a marshalled version of the {@link RelativeBy}
+     * @return {!Object} Object representation of a {@link WebElement}
+     *     that will be used in {@link #findElements}.
+     */
+    marshall(): Object;
+
     /** @override */
     toString(): string;
 }
@@ -132,9 +192,7 @@ export class By {
  *     {xpath: string})}
  */
 export type ByHash =
-    | {
-          className: string;
-      }
+    | { className: string }
     | { css: string }
     | { id: string }
     | { js: string }
@@ -144,4 +202,39 @@ export type ByHash =
     | { tagName: string }
     | { xpath: string };
 
-export function checkedLocator(locator: Locator): By;
+/**
+ * Checks if a value is a valid locator.
+ * @param {!(By|Function|ByHash)} locator The value to check.
+ * @return {!(By|Function)} The valid locator.
+ * @throws {TypeError} If the given value does not define a valid locator
+ *     strategy.
+ */
+export function checkedLocator(locator: Locator): By | Function;
+
+/**
+ * Start searching for relative objects using search criteria with By.
+ * @param {Locator} by A By map that shows how to find the initial element
+ * @returns {RelativeBy} RelativeBy instance
+ */
+export function locateWith(by: Locator): RelativeBy;
+
+/**
+ * Start Searching for relative objects using the value returned from
+ * `By.tagName()`.
+ *
+ * Note: this method will likely be removed in the future please use
+ * `locateWith`.
+ * @param {By} tagName The value returned from calling By.tagName()
+ * @returns {RelativeBy} RelativeBy instance
+ */
+export function withTagName(tagName: By): RelativeBy;
+
+/**
+ * Escapes a CSS string.
+ * @param {string} css the string to escape.
+ * @return {string} the escaped string.
+ * @throws {TypeError} if the input value is not a string.
+ * @throws {InvalidCharacterError} if the string contains an invalid character.
+ * @see https://drafts.csswg.org/cssom/#serialize-an-identifier
+ */
+export function escapeCss(css: string): string;
