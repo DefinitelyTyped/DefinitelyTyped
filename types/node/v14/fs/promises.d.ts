@@ -188,13 +188,7 @@ declare module 'fs/promises' {
      * @param [mode] A file mode. If a string is passed, it is parsed as an octal integer. If not
      * supplied, defaults to `0o666`.
      */
-    function open(path: PathLike, flags: string | number | undefined, mode?: string | number): Promise<FileHandle>;
-    /**
-     * Asynchronous open(2) - open and possibly create a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @param [flags='r'] See `support of file system `flags``.
-     */
-    function open(path: PathLike, flags?: string | number): Promise<FileHandle>;
+    function open(path: PathLike, flags?: string | number, mode?: string | number): Promise<FileHandle>;
 
     /**
      * Asynchronously reads data from the file referenced by the supplied `FileHandle`.

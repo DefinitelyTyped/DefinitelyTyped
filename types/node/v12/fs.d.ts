@@ -2191,8 +2191,7 @@ declare module 'fs' {
          * @param [mode] A file mode. If a string is passed, it is parsed as an octal integer. If not
          * supplied, defaults to `0o666`.
          */
-        function open(path: PathLike, flags: string | number | undefined, mode?: string | number): Promise<FileHandle>;
-        function open(path: PathLike, flags?: string | number): Promise<FileHandle>;
+        function open(path: PathLike, flags?: string | number, mode?: string | number): Promise<FileHandle>;
 
         /**
          * Asynchronously reads data from the file referenced by the supplied `FileHandle`.
