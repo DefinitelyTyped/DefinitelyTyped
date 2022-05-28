@@ -43,8 +43,8 @@ export class Output {
   isPortOpen(): boolean;
   openPort(port: number): void;
   openVirtualPort(port: string): void;
-  send(message: [number, ...number[]]): void;
-  sendMessage(message: [number, ...number[]]): void;
+  send(message: number[]): void;
+  sendMessage(message: number[]): void;
 }
 
 export const input: {new(): Input};
