@@ -6,7 +6,7 @@ class MyEditor extends Editor {}
 const myEditor = new MyEditor();
 const plugin = new Autosave(myEditor);
 plugin.once('click', () => {});
-// $ExpectType Promise<unknown>
+// $ExpectType Promise<void>
 plugin.save();
 // $ExpectType false
 Autosave.isContextPlugin;
@@ -14,6 +14,9 @@ const state: 'synchronized' | 'waiting' | 'saving' = 'saving';
 plugin.state === state;
 // $ExpectError
 plugin.state = state;
+plugin.set('state', 'waiting');
+// $ExpectError
+plugin.set('foo', 'bar');
 plugin.adapter.save(myEditor);
 
 const adapter: AutosaveAdapter = {
@@ -22,8 +25,8 @@ const adapter: AutosaveAdapter = {
     },
 };
 
-// $ExpectType AutoSave
-myEditor.plugins.get('AutoSave');
+// $ExpectType Autosave
+myEditor.plugins.get('Autosave');
 
 let config: AutosaveConfig = {
     save(editor) {
@@ -45,3 +48,5 @@ config = {
 
 new MyEditor({ autosave: config });
 new MyEditor({ autosave: adapter });
+// $ExpectType number | undefined
+new MyEditor().config.get("autosave.waitingTime");
