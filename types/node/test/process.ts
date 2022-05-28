@@ -125,3 +125,7 @@ const hrtimeBigint: bigint = process.hrtime.bigint();
 process.allowedNodeEnvironmentFlags.has('asdf');
 
 process.env.TZ = 'test';
+
+{
+    const arch: NodeJS.Architecture = process.arch;
+}
