@@ -1117,7 +1117,7 @@ declare namespace React {
     }
 
     /**
-     * Returns a deferred version of the value that may “lag behind” it for at most `timeoutMs`.
+     * Returns a deferred version of the value that may “lag behind” it.
      *
      * This is commonly used to keep the interface responsive when you have something that renders immediately
      * based on user input and something that needs to wait for a data fetch.
@@ -1141,9 +1141,7 @@ declare namespace React {
      * The first is a boolean, React’s way of informing us whether we’re waiting for the transition to finish.
      * The second is a function that takes a callback. We can use it to tell React which state we want to defer.
      *
-     * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
-     *
-     * @param config An optional object with `timeoutMs`
+     * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**`
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
