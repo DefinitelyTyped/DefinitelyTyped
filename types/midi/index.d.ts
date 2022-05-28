@@ -8,6 +8,13 @@
 import * as Stream from 'stream';
 import * as EventEmitter from 'events';
 
+/**
+ * An array of numbers corresponding to the MIDI bytes: [status, data1, data2].
+ * See https://www.cs.cf.ac.uk/Dave/Multimedia/node158.html for more info.
+ */
+export type MidiMessage = [number, number, number];
+export type MidiCallback = (deltaTime: number, message: MidiMessage) => void;
+
 export class Input extends EventEmitter {
   /** Close the midi port */
   closePort(): void;
@@ -25,7 +32,7 @@ export class Input extends EventEmitter {
   ignoreTypes(sysex: boolean, timing: boolean, activeSensing: boolean): void;
   /** Check if the port is open */
   isPortOpen(): boolean;
-  /** Open the first available input port */
+  /** Open the specified input port */
   openPort(port: number): void;
   /**
    * Instead of opening a connection to an existing MIDI device, on Mac OS X and
@@ -34,20 +41,37 @@ export class Input extends EventEmitter {
    * instead of openPort(portNumber).
    */
   openVirtualPort(port: string): void;
+
+  on(event: 'message', callback: MidiCallback): this;
 }
 
 export class Output {
+  /** Close the midi port */
   closePort(): void;
+  /** Count the available output ports */
   getPortCount(): number;
+  /** Get the name of a specified output port */
   getPortName(port: number): string;
+  /** Check if the port is open */
   isPortOpen(): boolean;
+  /** Open the specified output port */
   openPort(port: number): void;
+  /**
+   * Instead of opening a connection to an existing MIDI device, on Mac OS X and
+   * Linux with ALSA you can create a virtual device that other software may
+   * connect to. This can be done simply by calling openVirtualPort(portName)
+   * instead of openPort(portNumber).
+   */
   openVirtualPort(port: string): void;
-  send(message: number[]): void;
-  sendMessage(message: number[]): void;
+  /** Send a MIDI message */
+  send(message: MidiMessage): void;
+  /** Send a MIDI message */
+  sendMessage(message: MidiMessage): void;
 }
 
+/** @deprecated */
 export const input: {new(): Input};
+/** @deprecated */
 export const output: {new(): Output};
 
 export function createReadStream(input?: Input): Stream;
