@@ -20,11 +20,11 @@ input.openVirtualPort('hello'); // $ExpectType void
 input.emit('test');
 
 input.on('message', (deltaTime, message) => {
-  const [a, b, c] = message;
-  a; // $ExpectType number
-  b; // $ExpectType number
-  c; // $ExpectType number
-  deltaTime; // $ExpectType number
+    const [a, b, c] = message;
+    a; // $ExpectType number
+    b; // $ExpectType number
+    c; // $ExpectType number
+    deltaTime; // $ExpectType number
 });
 
 // create a readable stream
