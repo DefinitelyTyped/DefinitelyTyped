@@ -134,8 +134,8 @@ declare namespace naver.maps {
     }
     interface MarkerOptions {
         animation?: Animation;
-        map: Map | undefined;
-        position: any;
+        map: Map;
+        position: Coord | CoordLiteral;
         icon?: string | ImageIcon | SymbolIcon | HtmlIcon;
         shape?: MarkerShape;
         title?: string | undefined;
