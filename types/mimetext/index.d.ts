@@ -49,7 +49,7 @@ export interface MailboxOptions {
     type?: string;
 }
 
-export class Mailbox {
+declare class Mailbox {
     constructor(input: string | MailboxInput, options?: MailboxOptions);
     parseSpecCompliantText(text: string): MailLocationData;
     createMailbox(): void;
@@ -59,15 +59,7 @@ export class Mailbox {
     toObject(): Required<MailboxInput>;
 }
 
-export class MIMEMessageHeader {
-    constructor(placement: MIMEPlacement);
-    get(name: string): string | null;
-    set(name: string, value: string): MIMEHeader;
-    toObject(): Record<string, string>;
-    dump(environmentContext: Partial<EnvironmentContext>): string;
-}
-
-export class MIMEMessageContent {
+declare class MIMEMessageContent {
     constructor(data: string);
     getHeaders(): Record<string, string>;
     getHeader(key: string): string | undefined;
@@ -77,10 +69,12 @@ export class MIMEMessageContent {
     setHeaders(headers: MessageHeaders): this;
 }
 
-export class MimeMessage {
+declare class MimeMessage {
+    constructor(envctx: EnvironmentContext);
     asAttachments(): MIMEMessageContent[];
     asEncoded(): string;
     asRaw(): string;
+    generateBoundaries(): MailboxBoundaries;
     getHeader(key: string): string | undefined;
     getMessageByType(type: string): MIMEMessageContent;
     getRecipients(options?: RecipientOptions): Mailbox[];
@@ -97,9 +91,10 @@ export class MimeMessage {
     setTo(to: MailLocation | MailLocation[]): Mailbox[];
 }
 
-export class MIMETextError extends Error {
-    description: string;
-    name: 'MIMETextError';
+declare class NodeMIMEMessage extends MimeMessage {
+    constructor();
 }
 
-export function createMimeMessage(): MimeMessage;
+declare function createMimeMessage(): NodeMIMEMessage;
+
+export { createMimeMessage };

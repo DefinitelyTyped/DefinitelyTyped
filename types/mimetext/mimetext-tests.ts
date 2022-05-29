@@ -1,87 +1,4 @@
-import {
-    Mailbox,
-    MailLocation,
-    MIMEHeader,
-    MimeMessage,
-    MIMEMessageContent,
-    MIMEMessageHeader,
-    RecipientOptions,
-    RecipientType,
-    TextFormat,
-} from 'mimetext';
-
-const [mailbox] = [
-    new Mailbox(''),
-    new Mailbox('', { type: 'to' }),
-    new Mailbox({ addr: '' }),
-    new Mailbox({ addr: '', name: '', type: 'to' }),
-];
-
-// $ExpectType MailLocationData
-mailbox.parseSpecCompliantText('');
-
-// $ExpectType void
-mailbox.createMailbox();
-
-// $ExpectType InputType
-mailbox.findInputType('');
-
-// $ExpectType string
-mailbox.getAddrDomain();
-
-// $ExpectType string
-mailbox.dump();
-
-// $ExpectType Required<MailboxInput>
-mailbox.toObject();
-
-const mimeHeader: MIMEHeader = {
-    custom: true,
-    dump: v => v,
-    name: '',
-    placement: 'content',
-    value: '',
-};
-
-const [messageHeader] = [new MIMEMessageHeader('content'), new MIMEMessageHeader('header')];
-
-// $ExpectType string | null
-messageHeader.get('');
-
-// $ExpectType MIMEHeader
-messageHeader.set('', '');
-
-// $ExpectType Record<string, string>
-messageHeader.toObject();
-
-// $ExpectType string
-messageHeader.dump({});
-messageHeader.dump({
-    toBase64: input => `${input}`,
-    store: [mimeHeader],
-});
-
-const messageContent = new MIMEMessageContent('');
-
-// $ExpectType Record<string, string>
-messageContent.getHeaders();
-
-// $ExpectType string | undefined
-messageContent.getHeader('');
-
-// $ExpectType boolean
-messageContent.isAttachment();
-
-// $ExpectType string
-messageContent.dump({}, { alt: '', mixed: '' });
-messageContent.dump({ toBase64: input => `${input}`, store: [mimeHeader] }, { alt: '', mixed: '' });
-
-// $ExpectType MIMEMessageContent
-messageContent.setHeader('', '');
-
-// $ExpectType MIMEMessageContent
-messageContent.setHeaders(['']);
-messageContent.setHeaders({ '': '' });
+import { createMimeMessage, MailLocation, MIMEHeader, RecipientOptions, RecipientType, TextFormat } from 'mimetext';
 
 let textFormat: TextFormat = 'text/html';
 textFormat = 'text/plain';
@@ -94,7 +11,8 @@ const recipientType: RecipientType = 'bcc';
 const recipientOptions: RecipientOptions = {};
 recipientOptions.type = recipientType;
 
-const mimeMessage = new MimeMessage();
+// $ExpectType NodeMIMEMessage
+const mimeMessage = createMimeMessage();
 
 // $ExpectType MIMEMessageContent[]
 mimeMessage.asAttachments();
@@ -158,3 +76,54 @@ mimeMessage.setTo('');
 mimeMessage.setTo(['']);
 mimeMessage.setTo(mailLocation);
 mimeMessage.setTo([mailLocation]);
+
+// $ExpectType Mailbox
+const mailbox = mimeMessage.getSender();
+
+// $ExpectType MailLocationData
+mailbox.parseSpecCompliantText('');
+
+// $ExpectType void
+mailbox.createMailbox();
+
+// $ExpectType InputType
+mailbox.findInputType('');
+
+// $ExpectType string
+mailbox.getAddrDomain();
+
+// $ExpectType string
+mailbox.dump();
+
+// $ExpectType Required<MailboxInput>
+mailbox.toObject();
+
+const mimeHeader: MIMEHeader = {
+    custom: true,
+    dump: v => v,
+    name: '',
+    placement: 'content',
+    value: '',
+};
+
+const [messageContent] = mimeMessage.asAttachments();
+
+// $ExpectType Record<string, string>
+messageContent.getHeaders();
+
+// $ExpectType string | undefined
+messageContent.getHeader('');
+
+// $ExpectType boolean
+messageContent.isAttachment();
+
+// $ExpectType string
+messageContent.dump({}, { alt: '', mixed: '' });
+messageContent.dump({ toBase64: input => `${input}`, store: [mimeHeader] }, { alt: '', mixed: '' });
+
+// $ExpectType MIMEMessageContent
+messageContent.setHeader('', '');
+
+// $ExpectType MIMEMessageContent
+messageContent.setHeaders(['']);
+messageContent.setHeaders({ '': '' });
