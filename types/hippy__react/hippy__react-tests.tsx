@@ -27,6 +27,7 @@ import {
     NetworkModule,
     PixelRatio,
     WebView,
+    StyleSheet,
 } from '@hippy/react';
 
 function Comp() {
@@ -56,7 +57,7 @@ function Comp() {
             </Text>
             <TextInput ref={textInput} />
             <ListView numberOfRows={1} bounces={false} />;
-            <ViewPager initialPage={0} keyboardDismissMode="none" horizontal />;
+            <ViewPager keyboardDismissMode="none" horizontal />;
             <ScrollView keyboardDismissMode="none" />;
         </View>
     );
@@ -69,3 +70,10 @@ new Hippy({
     },
     silent: true,
 }).start();
+
+const styles = StyleSheet.create({
+    style1: {
+        borderStyle: 'solid',
+        overflow: 'visible',
+    },
+});

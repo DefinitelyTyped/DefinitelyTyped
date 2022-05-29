@@ -1057,6 +1057,7 @@ declare global {
             extend(protoProps?: any, classProps?: any): any;
             hydrate<T extends User>(userJSON: any): Promise<T>;
             enableUnsafeCurrentUser(): void;
+            disableUnsafeCurrentUser(): void;
             logInWith<T extends User>(
                 provider: string | AuthProvider,
                 options: { authData?: AuthData | undefined },
