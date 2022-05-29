@@ -21,12 +21,14 @@ export interface BindingConfig {
 }
 
 export interface QueueConfig {
+    name?: string | undefined;
     assert?: boolean | undefined;
     check?: boolean | undefined;
     options?: Options.AssertQueue | undefined;
 }
 
 export interface ExchangeConfig {
+    name?: string | undefined;
     assert?: boolean | undefined;
     check?: boolean | undefined;
     type?: 'direct' | 'fanout' | 'headers' | 'topic' | undefined;
@@ -99,17 +101,17 @@ export interface VhostConfig {
         | {
               [key: string]: ExchangeConfig;
           }
-        | string[] | undefined;
+        | Array<string | ExchangeConfig> | undefined;
     queues?:
         | {
               [key: string]: QueueConfig;
           }
-        | string[] | undefined;
+        | Array<string | QueueConfig> | undefined;
     bindings?:
         | {
               [key: string]: BindingConfig;
           }
-        | string[] | undefined;
+        | Array<string | BindingConfig> | undefined;
     publications?: {
         [key: string]: PublicationConfig;
     } | undefined;

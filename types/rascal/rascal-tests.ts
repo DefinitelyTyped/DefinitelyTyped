@@ -23,9 +23,16 @@ const config: BrokerConfig = {
                     },
                 },
             },
-            exchanges: ['demo_ex'],
-            queues: ['demo_q'],
-            bindings: ['demo_ex[a.b.c] -> demo_q'],
+            exchanges: ['demo_ex', {
+                name: 'short_ex'
+            }],
+            queues: ['demo_q', {
+                name: 'short_q'
+            }],
+            bindings: ['demo_ex[a.b.c] -> demo_q', {
+                source: "short_ex",
+                destination: "short_q"
+            }],
             publications: {
                 demo_pub: {
                     exchange: 'demo_ex',
