@@ -422,110 +422,101 @@ declare namespace Chai {
         /**
          * Throws a failure.
          *
-         * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
          * @param message    Message to display on error.
          * @param operator   Comparison operator, if not strict equality.
          * @remarks Node.js assert module-compatible.
          */
-        fail<T>(actual: T, expected: T, message?: string, operator?: Operator): never;
+        fail(actual: unknown, expected: unknown, message?: string, operator?: Operator): never;
 
         /**
          * Asserts that object is truthy.
          *
-         * @type T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
          */
-        isOk<T>(value: T, message?: string): asserts value;
+        isOk(value: unknown, message?: string): asserts value;
 
         /**
          * Asserts that object is truthy.
          *
-         * @type T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
          */
-        ok<T>(value: T, message?: string): asserts value;
+        ok(value: unknown, message?: string): asserts value;
 
         /**
          * Asserts that object is falsy.
          *
-         * @type T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
          */
-        isNotOk<T>(value: T, message?: string): void;
+        isNotOk(value: object, message?: string): asserts value is never;
+        isNotOk(value: unknown, message?: string): asserts value is "" | 0 | false | null | undefined;
 
         /**
          * Asserts that object is falsy.
          *
-         * @type T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
          */
-        notOk<T>(value: T, message?: string): void;
+        notOk(value: object, message?: string): asserts value is never;
+        notOk(value: unknown, message?: string): asserts value is "" | 0 | false | null | undefined;
 
         /**
          * Asserts non-strict equality (==) of actual and expected.
          *
-         * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
          * @param message   Message to display on error.
          */
-        equal<T>(actual: T, expected: T, message?: string): void;
+        equal(actual: unknown, expected: unknown, message?: string): void;
 
         /**
          * Asserts non-strict inequality (!=) of actual and expected.
          *
-         * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
          * @param message   Message to display on error.
          */
-        notEqual<T>(actual: T, expected: T, message?: string): void;
+        notEqual(actual: unknown, expected: unknown, message?: string): void;
 
         /**
          * Asserts strict equality (===) of actual and expected.
          *
-         * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
          * @param message   Message to display on error.
          */
-        strictEqual<T>(actual: T, expected: T, message?: string): void;
+        strictEqual(actual: unknown, expected: unknown, message?: string): void;
 
         /**
          * Asserts strict inequality (!==) of actual and expected.
          *
-         * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
          * @param message   Message to display on error.
          */
-        notStrictEqual<T>(actual: T, expected: T, message?: string): void;
+        notStrictEqual(actual: unknown, expected: unknown, message?: string): void;
 
         /**
          * Asserts that actual is deeply equal to expected.
          *
-         * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
          * @param message   Message to display on error.
          */
-        deepEqual<T>(actual: T, expected: T, message?: string): void;
+        deepEqual(actual: unknown, expected: unknown, message?: string): void;
 
         /**
          * Asserts that actual is not deeply equal to expected.
          *
-         * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
          * @param message   Message to display on error.
          */
-        notDeepEqual<T>(actual: T, expected: T, message?: string): void;
+        notDeepEqual(actual: unknown, expected: unknown, message?: string): void;
 
         /**
          * Alias to deepEqual
@@ -535,7 +526,7 @@ declare namespace Chai {
          * @param expected   Potential expected value.
          * @param message   Message to display on error.
          */
-        deepStrictEqual<T>(actual: T, expected: T, message?: string): void;
+        deepStrictEqual(actual: unknown, expected: unknown, message?: string): void;
 
         /**
          * Asserts valueToCheck is strictly greater than (>) valueToBeAbove.
@@ -545,6 +536,8 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         isAbove(valueToCheck: number, valueToBeAbove: number, message?: string): void;
+        isAbove(valueToCheck: Date, valueToBeAbove: Date, message?: string): void;
+        isAbove(valueToCheck: unknown, valueToBeAbove: unknown, message?: string): void;
 
         /**
          * Asserts valueToCheck is greater than or equal to (>=) valueToBeAtLeast.
@@ -554,6 +547,8 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         isAtLeast(valueToCheck: number, valueToBeAtLeast: number, message?: string): void;
+        isAtLeast(valueToCheck: Date, valueToBeAtLeast: Date, message?: string): void;
+        isAtLeast(valueToCheck: unknown, valueToBeAtLeast: unknown, message?: string): void;
 
         /**
          * Asserts valueToCheck is strictly less than (<) valueToBeBelow.
@@ -563,6 +558,8 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         isBelow(valueToCheck: number, valueToBeBelow: number, message?: string): void;
+        isBelow(valueToCheck: Date, valueToBeBelow: Date, message?: string): void;
+        isBelow(valueToCheck: unknown, valueToBeBelow: unknown, message?: string): void;
 
         /**
          * Asserts valueToCheck is less than or equal to (<=) valueToBeAtMost.
@@ -572,24 +569,26 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         isAtMost(valueToCheck: number, valueToBeAtMost: number, message?: string): void;
+        isAtMost(valueToCheck: Date, valueToBeAtMost: Date, message?: string): void;
+        isAtMost(valueToCheck: unknown, valueToBeAtMost: unknown, message?: string): void;
 
         /**
          * Asserts that value is true.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isTrue<T>(value: T, message?: string): asserts value is (T extends true ? T : never);
+        isTrue<T extends object | string | number | boolean | undefined | null>(value: T, message?: string): asserts value is (T extends true ? (true extends T ? true : T) : never);
+        isTrue(value: unknown, message?: string): asserts value is true;
 
         /**
          * Asserts that value is false.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isFalse<T>(value: T, message?: string): asserts value is (T extends false ? T : never);
+        isFalse<T extends object | string | number | boolean | undefined | null>(value: T, message?: string): asserts value is (T extends false ? (false extends T ? false : T) : never);
+        isFalse(value: unknown, message?: string): asserts value is false;
 
         /**
          * Asserts that value is not true.
@@ -603,7 +602,6 @@ declare namespace Chai {
         /**
          * Asserts that value is not false.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
@@ -612,16 +610,14 @@ declare namespace Chai {
         /**
          * Asserts that value is null.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNull<T>(value: T, message?: string): asserts value is (T extends null ? T : never);
+        isNull(value: unknown, message?: string): asserts value is null;
 
         /**
          * Asserts that value is not null.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
@@ -630,20 +626,19 @@ declare namespace Chai {
         /**
          * Asserts that value is NaN.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNaN<T>(value: T, message?: string): void;
+        isNaN<T extends object | string | number | boolean | undefined | null>(value: T, message?: string): asserts value is (T extends number ? (number extends T ? number : never) : never);
+        isNaN(value: unknown, message?: string): asserts value is number;
 
         /**
          * Asserts that value is not NaN.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotNaN<T>(value: T, message?: string): void;
+        isNotNaN(value: unknown, message?: string): void;
 
         /**
          * Asserts that the target is neither null nor undefined.
@@ -657,20 +652,18 @@ declare namespace Chai {
         /**
          * Asserts that the target is either null or undefined.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message    Message to display on error.
          */
-        notExists<T>(value: T, message?: string): asserts value is (T extends undefined | null ? T : never);
+        notExists(value: unknown, message?: string): asserts value is null | undefined;
 
         /**
          * Asserts that value is undefined.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isUndefined<T>(value: T, message?: string): asserts value is (T extends undefined ? T : never);
+        isUndefined(value: unknown, message?: string): asserts value is undefined;
 
         /**
          * Asserts that value is not undefined.
@@ -684,11 +677,12 @@ declare namespace Chai {
         /**
          * Asserts that value is a function.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isFunction<T>(value: T, message?: string): asserts value is (T extends Function ? T : never);
+        isFunction(value: Function, message?: string): void;
+        isFunction(value: object, message?: string): asserts value is never;
+        isFunction(value: unknown, message?: string): asserts value is Function;
 
         /**
          * Asserts that value is not a function.
@@ -703,12 +697,11 @@ declare namespace Chai {
          * Asserts that value is an object of type 'Object'
          * (as revealed by Object.prototype.toString).
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          * @remarks The assertion does not match subclassed objects.
          */
-        isObject<T>(value: T, message?: string): asserts value is (T extends object ? T : never);
+        isObject(value: unknown, message?: string): asserts value is object;
 
         /**
          * Asserts that value is not an object of type 'Object'
@@ -727,7 +720,8 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isArray<T>(value: T, message?: string): asserts value is (T extends readonly any[] ? T : never);
+        isArray<T extends object | string | number | boolean | undefined | null>(value: T, message?: string): asserts value is (T extends readonly any[] ? (any[] extends T ? any[] : T) : never);
+        isArray(value: unknown, message?: string): asserts value is any[];
 
         /**
          * Asserts that value is not an array.
@@ -745,7 +739,8 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isString<T>(value: T, message?: string): asserts value is (T extends string ? T : never);
+        isString<T extends object | string | number | boolean | undefined | null>(value: T, message?: string): asserts value is (T extends string ? (string extends T ? string : T) : never);
+        isString(value: unknown, message?: string): asserts value is string;
 
         /**
          * Asserts that value is not a string.
@@ -763,7 +758,8 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNumber<T>(value: T, message?: string): asserts value is (T extends number ? T : never);
+        isNumber<T extends object | string | number | boolean | undefined | null>(value: T, message?: string): asserts value is (T extends number ? (number extends T ? number : T) : never);
+        isNumber(value: unknown, message?: string): asserts value is number;
 
         /**
          * Asserts that value is not a number.
@@ -791,7 +787,8 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isBoolean<T>(value: T, message?: string): asserts value is (T extends boolean ? T : never);
+        isBoolean<T extends object | string | number | boolean | undefined | null>(value: T, message?: string): asserts value is (T extends boolean ? (boolean extends T ? boolean : T) : never);
+        isBoolean(value: unknown, message?: string): asserts value is boolean;
 
         /**
          * Asserts that value is not a boolean.
@@ -805,22 +802,20 @@ declare namespace Chai {
         /**
          * Asserts that value's type is name, as determined by Object.prototype.toString.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param name   Potential expected type name of value.
          * @param message   Message to display on error.
          */
-        typeOf<T>(value: T, name: string, message?: string): void;
+        typeOf(value: unknown, name: string, message?: string): void;
 
         /**
          * Asserts that value's type is not name, as determined by Object.prototype.toString.
          *
-         * @type T   Type of value.
          * @param value   Actual value.
          * @param name   Potential expected type name of value.
          * @param message   Message to display on error.
          */
-        notTypeOf<T>(value: T, name: string, message?: string): void;
+        notTypeOf(value: unknown, name: string, message?: string): void;
 
         /**
          * Asserts that value is an instance of constructor.
@@ -830,7 +825,9 @@ declare namespace Chai {
          * @param constructor   Potential expected contructor of value.
          * @param message   Message to display on error.
          */
-        instanceOf<T extends object, F extends new(...args: any) => any>(value: T, constructor: F, message?: string): asserts value is InstanceType<F>;
+        instanceOf<T extends object | number | string | boolean | undefined | null, F extends new(...args: any) => any>(value: T, constructor: F, message?: string): asserts value is (
+            T extends number | string | boolean | undefined | null ? never : (T extends InstanceType<F> ? InstanceType<F> : never));
+        instanceOf<F extends new(...args: any) => any>(value: unknown, constructor: F, message?: string): asserts value is InstanceType<F>;
 
         /**
          * Asserts that value is not an instance of constructor.

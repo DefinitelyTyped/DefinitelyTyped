@@ -1421,9 +1421,23 @@ suite('assert', () => {
         }
 
         {
+            const value = Math.random() > 0.5 ? { some: "value" } : "false";
+            assert.isTrue(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
             const value = false;
             assert.isTrue(value);
             // $ExpectType never
+            value;
+        }
+
+        {
+            const value = false as any;
+            assert.isTrue(value);
+            // $ExpectType true
             value;
         }
 
@@ -1462,20 +1476,94 @@ suite('assert', () => {
     });
 
     test('notOk', () => {
-        assert.notOk(false);
-        assert.notOk(0);
-        assert.notOk('');
-        assert.isNotOk(false);
-        assert.isNotOk(0);
-        assert.isNotOk('');
-        assert.notOk(true);
-        assert.notOk(1);
-        assert.notOk('test');
+        {
+            const value = { some: "value" };
+            assert.notOk(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = false;
+            assert.notOk(value);
+            // $ExpectType false
+            value;
+        }
+
+        {
+            const value = true;
+            assert.notOk(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = false as boolean;
+            assert.notOk(value);
+            // $ExpectType false
+            value;
+        }
+
+        {
+            const value = 1 as 0 | 1;
+            assert.notOk(value);
+            // $ExpectType 0
+            value;
+        }
+
+        {
+            const value = 1 as unknown;
+            assert.notOk(value);
+            // $ExpectType false | "" | 0 | null | undefined
+            value;
+        }
+
+        {
+            const value = 1 as any;
+            assert.notOk(value);
+            // $ExpectType false | "" | 0 | null | undefined
+            value;
+        }
+
+        {
+            const value = "" as string;
+            assert.notOk(value);
+            // $ExpectType ""
+            value;
+        }
+
+        {
+            const value = "" as "" | "test";
+            assert.notOk(value);
+            // $ExpectType ""
+            value;
+        }
+
+        {
+            const value = true as true | false | null | undefined;
+            assert.notOk(value);
+            // $ExpectType false | null | undefined
+            value;
+        }
     });
 
     test('isFalse', () => {
         {
-            const value = false;
+            const value = { some: "value" };
+            assert.isFalse(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? { some: "value" } : "false";
+            assert.isFalse(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = false as any;
             assert.isFalse(value);
             // $ExpectType false
             value;
@@ -1539,9 +1627,66 @@ suite('assert', () => {
         }
 
         {
-            const value = {};
+            const value = new Foo() as number | string;
+            assert.instanceOf(value, Foo);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = new Foo() as Foo | undefined;
             assert.instanceOf(value, Foo);
             // $ExpectType Foo
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? new Foo() : new CrashyObject();
+            assert.instanceOf(value, Foo);
+            // Due to TypeScript's structural typing, empty classes like `Foo`
+            // are effectively treated like `Object`, and no type narrowing
+            // will be applied. :(
+            //
+            // $ExpectType Foo | CrashyObject
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? new Foo() : new CrashyObject();
+            assert.instanceOf(value, Object);
+            // $ExpectType Foo | CrashyObject
+            value;
+
+            assert.instanceOf(value, CrashyObject);
+            // $ExpectType CrashyObject
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? new Foo() : new CrashyObject();
+            assert.instanceOf(value, CrashyObject);
+            // $ExpectType CrashyObject
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? new Foo() : new CrashyObject();
+            assert.instanceOf(value, Function);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? new CrashyObject() : new Foo();
+            assert.instanceOf(value, Object);
+            // $ExpectType Foo | CrashyObject
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? new CrashyObject() : new Foo();
+            assert.instanceOf(value, Foo);
+            // $ExpectType Foo | CrashyObject
             value;
         }
     });
@@ -1679,47 +1824,119 @@ suite('assert', () => {
             value;
         }
 
-        assert.isNull(null);
-        assert.isNull(undefined);
+        {
+            const value = { some: "value" };
+            assert.isNull(value);
+            // $ExpectType never
+            value;
+        }
     });
 
     test('isNotNull', () => {
         {
-            const value: null | undefined = Math.random() > 0.5 ? null : undefined;
+            const value = null as unknown;
+            assert.isNotNull(value);
+            // $ExpectType unknown
+            value;
+        }
+
+        {
+            const value = null as any;
+            assert.isNotNull(value);
+            // $ExpectType any
+            value;
+        }
+
+        {
+            const value = null as null | undefined;
             assert.isNotNull(value);
             // $ExpectType undefined
             value;
         }
 
-        assert.isNotNull(undefined);
-        assert.isNotNull(null);
+        {
+            const value = 123 as number | null | undefined;
+            assert.isNotNull(value);
+            // $ExpectType number | undefined
+            value;
+        }
     });
 
     test('isUndefined', () => {
         {
-            const value: null | undefined = Math.random() > 0.5 ? null : undefined;
+            const value = null as null | undefined;
             assert.isUndefined(value);
             // $ExpectType undefined
             value;
         }
 
-        assert.isUndefined(undefined);
-        assert.isUndefined(null);
+        {
+            const value = null as unknown;
+            assert.isUndefined(value);
+            // $ExpectType undefined
+            value;
+        }
+
+        {
+            const value = 123;
+            assert.isUndefined(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = null;
+            assert.isUndefined(value);
+            // $ExpectType never
+            value;
+        }
     });
 
     test('isDefined', () => {
         {
-            const value: null | undefined = Math.random() > 0.5 ? null : undefined;
+            const value = null as null | undefined;
             assert.isDefined(value);
             // $ExpectType null
             value;
         }
 
-        assert.isDefined(null);
-        assert.isDefined(undefined);
+        {
+            const value = null as unknown;
+            assert.isDefined(value);
+            // $ExpectType unknown
+            value;
+        }
+
+        {
+            const value = 123 as number;
+            assert.isDefined(value);
+            // $ExpectType number
+            value;
+        }
+
+        {
+            const value = undefined;
+            assert.isDefined(value);
+            // $ExpectType never
+            value;
+        }
     });
 
     test('isNaN', () => {
+        {
+            const value = Math.random() > 0.5 ? { some: "value" } : "NaN";
+            assert.isNaN(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = false as any;
+            assert.isNaN(value);
+            // $ExpectType number
+            value;
+        }
+
         assert.isNaN(NaN);
         assert.isNaN(12);
     });
@@ -1729,17 +1946,131 @@ suite('assert', () => {
         assert.isNotNaN(NaN);
     });
 
+    test('exists', () => {
+        {
+            const value = { some: "value" };
+            assert.exists(value);
+            // $ExpectType { some: string; }
+            value;
+        }
+
+        {
+            const value: unknown = 123;
+            assert.exists(value);
+            // $ExpectType unknown
+            value;
+        }
+
+        {
+            const value = 123 as number | undefined | null;
+            assert.exists(value);
+            // $ExpectType number
+            value;
+        }
+
+        {
+            const value = 123 as number | null;
+            assert.exists(value);
+            // $ExpectType number
+            value;
+        }
+
+        {
+            const value = 123 as number | undefined;
+            assert.exists(value);
+            // $ExpectType number
+            value;
+        }
+    });
+
+    test('notExists', () => {
+        {
+            const value: unknown = 123;
+            assert.notExists(value);
+            // $ExpectType null | undefined
+            value;
+        }
+
+        {
+            const value = 123 as number | undefined | null;
+            assert.notExists(value);
+            // $ExpectType null | undefined
+            value;
+        }
+
+        {
+            const value = 123 as number | null;
+            assert.notExists(value);
+            // $ExpectType null
+            value;
+        }
+
+        {
+            const value = 123 as number | undefined;
+            assert.notExists(value);
+            // $ExpectType undefined
+            value;
+        }
+    });
+
     test('isFunction', () => {
-        const func = () => {
-        };
-        assert.isFunction(func);
-        assert.isFunction({});
+        {
+            const value = 1234 as unknown;
+            assert.isFunction(value);
+            // $ExpectType Function
+            value;
+        }
+
+        {
+            const value = 1234 as any;
+            assert.isFunction(value);
+            // $ExpectType any
+            value;
+        }
+
+        {
+            const value = () => {};
+            assert.isFunction(value);
+            // $ExpectType () => void
+            value;
+        }
+
+        {
+            const value = { some: "value" };
+            assert.isFunction(value);
+            // $ExpectType never
+            value;
+        }
     });
 
     test('isNotFunction', () => {
-        assert.isNotFunction(5);
-        assert.isNotFunction(() => {
-        });
+        {
+            const value = 1234 as unknown;
+            assert.isNotFunction(value);
+            // $ExpectType unknown
+            value;
+        }
+
+        {
+            const value = 1234 as any;
+            assert.isNotFunction(value);
+            // $ExpectType any
+            value;
+        }
+
+        {
+            const value = () => {};
+            assert.isNotFunction(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = { some: "value" };
+            assert.isNotFunction(value);
+            // $ExpectType { some: string; }
+            value;
+        }
     });
 
     test('isArray', () => {
@@ -1768,6 +2099,27 @@ suite('assert', () => {
             const value: [number, number, string] | undefined = Math.random() > 0.5 ? [1, 2, "3"] : undefined;
             assert.isArray(value);
             // $ExpectType [number, number, string]
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? { some: "value" } : "Array";
+            assert.isArray(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = false as any;
+            assert.isArray(value);
+            // $ExpectType any[]
+            value;
+        }
+
+        {
+            const value = false as unknown;
+            assert.isArray(value);
+            // $ExpectType any[]
             value;
         }
     });
@@ -1816,9 +2168,40 @@ suite('assert', () => {
     });
 
     test('isNumber', () => {
-        assert.isNumber(1);
-        assert.isNumber(Number('3'));
-        assert.isNumber('1');
+        {
+            const value = { some: "value" };
+            assert.isNumber(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? "true" : { some: "value" };
+            assert.isNumber(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = "test";
+            assert.isNumber(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = () => {};
+            assert.isNumber(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = 123 as unknown;
+            assert.isNumber(value);
+            // $ExpectType number
+            value;
+        }
     });
 
     test('isNotNumber', () => {
@@ -1828,12 +2211,78 @@ suite('assert', () => {
     });
 
     test('isBoolean', () => {
-        assert.isBoolean(true);
-        assert.isBoolean(false);
-        assert.isBoolean('1');
+        {
+            const value = 1234 as unknown;
+            assert.isBoolean(value);
+            // $ExpectType boolean
+            value;
+        }
+
+        {
+            const value = [true, false] as readonly any[] | boolean;
+            assert.isBoolean(value);
+            // $ExpectType boolean
+            value;
+        }
+
+        type T = readonly [1, 2, 3] extends readonly any[] ? true : false;
+
+        {
+            const value = true as boolean | undefined | { some: string };
+            assert.isBoolean(value);
+            // $ExpectType boolean
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? "true" : { some: "value" };
+            assert.isBoolean(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = 1234 as any;
+            assert.isBoolean(value);
+            // $ExpectType boolean
+            value;
+        }
+
+        {
+            const value = "test";
+            assert.isBoolean(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = Math.random() > 0.5 ? true : (Math.random() > 0.5 ? "true" : { some: "value" });
+            assert.isBoolean(value);
+            // $ExpectType true
+            value;
+        }
+
+        {
+            const value = { some: "value" };
+            assert.isBoolean(value);
+            // $ExpectType never
+            value;
+        }
+
+        {
+            const value = () => {};
+            assert.isBoolean(value);
+            // $ExpectType never
+            value;
+        }
     });
 
     test('isNotBoolean', () => {
+        const value = Math.random() > 0.5 ? "true" : true;
+        assert.isNotBoolean(value);
+        // $ExpectType "true"
+        value;
+
         assert.isNotBoolean('true');
         assert.isNotBoolean(true);
         assert.isNotBoolean(false);
@@ -2113,8 +2562,26 @@ suite('assert', () => {
     });
 
     test('isNotTrue', () => {
-        assert.isNotTrue(false);
-        assert.isNotTrue(true);
+        {
+            const value: unknown = 1234;
+            assert.isNotTrue(value);
+            // $ExpectType unknown
+            value;
+        }
+
+        {
+            const value = false as boolean;
+            assert.isNotTrue(value);
+            // $ExpectType false
+            value;
+        }
+
+        {
+            const value = 1234 as true | number;
+            assert.isNotTrue(value);
+            // $ExpectType number
+            value;
+        }
     });
 
     test('isNotFalse', () => {
