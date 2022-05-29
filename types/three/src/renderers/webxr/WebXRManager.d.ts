@@ -1,3 +1,5 @@
+/// <reference types="webxr" />
+
 import { Vector4 } from '../../math/Vector4';
 import { ArrayCamera } from '../../cameras/ArrayCamera';
 import { PerspectiveCamera } from '../../cameras/PerspectiveCamera';
