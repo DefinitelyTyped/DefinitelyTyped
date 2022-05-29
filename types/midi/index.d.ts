@@ -30,8 +30,6 @@ export class Input extends EventEmitter {
    * input.ignoreTypes(true, false, true)
    */
   ignoreTypes(sysex: boolean, timing: boolean, activeSensing: boolean): void;
-  /** Check if the port is open */
-  isPortOpen(): boolean;
   /** Open the specified input port */
   openPort(port: number): void;
   /**
@@ -52,8 +50,6 @@ export class Output {
   getPortCount(): number;
   /** Get the name of a specified output port */
   getPortName(port: number): string;
-  /** Check if the port is open */
-  isPortOpen(): boolean;
   /** Open the specified output port */
   openPort(port: number): void;
   /**

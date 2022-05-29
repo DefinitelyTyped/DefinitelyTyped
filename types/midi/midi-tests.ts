@@ -13,7 +13,6 @@ input.closePort(); // $ExpectType void
 input.getPortCount(); // $ExpectType number
 input.getPortName(123); // $ExpectType string
 input.ignoreTypes(true, false, true); // $ExpectType void
-input.isPortOpen(); // $ExpectType boolean
 input.openPort(321); // $ExpectType void
 input.openVirtualPort('hello'); // $ExpectType void
 
@@ -38,7 +37,6 @@ const output = new midi.Output();
 output.closePort(); // $ExpectType void
 output.getPortCount(); // $ExpectType number
 output.getPortName(123); // $ExpectType string
-output.isPortOpen(); // $ExpectType boolean
 output.openPort(321); // $ExpectType void
 output.openVirtualPort('hello'); // $ExpectType void
 output.send([1]); // $ExpectError
