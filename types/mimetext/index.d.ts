@@ -79,7 +79,7 @@ declare class MimeMessage {
     getMessageByType(type: string): MIMEMessageContent | undefined;
     getRecipients(options?: RecipientOptions): Mailbox[];
     getSender(): Mailbox;
-    getSubject(): string;
+    getSubject(): string | undefined;
     setAttachment(name: string, type: TextFormat, attachment: string): MIMEMessageContent;
     setBcc(bcc: MailLocation | MailLocation[]): Mailbox[];
     setCc(cc: MailLocation | MailLocation[]): Mailbox[];
@@ -91,8 +91,7 @@ declare class MimeMessage {
     setTo(to: MailLocation | MailLocation[]): Mailbox[];
 }
 
-declare class NodeMIMEMessage extends MimeMessage {
-}
+declare class NodeMIMEMessage extends MimeMessage {}
 
 declare function createMimeMessage(): NodeMIMEMessage;
 

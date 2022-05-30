@@ -26,7 +26,7 @@ mimeMessage.asRaw();
 // $ExpectType string | undefined
 mimeMessage.getHeader('');
 
-// $ExpectType MIMEMessageContent
+// $ExpectType MIMEMessageContent | undefined
 mimeMessage.getMessageByType('');
 
 // $ExpectType Mailbox[]
@@ -36,7 +36,7 @@ mimeMessage.getRecipients({ type: recipientType });
 // $ExpectType Mailbox
 mimeMessage.getSender();
 
-// $ExpectType string
+// $ExpectType string | undefined
 mimeMessage.getSubject();
 
 // $ExpectType MIMEMessageContent
@@ -68,7 +68,7 @@ mimeMessage.setRecipient(mailLocation, recipientOptions);
 mimeMessage.setSender(mailLocation);
 mimeMessage.setSender([mailLocation]);
 
-// $ExpectType void
+// $ExpectType string
 mimeMessage.setSubject('');
 
 // $ExpectType Mailbox[]
