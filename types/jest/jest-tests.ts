@@ -301,9 +301,11 @@ jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
 
 // https://jestjs.io/docs/en/jest-object#jestusefaketimersimplementation-modern--legacy
-jest.useFakeTimers('modern');
-jest.useFakeTimers('legacy');
+jest.useFakeTimers({ legacyFakeTimers: false });
+jest.useFakeTimers({ legacyFakeTimers: false });
 // $ExpectError
+jest.useFakeTimers('legacy');
+jest.useFakeTimers('modern');
 jest.useFakeTimers('foo');
 
 // https://jestjs.io/docs/en/jest-object#jestsetsystemtimenow-number--date

@@ -364,7 +364,7 @@ declare namespace jest {
     /**
      * Instructs Jest to use fake versions of the standard timer functions.
      */
-    function useFakeTimers(config: { legacyFakeTimers: boolean }): typeof jest;
+    function useFakeTimers(config?: ModernFakeTimersConfig): typeof jest;
     /**
      * Instructs Jest to use the real versions of the standard timer functions.
      */
