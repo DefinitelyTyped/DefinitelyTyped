@@ -831,7 +831,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Attachments extends Resource {
+        interface Attachments extends TopLevelResource {
             /**
              * * Returns the full record for a single attachment.
              *   * @param {String|Number} attachment Globally unique identifier for the attachment.
@@ -940,7 +940,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Events extends Resource {
+        interface Events extends TopLevelResource {
             /**
              * Dispatches a GET request to /events of the API to get a set of recent
              * changes to a resource.
@@ -1027,7 +1027,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Projects extends Resource {
+        interface Projects extends TopLevelResource {
             /**
              * * Creates a new project in a workspace or team.
              * *
@@ -1420,7 +1420,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Stories extends Resource {
+        interface Stories extends TopLevelResource {
             /**
              * * Returns the compact records for all stories on the task.
              *   * @param {String|Number} task Globally unique identifier for the task.
@@ -1509,7 +1509,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Tags extends Resource {
+        interface Tags extends TopLevelResource {
             /**
              * * Creates a new tag in a workspace or organization.
              * *
@@ -2216,7 +2216,7 @@ declare namespace asana {
 
         var Sections: SectionsStatic;
 
-        interface Sections extends Resource {
+        interface Sections extends TopLevelResource {
             /**
              * Returns the compact records for all sections in the specified project.
              * @param {String|Number} project The project to get sections from.
@@ -2269,7 +2269,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Teams extends Resource {
+        interface Teams extends TopLevelResource {
             /**
              * * Returns the full record for a single team.
              *   * @param {String|Number} team Globally unique identifier for the team.
@@ -2385,7 +2385,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Users extends Resource {
+        interface Users extends TopLevelResource {
             /**
              * * Returns the full user record for the currently authenticated user.
              *   * @param {Object} [params] Parameters for the request
@@ -2523,7 +2523,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Webhooks extends Resource {
+        interface Webhooks extends TopLevelResource {
             /**
              * * Establishing a webhook is a two-part process. First, a simple HTTP POST
              * * similar to any other resource creation. Since you could have multiple
@@ -2639,7 +2639,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Workspaces extends Resource {
+        interface Workspaces extends TopLevelResource {
             /**
              * * Returns the full workspace record for a single workspace.
              *   * @param {String|Number} workspace Globally unique identifier for the workspace or organization.
@@ -2797,7 +2797,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface UserTaskLists extends Resource {
+        interface UserTaskLists extends TopLevelResource {
             /**
              * Returns the full record for the user task list for the given user
              * @param {String|Number} user An identifier for the user. Can be one of an email address,
@@ -3064,7 +3064,7 @@ declare namespace asana {
             }
         }
 
-        interface CustomFields extends Resource {
+        interface CustomFields extends TopLevelResource {
             // https://github.com/Asana/node-asana/blob/6bf00fb3257847744bf0ebe2dc0e95c445477282/lib/resources/gen/custom_fields.js#L91-L110
             /**
              * Get a workspace's custom fields
@@ -3119,7 +3119,7 @@ declare namespace asana {
             }
         }
 
-        interface Typeahead extends Resource {
+        interface Typeahead extends TopLevelResource {
             // https://github.com/Asana/node-asana/blob/6bf00fb3257847744bf0ebe2dc0e95c445477282/lib/resources/gen/typeahead.js#L19-L40
             /**
              * Get objects via typeahead

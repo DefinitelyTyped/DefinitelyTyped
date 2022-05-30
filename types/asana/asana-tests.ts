@@ -103,8 +103,31 @@ client.users.me()
 let dispatcher = new asana.Dispatcher({retryOnRateLimit: true});
 client = new asana.Client(dispatcher);
 
-// use low level interface, which is defined on the top level
+// use low level http interface, which is defined on the top level objects
+client.attachments.dispatchGet('/foo');
+// client.batchAPI.dispatchGet('/foo');
+// client.customFieldSettings.dispatchGet('/foo');
+client.customFields.dispatchGet('/foo');
+client.events.dispatchGet('/foo');
+// client.jobs.dispatchGet('/foo');
+// client.organizationExports.dispatchGet('/foo');
+// client.portfolios.dispatchGet('/foo');
+// client.portfolioMemberships.dispatchGet('/foo');
+client.projects.dispatchGet('/foo');
+// client.projectMemberships.dispatchGet('/foo');
+// client.projectStatuses.dispatchGet('/foo');
+client.sections.dispatchGet('/foo');
+client.stories.dispatchGet('/foo');
+client.tags.dispatchGet('/foo');
 client.tasks.dispatchGet('/foo');
+client.teams.dispatchGet('/foo');
+client.typeahead.dispatchGet('/foo');
+client.users.dispatchGet('/foo');
+client.userTaskLists.dispatchGet('/foo');
+client.workspaces.dispatchGet('/foo');
+// client.workspaceMemberships.dispatchGet('/foo');
+client.webhooks.dispatchGet('/foo');
+
 
 // but not included in response objects
 client.tasks.getTask('123').then((task) => {
