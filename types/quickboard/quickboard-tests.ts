@@ -1,4 +1,6 @@
-import quickboard from "quickboard";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const quickboard = require("quickboard");
 
 // $ExpectType string
 const result = new quickboard({
