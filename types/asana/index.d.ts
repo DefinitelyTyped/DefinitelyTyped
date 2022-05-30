@@ -1622,12 +1622,33 @@ declare namespace asana {
                 permalink_url: string;
             }
 
+            // https://developers.asana.com/docs/create-a-task
             interface CreateParams {
-                name: string;
+                approval_status?: string | undefined;
+                assignee?: string | undefined;
+                assignee_section?: string | undefined;
+                // assignee_status: string; // deprecated - use assignee_section
                 completed?: boolean | undefined;
-                hearted?: boolean | undefined;
+                // hearted?: boolean | undefined; // deprecated and removed from documentation
+                custom_fields?: { [index: string]: number | string } | undefined;
+                due_at?: string | undefined;
+                due_on?: string | null | undefined;
+                external?: {
+                    data?: string | undefined;
+                    gid?: string | undefined;
+                } | undefined;
+                followers?: string[] | undefined; // create-only
+                html_notes?: string | undefined;
+                liked?: boolean | undefined;
+                name?: string | undefined;
                 notes?: string | undefined;
-                custom_fields?: Object | undefined;
+                parent?: string | undefined;
+                projects?: string[] | undefined; // create-only
+                resource_subtype?: string | undefined;
+                start_at?: string | null | undefined;
+                start_on?: string | null | undefined;
+                tags?: string[] | undefined; // create-only
+                workspace?: string | undefined;
             }
 
             // https://developers.asana.com/docs/update-a-task

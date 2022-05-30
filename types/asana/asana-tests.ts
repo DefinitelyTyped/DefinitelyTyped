@@ -233,6 +233,30 @@ const _returnedTask: asana.resources.Tasks.Type = {
 
 
 client.projects.delete('foobar').then();
+// christmas tree create
+// https://developers.asana.com/docs/create-a-task
+client.tasks.create({
+    approval_status: 'approved',
+    assignee: 'their_gid',
+    assignee_section: 'section_or_my_tasks_column_gid',
+    completed: true,
+    custom_fields: { custom_field_gid_1: 123, custom_field_gid_2: 456 },
+    due_at: 'some_date_and_time',
+    due_on: 'some_date',
+    external: {
+        data: "A blob of information",
+        gid: "external_identifier",
+    },
+    html_notes: '<b>some html</b>',
+    liked: true,
+    name: 'some task name',
+    notes: 'some description',
+    parent: 'some parent task gid',
+    start_on: 'some_date',
+    workspace: 'some_workspace_gid',
+}).then((task) => console.log(task.name));
+
+
 // https://github.com/Asana/node-asana/blob/master/test/resources/stories_spec.js
 client.stories.findById('foobar', {opt_fields: 'id,name'}).then();
 client.stories.findByTask('foobar', {opt_fields: 'id,name'}).then();
