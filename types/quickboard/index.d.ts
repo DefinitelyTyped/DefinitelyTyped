@@ -3,7 +3,7 @@
 // Definitions by: Foup <https://github.com/foupp>
 //                 Toadet <https://github.com/toadet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.7.2
+// TypeScript Version: 2.2
 
 declare class QuickBoard {
     constructor(options: {
