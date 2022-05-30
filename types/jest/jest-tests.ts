@@ -301,8 +301,9 @@ jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
 
 // https://jestjs.io/docs/configuration#faketimers-object
+jest.useFakeTimers();
 jest.useFakeTimers({ legacyFakeTimers: false });
-jest.useFakeTimers({ legacyFakeTimers: false });
+jest.useFakeTimers({ timerLimit: 50 });
 // $ExpectError
 jest.useFakeTimers('legacy');
 // $ExpectError
