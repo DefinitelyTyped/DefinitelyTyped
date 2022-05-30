@@ -28,6 +28,7 @@
 //                 Regev Brody <https://github.com/regevbr>
 //                 Alexandre Germain <https://github.com/gerkindev>
 //                 Adam Jones <https://github.com/domdomegg>
+//                 Sandino Nuñez <https://github.com/sandinosaso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
@@ -71,6 +72,48 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
         : T extends Readonly<[any, any, any, any, any, any, any, any, any, any]> ? 10
         : 'fallback'
 ];
+
+type FakeableAPI =
+  | 'Date'
+  | 'hrtime'
+  | 'nextTick'
+  | 'performance'
+  | 'queueMicrotask'
+  | 'requestAnimationFrame'
+  | 'cancelAnimationFrame'
+  | 'requestIdleCallback'
+  | 'cancelIdleCallback'
+  | 'setImmediate'
+  | 'clearImmediate'
+  | 'setInterval'
+  | 'clearInterval'
+  | 'setTimeout'
+  | 'clearTimeout';
+
+type ModernFakeTimersConfig = {
+    /**
+     * If set to `true` all timers will be advanced automatically by 20 milliseconds
+     * every 20 milliseconds. A custom time delta may be provided by passing a number.
+     * The default is `false`.
+     */
+    advanceTimers?: boolean | number;
+    /**
+     * List of names of APIs that should not be faked. The default is `[]`, meaning
+     * all APIs are faked.
+     */
+    doNotFake?: Array<FakeableAPI>;
+    /** Whether fake timers should be enabled for all test files. The default is `false`. */
+    enableGlobally?: boolean;
+    /**
+     * Use the old fake timers implementation instead of one backed by `@sinonjs/fake-timers`.
+     * The default is `false`.
+     */
+    legacyFakeTimers?: boolean;
+    /** Sets current system time to be used by fake timers. The default is `Date.now()`. */
+    now?: number;
+    /** Maximum number of recursive timers that will be run. The default is `100_000` timers. */
+    timerLimit?: number;
+};
 
 declare namespace jest {
     /**
@@ -321,7 +364,7 @@ declare namespace jest {
     /**
      * Instructs Jest to use fake versions of the standard timer functions.
      */
-    function useFakeTimers(implementation?: 'modern' | 'legacy'): typeof jest;
+    function useFakeTimers(config: { legacyFakeTimers: boolean }): typeof jest;
     /**
      * Instructs Jest to use the real versions of the standard timer functions.
      */
