@@ -1,5 +1,5 @@
 // Type definitions for quickboard 1.4
-// Project: https://npmjs.org/package/quickboard
+// Project: https://github.com/chimpdev/quickboard#readme
 // Definitions by: Foup <https://github.com/foupp>
 //                 Toadet <https://github.com/toadet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

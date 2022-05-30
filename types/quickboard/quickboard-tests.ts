@@ -1,4 +1,4 @@
-import quickboard from 'quickboard';
+import quickboard from "quickboard";
 
 // $ExpectType string
 const result = new quickboard({
