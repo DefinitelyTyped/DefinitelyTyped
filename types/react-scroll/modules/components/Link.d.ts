@@ -13,8 +13,8 @@ export interface ReactScrollLinkProps {
     onClick?(): void;
     duration?: number | string | ((distance: number) => number) | undefined;
     absolute?: boolean | undefined;
-    onSetActive?(to: string): void;
-    onSetInactive?(): void;
+    onSetActive?(to: string, element: HTMLElement | null): void;
+    onSetInactive?(to: string, element: HTMLElement | null): void;
     ignoreCancelEvents?: boolean | undefined;
     saveHashHistory?: boolean | undefined;
 }
