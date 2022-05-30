@@ -1,6 +1,6 @@
 import quickboard from "quickboard";
 
-// $ExpectType string
+// $ExpectType any
 const result = new quickboard({
     max: 1,
     data: [{ member: { displayName: 'foo' }, value: 1 }],
