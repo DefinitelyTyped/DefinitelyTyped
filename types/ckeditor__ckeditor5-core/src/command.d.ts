@@ -1,4 +1,7 @@
+import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
 import { Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import Editor from './editor/editor';
 
 // tslint:disable-next-line:no-empty-interface
@@ -160,4 +163,88 @@ export default class Command implements Observable {
      * Destroys the command.
      */
     destroy(): void;
+
+    on<K extends string & keyof this>(
+        event: `set:${K}`,
+        callback: (this: this, info: EventInfo<this, `set:${K}`>, value: this[K], oldValue: this[K]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    on<K extends string & keyof this>(
+        event: `change:${K}`,
+        callback: (this: this, info: EventInfo<this, `change:${K}`>, value: this[K], oldValue: this[K]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    on(
+        event: 'execute',
+        callback: (this: this, info: EventInfo<this, 'execute'>) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once(
+        event: 'change:isEnabled',
+        callback: (
+            this: this,
+            info: EventInfo<this, 'change:isEnabled'>,
+            value: boolean | null,
+            oldValue: boolean | null,
+        ) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once(
+        event: 'change:value',
+        callback: (
+            this: this,
+            info: EventInfo<this, 'change:value'>,
+            value: this['value'],
+            oldValue: this['value'],
+        ) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<K extends string & keyof this>(
+        event: `change:${K}`,
+        callback: (this: this, info: EventInfo<this, `change:${K}`>, value: this[K], oldValue: this[K]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<K extends string & keyof this>(
+        event: `set:${K}`,
+        callback: (this: this, info: EventInfo<this, `set:${K}`>, value: this[K], oldValue: this[K]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once(
+        event: 'execute',
+        callback: (this: this, info: EventInfo<this, 'execute'>) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off(
+        event: 'change:isEnabled',
+        callback?: (
+            this: this,
+            info: EventInfo<this, 'change:isEnabled'>,
+            value: boolean | null,
+            oldValue: boolean | null,
+        ) => void,
+    ): void;
+    off(
+        event: 'change:value',
+        callback?: (
+            this: this,
+            info: EventInfo<this, 'change:value'>,
+            value: this['value'],
+            oldValue: this['value'],
+        ) => void,
+    ): void;
+    off<K extends string & keyof this>(
+        event: `change:${K}`,
+        callback?: (this: this, info: EventInfo<this, `change:${K}`>, value: this[K], oldValue: this[K]) => void,
+    ): void;
+    off<K extends string & keyof this>(
+        event: `set:${K}`,
+        callback?: (this: this, info: EventInfo<this, `set:${K}`>, value: this[K], oldValue: this[K]) => void,
+    ): void;
+    off(event: 'execute', callback: (this: this, info: EventInfo<this, 'execute'>) => void): void;
+    fire<K extends string & keyof this>(
+        eventOrInfo: 'execute' | `set:${K}` | `change:${K}` | EventInfo<Emitter, 'execute' | `set:${K}` | `change:${K}`>,
+        ...args: any[]
+    ): unknown;
+    delegate<K extends string & keyof this>(...events: Array<'execute' | `set:${K}` | `change:${K}`>): EmitterMixinDelegateChain;
+    stopDelegating<K extends string & keyof this>(event?: 'execute' | `set:${K}` | `change:${K}`, emitter?: Emitter): void;
 }

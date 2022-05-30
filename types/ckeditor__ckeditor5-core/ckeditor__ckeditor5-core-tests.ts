@@ -8,16 +8,13 @@ import {
     EditorUI,
     MultiCommand,
     PendingActions,
-    Plugin,
+    Plugin
 } from '@ckeditor/ckeditor5-core';
 import CommandCollection from '@ckeditor/ckeditor5-core/src/commandcollection';
 import { EditorWithUI } from '@ckeditor/ckeditor5-core/src/editor/editorwithui';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import ParagraphCommand from '@ckeditor/ckeditor5-paragraph/src/paragraphcommand';
 import View from '@ckeditor/ckeditor5-ui/src/view';
-import { Emitter } from '@ckeditor/ckeditor5-utils/src/emittermixin';
-import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
-import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 
 /**
  * Editor
@@ -145,9 +142,30 @@ const command = new MyCommand(editor);
 command.on('execute', (ev, ...args) => {
     // $ExpectType EventInfo<MyCommand, "execute">
     ev;
-    // $ExpectType any[]
+    // $ExpectType []
     args;
 });
+command.on('change:isEnabled', (ev, newValue, oldValue) => {
+    // $ExpectType EventInfo<MyCommand, "change:isEnabled">
+    ev;
+    // $ExpectType boolean
+    newValue;
+    // $ExpectType boolean
+    oldValue;
+});
+command.on('set:isEnabled', (ev, newValue, oldValue) => {
+    // $ExpectType EventInfo<MyCommand, "set:isEnabled">
+    ev;
+    // $ExpectType boolean
+    newValue;
+    // $ExpectType boolean
+    oldValue;
+});
+command.fire('execute');
+// $ExpectError
+command.fire('set:foo');
+command.delegate('set:isEnabled', 'execute');
+command.stopDelegating('set:isEnabled');
 
 // $ExpectType boolean
 command.value;
