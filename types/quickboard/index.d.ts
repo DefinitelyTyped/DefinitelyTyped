@@ -1,6 +1,5 @@
 // Definitions by: Foup <https://github.com/foupp>
 
-export = QuickBoard;
 declare class QuickBoard {
     constructor(options: {
         max: number,
@@ -19,3 +18,5 @@ declare class QuickBoard {
 
     set(key: string, value: string | any[] | number | boolean | ((...args: any[]) => void)): any;
 }
+
+export default QuickBoard;
