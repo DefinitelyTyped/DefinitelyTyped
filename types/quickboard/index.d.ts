@@ -1,4 +1,5 @@
 // Type definitions for quickboard 1.4.0
+// Project: https://npmjs.org/package/quickboard
 // Definitions by: Foup <https://github.com/foupp>
 
 declare class QuickBoard {
