@@ -1,4 +1,4 @@
-const quickboard = require('quickboard');
+import quickboard from './index';
 
 // $ExpectType any
 const result = new quickboard({
