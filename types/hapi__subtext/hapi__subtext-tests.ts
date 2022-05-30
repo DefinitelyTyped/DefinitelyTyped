@@ -10,7 +10,6 @@ parse(req, null, {
   parse: true,
 })
   .then(result => {
-    console.log(result.payload)
-    console.log(result.mime)
+    console.log(result.payload);
+    console.log(result.mime);
   });
-

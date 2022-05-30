@@ -1,4 +1,4 @@
-// Type definitions for @hapi/subtext 7.0.3
+// Type definitions for @hapi/subtext 7.0
 // Project: https://github.com/hapijs/subtext#readme
 // Definitions by: Sebastian Malton <https://github.com/nokel81>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import { IncomingMessage } from 'http';
-import stream from 'stream';
+import stream = require('stream');
 import { BrotliOptions, ZlibOptions } from 'zlib';
 
 export interface MultipartOptions {

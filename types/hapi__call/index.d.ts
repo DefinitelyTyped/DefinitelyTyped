@@ -1,4 +1,4 @@
-// Type definitions for @hapi/call 9.0.0
+// Type definitions for @hapi/call 9.0
 // Project: https://github.com/hapijs/call#readme
 // Definitions by: Rodrigo Saboya <https://github.com/saboya>
 //                 Sebastian Malton <https://github.com/nokel81>
