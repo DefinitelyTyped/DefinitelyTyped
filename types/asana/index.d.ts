@@ -1579,26 +1579,47 @@ declare namespace asana {
         }
 
         namespace Tasks {
+            // https://developers.asana.com/docs/task
             interface Type extends Resource {
+                approval_status?: string | undefined;
                 created_at: string;
                 modified_at: string;
                 completed_at: string | null;
                 completed: boolean;
+                dependencies?: Resource[]; // opt in
+                dependents?: Resource[]; // opt in
                 due_on: string | null;
+                start_at: string | null;
                 start_on: string | null;
-                due_at: string;
+                due_at: string | null;
                 assignee_status: string;
                 assignee: Assignee | null;
+                assignee_section?: Resource;
+                external?: { // opt-in
+                    data?: string | undefined;
+                    gid?: string | undefined;
+                } | undefined;
+                html_notes?: string | undefined; // opt in
+                is_rendered_as_separator?: boolean | undefined; // opt in
                 notes: string;
                 workspace: Resource;
-                num_hearts: number;
-                hearted: boolean;
-                parent: Resource;
+                num_hearts?: number; // deprecated
+                hearted?: boolean; // deprecated
+                hearts?: Resource[]; // deprecated
+                parent: Resource | null;
+                num_likes: number;
+                num_subtasks?: number; // opt in
+                liked: boolean;
+                likes: {
+                    gid: string
+                    user: Resource;
+                }[];
                 tags: Resource[];
                 projects: Resource[];
                 memberships: Membership[];
                 followers: Resource[];
                 custom_fields: CustomField[];
+                permalink_url: string;
             }
 
             interface CreateParams {
@@ -1671,7 +1692,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Tasks extends Resource {
+        interface Tasks extends TopLevelResource {
             /**
              * * Creating a new task is as easy as POSTing to the `/tasks` endpoint
              * * with a data block containing the fields you'd like to set on the task.
@@ -2773,7 +2794,7 @@ declare namespace asana {
          * @param {Dispatcher} dispatcher
          * @constructor
          */
-        interface Resource {
+        interface TopLevelResource {
             /**
              * Dispatches a GET request to the API, where the expected result is a
              * single resource.
@@ -2895,7 +2916,6 @@ declare namespace asana {
         }
 
         interface Resource {
-            id: number;
             name: string;
             gid: string;
             resource_type: string;
@@ -2965,9 +2985,13 @@ declare namespace asana {
 
         interface CustomField extends Resource {
             enabled: boolean;
-            enum_options: EnumValue[] | null;
-            enum_value: EnumValue | null;
+            enum_options?: EnumValue[] | null;
+            enum_value?: EnumValue | null;
+            precision?: number | null;
             number_value: number | null;
+            created_by?: Resource;
+            display_value?: string | null;
+            type?: string | null;
         }
 
         interface CustomFieldsStatic {
