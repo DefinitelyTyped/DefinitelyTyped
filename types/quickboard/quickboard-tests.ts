@@ -1,6 +1,6 @@
-import quickboard from './index';
+import quickboard from 'quickboard';
 
-// $ExpectType any
+// $ExpectType string
 const result = new quickboard({
     max: 1,
     data: [{ member: { displayName: 'foo' }, value: 1 }],
