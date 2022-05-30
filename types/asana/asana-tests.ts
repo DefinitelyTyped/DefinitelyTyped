@@ -133,6 +133,10 @@ client.tasks.update('task_gid', {
     custom_fields: { custom_field_gid_1: 123, custom_field_gid_2: 456 },
     due_at: 'some_date_and_time',
     due_on: 'some_date',
+    external: {
+        data: "A blob of information",
+        gid: "external_identifier",
+    },
     html_notes: '<b>some html</b>',
     liked: true,
     name: 'some task name',

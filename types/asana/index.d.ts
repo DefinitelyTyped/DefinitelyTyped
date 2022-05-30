@@ -1660,6 +1660,10 @@ declare namespace asana {
                 custom_fields?: { [index: string]: number | string } | undefined;
                 due_at?: string | undefined;
                 due_on?: string | null | undefined;
+                external?: {
+                    data?: string | undefined;
+                    gid?: string | undefined;
+                } | undefined;
                 html_notes?: string | undefined;
                 liked?: boolean | undefined;
                 name?: string | undefined;
