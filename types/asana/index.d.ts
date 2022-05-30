@@ -1669,6 +1669,7 @@ declare namespace asana {
                 name?: string | undefined;
                 notes?: string | undefined;
                 parent?: string | undefined;
+                start_at?: string | null | undefined;
                 start_on?: string | null | undefined;
                 workspace?: string | undefined;
             }
