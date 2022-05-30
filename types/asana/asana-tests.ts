@@ -142,6 +142,7 @@ client.tasks.update('task_gid', {
     name: 'some task name',
     notes: 'some description',
     parent: 'some parent task gid',
+    start_at: 'some_time',
     start_on: 'some_date',
     workspace: 'some_workspace_gid',
 }).then((task) => console.log(task.name));
