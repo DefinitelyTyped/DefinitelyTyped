@@ -236,6 +236,16 @@ const _returnedTask: asana.resources.Tasks.Type = {
   }
 };
 
+// redacted response from client.tasks.getTask('gid here', {opt_fields: ['gid']})
+const _minimalReturnedTask: asana.resources.Tasks.Type = {
+    gid: '123'
+};
+
+// redacted response from client.tasks.getTask('gid here', {opt_fields: ['name']})
+const _secondMinimalReturnedTask: asana.resources.Tasks.Type = {
+    gid: '123',
+    name: 'name here',
+};
 
 client.projects.delete('foobar').then();
 // christmas tree create

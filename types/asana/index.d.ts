@@ -1659,18 +1659,18 @@ declare namespace asana {
             // https://developers.asana.com/docs/task
             interface Type extends Resource {
                 approval_status?: string | undefined;
-                created_at: string;
-                modified_at: string;
-                completed_at: string | null;
-                completed: boolean;
+                created_at?: string;
+                modified_at?: string;
+                completed_at?: string | null;
+                completed?: boolean;
                 dependencies?: Resource[]; // opt in
                 dependents?: Resource[]; // opt in
-                due_on: string | null;
-                start_at: string | null;
-                start_on: string | null;
-                due_at: string | null;
-                assignee_status: string;
-                assignee: Assignee | null;
+                due_on?: string | null;
+                start_at?: string | null;
+                start_on?: string | null;
+                due_at?: string | null;
+                assignee_status?: string;
+                assignee?: Assignee | null;
                 assignee_section?: Resource;
                 external?: { // opt-in
                     data?: string | undefined;
@@ -1678,25 +1678,25 @@ declare namespace asana {
                 } | undefined;
                 html_notes?: string | undefined; // opt in
                 is_rendered_as_separator?: boolean | undefined; // opt in
-                notes: string;
-                workspace: Resource;
+                notes?: string;
+                workspace?: Resource;
                 num_hearts?: number; // deprecated
                 hearted?: boolean; // deprecated
                 hearts?: Resource[]; // deprecated
-                parent: Resource | null;
-                num_likes: number;
+                parent?: Resource | null;
+                num_likes?: number;
                 num_subtasks?: number; // opt in
-                liked: boolean;
-                likes: {
+                liked?: boolean;
+                likes?: {
                     gid: string
                     user: Resource;
                 }[];
-                tags: Resource[];
-                projects: Resource[];
-                memberships: Membership[];
-                followers: Resource[];
-                custom_fields: CustomField[];
-                permalink_url: string;
+                tags?: Resource[];
+                projects?: Resource[];
+                memberships?: Membership[];
+                followers?: Resource[];
+                custom_fields?: CustomField[];
+                permalink_url?: string;
             }
 
             // https://developers.asana.com/docs/create-a-task
@@ -3020,12 +3020,12 @@ declare namespace asana {
 
         interface AnonymousResource {
             gid: string;
-            resource_type: string;
+            resource_type?: string;
             resource_subtype?: string;
         }
 
         interface Resource extends AnonymousResource {
-            name: string;
+            name?: string;
         }
 
         interface PaginationParams extends Params {
