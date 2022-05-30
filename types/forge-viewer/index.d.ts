@@ -852,10 +852,11 @@ declare namespace Autodesk {
             attributeName: string;
             displayCategory: string;
             displayName: string;
-            displayValue: string;
+            displayValue: string | number;
             hidden: boolean;
             type: number;
-            units: string;
+            units: string | null;
+            precision?: number;
         }
 
         class PropertySet {
