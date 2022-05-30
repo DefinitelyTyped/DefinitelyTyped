@@ -1,3 +1,4 @@
+// Type definitions for quickboard 1.4.0
 // Definitions by: Foup <https://github.com/foupp>
 
 declare class QuickBoard {
