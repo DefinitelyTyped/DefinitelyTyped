@@ -1,4 +1,4 @@
-import quickboard from "quickboard";
+const quickboard = require('quickboard');
 
 // $ExpectType any
 const result = new quickboard({
@@ -7,5 +7,3 @@ const result = new quickboard({
     map: (item: { member: { displayName: string }, value: number }, index: number) => `${index + 1}. ${item.member.displayName} - ${item.value} messages`,
     sort: (according: { member: { displayName: string }, value: number }, current: { member: { displayName: string }, value: number }) => current.value - according.value,
 }).create();
-
-console.log(result);
