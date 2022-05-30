@@ -76,7 +76,7 @@ declare class MimeMessage {
     asRaw(): string;
     generateBoundaries(): MailboxBoundaries;
     getHeader(key: string): string | undefined;
-    getMessageByType(type: string): MIMEMessageContent;
+    getMessageByType(type: string): MIMEMessageContent | undefined;
     getRecipients(options?: RecipientOptions): Mailbox[];
     getSender(): Mailbox;
     getSubject(): string;
@@ -87,12 +87,11 @@ declare class MimeMessage {
     setMessage(format: TextFormat, message: string, moreHeaders?: MessageHeaders): MIMEMessageContent;
     setRecipient(recipient: MailLocation | MailLocation[], options?: RecipientOptions): Mailbox[];
     setSender(sender: MailLocation | MailLocation[]): Mailbox;
-    setSubject(subject: string): void;
+    setSubject(subject: string): string;
     setTo(to: MailLocation | MailLocation[]): Mailbox[];
 }
 
 declare class NodeMIMEMessage extends MimeMessage {
-    constructor();
 }
 
 declare function createMimeMessage(): NodeMIMEMessage;
