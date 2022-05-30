@@ -13,7 +13,6 @@ export interface MultipartOptions {
   output: "data" | "stream" | "file";
 }
 
-
 export interface DecompressionOptions {
   gzip?: ZlibOptions;
   deflate?: ZlibOptions;
