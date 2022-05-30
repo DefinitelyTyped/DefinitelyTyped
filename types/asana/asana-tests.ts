@@ -103,6 +103,15 @@ client.users.me()
 let dispatcher = new asana.Dispatcher({retryOnRateLimit: true});
 client = new asana.Client(dispatcher);
 
+// use low level interface, which is defined on the top level
+client.tasks.dispatchGet('/foo');
+
+// but not included in response objects
+client.tasks.getTask('123').then((task) => {
+    // $ExpectError
+    task.dispatchGet('/foo');
+});
+
 // GIDs should handle both strings and numbers
 // https://github.com/Asana/node-asana/blob/master/test/resources/attachments_spec.js
 client.attachments.findById('foobar', {opt_fields: 'id,name'}).then();
@@ -132,6 +141,97 @@ client.tasks.update('task_gid', {
     start_on: 'some_date',
     workspace: 'some_workspace_gid',
 }).then((task) => console.log(task.name));
+
+// redacted response from client.tasks.getTask('gid here') with no options passed,
+// from a Premium-level account.
+const _returnedTask: asana.resources.Tasks.Type = {
+  gid: "123",
+  assignee: {
+    gid: "456",
+    name: "person name",
+    resource_type: "user"
+  },
+  assignee_status: "inbox",
+  assignee_section: {
+    gid: "789",
+    name: "section name",
+    resource_type: "section"
+  },
+  completed: false,
+  completed_at: null,
+  created_at: "2022-02-19T14:39:02.472Z",
+  custom_fields: [
+    {
+      gid: "123",
+      enabled: true,
+      name: "upvotes",
+      number_value: -293,
+      precision: 0,
+      created_by: {
+        gid: "456",
+        name: "person name",
+        resource_type: "user"
+      },
+      display_value: "-293",
+      resource_subtype: "number",
+      resource_type: "custom_field",
+      type: "number"
+    }
+  ],
+  due_at: null,
+  due_on: null,
+  followers: [
+    {
+      gid: "123",
+      name: "person name",
+      resource_type: "user"
+    }
+  ],
+  hearted: false,
+  hearts: [],
+  liked: false,
+  likes: [],
+  memberships: [
+    {
+      project: {
+        gid: "456",
+        name: "project name",
+        resource_type: "project"
+      },
+      section: {
+        gid: "789",
+        name: "section name",
+        resource_type: "section"
+      }
+    }
+  ],
+  modified_at: "2022-05-29T23:33:19.232Z",
+  name: "name here",
+  notes: "notes here",
+  num_hearts: 0,
+  num_likes: 0,
+  parent: null,
+  permalink_url: "https://app.asana.com/0/456/123",
+  projects: [
+    {
+      gid: "123",
+      name: "project name",
+      resource_type: "project"
+    }
+  ],
+  resource_type: "task",
+  start_at: null,
+  start_on: null,
+  tags: [],
+  resource_subtype: "default_task",
+  workspace: {
+    gid: "123",
+    name: "workspace name",
+    resource_type: "workspace"
+  }
+};
+
+
 client.projects.delete('foobar').then();
 // https://github.com/Asana/node-asana/blob/master/test/resources/stories_spec.js
 client.stories.findById('foobar', {opt_fields: 'id,name'}).then();
