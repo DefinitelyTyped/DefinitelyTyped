@@ -268,7 +268,7 @@ client.stories.findByTask('foobar', {opt_fields: 'id,name'}).then();
 client.stories.createOnTask('foobar', { name: 'test' }).then();
 
 // redacted response from client.stories.getStoriesForTask('gid here');
-const _returnedStory: asana.resources.Stories.ShortType = {
+const _returnedAssignedStory: asana.resources.Stories.ShortType = {
     gid: '123',
     created_at: '2022-02-19T14:39:02.854Z',
     created_by: {
@@ -282,9 +282,47 @@ const _returnedStory: asana.resources.Stories.ShortType = {
     type: 'system'
 };
 
+// redacted response from client.stories.getStoriesForTask('gid here');
+const _returnedCustomFieldChangedStory: asana.resources.Stories.ShortType = {
+    gid: "123",
+    created_at: "2022-05-30T00:44:35.756Z",
+    created_by: {
+        gid: "456",
+        name: "name here",
+        resource_type: "user"
+    },
+    resource_subtype: "number_custom_field_changed",
+    resource_type: "story",
+    text: "text here",
+    type: "system"
+};
+
 
 // redacted response from client.stories.getStory('gid here')
-const _returnedLongerStory: asana.resources.Stories.Type = {
+const _returnedLongerCustomFieldChangedStory: asana.resources.Stories.Type = {
+    gid: "123",
+    created_at: "2022-05-30T00:44:35.756Z",
+    created_by: {
+        gid: "456",
+        name: "name",
+        resource_type: "user"
+    },
+    previews: [],
+    resource_subtype: "number_custom_field_changed",
+    resource_type: "story",
+    source: "web",
+    text: "name changed upvotes from \"-293\" to \"-296\"",
+    type: "system",
+    target: {
+        gid: "789",
+        name: "name of task",
+        resource_type: "task"
+    }
+};
+
+
+// redacted response from client.stories.getStory('gid here')
+const _returnedLongerLikedCommentAddedStory: asana.resources.Stories.Type = {
     gid: "123",
     created_at: "2022-05-29T23:12:24.007Z",
     created_by:

@@ -1329,7 +1329,7 @@ declare namespace asana {
             // https://developers.asana.com/docs/story
             interface Type extends ShortType {
                 html_text?: string;
-                is_pinned: boolean;
+                is_pinned?: boolean;
                 sticker_name?: string | null;
                 assignee?: Resource;
                 custom_field?: CustomField;
