@@ -5,7 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export default class quickboard {
+export = quickboard
+
+declare class quickboard {
     constructor(options: {
         max: number,
         data: any[],
