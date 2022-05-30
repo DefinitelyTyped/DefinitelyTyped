@@ -1,4 +1,4 @@
-// Type definitions for Jest 28.1.0
+// Type definitions for Jest 28.1
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -90,7 +90,7 @@ type FakeableAPI =
   | 'setTimeout'
   | 'clearTimeout';
 
-type ModernFakeTimersConfig = {
+interface ModernFakeTimersConfig {
     /**
      * If set to `true` all timers will be advanced automatically by 20 milliseconds
      * every 20 milliseconds. A custom time delta may be provided by passing a number.
@@ -101,7 +101,7 @@ type ModernFakeTimersConfig = {
      * List of names of APIs that should not be faked. The default is `[]`, meaning
      * all APIs are faked.
      */
-    doNotFake?: Array<FakeableAPI>;
+    doNotFake?: FakeableAPI[];
     /** Whether fake timers should be enabled for all test files. The default is `false`. */
     enableGlobally?: boolean;
     /**
@@ -113,7 +113,7 @@ type ModernFakeTimersConfig = {
     now?: number;
     /** Maximum number of recursive timers that will be run. The default is `100_000` timers. */
     timerLimit?: number;
-};
+}
 
 declare namespace jest {
     /**

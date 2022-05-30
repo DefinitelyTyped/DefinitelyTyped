@@ -300,12 +300,14 @@ jest.autoMockOff()
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
 
-// https://jestjs.io/docs/en/jest-object#jestusefaketimersimplementation-modern--legacy
+// https://jestjs.io/docs/configuration#faketimers-object
 jest.useFakeTimers({ legacyFakeTimers: false });
 jest.useFakeTimers({ legacyFakeTimers: false });
 // $ExpectError
 jest.useFakeTimers('legacy');
+// $ExpectError
 jest.useFakeTimers('modern');
+// $ExpectError
 jest.useFakeTimers('foo');
 
 // https://jestjs.io/docs/en/jest-object#jestsetsystemtimenow-number--date
