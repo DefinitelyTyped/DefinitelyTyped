@@ -1,4 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dtslint.json",
-    "no-redundant-jsdoc": false
+    "extends": "@definitelytyped/dtslint/dtslint.json"
 }
