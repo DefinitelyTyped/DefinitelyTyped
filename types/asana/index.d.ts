@@ -1669,7 +1669,7 @@ declare namespace asana {
                 start_at?: string | null;
                 start_on?: string | null;
                 due_at?: string | null;
-                assignee_status?: string;
+                assignee_status?: string; // deprecated
                 assignee?: Assignee | null;
                 assignee_section?: Resource;
                 external?: { // opt-in
