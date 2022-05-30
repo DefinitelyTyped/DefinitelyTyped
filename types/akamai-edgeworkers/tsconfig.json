@@ -24,10 +24,11 @@
         "test/create-response-tests.ts",
         "test/http-request-tests.ts",
         "test/log-tests.ts",
-        "test/set_variable.ts", 
+        "test/set_variable.ts",
         "test/scenario-stream.ts",
         "test/stream.ts",
         "test/transformstream.ts",
-        "test/url-search-params-tests.ts"
+        "test/url-search-params-tests.ts",
+        "test/user-location.ts"
     ]
 }
