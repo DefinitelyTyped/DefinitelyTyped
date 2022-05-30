@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare class QuickBoard {
+declare class quickboard {
     constructor(options: {
         max: number,
         data: any[],
@@ -24,4 +24,4 @@ declare class QuickBoard {
     set(key: string, value: string | any[] | number | boolean | ((...args: any[]) => void)): any;
 }
 
-export default QuickBoard;
+export = quickboard;
