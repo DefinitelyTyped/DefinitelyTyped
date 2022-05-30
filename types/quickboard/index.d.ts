@@ -1,6 +1,8 @@
-// Type definitions for quickboard 1.4.0
+// Type definitions for quickboard 1.4
 // Project: https://npmjs.org/package/quickboard
 // Definitions by: Foup <https://github.com/foupp>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.7.2
 
 declare class QuickBoard {
     constructor(options: {
