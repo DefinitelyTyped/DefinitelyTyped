@@ -6,151 +6,11 @@
 
 /// <reference types="node" />
 
+import * as npm from '@npm/types';
 import npmFetch = require('npm-registry-fetch');
 import { Logger } from 'npmlog';
 import { Integrity } from 'ssri';
 import { Transform } from 'stream';
-
-export interface PackageDist {
-    /**
-     * The url to the associated package artifact. (Copied by Pacote to
-     * `manifest._resolved`.)
-     */
-    tarball: string;
-    /**
-     * The integrity SRI string for the artifact. This may not be present for
-     * older packages on the npm registry. (Copied by Pacote to
-     * `manifest._integrity`.)
-     */
-    integrity?: string | undefined;
-    /**
-     * Legacy integrity value. Hexadecimal-encoded sha1 hash. (Converted to an
-     * SRI string and copied by Pacote to `manifest._integrity` when
-     * `dist.integrity` is not present.)
-     */
-    shasum?: string | undefined;
-    /**
-     * Number of files in the tarball.
-     */
-    fileCount?: number | undefined;
-    /**
-     * Size on disk of the package when unpacked.
-     */
-    unpackedSize?: number | undefined;
-    /**
-     * A signature of the package by the
-     * [`npmregistry`](https://keybase.io/npmregistry) Keybase account.
-     * (Obviously only present for packages published to
-     * https://registry.npmjs.org.)
-     */
-    'npm-signature'?: string | undefined;
-}
-
-export interface Person {
-    name: string;
-    email?: string | undefined;
-    url?: string | undefined;
-}
-
-/**
- * Properties that can appear on both packuments and manifests. These usually
- * only appear when requesting with `fullMetadata = true`.
- */
-export interface CommonMetadata {
-    author?: Person | undefined;
-    bugs?: {
-        url?: string | undefined;
-        email?: string | undefined;
-    } | undefined;
-    contributors?: Person[] | undefined;
-    homepage?: string | undefined;
-    keywords?: string[] | undefined;
-    license?: string | undefined;
-    maintainers?: Person[] | undefined;
-    readme?: string | undefined;
-    readmeFilename?: string | undefined;
-    repository?: {
-        type?: string | undefined;
-        url?: string | undefined;
-        directory?: string | undefined;
-    } | undefined;
-    users?: Record<string, boolean> | undefined;
-}
-
-/**
- * A `manifest` is similar to a `package.json` file. However, it has a few
- * pieces of extra metadata, and sometimes lacks metadata that is inessential to
- * package installation.
- */
-export interface Manifest extends CommonMetadata {
-    name: string;
-    version: string;
-    dist: PackageDist;
-
-    // These properties usually appear in all requests.
-    dependencies?: Record<string, string> | undefined;
-    optionalDependencies?: Record<string, string> | undefined;
-    devDependencies?: Record<string, string> | undefined;
-    peerDependencies?: Record<string, string> | undefined;
-    bundledDependencies?: false | string[] | undefined;
-
-    bin?: Record<string, string> | undefined;
-    directories?: Record<string, string> | undefined;
-    engines?: Record<string, string> | undefined;
-
-    // These properties usually only appear when fullMetadata = true.
-    browser?: string | undefined;
-    config?: Record<string, unknown> | undefined;
-    cpu?: string[] | undefined;
-    description?: string | undefined;
-    files?: string[] | undefined;
-    main?: string | undefined;
-    man?: string | string[] | undefined;
-    os?: string[] | undefined;
-    publishConfig?: Record<string, unknown> | undefined;
-    scripts?: Record<string, string> | undefined;
-
-    _id?: string | undefined;
-    _nodeVersion?: string | undefined;
-    _npmVersion?: string | undefined;
-    _npmUser?: Person | undefined;
-
-    // Non-standard properties from package.json may also appear.
-    [key: string]: unknown;
-}
-
-/**
- * A packument is the top-level package document that lists the set of manifests
- * for available versions for a package.
- *
- * When a packument is fetched with `accept: application/vnd.npm.install-v1+json`
- * in the HTTP headers, only the most minimum necessary metadata is returned.
- * Additional metadata is returned when fetched with only `accept: application/json`.
- */
-export interface Packument extends CommonMetadata {
-    name: string;
-    /**
-     * An object where each key is a version, and each value is the manifest for
-     * that version.
-     */
-    versions: Record<string, Manifest>;
-    /**
-     * An object mapping dist-tags to version numbers. This is how `foo@latest`
-     * gets turned into `foo@1.2.3`.
-     */
-    'dist-tags': { latest: string; } & Record<string, string>;
-    /**
-     * In the full packument, an object mapping version numbers to publication
-     * times, for the `opts.before` functionality.
-     */
-    time?: Record<string, string> & {
-        created: string;
-        modified: string;
-    } | undefined;
-
-    // Non-standard properties may also appear when fullMetadata = true.
-    [key: string]: unknown;
-}
 
 export interface FetchResult {
     /**
@@ -167,7 +27,7 @@ export interface FetchResult {
     integrity: string;
 }
 
-export interface ManifestResult extends Manifest {
+export interface ManifestResult {
     /**
      * A normalized form of the spec passed in as an argument.
      */
@@ -258,7 +118,7 @@ export interface PacoteOptions {
      * the manifest, which they memoize on this.package, so it's very cheap
      * already.
      */
-    packumentCache?: Map<string, Packument> | undefined;
+    packumentCache?: Map<string, npm.Packument> | undefined;
 }
 
 export type Options = PacoteOptions & npmFetch.Options;
@@ -279,13 +139,18 @@ export function extract(spec: string, dest?: string, opts?: Options): Promise<Fe
  * Fetch (or simulate) a package's manifest (basically, the `package.json` file,
  * plus a bit of metadata).
  */
-export function manifest(spec: string, opts?: Options): Promise<ManifestResult>;
+export function manifest(
+    spec: string,
+    opts: Options & ({ before: Date } | { fullMetadata: true })
+): Promise<npm.Manifest & ManifestResult>;
+export function manifest(spec: string, opts?: Options): Promise<npm.AbbreviatedManifest & ManifestResult>;
 
 /**
  * Fetch (or simulate) a package's packument (basically, the top-level package
  * document listing all the manifests that the registry returns).
  */
-export function packument(spec: string, opts?: Options): Promise<Packument>;
+export function packument(spec: string, opts: Options & { fullMetadata: true }): Promise<npm.Packument>;
+export function packument(spec: string, opts?: Options): Promise<npm.AbbreviatedPackument>;
 
 /**
  * Get a package tarball data as a buffer in memory.

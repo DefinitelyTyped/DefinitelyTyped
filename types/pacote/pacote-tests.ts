@@ -1,6 +1,6 @@
+import * as npm from '@npm/types';
 import logger = require('npmlog');
 import pacote = require('pacote');
-import type { Packument } from 'pacote';
 import { Integrity } from 'ssri';
 
 const opts: pacote.Options = {
@@ -17,17 +17,22 @@ const opts: pacote.Options = {
     defaultTag: 'latest',
     registry: 'https://registry.npmjs.org',
     fullMetadata: false,
-    packumentCache: new Map<string, Packument>(),
+    packumentCache: new Map<string, npm.Packument>(),
 };
 
 pacote.resolve('pacote'); // $ExpectType Promise<string>
 pacote.resolve('pacote', opts); // $ExpectType Promise<string>
 
-pacote.manifest('pacote'); // $ExpectType Promise<ManifestResult>
-pacote.manifest('pacote', opts); // $ExpectType Promise<ManifestResult>
+// tslint:disable-next-line:expect
+pacote.manifest('pacote'); // $ExpectType Promise<npm.AbbreviatedManifest & ManifestResult>
+// tslint:disable-next-line:expect
+pacote.manifest('pacote', opts); // $ExpectType Promise<npm.AbbreviatedManifest & ManifestResult>
+pacote.manifest('pacote', { before: new Date() }); // $ExpectType Promise<npm.Manifest & ManifestResult>
+pacote.manifest('pacote', { fullMetadata: true }); // $ExpectType Promise<npm.Manifest & ManifestResult>
 
-pacote.packument('pacote'); // $ExpectType Promise<Packument>
-pacote.packument('pacote', opts); // $ExpectType Promise<Packument>
+pacote.packument('pacote'); // $ExpectType Promise<npm.AbbreviatedPackument>
+pacote.packument('pacote', opts); // $ExpectType Promise<npm.AbbreviatedPackument>
+pacote.packument('pacote', { fullMetadata: true }); // $ExpectType Promise<npm.Packument>
 
 pacote.extract('pacote', './'); // $ExpectType Promise<FetchResult>
 pacote.extract('pacote', './', opts); // $ExpectType Promise<FetchResult>
