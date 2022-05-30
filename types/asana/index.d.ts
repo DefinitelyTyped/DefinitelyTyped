@@ -1315,18 +1315,95 @@ declare namespace asana {
         }
 
         namespace Stories {
-            interface ShortType extends Resource {
+            // https://developers.asana.com/docs/story-compact
+            interface ShortType {
+                gid: string;
+                resource_type: string;
                 created_at: string;
                 created_by: Resource;
-                type: string;
-                text: string;
+                resource_subtype: string;
+                type: string; // not documented
+                text: string; // create-only
             }
 
+            // https://developers.asana.com/docs/story
             interface Type extends ShortType {
-                html_text: string;
+                html_text?: string;
+                is_pinned: boolean;
+                sticker_name?: string | null;
+                assignee?: Resource;
+                custom_field?: CustomField;
+                dependency?: Resource;
+                duplicate_of?: Resource;
+                duplicated_from?: Resource;
+                follower?: Resource;
+                hearted?: boolean; // deprecated
+                hearts?: {
+                    gid: string;
+                    user: Resource;
+                }[]; // deprecated
+                is_edited?: boolean;
+                liked?: boolean;
+                likes?: {
+                    gid: string;
+                    user: Resource;
+                }[];
+                new_approval_status?: string;
+                new_dates?: {
+                    due_at?: string | null;
+                    due_on?: string | null;
+                    start_on?: string | null;
+                };
+                new_enum_value?: Resource & {
+                    color: string;
+                    enabled: boolean;
+                };
+                new_multi_enum_values?: Resource & {
+                    color: string;
+                    enabled: boolean;
+                }[];
+                new_name?: string;
+                new_number_value?: number;
+                new_resource_subtype?: string;
+                new_section?: Resource;
+                new_text_value?: string;
+                num_hearts?: number; // deprecated
+                num_likes?: number;
+                old_approval_status?: string;
+                old_dates?: {
+                    due_at?: string | null;
+                    due_on?: string | null;
+                    start_on?: string | null;
+                };
+                old_enum_value?: Resource & {
+                    color: string;
+                    enabled: boolean
+                };
+                old_multi_enum_values?: Resource & {
+                    color: string;
+                    enabled: boolean
+                }[];
+                old_name?: string;
+                old_number_value?: number;
+                old_resource_subtype?: string;
+                old_section?: Resource;
+                old_text_value?: string;
+                previews?: {
+                    fallback?: string;
+                    footer?: string;
+                    header?: string;
+                    header_link?: string;
+                    html_text?: string;
+                    text?: string;
+                    title?: string;
+                    title_link?: string;
+                }[];
+                project?: Resource;
                 source: string;
+                story?: ShortType;
+                tag?: Resource;
                 target: Resource;
-                hearts: Type[];
+                task?: Resource;
             }
         }
 
@@ -2895,12 +2972,12 @@ declare namespace asana {
             dispatchDelete(path: string, dispatchOptions?: any): Promise<any>;
         }
 
-        interface ResourceStream<T extends Resource> {
+        interface ResourceStream<T extends AnonymousResource> {
             on(command: 'data', callback: (resource: T) => any): void;
             on(command: 'end' | 'finish' | 'error', callback: () => void): void;
         }
 
-        interface ResourceList<T extends Resource> {
+        interface ResourceList<T extends AnonymousResource> {
             /**
              * Get the next page of results in a collection.
              *
@@ -2941,11 +3018,14 @@ declare namespace asana {
             os_version: string;
         }
 
-        interface Resource {
-            name: string;
+        interface AnonymousResource {
             gid: string;
             resource_type: string;
             resource_subtype?: string;
+        }
+
+        interface Resource extends AnonymousResource {
+            name: string;
         }
 
         interface PaginationParams extends Params {

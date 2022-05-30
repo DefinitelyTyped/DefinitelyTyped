@@ -266,6 +266,73 @@ client.tasks.create({
 client.stories.findById('foobar', {opt_fields: 'id,name'}).then();
 client.stories.findByTask('foobar', {opt_fields: 'id,name'}).then();
 client.stories.createOnTask('foobar', { name: 'test' }).then();
+
+// redacted response from client.stories.getStoriesForTask('gid here');
+const _returnedStory: asana.resources.Stories.ShortType = {
+    gid: '123',
+    created_at: '2022-02-19T14:39:02.854Z',
+    created_by: {
+        gid: '456',
+        name: 'name here',
+        resource_type: 'user'
+    },
+    resource_subtype: 'assigned',
+    resource_type: 'story',
+    text: 'name here assigned to you',
+    type: 'system'
+};
+
+
+// redacted response from client.stories.getStory('gid here')
+const _returnedLongerStory: asana.resources.Stories.Type = {
+    gid: "123",
+    created_at: "2022-05-29T23:12:24.007Z",
+    created_by:
+    {
+        gid: "456",
+        name: "name here",
+        resource_type: "user"
+    },
+    hearted: true,
+    hearts: [
+        {
+            gid: "789",
+            user: {
+                gid: "123",
+                name: "name here",
+                resource_type: "user"
+            }
+        }
+    ],
+    is_edited: false,
+    is_pinned: false,
+    liked: true,
+    likes: [
+        {
+            gid: "456",
+            user:
+            {
+                gid: "789",
+                name: "name here",
+                resource_type: "user"
+            }
+        }
+    ],
+    num_hearts: 1,
+    num_likes: 1,
+    previews: [],
+    resource_subtype: "comment_added",
+    resource_type: "story",
+    source: "web",
+    text: "asdfasdf",
+    type: "comment",
+    target: {
+        gid: "123",
+        name: "some name",
+        resource_type: "task"
+    }
+};
+
 // https://github.com/Asana/node-asana/blob/master/test/resources/tasks_spec.js
 client.tasks.createInWorkspace('foobar', { name: 'Test' }).then();
 client.tasks.findById('foobar', {opt_fields: 'id,name'}).then();
