@@ -10,8 +10,8 @@
 
 /// <reference path="helpers.d.ts" />
 
-import { JSONSchema4 } from "json-schema";
 import * as ESTree from "estree";
+import { JSONSchema4 } from "json-schema";
 
 export namespace AST {
     type TokenType =
@@ -837,7 +837,6 @@ export class ESLint {
 }
 
 export namespace ESLint {
-
     type ConfigData<Rules extends Linter.RulesRecord = Linter.RulesRecord> = Omit<Linter.Config<Rules>, "$schema">;
 
     interface Environment {
@@ -849,7 +848,7 @@ export namespace ESLint {
         configs?: Record<string, ConfigData> | undefined;
         environments?: Record<string, Environment> | undefined;
         processors?: Record<string, Linter.Processor> | undefined;
-        rules?: Record<string, Function | Rule.RuleModule> | undefined;
+        rules?: Record<string, ((...args: any[]) => any) | Rule.RuleModule> | undefined;
     }
 
     interface Options {
