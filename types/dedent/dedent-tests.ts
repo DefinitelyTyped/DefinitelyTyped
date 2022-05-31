@@ -1,4 +1,4 @@
-import * as dedent from 'dedent';
+import dedent = require('dedent');
 
 const lines: string = dedent`
   first
