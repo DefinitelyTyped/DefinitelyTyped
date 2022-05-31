@@ -12,7 +12,7 @@ export default class FindCommand extends Command {
     /**
      * The find command is always enabled.
      */
-    get isEnabled(): true;
+    isEnabled: true;
     /**
      * It does not affect data so should be enabled in read-only mode.
      */

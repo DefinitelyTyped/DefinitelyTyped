@@ -79,16 +79,18 @@ class MyPlugin extends Plugin {
         return 'MyPlugin';
     }
 
+    name: 'MyPlugin';
+
     myMethod() {
         return null;
     }
 }
 
 const myPlugin = new MyPlugin(editor);
-myPlugin.on('foo', (ev, ...args) => {
-    // $ExpectType EventInfo<MyPlugin, "foo">
+myPlugin.on('change:isEnabled', (ev, ...args) => {
+    // $ExpectType EventInfo<MyPlugin, "change:isEnabled">
     ev;
-    // $ExpectType any[]
+    // $ExpectType [value: boolean, oldValue: boolean]
     args;
 });
 const promise = myPlugin.init?.();
@@ -142,13 +144,12 @@ class MyCommand extends Command {
 
 const command = new MyCommand(editor);
 
-command.on('execute', (ev, ...args) => {
-    // $ExpectType EventInfo<MyCommand, "execute">
+command.on('set:isEnabled', (ev, ...args) => {
+    // $ExpectType EventInfo<MyCommand, "set:isEnabled">
     ev;
-    // $ExpectType any[]
+    // $ExpectType [value: boolean, oldValue: boolean]
     args;
 });
-
 // $ExpectType boolean
 command.value;
 // $ExpectError
@@ -171,8 +172,6 @@ command.editor;
 
 // $ExpectType boolean
 command.isEnabled;
-
-// $ExpectError
 command.isEnabled = false;
 
 command.destroy();

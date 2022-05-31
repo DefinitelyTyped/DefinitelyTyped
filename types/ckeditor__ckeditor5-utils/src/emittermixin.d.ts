@@ -51,8 +51,8 @@ export interface Emitter {
      * Stops executing the callback on the given event.
      * Shorthand for {@link #stopListening `this.stopListening( this, event, callback )`}.
      */
-    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
-    off(event: string, callback?: (this: this, info: EventInfo, ...args: any[]) => void): void;
+    off<K extends string>(event: K, callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
+    off(event: string, callback: (this: this, info: EventInfo, ...args: any[]) => void): void;
     /**
      * Registers a callback function to be executed when an event is fired in a specific (emitter) object.
      *

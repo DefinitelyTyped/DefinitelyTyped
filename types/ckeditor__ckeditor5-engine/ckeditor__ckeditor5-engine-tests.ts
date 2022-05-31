@@ -268,6 +268,7 @@ bool = needsPlaceholder(viewElement, bool);
 
 const editingcontroller: EditingController = new EditingController(model, stylesProcessor);
 editingcontroller.destroy();
+// EditingController does not have observable properties
 editingcontroller.set('foo', 'bar');
 editingcontroller.once('foo', (ev, ...args) => {
     // $ExpectType EventInfo<EditingController, "foo">

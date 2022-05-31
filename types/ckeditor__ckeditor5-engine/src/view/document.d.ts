@@ -1,25 +1,23 @@
 import { Collection } from '@ckeditor/ckeditor5-utils';
-import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
-import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
-import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
-import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
+import { Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
 import DocumentSelection from './documentselection';
 import DowncastWriter from './downcastwriter';
 import { BubblingEmitter } from './observer/bubblingemittermixin';
 import RootEditableElement from './rooteditableelement';
 import { StylesProcessor } from './stylesmap';
 
-export default class Document implements BubblingEmitter, Observable {
+// tslint:disable-next-line:no-empty-interface
+export default interface Document extends Observable {}
+
+export default class Document implements BubblingEmitter {
     constructor(stylesProcessor: StylesProcessor);
     readonly selection: DocumentSelection;
     readonly roots: Collection<RootEditableElement>;
     readonly stylesProcessor: StylesProcessor;
-    get isReadOnly(): boolean;
-    protected set isReadOnly(value: boolean);
+    isReadOnly: boolean;
     isFocused: boolean;
     isSelecting: boolean;
-    get isComposing(): boolean;
-    protected set isComposing(value: boolean);
+    isComposing: boolean;
     /**
      * Gets a {@link module:engine/view/document~Document#roots view root element} with the specified name. If the name is not
      * specific "main" root is returned.
@@ -75,36 +73,6 @@ export default class Document implements BubblingEmitter, Observable {
      * Destroys this instance. Makes sure that all observers are destroyed and listeners removed.
      */
     destroy(): void;
-
-    set(...args: [option: Record<string, unknown>] | [name: string, value: unknown] | [name: string]): void;
-    bind(...bindProperties: string[]): BindChain;
-    unbind(...unbindProperties: string[]): void;
-    decorate(methodName: string): void;
-    on<K extends string>(
-        event: K,
-        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined; context?: string | undefined },
-    ): void;
-    once<K extends string>(
-        event: K,
-        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined; context?: string | undefined },
-    ): void;
-    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
-    listenTo<P extends string, E extends Emitter>(
-        emitter: E,
-        event: P,
-        callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
-    ): void;
-    stopListening<E extends Emitter, P extends string>(
-        emitter?: E,
-        event?: P,
-        callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-    ): void;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
-    delegate(...events: string[]): EmitterMixinDelegateChain;
-    stopDelegating(event?: string, emitter?: Emitter): void;
 }
 
 export type ChangeType = 'children' | 'attributes' | 'text';

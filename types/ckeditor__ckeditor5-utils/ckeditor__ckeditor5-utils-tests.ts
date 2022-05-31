@@ -252,7 +252,7 @@ new Collection([{ name: '' }]).remove({ surname: '' });
 new Collection([{ name: '' }]).map(item => item.name);
 // $ExpectType number[]
 new Collection([{ name: '' }]).map((_, idx) => idx);
-new Collection().off("foo", (ev, ...args) => {
+new Collection().off('foo', (ev, ...args) => {
     // $ExpectType EventInfo<Collection<Record<string, any>, "id">, "foo">
     ev;
     // $ExpectError any[]
@@ -427,6 +427,7 @@ emitter.listenTo(emitter, 'foo', () => {});
 emitter.listenTo(emitter, 'foo', () => {}, { priority: 10 });
 emitter.listenTo(emitter, 'foo', () => {}, { priority: 'highest' });
 
+// $ExpectError
 emitter.off('foo');
 emitter.off('foo', () => {});
 
@@ -655,60 +656,9 @@ objectToMap({ foo: 1, bar: 2 }).get('foo');
 
 // utils/observablemixin ======================================================
 
+// tslint:disable-next-line:no-empty-interface
+interface Car extends Observable {}
 class Car implements Observable {
-    set(...args: [option: Record<string, unknown>] | [name: string, value: unknown] | [name: string]): void {
-        throw new Error('Method not implemented.');
-    }
-    bind(..._bindProperties: string[]): BindChain {
-        throw new Error('Method not implemented.');
-    }
-    unbind(..._unbindProperties: string[]): void {
-        throw new Error('Method not implemented.');
-    }
-    decorate(_methodName: string): void {
-        throw new Error('Method not implemented.');
-    }
-    on<K extends string>(
-        _event: K,
-        _callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        _options?: { priority?: number | PriorityString | undefined },
-    ): void {
-        throw new Error('Method not implemented.');
-    }
-    once<K extends string>(
-        _event: K,
-        _callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        _options?: { priority?: number | PriorityString | undefined },
-    ): void {
-        throw new Error('Method not implemented.');
-    }
-    off<K extends string>(_event: K, _callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void {
-        throw new Error('Method not implemented.');
-    }
-    listenTo<P extends string, E extends Emitter>(
-        _emitter: E,
-        _event: P,
-        _callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-        _options?: { priority?: number | PriorityString | undefined },
-    ): void {
-        throw new Error('Method not implemented.');
-    }
-    stopListening<E extends Emitter, P extends string>(
-        _emitter?: E,
-        _event?: P,
-        _callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-    ): void {
-        throw new Error('Method not implemented.');
-    }
-    fire(_eventOrInfo: string | EventInfo, ..._args: any[]): unknown {
-        throw new Error('Method not implemented.');
-    }
-    delegate(..._events: string[]): EmitterMixinDelegateChain {
-        throw new Error('Method not implemented.');
-    }
-    stopDelegating(_event?: string, _emitter?: Emitter): void {
-        throw new Error('Method not implemented.');
-    }
     color: string;
     used: boolean;
     accelerate(): void {}
@@ -717,23 +667,26 @@ class Car implements Observable {
 const bettle = new Car();
 const ranger = new Car();
 
+// $ExpectError
 bettle.bind('color', 'year').to(ranger);
 bettle.bind('color').to(ranger, 'color');
-// @ts-expect-error
+// $ExpectError
 bettle.bind('color').to(ranger, 'foo');
-// @ts-expect-error
+// $ExpectError
 bettle.bind('color', 'year').to(ranger, 'color', ranger, 'used');
+// $ExpectError
 bettle.bind('color', 'year').to(ranger, 'color', ranger, 'used', (color: string, used: boolean) => {
     console.log(color, used);
 });
+// $ExpectError
 bettle.bind('custom').to(ranger, 'color', ranger, 'used', (...args: Array<string | boolean>) => args.join('/'));
-// @ts-expect-error
+// $ExpectError
 bettle.bind('custom').to(ranger, 'color', ranger, 'used', (...args: number[]) => args.join('/'));
 
 bettle.bind('color').toMany([ranger, ranger], 'color', (color1: string, color2: string) => {
     console.log(color1, color2);
 });
-// @ts-expect-error
+// $ExpectError
 bettle.bind('color').toMany([ranger, ranger], 'year', () => {});
 bettle.decorate('color');
 bettle.decorate('accelerate');
@@ -747,6 +700,7 @@ bettle.set('color');
 
 bettle.unbind();
 bettle.unbind('color');
+// $ExpectError
 bettle.unbind('color', 'year');
 
 // utils/priorities ===========================================================
@@ -987,3 +941,81 @@ foo.off('foo', (info, ...args) => {
     // $ExpectType any[]
     args;
 });
+
+interface ObservablePerson extends Observable {
+    set<K extends 'name'>(...args: [name: K, value: this[K]] | [name: K] | [values: Partial<Record<K, this[K]>>]): void;
+    bind(...bindProperties: Array<'name'>): BindChain;
+    unbind(...bindProperties: Array<'name'>): void;
+    decorate(methodName: 'greet'): void;
+    on<K extends 'name', L extends `change:${K}` | `set:${K}`>(
+        event: L,
+        callback: (info: EventInfo<this, L>, value: this[K], oldValue: this[K]) => void,
+        options?: {
+            priority?: PriorityString | number | undefined;
+        },
+    ): void;
+    once<K extends 'name', L extends `change:${K}` | `set:${K}`>(
+        event: L,
+        callback: (info: EventInfo<this, L>, value: this[K], oldValue: this[K]) => void,
+        options?: {
+            priority?: PriorityString | number | undefined;
+        },
+    ): void;
+    off<K extends 'name', L extends `change:${K}` | `set:${K}`>(
+        event: L,
+        callback: (info: EventInfo<this, L>, value: this[K], oldValue: this[K]) => void,
+    ): void;
+    fire<K extends 'name', L extends `change:${K}` | `set:${K}`>(
+        eventOrInfo: L | EventInfo<this, L>,
+        value: this[K],
+        old: this[K],
+    ): void;
+    delegate(...events: Array<'change:name' | 'set:name'>): EmitterMixinDelegateChain;
+    stopDelegating(event?: 'change:name' | 'set:name', emitter?: Emitter): void;
+    greet(): void;
+}
+
+class ObservablePerson {
+    name = 'John';
+    greet(): void {
+        console.log('hi');
+    }
+}
+new ObservablePerson().set('name');
+new ObservablePerson().set('name', 'Jane');
+// $ExpectError
+new ObservablePerson().set('name', 5);
+new ObservablePerson().set({ name: 'Jane' });
+// $ExpectError
+new ObservablePerson().set({ name: 'Jane', age: 40 });
+new ObservablePerson().decorate('greet');
+// $ExpectError
+new ObservablePerson().decorate('on');
+// $ExpectError
+new ObservablePerson().decorate('name');
+// $ExpectError
+new ObservablePerson().decorate('on');
+new ObservablePerson().decorate('greet');
+// $ExpectError
+new ObservablePerson().on('foo', () => {});
+new ObservablePerson().on('set:name', (ev, value, old) => {
+    // $ExpectType EventInfo<ObservablePerson, "set:name">
+    ev;
+    // $ExpectType string
+    value;
+    // $ExpectType string
+    old;
+});
+new ObservablePerson().once('change:name', (ev, value, old) => {
+    // $ExpectType EventInfo<ObservablePerson, "change:name">
+    ev;
+    // $ExpectType string
+    value;
+    // $ExpectType string
+    old;
+});
+// $ExpectError
+new ObservablePerson().fire('change:name', true, false);
+new ObservablePerson().fire('change:name', 'Jane', 'John');
+// $ExpectError
+new ObservablePerson().off('change:name');

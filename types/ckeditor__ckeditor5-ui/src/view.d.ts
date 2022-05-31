@@ -3,7 +3,7 @@ import { Locale } from '@ckeditor/ckeditor5-utils';
 import { Emitter as DomEmitter } from '@ckeditor/ckeditor5-utils/src/dom/emittermixin';
 import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
 import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
-import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
 import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import Template, { BindChain as TemplateBindChain, TemplateDefinition } from './template';
 import ViewCollection from './viewcollection';
@@ -350,10 +350,6 @@ export default class View implements DomEmitter, Observable {
     enableCssTransitions?(): void;
     disableCssTransitions?(): void;
 
-    set(...args: [option: Record<string, unknown>] | [name: string, value: unknown] | [name: string]): void;
-    bind(...bindProperties: string[]): BindChain;
-    unbind(...unbindProperties: string[]): void;
-    decorate(methodName: string): void;
     on<K extends keyof HTMLElementEventMap>(
         event: K,
         callback: (this: this, info: EventInfo<this, K>, event: HTMLElementEventMap[K]) => void,
@@ -386,7 +382,7 @@ export default class View implements DomEmitter, Observable {
         event: K,
         callback: (this: this, info: EventInfo<this, K>, event: HTMLElementEventMap[K]) => void,
     ): void;
-    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
+    off<K extends string>(event: K, callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
     fire<K extends keyof HTMLElementEventMap>(name: K, event: HTMLElementEventMap[K]): unknown;
     fire(event: string | EventInfo, ...args: any[]): unknown;
     delegate(...events: string[]): EmitterMixinDelegateChain;
@@ -419,3 +415,5 @@ export default class View implements DomEmitter, Observable {
         callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
     ): void;
 }
+
+export default interface View extends DomEmitter, Observable {}

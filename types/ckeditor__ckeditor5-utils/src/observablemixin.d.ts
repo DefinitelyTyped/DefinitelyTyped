@@ -93,7 +93,9 @@ export interface Observable extends Emitter {
      * properties and methods, but means that `foo.set( 'bar', 1 )` may be slightly slower than `foo.bar = 1`.
      *
      */
-    set(...args: [option: Record<string, unknown>] | [name: string, value: unknown] | [name: string]): void;
+    set(
+        ...args: [name: string] | [name: string, value: unknown] | [options: Partial<Record<string, unknown>>]
+    ): void;
     /**
      * Binds {@link #set observable properties} to other objects implementing the
      * {@link module:utils/observablemixin~Observable} interface.
@@ -148,7 +150,7 @@ export interface Observable extends Emitter {
      *    	( isAEnabled, isBEnabled, isCEnabled ) => isAEnabled && isBEnabled && isCEnabled );
      *
      */
-    bind(...bindProperties: string[]): BindChain;
+    bind(...bindProperties: Array<keyof this & string>): BindChain;
     /**
      * Removes the binding created with {@link #bind}.
      *
@@ -158,7 +160,7 @@ export interface Observable extends Emitter {
      *    // Removes bindings for all properties.
      *    A.unbind();
      */
-    unbind(...unbindProperties: string[]): void;
+    unbind(...unbindProperties: Array<keyof this & string>): void;
     /**
      * Turns the given methods of this object into event-based ones. This means that the new method will fire an event
      * (named after the method) and the original action will be plugged as a listener to that event.

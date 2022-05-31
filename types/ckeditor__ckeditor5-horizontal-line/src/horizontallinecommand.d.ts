@@ -16,20 +16,4 @@ export default class HorizontalLineCommand extends Command {
      * Executes the command.
      */
     execute(): void;
-    on(
-        event: 'execute',
-        callback: (info: EventInfo<this, 'execute'>) => void,
-        options?: {
-            priority?: number | PriorityString | undefined;
-        },
-    ): void;
-    once(
-        event: 'execute',
-        callback: (info: EventInfo<this, 'execute'>) => void,
-        options?: {
-            priority?: number | PriorityString | undefined;
-        },
-    ): void;
-    off(event: 'execute', callback?: (info: EventInfo<this, 'execute'>) => void): void;
-    fire(event: 'execute'): void;
 }

@@ -1,4 +1,7 @@
-import { Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import ContextPlugin from './contextplugin';
 import Editor from './editor/editor';
 import { EditorWithUI } from './editor/editorwithui';
@@ -138,6 +141,31 @@ export default class Plugin implements Observable {
      * **Note:** This method is optional. A plugin instance does not need to have it defined.
      */
     afterInit?(): Promise<void> | void;
+    set(...args: [name: 'isEnabled', value: boolean] | [name: 'isEnabled'] | [values: { isEnabled?: boolean }]): void;
+    bind(bindProperties: 'isEnabled'): BindChain;
+    unbind(unbindProperties: 'isEnabled'): BindChain;
+
+    on<K extends 'isEnabled', M extends `set:${K}` | `change:${K}`>(
+        event: M,
+        callback: (this: this, info: EventInfo<this, M>, value: this[K], oldValue: this[K]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<K extends 'isEnabled', M extends `set:${K}` | `change:${K}`>(
+        event: M,
+        callback: (this: this, info: EventInfo<this, M>, value: this[K], oldValue: this[K]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<K extends 'isEnabled', M extends `set:${K}` | `change:${K}`>(
+        event: M,
+        callback?: (this: this, info: EventInfo<this, M>, value: this[K], oldValue: this[K]) => void,
+    ): void;
+    fire<K extends 'isEnabled'>(
+        eventOrInfo: `set:${K}` | `change:${K}` | EventInfo<Emitter, `set:${K}` | `change:${K}`>,
+        value: this[K],
+        oldValue: this[K],
+    ): unknown;
+    delegate<K extends 'isEnabled'>(...events: Array<`change:${K}` | `set:${K}`>): EmitterMixinDelegateChain;
+    stopDelegating<K extends 'isEnabled'>(event?: `set:${K}` | `change:${K}`, emitter?: Emitter): void;
 }
 
 // Beware that this defines a class constructor, not the class instance.

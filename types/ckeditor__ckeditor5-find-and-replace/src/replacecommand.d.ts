@@ -9,7 +9,7 @@ export default class ReplaceCommand extends Command {
     /**
      * The replace command is always enabled.
      */
-    get isEnabled(): true;
+    isEnabled: true;
     /**
      * Creates a new `ReplaceCommand` instance.
      */

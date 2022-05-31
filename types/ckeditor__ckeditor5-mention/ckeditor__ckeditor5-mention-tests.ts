@@ -29,6 +29,7 @@ myEditor.plugins.get(Mention).toMentionAttribute(element, { foo: 5 }).foo;
 
 new MentionUI(myEditor).isEnabled = true;
 
+// $ExpectError
 new MentionEditing(myEditor).on('foo', evt => evt.stop());
 
 const command = new MentionCommand(myEditor);

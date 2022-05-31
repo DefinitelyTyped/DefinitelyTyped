@@ -32,7 +32,7 @@ export interface Emitter extends BaseEmitter {
         event: K,
         callback: (this: this, info: EventInfo<this, K>, event: HTMLElementEventMap[K]) => void,
     ): void;
-    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
+    off<K extends string>(event: K, callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
     fire<K extends keyof HTMLElementEventMap>(name: K, event: HTMLElementEventMap[K]): unknown;
     fire(event: string | EventInfo, ...args: any[]): unknown;
     delegate(...events: string[]): EmitterMixinDelegateChain;

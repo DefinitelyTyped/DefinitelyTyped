@@ -20,6 +20,7 @@ const config: SimpleUploadConfig = {
 };
 
 const fileRepository = new FileRepository(new MyEditor());
+// $ExpectError
 fileRepository.on('click', () => {});
 fileRepository.createUploadAdapter = loader => loader;
 // ExpectType UploadAdapter

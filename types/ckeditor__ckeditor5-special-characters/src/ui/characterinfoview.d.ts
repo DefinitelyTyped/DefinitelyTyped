@@ -1,4 +1,7 @@
 import { View } from '@ckeditor/ckeditor5-ui';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { BindChain } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 
 /**
  * The view displaying detailed information about a special character glyph, e.g. upon
@@ -26,12 +29,30 @@ export default class CharacterInfoView extends View {
 
     set(
         ...args:
-            | [
-                  ...args:
-                      | [option: Record<'character', string | null>]
-                      | [name: 'character', value: string | null]
-                      | [name: 'character']
-              ]
-            | [...args: [option: Record<'name', string | null>] | [name: 'name', value: string | null] | [name: 'name']]
+            | [name: 'character' | 'name', value: string | null]
+            | [name: 'code', value: string]
+            | [name: 'character' | 'name' | 'code']
+            | [values: { character?: string | null; name?: string | null; code?: string }]
+    ): void;
+    bind(...values: Array<'character' | 'name' | 'code'>): BindChain;
+    unbind(...values: Array<'character' | 'name' | 'code'>): BindChain;
+
+    on<K extends 'character' | 'name' | 'code'>(
+        event: `change:${K}`,
+        callback: (info: EventInfo<this, `change:${K}`>, name: K, value: this[K], oldValue: this[K]) => void,
+        options?: {
+            priority?: number | PriorityString | undefined;
+        },
+    ): void;
+    once<K extends 'character' | 'name' | 'code'>(
+        event: `change:${K}`,
+        callback: (info: EventInfo<this, `change:${K}`>, name: K, value: this[K], oldValue: this[K]) => void,
+        options?: {
+            priority?: number | PriorityString | undefined;
+        },
+    ): void;
+    off<K extends 'character' | 'name' | 'code'>(
+        event: `change:${K}`,
+        callback: (info: EventInfo<this, `change:${K}`>, callback: (info: EventInfo<this, `change:${K}`>, name: K, value: this[K], oldValue: this[K]) => void) => void,
     ): void;
 }

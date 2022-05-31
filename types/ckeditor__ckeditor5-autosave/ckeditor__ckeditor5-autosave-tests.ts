@@ -1,11 +1,17 @@
 import { Autosave } from '@ckeditor/ckeditor5-autosave';
 import { AutosaveAdapter, AutosaveConfig } from '@ckeditor/ckeditor5-autosave/src/autosave';
 import { Editor } from '@ckeditor/ckeditor5-core';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
 
 class MyEditor extends Editor {}
 const myEditor = new MyEditor();
 const plugin = new Autosave(myEditor);
+// $ExpectError
 plugin.once('click', () => {});
+plugin.once(
+    'change:isEnabled',
+    (..._args: [info: EventInfo<Autosave, 'change:isEnabled'>, value: boolean, oldValue: boolean]) => {},
+);
 // $ExpectType Promise<unknown>
 plugin.save();
 // $ExpectType false

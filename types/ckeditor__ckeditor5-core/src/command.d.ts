@@ -1,4 +1,7 @@
-import { Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import Editor from './editor/editor';
 
 // tslint:disable-next-line:no-empty-interface
@@ -76,8 +79,7 @@ export default class Command implements Observable {
      *    // Enabling the command again.
      *    enableBold();
      */
-    get isEnabled(): boolean;
-    protected set isEnabled(value: boolean);
+    isEnabled: boolean;
 
     /**
      * A flag indicating whether a command execution changes the editor data or not.
@@ -160,4 +162,56 @@ export default class Command implements Observable {
      * Destroys the command.
      */
     destroy(): void;
+
+    set<K extends 'isEnabled'|'value', L extends this[K]>(
+        ...args:
+            | [name: K]
+            | [name: K, value: L ]
+            | [options: Partial<Record<K, L >>]
+    ): void;
+
+    bind(...bindProperties: Array<'isEnabled' | 'value'>): BindChain;
+    unbind(...unbindProperties: Array<'isEnabled' | 'value'>): BindChain;
+
+    on<K extends 'isEnabled' | 'value', M extends `set:${K}` | `change:${K}`>(
+        event: M,
+        callback: (info: EventInfo<this, M>, value: this[K], oldValue: this[K]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    on(
+        event: 'execute',
+        callback: (info: EventInfo<this, 'execute'>, ...args: Parameters<this['execute']>) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<K extends 'isEnabled' | 'value', M extends `set:${K}` | `change:${K}`>(
+        event: M,
+        callback: (this: this, info: EventInfo<this, M>, value: this[K], oldValue: this[K]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once(
+        event: 'execute',
+        callback: (this: this, info: EventInfo<this, 'execute'>, ...args: Parameters<this['execute']>) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<K extends 'isEnabled' | 'value', M extends `set:${K}` | `change:${K}`>(
+        event: M,
+        callback: (this: this, info: EventInfo<this, M>, value: this[K], oldValue: this[K]) => void,
+    ): void;
+    off(
+        event: 'execute',
+        callback: (this: this, info: EventInfo<this, 'execute'>, ...args: Parameters<this['execute']>) => void,
+    ): void;
+    fire<K extends 'isEnabled' | 'value'>(
+        eventOrInfo: `set:${K}` | `change:${K}` | EventInfo<Emitter, `set:${K}` | `change:${K}`>,
+        value: this[K],
+        oldValue: this[K],
+    ): unknown;
+    fire(eventOrInfo: 'execute' | EventInfo<Emitter, 'execute'>, ...args: Parameters<this['execute']>): unknown;
+    delegate<K extends 'isEnabled' | 'value'>(
+        ...events: Array<`change:${K}` | `set:${K}` | 'execute'>
+    ): EmitterMixinDelegateChain;
+    stopDelegating<K extends 'isEnabled' | 'value'>(
+        event?: `set:${K}` | `change:${K}` | 'execute',
+        emitter?: Emitter,
+    ): void;
 }
