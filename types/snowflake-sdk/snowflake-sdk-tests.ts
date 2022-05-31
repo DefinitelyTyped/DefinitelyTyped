@@ -86,7 +86,7 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
     });
 };
 connection.connect(connectCallback);
-connection.connectAsync(connectCallback);
+connection.connectAsync(connectCallback).then(() => {});
 
 //  Key pair connections
 

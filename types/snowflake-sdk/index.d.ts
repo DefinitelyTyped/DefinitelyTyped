@@ -529,7 +529,7 @@ export type Connection = NodeJS.EventEmitter & {
      * `https://<okta_account_name>.okta.com` (in order to use native SSO through Okta), call the {@link connect}
      * method.
      */
-    connectAsync(fn: (err: SnowflakeError | undefined, conn: Connection) => void): void;
+    connectAsync(fn: (err: SnowflakeError | undefined, conn: Connection) => void): Promise<void>;
 
     /**
      * ### Related Docs
