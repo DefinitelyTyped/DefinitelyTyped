@@ -3,7 +3,7 @@
 // Definitions by: Karim Shehadeh <https://github.com/kshehadeh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type SfccCiCallback = (err: any, result: any) => any;
+export type SfccCiCallback = (err: any, result: any) => void;
 
 export const auth: {
     auth: (client_id: string, client_secret: string, callback: SfccCiCallback) => void;
