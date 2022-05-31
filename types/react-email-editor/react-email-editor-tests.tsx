@@ -62,7 +62,7 @@ const groupedSpecialLink: GroupedSpecialLink = {
       target: '_blank',
     },
   ],
-}
+};
 
 class App extends React.Component {
   private readonly editorRef = React.createRef<EmailEditor>();
@@ -140,7 +140,7 @@ class App extends React.Component {
               email: 'john.doe@acme.com',
             },
             mergeTags: [simpleMergeTag, groupedMergeTag, conditionalMergeTag],
-            specialLinks: [simpleSpecialLink, groupedSpecialLink]
+            specialLinks: [simpleSpecialLink, groupedSpecialLink],
             designTags: {
               current_user_name: 'John Doe',
             },
