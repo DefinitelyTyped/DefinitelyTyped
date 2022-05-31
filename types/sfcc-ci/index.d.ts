@@ -9,7 +9,7 @@ export const auth: {
     auth: (client_id: string, client_secret: string, callback: SfccCiCallback) => void;
 };
 export const cartridge: {
-    add: (instance: any, cartridgename: any, position: any, target: any, siteid: any, verbose: any, token: any, callback: any) => void;
+    add: (instance: any, cartridgename: any, position: any, target: any, siteid: any, verbose: any, token: any, callback: SfccCiCallback) => void;
 };
 export const code: {
     list: (instance: string, token: string, callback: SfccCiCallback) => void;
