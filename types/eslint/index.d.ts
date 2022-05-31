@@ -837,6 +837,21 @@ export class ESLint {
 }
 
 export namespace ESLint {
+
+    type ConfigData<Rules extends Linter.RulesRecord = Linter.RulesRecord> = Omit<Linter.Config<Rules>, "$schema">;
+
+    interface Environment {
+        globals?: { [name: string]: boolean; } | undefined;
+        parserOptions?: Linter.ParserOptions | undefined;
+    }
+
+    interface Plugin {
+        configs?: Record<string, ConfigData> | undefined;
+        environments?: Record<string, Environment> | undefined;
+        processors?: Record<string, Linter.Processor> | undefined;
+        rules?: Record<string, Function | Rule.RuleModule> | undefined;
+    }
+
     interface Options {
         // File enumeration
         cwd?: string | undefined;
@@ -851,7 +866,7 @@ export namespace ESLint {
         baseConfig?: Linter.Config | undefined;
         overrideConfig?: Linter.Config | undefined;
         overrideConfigFile?: string | undefined;
-        plugins?: Record<string, any> | undefined;
+        plugins?: Record<string, Plugin> | undefined;
         reportUnusedDisableDirectives?: Linter.RuleLevel | undefined;
         resolvePluginsRelativeTo?: string | undefined;
         rulePaths?: string[] | undefined;
