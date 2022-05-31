@@ -402,15 +402,9 @@ export interface RequestLog {
 export interface RequestQuery {
     [key: string]: any;
 }
-/**
- * Default request references. Used to give typing to requests,
- * route handlers, lifecycle methods, auth credentials, etc.
- * This can be overwritten to whatever is suitable and universal
- * in your specific app, but whatever references you pass to
- * server route generic, or lifecycle methods will take precedence
- * over these.
- */
-export interface ReqRefDefaults {
+
+
+export interface InternalRequestDefaults {
     Payload: stream.Readable | Buffer | string | object;
     Query: RequestQuery;
     Params: Util.Dictionary<any>;
@@ -427,6 +421,16 @@ export interface ReqRefDefaults {
     Rules: RouteRules;
     Bind: object | null;
 }
+
+/**
+ * Default request references. Used to give typing to requests,
+ * route handlers, lifecycle methods, auth credentials, etc.
+ * This can be overwritten to whatever is suitable and universal
+ * in your specific app, but whatever references you pass to
+ * server route generic, or lifecycle methods will take precedence
+ * over these.
+ */
+export interface ReqRefDefaults extends InternalRequestDefaults {}
 
 /**
  * Route request overrides
@@ -1224,7 +1228,8 @@ export interface ResponseToolkit<Refs extends ReqRef = ReqRefDefaults> {
  *      Scope: 'user' | 'admin' | 'manager-users'
  * }
  */
-export interface RouteOptionTypes {}
+export interface RouteOptionTypes {
+}
 
 export interface InternalRouteOptionType {
     Strategy: string;
@@ -2285,7 +2290,11 @@ export interface ServerAuth {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthstrategyname-scheme-options)
      */
-    strategy(name: string, scheme: string, options?: object): void;
+    strategy(
+        name: MergeType<InternalRouteOptionType, RouteOptionTypes>['Strategy'],
+        scheme: string,
+        options?: object
+    ): void;
 
     /**
      * Tests a request against an authentication strategy where:
@@ -2309,7 +2318,7 @@ export interface ServerAuth {
      * are still valid (e.g. have not been revoked or expired). It does not include verifying scope,
      * entity, or other route properties.
      */
-    verify(request: Request): Promise<void>;
+    verify <Refs = ReqRefDefaults>(request: Request<Refs>): Promise<void>;
 }
 
 export type CachePolicyOptions<T> = PolicyOptionVariants<T> & {
@@ -2861,12 +2870,12 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
  * For context [Shot module](https://github.com/hapijs/shot)
  */
-export interface ServerInjectResponse extends Shot.ResponseObject {
+export interface ServerInjectResponse<Result = object> extends Shot.ResponseObject {
     /**
      * the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the
      * internal objects returned (instead of parsing the response string).
      */
-    result: object | undefined;
+    result: Result | undefined;
     /**
      * the request object.
      */
@@ -3309,7 +3318,7 @@ export interface RulesInfo {
 
 export interface RulesOptions<Refs extends ReqRef = ReqRefDefaults> {
     validate: {
-        schema?: ObjectSchema<MergeRefs<Refs>['Rules']>;
+        schema?: ObjectSchema<MergeRefs<Refs>['Rules']> | Record<keyof MergeRefs<Refs>['Rules'], Schema>;
         options?: ValidationOptions;
     };
 }
@@ -3914,7 +3923,7 @@ export class Server {
      * * request - the request object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
      */
-    inject(options: string | ServerInjectOptions): Promise<ServerInjectResponse>;
+    inject <Result = object>(options: string | ServerInjectOptions): Promise<ServerInjectResponse<Result>>;
 
     /**
      * Logs server events that cannot be associated with a specific request. When called the server emits a 'log' event which can be used by other listeners or plugins to record the information or
