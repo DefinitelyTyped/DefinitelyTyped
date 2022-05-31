@@ -102,8 +102,6 @@ interface ModernFakeTimersConfig {
      * all APIs are faked.
      */
     doNotFake?: FakeableAPI[];
-    /** Whether fake timers should be enabled for all test files. The default is `false`. */
-    enableGlobally?: boolean;
     /**
      * Use the old fake timers implementation instead of one backed by `@sinonjs/fake-timers`.
      * The default is `false`.
