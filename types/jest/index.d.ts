@@ -90,7 +90,7 @@ type FakeableAPI =
   | 'setTimeout'
   | 'clearTimeout';
 
-interface ModernFakeTimersConfig {
+type FakeTimersConfig = {
     /**
      * If set to `true` all timers will be advanced automatically by 20 milliseconds
      * every 20 milliseconds. A custom time delta may be provided by passing a number.
@@ -362,7 +362,7 @@ declare namespace jest {
     /**
      * Instructs Jest to use fake versions of the standard timer functions.
      */
-    function useFakeTimers(config?: ModernFakeTimersConfig): typeof jest;
+    function useFakeTimers(config?: FakeTimersConfig): typeof jest;
     /**
      * Instructs Jest to use the real versions of the standard timer functions.
      */
