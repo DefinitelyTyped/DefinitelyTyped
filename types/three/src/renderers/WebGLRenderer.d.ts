@@ -19,7 +19,6 @@ import { WebXRManager } from '../renderers/webxr/WebXRManager';
 import { BufferGeometry } from './../core/BufferGeometry';
 import { Texture } from '../textures/Texture';
 import { Data3DTexture } from '../textures/Data3DTexture';
-import { XRAnimationLoopCallback } from './webxr/WebXR';
 import { Vector3 } from '../math/Vector3';
 import { Box3 } from '../math/Box3';
 import { DataArrayTexture } from '../textures/DataArrayTexture';
@@ -336,7 +335,7 @@ export class WebGLRenderer implements Renderer {
      * A build in function that can be used instead of requestAnimationFrame. For WebXR projects this function must be used.
      * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
      */
-    setAnimationLoop(callback: XRAnimationLoopCallback | null): void;
+    setAnimationLoop(callback: XRFrameRequestCallback | null): void;
 
     /**
      * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
