@@ -43,6 +43,18 @@ Route.extend({
     },
 });
 
+class ActivateRoute extends Route {
+    activate(transition: Transition) {
+        this.transitionTo('someOtherRoute');
+    }
+}
+
+class DeactivateRoute extends Route {
+    deactivate(transition: Transition) {
+        this.transitionTo('someOtherRoute');
+    }
+}
+
 class RedirectRoute extends Route {
     redirect(model: {}, a: Transition) {
         if (!model) {

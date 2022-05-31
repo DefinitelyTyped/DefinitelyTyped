@@ -18,8 +18,8 @@ const str = "This is a stylus test";
  * Basic Usage
  */
 stylus.render(str, { filename: 'nesting.css' }, (err, css) => {
-  if (err) throw err;
-  console.log(css);
+    if (err) throw err;
+    console.log(css);
 });
 
 stylus(str)
@@ -27,6 +27,14 @@ stylus(str)
     .render((err, css) => {
         // logic
     });
+
+/**
+ * .render
+ */
+stylus.render(str);
+stylus.render(str, { filename: "test.styl" });
+stylus.render(str, (err, css) => { });
+stylus.render(str, { filename: "test.styl" }, (err, css) => { });
 
 /**
  * .set(setting, value)

@@ -161,7 +161,7 @@ declare class SimpleLayout {
     private treeWriteColumn;
     private treeWriteLink;
     private getCurrentColumnToWrite_;
-    mergeDuplicated(colName: string, rowspan: number, fromIndex: number): void;
+    private mergeDuplicated_;
     writeColumn(
         content: string | number | Date,
         opt_options?: {

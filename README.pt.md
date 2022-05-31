@@ -350,7 +350,7 @@ Então eles estão errados, e nós não notamos ainda. Você pode ajudar enviand
 
 #### Posso requisitar uma definição?
 
-Aqui estão as [definições requisitadas atualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Aqui estão as [definições requisitadas atualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### Mas e as definições de tipo para a DOM?
 

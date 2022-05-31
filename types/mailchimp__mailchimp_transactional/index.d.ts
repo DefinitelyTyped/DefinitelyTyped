@@ -3,7 +3,7 @@
 // Definitions by: Pieter Scheffers <https://github.com/PieterScheffers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace MailChimpTransactional {
+declare namespace Mailchimp {
     type OutputFormat = 'json' | 'xml' | 'php' | 'yaml';
 
     type SendingStatus = 'sent' | 'queued' | 'scheduled' | 'rejected' | 'invalid';
@@ -24,7 +24,7 @@ declare namespace MailChimpTransactional {
 
     interface Recipient {
         email: string;
-        name: string;
+        name?: string;
         type: RecipientType;
     }
 
@@ -70,7 +70,7 @@ declare namespace MailChimpTransactional {
     }
 
     /**
-     * @link https://mailchimp.com/developer/transactional/api/messages/
+     * @link https://mailchimp.com/developer/transactional/api/messages/send-new-message/
      */
     interface SendMessageRequest {
         /**
@@ -135,6 +135,26 @@ declare namespace MailChimpTransactional {
     }
 
     /**
+     * @link https://mailchimp.com/developer/transactional/api/messages/send-using-message-template/
+     */
+    interface SendTemplateMessageRequest extends SendMessageRequest {
+        /**
+         * The immutable name or slug of a template that exists in the user's
+         * account. For backwards-compatibility, the template name may also be
+         * used but the immutable slug is preferred.
+         */
+        template_name: string;
+
+        /**
+         * An array of template content to send. Each item in the array should
+         * be a struct with two keys - name: the name of the content block to
+         * set the content for, and content: the actual content to put into the
+         * block
+         */
+        template_content: MergeVar[];
+    }
+
+    /**
      * HTTP Status 200
      * An array of objects for each recipient containing the key "email" with the email address,
      * and details of the message status for that recipient
@@ -162,8 +182,11 @@ declare namespace MailChimpTransactional {
         _id: string;
     }>;
 
+    type SendTemplateMessageResponse = SendMessageResponse;
+
     class Messages {
         send(body: SendMessageRequest): Promise<SendMessageResponse | Error>;
+        sendTemplate(body: SendTemplateMessageRequest): Promise<SendTemplateMessageResponse | Error>;
     }
 
     class ApiClient {
@@ -172,5 +195,5 @@ declare namespace MailChimpTransactional {
     }
 }
 
-declare function instance(apiKey: string): MailChimpTransactional.ApiClient;
-export = instance;
+declare function Mailchimp(apiKey: string): Mailchimp.ApiClient;
+export = Mailchimp;

@@ -70,16 +70,16 @@ element.addEventListener(Popover.Events.inserted, event => {
     // do something…
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').popover();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').popover({ delay: 0.5, animation: true });
 
-$('.alert').popover('show'); // $ExpectType void
-$('.alert').popover('hide'); // $ExpectType void
-$('.alert').popover('toggle'); // $ExpectType void
-$('.alert').popover('enable'); // $ExpectType void
-$('.alert').popover('disable'); // $ExpectType void
-$('.alert').popover('toggleEnabled'); // $ExpectType void
-$('.alert').popover('update'); // $ExpectType void
+$('.alert').popover('show'); // $ExpectType JQuery<HTMLElement>
+$('.alert').popover('hide'); // $ExpectType JQuery<HTMLElement>
+$('.alert').popover('toggle'); // $ExpectType JQuery<HTMLElement>
+$('.alert').popover('enable'); // $ExpectType JQuery<HTMLElement>
+$('.alert').popover('disable'); // $ExpectType JQuery<HTMLElement>
+$('.alert').popover('toggleEnabled'); // $ExpectType JQuery<HTMLElement>
+$('.alert').popover('update'); // $ExpectType JQuery<HTMLElement>

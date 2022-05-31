@@ -177,9 +177,9 @@ export namespace Email {
 // *** SMS API interfaces *** ///
 export namespace SMS {
     interface Client {
-        get(action: string): GetResource;
+        get(action: string, options?: ConfigOptions): GetResource;
 
-        post(action: string): PostResource;
+        post(action: string, options?: ConfigOptions): PostResource;
     }
 
     // resources

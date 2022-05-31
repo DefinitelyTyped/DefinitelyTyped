@@ -242,6 +242,7 @@ export class BinaryReader {
   getBuffer(): Uint8Array;
   getFieldNumber(): number;
   getWireType(): BinaryConstants.WireType;
+  isDelimited(): boolean;
   isEndGroup(): boolean;
   getError(): boolean;
   setBlock(bytes?: ByteSource, start?: number, length?: number): void;

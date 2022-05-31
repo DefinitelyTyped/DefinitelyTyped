@@ -329,7 +329,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 #### Могу ли я запросить определение?
 
-Вот [текущие запрошенные определения](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Вот [текущие запрошенные определения](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### Как насчет определений типов для DOM?
 

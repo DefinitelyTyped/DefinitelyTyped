@@ -1,8 +1,9 @@
-// Type definitions for @wordpress/blocks 9.1
+// Type definitions for @wordpress/blocks 11.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
 //                 Dennis Snell <https://github.com/dmsnell>
+//                 Tomasz Tunik <https://github.com/tomasztunik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -503,3 +504,29 @@ export type Transform<T extends Record<string, any> = Record<string, any>> =
     | TransformPrefix<T>
     | TransformRaw<T>
     | TransformShortcode<T>;
+
+export type BlockAttributes = Record<string, any>;
+
+export type InnerBlockTemplate = [string, BlockAttributes | undefined, InnerBlockTemplate[] | undefined];
+
+export type BlockVariationScope = 'block' | 'inserter' | 'transform';
+
+export interface BlockVariation<Attributes extends BlockAttributes = BlockAttributes> {
+    name: string;
+    title: string;
+    description?: string;
+    category?: string;
+    icon?: BlockIcon;
+    isDefault?: boolean;
+    attributes?: Attributes;
+    innerBlocks?: BlockInstance | InnerBlockTemplate[];
+    example?:
+        | BlockExampleInnerBlock
+        | {
+              attributes: Attributes;
+              innerBlocks?: InnerBlockTemplate[];
+          };
+    scope?: BlockVariationScope[];
+    keywords?: string[];
+    isActive?: (blockAttributes: Attributes, variationAttributes: Attributes) => boolean | string[];
+}

@@ -538,6 +538,11 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
      * the component is currently pressed and returns view styles.
      */
     style?: StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>) | undefined;
+
+    /**
+     * Duration (in milliseconds) to wait after press down before calling onPressIn.
+     */
+    unstable_pressDelay?: number
 }
 
 // TODO use React.AbstractComponent when available
@@ -3219,12 +3224,6 @@ export interface RefreshControlPropsAndroid extends ViewProps {
      * Size of the refresh indicator, see RefreshControl.SIZE.
      */
     size?: number | undefined;
-
-    /**
-     * Progress view top offset
-     * @platform android
-     */
-    progressViewOffset?: number | undefined;
 }
 
 export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshControlPropsAndroid {
@@ -3237,6 +3236,11 @@ export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshCont
      * Whether the view should be indicating an active refresh.
      */
     refreshing: boolean;
+
+    /**
+     * Progress view top offset
+     */
+    progressViewOffset?: number | undefined;
 }
 
 /**
@@ -3647,18 +3651,6 @@ interface ImagePropsAndroid {
      * @platform android
      */
     fadeDuration?: number | undefined;
-
-    /**
-     * Required if loading images via 'uri' from drawable folder on Android.
-     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
-     */
-    width?: number | undefined;
-
-    /**
-     * Required if loading images via 'uri' from drawable folder on Android
-     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
-     */
-    height?: number | undefined;
 }
 
 /**
@@ -3843,6 +3835,7 @@ export class Image extends ImageBase {
 }
 
 export interface ImageBackgroundProps extends ImagePropsBase {
+    children?: React.ReactNode;
     imageStyle?: StyleProp<ImageStyle> | undefined;
     style?: StyleProp<ViewStyle> | undefined;
     imageRef?(image: Image): void;
@@ -6343,6 +6336,12 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
+     * Controls whether the ScrollView should automatically adjust it's contentInset
+     * and scrollViewInsets when the Keyboard changes it's size. The default value is false.
+     */
+    automaticallyAdjustKeyboardInsets?: boolean | undefined;
+
+    /**
      * Controls whether iOS should automatically adjust the scroll indicator
      * insets. The default value is true. Available on iOS 13 and later.
      */
@@ -7799,7 +7798,10 @@ export type Permission =
     | 'android.permission.RECEIVE_WAP_PUSH'
     | 'android.permission.RECEIVE_MMS'
     | 'android.permission.READ_EXTERNAL_STORAGE'
-    | 'android.permission.WRITE_EXTERNAL_STORAGE';
+    | 'android.permission.WRITE_EXTERNAL_STORAGE'
+    | 'android.permission.BLUETOOTH_CONNECT'
+    | 'android.permission.BLUETOOTH_SCAN'
+    | 'android.permission.BLUETOOTH_ADVERTISE';
 
 export type PermissionStatus = 'granted' | 'denied' | 'never_ask_again';
 

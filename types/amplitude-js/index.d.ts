@@ -36,7 +36,7 @@ export interface Config {
     logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO' | undefined;
     optOut?: boolean | undefined;
     onError?: (() => void) | undefined;
-    onExit?: (() => void) | undefined;
+    onExitPage?: (() => void) | undefined;
     platform?: string | undefined;
     sameSiteCookie?: 'Lax' | 'Strict' | 'None' | undefined;
     saveEvents?: boolean | undefined;

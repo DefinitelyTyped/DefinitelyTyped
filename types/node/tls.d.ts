@@ -723,7 +723,7 @@ declare module 'tls' {
          * object.passphrase is optional. Encrypted keys will be decrypted with
          * object.passphrase if provided, or options.passphrase if it is not.
          */
-        key?: string | Buffer | Array<Buffer | KeyObject> | undefined;
+        key?: string | Buffer | Array<string | Buffer | KeyObject> | undefined;
         /**
          * Name of an OpenSSL engine to get private key from. Should be used
          * together with privateKeyIdentifier.

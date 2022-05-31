@@ -208,7 +208,7 @@ declare namespace Tooltip {
          *
          * @default ''
          */
-        title: string | Element | ((this: HTMLElement) => string);
+        title: string | Element | JQuery | ((this: HTMLElement) => string | Element | JQuery);
 
         /**
          * How tooltip is triggered - click | hover | focus | manual. You may
@@ -329,7 +329,7 @@ declare namespace Tooltip {
             | 'toggleEnabled'
             | 'update'
             | 'dispose',
-    ) => void;
+    ) => JQuery;
 }
 
 export default Tooltip;

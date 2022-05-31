@@ -1143,8 +1143,7 @@ export class WrapperClass extends React.Component<WrapperProps> {
     }
 }
 const StyledWrapperClass = styled(WrapperClass)``;
-// React.Component typings always add `children` to props, so this should accept children
-const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>;
+const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>; // $ExpectError
 
 export class WrapperClassFuncChild extends React.Component<WrapperProps & { children: () => any }> {
     render() {
@@ -1152,7 +1151,6 @@ export class WrapperClassFuncChild extends React.Component<WrapperProps & { chil
     }
 }
 const StyledWrapperClassFuncChild = styled(WrapperClassFuncChild)``;
-// React.Component typings always add `children` to props, so this should accept children
 const wrapperClassNoChildrenGood = <StyledWrapperClassFuncChild>{() => 'text'}</StyledWrapperClassFuncChild>;
 const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperClassFuncChild>; // $ExpectError
 

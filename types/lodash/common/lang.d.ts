@@ -220,7 +220,8 @@ declare module "../index" {
          */
         conformsTo(source: ConformsPredicateObject<TValue>): PrimitiveChain<boolean>;
     }
-    type CondPair<T, R> = [(val: T) => boolean, (val: T) => R];
+    type CondPairNullary<R> = [() => boolean, () => R];
+    type CondPairUnary<T, R> = [(val: T) => boolean, (val: T) => R];
     interface LoDashStatic {
         /**
          * Performs a [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)

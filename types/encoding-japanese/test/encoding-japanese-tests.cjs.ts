@@ -37,6 +37,15 @@ const sjisArray3 = Encoding.convert(utf8Array, {
 });
 sjisArray3; // $ExpectType number[]
 
+const sjisArray4 = Encoding.convert('🐙', {
+    to: 'SJIS', // to_encoding
+    from: 'UTF8', // from_encoding
+    type: 'string',
+    fallback: 'html-entity',
+});
+sjisArray4; // $ExpectType string
+// fallback: '&#128025;'
+
 const utf8String = 'ã\u0081\u0093ã\u0082\u0093ã\u0081«ã\u0081¡ã\u0081¯';
 const unicodeString = Encoding.convert(utf8String, {
     to: 'UNICODE',
@@ -107,32 +116,11 @@ if (isSJIS) {
     // Encoding is SJIS'
 }
 
-const sjisArray4 = [
-    130,
-    177,
-    130,
-    241,
-    130,
-    201,
-    130,
-    191,
-    130,
-    205,
-    129,
-    65,
-    130,
-    217,
-    130,
-    176,
-    129,
-    153,
-    130,
-    210,
-    130,
-    230,
+const sjisArray5 = [
+    130, 177, 130, 241, 130, 201, 130, 191, 130, 205, 129, 65, 130, 217, 130, 176, 129, 153, 130, 210, 130, 230,
 ];
 
-const encoded = Encoding.urlEncode(sjisArray4); // $ExpectType string
+const encoded = Encoding.urlEncode(sjisArray5); // $ExpectType string
 // encoded: '%82%B1%82%F1%82%C9%82%BF%82%CD%81A%82%D9%82%B0%81%99%82%D2%82%E6'
 
 const decoded = Encoding.urlDecode(encoded); // $ExpectType number[]
@@ -141,11 +129,12 @@ const decoded = Encoding.urlDecode(encoded); // $ExpectType number[]
 //    65, 130, 217, 130, 176, 129, 153, 130, 210, 130, 230
 // ]
 
-const sjisArray5 = [130, 177, 130, 241, 130, 201, 130, 191, 130, 205];
-const encoded2 = Encoding.base64Encode(sjisArray5); // $ExpectType string
+const sjisArray6 = [130, 177, 130, 241, 130, 201, 130, 191, 130, 205];
+const encoded2 = Encoding.base64Encode(sjisArray6); // $ExpectType string
 // encoded2: 'grGC8YLJgr+CzQ=='
 
 const decoded2 = Encoding.base64Decode(encoded2); // $ExpectType number[]
 // decoded2: [130, 177, 130, 241, 130, 201, 130, 191, 130, 205]
 
+Encoding.version; // $ExpectType string
 Encoding.orders; // $ExpectType string[]

@@ -763,6 +763,15 @@ export namespace Linter {
         suggestions?: LintSuggestion[] | undefined;
     }
 
+    interface LintSuppression {
+        kind: string;
+        justification: string;
+    }
+
+    interface SuppressedLintMessage extends LintMessage {
+        suppressions: LintSuppression[];
+    }
+
     interface FixOptions extends LintOptions {
         fix?: boolean | undefined;
     }
@@ -861,6 +870,7 @@ export namespace ESLint {
     interface LintResult {
         filePath: string;
         messages: Linter.LintMessage[];
+        suppressedMessages: Linter.SuppressedLintMessage[];
         errorCount: number;
         fatalErrorCount: number;
         warningCount: number;

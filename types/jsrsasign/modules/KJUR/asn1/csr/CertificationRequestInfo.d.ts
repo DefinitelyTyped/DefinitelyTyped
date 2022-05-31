@@ -1,6 +1,6 @@
 declare namespace jsrsasign.KJUR.asn1.csr {
     interface CertificationRequestInfoParams {
-        subject: { array?: Array<[{ type: string; value: string; ds: string }]>, str: string };
+        subject: { array?: Array<[{ type: string; value: string; ds: string }]>; str: string };
         sbjpubkey: string;
         extreq?: Array<{ extname: string; array?: any[] }>;
         sigalg?: string;
