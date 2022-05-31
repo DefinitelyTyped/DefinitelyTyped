@@ -1,5 +1,5 @@
 // Type definitions for sfcc-ci 2.9
-// Project: https://github.com/SalesforceCommerceCloud/sfcc-ci (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/SalesforceCommerceCloud/sfcc-ci
 // Definitions by: Karim Shehadeh <https://github.com/kshehadeh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
