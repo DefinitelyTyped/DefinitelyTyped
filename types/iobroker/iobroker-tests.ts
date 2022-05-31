@@ -677,6 +677,10 @@ enumObj.common.members && enumObj.common.members.map(() => 1);
 adapter.clearTimeout(adapter.setTimeout(() => {}, 10));
 adapter.clearInterval(adapter.setInterval(() => {}, 10));
 // $ExpectError
+clearTimeout(adapter.setTimeout(() => {}, 10));
+// $ExpectError
+clearInterval(adapter.setInterval(() => {}, 10));
+// $ExpectError
 adapter.clearTimeout(setTimeout(() => {}, 10));
 // $ExpectError
 adapter.clearInterval(setInterval(() => {}, 10));
