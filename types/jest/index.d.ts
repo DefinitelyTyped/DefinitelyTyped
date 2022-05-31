@@ -108,7 +108,7 @@ type FakeTimersConfig = {
      */
     legacyFakeTimers?: boolean;
     /** Sets current system time to be used by fake timers. The default is `Date.now()`. */
-    now?: number;
+    now?: number | Date;
     /** Maximum number of recursive timers that will be run. The default is `100_000` timers. */
     timerLimit?: number;
 }
