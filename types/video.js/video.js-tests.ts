@@ -161,6 +161,12 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     const readyState: videojs.ReadyState = this.readyState();
 
+    // $ExpectType string
+    const currentBreakPoint = this.currentBreakpoint();
+
+    // $ExpectType string
+    const currentBreakpointClass: string = this.currentBreakpointClass();
+
     this.requestFullscreen();
 
     this.requestPictureInPicture().then(pipWindow => {
@@ -201,6 +207,10 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     this.canPlayType('video/mp4');
 
     testTracks(this);
+
+    testVideoElement(this);
+
+    testControlBarElements(this);
 });
 
 function testEvents(player: videojs.Player) {
@@ -255,11 +265,11 @@ function testComponents(player: videojs.Player) {
     myOtherWindow.open();
     myOtherWindow.close();
     myOtherWindow.myFunction(); // $ExpectType void
-    myOtherWindow.myOtherFunction("test"); // $ExpectType string
+    myOtherWindow.myOtherFunction('test'); // $ExpectType string
 
-    const MyClickableComponent = videojs.extend(videojs.getComponent("clickablecomponent"));
+    const MyClickableComponent = videojs.extend(videojs.getComponent('clickablecomponent'));
     const myClickable = new MyClickableComponent(player, {
-        clickHandler: () => {}
+        clickHandler: () => {},
     });
 }
 
@@ -352,6 +362,21 @@ function testTracks(player: VideoJsPlayer) {
 
     // $ExpectType TextTrackList
     player.textTracks();
+}
+
+function testVideoElement(player: VideoJsPlayer) {
+    // $ExpectType HTMLVideoElement | HTMLAudioElement
+    player.tech(true).el();
+}
+
+function testControlBarElements(player: VideoJsPlayer) {
+    // $ExpectType PlaybackRateMenuButton | undefined
+    const child = player.controlBar.getChild('playbackRateMenuButton');
+
+    if (child) {
+        // $ExpectType HTMLDivElement
+        child.el();
+    }
 }
 
 function testGetDescendants(player: VideoJsPlayer) {

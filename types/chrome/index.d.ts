@@ -2,7 +2,6 @@
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>
 //                 otiai10 <https://github.com/otiai10>
-//                 RReverser <https://github.com/rreverser>
 //                 sreimer15 <https://github.com/sreimer15>
 //                 MatCarlson <https://github.com/MatCarlson>
 //                 ekinsol <https://github.com/ekinsol>
@@ -7363,6 +7362,12 @@ declare namespace chrome.runtime {
      */
     export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
     /**
+     * Returns information about the current platform.
+     * @since Chrome 29.
+     * @return The `getPlatformInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getPlatformInfo(): Promise<PlatformInfo>;
+    /**
      * Converts a relative path within an app/extension install directory to a fully-qualified URL.
      * @param path A path to a resource within an app/extension expressed relative to its install directory.
      */
@@ -9930,7 +9935,7 @@ declare namespace chrome.tabs {
     /** An ID that represents the absence of a group. */
     export var TAB_GROUP_ID_NONE: -1;
 
-    export type ColorEnum = 'grey' | 'blue' | 'red' | 'yellow' | 'green' | 'pink' | 'purple' | 'cyan';
+    export type ColorEnum = 'grey' | 'blue' | 'red' | 'yellow' | 'green' | 'pink' | 'purple' | 'cyan' | 'orange';
 
     export interface TabGroup {
         /** Whether the group is collapsed. A collapsed group is one whose tabs are hidden. */
@@ -11545,6 +11550,8 @@ declare namespace chrome.declarativeNetRequest {
         domainType?: DomainType | undefined;
 
         /**
+         * @deprecated since Chrome 101. Use initiatorDomains instead.
+
          * The rule will only match network requests originating from the list of domains.
          * If the list is omitted, the rule is applied to requests from all domains.
          * An empty list is not allowed.
@@ -11558,6 +11565,8 @@ declare namespace chrome.declarativeNetRequest {
         domains?: string[] | undefined;
 
         /**
+         * @deprecated since Chrome 101. Use excludedInitiatorDomains instead
+         *
          * The rule will not match network requests originating from the list of excludedDomains.
          * If the list is empty or omitted, no domains are excluded.
          * This takes precedence over domains.
@@ -11569,6 +11578,56 @@ declare namespace chrome.declarativeNetRequest {
          * This matches against the request initiator and not the request url.
          */
         excludedDomains?: string[] | undefined;
+
+        /**
+         * The rule will only match network requests originating from the list of initiatorDomains.
+         * If the list is omitted, the rule is applied to requests from all domains.
+         * An empty list is not allowed.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         * This matches against the request initiator and not the request url.
+         */
+        initiatorDomains?: string[] | undefined;
+
+        /**
+         * The rule will not match network requests originating from the list of excludedInitiatorDomains.
+         * If the list is empty or omitted, no domains are excluded.
+         * This takes precedence over initiatorDomains.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         * This matches against the request initiator and not the request url.
+         */
+        excludedInitiatorDomains?: string[] | undefined;
+
+        /**
+         * The rule will only match network requests when the domain matches one from the list of requestDomains.
+         * If the list is omitted, the rule is applied to requests from all domains.
+         * An empty list is not allowed.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         */
+        requestDomains?: string[] | undefined;
+
+        /**
+         * The rule will not match network requests when the domains matches one from the list of excludedRequestDomains.
+         * If the list is empty or omitted, no domains are excluded.
+         * This takes precedence over requestDomains.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         */
+        excludedRequestDomains?: string[] | undefined;
 
         /**
          * List of request methods which the rule won't match.

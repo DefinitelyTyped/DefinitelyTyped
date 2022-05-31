@@ -10,6 +10,23 @@ mailchimp.setConfig({
 const setListMemberBody = {
     email_address: 'test',
     status_if_new: 'subscribed' as const,
+    status: 'subscribed' as const,
+    merge_fields: undefined,
+    interests: {property1: true},
+    language: "language",
+    vip: true,
+    location: { latitude: 123, logitude: 123},
+    marketing_permissions: [
+        {
+          marketing_permission_id: "string",
+          text: "string",
+          enabled: true
+        }
+    ],
+    ip_signup: "192.0.2.1",
+    timestamp_signup: "YYYY-MM-DD",
+    ip_opt: "192.0.2.1",
+    timestamp_opt: "YYYY-MM-DD"
 };
 
 const addListMemberBody = {
@@ -33,16 +50,16 @@ const updateListMemberTagsBody = {
     ],
 };
 
-// Promise<void>
+// Promise<MembersSuccessResponse | MemberErrorResponse>
 mailchimp.lists.setListMember('test', 'test', setListMemberBody);
 
-// Promise<void>
+// Promise<MembersSuccessResponse | MemberErrorResponse>
 mailchimp.lists.getListMember('test', 'test');
 
-// Promise<void>
+// Promise<MembersSuccessResponse | MemberErrorResponse>
 mailchimp.lists.addListMember('test', addListMemberBody);
 
-// Promise<void>
+// Promise<MembersSuccessResponse | MemberErrorResponse>
 mailchimp.lists.updateListMember('test', 'test', updateListMemberBody);
 
 // Promise<void>

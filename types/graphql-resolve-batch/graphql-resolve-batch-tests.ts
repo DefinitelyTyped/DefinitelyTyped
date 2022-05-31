@@ -79,7 +79,9 @@ const withSourceAndArgsAndResultTyped = createBatchResolver<
     SomeTestSource,
     SomeTestResult,
     SomeTestArgs
->(async (sources, args, _) => {
+>(async (sources, args, _, info) => {
+    // $ExpectType GraphQLResolveInfo
+    const verifyInfo = info;
     // $ExpectType ReadonlyArray<SomeTestSource>
     const verifySources = sources;
     // $ExpectType string

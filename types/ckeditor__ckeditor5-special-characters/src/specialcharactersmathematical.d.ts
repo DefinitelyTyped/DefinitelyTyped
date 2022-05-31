@@ -1,7 +1,17 @@
-import { Plugin } from "@ckeditor/ckeditor5-core";
+import { Plugin } from '@ckeditor/ckeditor5-core';
 
+/**
+ * A plugin that provides special characters for the "Mathematical" category.
+ *
+ *    ClassicEditor
+ *      .create( {
+ *        plugins: [ ..., SpecialCharacters, SpecialCharactersMathematical ],
+ *      } )
+ *      .then( ... )
+ *      .catch( ... );
+ */
 export default class SpecialCharactersMathematical extends Plugin {
-    static readonly pluginName: "SpecialCharactersMathematical";
+    static readonly pluginName: 'SpecialCharactersMathematical';
     init(): void;
 }
 

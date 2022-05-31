@@ -335,7 +335,7 @@ export class Transform<S extends Schema = any> {
     split(
         pos: number,
         depth?: number,
-        typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null | undefined }>,
+        typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null | undefined } | null | undefined>,
     ): this;
     /**
      * Join the blocks around the given position. If depth is 2, their

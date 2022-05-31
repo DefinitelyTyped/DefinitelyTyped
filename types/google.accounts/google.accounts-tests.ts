@@ -97,6 +97,7 @@ google.accounts.id.initialize({
     ux_mode: 'popup',
     allowed_parent_origin: '',
     intermediate_iframe_close_callback: () => {},
+    itp_support: true,
 });
 
 google.accounts.id.prompt(notification => {
