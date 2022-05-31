@@ -4,6 +4,28 @@ import * as Hapi from '@hapi/hapi';
 import { OrganizationService as OrganizationServiceClass } from './test/organization_service';
 import { UserService as UserServiceClass } from './test/user_service';
 
+
+
+declare module '@hapipal/schmervice' {
+
+    type AuthServices = {
+        membersService: Schmervice.Service
+        adminService: Schmervice.Service
+        manangerService: Schmervice.Service
+    }
+
+    type OathServices = {
+        witnessService: Schmervice.Service
+        promissoryService: Schmervice.Service
+        crownCourtService: Schmervice.Service
+    }
+
+    interface SchmerviceDecorator {
+        (namespace: 'auth'): AuthServices
+        (namespace: 'oath'): OathServices
+    }
+}
+
 (async () => {
     const server = new Hapi.Server({ port: 3000 });
 
@@ -71,4 +93,18 @@ import { UserService as UserServiceClass } from './test/user_service';
     });
 
     await OrganizationService.addUser(user);
+
+    // These are undefined in real implementation but
+    // still satisfy typings constraints
+    const {
+        adminService,
+        manangerService,
+        membersService
+    } = server.services('auth');
+
+    const {
+        crownCourtService,
+        promissoryService,
+        witnessService
+    } = server.services('oath');
 })();
