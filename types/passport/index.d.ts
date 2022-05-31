@@ -30,7 +30,10 @@ declare global {
             logIn(user: User, options: any, done: (err: any) => void): void;
 
             logout(): void;
+            logout(done: (err: any) => void): void;
+
             logOut(): void;
+            logOut(done: (err: any) => void): void;
 
             isAuthenticated(): this is AuthenticatedRequest;
             isUnauthenticated(): this is UnauthenticatedRequest;
