@@ -64,7 +64,7 @@ const preSignUp: PreSignUpTriggerHandler = async (event, _, callback) => {
     triggerSource === 'PostConfirmation_ConfirmSignUp';
 
     // $ExpectError
-    request.session![0].challengeName === 'CUSTOM_CHALLENGE';
+    request.session[0].challengeName === 'CUSTOM_CHALLENGE';
 };
 
 const postConfirmation: PostConfirmationTriggerHandler = async (event, _, callback) => {
@@ -82,9 +82,9 @@ const postConfirmation: PostConfirmationTriggerHandler = async (event, _, callba
     // $ExpectError
     triggerSource === 'PreSignUp_ExternalProvider';
     // $ExpectError
-    request.session![0].challengeName === 'CUSTOM_CHALLENGE';
+    request.session[0].challengeName === 'CUSTOM_CHALLENGE';
     // $ExpectError
-    str = request.validationData!['k1'];
+    str = request.validationData['k1'];
     // $ExpectError
     bool = response.autoVerifyEmail;
     // $ExpectError
