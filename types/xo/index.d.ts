@@ -3,6 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Chuah Chee Shian (shian15810) <https://github.com/shian15810>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 import eslint = require("eslint");
 
@@ -31,8 +32,14 @@ export function lintFiles(patterns: string | string[], options?: Options): Resul
 
 export type CLIEngineOptions = Pick<
     eslint.ESLint.Options,
-    "baseConfig" | "cwd" | "extensions" | "fix" | "ignore" | "plugins"
-> & { envs?: string[] | undefined; globals?: string[] | undefined; parser?: string | undefined; rules?: {[name: string]: eslint.Linter.RuleLevel | eslint.Linter.RuleLevelAndOptions} | undefined };
+    "baseConfig" | "cwd" | "extensions" | "fix" | "ignore"
+> & {
+    envs?: string[] | undefined;
+    globals?: string[] | undefined;
+    parser?: string | undefined;
+    plugins?: string[];
+    rules?: {[name: string]: eslint.Linter.RuleLevel | eslint.Linter.RuleLevelAndOptions} | undefined
+};
 export type ESLintOptions = Pick<eslint.Linter.LintOptions, "filename">;
 export type ESLintConfig = Pick<eslint.Linter.Config, "extends" | "settings">;
 
