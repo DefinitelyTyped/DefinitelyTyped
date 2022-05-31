@@ -147,6 +147,10 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
     }
 });
 
+function test_connection_string_parser() {
+    var parsedConfig: sql.config = sql.ConnectionPool.parseConnectionString(connectionString);
+}
+
 function test_table() {
     var table = new sql.Table('#temp_table');
 

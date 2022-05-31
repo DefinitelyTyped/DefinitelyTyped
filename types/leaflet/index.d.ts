@@ -1642,6 +1642,7 @@ export class Handler extends Class {
 
 export interface LeafletEvent {
     type: string;
+    popup: any;
     target: any;
     sourceTarget: any;
     propagatedFrom: any;

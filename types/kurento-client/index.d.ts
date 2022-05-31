@@ -92,6 +92,21 @@ declare namespace kurento {
         socket?: any;
     }
 
+    interface OfferOptions {
+        offerToReceiveAudio?: boolean | undefined;
+        offerToReceiveVideo?: boolean | undefined;
+    }
+
+    interface SDES {
+        key: string;
+        keyBase64: string;
+        crypto: CryptoSuite;
+    }
+    interface RtpEndpointOptions {
+        useIpv6?: boolean | undefined;
+        crypto?: SDES | undefined;
+    }
+
     interface ClientInstance {
         create(type: 'MediaPipeline'): Promise<MediaPipeline>;
         create(type: 'WebRtcEndpoint', options?: { useDataChannels?: boolean | undefined }): Promise<WebRtcEndpoint>;
@@ -104,6 +119,7 @@ declare namespace kurento {
                 useEncodedMedia?: boolean | undefined;
             },
         ): Promise<PlayerEndpoint>;
+        create(type: 'RtpEndpoint', options?: RtpEndpointOptions): Promise<RtpEndpoint>;
         create(type: string, options?: Record<string, unknown>): Promise<MediaElement>;
         // tslint:disable-next-line
         getMediaobjectById<T extends MediaObject = MediaObject>(objectId: string): Promise<T>;
@@ -423,6 +439,90 @@ declare namespace kurento {
         ): RecorderEndpoint;
     }
 
+    interface RtpEndpoint extends BaseRtpEndpoint {
+        on(
+            event: 'OnIceCandidate',
+            callback: (
+                event: Event<
+                    'OnIceCandidate',
+                    {
+                        candidate: IceCandidate;
+                    }
+                >,
+            ) => void,
+        ): WebRtcEndpoint;
+
+        // Inherited from BaseRtpEndpoint
+        on(
+            eventName: 'ConnectionStateChanged',
+            callback: (
+                event: Event<'ConnectionStateChanged', { oldState: ConnectionState; newState: ConnectionState }>,
+            ) => void,
+        ): RtpEndpoint;
+        on(
+            eventName: 'MediaStateChanged',
+            callback: (event: Event<'MediaStateChanged', { oldState: MediaState; newState: MediaState }>) => void,
+        ): RtpEndpoint;
+
+        // Inherited from MediaElement
+        on(
+            eventName: 'ElementConnected',
+            callback: (
+                event: Event<
+                    'ElementConnected',
+                    {
+                        sink: MediaElement;
+                        mediaType: MediaType;
+                        sourceMediaDescription: string;
+                        sinkMediaDescription: string;
+                    }
+                >,
+            ) => void,
+        ): RtpEndpoint;
+        on(
+            eventName: 'ElementDisconnected',
+            callback: (
+                event: Event<
+                    'ElementDisconnected',
+                    {
+                        sink: MediaElement;
+                        mediaType: MediaType;
+                        sourceMediaDescription: string;
+                        sinkMediaDescription: string;
+                    }
+                >,
+            ) => void,
+        ): RtpEndpoint;
+        on(
+            eventName: 'MediaFlowInStateChange',
+            callback: (
+                event: Event<
+                    'MediaFlowInStateChange',
+                    { state: MediaFlowState; mediaType: MediaType; padName: string }
+                >,
+            ) => void,
+        ): RtpEndpoint;
+        on(
+            eventName: 'MediaFlowOutStateChange',
+            callback: (
+                event: Event<
+                    'MediaFlowOutStateChange',
+                    { state: MediaFlowState; mediaType: MediaType; padName: string }
+                >,
+            ) => void,
+        ): RtpEndpoint;
+        on(
+            eventName: 'MediaTranscodingStateChange',
+            callback: (
+                event: Event<
+                    'MediaTranscodingStateChange',
+                    { state: MediaTranscodingState; binName: string; mediaType: MediaType }
+                >,
+            ) => void,
+        ): RtpEndpoint;
+        on(eventName: 'OnKeySoftLimit', callback: (event: Event<'OnKeySoftLimit'>) => void): RtpEndpoint;
+    }
+
     interface PlayerEndpoint extends UriEndpoint {
         mediaPipeline: MediaPipeline;
         networkCache?: number | undefined;
@@ -499,8 +599,16 @@ declare namespace kurento {
 
     // interface SessionEndpoint extends Endpoint {}
     type SessionEndpoint = Endpoint;
-    // interface SdpEndpoint extends SessionEndpoint {}
-    type SdpEndpoint = SessionEndpoint;
+
+    interface SdpEndpoint extends SessionEndpoint {
+        processOffer: (offer: string, callback?: Callback<string>) => Promise<string>;
+        generateOffer: (options?: OfferOptions, callback?: Callback<string>) => Promise<string>;
+        processAnswer: (answer: string, callback?: Callback<string>) => Promise<string>;
+        setMaxAudioRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
+        getMaxAudioRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
+        getMaxVideoRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
+        setMaxVideoRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
+    }
 
     interface BaseRtpEndpoint extends SdpEndpoint {
         getConnectionState(callback?: Callback<ConnectionState>): Promise<ConnectionState>;
@@ -590,12 +698,8 @@ declare namespace kurento {
         getConnectionState: (callback?: Callback<any>) => Promise<any>;
         getICECandidatePairs: (callback?: Callback<any>) => Promise<any>;
         getIceConnectionState: (callback?: Callback<IceConnection>) => Promise<IceConnection>;
-        setMaxAudioRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
-        getMaxAudioRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
         setMinVideoRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
         getMinVideoRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
-        setMaxVideoRecvBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
-        getMaxVideoRecvBandwidth: (callback?: Callback<number>) => Promise<number>;
         setMinVideoSendBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
         getMinVideoSendBandwidth: (callback?: Callback<number>) => Promise<number>;
         setMaxVideoSendBandwidth: (value: number, callback?: Callback<void>) => Promise<void>;
@@ -610,7 +714,6 @@ declare namespace kurento {
         getStunServerPort: (callback?: Callback<number>) => Promise<number>;
         setTurnUrl: (url: string, callback?: Callback<void>) => Promise<void>;
         getTurnUrl: (callback?: Callback<string>) => Promise<string>;
-        processOffer: (offer: string, callback?: Callback<string>) => Promise<string>;
 
         on(
             event: 'DataChannelClose',
@@ -732,6 +835,14 @@ declare namespace kurento {
 
     // Ref: https://github.com/Kurento/kurento-client-elements-js/tree/master/lib/complexTypes
     type IceComponentState = 'DISCONNECTED' | 'GATHERING' | 'CONNECTING' | 'CONNECTED' | 'READY' | 'FAILED';
+
+    // Ref: https://doc-kurento.readthedocs.io/en/latest/_static/client-jsdoc/node_modules_kurento-client-elements_lib_complexTypes_CryptoSuite.js.html
+    type CryptoSuite =
+        | 'AES_128_CM_HMAC_SHA1_32'
+        | 'AES_128_CM_HMAC_SHA1_80'
+        | 'AES_256_CM_HMAC_SHA1_32'
+        | 'AES_256_CM_HMAC_SHA1_80';
+
     interface IceCandidatePair {
         streamID: string;
         componentID: number;

@@ -458,6 +458,16 @@ async function testTabGroupInterface() {
         tabGroup.id; // $ExpectType number
         tabGroup.title; // $ExpectType string | undefined
         tabGroup.windowId; // $ExpectType number
+
+        tabGroup.color = 'grey';
+        tabGroup.color = 'blue';
+        tabGroup.color = 'red';
+        tabGroup.color = 'yellow';
+        tabGroup.color = 'green';
+        tabGroup.color = 'pink';
+        tabGroup.color = 'purple';
+        tabGroup.color = 'cyan';
+        tabGroup.color = 'orange';
     });
   }
 
@@ -555,6 +565,20 @@ function testRestartAfterDelay() {
 
 async function testGetPlatformInfo() {
     chrome.runtime.getPlatformInfo(platformInfo => {
+        platformInfo; // $ExpectType PlatformInfo
+
+        platformInfo.arch; // $ExpectType PlatformArch
+        platformInfo.nacl_arch; // $ExpectType PlatformNaclArch
+        platformInfo.os; // $ExpectType PlatformOs
+
+        platformInfo.arch = 'invalid-arch'; // $ExpectError
+        platformInfo.nacl_arch = 'invalid-nacl_arch'; // $ExpectError
+        platformInfo.os = 'invalid-os'; // $ExpectError
+    });
+}
+
+async function testGetPlatformForPromise() {
+    chrome.runtime.getPlatformInfo().then(platformInfo => {
         platformInfo; // $ExpectType PlatformInfo
 
         platformInfo.arch; // $ExpectType PlatformArch
@@ -1103,7 +1127,7 @@ async function testDynamicRules() {
           type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
         },
         condition: {
-            domains: ["www.example.com"],
+            initiatorDomains: ["www.example.com"],
             tabIds: [2, 3, 76],
         },
         id: 2,

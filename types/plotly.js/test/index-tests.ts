@@ -281,6 +281,7 @@ const graphDiv = '#test';
             ],
             ['toImage'],
         ],
+        setBackground: 'transparent',
     };
     Plotly.newPlot('myDiv', data, layout, config);
 })();

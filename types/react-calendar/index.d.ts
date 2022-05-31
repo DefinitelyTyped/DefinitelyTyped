@@ -76,7 +76,7 @@ export interface CalendarProps {
     tileClassName?: string | string[] | ((props: CalendarTileProperties) => string | string[] | null) | undefined;
     tileContent?: string | JSX.Element | ((props: CalendarTileProperties) => JSX.Element | null) | undefined;
     tileDisabled?: ((props: CalendarTileProperties) => boolean) | undefined;
-    value?: Date | Date[] | null | undefined;
+    value?: Date | null | undefined | [Date | null, Date | null];
     view?: Detail | undefined;
 }
 

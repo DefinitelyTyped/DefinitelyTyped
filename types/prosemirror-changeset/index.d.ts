@@ -8,9 +8,9 @@ import { StepMap } from 'prosemirror-transform';
 import { Node, Schema } from 'prosemirror-model';
 
 export class Span {
-    constructor(lenght: number, data: any);
+    constructor(length: number, data: any);
 
-    get lenght(): number;
+    get length(): number;
     get data(): any;
 
     cut(length: number): Span;

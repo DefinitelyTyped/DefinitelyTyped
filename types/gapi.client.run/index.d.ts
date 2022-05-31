@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Cloud Run Admin API v1 1.0
+// Type definitions for non-npm package Cloud Run Admin API v2 2.0
 // Project: https://cloud.google.com/run/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
