@@ -90,7 +90,7 @@ type FakeableAPI =
   | 'setTimeout'
   | 'clearTimeout';
 
-type FakeTimersConfig = {
+interface FakeTimersConfig {
     /**
      * If set to `true` all timers will be advanced automatically by 20 milliseconds
      * every 20 milliseconds. A custom time delta may be provided by passing a number.
@@ -111,7 +111,7 @@ type FakeTimersConfig = {
     now?: number | Date;
     /** Maximum number of recursive timers that will be run. The default is `100_000` timers. */
     timerLimit?: number;
-};
+}
 
 declare namespace jest {
     /**
