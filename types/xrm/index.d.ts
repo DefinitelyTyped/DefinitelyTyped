@@ -176,9 +176,16 @@ declare namespace Xrm {
      */
     interface OrganizationSettings {
         /**
+         * Returns columns and their values as key:value pairs that are available for the organization table. 
+         * Additional values will be available as columns if they are specified as column dependencies in the web resource dependency list. The key will be the column logical name.
+         */
+        attributes:  { [key: string]: any }
+        
+        /**
          * Returns a lookup object containing the ID, name, and entity type of the base currency for the current organization.
          */
         baseCurrency: LookupValue;
+        
         /**
          * Returns the ID of the base currency for the current organization.
          * @deprecated Deprecated in v9.1; use {@link Xrm.OrganizationSettings.baseCurrency globalContext.organizationSettings.baseCurrency} instead to display name along with the ID.
