@@ -15,7 +15,7 @@ declare module 'connect-redis' {
     import * as express from 'express';
     import * as session from 'express-session';
     import * as ioRedis from 'ioredis';
-    import * as redisV2 from 'redis';
+    import * as redis from 'redis';
     import * as redisV4 from 'redis-v4';
 
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
