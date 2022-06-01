@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 { "extends": "@definitelytyped/dtslint/dt.json" }
-=======
-{ "extends": "@definitelytyped/dtslint/dt.json" }
->>>>>>> 5c30cd69ed3d9ab044656910c00eda6f4934d6d8
