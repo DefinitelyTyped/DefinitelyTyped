@@ -1,4 +1,4 @@
-// Type definitions for ssdeep.js 0.0.3
+// Type definitions for ssdeep.js 0.0
 // Project: https://github.com/cloudtracer/ssdeep.js
 // Definitions by: JPBM135 <https://github.com/JPBM135>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
