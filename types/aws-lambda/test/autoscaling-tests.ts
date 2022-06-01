@@ -11,6 +11,7 @@ const handler: AutoScalingScaleInHandler = async (event, context, callback) => {
     str = event.Instances[0].InstanceType;
     str = event.Instances[0].InstanceMarketOption;
     str = event.Cause;
+    boolOrUndefined = event.HasMoreInstances;
 
     const result: AutoScalingScaleInResult = {
         InstanceIDs: [

@@ -33,6 +33,7 @@ export interface AutoScalingScaleInEvent {
   CapacityToTerminate: AutoScalingTerminationRequest[];
   Instances: AutoScalingInstanceRecord[];
   Cause: AutoScalingScaleInCause;
+  HasMoreInstances?: boolean;
 }
 
 export interface AutoScalingScaleInResult {
