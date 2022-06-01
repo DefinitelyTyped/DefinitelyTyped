@@ -93,6 +93,9 @@ declare class MimeMessage {
 
 declare class NodeMIMEMessage extends MimeMessage {}
 
-declare function createMimeMessage(): NodeMIMEMessage;
+export function createMimeMessage(): NodeMIMEMessage;
 
-export { createMimeMessage };
+export as namespace MimeText;
+
+// prevent automatic exports for class symbols
+export {};
