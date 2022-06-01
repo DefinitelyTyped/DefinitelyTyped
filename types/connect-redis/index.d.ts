@@ -8,18 +8,26 @@
 
 /// <reference types="express" />
 /// <reference types="express-session" />
-/// <reference types="redis" />
+/// <reference types="redis-v2" />
+/// <reference types="redis-v4" />
 
 declare module 'connect-redis' {
     import * as express from 'express';
     import * as session from 'express-session';
     import * as ioRedis from 'ioredis';
-    import * as redis from 'redis';
+    import * as redisV2 from 'redis-v2';
+    import * as redisV4 from 'redis-v4';
 
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 
+
     namespace s {
-        type Client = redis.RedisClient | ioRedis.Redis | ioRedis.Cluster;
+        /** Redis Client Type. Redis@3 and redis@4 require `createClient({legacyMode: true})` option. */
+        type Client =
+            | redisV2.RedisClient
+            | ReturnType<typeof redisV4['createClient']>
+            | ioRedis.Redis
+            | ioRedis.Cluster;
         interface RedisStore extends session.Store {
             new (options: RedisStoreOptions): RedisStore;
             client: Client;
