@@ -105,7 +105,7 @@ declare namespace GM {
         user?: string | undefined;
         /** Password to use for authentication purposes */
         password?: string | undefined;
-        /** Decode the response as specified type */
+        /** Decode the response as specified type. Default value is "text" */
         responseType?: "" | "arraybuffer" | "blob" | "document" | "json" | "text" | "stream" | undefined;
         /**
          * When `true`, this is a synchronous request.
