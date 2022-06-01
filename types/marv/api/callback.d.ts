@@ -1,7 +1,5 @@
-/// <reference types="node" />
-
 import { PathLike } from 'fs';
-import { Driver, EmptyObject, ErrorOnlyCallback, ParsedMigration, ScanOptions } from '../index';
+import type { Driver, EmptyObject, ErrorOnlyCallback, ParsedMigration, ScanOptions } from '../index';
 
 export function drop(driver: Driver, cb?: ErrorOnlyCallback): void;
 

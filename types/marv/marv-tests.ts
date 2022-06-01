@@ -1,11 +1,11 @@
-import marvDefault, { Driver } from 'marv';
+import * as marv from 'marv';
 import marvCallbacks = require('marv/api/callback');
 import marvPromises = require('marv/api/promise');
 import path = require('path');
 
 const directory = path.resolve('migrations');
 
-const driver: Driver = {
+const driver: marv.Driver = {
     connect: () => {},
     disconnect: () => {},
     dropMigrations: () => {},
@@ -16,19 +16,19 @@ const driver: Driver = {
     runMigration: () => {},
 };
 
-function runCallbackMigrations() {
-    marvCallbacks.scan(directory, (err, migrations) => {
+function runMigrations() {
+    marv.scan(directory, (err, migrations) => {
         if (err) throw err;
-        marvCallbacks.migrate(migrations, driver, err => {
+        marv.migrate(migrations, driver, err => {
             if (err) throw err;
         });
     });
 }
 
-function runDefaultExportCallbackMigrations() {
-    marvDefault.scan(directory, (err, migrations) => {
+function runCallbackMigrations() {
+    marvCallbacks.scan(directory, (err, migrations) => {
         if (err) throw err;
-        marvDefault.migrate(migrations, driver, err => {
+        marvCallbacks.migrate(migrations, driver, err => {
             if (err) throw err;
         });
     });

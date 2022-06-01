@@ -3,9 +3,8 @@
 // Definitions by: Joonas Rouhiainen <https://github.com/rjoonas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 /// <reference path="./api/callback.d.ts" />
-
-import * as callbackApi from './api/callback';
 
 export type EmptyObject = {
     [K in any]: never;
@@ -52,4 +51,4 @@ export interface ScanOptions {
     quiet?: boolean;
 }
 
-export default callbackApi;
+export * from './api/callback';
