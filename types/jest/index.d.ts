@@ -23,7 +23,6 @@
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
 //                 Tony Hallett <https://github.com/tonyhallett>
 //                 Jason Yu <https://github.com/ycmjason>
-//                 Devansh Jethmalani <https://github.com/devanshj>
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
 //                 Alexandre Germain <https://github.com/gerkindev>
