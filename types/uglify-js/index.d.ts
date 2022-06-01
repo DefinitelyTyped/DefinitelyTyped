@@ -447,6 +447,12 @@ export interface MinifyOptions {
      * @default false
      */
     keep_fnames?: boolean | undefined;
+    /**
+     * Support non-standard Safari/Webkit.
+     * Equivalent to setting `webkit: true` in `minify()` for `compress`, `mangle` and `output` options.
+     * @default false
+     */
+    webkit?: boolean | undefined;
 }
 
 export interface MinifyOutput {
