@@ -672,6 +672,14 @@ declare namespace jest {
          */
         assertions(num: number): void;
         /**
+         * Useful when comparing floating point numbers in object properties or array item.
+         * If you need to compare a number, use `.toBeCloseTo` instead.
+         *
+         * The optional `numDigits` argument limits the number of digits to check after the decimal point.
+         * For the default value 2, the test criterion is `Math.abs(expected - received) < 0.005` (that is, `10 ** -2 / 2`).
+         */
+        closeTo(num: number, numDigits?: number): any;
+        /**
          * Verifies that at least one assertion is called during a test.
          * This is often useful when testing asynchronous code, in order to
          * make sure that assertions in a callback actually got called.

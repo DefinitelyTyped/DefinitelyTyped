@@ -963,6 +963,9 @@ describe('', () => {
 
         expect(0).toBeLessThanOrEqual(1);
 
+        expect(1.230000003).toBeCloseTo(1.23);
+        expect(1.230000003).toBeCloseTo(1.23, 2);
+
         expect(null).toBeNull();
         expect(undefined).toBeNull();
 
@@ -1049,12 +1052,14 @@ describe('', () => {
             two: '2',
             three: 3,
             four: { four: 3 },
+            five: 5.0000001,
             date: new Date(),
         }).toMatchSnapshot({
             one: expect.any(Number),
             // Leave 'two' to the auto-generated snapshot
             three: 3,
             four: { four: expect.any(Number) },
+            five: expect.closeTo(5, 1),
             date: expect.any(Date),
         });
 
