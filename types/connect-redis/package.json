@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@types/redis-v2": "npm:@types/redis@2",
+        "@types/redis": "npm:@types/redis@2",
         "redis-v4": "npm:redis@4"
     }
 }

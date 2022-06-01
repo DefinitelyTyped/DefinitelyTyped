@@ -1,6 +1,7 @@
 import connectRedis = require('connect-redis');
 import session = require('express-session');
 import Redis = require('ioredis');
+import redisV4 = require('redis-v4');
 
 let RedisStore = connectRedis(session);
 const store = new RedisStore({
@@ -13,4 +14,8 @@ const store = new RedisStore({
     ttl: (store, sess, sessionID) => {
         return 60;
     },
+});
+
+const storeV4 = new RedisStore({
+    client: redisV4.createClient({ legacyMode: true }),
 });
