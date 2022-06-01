@@ -69,11 +69,21 @@ declare var AbortController: {
     new(): AbortController;
 };
 
-declare var AbortSignal: {
+interface AbortSignalConstructor {
     prototype: AbortSignal;
     new(): AbortSignal;
+    /**
+     * Returns an AbortSignal that will automatically abort after a specified time.
+     *
+     * @param time The "active" time in milliseconds before the returned AbortSignal will abort.
+     *
+     * @since v17.3.0, v16.14.0
+     */
+    timeout(time: number): AbortSignal;
     // TODO: Add abort() static
-};
+}
+
+declare var AbortSignal: AbortSignalConstructor;
 //#endregion borrowed
 
 //#region ArrayLike.at()

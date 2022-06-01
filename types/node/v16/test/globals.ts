@@ -26,3 +26,7 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
         gc();
     }
 }
+
+{
+    global.AbortSignal.timeout(1); // $ExpectType AbortSignal
+}
