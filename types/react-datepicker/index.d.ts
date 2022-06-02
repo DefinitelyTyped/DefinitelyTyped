@@ -20,15 +20,16 @@ import * as Popper from '@popperjs/core';
 import { Locale } from 'date-fns';
 import { Modifier, StrictModifierNames } from 'react-popper';
 
+export interface CalendarContainerProps = {
+    className?: string | undefined;
+    children?: React.ReactNode | React.ReactNode[] | undefined;
+    showPopperArrow?: boolean | undefined;
+    arrowProps?: { [propName: string]: any } | undefined;
+}
 export function registerLocale(localeName: string, localeData: Locale): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
-export function CalendarContainer(props: {
-    className?: string | undefined;
-    children?: React.ReactNode | undefined;
-    showPopperArrow?: boolean | undefined;
-    arrowProps?: { [propName: string]: any } | undefined;
-}): React.ReactElement;
+export function CalendarContainer(props: CalendarContainerProps): React.ReactElement;
 
 interface HighlightDates {
     [className: string]: Date[];
@@ -61,7 +62,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     autoComplete?: string | undefined;
     autoFocus?: boolean | undefined;
     calendarClassName?: string | undefined;
-    calendarContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
+    calendarContainer?(props: CalendarContainerProps): React.ReactNode;
     calendarStartDay?: number | undefined;
     children?: React.ReactNode | undefined;
     chooseDayAriaLabelPrefix?: string | undefined;
