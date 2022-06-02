@@ -136,3 +136,12 @@ export type RulesLogic<AddOps extends AdditionalOperation = never> =
 export function add_operation(name: string, code: (...args: any[]) => any): void;
 export function apply(logic: RulesLogic<AdditionalOperation>, data?: unknown): any;
 export function rm_operation(name: string): void;
+
+// These functions are undocumented, but are exported by the real package
+// so they're typed here for completeness.
+export function is_logic(logic: any): boolean;
+export function truthy(value: any): boolean;
+export function get_operator(logic: Record<string, any>): string;
+export function get_values(logic: Record<string, any>): any;
+export function uses_data(logic: Record<string, any>): any[];
+export function rule_like(rule: any, pattern: any): boolean;

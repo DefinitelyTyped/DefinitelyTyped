@@ -239,6 +239,23 @@ jsonLogic.rm_operation(1);
 // $ExpectError
 jsonLogic.rm_operation();
 
+// Undocumented functions
+
+// $ExpectType boolean
+jsonLogic.is_logic({ logic: ['test', 'test'] });
+// $ExpectType boolean
+jsonLogic.truthy({ logic: ['test', 'test'] });
+// $ExpectType string
+jsonLogic.get_operator({ logic: ['test', 'test'] });
+// $ExpectType any
+jsonLogic.get_values({ logic: ['test', 'test'] });
+// $ExpectType any[]
+jsonLogic.uses_data({ logic: ['test', 'test'] });
+// $ExpectType boolean
+jsonLogic.rule_like('test', 'test');
+
+// Test the extensibility of the RulesLogic type
+
 type StartsWithAndEndsWith =
     | { startsWith: [JsonLogicWithAdditionalOperations, JsonLogicWithAdditionalOperations] }
     | { endsWith: [JsonLogicWithAdditionalOperations, JsonLogicWithAdditionalOperations] };
