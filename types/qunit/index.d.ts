@@ -372,6 +372,18 @@ declare global {
         }[];
     }
 
+    interface GlobalHooks {
+        /**
+         * Runs after each test.
+         */
+         afterEach(fn: (assert: Assert) => void | Promise<void>): void;
+
+         /**
+         * Runs before each test.
+         */
+        beforeEach(fn: (assert: Assert) => void | Promise<void>): void;
+    }
+
     interface Hooks {
         /**
          * Runs after the last test. If additional tests are defined after the
@@ -426,7 +438,10 @@ declare global {
 
     namespace QUnit {
         interface BeginDetails {
+            /** Number of registered tests */
             totalTests: number;
+            /** List of registered modules, */
+            modules: Array<{ name: string, moduleId: string }>
         }
         interface DoneDetails {
             failed: number;
@@ -536,6 +551,21 @@ declare global {
          * @param mixin An object describing which properties should be modified
          */
         extend(target: any, mixin: any): void;
+
+        /**
+         * Register a global callback to run before or after each test.
+         *
+         * This is the equivalent of applying a QUnit.module() hook to all modules
+         * and all tests, including global tests that are not associated with any module.
+         *
+         * Similar to module hooks, global hooks support async functions or
+         * returning a Promise, which will be waited for before QUnit continues executing tests.
+         * Each global hook also has access to the same assert object and
+         * test context as the QUnit.test that the hook is running for.
+         *
+         * For more details about hooks, refer to QUnit.module § Hooks.
+         */
+        hooks: GlobalHooks
 
         /**
          * Register a callback to fire whenever an assertion completes.

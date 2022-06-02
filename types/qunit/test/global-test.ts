@@ -60,6 +60,14 @@ QUnit.module( "Machine Maker", {
   }
 });
 
+QUnit.hooks.beforeEach(function (assert) {
+  assert.ok(true)
+});
+
+QUnit.hooks.afterEach(function (assert) {
+  assert.ok(true)
+});
+
 QUnit.test( "makes a robot", function( assert ) {
   this.parts.push( "arduino" );
   assert.equal( this.maker.build( this.parts ), "robot" );
@@ -139,6 +147,9 @@ QUnit.test( "`ok` assertion defined in the callback parameter", function( assert
 
 QUnit.begin(function( details ) {
   console.log( "Test amount:", details.totalTests );
+  for (const {name, moduleId} of details.modules) {
+    console.log(name, moduleId)
+  }
 });
 
 QUnit.config.autostart = false;
@@ -739,6 +750,15 @@ QUnit.skip( "async skip", async function( assert ) {
   await timeout();
   assert.ok(true);
 });
+
+QUnit.hooks.beforeEach(async function () {
+  await timeout();
+});
+
+QUnit.hooks.afterEach(async function () {
+  await timeout();
+});
+
 
 QUnit.module( "async", {
   async after( assert ) {
