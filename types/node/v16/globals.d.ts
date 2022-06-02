@@ -1,5 +1,3 @@
-/// <reference no-default-lib="true"/>
-
 // Declare "static" methods in Error
 interface ErrorConstructor {
     /** Create .stack property on a target object */
