@@ -267,3 +267,11 @@ const jsonExtendedLogic: JsonLogicWithAdditionalOperations = {
 jsonLogic.apply(jsonExtendedLogic);
 // $ExpectError
 const invalidExtendedLogic: JsonLogicWithAdditionalOperations = { invalidOperator: ['Springfield', 'Spring'] };
+
+// Test prevention of overriding reserved operations
+
+interface OverrideReservedOp {
+    and: [string, string];
+}
+// $ExpectError
+type JsonLogicOverridden = jsonLogic.RulesLogic<OverrideReservedOp>;

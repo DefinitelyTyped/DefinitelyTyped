@@ -7,10 +7,12 @@
 
 export as namespace jsonFactory;
 
+// Disable auto-export
 export {};
 
 /**
- * This is a utility type used below for the "if" operation
+ * This is a utility type used below for the "if" operation.
+ * Original: https://stackoverflow.com/a/68373774/765987
  */
 type MAXIMUM_ALLOWED_BOUNDARY = 80;
 type Mapped<
@@ -30,49 +32,49 @@ type Mapped<
  */
 type AnyArrayOfOddLengthMin3 = [any, ...Mapped<[any, any]>];
 
+export type ReservedOperations =
+    | 'var'
+    | 'missing'
+    | 'missing_some'
+    | 'if'
+    | '=='
+    | '==='
+    | '!='
+    | '!=='
+    | '!'
+    | '!!'
+    | 'or'
+    | 'and'
+    | '>'
+    | '>='
+    | '<'
+    | '<='
+    | 'max'
+    | 'min'
+    | '+'
+    | '-'
+    | '*'
+    | '/'
+    | '%'
+    | 'map'
+    | 'filter'
+    | 'reduce'
+    | 'all'
+    | 'none'
+    | 'some'
+    | 'merge'
+    | 'in'
+    | 'cat'
+    | 'substr'
+    | 'log';
+
 /**
  * This can be an object with any key except the reserved keys.
  * TODO: Find a way to limit this type to exactly one (1) key, since
  * json-logic-js enforces it. See:
  * https://github.com/jwadhams/json-logic-js/blob/2.0.2/logic.js#L180
  */
-export interface AdditionalOperation {
-    var?: never;
-    missing?: never;
-    missing_some?: never;
-    if?: never;
-    '=='?: never;
-    '==='?: never;
-    '!='?: never;
-    '!=='?: never;
-    '!'?: never;
-    '!!'?: never;
-    or?: never;
-    and?: never;
-    '>'?: never;
-    '>='?: never;
-    '<'?: never;
-    '<='?: never;
-    max?: never;
-    min?: never;
-    '+'?: never;
-    '-'?: never;
-    '*'?: never;
-    '/'?: never;
-    '%'?: never;
-    map?: never;
-    filter?: never;
-    reduce?: never;
-    all?: never;
-    none?: never;
-    some?: never;
-    merge?: never;
-    in?: never;
-    cat?: never;
-    substr?: never;
-    log?: never;
-    [k: string]: any;
-}
+export type AdditionalOperation = Partial<Record<ReservedOperations, never>> & { [k: string]: any };
 
 export type RulesLogic<AddOps extends AdditionalOperation = never> =
     | boolean
