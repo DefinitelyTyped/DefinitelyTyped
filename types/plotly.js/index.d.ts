@@ -631,7 +631,7 @@ export interface Axis {
         | 'median descending';
     categoryarray: any[];
     tickfont: Partial<Font>;
-    tickangle: "auto" | number;
+    tickangle: 'auto' | number;
     tickprefix: string;
     /**
      * If `all`, all tick labels are displayed with a prefix.
@@ -1324,7 +1324,19 @@ export interface TransformStyle {
 
 export interface TransformAggregation {
     target: string;
-    func?: 'count' | 'sum' | 'avg' | 'median' | 'mode' | 'rms' | 'stddev' | 'min' | 'max' | 'first' | 'last' | undefined;
+    func?:
+        | 'count'
+        | 'sum'
+        | 'avg'
+        | 'median'
+        | 'mode'
+        | 'rms'
+        | 'stddev'
+        | 'min'
+        | 'max'
+        | 'first'
+        | 'last'
+        | undefined;
     funcmode?: 'sample' | 'population' | undefined;
     enabled?: boolean | undefined;
 }
@@ -1371,7 +1383,7 @@ export interface ColorBar {
     tickcolor: Color;
     showticklabels: boolean;
     tickfont: Font;
-    tickangle: "auto" | number;
+    tickangle: 'auto' | number;
     tickformat: string;
     tickformatstops: Array<Partial<TickFormatStop>>;
     tickprefix: string;
@@ -1417,12 +1429,14 @@ export interface PlotMarker {
     pad?: Partial<Padding> | undefined;
     width?: number | undefined;
     colorbar?: Partial<ColorBar> | undefined;
-    gradient?: {
-        type: 'radial' | 'horizontal' | 'vertical' | 'none';
-        color: Color;
-        typesrc: any;
-        colorsrc: any;
-    } | undefined;
+    gradient?:
+        | {
+              type: 'radial' | 'horizontal' | 'vertical' | 'none';
+              color: Color;
+              typesrc: any;
+              colorsrc: any;
+          }
+        | undefined;
 }
 
 export type ScatterMarker = PlotMarker;
@@ -2209,29 +2223,29 @@ export interface Slider {
 }
 
 export interface CurrentValue {
-  /**
-   * Shows the currently-selected value above the slider.
-   */
-  visible: boolean;
-  /**
-   * The alignment of the value readout relative to the length of the slider.
-   */
-  xanchor: 'left' | 'center' | 'right';
-  /**
-   * The amount of space, in pixels, between the current value label
-   * and the slider.
-   */
-  offset: number;
-  /**
-   * When currentvalue.visible is true, this sets the prefix of the label.
-   */
-  prefix: string;
-  /**
-   * When currentvalue.visible is true, this sets the suffix of the label.
-   */
-  suffix: string;
-  /**
-   * Sets the font of the current value label text.
-   */
-  font: Partial<Font>;
+    /**
+     * Shows the currently-selected value above the slider.
+     */
+    visible: boolean;
+    /**
+     * The alignment of the value readout relative to the length of the slider.
+     */
+    xanchor: 'left' | 'center' | 'right';
+    /**
+     * The amount of space, in pixels, between the current value label
+     * and the slider.
+     */
+    offset: number;
+    /**
+     * When currentvalue.visible is true, this sets the prefix of the label.
+     */
+    prefix: string;
+    /**
+     * When currentvalue.visible is true, this sets the suffix of the label.
+     */
+    suffix: string;
+    /**
+     * Sets the font of the current value label text.
+     */
+    font: Partial<Font>;
 }
