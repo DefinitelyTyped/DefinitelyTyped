@@ -475,6 +475,12 @@ QUnit.test( "notOk test", function( assert ) {
   assert.notOk( "not-empty", "not-empty string fails" );
 });
 
+QUnit.test( "notPropContains test", function( assert ) {
+    const obj = { foo: 1, bar: "baz" }
+
+    assert.notPropContains( obj, { foo: 1 }, "Subset of values are strictly compared." );
+    assert.notPropContains( obj, { bar: { length: 3 } }, "Subset of values are strictly compared." );
+});
 
 QUnit.test( "notPropEqual test", function( assert ) {
   class Foo {
@@ -499,6 +505,13 @@ QUnit.test( "notPropEqual test", function( assert ) {
 
 QUnit.test( "a test", function( assert ) {
   assert.notStrictEqual( 1, "1", "String '1' and number 1 have the same value but not the same type" );
+});
+
+QUnit.test( "propContains test", function( assert ) {
+    const obj = { foo: 1, bar: "baz" }
+
+    assert.propContains( obj, { foo: 1 }, "Subset of values are strictly compared." );
+    assert.propContains( obj, { bar: { length: 3 } }, "Subset of values are strictly compared." );
 });
 
 QUnit.test( "propEqual test", function( assert ) {

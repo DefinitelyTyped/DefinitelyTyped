@@ -128,6 +128,21 @@ declare global {
         notOk(state: any, message?: string): void;
 
         /**
+         * Check that an object does not contain certain properties.
+         *
+         * The `notPropContains` assertion compares the subset of properties
+         * in the expected object, and tests that these keys are either absent
+         * or hold a value that is different according to a strict equality comparison.
+         *
+         * `propContains()` can be used to test to test for the presence and equality of properties.
+         *
+         * @param actual Object or Expression being tested
+         * @param expected Known comparison value
+         * @param {string} [message] A short description of the assertion
+         */
+        notPropContains(actual: any, expected: any, message?: string): void;
+
+        /**
          * A strict comparison of an object's own properties, checking for inequality.
          *
          * The `notPropEqual` assertion uses the strict inverted comparison operator
@@ -180,6 +195,25 @@ declare global {
          * @param {string} message A short description of the assertion
          */
         ok(state: any, message?: string): void;
+
+        /**
+         * Check that an object contains certain properties.
+         *
+         * The `propContains()` assertion compares only the subset of properties
+         * in the expected object, and tests that these keys exist as own properties
+         * with strictly equal values.
+         *
+         * This method is recursive and allows partial comparison of nested objects as well.
+         *
+         * `propEqual()` can be used to compare all properties, considering extra properties as unexpected.
+         *
+         * `notPropContains()` can be used to test for the absence or inequality of certain properties.
+         *
+         * @param actual Object or Expression being tested
+         * @param expected Known comparison value
+         * @param {string} [message] A short description of the assertion
+         */
+         propContains(actual: any, expected: any, message?: string): void;
 
         /**
          * A strict type and value comparison of an object's own properties.
