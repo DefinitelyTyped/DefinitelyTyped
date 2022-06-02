@@ -249,7 +249,8 @@ export interface BeforePlotEvent {
 }
 
 export interface PlotlyHTMLElement extends HTMLElement {
-    on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+    on(event: 'plotly_click' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+    on(event: 'plotly_hover', callback: (event: PlotHoverEvent) => void): void;
     on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
     on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
     on(event: 'plotly_relayout' | 'plotly_relayouting', callback: (event: PlotRelayoutEvent) => void): void;
