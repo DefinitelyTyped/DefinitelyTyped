@@ -1,4 +1,4 @@
-// Type definitions for QUnit v2.11.3
+// Type definitions for QUnit v2.19.0
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
 //                 Mike North <https://github.com/mike-north>
