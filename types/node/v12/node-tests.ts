@@ -316,6 +316,7 @@ import Module = require('module');
             .refresh();
         const b: boolean = timeout.hasRef();
         timers.clearInterval(timeout);
+        timers.clearInterval(timeout[Symbol.toPrimitive]());
     }
     {
         const timeout = timers
@@ -327,6 +328,7 @@ import Module = require('module');
             .refresh();
         const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
+        timers.clearTimeout(timeout[Symbol.toPrimitive]());
     }
     async function testPromisify() {
         const setTimeout = util.promisify(timers.setTimeout);

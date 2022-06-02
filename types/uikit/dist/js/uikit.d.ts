@@ -127,12 +127,13 @@ export namespace UIkit {
         ratio?: number | undefined;
     }
 
-    type Icon = (
-        element: UIkitElement,
-        options?: UIkitIconOptions,
-    ) => {
-        svg: Promise<any>;
-    };
+    interface Icon {
+        (element: UIkitElement, options?: UIkitIconOptions): {
+            svg: Promise<any>;
+        };
+        add(name: string, svg: string): void;
+        add(contents: { [key: string]: string }): void;
+    }
 
     interface UIkitImageOptions {
         dataSrc?: string | undefined;

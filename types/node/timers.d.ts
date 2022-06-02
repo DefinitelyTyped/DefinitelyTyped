@@ -69,7 +69,7 @@ declare module 'timers' {
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
         }
-        function clearTimeout(timeoutId: NodeJS.Timeout | undefined): void;
+        function clearTimeout(timeoutId: NodeJS.Timeout | string | number | undefined): void;
         function setInterval<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timer;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
@@ -77,7 +77,7 @@ declare module 'timers' {
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }
-        function clearInterval(intervalId: NodeJS.Timeout | undefined): void;
+        function clearInterval(intervalId: NodeJS.Timeout | string | number | undefined): void;
         function setImmediate<TArgs extends any[]>(callback: (...args: TArgs) => void, ...args: TArgs): NodeJS.Immediate;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
