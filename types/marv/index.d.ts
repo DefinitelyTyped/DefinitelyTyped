@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference path="./api/callback.d.ts" />
 
 export type EmptyObject = {
     [K in any]: never;
