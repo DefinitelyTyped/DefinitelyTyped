@@ -12,6 +12,7 @@
 //                 Kerry Gougeon <https://github.com/kerry-g>
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
 //                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Alexander Shipulin <https://github.com/y>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
@@ -20,7 +21,7 @@ import * as Popper from '@popperjs/core';
 import { Locale } from 'date-fns';
 import { Modifier, StrictModifierNames } from 'react-popper';
 
-export interface CalendarContainerProps = {
+export interface CalendarContainerProps {
     className?: string | undefined;
     children?: React.ReactNode | React.ReactNode[] | undefined;
     showPopperArrow?: boolean | undefined;
@@ -51,7 +52,10 @@ export interface ReactDatePickerCustomHeaderProps {
     nextYearButtonDisabled: boolean;
 }
 
-export interface ReactDatePickerProps<CustomModifierNames extends string = never, WithRange extends boolean | undefined = undefined> {
+export interface ReactDatePickerProps<
+    CustomModifierNames extends string = never,
+    WithRange extends boolean | undefined = undefined,
+> {
     adjustDateOnChange?: boolean | undefined;
     allowSameDay?: boolean | undefined;
     ariaDescribedBy?: string | undefined;
@@ -85,7 +89,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     dropdownMode?: 'scroll' | 'select' | undefined;
     endDate?: Date | null | undefined;
     excludeDates?: Date[] | undefined;
-    excludeDateIntervals?: Array<{start: Date, end: Date}> | undefined;
+    excludeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;
     excludeTimes?: Date[] | undefined;
     filterDate?(date: Date): boolean;
     filterTime?(date: Date): boolean;
@@ -96,7 +100,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     highlightDates?: Array<HighlightDates | Date> | undefined;
     id?: string | undefined;
     includeDates?: Date[] | undefined;
-    includeDateIntervals?: Array<{start: Date, end: Date}> | undefined;
+    includeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;
     includeTimes?: Date[] | undefined;
     injectTimes?: Date[] | undefined;
     inline?: boolean | undefined;
@@ -117,7 +121,7 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
     onChange(
-        date: (WithRange extends false | undefined ? Date | null : [Date | null, Date | null]),
+        date: WithRange extends false | undefined ? Date | null : [Date | null, Date | null],
         event: React.SyntheticEvent<any> | undefined,
     ): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
@@ -202,9 +206,10 @@ export interface ReactDatePickerProps<CustomModifierNames extends string = never
     yearItemNumber?: number | undefined;
 }
 
-export class ReactDatePicker<CustomModifierNames extends string = never, WithRange extends boolean | undefined = undefined> extends React.Component<
-    ReactDatePickerProps<CustomModifierNames, WithRange>
-> {
+export class ReactDatePicker<
+    CustomModifierNames extends string = never,
+    WithRange extends boolean | undefined = undefined,
+> extends React.Component<ReactDatePickerProps<CustomModifierNames, WithRange>> {
     readonly setBlur: () => void;
     readonly setFocus: () => void;
     readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;
