@@ -81,12 +81,12 @@ export type RulesLogic<AddOps extends AdditionalOperation = never> =
     | string
     | number
 
-    // Accessing Data
+    // Accessing Data - https://jsonlogic.com/operations.html#accessing-data
     | { var: RulesLogic<AddOps> | [RulesLogic<AddOps>] | [RulesLogic<AddOps>, any] | [RulesLogic<AddOps>, any] }
     | { missing: RulesLogic<AddOps> | any[] }
     | { missing_some: [RulesLogic<AddOps>, RulesLogic<AddOps> | any[]] }
 
-    // Logic and Boolean Operations
+    // Logic and Boolean Operations - https://jsonlogic.com/operations.html#logic-and-boolean-operations
     | { if: AnyArrayOfOddLengthMin3 }
     | { '==': [any, any] }
     | { '===': [any, any] }
@@ -97,7 +97,7 @@ export type RulesLogic<AddOps extends AdditionalOperation = never> =
     | { or: Array<RulesLogic<AddOps>> }
     | { and: Array<RulesLogic<AddOps>> }
 
-    // Numeric Operations
+    // Numeric Operations - https://jsonlogic.com/operations.html#numeric-operations
     | { '>': [RulesLogic<AddOps>, RulesLogic<AddOps>] }
     | { '>=': [RulesLogic<AddOps>, RulesLogic<AddOps>] }
     | { '<': [RulesLogic<AddOps>, RulesLogic<AddOps>] | [RulesLogic<AddOps>, RulesLogic<AddOps>, RulesLogic<AddOps>] }
@@ -110,7 +110,7 @@ export type RulesLogic<AddOps extends AdditionalOperation = never> =
     | { '/': Array<RulesLogic<AddOps>> | RulesLogic<AddOps> }
     | { '%': [RulesLogic<AddOps>, RulesLogic<AddOps>] }
 
-    // Array Operations
+    // Array Operations - https://jsonlogic.com/operations.html#array-operations
     | { map: [RulesLogic<AddOps>, RulesLogic<AddOps>] }
     | { filter: [RulesLogic<AddOps>, RulesLogic<AddOps>] }
     | { reduce: [RulesLogic<AddOps>, RulesLogic<AddOps>, RulesLogic<AddOps>] }
@@ -120,7 +120,7 @@ export type RulesLogic<AddOps extends AdditionalOperation = never> =
     | { merge: Array<Array<RulesLogic<AddOps>> | RulesLogic<AddOps>> }
     | { in: [RulesLogic<AddOps>, Array<RulesLogic<AddOps>>] }
 
-    // String Operations
+    // String Operations - https://jsonlogic.com/operations.html#string-operations
     | { in: [RulesLogic<AddOps>, RulesLogic<AddOps>] }
     | { cat: Array<RulesLogic<AddOps>> }
     | {
@@ -129,7 +129,7 @@ export type RulesLogic<AddOps extends AdditionalOperation = never> =
               | [RulesLogic<AddOps>, RulesLogic<AddOps>, RulesLogic<AddOps>];
       }
 
-    // Miscellaneous
+    // Miscellaneous - https://jsonlogic.com/operations.html#miscellaneous
     | { log: RulesLogic<AddOps> }
 
     // Adding Operations (https://jsonlogic.com/add_operation.html)
