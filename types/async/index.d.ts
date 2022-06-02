@@ -329,6 +329,15 @@ export function concat<T, R, E = Error>(arr: IterableCollection<T>, iterator: As
 export function concatLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>, callback: AsyncResultArrayCallback<R, E>): void;
 export function concatLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R[], E>): Promise<R[]>;
 export const concatSeries: typeof concat;
+export const flatMap: typeof concat;
+export const flatMapLimit: typeof concatLimit;
+export const flatMapSeries: typeof concatSeries;
+
+export function groupBy<T, K, E = Error>(iterable: IterableCollection<T>, iterator: AsyncResultIterator<T, K, E>, callback: AsyncResultCallback<Record<string, T[]>, E>): void;
+export function groupBy<T, K, E = Error>(iterable: IterableCollection<T>, iterator: AsyncResultIterator<T, K, E>): Promise<Record<string, T[]>>;
+export function groupByLimit<T, K, E = Error>(iterable: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, K, E>, callback: AsyncResultCallback<Record<string, T[]>, E>): void;
+export function groupByLimit<T, K, E = Error>(iterable: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, K, E>): Promise<Record<string, T[]>>;
+export const groupBySeries: typeof groupBy;
 
 // Control Flow
 export function series<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback?: AsyncResultArrayCallback<T, E>): void;
@@ -470,6 +479,9 @@ export function transform<T, R, E = Error>(
     ): void;
 
 export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultCallback<T, E>): void;
+
+export function tryEach<T, E = Error>(tasks: IterableCollection<AsyncFunction<T>>, callback: AsyncResultCallback<T, E>): void;
+export function tryEach<T>(tasks: IterableCollection<AsyncFunction<T>>): Promise<T>;
 
 // Utils
 export function memoize(fn: Function, hasher?: Function): Function;

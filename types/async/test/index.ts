@@ -113,6 +113,11 @@ async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
 async.concatLimit(['dir1', 'dir2', 'dir3'], 2, fs.readdir, (err, files) => { });
 async.concatLimit<string, string>(['dir1', 'dir2', 'dir3'], 2, fs.readdir); // $ExpectType Promise<string[]>
 
+async.groupBy(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: Record<string, string[]>) => { });
+let groups: Promise<Record<string, string[]>> = async.groupBy(['file1', 'file2', 'file3'], funcStringCbErrBoolean);
+async.groupByLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean);
+groups = async.groupByLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean);
+
 // Control Flow //
 
 async.series([callback => { callback(undefined, 'one'); }, callback => { callback(undefined, 'two'); }], (err, results) => { });
@@ -448,6 +453,9 @@ call_order.push('one');
 
 const slow_fn = (name: string, callback: any) => { callback(null, 123); };
 const fn = async.memoize(slow_fn);
+
+async.tryEach([() => 'file1', () => 'file2'], (err: Error, result: string) => { });
+promiseString = async.tryEach([() => 'file1', () => 'file2']);
 
 fn('some name', () => { });
 async.unmemoize(fn);
