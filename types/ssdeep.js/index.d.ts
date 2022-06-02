@@ -3,9 +3,6 @@
 // Definitions by: JPBM135 <https://github.com/JPBM135>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * Represents a hash of a string.
- */
 export type Hash = string;
 
 /**
@@ -21,3 +18,5 @@ export function digest(data: string): Hash;
  * @returns The similarity of the two hashes (A number between 0 and 100)
  */
 export function similarity(d1: Hash, d2: Hash): number;
+
+export as namespace ssdeep;
