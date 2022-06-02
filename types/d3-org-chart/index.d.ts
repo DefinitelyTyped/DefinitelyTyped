@@ -228,8 +228,8 @@ export class OrgChart<Datum> {
     toDataUrl(url: string, callback: (result: string | ArrayBuffer) => void): void;
     exportImg(params?: { full?: boolean; scale?: number; onLoad?: (s: string) => void; save?: boolean }): void;
     exportSvg(): this;
-    expandAll(): void;
-    collapseAll(): void;
+    expandAll(): this;
+    collapseAll(): this;
     downloadImage(params?: {
         node: SVGElement;
         scale?: number;

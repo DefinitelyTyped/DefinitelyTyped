@@ -93,6 +93,12 @@ chart.backgroundColor('#eee').render();
 // $ExpectType OrgChart<Person>
 chart.addNode({ firstName: 'Charlie', lastName: 'Brown' });
 
+// $ExpectType OrgChart<Person>
+chart.expandAll();
+
+// $ExpectType OrgChart<Person>
+chart.collapseAll();
+
 // $ExpectType number
 chart.getChartState().lastTransform.x;
 
