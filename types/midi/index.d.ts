@@ -1,5 +1,5 @@
 // Type definitions for midi 2.0
-// Project: https://github.com/justinlatimer/node-midi (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/justinlatimer/node-midi
 // Definitions by: Matthew Soulanille <https://github.com/mattsoulanille>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
