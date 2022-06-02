@@ -1,30 +1,29 @@
 declare namespace TableStore {
     type CellValue = string | Buffer | int64 | boolean | number | null;
 
-    type PrimaryKeyInput = { [name: string]: CellValue | VirtualData }[];
-    type PrimaryKeyOutput = { name: string; value: CellValue }[];
-    type AttributesInput = {
+    type PrimaryKeyInput = Array<{ [name: string]: CellValue | VirtualData }>;
+    type PrimaryKeyOutput = Array<{ name: string; value: CellValue }>;
+    type AttributesInput = Array<{
         [name: string]: CellValue | VirtualData | undefined;
         timestamp?: number;
-    }[];
-    type AttributesOutput = {
+    }>;
+    type AttributesOutput = Array<{
         columnName: string;
         columnValue: CellValue;
         timestamp: int64 | number;
-    }[];
+    }>;
 
-    type Row = {
+    interface Row {
         primaryKey: PrimaryKeyOutput | null;
         attributes: AttributesOutput | null;
-    };
+    }
 
-    type RowInBatch = Row &
-        Consumed & {
-            isOk: boolean;
-            errorCode: string | null;
-            errorMessage: string | null;
-            tableName: string;
-        };
+    interface RowInBatch extends Row, Consumed {
+        isOk: boolean;
+        errorCode: string | null;
+        errorMessage: string | null;
+        tableName: string;
+    }
 
     type TimeRange = Partial<{
         startTime: number;
@@ -46,69 +45,69 @@ declare namespace TableStore {
         primaryKey: PrimaryKeyInput[];
     };
 
-    type TableMeta = {
+    interface TableMeta {
         tableName: string;
-        primaryKey: {
+        primaryKey: Array<{
             name: string;
             type: PrimaryKeyType | keyof typeof PrimaryKeyType;
             option?: PrimaryKeyOption | keyof typeof PrimaryKeyOption;
-        }[];
-        definedColumn?: {
+        }>;
+        definedColumn?: Array<{
             name: string;
             type: DefinedColumnType | keyof typeof DefinedColumnType;
-        }[];
-    };
+        }>;
+    }
 
-    type TableOptions = {
+    interface TableOptions {
         timeToLive: number;
         maxVersions: number;
         maxTimeDeviation?: number;
-    };
+    }
 
-    type ReservedThroughput = {
+    interface ReservedThroughput {
         capacityUnit: {
             read: number;
             write: number;
         };
-    };
+    }
 
-    type StreamSpecification = {
+    interface StreamSpecification {
         enableStream: boolean;
         expirationTime?: number;
-    };
+    }
 
-    type IndexMeta = {
+    interface IndexMeta {
         name: string;
         primaryKey: string[];
         definedColumn: string[];
         indexUpdateMode?: IndexUpdateMode;
         indexType?: IndexType;
-    };
+    }
 
-    type ReturnContent = {
+    interface ReturnContent {
         returnType: ReturnType;
         returnColumns?: string[];
-    };
+    }
 
-    type JustTableName = {
+    interface JustTableName {
         tableName: string;
-    };
+    }
 
     // Params start
-    type CreateTableParams = {
+    interface CreateTableParams {
         tableMeta: TableMeta;
         tableOptions: TableOptions;
         reservedThroughput: ReservedThroughput;
         streamSpecification?: StreamSpecification;
         indexMetas?: IndexMeta[];
-    };
+    }
 
-    type UpdateTableParams = {
+    interface UpdateTableParams {
         tableName: string;
         tableOptions: Partial<TableOptions>;
         reservedThroughput?: ReservedThroughput;
         streamSpecification?: StreamSpecification;
-    };
+    }
 
     type DescribeTableParams = JustTableName;
 
@@ -118,30 +117,30 @@ declare namespace TableStore {
         tableName: string;
         primaryKey: PrimaryKeyInput;
     };
-    type PutRowParams = {
+    interface PutRowParams {
         tableName: string;
         primaryKey: PrimaryKeyInput;
         condition: Condition;
         attributeColumns: AttributesInput;
         returnContent?: ReturnContent;
-    };
-    type UpdateRowParams = {
+    }
+    interface UpdateRowParams {
         tableName: string;
         primaryKey: PrimaryKeyInput;
         condition: Condition;
-        updateOfAttributeColumns: {
+        updateOfAttributeColumns: Array<{
             PUT?: AttributesInput;
-            DELETE?: { [name: string]: int64 }[];
+            DELETE?: Array<{ [name: string]: int64 }>;
             DELETE_ALL?: string[];
-            INCREMENT?: { [name: string]: int64 }[];
-        }[];
+            INCREMENT?: Array<{ [name: string]: int64 }>;
+        }>;
         returnContent?: ReturnContent;
-    };
-    type DeleteRowParams = {
+    }
+    interface DeleteRowParams {
         tableName: string;
         primaryKey: PrimaryKeyInput;
         condition: Condition;
-    };
+    }
     type GetRangeParams = FilterParams & {
         tableName: string;
         direction: Direction;
@@ -149,22 +148,22 @@ declare namespace TableStore {
         exclusiveEndPrimaryKey: PrimaryKeyInput;
         limit?: number;
     };
-    type BatchGetRowParams = {
+    interface BatchGetRowParams {
         tables: RowParamsInBatchGet[];
-    };
-    type BatchWriteRowParams = {
-        tables: {
+    }
+    interface BatchWriteRowParams {
+        tables: Array<{
             tableName: string;
-            rows: (
+            rows: Array<
                 | {
                       type: 'UPDATE';
                       condition: Condition;
                       primaryKey: PrimaryKeyInput;
-                      attributeColumns: {
+                      attributeColumns: Array<{
                           PUT?: AttributesInput;
-                          DELETE?: { [name: string]: int64 }[];
+                          DELETE?: Array<{ [name: string]: int64 }>;
                           DELETE_ALL?: string[];
-                      }[];
+                      }>;
                       returnContent?: ReturnContent;
                   }
                 | {
@@ -179,9 +178,9 @@ declare namespace TableStore {
                       condition: Condition;
                       primaryKey: PrimaryKeyInput;
                   }
-            )[];
-        }[];
-    };
+            >;
+        }>;
+    }
 
     /*
     type ListSearchIndexParams = JustTableName;
@@ -195,30 +194,30 @@ declare namespace TableStore {
     */
     // Params end
 
-    type ListTableResult = {
+    interface ListTableResult {
         tableNames: string[];
-    };
+    }
 
-    type DescribeTableResult = {
+    interface DescribeTableResult {
         tableMeta: TableMeta;
         reservedThroughputDetails: ReservedThroughput;
         tableOptions: TableOptions;
         streamDetails: StreamSpecification;
         shard_splits: any;
-    };
+    }
 
-    type Consumed = {
+    interface Consumed {
         capacityUnit: {
             read: number;
             write: number;
         };
-    };
-    type SingleRowResult = {
+    }
+    interface SingleRowResult {
         consumed: Consumed;
         row?: Row;
         RequestId: string;
-    };
-    type GetRangeResult = {
+    }
+    interface GetRangeResult {
         consumed: Consumed;
         rows: Row[];
         nextStartPrimaryKey?: PrimaryKeyOutput;
@@ -226,13 +225,13 @@ declare namespace TableStore {
         dataBlockType?: number;
         nextToken?: Buffer;
         RequestId: string;
-    };
-    type BatchGetRowResult = {
+    }
+    interface BatchGetRowResult {
         tables: RowInBatch[][];
         RequestId: string;
-    };
-    type BatchWriteRowResult = {
+    }
+    interface BatchWriteRowResult {
         tables: RowInBatch[];
         RequestId: string;
-    };
+    }
 }

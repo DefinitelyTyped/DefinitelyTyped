@@ -1,7 +1,4 @@
 declare namespace TableStore {
-    class Config {
-        constructor(options: ConfigOptions);
-    }
     type ConfigOptions = Partial<{
         accessKeyId: string;
         secretAccessKey: string;

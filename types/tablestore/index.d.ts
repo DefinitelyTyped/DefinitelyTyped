@@ -1,4 +1,4 @@
-// Type definitions for tablestore 5.1.1
+// Type definitions for tablestore 5.1
 // Project: https://github.com/aliyun/aliyun-tablestore-nodejs-sdk
 // Definitions by: craigwu <https://github.com/waynecraig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -47,7 +47,7 @@ const createTable1 = () => {
         },
     };
 
-    client.createTable(params, function (err, data) {
+    client.createTable(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -108,7 +108,7 @@ const createTable2 = () => {
         ],
     };
 
-    client.createTable(params, function (err, data) {
+    client.createTable(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -118,7 +118,7 @@ const createTable2 = () => {
 };
 
 const createTable3 = () => {
-    var params = {
+    const params = {
         tableMeta: {
             tableName: 'sdkLocalTest',
             primaryKey: [
@@ -174,7 +174,7 @@ const createTable3 = () => {
         ],
     };
 
-    client.createTable(params, function (err, data) {
+    client.createTable(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -185,14 +185,14 @@ const createTable3 = () => {
 
 // update table
 const updateTable = () => {
-    var params = {
+    const params = {
         tableName: 'sampleTable',
         tableOptions: {
             maxVersions: 5,
         },
     };
 
-    client.updateTable(params, function (err, data) {
+    client.updateTable(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -202,7 +202,7 @@ const updateTable = () => {
 };
 
 // list table
-client.listTable({}, function (err, data) {
+client.listTable({}, (err, data) => {
     if (err) {
         console.log('error:', err);
         return;
@@ -211,7 +211,7 @@ client.listTable({}, function (err, data) {
 });
 
 // describe table
-client.describeTable({ tableName: 'sampleTable' }, function (err, data) {
+client.describeTable({ tableName: 'sampleTable' }, (err, data) => {
     if (err) {
         console.log('error:', err);
         return;
@@ -220,7 +220,7 @@ client.describeTable({ tableName: 'sampleTable' }, function (err, data) {
 });
 
 // delete table
-client.deleteTable({ tableName: 'sampleTable' }, function (err, data) {
+client.deleteTable({ tableName: 'sampleTable' }, (err, data) => {
     if (err) {
         console.log('error:', err);
         return;
@@ -230,13 +230,12 @@ client.deleteTable({ tableName: 'sampleTable' }, function (err, data) {
 
 // auto increment
 function createTableWithAutoIncrementPk() {
-    var Long = TableStore.Long;
-    var tableName = 'autoIncTable';
-    var pk1 = 'stringPK';
-    var pk2 = 'autoIncPK';
-    var createParams: TableStore.CreateTableParams = {
+    const tableName = 'autoIncTable';
+    const pk1 = 'stringPK';
+    const pk2 = 'autoIncPK';
+    const createParams: TableStore.CreateTableParams = {
         tableMeta: {
-            tableName: tableName,
+            tableName,
             primaryKey: [
                 {
                     name: pk1,
@@ -261,7 +260,7 @@ function createTableWithAutoIncrementPk() {
         },
     };
 
-    client.createTable(createParams, function (err, data) {
+    client.createTable(createParams, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -271,20 +270,17 @@ function createTableWithAutoIncrementPk() {
 }
 
 function putRow() {
-    var Long = TableStore.Long;
-    var tableName = 'autoIncTable';
-    var pk1 = 'stringPK';
-    var pk2 = 'autoIncPK';
+    const tableName = 'autoIncTable';
 
-    var putParams: TableStore.PutRowParams = {
-        tableName: tableName,
+    const putParams: TableStore.PutRowParams = {
+        tableName,
         condition: new TableStore.Condition(TableStore.RowExistenceExpectation.IGNORE, null),
         primaryKey: [{ stringPK: 'pk1' }, { autoIncPK: TableStore.PK_AUTO_INCR }],
         attributeColumns: [{ col1: 'col1val' }],
         returnContent: { returnType: TableStore.ReturnType.Primarykey },
     };
 
-    client.putRow(putParams, function (err, data) {
+    client.putRow(putParams, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -298,18 +294,18 @@ function putRow() {
 const updateTableWithCondition = () => {
     const Long = TableStore.Long;
 
-    var condition = new TableStore.CompositeCondition(TableStore.LogicalOperator.AND);
+    const condition = new TableStore.CompositeCondition(TableStore.LogicalOperator.AND);
     condition.addSubCondition(new TableStore.SingleColumnCondition('name', 'john', TableStore.ComparatorType.EQUAL));
     condition.addSubCondition(new TableStore.SingleColumnCondition('addr', 'china', TableStore.ComparatorType.EQUAL));
 
-    var params: TableStore.UpdateRowParams = {
+    const params: TableStore.UpdateRowParams = {
         tableName: 'sampleTable',
         primaryKey: [{ gid: Long.fromNumber(20013) }, { uid: Long.fromNumber(20013) }],
         updateOfAttributeColumns: [{ PUT: [{ col1: 'test6' }] }],
         condition: new TableStore.Condition(TableStore.RowExistenceExpectation.EXPECT_EXIST, condition),
     };
 
-    client.updateRow(params, function (err, data) {
+    client.updateRow(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -321,7 +317,7 @@ const updateTableWithCondition = () => {
 // attribute increment
 const attributeIncrement = () => {
     const Long = TableStore.Long;
-    var params: TableStore.UpdateRowParams = {
+    const params: TableStore.UpdateRowParams = {
         tableName: '<Your-Table-Name>',
         condition: new TableStore.Condition(TableStore.RowExistenceExpectation.EXPECT_EXIST, null),
         primaryKey: [{ pk0: Long.fromNumber(1) }],
@@ -332,7 +328,7 @@ const attributeIncrement = () => {
         },
     };
 
-    client.updateRow(params, function (err, data) {
+    client.updateRow(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -344,7 +340,7 @@ const attributeIncrement = () => {
 
 // filter
 function getRowWithCondition() {
-    var condition = new TableStore.SingleColumnCondition('col1', '表格存储', TableStore.ComparatorType.EQUAL, true);
+    const condition = new TableStore.SingleColumnCondition('col1', '表格存储', TableStore.ComparatorType.EQUAL, true);
 
     client.getRow(
         {
@@ -352,7 +348,7 @@ function getRowWithCondition() {
             primaryKey: [{ pk0: 'test' }],
             columnFilter: condition,
         },
-        function (err, data) {
+        (err, data) => {
             if (err) {
                 console.log('error:', err);
                 return;
@@ -364,7 +360,7 @@ function getRowWithCondition() {
 
 function getRowWithCompositeCondition() {
     const Long = TableStore.Long;
-    var condition = new TableStore.CompositeCondition(TableStore.LogicalOperator.AND);
+    const condition = new TableStore.CompositeCondition(TableStore.LogicalOperator.AND);
     condition.addSubCondition(
         new TableStore.SingleColumnCondition('col1', '表格存储', TableStore.ComparatorType.EQUAL),
     );
@@ -378,7 +374,7 @@ function getRowWithCompositeCondition() {
             primaryKey: [{ pk0: 'test' }],
             columnFilter: condition,
         },
-        function (err, data) {
+        (err, data) => {
             if (err) {
                 console.log('error:', err);
                 return;
@@ -390,9 +386,9 @@ function getRowWithCompositeCondition() {
 
 // single row operations
 const putARow = () => {
-    var Long = TableStore.Long;
-    var currentTimeStamp = Date.now();
-    var params: TableStore.PutRowParams = {
+    const Long = TableStore.Long;
+    const currentTimeStamp = Date.now();
+    const params: TableStore.PutRowParams = {
         tableName: 'sampleTable',
         condition: new TableStore.Condition(TableStore.RowExistenceExpectation.IGNORE, null),
         primaryKey: [{ gid: Long.fromNumber(20013) }, { uid: Long.fromNumber(20013) }],
@@ -406,7 +402,7 @@ const putARow = () => {
         returnContent: { returnType: TableStore.ReturnType.Primarykey },
     };
 
-    client.putRow(params, function (err, data) {
+    client.putRow(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -417,19 +413,19 @@ const putARow = () => {
 };
 
 const getARow = () => {
-    var Long = TableStore.Long;
-    var params: TableStore.GetRowParams = {
+    const Long = TableStore.Long;
+    const params: TableStore.GetRowParams = {
         tableName: 'sampleTable',
         primaryKey: [{ gid: Long.fromNumber(20004) }, { uid: Long.fromNumber(20004) }],
         maxVersions: 2,
     };
-    var condition = new TableStore.CompositeCondition(TableStore.LogicalOperator.AND);
+    const condition = new TableStore.CompositeCondition(TableStore.LogicalOperator.AND);
     condition.addSubCondition(new TableStore.SingleColumnCondition('name', 'john', TableStore.ComparatorType.EQUAL));
     condition.addSubCondition(new TableStore.SingleColumnCondition('addr', 'china', TableStore.ComparatorType.EQUAL));
 
     params.columnFilter = condition;
 
-    client.getRow(params, function (err, data) {
+    client.getRow(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -439,8 +435,8 @@ const getARow = () => {
 };
 
 const updateARow = () => {
-    var Long = TableStore.Long;
-    var params: TableStore.UpdateRowParams = {
+    const Long = TableStore.Long;
+    const params: TableStore.UpdateRowParams = {
         tableName: 'sampleTable',
         condition: new TableStore.Condition(TableStore.RowExistenceExpectation.IGNORE, null),
         primaryKey: [{ gid: Long.fromNumber(9) }, { uid: Long.fromNumber(90) }],
@@ -451,7 +447,7 @@ const updateARow = () => {
         ],
     };
 
-    client.updateRow(params, function (err, data) {
+    client.updateRow(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -462,14 +458,14 @@ const updateARow = () => {
 };
 
 const deleteARow = () => {
-    var Long = TableStore.Long;
-    var params: TableStore.DeleteRowParams = {
+    const Long = TableStore.Long;
+    const params: TableStore.DeleteRowParams = {
         tableName: 'sampleTable',
         condition: new TableStore.Condition(TableStore.RowExistenceExpectation.IGNORE, null),
         primaryKey: [{ gid: Long.fromNumber(8) }, { uid: Long.fromNumber(80) }],
     };
 
-    client.deleteRow(params, function (err, data) {
+    client.deleteRow(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -481,8 +477,8 @@ const deleteARow = () => {
 
 // batch row operations
 const wraiteMutipleRows = () => {
-    var Long = TableStore.Long;
-    var params: TableStore.BatchWriteRowParams = {
+    const Long = TableStore.Long;
+    const params: TableStore.BatchWriteRowParams = {
         tables: [
             {
                 tableName: 'sampleTable',
@@ -511,7 +507,7 @@ const wraiteMutipleRows = () => {
         ],
     };
 
-    client.batchWriteRow(params, function (err, data) {
+    client.batchWriteRow(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -522,8 +518,8 @@ const wraiteMutipleRows = () => {
 };
 
 const getMultipleRows = () => {
-    var Long = TableStore.Long;
-    var params: TableStore.BatchGetRowParams = {
+    const Long = TableStore.Long;
+    const params: TableStore.BatchGetRowParams = {
         tables: [
             {
                 tableName: 'sampleTable',
@@ -541,33 +537,32 @@ const getMultipleRows = () => {
         ],
     };
 
-    var maxRetryTimes = 3;
-    var retryCount = 0;
+    const maxRetryTimes = 3;
+    let retryCount = 0;
 
     function batchGetRow(params: TableStore.BatchGetRowParams) {
-        client.batchGetRow(params, function (err, data) {
+        client.batchGetRow(params, (err, data) => {
             if (err) {
                 console.log('error:', err);
                 return;
             }
 
-            var isAllSuccess = true;
-            var retryRequest: TableStore.BatchGetRowParams = { tables: [] };
-            for (var i = 0; i < data.tables.length; i++) {
-                var faildRequest: TableStore.RowParamsInBatchGet = {
-                    tableName: data.tables[i][0].tableName,
+            let isAllSuccess = true;
+            const retryRequest: TableStore.BatchGetRowParams = { tables: [] };
+            for (const table of data.tables) {
+                const faildRequest: TableStore.RowParamsInBatchGet = {
+                    tableName: table[0].tableName,
                     primaryKey: [],
                 };
 
-                for (var j = 0; j < data.tables[i].length; j++) {
-                    if (!data.tables[i][j].isOk && null != data.tables[i][j].primaryKey) {
+                for (const row of table) {
+                    if (!row.isOk && null != row.primaryKey) {
                         isAllSuccess = false;
-                        var pks = [];
-                        const pko = data.tables[i][j].primaryKey as TableStore.PrimaryKeyOutput;
-                        for (var k in pko) {
-                            var name = pko[k].name;
-                            var value = pko[k].value;
-                            var kp: { [key: string]: TableStore.CellValue } = {};
+                        const pks = [];
+                        const pko = row.primaryKey;
+                        for (const k of pko) {
+                            const { name, value } = k;
+                            const kp: { [key: string]: TableStore.CellValue } = {};
                             kp[name] = value;
                             pks.push(kp);
                         }
@@ -594,8 +589,7 @@ const getMultipleRows = () => {
 };
 
 const getRange = () => {
-    var Long = TableStore.Long;
-    var params: TableStore.GetRangeParams = {
+    const params: TableStore.GetRangeParams = {
         tableName: 'sampleTable',
         direction: TableStore.Direction.FORWARD,
         inclusiveStartPrimaryKey: [{ gid: TableStore.INF_MIN }, { uid: TableStore.INF_MIN }],
@@ -603,7 +597,7 @@ const getRange = () => {
         limit: 50,
     };
 
-    client.getRange(params, function (err, data) {
+    client.getRange(params, (err, data) => {
         if (err) {
             console.log('error:', err);
             return;
@@ -615,4 +609,3 @@ const getRange = () => {
         console.log('success:', data);
     });
 };
-

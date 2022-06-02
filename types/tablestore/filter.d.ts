@@ -51,5 +51,6 @@ declare namespace TableStore {
     }
     class ColumnPaginationFilter {
         constructor(limit: number, offset: number);
+        getType(): number;
     }
 }
