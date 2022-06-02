@@ -71,6 +71,13 @@ export interface PlotMouseEvent {
     event: MouseEvent;
 }
 
+export interface PlotHoverEvent {
+    points: PlotDatum[];
+    event: MouseEvent;
+    xvals: Datum[];
+    yvals: Datum[];
+}
+
 export interface PlotCoordinate {
     x: number;
     y: number;
