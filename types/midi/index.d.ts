@@ -66,9 +66,9 @@ export class Output {
 }
 
 /** @deprecated */
-export const input: { new (): Input };
+export const input: typeof Input;
 /** @deprecated */
-export const output: { new (): Output };
+export const output: typeof Output;
 
 export function createReadStream(input?: Input): Stream;
 
