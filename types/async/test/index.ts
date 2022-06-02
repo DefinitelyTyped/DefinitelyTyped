@@ -12,6 +12,10 @@ declare var path: {
 function funcStringCbErrBoolean(v: string, cb: (err: Error, res: boolean) => void) {}
 function callback() { }
 
+let promiseString: Promise<string>;
+let promiseIterableString: Promise<Iterable<string>>;
+let promiseBoolean: Promise<boolean>;
+
 async.map(['file1', 'file2', 'file3'], fs.stat, (err: Error, results: fs.Stats[]) => { });
 async.mapSeries(['file1', 'file2', 'file3'], fs.stat, (err: Error, results: fs.Stats[]) => { });
 async.mapLimit(['file1', 'file2', 'file3'], 2, fs.stat, (err: Error, results: fs.Stats[]) => { });
@@ -84,17 +88,23 @@ async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, r
 async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean); // $ExpectType Promise<string>
 async.detectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err, result) => { });
 async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err, result) => { });
+promiseString = async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean);
 
 async.sortBy(['file1', 'file2', 'file3'], (file, callback) => {
     fs.stat(file, (err, stats) => { callback(err, stats ? stats.mtime : -1); });
 }, (err, results) => { });
+promiseIterableString = async.sortBy(['file1', 'file2', 'file3'], (file, callback) => {
+    fs.stat(file, (err, stats) => { callback(err, stats ? stats.mtime : -1); });
+});
 
 async.some(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 async.someLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 async.any(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 
 async.every(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
+promiseBoolean = async.every(['file1', 'file2', 'file3'], funcStringCbErrBoolean);
 async.everyLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err: Error, result: boolean) => { });
+promiseBoolean = async.everyLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean);
 async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { }); // $ExpectType void
