@@ -645,7 +645,7 @@ export interface FileInfoOptions {
 
 export interface FileInfoResult {
     ignored: boolean;
-    inferredParser: string | null;
+    inferredParser: BuiltInParserName | null;
 }
 
 export function getFileInfo(filePath: string, options?: FileInfoOptions): Promise<FileInfoResult>;
