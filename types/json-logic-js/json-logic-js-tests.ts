@@ -33,6 +33,11 @@ jsonLogic.apply({ cat: ['Hello, ', { var: '' }] }, 'Dolly');
 jsonLogic.apply({ missing: ['a', 'b'] }, { a: 'apple', c: 'carrot' });
 // $ExpectType any
 jsonLogic.apply({ if: [{ missing: ['a', 'b'] }, 'Not enough fruit', 'OK to proceed'] }, { a: 'apple', b: 'banana' });
+jsonLogic.apply(
+    // $ExpectError
+    { if: [{ missing: ['a', 'b'] }, 'Need three or more (odd total) elements for "if"'] },
+    { a: 'apple', b: 'banana' },
+);
 
 // $ExpectType any
 jsonLogic.apply({ missing_some: [1, ['a', 'b', 'c']] }, { a: 'apple' });
@@ -233,3 +238,15 @@ jsonLogic.rm_operation('op');
 jsonLogic.rm_operation(1);
 // $ExpectError
 jsonLogic.rm_operation();
+
+type StartsWithAndEndsWith =
+    | { startsWith: [JsonLogicWithAdditionalOperations, JsonLogicWithAdditionalOperations] }
+    | { endsWith: [JsonLogicWithAdditionalOperations, JsonLogicWithAdditionalOperations] };
+type JsonLogicWithAdditionalOperations = jsonLogic.RulesLogic<StartsWithAndEndsWith>;
+const jsonExtendedLogic: JsonLogicWithAdditionalOperations = {
+    and: [{ startsWith: ['Springfield', 'Spring'] }, { endsWith: ['Springfield', 'field'] }],
+};
+// $ExpectType any
+jsonLogic.apply(jsonExtendedLogic);
+// $ExpectError
+const invalidExtendedLogic: JsonLogicWithAdditionalOperations = { invalidOperator: ['Springfield', 'Spring'] };
