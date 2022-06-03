@@ -76,9 +76,12 @@ export namespace LeafletContext {
     }
 }
 
+type KeyEvents = Array<keyof MapEvents>;
+
 export class LeafletMap extends SvelteComponentTyped<
     {
         options?: L.MapOptions;
+	    events?: KeyEvents;
         getMap?(): L.Map;
     },
     MapEvents,
