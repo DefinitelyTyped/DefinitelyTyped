@@ -479,3 +479,27 @@ export function readCache(): ReadCache;
  * @return a Transit write cache
  */
 export function writeCache(): WriteCache;
+
+/**
+ * Returns true if map-like obj parameter has only stringable keys -
+ * strings, symbols or keywords. If false, obj is a cmap value.
+ * @param em
+ * @param obj
+ */
+export function stringableKeys(em: any, obj: any): boolean;
+
+export function UUIDfromString(s: string): any;
+
+/**
+ * Creates a random UUID
+ */
+export function randomUUID(s: string): any;
+
+/**
+ * Compute the hashCode for JavaScript array-like types - either a JavaScript
+ *    array or a JavaScript object that implements Array forEach.
+ * @param obj
+ *    A JavaScript Array or Object that implements Array forEach.
+ * @return Returns JavaScript number - semantically a 32bit integer.
+ */
+export function hashArrayLike(obj: ArrayLike<any>): number;
