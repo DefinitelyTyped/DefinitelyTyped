@@ -255,9 +255,9 @@ export interface ExpressionMap {
   ClassExpression: ClassExpression;
   ConditionalExpression: ConditionalExpression;
   FunctionExpression: FunctionExpression;
-  Identifier: Identifier ;
+  Identifier: Identifier;
   ImportExpression: ImportExpression;
-  Literal: Literal ;
+  Literal: Literal;
   LogicalExpression: LogicalExpression;
   MemberExpression: MemberExpression;
   MetaProperty: MetaProperty;
@@ -265,9 +265,9 @@ export interface ExpressionMap {
   ObjectExpression: ObjectExpression;
   SequenceExpression: SequenceExpression;
   TaggedTemplateExpression: TaggedTemplateExpression;
-  TemplateLiteral: TemplateLiteral ;
+  TemplateLiteral: TemplateLiteral;
   ThisExpression: ThisExpression;
-  UnaryExpression: UnaryExpression ;
+  UnaryExpression: UnaryExpression;
   UpdateExpression: UpdateExpression;
   YieldExpression: YieldExpression;
 }
