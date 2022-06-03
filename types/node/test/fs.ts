@@ -463,6 +463,8 @@ async () => {
 
     await handle.write('hurr', 0, 'utf-8');
     await handle.write(Buffer.from('hurr'), 0, 42, 10);
+
+    handle.readableWebStream();
 };
 
 {
