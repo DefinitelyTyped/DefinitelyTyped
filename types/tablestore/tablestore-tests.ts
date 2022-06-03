@@ -609,3 +609,5 @@ const getRange = () => {
         console.log('success:', data);
     });
 };
+
+TableStore.events.on('a', () => {});
