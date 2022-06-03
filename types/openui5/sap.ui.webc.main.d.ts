@@ -1,4 +1,4 @@
-// For Library Version: 1.99.0
+// For Library Version: 1.102.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -321,7 +321,7 @@ declare module "sap/ui/webc/main/library" {
    * @SINCE 1.92.0
    * @EXPERIMENTAL (since 1.92.0)
    *
-   * Interface for components that may be used inside a `ui5-color-palette`
+   * Interface for components that may be used inside a `ui5-color-palette` or `ui5-color-palette-popover`
    */
   export interface IColorPaletteItem {
     __implements__sap_ui_webc_main_IColorPaletteItem: boolean;
@@ -375,6 +375,16 @@ declare module "sap/ui/webc/main/library" {
    */
   export interface IListItem {
     __implements__sap_ui_webc_main_IListItem: boolean;
+  }
+
+  /**
+   * @SINCE 1.102.0
+   * @EXPERIMENTAL (since 1.102.0)
+   *
+   * Interface for components that may be slotted inside `ui5-menu` as items
+   */
+  export interface IMenuItem {
+    __implements__sap_ui_webc_main_IMenuItem: boolean;
   }
 
   /**
@@ -523,9 +533,22 @@ declare module "sap/ui/webc/main/library" {
    * @SINCE 1.92.0
    * @EXPERIMENTAL (since 1.92.0)
    *
-   * Defines the growing mode, used in the `ui5-List`.
+   * Defines the growing mode, used in the `ui5-list`.
    */
-  export enum ListGrowingMode {}
+  export enum ListGrowingMode {
+    /**
+     * Component's `load-more` is fired upon pressing a "More" button. at the bottom.
+     */
+    Button = "Button",
+    /**
+     * Component's growing is not enabled.
+     */
+    None = "None",
+    /**
+     * Component's `load-more` is fired upon scroll.
+     */
+    Scroll = "Scroll",
+  }
   /**
    * @SINCE 1.92.0
    * @EXPERIMENTAL (since 1.92.0)
@@ -810,7 +833,20 @@ declare module "sap/ui/webc/main/library" {
    *
    * Defines the growing mode, used in the `ui5-table`.
    */
-  export enum TableGrowingMode {}
+  export enum TableGrowingMode {
+    /**
+     * Component's `load-more` is fired upon pressing a "More" button. at the bottom.
+     */
+    Button = "Button",
+    /**
+     * Component's growing is not enabled.
+     */
+    None = "None",
+    /**
+     * Component's `load-more` is fired upon scroll.
+     */
+    Scroll = "Scroll",
+  }
   /**
    * @SINCE 1.92.0
    * @EXPERIMENTAL (since 1.92.0)
@@ -970,6 +1006,8 @@ declare module "sap/ui/webc/main/Avatar" {
     AvatarSize,
   } from "sap/ui/webc/main/library";
 
+  import Event from "sap/ui/base/Event";
+
   import Control from "sap/ui/core/Control";
 
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
@@ -1035,6 +1073,8 @@ declare module "sap/ui/webc/main/Avatar" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1053,12 +1093,89 @@ declare module "sap/ui/webc/main/Avatar" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Avatar.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
-     * Destroys the content in the aggregation {@link #getContent content}.
+     * Attaches event handler `fnFunction` to the {@link #event:click click} event of this `sap.ui.webc.main.Avatar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.webc.main.Avatar` itself.
+     *
+     * Fired when the user clicks the control
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    destroyContent(): this;
+    attachClick(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Avatar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:click click} event of this `sap.ui.webc.main.Avatar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.webc.main.Avatar` itself.
+     *
+     * Fired when the user clicks the control
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachClick(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Avatar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Destroys the image in the aggregation {@link #getImage image}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyImage(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:click click} event of this `sap.ui.webc.main.Avatar`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachClick(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:click click} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireClick(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
@@ -1066,6 +1183,8 @@ declare module "sap/ui/webc/main/Avatar" {
      * if present.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -1087,18 +1206,10 @@ declare module "sap/ui/webc/main/Avatar" {
      * 	 - `Placeholder`
      *
      * Default value is `Accent6`.
+     *
+     * @returns Value of property `colorScheme`
      */
     getColorScheme(): AvatarColorScheme | keyof typeof AvatarColorScheme;
-    /**
-     * Gets content of aggregation {@link #getContent content}.
-     *
-     * Receives the desired `<img>` tag
-     *
-     * **Note:** If you experience flickering of the provided image, you can hide the component until it is
-     * being defined with the following CSS:   ` ui5-avatar:not(:defined) {  visibility: hidden;
-     *  }  `
-     */
-    getContent(): Control;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -1115,8 +1226,20 @@ declare module "sap/ui/webc/main/Avatar" {
      * See all the available icons in the Icon Explorer.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
+    /**
+     * Gets content of aggregation {@link #getImage image}.
+     *
+     * Receives the desired `<img>` tag
+     *
+     * **Note:** If you experience flickering of the provided image, you can hide the component until it is
+     * being defined with the following CSS:   ` ui5-avatar:not(:defined) {  visibility: hidden;
+     *  }  `
+     */
+    getImage(): Control;
     /**
      * Gets current value of property {@link #getInitials initials}.
      *
@@ -1124,6 +1247,8 @@ declare module "sap/ui/webc/main/Avatar" {
      *  Up to two Latin letters can be displayed as initials.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `initials`
      */
     getInitials(): string;
     /**
@@ -1132,6 +1257,8 @@ declare module "sap/ui/webc/main/Avatar" {
      * Defines if the avatar is interactive (focusable and pressable)
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `interactive`
      */
     getInteractive(): boolean;
     /**
@@ -1144,6 +1271,8 @@ declare module "sap/ui/webc/main/Avatar" {
      * 	 - `Square`
      *
      * Default value is `Circle`.
+     *
+     * @returns Value of property `shape`
      */
     getShape(): AvatarShape | keyof typeof AvatarShape;
     /**
@@ -1159,6 +1288,8 @@ declare module "sap/ui/webc/main/Avatar" {
      * 	 - `XL`
      *
      * Default value is `S`.
+     *
+     * @returns Value of property `size`
      */
     getSize(): AvatarSize | keyof typeof AvatarSize;
     /**
@@ -1170,6 +1301,8 @@ declare module "sap/ui/webc/main/Avatar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -1198,21 +1331,14 @@ declare module "sap/ui/webc/main/Avatar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Accent6`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setColorScheme(
       /**
        * New value for property `colorScheme`
        */
       sColorScheme?: AvatarColorScheme | keyof typeof AvatarColorScheme
-    ): this;
-    /**
-     * Sets the aggregated {@link #getContent content}.
-     */
-    setContent(
-      /**
-       * The content to set
-       */
-      oContent: Control
     ): this;
     /**
      * Sets a new value for property {@link #getIcon icon}.
@@ -1232,12 +1358,25 @@ declare module "sap/ui/webc/main/Avatar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
        * New value for property `icon`
        */
       sIcon?: string
+    ): this;
+    /**
+     * Sets the aggregated {@link #getImage image}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setImage(
+      /**
+       * The image to set
+       */
+      oImage: Control
     ): this;
     /**
      * Sets a new value for property {@link #getInitials initials}.
@@ -1248,6 +1387,8 @@ declare module "sap/ui/webc/main/Avatar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInitials(
       /**
@@ -1263,6 +1404,8 @@ declare module "sap/ui/webc/main/Avatar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInteractive(
       /**
@@ -1282,6 +1425,8 @@ declare module "sap/ui/webc/main/Avatar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Circle`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShape(
       /**
@@ -1304,6 +1449,8 @@ declare module "sap/ui/webc/main/Avatar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `S`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSize(
       /**
@@ -1338,7 +1485,8 @@ declare module "sap/ui/webc/main/Avatar" {
      */
     colorScheme?:
       | (AvatarColorScheme | keyof typeof AvatarColorScheme)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the name of the UI5 Icon, that would be displayed.
@@ -1364,7 +1512,7 @@ declare module "sap/ui/webc/main/Avatar" {
     /**
      * Defines if the avatar is interactive (focusable and pressable)
      */
-    interactive?: boolean | PropertyBindingInfo;
+    interactive?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the shape of the component.
@@ -1373,7 +1521,10 @@ declare module "sap/ui/webc/main/Avatar" {
      * 	 - `Circle`
      * 	 - `Square`
      */
-    shape?: (AvatarShape | keyof typeof AvatarShape) | PropertyBindingInfo;
+    shape?:
+      | (AvatarShape | keyof typeof AvatarShape)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines predefined size of the component.
@@ -1385,7 +1536,10 @@ declare module "sap/ui/webc/main/Avatar" {
      * 	 - `L`
      * 	 - `XL`
      */
-    size?: (AvatarSize | keyof typeof AvatarSize) | PropertyBindingInfo;
+    size?:
+      | (AvatarSize | keyof typeof AvatarSize)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Receives the desired `<img>` tag
@@ -1394,7 +1548,12 @@ declare module "sap/ui/webc/main/Avatar" {
      * being defined with the following CSS:   ` ui5-avatar:not(:defined) {  visibility: hidden;
      *  }  `
      */
-    content?: Control;
+    image?: Control;
+
+    /**
+     * Fired when the user clicks the control
+     */
+    click?: (oEvent: Event) => void;
   }
 }
 
@@ -1507,6 +1666,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1525,10 +1686,14 @@ declare module "sap/ui/webc/main/AvatarGroup" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.AvatarGroup.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -1543,6 +1708,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * otherwise it will be bound to this `sap.ui.webc.main.AvatarGroup` itself.
      *
      * Fired when the component is activated either with a click/tap or by using the Enter or Space key.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -1566,6 +1733,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * otherwise it will be bound to this `sap.ui.webc.main.AvatarGroup` itself.
      *
      * Fired when the component is activated either with a click/tap or by using the Enter or Space key.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -1584,6 +1753,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * otherwise it will be bound to this `sap.ui.webc.main.AvatarGroup` itself.
      *
      * Fired when the count of visible `sap.ui.webc.main.Avatar` elements in the component has changed
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachOverflow(
       /**
@@ -1607,6 +1778,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * otherwise it will be bound to this `sap.ui.webc.main.AvatarGroup` itself.
      *
      * Fired when the count of visible `sap.ui.webc.main.Avatar` elements in the component has changed
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachOverflow(
       /**
@@ -1620,16 +1793,22 @@ declare module "sap/ui/webc/main/AvatarGroup" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Destroys the overflowButton in the aggregation {@link #getOverflowButton overflowButton}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyOverflowButton(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:click click} event of this `sap.ui.webc.main.AvatarGroup`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClick(
       /**
@@ -1645,6 +1824,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * Detaches event handler `fnFunction` from the {@link #event:overflow overflow} event of this `sap.ui.webc.main.AvatarGroup`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachOverflow(
       /**
@@ -1658,6 +1839,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
     ): this;
     /**
      * Fires event {@link #event:click click} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClick(
       /**
@@ -1676,6 +1859,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
     ): this;
     /**
      * Fires event {@link #event:overflow overflow} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireOverflow(
       /**
@@ -1721,11 +1906,15 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * 	 - `Individual`
      *
      * Default value is `Group`.
+     *
+     * @returns Value of property `type`
      */
     getType(): AvatarGroupType | keyof typeof AvatarGroupType;
     /**
      * Checks for the provided `sap.ui.webc.main.IAvatar` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -1735,6 +1924,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -1752,10 +1943,14 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): IAvatar[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
@@ -1765,6 +1960,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
     ): IAvatar;
     /**
      * Sets the aggregated {@link #getOverflowButton overflowButton}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setOverflowButton(
       /**
@@ -1784,6 +1981,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Group`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setType(
       /**
@@ -1803,7 +2002,8 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      */
     type?:
       | (AvatarGroupType | keyof typeof AvatarGroupType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the items of the component. Use the `sap.ui.webc.main.Avatar` component as an item.
@@ -1812,7 +2012,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * with "Square" shape, there will be visual inconsistency as the built-in overflow action has "Circle"
      * shape.
      */
-    items?: IAvatar[] | IAvatar | AggregationBindingInfo;
+    items?: IAvatar[] | IAvatar | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the overflow button of the component. **Note:** We recommend using the `sap.ui.webc.main.Button`
@@ -1900,6 +2100,8 @@ declare module "sap/ui/webc/main/Badge" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1918,10 +2120,14 @@ declare module "sap/ui/webc/main/Badge" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Badge.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Destroys the icon in the aggregation {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyIcon(): this;
     /**
@@ -1934,6 +2140,8 @@ declare module "sap/ui/webc/main/Badge" {
      *  **Note:** Color schemes have no visual representation in High Contrast Black (sap_belize_hcb) theme.
      *
      * Default value is `"1"`.
+     *
+     * @returns Value of property `colorScheme`
      */
     getColorScheme(): string;
     /**
@@ -1948,6 +2156,8 @@ declare module "sap/ui/webc/main/Badge" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -1962,6 +2172,8 @@ declare module "sap/ui/webc/main/Badge" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"1"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setColorScheme(
       /**
@@ -1971,6 +2183,8 @@ declare module "sap/ui/webc/main/Badge" {
     ): this;
     /**
      * Sets the aggregated {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -1986,6 +2200,8 @@ declare module "sap/ui/webc/main/Badge" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -2103,6 +2319,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -2121,10 +2339,14 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Breadcrumbs.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -2140,6 +2362,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      *
      * Fires when a `BreadcrumbsItem` is clicked. **Note:** You can prevent browser location change by calling
      * `event.preventDefault()`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClick(
       /**
@@ -2164,6 +2388,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      *
      * Fires when a `BreadcrumbsItem` is clicked. **Note:** You can prevent browser location change by calling
      * `event.preventDefault()`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClick(
       /**
@@ -2177,12 +2403,16 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:itemClick itemClick} event of this `sap.ui.webc.main.Breadcrumbs`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemClick(
       /**
@@ -2199,6 +2429,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireItemClick(
       /**
@@ -2221,6 +2453,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      * contains only plain text and is not a link.
      *
      * Default value is `Standard`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): BreadcrumbsDesign | keyof typeof BreadcrumbsDesign;
     /**
@@ -2249,6 +2483,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      * 	 - `GreaterThan`
      *
      * Default value is `Slash`.
+     *
+     * @returns Value of property `separatorStyle`
      */
     getSeparatorStyle():
       | BreadcrumbsSeparatorStyle
@@ -2256,6 +2492,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
     /**
      * Checks for the provided `sap.ui.webc.main.IBreadcrumbsItem` in the aggregation {@link #getItems items}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -2265,6 +2503,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -2282,10 +2522,14 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): IBreadcrumbsItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
@@ -2305,6 +2549,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -2330,6 +2576,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Slash`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSeparatorStyle(
       /**
@@ -2351,7 +2599,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      */
     design?:
       | (BreadcrumbsDesign | keyof typeof BreadcrumbsDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines the visual style of the separator between the breadcrumb items.
@@ -2368,7 +2617,8 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      */
     separatorStyle?:
       | (BreadcrumbsSeparatorStyle | keyof typeof BreadcrumbsSeparatorStyle)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the component items.
@@ -2377,7 +2627,11 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      *
      *  **Note:** Use the `sap.ui.webc.main.BreadcrumbsItem` component to define the desired items.
      */
-    items?: IBreadcrumbsItem[] | IBreadcrumbsItem | AggregationBindingInfo;
+    items?:
+      | IBreadcrumbsItem[]
+      | IBreadcrumbsItem
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fires when a `BreadcrumbsItem` is clicked. **Note:** You can prevent browser location change by calling
@@ -2447,6 +2701,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -2465,6 +2721,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.BreadcrumbsItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -2473,6 +2731,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
      * Defines the accessible aria name of the item.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -2483,6 +2743,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
      *  **Note:** Standard hyperlink behavior is supported.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `href`
      */
     getHref(): string;
     /**
@@ -2500,6 +2762,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
      *  Note: This property must only be used when the `href` property is set.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `target`
      */
     getTarget(): string;
     /**
@@ -2508,6 +2772,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -2518,6 +2784,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -2535,6 +2803,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHref(
       /**
@@ -2559,6 +2829,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTarget(
       /**
@@ -2574,6 +2846,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -2625,11 +2899,11 @@ declare module "sap/ui/webc/main/BusyIndicator" {
 
   import Control from "sap/ui/core/Control";
 
-  import { CSSSize } from "sap/ui/core/library";
-
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
   import { BusyIndicatorSize } from "sap/ui/webc/main/library";
+
+  import { CSSSize } from "sap/ui/core/library";
 
   import {
     PropertyBindingInfo,
@@ -2701,6 +2975,8 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -2719,10 +2995,14 @@ declare module "sap/ui/webc/main/BusyIndicator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.BusyIndicator.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -2732,6 +3012,8 @@ declare module "sap/ui/webc/main/BusyIndicator" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
@@ -2740,6 +3022,8 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * Defines if the busy indicator is visible on the screen. By default it is not.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `active`
      */
     getActive(): boolean;
     /**
@@ -2754,14 +3038,20 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * Defines the delay in milliseconds, after which the busy indicator will be visible on the screen.
      *
      * Default value is `1000`.
+     *
+     * @returns Value of property `delay`
      */
     getDelay(): int;
     /**
      * Gets current value of property {@link #getDisplay display}.
      *
      * Defines whether the control will be rendered as a block or inline HTML element
+     *
+     * Default value is `"inline-block"`.
+     *
+     * @returns Value of property `display`
      */
-    getDisplay(): CSSSize;
+    getDisplay(): string;
     /**
      * Gets current value of property {@link #getSize size}.
      *
@@ -2777,6 +3067,8 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * 	 - `Large`
      *
      * Default value is `Medium`.
+     *
+     * @returns Value of property `size`
      */
     getSize(): BusyIndicatorSize | keyof typeof BusyIndicatorSize;
     /**
@@ -2785,17 +3077,23 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * Defines text to be displayed below the component. It can be used to inform the user of the current operation.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -2805,6 +3103,8 @@ declare module "sap/ui/webc/main/BusyIndicator" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -2822,10 +3122,14 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -2841,6 +3145,8 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setActive(
       /**
@@ -2856,6 +3162,8 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1000`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDelay(
       /**
@@ -2869,12 +3177,16 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * Defines whether the control will be rendered as a block or inline HTML element
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"inline-block"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDisplay(
       /**
        * New value for property `display`
        */
-      sDisplay?: CSSSize
+      sDisplay?: string
     ): this;
     /**
      * Sets a new value for property {@link #getSize size}.
@@ -2893,6 +3205,8 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Medium`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSize(
       /**
@@ -2908,6 +3222,8 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -2921,12 +3237,14 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -2934,17 +3252,17 @@ declare module "sap/ui/webc/main/BusyIndicator" {
     /**
      * Defines if the busy indicator is visible on the screen. By default it is not.
      */
-    active?: boolean | PropertyBindingInfo;
+    active?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the delay in milliseconds, after which the busy indicator will be visible on the screen.
      */
-    delay?: int | PropertyBindingInfo;
+    delay?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the control will be rendered as a block or inline HTML element
      */
-    display?: CSSSize | PropertyBindingInfo;
+    display?: string | PropertyBindingInfo;
 
     /**
      * Defines the size of the component.
@@ -2960,7 +3278,8 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      */
     size?:
       | (BusyIndicatorSize | keyof typeof BusyIndicatorSize)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines text to be displayed below the component. It can be used to inform the user of the current operation.
@@ -2970,12 +3289,12 @@ declare module "sap/ui/webc/main/BusyIndicator" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the content over which the component will appear.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -2987,7 +3306,12 @@ declare module "sap/ui/webc/main/Button" {
 
   import { IButton, ButtonDesign } from "sap/ui/webc/main/library";
 
-  import { ID, TextDirection, CSSSize } from "sap/ui/core/library";
+  import {
+    IFormContent,
+    ID,
+    TextDirection,
+    CSSSize,
+  } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -3027,8 +3351,11 @@ declare module "sap/ui/webc/main/Button" {
    *  The `sap.ui.webc.main.Button` exposes the following CSS Shadow Parts:
    * 	 - button - Used to style the native button element
    */
-  export default class Button extends WebComponent implements IButton {
+  export default class Button
+    extends WebComponent
+    implements IButton, IFormContent {
     __implements__sap_ui_webc_main_IButton: boolean;
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `Button`.
      *
@@ -3065,6 +3392,8 @@ declare module "sap/ui/webc/main/Button" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -3083,10 +3412,14 @@ declare module "sap/ui/webc/main/Button" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Button.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -3103,6 +3436,8 @@ declare module "sap/ui/webc/main/Button" {
      * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
      *
      *  **Note:** The event will not be fired if the `disabled` property is set to `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -3128,6 +3463,8 @@ declare module "sap/ui/webc/main/Button" {
      * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
      *
      *  **Note:** The event will not be fired if the `disabled` property is set to `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -3143,6 +3480,8 @@ declare module "sap/ui/webc/main/Button" {
      * Detaches event handler `fnFunction` from the {@link #event:click click} event of this `sap.ui.webc.main.Button`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClick(
       /**
@@ -3156,6 +3495,8 @@ declare module "sap/ui/webc/main/Button" {
     ): this;
     /**
      * Fires event {@link #event:click click} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClick(
       /**
@@ -3187,12 +3528,16 @@ declare module "sap/ui/webc/main/Button" {
      * 			button element. Accepts a string value.
      *
      * Default value is `{}`.
+     *
+     * @returns Value of property `accessibilityAttributes`
      */
     getAccessibilityAttributes(): object;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -3218,17 +3563,21 @@ declare module "sap/ui/webc/main/Button" {
      * 	 - `Attention`
      *
      * Default value is `Default`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): ButtonDesign | keyof typeof ButtonDesign;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -3240,6 +3589,8 @@ declare module "sap/ui/webc/main/Button" {
      * See all the available icons in the Icon Explorer.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
@@ -3248,12 +3599,16 @@ declare module "sap/ui/webc/main/Button" {
      * Defines whether the icon should be displayed after the component text.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `iconEnd`
      */
     getIconEnd(): boolean;
     /**
      * Gets current value of property {@link #getSubmits submits}.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `submits`
      */
     getSubmits(): boolean;
     /**
@@ -3262,6 +3617,8 @@ declare module "sap/ui/webc/main/Button" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -3271,20 +3628,28 @@ declare module "sap/ui/webc/main/Button" {
      * text direction from the DOM.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Value of property `textDirection`
      */
     getTextDirection(): TextDirection | keyof typeof TextDirection;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -3318,6 +3683,8 @@ declare module "sap/ui/webc/main/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `{}`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibilityAttributes(
       /**
@@ -3328,9 +3695,11 @@ declare module "sap/ui/webc/main/Button" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -3358,6 +3727,8 @@ declare module "sap/ui/webc/main/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Default`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -3366,20 +3737,22 @@ declare module "sap/ui/webc/main/Button" {
       sDesign?: ButtonDesign | keyof typeof ButtonDesign
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getIcon icon}.
@@ -3394,6 +3767,8 @@ declare module "sap/ui/webc/main/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -3409,6 +3784,8 @@ declare module "sap/ui/webc/main/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconEnd(
       /**
@@ -3422,6 +3799,8 @@ declare module "sap/ui/webc/main/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSubmits(
       /**
@@ -3437,6 +3816,8 @@ declare module "sap/ui/webc/main/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -3453,6 +3834,8 @@ declare module "sap/ui/webc/main/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextDirection(
       /**
@@ -3466,12 +3849,14 @@ declare module "sap/ui/webc/main/Button" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -3497,10 +3882,10 @@ declare module "sap/ui/webc/main/Button" {
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
      * 			button element. Accepts a string value.
      */
-    accessibilityAttributes?: object | PropertyBindingInfo;
+    accessibilityAttributes?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
@@ -3519,13 +3904,16 @@ declare module "sap/ui/webc/main/Button" {
      * 	 - `Transparent`
      * 	 - `Attention`
      */
-    design?: (ButtonDesign | keyof typeof ButtonDesign) | PropertyBindingInfo;
+    design?:
+      | (ButtonDesign | keyof typeof ButtonDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
@@ -3540,9 +3928,9 @@ declare module "sap/ui/webc/main/Button" {
     /**
      * Defines whether the icon should be displayed after the component text.
      */
-    iconEnd?: boolean | PropertyBindingInfo;
+    iconEnd?: boolean | PropertyBindingInfo | `{${string}}`;
 
-    submits?: boolean | PropertyBindingInfo;
+    submits?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the control
@@ -3555,12 +3943,13 @@ declare module "sap/ui/webc/main/Button" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -3717,6 +4106,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -3735,10 +4126,14 @@ declare module "sap/ui/webc/main/Calendar" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Calendar.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some date to the aggregation {@link #getDates dates}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addDate(
       /**
@@ -3756,6 +4151,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * Fired when the selected dates change. **Note:** If you call `preventDefault()` for this event, the component
      * will not create instances of `sap.ui.webc.main.CalendarDate` for the newly selected dates. In that case
      * you should do this manually.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectedDatesChange(
       /**
@@ -3782,6 +4179,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * Fired when the selected dates change. **Note:** If you call `preventDefault()` for this event, the component
      * will not create instances of `sap.ui.webc.main.CalendarDate` for the newly selected dates. In that case
      * you should do this manually.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectedDatesChange(
       /**
@@ -3795,6 +4194,8 @@ declare module "sap/ui/webc/main/Calendar" {
     ): this;
     /**
      * Destroys all the dates in the aggregation {@link #getDates dates}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyDates(): this;
     /**
@@ -3802,6 +4203,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * of this `sap.ui.webc.main.Calendar`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectedDatesChange(
       /**
@@ -3818,6 +4221,8 @@ declare module "sap/ui/webc/main/Calendar" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireSelectedDatesChange(
       /**
@@ -3847,6 +4252,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * Determines the format, displayed in the input field.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `formatPattern`
      */
     getFormatPattern(): string;
     /**
@@ -3860,6 +4267,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * set.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideWeekNumbers`
      */
     getHideWeekNumbers(): boolean;
     /**
@@ -3868,6 +4277,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * Determines the maximum date available for selection.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `maxDate`
      */
     getMaxDate(): string;
     /**
@@ -3876,12 +4287,16 @@ declare module "sap/ui/webc/main/Calendar" {
      * Determines the minimum date available for selection.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `minDate`
      */
     getMinDate(): string;
     /**
      * Gets current value of property {@link #getPrimaryCalendarType primaryCalendarType}.
      *
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
+     *
+     * @returns Value of property `primaryCalendarType`
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
@@ -3890,6 +4305,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `secondaryCalendarType`
      */
     getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
@@ -3904,6 +4321,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * 	 - `CalendarSelectionMode.Multiple` - enables selection of multiple dates.
      *
      * Default value is `Single`.
+     *
+     * @returns Value of property `selectionMode`
      */
     getSelectionMode():
       | CalendarSelectionMode
@@ -3911,6 +4330,8 @@ declare module "sap/ui/webc/main/Calendar" {
     /**
      * Checks for the provided `sap.ui.webc.main.ICalendarDate` in the aggregation {@link #getDates dates}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfDate(
       /**
@@ -3920,6 +4341,8 @@ declare module "sap/ui/webc/main/Calendar" {
     ): int;
     /**
      * Inserts a date into the aggregation {@link #getDates dates}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertDate(
       /**
@@ -3937,10 +4360,14 @@ declare module "sap/ui/webc/main/Calendar" {
      * Removes all the controls from the aggregation {@link #getDates dates}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllDates(): ICalendarDate[];
     /**
      * Removes a date from the aggregation {@link #getDates dates}.
+     *
+     * @returns The removed date or `null`
      */
     removeDate(
       /**
@@ -3956,6 +4383,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFormatPattern(
       /**
@@ -3976,6 +4405,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideWeekNumbers(
       /**
@@ -3991,6 +4422,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxDate(
       /**
@@ -4006,6 +4439,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinDate(
       /**
@@ -4019,6 +4454,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPrimaryCalendarType(
       /**
@@ -4034,6 +4471,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSecondaryCalendarType(
       /**
@@ -4055,6 +4494,8 @@ declare module "sap/ui/webc/main/Calendar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Single`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelectionMode(
       /**
@@ -4080,7 +4521,7 @@ declare module "sap/ui/webc/main/Calendar" {
      * **Note:** For calendars other than Gregorian, the week numbers are not displayed regardless of what is
      * set.
      */
-    hideWeekNumbers?: boolean | PropertyBindingInfo;
+    hideWeekNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the maximum date available for selection.
@@ -4097,14 +4538,16 @@ declare module "sap/ui/webc/main/Calendar" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      */
     secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the type of selection used in the calendar component. Accepted property values are:
@@ -4117,13 +4560,18 @@ declare module "sap/ui/webc/main/Calendar" {
      */
     selectionMode?:
       | (CalendarSelectionMode | keyof typeof CalendarSelectionMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the selected date or dates (depending on the `selectionMode` property) for this calendar as instances
      * of `sap.ui.webc.main.CalendarDate`
      */
-    dates?: ICalendarDate[] | ICalendarDate | AggregationBindingInfo;
+    dates?:
+      | ICalendarDate[]
+      | ICalendarDate
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fired when the selected dates change. **Note:** If you call `preventDefault()` for this event, the component
@@ -4194,6 +4642,8 @@ declare module "sap/ui/webc/main/CalendarDate" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -4212,6 +4662,8 @@ declare module "sap/ui/webc/main/CalendarDate" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.CalendarDate.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -4219,6 +4671,8 @@ declare module "sap/ui/webc/main/CalendarDate" {
      *
      * The date formatted according to the `formatPattern` property of the `sap.ui.webc.main.Calendar` that
      * hosts the component
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -4228,6 +4682,8 @@ declare module "sap/ui/webc/main/CalendarDate" {
      * hosts the component
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -4319,6 +4775,8 @@ declare module "sap/ui/webc/main/Card" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -4337,10 +4795,14 @@ declare module "sap/ui/webc/main/Card" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Card.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -4350,6 +4812,8 @@ declare module "sap/ui/webc/main/Card" {
     ): this;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -4359,6 +4823,8 @@ declare module "sap/ui/webc/main/Card" {
     ): this;
     /**
      * Adds some header to the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addHeader(
       /**
@@ -4368,10 +4834,14 @@ declare module "sap/ui/webc/main/Card" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys all the header in the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeader(): this;
     /**
@@ -4381,6 +4851,8 @@ declare module "sap/ui/webc/main/Card" {
      * be unique per card. **Note:** `accessibleName` should be always set, unless `ariaLabelledBy` is set.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -4406,17 +4878,23 @@ declare module "sap/ui/webc/main/Card" {
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -4427,6 +4905,8 @@ declare module "sap/ui/webc/main/Card" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getHeader header}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfHeader(
       /**
@@ -4436,6 +4916,8 @@ declare module "sap/ui/webc/main/Card" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -4451,6 +4933,8 @@ declare module "sap/ui/webc/main/Card" {
     ): this;
     /**
      * Inserts a header into the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertHeader(
       /**
@@ -4466,22 +4950,30 @@ declare module "sap/ui/webc/main/Card" {
     ): this;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getHeader header}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllHeader(): Control[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -4491,6 +4983,8 @@ declare module "sap/ui/webc/main/Card" {
     ): ID;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -4500,6 +4994,8 @@ declare module "sap/ui/webc/main/Card" {
     ): Control;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
+     *
+     * @returns The removed header or `null`
      */
     removeHeader(
       /**
@@ -4516,6 +5012,8 @@ declare module "sap/ui/webc/main/Card" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -4529,12 +5027,14 @@ declare module "sap/ui/webc/main/Card" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.
@@ -4542,12 +5042,14 @@ declare module "sap/ui/webc/main/Card" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -4561,24 +5063,24 @@ declare module "sap/ui/webc/main/Card" {
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the component.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the header of the component.
      *
      *  **Note:** Use `sap.ui.webc.main.CardHeader` for the intended design.
      */
-    header?: Control[] | Control | AggregationBindingInfo;
+    header?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -4663,6 +5165,8 @@ declare module "sap/ui/webc/main/CardHeader" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -4681,10 +5185,14 @@ declare module "sap/ui/webc/main/CardHeader" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.CardHeader.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some action to the aggregation {@link #getAction action}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAction(
       /**
@@ -4694,6 +5202,8 @@ declare module "sap/ui/webc/main/CardHeader" {
     ): this;
     /**
      * Adds some avatar to the aggregation {@link #getAvatar avatar}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAvatar(
       /**
@@ -4710,6 +5220,8 @@ declare module "sap/ui/webc/main/CardHeader" {
      * Fired when the component is activated by mouse/tap or by using the Enter or Space key.
      *
      *  **Note:** The event would be fired only if the `interactive` property is set to true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -4735,6 +5247,8 @@ declare module "sap/ui/webc/main/CardHeader" {
      * Fired when the component is activated by mouse/tap or by using the Enter or Space key.
      *
      *  **Note:** The event would be fired only if the `interactive` property is set to true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -4748,16 +5262,22 @@ declare module "sap/ui/webc/main/CardHeader" {
     ): this;
     /**
      * Destroys all the action in the aggregation {@link #getAction action}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyAction(): this;
     /**
      * Destroys all the avatar in the aggregation {@link #getAvatar avatar}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyAvatar(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:click click} event of this `sap.ui.webc.main.CardHeader`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClick(
       /**
@@ -4771,6 +5291,8 @@ declare module "sap/ui/webc/main/CardHeader" {
     ): this;
     /**
      * Fires event {@link #event:click click} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClick(
       /**
@@ -4782,8 +5304,6 @@ declare module "sap/ui/webc/main/CardHeader" {
      * Gets content of aggregation {@link #getAction action}.
      *
      * Defines an action, displayed in the right most part of the header.
-     *
-     *  **Note:** If set, the `status` text will not be displayed, you can either have `action`, or `status`.
      */
     getAction(): Control[];
     /**
@@ -4799,6 +5319,8 @@ declare module "sap/ui/webc/main/CardHeader" {
      * event is fired, when pressed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `interactive`
      */
     getInteractive(): boolean;
     /**
@@ -4806,10 +5328,9 @@ declare module "sap/ui/webc/main/CardHeader" {
      *
      * Defines the status text.
      *
-     *  **Note:** If the `action` slot is set, the `status` will not be displayed, you can either have `action`,
-     * or `status`.
-     *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `status`
      */
     getStatus(): string;
     /**
@@ -4818,6 +5339,8 @@ declare module "sap/ui/webc/main/CardHeader" {
      * Defines the subtitle text.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `subtitleText`
      */
     getSubtitleText(): string;
     /**
@@ -4826,11 +5349,15 @@ declare module "sap/ui/webc/main/CardHeader" {
      * Defines the title text.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `titleText`
      */
     getTitleText(): string;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getAction action}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfAction(
       /**
@@ -4841,6 +5368,8 @@ declare module "sap/ui/webc/main/CardHeader" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getAvatar avatar}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfAvatar(
       /**
@@ -4850,6 +5379,8 @@ declare module "sap/ui/webc/main/CardHeader" {
     ): int;
     /**
      * Inserts a action into the aggregation {@link #getAction action}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertAction(
       /**
@@ -4865,6 +5396,8 @@ declare module "sap/ui/webc/main/CardHeader" {
     ): this;
     /**
      * Inserts a avatar into the aggregation {@link #getAvatar avatar}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertAvatar(
       /**
@@ -4880,6 +5413,8 @@ declare module "sap/ui/webc/main/CardHeader" {
     ): this;
     /**
      * Removes a action from the aggregation {@link #getAction action}.
+     *
+     * @returns The removed action or `null`
      */
     removeAction(
       /**
@@ -4891,16 +5426,22 @@ declare module "sap/ui/webc/main/CardHeader" {
      * Removes all the controls from the aggregation {@link #getAction action}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAction(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getAvatar avatar}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAvatar(): Control[];
     /**
      * Removes a avatar from the aggregation {@link #getAvatar avatar}.
+     *
+     * @returns The removed avatar or `null`
      */
     removeAvatar(
       /**
@@ -4917,6 +5458,8 @@ declare module "sap/ui/webc/main/CardHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInteractive(
       /**
@@ -4929,12 +5472,11 @@ declare module "sap/ui/webc/main/CardHeader" {
      *
      * Defines the status text.
      *
-     *  **Note:** If the `action` slot is set, the `status` will not be displayed, you can either have `action`,
-     * or `status`.
-     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStatus(
       /**
@@ -4950,6 +5492,8 @@ declare module "sap/ui/webc/main/CardHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSubtitleText(
       /**
@@ -4965,6 +5509,8 @@ declare module "sap/ui/webc/main/CardHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitleText(
       /**
@@ -4979,13 +5525,10 @@ declare module "sap/ui/webc/main/CardHeader" {
      * Defines if the component would be interactive, e.g gets hover effect, gets focus outline and `click`
      * event is fired, when pressed.
      */
-    interactive?: boolean | PropertyBindingInfo;
+    interactive?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the status text.
-     *
-     *  **Note:** If the `action` slot is set, the `status` will not be displayed, you can either have `action`,
-     * or `status`.
      */
     status?: string | PropertyBindingInfo;
 
@@ -5001,15 +5544,13 @@ declare module "sap/ui/webc/main/CardHeader" {
 
     /**
      * Defines an action, displayed in the right most part of the header.
-     *
-     *  **Note:** If set, the `status` text will not be displayed, you can either have `action`, or `status`.
      */
-    action?: Control[] | Control | AggregationBindingInfo;
+    action?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines an avatar image, displayed in the left most part of the header.
      */
-    avatar?: Control[] | Control | AggregationBindingInfo;
+    avatar?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Fired when the component is activated by mouse/tap or by using the Enter or Space key.
@@ -5110,6 +5651,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -5128,10 +5671,14 @@ declare module "sap/ui/webc/main/Carousel" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Carousel.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -5147,6 +5694,8 @@ declare module "sap/ui/webc/main/Carousel" {
      *
      * Fired whenever the page changes due to user interaction, when the user clicks on the navigation arrows
      * or while resizing, based on the `items-per-page-l`, `items-per-page-m` and `items-per-page-s` properties.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachNavigate(
       /**
@@ -5171,6 +5720,8 @@ declare module "sap/ui/webc/main/Carousel" {
      *
      * Fired whenever the page changes due to user interaction, when the user clicks on the navigation arrows
      * or while resizing, based on the `items-per-page-l`, `items-per-page-m` and `items-per-page-s` properties.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachNavigate(
       /**
@@ -5184,12 +5735,16 @@ declare module "sap/ui/webc/main/Carousel" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:navigate navigate} event of this `sap.ui.webc.main.Carousel`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachNavigate(
       /**
@@ -5203,6 +5758,8 @@ declare module "sap/ui/webc/main/Carousel" {
     ): this;
     /**
      * Fires event {@link #event:navigate navigate} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireNavigate(
       /**
@@ -5227,6 +5784,8 @@ declare module "sap/ui/webc/main/Carousel" {
      *  When set to "Navigation", the arrows are placed on the sides of the page indicator.
      *
      * Default value is `Content`.
+     *
+     * @returns Value of property `arrowsPlacement`
      */
     getArrowsPlacement():
       | CarouselArrowsPlacement
@@ -5244,6 +5803,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * vice versa.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `cyclic`
      */
     getCyclic(): boolean;
     /**
@@ -5256,6 +5817,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * to navigate through the items.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideNavigationArrows`
      */
     getHideNavigationArrows(): boolean;
     /**
@@ -5264,6 +5827,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * Defines the visibility of the paging indicator. If set to true the page indicator will be hidden.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hidePageIndicator`
      */
     getHidePageIndicator(): boolean;
     /**
@@ -5272,6 +5837,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * Defines the number of items per page on large size (more than 1024px). One item per page shown by default.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `itemsPerPageL`
      */
     getItemsPerPageL(): int;
     /**
@@ -5281,6 +5848,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * default.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `itemsPerPageM`
      */
     getItemsPerPageM(): int;
     /**
@@ -5289,11 +5858,15 @@ declare module "sap/ui/webc/main/Carousel" {
      * Defines the number of items per page on small size (up to 640px). One item per page shown by default.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `itemsPerPageS`
      */
     getItemsPerPageS(): int;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -5303,6 +5876,8 @@ declare module "sap/ui/webc/main/Carousel" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -5329,10 +5904,14 @@ declare module "sap/ui/webc/main/Carousel" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -5354,6 +5933,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Content`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setArrowsPlacement(
       /**
@@ -5372,6 +5953,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCyclic(
       /**
@@ -5391,6 +5974,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideNavigationArrows(
       /**
@@ -5406,6 +5991,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHidePageIndicator(
       /**
@@ -5421,6 +6008,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setItemsPerPageL(
       /**
@@ -5437,6 +6026,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setItemsPerPageM(
       /**
@@ -5452,6 +6043,8 @@ declare module "sap/ui/webc/main/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setItemsPerPageS(
       /**
@@ -5473,13 +6066,14 @@ declare module "sap/ui/webc/main/Carousel" {
      */
     arrowsPlacement?:
       | (CarouselArrowsPlacement | keyof typeof CarouselArrowsPlacement)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines whether the carousel should loop, i.e show the first page after the last page is reached and
      * vice versa.
      */
-    cyclic?: boolean | PropertyBindingInfo;
+    cyclic?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the visibility of the navigation arrows. If set to true the navigation arrows will be hidden.
@@ -5488,33 +6082,33 @@ declare module "sap/ui/webc/main/Carousel" {
      *  **Note:** The navigation arrows are never displayed on touch devices. In this case, the user can swipe
      * to navigate through the items.
      */
-    hideNavigationArrows?: boolean | PropertyBindingInfo;
+    hideNavigationArrows?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the visibility of the paging indicator. If set to true the page indicator will be hidden.
      */
-    hidePageIndicator?: boolean | PropertyBindingInfo;
+    hidePageIndicator?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the number of items per page on large size (more than 1024px). One item per page shown by default.
      */
-    itemsPerPageL?: int | PropertyBindingInfo;
+    itemsPerPageL?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the number of items per page on medium size (from 640px to 1024px). One item per page shown by
      * default.
      */
-    itemsPerPageM?: int | PropertyBindingInfo;
+    itemsPerPageM?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the number of items per page on small size (up to 640px). One item per page shown by default.
      */
-    itemsPerPageS?: int | PropertyBindingInfo;
+    itemsPerPageS?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the component.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Fired whenever the page changes due to user interaction, when the user clicks on the navigation arrows
@@ -5612,6 +6206,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -5630,10 +6226,14 @@ declare module "sap/ui/webc/main/CheckBox" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.CheckBox.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -5648,6 +6248,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.CheckBox` itself.
      *
      * Fired when the component checked state changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -5671,6 +6273,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.CheckBox` itself.
      *
      * Fired when the component checked state changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -5686,6 +6290,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.CheckBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -5699,6 +6305,8 @@ declare module "sap/ui/webc/main/CheckBox" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -5709,9 +6317,11 @@ declare module "sap/ui/webc/main/CheckBox" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -5728,18 +6338,21 @@ declare module "sap/ui/webc/main/CheckBox" {
      * or by pressing the Enter or Space key.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `checked`
      */
     getChecked(): boolean;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getIndeterminate indeterminate}.
      *
@@ -5753,6 +6366,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * is not checked, it will be displayed as not checked regardless value of the indeterminate attribute
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `indeterminate`
      */
     getIndeterminate(): boolean;
     /**
@@ -5766,6 +6381,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -5776,14 +6393,28 @@ declare module "sap/ui/webc/main/CheckBox" {
      *  **Note:** A red-only component is not editable, but still provides visual feedback upon user interaction.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
+    /**
+     * Gets current value of property {@link #getRequired required}.
+     *
+     * Defines whether the component is required.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `required`
+     */
+    getRequired(): boolean;
     /**
      * Gets current value of property {@link #getText text}.
      *
      * Defines the text of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -5803,12 +6434,16 @@ declare module "sap/ui/webc/main/CheckBox" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -5821,14 +6456,20 @@ declare module "sap/ui/webc/main/CheckBox" {
      * 	 - `Normal` - The text will wrap. The words will not be broken based on hyphenation.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `wrappingType`
      */
     getWrappingType(): WrappingType | keyof typeof WrappingType;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -5839,11 +6480,13 @@ declare module "sap/ui/webc/main/CheckBox" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -5862,6 +6505,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setChecked(
       /**
@@ -5870,21 +6515,22 @@ declare module "sap/ui/webc/main/CheckBox" {
       bChecked?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getIndeterminate indeterminate}.
@@ -5901,6 +6547,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIndeterminate(
       /**
@@ -5921,6 +6569,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -5938,12 +6588,31 @@ declare module "sap/ui/webc/main/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
        * New value for property `readonly`
        */
       bReadonly?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRequired required}.
+     *
+     * Defines whether the component is required.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRequired(
+      /**
+       * New value for property `required`
+       */
+      bRequired?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getText text}.
@@ -5953,6 +6622,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -5979,6 +6650,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -5992,12 +6665,14 @@ declare module "sap/ui/webc/main/CheckBox" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getWrappingType wrappingType}.
@@ -6011,6 +6686,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWrappingType(
       /**
@@ -6022,7 +6699,7 @@ declare module "sap/ui/webc/main/CheckBox" {
 
   export interface $CheckBoxSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
@@ -6032,14 +6709,13 @@ declare module "sap/ui/webc/main/CheckBox" {
      *  **Note:** The property can be changed with user interaction, either by cliking/tapping on the component,
      * or by pressing the Enter or Space key.
      */
-    checked?: boolean | PropertyBindingInfo;
+    checked?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines whether the component is disabled.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is displayed as partially checked.
@@ -6051,7 +6727,7 @@ declare module "sap/ui/webc/main/CheckBox" {
      * component is checked and it is not indeterminate, it will be displayed as checked  If the component
      * is not checked, it will be displayed as not checked regardless value of the indeterminate attribute
      */
-    indeterminate?: boolean | PropertyBindingInfo;
+    indeterminate?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the name with which the component will be submitted in an HTML form.
@@ -6068,7 +6744,12 @@ declare module "sap/ui/webc/main/CheckBox" {
      *
      *  **Note:** A red-only component is not editable, but still provides visual feedback upon user interaction.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines whether the component is required.
+     */
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the text of the component.
@@ -6089,12 +6770,15 @@ declare module "sap/ui/webc/main/CheckBox" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component text wraps when there is not enough space.
@@ -6105,7 +6789,8 @@ declare module "sap/ui/webc/main/CheckBox" {
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -6183,6 +6868,8 @@ declare module "sap/ui/webc/main/ColorPalette" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6201,10 +6888,14 @@ declare module "sap/ui/webc/main/ColorPalette" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.ColorPalette.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some color to the aggregation {@link #getColors colors}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addColor(
       /**
@@ -6219,6 +6910,8 @@ declare module "sap/ui/webc/main/ColorPalette" {
      * otherwise it will be bound to this `sap.ui.webc.main.ColorPalette` itself.
      *
      * Fired when the user selects a color.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClick(
       /**
@@ -6242,6 +6935,8 @@ declare module "sap/ui/webc/main/ColorPalette" {
      * otherwise it will be bound to this `sap.ui.webc.main.ColorPalette` itself.
      *
      * Fired when the user selects a color.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClick(
       /**
@@ -6255,12 +6950,16 @@ declare module "sap/ui/webc/main/ColorPalette" {
     ): this;
     /**
      * Destroys all the colors in the aggregation {@link #getColors colors}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyColors(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:itemClick itemClick} event of this `sap.ui.webc.main.ColorPalette`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemClick(
       /**
@@ -6274,6 +6973,8 @@ declare module "sap/ui/webc/main/ColorPalette" {
     ): this;
     /**
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireItemClick(
       /**
@@ -6295,6 +6996,8 @@ declare module "sap/ui/webc/main/ColorPalette" {
     /**
      * Checks for the provided `sap.ui.webc.main.IColorPaletteItem` in the aggregation {@link #getColors colors}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfColor(
       /**
@@ -6304,6 +7007,8 @@ declare module "sap/ui/webc/main/ColorPalette" {
     ): int;
     /**
      * Inserts a color into the aggregation {@link #getColors colors}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertColor(
       /**
@@ -6321,10 +7026,14 @@ declare module "sap/ui/webc/main/ColorPalette" {
      * Removes all the controls from the aggregation {@link #getColors colors}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllColors(): IColorPaletteItem[];
     /**
      * Removes a color from the aggregation {@link #getColors colors}.
+     *
+     * @returns The removed color or `null`
      */
     removeColor(
       /**
@@ -6338,7 +7047,11 @@ declare module "sap/ui/webc/main/ColorPalette" {
     /**
      * Defines the `sap.ui.webc.main.ColorPaletteItem` elements.
      */
-    colors?: IColorPaletteItem[] | IColorPaletteItem | AggregationBindingInfo;
+    colors?:
+      | IColorPaletteItem[]
+      | IColorPaletteItem
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fired when the user selects a color.
@@ -6409,6 +7122,8 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6427,6 +7142,8 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.ColorPaletteItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -6435,6 +7152,8 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
      * Defines the colour of the component.
      *
      *  **Note:** The value should be a valid CSS color.
+     *
+     * @returns Value of property `value`
      */
     getValue(): CSSColor;
     /**
@@ -6445,6 +7164,8 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
      *  **Note:** The value should be a valid CSS color.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -6460,7 +7181,7 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
      *
      *  **Note:** The value should be a valid CSS color.
      */
-    value?: CSSColor | PropertyBindingInfo;
+    value?: CSSColor | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -6470,7 +7191,7 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import Control from "sap/ui/core/Control";
+  import { IColorPaletteItem } from "sap/ui/webc/main/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -6538,6 +7259,8 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6556,16 +7279,20 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.ColorPalettePopover.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
+     * Adds some color to the aggregation {@link #getColors colors}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    addContent(
+    addColor(
       /**
-       * The content to add; if empty, nothing is inserted
+       * The color to add; if empty, nothing is inserted
        */
-      oContent: Control
+      oColor: IColorPaletteItem
     ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:itemClick itemClick} event of this `sap.ui.webc.main.ColorPalettePopover`.
@@ -6574,6 +7301,8 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * otherwise it will be bound to this `sap.ui.webc.main.ColorPalettePopover` itself.
      *
      * Fired when the user selects a color.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClick(
       /**
@@ -6598,6 +7327,8 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * otherwise it will be bound to this `sap.ui.webc.main.ColorPalettePopover` itself.
      *
      * Fired when the user selects a color.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClick(
       /**
@@ -6611,13 +7342,17 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
       oListener?: object
     ): this;
     /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
+     * Destroys all the colors in the aggregation {@link #getColors colors}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    destroyContent(): this;
+    destroyColors(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:itemClick itemClick} event of this `sap.ui.webc.main.ColorPalettePopover`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemClick(
       /**
@@ -6631,6 +7366,8 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
     ): this;
     /**
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireItemClick(
       /**
@@ -6644,16 +7381,18 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
       }
     ): this;
     /**
-     * Gets content of aggregation {@link #getContent content}.
+     * Gets content of aggregation {@link #getColors colors}.
      *
      * Defines the content of the component.
      */
-    getContent(): Control[];
+    getColors(): IColorPaletteItem[];
     /**
      * Gets current value of property {@link #getDefaultColor defaultColor}.
      *
      * Defines the default color of the component. **Note:** The default color should be a part of the ColorPalette
      * colors
+     *
+     * @returns Value of property `defaultColor`
      */
     getDefaultColor(): CSSColor;
     /**
@@ -6662,6 +7401,8 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * Defines whether the user can choose the default color from a button.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showDefaultColor`
      */
     getShowDefaultColor(): boolean;
     /**
@@ -6671,6 +7412,8 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * you need to import the following module: `"@ui5/webcomponents/dist/features/ColorPaletteMoreColors.js"`
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showMoreColors`
      */
     getShowMoreColors(): boolean;
     /**
@@ -6679,30 +7422,36 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * Defines whether the user can see the last used colors in the bottom of the component
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showRecentColors`
      */
     getShowRecentColors(): boolean;
     /**
-     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
-     * its index if found or -1 otherwise.
+     * Checks for the provided `sap.ui.webc.main.IColorPaletteItem` in the aggregation {@link #getColors colors}.
+     * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
-    indexOfContent(
+    indexOfColor(
       /**
-       * The content whose index is looked for
+       * The color whose index is looked for
        */
-      oContent: Control
+      oColor: IColorPaletteItem
     ): int;
     /**
-     * Inserts a content into the aggregation {@link #getContent content}.
+     * Inserts a color into the aggregation {@link #getColors colors}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    insertContent(
+    insertColor(
       /**
-       * The content to insert; if empty, nothing is inserted
+       * The color to insert; if empty, nothing is inserted
        */
-      oContent: Control,
+      oColor: IColorPaletteItem,
       /**
-       * The `0`-based index the content should be inserted at; for a negative value of `iIndex`, the content
-       * is inserted at position 0; for a value greater than the current size of the aggregation, the content
-       * is inserted at the last position
+       * The `0`-based index the color should be inserted at; for a negative value of `iIndex`, the color is inserted
+       * at position 0; for a value greater than the current size of the aggregation, the color is inserted at
+       * the last position
        */
       iIndex: int
     ): this;
@@ -6717,20 +7466,24 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
       opener: HTMLElement
     ): void;
     /**
-     * Removes all the controls from the aggregation {@link #getContent content}.
+     * Removes all the controls from the aggregation {@link #getColors colors}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
-    removeAllContent(): Control[];
+    removeAllColors(): IColorPaletteItem[];
     /**
-     * Removes a content from the aggregation {@link #getContent content}.
+     * Removes a color from the aggregation {@link #getColors colors}.
+     *
+     * @returns The removed color or `null`
      */
-    removeContent(
+    removeColor(
       /**
-       * The content to remove or its index or id
+       * The color to remove or its index or id
        */
-      vContent: int | string | Control
-    ): Control;
+      vColor: int | string | IColorPaletteItem
+    ): IColorPaletteItem;
     /**
      * Sets a new value for property {@link #getDefaultColor defaultColor}.
      *
@@ -6738,6 +7491,8 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * colors
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDefaultColor(
       /**
@@ -6753,6 +7508,8 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowDefaultColor(
       /**
@@ -6769,6 +7526,8 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowMoreColors(
       /**
@@ -6784,6 +7543,8 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowRecentColors(
       /**
@@ -6807,28 +7568,32 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * Defines the default color of the component. **Note:** The default color should be a part of the ColorPalette
      * colors
      */
-    defaultColor?: CSSColor | PropertyBindingInfo;
+    defaultColor?: CSSColor | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the user can choose the default color from a button.
      */
-    showDefaultColor?: boolean | PropertyBindingInfo;
+    showDefaultColor?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the user can choose a custom color from a component. **Note:** In order to use this property
      * you need to import the following module: `"@ui5/webcomponents/dist/features/ColorPaletteMoreColors.js"`
      */
-    showMoreColors?: boolean | PropertyBindingInfo;
+    showMoreColors?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the user can see the last used colors in the bottom of the component
      */
-    showRecentColors?: boolean | PropertyBindingInfo;
+    showRecentColors?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the component.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    colors?:
+      | IColorPaletteItem[]
+      | IColorPaletteItem
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fired when the user selects a color.
@@ -6903,6 +7668,8 @@ declare module "sap/ui/webc/main/ColorPicker" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6921,6 +7688,8 @@ declare module "sap/ui/webc/main/ColorPicker" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.ColorPicker.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -6930,6 +7699,8 @@ declare module "sap/ui/webc/main/ColorPicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.ColorPicker` itself.
      *
      * Fired when the the selected color is changed
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -6953,6 +7724,8 @@ declare module "sap/ui/webc/main/ColorPicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.ColorPicker` itself.
      *
      * Fired when the the selected color is changed
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -6968,6 +7741,8 @@ declare module "sap/ui/webc/main/ColorPicker" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.ColorPicker`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -6981,6 +7756,8 @@ declare module "sap/ui/webc/main/ColorPicker" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -6994,6 +7771,8 @@ declare module "sap/ui/webc/main/ColorPicker" {
      * Defines the currently selected color of the component.
      *
      *  **Note**: use HEX, RGB, RGBA, HSV formats or a CSS color name when modifying this property.
+     *
+     * @returns Value of property `color`
      */
     getColor(): CSSColor;
     /**
@@ -7004,6 +7783,8 @@ declare module "sap/ui/webc/main/ColorPicker" {
      *  **Note**: use HEX, RGB, RGBA, HSV formats or a CSS color name when modifying this property.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setColor(
       /**
@@ -7019,7 +7800,7 @@ declare module "sap/ui/webc/main/ColorPicker" {
      *
      *  **Note**: use HEX, RGB, RGBA, HSV formats or a CSS color name when modifying this property.
      */
-    color?: CSSColor | PropertyBindingInfo;
+    color?: CSSColor | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Fired when the the selected color is changed
@@ -7034,7 +7815,7 @@ declare module "sap/ui/webc/main/ComboBox" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { ID, ValueState, CSSSize } from "sap/ui/core/library";
+  import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -7083,7 +7864,8 @@ declare module "sap/ui/webc/main/ComboBox" {
    * 	 - [END] - If focus is in the ComboBox, moves cursor at the end of text. If focus is in the picker,
    * 			selects the last item.
    */
-  export default class ComboBox extends WebComponent {
+  export default class ComboBox extends WebComponent implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `ComboBox`.
      *
@@ -7120,6 +7902,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -7138,10 +7922,14 @@ declare module "sap/ui/webc/main/ComboBox" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.ComboBox.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -7151,6 +7939,8 @@ declare module "sap/ui/webc/main/ComboBox" {
     ): this;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -7165,6 +7955,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.ComboBox` itself.
      *
      * Fired when the input operation has finished by pressing Enter, focusout or an item is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -7188,6 +7980,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.ComboBox` itself.
      *
      * Fired when the input operation has finished by pressing Enter, focusout or an item is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -7208,6 +8002,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * Fired when typing in input.
      *
      *  **Note:** filterValue property is updated, input is changed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -7233,6 +8029,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * Fired when typing in input.
      *
      *  **Note:** filterValue property is updated, input is changed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -7252,6 +8050,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.ComboBox` itself.
      *
      * Fired when selection is changed by user interaction
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -7276,6 +8076,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.ComboBox` itself.
      *
      * Fired when selection is changed by user interaction
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -7289,16 +8091,22 @@ declare module "sap/ui/webc/main/ComboBox" {
     ): this;
     /**
      * Destroys the icon in the aggregation {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyIcon(): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.ComboBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -7314,6 +8122,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.ComboBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -7330,6 +8140,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * this `sap.ui.webc.main.ComboBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChange(
       /**
@@ -7343,6 +8155,8 @@ declare module "sap/ui/webc/main/ComboBox" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -7352,6 +8166,8 @@ declare module "sap/ui/webc/main/ComboBox" {
     ): this;
     /**
      * Fires event {@link #event:input input} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireInput(
       /**
@@ -7361,6 +8177,8 @@ declare module "sap/ui/webc/main/ComboBox" {
     ): this;
     /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelectionChange(
       /**
@@ -7376,7 +8194,9 @@ declare module "sap/ui/webc/main/ComboBox" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -7385,15 +8205,16 @@ declare module "sap/ui/webc/main/ComboBox" {
      */
     getAriaLabelledBy(): ID[];
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getFilter filter}.
      *
@@ -7401,6 +8222,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * `Contains`.
      *
      * Default value is `"StartsWithPerTerm"`.
+     *
+     * @returns Value of property `filter`
      */
     getFilter(): string;
     /**
@@ -7421,6 +8244,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * Indicates whether a loading indicator should be shown in the picker.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `loading`
      */
     getLoading(): boolean;
     /**
@@ -7429,6 +8254,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * Defines a short hint intended to aid the user with data entry when the component has no value.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
@@ -7439,6 +8266,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -7447,6 +8276,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * Defines whether the component is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -7455,6 +8286,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * Defines the value of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -7470,6 +8303,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -7482,17 +8317,23 @@ declare module "sap/ui/webc/main/ComboBox" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.webc.main.IComboBoxItem` in the aggregation {@link #getItems items}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -7502,6 +8343,8 @@ declare module "sap/ui/webc/main/ComboBox" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -7517,16 +8360,22 @@ declare module "sap/ui/webc/main/ComboBox" {
     ): this;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): IComboBoxItem[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -7536,6 +8385,8 @@ declare module "sap/ui/webc/main/ComboBox" {
     ): ID;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
@@ -7546,9 +8397,11 @@ declare module "sap/ui/webc/main/ComboBox" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -7557,21 +8410,22 @@ declare module "sap/ui/webc/main/ComboBox" {
       sAccessibleName: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getFilter filter}.
@@ -7582,6 +8436,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"StartsWithPerTerm"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFilter(
       /**
@@ -7591,6 +8447,8 @@ declare module "sap/ui/webc/main/ComboBox" {
     ): this;
     /**
      * Sets the aggregated {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -7606,6 +8464,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLoading(
       /**
@@ -7621,6 +8481,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -7638,6 +8500,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -7653,6 +8517,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -7668,6 +8534,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -7690,6 +8558,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -7709,6 +8579,8 @@ declare module "sap/ui/webc/main/ComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -7722,27 +8594,28 @@ declare module "sap/ui/webc/main/ComboBox" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $ComboBoxSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
     /**
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the filter type of the component. Available options are: `StartsWithPerTerm`, `StartsWith` and
@@ -7753,7 +8626,7 @@ declare module "sap/ui/webc/main/ComboBox" {
     /**
      * Indicates whether a loading indicator should be shown in the picker.
      */
-    loading?: boolean | PropertyBindingInfo;
+    loading?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines a short hint intended to aid the user with data entry when the component has no value.
@@ -7765,12 +8638,12 @@ declare module "sap/ui/webc/main/ComboBox" {
      *
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the value of the component.
@@ -7787,7 +8660,10 @@ declare module "sap/ui/webc/main/ComboBox" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -7801,7 +8677,7 @@ declare module "sap/ui/webc/main/ComboBox" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the icon to be displayed in the input field.
@@ -7811,7 +8687,11 @@ declare module "sap/ui/webc/main/ComboBox" {
     /**
      * Defines the component items.
      */
-    items?: IComboBoxItem[] | IComboBoxItem | AggregationBindingInfo;
+    items?:
+      | IComboBoxItem[]
+      | IComboBoxItem
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -7896,6 +8776,8 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -7914,6 +8796,8 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.ComboBoxGroupItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -7922,6 +8806,8 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
      * Defines the text of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -7932,6 +8818,8 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -8007,6 +8895,8 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -8025,6 +8915,8 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.ComboBoxItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -8033,6 +8925,8 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
      * Defines the additional text of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `additionalText`
      */
     getAdditionalText(): string;
     /**
@@ -8041,6 +8935,8 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
      * Defines the text of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -8051,6 +8947,8 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAdditionalText(
       /**
@@ -8066,6 +8964,8 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -8156,6 +9056,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -8174,10 +9076,14 @@ declare module "sap/ui/webc/main/CustomListItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.CustomListItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -8192,6 +9098,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * otherwise it will be bound to this `sap.ui.webc.main.CustomListItem` itself.
      *
      * Fired when the user clicks on the detail button when type is `Detail`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachDetailClick(
       /**
@@ -8215,6 +9123,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * otherwise it will be bound to this `sap.ui.webc.main.CustomListItem` itself.
      *
      * Fired when the user clicks on the detail button when type is `Detail`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachDetailClick(
       /**
@@ -8228,12 +9138,16 @@ declare module "sap/ui/webc/main/CustomListItem" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:detailClick detailClick} event of this `sap.ui.webc.main.CustomListItem`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachDetailClick(
       /**
@@ -8247,6 +9161,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
     ): this;
     /**
      * Fires event {@link #event:detailClick detailClick} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireDetailClick(
       /**
@@ -8261,6 +9177,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * be set, if present.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -8275,6 +9193,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * Defines the selected state of the `ListItem`.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
     /**
@@ -8287,11 +9207,15 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * type `Inactive` and `Detail` - will not.
      *
      * Default value is `Active`.
+     *
+     * @returns Value of property `type`
      */
     getType(): ListItemType | keyof typeof ListItemType;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -8301,6 +9225,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -8318,10 +9244,14 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -8338,6 +9268,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -8353,6 +9285,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -8372,6 +9306,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Active`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setType(
       /**
@@ -8391,7 +9327,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
     /**
      * Defines the selected state of the `ListItem`.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the visual indication and behavior of the list items. Available options are `Active` (by default),
@@ -8400,12 +9336,15 @@ declare module "sap/ui/webc/main/CustomListItem" {
      *  **Note:** When set to `Active`, the item will provide visual response upon press and hover, while with
      * type `Inactive` and `Detail` - will not.
      */
-    type?: (ListItemType | keyof typeof ListItemType) | PropertyBindingInfo;
+    type?:
+      | (ListItemType | keyof typeof ListItemType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the content of the component.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Fired when the user clicks on the detail button when type is `Detail`.
@@ -8420,7 +9359,7 @@ declare module "sap/ui/webc/main/DatePicker" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { ID, ValueState, CSSSize } from "sap/ui/core/library";
+  import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -8498,7 +9437,8 @@ declare module "sap/ui/webc/main/DatePicker" {
    * }
    * </script>```
    */
-  export default class DatePicker extends WebComponent {
+  export default class DatePicker extends WebComponent implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `DatePicker`.
      *
@@ -8535,6 +9475,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -8553,10 +9495,14 @@ declare module "sap/ui/webc/main/DatePicker" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.DatePicker.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -8571,6 +9517,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DatePicker` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -8594,6 +9542,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DatePicker` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -8612,6 +9562,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DatePicker` itself.
      *
      * Fired when the value of the component is changed at each key stroke.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -8635,6 +9587,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DatePicker` itself.
      *
      * Fired when the value of the component is changed at each key stroke.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -8654,6 +9608,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.DatePicker`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -8669,6 +9625,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.DatePicker`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -8685,6 +9643,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireChange(
       /**
@@ -8706,6 +9666,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireInput(
       /**
@@ -8736,6 +9698,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
      * Defines the aria-label attribute for the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -8748,19 +9712,24 @@ declare module "sap/ui/webc/main/DatePicker" {
      */
     getDateValue(): void;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getFormatPattern formatPattern}.
      *
      * Determines the format, displayed in the input field.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `formatPattern`
      */
     getFormatPattern(): string;
     /**
@@ -8774,6 +9743,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * set.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideWeekNumbers`
      */
     getHideWeekNumbers(): boolean;
     /**
@@ -8782,6 +9753,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Determines the maximum date available for selection.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `maxDate`
      */
     getMaxDate(): string;
     /**
@@ -8790,6 +9763,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Determines the minimum date available for selection.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `minDate`
      */
     getMinDate(): string;
     /**
@@ -8803,6 +9778,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -8817,12 +9794,16 @@ declare module "sap/ui/webc/main/DatePicker" {
      * pattern.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
      * Gets current value of property {@link #getPrimaryCalendarType primaryCalendarType}.
      *
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
+     *
+     * @returns Value of property `primaryCalendarType`
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
@@ -8831,6 +9812,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Determines whether the component is displayed as read-only.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -8839,6 +9822,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Defines whether the component is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -8847,6 +9832,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `secondaryCalendarType`
      */
     getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
@@ -8855,6 +9842,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Defines a formatted date value.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -8870,6 +9859,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -8882,12 +9873,16 @@ declare module "sap/ui/webc/main/DatePicker" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -8918,10 +9913,14 @@ declare module "sap/ui/webc/main/DatePicker" {
     openPicker(): void;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -8935,6 +9934,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Defines the aria-label attribute for the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -8943,19 +9944,22 @@ declare module "sap/ui/webc/main/DatePicker" {
       sAccessibleName: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getFormatPattern formatPattern}.
@@ -8965,6 +9969,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFormatPattern(
       /**
@@ -8985,6 +9991,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideWeekNumbers(
       /**
@@ -9000,6 +10008,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxDate(
       /**
@@ -9015,6 +10025,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinDate(
       /**
@@ -9035,6 +10047,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -9056,6 +10070,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -9069,6 +10085,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPrimaryCalendarType(
       /**
@@ -9084,6 +10102,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -9099,6 +10119,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -9114,6 +10136,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSecondaryCalendarType(
       /**
@@ -9129,6 +10153,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -9151,6 +10177,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -9170,6 +10198,8 @@ declare module "sap/ui/webc/main/DatePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -9183,12 +10213,14 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -9199,9 +10231,10 @@ declare module "sap/ui/webc/main/DatePicker" {
     accessibleName?: string | PropertyBindingInfo;
 
     /**
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the format, displayed in the input field.
@@ -9216,7 +10249,7 @@ declare module "sap/ui/webc/main/DatePicker" {
      * **Note:** For calendars other than Gregorian, the week numbers are not displayed regardless of what is
      * set.
      */
-    hideWeekNumbers?: boolean | PropertyBindingInfo;
+    hideWeekNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the maximum date available for selection.
@@ -9254,24 +10287,26 @@ declare module "sap/ui/webc/main/DatePicker" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines whether the component is displayed as read-only.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      */
     secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines a formatted date value.
@@ -9288,7 +10323,10 @@ declare module "sap/ui/webc/main/DatePicker" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -9302,7 +10340,7 @@ declare module "sap/ui/webc/main/DatePicker" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -9327,7 +10365,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { ID, ValueState, CSSSize } from "sap/ui/core/library";
+  import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -9362,7 +10400,10 @@ declare module "sap/ui/webc/main/DateRangePicker" {
    * 	 - [SHIFT] + [PAGEUP] - Increments the corresponding month by one
    * 	 - [SHIFT] + [CTRL] + [PAGEUP] - Increments the corresponding year by one
    */
-  export default class DateRangePicker extends WebComponent {
+  export default class DateRangePicker
+    extends WebComponent
+    implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `DateRangePicker`.
      *
@@ -9399,6 +10440,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -9417,10 +10460,14 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.DateRangePicker.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -9435,6 +10482,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DateRangePicker` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -9458,6 +10507,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DateRangePicker` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -9476,6 +10527,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DateRangePicker` itself.
      *
      * Fired when the value of the component is changed at each key stroke.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -9499,6 +10552,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DateRangePicker` itself.
      *
      * Fired when the value of the component is changed at each key stroke.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -9518,6 +10573,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.DateRangePicker`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -9533,6 +10590,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.DateRangePicker`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -9549,6 +10608,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireChange(
       /**
@@ -9570,6 +10631,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireInput(
       /**
@@ -9600,6 +10663,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
      * Defines the aria-label attribute for the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -9622,16 +10687,21 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      *
      * Determines the symbol which separates the dates. If not supplied, the default time interval delimiter
      * for the current locale will be used.
+     *
+     * @returns Value of property `delimiter`
      */
     getDelimiter(): string;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Returns the end date of the currently selected range as JavaScript Date instance.
      */
@@ -9642,6 +10712,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Determines the format, displayed in the input field.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `formatPattern`
      */
     getFormatPattern(): string;
     /**
@@ -9655,6 +10727,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * set.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideWeekNumbers`
      */
     getHideWeekNumbers(): boolean;
     /**
@@ -9663,6 +10737,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Determines the maximum date available for selection.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `maxDate`
      */
     getMaxDate(): string;
     /**
@@ -9671,6 +10747,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Determines the minimum date available for selection.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `minDate`
      */
     getMinDate(): string;
     /**
@@ -9684,6 +10762,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -9698,12 +10778,16 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * pattern.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
      * Gets current value of property {@link #getPrimaryCalendarType primaryCalendarType}.
      *
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
+     *
+     * @returns Value of property `primaryCalendarType`
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
@@ -9712,6 +10796,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Determines whether the component is displayed as read-only.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -9720,6 +10806,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Defines whether the component is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -9728,6 +10816,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `secondaryCalendarType`
      */
     getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
@@ -9740,6 +10830,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Defines a formatted date value.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -9755,6 +10847,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -9767,12 +10861,16 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -9803,10 +10901,14 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     openPicker(): void;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -9820,6 +10922,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Defines the aria-label attribute for the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -9834,6 +10938,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * for the current locale will be used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDelimiter(
       /**
@@ -9842,19 +10948,22 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       sDelimiter: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getFormatPattern formatPattern}.
@@ -9864,6 +10973,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFormatPattern(
       /**
@@ -9884,6 +10995,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideWeekNumbers(
       /**
@@ -9899,6 +11012,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxDate(
       /**
@@ -9914,6 +11029,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinDate(
       /**
@@ -9934,6 +11051,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -9955,6 +11074,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -9968,6 +11089,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPrimaryCalendarType(
       /**
@@ -9983,6 +11106,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -9998,6 +11123,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -10013,6 +11140,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSecondaryCalendarType(
       /**
@@ -10028,6 +11157,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -10050,6 +11181,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -10069,6 +11202,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -10082,12 +11217,14 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -10104,9 +11241,10 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     delimiter?: string | PropertyBindingInfo;
 
     /**
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the format, displayed in the input field.
@@ -10121,7 +11259,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * **Note:** For calendars other than Gregorian, the week numbers are not displayed regardless of what is
      * set.
      */
-    hideWeekNumbers?: boolean | PropertyBindingInfo;
+    hideWeekNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the maximum date available for selection.
@@ -10159,24 +11297,26 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines whether the component is displayed as read-only.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      */
     secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines a formatted date value.
@@ -10193,7 +11333,10 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -10207,7 +11350,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -10232,7 +11375,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { ID, ValueState, CSSSize } from "sap/ui/core/library";
+  import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -10301,7 +11444,10 @@ declare module "sap/ui/webc/main/DateTimePicker" {
    * The `DateTimePicker` is responsive and fully adapts to all devices. For larger screens, such as tablet
    * or desktop, it is displayed as a popover, while on phone devices, it is displayed full screen.
    */
-  export default class DateTimePicker extends WebComponent {
+  export default class DateTimePicker
+    extends WebComponent
+    implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `DateTimePicker`.
      *
@@ -10338,6 +11484,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -10356,10 +11504,14 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.DateTimePicker.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -10374,6 +11526,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DateTimePicker` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -10397,6 +11551,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DateTimePicker` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -10415,6 +11571,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DateTimePicker` itself.
      *
      * Fired when the value of the component is changed at each key stroke.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -10438,6 +11596,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.DateTimePicker` itself.
      *
      * Fired when the value of the component is changed at each key stroke.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -10457,6 +11617,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.DateTimePicker`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -10472,6 +11634,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.DateTimePicker`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -10488,6 +11652,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireChange(
       /**
@@ -10509,6 +11675,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireInput(
       /**
@@ -10539,6 +11707,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
      * Defines the aria-label attribute for the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -10551,19 +11721,24 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      */
     getDateValue(): void;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getFormatPattern formatPattern}.
      *
      * Determines the format, displayed in the input field.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `formatPattern`
      */
     getFormatPattern(): string;
     /**
@@ -10577,6 +11752,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * set.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideWeekNumbers`
      */
     getHideWeekNumbers(): boolean;
     /**
@@ -10585,6 +11762,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Determines the maximum date available for selection.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `maxDate`
      */
     getMaxDate(): string;
     /**
@@ -10593,6 +11772,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Determines the minimum date available for selection.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `minDate`
      */
     getMinDate(): string;
     /**
@@ -10606,6 +11787,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -10620,12 +11803,16 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * pattern.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
      * Gets current value of property {@link #getPrimaryCalendarType primaryCalendarType}.
      *
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
+     *
+     * @returns Value of property `primaryCalendarType`
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
@@ -10634,6 +11821,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Determines whether the component is displayed as read-only.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -10642,6 +11831,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Defines whether the component is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -10650,6 +11841,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `secondaryCalendarType`
      */
     getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
@@ -10658,6 +11851,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Defines a formatted date value.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -10673,6 +11868,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -10685,12 +11882,16 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -10721,10 +11922,14 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     openPicker(): void;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -10738,6 +11943,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Defines the aria-label attribute for the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -10746,19 +11953,22 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       sAccessibleName: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getFormatPattern formatPattern}.
@@ -10768,6 +11978,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFormatPattern(
       /**
@@ -10788,6 +12000,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideWeekNumbers(
       /**
@@ -10803,6 +12017,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxDate(
       /**
@@ -10818,6 +12034,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinDate(
       /**
@@ -10838,6 +12056,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -10859,6 +12079,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -10872,6 +12094,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPrimaryCalendarType(
       /**
@@ -10887,6 +12111,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -10902,6 +12128,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -10917,6 +12145,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSecondaryCalendarType(
       /**
@@ -10932,6 +12162,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -10954,6 +12186,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -10973,6 +12207,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -10986,12 +12222,14 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -11002,9 +12240,10 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     accessibleName?: string | PropertyBindingInfo;
 
     /**
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the format, displayed in the input field.
@@ -11019,7 +12258,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * **Note:** For calendars other than Gregorian, the week numbers are not displayed regardless of what is
      * set.
      */
-    hideWeekNumbers?: boolean | PropertyBindingInfo;
+    hideWeekNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the maximum date available for selection.
@@ -11057,24 +12296,26 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines whether the component is displayed as read-only.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      */
     secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines a formatted date value.
@@ -11091,7 +12332,10 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -11105,7 +12349,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -11164,6 +12408,15 @@ declare module "sap/ui/webc/main/Dialog" {
    * Responsive Behavior: The `stretch` property can be used to stretch the `sap.ui.webc.main.Dialog` on full
    * screen.
    *
+   * CSS Shadow Parts:
+   *
+   * CSS Shadow Parts
+   * allow developers to style elements inside the Shadow DOM.
+   *  The `sap.ui.webc.main.Dialog` exposes the following CSS Shadow Parts:
+   * 	 - header - Used to style the header of the component
+   * 	 - content - Used to style the content of the component
+   * 	 - footer - Used to style the footer of the component
+   *
    * **Note:** We don't recommend nesting popup-like components (`sap.ui.webc.main.Dialog`, `sap.ui.webc.main.Popover`)
    * inside `sap.ui.webc.main.Dialog`. Ideally you should create all popups on the same level inside your
    * HTML page and just open them from one another, rather than nesting them.
@@ -11208,6 +12461,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11226,10 +12481,14 @@ declare module "sap/ui/webc/main/Dialog" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Dialog.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -11239,6 +12498,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): this;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -11248,6 +12509,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): this;
     /**
      * Adds some footer to the aggregation {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addFooter(
       /**
@@ -11257,6 +12520,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): this;
     /**
      * Adds some header to the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addHeader(
       /**
@@ -11275,6 +12540,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * otherwise it will be bound to this `sap.ui.webc.main.Dialog` itself.
      *
      * Fired after the component is closed. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterClose(
       /**
@@ -11298,6 +12565,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * otherwise it will be bound to this `sap.ui.webc.main.Dialog` itself.
      *
      * Fired after the component is closed. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterClose(
       /**
@@ -11316,6 +12585,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * otherwise it will be bound to this `sap.ui.webc.main.Dialog` itself.
      *
      * Fired after the component is opened. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterOpen(
       /**
@@ -11339,6 +12610,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * otherwise it will be bound to this `sap.ui.webc.main.Dialog` itself.
      *
      * Fired after the component is opened. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterOpen(
       /**
@@ -11358,6 +12631,8 @@ declare module "sap/ui/webc/main/Dialog" {
      *
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeClose(
       /**
@@ -11382,6 +12657,8 @@ declare module "sap/ui/webc/main/Dialog" {
      *
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeClose(
       /**
@@ -11401,6 +12678,8 @@ declare module "sap/ui/webc/main/Dialog" {
      *
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
      * opening. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeOpen(
       /**
@@ -11425,6 +12704,8 @@ declare module "sap/ui/webc/main/Dialog" {
      *
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
      * opening. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeOpen(
       /**
@@ -11442,20 +12723,28 @@ declare module "sap/ui/webc/main/Dialog" {
     close(): void;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys all the footer in the aggregation {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFooter(): this;
     /**
      * Destroys all the header in the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeader(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:afterClose afterClose} event of this `sap.ui.webc.main.Dialog`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAfterClose(
       /**
@@ -11471,6 +12760,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * Detaches event handler `fnFunction` from the {@link #event:afterOpen afterOpen} event of this `sap.ui.webc.main.Dialog`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAfterOpen(
       /**
@@ -11486,6 +12777,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * Detaches event handler `fnFunction` from the {@link #event:beforeClose beforeClose} event of this `sap.ui.webc.main.Dialog`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachBeforeClose(
       /**
@@ -11501,6 +12794,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * Detaches event handler `fnFunction` from the {@link #event:beforeOpen beforeOpen} event of this `sap.ui.webc.main.Dialog`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachBeforeOpen(
       /**
@@ -11514,6 +12809,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): this;
     /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireAfterClose(
       /**
@@ -11523,6 +12820,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): this;
     /**
      * Fires event {@link #event:afterOpen afterOpen} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireAfterOpen(
       /**
@@ -11535,6 +12834,8 @@ declare module "sap/ui/webc/main/Dialog" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireBeforeClose(
       /**
@@ -11552,6 +12853,8 @@ declare module "sap/ui/webc/main/Dialog" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireBeforeOpen(
       /**
@@ -11565,6 +12868,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * Defines the accessible name of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -11587,6 +12892,8 @@ declare module "sap/ui/webc/main/Dialog" {
      *  **Note:** The component can be draggable only in desktop mode.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `draggable`
      */
     getDraggable(): boolean;
     /**
@@ -11612,28 +12919,41 @@ declare module "sap/ui/webc/main/Dialog" {
      *  **Note:** If `header` slot is provided, the `headerText` is ignored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `headerText`
      */
     getHeaderText(): string;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
-     * Gets current value of property {@link #getInitialFocus initialFocus}.
-     *
-     * Defines the ID of the HTML Element, which will get the initial focus.
-     *
-     * Default value is `empty string`.
+     * ID of the element which is the current target of the association {@link #getInitialFocus initialFocus},
+     * or `null`.
      */
-    getInitialFocus(): string;
+    getInitialFocus(): ID;
+    /**
+     * Gets current value of property {@link #getOpen open}.
+     *
+     * Indicates if the element is open
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `open`
+     */
+    getOpen(): boolean;
     /**
      * Gets current value of property {@link #getPreventFocusRestore preventFocusRestore}.
      *
      * Defines if the focus should be returned to the previously focused element, when the popup closes.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `preventFocusRestore`
      */
     getPreventFocusRestore(): boolean;
     /**
@@ -11647,6 +12967,8 @@ declare module "sap/ui/webc/main/Dialog" {
      *  **Note:** Upon resizing, externally defined height and width styling will be ignored.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `resizable`
      */
     getResizable(): boolean;
     /**
@@ -11657,17 +12979,23 @@ declare module "sap/ui/webc/main/Dialog" {
      *  **Note:** The component will be stretched to approximately 90% of the viewport.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `stretch`
      */
     getStretch(): boolean;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -11678,6 +13006,8 @@ declare module "sap/ui/webc/main/Dialog" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getFooter footer}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfFooter(
       /**
@@ -11688,6 +13018,8 @@ declare module "sap/ui/webc/main/Dialog" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getHeader header}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfHeader(
       /**
@@ -11697,6 +13029,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -11712,6 +13046,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): this;
     /**
      * Inserts a footer into the aggregation {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertFooter(
       /**
@@ -11727,6 +13063,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): this;
     /**
      * Inserts a header into the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertHeader(
       /**
@@ -11746,28 +13084,38 @@ declare module "sap/ui/webc/main/Dialog" {
     isOpen(): void;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getFooter footer}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllFooter(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getHeader header}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllHeader(): Control[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -11777,6 +13125,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): ID;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -11786,6 +13136,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): Control;
     /**
      * Removes a footer from the aggregation {@link #getFooter footer}.
+     *
+     * @returns The removed footer or `null`
      */
     removeFooter(
       /**
@@ -11795,6 +13147,8 @@ declare module "sap/ui/webc/main/Dialog" {
     ): Control;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
+     *
+     * @returns The removed header or `null`
      */
     removeHeader(
       /**
@@ -11810,6 +13164,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -11828,6 +13184,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDraggable(
       /**
@@ -11845,6 +13203,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderText(
       /**
@@ -11858,27 +13218,43 @@ declare module "sap/ui/webc/main/Dialog" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
-     * Sets a new value for property {@link #getInitialFocus initialFocus}.
+     * Sets the associated {@link #getInitialFocus initialFocus}.
      *
-     * Defines the ID of the HTML Element, which will get the initial focus.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInitialFocus(
       /**
-       * New value for property `initialFocus`
+       * ID of an element which becomes the new target of this initialFocus association; alternatively, an element
+       * instance may be given
        */
-      sInitialFocus?: string
+      oInitialFocus: ID | Control
+    ): this;
+    /**
+     * Sets a new value for property {@link #getOpen open}.
+     *
+     * Indicates if the element is open
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setOpen(
+      /**
+       * New value for property `open`
+       */
+      bOpen?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getPreventFocusRestore preventFocusRestore}.
@@ -11888,6 +13264,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPreventFocusRestore(
       /**
@@ -11908,6 +13286,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setResizable(
       /**
@@ -11925,6 +13305,8 @@ declare module "sap/ui/webc/main/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStretch(
       /**
@@ -11938,12 +13320,14 @@ declare module "sap/ui/webc/main/Dialog" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Shows the dialog.
@@ -11968,7 +13352,7 @@ declare module "sap/ui/webc/main/Dialog" {
      *
      *  **Note:** The component can be draggable only in desktop mode.
      */
-    draggable?: boolean | PropertyBindingInfo;
+    draggable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the header text.
@@ -11980,17 +13364,17 @@ declare module "sap/ui/webc/main/Dialog" {
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the ID of the HTML Element, which will get the initial focus.
+     * Indicates if the element is open
      */
-    initialFocus?: string | PropertyBindingInfo;
+    open?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines if the focus should be returned to the previously focused element, when the popup closes.
      */
-    preventFocusRestore?: boolean | PropertyBindingInfo;
+    preventFocusRestore?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Configures the component to be resizable. If this property is set to true, the Dialog will have a resize
@@ -12000,29 +13384,29 @@ declare module "sap/ui/webc/main/Dialog" {
      *  **Note:** The component can be resizable only in desktop mode.
      *  **Note:** Upon resizing, externally defined height and width styling will be ignored.
      */
-    resizable?: boolean | PropertyBindingInfo;
+    resizable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the component should be stretched to fullscreen.
      *
      *  **Note:** The component will be stretched to approximately 90% of the viewport.
      */
-    stretch?: boolean | PropertyBindingInfo;
+    stretch?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the Popup.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the footer HTML Element.
      */
-    footer?: Control[] | Control | AggregationBindingInfo;
+    footer?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the header HTML Element.
@@ -12030,12 +13414,17 @@ declare module "sap/ui/webc/main/Dialog" {
      *  **Note:** If `header` slot is provided, the labelling of the dialog is a responsibility of the application
      * developer. `accessibleName` should be used.
      */
-    header?: Control[] | Control | AggregationBindingInfo;
+    header?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
      */
     ariaLabelledBy?: Array<Control | string>;
+
+    /**
+     * Defines the ID of the HTML Element, which will get the initial focus.
+     */
+    initialFocus?: Control | string;
 
     /**
      * Fired after the component is closed. **This event does not bubble.**
@@ -12067,13 +13456,13 @@ declare module "sap/ui/webc/main/FileUploader" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
+  import { IFormContent, ValueState, CSSSize } from "sap/ui/core/library";
+
   import Control from "sap/ui/core/Control";
 
   import Event from "sap/ui/base/Event";
 
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
-
-  import { ValueState, CSSSize } from "sap/ui/core/library";
 
   import {
     PropertyBindingInfo,
@@ -12095,7 +13484,10 @@ declare module "sap/ui/webc/main/FileUploader" {
    *  And, similar to all input based components, the FileUploader supports "valueState", "placeholder", "name",
    * and "disabled" properties.
    */
-  export default class FileUploader extends WebComponent {
+  export default class FileUploader
+    extends WebComponent
+    implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `FileUploader`.
      *
@@ -12132,6 +13524,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12150,10 +13544,14 @@ declare module "sap/ui/webc/main/FileUploader" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.FileUploader.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -12170,6 +13568,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * Event is fired when the value of the file path has been changed. **Note:** Keep in mind that because
      * of the HTML input element of type file, the event is also fired in Chrome browser when the Cancel button
      * of the uploads window is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -12195,6 +13595,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * Event is fired when the value of the file path has been changed. **Note:** Keep in mind that because
      * of the HTML input element of type file, the event is also fired in Chrome browser when the Cancel button
      * of the uploads window is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -12208,12 +13610,16 @@ declare module "sap/ui/webc/main/FileUploader" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.FileUploader`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -12227,6 +13633,8 @@ declare module "sap/ui/webc/main/FileUploader" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -12248,6 +13656,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * want to accept png's only.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accept`
      */
     getAccept(): string;
     /**
@@ -12258,15 +13668,16 @@ declare module "sap/ui/webc/main/FileUploader" {
      */
     getContent(): Control[];
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Returns the fileList of all selected files.
      */
@@ -12278,6 +13689,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * will be rendered.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideInput`
      */
     getHideInput(): boolean;
     /**
@@ -12286,6 +13699,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * Allows multiple files to be chosen.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `multiple`
      */
     getMultiple(): boolean;
     /**
@@ -12299,6 +13714,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -12307,6 +13724,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * Defines a short hint intended to aid the user with data entry when the component has no value.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
@@ -12315,6 +13734,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * Defines the name/names of the file/files to upload.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -12330,6 +13751,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -12342,17 +13765,23 @@ declare module "sap/ui/webc/main/FileUploader" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -12362,6 +13791,8 @@ declare module "sap/ui/webc/main/FileUploader" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -12379,10 +13810,14 @@ declare module "sap/ui/webc/main/FileUploader" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -12401,6 +13836,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccept(
       /**
@@ -12409,21 +13846,22 @@ declare module "sap/ui/webc/main/FileUploader" {
       sAccept?: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getHideInput hideInput}.
@@ -12434,6 +13872,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideInput(
       /**
@@ -12449,6 +13889,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMultiple(
       /**
@@ -12469,6 +13911,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -12484,6 +13928,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -12499,6 +13945,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -12521,6 +13969,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -12540,6 +13990,8 @@ declare module "sap/ui/webc/main/FileUploader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -12553,12 +14005,14 @@ declare module "sap/ui/webc/main/FileUploader" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -12572,22 +14026,21 @@ declare module "sap/ui/webc/main/FileUploader" {
     accept?: string | PropertyBindingInfo;
 
     /**
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * If set to "true", the input field of component will not be rendered. Only the default slot that is passed
      * will be rendered.
      */
-    hideInput?: boolean | PropertyBindingInfo;
+    hideInput?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Allows multiple files to be chosen.
      */
-    multiple?: boolean | PropertyBindingInfo;
+    multiple?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the name with which the component will be submitted in an HTML form.
@@ -12619,7 +14072,10 @@ declare module "sap/ui/webc/main/FileUploader" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -12633,13 +14089,13 @@ declare module "sap/ui/webc/main/FileUploader" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * By default the component contains a single input field. With this slot you can pass any content that
      * you wish to add. See the samples for more information.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Event is fired when the value of the file path has been changed. **Note:** Keep in mind that because
@@ -12709,6 +14165,8 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12727,6 +14185,8 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.GroupHeaderListItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -12736,6 +14196,8 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
      * be set, if present.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -12744,6 +14206,8 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
      * Defines the selected state of the `ListItem`.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
     /**
@@ -12752,6 +14216,8 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -12763,6 +14229,8 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -12778,6 +14246,8 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -12793,6 +14263,8 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -12812,7 +14284,7 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
     /**
      * Defines the selected state of the `ListItem`.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the control
@@ -12829,9 +14301,9 @@ declare module "sap/ui/webc/main/Icon" {
 
   import { IIcon } from "sap/ui/webc/main/library";
 
-  import { IFormContent, CSSSize } from "sap/ui/core/library";
-
   import Event from "sap/ui/base/Event";
+
+  import { CSSColor, CSSSize } from "sap/ui/core/library";
 
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
@@ -12860,11 +14332,8 @@ declare module "sap/ui/webc/main/Icon" {
    * 	 - [SHIFT] - If [SPACE] or [ENTER],[RETURN] is pressed, pressing [SHIFT] releases the ui5-icon without
    * 			triggering the click event.
    */
-  export default class Icon
-    extends WebComponent
-    implements IIcon, IFormContent {
+  export default class Icon extends WebComponent implements IIcon {
     __implements__sap_ui_webc_main_IIcon: boolean;
-    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `Icon`.
      *
@@ -12901,6 +14370,8 @@ declare module "sap/ui/webc/main/Icon" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12919,6 +14390,8 @@ declare module "sap/ui/webc/main/Icon" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Icon.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -12928,6 +14401,8 @@ declare module "sap/ui/webc/main/Icon" {
      * otherwise it will be bound to this `sap.ui.webc.main.Icon` itself.
      *
      * Fired when the user clicks the control
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -12951,6 +14426,8 @@ declare module "sap/ui/webc/main/Icon" {
      * otherwise it will be bound to this `sap.ui.webc.main.Icon` itself.
      *
      * Fired when the user clicks the control
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -12966,6 +14443,8 @@ declare module "sap/ui/webc/main/Icon" {
      * Detaches event handler `fnFunction` from the {@link #event:click click} event of this `sap.ui.webc.main.Icon`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClick(
       /**
@@ -12979,6 +14458,8 @@ declare module "sap/ui/webc/main/Icon" {
     ): this;
     /**
      * Fires event {@link #event:click click} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClick(
       /**
@@ -12995,6 +14476,8 @@ declare module "sap/ui/webc/main/Icon" {
      *  **Note:** Every icon should have a text alternative in order to calculate its accessible name.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -13003,24 +14486,32 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the accessibility role of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleRole`
      */
     getAccessibleRole(): string;
     /**
      * Gets current value of property {@link #getBackgroundColor backgroundColor}.
      *
      * Defines the background color of the control
+     *
+     * @returns Value of property `backgroundColor`
      */
-    getBackgroundColor(): CSSSize;
+    getBackgroundColor(): CSSColor;
     /**
      * Gets current value of property {@link #getColor color}.
      *
      * Defines the color of the control
+     *
+     * @returns Value of property `color`
      */
-    getColor(): CSSSize;
+    getColor(): CSSColor;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -13029,6 +14520,8 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines if the icon is interactive (focusable and pressable)
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `interactive`
      */
     getInteractive(): boolean;
     /**
@@ -13053,6 +14546,8 @@ declare module "sap/ui/webc/main/Icon" {
      *  `name='tnt/antenna'`, `name='tnt/actor'`, `name='tnt/api'`.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -13061,12 +14556,16 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines whether the component should have a tooltip.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showTooltip`
      */
     getShowTooltip(): boolean;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -13080,6 +14579,8 @@ declare module "sap/ui/webc/main/Icon" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -13095,6 +14596,8 @@ declare module "sap/ui/webc/main/Icon" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleRole(
       /**
@@ -13108,12 +14611,14 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the background color of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBackgroundColor(
       /**
        * New value for property `backgroundColor`
        */
-      sBackgroundColor?: CSSSize
+      sBackgroundColor: CSSColor
     ): this;
     /**
      * Sets a new value for property {@link #getColor color}.
@@ -13121,12 +14626,14 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the color of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setColor(
       /**
        * New value for property `color`
        */
-      sColor?: CSSSize
+      sColor: CSSColor
     ): this;
     /**
      * Sets a new value for property {@link #getHeight height}.
@@ -13134,12 +14641,14 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getInteractive interactive}.
@@ -13149,6 +14658,8 @@ declare module "sap/ui/webc/main/Icon" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInteractive(
       /**
@@ -13180,6 +14691,8 @@ declare module "sap/ui/webc/main/Icon" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -13195,6 +14708,8 @@ declare module "sap/ui/webc/main/Icon" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowTooltip(
       /**
@@ -13208,12 +14723,14 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -13234,22 +14751,22 @@ declare module "sap/ui/webc/main/Icon" {
     /**
      * Defines the background color of the control
      */
-    backgroundColor?: CSSSize | PropertyBindingInfo;
+    backgroundColor?: CSSColor | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the color of the control
      */
-    color?: CSSSize | PropertyBindingInfo;
+    color?: CSSColor | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines if the icon is interactive (focusable and pressable)
      */
-    interactive?: boolean | PropertyBindingInfo;
+    interactive?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the unique identifier (icon name) of the component.
@@ -13275,12 +14792,12 @@ declare module "sap/ui/webc/main/Icon" {
     /**
      * Defines whether the component should have a tooltip.
      */
-    showTooltip?: boolean | PropertyBindingInfo;
+    showTooltip?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Fired when the user clicks the control
@@ -13302,7 +14819,7 @@ declare module "sap/ui/webc/main/Input" {
     InputType,
   } from "sap/ui/webc/main/library";
 
-  import { ID, ValueState, CSSSize } from "sap/ui/core/library";
+  import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -13339,8 +14856,6 @@ declare module "sap/ui/webc/main/Input" {
    *
    *
    *
-   * 	 - [F4], [ALT]+[UP], or [ALT]+[DOWN] - Opens value help if available, same as clicking the value help
-   * 			icon. (Does not open suggestion list.)
    * 	 - [ESC] - Closes the suggestion list, if open. If closed or not enabled, cancels changes and reverts
    * 			to the value which the Input field had when it got the focus.
    * 	 - [ENTER] or [RETURN] - If suggestion list is open takes over the current matching item and closes
@@ -13356,8 +14871,11 @@ declare module "sap/ui/webc/main/Input" {
    * 	 - [PAGEDOWN] - If focus is in the list, moves highlight down by page size (10 items by default). If
    * 			focus is in the input, does nothing.
    */
-  export default class Input extends WebComponent implements IInput {
+  export default class Input
+    extends WebComponent
+    implements IInput, IFormContent {
     __implements__sap_ui_webc_main_IInput: boolean;
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `Input`.
      *
@@ -13394,6 +14912,8 @@ declare module "sap/ui/webc/main/Input" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -13412,10 +14932,14 @@ declare module "sap/ui/webc/main/Input" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Input.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -13425,6 +14949,8 @@ declare module "sap/ui/webc/main/Input" {
     ): this;
     /**
      * Adds some icon to the aggregation {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addIcon(
       /**
@@ -13434,6 +14960,8 @@ declare module "sap/ui/webc/main/Input" {
     ): this;
     /**
      * Adds some suggestionItem to the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addSuggestionItem(
       /**
@@ -13448,6 +14976,8 @@ declare module "sap/ui/webc/main/Input" {
      * otherwise it will be bound to this `sap.ui.webc.main.Input` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -13471,6 +15001,8 @@ declare module "sap/ui/webc/main/Input" {
      * otherwise it will be bound to this `sap.ui.webc.main.Input` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -13490,6 +15022,8 @@ declare module "sap/ui/webc/main/Input" {
      *
      * Fired when the value of the component changes at each keystroke, and when a suggestion item has been
      * selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -13514,6 +15048,8 @@ declare module "sap/ui/webc/main/Input" {
      *
      * Fired when the value of the component changes at each keystroke, and when a suggestion item has been
      * selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -13534,6 +15070,8 @@ declare module "sap/ui/webc/main/Input" {
      *
      * Fired when the user navigates to a suggestion item via the ARROW keys, as a preview, before the final
      * selection.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggestionItemPreview(
       /**
@@ -13559,6 +15097,8 @@ declare module "sap/ui/webc/main/Input" {
      *
      * Fired when the user navigates to a suggestion item via the ARROW keys, as a preview, before the final
      * selection.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggestionItemPreview(
       /**
@@ -13578,6 +15118,8 @@ declare module "sap/ui/webc/main/Input" {
      * otherwise it will be bound to this `sap.ui.webc.main.Input` itself.
      *
      * Fired when a suggestion item, that is displayed in the suggestion popup, is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggestionItemSelect(
       /**
@@ -13602,6 +15144,8 @@ declare module "sap/ui/webc/main/Input" {
      * otherwise it will be bound to this `sap.ui.webc.main.Input` itself.
      *
      * Fired when a suggestion item, that is displayed in the suggestion popup, is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggestionItemSelect(
       /**
@@ -13615,16 +15159,22 @@ declare module "sap/ui/webc/main/Input" {
     ): this;
     /**
      * Destroys all the icon in the aggregation {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyIcon(): this;
     /**
      * Destroys all the suggestionItems in the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySuggestionItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.Input`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -13640,6 +15190,8 @@ declare module "sap/ui/webc/main/Input" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.Input`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -13656,6 +15208,8 @@ declare module "sap/ui/webc/main/Input" {
      * event of this `sap.ui.webc.main.Input`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSuggestionItemPreview(
       /**
@@ -13672,6 +15226,8 @@ declare module "sap/ui/webc/main/Input" {
      * event of this `sap.ui.webc.main.Input`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSuggestionItemSelect(
       /**
@@ -13685,6 +15241,8 @@ declare module "sap/ui/webc/main/Input" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -13694,6 +15252,8 @@ declare module "sap/ui/webc/main/Input" {
     ): this;
     /**
      * Fires event {@link #event:input input} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireInput(
       /**
@@ -13703,6 +15263,8 @@ declare module "sap/ui/webc/main/Input" {
     ): this;
     /**
      * Fires event {@link #event:suggestionItemPreview suggestionItemPreview} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSuggestionItemPreview(
       /**
@@ -13721,6 +15283,8 @@ declare module "sap/ui/webc/main/Input" {
     ): this;
     /**
      * Fires event {@link #event:suggestionItemSelect suggestionItemSelect} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSuggestionItemSelect(
       /**
@@ -13736,7 +15300,9 @@ declare module "sap/ui/webc/main/Input" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -13745,15 +15311,16 @@ declare module "sap/ui/webc/main/Input" {
      */
     getAriaLabelledBy(): ID[];
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets content of aggregation {@link #getIcon icon}.
      *
@@ -13764,6 +15331,8 @@ declare module "sap/ui/webc/main/Input" {
      * Gets current value of property {@link #getMaxlength maxlength}.
      *
      * Sets the maximum number of characters available in the input field.
+     *
+     * @returns Value of property `maxlength`
      */
     getMaxlength(): int;
     /**
@@ -13777,6 +15346,8 @@ declare module "sap/ui/webc/main/Input" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -13785,6 +15356,8 @@ declare module "sap/ui/webc/main/Input" {
      * Defines a short hint intended to aid the user with data entry when the component has no value.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
@@ -13799,6 +15372,8 @@ declare module "sap/ui/webc/main/Input" {
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -13807,6 +15382,8 @@ declare module "sap/ui/webc/main/Input" {
      * Defines whether the component is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -13815,6 +15392,8 @@ declare module "sap/ui/webc/main/Input" {
      * Defines whether the clear icon of the input will be shown.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showClearIcon`
      */
     getShowClearIcon(): boolean;
     /**
@@ -13826,6 +15405,8 @@ declare module "sap/ui/webc/main/Input" {
      * to enable this functionality.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showSuggestions`
      */
     getShowSuggestions(): boolean;
     /**
@@ -13845,6 +15426,8 @@ declare module "sap/ui/webc/main/Input" {
      * 			depending on the given input type.
      *
      * Default value is `Text`.
+     *
+     * @returns Value of property `type`
      */
     getType(): InputType | keyof typeof InputType;
     /**
@@ -13855,6 +15438,8 @@ declare module "sap/ui/webc/main/Input" {
      *  **Note:** The property is updated upon typing.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -13870,6 +15455,8 @@ declare module "sap/ui/webc/main/Input" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -13882,17 +15469,23 @@ declare module "sap/ui/webc/main/Input" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.webc.main.IIcon` in the aggregation {@link #getIcon icon}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfIcon(
       /**
@@ -13903,6 +15496,8 @@ declare module "sap/ui/webc/main/Input" {
     /**
      * Checks for the provided `sap.ui.webc.main.IInputSuggestionItem` in the aggregation {@link #getSuggestionItems
      * suggestionItems}. and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfSuggestionItem(
       /**
@@ -13912,6 +15507,8 @@ declare module "sap/ui/webc/main/Input" {
     ): int;
     /**
      * Inserts a icon into the aggregation {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertIcon(
       /**
@@ -13927,6 +15524,8 @@ declare module "sap/ui/webc/main/Input" {
     ): this;
     /**
      * Inserts a suggestionItem into the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertSuggestionItem(
       /**
@@ -13941,23 +15540,36 @@ declare module "sap/ui/webc/main/Input" {
       iIndex: int
     ): this;
     /**
+     * Manually opens the suggestions popover, assuming suggestions are enabled. Items must be preloaded for
+     * it to open.
+     */
+    openPicker(): void;
+    /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getIcon icon}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllIcon(): IIcon[];
     /**
      * Removes all the controls from the aggregation {@link #getSuggestionItems suggestionItems}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllSuggestionItems(): IInputSuggestionItem[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -13967,6 +15579,8 @@ declare module "sap/ui/webc/main/Input" {
     ): ID;
     /**
      * Removes a icon from the aggregation {@link #getIcon icon}.
+     *
+     * @returns The removed icon or `null`
      */
     removeIcon(
       /**
@@ -13976,6 +15590,8 @@ declare module "sap/ui/webc/main/Input" {
     ): IIcon;
     /**
      * Removes a suggestionItem from the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns The removed suggestionItem or `null`
      */
     removeSuggestionItem(
       /**
@@ -13986,9 +15602,11 @@ declare module "sap/ui/webc/main/Input" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -13997,21 +15615,22 @@ declare module "sap/ui/webc/main/Input" {
       sAccessibleName: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getMaxlength maxlength}.
@@ -14019,6 +15638,8 @@ declare module "sap/ui/webc/main/Input" {
      * Sets the maximum number of characters available in the input field.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxlength(
       /**
@@ -14039,6 +15660,8 @@ declare module "sap/ui/webc/main/Input" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -14054,6 +15677,8 @@ declare module "sap/ui/webc/main/Input" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -14071,6 +15696,8 @@ declare module "sap/ui/webc/main/Input" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -14086,6 +15713,8 @@ declare module "sap/ui/webc/main/Input" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -14101,6 +15730,8 @@ declare module "sap/ui/webc/main/Input" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowClearIcon(
       /**
@@ -14119,6 +15750,8 @@ declare module "sap/ui/webc/main/Input" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowSuggestions(
       /**
@@ -14141,6 +15774,8 @@ declare module "sap/ui/webc/main/Input" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Text`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setType(
       /**
@@ -14158,6 +15793,8 @@ declare module "sap/ui/webc/main/Input" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -14180,6 +15817,8 @@ declare module "sap/ui/webc/main/Input" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -14199,6 +15838,8 @@ declare module "sap/ui/webc/main/Input" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -14212,32 +15853,33 @@ declare module "sap/ui/webc/main/Input" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $InputSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
     /**
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the maximum number of characters available in the input field.
      */
-    maxlength?: int | PropertyBindingInfo;
+    maxlength?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the name with which the component will be submitted in an HTML form.
@@ -14259,17 +15901,17 @@ declare module "sap/ui/webc/main/Input" {
      *
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the clear icon of the input will be shown.
      */
-    showClearIcon?: boolean | PropertyBindingInfo;
+    showClearIcon?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component should show suggestions, if such are present.
@@ -14277,7 +15919,7 @@ declare module "sap/ui/webc/main/Input" {
      *  **Note:** You need to import the `InputSuggestions` module from `"@ui5/webcomponents/dist/features/InputSuggestions.js"`
      * to enable this functionality.
      */
-    showSuggestions?: boolean | PropertyBindingInfo;
+    showSuggestions?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the HTML type of the component. Available options are: `Text`, `Email`, `Number`, `Password`,
@@ -14289,7 +15931,10 @@ declare module "sap/ui/webc/main/Input" {
      * 	 - The property is mostly intended to be used with touch devices that use different soft keyboard layouts
      * 			depending on the given input type.
      */
-    type?: (InputType | keyof typeof InputType) | PropertyBindingInfo;
+    type?:
+      | (InputType | keyof typeof InputType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value of the component.
@@ -14308,7 +15953,10 @@ declare module "sap/ui/webc/main/Input" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -14322,17 +15970,18 @@ declare module "sap/ui/webc/main/Input" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the icon to be displayed in the component.
      */
-    icon?: IIcon[] | IIcon | AggregationBindingInfo;
+    icon?: IIcon[] | IIcon | AggregationBindingInfo | `{${string}}`;
 
     suggestionItems?:
       | IInputSuggestionItem[]
       | IInputSuggestionItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -14431,6 +16080,8 @@ declare module "sap/ui/webc/main/Label" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -14449,6 +16100,8 @@ declare module "sap/ui/webc/main/Label" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Label.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -14463,6 +16116,8 @@ declare module "sap/ui/webc/main/Label" {
      *  **Note:** Usually indicates that user input is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -14473,6 +16128,8 @@ declare module "sap/ui/webc/main/Label" {
      *  **Note:** Usually used in forms.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showColon`
      */
     getShowColon(): boolean;
     /**
@@ -14481,12 +16138,16 @@ declare module "sap/ui/webc/main/Label" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -14498,10 +16159,14 @@ declare module "sap/ui/webc/main/Label" {
      * 	 - `Normal` - The text will wrap. The words will not be broken based on hyphenation.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `wrappingType`
      */
     getWrappingType(): WrappingType | keyof typeof WrappingType;
     /**
      * Sets the associated {@link #getLabelFor labelFor}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLabelFor(
       /**
@@ -14520,6 +16185,8 @@ declare module "sap/ui/webc/main/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -14537,6 +16204,8 @@ declare module "sap/ui/webc/main/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowColon(
       /**
@@ -14552,6 +16221,8 @@ declare module "sap/ui/webc/main/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -14565,12 +16236,14 @@ declare module "sap/ui/webc/main/Label" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getWrappingType wrappingType}.
@@ -14583,6 +16256,8 @@ declare module "sap/ui/webc/main/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWrappingType(
       /**
@@ -14598,14 +16273,14 @@ declare module "sap/ui/webc/main/Label" {
      *
      *  **Note:** Usually indicates that user input is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether colon is added to the component text.
      *
      *  **Note:** Usually used in forms.
      */
-    showColon?: boolean | PropertyBindingInfo;
+    showColon?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the control
@@ -14615,7 +16290,7 @@ declare module "sap/ui/webc/main/Label" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines how the text of a component will be displayed when there is not enough space. Available options
@@ -14625,7 +16300,8 @@ declare module "sap/ui/webc/main/Label" {
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Association to the labelled control.
@@ -14718,6 +16394,8 @@ declare module "sap/ui/webc/main/Link" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -14736,10 +16414,14 @@ declare module "sap/ui/webc/main/Link" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Link.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -14754,6 +16436,8 @@ declare module "sap/ui/webc/main/Link" {
      * otherwise it will be bound to this `sap.ui.webc.main.Link` itself.
      *
      * Fired when the component is triggered either with a mouse/tap or by using the Enter key.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -14777,6 +16461,8 @@ declare module "sap/ui/webc/main/Link" {
      * otherwise it will be bound to this `sap.ui.webc.main.Link` itself.
      *
      * Fired when the component is triggered either with a mouse/tap or by using the Enter key.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -14792,6 +16478,8 @@ declare module "sap/ui/webc/main/Link" {
      * Detaches event handler `fnFunction` from the {@link #event:click click} event of this `sap.ui.webc.main.Link`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClick(
       /**
@@ -14805,6 +16493,8 @@ declare module "sap/ui/webc/main/Link" {
     ): this;
     /**
      * Fires event {@link #event:click click} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClick(
       /**
@@ -14834,8 +16524,20 @@ declare module "sap/ui/webc/main/Link" {
      * 	 - `Tree`
      *
      * Default value is `{}`.
+     *
+     * @returns Value of property `accessibilityAttributes`
      */
     getAccessibilityAttributes(): object;
+    /**
+     * Gets current value of property {@link #getAccessibleName accessibleName}.
+     *
+     * Defines the accessible aria name of the component.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
+     */
+    getAccessibleName(): string;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
      * ariaLabelledBy}.
@@ -14849,18 +16551,21 @@ declare module "sap/ui/webc/main/Link" {
      *  **Note:** Avaialble options are `Default`, `Subtle`, and `Emphasized`.
      *
      * Default value is `Default`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): LinkDesign | keyof typeof LinkDesign;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** When disabled, the click event cannot be triggered by the user.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getHref href}.
      *
@@ -14869,6 +16574,8 @@ declare module "sap/ui/webc/main/Link" {
      *  **Note:** Standard hyperlink behavior is supported.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `href`
      */
     getHref(): string;
     /**
@@ -14888,6 +16595,8 @@ declare module "sap/ui/webc/main/Link" {
      * **This property must only be used when the `href` property is set.**
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `target`
      */
     getTarget(): string;
     /**
@@ -14896,6 +16605,8 @@ declare module "sap/ui/webc/main/Link" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -14907,14 +16618,20 @@ declare module "sap/ui/webc/main/Link" {
      * 	 - `Normal` - The text will wrap. The words will not be broken based on hyphenation.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `wrappingType`
      */
     getWrappingType(): WrappingType | keyof typeof WrappingType;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -14946,12 +16663,31 @@ declare module "sap/ui/webc/main/Link" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `{}`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibilityAttributes(
       /**
        * New value for property `accessibilityAttributes`
        */
       oAccessibilityAttributes?: object
+    ): this;
+    /**
+     * Sets a new value for property {@link #getAccessibleName accessibleName}.
+     *
+     * Defines the accessible aria name of the component.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAccessibleName(
+      /**
+       * New value for property `accessibleName`
+       */
+      sAccessibleName?: string
     ): this;
     /**
      * Sets a new value for property {@link #getDesign design}.
@@ -14963,6 +16699,8 @@ declare module "sap/ui/webc/main/Link" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Default`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -14971,21 +16709,22 @@ declare module "sap/ui/webc/main/Link" {
       sDesign?: LinkDesign | keyof typeof LinkDesign
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled.
-     *
-     *  **Note:** When disabled, the click event cannot be triggered by the user.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getHref href}.
@@ -14997,6 +16736,8 @@ declare module "sap/ui/webc/main/Link" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHref(
       /**
@@ -15023,6 +16764,8 @@ declare module "sap/ui/webc/main/Link" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTarget(
       /**
@@ -15038,6 +16781,8 @@ declare module "sap/ui/webc/main/Link" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -15056,6 +16801,8 @@ declare module "sap/ui/webc/main/Link" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWrappingType(
       /**
@@ -15085,21 +16832,28 @@ declare module "sap/ui/webc/main/Link" {
      * 	 - `Menu`
      * 	 - `Tree`
      */
-    accessibilityAttributes?: object | PropertyBindingInfo;
+    accessibilityAttributes?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the accessible aria name of the component.
+     */
+    accessibleName?: string | PropertyBindingInfo;
 
     /**
      * Defines the component design.
      *
      *  **Note:** Avaialble options are `Default`, `Subtle`, and `Emphasized`.
      */
-    design?: (LinkDesign | keyof typeof LinkDesign) | PropertyBindingInfo;
+    design?:
+      | (LinkDesign | keyof typeof LinkDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
-     * Defines whether the component is disabled.
-     *
-     *  **Note:** When disabled, the click event cannot be triggered by the user.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the component href.
@@ -15137,7 +16891,8 @@ declare module "sap/ui/webc/main/Link" {
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -15252,6 +17007,8 @@ declare module "sap/ui/webc/main/List" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -15270,10 +17027,14 @@ declare module "sap/ui/webc/main/List" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.List.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -15283,6 +17044,8 @@ declare module "sap/ui/webc/main/List" {
     ): this;
     /**
      * Adds some header to the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addHeader(
       /**
@@ -15292,6 +17055,8 @@ declare module "sap/ui/webc/main/List" {
     ): this;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -15306,6 +17071,8 @@ declare module "sap/ui/webc/main/List" {
      * otherwise it will be bound to this `sap.ui.webc.main.List` itself.
      *
      * Fired when an item is activated, unless the item's `type` property is set to `Inactive`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClick(
       /**
@@ -15329,6 +17096,8 @@ declare module "sap/ui/webc/main/List" {
      * otherwise it will be bound to this `sap.ui.webc.main.List` itself.
      *
      * Fired when an item is activated, unless the item's `type` property is set to `Inactive`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClick(
       /**
@@ -15350,6 +17119,8 @@ declare module "sap/ui/webc/main/List" {
      *
      *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListItem` items only, not to be
      * confused with `item-delete`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClose(
       /**
@@ -15376,6 +17147,8 @@ declare module "sap/ui/webc/main/List" {
      *
      *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListItem` items only, not to be
      * confused with `item-delete`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClose(
       /**
@@ -15396,6 +17169,8 @@ declare module "sap/ui/webc/main/List" {
      * Fired when the Delete button of any item is pressed.
      *
      *  **Note:** A Delete button is displayed on each item, when the component `mode` property is set to `Delete`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemDelete(
       /**
@@ -15421,6 +17196,8 @@ declare module "sap/ui/webc/main/List" {
      * Fired when the Delete button of any item is pressed.
      *
      *  **Note:** A Delete button is displayed on each item, when the component `mode` property is set to `Delete`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemDelete(
       /**
@@ -15441,6 +17218,8 @@ declare module "sap/ui/webc/main/List" {
      * Fired when the `Toggle` button of any item is clicked.
      *
      *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListGroupItem` items only.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemToggle(
       /**
@@ -15466,6 +17245,8 @@ declare module "sap/ui/webc/main/List" {
      * Fired when the `Toggle` button of any item is clicked.
      *
      *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListGroupItem` items only.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemToggle(
       /**
@@ -15486,6 +17267,8 @@ declare module "sap/ui/webc/main/List" {
      * Fired when the user scrolls to the bottom of the list.
      *
      *  **Note:** The event is fired when the `growing='Scroll'` property is enabled.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLoadMore(
       /**
@@ -15511,6 +17294,8 @@ declare module "sap/ui/webc/main/List" {
      * Fired when the user scrolls to the bottom of the list.
      *
      *  **Note:** The event is fired when the `growing='Scroll'` property is enabled.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLoadMore(
       /**
@@ -15531,6 +17316,8 @@ declare module "sap/ui/webc/main/List" {
      *
      * Fired when selection is changed by user interaction in `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd`
      * and `MultiSelect` modes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -15556,6 +17343,8 @@ declare module "sap/ui/webc/main/List" {
      *
      * Fired when selection is changed by user interaction in `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd`
      * and `MultiSelect` modes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -15569,16 +17358,22 @@ declare module "sap/ui/webc/main/List" {
     ): this;
     /**
      * Destroys all the header in the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeader(): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:itemClick itemClick} event of this `sap.ui.webc.main.List`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemClick(
       /**
@@ -15594,6 +17389,8 @@ declare module "sap/ui/webc/main/List" {
      * Detaches event handler `fnFunction` from the {@link #event:itemClose itemClose} event of this `sap.ui.webc.main.List`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemClose(
       /**
@@ -15609,6 +17406,8 @@ declare module "sap/ui/webc/main/List" {
      * Detaches event handler `fnFunction` from the {@link #event:itemDelete itemDelete} event of this `sap.ui.webc.main.List`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemDelete(
       /**
@@ -15624,6 +17423,8 @@ declare module "sap/ui/webc/main/List" {
      * Detaches event handler `fnFunction` from the {@link #event:itemToggle itemToggle} event of this `sap.ui.webc.main.List`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemToggle(
       /**
@@ -15639,6 +17440,8 @@ declare module "sap/ui/webc/main/List" {
      * Detaches event handler `fnFunction` from the {@link #event:loadMore loadMore} event of this `sap.ui.webc.main.List`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachLoadMore(
       /**
@@ -15655,6 +17458,8 @@ declare module "sap/ui/webc/main/List" {
      * this `sap.ui.webc.main.List`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChange(
       /**
@@ -15671,6 +17476,8 @@ declare module "sap/ui/webc/main/List" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireItemClick(
       /**
@@ -15685,6 +17492,8 @@ declare module "sap/ui/webc/main/List" {
     ): boolean;
     /**
      * Fires event {@link #event:itemClose itemClose} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireItemClose(
       /**
@@ -15699,6 +17508,8 @@ declare module "sap/ui/webc/main/List" {
     ): this;
     /**
      * Fires event {@link #event:itemDelete itemDelete} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireItemDelete(
       /**
@@ -15713,6 +17524,8 @@ declare module "sap/ui/webc/main/List" {
     ): this;
     /**
      * Fires event {@link #event:itemToggle itemToggle} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireItemToggle(
       /**
@@ -15727,6 +17540,8 @@ declare module "sap/ui/webc/main/List" {
     ): this;
     /**
      * Fires event {@link #event:loadMore loadMore} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireLoadMore(
       /**
@@ -15736,6 +17551,8 @@ declare module "sap/ui/webc/main/List" {
     ): this;
     /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelectionChange(
       /**
@@ -15758,6 +17575,8 @@ declare module "sap/ui/webc/main/List" {
      * Defines the accessible name of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -15768,6 +17587,8 @@ declare module "sap/ui/webc/main/List" {
      *
      *
      * Default value is `"list"`.
+     *
+     * @returns Value of property `accessibleRole`
      */
     getAccessibleRole(): string;
     /**
@@ -15781,6 +17602,8 @@ declare module "sap/ui/webc/main/List" {
      * Defines if the component would display a loading indicator over the list.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `busy`
      */
     getBusy(): boolean;
     /**
@@ -15789,6 +17612,8 @@ declare module "sap/ui/webc/main/List" {
      * Defines the delay in milliseconds, after which the busy indicator will show up for this component.
      *
      * Default value is `1000`.
+     *
+     * @returns Value of property `busyDelay`
      */
     getBusyDelay(): int;
     /**
@@ -15797,6 +17622,8 @@ declare module "sap/ui/webc/main/List" {
      * Defines the footer text.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `footerText`
      */
     getFooterText(): string;
     /**
@@ -15820,8 +17647,10 @@ declare module "sap/ui/webc/main/List" {
      * fallback to `growing="Button"`.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `growing`
      */
-    getGrowing(): ListGrowingMode;
+    getGrowing(): ListGrowingMode | keyof typeof ListGrowingMode;
     /**
      * Gets content of aggregation {@link #getHeader header}.
      *
@@ -15838,12 +17667,16 @@ declare module "sap/ui/webc/main/List" {
      *  **Note:** If `header` is set this property is ignored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `headerText`
      */
     getHeaderText(): string;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -15852,6 +17685,8 @@ declare module "sap/ui/webc/main/List" {
      * Determines whether the component is indented.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `indent`
      */
     getIndent(): boolean;
     /**
@@ -15872,6 +17707,8 @@ declare module "sap/ui/webc/main/List" {
      * and `Delete`.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `mode`
      */
     getMode(): ListMode | keyof typeof ListMode;
     /**
@@ -15880,6 +17717,8 @@ declare module "sap/ui/webc/main/List" {
      * Defines the text that is displayed when the component contains no items.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `noDataText`
      */
     getNoDataText(): string;
     /**
@@ -15894,17 +17733,23 @@ declare module "sap/ui/webc/main/List" {
      * 			bottom separator.
      *
      * Default value is `All`.
+     *
+     * @returns Value of property `separators`
      */
     getSeparators(): ListSeparators | keyof typeof ListSeparators;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getHeader header}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfHeader(
       /**
@@ -15915,6 +17760,8 @@ declare module "sap/ui/webc/main/List" {
     /**
      * Checks for the provided `sap.ui.webc.main.IListItem` in the aggregation {@link #getItems items}. and
      * returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -15924,6 +17771,8 @@ declare module "sap/ui/webc/main/List" {
     ): int;
     /**
      * Inserts a header into the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertHeader(
       /**
@@ -15939,6 +17788,8 @@ declare module "sap/ui/webc/main/List" {
     ): this;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -15954,22 +17805,30 @@ declare module "sap/ui/webc/main/List" {
     ): this;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getHeader header}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllHeader(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): IListItem[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -15979,6 +17838,8 @@ declare module "sap/ui/webc/main/List" {
     ): ID;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
+     *
+     * @returns The removed header or `null`
      */
     removeHeader(
       /**
@@ -15988,6 +17849,8 @@ declare module "sap/ui/webc/main/List" {
     ): Control;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
@@ -16003,6 +17866,8 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -16020,6 +17885,8 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"list"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleRole(
       /**
@@ -16035,6 +17902,8 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBusy(
       /**
@@ -16050,6 +17919,8 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1000`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBusyDelay(
       /**
@@ -16065,6 +17936,8 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFooterText(
       /**
@@ -16095,12 +17968,14 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setGrowing(
       /**
        * New value for property `growing`
        */
-      sGrowing?: ListGrowingMode
+      sGrowing?: ListGrowingMode | keyof typeof ListGrowingMode
     ): this;
     /**
      * Sets a new value for property {@link #getHeaderText headerText}.
@@ -16112,6 +17987,8 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderText(
       /**
@@ -16125,12 +18002,14 @@ declare module "sap/ui/webc/main/List" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getIndent indent}.
@@ -16140,6 +18019,8 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIndent(
       /**
@@ -16158,6 +18039,8 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMode(
       /**
@@ -16173,6 +18056,8 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setNoDataText(
       /**
@@ -16194,6 +18079,8 @@ declare module "sap/ui/webc/main/List" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `All`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSeparators(
       /**
@@ -16207,12 +18094,14 @@ declare module "sap/ui/webc/main/List" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -16230,12 +18119,12 @@ declare module "sap/ui/webc/main/List" {
     /**
      * Defines if the component would display a loading indicator over the list.
      */
-    busy?: boolean | PropertyBindingInfo;
+    busy?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the delay in milliseconds, after which the busy indicator will show up for this component.
      */
-    busyDelay?: int | PropertyBindingInfo;
+    busyDelay?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the footer text.
@@ -16260,7 +18149,10 @@ declare module "sap/ui/webc/main/List" {
      * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer, on IE the component will
      * fallback to `growing="Button"`.
      */
-    growing?: ListGrowingMode | PropertyBindingInfo;
+    growing?:
+      | (ListGrowingMode | keyof typeof ListGrowingMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the component header text.
@@ -16272,12 +18164,12 @@ declare module "sap/ui/webc/main/List" {
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the component is indented.
      */
-    indent?: boolean | PropertyBindingInfo;
+    indent?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the mode of the component.
@@ -16285,7 +18177,10 @@ declare module "sap/ui/webc/main/List" {
      *  **Note:** Available options are `None`, `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd`, `MultiSelect`,
      * and `Delete`.
      */
-    mode?: (ListMode | keyof typeof ListMode) | PropertyBindingInfo;
+    mode?:
+      | (ListMode | keyof typeof ListMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the text that is displayed when the component contains no items.
@@ -16303,19 +18198,20 @@ declare module "sap/ui/webc/main/List" {
      */
     separators?:
       | (ListSeparators | keyof typeof ListSeparators)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the component header.
      *
      *  **Note:** When `header` is set, the `headerText` property is ignored.
      */
-    header?: Control[] | Control | AggregationBindingInfo;
+    header?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the items of the component.
@@ -16323,7 +18219,7 @@ declare module "sap/ui/webc/main/List" {
      *  **Note:** Use `sap.ui.webc.main.StandardListItem`, `sap.ui.webc.main.CustomListItem`, and `sap.ui.webc.main.GroupHeaderListItem`
      * for the intended design.
      */
-    items?: IListItem[] | IListItem | AggregationBindingInfo;
+    items?: IListItem[] | IListItem | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -16369,6 +18265,635 @@ declare module "sap/ui/webc/main/List" {
      * and `MultiSelect` modes.
      */
     selectionChange?: (oEvent: Event) => void;
+  }
+}
+
+declare module "sap/ui/webc/main/Menu" {
+  import {
+    default as WebComponent,
+    $WebComponentSettings,
+  } from "sap/ui/webc/common/WebComponent";
+
+  import { IMenuItem } from "sap/ui/webc/main/library";
+
+  import Event from "sap/ui/base/Event";
+
+  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.102.0
+   * @EXPERIMENTAL (since 1.102.0)
+   *
+   * Overview:
+   *
+   * `sap.ui.webc.main.Menu` component represents a hierarchical menu structure.
+   *
+   * Usage:
+   *
+   * `sap.ui.webc.main.Menu` contains `sap.ui.webc.main.MenuItem` components. An arbitrary hierarchy structure
+   * can be represented by recursively nesting menu items.
+   *
+   * Keyboard Handling:
+   *
+   * The `sap.ui.webc.main.Menu` provides advanced keyboard handling. The user can use the following keyboard
+   * shortcuts in order to navigate trough the tree:
+   * 	 - `Arrow Up` / `Arrow Down` - Navigates up and down the menu items that are currently visible.
+   * 	 - `Arrow Right`, `Space` or `Enter` - Opens a sub-menu if there are menu items nested in the currently
+   * 			clicked menu item.
+   * 	 - `Arrow Left` or `Escape` - Closes the currently opened sub-menu.  Note: if the text ditrection
+   * 			is set to Right-to-left (RTL), `Arrow Right` and `Arrow Left` functionality is swapped.
+   */
+  export default class Menu extends WebComponent {
+    /**
+     * Constructor for a new `Menu`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $MenuSettings
+    );
+    /**
+     * Constructor for a new `Menu`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $MenuSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.Menu with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Menu>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Menu.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: IMenuItem
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemClick itemClick} event of this `sap.ui.webc.main.Menu`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.webc.main.Menu` itself.
+     *
+     * Fired when an item is being clicked.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachItemClick(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Menu` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemClick itemClick} event of this `sap.ui.webc.main.Menu`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.webc.main.Menu` itself.
+     *
+     * Fired when an item is being clicked.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachItemClick(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.webc.main.Menu` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Closes the Menu.
+     */
+    close(): void;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyItems(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:itemClick itemClick} event of this `sap.ui.webc.main.Menu`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachItemClick(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:itemClick itemClick} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireItemClick(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * The currently clicked menu item.
+         */
+        item?: object;
+        /**
+         * The text of the currently clicked menu item.
+         */
+        text?: string;
+      }
+    ): this;
+    /**
+     * Gets current value of property {@link #getHeaderText headerText}.
+     *
+     * Defines the header text of the menu (displayed on mobile).
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `headerText`
+     */
+    getHeaderText(): string;
+    /**
+     * Gets content of aggregation {@link #getItems items}.
+     *
+     * Defines the items of this component.
+     */
+    getItems(): IMenuItem[];
+    /**
+     * Checks for the provided `sap.ui.webc.main.IMenuItem` in the aggregation {@link #getItems items}. and
+     * returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfItem(
+      /**
+       * The item whose index is looked for
+       */
+      oItem: IMenuItem
+    ): int;
+    /**
+     * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertItem(
+      /**
+       * The item to insert; if empty, nothing is inserted
+       */
+      oItem: IMenuItem,
+      /**
+       * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
+       * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
+       * the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes all the controls from the aggregation {@link #getItems items}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllItems(): IMenuItem[];
+    /**
+     * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
+     */
+    removeItem(
+      /**
+       * The item to remove or its index or id
+       */
+      vItem: int | string | IMenuItem
+    ): IMenuItem;
+    /**
+     * Sets a new value for property {@link #getHeaderText headerText}.
+     *
+     * Defines the header text of the menu (displayed on mobile).
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeaderText(
+      /**
+       * New value for property `headerText`
+       */
+      sHeaderText?: string
+    ): this;
+    /**
+     * Shows the Menu near the opener element.
+     */
+    showAt(
+      /**
+       * the element that the popover is shown at
+       */
+      opener: HTMLElement
+    ): void;
+  }
+
+  export interface $MenuSettings extends $WebComponentSettings {
+    /**
+     * Defines the header text of the menu (displayed on mobile).
+     */
+    headerText?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the items of this component.
+     */
+    items?: IMenuItem[] | IMenuItem | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * Fired when an item is being clicked.
+     */
+    itemClick?: (oEvent: Event) => void;
+  }
+}
+
+declare module "sap/ui/webc/main/MenuItem" {
+  import {
+    default as WebComponent,
+    $WebComponentSettings,
+  } from "sap/ui/webc/common/WebComponent";
+
+  import { IMenuItem } from "sap/ui/webc/main/library";
+
+  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.102.0
+   * @EXPERIMENTAL (since 1.102.0)
+   *
+   * Overview:
+   *
+   * `sap.ui.webc.main.MenuItem` is the item to use inside a `sap.ui.webc.main.Menu`. An arbitrary hierarchy
+   * structure can be represented by recursively nesting menu items.
+   *
+   * Usage:
+   *
+   * `sap.ui.webc.main.MenuItem` is an abstract element, representing a node in a `sap.ui.webc.main.Menu`.
+   * The menu itself is rendered as a list, and each `sap.ui.webc.main.MenuItem` is represented by a list
+   * item (`sap.ui.webc.main.StandardListItem`) in that list. Therefore, you should only use `sap.ui.webc.main.MenuItem`
+   * directly in your apps. The `sap.ui.webc.main.StandardListItem` list item is internal for the list, and
+   * not intended for public use.
+   */
+  export default class MenuItem extends WebComponent implements IMenuItem {
+    __implements__sap_ui_webc_main_IMenuItem: boolean;
+    /**
+     * Constructor for a new `MenuItem`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $MenuItemSettings
+    );
+    /**
+     * Constructor for a new `MenuItem`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $MenuItemSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.MenuItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MenuItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.MenuItem.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: IMenuItem
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyItems(): this;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
+    /**
+     * Gets current value of property {@link #getIcon icon}.
+     *
+     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
+     * numerous options.
+     *
+     *  *** Example:** See all the available icons in the Icon Explorer.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `icon`
+     */
+    getIcon(): string;
+    /**
+     * Gets content of aggregation {@link #getItems items}.
+     *
+     * Defines the items of this component.
+     */
+    getItems(): IMenuItem[];
+    /**
+     * Gets current value of property {@link #getStartsSection startsSection}.
+     *
+     * Defines whether a visual separator should be rendered before the item.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `startsSection`
+     */
+    getStartsSection(): boolean;
+    /**
+     * Gets current value of property {@link #getText text}.
+     *
+     * Defines the text of the tree item.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
+     */
+    getText(): string;
+    /**
+     * Checks for the provided `sap.ui.webc.main.IMenuItem` in the aggregation {@link #getItems items}. and
+     * returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfItem(
+      /**
+       * The item whose index is looked for
+       */
+      oItem: IMenuItem
+    ): int;
+    /**
+     * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertItem(
+      /**
+       * The item to insert; if empty, nothing is inserted
+       */
+      oItem: IMenuItem,
+      /**
+       * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
+       * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
+       * the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes all the controls from the aggregation {@link #getItems items}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllItems(): IMenuItem[];
+    /**
+     * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
+     */
+    removeItem(
+      /**
+       * The item to remove or its index or id
+       */
+      vItem: int | string | IMenuItem
+    ): IMenuItem;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIcon icon}.
+     *
+     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
+     * numerous options.
+     *
+     *  *** Example:** See all the available icons in the Icon Explorer.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIcon(
+      /**
+       * New value for property `icon`
+       */
+      sIcon?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getStartsSection startsSection}.
+     *
+     * Defines whether a visual separator should be rendered before the item.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setStartsSection(
+      /**
+       * New value for property `startsSection`
+       */
+      bStartsSection?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getText text}.
+     *
+     * Defines the text of the tree item.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setText(
+      /**
+       * New value for property `text`
+       */
+      sText?: string
+    ): this;
+  }
+
+  export interface $MenuItemSettings extends $WebComponentSettings {
+    /**
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
+     * numerous options.
+     *
+     *  *** Example:** See all the available icons in the Icon Explorer.
+     */
+    icon?: string | PropertyBindingInfo;
+
+    /**
+     * Defines whether a visual separator should be rendered before the item.
+     */
+    startsSection?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the text of the tree item.
+     */
+    text?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the items of this component.
+     */
+    items?: IMenuItem[] | IMenuItem | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -16442,6 +18967,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -16460,6 +18987,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.MessageStrip.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -16469,6 +18998,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * otherwise it will be bound to this `sap.ui.webc.main.MessageStrip` itself.
      *
      * Fired when the close button is pressed either with a click/tap or by using the Enter or Space key.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClose(
       /**
@@ -16492,6 +19023,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * otherwise it will be bound to this `sap.ui.webc.main.MessageStrip` itself.
      *
      * Fired when the close button is pressed either with a click/tap or by using the Enter or Space key.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClose(
       /**
@@ -16505,12 +19038,16 @@ declare module "sap/ui/webc/main/MessageStrip" {
     ): this;
     /**
      * Destroys the icon in the aggregation {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyIcon(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:close close} event of this `sap.ui.webc.main.MessageStrip`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClose(
       /**
@@ -16524,6 +19061,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
     ): this;
     /**
      * Fires event {@link #event:close close} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClose(
       /**
@@ -16539,12 +19078,16 @@ declare module "sap/ui/webc/main/MessageStrip" {
      *  **Note:** Available options are `"Information"`, `"Positive"`, `"Negative"`, and `"Warning"`.
      *
      * Default value is `Information`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): MessageStripDesign | keyof typeof MessageStripDesign;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -16553,6 +19096,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * Defines whether the MessageStrip renders close button.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideCloseButton`
      */
     getHideCloseButton(): boolean;
     /**
@@ -16562,6 +19107,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * with the `icon` slot. Otherwise, the default icon for the type will be used.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideIcon`
      */
     getHideIcon(): boolean;
     /**
@@ -16583,12 +19130,16 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -16601,6 +19152,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Information`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -16614,12 +19167,14 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getHideCloseButton hideCloseButton}.
@@ -16629,6 +19184,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideCloseButton(
       /**
@@ -16645,6 +19202,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideIcon(
       /**
@@ -16654,6 +19213,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
     ): this;
     /**
      * Sets the aggregated {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -16669,6 +19230,8 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -16682,12 +19245,14 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -16699,23 +19264,24 @@ declare module "sap/ui/webc/main/MessageStrip" {
      */
     design?:
       | (MessageStripDesign | keyof typeof MessageStripDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the MessageStrip renders close button.
      */
-    hideCloseButton?: boolean | PropertyBindingInfo;
+    hideCloseButton?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the MessageStrip will show an icon in the beginning. You can directly provide an icon
      * with the `icon` slot. Otherwise, the default icon for the type will be used.
      */
-    hideIcon?: boolean | PropertyBindingInfo;
+    hideIcon?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the control
@@ -16725,7 +19291,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content to be displayed as graphical element within the component.
@@ -16752,13 +19318,13 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
+  import { IFormContent, ValueState, CSSSize } from "sap/ui/core/library";
+
   import { IMultiComboBoxItem, IIcon } from "sap/ui/webc/main/library";
 
   import Event from "sap/ui/base/Event";
 
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
-
-  import { ValueState, CSSSize } from "sap/ui/core/library";
 
   import {
     PropertyBindingInfo,
@@ -16805,7 +19371,10 @@ declare module "sap/ui/webc/main/MultiComboBox" {
    *  The `sap.ui.webc.main.MultiComboBox` exposes the following CSS Shadow Parts:
    * 	 - token-{index} - Used to style each token(where `token-0` corresponds to the first item)
    */
-  export default class MultiComboBox extends WebComponent {
+  export default class MultiComboBox
+    extends WebComponent
+    implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `MultiComboBox`.
      *
@@ -16842,6 +19411,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -16860,10 +19431,14 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.MultiComboBox.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -16878,6 +19453,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiComboBox` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -16901,6 +19478,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiComboBox` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -16919,6 +19498,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiComboBox` itself.
      *
      * Fired when the value of the component changes at each keystroke.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -16942,6 +19523,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiComboBox` itself.
      *
      * Fired when the value of the component changes at each keystroke.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -16960,6 +19543,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiComboBox` itself.
      *
      * Fired when the dropdown is opened or closed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachOpenChange(
       /**
@@ -16983,6 +19568,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiComboBox` itself.
      *
      * Fired when the dropdown is opened or closed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachOpenChange(
       /**
@@ -17002,6 +19589,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiComboBox` itself.
      *
      * Fired when selection is changed by user interaction in `SingleSelect` and `MultiSelect` modes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -17026,6 +19615,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiComboBox` itself.
      *
      * Fired when selection is changed by user interaction in `SingleSelect` and `MultiSelect` modes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -17039,16 +19630,22 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     ): this;
     /**
      * Destroys the icon in the aggregation {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyIcon(): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.MultiComboBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -17064,6 +19661,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.MultiComboBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -17079,6 +19678,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Detaches event handler `fnFunction` from the {@link #event:openChange openChange} event of this `sap.ui.webc.main.MultiComboBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachOpenChange(
       /**
@@ -17095,6 +19696,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * this `sap.ui.webc.main.MultiComboBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChange(
       /**
@@ -17108,6 +19711,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -17117,6 +19722,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     ): this;
     /**
      * Fires event {@link #event:input input} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireInput(
       /**
@@ -17126,6 +19733,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     ): this;
     /**
      * Fires event {@link #event:openChange openChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireOpenChange(
       /**
@@ -17135,6 +19744,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     ): this;
     /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelectionChange(
       /**
@@ -17153,18 +19764,21 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Defines if the user input will be prevented, if no matching item has been found
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `allowCustomValues`
      */
     getAllowCustomValues(): boolean;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getFilter filter}.
      *
@@ -17172,6 +19786,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * and `None`.
      *
      * Default value is `"StartsWithPerTerm"`.
+     *
+     * @returns Value of property `filter`
      */
     getFilter(): string;
     /**
@@ -17196,6 +19812,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Defines a short hint intended to aid the user with data entry when the component has no value.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
@@ -17206,6 +19824,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -17214,6 +19834,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Defines whether the component is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -17224,6 +19846,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      *  **Note:** The property is updated upon typing.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -17239,6 +19863,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -17251,17 +19877,23 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.webc.main.IMultiComboBoxItem` in the aggregation {@link #getItems items}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -17271,6 +19903,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -17288,10 +19922,14 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): IMultiComboBoxItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
@@ -17307,6 +19945,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAllowCustomValues(
       /**
@@ -17315,21 +19955,22 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       bAllowCustomValues?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getFilter filter}.
@@ -17340,6 +19981,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"StartsWithPerTerm"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFilter(
       /**
@@ -17349,6 +19992,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     ): this;
     /**
      * Sets the aggregated {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -17364,6 +20009,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -17381,6 +20028,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -17396,6 +20045,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -17413,6 +20064,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -17435,6 +20088,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -17454,6 +20109,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -17467,12 +20124,14 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -17480,14 +20139,13 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     /**
      * Defines if the user input will be prevented, if no matching item has been found
      */
-    allowCustomValues?: boolean | PropertyBindingInfo;
+    allowCustomValues?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the filter type of the component. Available options are: `StartsWithPerTerm`, `StartsWith`, `Contains`
@@ -17505,12 +20163,12 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      *
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the value of the component.
@@ -17529,7 +20187,10 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -17543,7 +20204,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the icon to be displayed in the component.
@@ -17553,7 +20214,11 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     /**
      * Defines the component items.
      */
-    items?: IMultiComboBoxItem[] | IMultiComboBoxItem | AggregationBindingInfo;
+    items?:
+      | IMultiComboBoxItem[]
+      | IMultiComboBoxItem
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
@@ -17635,6 +20300,8 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -17653,6 +20320,8 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.MultiComboBoxItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -17661,6 +20330,8 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
      * Defines the additional text of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `additionalText`
      */
     getAdditionalText(): string;
     /**
@@ -17669,6 +20340,8 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
      * Defines the selected state of the component.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
     /**
@@ -17677,6 +20350,8 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
      * Defines the text of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -17687,6 +20362,8 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAdditionalText(
       /**
@@ -17702,6 +20379,8 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -17717,6 +20396,8 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -17735,7 +20416,7 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
     /**
      * Defines the selected state of the component.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the text of the component.
@@ -17750,7 +20431,13 @@ declare module "sap/ui/webc/main/MultiInput" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { ID, ValueState, CSSSize } from "sap/ui/core/library";
+  import {
+    IFormContent,
+    ISemanticFormContent,
+    ID,
+    ValueState,
+    CSSSize,
+  } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -17782,7 +20469,11 @@ declare module "sap/ui/webc/main/MultiInput" {
    * 	 - Type a value in the input and press enter or focus out the input field (`change` event is fired)
    * 			Select a value from the suggestion list (`suggestion-item-select` event is fired)
    */
-  export default class MultiInput extends WebComponent {
+  export default class MultiInput
+    extends WebComponent
+    implements IFormContent, ISemanticFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
+    __implements__sap_ui_core_ISemanticFormContent: boolean;
     /**
      * Constructor for a new `MultiInput`.
      *
@@ -17819,6 +20510,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -17837,10 +20530,14 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.MultiInput.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -17850,6 +20547,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Adds some icon to the aggregation {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addIcon(
       /**
@@ -17859,6 +20558,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Adds some suggestionItem to the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addSuggestionItem(
       /**
@@ -17868,6 +20569,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Adds some token to the aggregation {@link #getTokens tokens}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addToken(
       /**
@@ -17882,6 +20585,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiInput` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -17905,6 +20610,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiInput` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -17924,6 +20631,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      * Fired when the value of the component changes at each keystroke, and when a suggestion item has been
      * selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -17948,6 +20657,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      * Fired when the value of the component changes at each keystroke, and when a suggestion item has been
      * selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -17968,6 +20679,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      * Fired when the user navigates to a suggestion item via the ARROW keys, as a preview, before the final
      * selection.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggestionItemPreview(
       /**
@@ -17993,6 +20706,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      * Fired when the user navigates to a suggestion item via the ARROW keys, as a preview, before the final
      * selection.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggestionItemPreview(
       /**
@@ -18012,6 +20727,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiInput` itself.
      *
      * Fired when a suggestion item, that is displayed in the suggestion popup, is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggestionItemSelect(
       /**
@@ -18036,6 +20753,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiInput` itself.
      *
      * Fired when a suggestion item, that is displayed in the suggestion popup, is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggestionItemSelect(
       /**
@@ -18054,6 +20773,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiInput` itself.
      *
      * Fired when a token is about to be deleted.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachTokenDelete(
       /**
@@ -18077,6 +20798,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * otherwise it will be bound to this `sap.ui.webc.main.MultiInput` itself.
      *
      * Fired when a token is about to be deleted.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachTokenDelete(
       /**
@@ -18097,6 +20820,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      * Fired when the value help icon is pressed and F4 or ALT/OPTION + ARROW_UP/ARROW_DOWN keyboard keys are
      * used.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachValueHelpTrigger(
       /**
@@ -18122,6 +20847,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      * Fired when the value help icon is pressed and F4 or ALT/OPTION + ARROW_UP/ARROW_DOWN keyboard keys are
      * used.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachValueHelpTrigger(
       /**
@@ -18135,20 +20862,28 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Destroys all the icon in the aggregation {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyIcon(): this;
     /**
      * Destroys all the suggestionItems in the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySuggestionItems(): this;
     /**
      * Destroys all the tokens in the aggregation {@link #getTokens tokens}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTokens(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.MultiInput`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -18164,6 +20899,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.MultiInput`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -18180,6 +20917,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * event of this `sap.ui.webc.main.MultiInput`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSuggestionItemPreview(
       /**
@@ -18196,6 +20935,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * event of this `sap.ui.webc.main.MultiInput`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSuggestionItemSelect(
       /**
@@ -18211,6 +20952,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Detaches event handler `fnFunction` from the {@link #event:tokenDelete tokenDelete} event of this `sap.ui.webc.main.MultiInput`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachTokenDelete(
       /**
@@ -18227,6 +20970,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * this `sap.ui.webc.main.MultiInput`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachValueHelpTrigger(
       /**
@@ -18240,6 +20985,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -18249,6 +20996,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Fires event {@link #event:input input} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireInput(
       /**
@@ -18258,6 +21007,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Fires event {@link #event:suggestionItemPreview suggestionItemPreview} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSuggestionItemPreview(
       /**
@@ -18276,6 +21027,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Fires event {@link #event:suggestionItemSelect suggestionItemSelect} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSuggestionItemSelect(
       /**
@@ -18290,6 +21043,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Fires event {@link #event:tokenDelete tokenDelete} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireTokenDelete(
       /**
@@ -18304,6 +21059,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Fires event {@link #event:valueHelpTrigger valueHelpTrigger} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireValueHelpTrigger(
       /**
@@ -18314,7 +21071,9 @@ declare module "sap/ui/webc/main/MultiInput" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -18323,15 +21082,16 @@ declare module "sap/ui/webc/main/MultiInput" {
      */
     getAriaLabelledBy(): ID[];
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets content of aggregation {@link #getIcon icon}.
      *
@@ -18342,6 +21102,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Gets current value of property {@link #getMaxlength maxlength}.
      *
      * Sets the maximum number of characters available in the input field.
+     *
+     * @returns Value of property `maxlength`
      */
     getMaxlength(): int;
     /**
@@ -18355,6 +21117,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -18363,6 +21127,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Defines a short hint intended to aid the user with data entry when the component has no value.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
@@ -18377,6 +21143,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -18385,6 +21153,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Defines whether the component is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -18393,6 +21163,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Defines whether the clear icon of the input will be shown.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showClearIcon`
      */
     getShowClearIcon(): boolean;
     /**
@@ -18404,6 +21176,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * to enable this functionality.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showSuggestions`
      */
     getShowSuggestions(): boolean;
     /**
@@ -18413,6 +21187,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * fire `value-help-trigger` event.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showValueHelpIcon`
      */
     getShowValueHelpIcon(): boolean;
     /**
@@ -18438,6 +21214,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * 			depending on the given input type.
      *
      * Default value is `Text`.
+     *
+     * @returns Value of property `type`
      */
     getType(): InputType | keyof typeof InputType;
     /**
@@ -18448,6 +21226,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      *  **Note:** The property is updated upon typing.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -18463,6 +21243,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -18475,17 +21257,23 @@ declare module "sap/ui/webc/main/MultiInput" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.webc.main.IIcon` in the aggregation {@link #getIcon icon}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfIcon(
       /**
@@ -18496,6 +21284,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     /**
      * Checks for the provided `sap.ui.webc.main.IInputSuggestionItem` in the aggregation {@link #getSuggestionItems
      * suggestionItems}. and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfSuggestionItem(
       /**
@@ -18506,6 +21296,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     /**
      * Checks for the provided `sap.ui.webc.main.IToken` in the aggregation {@link #getTokens tokens}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfToken(
       /**
@@ -18515,6 +21307,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): int;
     /**
      * Inserts a icon into the aggregation {@link #getIcon icon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertIcon(
       /**
@@ -18530,6 +21324,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Inserts a suggestionItem into the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertSuggestionItem(
       /**
@@ -18545,6 +21341,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): this;
     /**
      * Inserts a token into the aggregation {@link #getTokens tokens}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertToken(
       /**
@@ -18559,29 +21357,44 @@ declare module "sap/ui/webc/main/MultiInput" {
       iIndex: int
     ): this;
     /**
+     * Manually opens the suggestions popover, assuming suggestions are enabled. Items must be preloaded for
+     * it to open.
+     */
+    openPicker(): void;
+    /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getIcon icon}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllIcon(): IIcon[];
     /**
      * Removes all the controls from the aggregation {@link #getSuggestionItems suggestionItems}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllSuggestionItems(): IInputSuggestionItem[];
     /**
      * Removes all the controls from the aggregation {@link #getTokens tokens}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllTokens(): IToken[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -18591,6 +21404,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): ID;
     /**
      * Removes a icon from the aggregation {@link #getIcon icon}.
+     *
+     * @returns The removed icon or `null`
      */
     removeIcon(
       /**
@@ -18600,6 +21415,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): IIcon;
     /**
      * Removes a suggestionItem from the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns The removed suggestionItem or `null`
      */
     removeSuggestionItem(
       /**
@@ -18609,6 +21426,8 @@ declare module "sap/ui/webc/main/MultiInput" {
     ): IInputSuggestionItem;
     /**
      * Removes a token from the aggregation {@link #getTokens tokens}.
+     *
+     * @returns The removed token or `null`
      */
     removeToken(
       /**
@@ -18619,9 +21438,11 @@ declare module "sap/ui/webc/main/MultiInput" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -18630,21 +21451,22 @@ declare module "sap/ui/webc/main/MultiInput" {
       sAccessibleName: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getMaxlength maxlength}.
@@ -18652,6 +21474,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Sets the maximum number of characters available in the input field.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxlength(
       /**
@@ -18672,6 +21496,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -18687,6 +21513,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -18704,6 +21532,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -18719,6 +21549,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -18734,6 +21566,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowClearIcon(
       /**
@@ -18752,6 +21586,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowSuggestions(
       /**
@@ -18768,6 +21604,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowValueHelpIcon(
       /**
@@ -18790,6 +21628,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Text`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setType(
       /**
@@ -18807,6 +21647,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -18829,6 +21671,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -18848,6 +21692,8 @@ declare module "sap/ui/webc/main/MultiInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -18861,32 +21707,33 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $MultiInputSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
     /**
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the maximum number of characters available in the input field.
      */
-    maxlength?: int | PropertyBindingInfo;
+    maxlength?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the name with which the component will be submitted in an HTML form.
@@ -18908,17 +21755,17 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the clear icon of the input will be shown.
      */
-    showClearIcon?: boolean | PropertyBindingInfo;
+    showClearIcon?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component should show suggestions, if such are present.
@@ -18926,13 +21773,13 @@ declare module "sap/ui/webc/main/MultiInput" {
      *  **Note:** You need to import the `InputSuggestions` module from `"@ui5/webcomponents/dist/features/InputSuggestions.js"`
      * to enable this functionality.
      */
-    showSuggestions?: boolean | PropertyBindingInfo;
+    showSuggestions?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether a value help icon will be visualized in the end of the input. Pressing the icon will
      * fire `value-help-trigger` event.
      */
-    showValueHelpIcon?: boolean | PropertyBindingInfo;
+    showValueHelpIcon?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the HTML type of the component. Available options are: `Text`, `Email`, `Number`, `Password`,
@@ -18944,7 +21791,10 @@ declare module "sap/ui/webc/main/MultiInput" {
      * 	 - The property is mostly intended to be used with touch devices that use different soft keyboard layouts
      * 			depending on the given input type.
      */
-    type?: (InputType | keyof typeof InputType) | PropertyBindingInfo;
+    type?:
+      | (InputType | keyof typeof InputType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value of the component.
@@ -18963,7 +21813,10 @@ declare module "sap/ui/webc/main/MultiInput" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -18977,22 +21830,23 @@ declare module "sap/ui/webc/main/MultiInput" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the icon to be displayed in the component.
      */
-    icon?: IIcon[] | IIcon | AggregationBindingInfo;
+    icon?: IIcon[] | IIcon | AggregationBindingInfo | `{${string}}`;
 
     suggestionItems?:
       | IInputSuggestionItem[]
       | IInputSuggestionItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the component tokens.
      */
-    tokens?: IToken[] | IToken | AggregationBindingInfo;
+    tokens?: IToken[] | IToken | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -19092,6 +21946,8 @@ declare module "sap/ui/webc/main/Option" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -19110,18 +21966,29 @@ declare module "sap/ui/webc/main/Option" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Option.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getAdditionalText additionalText}.
      *
-     * Defines whether the component is in disabled state.
+     * Defines the additional text displayed at the end of the option element.
      *
-     *  **Note:** A disabled component is noninteractive.
-     *
-     * Default value is `false`.
+     * @returns Value of property `additionalText`
      */
-    getDisabled(): boolean;
+    getAdditionalText(): string;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -19129,6 +21996,8 @@ declare module "sap/ui/webc/main/Option" {
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
      * Icon Explorer.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
@@ -19137,6 +22006,8 @@ declare module "sap/ui/webc/main/Option" {
      * Defines the selected state of the component.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
     /**
@@ -19145,6 +22016,8 @@ declare module "sap/ui/webc/main/Option" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -19152,24 +22025,42 @@ declare module "sap/ui/webc/main/Option" {
      *
      * Defines the value of the `sap.ui.webc.main.Select` inside an HTML Form element when this component is
      * selected. For more information on HTML Form support, see the `name` property of `sap.ui.webc.main.Select`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getAdditionalText additionalText}.
      *
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is noninteractive.
+     * Defines the additional text displayed at the end of the option element.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setAdditionalText(
       /**
-       * New value for property `disabled`
+       * New value for property `additionalText`
        */
-      bDisabled?: boolean
+      sAdditionalText: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getIcon icon}.
@@ -19180,6 +22071,8 @@ declare module "sap/ui/webc/main/Option" {
      * Icon Explorer.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -19195,6 +22088,8 @@ declare module "sap/ui/webc/main/Option" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -19210,6 +22105,8 @@ declare module "sap/ui/webc/main/Option" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -19224,6 +22121,8 @@ declare module "sap/ui/webc/main/Option" {
      * selected. For more information on HTML Form support, see the `name` property of `sap.ui.webc.main.Select`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -19235,11 +22134,15 @@ declare module "sap/ui/webc/main/Option" {
 
   export interface $OptionSettings extends $WebComponentSettings {
     /**
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is noninteractive.
+     * Defines the additional text displayed at the end of the option element.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    additionalText?: string | PropertyBindingInfo;
+
+    /**
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the `icon` source URI.
@@ -19252,7 +22155,7 @@ declare module "sap/ui/webc/main/Option" {
     /**
      * Defines the selected state of the component.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the control
@@ -19367,6 +22270,8 @@ declare module "sap/ui/webc/main/Panel" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -19385,10 +22290,14 @@ declare module "sap/ui/webc/main/Panel" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Panel.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -19398,6 +22307,8 @@ declare module "sap/ui/webc/main/Panel" {
     ): this;
     /**
      * Adds some header to the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addHeader(
       /**
@@ -19412,6 +22323,8 @@ declare module "sap/ui/webc/main/Panel" {
      * otherwise it will be bound to this `sap.ui.webc.main.Panel` itself.
      *
      * Fired when the component is expanded/collapsed by user interaction.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachToggle(
       /**
@@ -19435,6 +22348,8 @@ declare module "sap/ui/webc/main/Panel" {
      * otherwise it will be bound to this `sap.ui.webc.main.Panel` itself.
      *
      * Fired when the component is expanded/collapsed by user interaction.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachToggle(
       /**
@@ -19448,16 +22363,22 @@ declare module "sap/ui/webc/main/Panel" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys all the header in the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeader(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:toggle toggle} event of this `sap.ui.webc.main.Panel`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachToggle(
       /**
@@ -19471,6 +22392,8 @@ declare module "sap/ui/webc/main/Panel" {
     ): this;
     /**
      * Fires event {@link #event:toggle toggle} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireToggle(
       /**
@@ -19481,9 +22404,11 @@ declare module "sap/ui/webc/main/Panel" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -19493,6 +22418,8 @@ declare module "sap/ui/webc/main/Panel" {
      * the default `Form` to `Region` or `Complementary`.
      *
      * Default value is `Form`.
+     *
+     * @returns Value of property `accessibleRole`
      */
     getAccessibleRole(): PanelAccessibleRole | keyof typeof PanelAccessibleRole;
     /**
@@ -19501,6 +22428,8 @@ declare module "sap/ui/webc/main/Panel" {
      * Indicates whether the component is collapsed and only the header is displayed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `collapsed`
      */
     getCollapsed(): boolean;
     /**
@@ -19515,6 +22444,8 @@ declare module "sap/ui/webc/main/Panel" {
      * Determines whether the component is in a fixed state that is not expandable/collapsible by user interaction.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `fixed`
      */
     getFixed(): boolean;
     /**
@@ -19533,6 +22464,8 @@ declare module "sap/ui/webc/main/Panel" {
      *  Available options are: `"H6"` to `"H1"`.
      *
      * Default value is `H2`.
+     *
+     * @returns Value of property `headerLevel`
      */
     getHeaderLevel(): TitleLevel | keyof typeof TitleLevel;
     /**
@@ -19544,12 +22477,16 @@ declare module "sap/ui/webc/main/Panel" {
      *  **Note:** This property is overridden by the `header` slot.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `headerText`
      */
     getHeaderText(): string;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -19559,17 +22496,23 @@ declare module "sap/ui/webc/main/Panel" {
      * By default the animation is enabled.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `noAnimation`
      */
     getNoAnimation(): boolean;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -19580,6 +22523,8 @@ declare module "sap/ui/webc/main/Panel" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getHeader header}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfHeader(
       /**
@@ -19589,6 +22534,8 @@ declare module "sap/ui/webc/main/Panel" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -19604,6 +22551,8 @@ declare module "sap/ui/webc/main/Panel" {
     ): this;
     /**
      * Inserts a header into the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertHeader(
       /**
@@ -19621,16 +22570,22 @@ declare module "sap/ui/webc/main/Panel" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getHeader header}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllHeader(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -19640,6 +22595,8 @@ declare module "sap/ui/webc/main/Panel" {
     ): Control;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
+     *
+     * @returns The removed header or `null`
      */
     removeHeader(
       /**
@@ -19650,11 +22607,13 @@ declare module "sap/ui/webc/main/Panel" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -19671,6 +22630,8 @@ declare module "sap/ui/webc/main/Panel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Form`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleRole(
       /**
@@ -19686,6 +22647,8 @@ declare module "sap/ui/webc/main/Panel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCollapsed(
       /**
@@ -19701,6 +22664,8 @@ declare module "sap/ui/webc/main/Panel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFixed(
       /**
@@ -19718,6 +22683,8 @@ declare module "sap/ui/webc/main/Panel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `H2`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderLevel(
       /**
@@ -19736,6 +22703,8 @@ declare module "sap/ui/webc/main/Panel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderText(
       /**
@@ -19749,12 +22718,14 @@ declare module "sap/ui/webc/main/Panel" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getNoAnimation noAnimation}.
@@ -19765,6 +22736,8 @@ declare module "sap/ui/webc/main/Panel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setNoAnimation(
       /**
@@ -19778,18 +22751,20 @@ declare module "sap/ui/webc/main/Panel" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $PanelSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
@@ -19799,24 +22774,28 @@ declare module "sap/ui/webc/main/Panel" {
      */
     accessibleRole?:
       | (PanelAccessibleRole | keyof typeof PanelAccessibleRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Indicates whether the component is collapsed and only the header is displayed.
      */
-    collapsed?: boolean | PropertyBindingInfo;
+    collapsed?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the component is in a fixed state that is not expandable/collapsible by user interaction.
      */
-    fixed?: boolean | PropertyBindingInfo;
+    fixed?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the "aria-level" of component heading, set by the `headerText`.
      *
      *  Available options are: `"H6"` to `"H1"`.
      */
-    headerLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
+    headerLevel?:
+      | (TitleLevel | keyof typeof TitleLevel)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * This property is used to set the header text of the component. The text is visible in both expanded and
@@ -19829,30 +22808,30 @@ declare module "sap/ui/webc/main/Panel" {
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Indicates whether the transition between the expanded and the collapsed state of the component is animated.
      * By default the animation is enabled.
      */
-    noAnimation?: boolean | PropertyBindingInfo;
+    noAnimation?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the content of the component. The content is visible only when the component is expanded.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the component header area.
      *
      *  **Note:** When a header is provided, the `headerText` property is ignored.
      */
-    header?: Control[] | Control | AggregationBindingInfo;
+    header?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Fired when the component is expanded/collapsed by user interaction.
@@ -19905,6 +22884,15 @@ declare module "sap/ui/webc/main/Popover" {
    *
    * **Note:** The `sap.ui.webc.main.Popover` is closed when the user clicks or taps outside the popover or
    * selects an action within the popover. You can prevent this with the `modal` property.
+   *
+   * CSS Shadow Parts:
+   *
+   * CSS Shadow Parts
+   * allow developers to style elements inside the Shadow DOM.
+   *  The `sap.ui.webc.main.Popover` exposes the following CSS Shadow Parts:
+   * 	 - header - Used to style the header of the component
+   * 	 - content - Used to style the content of the component
+   * 	 - footer - Used to style the footer of the component
    */
   export default class Popover extends WebComponent {
     /**
@@ -19943,6 +22931,8 @@ declare module "sap/ui/webc/main/Popover" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -19961,10 +22951,14 @@ declare module "sap/ui/webc/main/Popover" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Popover.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -19974,6 +22968,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): this;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -19983,6 +22979,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): this;
     /**
      * Adds some footer to the aggregation {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addFooter(
       /**
@@ -19992,6 +22990,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): this;
     /**
      * Adds some header to the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addHeader(
       /**
@@ -20010,6 +23010,8 @@ declare module "sap/ui/webc/main/Popover" {
      * otherwise it will be bound to this `sap.ui.webc.main.Popover` itself.
      *
      * Fired after the component is closed. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterClose(
       /**
@@ -20033,6 +23035,8 @@ declare module "sap/ui/webc/main/Popover" {
      * otherwise it will be bound to this `sap.ui.webc.main.Popover` itself.
      *
      * Fired after the component is closed. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterClose(
       /**
@@ -20051,6 +23055,8 @@ declare module "sap/ui/webc/main/Popover" {
      * otherwise it will be bound to this `sap.ui.webc.main.Popover` itself.
      *
      * Fired after the component is opened. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterOpen(
       /**
@@ -20074,6 +23080,8 @@ declare module "sap/ui/webc/main/Popover" {
      * otherwise it will be bound to this `sap.ui.webc.main.Popover` itself.
      *
      * Fired after the component is opened. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterOpen(
       /**
@@ -20093,6 +23101,8 @@ declare module "sap/ui/webc/main/Popover" {
      *
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeClose(
       /**
@@ -20117,6 +23127,8 @@ declare module "sap/ui/webc/main/Popover" {
      *
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeClose(
       /**
@@ -20136,6 +23148,8 @@ declare module "sap/ui/webc/main/Popover" {
      *
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
      * opening. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeOpen(
       /**
@@ -20160,6 +23174,8 @@ declare module "sap/ui/webc/main/Popover" {
      *
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
      * opening. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeOpen(
       /**
@@ -20177,20 +23193,28 @@ declare module "sap/ui/webc/main/Popover" {
     close(): void;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys all the footer in the aggregation {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFooter(): this;
     /**
      * Destroys all the header in the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeader(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:afterClose afterClose} event of this `sap.ui.webc.main.Popover`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAfterClose(
       /**
@@ -20206,6 +23230,8 @@ declare module "sap/ui/webc/main/Popover" {
      * Detaches event handler `fnFunction` from the {@link #event:afterOpen afterOpen} event of this `sap.ui.webc.main.Popover`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAfterOpen(
       /**
@@ -20221,6 +23247,8 @@ declare module "sap/ui/webc/main/Popover" {
      * Detaches event handler `fnFunction` from the {@link #event:beforeClose beforeClose} event of this `sap.ui.webc.main.Popover`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachBeforeClose(
       /**
@@ -20236,6 +23264,8 @@ declare module "sap/ui/webc/main/Popover" {
      * Detaches event handler `fnFunction` from the {@link #event:beforeOpen beforeOpen} event of this `sap.ui.webc.main.Popover`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachBeforeOpen(
       /**
@@ -20249,6 +23279,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): this;
     /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireAfterClose(
       /**
@@ -20258,6 +23290,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): this;
     /**
      * Fires event {@link #event:afterOpen afterOpen} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireAfterOpen(
       /**
@@ -20270,6 +23304,8 @@ declare module "sap/ui/webc/main/Popover" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireBeforeClose(
       /**
@@ -20287,6 +23323,8 @@ declare module "sap/ui/webc/main/Popover" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireBeforeOpen(
       /**
@@ -20300,6 +23338,8 @@ declare module "sap/ui/webc/main/Popover" {
      * Defines the accessible name of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -20308,6 +23348,8 @@ declare module "sap/ui/webc/main/Popover" {
      * Determines if there is no enough space, the component can be placed over the target.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `allowTargetOverlap`
      */
     getAllowTargetOverlap(): boolean;
     /**
@@ -20341,12 +23383,16 @@ declare module "sap/ui/webc/main/Popover" {
      *  **Note:** If `header` slot is provided, the `headerText` is ignored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `headerText`
      */
     getHeaderText(): string;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -20355,6 +23401,8 @@ declare module "sap/ui/webc/main/Popover" {
      * Determines whether the component arrow is hidden.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideArrow`
      */
     getHideArrow(): boolean;
     /**
@@ -20363,6 +23411,8 @@ declare module "sap/ui/webc/main/Popover" {
      * Defines whether the block layer will be shown if modal property is set to true.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideBackdrop`
      */
     getHideBackdrop(): boolean;
     /**
@@ -20377,18 +23427,17 @@ declare module "sap/ui/webc/main/Popover" {
      * 	 - `Stretch`
      *
      * Default value is `Center`.
+     *
+     * @returns Value of property `horizontalAlign`
      */
     getHorizontalAlign():
       | PopoverHorizontalAlign
       | keyof typeof PopoverHorizontalAlign;
     /**
-     * Gets current value of property {@link #getInitialFocus initialFocus}.
-     *
-     * Defines the ID of the HTML Element, which will get the initial focus.
-     *
-     * Default value is `empty string`.
+     * ID of the element which is the current target of the association {@link #getInitialFocus initialFocus},
+     * or `null`.
      */
-    getInitialFocus(): string;
+    getInitialFocus(): ID;
     /**
      * Gets current value of property {@link #getModal modal}.
      *
@@ -20396,8 +23445,24 @@ declare module "sap/ui/webc/main/Popover" {
      * it blocks any interaction with the background.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `modal`
      */
     getModal(): boolean;
+    /**
+     * Gets current value of property {@link #getOpen open}.
+     *
+     * Indicates if the element is open
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `open`
+     */
+    getOpen(): boolean;
+    /**
+     * ID of the element which is the current target of the association {@link #getOpener opener}, or `null`.
+     */
+    getOpener(): ID;
     /**
      * Gets current value of property {@link #getPlacementType placementType}.
      *
@@ -20410,6 +23475,8 @@ declare module "sap/ui/webc/main/Popover" {
      * 	 - `Bottom`
      *
      * Default value is `Right`.
+     *
+     * @returns Value of property `placementType`
      */
     getPlacementType():
       | PopoverPlacementType
@@ -20420,6 +23487,8 @@ declare module "sap/ui/webc/main/Popover" {
      * Defines if the focus should be returned to the previously focused element, when the popup closes.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `preventFocusRestore`
      */
     getPreventFocusRestore(): boolean;
     /**
@@ -20434,6 +23503,8 @@ declare module "sap/ui/webc/main/Popover" {
      * 	 - `Stretch`
      *
      * Default value is `Center`.
+     *
+     * @returns Value of property `verticalAlign`
      */
     getVerticalAlign():
       | PopoverVerticalAlign
@@ -20442,11 +23513,15 @@ declare module "sap/ui/webc/main/Popover" {
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -20457,6 +23532,8 @@ declare module "sap/ui/webc/main/Popover" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getFooter footer}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfFooter(
       /**
@@ -20467,6 +23544,8 @@ declare module "sap/ui/webc/main/Popover" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getHeader header}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfHeader(
       /**
@@ -20476,6 +23555,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -20491,6 +23572,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): this;
     /**
      * Inserts a footer into the aggregation {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertFooter(
       /**
@@ -20506,6 +23589,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): this;
     /**
      * Inserts a header into the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertHeader(
       /**
@@ -20525,28 +23610,38 @@ declare module "sap/ui/webc/main/Popover" {
     isOpen(): void;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getFooter footer}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllFooter(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getHeader header}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllHeader(): Control[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -20556,6 +23651,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): ID;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -20565,6 +23662,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): Control;
     /**
      * Removes a footer from the aggregation {@link #getFooter footer}.
+     *
+     * @returns The removed footer or `null`
      */
     removeFooter(
       /**
@@ -20574,6 +23673,8 @@ declare module "sap/ui/webc/main/Popover" {
     ): Control;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
+     *
+     * @returns The removed header or `null`
      */
     removeHeader(
       /**
@@ -20589,6 +23690,8 @@ declare module "sap/ui/webc/main/Popover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -20604,6 +23707,8 @@ declare module "sap/ui/webc/main/Popover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAllowTargetOverlap(
       /**
@@ -20621,6 +23726,8 @@ declare module "sap/ui/webc/main/Popover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderText(
       /**
@@ -20634,12 +23741,14 @@ declare module "sap/ui/webc/main/Popover" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getHideArrow hideArrow}.
@@ -20649,6 +23758,8 @@ declare module "sap/ui/webc/main/Popover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideArrow(
       /**
@@ -20664,6 +23775,8 @@ declare module "sap/ui/webc/main/Popover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideBackdrop(
       /**
@@ -20685,6 +23798,8 @@ declare module "sap/ui/webc/main/Popover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Center`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHorizontalAlign(
       /**
@@ -20695,19 +23810,16 @@ declare module "sap/ui/webc/main/Popover" {
         | keyof typeof PopoverHorizontalAlign
     ): this;
     /**
-     * Sets a new value for property {@link #getInitialFocus initialFocus}.
+     * Sets the associated {@link #getInitialFocus initialFocus}.
      *
-     * Defines the ID of the HTML Element, which will get the initial focus.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInitialFocus(
       /**
-       * New value for property `initialFocus`
+       * ID of an element which becomes the new target of this initialFocus association; alternatively, an element
+       * instance may be given
        */
-      sInitialFocus?: string
+      oInitialFocus: ID | Control
     ): this;
     /**
      * Sets a new value for property {@link #getModal modal}.
@@ -20718,12 +23830,43 @@ declare module "sap/ui/webc/main/Popover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setModal(
       /**
        * New value for property `modal`
        */
       bModal?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getOpen open}.
+     *
+     * Indicates if the element is open
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setOpen(
+      /**
+       * New value for property `open`
+       */
+      bOpen?: boolean
+    ): this;
+    /**
+     * Sets the associated {@link #getOpener opener}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setOpener(
+      /**
+       * ID of an element which becomes the new target of this opener association; alternatively, an element instance
+       * may be given
+       */
+      oOpener: ID | Control
     ): this;
     /**
      * Sets a new value for property {@link #getPlacementType placementType}.
@@ -20739,6 +23882,8 @@ declare module "sap/ui/webc/main/Popover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Right`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlacementType(
       /**
@@ -20754,6 +23899,8 @@ declare module "sap/ui/webc/main/Popover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPreventFocusRestore(
       /**
@@ -20775,6 +23922,8 @@ declare module "sap/ui/webc/main/Popover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Center`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVerticalAlign(
       /**
@@ -20788,12 +23937,14 @@ declare module "sap/ui/webc/main/Popover" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Shows the popover.
@@ -20819,7 +23970,7 @@ declare module "sap/ui/webc/main/Popover" {
     /**
      * Determines if there is no enough space, the component can be placed over the target.
      */
-    allowTargetOverlap?: boolean | PropertyBindingInfo;
+    allowTargetOverlap?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the header text.
@@ -20831,17 +23982,17 @@ declare module "sap/ui/webc/main/Popover" {
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the component arrow is hidden.
      */
-    hideArrow?: boolean | PropertyBindingInfo;
+    hideArrow?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the block layer will be shown if modal property is set to true.
      */
-    hideBackdrop?: boolean | PropertyBindingInfo;
+    hideBackdrop?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the horizontal alignment of the component.
@@ -20854,18 +24005,19 @@ declare module "sap/ui/webc/main/Popover" {
      */
     horizontalAlign?:
       | (PopoverHorizontalAlign | keyof typeof PopoverHorizontalAlign)
-      | PropertyBindingInfo;
-
-    /**
-     * Defines the ID of the HTML Element, which will get the initial focus.
-     */
-    initialFocus?: string | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines whether the component should close when clicking/tapping outside of the popover. If enabled,
      * it blocks any interaction with the background.
      */
-    modal?: boolean | PropertyBindingInfo;
+    modal?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Indicates if the element is open
+     */
+    open?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines on which side the component is placed at.
@@ -20878,12 +24030,13 @@ declare module "sap/ui/webc/main/Popover" {
      */
     placementType?:
       | (PopoverPlacementType | keyof typeof PopoverPlacementType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines if the focus should be returned to the previously focused element, when the popup closes.
      */
-    preventFocusRestore?: boolean | PropertyBindingInfo;
+    preventFocusRestore?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the vertical alignment of the component.
@@ -20896,32 +24049,43 @@ declare module "sap/ui/webc/main/Popover" {
      */
     verticalAlign?:
       | (PopoverVerticalAlign | keyof typeof PopoverVerticalAlign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the Popup.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the footer HTML Element.
      */
-    footer?: Control[] | Control | AggregationBindingInfo;
+    footer?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the header HTML Element.
      */
-    header?: Control[] | Control | AggregationBindingInfo;
+    header?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the opener id of the element that the popover is shown at
+     */
+    opener?: Control | string;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
      */
     ariaLabelledBy?: Array<Control | string>;
+
+    /**
+     * Defines the ID of the HTML Element, which will get the initial focus.
+     */
+    initialFocus?: Control | string;
 
     /**
      * Fired after the component is closed. **This event does not bubble.**
@@ -20953,9 +24117,9 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import { IFormContent, ValueState, CSSSize } from "sap/ui/core/library";
 
-  import { ValueState, CSSSize } from "sap/ui/core/library";
+  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -20969,7 +24133,10 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
    * Responsive Behavior: You can change the size of the Progress Indicator by changing its `width` or `height`
    * CSS properties.
    */
-  export default class ProgressIndicator extends WebComponent {
+  export default class ProgressIndicator
+    extends WebComponent
+    implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `ProgressIndicator`.
      *
@@ -21006,6 +24173,8 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -21024,16 +24193,10 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.ProgressIndicator.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
-    /**
-     * Gets current value of property {@link #getDisabled disabled}.
-     *
-     * Defines whether component is in disabled state.
-     *
-     * Default value is `false`.
-     */
-    getDisabled(): boolean;
     /**
      * Gets current value of property {@link #getDisplayValue displayValue}.
      *
@@ -21042,14 +24205,30 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * **Note:**
      * 	 - If there is no value provided or the value is empty, the default percentage value is shown.
      * 	 - If `hideValue` property is `true` both the `displayValue` and `value` property values are not shown.
+     *
+     *
+     * @returns Value of property `displayValue`
      */
     getDisplayValue(): string;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getHideValue hideValue}.
      *
      * Defines whether the component value is shown.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideValue`
      */
     getHideValue(): boolean;
     /**
@@ -21061,6 +24240,8 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * invalid value, percentValue is set to its default of 0.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): int;
     /**
@@ -21076,29 +24257,18 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
-    /**
-     * Sets a new value for property {@link #getDisabled disabled}.
-     *
-     * Defines whether component is in disabled state.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     */
-    setDisabled(
-      /**
-       * New value for property `disabled`
-       */
-      bDisabled?: boolean
-    ): this;
     /**
      * Sets a new value for property {@link #getDisplayValue displayValue}.
      *
@@ -21110,12 +24280,32 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      *
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDisplayValue(
       /**
        * New value for property `displayValue`
        */
       sDisplayValue: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getHideValue hideValue}.
@@ -21125,6 +24315,8 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideValue(
       /**
@@ -21143,6 +24335,8 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -21165,6 +24359,8 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -21178,21 +24374,18 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $ProgressIndicatorSettings extends $WebComponentSettings {
-    /**
-     * Defines whether component is in disabled state.
-     */
-    disabled?: boolean | PropertyBindingInfo;
-
     /**
      * Specifies the text value to be displayed in the bar.
      *
@@ -21203,9 +24396,15 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
     displayValue?: string | PropertyBindingInfo;
 
     /**
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Defines whether the component value is shown.
      */
-    hideValue?: boolean | PropertyBindingInfo;
+    hideValue?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies the numerical value in percent for the length of the component.
@@ -21213,7 +24412,7 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * **Note:** If a value greater than 100 is provided, the percentValue is set to 100. In other cases of
      * invalid value, percentValue is set to its default of 0.
      */
-    value?: int | PropertyBindingInfo;
+    value?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the value state of the component.
@@ -21225,12 +24424,15 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -21314,6 +24516,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -21332,10 +24536,14 @@ declare module "sap/ui/webc/main/RadioButton" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.RadioButton.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -21350,6 +24558,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * otherwise it will be bound to this `sap.ui.webc.main.RadioButton` itself.
      *
      * Fired when the component checked state changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -21373,6 +24583,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * otherwise it will be bound to this `sap.ui.webc.main.RadioButton` itself.
      *
      * Fired when the component checked state changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -21388,6 +24600,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.RadioButton`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -21401,6 +24615,8 @@ declare module "sap/ui/webc/main/RadioButton" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -21422,18 +24638,21 @@ declare module "sap/ui/webc/main/RadioButton" {
      * component, or by using the Space or Enter key.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `checked`
      */
     getChecked(): boolean;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -21454,6 +24673,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * be submitted as part of an HTML form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -21464,6 +24685,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -21472,12 +24695,16 @@ declare module "sap/ui/webc/main/RadioButton" {
      * Defines the text of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Gets current value of property {@link #getValue value}.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -21489,14 +24716,20 @@ declare module "sap/ui/webc/main/RadioButton" {
      * 	 - `None`
      * 	 - `Error`
      * 	 - `Warning`
+     * 	 - `Success`
+     * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -21509,14 +24742,20 @@ declare module "sap/ui/webc/main/RadioButton" {
      * 	 - `Normal` - The text will wrap. The words will not be broken based on hyphenation.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `wrappingType`
      */
     getWrappingType(): WrappingType | keyof typeof WrappingType;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -21535,6 +24774,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setChecked(
       /**
@@ -21543,21 +24784,22 @@ declare module "sap/ui/webc/main/RadioButton" {
       bChecked?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getName name}.
@@ -21581,6 +24823,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -21598,6 +24842,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -21613,6 +24859,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -21626,6 +24874,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -21642,10 +24892,14 @@ declare module "sap/ui/webc/main/RadioButton" {
      * 	 - `None`
      * 	 - `Error`
      * 	 - `Warning`
+     * 	 - `Success`
+     * 	 - `Information`
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -21659,12 +24913,14 @@ declare module "sap/ui/webc/main/RadioButton" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getWrappingType wrappingType}.
@@ -21678,6 +24934,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWrappingType(
       /**
@@ -21694,14 +24952,13 @@ declare module "sap/ui/webc/main/RadioButton" {
      *  **Note:** The property value can be changed with user interaction, either by clicking/tapping on the
      * component, or by using the Space or Enter key.
      */
-    checked?: boolean | PropertyBindingInfo;
+    checked?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines whether the component is disabled.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the name of the component. Radio buttons with the same `name` will form a radio button group.
@@ -21727,7 +24984,7 @@ declare module "sap/ui/webc/main/RadioButton" {
      *
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the text of the component.
@@ -21743,13 +25000,18 @@ declare module "sap/ui/webc/main/RadioButton" {
      * 	 - `None`
      * 	 - `Error`
      * 	 - `Warning`
+     * 	 - `Success`
+     * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component text wraps when there is not enough space.
@@ -21760,7 +25022,8 @@ declare module "sap/ui/webc/main/RadioButton" {
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -21865,6 +25128,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -21883,6 +25148,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.RangeSlider.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -21892,6 +25159,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * otherwise it will be bound to this `sap.ui.webc.main.RangeSlider` itself.
      *
      * Fired when the value changes and the user has finished interacting with the slider.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -21915,6 +25184,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * otherwise it will be bound to this `sap.ui.webc.main.RangeSlider` itself.
      *
      * Fired when the value changes and the user has finished interacting with the slider.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -21933,6 +25204,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * otherwise it will be bound to this `sap.ui.webc.main.RangeSlider` itself.
      *
      * Fired when the value changes due to user interaction that is not yet finished - during mouse/touch dragging.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -21956,6 +25229,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * otherwise it will be bound to this `sap.ui.webc.main.RangeSlider` itself.
      *
      * Fired when the value changes due to user interaction that is not yet finished - during mouse/touch dragging.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -21971,6 +25246,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.RangeSlider`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -21986,6 +25263,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.RangeSlider`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -21999,6 +25278,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -22008,6 +25289,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
     ): this;
     /**
      * Fires event {@link #event:input input} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireInput(
       /**
@@ -22016,13 +25299,16 @@ declare module "sap/ui/webc/main/RangeSlider" {
       mParameters?: object
     ): this;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the slider is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getEndValue endValue}.
      *
@@ -22031,6 +25317,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      *
      *
      * Default value is `100`.
+     *
+     * @returns Value of property `endValue`
      */
     getEndValue(): float;
     /**
@@ -22043,6 +25331,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * every 4th value number.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `labelInterval`
      */
     getLabelInterval(): int;
     /**
@@ -22051,6 +25341,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * Defines the maximum value of the slider.
      *
      * Default value is `100`.
+     *
+     * @returns Value of property `max`
      */
     getMax(): float;
     /**
@@ -22059,6 +25351,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * Defines the minimum value of the slider.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `min`
      */
     getMin(): float;
     /**
@@ -22069,6 +25363,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      *  **Note:** The step must be a positive number.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showTickmarks`
      */
     getShowTickmarks(): boolean;
     /**
@@ -22077,6 +25373,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * Enables handle tooltip displaying the current value.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showTooltip`
      */
     getShowTooltip(): boolean;
     /**
@@ -22087,6 +25385,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      *
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `startValue`
      */
     getStartValue(): float;
     /**
@@ -22099,28 +25399,35 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * a number, the component fallbacks to its default value.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `step`
      */
     getStep(): int;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the slider is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getEndValue endValue}.
@@ -22132,6 +25439,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `100`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEndValue(
       /**
@@ -22151,6 +25460,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLabelInterval(
       /**
@@ -22166,6 +25477,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `100`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMax(
       /**
@@ -22181,6 +25494,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMin(
       /**
@@ -22198,6 +25513,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowTickmarks(
       /**
@@ -22213,6 +25530,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowTooltip(
       /**
@@ -22230,6 +25549,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStartValue(
       /**
@@ -22249,6 +25570,8 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStep(
       /**
@@ -22262,25 +25585,28 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $RangeSliderSettings extends $WebComponentSettings {
     /**
-     * Defines whether the slider is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines end point of a selection - position of a second handle on the slider.
      */
-    endValue?: float | PropertyBindingInfo;
+    endValue?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Displays a label with a value on every N-th step.
@@ -22289,34 +25615,34 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * and the label interval is also specified to 2 - then every second tickmark will be labelled, which means
      * every 4th value number.
      */
-    labelInterval?: int | PropertyBindingInfo;
+    labelInterval?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the maximum value of the slider.
      */
-    max?: float | PropertyBindingInfo;
+    max?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the minimum value of the slider.
      */
-    min?: float | PropertyBindingInfo;
+    min?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Enables tickmarks visualization for each step.
      *
      *  **Note:** The step must be a positive number.
      */
-    showTickmarks?: boolean | PropertyBindingInfo;
+    showTickmarks?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Enables handle tooltip displaying the current value.
      */
-    showTooltip?: boolean | PropertyBindingInfo;
+    showTooltip?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines start point of a selection - position of a first handle on the slider.
      */
-    startValue?: float | PropertyBindingInfo;
+    startValue?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the size of the slider's selection intervals (e.g. min = 0, max = 10, step = 5 would result in
@@ -22325,12 +25651,12 @@ declare module "sap/ui/webc/main/RangeSlider" {
      *  **Note:** If set to 0 the slider handle movement is disabled. When negative number or value other than
      * a number, the component fallbacks to its default value.
      */
-    step?: int | PropertyBindingInfo;
+    step?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Fired when the value changes and the user has finished interacting with the slider.
@@ -22349,6 +25675,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
     default as WebComponent,
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
+
+  import { IFormContent, CSSSize } from "sap/ui/core/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -22385,7 +25713,10 @@ declare module "sap/ui/webc/main/RatingIndicator" {
    * 	 - Any number - Changes value to the corresponding number. If typed number is larger than the number
    * 			of values, sets the highest value.
    */
-  export default class RatingIndicator extends WebComponent {
+  export default class RatingIndicator
+    extends WebComponent
+    implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `RatingIndicator`.
      *
@@ -22422,6 +25753,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -22440,6 +25773,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.RatingIndicator.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -22449,6 +25784,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * otherwise it will be bound to this `sap.ui.webc.main.RatingIndicator` itself.
      *
      * The event is fired when the value changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -22472,6 +25809,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * otherwise it will be bound to this `sap.ui.webc.main.RatingIndicator` itself.
      *
      * The event is fired when the value changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -22487,6 +25826,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.RatingIndicator`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -22500,6 +25841,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -22510,27 +25853,30 @@ declare module "sap/ui/webc/main/RatingIndicator" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
+     * Default value is `true`.
      *
-     *
-     *  **Note:** A disabled component is completely noninteractive.
-     *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getMax max}.
      *
      * The number of displayed rating symbols.
      *
      * Default value is `5`.
+     *
+     * @returns Value of property `max`
      */
     getMax(): int;
     /**
@@ -22541,6 +25887,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -22554,14 +25902,26 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * 	 - 1.8 - 1.9 -> 2
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): float;
     /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Defines the width of the control
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -22570,23 +25930,22 @@ declare module "sap/ui/webc/main/RatingIndicator" {
       sAccessibleName: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled.
-     *
-     *
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getMax max}.
@@ -22596,6 +25955,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `5`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMax(
       /**
@@ -22613,6 +25974,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -22633,6 +25996,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -22640,34 +26005,46 @@ declare module "sap/ui/webc/main/RatingIndicator" {
        */
       fValue?: float
     ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Defines the width of the control
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth: CSSSize
+    ): this;
   }
 
   export interface $RatingIndicatorSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
     /**
-     * Defines whether the component is disabled.
-     *
-     *
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The number of displayed rating symbols.
      */
-    max?: int | PropertyBindingInfo;
+    max?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is read-only.
      *
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The indicated value of the rating.
@@ -22677,7 +26054,12 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * 	 - 1.3 - 1.7 -> 1.5
      * 	 - 1.8 - 1.9 -> 2
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the width of the control
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The event is fired when the value changes.
@@ -22719,6 +26101,15 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
    * phone it acts as a Dialog. The component improves tremendously the user experience on mobile.
    *
    * Usage: Use it when you want to make sure that all the content is visible on any device.
+   *
+   * CSS Shadow Parts:
+   *
+   * CSS Shadow Parts
+   * allow developers to style elements inside the Shadow DOM.
+   *  The `sap.ui.webc.main.ResponsivePopover` exposes the following CSS Shadow Parts:
+   * 	 - header - Used to style the header of the component
+   * 	 - content - Used to style the content of the component
+   * 	 - footer - Used to style the footer of the component
    */
   export default class ResponsivePopover extends WebComponent {
     /**
@@ -22757,6 +26148,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -22775,10 +26168,14 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.ResponsivePopover.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -22788,6 +26185,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): this;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -22797,6 +26196,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): this;
     /**
      * Adds some footer to the aggregation {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addFooter(
       /**
@@ -22806,6 +26207,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): this;
     /**
      * Adds some header to the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addHeader(
       /**
@@ -22824,6 +26227,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * otherwise it will be bound to this `sap.ui.webc.main.ResponsivePopover` itself.
      *
      * Fired after the component is closed. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterClose(
       /**
@@ -22848,6 +26253,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * otherwise it will be bound to this `sap.ui.webc.main.ResponsivePopover` itself.
      *
      * Fired after the component is closed. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterClose(
       /**
@@ -22867,6 +26274,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * otherwise it will be bound to this `sap.ui.webc.main.ResponsivePopover` itself.
      *
      * Fired after the component is opened. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterOpen(
       /**
@@ -22891,6 +26300,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * otherwise it will be bound to this `sap.ui.webc.main.ResponsivePopover` itself.
      *
      * Fired after the component is opened. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterOpen(
       /**
@@ -22911,6 +26322,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeClose(
       /**
@@ -22936,6 +26349,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeClose(
       /**
@@ -22956,6 +26371,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
      * opening. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeOpen(
       /**
@@ -22981,6 +26398,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
      * opening. **This event does not bubble.**
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeOpen(
       /**
@@ -22999,20 +26418,28 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     close(): void;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys all the footer in the aggregation {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFooter(): this;
     /**
      * Destroys all the header in the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeader(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:afterClose afterClose} event of this `sap.ui.webc.main.ResponsivePopover`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAfterClose(
       /**
@@ -23028,6 +26455,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Detaches event handler `fnFunction` from the {@link #event:afterOpen afterOpen} event of this `sap.ui.webc.main.ResponsivePopover`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAfterOpen(
       /**
@@ -23043,6 +26472,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Detaches event handler `fnFunction` from the {@link #event:beforeClose beforeClose} event of this `sap.ui.webc.main.ResponsivePopover`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachBeforeClose(
       /**
@@ -23058,6 +26489,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Detaches event handler `fnFunction` from the {@link #event:beforeOpen beforeOpen} event of this `sap.ui.webc.main.ResponsivePopover`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachBeforeOpen(
       /**
@@ -23071,6 +26504,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): this;
     /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireAfterClose(
       /**
@@ -23080,6 +26515,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): this;
     /**
      * Fires event {@link #event:afterOpen afterOpen} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireAfterOpen(
       /**
@@ -23092,6 +26529,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireBeforeClose(
       /**
@@ -23109,6 +26548,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireBeforeOpen(
       /**
@@ -23122,6 +26563,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Defines the accessible name of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -23130,6 +26573,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Determines if there is no enough space, the component can be placed over the target.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `allowTargetOverlap`
      */
     getAllowTargetOverlap(): boolean;
     /**
@@ -23163,6 +26608,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *  **Note:** If `header` slot is provided, the `headerText` is ignored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `headerText`
      */
     getHeaderText(): string;
     /**
@@ -23171,6 +26618,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Determines whether the component arrow is hidden.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideArrow`
      */
     getHideArrow(): boolean;
     /**
@@ -23179,6 +26628,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Defines whether the block layer will be shown if modal property is set to true.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideBackdrop`
      */
     getHideBackdrop(): boolean;
     /**
@@ -23193,18 +26644,17 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * 	 - `Stretch`
      *
      * Default value is `Center`.
+     *
+     * @returns Value of property `horizontalAlign`
      */
     getHorizontalAlign():
       | PopoverHorizontalAlign
       | keyof typeof PopoverHorizontalAlign;
     /**
-     * Gets current value of property {@link #getInitialFocus initialFocus}.
-     *
-     * Defines the ID of the HTML Element, which will get the initial focus.
-     *
-     * Default value is `empty string`.
+     * ID of the element which is the current target of the association {@link #getInitialFocus initialFocus},
+     * or `null`.
      */
-    getInitialFocus(): string;
+    getInitialFocus(): ID;
     /**
      * Gets current value of property {@link #getModal modal}.
      *
@@ -23212,8 +26662,24 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * it blocks any interaction with the background.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `modal`
      */
     getModal(): boolean;
+    /**
+     * Gets current value of property {@link #getOpen open}.
+     *
+     * Indicates if the element is open
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `open`
+     */
+    getOpen(): boolean;
+    /**
+     * ID of the element which is the current target of the association {@link #getOpener opener}, or `null`.
+     */
+    getOpener(): ID;
     /**
      * Gets current value of property {@link #getPlacementType placementType}.
      *
@@ -23226,6 +26692,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * 	 - `Bottom`
      *
      * Default value is `Right`.
+     *
+     * @returns Value of property `placementType`
      */
     getPlacementType():
       | PopoverPlacementType
@@ -23236,6 +26704,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Defines if the focus should be returned to the previously focused element, when the popup closes.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `preventFocusRestore`
      */
     getPreventFocusRestore(): boolean;
     /**
@@ -23250,6 +26720,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * 	 - `Stretch`
      *
      * Default value is `Center`.
+     *
+     * @returns Value of property `verticalAlign`
      */
     getVerticalAlign():
       | PopoverVerticalAlign
@@ -23257,6 +26729,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -23267,6 +26741,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getFooter footer}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfFooter(
       /**
@@ -23277,6 +26753,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getHeader header}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfHeader(
       /**
@@ -23286,6 +26764,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -23301,6 +26781,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): this;
     /**
      * Inserts a footer into the aggregation {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertFooter(
       /**
@@ -23316,6 +26798,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): this;
     /**
      * Inserts a header into the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertHeader(
       /**
@@ -23335,28 +26819,38 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     isOpen(): void;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getFooter footer}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllFooter(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getHeader header}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllHeader(): Control[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -23366,6 +26860,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): ID;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -23375,6 +26871,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): Control;
     /**
      * Removes a footer from the aggregation {@link #getFooter footer}.
+     *
+     * @returns The removed footer or `null`
      */
     removeFooter(
       /**
@@ -23384,6 +26882,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     ): Control;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
+     *
+     * @returns The removed header or `null`
      */
     removeHeader(
       /**
@@ -23399,6 +26899,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -23414,6 +26916,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAllowTargetOverlap(
       /**
@@ -23431,6 +26935,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderText(
       /**
@@ -23446,6 +26952,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideArrow(
       /**
@@ -23461,6 +26969,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideBackdrop(
       /**
@@ -23482,6 +26992,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Center`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHorizontalAlign(
       /**
@@ -23492,19 +27004,16 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
         | keyof typeof PopoverHorizontalAlign
     ): this;
     /**
-     * Sets a new value for property {@link #getInitialFocus initialFocus}.
+     * Sets the associated {@link #getInitialFocus initialFocus}.
      *
-     * Defines the ID of the HTML Element, which will get the initial focus.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInitialFocus(
       /**
-       * New value for property `initialFocus`
+       * ID of an element which becomes the new target of this initialFocus association; alternatively, an element
+       * instance may be given
        */
-      sInitialFocus?: string
+      oInitialFocus: ID | Control
     ): this;
     /**
      * Sets a new value for property {@link #getModal modal}.
@@ -23515,12 +27024,43 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setModal(
       /**
        * New value for property `modal`
        */
       bModal?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getOpen open}.
+     *
+     * Indicates if the element is open
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setOpen(
+      /**
+       * New value for property `open`
+       */
+      bOpen?: boolean
+    ): this;
+    /**
+     * Sets the associated {@link #getOpener opener}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setOpener(
+      /**
+       * ID of an element which becomes the new target of this opener association; alternatively, an element instance
+       * may be given
+       */
+      oOpener: ID | Control
     ): this;
     /**
      * Sets a new value for property {@link #getPlacementType placementType}.
@@ -23536,6 +27076,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Right`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlacementType(
       /**
@@ -23551,6 +27093,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPreventFocusRestore(
       /**
@@ -23572,6 +27116,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Center`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVerticalAlign(
       /**
@@ -23603,7 +27149,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     /**
      * Determines if there is no enough space, the component can be placed over the target.
      */
-    allowTargetOverlap?: boolean | PropertyBindingInfo;
+    allowTargetOverlap?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the header text.
@@ -23615,12 +27161,12 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     /**
      * Determines whether the component arrow is hidden.
      */
-    hideArrow?: boolean | PropertyBindingInfo;
+    hideArrow?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the block layer will be shown if modal property is set to true.
      */
-    hideBackdrop?: boolean | PropertyBindingInfo;
+    hideBackdrop?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the horizontal alignment of the component.
@@ -23633,18 +27179,19 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      */
     horizontalAlign?:
       | (PopoverHorizontalAlign | keyof typeof PopoverHorizontalAlign)
-      | PropertyBindingInfo;
-
-    /**
-     * Defines the ID of the HTML Element, which will get the initial focus.
-     */
-    initialFocus?: string | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines whether the component should close when clicking/tapping outside of the popover. If enabled,
      * it blocks any interaction with the background.
      */
-    modal?: boolean | PropertyBindingInfo;
+    modal?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Indicates if the element is open
+     */
+    open?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines on which side the component is placed at.
@@ -23657,12 +27204,13 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      */
     placementType?:
       | (PopoverPlacementType | keyof typeof PopoverPlacementType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines if the focus should be returned to the previously focused element, when the popup closes.
      */
-    preventFocusRestore?: boolean | PropertyBindingInfo;
+    preventFocusRestore?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the vertical alignment of the component.
@@ -23675,27 +27223,38 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      */
     verticalAlign?:
       | (PopoverVerticalAlign | keyof typeof PopoverVerticalAlign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the content of the Popup.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the footer HTML Element.
      */
-    footer?: Control[] | Control | AggregationBindingInfo;
+    footer?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the header HTML Element.
      */
-    header?: Control[] | Control | AggregationBindingInfo;
+    header?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the opener id of the element that the popover is shown at
+     */
+    opener?: Control | string;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
      */
     ariaLabelledBy?: Array<Control | string>;
+
+    /**
+     * Defines the ID of the HTML Element, which will get the initial focus.
+     */
+    initialFocus?: Control | string;
 
     /**
      * Fired after the component is closed. **This event does not bubble.**
@@ -23727,7 +27286,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { IFormContent } from "sap/ui/core/library";
+  import { IFormContent, CSSSize } from "sap/ui/core/library";
 
   import { ISegmentedButtonItem } from "sap/ui/webc/main/library";
 
@@ -23792,6 +27351,8 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -23810,10 +27371,14 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.SegmentedButton.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -23829,6 +27394,8 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      * otherwise it will be bound to this `sap.ui.webc.main.SegmentedButton` itself.
      *
      * Fired when the selected item changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -23853,6 +27420,8 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      * otherwise it will be bound to this `sap.ui.webc.main.SegmentedButton` itself.
      *
      * Fired when the selected item changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -23866,6 +27435,8 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
@@ -23873,6 +27444,8 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      * this `sap.ui.webc.main.SegmentedButton`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChange(
       /**
@@ -23886,6 +27459,8 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     ): this;
     /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelectionChange(
       /**
@@ -23901,12 +27476,16 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
      * `SegmentedButton` must not be stretched in Form because ResizeHandler is used internally in order to
      * manage the width of the SegmentedButton depending on the container size
+     *
+     * @returns True this method always returns `true`
      */
     getFormDoNotAdjustWidth(): boolean;
     /**
@@ -23924,8 +27503,18 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      */
     getSelectedItem(): void;
     /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Defines the width of the control
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
      * Checks for the provided `sap.ui.webc.main.ISegmentedButtonItem` in the aggregation {@link #getItems items}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -23935,6 +27524,8 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -23952,10 +27543,14 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): ISegmentedButtonItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
@@ -23966,9 +27561,11 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -23976,13 +27573,33 @@ declare module "sap/ui/webc/main/SegmentedButton" {
        */
       sAccessibleName: string
     ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Defines the width of the control
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth: CSSSize
+    ): this;
   }
 
   export interface $SegmentedButtonSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the width of the control
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the items of `sap.ui.webc.main.SegmentedButton`.
@@ -23994,7 +27611,8 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     items?:
       | ISegmentedButtonItem[]
       | ISegmentedButtonItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fired when the selected item changes.
@@ -24074,6 +27692,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -24092,10 +27712,14 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.SegmentedButtonItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -24112,6 +27736,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
      *
      *  **Note:** The event will not be fired if the `disabled` property is set to `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -24138,6 +27764,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
      *
      *  **Note:** The event will not be fired if the `disabled` property is set to `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -24154,6 +27782,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * Detaches event handler `fnFunction` from the {@link #event:click click} event of this `sap.ui.webc.main.SegmentedButtonItem`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClick(
       /**
@@ -24167,6 +27797,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
     ): this;
     /**
      * Fires event {@link #event:click click} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClick(
       /**
@@ -24198,12 +27830,16 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * 			button element. Accepts a string value.
      *
      * Default value is `{}`.
+     *
+     * @returns Value of property `accessibilityAttributes`
      */
     getAccessibilityAttributes(): object;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -24217,17 +27853,21 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * **Note:** The property is inherited and not supported. If set, it won't take any effect.
      *
      * Default value is `Default`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): ButtonDesign | keyof typeof ButtonDesign;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -24239,6 +27879,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * See all the available icons in the Icon Explorer.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
@@ -24247,6 +27889,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * **Note:** The property is inherited and not supported. If set, it won't take any effect.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `iconEnd`
      */
     getIconEnd(): boolean;
     /**
@@ -24255,6 +27899,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * Determines whether the component is displayed as pressed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `pressed`
      */
     getPressed(): boolean;
     /**
@@ -24263,6 +27909,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * **Note:** The property is inherited and not supported. If set, it won't take any effect.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `submits`
      */
     getSubmits(): boolean;
     /**
@@ -24271,14 +27919,20 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -24312,6 +27966,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `{}`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibilityAttributes(
       /**
@@ -24322,9 +27978,11 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -24340,6 +27998,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Default`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -24348,20 +28008,22 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
       sDesign?: ButtonDesign | keyof typeof ButtonDesign
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getIcon icon}.
@@ -24376,6 +28038,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -24391,6 +28055,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconEnd(
       /**
@@ -24406,6 +28072,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPressed(
       /**
@@ -24421,6 +28089,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSubmits(
       /**
@@ -24436,6 +28106,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -24467,23 +28139,26 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
      * 			button element. Accepts a string value.
      */
-    accessibilityAttributes?: object | PropertyBindingInfo;
+    accessibilityAttributes?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
     /**
      * **Note:** The property is inherited and not supported. If set, it won't take any effect.
      */
-    design?: (ButtonDesign | keyof typeof ButtonDesign) | PropertyBindingInfo;
+    design?:
+      | (ButtonDesign | keyof typeof ButtonDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
@@ -24498,17 +28173,17 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
     /**
      * **Note:** The property is inherited and not supported. If set, it won't take any effect.
      */
-    iconEnd?: boolean | PropertyBindingInfo;
+    iconEnd?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the component is displayed as pressed.
      */
-    pressed?: boolean | PropertyBindingInfo;
+    pressed?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * **Note:** The property is inherited and not supported. If set, it won't take any effect.
      */
-    submits?: boolean | PropertyBindingInfo;
+    submits?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the control
@@ -24535,7 +28210,7 @@ declare module "sap/ui/webc/main/Select" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { ID, ValueState, CSSSize } from "sap/ui/core/library";
+  import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -24569,7 +28244,8 @@ declare module "sap/ui/webc/main/Select" {
    * 	 - [HOME] - Navigates to first option
    * 	 - [END] - Navigates to the last option
    */
-  export default class Select extends WebComponent {
+  export default class Select extends WebComponent implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `Select`.
      *
@@ -24606,6 +28282,8 @@ declare module "sap/ui/webc/main/Select" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -24624,10 +28302,14 @@ declare module "sap/ui/webc/main/Select" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Select.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -24637,6 +28319,8 @@ declare module "sap/ui/webc/main/Select" {
     ): this;
     /**
      * Adds some option to the aggregation {@link #getOptions options}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addOption(
       /**
@@ -24651,6 +28335,8 @@ declare module "sap/ui/webc/main/Select" {
      * otherwise it will be bound to this `sap.ui.webc.main.Select` itself.
      *
      * Fired when the selected option changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -24674,6 +28360,8 @@ declare module "sap/ui/webc/main/Select" {
      * otherwise it will be bound to this `sap.ui.webc.main.Select` itself.
      *
      * Fired when the selected option changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -24687,12 +28375,16 @@ declare module "sap/ui/webc/main/Select" {
     ): this;
     /**
      * Destroys all the options in the aggregation {@link #getOptions options}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyOptions(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.Select`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -24706,6 +28398,8 @@ declare module "sap/ui/webc/main/Select" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -24721,7 +28415,9 @@ declare module "sap/ui/webc/main/Select" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -24730,15 +28426,16 @@ declare module "sap/ui/webc/main/Select" {
      */
     getAriaLabelledBy(): ID[];
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** A disabled component is noninteractive.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -24752,6 +28449,8 @@ declare module "sap/ui/webc/main/Select" {
      * a form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -24775,6 +28474,8 @@ declare module "sap/ui/webc/main/Select" {
      * Defines whether the component is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -24794,6 +28495,8 @@ declare module "sap/ui/webc/main/Select" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -24806,17 +28509,23 @@ declare module "sap/ui/webc/main/Select" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.webc.main.ISelectOption` in the aggregation {@link #getOptions options}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfOption(
       /**
@@ -24826,6 +28535,8 @@ declare module "sap/ui/webc/main/Select" {
     ): int;
     /**
      * Inserts a option into the aggregation {@link #getOptions options}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertOption(
       /**
@@ -24841,16 +28552,22 @@ declare module "sap/ui/webc/main/Select" {
     ): this;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getOptions options}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllOptions(): ISelectOption[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -24860,6 +28577,8 @@ declare module "sap/ui/webc/main/Select" {
     ): ID;
     /**
      * Removes a option from the aggregation {@link #getOptions options}.
+     *
+     * @returns The removed option or `null`
      */
     removeOption(
       /**
@@ -24870,9 +28589,11 @@ declare module "sap/ui/webc/main/Select" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -24881,21 +28602,22 @@ declare module "sap/ui/webc/main/Select" {
       sAccessibleName: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getName name}.
@@ -24912,6 +28634,8 @@ declare module "sap/ui/webc/main/Select" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -24927,6 +28651,8 @@ declare module "sap/ui/webc/main/Select" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -24949,6 +28675,8 @@ declare module "sap/ui/webc/main/Select" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -24968,6 +28696,8 @@ declare module "sap/ui/webc/main/Select" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -24981,27 +28711,28 @@ declare module "sap/ui/webc/main/Select" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $SelectSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
     /**
-     * Defines whether the component is in disabled state.
-     *
-     *  **Note:** A disabled component is noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the name with which the component will be submitted in an HTML form. The value of the component
@@ -25018,7 +28749,7 @@ declare module "sap/ui/webc/main/Select" {
     /**
      * Defines whether the component is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the value state of the component.
@@ -25030,7 +28761,10 @@ declare module "sap/ui/webc/main/Select" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -25044,7 +28778,7 @@ declare module "sap/ui/webc/main/Select" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the component options.
@@ -25058,7 +28792,11 @@ declare module "sap/ui/webc/main/Select" {
      *
      *  **Note:** Use the `sap.ui.webc.main.Option` component to define the desired options.
      */
-    options?: ISelectOption[] | ISelectOption | AggregationBindingInfo;
+    options?:
+      | ISelectOption[]
+      | ISelectOption
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -25078,11 +28816,11 @@ declare module "sap/ui/webc/main/Slider" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
+  import { IFormContent, CSSSize } from "sap/ui/core/library";
+
   import Event from "sap/ui/base/Event";
 
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
-
-  import { CSSSize } from "sap/ui/core/library";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -25141,7 +28879,8 @@ declare module "sap/ui/webc/main/Slider" {
    * 	 - `Page Down` - Same as `Left or Down + Ctrl/Cmd`;
    * 	 - `Escape` - Resets the value property after interaction, to the position prior the component's focusing;
    */
-  export default class Slider extends WebComponent {
+  export default class Slider extends WebComponent implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `Slider`.
      *
@@ -25178,6 +28917,8 @@ declare module "sap/ui/webc/main/Slider" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -25196,6 +28937,8 @@ declare module "sap/ui/webc/main/Slider" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Slider.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -25205,6 +28948,8 @@ declare module "sap/ui/webc/main/Slider" {
      * otherwise it will be bound to this `sap.ui.webc.main.Slider` itself.
      *
      * Fired when the value changes and the user has finished interacting with the slider.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -25228,6 +28973,8 @@ declare module "sap/ui/webc/main/Slider" {
      * otherwise it will be bound to this `sap.ui.webc.main.Slider` itself.
      *
      * Fired when the value changes and the user has finished interacting with the slider.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -25246,6 +28993,8 @@ declare module "sap/ui/webc/main/Slider" {
      * otherwise it will be bound to this `sap.ui.webc.main.Slider` itself.
      *
      * Fired when the value changes due to user interaction that is not yet finished - during mouse/touch dragging.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -25269,6 +29018,8 @@ declare module "sap/ui/webc/main/Slider" {
      * otherwise it will be bound to this `sap.ui.webc.main.Slider` itself.
      *
      * Fired when the value changes due to user interaction that is not yet finished - during mouse/touch dragging.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -25284,6 +29035,8 @@ declare module "sap/ui/webc/main/Slider" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.Slider`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -25299,6 +29052,8 @@ declare module "sap/ui/webc/main/Slider" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.Slider`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -25312,6 +29067,8 @@ declare module "sap/ui/webc/main/Slider" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -25321,6 +29078,8 @@ declare module "sap/ui/webc/main/Slider" {
     ): this;
     /**
      * Fires event {@link #event:input input} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireInput(
       /**
@@ -25329,13 +29088,16 @@ declare module "sap/ui/webc/main/Slider" {
       mParameters?: object
     ): this;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the slider is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getLabelInterval labelInterval}.
      *
@@ -25346,6 +29108,8 @@ declare module "sap/ui/webc/main/Slider" {
      * every 4th value number.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `labelInterval`
      */
     getLabelInterval(): int;
     /**
@@ -25354,6 +29118,8 @@ declare module "sap/ui/webc/main/Slider" {
      * Defines the maximum value of the slider.
      *
      * Default value is `100`.
+     *
+     * @returns Value of property `max`
      */
     getMax(): float;
     /**
@@ -25362,6 +29128,8 @@ declare module "sap/ui/webc/main/Slider" {
      * Defines the minimum value of the slider.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `min`
      */
     getMin(): float;
     /**
@@ -25372,6 +29140,8 @@ declare module "sap/ui/webc/main/Slider" {
      *  **Note:** The step must be a positive number.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showTickmarks`
      */
     getShowTickmarks(): boolean;
     /**
@@ -25380,6 +29150,8 @@ declare module "sap/ui/webc/main/Slider" {
      * Enables handle tooltip displaying the current value.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showTooltip`
      */
     getShowTooltip(): boolean;
     /**
@@ -25392,6 +29164,8 @@ declare module "sap/ui/webc/main/Slider" {
      * a number, the component fallbacks to its default value.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `step`
      */
     getStep(): int;
     /**
@@ -25400,28 +29174,35 @@ declare module "sap/ui/webc/main/Slider" {
      * Current value of the slider
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): float;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the slider is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getLabelInterval labelInterval}.
@@ -25435,6 +29216,8 @@ declare module "sap/ui/webc/main/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLabelInterval(
       /**
@@ -25450,6 +29233,8 @@ declare module "sap/ui/webc/main/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `100`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMax(
       /**
@@ -25465,6 +29250,8 @@ declare module "sap/ui/webc/main/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMin(
       /**
@@ -25482,6 +29269,8 @@ declare module "sap/ui/webc/main/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowTickmarks(
       /**
@@ -25497,6 +29286,8 @@ declare module "sap/ui/webc/main/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowTooltip(
       /**
@@ -25516,6 +29307,8 @@ declare module "sap/ui/webc/main/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStep(
       /**
@@ -25531,6 +29324,8 @@ declare module "sap/ui/webc/main/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -25544,20 +29339,23 @@ declare module "sap/ui/webc/main/Slider" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $SliderSettings extends $WebComponentSettings {
     /**
-     * Defines whether the slider is in disabled state.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Displays a label with a value on every N-th step.
@@ -25566,29 +29364,29 @@ declare module "sap/ui/webc/main/Slider" {
      * and the label interval is also specified to 2 - then every second tickmark will be labelled, which means
      * every 4th value number.
      */
-    labelInterval?: int | PropertyBindingInfo;
+    labelInterval?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the maximum value of the slider.
      */
-    max?: float | PropertyBindingInfo;
+    max?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the minimum value of the slider.
      */
-    min?: float | PropertyBindingInfo;
+    min?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Enables tickmarks visualization for each step.
      *
      *  **Note:** The step must be a positive number.
      */
-    showTickmarks?: boolean | PropertyBindingInfo;
+    showTickmarks?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Enables handle tooltip displaying the current value.
      */
-    showTooltip?: boolean | PropertyBindingInfo;
+    showTooltip?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the size of the slider's selection intervals (e.g. min = 0, max = 10, step = 5 would result in
@@ -25597,17 +29395,17 @@ declare module "sap/ui/webc/main/Slider" {
      *  **Note:** If set to 0 the slider handle movement is disabled. When negative number or value other than
      * a number, the component fallbacks to its default value.
      */
-    step?: int | PropertyBindingInfo;
+    step?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Current value of the slider
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Fired when the value changes and the user has finished interacting with the slider.
@@ -25705,6 +29503,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -25723,6 +29523,8 @@ declare module "sap/ui/webc/main/SplitButton" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.SplitButton.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -25732,6 +29534,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * otherwise it will be bound to this `sap.ui.webc.main.SplitButton` itself.
      *
      * Fired when the user clicks on the arrow action.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachArrowClick(
       /**
@@ -25755,6 +29559,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * otherwise it will be bound to this `sap.ui.webc.main.SplitButton` itself.
      *
      * Fired when the user clicks on the arrow action.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachArrowClick(
       /**
@@ -25773,6 +29579,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * otherwise it will be bound to this `sap.ui.webc.main.SplitButton` itself.
      *
      * Fired when the user clicks on the default action.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -25796,6 +29604,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * otherwise it will be bound to this `sap.ui.webc.main.SplitButton` itself.
      *
      * Fired when the user clicks on the default action.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -25811,6 +29621,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * Detaches event handler `fnFunction` from the {@link #event:arrowClick arrowClick} event of this `sap.ui.webc.main.SplitButton`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachArrowClick(
       /**
@@ -25826,6 +29638,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * Detaches event handler `fnFunction` from the {@link #event:click click} event of this `sap.ui.webc.main.SplitButton`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClick(
       /**
@@ -25839,6 +29653,8 @@ declare module "sap/ui/webc/main/SplitButton" {
     ): this;
     /**
      * Fires event {@link #event:arrowClick arrowClick} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireArrowClick(
       /**
@@ -25848,6 +29664,8 @@ declare module "sap/ui/webc/main/SplitButton" {
     ): this;
     /**
      * Fires event {@link #event:click click} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClick(
       /**
@@ -25858,7 +29676,9 @@ declare module "sap/ui/webc/main/SplitButton" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -25867,6 +29687,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * Defines the icon to be displayed in active state as graphical element within the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `activeIcon`
      */
     getActiveIcon(): string;
     /**
@@ -25887,17 +29709,21 @@ declare module "sap/ui/webc/main/SplitButton" {
      * 	 - `Attention`
      *
      * Default value is `Default`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): ButtonDesign | keyof typeof ButtonDesign;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -25909,6 +29735,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * See all the available icons in the Icon Explorer.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
@@ -25917,14 +29745,18 @@ declare module "sap/ui/webc/main/SplitButton" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -25940,6 +29772,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setActiveIcon(
       /**
@@ -25967,6 +29801,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Default`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -25975,20 +29811,22 @@ declare module "sap/ui/webc/main/SplitButton" {
       sDesign?: ButtonDesign | keyof typeof ButtonDesign
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getIcon icon}.
@@ -26003,6 +29841,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -26018,6 +29858,8 @@ declare module "sap/ui/webc/main/SplitButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -26029,7 +29871,7 @@ declare module "sap/ui/webc/main/SplitButton" {
 
   export interface $SplitButtonSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
@@ -26053,13 +29895,16 @@ declare module "sap/ui/webc/main/SplitButton" {
      * 	 - `Transparent`
      * 	 - `Attention`
      */
-    design?: (ButtonDesign | keyof typeof ButtonDesign) | PropertyBindingInfo;
+    design?:
+      | (ButtonDesign | keyof typeof ButtonDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
@@ -26162,6 +30007,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -26180,6 +30027,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.StandardListItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -26189,6 +30038,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * otherwise it will be bound to this `sap.ui.webc.main.StandardListItem` itself.
      *
      * Fired when the user clicks on the detail button when type is `Detail`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachDetailClick(
       /**
@@ -26212,6 +30063,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * otherwise it will be bound to this `sap.ui.webc.main.StandardListItem` itself.
      *
      * Fired when the user clicks on the detail button when type is `Detail`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachDetailClick(
       /**
@@ -26227,6 +30080,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Detaches event handler `fnFunction` from the {@link #event:detailClick detailClick} event of this `sap.ui.webc.main.StandardListItem`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachDetailClick(
       /**
@@ -26240,6 +30095,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
     ): this;
     /**
      * Fires event {@link #event:detailClick detailClick} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireDetailClick(
       /**
@@ -26254,12 +30111,16 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * be set, if present.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
      * Gets current value of property {@link #getAdditionalText additionalText}.
      *
      * Defines the `additionalText`, displayed in the end of the list item.
+     *
+     * @returns Value of property `additionalText`
      */
     getAdditionalText(): string;
     /**
@@ -26269,12 +30130,16 @@ declare module "sap/ui/webc/main/StandardListItem" {
      *  Available options are: `"None"` (by default), `"Success"`, `"Warning"`, `"Information"` and `"Erorr"`.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `additionalTextState`
      */
     getAdditionalTextState(): ValueState | keyof typeof ValueState;
     /**
      * Gets current value of property {@link #getDescription description}.
      *
      * Defines the description displayed right under the item text, if such is present.
+     *
+     * @returns Value of property `description`
      */
     getDescription(): string;
     /**
@@ -26284,6 +30149,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
      * Icon Explorer.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
@@ -26294,6 +30161,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      *  **Note:** If `image` is set, the `icon` would be displayed after the `image`.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `iconEnd`
      */
     getIconEnd(): boolean;
     /**
@@ -26302,6 +30171,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Defines the `image` source URI.
      *
      *  **Note:** The `image` would be displayed in the beginning of the list item.
+     *
+     * @returns Value of property `image`
      */
     getImage(): string;
     /**
@@ -26310,6 +30181,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Defines the selected state of the `ListItem`.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
     /**
@@ -26318,6 +30191,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -26330,6 +30205,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * type `Inactive` and `Detail` - will not.
      *
      * Default value is `Active`.
+     *
+     * @returns Value of property `type`
      */
     getType(): ListItemType | keyof typeof ListItemType;
     /**
@@ -26341,6 +30218,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -26354,6 +30233,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Defines the `additionalText`, displayed in the end of the list item.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAdditionalText(
       /**
@@ -26370,6 +30251,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAdditionalTextState(
       /**
@@ -26383,6 +30266,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Defines the description displayed right under the item text, if such is present.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDescription(
       /**
@@ -26399,6 +30284,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Icon Explorer.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -26416,6 +30303,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconEnd(
       /**
@@ -26431,6 +30320,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      *  **Note:** The `image` would be displayed in the beginning of the list item.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setImage(
       /**
@@ -26446,6 +30337,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -26461,6 +30354,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -26480,6 +30375,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Active`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setType(
       /**
@@ -26507,7 +30404,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
      */
     additionalTextState?:
       | (ValueState | keyof typeof ValueState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the description displayed right under the item text, if such is present.
@@ -26527,7 +30425,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
      *
      *  **Note:** If `image` is set, the `icon` would be displayed after the `image`.
      */
-    iconEnd?: boolean | PropertyBindingInfo;
+    iconEnd?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the `image` source URI.
@@ -26539,7 +30437,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
     /**
      * Defines the selected state of the `ListItem`.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the control
@@ -26553,7 +30451,10 @@ declare module "sap/ui/webc/main/StandardListItem" {
      *  **Note:** When set to `Active`, the item will provide visual response upon press and hover, while with
      * type `Inactive` and `Detail` - will not.
      */
-    type?: (ListItemType | keyof typeof ListItemType) | PropertyBindingInfo;
+    type?:
+      | (ListItemType | keyof typeof ListItemType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Fired when the user clicks on the detail button when type is `Detail`.
@@ -26568,7 +30469,7 @@ declare module "sap/ui/webc/main/StepInput" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { ID, ValueState, CSSSize } from "sap/ui/core/library";
+  import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -26610,7 +30511,8 @@ declare module "sap/ui/webc/main/StepInput" {
    * 			this case, use the regular `sap.ui.webc.main.Input` instead.
    * 	 - To enter dates and times. In this case, use date/time related components instead.
    */
-  export default class StepInput extends WebComponent {
+  export default class StepInput extends WebComponent implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `StepInput`.
      *
@@ -26647,6 +30549,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -26665,10 +30569,14 @@ declare module "sap/ui/webc/main/StepInput" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.StepInput.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -26683,6 +30591,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * otherwise it will be bound to this `sap.ui.webc.main.StepInput` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -26706,6 +30616,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * otherwise it will be bound to this `sap.ui.webc.main.StepInput` itself.
      *
      * Fired when the input operation has finished by pressing Enter or on focusout.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -26721,6 +30633,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.StepInput`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -26734,6 +30648,8 @@ declare module "sap/ui/webc/main/StepInput" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -26744,7 +30660,9 @@ declare module "sap/ui/webc/main/StepInput" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -26753,23 +30671,30 @@ declare module "sap/ui/webc/main/StepInput" {
      */
     getAriaLabelledBy(): ID[];
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getMax max}.
      *
      * Defines a maximum value of the component.
+     *
+     * @returns Value of property `max`
      */
     getMax(): float;
     /**
      * Gets current value of property {@link #getMin min}.
      *
      * Defines a minimum value of the component.
+     *
+     * @returns Value of property `min`
      */
     getMin(): float;
     /**
@@ -26783,6 +30708,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -26797,6 +30724,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * pattern.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
@@ -26805,6 +30734,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * Determines whether the component is displayed as read-only.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -26813,6 +30744,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * Defines whether the component is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -26821,6 +30754,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * Defines a step of increasing/decreasing the value of the component.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `step`
      */
     getStep(): float;
     /**
@@ -26829,6 +30764,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * Defines a value of the component.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): float;
     /**
@@ -26837,6 +30774,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * Determines the number of digits after the decimal point of the component.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `valuePrecision`
      */
     getValuePrecision(): int;
     /**
@@ -26852,6 +30791,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -26864,20 +30805,28 @@ declare module "sap/ui/webc/main/StepInput" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -26888,9 +30837,11 @@ declare module "sap/ui/webc/main/StepInput" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -26899,19 +30850,22 @@ declare module "sap/ui/webc/main/StepInput" {
       sAccessibleName: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getMax max}.
@@ -26919,6 +30873,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * Defines a maximum value of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMax(
       /**
@@ -26932,6 +30888,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * Defines a minimum value of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMin(
       /**
@@ -26952,6 +30910,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -26973,6 +30933,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -26988,6 +30950,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -27003,6 +30967,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -27018,6 +30984,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStep(
       /**
@@ -27033,6 +31001,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -27048,6 +31018,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValuePrecision(
       /**
@@ -27070,6 +31042,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -27089,6 +31063,8 @@ declare module "sap/ui/webc/main/StepInput" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -27102,35 +31078,38 @@ declare module "sap/ui/webc/main/StepInput" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $StepInputSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
     /**
-     * Determines whether the component is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines a maximum value of the component.
      */
-    max?: float | PropertyBindingInfo;
+    max?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines a minimum value of the component.
      */
-    min?: float | PropertyBindingInfo;
+    min?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the name with which the component will be submitted in an HTML form.
@@ -27156,27 +31135,27 @@ declare module "sap/ui/webc/main/StepInput" {
     /**
      * Determines whether the component is displayed as read-only.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines a step of increasing/decreasing the value of the component.
      */
-    step?: float | PropertyBindingInfo;
+    step?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines a value of the component.
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the number of digits after the decimal point of the component.
      */
-    valuePrecision?: int | PropertyBindingInfo;
+    valuePrecision?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the value state of the component.
@@ -27188,7 +31167,10 @@ declare module "sap/ui/webc/main/StepInput" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -27202,7 +31184,7 @@ declare module "sap/ui/webc/main/StepInput" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -27275,6 +31257,8 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -27293,6 +31277,8 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.SuggestionGroupItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -27301,6 +31287,8 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
      * Defines the text of the `sap.ui.webc.main.SuggestionGroupItem`.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -27311,6 +31299,8 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -27388,6 +31378,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -27406,12 +31398,16 @@ declare module "sap/ui/webc/main/SuggestionItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.SuggestionItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getAdditionalText additionalText}.
      *
      * Defines the `additionalText`, displayed in the end of the item.
+     *
+     * @returns Value of property `additionalText`
      */
     getAdditionalText(): string;
     /**
@@ -27422,12 +31418,16 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      *  Available options are: `"None"` (by default), `"Success"`, `"Information"`, `"Warning"` and `"Erorr"`.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `additionalTextState`
      */
     getAdditionalTextState(): ValueState | keyof typeof ValueState;
     /**
      * Gets current value of property {@link #getDescription description}.
      *
      * Defines the description displayed right under the item text, if such is present.
+     *
+     * @returns Value of property `description`
      */
     getDescription(): string;
     /**
@@ -27437,6 +31437,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
      * Icon Explorer.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
@@ -27447,6 +31449,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      *  **Note:** If `image` is set, the `icon` would be displayed after the `image`.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `iconEnd`
      */
     getIconEnd(): boolean;
     /**
@@ -27455,6 +31459,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * Defines the `image` source URI.
      *
      *  **Note:** The `image` would be displayed in the beginning of the item.
+     *
+     * @returns Value of property `image`
      */
     getImage(): string;
     /**
@@ -27463,6 +31469,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * Defines the text of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -27475,6 +31483,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * `Inactive` or `Detail` - will not.
      *
      * Default value is `Active`.
+     *
+     * @returns Value of property `type`
      */
     getType(): ListItemType | keyof typeof ListItemType;
     /**
@@ -27483,6 +31493,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * Defines the `additionalText`, displayed in the end of the item.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAdditionalText(
       /**
@@ -27500,6 +31512,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAdditionalTextState(
       /**
@@ -27513,6 +31527,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * Defines the description displayed right under the item text, if such is present.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDescription(
       /**
@@ -27529,6 +31545,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * Icon Explorer.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -27546,6 +31564,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconEnd(
       /**
@@ -27561,6 +31581,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      *  **Note:** The `image` would be displayed in the beginning of the item.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setImage(
       /**
@@ -27576,6 +31598,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -27595,6 +31619,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Active`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setType(
       /**
@@ -27617,7 +31643,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      */
     additionalTextState?:
       | (ValueState | keyof typeof ValueState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the description displayed right under the item text, if such is present.
@@ -27637,7 +31664,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      *
      *  **Note:** If `image` is set, the `icon` would be displayed after the `image`.
      */
-    iconEnd?: boolean | PropertyBindingInfo;
+    iconEnd?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the `image` source URI.
@@ -27658,7 +31685,10 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      *  **Note:** When set to `Active`, the item will provide visual response upon press and hover, while when
      * `Inactive` or `Detail` - will not.
      */
-    type?: (ListItemType | keyof typeof ListItemType) | PropertyBindingInfo;
+    type?:
+      | (ListItemType | keyof typeof ListItemType)
+      | PropertyBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -27668,7 +31698,7 @@ declare module "sap/ui/webc/main/Switch" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { ID } from "sap/ui/core/library";
+  import { IFormContent, ID, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -27703,7 +31733,8 @@ declare module "sap/ui/webc/main/Switch" {
    * 	 - text-off - Used to style the `textOff` property text
    * 	 - handle - Used to style the handle of the switch
    */
-  export default class Switch extends WebComponent {
+  export default class Switch extends WebComponent implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `Switch`.
      *
@@ -27740,6 +31771,8 @@ declare module "sap/ui/webc/main/Switch" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -27758,10 +31791,14 @@ declare module "sap/ui/webc/main/Switch" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Switch.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -27776,6 +31813,8 @@ declare module "sap/ui/webc/main/Switch" {
      * otherwise it will be bound to this `sap.ui.webc.main.Switch` itself.
      *
      * Fired when the component checked state changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -27799,6 +31838,8 @@ declare module "sap/ui/webc/main/Switch" {
      * otherwise it will be bound to this `sap.ui.webc.main.Switch` itself.
      *
      * Fired when the component checked state changes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -27814,6 +31855,8 @@ declare module "sap/ui/webc/main/Switch" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.Switch`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -27827,6 +31870,8 @@ declare module "sap/ui/webc/main/Switch" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -27834,6 +31879,18 @@ declare module "sap/ui/webc/main/Switch" {
        */
       mParameters?: object
     ): this;
+    /**
+     * Gets current value of property {@link #getAccessibleName accessibleName}.
+     *
+     * Sets the accessible aria name of the component.
+     *
+     * **Note**: We recommend that you set an accessibleNameRef pointing to an external label or at least an
+     * `accessibleName`. Providing an `ariaLabelledBy` or an `accessibleName` is mandatory in the cases when
+     * `textOn` and `textOff` properties aren't set.
+     *
+     * @returns Value of property `accessibleName`
+     */
+    getAccessibleName(): string;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
      * ariaLabelledBy}.
@@ -27848,6 +31905,8 @@ declare module "sap/ui/webc/main/Switch" {
      * pressing the `Enter` or `Space` key.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `checked`
      */
     getChecked(): boolean;
     /**
@@ -27858,18 +31917,21 @@ declare module "sap/ui/webc/main/Switch" {
      *  **Note:** If `Graphical` type is set, positive and negative icons will replace the `textOn` and `textOff`.
      *
      * Default value is `Textual`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): SwitchDesign | keyof typeof SwitchDesign;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** A disabled component is noninteractive.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getTextOff textOff}.
      *
@@ -27879,6 +31941,8 @@ declare module "sap/ui/webc/main/Switch" {
      * This property will have no effect if the theme is set to `sap_horizon`.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `textOff`
      */
     getTextOff(): string;
     /**
@@ -27892,14 +31956,28 @@ declare module "sap/ui/webc/main/Switch" {
      * This property will have no effect if the theme is set to `sap_horizon`.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `textOn`
      */
     getTextOn(): string;
     /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Defines the width of the control
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -27907,6 +31985,25 @@ declare module "sap/ui/webc/main/Switch" {
        */
       vAriaLabelledBy: int | ID | Control
     ): ID;
+    /**
+     * Sets a new value for property {@link #getAccessibleName accessibleName}.
+     *
+     * Sets the accessible aria name of the component.
+     *
+     * **Note**: We recommend that you set an accessibleNameRef pointing to an external label or at least an
+     * `accessibleName`. Providing an `ariaLabelledBy` or an `accessibleName` is mandatory in the cases when
+     * `textOn` and `textOff` properties aren't set.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAccessibleName(
+      /**
+       * New value for property `accessibleName`
+       */
+      sAccessibleName: string
+    ): this;
     /**
      * Sets a new value for property {@link #getChecked checked}.
      *
@@ -27918,6 +32015,8 @@ declare module "sap/ui/webc/main/Switch" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setChecked(
       /**
@@ -27935,6 +32034,8 @@ declare module "sap/ui/webc/main/Switch" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Textual`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -27943,21 +32044,22 @@ declare module "sap/ui/webc/main/Switch" {
       sDesign?: SwitchDesign | keyof typeof SwitchDesign
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled.
-     *
-     *  **Note:** A disabled component is noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getTextOff textOff}.
@@ -27970,6 +32072,8 @@ declare module "sap/ui/webc/main/Switch" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextOff(
       /**
@@ -27990,6 +32094,8 @@ declare module "sap/ui/webc/main/Switch" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextOn(
       /**
@@ -27997,30 +32103,56 @@ declare module "sap/ui/webc/main/Switch" {
        */
       sTextOn?: string
     ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Defines the width of the control
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth: CSSSize
+    ): this;
   }
 
   export interface $SwitchSettings extends $WebComponentSettings {
+    /**
+     * Sets the accessible aria name of the component.
+     *
+     * **Note**: We recommend that you set an accessibleNameRef pointing to an external label or at least an
+     * `accessibleName`. Providing an `ariaLabelledBy` or an `accessibleName` is mandatory in the cases when
+     * `textOn` and `textOff` properties aren't set.
+     */
+    accessibleName?: string | PropertyBindingInfo;
+
     /**
      * Defines if the component is checked.
      *
      *  **Note:** The property can be changed with user interaction, either by cliking the component, or by
      * pressing the `Enter` or `Space` key.
      */
-    checked?: boolean | PropertyBindingInfo;
+    checked?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the component design.
      *
      *  **Note:** If `Graphical` type is set, positive and negative icons will replace the `textOn` and `textOff`.
      */
-    design?: (SwitchDesign | keyof typeof SwitchDesign) | PropertyBindingInfo;
+    design?:
+      | (SwitchDesign | keyof typeof SwitchDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
-     * Defines whether the component is disabled.
-     *
-     *  **Note:** A disabled component is noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the text, displayed when the component is not checked.
@@ -28039,6 +32171,11 @@ declare module "sap/ui/webc/main/Switch" {
      * This property will have no effect if the theme is set to `sap_horizon`.
      */
     textOn?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the width of the control
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -28115,6 +32252,8 @@ declare module "sap/ui/webc/main/Tab" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -28133,10 +32272,14 @@ declare module "sap/ui/webc/main/Tab" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Tab.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -28145,21 +32288,42 @@ declare module "sap/ui/webc/main/Tab" {
       oContent: Control
     ): this;
     /**
+     * Adds some subTab to the aggregation {@link #getSubTabs subTabs}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addSubTab(
+      /**
+       * The subTab to add; if empty, nothing is inserted
+       */
+      oSubTab: ITab
+    ): this;
+    /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
+    /**
+     * Destroys all the subTabs in the aggregation {@link #getSubTabs subTabs}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroySubTabs(): this;
     /**
      * Gets current value of property {@link #getAdditionalText additionalText}.
      *
      * Represents the "additionalText" text, which is displayed in the tab.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `additionalText`
      */
     getAdditionalText(): string;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
-     * Defines the tab content.
+     * Holds the content associated with this tab.
      */
     getContent(): Control[];
     /**
@@ -28181,16 +32345,21 @@ declare module "sap/ui/webc/main/Tab" {
      *  **Note:** The design depends on the current theme.
      *
      * Default value is `Default`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): SemanticColor | keyof typeof SemanticColor;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Enabled items can be selected.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -28198,6 +32367,8 @@ declare module "sap/ui/webc/main/Tab" {
      * font provides numerous built-in icons. See all the available icons in the Icon Explorer.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
@@ -28206,8 +32377,18 @@ declare module "sap/ui/webc/main/Tab" {
      * Specifies if the component is selected.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
+    /**
+     * Gets content of aggregation {@link #getSubTabs subTabs}.
+     *
+     * Defines hierarchies with nested sub tabs.
+     *
+     *  **Note:** Use `sap.ui.webc.main.Tab` and `sap.ui.webc.main.TabSeparator` for the intended design.
+     */
+    getSubTabs(): ITab[];
     /**
      * Returns the DOM reference of the tab that is placed in the header. **Note:** If you need a DOM ref to
      * the tab content please use the `getDomRef` method.
@@ -28219,11 +32400,15 @@ declare module "sap/ui/webc/main/Tab" {
      * The text to be displayed for the item.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -28232,7 +32417,21 @@ declare module "sap/ui/webc/main/Tab" {
       oContent: Control
     ): int;
     /**
+     * Checks for the provided `sap.ui.webc.main.ITab` in the aggregation {@link #getSubTabs subTabs}. and returns
+     * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfSubTab(
+      /**
+       * The subTab whose index is looked for
+       */
+      oSubTab: ITab
+    ): int;
+    /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -28247,13 +32446,42 @@ declare module "sap/ui/webc/main/Tab" {
       iIndex: int
     ): this;
     /**
+     * Inserts a subTab into the aggregation {@link #getSubTabs subTabs}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertSubTab(
+      /**
+       * The subTab to insert; if empty, nothing is inserted
+       */
+      oSubTab: ITab,
+      /**
+       * The `0`-based index the subTab should be inserted at; for a negative value of `iIndex`, the subTab is
+       * inserted at position 0; for a value greater than the current size of the aggregation, the subTab is inserted
+       * at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
+     * Removes all the controls from the aggregation {@link #getSubTabs subTabs}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllSubTabs(): ITab[];
+    /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -28262,6 +32490,17 @@ declare module "sap/ui/webc/main/Tab" {
       vContent: int | string | Control
     ): Control;
     /**
+     * Removes a subTab from the aggregation {@link #getSubTabs subTabs}.
+     *
+     * @returns The removed subTab or `null`
+     */
+    removeSubTab(
+      /**
+       * The subTab to remove or its index or id
+       */
+      vSubTab: int | string | ITab
+    ): ITab;
+    /**
      * Sets a new value for property {@link #getAdditionalText additionalText}.
      *
      * Represents the "additionalText" text, which is displayed in the tab.
@@ -28269,6 +32508,8 @@ declare module "sap/ui/webc/main/Tab" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAdditionalText(
       /**
@@ -28297,6 +32538,8 @@ declare module "sap/ui/webc/main/Tab" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Default`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -28305,19 +32548,22 @@ declare module "sap/ui/webc/main/Tab" {
       sDesign?: SemanticColor | keyof typeof SemanticColor
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Enabled items can be selected.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getIcon icon}.
@@ -28328,6 +32574,8 @@ declare module "sap/ui/webc/main/Tab" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -28343,6 +32591,8 @@ declare module "sap/ui/webc/main/Tab" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -28358,6 +32608,8 @@ declare module "sap/ui/webc/main/Tab" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -28389,12 +32641,16 @@ declare module "sap/ui/webc/main/Tab" {
      *
      *  **Note:** The design depends on the current theme.
      */
-    design?: (SemanticColor | keyof typeof SemanticColor) | PropertyBindingInfo;
+    design?:
+      | (SemanticColor | keyof typeof SemanticColor)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
-     * Enabled items can be selected.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the icon source URI to be displayed as graphical element within the component. The SAP-icons
@@ -28405,7 +32661,7 @@ declare module "sap/ui/webc/main/Tab" {
     /**
      * Specifies if the component is selected.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The text to be displayed for the item.
@@ -28413,9 +32669,16 @@ declare module "sap/ui/webc/main/Tab" {
     text?: string | PropertyBindingInfo;
 
     /**
-     * Defines the tab content.
+     * Holds the content associated with this tab.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * Defines hierarchies with nested sub tabs.
+     *
+     *  **Note:** Use `sap.ui.webc.main.Tab` and `sap.ui.webc.main.TabSeparator` for the intended design.
+     */
+    subTabs?: ITab[] | ITab | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -28457,7 +32720,19 @@ declare module "sap/ui/webc/main/TabContainer" {
    *
    * The `sap.ui.webc.main.TabContainer` can hold two types of entities:
    * 	 - `sap.ui.webc.main.Tab` - contains all the information on an item (text and icon)
-   * 	 - `sap.ui.webc.main.TabSeparator` - used to separate tabs with a vertical line
+   * 	 - `sap.ui.webc.main.TabSeparator` - used to separate tabs with a line
+   *
+   * Hierarchies: Multiple sub tabs could be placed underneath one main tab. Nesting allows deeper hierarchies
+   * with indentations to indicate the level of each nested tab. When a tab has both sub tabs and own content
+   * its click area is split to allow the user to display the content or alternatively to expand / collapse
+   * the list of sub tabs.
+   *
+   * CSS Shadow Parts:
+   *
+   * CSS Shadow Parts
+   * allow developers to style elements inside the Shadow DOM.
+   *  The `sap.ui.webc.main.TabContainer` exposes the following CSS Shadow Parts:
+   * 	 - content - Used to style the content of the component
    *
    * Keyboard Handling:
    */
@@ -28498,6 +32773,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -28516,10 +32793,14 @@ declare module "sap/ui/webc/main/TabContainer" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.TabContainer.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -28534,6 +32815,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * otherwise it will be bound to this `sap.ui.webc.main.TabContainer` itself.
      *
      * Fired when a tab is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachTabSelect(
       /**
@@ -28557,6 +32840,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * otherwise it will be bound to this `sap.ui.webc.main.TabContainer` itself.
      *
      * Fired when a tab is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachTabSelect(
       /**
@@ -28570,20 +32855,28 @@ declare module "sap/ui/webc/main/TabContainer" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Destroys the overflowButton in the aggregation {@link #getOverflowButton overflowButton}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyOverflowButton(): this;
     /**
      * Destroys the startOverflowButton in the aggregation {@link #getStartOverflowButton startOverflowButton}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyStartOverflowButton(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:tabSelect tabSelect} event of this `sap.ui.webc.main.TabContainer`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachTabSelect(
       /**
@@ -28597,6 +32890,8 @@ declare module "sap/ui/webc/main/TabContainer" {
     ): this;
     /**
      * Fires event {@link #event:tabSelect tabSelect} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireTabSelect(
       /**
@@ -28619,6 +32914,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * Defines whether the tab content is collapsed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `collapsed`
      */
     getCollapsed(): boolean;
     /**
@@ -28627,12 +32924,16 @@ declare module "sap/ui/webc/main/TabContainer" {
      * Defines whether the tabs are in a fixed state that is not expandable/collapsible by user interaction.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `fixed`
      */
     getFixed(): boolean;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -28659,6 +32960,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * user to select a specific tab.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showOverflow`
      */
     getShowOverflow(): boolean;
     /**
@@ -28685,6 +32988,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * 	 - `Inline`
      *
      * Default value is `Standard`.
+     *
+     * @returns Value of property `tabLayout`
      */
     getTabLayout(): TabLayout | keyof typeof TabLayout;
     /**
@@ -28706,17 +33011,23 @@ declare module "sap/ui/webc/main/TabContainer" {
      * 	 - `StartAndEnd`
      *
      * Default value is `End`.
+     *
+     * @returns Value of property `tabsOverflowMode`
      */
     getTabsOverflowMode(): TabsOverflowMode | keyof typeof TabsOverflowMode;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.webc.main.ITab` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -28726,6 +33037,8 @@ declare module "sap/ui/webc/main/TabContainer" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -28743,10 +33056,14 @@ declare module "sap/ui/webc/main/TabContainer" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): ITab[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
@@ -28762,6 +33079,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCollapsed(
       /**
@@ -28777,6 +33096,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFixed(
       /**
@@ -28790,15 +33111,19 @@ declare module "sap/ui/webc/main/TabContainer" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets the aggregated {@link #getOverflowButton overflowButton}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setOverflowButton(
       /**
@@ -28817,6 +33142,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowOverflow(
       /**
@@ -28826,6 +33153,8 @@ declare module "sap/ui/webc/main/TabContainer" {
     ): this;
     /**
      * Sets the aggregated {@link #getStartOverflowButton startOverflowButton}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStartOverflowButton(
       /**
@@ -28852,6 +33181,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTabLayout(
       /**
@@ -28880,6 +33211,8 @@ declare module "sap/ui/webc/main/TabContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `End`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTabsOverflowMode(
       /**
@@ -28893,12 +33226,14 @@ declare module "sap/ui/webc/main/TabContainer" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -28906,17 +33241,17 @@ declare module "sap/ui/webc/main/TabContainer" {
     /**
      * Defines whether the tab content is collapsed.
      */
-    collapsed?: boolean | PropertyBindingInfo;
+    collapsed?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the tabs are in a fixed state that is not expandable/collapsible by user interaction.
      */
-    fixed?: boolean | PropertyBindingInfo;
+    fixed?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the overflow select list is displayed.
@@ -28924,7 +33259,7 @@ declare module "sap/ui/webc/main/TabContainer" {
      *  The overflow select list represents a list, where all tabs are displayed so that it's easier for the
      * user to select a specific tab.
      */
-    showOverflow?: boolean | PropertyBindingInfo;
+    showOverflow?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the alignment of the content and the `additionalText` of a tab.
@@ -28940,7 +33275,10 @@ declare module "sap/ui/webc/main/TabContainer" {
      * 	 - `Standard`
      * 	 - `Inline`
      */
-    tabLayout?: (TabLayout | keyof typeof TabLayout) | PropertyBindingInfo;
+    tabLayout?:
+      | (TabLayout | keyof typeof TabLayout)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the overflow mode of the tab strip. If you have a large number of tabs, only the tabs that can
@@ -28960,19 +33298,20 @@ declare module "sap/ui/webc/main/TabContainer" {
      */
     tabsOverflowMode?:
       | (TabsOverflowMode | keyof typeof TabsOverflowMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the tabs.
      *
      *  **Note:** Use `sap.ui.webc.main.Tab` and `sap.ui.webc.main.TabSeparator` for the intended design.
      */
-    items?: ITab[] | ITab | AggregationBindingInfo;
+    items?: ITab[] | ITab | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the button which will open the overflow menu. If nothing is provided to this slot, the default
@@ -28999,6 +33338,10 @@ declare module "sap/ui/webc/main/Table" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
+  import { ID, CSSSize } from "sap/ui/core/library";
+
+  import Control from "sap/ui/core/Control";
+
   import {
     ITableColumn,
     ITableRow,
@@ -29007,8 +33350,6 @@ declare module "sap/ui/webc/main/Table" {
   } from "sap/ui/webc/main/library";
 
   import Event from "sap/ui/base/Event";
-
-  import { CSSSize } from "sap/ui/core/library";
 
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
@@ -29060,7 +33401,7 @@ declare module "sap/ui/webc/main/Table" {
    * 	 - [SHIFT]+[DOWN]/[UP] - Selects the next/previous item in a MultiSelect table, if the current item
    * 			is selected (Range selection). Otherwise, deselects them (Range deselection).
    * 	 - [SHIFT]+[HOME]/[END] - Range selection to the first/last item of the List.
-   * 	 - [CTRL]+[HOME]/[END] - Same behavior as HOME & END. *
+   * 	 - [CTRL]+[HOME]/[END] - Same behavior as HOME & END.
    */
   export default class Table extends WebComponent {
     /**
@@ -29099,6 +33440,8 @@ declare module "sap/ui/webc/main/Table" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -29117,10 +33460,25 @@ declare module "sap/ui/webc/main/Table" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Table.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
      * Adds some column to the aggregation {@link #getColumns columns}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addColumn(
       /**
@@ -29130,6 +33488,8 @@ declare module "sap/ui/webc/main/Table" {
     ): this;
     /**
      * Adds some row to the aggregation {@link #getRows rows}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addRow(
       /**
@@ -29148,6 +33508,8 @@ declare module "sap/ui/webc/main/Table" {
      *
      *
      * **Note:** The event will be fired if `growing` is set to `Button` or `Scroll`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLoadMore(
       /**
@@ -29175,6 +33537,8 @@ declare module "sap/ui/webc/main/Table" {
      *
      *
      * **Note:** The event will be fired if `growing` is set to `Button` or `Scroll`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLoadMore(
       /**
@@ -29193,6 +33557,8 @@ declare module "sap/ui/webc/main/Table" {
      * otherwise it will be bound to this `sap.ui.webc.main.Table` itself.
      *
      * Fired when `sap.ui.webc.main.TableColumn` is shown as a pop-in instead of hiding it.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPopinChange(
       /**
@@ -29216,6 +33582,8 @@ declare module "sap/ui/webc/main/Table" {
      * otherwise it will be bound to this `sap.ui.webc.main.Table` itself.
      *
      * Fired when `sap.ui.webc.main.TableColumn` is shown as a pop-in instead of hiding it.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPopinChange(
       /**
@@ -29234,6 +33602,8 @@ declare module "sap/ui/webc/main/Table" {
      * otherwise it will be bound to this `sap.ui.webc.main.Table` itself.
      *
      * Fired when a row in `Active` mode is clicked or `Enter` key is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachRowClick(
       /**
@@ -29257,6 +33627,8 @@ declare module "sap/ui/webc/main/Table" {
      * otherwise it will be bound to this `sap.ui.webc.main.Table` itself.
      *
      * Fired when a row in `Active` mode is clicked or `Enter` key is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachRowClick(
       /**
@@ -29276,6 +33648,8 @@ declare module "sap/ui/webc/main/Table" {
      * otherwise it will be bound to this `sap.ui.webc.main.Table` itself.
      *
      * Fired when selection is changed by user interaction in `SingleSelect` and `MultiSelect` modes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -29300,6 +33674,8 @@ declare module "sap/ui/webc/main/Table" {
      * otherwise it will be bound to this `sap.ui.webc.main.Table` itself.
      *
      * Fired when selection is changed by user interaction in `SingleSelect` and `MultiSelect` modes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -29313,16 +33689,22 @@ declare module "sap/ui/webc/main/Table" {
     ): this;
     /**
      * Destroys all the columns in the aggregation {@link #getColumns columns}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyColumns(): this;
     /**
      * Destroys all the rows in the aggregation {@link #getRows rows}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyRows(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:loadMore loadMore} event of this `sap.ui.webc.main.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachLoadMore(
       /**
@@ -29338,6 +33720,8 @@ declare module "sap/ui/webc/main/Table" {
      * Detaches event handler `fnFunction` from the {@link #event:popinChange popinChange} event of this `sap.ui.webc.main.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPopinChange(
       /**
@@ -29353,6 +33737,8 @@ declare module "sap/ui/webc/main/Table" {
      * Detaches event handler `fnFunction` from the {@link #event:rowClick rowClick} event of this `sap.ui.webc.main.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachRowClick(
       /**
@@ -29369,6 +33755,8 @@ declare module "sap/ui/webc/main/Table" {
      * this `sap.ui.webc.main.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChange(
       /**
@@ -29382,6 +33770,8 @@ declare module "sap/ui/webc/main/Table" {
     ): this;
     /**
      * Fires event {@link #event:loadMore loadMore} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireLoadMore(
       /**
@@ -29391,6 +33781,8 @@ declare module "sap/ui/webc/main/Table" {
     ): this;
     /**
      * Fires event {@link #event:popinChange popinChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     firePopinChange(
       /**
@@ -29405,6 +33797,8 @@ declare module "sap/ui/webc/main/Table" {
     ): this;
     /**
      * Fires event {@link #event:rowClick rowClick} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireRowClick(
       /**
@@ -29419,6 +33813,8 @@ declare module "sap/ui/webc/main/Table" {
     ): this;
     /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelectionChange(
       /**
@@ -29436,6 +33832,19 @@ declare module "sap/ui/webc/main/Table" {
       }
     ): this;
     /**
+     * Gets current value of property {@link #getAccessibleName accessibleName}.
+     *
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
+     */
+    getAccessibleName(): string;
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
+     * ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
+    /**
      * Gets current value of property {@link #getBusy busy}.
      *
      * Defines if the table is in busy state.
@@ -29444,6 +33853,8 @@ declare module "sap/ui/webc/main/Table" {
      * table.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `busy`
      */
     getBusy(): boolean;
     /**
@@ -29452,6 +33863,8 @@ declare module "sap/ui/webc/main/Table" {
      * Defines the delay in milliseconds, after which the busy indicator will show up for this component.
      *
      * Default value is `1000`.
+     *
+     * @returns Value of property `busyDelay`
      */
     getBusyDelay(): int;
     /**
@@ -29483,8 +33896,10 @@ declare module "sap/ui/webc/main/Table" {
      * to `growing="Button"`.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `growing`
      */
-    getGrowing(): TableGrowingMode;
+    getGrowing(): TableGrowingMode | keyof typeof TableGrowingMode;
     /**
      * Gets current value of property {@link #getGrowingButtonSubtext growingButtonSubtext}.
      *
@@ -29495,6 +33910,8 @@ declare module "sap/ui/webc/main/Table" {
      *  **Note:** This property takes effect if `growing` is set to `Button`.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `growingButtonSubtext`
      */
     getGrowingButtonSubtext(): string;
     /**
@@ -29509,12 +33926,16 @@ declare module "sap/ui/webc/main/Table" {
      *  **Note:** This property takes effect if `growing` is set to `Button`.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `growingButtonText`
      */
     getGrowingButtonText(): string;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -29523,6 +33944,8 @@ declare module "sap/ui/webc/main/Table" {
      * Defines if the value of `noDataText` will be diplayed when there is no rows present in the table.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hideNoData`
      */
     getHideNoData(): boolean;
     /**
@@ -29536,6 +33959,8 @@ declare module "sap/ui/webc/main/Table" {
      * 	 - `None`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `mode`
      */
     getMode(): TableMode | keyof typeof TableMode;
     /**
@@ -29544,6 +33969,8 @@ declare module "sap/ui/webc/main/Table" {
      * Defines the text that will be displayed when there is no data and `hideNoData` is not present.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `noDataText`
      */
     getNoDataText(): string;
     /**
@@ -29571,17 +33998,23 @@ declare module "sap/ui/webc/main/Table" {
      * top of the viewport.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `stickyColumnHeader`
      */
     getStickyColumnHeader(): boolean;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.webc.main.ITableColumn` in the aggregation {@link #getColumns columns}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfColumn(
       /**
@@ -29592,6 +34025,8 @@ declare module "sap/ui/webc/main/Table" {
     /**
      * Checks for the provided `sap.ui.webc.main.ITableRow` in the aggregation {@link #getRows rows}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfRow(
       /**
@@ -29601,6 +34036,8 @@ declare module "sap/ui/webc/main/Table" {
     ): int;
     /**
      * Inserts a column into the aggregation {@link #getColumns columns}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertColumn(
       /**
@@ -29616,6 +34053,8 @@ declare module "sap/ui/webc/main/Table" {
     ): this;
     /**
      * Inserts a row into the aggregation {@link #getRows rows}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertRow(
       /**
@@ -29630,19 +34069,42 @@ declare module "sap/ui/webc/main/Table" {
       iIndex: int
     ): this;
     /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
      * Removes all the controls from the aggregation {@link #getColumns columns}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllColumns(): ITableColumn[];
     /**
      * Removes all the controls from the aggregation {@link #getRows rows}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllRows(): ITableRow[];
     /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID;
+    /**
      * Removes a column from the aggregation {@link #getColumns columns}.
+     *
+     * @returns The removed column or `null`
      */
     removeColumn(
       /**
@@ -29652,6 +34114,8 @@ declare module "sap/ui/webc/main/Table" {
     ): ITableColumn;
     /**
      * Removes a row from the aggregation {@link #getRows rows}.
+     *
+     * @returns The removed row or `null`
      */
     removeRow(
       /**
@@ -29659,6 +34123,21 @@ declare module "sap/ui/webc/main/Table" {
        */
       vRow: int | string | ITableRow
     ): ITableRow;
+    /**
+     * Sets a new value for property {@link #getAccessibleName accessibleName}.
+     *
+     * Defines the accessible aria name of the component.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAccessibleName(
+      /**
+       * New value for property `accessibleName`
+       */
+      sAccessibleName: string
+    ): this;
     /**
      * Sets a new value for property {@link #getBusy busy}.
      *
@@ -29670,6 +34149,8 @@ declare module "sap/ui/webc/main/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBusy(
       /**
@@ -29685,6 +34166,8 @@ declare module "sap/ui/webc/main/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1000`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBusyDelay(
       /**
@@ -29715,12 +34198,14 @@ declare module "sap/ui/webc/main/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setGrowing(
       /**
        * New value for property `growing`
        */
-      sGrowing?: TableGrowingMode
+      sGrowing?: TableGrowingMode | keyof typeof TableGrowingMode
     ): this;
     /**
      * Sets a new value for property {@link #getGrowingButtonSubtext growingButtonSubtext}.
@@ -29734,6 +34219,8 @@ declare module "sap/ui/webc/main/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setGrowingButtonSubtext(
       /**
@@ -29755,6 +34242,8 @@ declare module "sap/ui/webc/main/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setGrowingButtonText(
       /**
@@ -29768,12 +34257,14 @@ declare module "sap/ui/webc/main/Table" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getHideNoData hideNoData}.
@@ -29783,6 +34274,8 @@ declare module "sap/ui/webc/main/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHideNoData(
       /**
@@ -29803,6 +34296,8 @@ declare module "sap/ui/webc/main/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMode(
       /**
@@ -29818,6 +34313,8 @@ declare module "sap/ui/webc/main/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setNoDataText(
       /**
@@ -29844,6 +34341,8 @@ declare module "sap/ui/webc/main/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStickyColumnHeader(
       /**
@@ -29857,28 +34356,35 @@ declare module "sap/ui/webc/main/Table" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $TableSettings extends $WebComponentSettings {
+    /**
+     * Defines the accessible aria name of the component.
+     */
+    accessibleName?: string | PropertyBindingInfo;
+
     /**
      * Defines if the table is in busy state.
      *
      * In this state the component's opacity is reduced and busy indicator is displayed at the bottom of the
      * table.
      */
-    busy?: boolean | PropertyBindingInfo;
+    busy?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the delay in milliseconds, after which the busy indicator will show up for this component.
      */
-    busyDelay?: int | PropertyBindingInfo;
+    busyDelay?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the table will have growing capability either by pressing a `More` button, or via user
@@ -29898,7 +34404,10 @@ declare module "sap/ui/webc/main/Table" {
      * **Restrictions:** `growing="Scroll"` is not supported for Internet Explorer, and the component will fallback
      * to `growing="Button"`.
      */
-    growing?: TableGrowingMode | PropertyBindingInfo;
+    growing?:
+      | (TableGrowingMode | keyof typeof TableGrowingMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the subtext that will be displayed under the `growingButtonText`.
@@ -29923,12 +34432,12 @@ declare module "sap/ui/webc/main/Table" {
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines if the value of `noDataText` will be diplayed when there is no rows present in the table.
      */
-    hideNoData?: boolean | PropertyBindingInfo;
+    hideNoData?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the mode of the component.
@@ -29938,7 +34447,10 @@ declare module "sap/ui/webc/main/Table" {
      * 	 - `SingleSelect`
      * 	 - `None`
      */
-    mode?: (TableMode | keyof typeof TableMode) | PropertyBindingInfo;
+    mode?:
+      | (TableMode | keyof typeof TableMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the text that will be displayed when there is no data and `hideNoData` is not present.
@@ -29959,26 +34471,35 @@ declare module "sap/ui/webc/main/Table" {
      * style definition, this can prevent the sticky elements of the Web Component from becoming fixed at the
      * top of the viewport.
      */
-    stickyColumnHeader?: boolean | PropertyBindingInfo;
+    stickyColumnHeader?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the configuration for the columns of the component.
      *
      *  **Note:** Use `sap.ui.webc.main.TableColumn` for the intended design.
      */
-    columns?: ITableColumn[] | ITableColumn | AggregationBindingInfo;
+    columns?:
+      | ITableColumn[]
+      | ITableColumn
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the component rows.
      *
      *  **Note:** Use `sap.ui.webc.main.TableRow` for the intended design.
      */
-    rows?: ITableRow[] | ITableRow | AggregationBindingInfo;
+    rows?: ITableRow[] | ITableRow | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * Receives id(or many ids) of the controls that label this control.
+     */
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Fired when the user presses the `More` button or scrolls to the table's end.
@@ -30074,6 +34595,8 @@ declare module "sap/ui/webc/main/TableCell" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -30092,10 +34615,14 @@ declare module "sap/ui/webc/main/TableCell" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.TableCell.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -30105,6 +34632,8 @@ declare module "sap/ui/webc/main/TableCell" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
@@ -30116,6 +34645,8 @@ declare module "sap/ui/webc/main/TableCell" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -30125,6 +34656,8 @@ declare module "sap/ui/webc/main/TableCell" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -30142,10 +34675,14 @@ declare module "sap/ui/webc/main/TableCell" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -30159,7 +34696,7 @@ declare module "sap/ui/webc/main/TableCell" {
     /**
      * Specifies the content of the component.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -30236,6 +34773,8 @@ declare module "sap/ui/webc/main/TableColumn" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -30254,10 +34793,14 @@ declare module "sap/ui/webc/main/TableColumn" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.TableColumn.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -30267,6 +34810,8 @@ declare module "sap/ui/webc/main/TableColumn" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
@@ -30283,6 +34828,8 @@ declare module "sap/ui/webc/main/TableColumn" {
      *  Setting this property to `true`, shows this column as pop-in instead of hiding it.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `demandPopin`
      */
     getDemandPopin(): boolean;
     /**
@@ -30296,6 +34843,8 @@ declare module "sap/ui/webc/main/TableColumn" {
      *  For further responsive design options, see `demandPopin` property.
      *
      * Default value is `...see text or source`.
+     *
+     * @returns Value of property `minWidth`
      */
     getMinWidth(): int;
     /**
@@ -30304,11 +34853,15 @@ declare module "sap/ui/webc/main/TableColumn" {
      * The text for the column when it pops in.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `popinText`
      */
     getPopinText(): string;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -30318,6 +34871,8 @@ declare module "sap/ui/webc/main/TableColumn" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -30335,10 +34890,14 @@ declare module "sap/ui/webc/main/TableColumn" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
@@ -30356,6 +34915,8 @@ declare module "sap/ui/webc/main/TableColumn" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDemandPopin(
       /**
@@ -30376,6 +34937,8 @@ declare module "sap/ui/webc/main/TableColumn" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `...see text or source`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinWidth(
       /**
@@ -30391,6 +34954,8 @@ declare module "sap/ui/webc/main/TableColumn" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPopinText(
       /**
@@ -30406,7 +34971,7 @@ declare module "sap/ui/webc/main/TableColumn" {
      *
      *  Setting this property to `true`, shows this column as pop-in instead of hiding it.
      */
-    demandPopin?: boolean | PropertyBindingInfo;
+    demandPopin?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the minimum table width required to display this column. By default it is always displayed.
@@ -30416,7 +34981,7 @@ declare module "sap/ui/webc/main/TableColumn" {
      * tablet (and desktop) but hides it on mobile.
      *  For further responsive design options, see `demandPopin` property.
      */
-    minWidth?: int | PropertyBindingInfo;
+    minWidth?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The text for the column when it pops in.
@@ -30426,7 +34991,7 @@ declare module "sap/ui/webc/main/TableColumn" {
     /**
      * Defines the content of the column header.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -30495,6 +35060,8 @@ declare module "sap/ui/webc/main/TableGroupRow" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -30513,6 +35080,8 @@ declare module "sap/ui/webc/main/TableGroupRow" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.TableGroupRow.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -30521,6 +35090,8 @@ declare module "sap/ui/webc/main/TableGroupRow" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -30531,6 +35102,8 @@ declare module "sap/ui/webc/main/TableGroupRow" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -30621,6 +35194,8 @@ declare module "sap/ui/webc/main/TableRow" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -30639,10 +35214,14 @@ declare module "sap/ui/webc/main/TableRow" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.TableRow.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some cell to the aggregation {@link #getCells cells}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addCell(
       /**
@@ -30652,6 +35231,8 @@ declare module "sap/ui/webc/main/TableRow" {
     ): this;
     /**
      * Destroys all the cells in the aggregation {@link #getCells cells}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyCells(): this;
     /**
@@ -30668,6 +35249,8 @@ declare module "sap/ui/webc/main/TableRow" {
      * Defines the row's selected state.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
     /**
@@ -30683,11 +35266,15 @@ declare module "sap/ui/webc/main/TableRow" {
      * - will not.
      *
      * Default value is `Inactive`.
+     *
+     * @returns Value of property `type`
      */
     getType(): TableRowType | keyof typeof TableRowType;
     /**
      * Checks for the provided `sap.ui.webc.main.ITableCell` in the aggregation {@link #getCells cells}. and
      * returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfCell(
       /**
@@ -30697,6 +35284,8 @@ declare module "sap/ui/webc/main/TableRow" {
     ): int;
     /**
      * Inserts a cell into the aggregation {@link #getCells cells}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertCell(
       /**
@@ -30714,10 +35303,14 @@ declare module "sap/ui/webc/main/TableRow" {
      * Removes all the controls from the aggregation {@link #getCells cells}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllCells(): ITableCell[];
     /**
      * Removes a cell from the aggregation {@link #getCells cells}.
+     *
+     * @returns The removed cell or `null`
      */
     removeCell(
       /**
@@ -30733,6 +35326,8 @@ declare module "sap/ui/webc/main/TableRow" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -30755,6 +35350,8 @@ declare module "sap/ui/webc/main/TableRow" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Inactive`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setType(
       /**
@@ -30768,7 +35365,7 @@ declare module "sap/ui/webc/main/TableRow" {
     /**
      * Defines the row's selected state.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the visual indication and behavior of the component.
@@ -30780,14 +35377,17 @@ declare module "sap/ui/webc/main/TableRow" {
      *  **Note:** When set to `Active`, the item will provide visual response upon press, while with type `Inactive`
      * - will not.
      */
-    type?: (TableRowType | keyof typeof TableRowType) | PropertyBindingInfo;
+    type?:
+      | (TableRowType | keyof typeof TableRowType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the cells of the component.
      *
      *  **Note:** Use `sap.ui.webc.main.TableCell` for the intended design.
      */
-    cells?: ITableCell[] | ITableCell | AggregationBindingInfo;
+    cells?: ITableCell[] | ITableCell | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -30851,6 +35451,8 @@ declare module "sap/ui/webc/main/TabSeparator" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -30869,6 +35471,8 @@ declare module "sap/ui/webc/main/TabSeparator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.TabSeparator.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
   }
@@ -30882,7 +35486,7 @@ declare module "sap/ui/webc/main/TextArea" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { ID, CSSSize, ValueState } from "sap/ui/core/library";
+  import { IFormContent, ID, CSSSize, ValueState } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -30910,7 +35514,8 @@ declare module "sap/ui/webc/main/TextArea" {
    *  The `sap.ui.webc.main.TextArea` exposes the following CSS Shadow Parts:
    * 	 - textarea - Used to style the native textarea
    */
-  export default class TextArea extends WebComponent {
+  export default class TextArea extends WebComponent implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `TextArea`.
      *
@@ -30947,6 +35552,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -30965,10 +35572,14 @@ declare module "sap/ui/webc/main/TextArea" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.TextArea.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -30983,6 +35594,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * otherwise it will be bound to this `sap.ui.webc.main.TextArea` itself.
      *
      * Fired when the text has changed and the focus leaves the component.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -31006,6 +35619,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * otherwise it will be bound to this `sap.ui.webc.main.TextArea` itself.
      *
      * Fired when the text has changed and the focus leaves the component.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -31024,6 +35639,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * otherwise it will be bound to this `sap.ui.webc.main.TextArea` itself.
      *
      * Fired when the value of the component changes at each keystroke or when something is pasted.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -31047,6 +35664,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * otherwise it will be bound to this `sap.ui.webc.main.TextArea` itself.
      *
      * Fired when the value of the component changes at each keystroke or when something is pasted.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -31062,6 +35681,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.TextArea`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -31077,6 +35698,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.TextArea`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -31090,6 +35713,8 @@ declare module "sap/ui/webc/main/TextArea" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -31099,6 +35724,8 @@ declare module "sap/ui/webc/main/TextArea" {
     ): this;
     /**
      * Fires event {@link #event:input input} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireInput(
       /**
@@ -31109,7 +35736,9 @@ declare module "sap/ui/webc/main/TextArea" {
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -31118,15 +35747,16 @@ declare module "sap/ui/webc/main/TextArea" {
      */
     getAriaLabelledBy(): ID[];
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Indicates whether the user can interact with the component or not.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Default value is `true`.
      *
-     * Default value is `false`.
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getGrowing growing}.
      *
@@ -31135,6 +35765,8 @@ declare module "sap/ui/webc/main/TextArea" {
      *  **Note:** If set to `true`, the CSS `height` property is ignored.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `growing`
      */
     getGrowing(): boolean;
     /**
@@ -31143,18 +35775,24 @@ declare module "sap/ui/webc/main/TextArea" {
      * Defines the maximum number of lines that the component can grow.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `growingMaxLines`
      */
     getGrowingMaxLines(): int;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
      * Gets current value of property {@link #getMaxlength maxlength}.
      *
      * Defines the maximum number of characters that the `value` can have.
+     *
+     * @returns Value of property `maxlength`
      */
     getMaxlength(): int;
     /**
@@ -31168,6 +35806,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
@@ -31176,6 +35816,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * Defines a short hint intended to aid the user with data entry when the component has no value.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
@@ -31186,6 +35828,8 @@ declare module "sap/ui/webc/main/TextArea" {
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -31194,6 +35838,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * Defines whether the component is required.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
@@ -31207,6 +35853,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * 	 - The CSS `height` property wins over the `rows` property, if both are set.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `rows`
      */
     getRows(): int;
     /**
@@ -31220,6 +35868,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * counter below the component displays their number.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showExceededText`
      */
     getShowExceededText(): boolean;
     /**
@@ -31228,6 +35878,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * Defines the value of the component.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -31246,6 +35898,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * exceeds the limit. In this case, only the "Error" state is considered and can be applied.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -31258,20 +35912,28 @@ declare module "sap/ui/webc/main/TextArea" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -31282,9 +35944,11 @@ declare module "sap/ui/webc/main/TextArea" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -31293,21 +35957,22 @@ declare module "sap/ui/webc/main/TextArea" {
       sAccessibleName: string
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Indicates whether the user can interact with the component or not.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getGrowing growing}.
@@ -31319,6 +35984,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setGrowing(
       /**
@@ -31334,6 +36001,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setGrowingMaxLines(
       /**
@@ -31347,12 +36016,14 @@ declare module "sap/ui/webc/main/TextArea" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getMaxlength maxlength}.
@@ -31360,6 +36031,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * Defines the maximum number of characters that the `value` can have.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxlength(
       /**
@@ -31380,6 +36053,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -31395,6 +36070,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -31412,6 +36089,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -31427,6 +36106,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -31447,6 +36128,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRows(
       /**
@@ -31467,6 +36150,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowExceededText(
       /**
@@ -31482,6 +36167,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -31507,6 +36194,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -31526,6 +36215,8 @@ declare module "sap/ui/webc/main/TextArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -31539,49 +36230,50 @@ declare module "sap/ui/webc/main/TextArea" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $TextAreaSettings extends $WebComponentSettings {
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
     /**
-     * Indicates whether the user can interact with the component or not.
-     *
-     *  **Note:** A disabled component is completely noninteractive.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Enables the component to automatically grow and shrink dynamically with its content.
      *
      *  **Note:** If set to `true`, the CSS `height` property is ignored.
      */
-    growing?: boolean | PropertyBindingInfo;
+    growing?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the maximum number of lines that the component can grow.
      */
-    growingMaxLines?: int | PropertyBindingInfo;
+    growingMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the maximum number of characters that the `value` can have.
      */
-    maxlength?: int | PropertyBindingInfo;
+    maxlength?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the name with which the component will be submitted in an HTML form.
@@ -31603,12 +36295,12 @@ declare module "sap/ui/webc/main/TextArea" {
      *
      *  **Note:** A read-only component is not editable, but still provides visual feedback upon user interaction.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is required.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the number of visible text lines for the component.
@@ -31618,7 +36310,7 @@ declare module "sap/ui/webc/main/TextArea" {
      * 			textarea.
      * 	 - The CSS `height` property wins over the `rows` property, if both are set.
      */
-    rows?: int | PropertyBindingInfo;
+    rows?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the characters exceeding the maximum allowed character count are visible in the component.
@@ -31628,7 +36320,7 @@ declare module "sap/ui/webc/main/TextArea" {
      * property. If set to `true` the characters exceeding the `maxlength` value are selected on paste and the
      * counter below the component displays their number.
      */
-    showExceededText?: boolean | PropertyBindingInfo;
+    showExceededText?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the value of the component.
@@ -31648,7 +36340,10 @@ declare module "sap/ui/webc/main/TextArea" {
      *  **Note:** If `maxlength` property is set, the component turns into "Warning" state once the characters
      * exceeds the limit. In this case, only the "Error" state is considered and can be applied.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -31662,7 +36357,7 @@ declare module "sap/ui/webc/main/TextArea" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -31687,11 +36382,11 @@ declare module "sap/ui/webc/main/TimePicker" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
+  import { IFormContent, ValueState, CSSSize } from "sap/ui/core/library";
+
   import Event from "sap/ui/base/Event";
 
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
-
-  import { ValueState, CSSSize } from "sap/ui/core/library";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -31745,7 +36440,8 @@ declare module "sap/ui/webc/main/TimePicker" {
    * 	 - [PAGEUP] If focus is on one of the selection lists: Move focus to the first entry of this list.
    * 	 - [PAGEDOWN] If focus is on one of the selection lists: Move focus to the last entry of this list.
    */
-  export default class TimePicker extends WebComponent {
+  export default class TimePicker extends WebComponent implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `TimePicker`.
      *
@@ -31782,6 +36478,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -31800,6 +36498,8 @@ declare module "sap/ui/webc/main/TimePicker" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.TimePicker.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -31810,6 +36510,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      *
      * Fired when the input operation has finished by clicking the "OK" button or when the text in the input
      * field has changed and the focus leaves the input field.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -31834,6 +36536,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      *
      * Fired when the input operation has finished by clicking the "OK" button or when the text in the input
      * field has changed and the focus leaves the input field.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -31852,6 +36556,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.TimePicker` itself.
      *
      * Fired when the value of the `sap.ui.webc.main.TimePicker` is changed at each key stroke.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -31875,6 +36581,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * otherwise it will be bound to this `sap.ui.webc.main.TimePicker` itself.
      *
      * Fired when the value of the `sap.ui.webc.main.TimePicker` is changed at each key stroke.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInput(
       /**
@@ -31894,6 +36602,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.webc.main.TimePicker`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -31909,6 +36619,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * Detaches event handler `fnFunction` from the {@link #event:input input} event of this `sap.ui.webc.main.TimePicker`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInput(
       /**
@@ -31922,6 +36634,8 @@ declare module "sap/ui/webc/main/TimePicker" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -31931,6 +36645,8 @@ declare module "sap/ui/webc/main/TimePicker" {
     ): this;
     /**
      * Fires event {@link #event:input input} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireInput(
       /**
@@ -31953,13 +36669,16 @@ declare module "sap/ui/webc/main/TimePicker" {
      */
     getDateValue(): void;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Determines whether the `sap.ui.webc.main.TimePicker` is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getFormatPattern formatPattern}.
      *
@@ -31968,6 +36687,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * Example: HH:mm:ss -> 11:42:35 hh:mm:ss a -> 2:23:15 PM mm:ss -> 12:04 (only minutes and seconds)
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `formatPattern`
      */
     getFormatPattern(): string;
     /**
@@ -31982,6 +36703,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * pattern.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
@@ -31990,6 +36713,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * Determines whether the `sap.ui.webc.main.TimePicker` is displayed as readonly.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
@@ -31998,6 +36723,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * Defines a formatted time value.
      *
      * Default value is `undefined`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -32013,6 +36740,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * 	 - `Information`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -32025,12 +36754,16 @@ declare module "sap/ui/webc/main/TimePicker" {
      * **Note:** If not specified, a default text (in the respective language) will be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `valueStateMessage`
      */
     getValueStateMessage(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -32055,19 +36788,22 @@ declare module "sap/ui/webc/main/TimePicker" {
      */
     openPicker(): void;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Determines whether the `sap.ui.webc.main.TimePicker` is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getFormatPattern formatPattern}.
@@ -32079,6 +36815,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFormatPattern(
       /**
@@ -32100,6 +36838,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -32115,6 +36855,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -32130,6 +36872,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `undefined`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -32152,6 +36896,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -32171,6 +36917,8 @@ declare module "sap/ui/webc/main/TimePicker" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueStateMessage(
       /**
@@ -32184,20 +36932,23 @@ declare module "sap/ui/webc/main/TimePicker" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
   export interface $TimePickerSettings extends $WebComponentSettings {
     /**
-     * Determines whether the `sap.ui.webc.main.TimePicker` is displayed as disabled.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the format, displayed in the input field.
@@ -32220,7 +36971,7 @@ declare module "sap/ui/webc/main/TimePicker" {
     /**
      * Determines whether the `sap.ui.webc.main.TimePicker` is displayed as readonly.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines a formatted time value.
@@ -32237,7 +36988,10 @@ declare module "sap/ui/webc/main/TimePicker" {
      * 	 - `Success`
      * 	 - `Information`
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the value state message that will be displayed as pop up under the contorl.
@@ -32251,7 +37005,7 @@ declare module "sap/ui/webc/main/TimePicker" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Fired when the input operation has finished by clicking the "OK" button or when the text in the input
@@ -32326,6 +37080,8 @@ declare module "sap/ui/webc/main/Title" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -32344,6 +37100,8 @@ declare module "sap/ui/webc/main/Title" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Title.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -32352,6 +37110,8 @@ declare module "sap/ui/webc/main/Title" {
      * Defines the component level. Available options are: `"H6"` to `"H1"`.
      *
      * Default value is `H2`.
+     *
+     * @returns Value of property `level`
      */
     getLevel(): TitleLevel | keyof typeof TitleLevel;
     /**
@@ -32360,12 +37120,16 @@ declare module "sap/ui/webc/main/Title" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -32377,6 +37141,8 @@ declare module "sap/ui/webc/main/Title" {
      * 	 - `Normal` - The text will wrap. The words will not be broken based on hyphenation.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `wrappingType`
      */
     getWrappingType(): WrappingType | keyof typeof WrappingType;
     /**
@@ -32387,6 +37153,8 @@ declare module "sap/ui/webc/main/Title" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `H2`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLevel(
       /**
@@ -32402,6 +37170,8 @@ declare module "sap/ui/webc/main/Title" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -32415,12 +37185,14 @@ declare module "sap/ui/webc/main/Title" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getWrappingType wrappingType}.
@@ -32433,6 +37205,8 @@ declare module "sap/ui/webc/main/Title" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWrappingType(
       /**
@@ -32446,7 +37220,10 @@ declare module "sap/ui/webc/main/Title" {
     /**
      * Defines the component level. Available options are: `"H6"` to `"H1"`.
      */
-    level?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
+    level?:
+      | (TitleLevel | keyof typeof TitleLevel)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the content of the control
@@ -32456,7 +37233,7 @@ declare module "sap/ui/webc/main/Title" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines how the text of a component will be displayed when there is not enough space. Available options
@@ -32466,7 +37243,8 @@ declare module "sap/ui/webc/main/Title" {
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -32541,6 +37319,8 @@ declare module "sap/ui/webc/main/Toast" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -32559,6 +37339,8 @@ declare module "sap/ui/webc/main/Toast" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Toast.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -32571,12 +37353,16 @@ declare module "sap/ui/webc/main/Toast" {
      * remain `500` ms.
      *
      * Default value is `3000`.
+     *
+     * @returns Value of property `duration`
      */
     getDuration(): int;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -32596,6 +37382,8 @@ declare module "sap/ui/webc/main/Toast" {
      * 	 - `BottomEnd`
      *
      * Default value is `BottomCenter`.
+     *
+     * @returns Value of property `placement`
      */
     getPlacement(): ToastPlacement | keyof typeof ToastPlacement;
     /**
@@ -32604,12 +37392,16 @@ declare module "sap/ui/webc/main/Toast" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -32624,6 +37416,8 @@ declare module "sap/ui/webc/main/Toast" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `3000`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDuration(
       /**
@@ -32637,12 +37431,14 @@ declare module "sap/ui/webc/main/Toast" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getPlacement placement}.
@@ -32663,6 +37459,8 @@ declare module "sap/ui/webc/main/Toast" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `BottomCenter`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlacement(
       /**
@@ -32678,6 +37476,8 @@ declare module "sap/ui/webc/main/Toast" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -32691,12 +37491,14 @@ declare module "sap/ui/webc/main/Toast" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Shows the component.
@@ -32712,12 +37514,12 @@ declare module "sap/ui/webc/main/Toast" {
      *  **Note:** The minimum supported value is `500` ms and even if a lower value is set, the duration would
      * remain `500` ms.
      */
-    duration?: int | PropertyBindingInfo;
+    duration?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the placement of the component.
@@ -32735,7 +37537,8 @@ declare module "sap/ui/webc/main/Toast" {
      */
     placement?:
       | (ToastPlacement | keyof typeof ToastPlacement)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the content of the control
@@ -32745,7 +37548,7 @@ declare module "sap/ui/webc/main/Toast" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -32818,6 +37621,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -32836,10 +37641,14 @@ declare module "sap/ui/webc/main/ToggleButton" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.ToggleButton.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -32856,6 +37665,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
      *
      *  **Note:** The event will not be fired if the `disabled` property is set to `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -32881,6 +37692,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * Fired when the component is activated either with a mouse/tap or by using the Enter or Space key.
      *
      *  **Note:** The event will not be fired if the `disabled` property is set to `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClick(
       /**
@@ -32896,6 +37709,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * Detaches event handler `fnFunction` from the {@link #event:click click} event of this `sap.ui.webc.main.ToggleButton`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClick(
       /**
@@ -32909,6 +37724,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
     ): this;
     /**
      * Fires event {@link #event:click click} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClick(
       /**
@@ -32940,12 +37757,16 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * 			button element. Accepts a string value.
      *
      * Default value is `{}`.
+     *
+     * @returns Value of property `accessibilityAttributes`
      */
     getAccessibilityAttributes(): object;
     /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
      */
     getAccessibleName(): string;
     /**
@@ -32971,17 +37792,21 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * 	 - `Attention`
      *
      * Default value is `Default`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): ButtonDesign | keyof typeof ButtonDesign;
     /**
-     * Gets current value of property {@link #getDisabled disabled}.
+     * Gets current value of property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
-    getDisabled(): boolean;
+    getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -32993,6 +37818,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * See all the available icons in the Icon Explorer.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
@@ -33001,6 +37828,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * Defines whether the icon should be displayed after the component text.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `iconEnd`
      */
     getIconEnd(): boolean;
     /**
@@ -33009,12 +37838,16 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * Determines whether the component is displayed as pressed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `pressed`
      */
     getPressed(): boolean;
     /**
      * Gets current value of property {@link #getSubmits submits}.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `submits`
      */
     getSubmits(): boolean;
     /**
@@ -33023,20 +37856,28 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * Defines the content of the control
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
@@ -33070,6 +37911,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `{}`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibilityAttributes(
       /**
@@ -33080,9 +37923,11 @@ declare module "sap/ui/webc/main/ToggleButton" {
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleName(
       /**
@@ -33110,6 +37955,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Default`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -33118,20 +37965,22 @@ declare module "sap/ui/webc/main/ToggleButton" {
       sDesign?: ButtonDesign | keyof typeof ButtonDesign
     ): this;
     /**
-     * Sets a new value for property {@link #getDisabled disabled}.
+     * Sets a new value for property {@link #getEnabled enabled}.
      *
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `false`.
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
-    setDisabled(
+    setEnabled(
       /**
-       * New value for property `disabled`
+       * New value for property `enabled`
        */
-      bDisabled?: boolean
+      bEnabled?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getIcon icon}.
@@ -33146,6 +37995,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -33161,6 +38012,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconEnd(
       /**
@@ -33176,6 +38029,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPressed(
       /**
@@ -33189,6 +38044,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSubmits(
       /**
@@ -33204,6 +38061,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -33217,12 +38076,14 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
   }
 
@@ -33248,10 +38109,10 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * 	 - `controls`: Identifies the element (or elements) whose contents or presence are controlled by the
      * 			button element. Accepts a string value.
      */
-    accessibilityAttributes?: object | PropertyBindingInfo;
+    accessibilityAttributes?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Sets the accessible aria name of the component.
+     * Defines the accessible aria name of the component.
      */
     accessibleName?: string | PropertyBindingInfo;
 
@@ -33270,13 +38131,16 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * 	 - `Transparent`
      * 	 - `Attention`
      */
-    design?: (ButtonDesign | keyof typeof ButtonDesign) | PropertyBindingInfo;
+    design?:
+      | (ButtonDesign | keyof typeof ButtonDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
-     * Defines whether the component is disabled. A disabled component can't be pressed or focused, and it is
-     * not in the tab chain.
+     * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
+     * the tab chain.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
@@ -33291,14 +38155,14 @@ declare module "sap/ui/webc/main/ToggleButton" {
     /**
      * Defines whether the icon should be displayed after the component text.
      */
-    iconEnd?: boolean | PropertyBindingInfo;
+    iconEnd?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the component is displayed as pressed.
      */
-    pressed?: boolean | PropertyBindingInfo;
+    pressed?: boolean | PropertyBindingInfo | `{${string}}`;
 
-    submits?: boolean | PropertyBindingInfo;
+    submits?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the content of the control
@@ -33308,7 +38172,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Receives id(or many ids) of the controls that label this control.
@@ -33385,6 +38249,8 @@ declare module "sap/ui/webc/main/Token" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -33403,6 +38269,8 @@ declare module "sap/ui/webc/main/Token" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Token.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
@@ -33412,6 +38280,8 @@ declare module "sap/ui/webc/main/Token" {
      * otherwise it will be bound to this `sap.ui.webc.main.Token` itself.
      *
      * Fired when the the component is selected by user interaction with mouse or by clicking space.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -33435,6 +38305,8 @@ declare module "sap/ui/webc/main/Token" {
      * otherwise it will be bound to this `sap.ui.webc.main.Token` itself.
      *
      * Fired when the the component is selected by user interaction with mouse or by clicking space.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -33448,12 +38320,16 @@ declare module "sap/ui/webc/main/Token" {
     ): this;
     /**
      * Destroys the closeIcon in the aggregation {@link #getCloseIcon closeIcon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyCloseIcon(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.ui.webc.main.Token`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
@@ -33467,6 +38343,8 @@ declare module "sap/ui/webc/main/Token" {
     ): this;
     /**
      * Fires event {@link #event:select select} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelect(
       /**
@@ -33488,12 +38366,16 @@ declare module "sap/ui/webc/main/Token" {
      *
      *  **Note:** A read-only component can not be deleted or selected, but still provides visual feedback upon
      * user interaction.
+     *
+     * @returns Value of property `readonly`
      */
     getReadonly(): boolean;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
      * Defines whether the component is selected or not.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
     /**
@@ -33502,10 +38384,14 @@ declare module "sap/ui/webc/main/Token" {
      * Defines the text of the token.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Sets the aggregated {@link #getCloseIcon closeIcon}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCloseIcon(
       /**
@@ -33522,6 +38408,8 @@ declare module "sap/ui/webc/main/Token" {
      * user interaction.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setReadonly(
       /**
@@ -33535,6 +38423,8 @@ declare module "sap/ui/webc/main/Token" {
      * Defines whether the component is selected or not.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -33550,6 +38440,8 @@ declare module "sap/ui/webc/main/Token" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -33566,12 +38458,12 @@ declare module "sap/ui/webc/main/Token" {
      *  **Note:** A read-only component can not be deleted or selected, but still provides visual feedback upon
      * user interaction.
      */
-    readonly?: boolean | PropertyBindingInfo;
+    readonly?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the component is selected or not.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the text of the token.
@@ -33681,6 +38573,8 @@ declare module "sap/ui/webc/main/Tree" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -33699,10 +38593,14 @@ declare module "sap/ui/webc/main/Tree" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.Tree.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some header to the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addHeader(
       /**
@@ -33712,6 +38610,8 @@ declare module "sap/ui/webc/main/Tree" {
     ): this;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -33726,6 +38626,8 @@ declare module "sap/ui/webc/main/Tree" {
      * otherwise it will be bound to this `sap.ui.webc.main.Tree` itself.
      *
      * Fired when a tree item is activated.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClick(
       /**
@@ -33749,6 +38651,8 @@ declare module "sap/ui/webc/main/Tree" {
      * otherwise it will be bound to this `sap.ui.webc.main.Tree` itself.
      *
      * Fired when a tree item is activated.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemClick(
       /**
@@ -33769,6 +38673,8 @@ declare module "sap/ui/webc/main/Tree" {
      * Fired when the Delete button of any tree item is pressed.
      *
      *  **Note:** A Delete button is displayed on each item, when the component `mode` property is set to `Delete`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemDelete(
       /**
@@ -33794,6 +38700,8 @@ declare module "sap/ui/webc/main/Tree" {
      * Fired when the Delete button of any tree item is pressed.
      *
      *  **Note:** A Delete button is displayed on each item, when the component `mode` property is set to `Delete`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemDelete(
       /**
@@ -33812,6 +38720,8 @@ declare module "sap/ui/webc/main/Tree" {
      * otherwise it will be bound to this `sap.ui.webc.main.Tree` itself.
      *
      * Fired when the mouse cursor leaves the tree item borders.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemMouseout(
       /**
@@ -33835,6 +38745,8 @@ declare module "sap/ui/webc/main/Tree" {
      * otherwise it will be bound to this `sap.ui.webc.main.Tree` itself.
      *
      * Fired when the mouse cursor leaves the tree item borders.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemMouseout(
       /**
@@ -33853,6 +38765,8 @@ declare module "sap/ui/webc/main/Tree" {
      * otherwise it will be bound to this `sap.ui.webc.main.Tree` itself.
      *
      * Fired when the mouse cursor enters the tree item borders.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemMouseover(
       /**
@@ -33876,6 +38790,8 @@ declare module "sap/ui/webc/main/Tree" {
      * otherwise it will be bound to this `sap.ui.webc.main.Tree` itself.
      *
      * Fired when the mouse cursor enters the tree item borders.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemMouseover(
       /**
@@ -33897,6 +38813,8 @@ declare module "sap/ui/webc/main/Tree" {
      * event object to suppress the event, if needed. This may be handy for example if you want to dynamically
      * load tree items upon the user expanding a node. Even if you prevented the event's default behavior, you
      * can always manually call `toggle()` on a tree item.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemToggle(
       /**
@@ -33923,6 +38841,8 @@ declare module "sap/ui/webc/main/Tree" {
      * event object to suppress the event, if needed. This may be handy for example if you want to dynamically
      * load tree items upon the user expanding a node. Even if you prevented the event's default behavior, you
      * can always manually call `toggle()` on a tree item.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemToggle(
       /**
@@ -33943,6 +38863,8 @@ declare module "sap/ui/webc/main/Tree" {
      *
      * Fired when selection is changed by user interaction in `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd`
      * and `MultiSelect` modes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -33968,6 +38890,8 @@ declare module "sap/ui/webc/main/Tree" {
      *
      * Fired when selection is changed by user interaction in `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd`
      * and `MultiSelect` modes.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -33981,16 +38905,22 @@ declare module "sap/ui/webc/main/Tree" {
     ): this;
     /**
      * Destroys all the header in the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeader(): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:itemClick itemClick} event of this `sap.ui.webc.main.Tree`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemClick(
       /**
@@ -34006,6 +38936,8 @@ declare module "sap/ui/webc/main/Tree" {
      * Detaches event handler `fnFunction` from the {@link #event:itemDelete itemDelete} event of this `sap.ui.webc.main.Tree`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemDelete(
       /**
@@ -34021,6 +38953,8 @@ declare module "sap/ui/webc/main/Tree" {
      * Detaches event handler `fnFunction` from the {@link #event:itemMouseout itemMouseout} event of this `sap.ui.webc.main.Tree`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemMouseout(
       /**
@@ -34037,6 +38971,8 @@ declare module "sap/ui/webc/main/Tree" {
      * `sap.ui.webc.main.Tree`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemMouseover(
       /**
@@ -34052,6 +38988,8 @@ declare module "sap/ui/webc/main/Tree" {
      * Detaches event handler `fnFunction` from the {@link #event:itemToggle itemToggle} event of this `sap.ui.webc.main.Tree`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemToggle(
       /**
@@ -34068,6 +39006,8 @@ declare module "sap/ui/webc/main/Tree" {
      * this `sap.ui.webc.main.Tree`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChange(
       /**
@@ -34081,6 +39021,11 @@ declare module "sap/ui/webc/main/Tree" {
     ): this;
     /**
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireItemClick(
       /**
@@ -34092,9 +39037,11 @@ declare module "sap/ui/webc/main/Tree" {
          */
         item?: HTMLElement;
       }
-    ): this;
+    ): boolean;
     /**
      * Fires event {@link #event:itemDelete itemDelete} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireItemDelete(
       /**
@@ -34109,6 +39056,8 @@ declare module "sap/ui/webc/main/Tree" {
     ): this;
     /**
      * Fires event {@link #event:itemMouseout itemMouseout} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireItemMouseout(
       /**
@@ -34123,6 +39072,8 @@ declare module "sap/ui/webc/main/Tree" {
     ): this;
     /**
      * Fires event {@link #event:itemMouseover itemMouseover} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireItemMouseover(
       /**
@@ -34140,6 +39091,8 @@ declare module "sap/ui/webc/main/Tree" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireItemToggle(
       /**
@@ -34154,6 +39107,8 @@ declare module "sap/ui/webc/main/Tree" {
     ): boolean;
     /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelectionChange(
       /**
@@ -34176,6 +39131,8 @@ declare module "sap/ui/webc/main/Tree" {
      * Defines the component footer text.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `footerText`
      */
     getFooterText(): string;
     /**
@@ -34194,12 +39151,16 @@ declare module "sap/ui/webc/main/Tree" {
      *  **Note:** If the `header` slot is set, this property is ignored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `headerText`
      */
     getHeaderText(): string;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -34229,6 +39190,8 @@ declare module "sap/ui/webc/main/Tree" {
      * 	 - `Delete`
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `mode`
      */
     getMode(): ListMode | keyof typeof ListMode;
     /**
@@ -34237,17 +39200,23 @@ declare module "sap/ui/webc/main/Tree" {
      * Defines the text that is displayed when the component contains no items.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `noDataText`
      */
     getNoDataText(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the control
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getHeader header}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfHeader(
       /**
@@ -34258,6 +39227,8 @@ declare module "sap/ui/webc/main/Tree" {
     /**
      * Checks for the provided `sap.ui.webc.main.ITreeItem` in the aggregation {@link #getItems items}. and
      * returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -34267,6 +39238,8 @@ declare module "sap/ui/webc/main/Tree" {
     ): int;
     /**
      * Inserts a header into the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertHeader(
       /**
@@ -34282,6 +39255,8 @@ declare module "sap/ui/webc/main/Tree" {
     ): this;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -34299,16 +39274,22 @@ declare module "sap/ui/webc/main/Tree" {
      * Removes all the controls from the aggregation {@link #getHeader header}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllHeader(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): ITreeItem[];
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
+     *
+     * @returns The removed header or `null`
      */
     removeHeader(
       /**
@@ -34318,6 +39299,8 @@ declare module "sap/ui/webc/main/Tree" {
     ): Control;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
@@ -34333,6 +39316,8 @@ declare module "sap/ui/webc/main/Tree" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFooterText(
       /**
@@ -34350,6 +39335,8 @@ declare module "sap/ui/webc/main/Tree" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderText(
       /**
@@ -34363,12 +39350,14 @@ declare module "sap/ui/webc/main/Tree" {
      * Defines the height of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
        * New value for property `height`
        */
-      sHeight?: CSSSize
+      sHeight: CSSSize
     ): this;
     /**
      * Sets a new value for property {@link #getMode mode}.
@@ -34391,6 +39380,8 @@ declare module "sap/ui/webc/main/Tree" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMode(
       /**
@@ -34406,6 +39397,8 @@ declare module "sap/ui/webc/main/Tree" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setNoDataText(
       /**
@@ -34419,12 +39412,14 @@ declare module "sap/ui/webc/main/Tree" {
      * Defines the width of the control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
        * New value for property `width`
        */
-      sWidth?: CSSSize
+      sWidth: CSSSize
     ): this;
     /**
      * Perform Depth-First-Search walk on the tree and run a callback on each node
@@ -34453,7 +39448,7 @@ declare module "sap/ui/webc/main/Tree" {
     /**
      * Defines the height of the control
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the mode of the component. Since the tree uses a `sap.ui.webc.main.List` to display its structure,
@@ -34471,7 +39466,10 @@ declare module "sap/ui/webc/main/Tree" {
      * 	 - `MultiSelect`
      * 	 - `Delete`
      */
-    mode?: (ListMode | keyof typeof ListMode) | PropertyBindingInfo;
+    mode?:
+      | (ListMode | keyof typeof ListMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the text that is displayed when the component contains no items.
@@ -34481,21 +39479,21 @@ declare module "sap/ui/webc/main/Tree" {
     /**
      * Defines the width of the control
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the component header.
      *
      *  **Note:** When the `header` slot is set, the `headerText` property is ignored.
      */
-    header?: Control[] | Control | AggregationBindingInfo;
+    header?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the items of the component. Tree items may have other tree items as children.
      *
      *  **Note:** Use `sap.ui.webc.main.TreeItem` for the intended design.
      */
-    items?: ITreeItem[] | ITreeItem | AggregationBindingInfo;
+    items?: ITreeItem[] | ITreeItem | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Fired when a tree item is activated.
@@ -34603,6 +39601,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -34621,10 +39621,14 @@ declare module "sap/ui/webc/main/TreeItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.main.TreeItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -34634,12 +39638,16 @@ declare module "sap/ui/webc/main/TreeItem" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Gets current value of property {@link #getAdditionalText additionalText}.
      *
      * Defines the `additionalText`, displayed in the end of the tree item.
+     *
+     * @returns Value of property `additionalText`
      */
     getAdditionalText(): string;
     /**
@@ -34649,6 +39657,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      *  Available options are: `"None"` (by default), `"Success"`, `"Warning"`, `"Information"` and `"Erorr"`.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `additionalTextState`
      */
     getAdditionalTextState(): ValueState | keyof typeof ValueState;
     /**
@@ -34657,6 +39667,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * Defines whether the tree node is expanded or collapsed. Only has visual effect for tree nodes with children.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `expanded`
      */
     getExpanded(): boolean;
     /**
@@ -34670,6 +39682,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * the expand button will be displayed anyway.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hasChildren`
      */
     getHasChildren(): boolean;
     /**
@@ -34678,6 +39692,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * If set, an icon will be displayed before the text, representing the tree item.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
@@ -34695,6 +39711,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      *  **Note:** This property takes effect only when the `sap.ui.webc.main.Tree` is in `MultiSelect` mode.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `indeterminate`
      */
     getIndeterminate(): boolean;
     /**
@@ -34710,6 +39728,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * is in one of the following modes: in `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd` and `MultiSelect`.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
     /**
@@ -34718,11 +39738,15 @@ declare module "sap/ui/webc/main/TreeItem" {
      * Defines the text of the tree item.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Checks for the provided `sap.ui.webc.main.ITreeItem` in the aggregation {@link #getItems items}. and
      * returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -34732,6 +39756,8 @@ declare module "sap/ui/webc/main/TreeItem" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -34749,10 +39775,14 @@ declare module "sap/ui/webc/main/TreeItem" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): ITreeItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
@@ -34766,6 +39796,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * Defines the `additionalText`, displayed in the end of the tree item.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAdditionalText(
       /**
@@ -34782,6 +39814,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAdditionalTextState(
       /**
@@ -34797,6 +39831,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setExpanded(
       /**
@@ -34817,6 +39853,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHasChildren(
       /**
@@ -34832,6 +39870,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -34856,6 +39896,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIndeterminate(
       /**
@@ -34872,6 +39914,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -34887,6 +39931,8 @@ declare module "sap/ui/webc/main/TreeItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -34912,12 +39958,13 @@ declare module "sap/ui/webc/main/TreeItem" {
      */
     additionalTextState?:
       | (ValueState | keyof typeof ValueState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines whether the tree node is expanded or collapsed. Only has visual effect for tree nodes with children.
      */
-    expanded?: boolean | PropertyBindingInfo;
+    expanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the tree node has children, even if currently no other tree nodes are slotted inside.
@@ -34927,7 +39974,7 @@ declare module "sap/ui/webc/main/TreeItem" {
      * clicks the expand button. It is not necessary to set this property otherwise. If a tree item has children,
      * the expand button will be displayed anyway.
      */
-    hasChildren?: boolean | PropertyBindingInfo;
+    hasChildren?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * If set, an icon will be displayed before the text, representing the tree item.
@@ -34946,13 +39993,13 @@ declare module "sap/ui/webc/main/TreeItem" {
      * regardless of the value of the `indeterminate` property.
      *  **Note:** This property takes effect only when the `sap.ui.webc.main.Tree` is in `MultiSelect` mode.
      */
-    indeterminate?: boolean | PropertyBindingInfo;
+    indeterminate?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the tree node is selected by the user. Only has effect if the `sap.ui.webc.main.Tree`
      * is in one of the following modes: in `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd` and `MultiSelect`.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the text of the tree item.
@@ -34962,7 +40009,7 @@ declare module "sap/ui/webc/main/TreeItem" {
     /**
      * Defines the items of this component.
      */
-    items?: ITreeItem[] | ITreeItem | AggregationBindingInfo;
+    items?: ITreeItem[] | ITreeItem | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -35033,6 +40080,10 @@ declare namespace sap {
     "sap/ui/webc/main/Link": undefined;
 
     "sap/ui/webc/main/List": undefined;
+
+    "sap/ui/webc/main/Menu": undefined;
+
+    "sap/ui/webc/main/MenuItem": undefined;
 
     "sap/ui/webc/main/MessageStrip": undefined;
 

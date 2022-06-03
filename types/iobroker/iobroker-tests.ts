@@ -17,6 +17,8 @@ adapter
     .removeListener('message', messageHandler)
     .removeListener('unload', unloadHandler);
 adapter.removeAllListeners();
+// $ExpectError
+adapter.removeListener('unload', messageHandler);
 
 // Test adapter constructor options
 let adapterOptions: ioBroker.AdapterOptions = {
@@ -649,7 +651,12 @@ adapter.setForeignStateChangedAsync('id', { val: ['an', 'array'] });
 // Allow alias states
 adapter
     .getForeignObjectAsync('adapter.0.stateId')
-    .then(obj => obj && obj.type === 'state' && (typeof obj.common.alias?.id === "string" || typeof obj.common.alias?.id.read === "string"));
+    .then(
+        obj =>
+            obj &&
+            obj.type === 'state' &&
+            (typeof obj.common.alias?.id === 'string' || typeof obj.common.alias?.id.read === 'string'),
+    );
 
 adapter.getObjectAsync('id').then(obj => {
     // Allow accessing unknown properties - the user is on its own here
@@ -909,9 +916,9 @@ async () => {
 
 // Test registerNotification
 // $ExpectError
-adapter.registerNotification("foobar", "accessErrors", "This is a problem!");
-adapter.registerNotification("system", "accessErrors", "This is a problem!");
-adapter.registerNotification("system", null, "This is a problem!");
+adapter.registerNotification('foobar', 'accessErrors', 'This is a problem!');
+adapter.registerNotification('system', 'accessErrors', 'This is a problem!');
+adapter.registerNotification('system', null, 'This is a problem!');
 
 // https://github.com/ioBroker/adapter-core/issues/429
 adapter.namespace === 'foo-bar.0';
@@ -927,3 +934,29 @@ adapter.getForeignObjectAsync(`system.adapter.${adapter.namespace}`).then(o => {
 
 // https://github.com/ioBroker/adapter-core/issues/378
 adapter.performStrictObjectChecks = true;
+
+// Ensure narrowing of SettableState works correctly
+function testSettableState(arg: ioBroker.SettableState): void {
+    if (arg.val !== undefined && arg.val !== null) {
+        arg.val.toString(); // OK
+        // $ExpectError
+        arg.ts.toString();
+        if (arg.ts !== undefined && arg.ts !== null) {
+            arg.ts.toString(); // OK
+        }
+    }
+    // $ExpectType number | undefined
+    arg.ts;
+}
+
+// https://github.com/ioBroker/adapter-core/issues/455
+adapter.findForeignObjectAsync('foo', 'bar').then(ret => {
+    // $ExpectType ioBroker.StringOrTranslated | undefined || StringOrTranslated | undefined
+    ret.name;
+    if (typeof ret.name === 'object') {
+        // $ExpectType string
+        ret.name.en;
+        // $ExpectType string | undefined
+        ret.name.de;
+    }
+});

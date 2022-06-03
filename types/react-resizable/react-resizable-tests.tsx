@@ -40,6 +40,7 @@ class TestResizableBoxComponent extends React.Component<{ children?: React.React
                 onResizeStop={resizeCallback}
                 onResize={resizeCallback}
                 transformScale={1}
+                handle={(resizeHandle, ref) => <div ref={ref}>{resizeHandle}</div>}
             >
                 <div>{this.props.children}</div>
             </ResizableBox>

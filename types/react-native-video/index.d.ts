@@ -237,7 +237,9 @@ export interface VideoProperties extends ViewProps {
 }
 
 export default class Video extends React.Component<VideoProperties> {
-    seek(time: number, tolerance?: number): void;
     presentFullscreenPlayer(): void;
     dismissFullscreenPlayer(): void;
+    restoreUserInterfaceForPictureInPictureStopCompleted(restored: boolean): void;
+    save(): Promise<void>;
+    seek(time: number, tolerance?: number): void;
 }

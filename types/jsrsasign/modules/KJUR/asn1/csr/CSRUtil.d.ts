@@ -11,7 +11,7 @@ declare namespace jsrsasign.KJUR.asn1.csr {
     }
 
     interface ParamResponse {
-        subject: { array?: Array<[{ type: string; value: string; ds: string }]>, str: string };
+        subject: { array?: Array<[{ type: string; value: string; ds: string }]>; str: string };
         sbjpubkey: string;
         extreq?: Array<{ extname: string; array?: any[] }>;
         sigalg: string;
@@ -80,12 +80,14 @@ declare namespace jsrsasign.KJUR.asn1.csr {
          */
         function newCSRPEM(param?: {
             subject:
-                | StringParam & { certissuer?: string | undefined; certsubject?: string | undefined }
-                | x509.X500NameParam & { certissuer?: string | undefined; certsubject?: string | undefined }
-                | { ldapstr: string } & { certissuer?: string | undefined; certsubject?: string | undefined };
-            ext?: Array<{
-                subjectAltName: ArrayParam<{ dns: string }>;
-            }> | undefined;
+                | (StringParam & { certissuer?: string | undefined; certsubject?: string | undefined })
+                | (x509.X500NameParam & { certissuer?: string | undefined; certsubject?: string | undefined })
+                | ({ ldapstr: string } & { certissuer?: string | undefined; certsubject?: string | undefined });
+            ext?:
+                | Array<{
+                      subjectAltName: ArrayParam<{ dns: string }>;
+                  }>
+                | undefined;
             sbjpubkey: RSAKey | crypto.ECDSA | crypto.DSA | jws.JWS.JsonWebKey | { n: string; e: string } | string;
             sigalg: string;
             sbjprvkey: RSAKey | crypto.ECDSA | crypto.DSA | jws.JWS.JsonWebKey | { n: string; e: string } | string;

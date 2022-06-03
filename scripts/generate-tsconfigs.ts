@@ -3,30 +3,29 @@
 /// <reference types="node" />
 
 import * as fs from 'node:fs';
-import * as path from 'node:path';
 
-const home = path.join('.', 'types');
+const home = new URL('../types/', import.meta.url);
 
 for (const dirName of fs.readdirSync(home)) {
     if (dirName.startsWith('.') || dirName === 'node_modules' || dirName === 'scripts') {
         continue;
     }
 
-    const dir = path.join(home, dirName);
+    const dir = new URL(`${dirName}/`, home);
     const stats = fs.lstatSync(dir);
     if (stats.isDirectory()) {
         fixTsconfig(dir);
         // Also do it for old versions
         for (const subdir of fs.readdirSync(dir)) {
             if (/^v\d+$/.test(subdir)) {
-                fixTsconfig(path.join(dir, subdir));
+                fixTsconfig(new URL(`${subdir}/`, dir));
             }
         }
     }
 }
 
-function fixTsconfig(dir: string): void {
-    const target = path.join(dir, 'tsconfig.json');
+function fixTsconfig(dir: URL): void {
+    const target = new URL('tsconfig.json', dir);
     let json = JSON.parse(fs.readFileSync(target, 'utf-8'));
     json = fix(json);
     fs.writeFileSync(target, JSON.stringify(json, undefined, 4), 'utf-8');

@@ -16,6 +16,14 @@ import { Locale } from '@ckeditor/ckeditor5-utils';
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
+// $ExpectType LinkConfig | undefined
+new MyEditor().config.get('link');
+// $ExpectType boolean | undefined
+new MyEditor().config.get('link.addTargetToExternalLinks');
+// $ExpectType string | undefined
+new MyEditor().config.get('link.defaultProtocol');
+new MyEditor().config.get('link.decorators');
+
 new Link(editor);
 Link.requires.map(Plugin => new Plugin(editor).init());
 
@@ -92,6 +100,29 @@ new ManualDecorator({
     classes: 'foo',
     styles: { bg: 'red' },
 });
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+    defaultValue: true,
+    classes: 'foo',
+    styles: { bg: 'red' },
+}).on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<ManualDecorator, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+    defaultValue: true,
+    classes: 'foo',
+    styles: { bg: 'red' },
+}).set('foo');
 
 // $ExpectType AutoLink
 editor.plugins.get('AutoLink');

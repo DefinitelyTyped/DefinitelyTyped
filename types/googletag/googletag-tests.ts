@@ -76,14 +76,6 @@ googletag.companionAds().setRefreshUnfilledSlots(true);
 // DEMO 11
 let slot: googletag.Slot | null | undefined;
 
-slot = googletag.defineSlot('/1234567/sports', [728, 90], 'div-1')?.addService(googletag.content());
-googletag.enableServices();
-
-if (slot) {
-    const content = '<a href="www.mydestinationsite.com"><img src="www.mysite.com/img.png"></img></a>';
-    googletag.content().setContent(slot, content);
-}
-
 // DEMO 12
 
 // This call to clear only slot1.
@@ -190,10 +182,6 @@ googletag.pubads().setCategoryExclusion('AirlineAd');
 // Make ads centered.
 googletag.pubads().setCentering(true);
 
-// DEMO 25
-// Ignores Google Ad Manager cookies.
-googletag.pubads().setCookieOptions(1);
-
 // DEMO 26
 googletag.pubads().setForceSafeFrame(true);
 
@@ -229,6 +217,15 @@ googletag.pubads().setPrivacySettings({
     childDirectedTreatment: null,
 });
 
+// Indicate requests represent organic traffic.
+googletag.pubads().setPrivacySettings({
+    trafficSource: googletag.enums.TrafficSource.ORGANIC,
+});
+// Indicate requests represent purchased traffic.
+googletag.pubads().setPrivacySettings({
+    trafficSource: googletag.enums.TrafficSource.PURCHASED,
+});
+
 // DEMO 29
 googletag.pubads().setPublisherProvidedId('AB123456789');
 
@@ -243,9 +240,7 @@ let pageConfig: googletag.SafeFrameConfig = {
     allowOverlayExpansion: true,
     allowPushExpansion: true,
     sandbox: true,
-    useUniqueDomain: true,
 };
-pageConfig.useUniqueDomain = false;
 
 let slotConfig: googletag.SafeFrameConfig = { allowOverlayExpansion: false };
 
@@ -269,17 +264,6 @@ googletag.pubads().setTargeting('interests', 'sports');
 
 // Example with multiple values for a key inside in an array.
 googletag.pubads().setTargeting('interests', ['sports', 'music', 'movies']);
-
-// DEMO 33
-// Assume that the correlator is currently 12345. All ad requests made by
-// this page will currently use that value.
-
-// Replace the current correlator with a new correlator.
-googletag.pubads().updateCorrelator();
-
-// The correlator will now be a new randomly selected value, different
-// from 12345. All subsequent ad requests made by this page will use
-// the new value.
 
 // DEMO 34
 // 1. Adding an event listener for the PubAdsService.
@@ -616,9 +600,7 @@ googletag.pubads().addEventListener('slotVisibilityChanged', event => {
 // DEMO 61
 // Test for definitions not declared by GPT Reference
 googletag.pubads().clearTagForChildDirectedTreatment().setTagForChildDirectedTreatment(1).setTagForUnderAgeOfConsent(2);
-googletag.pubads().enableAsyncRendering();
 googletag.pubads().isSRA();
-googletag.pubads().enableSyncRendering();
 let imaContent = {
     vid: 'imaContentId?',
     cmsid: 'imaCmsId?',
@@ -631,9 +613,6 @@ googletag.pubads().getCorrelator();
 googletag.pubads().getTagSessionCorrelator();
 googletag.pubads().getName();
 googletag.pubads().getVersion();
-googletag.pubads().markAsAmp();
-googletag.pubads().defineOutOfPagePassback('/1234567/sports');
-googletag.pubads().definePassback('/1234567/sports', [300, 250]);
 
 const slotIdMap = googletag.pubads().getSlotIdMap();
 Object.keys(slotIdMap).forEach(slotId => {
@@ -650,9 +629,7 @@ googletag
             slot.getContentUrl(),
             slot.getDivStartsCollapsed(),
             slot.getEscapedQemQueryId(),
-            slot.getFirstLook(),
             slot.getHtml(),
-            slot.getName(),
             slot.getOutOfPage(),
             slot.getServices(),
             slot.getSizes(),
@@ -671,11 +648,83 @@ googletag.cmd.push(
 
 // DEMO 63
 googletag.pubads().getName() === 'publisher_ads';
-googletag.content().getName() === 'content';
 googletag.companionAds().getName() === 'companion_ads';
 
-let slots: googletag.Slot[] = googletag.content().getSlots();
-let map: Record<string, googletag.Slot> = googletag.content().getSlotIdMap();
+// DEMO 64
+const attributes = new Map<googletag.adsense.AttributeName, string>()
+    .set('adsense_channel_ids', '271828183+314159265')
+    .set('adsense_ad_types', 'text_image')
+    .set('adsense_background_color', '#000000')
+    .set('adsense_border_color', '#000000')
+    .set('adsense_link_color', '#000000')
+    .set('adsense_test_mode', 'on')
+    .set('adsense_text_color', '#000000')
+    .set('adsense_url_color', '#000000')
+    .set('adsense_ui_features', 'rc:10')
+    .set('page_url', 'www.mysite.com');
+attributes.forEach((value, key) => {
+    googletag.pubads().set(key, value);
+});
+googletag.pubads().set('adsense_ad_format', '250x250_as');
 
-slots = googletag.companionAds().getSlots();
-map = googletag.companionAds().getSlotIdMap();
+// Explicitly binds provided functions to globalThis.
+googletag.cmd.push(function test() {
+    console.log(this.googletag.pubadsReady);
+});
+
+// Rewarded ads for web have launched.
+targetSlot = (
+    googletag.defineOutOfPageSlot('/1234567/sports', googletag.enums.OutOfPageFormat.REWARDED) as googletag.Slot
+).addService(googletag.pubads());
+// This listener is called when the user closes a rewarded ad slot.
+function rewardedSlotClosed(event: googletag.events.Event) {
+    const slot = event.slot;
+    console.log('Rewarded ad slot', slot.getSlotElementId(), 'has been closed.');
+    if (slot === targetSlot) {
+        // Slot specific logic.
+        googletag.pubads().removeEventListener('rewardedSlotClosed', rewardedSlotClosed);
+    }
+}
+googletag.pubads().addEventListener('rewardedSlotGranted', rewardedSlotClosed);
+// This listener is called whenever a reward is granted for a rewarded ad.
+function rewardedSlotGranted(event: googletag.events.RewardedSlotGrantedEvent) {
+    const slot = event.slot;
+    console.group('Reward granted for slot', slot.getSlotElementId(), '.');
+    // Log details of the reward.
+    console.log('Reward type:', event.payload?.type);
+    console.log('Reward amount:', event.payload?.amount);
+    console.groupEnd();
+    if (slot === targetSlot) {
+        // Slot specific logic.
+        googletag.pubads().removeEventListener('rewardedSlotGranted', rewardedSlotGranted);
+    }
+}
+googletag.pubads().addEventListener('rewardedSlotGranted', rewardedSlotGranted);
+// This listener is called when a rewarded ad slot becomes ready to be displayed.
+googletag.pubads().addEventListener('rewardedSlotReady', event => {
+    const slot = event.slot;
+    console.log('Rewarded ad slot', slot.getSlotElementId(), 'is ready to be displayed.');
+    // Display the ad.
+    event.makeRewardedVisible();
+    if (slot === targetSlot) {
+        // Slot specific logic.
+    }
+});
+
+// Event Types
+const types: googletag.events.EventType[] = [
+    'impressionViewable',
+    'rewardedSlotClosed',
+    'rewardedSlotGranted',
+    'rewardedSlotReady',
+    'slotRequested',
+    'slotResponseReceived',
+    'slotRenderEnded',
+    'slotOnload',
+    'slotVisibilityChanged',
+];
+types.forEach(type => {
+    googletag.pubads().addEventListener(type, event => {
+        console.log(event);
+    });
+});

@@ -182,13 +182,11 @@ export class Binding {
     constantViolations: NodePath[];
 }
 
-export type Visitor<S = {}> = VisitNodeObject<S, Node> &
-    {
-        [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
-    } &
-    {
-        [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
-    };
+export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
+    [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
+} & {
+    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
+};
 
 export type VisitNode<S, P extends Node> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
 
@@ -241,6 +239,8 @@ export class NodePath<T = Node> {
     setData(key: string, val: any): any;
 
     getData(key: string, def?: any): any;
+
+    hasNode(): this is NodePath<NonNullable<this['node']>>;
 
     buildCodeFrameError<TError extends Error>(msg: string, Error?: new (msg: string) => TError): TError;
 

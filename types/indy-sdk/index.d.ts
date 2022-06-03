@@ -3,6 +3,8 @@
 // Definitions by: Timo Glastra <https://github.com/TimoGlastra>
 //                 Jakub Kočí <https://github.com/jakubkoci>
 //                 Karim Stekelenburg <https://github.com/karimStekelenburg>
+//                 James Ebert <https://github.com/JamesKebert>
+//                 Berend Sliedrecht <https://github.com/blu3beri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Buffer } from 'buffer/';
@@ -200,11 +202,12 @@ export function proverStoreCredential(
     credDef: CredDef,
     revRegDef: RevocRegDef | null,
 ): Promise<CredentialId>;
-// TODO: proverGetCredentials
+export function proverGetCredentials(wh: WalletHandle, filter: GetCredentialsFilter): Promise<IndyCredentialInfo[]>;
 export function proverGetCredential(wh: WalletHandle, credId: string): Promise<IndyCredentialInfo>;
 // TODO: proverSearchCredentials
 // TODO: proverFetchCredentials
 // TODO: proverCloseCredentialsSearch
+export function proverDeleteCredential(wh: WalletHandle, credId: string): Promise<void>;
 export function proverGetCredentialsForProofReq(wh: WalletHandle, proofRequest: IndyProofRequest): Promise<ProofCred>;
 export function proverSearchCredentialsForProofReq(
     wh: WalletHandle,
@@ -313,6 +316,7 @@ export interface WalletCredentials {
 }
 
 export interface OpenWalletCredentials extends WalletCredentials {
+    rekey?: string;
     rekey_derivation_method?: KeyDerivationMethod | undefined;
 }
 
@@ -395,7 +399,11 @@ export interface LedgerWriteReplyResponse extends LedgerReplyResponse {
     };
 }
 
-export type LedgerResponse = LedgerRejectResponse | LedgerReqnackResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
+export type LedgerResponse =
+    | LedgerRejectResponse
+    | LedgerReqnackResponse
+    | LedgerReadReplyResponse
+    | LedgerWriteReplyResponse;
 
 export interface Schema {
     id: SchemaId;
@@ -442,6 +450,15 @@ export interface CredOffer {
     cred_def_id: CredDefId;
     nonce: string;
     key_correctness_proof: Record<string, unknown>;
+}
+
+export interface GetCredentialsFilter {
+    schema_id?: string;
+    schema_issuer_did?: string;
+    schema_name?: string;
+    schema_version?: string;
+    issuer_did?: string;
+    cred_def_id?: string;
 }
 
 export interface IndyCredentialInfo {

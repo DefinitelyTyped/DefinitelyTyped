@@ -19,7 +19,14 @@ interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
 }
 
-export default class Component extends CoreView.extend(ViewMixin, ClassNamesSupport) {
+// The generic here is for a *signature: a way to hang information for tools
+// like Glint which can provide typey checking for component templates using
+// information supplied via this generic. While it may appear useless on this
+// class definition and extension, it is used by external tools and should not
+// be removed.
+// tslint:disable-next-line:no-unnecessary-generics
+export default interface Component<S = unknown> extends ViewMixin, ClassNamesSupport, Opaque<S> {}
+export default class Component<S = unknown> extends CoreView {
     // methods
     readDOMAttr(name: string): string;
     // properties

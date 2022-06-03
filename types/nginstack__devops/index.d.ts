@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/devops 58.0
+// Type definitions for @nginstack/devops 60.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>

@@ -28,4 +28,4 @@ datasource.getResult(filterDefs, columnDefs); // $ExpectType DataSourceResult
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(57, 58); // $ExpectType boolean
+testMajorVersions(59, 60); // $ExpectType boolean
