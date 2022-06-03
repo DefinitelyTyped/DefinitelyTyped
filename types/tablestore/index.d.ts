@@ -8,6 +8,7 @@
 /// <reference path="./protocol.d.ts" />
 /// <reference path="./filter.d.ts" />
 /// <reference path="./config.d.ts" />
+/// <reference path="./event.d.ts" />
 /// <reference path="./client.d.ts" />
 /// <reference path="./search.d.ts" />
 
