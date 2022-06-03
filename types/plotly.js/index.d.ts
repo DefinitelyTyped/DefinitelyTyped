@@ -71,9 +71,7 @@ export interface PlotMouseEvent {
     event: MouseEvent;
 }
 
-export interface PlotHoverEvent {
-    points: PlotDatum[];
-    event: MouseEvent;
+export interface PlotHoverEvent extends PlotMouseEvent {
     xvals: Datum[];
     yvals: Datum[];
 }
