@@ -5,7 +5,9 @@
 
 export as namespace transit;
 
-export type Decoder = any;
+export interface Decoder {
+    decode(node: any, cache?: ReadCache): any;
+}
 
 export interface TransitMap<K = any, V = any> extends Map<K, V> {}
 
@@ -20,10 +22,19 @@ export interface TransitType {
 
 export type TransitTaggedValue = any;
 export type TransitLink = any;
-export type ReadCache = any;
-export type WriteCache = any;
 
-export type Encodings = "json" | "json-verbose";
+export interface ReadCache {
+    write(obj: any, asMapKey?: any): any;
+    read(key: string, asMapKey?: boolean): any;
+    clear(): void;
+}
+
+export interface WriteCache {
+    write(str: string, asMapKey?: boolean): any;
+    clear(): any;
+}
+
+export type Encodings = 'json' | 'json-verbose';
 
 export interface TransitBuilder<T = any> {
     init(): T;
@@ -428,7 +439,7 @@ export function extendToEQ<T extends object>(
     params: {
         hashCode(this: T): number;
         equals(this: T, val: any): boolean;
-    }
+    },
 ): T;
 
 /**
