@@ -175,6 +175,41 @@ export interface JustTableName {
     tableName: string;
 }
 
+export interface FieldSchemas {
+    fieldName: string;
+    fieldType: FieldType;
+    index?: boolean;
+    analyzer?: string;
+    enableSortAndAgg?: boolean;
+    store?: boolean;
+    isAnArray?: boolean;
+    fieldSchemas?: FieldSchemas[];
+    dateFormats?: string;
+}
+
+export interface Sorter {
+    primaryKeySort?: {
+        order: SortOrder;
+    };
+    fieldSort?: {
+        fieldName: string;
+        order: SortOrder;
+        mode?: SortMode;
+    };
+    scoreSort?: {
+        order: SortOrder;
+    };
+    geoDistanceSort?: {
+        fieldName: string;
+        points: string[];
+        order: SortOrder;
+    };
+}
+
+export type WithTransactionId = Partial<{
+    transactionId: string;
+}>;
+
 // ---------- protocol: pramas ----------
 export interface CreateTableParams {
     tableMeta: TableMeta;
@@ -195,18 +230,19 @@ export type DescribeTableParams = JustTableName;
 
 export type DeleteTableParams = JustTableName;
 
-export type GetRowParams = FilterParams & {
-    tableName: string;
-    primaryKey: PrimaryKeyInput;
-};
-export interface PutRowParams {
+export type GetRowParams = FilterParams &
+    WithTransactionId & {
+        tableName: string;
+        primaryKey: PrimaryKeyInput;
+    };
+export type PutRowParams = WithTransactionId & {
     tableName: string;
     primaryKey: PrimaryKeyInput;
     condition: Condition;
     attributeColumns: AttributesInput;
     returnContent?: ReturnContent;
-}
-export interface UpdateRowParams {
+};
+export type UpdateRowParams = WithTransactionId & {
     tableName: string;
     primaryKey: PrimaryKeyInput;
     condition: Condition;
@@ -217,23 +253,24 @@ export interface UpdateRowParams {
         INCREMENT?: Array<{ [name: string]: int64 }>;
     }>;
     returnContent?: ReturnContent;
-}
-export interface DeleteRowParams {
+};
+export type DeleteRowParams = WithTransactionId & {
     tableName: string;
     primaryKey: PrimaryKeyInput;
     condition: Condition;
-}
-export type GetRangeParams = FilterParams & {
-    tableName: string;
-    direction: Direction;
-    inclusiveStartPrimaryKey: PrimaryKeyInput;
-    exclusiveEndPrimaryKey: PrimaryKeyInput;
-    limit?: number;
 };
-export interface BatchGetRowParams {
+export type GetRangeParams = FilterParams &
+    WithTransactionId & {
+        tableName: string;
+        direction: Direction;
+        inclusiveStartPrimaryKey: PrimaryKeyInput;
+        exclusiveEndPrimaryKey: PrimaryKeyInput;
+        limit?: number;
+    };
+export type BatchGetRowParams = WithTransactionId & {
     tables: RowParamsInBatchGet[];
-}
-export interface BatchWriteRowParams {
+};
+export type BatchWriteRowParams = WithTransactionId & {
     tables: Array<{
         tableName: string;
         rows: Array<
@@ -262,18 +299,75 @@ export interface BatchWriteRowParams {
               }
         >;
     }>;
+};
+
+export type ListSearchIndexParams = JustTableName;
+export type DescribeSearchIndexParams = JustTableName & {
+    indexName: string;
+};
+export interface CreateSearchIndexParams {
+    tableName: string;
+    indexName: string;
+    schema: {
+        fieldSchemas: FieldSchemas[];
+        indexSetting?: {
+            routingFields?: string[];
+            routingPartitionSize?: unknown;
+        };
+        indexSort?: {
+            sorters: Sorter[];
+        };
+    };
+}
+export type DeleteSearchIndexParams = DescribeSearchIndexParams;
+
+export interface SearchParams {
+    tableName: string;
+    indexName: string;
+    searchQuery: {
+        offset: number;
+        limit: number;
+        query: {
+            queryType: QueryType;
+            query?: unknown;
+        };
+        getTotalCount?: boolean;
+        token?: Buffer | null;
+    };
+    columnToGet: {
+        returnType: ColumnReturnType;
+        returnNames?: string[];
+    };
+    timeoutMs?: number;
 }
 
-/*
-    type ListSearchIndexParams = JustTableName;
-    type DescribeSearchIndexParams = JustTableName & {
-        indexName: string;
+export interface CreateIndexParams {
+    mainTableName: string;
+    indexMeta: {
+        name: string;
+        primaryKey: string[];
+        definedColumn: string[];
+        includeBaseData: boolean;
+        indexType?: IndexType;
+        indexUpdateMode?: IndexUpdateMode;
     };
-    type CreateSearchIndexParams = {
-        tableName: string;
-        indexName: string;
-    }
-    */
+}
+
+export interface DropIndexParams {
+    mainTableName: string;
+    indexName: string;
+}
+
+export interface StartLocalTransactionParams {
+    tableName: string;
+    primaryKey: PrimaryKeyInput;
+}
+
+export interface CommitLocalTransactionParams {
+    transactionId: string;
+}
+
+export type AbortLocalTransactionParams = CommitLocalTransactionParams;
 
 // ---------- protocol: results ----------
 export interface ListTableResult {
@@ -315,6 +409,9 @@ export interface BatchGetRowResult {
 export interface BatchWriteRowResult {
     tables: RowInBatch[];
     RequestId: string;
+}
+export interface StartLocalTransactionResult {
+    transactionId: string;
 }
 
 // ---------- filter ----------
@@ -441,20 +538,37 @@ export class Client {
         params: BatchWriteRowParams,
         callback?: (error: Error | null, result: BatchWriteRowResult) => void,
     ): Promise<BatchWriteRowResult>;
-    /*
-        listSearchIndex(
-            params: ListSearchIndexParams,
-            callback?: (error: Error | null, result: unknown) => void,
-        ): Promise<unknown>;
-        describeSearchIndex(
-            params: DescribeSearchIndexParams,
-            callback?: (error: Error | null, result: unknown) => void,
-        ): Promise<unknown>;
-        createSearchIndex(
-            params: CreateSearchIndexParams,
-            callback?: (error: Error | null, result: unknown) => void,
-        ): Promise<unknown>;
-        */
+    listSearchIndex(
+        params: ListSearchIndexParams,
+        callback?: (error: Error | null, result: unknown) => void,
+    ): Promise<unknown>;
+    describeSearchIndex(
+        params: DescribeSearchIndexParams,
+        callback?: (error: Error | null, result: unknown) => void,
+    ): Promise<unknown>;
+    createSearchIndex(
+        params: CreateSearchIndexParams,
+        callback?: (error: Error | null, result: unknown) => void,
+    ): Promise<unknown>;
+    deleteSearchIndex(
+        params: DeleteSearchIndexParams,
+        callback?: (error: Error | null, result: unknown) => void,
+    ): Promise<unknown>;
+    search(params: SearchParams, callback?: (error: Error | null, result: unknown) => void): Promise<unknown>;
+    createIndex(params: CreateIndexParams, callback?: (error: Error | null, result: unknown) => void): Promise<unknown>;
+    dropIndex(params: DropIndexParams, callback?: (error: Error | null, result: unknown) => void): Promise<unknown>;
+    startLocalTransaction(
+        params: StartLocalTransactionParams,
+        callback?: (error: Error | null, result: StartLocalTransactionResult) => void,
+    ): Promise<StartLocalTransactionResult>;
+    commitTransaction(
+        params: CommitLocalTransactionParams,
+        callback?: (error: Error | null, result: unknown) => void,
+    ): Promise<unknown>;
+    abortTransaction(
+        params: AbortLocalTransactionParams,
+        callback?: (error: Error | null, result: unknown) => void,
+    ): Promise<unknown>;
 }
 
 // ---------- search ----------

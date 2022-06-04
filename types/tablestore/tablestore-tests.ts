@@ -314,6 +314,75 @@ const updateTableWithCondition = () => {
     });
 };
 
+// transaction
+(async () => {
+    const tableName = 'test';
+    const primaryKey = [{ id: 'partitionKeyValue' }];
+    try {
+        const response = await client.startLocalTransaction({
+            tableName,
+            primaryKey: [
+                {
+                    id: 'partitionKeyValue',
+                },
+            ],
+        });
+
+        const transactionId = response.transactionId;
+
+        await client.putRow({
+            tableName,
+            condition: new TableStore.Condition(TableStore.RowExistenceExpectation.IGNORE, null),
+            primaryKey,
+            attributeColumns: [
+                {
+                    col: 'updated',
+                },
+            ],
+            transactionId,
+        });
+
+        await client.commitTransaction({
+            transactionId,
+        });
+    } catch (e) {
+        console.error(e);
+    }
+})();
+
+(async () => {
+    const tableName = 'test';
+    const primaryKey = [{ id: 'partitionKeyValue' }];
+    try {
+        const response = await client.startLocalTransaction({
+            tableName,
+            primaryKey: [
+                {
+                    id: 'partitionKeyValue',
+                },
+            ],
+        });
+        const transactionId = response.transactionId;
+
+        await client.putRow({
+            tableName,
+            condition: new TableStore.Condition(TableStore.RowExistenceExpectation.IGNORE, null),
+            primaryKey,
+            attributeColumns: [
+                {
+                    col: 'updated',
+                },
+            ],
+            transactionId,
+        });
+        await client.abortTransaction({
+            transactionId,
+        });
+    } catch (e) {
+        console.error(e);
+    }
+})();
+
 // attribute increment
 const attributeIncrement = () => {
     const Long = TableStore.Long;
@@ -611,3 +680,840 @@ const getRange = () => {
 };
 
 TableStore.events.on('a', () => {});
+
+// index and search
+const TABLE_NAME = 'table_name';
+const INDEX_NAME = 'index_name';
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.TERM_QUERY,
+                    query: {
+                        fieldName: 'Col_Keyword',
+                        term: 'hangzhou',
+                    },
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_ALL,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.MATCH_ALL_QUERY,
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_SPECIFIED,
+                returnNames: ['Col_1', 'Col_2', 'Col_3'],
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.PREFIX_QUERY,
+                    query: {
+                        fieldName: 'Col_Keyword',
+                        prefix: 'hang',
+                    },
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_ALL,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.RANGE_QUERY,
+                    query: {
+                        fieldName: 'Col_Long',
+                        rangeFrom: 1,
+                        includeLower: true,
+                        rangeTo: 10,
+                        includeUpper: false,
+                    },
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_ALL,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.WILDCARD_QUERY,
+                    query: {
+                        fieldName: 'Col_Keyword',
+                        value: 'table*e',
+                    },
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_ALL,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.GEO_DISTANCE_QUERY,
+                    query: {
+                        fieldName: 'Col_GeoPoint',
+                        centerPoint: '1,1',
+                        distance: 10000,
+                    },
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_ALL,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.TERMS_QUERY,
+                    query: {
+                        fieldName: 'Col_Keyword',
+                        terms: ['hangzhou', 'shanghai'],
+                    },
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_ALL,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.MATCH_QUERY,
+                    query: {
+                        fieldName: 'Col_Keyword',
+                        text: 'hangzhou',
+                    },
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_ALL,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.NESTED_QUERY,
+                    query: {
+                        path: 'Col_Nested',
+                        query: {
+                            queryType: TableStore.QueryType.TERM_QUERY,
+                            query: {
+                                fieldName: 'Col_Nested.Sub_Col_Keyword',
+                                term: '开心',
+                            },
+                        },
+                    },
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_ALL,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.search(
+        {
+            tableName: 'sampleTable',
+            indexName: 'sampleSearchIndex',
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                getTotalCount: false,
+                query: {
+                    queryType: TableStore.QueryType.BOOL_QUERY,
+                    query: {
+                        shouldQueries: [
+                            {
+                                queryType: TableStore.QueryType.BOOL_QUERY,
+                                query: {
+                                    shouldQueries: [
+                                        {
+                                            queryType: TableStore.QueryType.RANGE_QUERY,
+                                            query: {
+                                                fieldName: 'col2',
+                                                rangeTo: 4,
+                                            },
+                                        },
+                                        {
+                                            query: {
+                                                fieldName: 'col3',
+                                                rangeTo: 5,
+                                            },
+                                        },
+                                    ],
+                                    minimumShouldMatch: 1,
+                                },
+                            },
+                            {
+                                queryType: TableStore.QueryType.BOOL_QUERY,
+                                query: {
+                                    mustQueries: [
+                                        {
+                                            queryType: TableStore.QueryType.TERM_QUERY,
+                                            query: {
+                                                fieldName: 'col2',
+                                                term: 4,
+                                            },
+                                        },
+                                        {
+                                            queryType: TableStore.QueryType.BOOL_QUERY,
+                                            query: {
+                                                shouldQueries: [
+                                                    {
+                                                        queryType: TableStore.QueryType.TERM_QUERY,
+                                                        query: {
+                                                            fieldName: 'col3',
+                                                            term: 5,
+                                                        },
+                                                    },
+                                                    {
+                                                        query: {
+                                                            fieldName: 'col3',
+                                                            term: 6,
+                                                        },
+                                                    },
+                                                ],
+                                                minimumShouldMatch: 1,
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                        ],
+                        minimumShouldMatch: 1,
+                    },
+                },
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_SPECIFIED,
+                returnNames: ['col2', 'col3', 'col4'],
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 0,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.MATCH_PHRASE_QUERY,
+                    query: {
+                        fieldName: 'Col_Text',
+                        text: 'hangzhou shanghai',
+                    },
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_ALL,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    const sorters: TableStore.Sorter[] = [
+        {
+            scoreSort: {
+                order: TableStore.SortOrder.SORT_ORDER_ASC,
+            },
+        },
+        {
+            primaryKeySort: {
+                order: TableStore.SortOrder.SORT_ORDER_DESC,
+            },
+        },
+        {
+            fieldSort: {
+                fieldName: 'Col_Keyword',
+                order: TableStore.SortOrder.SORT_ORDER_DESC,
+            },
+        },
+        {
+            fieldSort: {
+                fieldName: 'Col_Keyword',
+                order: TableStore.SortOrder.SORT_ORDER_DESC,
+            },
+        },
+        {
+            fieldSort: {
+                fieldName: 'Col_Long',
+                order: TableStore.SortOrder.SORT_ORDER_DESC,
+            },
+        },
+        {
+            geoDistanceSort: {
+                fieldName: 'Col_Geo_Point',
+                points: ['0,0'],
+                order: TableStore.SortOrder.SORT_ORDER_ASC,
+            },
+        },
+    ];
+};
+
+() => {
+    client.search(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            searchQuery: {
+                offset: 90,
+                limit: 10,
+                query: {
+                    queryType: TableStore.QueryType.MATCH_ALL_QUERY,
+                },
+                getTotalCount: true,
+            },
+            columnToGet: {
+                returnType: TableStore.ColumnReturnType.RETURN_ALL,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    const params: TableStore.SearchParams = {
+        tableName: TABLE_NAME,
+        indexName: INDEX_NAME,
+        searchQuery: {
+            offset: 0,
+            limit: 10,
+            token: null,
+            query: {
+                queryType: TableStore.QueryType.MATCH_ALL_QUERY,
+            },
+            getTotalCount: true,
+        },
+        columnToGet: {
+            returnType: TableStore.ColumnReturnType.RETURN_SPECIFIED,
+            returnNames: ['pic_tag', 'pic_description', 'time_stemp', 'pos'],
+        },
+    };
+
+    (async () => {
+        try {
+            let data = (await client.search(params)) as any;
+            console.log('success:', JSON.stringify(data, null, 2));
+
+            while (data.nextToken && data.nextToken.length) {
+                const nextToken = data.nextToken.toString('base64');
+                const token = Buffer.from(nextToken, 'base64');
+
+                params.searchQuery.token = token;
+                data = await client.search(params);
+                console.log('token success:', JSON.stringify(data, null, 2));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    })();
+
+    client.search(params, (err, data: any) => {
+        console.log('success:', JSON.stringify(data, null, 2));
+
+        if (data.nextToken && data.nextToken.length) {
+            const nextToken = data.nextToken.toString('base64');
+            const token = Buffer.from(nextToken, 'base64');
+
+            params.searchQuery.token = token;
+            client.search(params, (err, data) => {
+                console.log('token success:', JSON.stringify(data, null, 2));
+            });
+        }
+    });
+};
+
+() => {
+    client.createSearchIndex(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+            schema: {
+                fieldSchemas: [
+                    {
+                        fieldName: 'Col_Keyword',
+                        fieldType: TableStore.FieldType.KEYWORD,
+                        index: true,
+                        enableSortAndAgg: true,
+                        store: false,
+                        isAnArray: false,
+                    },
+                    {
+                        fieldName: 'Col_Long',
+                        fieldType: TableStore.FieldType.LONG,
+                        index: true,
+                        enableSortAndAgg: true,
+                        store: true,
+                        isAnArray: false,
+                    },
+                    {
+                        fieldName: 'Col_Text',
+                        fieldType: TableStore.FieldType.TEXT,
+                        index: true,
+                        enableSortAndAgg: false,
+                        store: true,
+                        isAnArray: false,
+                        analyzer: 'single_word',
+                    },
+                    {
+                        fieldName: 'Col_Nested',
+                        fieldType: TableStore.FieldType.NESTED,
+                        index: false,
+                        enableSortAndAgg: false,
+                        store: false,
+                        fieldSchemas: [
+                            {
+                                fieldName: 'Sub_Col_KeyWord',
+                                fieldType: TableStore.FieldType.KEYWORD,
+                                index: true,
+                                enableSortAndAgg: true,
+                                store: false,
+                            },
+                            {
+                                fieldName: 'Sub_Col_Long',
+                                fieldType: TableStore.FieldType.LONG,
+                                index: true,
+                                enableSortAndAgg: true,
+                                store: false,
+                            },
+                        ],
+                    },
+                ],
+                indexSetting: {
+                    routingFields: ['Pk_Keyword'],
+                    routingPartitionSize: null,
+                },
+                indexSort: {
+                    sorters: [
+                        {
+                            primaryKeySort: {
+                                order: TableStore.SortOrder.SORT_ORDER_ASC,
+                            },
+                        },
+                        {
+                            fieldSort: {
+                                fieldName: 'Col_Keyword',
+                                order: TableStore.SortOrder.SORT_ORDER_DESC,
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', data);
+        },
+    );
+};
+
+() => {
+    client.deleteSearchIndex(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', data);
+        },
+    );
+};
+
+() => {
+    client.listSearchIndex(
+        {
+            tableName: TABLE_NAME,
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.describeSearchIndex(
+        {
+            tableName: TABLE_NAME,
+            indexName: INDEX_NAME,
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.createIndex(
+        {
+            mainTableName: 'sdkGlobalIndexTest',
+            indexMeta: {
+                name: 'sdkGlobalIndex',
+                primaryKey: ['col1'],
+                definedColumn: ['col2'],
+                includeBaseData: false,
+                indexUpdateMode: TableStore.IndexUpdateMode.IUM_ASYNC_INDEX,
+                indexType: TableStore.IndexType.IT_GLOBAL_INDEX,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    const Long = TableStore.Long;
+
+    const params: TableStore.GetRowParams = {
+        tableName: 'index1',
+        primaryKey: [{ pk2: Long.fromNumber(2) }, { pk1: Long.fromNumber(1) }],
+    };
+
+    client.getRow(params, (err, data) => {
+        if (err) {
+            console.log('error:', err);
+            return;
+        }
+        console.log('success:', JSON.stringify(data, null, 2));
+    });
+};
+
+() => {
+    const params: TableStore.GetRangeParams = {
+        tableName: 'sdkIndex1',
+        direction: TableStore.Direction.FORWARD,
+        maxVersions: 10,
+        inclusiveStartPrimaryKey: [{ pk2: TableStore.INF_MIN }, { pk1: TableStore.INF_MIN }],
+        exclusiveEndPrimaryKey: [{ pk2: TableStore.INF_MAX }, { pk1: TableStore.INF_MAX }],
+        limit: 2,
+    };
+
+    let resultRows: TableStore.Row[] = [];
+
+    const getRange = () => {
+        client.getRange(params, (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            resultRows = resultRows.concat(data.rows);
+
+            if (data.nextStartPrimaryKey) {
+                params.inclusiveStartPrimaryKey = [
+                    { pk2: data.nextStartPrimaryKey[0].value },
+                    { pk1: data.nextStartPrimaryKey[1].value },
+                ];
+                getRange();
+            } else {
+                console.log(JSON.stringify(resultRows));
+            }
+        });
+    };
+
+    getRange();
+};
+
+() => {
+    client.dropIndex(
+        {
+            mainTableName: 'sdkGlobalTest',
+            indexName: 'sdkIndex1',
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    client.createIndex(
+        {
+            mainTableName: 'sdkLocalIndexTest',
+            indexMeta: {
+                name: 'sdkLocalIndex',
+                primaryKey: ['pk1', 'col1'],
+                definedColumn: ['col2'],
+                includeBaseData: false,
+                indexUpdateMode: TableStore.IndexUpdateMode.IUM_SYNC_INDEX,
+                indexType: TableStore.IndexType.IT_LOCAL_INDEX,
+            },
+        },
+        (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            console.log('success:', JSON.stringify(data, null, 2));
+        },
+    );
+};
+
+() => {
+    const Long = TableStore.Long;
+
+    const params: TableStore.GetRowParams = {
+        tableName: 'sdkLocalIndex',
+        primaryKey: [{ pk1: Long.fromNumber(1) }, { col1: Long.fromNumber(2) }, { pk2: Long.fromNumber(2) }],
+    };
+
+    client.getRow(params, (err, data) => {
+        if (err) {
+            console.log('error:', err);
+            return;
+        }
+        console.log('success:', JSON.stringify(data, null, 2));
+    });
+};
+
+() => {
+    const params: TableStore.GetRangeParams = {
+        tableName: 'sdkLocalIndex',
+        direction: TableStore.Direction.FORWARD,
+        maxVersions: 10,
+        inclusiveStartPrimaryKey: [
+            { pk1: TableStore.INF_MIN },
+            { col1: TableStore.INF_MIN },
+            { pk2: TableStore.INF_MIN },
+        ],
+        exclusiveEndPrimaryKey: [
+            { pk1: TableStore.INF_MIN },
+            { col1: TableStore.INF_MIN },
+            { pk2: TableStore.INF_MAX },
+        ],
+        limit: 2,
+    };
+
+    let resultRows: TableStore.Row[] = [];
+
+    const getRange = () => {
+        client.getRange(params, (err, data) => {
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+            resultRows = resultRows.concat(data.rows);
+
+            if (data.nextStartPrimaryKey) {
+                params.inclusiveStartPrimaryKey = [
+                    { pk1: data.nextStartPrimaryKey[0].value },
+                    { col1: data.nextStartPrimaryKey[1].value },
+                    { pk2: data.nextStartPrimaryKey[2].value },
+                ];
+                getRange();
+            } else {
+                console.log(JSON.stringify(resultRows));
+            }
+        });
+    };
+
+    getRange();
+};
