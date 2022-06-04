@@ -267,5 +267,5 @@ interface Window {
      * </script>
      * ```
      */
-    onGoogleLibraryLoad: () => void;
+    onGoogleLibraryLoad?: () => void;
 }
