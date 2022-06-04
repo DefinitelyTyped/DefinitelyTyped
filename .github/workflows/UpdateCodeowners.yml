@@ -26,6 +26,7 @@ jobs:
       - run: git config --global user.name "TS Bot"
 
       - run: npm install
+      - run: npm run compile-scripts
       - run: npm run update-codeowners
         env:
             GH_TOKEN: ${{ secrets.GH_TOKEN }}

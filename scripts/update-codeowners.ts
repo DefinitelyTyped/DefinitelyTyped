@@ -2,7 +2,7 @@ import * as cp from 'node:child_process';
 import * as os from 'node:os';
 import { AllPackages, getDefinitelyTyped, parseDefinitions, clean } from '@definitelytyped/definitions-parser';
 import { loggerWithErrors } from '@definitelytyped/utils';
-import { writeFile } from 'fs-extra';
+import fsExtra from 'fs-extra';
 
 async function main() {
     const options = { definitelyTypedPath: '.', progress: false, parseInParallel: true };
@@ -15,7 +15,7 @@ async function main() {
     const typings = allPackages.allTypings();
     const maxPathLen = Math.max(...typings.map(t => t.subDirectoryPath.length));
     const entries = mapDefined(typings, t => getEntry(t, maxPathLen));
-    await writeFile(
+    await fsExtra.writeFile(
         [options.definitelyTypedPath, '.github', 'CODEOWNERS'].join('/'),
         `${header}\n\n${entries.join('\n')}\n`,
         { encoding: 'utf-8' },
@@ -25,6 +25,10 @@ async function main() {
 runSequence([
     ['git', ['checkout', '.']], // reset any changes
 ]);
+
+const header = `# This file is generated.
+# Add yourself to the "Definitions by:" list instead.
+# See https://github.com/DefinitelyTyped/DefinitelyTyped#definition-owners`;
 
 main()
     .then(() => {
@@ -41,8 +45,7 @@ main()
         process.exit(1);
     });
 
-/** @param {[string, string[]][]} tasks */
-function runSequence(tasks) {
+function runSequence(tasks: [string, string[]][]) {
     for (const task of tasks) {
         console.log(`${task[0]} ${task[1].join(' ')}`);
         const result = cp.spawnSync(task[0], task[1], { timeout: 100000, shell: true, stdio: 'inherit' });
@@ -51,16 +54,7 @@ function runSequence(tasks) {
     }
 }
 
-const header = `# This file is generated.
-# Add yourself to the "Definitions by:" list instead.
-# See https://github.com/DefinitelyTyped/DefinitelyTyped#definition-owners`;
-
-/**
- * @param { { contributors: ReadonlyArray<{githubUsername?: string }>, subDirectoryPath: string} } pkg
- * @param {number} maxPathLen
- * @return {string | undefined}
- */
-function getEntry(pkg, maxPathLen) {
+function getEntry(pkg: { contributors: ReadonlyArray<{ githubUsername?: string }>; subDirectoryPath: string }, maxPathLen: number): string | undefined {
     const users = mapDefined(pkg.contributors, c => c.githubUsername);
     if (!users.length) {
         return undefined;
@@ -70,13 +64,7 @@ function getEntry(pkg, maxPathLen) {
     return `/types/${path} ${users.map(u => `@${u}`).join(' ')}`;
 }
 
-/**
- * @template T,U
- * @param {ReadonlyArray<T>} arr
- * @param {(t: T) => U | undefined} mapper
- * @return U[]
- */
-function mapDefined(arr, mapper) {
+function mapDefined<T, U>(arr: ReadonlyArray<T>, mapper: (t: T) => U | undefined): U[] {
     const out = [];
     for (const a of arr) {
         const res = mapper(a);
