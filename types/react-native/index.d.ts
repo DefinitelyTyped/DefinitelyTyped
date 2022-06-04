@@ -6336,8 +6336,8 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
-     * Controls whether the ScrollView should automatically adjust it's contentInset
-     * and scrollViewInsets when the Keyboard changes it's size. The default value is false.
+     * Controls whether the ScrollView should automatically adjust its `contentInset`
+     * and `scrollViewInsets` when the Keyboard changes its size. The default value is false.
      */
     automaticallyAdjustKeyboardInsets?: boolean | undefined;
 
