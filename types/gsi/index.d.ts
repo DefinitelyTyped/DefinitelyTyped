@@ -1,4 +1,4 @@
-// Type definitions for non-npm package gsi (Sign In With Google JavaScript API) 0.0
+// Type definitions for non-npm package Sign In With Google JavaScript API 0.0
 // Project: https://developers.google.com/identity/gsi/web/reference/js-reference
 // Definitions by: Aron Høyer <https://github.com/aronhoyer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
