@@ -7912,7 +7912,7 @@ declare namespace chrome.storage {
      * Items in the session storage area are stored in-memory and will not be persisted to disk.
      * @since Chrome 102.
      */
-    export const session: SessionStorageArea;
+    export var session: SessionStorageArea;
 
     /** Fired when one or more items change. */
     export var onChanged: StorageChangedEvent;
