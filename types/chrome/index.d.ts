@@ -7888,7 +7888,7 @@ declare namespace chrome.storage {
         MAX_WRITE_OPERATIONS_PER_MINUTE: number;
     }
 
-    type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed'>;
+    type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed' | 'session'>;
     export interface StorageChangedEvent
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void> { }
 
@@ -7902,6 +7902,12 @@ declare namespace chrome.storage {
      * @since Chrome 33.
      */
     export var managed: StorageArea;
+
+    /**
+     * Items in the session storage area are stored in-memory and will not be persisted to disk.
+     * @since Chrome 102.
+     */
+    export const session: StorageArea;
 
     /** Fired when one or more items change. */
     export var onChanged: StorageChangedEvent;
