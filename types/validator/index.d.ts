@@ -985,6 +985,7 @@ declare namespace validator {
         | 'BR'
         | 'CA'
         | 'CH'
+        | 'CN'
         | 'CZ'
         | 'DE'
         | 'DK'
