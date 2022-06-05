@@ -129,3 +129,51 @@ process.env.TZ = 'test';
 {
     const arch: NodeJS.Architecture = process.arch;
 }
+
+{
+    // $ExpectError
+    process.getgid();
+    // $ExpectType number | undefined
+    process.getgid?.();
+    // $ExpectError
+    process.setgid(1);
+    // $ExpectType void | undefined
+    process.setgid?.(1);
+    // $ExpectError
+    process.getuid();
+    // $ExpectType number | undefined
+    process.getuid?.();
+    // $ExpectError
+    process.setuid(1);
+    // $ExpectType void | undefined
+    process.setuid?.(1);
+    // $ExpectError
+    process.geteuid();
+    // $ExpectType number | undefined
+    process.geteuid?.();
+    // $ExpectError
+    process.seteuid(1);
+    // $ExpectType void | undefined
+    process.seteuid?.(1);
+    // $ExpectError
+    process.getegid();
+    // $ExpectType number | undefined
+    process.getegid?.();
+    // $ExpectError
+    process.setegid(1);
+    // $ExpectType void | undefined
+    process.setegid?.(1);
+    // $ExpectError
+    process.getgroups();
+    // $ExpectType number[] | undefined
+    process.getgroups?.();
+    // $ExpectError
+    process.setgroups([1]);
+    // $ExpectType void | undefined
+    process.setgroups?.([1]);
+
+    if (process.getuid) {
+        // $ExpectType number
+        process.getuid();
+    }
+}
