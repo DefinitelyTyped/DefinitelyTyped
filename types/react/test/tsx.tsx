@@ -36,6 +36,40 @@ VoidFunctionComponent2.defaultProps = {
 };
 <VoidFunctionComponent2>24</VoidFunctionComponent2>; // $ExpectError
 
+const ComponentWithChildren1: React.FunctionComponent<React.PropsWithChildren> = ({children}) => {
+    return <div>{children}</div>;
+};
+<ComponentWithChildren1></ComponentWithChildren1>;
+<ComponentWithChildren1 foo={42}></ComponentWithChildren1>; // $ExpectError
+<ComponentWithChildren1 foo="42"></ComponentWithChildren1>; // $ExpectError
+<ComponentWithChildren1 bar={42}></ComponentWithChildren1>; // $ExpectError
+<ComponentWithChildren1 bar="42"></ComponentWithChildren1>; // $ExpectError
+
+interface ComponentWithChildren2Props {
+    foo?: number | undefined;
+}
+const ComponentWithChildren2: React.FunctionComponent<React.PropsWithChildren<ComponentWithChildren2Props>> = ({children}) => {
+    return <div>{children}</div>;
+};
+<ComponentWithChildren2></ComponentWithChildren2>;
+<ComponentWithChildren2 foo={42}></ComponentWithChildren2>;
+<ComponentWithChildren2 foo="42"></ComponentWithChildren2>; // $ExpectError
+<ComponentWithChildren2 bar={42}></ComponentWithChildren2>; // $ExpectError
+<ComponentWithChildren2 bar="42"></ComponentWithChildren2>; // $ExpectError
+
+interface ComponentWithChildren3Props {
+    foo?: number | undefined;
+    bar: number;
+}
+const ComponentWithChildren3: React.FunctionComponent<React.PropsWithChildren<ComponentWithChildren3Props>> = ({children}) => {
+    return <div>{children}</div>;
+};
+<ComponentWithChildren3></ComponentWithChildren3>; // $ExpectError
+<ComponentWithChildren3 foo={42}></ComponentWithChildren3>; // $ExpectError
+<ComponentWithChildren3 foo="42"></ComponentWithChildren3>; // $ExpectError
+<ComponentWithChildren3 bar={42}></ComponentWithChildren3>;
+<ComponentWithChildren3 bar="42"></ComponentWithChildren3>; // $ExpectError
+
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
     <g>
