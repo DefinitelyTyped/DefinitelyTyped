@@ -4,7 +4,7 @@ type TSorterFn = Parameters<typeof Array.prototype.sort>[0];
 type TQuerySort = 'key_a_to_z' | 'key_z_to_a' | 'value_a_to_z' | 'value_z_to_a';
 
 declare function aggregators(tpl: unknown): object;
-declare function naturalSort(a: number, b: number): 1 | 0 | -1;
+declare function naturalSort(a: any, b: any): number;
 declare function numberFormat(opts_in: unknown): string;
 declare function sortAs(order: { [k: string]: string | number }): TSorterFn;
 declare function getSort(

@@ -1,4 +1,4 @@
-export type BuildInPlotyRenderersNames =
+export type BuildInPlotlyRenderersNames =
     | 'Grouped Column Chart'
     | 'Stacked Column Chart'
     | 'Grouped Bar Chart'
@@ -14,6 +14,6 @@ export type BuildInPlotyRenderersNames =
  */
 export function createPlotlyRenderer(
     PlotyComponent: React.ComponentType<any>,
-): Record<BuildInPlotyRenderersNames, typeof PlotyComponent>;
+): Record<BuildInPlotlyRenderersNames, typeof PlotyComponent>;
 
 export default createPlotlyRenderer;
