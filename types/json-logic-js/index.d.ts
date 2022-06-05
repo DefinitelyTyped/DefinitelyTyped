@@ -10,6 +10,10 @@ export as namespace jsonFactory;
 // Disable auto-export
 export {};
 
+type RenameToIn<T> = {
+    [K in keyof T as K extends `in${Uppercase<string>}${Lowercase<string>}` ? `in` : K]: T[K];
+};
+
 /**
  * This is a utility type used below for the "if" operation.
  * Original: https://stackoverflow.com/a/68373774/765987
@@ -107,7 +111,8 @@ interface AllReservedOperationsInterface<AddOps extends AdditionalOperation = ne
     none: [Array<RulesLogic<AddOps>>, RulesLogic<AddOps>] | [RulesLogic<AddOps>, RulesLogic<AddOps>];
     some: [Array<RulesLogic<AddOps>>, RulesLogic<AddOps>] | [RulesLogic<AddOps>, RulesLogic<AddOps>];
     merge: Array<Array<RulesLogic<AddOps>> | RulesLogic<AddOps>>;
-    in: [RulesLogic<AddOps>, Array<RulesLogic<AddOps>>] | [RulesLogic<AddOps>, RulesLogic<AddOps>];
+    inArray: [RulesLogic<AddOps>, Array<RulesLogic<AddOps>>];
+    inString: [RulesLogic<AddOps>, RulesLogic<AddOps>];
     cat: Array<RulesLogic<AddOps>>;
     substr: [RulesLogic<AddOps>, RulesLogic<AddOps>] | [RulesLogic<AddOps>, RulesLogic<AddOps>, RulesLogic<AddOps>];
     log: RulesLogic<AddOps>;
@@ -212,13 +217,11 @@ export type JsonLogicMerge<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
     'merge'
 >;
-export type JsonLogicInArray<AddOps extends AdditionalOperation = never> = Pick<
-    AllReservedOperationsInterface<AddOps>,
-    'in'
+export type JsonLogicInArray<AddOps extends AdditionalOperation = never> = RenameToIn<
+    Pick<AllReservedOperationsInterface<AddOps>, 'inArray'>
 >;
-export type JsonLogicInString<AddOps extends AdditionalOperation = never> = Pick<
-    AllReservedOperationsInterface<AddOps>,
-    'in'
+export type JsonLogicInString<AddOps extends AdditionalOperation = never> = RenameToIn<
+    Pick<AllReservedOperationsInterface<AddOps>, 'inString'>
 >;
 export type JsonLogicCat<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
