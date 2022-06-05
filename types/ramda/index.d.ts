@@ -5602,6 +5602,7 @@ export function unary<T, R>(fn: (a: T, ...args: any[]) => R): (a: T) => R;
  * ```
  */
 export function uncurryN<T>(len: number, fn: (a: any) => any): (...args: unknown[]) => T;
+export function uncurryN<T>(len: number): (fn: (a: any) => any) => (...args: unknown[]) => T;
 
 /**
  * Builds a list from a seed value.
