@@ -234,3 +234,8 @@ const typeaheadForWorkspaceQuery: asana.resources.Typeahead.TypeaheadParams = {
     opt_fields: ['name', 'completed', 'parent', 'custom_fields.gid', 'custom_fields.number_value'],
 };
 client.typeahead.typeaheadForWorkspace('workspace_gid', typeaheadForWorkspaceQuery);
+
+// Custom Fields have a string property "display_value"
+// https://developers.asana.com/docs/custom-field
+let customField: asana.resources.CustomField;
+customField.display_value;

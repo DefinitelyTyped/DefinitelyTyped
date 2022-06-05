@@ -2968,6 +2968,7 @@ declare namespace asana {
             enum_options: EnumValue[] | null;
             enum_value: EnumValue | null;
             number_value: number | null;
+            display_value: string | null;
         }
 
         interface CustomFieldsStatic {
