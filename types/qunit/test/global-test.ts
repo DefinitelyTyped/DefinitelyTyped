@@ -624,6 +624,13 @@ QUnit.test( "throws", function( assert ) {
   );
 });
 
+QUnit.test('wait for an async function', async assert => {
+  assert.timeout(500);
+
+  const result = await Promise.resolve(5 + 7);
+  assert.strictEqual(result, 12);
+});
+
 QUnit.test( "true assertion test", function( assert ) {
     var foo = true;
 
@@ -703,10 +710,6 @@ QUnit.test( "test with beforeEach and afterEach", function( assert ) {
   assert.expect( 2 );
 });
 
-QUnit.todo( "a todo test", function( assert ) {
-  assert.equal( 0, 1, "0 does not equal 1, so this todo should pass" );
-});
-
 let equivResult: boolean;
 equivResult = QUnit.equiv({}, {});
 equivResult = QUnit.equiv(1, 2);
@@ -757,15 +760,69 @@ QUnit.test( "async test", async function( assert ) {
   assert.ok(true);
 });
 
-QUnit.only( "async only", async function( assert ) {
+QUnit.test.only( "async test.only", async function( assert ) {
+  await timeout();
+  assert.ok(true);
+});
+QUnit.only( "async only alias", async function( assert ) {
   await timeout();
   assert.ok(true);
 });
 
-
-QUnit.skip( "async skip", async function( assert ) {
+QUnit.test.skip( "async test.skip", async function( assert ) {
   await timeout();
   assert.ok(true);
+});
+QUnit.skip( "async skip alias", async function( assert ) {
+  await timeout();
+  assert.ok(true);
+});
+
+QUnit.test.todo( "test.todo", function( assert ) {
+  assert.equal( 0, 1, "failing" );
+});
+QUnit.todo( "todo alias", function( assert ) {
+  assert.equal( 0, 1, "failing" );
+});
+
+
+function isEvenSync (x) {
+  return x % 2 === 0;
+}
+async function isEven (x) {
+  return x % 2 === 0;
+}
+
+QUnit.test.each('test each array', [2, 4, 6], (assert, data) => {
+  assert.true(isEvenSync(data), `${data} is even`);
+});
+
+QUnit.test.each('test each object, async', {
+  caseEven: [2, true],
+  caseNotEven: [3, false]
+}, async (assert, [value, expected]) => {
+  assert.strictEqual(await isEven(value), expected);
+});
+
+QUnit.test.only.each('test only each, async', {
+  caseEven: [2, true],
+  caseNotEven: [3, false]
+}, async (assert, [value, expected]) => {
+  assert.strictEqual(await isEven(value), expected);
+});
+
+QUnit.test.skip.each('test skip each, async', {
+  caseEven: [2, true],
+  caseNotEven: [3, false]
+}, async (assert, [value, expected]) => {
+  assert.strictEqual(await isEven(value), expected);
+});
+
+QUnit.test.todo.each('test todo each, async', {
+  caseEven: [2, true],
+  caseNotEven: [3, false]
+}, async (assert, [value, expected]) => {
+  assert.strictEqual(await isEven(value), expected);
 });
 
 QUnit.hooks.beforeEach(async function () {

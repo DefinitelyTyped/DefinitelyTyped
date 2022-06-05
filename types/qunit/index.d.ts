@@ -321,6 +321,17 @@ declare global {
         raises(block: () => void, expected?: any, message?: any): void;
 
         /**
+         * Set how long to wait for async operations to finish.
+         *
+         * This assertion defines how long to wait (at most) in the current test.
+         *
+         * If `0` is passed, then awaiting or returning any Promise may fail the test.
+         *
+         * @param {number} duration The length of time to wait, in milliseconds.
+         */
+        timeout(duration: number): () => void;
+
+        /**
          * A strict comparison that passes if the first argument is boolean `true`.
          *
          * If the argument evaluates to true, the assertion passes; otherwise, it fails.
@@ -356,20 +367,21 @@ declare global {
         autostart: boolean;
         collapse: boolean;
         current: any;
+        failOnZeroTests: boolean;
         filter: string | RegExp;
         fixture: string;
         hidepassed: boolean;
         maxDepth: number;
         module: string;
         moduleId: string[];
-        notrycatch: boolean;
         noglobals: boolean;
-        seed: string;
+        notrycatch: boolean;
         reorder: boolean;
         requireExpects: boolean;
+        scrolltop: boolean;
+        seed: string;
         testId: string[];
         testTimeout: number;
-        scrolltop: boolean;
         urlConfig: {
             id?: string | undefined;
             label?: string | undefined;
@@ -438,9 +450,28 @@ declare global {
 
     type moduleFunc1 = (name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
     type moduleFunc2 = (name: string, nested?: (hooks: NestedHooks) => void) => void;
-    type ModuleOnly = { only: moduleFunc1 & moduleFunc2 };
-    type ModuleSkip = { skip: moduleFunc1 & moduleFunc2 };
-    type ModuleTodo = { todo: moduleFunc1 & moduleFunc2 };
+
+    interface ModuleMethods {
+        only: moduleFunc1 & moduleFunc2;
+        skip: moduleFunc1 & moduleFunc2;
+        todo: moduleFunc1 & moduleFunc2;
+    }
+
+    type testFunc = (name: string, callback: (assert: Assert) => void | Promise<void>) => void;
+    type testOnly = (name: string, callback: (assert: Assert) => void | Promise<void>) => void;
+    type testSkip = (name: string, callback?: (assert: Assert) => void | Promise<void>) => void;
+    type testTodo = (name: string, callback: (assert: Assert) => void | Promise<void>) => void;
+
+    interface TestEach {
+        each<T>(name: string, dataset: T[], callback: (assert: Assert, data: T) => void | Promise<void>): void;
+        each<T>(name: string, dataset: { [s: string]: T }, callback: (assert: Assert, data: T) => void | Promise<void>): void;
+    }
+
+    interface TestMethods {
+        only: testOnly & TestEach;
+        skip: testSkip & TestEach;
+        todo: testTodo & TestEach;
+    }
 
     namespace QUnit {
         interface BeginDetails {
@@ -589,11 +620,9 @@ declare global {
          *
          * You can use the module name to organize, select, and filter tests to run.
          *
-         * All tests inside a module callback function will be grouped into that
-         * module. The test names will all be preceded by the module name in the
-         * test results. Other modules can be nested inside this callback function,
-         * where their tests' names will be labeled by their names recursively
-         * prefixed by their parent modules.
+         * All tests inside a module will be grouped under that module. Tests can be
+         * added to amodule using the QUnit.test method. Modules help organize, select,
+         * and filter tests to run.
          *
          * If `QUnit.module` is defined without a `nested` callback argument, all
          * subsequently defined tests will be grouped into the module until another
@@ -618,11 +647,11 @@ declare global {
          * preserved between sibling tests, where `this` will be reset to the initial
          * value for each test.
          *
-         * @param {string} name Label for this group of tests
-         * @param hookds Callbacks to run during test execution
-         * @param nested A callback with grouped tests and nested modules to run under the current module label
+         * @param {string} name Label for this group of tests.
+         * @param {Hooks} [hooks] Set hook callbacks.
+         * @param [nested] A scope to create nested modules and/or add hooks functionally.
          */
-        module: moduleFunc1 & moduleFunc2 & ModuleOnly & ModuleSkip & ModuleTodo;
+        module: moduleFunc1 & moduleFunc2 & ModuleMethods;
 
         /**
          * Register a callback to fire whenever a module ends.
@@ -639,22 +668,20 @@ declare global {
         moduleStart(callback: (details: QUnit.ModuleStartDetails) => void | Promise<void>): void;
 
         /**
-         * Adds a test to exclusively run, preventing all other tests from running.
+         * Add a test that is exclusively run, preventing other tests from running
+         * unless they are defined this way.
          *
-         * Use this method to focus your test suite on a specific test. QUnit.only
-         * will cause any other tests in your suite to be ignored.
+         * Use this method to focus your test suite on specific tests.
+         * QUnit.test.only will cause any other tests in your suite to be ignored.
          *
-         * Note, that if more than one QUnit.only is present only the first instance
-         * will run.
-         *
-         * This is an alternative to filtering tests to run in the HTML reporter. It
-         * is especially useful when you use a console reporter or in a codebase
-         * with a large set of long running tests.
+         * This method is an alternative to re-running individual tests from the HTML
+         * reporter interface, and can be especially useful as it can be done upfront
+         * without first running the test suite, e.g. in a codebase with many tests.
          *
          * @param {string} name Title of unit being tested
-         * @param callback Function to close over assertions
+         * @param callback Function that performs the test
          */
-        only(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        only: testOnly;
 
         /**
          * Handle a global error that should result in a failed test run.
@@ -682,18 +709,17 @@ declare global {
         push(result: boolean, actual: any, expected: any, message: string): void;
 
         /**
-         * Adds a test like object to be skipped.
+         * Add a test that will be skipped during the run.
          *
-         * Use this method to replace QUnit.test() instead of commenting out entire
-         * tests.
+         * Use this method to disable a QUnit.test(), as alternative to commenting out the test.
          *
-         * This test's prototype will be listed on the suite as a skipped test,
-         * ignoring the callback argument and the respective global and module's
-         * hooks.
+         * This test will be listed in the results as a "skipped" test. The callback and the
+         * respective module's hooks will not run.
          *
          * @param {string} Title of unit being tested
+         * @param [callback] Function that performs the test
          */
-        skip(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        skip: testSkip;
 
         /**
          * Returns a single line string representing the stacktrace (call stack).
@@ -725,21 +751,19 @@ declare global {
         start(): void;
 
         /**
-         * Add a test to run.
-         *
-         * Add a test to run using `QUnit.test()`.
+         * Define a test.
          *
          * The `assert` argument to the callback contains all of QUnit's assertion
-         * methods. Use this argument to call your test assertions.
+         * methods. Use this to make your test assertions.
          *
          * `QUnit.test()` can automatically handle the asynchronous resolution of a
-         * Promise on your behalf if you return a thenable Promise as the result of
+         * Promise on your behalf if you return a "then-able" Promise as the result of
          * your callback function.
          *
          * @param {string} Title of unit being tested
-         * @param callback Function to close over assertions
+         * @param callback Function that performs the test
          */
-        test(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        test: testFunc & TestEach & TestMethods;
 
         /**
          * Register a callback to fire whenever a test ends.
@@ -767,17 +791,17 @@ declare global {
         /**
          * Adds a test which expects at least one failing assertion during its run.
          *
-         * Use this method to test a unit of code which is still under development
-         * (in a “todo” state). The test will pass as long as one failing assertion
-         * is present.
+         * Use this method to test a unit of code that is still under development
+         * (in a "todo" state). The "todo" test will pass as long as there is at
+         * least one assertion still failing, or if an exception is thrown.
          *
-         * If all assertions pass, then the test will fail signaling that QUnit.todo
-         * should be replaced by QUnit.test.
+         * When all assertions are passing, the "todo" test will fail, thus signaling
+         * that QUnit.test.todo() should be changed to QUnit.test().
          *
          * @param {string} Title of unit being tested
-         * @param callback Function to close over assertions
+         * @param callback Function that performs the test
          */
-        todo(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        todo: testTodo;
 
         /**
          * Compares two values. Returns true if they are equivalent.
