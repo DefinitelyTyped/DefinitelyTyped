@@ -174,3 +174,11 @@ async () => {
     };
     await pipeline.create('RtpEndpoint', options); // $ExpectType RtpEndpoint
 };
+
+async () => {
+    // Test Composite
+    const kurentoClient = await kurento('//server');
+    const pipeline = await kurentoClient.create('MediaPipeline'); // $ExpectType MediaPipeline
+    const composite = await pipeline.create('Composite'); // $ExpectType Composite
+    await composite.createHubPort(); // $ExpectType HubPort
+};

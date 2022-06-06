@@ -56,7 +56,7 @@ class Ctrl extends Controller {
         const oModel = new JSONModel(oData);
         this.getView().setModel(oModel);
 
-        const dp = new DatePicker();
+        const dp = new DatePicker({dateValue: "{myModel>/myPropertyName}"});
         dp.setShowCurrentDateButton(true);
 
         const rm: RenderManager = Core.getRenderManager();

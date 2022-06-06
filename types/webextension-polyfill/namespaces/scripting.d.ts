@@ -51,6 +51,12 @@ export namespace Scripting {
          * Optional.
          */
         world?: ExecutionWorld;
+
+        /**
+         * Whether the injection should be triggered in the target as soon as possible (but not necessarily prior to page load).
+         * Optional.
+         */
+        injectImmediately?: boolean;
     }
 
     /**

@@ -16,6 +16,14 @@ import { Locale } from '@ckeditor/ckeditor5-utils';
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
+// $ExpectType LinkConfig | undefined
+new MyEditor().config.get('link');
+// $ExpectType boolean | undefined
+new MyEditor().config.get('link.addTargetToExternalLinks');
+// $ExpectType string | undefined
+new MyEditor().config.get('link.defaultProtocol');
+new MyEditor().config.get('link.decorators');
+
 new Link(editor);
 Link.requires.map(Plugin => new Plugin(editor).init());
 

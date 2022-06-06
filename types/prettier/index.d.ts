@@ -33,7 +33,7 @@ export type Doc = doc.builders.Doc;
 type ArrayElement<T> = T extends Array<infer E> ? E : never;
 
 // A union of the properties of the given object that are arrays.
-type ArrayProperties<T> = { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T];
+type ArrayProperties<T> = { [K in keyof T]: NonNullable<T[K]> extends any[] ? K : never }[keyof T];
 
 // A union of the properties of the given array T that can be used to index it.
 // If the array is a tuple, then that's going to be the explicit indices of the

@@ -60,6 +60,14 @@ QUnit.module( "Machine Maker", {
   }
 });
 
+QUnit.hooks.beforeEach(function (assert) {
+  assert.ok(true)
+});
+
+QUnit.hooks.afterEach(function (assert) {
+  assert.ok(true)
+});
+
 QUnit.test( "makes a robot", function( assert ) {
   this.parts.push( "arduino" );
   assert.equal( this.maker.build( this.parts ), "robot" );
@@ -139,6 +147,9 @@ QUnit.test( "`ok` assertion defined in the callback parameter", function( assert
 
 QUnit.begin(function( details ) {
   console.log( "Test amount:", details.totalTests );
+  for (const {name, moduleId} of details.modules) {
+    console.log(name, moduleId)
+  }
 });
 
 QUnit.config.autostart = false;
@@ -475,6 +486,12 @@ QUnit.test( "notOk test", function( assert ) {
   assert.notOk( "not-empty", "not-empty string fails" );
 });
 
+QUnit.test( "notPropContains test", function( assert ) {
+    const obj = { foo: 1, bar: "baz" }
+
+    assert.notPropContains( obj, { foo: 1 }, "Subset of values are strictly compared." );
+    assert.notPropContains( obj, { bar: { length: 3 } }, "Subset of values are strictly compared." );
+});
 
 QUnit.test( "notPropEqual test", function( assert ) {
   class Foo {
@@ -499,6 +516,13 @@ QUnit.test( "notPropEqual test", function( assert ) {
 
 QUnit.test( "a test", function( assert ) {
   assert.notStrictEqual( 1, "1", "String '1' and number 1 have the same value but not the same type" );
+});
+
+QUnit.test( "propContains test", function( assert ) {
+    const obj = { foo: 1, bar: "baz" }
+
+    assert.propContains( obj, { foo: 1 }, "Subset of values are strictly compared." );
+    assert.propContains( obj, { bar: { length: 3 } }, "Subset of values are strictly compared." );
 });
 
 QUnit.test( "propEqual test", function( assert ) {
@@ -726,6 +750,15 @@ QUnit.skip( "async skip", async function( assert ) {
   await timeout();
   assert.ok(true);
 });
+
+QUnit.hooks.beforeEach(async function () {
+  await timeout();
+});
+
+QUnit.hooks.afterEach(async function () {
+  await timeout();
+});
+
 
 QUnit.module( "async", {
   async after( assert ) {

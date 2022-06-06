@@ -266,6 +266,7 @@ interface Nested1 {
     kind: '1';
     item2: Nested2;
     list2: Nested2[];
+    list4?: Nested2[];
 }
 interface Nested2 {
     kind: '2';
@@ -345,6 +346,10 @@ function print(
         child; // $ExpectType AstPath<Nested2>
     }, 'list2');
 
+    path.each(child => {
+        child; // $ExpectType AstPath<Nested2>
+    }, 'list4');
+
     path.each(
         child => {
             child; // $ExpectType AstPath<Nested3>
@@ -369,6 +374,10 @@ function print(
         child; // $ExpectType AstPath<Nested2>
     }, 'list2');
 
+    path.map(child => {
+        child; // $ExpectType AstPath<Nested2>
+    }, 'list4');
+
     path.map(
         child => {
             child; // $ExpectType AstPath<Nested3>
@@ -390,6 +399,7 @@ function print(
     );
 
     path.call(print, 'list2'); // $ExpectError
+    path.call(print, 'list4'); // $ExpectError
     path.call(print, 'item2', 'list3'); // $ExpectError
 
     path.each(print, 'item2'); // $ExpectError
