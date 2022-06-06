@@ -18,7 +18,7 @@ export { Action, combineReducers };
 //
 export type ResolveSelectorMap = Record<string, <T = unknown>(...args: readonly any[]) => Promise<T>>;
 export type SelectorMap = Record<string, <T = unknown>(...args: readonly any[]) => T>;
-type EnsurePromise<T> = T extends Promise<any> ? T : Promise<T>
+type EnsurePromise<T> = T extends Promise<any> ? T : Promise<T>;
 export type DispatcherMap = Record<string, <T = void>(...args: readonly any[]) => EnsurePromise<T>>;
 
 /**
