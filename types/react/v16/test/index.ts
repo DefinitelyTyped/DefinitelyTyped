@@ -526,6 +526,16 @@ DOM.div(htmlAttr);
 DOM.span(htmlAttr);
 DOM.input(htmlAttr);
 
+declare const trustedHtml: TrustedHTML;
+
+const trustedTypesHTMLAttr: React.HTMLProps<HTMLElement> = {
+    dangerouslySetInnerHTML: {
+        __html: trustedHtml
+    }
+};
+DOM.div(trustedTypesHTMLAttr);
+DOM.span(trustedTypesHTMLAttr);
+
 DOM.svg({
     viewBox: "0 0 48 48",
     xmlns: "http://www.w3.org/2000/svg"
