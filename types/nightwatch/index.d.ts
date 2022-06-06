@@ -946,8 +946,6 @@ export interface NightwatchTestSettings {
     [key: string]: NightwatchTestSettingScreenshots;
 }
 
-export function globalExpect(...args: any): Expect;
-
 export interface ExpectCookie extends NightwatchLanguageChains<ExpectCookie> {
     equal(value: string | string[] | number | number[]): this;
     equals(value: string | string[] | number | number[]): this;
