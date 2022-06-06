@@ -1272,6 +1272,7 @@ declare namespace React {
         shiftKey: boolean;
         /** @deprecated */
         which: number;
+        target: EventTarget & T;
     }
 
     interface MouseEvent<T = Element, E = NativeMouseEvent> extends UIEvent<T, E> {
