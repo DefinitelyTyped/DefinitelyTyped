@@ -526,6 +526,16 @@ DOM.svg({
     })
 );
 
+declare const trustedHtml: TrustedHTML;
+
+const trustedTypesHTMLAttr: React.HTMLProps<HTMLElement> = {
+    dangerouslySetInnerHTML: {
+        __html: trustedHtml
+    }
+};
+DOM.div(trustedTypesHTMLAttr);
+DOM.span(trustedTypesHTMLAttr);
+
 //
 // React.Children
 // --------------------------------------------------------------------------
