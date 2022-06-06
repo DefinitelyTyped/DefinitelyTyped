@@ -192,6 +192,7 @@ export interface config {
     options?: IOptions | undefined;
     pool?: PoolOpts<Connection> | undefined;
     arrayRowMode?: boolean | undefined;
+    authentication?: tds.ConnectionAuthentication | undefined;
     /**
      * Invoked before opening the connection. The parameter conn is the configured
      * tedious Connection. It can be used for attaching event handlers.
