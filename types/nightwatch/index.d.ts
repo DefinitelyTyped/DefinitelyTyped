@@ -1413,7 +1413,7 @@ export interface NightwatchCommonAssertions {
     ): NightwatchAPI;
 
     /**
-     * Checks if the given element exists in the DOM.
+     * Checks if the given element does not exists in the DOM.
      *
      * @example
      * ```
@@ -2310,11 +2310,12 @@ export interface ClientCommands {
      *   },
      *
      *   'ES6 async demo Test': async function(browser) {
-     *     const result = await browser.fullscreenWindow();
+     *     const result = await browser.openNewWindow();
      *     console.log('result value is:', result.value);
      *   }
      * }
      */
+    openNewWindow(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
     openNewWindow(
         type?: windowType,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
@@ -2656,9 +2657,9 @@ export interface ClientCommands {
      */
     waitUntil(
         conditionFn:
-            | (() => undefined | Promise<any>)
-            | ((done: () => void) => void)
-            | ((client: NightwatchAPI, done: () => void) => void),
+            | ((this: NightwatchAPI) => undefined | Promise<any>)
+            | ((this: NightwatchAPI, done: () => void) => void)
+            | ((this: NightwatchAPI, client: NightwatchAPI, done: () => void) => void),
         waitTimeMs?: number,
         retryInterval?: number,
         callback?: (this: NightwatchAPI) => void,
@@ -4839,10 +4840,12 @@ export interface WebDriverProtocolSessions {
      *    });
      *  };
      */
-    setNetworkConditions(spec: {
-        [key: string]: any;
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void;
-    }): this;
+    setNetworkConditions(
+        spec: {
+            [key: string]: any;
+        },
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): this;
 }
 
 export interface WebDriverProtocolNavigation {
