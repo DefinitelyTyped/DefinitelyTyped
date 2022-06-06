@@ -52,9 +52,6 @@ const HookComponent = () => {
 // $ExpectType DispatcherMap
 data.dispatch('foo/bar');
 
-// $ExpectType Record<string, <T = void>(...args: readonly any[]) => Promise<T>>
-data.dispatch('foo/bar');
-
 // $ExpectType Promise<void>
 data.dispatch('foo/bar').foobar();
 
