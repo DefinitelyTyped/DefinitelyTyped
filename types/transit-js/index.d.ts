@@ -424,7 +424,7 @@ export function equals(a: any, b: any): boolean;
  * @param x A JavaScript object, will be mutated.
  * @return x
  * @example
- *     transit.extendToEq(Point.protototype, {
+ *     transit.extendToEq(Point.prototype, {
  *         hashCode: function() {
  *             var bits = (this.x | 0) ^ ((this.y | 0) * 31);
  *             return bits ^ (bits >>> 32);
