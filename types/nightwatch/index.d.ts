@@ -15,21 +15,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
-import { WebElement, WebElementPromise, By } from 'selenium-webdriver';
+import { WebElement, WebElementPromise, By, RelativeBy } from 'selenium-webdriver';
 
 export * from './globals';
 
 export const ELEMENT_KEY = 'element-6066-11e4-a52e-4f735466cecf';
 
 export interface JSON_WEB_OBJECT {
-    ELEMENT_KEY: string;
+    [ELEMENT_KEY]: string;
     getID: () => string;
 }
 
-export type definition = string | ElementProperties | Element;
+export type definition = string | ElementProperties | Element | RelativeBy;
 
 // TODO: Remove after Selenium-Webdriver implements locateWith in their types
-export function locateWith(args: By): any;
+// export function locateWith(args: By): any;
 
 export interface ChromePerfLoggingPrefs {
     /**
@@ -605,18 +605,18 @@ export interface NightwatchOptions {
     /**
      * Ignore network errors (e.g. ECONNRESET errors)
      */
-    report_network_errors: boolean;
+    report_network_errors?: boolean;
 
     /**
      * Interactive element commands such as "click" or "setValue" can be retried
      * if an error occurred (such as an "element not interactable" error)
      */
-    element_command_retries: number;
+    element_command_retries?: number;
 
     /**
      * Sets the initial window size: {height: number, width: number}
      */
-    window_size: undefined;
+    window_size?: { height: number; width: number };
 }
 
 export interface NightwatchGlobals {
@@ -904,27 +904,42 @@ export interface NightwatchAssertionsError {
     stack: string;
 }
 
-export interface NightwatchLanguageChains {
-    to: Expect;
-    be: Expect;
-    been: Expect;
-    is: Expect;
-    that: Expect;
-    which: Expect;
-    and: Expect;
-    has: Expect;
-    have: Expect;
-    with: Expect;
-    at: Expect;
-    does: Expect;
-    of: Expect;
-    include(...data: any): Expect;
-}
-
-export interface NightwatchExpectMethods {
-    active: Expect;
-    deep: Expect;
-    count: Expect;
+export interface NightwatchLanguageChains<T> {
+    to: T;
+    be: T;
+    been: T;
+    is: T;
+    that: T;
+    which: T;
+    and: T;
+    has: T;
+    have: T;
+    with: T;
+    at: T;
+    does: T;
+    of: T;
+    include(...data: any): T;
+    /**
+     * These methods will perform assertions on the specified target on the current element.
+     * The targets can be an attribute value, the element's inner text and a css property.
+     */
+    startWith(value: string): T;
+    startsWith(value: string): T;
+    endWith(value: string): T;
+    endsWith(value: string): T;
+    /**
+     * Negates any of assertions following in the chain.
+     */
+    not: T;
+    /**
+     * These methods perform the same thing which is essentially retrying the assertion for the given amount of time (in milliseconds).
+     * before or after can be chained to any assertion and thus adding retry capability. You can change the polling interval by defining
+     * a waitForConditionPollInterval property (in milliseconds) as a global property in your nightwatch.json or in
+     * your external globals file. Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
+     */
+    before(value: number): T;
+    after(value: number): T;
+    deep: T;
 }
 
 export interface NightwatchTestSettings {
@@ -932,99 +947,52 @@ export interface NightwatchTestSettings {
 }
 
 export function globalExpect(...args: any): Expect;
-export interface Expect extends NightwatchLanguageChains, NightwatchExpectMethods {
-    /**
-     * Returns the DOM Element
-     */
-    element(property: string | Element): this;
 
-    /**
-     * These methods will perform assertions on the specified target on the current element.
-     * The targets can be an attribute value, the element's inner text and a css property.
-     */
+export interface ExpectCookie extends NightwatchLanguageChains<ExpectCookie> {
     equal(value: string | string[] | number | number[]): this;
     equals(value: string | string[] | number | number[]): this;
     contain(value: string): this;
     contains(value: string): this;
     match(value: string | RegExp): this;
     matches(value: string | RegExp): this;
-    startWith(value: string): this;
-    startsWith(value: string): this;
-    endWith(value: string): this;
-    endsWith(value: string): this;
+}
 
-    cookie(name: string, domain?: string): this;
-    domProperty(propertyName: string): this;
-    elements(property: string | Element): this;
-
-    /**
-     * Negates any of assertions following in the chain.
-     */
-    not: this;
-
-    /**
-     * These methods perform the same thing which is essentially retrying the assertion for the given amount of time (in milliseconds).
-     * before or after can be chained to any assertion and thus adding retry capability. You can change the polling interval by defining
-     * a waitForConditionPollInterval property (in milliseconds) as a global property in your nightwatch.json or in
-     * your external globals file. Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
-     */
-    before(value: number): this;
-    after(value: number): this;
-
+export interface ExpectElement extends NightwatchLanguageChains<ExpectElement> {
     /**
      * Checks if the type (i.e. tag name) of a specified element is of an expected value.
      */
     a(value: string, message?: string): this;
     an(value: string, message?: string): this;
-
+    active: this;
     /**
      * Checks if a given attribute of an element exists and optionally if it has the expected value.
      */
-    attribute(name: string, message?: string): this;
-
+    attribute(attribute: string, message?: string): this;
+    /**
+     * Checks a given css property of an element exists and optionally if it has the expected value.
+     */
+    css(property: string, message?: string): this;
+    /**
+     * Property that checks if an element is currently enabled.
+     */
+    enabled: this;
+    /**
+     * Property that checks if an element is present in the DOM.
+     */
+    present: this;
     /**
      * Checks if a given DOM property of an element has the expected value.
      * For all the available DOM element properties, consult the [Element doc at MDN](https://developer.mozilla.org/en-US/docs/Web/API/element).
      */
     property(name: string, message?: string): this;
-
-    /**
-     * Checks a given css property of an element exists and optionally if it has the expected value.
-     */
-    css(property: string, message?: string): this;
-
-    section(property: string): this;
-
-    /**
-     * Retrieves the page title value in order to be used for performing equal, match or contains assertions on it.
-     */
-    title(): this;
-
-    /**
-     * Retrieves the page url value in order to be used for performing equal, match or contains assertions on it.
-     */
-    url(): this;
-
-    /**
-     * Property that checks if an element is currently enabled.
-     */
-    enabled: this;
-
-    /**
-     * Property that checks if an element is present in the DOM.
-     */
-    present: this;
-
     /**
      * Property that checks if an OPTION element, or an INPUT element of type checkbox or radio button is currently selected.
      */
     selected: this;
-
     /**
      * Property that retrieves the text contained by an element. Can be chained to check if contains/equals/matches the specified text or regex.
      */
     text: this;
-
     /**
      * Property that retrieves the value (i.e. the value attributed) of an element. Can be chained to check if contains/equals/matches the specified text or regex.
      */
@@ -1034,6 +1002,70 @@ export interface Expect extends NightwatchLanguageChains, NightwatchExpectMethod
      * Property that asserts the visibility of a specified element.
      */
     visible: this;
+    domProperty(propertyName: string): this;
+    equal(value: string | string[] | number | number[]): this;
+    equals(value: string | string[] | number | number[]): this;
+    contain(value: string): this;
+    contains(value: string): this;
+    match(value: string | RegExp): this;
+    matches(value: string | RegExp): this;
+}
+
+export interface ExpectElements extends NightwatchLanguageChains<ExpectElements> {
+    count: this;
+    equal(value: string | string[] | number | number[]): this;
+    equals(value: string | string[] | number | number[]): this;
+    contain(value: string): this;
+    contains(value: string): this;
+    match(value: string | RegExp): this;
+    matches(value: string | RegExp): this;
+}
+
+export interface ExpectTitle extends NightwatchLanguageChains<ExpectTitle> {
+    equal(value: string | string[] | number | number[]): this;
+    equals(value: string | string[] | number | number[]): this;
+    contain(value: string): this;
+    contains(value: string): this;
+    match(value: string | RegExp): this;
+    matches(value: string | RegExp): this;
+}
+
+export interface ExpectUrl extends NightwatchLanguageChains<ExpectUrl> {
+    equal(value: string | string[] | number | number[]): this;
+    equals(value: string | string[] | number | number[]): this;
+    contain(value: string): this;
+    contains(value: string): this;
+    match(value: string | RegExp): this;
+    matches(value: string | RegExp): this;
+}
+
+export interface Expect {
+    /**
+     *  Expect assertions operating on a single cookie after
+     *  retrieving the entire cookie string, using .getCookies().
+     */
+    cookie(name: string, domain?: string): ExpectCookie;
+
+    /**
+     * Expect assertions operating on a single element, specified by its CSS/Xpath selector.
+     */
+    element(property: string | Element | RelativeBy): ExpectElement;
+
+    /**
+     * Expect assertions operating on a collection of elements, specified by a CSS/Xpath selector.
+     * So far only .count is available.
+     */
+    elements(property: string | Element | RelativeBy): ExpectElements;
+
+    /**
+     * Retrieves the page title value in order to be used for performing equal, match or contains assertions on it.
+     */
+    title(): ExpectTitle;
+
+    /**
+     * Retrieves the page url value in order to be used for performing equal, match or contains assertions on it.
+     */
+    url(): ExpectUrl;
 }
 
 export interface Ensure {
