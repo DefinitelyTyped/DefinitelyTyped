@@ -36,9 +36,9 @@ import * as R from 'ramda';
     R.on((a: number, b: number) => a + b)(Number)('1')('2');
     // Using literals is a mistake
 
-    // $ExpectError
+    // @ts-expect-error
     R.on((a, b) => a + b, Number, '1')('2');
-    // $ExpectError
+    // @ts-expect-error
     R.on((a: number, b: number) => a + b)(Number, '1')('2');
 
     // $ExpectType string

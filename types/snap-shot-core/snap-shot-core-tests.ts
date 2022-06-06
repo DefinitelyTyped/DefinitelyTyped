@@ -34,12 +34,14 @@ const out1 = snapShot.core({
 out1.key; // $ExpectType string
 out1.value; // $ExpectType { mapped: number; }
 
-snapShot.core({ what: undefined }); // $ExpectError
+// @ts-expect-error
+snapShot.core({ what: undefined });
 
 // restore()
 
 snapShot.restore();
-snapShot.restore({}); // $ExpectError
+// @ts-expect-error
+snapShot.restore({});
 snapShot.restore({ file: 'file', specName: 'spec' });
 
 // prune()
@@ -67,7 +69,8 @@ snapShot.savedSnapshotName({ specName: 'spec', index: 0 });
 
 snapShot.storeValue({
     file: 'file',
-    value: undefined, // $ExpectError
+    // @ts-expect-error
+    value: undefined,
 });
 snapShot.storeValue({
     file: 'file',

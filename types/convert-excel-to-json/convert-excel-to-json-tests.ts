@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 const sourceFile = "test-data.xlsx";
 const sourceBuffer = readFileSync(sourceFile);
 
-// $ExpectError
+// @ts-expect-error
 excelToJson({
     header: {
         rows: 1

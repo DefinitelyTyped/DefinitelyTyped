@@ -225,7 +225,7 @@ const result = twoslash("//")
 + // Handle options param
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // When the param is incorrect
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -233,13 +233,13 @@ If you're wondering where to start with test code, the examples in the README of
 
 You can [validate your changes](#검증하기) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
 
-어떤 표현식(Expression)이 특정한 형(Type)을 가진다고 단언(Assert)하고 싶을 때에는 `$ExpectType` 를 사용하시면 됩니다. 어떤 표현식(Expression)이 컴파일에 실패해야하는 경우에는 `$ExpectError` 를 하시면 됩니다.
+어떤 표현식(Expression)이 특정한 형(Type)을 가진다고 단언(Assert)하고 싶을 때에는 `$ExpectType` 를 사용하시면 됩니다. 어떤 표현식(Expression)이 컴파일에 실패해야하는 경우에는 `@ts-expect-error` 를 하시면 됩니다.
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("one");
 ```
 

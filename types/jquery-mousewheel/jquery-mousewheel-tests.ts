@@ -20,5 +20,5 @@ const adjustOldDeltas = $.event.special.mousewheel.settings.adjustOldDeltas;
 // $ExpectType boolean
 $.event.special.mousewheel.settings.normalizeOffset = !$.event.special.mousewheel.settings.normalizeOffset;
 
-// $ExpectError
+// @ts-expect-error
 $.event.special.mousewheel.settings.normalizeOffset = "true";
