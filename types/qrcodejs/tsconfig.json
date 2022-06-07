@@ -3,14 +3,12 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom",
-            "es2017"
+            "DOM"
         ],
-        "target": "es2017",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -21,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "html5-to-pdf-tests.ts"
+        "qrcodejs-tests.ts"
     ]
 }

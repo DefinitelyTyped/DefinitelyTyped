@@ -2,25 +2,28 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom",
-            "es2017"
+            "es6"
         ],
-        "target": "es2017",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@hapi/*": [
+                "hapi__*"
+            ]
+        },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
-        "html5-to-pdf-tests.ts"
+        "hapi__content-tests.ts"
     ]
 }
