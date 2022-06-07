@@ -4,64 +4,65 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+/// <reference path="./helper.d.ts" />
 
 // ---------- metadata ----------
-export enum rowExistenceExpectation {
-    IGNORE,
-    EXPECT_EXIST,
-    EXPECT_NOT_EXIST,
-}
+export const rowExistenceExpectation: {
+    IGNORE: 'IGNORE';
+    EXPECT_EXIST: 'EXPECT_EXIST';
+    EXPECT_NOT_EXIST: 'EXPECT_NOT_EXIST';
+};
 
-export enum Direction {
-    FORWARD,
-    BACKWARD,
-}
+export const Direction: {
+    FORWARD: 'FORWARD';
+    BACKWARD: 'BACKWARD';
+};
 
-export enum UpdateType {
-    PUT,
-    DELETE,
-    DELETE_ALL,
-    INCREMENT,
-}
+export const UpdateType: {
+    PUT: 'PUT';
+    DELETE: 'DELETE';
+    DELETE_ALL: 'DELETE_ALL';
+    INCREMENT: 'INCREMENT';
+};
 
-export enum BatchWriteType {
-    PUT,
-    UPDATE,
-    DELETE,
-}
+export const BatchWriteType: {
+    PUT: 1;
+    UPDATE: 2;
+    DELETE: 3;
+};
 
-export enum ReturnType {
-    NONE,
-    Primarykey,
-    AfterModify,
-}
+export const ReturnType: {
+    NONE: 0;
+    Primarykey: 1;
+    AfterModify: 2;
+};
 
-export enum DefinedColumnType {
-    DCT_INTEGER,
-    DCT_DOUBLE,
-    DCT_BOOLEAN,
-    DCT_STRING,
-}
+export const DefinedColumnType: {
+    DCT_INTEGER: 1;
+    DCT_DOUBLE: 2;
+    DCT_BOOLEAN: 3;
+    DCT_STRING: 4;
+};
 
-export enum PrimaryKeyType {
-    INTEGER,
-    STRING,
-    BINARY,
-}
+export const PrimaryKeyType: {
+    INTEGER: 1;
+    STRING: 2;
+    BINARY: 3;
+};
 
-export enum PrimaryKeyOption {
-    AUTO_INCREMENT,
-}
+export const PrimaryKeyOption: {
+    AUTO_INCREMENT: 1;
+};
 
-export enum IndexUpdateMode {
-    IUM_ASYNC_INDEX,
-    IUM_SYNC_INDEX,
-}
+export const IndexUpdateMode: {
+    IUM_ASYNC_INDEX: 0;
+    IUM_SYNC_INDEX: 1;
+};
 
-export enum IndexType {
-    IT_GLOBAL_INDEX,
-    IT_LOCAL_INDEX,
-}
+export const IndexType: {
+    IT_GLOBAL_INDEX: 0;
+    IT_LOCAL_INDEX: 1;
+};
 
 export type VirtualData = {
     [K in any]: never;
@@ -131,12 +132,12 @@ export interface TableMeta {
     tableName: string;
     primaryKey: Array<{
         name: string;
-        type: PrimaryKeyType | keyof typeof PrimaryKeyType;
-        option?: PrimaryKeyOption | keyof typeof PrimaryKeyOption;
+        type: EnumValuesOrKeys<typeof PrimaryKeyType>;
+        option?: EnumValuesOrKeys<typeof PrimaryKeyOption>;
     }>;
     definedColumn?: Array<{
         name: string;
-        type: DefinedColumnType | keyof typeof DefinedColumnType;
+        type: EnumValuesOrKeys<typeof DefinedColumnType>;
     }>;
 }
 
@@ -162,12 +163,12 @@ export interface IndexMeta {
     name: string;
     primaryKey: string[];
     definedColumn: string[];
-    indexUpdateMode?: IndexUpdateMode;
-    indexType?: IndexType;
+    indexUpdateMode?: EnumValues<typeof IndexUpdateMode>;
+    indexType?: EnumValues<typeof IndexType>;
 }
 
 export interface ReturnContent {
-    returnType: ReturnType;
+    returnType: EnumValues<typeof ReturnType>;
     returnColumns?: string[];
 }
 
@@ -177,7 +178,7 @@ export interface JustTableName {
 
 export interface FieldSchemas {
     fieldName: string;
-    fieldType: FieldType;
+    fieldType: EnumValues<typeof FieldType>;
     index?: boolean;
     analyzer?: string;
     enableSortAndAgg?: boolean;
@@ -189,20 +190,20 @@ export interface FieldSchemas {
 
 export interface Sorter {
     primaryKeySort?: {
-        order: SortOrder;
+        order: EnumValues<typeof SortOrder>;
     };
     fieldSort?: {
         fieldName: string;
-        order: SortOrder;
-        mode?: SortMode;
+        order: EnumValues<typeof SortOrder>;
+        mode?: EnumValues<typeof SortMode>;
     };
     scoreSort?: {
-        order: SortOrder;
+        order: EnumValues<typeof SortOrder>;
     };
     geoDistanceSort?: {
         fieldName: string;
         points: string[];
-        order: SortOrder;
+        order: EnumValues<typeof SortOrder>;
     };
 }
 
@@ -262,7 +263,7 @@ export type DeleteRowParams = WithTransactionId & {
 export type GetRangeParams = FilterParams &
     WithTransactionId & {
         tableName: string;
-        direction: Direction;
+        direction: EnumValues<typeof Direction>;
         inclusiveStartPrimaryKey: PrimaryKeyInput;
         exclusiveEndPrimaryKey: PrimaryKeyInput;
         limit?: number;
@@ -328,14 +329,14 @@ export interface SearchParams {
         offset: number;
         limit: number;
         query: {
-            queryType: QueryType;
+            queryType: EnumValues<typeof QueryType>;
             query?: unknown;
         };
         getTotalCount?: boolean;
         token?: Buffer | null;
     };
     columnToGet: {
-        returnType: ColumnReturnType;
+        returnType: EnumValues<typeof ColumnReturnType>;
         returnNames?: string[];
     };
     timeoutMs?: number;
@@ -348,8 +349,8 @@ export interface CreateIndexParams {
         primaryKey: string[];
         definedColumn: string[];
         includeBaseData: boolean;
-        indexType?: IndexType;
-        indexUpdateMode?: IndexUpdateMode;
+        indexType?: EnumValues<typeof IndexType>;
+        indexUpdateMode?: EnumValues<typeof IndexUpdateMode>;
     };
 }
 
@@ -415,35 +416,35 @@ export interface StartLocalTransactionResult {
 }
 
 // ---------- filter ----------
-export enum LogicalOperator {
-    NOT,
-    AND,
-    OR,
-}
+export const LogicalOperator: {
+    NOT: 1;
+    AND: 2;
+    OR: 3;
+};
 
-export enum ColumnConditionType {
-    COMPOSITE_COLUMN_CONDITION,
-    SINGLE_COLUMN_CONDITION,
-}
+export const ColumnConditionType: {
+    COMPOSITE_COLUMN_CONDITION: 0;
+    SINGLE_COLUMN_CONDITION: 1;
+};
 
-export enum ComparatorType {
-    EQUAL,
-    NOT_EQUAL,
-    GREATER_THAN,
-    GREATER_EQUAL,
-    LESS_THAN,
-    LESS_EQUAL,
-}
+export const ComparatorType: {
+    EQUAL: 1;
+    NOT_EQUAL: 2;
+    GREATER_THAN: 3;
+    GREATER_EQUAL: 4;
+    LESS_THAN: 5;
+    LESS_EQUAL: 6;
+};
 
-export enum RowExistenceExpectation {
-    IGNORE,
-    EXPECT_EXIST,
-    EXPECT_NOT_EXIST,
-}
+export const RowExistenceExpectation: {
+    IGNORE: 0;
+    EXPECT_EXIST: 1;
+    EXPECT_NOT_EXIST: 2;
+};
 
 export class ColumnCondition {}
 export class CompositeCondition extends ColumnCondition {
-    constructor(combinator: LogicalOperator);
+    constructor(combinator: EnumValues<typeof LogicalOperator>);
     addSubCondition: (condition: ColumnCondition) => void;
     sub_conditions: ColumnCondition[];
 }
@@ -451,18 +452,21 @@ export class SingleColumnCondition extends ColumnCondition {
     constructor(
         columnName: string,
         columnValue: CellValue,
-        comparator: ComparatorType,
+        comparator: EnumValues<typeof ComparatorType>,
         passIfMissing?: boolean,
         latestVersionOnly?: boolean,
     );
     columnName: string;
     columnValue: CellValue;
-    comparator: ComparatorType;
+    comparator: EnumValues<typeof ComparatorType>;
     passIfMissing?: boolean;
     latestVersionOnly?: boolean;
 }
 export class Condition {
-    constructor(rowExistenceExpectation: RowExistenceExpectation, columnCondition: ColumnCondition | null);
+    constructor(
+        rowExistenceExpectation: EnumValues<typeof RowExistenceExpectation>,
+        columnCondition: ColumnCondition | null,
+    );
     columnCondition: ColumnCondition;
 }
 export class ColumnPaginationFilter {
@@ -572,74 +576,74 @@ export class Client {
 }
 
 // ---------- search ----------
-export enum QueryType {
-    MATCH_QUERY,
-    MATCH_PHRASE_QUERY,
-    TERM_QUERY,
-    RANGE_QUERY,
-    PREFIX_QUERY,
-    BOOL_QUERY,
-    CONST_SCORE_QUERY,
-    FUNCTION_SCORE_QUERY,
-    NESTED_QUERY,
-    WILDCARD_QUERY,
-    MATCH_ALL_QUERY,
-    GEO_BOUNDING_BOX_QUERY,
-    GEO_DISTANCE_QUERY,
-    GEO_POLYGON_QUERY,
-    TERMS_QUERY,
-    EXISTS_QUERY,
-}
+export const QueryType: {
+    MATCH_QUERY: 1;
+    MATCH_PHRASE_QUERY: 2;
+    TERM_QUERY: 3;
+    RANGE_QUERY: 4;
+    PREFIX_QUERY: 5;
+    BOOL_QUERY: 6;
+    CONST_SCORE_QUERY: 7;
+    FUNCTION_SCORE_QUERY: 8;
+    NESTED_QUERY: 9;
+    WILDCARD_QUERY: 10;
+    MATCH_ALL_QUERY: 11;
+    GEO_BOUNDING_BOX_QUERY: 12;
+    GEO_DISTANCE_QUERY: 13;
+    GEO_POLYGON_QUERY: 14;
+    TERMS_QUERY: 15;
+    EXISTS_QUERY: 16;
+};
 
-export enum ScoreMode {
-    SCORE_MODE_NONE,
-    SCORE_MODE_AVG,
-    SCORE_MODE_MAX,
-    SCORE_MODE_TOTAL,
-    SCORE_MODE_MIN,
-}
+export const ScoreMode: {
+    SCORE_MODE_NONE: 1;
+    SCORE_MODE_AVG: 2;
+    SCORE_MODE_MAX: 3;
+    SCORE_MODE_TOTAL: 4;
+    SCORE_MODE_MIN: 5;
+};
 
-export enum SortOrder {
-    SORT_ORDER_ASC,
-    SORT_ORDER_DESC,
-}
+export const SortOrder: {
+    SORT_ORDER_ASC: 0;
+    SORT_ORDER_DESC: 1;
+};
 
-export enum SortMode {
-    SORT_MODE_MIN,
-    SORT_MODE_MAX,
-    SORT_MODE_AVG,
-}
+export const SortMode: {
+    SORT_MODE_MIN: 0;
+    SORT_MODE_MAX: 1;
+    SORT_MODE_AVG: 2;
+};
 
-export enum FieldType {
-    LONG,
-    DOUBLE,
-    BOOLEAN,
-    KEYWORD,
-    TEXT,
-    NESTED,
-    GEO_POINT,
-    DATE,
-}
+export const FieldType: {
+    LONG: 1;
+    DOUBLE: 2;
+    BOOLEAN: 3;
+    KEYWORD: 4;
+    TEXT: 5;
+    NESTED: 6;
+    GEO_POINT: 7;
+    DATE: 8;
+};
 
-export enum ColumnReturnType {
-    RETURN_ALL,
-    RETURN_SPECIFIED,
-    RETURN_NONE,
-}
+export const ColumnReturnType: {
+    RETURN_ALL: 1;
+    RETURN_SPECIFIED: 2;
+    RETURN_NONE: 3;
+};
 
-export enum GeoDistanceType {
-    GEO_DISTANCE_ARC,
-    GEO_DISTANCE_PLANE,
-}
+export const GeoDistanceType: {
+    GEO_DISTANCE_ARC: 0;
+    GEO_DISTANCE_PLANE: 1;
+};
 
-export enum IndexOptions {
-    DOCS,
-    FREQS,
-    POSITIONS,
-    OFFSETS,
-}
+export const IndexOptions: {
+    DOCS: 1;
+    FREQS: 2;
+    POSITIONS: 3;
+    OFFSETS: 4;
+};
 
-export enum QueryOperator {
-    OR,
-    AND,
-}
+export const QueryOperator: {
+    OR: 1;
+    AND: 2;
+};
