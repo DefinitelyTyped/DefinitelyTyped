@@ -6,10 +6,22 @@
 
 /// <reference types="node" />
 
-export type RouteMethod = "get" | "head" | "post" | "put" | "delete" | "connect" | "options" | "trace" | "patch";
-
 export interface RouteDefinition {
-    method: RouteMethod | "*";
+    /**
+     * Generally this is an HTTP method or "*" to mean any.
+     * This field is case insensitive.
+     *
+     * - "get"
+     * - "head"
+     * - "post"
+     * - "put"
+     * - "delete"
+     * - "connect"
+     * - "options"
+     * - "trace"
+     * - "patch"
+     */
+    method: string;
     path: string;
 }
 
@@ -28,5 +40,5 @@ export type Route<Handler> = Match<Handler> | Error;
 export class Router<Handler> {
     constructor(routerOptions?: RouterOptions)
     add(definition: RouteDefinition, route?: Handler): void;
-    route(method: RouteMethod, path: string): Route<Handler>;
+    route(method: string, path: string): Route<Handler>;
 }
