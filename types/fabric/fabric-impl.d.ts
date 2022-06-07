@@ -3686,7 +3686,7 @@ export class Object {
      * @return {fabric.Object} thisArg
      * @chainable
      */
-    setCoords(skipCorners?: boolean): Object;
+    setCoords(skipCorners?: boolean): this;
     /**
      * Returns coordinates of object's bounding rectangle (left, top, width, height)
      * the box is intented as aligned to axis of canvas.
@@ -3731,12 +3731,12 @@ export class Object {
      * Scales an object to a given height, with respect to bounding box (scaling by x/y equally)
      * @param value New height value
      */
-    scaleToHeight(value: number, absolute?: boolean): Object;
+    scaleToHeight(value: number, absolute?: boolean): this;
     /**
      * Scales an object to a given width, with respect to bounding box (scaling by x/y equally)
      * @param value New width value
      */
-    scaleToWidth(value: number, absolute?: boolean): Object;
+    scaleToWidth(value: number, absolute?: boolean): this;
     /**
      * Checks if object intersects with another object
      * @param {Object} other Object to test
