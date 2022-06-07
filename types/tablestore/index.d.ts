@@ -58,12 +58,10 @@ export const IndexType: {
     IT_LOCAL_INDEX: 1;
 };
 
-export type VirtualData = {
-    [K in any]: never;
-};
-export const INF_MIN: VirtualData;
-export const INF_MAX: VirtualData;
-export const PK_AUTO_INCR: VirtualData;
+export const INF_MIN: unique symbol;
+export const INF_MAX: unique symbol;
+export const PK_AUTO_INCR: unique symbol;
+export type VirtualData = typeof INF_MIN | typeof INF_MAX | typeof PK_AUTO_INCR;
 
 // ---------- long ----------
 export interface int64 {
@@ -81,7 +79,7 @@ export type CellValue = string | Buffer | int64 | boolean | number | null;
 export type PrimaryKeyInput = Array<{ [name: string]: CellValue | VirtualData }>;
 export type PrimaryKeyOutput = Array<{ name: string; value: CellValue }>;
 export type AttributesInput = Array<{
-    [name: string]: CellValue | VirtualData | undefined;
+    [name: string]: CellValue | undefined;
     timestamp?: number;
 }>;
 export type AttributesOutput = Array<{
