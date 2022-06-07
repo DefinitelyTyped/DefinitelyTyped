@@ -27,7 +27,7 @@ export interface ResponsiveObject {
 
 export type SwipeDirection = "left" | "down" | "right" | "up" | string;
 
-export type LazyLoadTypes = "ondemand" | "progressive";
+export type LazyLoadTypes = "ondemand" | "progressive" | "anticipated";
 
 export interface Settings {
     accessibility?: boolean | undefined;
