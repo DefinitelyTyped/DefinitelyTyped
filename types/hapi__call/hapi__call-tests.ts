@@ -13,6 +13,3 @@ if (!(route instanceof Error)) {
 } else {
   throw route;
 }
-
-// @ts-expect-error
-const route2 = router.route('foobar', '/');
