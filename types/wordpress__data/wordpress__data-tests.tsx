@@ -49,7 +49,7 @@ const HookComponent = () => {
 // `dispatch` overload tests
 //
 
-// $ExpectType Record<string, <T = void>(...args: readonly any[]) => EnsurePromise<T>> || DispatcherMap
+// $ExpectType Record<string, <T = void, DoEnsurePromise extends boolean = true>(...args: readonly any[]) => DoEnsurePromise extends true ? EnsurePromise<T> : T> || DispatcherMap
 data.dispatch('foo/bar');
 
 // $ExpectType Promise<void>
