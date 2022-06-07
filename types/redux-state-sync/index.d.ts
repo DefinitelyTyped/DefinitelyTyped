@@ -34,10 +34,10 @@ export function generateUuidForAction(action: AnyAction): StampedAction;
 export function isActionAllowed(config: Config): (type: string) => boolean;
 export function createMessageListener(config: MessageListenerConfig): void;
 export function createStateSyncMiddleware(config?: Config): Middleware;
-export function withReduxStateSync(
-    appReducer: Reducer,
+export function withReduxStateSync<T extends Reducer>(
+    appReducer: T,
     prepareInitialStateForStore?: (state: any) => any,
-): (state: any, action: AnyAction) => Reducer;
+): T;
 export function initStateWithPrevTab(store: Store): Store;
 export function initMessageListener(store: Store): Store;
 export function isActionSynced(action: AnyAction): boolean;

@@ -34,9 +34,13 @@ export interface SharedProps {
      */
     name?: string;
     /**
-     * className attribute set for both input and display element
+     * class attribute set for display element
      */
     className?: string;
+    /**
+     * class attribute set for input element
+     */
+    inputClassName?: string;
     /**
      * value sets the input value and text of display element
      */

@@ -1,4 +1,4 @@
-// Type definitions for QUnit v2.11.3
+// Type definitions for QUnit v2.19.0
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
 //                 Mike North <https://github.com/mike-north>
@@ -128,6 +128,21 @@ declare global {
         notOk(state: any, message?: string): void;
 
         /**
+         * Check that an object does not contain certain properties.
+         *
+         * The `notPropContains` assertion compares the subset of properties
+         * in the expected object, and tests that these keys are either absent
+         * or hold a value that is different according to a strict equality comparison.
+         *
+         * `propContains()` can be used to test to test for the presence and equality of properties.
+         *
+         * @param actual Object or Expression being tested
+         * @param expected Known comparison value
+         * @param {string} [message] A short description of the assertion
+         */
+        notPropContains(actual: any, expected: any, message?: string): void;
+
+        /**
          * A strict comparison of an object's own properties, checking for inequality.
          *
          * The `notPropEqual` assertion uses the strict inverted comparison operator
@@ -180,6 +195,25 @@ declare global {
          * @param {string} message A short description of the assertion
          */
         ok(state: any, message?: string): void;
+
+        /**
+         * Check that an object contains certain properties.
+         *
+         * The `propContains()` assertion compares only the subset of properties
+         * in the expected object, and tests that these keys exist as own properties
+         * with strictly equal values.
+         *
+         * This method is recursive and allows partial comparison of nested objects as well.
+         *
+         * `propEqual()` can be used to compare all properties, considering extra properties as unexpected.
+         *
+         * `notPropContains()` can be used to test for the absence or inequality of certain properties.
+         *
+         * @param actual Object or Expression being tested
+         * @param expected Known comparison value
+         * @param {string} [message] A short description of the assertion
+         */
+         propContains(actual: any, expected: any, message?: string): void;
 
         /**
          * A strict type and value comparison of an object's own properties.
@@ -338,6 +372,18 @@ declare global {
         }[];
     }
 
+    interface GlobalHooks {
+        /**
+         * Runs after each test.
+         */
+         afterEach(fn: (assert: Assert) => void | Promise<void>): void;
+
+         /**
+         * Runs before each test.
+         */
+        beforeEach(fn: (assert: Assert) => void | Promise<void>): void;
+    }
+
     interface Hooks {
         /**
          * Runs after the last test. If additional tests are defined after the
@@ -392,7 +438,10 @@ declare global {
 
     namespace QUnit {
         interface BeginDetails {
+            /** Number of registered tests */
             totalTests: number;
+            /** List of registered modules, */
+            modules: Array<{ name: string, moduleId: string }>
         }
         interface DoneDetails {
             failed: number;
@@ -502,6 +551,21 @@ declare global {
          * @param mixin An object describing which properties should be modified
          */
         extend(target: any, mixin: any): void;
+
+        /**
+         * Register a global callback to run before or after each test.
+         *
+         * This is the equivalent of applying a QUnit.module() hook to all modules
+         * and all tests, including global tests that are not associated with any module.
+         *
+         * Similar to module hooks, global hooks support async functions or
+         * returning a Promise, which will be waited for before QUnit continues executing tests.
+         * Each global hook also has access to the same assert object and
+         * test context as the QUnit.test that the hook is running for.
+         *
+         * For more details about hooks, refer to QUnit.module § Hooks.
+         */
+        hooks: GlobalHooks
 
         /**
          * Register a callback to fire whenever an assertion completes.

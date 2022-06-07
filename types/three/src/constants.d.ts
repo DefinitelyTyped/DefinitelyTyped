@@ -301,7 +301,6 @@ export const TriangleFanDrawMode: TrianglesDrawModes;
 export enum TextureEncoding {}
 export const LinearEncoding: TextureEncoding;
 export const sRGBEncoding: TextureEncoding;
-export const LogLuvEncoding: TextureEncoding;
 
 // Depth packing strategies
 export enum DepthPackingStrategies {}

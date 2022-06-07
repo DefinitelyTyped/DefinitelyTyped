@@ -29,8 +29,8 @@ declare global {
             logIn(user: User, done: (err: any) => void): void;
             logIn(user: User, options: any, done: (err: any) => void): void;
 
-            logout(): void;
-            logOut(): void;
+            logout(done?: (err: any) => void): void;
+            logOut(done?: (err: any) => void): void;
 
             isAuthenticated(): this is AuthenticatedRequest;
             isUnauthenticated(): this is UnauthenticatedRequest;

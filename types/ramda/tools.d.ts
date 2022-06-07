@@ -1,8 +1,5 @@
 import { A, M, O, T } from 'ts-toolbelt';
 
-// ///////////////////////////////////////////////////////////////////////////////////////
-// TOOLS /////////////////////////////////////////////////////////////////////////////////
-
 // Here lies a loose collection of tools that compute types for the functions in "index.d.ts"
 // The goal of this file is to keep "index.d.ts" readable as well as hiding implementations
 
@@ -13,26 +10,48 @@ import { A, M, O, T } from 'ts-toolbelt';
 // TODO
 // - Types need proper descriptions, so that we know what they do
 
-// ---------------------------------------------------------------------------------------
-// A
+/**
+ * A type that any constructor is assignable to.
+ * Use as a generic constraint (`T extends AnyConstructor`)
+ * and for function parameters (`a: AnyConstructor`).
+ * Use `new (...args: unknown[]) => unknown` instead for function return types.
+ *
+ * <created by @somebody1234>
+ */
+export type AnyConstructor = new (...args: any[]) => unknown;
 
 /**
- * <needs description>
+ * A type that any function is assignable to.
+ * Use as a generic constraint (`T extends AnyFunction`)
+ * and for function parameters (`a: AnyFunction`).
+ * Use `(...args: unknown[]) => unknown` instead for function return types.
+ *
+ * <created by @somebody1234>
+ */
+export type AnyFunction = (...args: any[]) => unknown;
+
+/**
+ * A function taking 0 arguments.
+ * @deprecated Use `() => unknown` instead
  */
 export type Arity0Fn = () => any;
 
 /**
- * <needs description>
+ * A function taking 1 argument.
+ * @deprecated Use `(a: any) => unknown` instead
  */
 export type Arity1Fn = (a: any) => any;
 
 /**
- * <needs description>
+ * A function taking 2 arguments.
+ * @deprecated Use `(a: any, b: any) => unknown` instead
  */
 export type Arity2Fn = (a: any, b: any) => any;
 
 /**
  * <needs description>
+ *
+ * @deprecated Unknown purpose. If really needed, consider `{ nodeType: number; }` instead.
  */
 export interface ArrayLike {
     nodeType: number;
@@ -48,7 +67,6 @@ export type AssocPartialOne<K extends keyof any> = (<T>(val: T) => <U>(obj: U) =
 /**
  * Array of functions to compose/pipe with.
  */
-
 export type AtLeastOneFunctionsFlow<TArgs extends any[], TResult> =
     | [(...args: TArgs) => any, ...Array<(args: any) => any>, (...args: any[]) => TResult]
     | [(...args: TArgs) => TResult];
@@ -56,11 +74,10 @@ export type AtLeastOneFunctionsFlowFromRightToLeft<TArgs extends any[], TResult>
     | [(...args: any) => TResult, ...Array<(args: any) => any>, (...args: TArgs) => any]
     | [(...args: TArgs) => TResult];
 
-// ---------------------------------------------------------------------------------------
-// C
-
 /**
  * <needs description>
+ *
+ * @deprecated Unknown purpose. If really needed, consider `string & { push(x: string): void; }` instead.
  */
 export interface CharList extends String {
     push(x: string): void;
@@ -69,28 +86,20 @@ export interface CharList extends String {
 /**
  * R.cond's [predicate, transform] pair.
  */
-
 export type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R];
 
 /**
  * R.cond's [predicate, transform] pair in a typeguarded version
  */
-
 export type CondPairTypeguard<T, TFiltered extends T, R> = [(value: T) => value is TFiltered, (value: TFiltered) => R];
 
-// ---------------------------------------------------------------------------------------
-// D
-
 /**
- * <needs description>
- * @param A
+ * Dictionary
+ * @param A The type of dictionary values
  */
 export interface Dictionary<A> {
     [index: string]: A;
 }
-
-// ---------------------------------------------------------------------------------------
-// E
 
 /**
  * Represents all objects evolvable with Evolver E
@@ -146,11 +155,19 @@ type EvolveValue<V, E> = E extends (value: V) => any
     ? EvolveNestedValue<V, E>
     : never;
 
-// ---------------------------------------------------------------------------------------
-// F
+/**
+ * All falsy JavaScript values representable by the type system.
+ *
+ * @note Actually there are six (seven) falsy values in JS - the sixth being `NaN`;
+ * the seventh being `document.all`. However `NaN` is not a valid literal type,
+ * and `document.all` is an object so it's probably not a good idea to add it either.
+ */
+export type Falsy = undefined | null | 0 | '' | false;
 
 /**
- * <needs description>
+ * The type of `R.find` and `R.findLast`
+ *
+ * @deprecated Inlined.
  */
 export interface Find {
     <T, P extends T>(pred: (val: T) => val is P, list: readonly T[]): P | undefined;
@@ -160,42 +177,36 @@ export interface Find {
 }
 
 /**
- * <needs description>
+ * A functor satisfying the FantasyLand spec
  * @param A
  */
 export type Functor<A> =
     | { ['fantasy-land/map']: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any }
     | { map: <B>(fn: (a: A) => B) => Functor<B>; [key: string]: any };
 
-// ---------------------------------------------------------------------------------------
-// K
-
 /**
- * <needs description>
- * @param K
- * @param V
+ * A pair containing the key and corresponding value of an object.
+ * @param K Key type
+ * @param V Value type
  */
 export type KeyValuePair<K, V> = [K, V];
 
-// ---------------------------------------------------------------------------------------
-// L
-
 /**
  * <needs description>
- * @param S
- * @param A
+ * @param S Type of the full object
+ * @param A Type of the lens focus
  */
 export type Lens<S, A> = (functorFactory: (a: A) => Functor<A>) => (s: S) => Functor<S>;
 
-/*
+/**
  * Returns true if T1 array length less than or equal to length of array T2, else returns false
  *
- * @param T1 - first readonly array
- * @param T2 - second readonly array
+ * @param T1 First readonly array
+ * @param T2 Second readonly array
  *
  * <created by @valerii15298>
- * */
-type arr1LessThanOrEqual<
+ */
+type Arr1LessThanOrEqual<
     T1 extends ReadonlyArray<any>,
     T2 extends ReadonlyArray<any>,
 > = T1['length'] extends T2['length']
@@ -203,18 +214,18 @@ type arr1LessThanOrEqual<
     : T2['length'] extends 0
     ? false
     : T2 extends readonly [infer First, ...infer Rest]
-    ? arr1LessThanOrEqual<T1, Rest>
+    ? Arr1LessThanOrEqual<T1, Rest>
     : never;
 
-/*
+/**
  * Return true if types T1 and T2 can intersect, e.g. both are primitives or both are objects.
  * Taking into account branded types too.
  *
- * @param T1 - first readonly array
- * @param T2 - second readonly array
+ * @param T1 First readonly array
+ * @param T2 Second readonly array
  *
  * <created by @valerii15298>
- * */
+ */
 type Intersectable<T1, T2> = [T1] extends [T2]
     ? true
     : [T2] extends [T1]
@@ -229,16 +240,16 @@ type Intersectable<T1, T2> = [T1] extends [T2]
         : false
     : false;
 
-/*
+/**
  * Check if type `T` is `any`
  *
- * @param T
+ * @param T Type to check
  *
  * <created by @valerii15298>
- * */
+ */
 type IsAny<T> = 0 extends 1 & T ? true : false;
 
-/*
+/**
  * Intersection when produced result can be usable type.
  * For example type `{a: any} & number` will not be reduced to `never`
  *  but `Intersection<{a: any}, number>` will be `never`
@@ -248,7 +259,7 @@ type IsAny<T> = 0 extends 1 & T ? true : false;
  * @param T2
  *
  * <created by @valerii15298>
- * */
+ */
 type Intersection<T1, T2> = Intersectable<T1, T2> extends true
     ? IsAny<T1> extends true
         ? T2
@@ -257,7 +268,7 @@ type Intersection<T1, T2> = Intersectable<T1, T2> extends true
         : T1 & T2
     : never;
 
-/*
+/**
  * Merge second array with first one,
  * resulting array will have the same length as array T1,
  * every item in new array will be item from first array(T1) by corresponding index
@@ -271,92 +282,89 @@ type Intersection<T1, T2> = Intersectable<T1, T2> extends true
  * @param T2
  *
  * <created by @valerii15298>
- * */
+ */
 export type mergeArrWithLeft<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = readonly [
     ...{
         readonly [Index in keyof T1]: Index extends keyof T2 ? Intersection<T1[Index], T2[Index]> : T1[Index];
     },
 ];
 
-/*
+/**
  * The same as mergeArrWithLeft but will merge smaller array to larger one,
  * so that data will not be lost and maximum length array will be returned
  *
- * example: mergeArrays<[1, number], [number, 2, string]>
+ * example: MergeArrays<[1, number], [number, 2, string]>
  *   will result to => [1, 2, string]
  *
  * @param T1
  * @param T2
  *
  * <created by @valerii15298>
- * */
-type mergeArrays<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = arr1LessThanOrEqual<
+ */
+type MergeArrays<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = Arr1LessThanOrEqual<
     T1,
     T2
 > extends true
     ? mergeArrWithLeft<T2, T1>
     : mergeArrWithLeft<T1, T2>;
 
-/*
+/**
  * Given array of functions will return new array which will be constructed
  * merging all functions parameters array using mergeArrays generic.
  *
  * If provided array is not array of functions, return type will be empty array([])
  *
- * @param T - array of functions
+ * @param T Array of functions
  *
  * <created by @valerii15298>
- * */
+ */
 export type LargestArgumentsList<T extends ReadonlyArray<any>> = T extends readonly [
     (...args: infer Args) => any,
     ...infer Rest,
 ]
-    ? mergeArrays<LargestArgumentsList<Rest>, Args>
+    ? MergeArrays<LargestArgumentsList<Rest>, Args>
     : readonly [];
 
-/*
- * Checks if type is never
+/**
+ * Checks if type is `never`
  *
- * Returns true if type is never, else returns false
+ * Returns `true` if type is `never`, else returns `false`
  *
- * @param T - type to check
+ * @param T Type to check
  *
  * <created by @valerii15298>
- * */
+ */
 type IsNever<T> = [T] extends [never] ? true : false;
 
-/*
- * Checks if array of types is contains never type
+/**
+ * Checks if array of types is contains `never` type
  *
- * Returns true if array contains never type, else returns false
+ * Returns `true` if array contains `never` type, else returns `false`
  *
- * @param T - array of types to check
+ * @param T Array of types to check
  *
  * <created by @valerii15298>
- * */
+ */
 type HasNever<T extends readonly any[]> = T extends readonly [infer First, ...infer Rest]
     ? IsNever<First> extends true
         ? true
         : HasNever<Rest>
     : false;
 
-/*
+/**
  * Checks if corresponding types of arguments in functions overlap(have at least one type in common, except never)
  *
  * Returns `unknown` if arguments types overlap, else returns `ErrorMsg`
  *
- * @param T - type to check
+ * @param T Type to check
  *
  * <created by @valerii15298>
- * */
+ */
 export type IfFunctionsArgumentsDoNotOverlap<T extends ReadonlyArray<Fn>, ErrorMsg extends string> = HasNever<
     LargestArgumentsList<T>
 > extends true
     ? ErrorMsg
     : unknown;
-
-// ---------------------------------------------------------------------------------------
-// M
 
 /**
  * Merge an object `O1` with `O2`
@@ -395,26 +403,32 @@ export type MergeAll<Os extends readonly object[]> = O.AssignUp<{}, Os, 'flat', 
         : M // otherwise, we can get accurate types
     : never;
 
-// ---------------------------------------------------------------------------------------
-// O
-
 /**
  * Predicate for an object containing the key.
  */
 export type ObjPred<T = unknown> = (value: any, key: unknown extends T ? string : keyof T) => boolean;
 
 /**
- * <needs description>
+ * Values that can be compared using the relational operators `<`/`<=`/`>`/`>=`
  */
 export type Ord = number | string | boolean | Date;
 
 /**
- * Represents two value's order
+ * `a` is less than `b`
  */
 export type LT = -1;
+/**
+ * `a` is equal to `b`
+ */
 export type EQ = 0;
+/**
+ * `a` is greater than `b`
+ */
 export type GT = 1;
 
+/**
+ * Represents two values' order
+ */
 export type Ordering = LT | EQ | GT;
 
 /**
@@ -434,16 +448,13 @@ export type ObjectHavingSome<Key extends string> = A.Clean<
     }[Key]
 >;
 
-// ---------------------------------------------------------------------------------------
-// P
-
 /**
  * <needs description>
  */
-export type Path = Array<number | string>;
+export type Path = ReadonlyArray<number | string>;
 
 /**
- * <needs description>
+ * A placeholder used to skip parameters, instead adding a parameter to the returned function.
  */
 export type Placeholder = A.x & { '@@functional/placeholder': true };
 
@@ -470,24 +481,34 @@ export type Pred<T extends any[] = any[]> = (...a: T) => boolean;
  */
 export type PredTypeguard<T, TTypeguarded extends T> = (a: T) => a is TTypeguarded;
 
-// ---------------------------------------------------------------------------------------
-// R
-
 /**
- * <needs description>
- * @param A
+ * A runtime-branded value used to stop `reduce` and `transduce` early.
+ * @param A The type of the contained value
  */
 export interface Reduced<A> {
     '@@transducer/value': A;
     '@@transducer/reduced': true;
 }
 
-export type Fn = (...args: any[]) => any;
+/**
+ * A type representing any function. Useful as a generic constraint.
+ */
+export type Fn = (...args: any[]) => unknown;
+
+/**
+ * Converts an array of functions to an array of their return types.
+ * @param A The array of functions
+ */
 export type ReturnTypesOfFns<A extends ReadonlyArray<Fn>> = A extends readonly [(...args: any[]) => infer H, ...infer R]
     ? R extends readonly Fn[]
         ? readonly [H, ...ReturnTypesOfFns<R>]
         : readonly []
     : readonly [];
+
+/**
+ * Converts an array of functions taking a single parameter to an array of their parameter types.
+ * @param A The array of functions
+ */
 export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, ...infer R]
     ? H extends Fn
         ? R extends Fn[]
@@ -495,15 +516,11 @@ export type InputTypesOfFns<A extends ReadonlyArray<Fn>> = A extends [infer H, .
             : []
         : []
     : [];
-// ---------------------------------------------------------------------------------------
-// S
-
-// ---------------------------------------------------------------------------------------
-// V
 
 /**
- * <needs description>
- * @param R
+ * The type of the values of a record.
+ * @param R The record.
+ * @deprecated Use `T[keyof T]` instead.
  */
 export type ValueOfRecord<R> = R extends Record<any, infer T> ? T : never;
 
@@ -511,13 +528,15 @@ export type ValueOfRecord<R> = R extends Record<any, infer T> ? T : never;
  * If `T` is a union, `T[keyof T]` (cf. `map` and `values` in `index.d.ts`) contains the types of object values that are common across the union (i.e., an intersection).
  * Because we want to include the types of all values, including those that occur in some, but not all members of the union, we first define `ValueOfUnion`.
  * @see https://stackoverflow.com/a/60085683
+ * @param T The (possible) union
  */
 export type ValueOfUnion<T> = T extends infer U ? U[keyof U] : never;
 
 /**
- * Take first N types of an Tuple
+ * Take first `N` types of an Tuple
+ * @param N Length of prefix to take
+ * @param Tuple Input tuple type
  */
-
 export type Take<
     N extends number,
     Tuple extends any[],
@@ -529,14 +548,15 @@ export type Take<
     : never;
 
 /**
- * define an n-length tuple type
+ * A homogeneous tuple of length `N`.
+ * @param T Type of every element of the tuple
+ * @param N Length of the tuple
  */
-
 export type Tuple<T, N extends number> = N extends N ? (number extends N ? T[] : _TupleOf<T, N, []>) : never;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N ? R : _TupleOf<T, N, [T, ...R]>;
 
 /**
- * map Tuple of ordinary type to Tuple of array type
+ * Map tuple of ordinary type to tuple of array type
  * [string, number] -> [string[], number[]]
  */
 export type ToTupleOfArray<Tuple extends any[]> = Tuple extends []
@@ -545,6 +565,11 @@ export type ToTupleOfArray<Tuple extends any[]> = Tuple extends []
     ? [X[], ...ToTupleOfArray<Xs>]
     : never;
 
+/**
+ * Map tuple of ordinary type to tuple of function type
+ * @param R Parameter type of every function
+ * @param Tuple Return type of every function
+ */
 export type ToTupleOfFunction<R, Tuple extends any[]> = Tuple extends []
     ? []
     : Tuple extends [infer X, ...infer Xs]

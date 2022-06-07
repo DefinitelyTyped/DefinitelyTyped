@@ -179,15 +179,15 @@ declare namespace setTimeout {
     function __promisify__(ms: number): Promise<void>;
     function __promisify__<T>(ms: number, value: T): Promise<T>;
 }
-declare function clearTimeout(timeoutId: NodeJS.Timeout): void;
+declare function clearTimeout(timeoutId: NodeJS.Timeout | string | number | undefined): void;
 declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
-declare function clearInterval(intervalId: NodeJS.Timeout): void;
+declare function clearInterval(intervalId: NodeJS.Timeout | string | number | undefined): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
 declare namespace setImmediate {
     function __promisify__(): Promise<void>;
     function __promisify__<T>(value: T): Promise<T>;
 }
-declare function clearImmediate(immediateId: NodeJS.Immediate): void;
+declare function clearImmediate(immediateId: NodeJS.Immediate | undefined): void;
 
 declare function queueMicrotask(callback: () => void): void;
 
@@ -230,11 +230,11 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    /** @deprecated since 12.19.0 Please use `require.main` and `module.children` instead. */
+    /** @deprecated since v12.19.0 Please use `require.main` and `module.children` instead. */
     parent: NodeModule | null | undefined;
     children: NodeModule[];
     /**
-     * @since 11.14.0
+     * @since v11.14.0
      *
      * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
      */
@@ -1249,8 +1249,8 @@ declare namespace NodeJS {
         WeakMap: WeakMapConstructor;
         WeakSet: WeakSetConstructor;
         clearImmediate: (immediateId: Immediate) => void;
-        clearInterval: (intervalId: Timeout) => void;
-        clearTimeout: (timeoutId: Timeout) => void;
+        clearInterval: (intervalId: Timeout | string | number) => void;
+        clearTimeout: (timeoutId: Timeout | string | number) => void;
         console: typeof console;
         decodeURI: typeof decodeURI;
         decodeURIComponent: typeof decodeURIComponent;
@@ -1317,11 +1317,11 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        /** @deprecated since 12.19.0 Please use `require.main` and `module.children` instead. */
+        /** @deprecated since v12.19.0 Please use `require.main` and `module.children` instead. */
         parent: Module | null | undefined;
         children: Module[];
         /**
-         * @since 11.14.0
+         * @since v11.14.0
          *
          * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
          */

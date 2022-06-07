@@ -581,6 +581,12 @@ export namespace Tabs {
          * Optional.
          */
         title?: string;
+
+        /**
+         * Whether the tab should be muted when created.
+         * Optional.
+         */
+        muted?: boolean;
     }
 
     interface DuplicateDuplicatePropertiesType {

@@ -102,20 +102,4 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
     export const SuspenseList: ExoticComponent<SuspenseListProps>;
-
-    /**
-     * this should be an internal type
-     */
-     interface MutableSource<T> {
-        _source: T;
-    }
-
-    export type MutableSourceSubscribe<T> = (source: T, callback: () => void) => () => void;
-
-    // TODO: This may not be intentionally part of the experimental release considering useMutableSource is no longer available
-    /**
-     * @param source A source could be anything as long as they can be subscribed to and have a "version".
-     * @param getVersion A function returns a value which will change whenever part of the source changes.
-     */
-    export function unstable_createMutableSource<T>(source: T, getVersion: () => any): MutableSource<T>;
 }

@@ -72,13 +72,16 @@ function reducer(memo: any, item: any, callback: any) {
     process.nextTick(() => { callback(null, memo + item); });
 }
 
-async.reduce(numArray, 0, reducer, (err, result) => { });
+async.reduce(numArray, 0, reducer, (err, result) => { }); // $ExpectType void
+async.reduce<number, number>(numArray, 0, reducer); // $ExpectType Promise<number>
+async.reduce<number, string>(numArray, '0', reducer); // $ExpectType Promise<string>
 async.inject(numArray, 0, reducer, (err, result) => { });
 async.foldl(numArray, 0, reducer, (err, result) => { });
 async.reduceRight(numArray, 0, reducer, (err, result) => { });
 async.foldr(numArray, 0, reducer, (err, result) => { });
 
-async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: string) => { });
+async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: string) => { }); // $ExpectType void
+async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean); // $ExpectType Promise<string>
 async.detectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err, result) => { });
 async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err, result) => { });
 
@@ -94,7 +97,8 @@ async.every(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, re
 async.everyLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 
-async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
+async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { }); // $ExpectType void
+async.concat<fs.PathLike, string>(['dir1', 'dir2', 'dir3'], fs.readdir); // $ExpectType Promise<string[]>
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
 async.concatLimit(['dir1', 'dir2', 'dir3'], 2, fs.readdir, (err, files) => { });
 async.concatLimit<string, string>(['dir1', 'dir2', 'dir3'], 2, fs.readdir); // $ExpectType Promise<string[]>

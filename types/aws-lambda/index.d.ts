@@ -41,6 +41,7 @@
 //                 Benoit Boure <https://github.com/bboure>
 //                 James Lakin <https://github.com/jamesorlakin>
 //                 Ross Gerbasi <https://github.com/aphex>
+//                 Joey Kilpatrick <https://github.com/joeykilpatrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -52,6 +53,7 @@ export * from "./trigger/alb";
 export * from "./trigger/api-gateway-authorizer";
 export * from "./trigger/api-gateway-proxy";
 export * from "./trigger/appsync-resolver";
+export * from "./trigger/autoscaling";
 // CloudTrail section just describes using S3 to trigger on cloudtrail changes.
 export * from "./trigger/cdk-custom-resource";
 export * from "./trigger/cloudformation-custom-resource";
