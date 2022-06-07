@@ -22,6 +22,7 @@ export interface AsyncBooleanResultCallback<E = Error> { (err?: E | null, truthV
 export interface AsyncResultCallback<T, E = Error> { (err?: E | null, result?: T): void; }
 export interface AsyncResultArrayCallback<T, E = Error> { (err?: E | null, results?: Array<T | undefined>): void; }
 export interface AsyncResultObjectCallback<T, E = Error> { (err: E | undefined, results: Dictionary<T | undefined>): void; }
+export interface AsyncResultRestCallback<T, E = Error> { (err?: E | null, ...results: T[]): void; }
 
 export interface AsyncFunction<T, E = Error> { (callback: (err?: E | null, result?: T) => void): void; }
 export interface AsyncFunctionEx<T, E = Error> { (callback: (err?: E | null, ...results: T[]) => void): void; }
@@ -336,7 +337,7 @@ export function parallelLimit<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>>
 export function whilst<T, E = Error>(
     test: (cb: AsyncBooleanResultCallback) => void,
     fn: AsyncFunctionEx<T, E>,
-    callback: AsyncFunctionEx<T, E>
+    callback: AsyncResultRestCallback<T, E>
 ): void;
 export function whilst<T, R, E = Error>(
     test: (cb: AsyncBooleanResultCallback) => void,
@@ -345,7 +346,7 @@ export function whilst<T, R, E = Error>(
 export function doWhilst<T, E = Error>(
     fn: AsyncFunctionEx<T, E>,
     test: (/* ...results: T[], */ cb: AsyncBooleanResultCallback) => void,
-    callback: AsyncFunctionEx<T, E>
+    callback: AsyncResultRestCallback<T, E>
 ): void;
 export function doWhilst<T, R, E = Error>(
     fn: AsyncFunctionEx<T, E>,
@@ -354,7 +355,7 @@ export function doWhilst<T, R, E = Error>(
 export function until<T, E = Error>(
     test: (cb: AsyncBooleanResultCallback) => void,
     fn: AsyncFunctionEx<T, E>,
-    callback: AsyncFunctionEx<T, E>
+    callback: AsyncResultRestCallback<T, E>
 ): void;
 export function until<T, R, E = Error>(
     test: (cb: AsyncBooleanResultCallback) => void,
@@ -363,7 +364,7 @@ export function until<T, R, E = Error>(
 export function doUntil<T, E = Error>(
     fn: AsyncFunctionEx<T, E>,
     test: (/* ...results: T[], */ cb: AsyncBooleanResultCallback) => void,
-    callback: AsyncFunctionEx<T, E>
+    callback: AsyncResultRestCallback<T, E>
 ): void;
 export function doUntil<T, R, E = Error>(
     fn: AsyncFunctionEx<T, E>,
