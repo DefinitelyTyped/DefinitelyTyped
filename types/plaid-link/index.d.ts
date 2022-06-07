@@ -35,6 +35,7 @@ export namespace Plaid {
         oauthNonce?: string | undefined;
         oauthRedirectUri?: string | undefined;
         oauthStateId?: string | undefined;
+        receivedRedirectUri?: string | null | undefined;
     }
 
     type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;
