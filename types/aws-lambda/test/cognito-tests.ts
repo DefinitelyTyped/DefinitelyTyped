@@ -283,6 +283,7 @@ const customSmsSender: CustomSMSSenderTriggerHandler = async (event, _, callback
 
     triggerSource === 'CustomSMSSender_AdminCreateUser';
     triggerSource === 'CustomSMSSender_VerifyUserAttribute';
+    triggerSource === 'CustomSMSSender_ForgotPassword';
     triggerSource === 'CustomSMSSender_UpdateUserAttribute';
     triggerSource === 'CustomSMSSender_ResendCode';
     triggerSource === 'CustomSMSSender_SignUp';
