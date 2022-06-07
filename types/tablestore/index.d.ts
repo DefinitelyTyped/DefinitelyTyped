@@ -7,12 +7,6 @@
 /// <reference path="./helper.d.ts" />
 
 // ---------- metadata ----------
-export const rowExistenceExpectation: {
-    IGNORE: 'IGNORE';
-    EXPECT_EXIST: 'EXPECT_EXIST';
-    EXPECT_NOT_EXIST: 'EXPECT_NOT_EXIST';
-};
-
 export const Direction: {
     FORWARD: 'FORWARD';
     BACKWARD: 'BACKWARD';
