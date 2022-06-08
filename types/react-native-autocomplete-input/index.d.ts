@@ -7,14 +7,7 @@
 // TypeScript Version: 2.8
 
 import { FC, ReactNode } from 'react';
-import {
-    GestureResponderHandlers,
-    StyleProp,
-    ViewStyle,
-    FlatListProps,
-    TextInputProps,
-    ListViewProps,
-} from 'react-native';
+import { GestureResponderHandlers, StyleProp, ViewStyle, FlatListProps, TextInputProps } from 'react-native';
 
 export interface AutocompleteProps<T> extends TextInputProps {
     /**
