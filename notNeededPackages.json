@@ -5611,6 +5611,10 @@
             "libraryName": "@wordpress/is-shallow-equal",
             "asOfVersion": "2.0.0"
         },
+        "wordpress__jest-console": {
+            "libraryName": "@wordpress/jest-console",
+            "asOfVersion": "5.2.0"
+        },
         "wordpress__priority-queue": {
             "libraryName": "@wordpress/priority-queue",
             "asOfVersion": "1.6.0"
