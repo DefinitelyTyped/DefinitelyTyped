@@ -42,6 +42,24 @@ describe('mock-when test', () => {
         const mockInstance: jest.MockInstance<any, any> = when(fn).calledWith(); // $ExpectError
     });
 
+    it('should support resetWhenMocks', () => {
+        const fn = jest.fn();
+
+        when(fn).resetWhenMocks();
+    });
+
+    it('should not support resetWhenMocks when matchers provided', () => {
+        const fn = jest.fn();
+
+        when(fn).calledWith().resetWhenMocks(); // $ExpectError
+    });
+
+    it('should support resetWhenMocks when implementation mocked', () => {
+        const fn = jest.fn();
+
+        when(fn).mockImplementation(() => 1).resetWhenMocks();
+    });
+
     it('Supports compound declarations:', () => {
         const fn = jest.fn();
         when(fn).calledWith(1).mockReturnValueOnce('no').mockReturnValue('yes');
