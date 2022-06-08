@@ -61,6 +61,9 @@ data.dispatch('foo/bar').foobar<Promise<number>>();
 // $ExpectType Promise<number>
 data.dispatch('foo/bar').foobar<number>();
 
+// $ExpectType number
+data.dispatch('foo/bar').foobar<number, false>();
+
 // $ExpectType Record<string, <T = unknown>(...args: readonly any[]) => T> || SelectorMap
 data.select('foo/bar');
 
