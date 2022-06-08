@@ -4,7 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference path="./helper.d.ts" />
+
+// helper
+type EnumValues<T> = T[keyof T];
+type EnumValuesOrKeys<T> = T[keyof T] | keyof T;
+export {};
 
 // ---------- metadata ----------
 export const Direction: {
