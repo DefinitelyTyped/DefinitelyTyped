@@ -1,6 +1,6 @@
 import Autocomplete from 'react-native-autocomplete-input';
 import * as React from 'react';
-import { Text, TouchableOpacity, TextInput } from 'react-native';
+import { Text, TouchableOpacity, TextInput, View } from 'react-native';
 
 interface Item {
     id: string;
@@ -35,6 +35,24 @@ const AutocompleteExample: React.FC = () => {
                 ),
             }}
             onChangeText={setValue}
+        />
+    );
+};
+
+// renderResultList is tested in separate component because
+// using renderResultList overrides flatListProps so you
+// should never use both props together
+const AutocompleteCustomResultList: React.FC = () => {
+    return (
+        <Autocomplete
+            data={data}
+            renderResultList={({ data, style }) => (
+                <View style={style}>
+                    {data.map((item, index) => (
+                        <Text key={index}>{item}</Text>
+                    ))}
+                </View>
+            )}
         />
     );
 };
