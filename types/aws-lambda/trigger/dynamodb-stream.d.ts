@@ -1,5 +1,6 @@
 import { Handler } from "../handler";
 
+// tslint:disable-next-line:void-return
 export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, DynamoDBBatchResponse | void>;
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_AttributeValue.html
