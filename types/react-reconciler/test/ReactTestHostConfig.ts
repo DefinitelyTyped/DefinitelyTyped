@@ -64,7 +64,7 @@ export type OpaqueIDType =
 export type RendererInspectionConfig = Readonly<{}>;
 
 export * from './ReactFiberHostConfigWithNoPersistence';
-export * from './ReactFiberHostConfigWithNoMicroTasks';
+export * from './ReactFiberHostConfigWithNoMicrotasks';
 export * from './ReactFiberHostConfigWithNoHydration';
 export * from './ReactFiberHostConfigWithNoTestSelectors';
 
