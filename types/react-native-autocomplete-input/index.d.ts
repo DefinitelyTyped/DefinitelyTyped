@@ -76,14 +76,6 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * render custom TextInput. All props passed to this function.
      */
     renderTextInput?(props: TextInputProps): ReactNode;
-
-    /**
-     * string | bool
-     * Set `keyboardShouldPersistTaps` to true if RN version is <= 0.39.
-     */
-    renderSeparator?: ListViewProps['renderSeparator'] | undefined;
-
-    keyboardShouldPersistTaps?: 'always' | 'handeld' | 'never' | boolean;
 }
 export const AutocompleteInput: FC<AutocompleteProps<any>>;
 
