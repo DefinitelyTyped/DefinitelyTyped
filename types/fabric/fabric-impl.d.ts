@@ -4007,6 +4007,30 @@ interface IPathOptions extends IObjectOptions {
      */
     path?: Point[] | undefined;
 }
+
+export type IPathCommands = Array<
+    | ["M", number, number]
+    | ["m", number, number]
+    | ["C", number, number, number, number, number, number]
+    | ["c", number, number, number, number, number, number]
+    | ["S", number, number, number, number]
+    | ["s", number, number, number, number]
+    | ["Q", number, number, number, number]
+    | ["q", number, number, number, number]
+    | ["T", number, number]
+    | ["t", number, number]
+    | ["H", number]
+    | ["h", number]
+    | ["V", number]
+    | ["v", number]
+    | ["L", number, number]
+    | ["l", number, number]
+    | ["A", number, number, number, 0 | 1, 0 | 1, number, number]
+    | ["a", number, number, number, 0 | 1, 0 | 1, number, number]
+    | ["Z"]
+    | ["z"]
+>
+
 export interface Path extends Object, IPathOptions {}
 export class Path {
     /**
@@ -4014,7 +4038,7 @@ export class Path {
      * @param path Path data (sequence of coordinates and corresponding "command" tokens)
      * @param [options] Options object
      */
-    constructor(path?: string | Point[], options?: IPathOptions);
+    constructor(path?: string | Point[] | IPathCommands, options?: IPathOptions);
 
     pathOffset: Point;
 
@@ -4030,6 +4054,13 @@ export class Path {
      * @return svg representation of an instance
      */
     toSVG(reviver?: Function): string;
+
+    /**
+     * Update path of a curve. Direct usage of this method is not advised
+     * @param path New path data (sequence of coordinates and corresponding "command" tokens)
+     * @protected
+     */
+    protected _setPath(path: string | Point[] | IPathCommands): void;
     /**
      * Creates an instance of fabric.Path from an SVG <path> element
      * @param element to parse

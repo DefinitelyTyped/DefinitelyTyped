@@ -1082,3 +1082,21 @@ function sample17() {
     height: 4,
   });
 }
+
+function sample18() {
+    class MyPath extends fabric.Path {
+        public setPath(path: fabric.IPathCommands) {
+            this._setPath(path);
+        }
+    }
+
+    const path = new MyPath([
+        ["M", 0, 0],
+        ["L", 10, 10]
+    ]);
+
+    path.setPath([
+        ["M", 10, 10],
+        ["L", 0, 0]
+    ]);
+}
