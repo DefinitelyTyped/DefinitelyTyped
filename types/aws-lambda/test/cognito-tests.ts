@@ -11,6 +11,7 @@ import {
     UserMigrationTriggerEvent, UserMigrationTriggerHandler,
     CustomMessageTriggerEvent, CustomMessageTriggerHandler,
     CustomEmailSenderTriggerEvent, CustomEmailSenderTriggerHandler,
+    CustomSMSSenderTriggerHandler,
 } from 'aws-lambda';
 
 type CognitoTriggerEvent =
@@ -270,4 +271,21 @@ const customEmailSender: CustomEmailSenderTriggerHandler = async (event, _, call
     triggerSource === 'CustomEmailSender_ResendCode';
     triggerSource === 'CustomEmailSender_SignUp';
     triggerSource === 'CustomEmailSender_AccountTakeOverNotification';
+};
+
+const customSmsSender: CustomSMSSenderTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    str = request.type;
+    strOrNull = request.code;
+    obj = request.userAttributes;
+    objectOrUndefined = request.clientMetadata;
+
+    triggerSource === 'CustomSMSSender_AdminCreateUser';
+    triggerSource === 'CustomSMSSender_VerifyUserAttribute';
+    triggerSource === 'CustomSMSSender_ForgotPassword';
+    triggerSource === 'CustomSMSSender_UpdateUserAttribute';
+    triggerSource === 'CustomSMSSender_ResendCode';
+    triggerSource === 'CustomSMSSender_SignUp';
+    triggerSource === 'CustomSMSSender_Authentication';
 };
