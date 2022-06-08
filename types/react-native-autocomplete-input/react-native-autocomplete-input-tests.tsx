@@ -1,6 +1,6 @@
 import Autocomplete from 'react-native-autocomplete-input';
 import * as React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, TextInput } from 'react-native';
 
 interface Item {
     id: string;
@@ -16,8 +16,16 @@ const AutocompleteExample: React.FC = () => {
     const [value, setValue] = React.useState('');
     return (
         <Autocomplete
+            containerStyle={{ backgroundColor: '#fff' }}
+            hideResults={false}
             data={data.filter(d => d.value.toLowerCase().includes(value.toLowerCase()))}
             value={value}
+            inputContainerStyle={{ backgroundColor: '#fff' }}
+            listContainerStyle={{ backgroundColor: '#fff' }}
+            listStyle={{ backgroundColor: '#fff' }}
+            onShowResults={showResults => null}
+            onStartShouldSetResponderCapture={event => false}
+            renderTextInput={props => <TextInput {...props} />}
             flatListProps={{
                 keyExtractor: item => item.id,
                 renderItem: ({ item }) => (
