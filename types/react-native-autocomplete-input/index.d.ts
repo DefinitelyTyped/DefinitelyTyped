@@ -61,9 +61,9 @@ export interface AutocompleteProps<T> extends TextInputProps {
 
     /**
      * function
-     * onShowResult will be called when the autocomplete suggestions appear or disappear.
+     * onShowResults will be called when the autocomplete suggestions appear or disappear.
      */
-    onShowResult?(showResults: boolean): void;
+    onShowResults?(showResults: boolean): void;
 
     /**
      * function
