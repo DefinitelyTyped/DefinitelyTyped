@@ -1,4 +1,4 @@
-// Type definitions for react-geocode 0.2.3
+// Type definitions for react-geocode 0.2
 // Project: https://github.com/shukerullah/react-geocode
 // Definitions by: Steve Mu <https://github.com/stevemu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
