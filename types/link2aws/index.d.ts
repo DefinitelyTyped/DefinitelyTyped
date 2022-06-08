@@ -5,9 +5,9 @@
 
 export class ARN {
   constructor(text: string);
-  string: string;
-  console: string;
-  qualifiers: string[];
-  pathLast: string;
-  consoleLink: string;
+  get string(): string;
+  get console(): string;
+  get qualifiers(): string[];
+  get pathLast(): string;
+  get consoleLink(): string;
 }
