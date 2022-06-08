@@ -1,3 +1,5 @@
+// This file is pretty much a copy of https://github.com/facebook/react/blob/main/packages/react-test-renderer/src/ReactTestHostConfig.js
+
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -6,7 +8,7 @@
  *
  */
 
-import { ReactFundamentalComponentInstance } from "./ReactTypes";
+import ReactReconcilerConstants = require('react-reconciler/constants');
 
 export const REACT_OPAQUE_ID_TYPE: number | symbol = 0xeae0;
 
@@ -182,6 +184,10 @@ export function createTextInstance(text: string, rootContainerInstance: Containe
   };
 }
 
+export function getCurrentEventPriority() {
+  return ReactReconcilerConstants.DefaultEventPriority;
+}
+
 export const isPrimaryRenderer = false;
 export const warnsIfNotActing = true;
 
@@ -235,69 +241,6 @@ export function unhideTextInstance(textInstance: TextInstance, text?: string): v
   textInstance.isHidden = false;
 }
 
-export function getFundamentalComponentInstance(fundamentalInstance: ReactFundamentalComponentInstance<any, any>): Instance {
-  const {
-    impl,
-    props,
-    state
-  } = fundamentalInstance;
-  return impl.getInstance(null, props, state);
-}
-
-export function mountFundamentalComponent(fundamentalInstance: ReactFundamentalComponentInstance<any, any>): void {
-  const {
-    impl,
-    instance,
-    props,
-    state
-  } = fundamentalInstance;
-  const onMount = impl.onMount;
-  if (onMount !== undefined) {
-    onMount(null, instance, props, state);
-  }
-}
-
-export function shouldUpdateFundamentalComponent(fundamentalInstance: ReactFundamentalComponentInstance<any, any>): boolean {
-  const {
-    impl,
-    prevProps,
-    props,
-    state
-  } = fundamentalInstance;
-  const shouldUpdate = impl.shouldUpdate;
-  if (shouldUpdate !== undefined) {
-    return shouldUpdate(null, prevProps, props, state);
-  }
-  return true;
-}
-
-export function updateFundamentalComponent(fundamentalInstance: ReactFundamentalComponentInstance<any, any>): void {
-  const {
-    impl,
-    instance,
-    prevProps,
-    props,
-    state
-  } = fundamentalInstance;
-  const onUpdate = impl.onUpdate;
-  if (onUpdate !== undefined) {
-    onUpdate(null, instance, prevProps, props, state);
-  }
-}
-
-export function unmountFundamentalComponent(fundamentalInstance: ReactFundamentalComponentInstance<any, any>): void {
-  const {
-    impl,
-    instance,
-    props,
-    state
-  } = fundamentalInstance;
-  const onUnmount = impl.onUnmount;
-  if (onUnmount !== undefined) {
-    onUnmount(null, instance, props, state);
-  }
-}
-
 export function getInstanceFromNode(mockNode: {
   [key: string]: any;
 }) {
@@ -308,26 +251,7 @@ export function getInstanceFromNode(mockNode: {
   return null;
 }
 
-let clientId = 0;
-export function makeClientId(): OpaqueIDType {
-  return 'c_' + (clientId++).toString(36);
-}
-
-export function isOpaqueHydratingObject(value: any): boolean {
-  return (value !== null && typeof value === 'object' && value.$$typeof === REACT_OPAQUE_ID_TYPE);
-}
-
-export function makeOpaqueHydratingObject(attemptToReadValue: () => void): OpaqueIDType {
-  return {
-    $$typeof: REACT_OPAQUE_ID_TYPE,
-    toString: attemptToReadValue,
-    valueOf: attemptToReadValue
-  };
-}
-
-export function beforeActiveInstanceBlur(internalInstanceHandle: {
-  [key: string]: any;
-}) {// noop
+export function beforeActiveInstanceBlur() {// noop
 }
 
 export function afterActiveInstanceBlur() {// noop
@@ -346,10 +270,14 @@ export function prepareScopeUpdate(scopeInstance: {
 
 export function getInstanceFromScope(scopeInstance: {
   [key: string]: any;
-}): null | {
-  [key: string]: any;
-} {
+}): null | Instance {
   return nodeToInstanceMap.get(scopeInstance) || null;
 }
 
-export const now = Date.now;
+export function detachDeletedInstance(node: Instance): void {
+  // noop
+}
+
+export function logRecoverableError(error: any): void {
+  // noop
+}

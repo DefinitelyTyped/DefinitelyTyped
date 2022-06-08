@@ -2,6 +2,7 @@
 // Project: https://reactjs.org/
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 //                 Zhang Haocong <https://github.com/zhanghaocong>
+//                 Mathieu Dutour <https://github.com/mathieudutour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -261,11 +262,6 @@ declare namespace ReactReconciler {
          * This method is called for a container that's used as a portal target. Usually you can leave it empty.
          */
         preparePortalMount(containerInfo: Container): void;
-
-        /**
-         * You can proxy this to `performance.now()` or its equivalent in your environment.
-         */
-        now(): number;
 
         /**
          * You can proxy this to `setTimeout` or its equivalent in your environment.
