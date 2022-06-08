@@ -221,7 +221,7 @@ map.removeEventListener('loading');
 map.removeEventListener('dblclick', e => {
     e; // $ExpectType LeafletMouseEvent
 });
-map.removeEventListener('locationerror', (e) => {
+map.removeEventListener('locationerror', e => {
     e; // $ExpectType ErrorEvent
 }, {});
 
