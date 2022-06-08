@@ -220,7 +220,8 @@ declare namespace newrelic {
         setName(name: string, trigger?: string): this;
     }
 
-    interface ContextObject extends Record<string, any> {}
+    type ContextObject = Record<string, any>
+
 
     interface Callback {
         (): void;
