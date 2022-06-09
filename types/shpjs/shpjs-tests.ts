@@ -19,7 +19,7 @@ shp.getShapeFile(new Int32Array(50)).then((geojson) => {});
 const combinedGeojson = shp.combine([
     [{
         type: 'Point',
-        coordinates: []
+        coordinates: [1,2]
     }],
     [{
         test: 'test'
