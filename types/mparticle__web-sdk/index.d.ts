@@ -4,7 +4,7 @@
 //                 Robert Ing <https://github.com/rmi22186>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
-import { Batch } from '@mparticle/event-models'
+import { Batch } from '@mparticle/event-models';
 
 export as namespace mParticle;
 export {};
