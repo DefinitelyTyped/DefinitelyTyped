@@ -6,6 +6,7 @@ import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascr
 import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { gruvboxDark, gruvboxLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import createElement from "react-syntax-highlighter/dist/esm/create-element";
 
 const codeString = `class CPP {
@@ -42,7 +43,7 @@ function hljsLightHighlighter(): JSX.Element {
 function prismHighlighter(): JSX.Element {
     PrismSyntaxHighlighter.supportedLanguages; // $ExpectType string[]
     return (
-        <PrismSyntaxHighlighter language="javascript" style={atomDark}>
+        <PrismSyntaxHighlighter language="javascript" style={gruvboxDark}>
             {codeString}
         </PrismSyntaxHighlighter>
     );
@@ -52,7 +53,7 @@ function primsLightHighlighter(): JSX.Element {
     PrismLightHighlighter.registerLanguage("jsx", jsx);
 
     return (
-        <PrismLightHighlighter language="jsx" style={atomDark}>
+        <PrismLightHighlighter language="jsx" style={gruvboxDark}>
             {codeString}
         </PrismLightHighlighter>
     );
