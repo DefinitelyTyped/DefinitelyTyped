@@ -68,7 +68,13 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * function
      * render custom TextInput. All props passed to this function.
      */
-    renderTextInput?(props: TextInputProps): ReactNode;
+    renderTextInput?(props: AutocompleteProps<T>): ReactNode;
+
+    /**
+     * function
+     * render custom result list. Can be used to replace FlatList. All props passed to this function.
+     */
+    renderResultList?(props: AutocompleteProps<T>): ReactNode;
 }
 export const AutocompleteInput: FC<AutocompleteProps<any>>;
 
