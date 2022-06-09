@@ -28,7 +28,7 @@ export interface ProgressProps {
     isBgShadow?: boolean;
     bgShadow?: Shadow;
     viewport?: boolean;
-    onViewport?: Function | null;
+    onViewport?: (element: React.ReactElement) => void | null;
 }
 
 export interface Gradient {
