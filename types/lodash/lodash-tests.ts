@@ -5004,19 +5004,19 @@ fp.now(); // $ExpectType number
     fp.assignInWith(customizer)(obj)(s1); // $ExpectType { a: string; } & { b: number; }
 
     _.defaults(obj); // $ExpectType { a: string; }
-    _.defaults(obj, s1); // $ExpectType { b: number; } & { a: string; }
-    _.defaults(obj, s1, s2, s3, s4); // $ExpectType { e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }
+    _.defaults(obj, s1); // $ExpectType { b: number; } & { a: string; } || NonNullable<{ b: number; } & { a: string; }>
+    _.defaults(obj, s1, s2, s3, s4); // $ExpectType { e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; } || NonNullable<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }>
     _.defaults(obj, s1, s2, s3, s4, s5);
     _(obj).defaults(); // $ExpectType Object<{ a: string; }>
-    _(obj).defaults(s1); // $ExpectType Object<{ b: number; } & { a: string; }>
-    _(obj).defaults(s1, s2, s3, s4); // $ExpectType Object<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }>
+    _(obj).defaults(s1); // $ExpectType Object<{ b: number; } & { a: string; }> || Object<NonNullable<{ b: number; } & { a: string; }>>
+    _(obj).defaults(s1, s2, s3, s4); // $ExpectType Object<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }> || Object<NonNullable<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }>>
     _(obj).defaults(s1, s2, s3, s4, s5);
     _.chain(obj).defaults(); // $ExpectType ObjectChain<{ a: string; }>
-    _.chain(obj).defaults(s1); // $ExpectType ObjectChain<{ b: number; } & { a: string; }>
-    _.chain(obj).defaults(s1, s2, s3, s4); // $ExpectType ObjectChain<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }>
+    _.chain(obj).defaults(s1); // $ExpectType ObjectChain<{ b: number; } & { a: string; }> || ObjectChain<NonNullable<{ b: number; } & { a: string; }>>
+    _.chain(obj).defaults(s1, s2, s3, s4); // $ExpectType ObjectChain<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }> || ObjectChain<NonNullable<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }>>
     _.chain(obj).defaults(s1, s2, s3, s4, s5);
-    fp.defaults(obj, s1); // $ExpectType { a: string; } & { b: number; }
-    fp.defaults(obj)(s1); // $ExpectType { a: string; } & { b: number; }
+    fp.defaults(obj, s1); // $ExpectType { a: string; } & { b: number; } || NonNullable<{ a: string; } & { b: number; }>
+    fp.defaults(obj)(s1); // $ExpectType { a: string; } & { b: number; } || NonNullable<{ a: string; } & { b: number; }>
 
     _.extend(obj); // $ExpectType { a: string; }
     _.extend(obj, s1); // $ExpectType { a: string; } & { b: number; }
