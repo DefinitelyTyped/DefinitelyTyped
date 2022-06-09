@@ -100,16 +100,15 @@ const logger: mParticle.Logger = {
     },
 };
 
-
-const onCreateBatch: mParticle.onCreateBatch = function(batch: Batch) {
+const onCreateBatch: mParticle.onCreateBatch = (batch: Batch) => {
     return batch;
-}
+};
 
 const config: mParticle.MPConfiguration = {
     isDevelopmentMode: true,
     identifyRequest,
     identityCallback,
-    onCreateBatch: onCreateBatch,
+    onCreateBatch,
     dataPlan,
     appVersion: '1.0.0',
     appName: 'testAppName',
