@@ -1,5 +1,5 @@
 // Type definitions for react-native-autocomplete-input 5.1
-// Project: https://github.com/l-urence/react-native-autocomplete-input#readme
+// Project: https://github.com/mrlaessig/react-native-autocomplete-input#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 joleb <https://github.com/joleb>
