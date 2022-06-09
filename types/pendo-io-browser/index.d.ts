@@ -173,3 +173,5 @@ declare namespace pendo {
 }
 
 declare const pendo: pendo.Pendo;
+
+export type Pendo = pendo.Pendo;
