@@ -3,8 +3,9 @@
 // Definitions by: Lair Junior <https://github.com/lairjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { CanvasTexture, LoadingManager } from 'three';
+import { LoadingManager } from 'three';
 import { GifReader } from 'omggif';
+import GifTexture from './src/gif-texture';
 
 export default class GifLoader {
     constructor(manager?: LoadingManager);
@@ -15,9 +16,4 @@ export default class GifLoader {
         onError?: (event: ErrorEvent) => void,
     ): GifTexture;
     setPath(value: string): void;
-}
-
-export class GifTexture extends CanvasTexture {
-    setReader(reader: GifReader): void;
-    draw(): void;
 }
