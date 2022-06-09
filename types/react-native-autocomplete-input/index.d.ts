@@ -3,6 +3,7 @@
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 joleb <https://github.com/joleb>
+//                 AJ <https://github.com/ajenkins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
