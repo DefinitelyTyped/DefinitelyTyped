@@ -9913,14 +9913,12 @@ declare namespace chrome.tabs {
      * Fired when a tab is zoomed.
      * @since Chrome 38.
      */
-    export var onZoomChange: TabZoomChangeEvent;
-    
+    export var onZoomChange: TabZoomChangeEvent;    
     /**
      * The maximum number of times that captureVisibleTab can be called per second. captureVisibleTab is expensive and should not be called too often.
      * @since Chrome 92
      */
     export var MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND: 2;
-
     /**
      * An ID which represents the absence of a browser tab.
      * @since Chrome 46.
