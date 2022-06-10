@@ -536,6 +536,27 @@ addAbortSignal(new AbortSignal(), new Readable());
     isReadable(new Duplex()); // $ExpectType boolean
 }
 
+{
+    const readable = new Readable();
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable);
+}
+
+{
+    const web = new ReadableStream();
+
+    // $ExpectType Readable
+    Readable.fromWeb(web);
+
+    // Handles subset of ReadableOptions param
+    // $ExpectType Readable
+    Readable.fromWeb(web, { objectMode: true });
+
+    // When the param includes unsupported ReadableOptions
+    // $ExpectError
+    Readable.fromWeb(web, { emitClose: true });
+}
+
 async function testReadableStream() {
     const SECOND = 1000;
 

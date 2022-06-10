@@ -20,6 +20,7 @@ declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
     import * as streamPromises from 'node:stream/promises';
     import * as streamConsumers from 'node:stream/consumers';
+    import * as streamWeb from 'node:stream/web';
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
@@ -53,10 +54,22 @@ declare module 'stream' {
              */
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
             /**
+             * A utility method for creating a `Readable` from a web `ReadableStream`.
+             * @since v17.0.0
+             * @experimental
+             */
+            static fromWeb(readableStream: streamWeb.ReadableStream, options?: Pick<ReadableOptions, 'encoding' | 'highWaterMark' | 'objectMode' | 'signal'>): Readable;
+            /**
              * Returns whether the stream has been read from or cancelled.
              * @since v16.8.0
              */
             static isDisturbed(stream: Readable | NodeJS.ReadableStream): boolean;
+            /**
+             * A utility method for creating a web `ReadableStream` from a `Readable`.
+             * @since v17.0.0
+             * @experimental
+             */
+            static toWeb(streamReadable: Readable): streamWeb.ReadableStream;
             /**
              * Returns whether the stream was destroyed or errored before emitting `'end'`.
              * @since v16.8.0
