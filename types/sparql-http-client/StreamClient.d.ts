@@ -4,6 +4,7 @@ import StreamQuery = require('./StreamQuery');
 import StreamStore = require('./StreamStore');
 import { Endpoint, EndpointOptions } from './Endpoint';
 import { Readable } from 'stream';
+import { HeadersInit } from './partial-dom';
 
 interface Constructor<T, Q extends BaseQuad = Quad> {
     new (options: { endpoint: Endpoint; factory: DataFactory<Q>; }): T;

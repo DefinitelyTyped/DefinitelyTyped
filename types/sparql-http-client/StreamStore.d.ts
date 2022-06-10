@@ -1,6 +1,7 @@
 import { Store } from "./";
 import { BaseQuad, Quad, DataFactory, Stream, Term } from "rdf-js";
 import Endpoint = require("./Endpoint");
+import { ReadableStream } from './minidom';
 
 declare namespace StreamStore {
     interface StreamStoreInit<Q extends BaseQuad = Quad> {

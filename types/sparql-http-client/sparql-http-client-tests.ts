@@ -6,6 +6,7 @@ import RawQuery = require('sparql-http-client/RawQuery');
 import { Client } from 'sparql-http-client';
 import { Readable } from 'stream';
 import { DataFactory, Stream, Quad, NamedNode, Term } from 'rdf-js';
+import { HeadersInit, fetch, Response } from 'sparql-http-client/partial-dom';
 
 interface TestQuad extends Quad {
     toCanonical(): string;

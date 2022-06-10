@@ -1,3 +1,4 @@
+import { fetch, HeadersInit, Response, Headers } from './partial-dom';
 interface CommonEndpointOptions {
     fetch?: typeof fetch | undefined;
     headers?: HeadersInit | undefined;

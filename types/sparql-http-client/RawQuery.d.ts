@@ -1,4 +1,5 @@
 import { QueryInit, Query } from '.';
+import { Response } from './partial-dom';
 
 declare namespace RawQuery {
     type RawQuery = Query<Response, Response, Response, Response>;
