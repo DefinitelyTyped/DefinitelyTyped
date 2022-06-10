@@ -5,7 +5,7 @@
 
 import { LoadingManager } from 'three';
 import { GifReader } from 'omggif';
-import GifTexture from './src/gif-texture';
+import GifTexture from './lib/gif-texture';
 
 export default class GifLoader {
     constructor(manager?: LoadingManager);
