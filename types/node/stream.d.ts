@@ -477,6 +477,43 @@ declare module 'stream' {
             removeListener(event: 'resume', listener: () => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
             [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+            map<T>(
+                fn: (data: any, options?: { signal?: AbortSignal }) => T | Promise<T>,
+                options?: { signal?: AbortSignal; concurrency?: number },
+            ): Readable;
+            filter(
+                fn: (data: any, options?: { signal?: AbortSignal }) => boolean | Promise<boolean>,
+                options?: { signal?: AbortSignal; concurrency?: number },
+            ): Readable;
+            forEach(
+                fn: (data: any, options?: { signal?: AbortSignal }) => void | Promise<void>,
+                options?: { signal?: AbortSignal; concurrency?: number },
+            ): Promise<void>;
+            toArray(options?: { signal?: AbortSignal }): Promise<any[]>;
+            some(
+                fn: (data: any, options?: { signal?: AbortSignal }) => boolean | Promise<boolean>,
+                options?: { signal?: AbortSignal; concurrency?: number },
+            ): Promise<boolean>;
+            find(
+                fn: (data: any, options?: { signal?: AbortSignal }) => boolean | Promise<boolean>,
+                options?: { signal?: AbortSignal; concurrency?: number },
+            ): Promise<any>;
+            every(
+                fn: (data: any, options?: { signal?: AbortSignal }) => boolean | Promise<boolean>,
+                options?: { signal?: AbortSignal; concurrency?: number },
+            ): Promise<boolean>;
+            flatMap<T>(
+                fn: (data: any, options?: { signal?: AbortSignal }) => T | Promise<T>,
+                options?: { signal?: AbortSignal; concurrency?: number },
+            ): Readable;
+            drop(limit: number, options?: { signal?: AbortSignal }): Readable;
+            take(limit: number, options?: { signal?: AbortSignal }): Readable;
+            asIndexedPairs(options?: { signal?: AbortSignal }): Readable;
+            reduce<T>(
+                fn: (previous: any, data: any, options?: { signal?: AbortSignal }) => T | Promise<T>,
+                initial?: T,
+                options?: { signal?: AbortSignal },
+            ): Promise<T>;
         }
         interface WritableOptions extends StreamOptions<Writable> {
             decodeStrings?: boolean | undefined;
