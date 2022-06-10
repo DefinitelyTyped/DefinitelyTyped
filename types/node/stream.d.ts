@@ -477,10 +477,28 @@ declare module 'stream' {
             removeListener(event: 'resume', listener: () => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
             [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+
+            /**
+             * This method allows mapping over the stream.
+             * The fn function will be called for every chunk in the stream.
+             * If the fn function returns a promise - that promise will be awaited before being passed to the result stream.
+             * @param fn - a function to map over every chunk in the stream.
+             * @param options - options for mapping.
+             * @since v17.4.0, v16.14.0
+             */
             map<T>(
                 fn: (data: any, options?: { signal?: AbortSignal }) => T | Promise<T>,
                 options?: { signal?: AbortSignal; concurrency?: number },
             ): Readable;
+            /**
+             * This method allows filtering the stream.
+             * For each chunk in the stream the fn function will be called and if it returns a truthy value,
+             * the chunk will be passed to the result stream.
+             * If the fn function returns a promise - that promise will be awaited.
+             * @param fn - a function to filter chunks from the stream.
+             * @param options - options for filtering.
+             * @since v17.4.0, v16.14.0
+             */
             filter(
                 fn: (data: any, options?: { signal?: AbortSignal }) => boolean | Promise<boolean>,
                 options?: { signal?: AbortSignal; concurrency?: number },
