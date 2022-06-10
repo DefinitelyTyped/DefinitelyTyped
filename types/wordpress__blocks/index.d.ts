@@ -4,6 +4,7 @@
 //                 Jon Surrell <https://github.com/sirreal>
 //                 Dennis Snell <https://github.com/dmsnell>
 //                 Tomasz Tunik <https://github.com/tomasztunik>
+//                 Lucio Giannotta <https://github.com/sunyatasattva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -18,6 +19,10 @@ declare module '@wordpress/data' {
     function dispatch(key: 'core/blocks'): typeof import('./store/actions');
     function select(key: 'core/blocks'): typeof import('./store/selectors');
 }
+
+export type AxialDirections = 'horizontal' | 'vertical';
+
+export type CSSDirections = 'top' | 'right' | 'bottom' | 'left';
 
 export type BlockAlignment = 'left' | 'center' | 'right' | 'wide' | 'full';
 
@@ -45,6 +50,84 @@ export interface BlockStyle {
     readonly name: string;
     readonly label: string;
     readonly isDefault?: boolean | undefined;
+}
+
+export interface SerializableProps {
+    /**
+     * Skip serialization of values to the HTML
+     *
+     * If set to `true`, classes and inline styles won't be applied to
+     * the wrapper, and it's up to the block author to implement their
+     * specific application.
+     */
+    __experimentalSkipSerialization?: boolean;
+}
+
+export interface ColorProps extends SerializableProps {
+    /**
+     * This property adds UI controls which allow the user to apply
+     * a solid background color to a block.
+     *
+     * When the block declares support for `color.background`,
+     * the attributes of a block will include two new entries:
+     * `backgroundColor` and `style`.
+     *
+     * @defaultValue true
+     */
+    background: string;
+    /**
+     * This property adds UI controls which allow the user to apply
+     * a gradient background to a block.
+     *
+     * When the block declares support for `color.background`,
+     * the attributes of a block will include two new entries:
+     * `gradient` and `style`.
+     *
+     * @defaultValue false
+     */
+    gradients: boolean;
+    /**
+     * This property adds block controls which allow the user
+     * to set link color in a block, link color is disabled by default.
+     *
+     * @defaultValue false
+     */
+    link: boolean;
+    /**
+     * This property adds block controls which allow the user
+     * to set text color in a block.
+     *
+     * @defaultValue true
+     */
+    text: string;
+    /**
+     * This property adds UI controls which allow to apply a duotone
+     * filter to a specified selector within the block.
+     *
+     * The parent block selector is automatically added.
+     *
+     * When the block declares support for `color.__experimentalDuotone`,
+     * the attributes of a block will include `style`.
+     *
+     * @defaultValue false
+     */
+    __experimentalDuotone?: string;
+}
+
+export interface SpacingProps extends SerializableProps {
+    blockGap: boolean | AxialDirections[];
+    /**
+     * Enable margin control UI for all or specified element directions
+     *
+     * @defaultValue false
+     */
+    margin: boolean | CSSDirections[];
+    /**
+     * Enable padding control UI for all or specified element directions
+     *
+     * @defaultValue false
+     */
+    padding: boolean | CSSDirections[];
 }
 
 /**
@@ -290,6 +373,16 @@ export interface BlockSupports {
      */
     readonly anchor?: boolean | undefined;
     /**
+     * This value signals that a block supports some of the properties
+     * related to color. When it does, the block editor will show
+     * UI controls for the user to set their values.
+     *
+     * @note The `background` and `text` keys have a default value
+     * of `true`, so if the color property is present they’ll also
+     * be considered enabled.
+     */
+    readonly color?: ColorProps | undefined;
+    /**
      * This property adds a field to define a custom className for the
      * block's wrapper.
      *
@@ -331,6 +424,14 @@ export interface BlockSupports {
      * @defaultValue true
      */
     readonly reusable?: boolean | undefined;
+    /**
+     * This value signals that a block supports some of the CSS style
+     * properties related to spacing.
+     *
+     * When the block declares support for a specific spacing property,
+     * the attributes definition is extended to include the `style` attribute.
+     */
+    readonly spacing?: SpacingProps | undefined;
 }
 
 //
