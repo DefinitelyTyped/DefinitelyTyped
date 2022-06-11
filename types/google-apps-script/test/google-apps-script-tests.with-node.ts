@@ -1,5 +1,3 @@
-// tslint:disable: no-var-keyword prefer-const object-literal-shorthand
-
 /**
  * should avoid throwing TS2403 error (Variable 'console' must be of type 'Console', but here has type 'console') with @types/node
  * @see {@link https://github.com/DefinitelyTyped/DefinitelyTyped/issues/32585}
