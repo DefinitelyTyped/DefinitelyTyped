@@ -8,6 +8,7 @@
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Piotr Kuczynski <https://github.com/pkuczynski>
 //                 vnoder <https://github.com/vnoder>
+//                 Denis Tokarev <https://github.com/devlato>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -35,6 +36,7 @@ import { Socket, ListenOptions } from 'net';
 import * as url from 'url';
 import * as contentDisposition from 'content-disposition';
 import { ParsedUrlQuery } from 'querystring';
+import { Stream } from 'stream';
 
 declare interface ContextDelegatedRequest {
     /**
@@ -318,7 +320,7 @@ declare interface ContextDelegatedResponse {
     /**
      * Get/Set response body.
      */
-    body: unknown;
+    body: Application.ResponseBody;
 
     /**
      * Return parsed response Content-Length when present.
@@ -733,7 +735,11 @@ declare namespace Application {
         respond?: boolean | undefined;
     }
 
-    type ParameterizedContext<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = unknown> = ExtendableContext
+    // In accordance with the Koa documentation
+    // https://github.com/koajs/koa/blob/master/docs/api/response.md#responsebody-1
+    type ResponseBody = string | Buffer | {} | Stream | ResponseBody[] | null | undefined;
+
+    type ParameterizedContext<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT extends ResponseBody = ResponseBody> = ExtendableContext
         & { state: StateT; }
         & ContextT
         & { body: ResponseBodyT; response: { body: ResponseBodyT }; };
