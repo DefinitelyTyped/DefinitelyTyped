@@ -1,6 +1,6 @@
 import Koa = require('koa');
-import { Buffer } from 'buffer';
-import stream from 'stream';
+import { Buffer } from 'node:buffer';
+import stream from 'node:stream';
 
 const app = new Koa();
 
@@ -9,7 +9,7 @@ app.use(ctx => {
 });
 
 app.use(ctx => {
-    ctx.body = new Buffer();
+    ctx.body = Buffer.from('I\'m a string!', 'utf-8');
 });
 
 app.use(ctx => {
@@ -42,7 +42,7 @@ app.use(ctx => {
 });
 
 app.use(ctx => {
-    ctx.response.body = new Buffer();
+    ctx.response.body = Buffer.from('I\'m a string!', 'utf-8');
 });
 
 app.use(ctx => {

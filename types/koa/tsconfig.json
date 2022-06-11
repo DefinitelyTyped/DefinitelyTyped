@@ -5,7 +5,8 @@
         "test/constructor.ts",
         "test/default.ts",
         "test/settings.ts",
-        "test/typed-response-body.ts"
+        "test/typed-response-body.ts",
+        "test/body.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

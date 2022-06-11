@@ -511,8 +511,8 @@ declare class Application<
      *
      * Old-style middleware will be converted.
      */
-    use<NewStateT = {}, NewContextT = {}>(
-        middleware: Application.Middleware<StateT & NewStateT, ContextT & NewContextT>
+    use<NewStateT = {}, NewContextT = {}, NewResponseBody extends Application.ResponseBody = Application.ResponseBody>(
+        middleware: Application.Middleware<StateT & NewStateT, ContextT & NewContextT, NewResponseBody>
     ): Application<StateT & NewStateT, ContextT & NewContextT>;
 
     /**
@@ -557,7 +557,7 @@ declare namespace Application {
         [key: string]: any;
     }
 
-    type Middleware<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = any> = compose.Middleware<
+    type Middleware<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT extends ResponseBody = ResponseBody> = compose.Middleware<
         ParameterizedContext<StateT, ContextT, ResponseBodyT>
     >;
 
@@ -737,7 +737,7 @@ declare namespace Application {
 
     // In accordance with the Koa documentation
     // https://github.com/koajs/koa/blob/master/docs/api/response.md#responsebody-1
-    type ResponseBody = string | Buffer | {} | Stream | ResponseBody[] | null | undefined;
+    type ResponseBody = string | Buffer | object | Stream | ResponseBody[] | null | undefined;
 
     type ParameterizedContext<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT extends ResponseBody = ResponseBody> = ExtendableContext
         & { state: StateT; }
