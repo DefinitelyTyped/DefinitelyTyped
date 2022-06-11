@@ -20,16 +20,16 @@ const handler2: Roles.Handler<TestState, TestContext, string> = any;
 const handler1or2: typeof handler1 | typeof handler2 = any;
 const handler3: Roles.Handler<TestState, TestContext, string, 'action1'> = any;
 
-// $ExpectType Roles<DefaultState, DefaultContext, unknown>
+// $ExpectType Roles<DefaultState, DefaultContext, ResponseBody>
 const roles1 = new Roles();
-// $ExpectType Roles<DefaultState, DefaultContext, unknown>
+// $ExpectType Roles<DefaultState, DefaultContext, ResponseBody>
 new Roles(options1);
 // $ExpectType Roles<TestState, TestContext, string>
 const roles2 = new Roles<TestState, TestContext, string>();
 // $ExpectType Roles<TestState, TestContext, string>
 new Roles(options2);
 
-// $ExpectType Middleware<DefaultState, DefaultContext, unknown>
+// $ExpectType Middleware<DefaultState, DefaultContext, ResponseBody>
 roles1.can('something');
 // $ExpectType Middleware<TestState, TestContext, string>
 roles2.can('something');
@@ -51,7 +51,7 @@ roles2.use(action1, handler3);
 // $ExpectError
 roles2.use(action2, handler3);
 
-// $ExpectType Middleware<DefaultState, DefaultContext, unknown>
+// $ExpectType Middleware<DefaultState, DefaultContext, ResponseBody>
 roles1.middleware();
 // $ExpectType Middleware<TestState, TestContext, string>
 roles2.middleware();

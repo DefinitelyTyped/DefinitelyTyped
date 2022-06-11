@@ -6,7 +6,11 @@
 
 import Koa = require('koa');
 
-declare class Roles<StateT extends Koa.DefaultStateExtends = Koa.DefaultState, ContextT extends Koa.DefaultContextExtends = Koa.DefaultContext, ResponseBodyT = unknown> {
+declare class Roles<
+    StateT extends Koa.DefaultStateExtends = Koa.DefaultState,
+    ContextT extends Koa.DefaultContextExtends = Koa.DefaultContext,
+    ResponseBodyT extends Koa.ResponseBody = Koa.ResponseBody
+> {
     constructor(options?: Roles.Options<StateT, ContextT, ResponseBodyT>);
 
     can(action: string): Koa.Middleware<StateT, ContextT, ResponseBodyT>;
@@ -21,11 +25,15 @@ declare namespace Roles {
     type Handler<
         StateT extends Koa.DefaultStateExtends = Koa.DefaultState,
         ContextT extends Koa.DefaultContextExtends = Koa.DefaultContext,
-        ResponseBodyT = unknown,
+        ResponseBodyT extends Koa.ResponseBody = Koa.ResponseBody,
         Action extends string = string
     > = (ctx: Koa.ParameterizedContext<StateT, ContextT, ResponseBodyT>, action: Action) => boolean | Promise<boolean>;
 
-    interface Options<StateT extends Koa.DefaultStateExtends = Koa.DefaultState, ContextT extends Koa.DefaultContextExtends = Koa.DefaultContext, ResponseBodyT = unknown> {
+    interface Options<
+        StateT extends Koa.DefaultStateExtends = Koa.DefaultState,
+        ContextT extends Koa.DefaultContextExtends = Koa.DefaultContext,
+        ResponseBodyT extends Koa.ResponseBody = Koa.ResponseBody
+    > {
         failureHandler?: (ctx: Koa.ParameterizedContext<StateT, ContextT, ResponseBodyT>, action: string) => void;
         userProperty?: string;
     }
