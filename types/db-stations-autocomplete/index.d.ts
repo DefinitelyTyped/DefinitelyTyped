@@ -12,8 +12,11 @@ interface DbStationsAutocompleteResult {
 
 declare function autocomplete(
     query: string,
+    /** @default 3 */
     results?: number,
+    /** @default false*/
     fuzzy?: boolean,
+    /** @default true */
     completion?: boolean,
 ): DbStationsAutocompleteResult[];
 
