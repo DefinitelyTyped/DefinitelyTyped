@@ -58,7 +58,11 @@ declare class ContrastColor {
     constructor(defaults?: ContrastColorConfig);
 
     contrastColor(config?: ContrastColorConfig): Color;
-    static contrastColor(config?: ContrastColorConfig): Color;
+
+}
+
+declare namespace ContrastColor {
+    function contrastColor(config?: ContrastColorConfig): Color;
 }
 
 export = ContrastColor;
