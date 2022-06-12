@@ -142,7 +142,7 @@ declare module 'tls' {
          * Static boolean value, always true.
          * May be used to distinguish TLS sockets from regular ones.
          */
-        encrypted: boolean;
+        encrypted: true;
 
         /**
          * String containing the selected ALPN protocol.

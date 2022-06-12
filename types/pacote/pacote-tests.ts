@@ -23,11 +23,16 @@ const opts: pacote.Options = {
 pacote.resolve('pacote'); // $ExpectType Promise<string>
 pacote.resolve('pacote', opts); // $ExpectType Promise<string>
 
-pacote.manifest('pacote'); // $ExpectType Promise<ManifestResult>
-pacote.manifest('pacote', opts); // $ExpectType Promise<ManifestResult>
+// tslint:disable-next-line:expect
+pacote.manifest('pacote'); // $ExpectType Promise<AbbreviatedManifest & ManifestResult>
+// tslint:disable-next-line:expect
+pacote.manifest('pacote', opts); // $ExpectType Promise<AbbreviatedManifest & ManifestResult>
+pacote.manifest('pacote', { before: new Date() }); // $ExpectType Promise<Manifest & ManifestResult>
+pacote.manifest('pacote', { fullMetadata: true }); // $ExpectType Promise<Manifest & ManifestResult>
 
-pacote.packument('pacote'); // $ExpectType Promise<Packument>
-pacote.packument('pacote', opts); // $ExpectType Promise<Packument>
+pacote.packument('pacote'); // $ExpectType Promise<AbbreviatedPackument>
+pacote.packument('pacote', opts); // $ExpectType Promise<AbbreviatedPackument>
+pacote.packument('pacote', { fullMetadata: true }); // $ExpectType Promise<Packument>
 
 pacote.extract('pacote', './'); // $ExpectType Promise<FetchResult>
 pacote.extract('pacote', './', opts); // $ExpectType Promise<FetchResult>

@@ -83,7 +83,7 @@ client.locations("", { results: 1 })
     .then(locations => { /* ... */ })
     .catch(() => { /* ... */ });
 
-client.journeys("", "", { results: 1, subStops: true })
+client.journeys("", "", { results: 1, subStops: true, age: 65 })
     .then(journeys => { /* ... */ })
     .catch(() => { /* ... */ });
 
@@ -100,7 +100,7 @@ if (client.lines) {
 }
 
 if (client.serverInfo) {
-    client.serverInfo({})
+    client.serverInfo({ versionInfo: true })
         .then(serverInfo => { /* ... */ })
         .catch(() => { /* ... */ });
 }

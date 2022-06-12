@@ -6336,8 +6336,8 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
-     * Controls whether the ScrollView should automatically adjust it's contentInset
-     * and scrollViewInsets when the Keyboard changes it's size. The default value is false.
+     * Controls whether the ScrollView should automatically adjust its `contentInset`
+     * and `scrollViewInsets` when the Keyboard changes its size. The default value is false.
      */
     automaticallyAdjustKeyboardInsets?: boolean | undefined;
 
@@ -7798,7 +7798,10 @@ export type Permission =
     | 'android.permission.RECEIVE_WAP_PUSH'
     | 'android.permission.RECEIVE_MMS'
     | 'android.permission.READ_EXTERNAL_STORAGE'
-    | 'android.permission.WRITE_EXTERNAL_STORAGE';
+    | 'android.permission.WRITE_EXTERNAL_STORAGE'
+    | 'android.permission.BLUETOOTH_CONNECT'
+    | 'android.permission.BLUETOOTH_SCAN'
+    | 'android.permission.BLUETOOTH_ADVERTISE';
 
 export type PermissionStatus = 'granted' | 'denied' | 'never_ask_again';
 

@@ -29,7 +29,7 @@ export interface ClientConfig {
     lockDuration?: number | undefined;
     autoPoll?: boolean | undefined;
     asyncResponseTimeout?: number | undefined;
-    interceptors?: Interceptor | Interceptor[] | undefined;
+    interceptors?: Interceptor | Interceptor[] | BasicAuthInterceptor | BasicAuthInterceptor[] | undefined | null;
     use?: Middleware | Middleware[] | undefined;
 }
 
@@ -95,6 +95,17 @@ export interface TaskService {
     handleBpmnError(task: Task, errorCode: string, errorMessage?: string, variables?: Variables): Promise<void>;
     extendLock(task: Task, newDuration: number): Promise<void>;
     unlock(task: Task): Promise<void>;
+}
+
+export interface BasicAuthInterceptorConfig {
+    username: string;
+    password: string;
+}
+
+export class BasicAuthInterceptor {
+    constructor(options: BasicAuthInterceptorConfig);
+    getHeader({ username, password }: { username: string, password: string }): { Authorization: string };
+    interceptor(config: any): any;
 }
 
 export interface HandleFailureOptions {

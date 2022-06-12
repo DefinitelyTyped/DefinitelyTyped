@@ -369,6 +369,13 @@ float64Array = d3Array.rank(mixedObjectArray, accessorMixedObjectToNum);
 float64Array = d3Array.rank(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 float64Array = d3Array.rank(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+float64Array = d3Array.rank(mixedObjectArray, (a: any, b: any) =>
+a.date.valueOf() - b.date.valueOf());
+float64Array = d3Array.rank(mixedObjectOrUndefinedArray, (a: any, b: any) =>
+a?.date.valueOf() - b?.date.valueOf());
+float64Array = d3Array.rank(readonlyMixedObjectOrUndefinedArray, (a: any, b: any) =>
+a?.date.valueOf() - b?.date.valueOf());
+
 // variance() ------------------------------------------------------------------
 
 numOrUndefined = d3Array.variance(numbersArray);

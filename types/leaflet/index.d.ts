@@ -367,7 +367,6 @@ export abstract class Evented extends Class {
      * (e.g. 'click dblclick').
      */
     // tslint:disable:unified-signatures
-    on(type: string, fn: LeafletEventHandlerFn, context?: any): this;
     on(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
         fn: LayersControlEventHandlerFn, context?: any): this;
     on(type: 'layeradd' | 'layerremove',
@@ -400,6 +399,7 @@ export abstract class Evented extends Class {
         fn: TileEventHandlerFn, context?: any): this;
     on(type: 'tileerror',
         fn: TileErrorEventHandlerFn, context?: any): this;
+    on(type: string, fn: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
@@ -414,7 +414,6 @@ export abstract class Evented extends Class {
      * to off in order to remove the listener.
      */
     // tslint:disable:unified-signatures
-    off(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
     off(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
         fn?: LayersControlEventHandlerFn, context?: any): this;
     off(type: 'layeradd' | 'layerremove',
@@ -447,6 +446,7 @@ export abstract class Evented extends Class {
         fn?: TileEventHandlerFn, context?: any): this;
     off(type: 'tileerror',
         fn?: TileErrorEventHandlerFn, context?: any): this;
+    off(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Removes a set of type/listener pairs.
@@ -476,7 +476,6 @@ export abstract class Evented extends Class {
      * Behaves as on(...), except the listener will only get fired once and then removed.
      */
     // tslint:disable:unified-signatures
-    once(type: string, fn: LeafletEventHandlerFn, context?: any): this;
     once(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
         fn: LayersControlEventHandlerFn, context?: any): this;
     once(type: 'layeradd' | 'layerremove',
@@ -509,6 +508,7 @@ export abstract class Evented extends Class {
         fn: TileEventHandlerFn, context?: any): this;
     once(type: 'tileerror',
         fn: TileEventHandlerFn, context?: any): this;
+    once(type: string, fn: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Behaves as on(...), except the listener will only get fired once and then removed.
@@ -535,7 +535,6 @@ export abstract class Evented extends Class {
      * (e.g. 'click dblclick').
      */
     // tslint:disable:unified-signatures
-    addEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
     addEventListener(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
         fn: LayersControlEventHandlerFn, context?: any): this;
     addEventListener(type: 'layeradd' | 'layerremove',
@@ -568,6 +567,7 @@ export abstract class Evented extends Class {
         fn: TileEventHandlerFn, context?: any): this;
     addEventListener(type: 'tileerror',
         fn: TileErrorEventHandlerFn, context?: any): this;
+    addEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Alias for on(...)
@@ -586,7 +586,6 @@ export abstract class Evented extends Class {
      * to off in order to remove the listener.
      */
     // tslint:disable:unified-signatures
-    removeEventListener(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
     removeEventListener(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
         fn?: LayersControlEventHandlerFn, context?: any): this;
     removeEventListener(type: 'layeradd' | 'layerremove',
@@ -619,6 +618,7 @@ export abstract class Evented extends Class {
         fn?: TileEventHandlerFn, context?: any): this;
     removeEventListener(type: 'tileerror',
         fn?: TileErrorEventHandlerFn, context?: any): this;
+    removeEventListener(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Alias for off(...)
@@ -641,7 +641,6 @@ export abstract class Evented extends Class {
      * Behaves as on(...), except the listener will only get fired once and then removed.
      */
     // tslint:disable:unified-signatures
-    addOneTimeEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
         fn: LayersControlEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'layeradd' | 'layerremove',
@@ -674,6 +673,7 @@ export abstract class Evented extends Class {
         fn: TileEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'tileerror',
         fn: TileErrorEventHandlerFn, context?: any): this;
+    addOneTimeEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Alias for once(...)
@@ -1642,6 +1642,7 @@ export class Handler extends Class {
 
 export interface LeafletEvent {
     type: string;
+    popup: any;
     target: any;
     sourceTarget: any;
     propagatedFrom: any;

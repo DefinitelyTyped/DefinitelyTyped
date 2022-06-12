@@ -10,7 +10,6 @@
 //                 Yusuke Sato <https://github.com/sat0yu>
 //                 Desmond Koh <https://github.com/deskoh>
 //                 Maurice de Beijer <https://github.com/mauricedb>
-//                 Kalley Powell <https://github.com/kalley>
 //                 Elías García <https://github.com/elias-garcia>
 //                 Ian Sanders <https://github.com/iansan5653>
 //                 Jay Fong <https://github.com/fjc0k>

@@ -1,4 +1,4 @@
-import { Tabulator, Renderer, Module, DataTreeModule, TabulatorFull } from 'tabulator-tables';
+import { Tabulator, Renderer, Module, DataTreeModule, TabulatorFull, TooltipModule } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
@@ -1039,3 +1039,5 @@ table = new Tabulator('#test', {
 });
 table.on('dataSorting', ([sorter]) => sorter.field);
 table.on('dataSorted', ([sorter]) => sorter.field);
+
+Tabulator.registerModule([TooltipModule]);

@@ -16,6 +16,12 @@ const config: BrokerConfig = {
         '/': {
             connection: {
                 url: 'amqp://user:password@broker.example.com:5742/',
+                socketOptions: {
+                    clientProperties: {
+                        connection_name: 'demo_service',
+                        custom_tag: 'custom_tag_identifier',
+                    },
+                },
             },
             exchanges: ['demo_ex'],
             queues: ['demo_q'],

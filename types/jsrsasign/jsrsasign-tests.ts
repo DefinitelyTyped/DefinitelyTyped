@@ -29,15 +29,17 @@ KEYUTIL.getKey('pemPKCS1PrivateKey');
 b64toBA('ZXhhbXBsZQ=='); // $ExpectType number[]
 b64tohex('ZXhhbXBsZQ=='); // $ExpectType string
 
-KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', { utf8: '123abc' });
-KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', '123abc');
+const pemPublicKey = '74657374206365727469666963617465';
+const pemCert = 'A1UECBMFVG9reW8xEDAOBgNVBAcTB0NodW8ta3UxETAPBgNVBAoTCEZyYW5rNERE';
+
+KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', undefined, { utf8: '123abc' });
+KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', undefined, '123abc');
+KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', pemPublicKey, '123abc');
+KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', { b64: 'ZXhhbXBsZQ==' },  '123abc');
 
 KJUR.jws.JWS.verifyJWT('', new RSAKey(), {});
 KJUR.jws.JWS.verifyJWT('', '', {});
 KJUR.jws.JWS.verifyJWT('', '', { gracePeriod: 1 });
-
-const pemPublicKey = '74657374206365727469666963617465';
-const pemCert = 'A1UECBMFVG9reW8xEDAOBgNVBAcTB0NodW8ta3UxETAPBgNVBAoTCEZyYW5rNERE';
 
 const pubKey = KEYUTIL.getKey(pemPublicKey); // or certificate
 const x509 = new X509();
