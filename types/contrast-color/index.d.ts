@@ -58,7 +58,6 @@ declare class ContrastColor {
     constructor(defaults?: ContrastColorConfig);
 
     contrastColor(config?: ContrastColorConfig): Color;
-
 }
 
 declare namespace ContrastColor {
