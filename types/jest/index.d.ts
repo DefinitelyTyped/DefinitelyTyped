@@ -1362,6 +1362,7 @@ declare namespace jest {
         calls: Y[];
         instances: T[];
         invocationCallOrder: number[];
+        contexts: T[];
         /**
          * List of results of calls to the mock function.
          */
