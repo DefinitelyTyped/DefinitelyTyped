@@ -227,10 +227,19 @@ client.customFields
 // $ExpectError
 client.typeahead.typeaheadForWorkspace('workspace_gid', {});
 
-const typeaheadForWorkspaceQuery: asana.resources.Typeahead.TypeaheadParams = {
+// opt_fields takes string, not array
+// $ExpectError
+const badTypeaheadForWorkspaceQuery: asana.resources.Typeahead.TypeaheadParams = {
     resource_type: 'task',
     query: 'my query',
     opt_pretty: true,
     opt_fields: ['name', 'completed', 'parent', 'custom_fields.gid', 'custom_fields.number_value'],
+};
+
+const typeaheadForWorkspaceQuery: asana.resources.Typeahead.TypeaheadParams = {
+    resource_type: 'task',
+    query: 'my query',
+    opt_pretty: true,
+    opt_fields: 'name,completed,parent,custom_fields.gid,custom_fields.number_value',
 };
 client.typeahead.typeaheadForWorkspace('workspace_gid', typeaheadForWorkspaceQuery);
