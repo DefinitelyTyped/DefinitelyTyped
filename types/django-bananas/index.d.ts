@@ -1,0 +1,270 @@
+// Type definitions for django-bananas 4.0.0
+// Project: https://github.com/5monkeys/django-bananas.js
+// Definitions by: eliassjogreen <https://github.com/eliassjogreen>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import * as React from "react";
+
+declare module "django-bananas/auth/PermissionRequired" {
+  export interface PermissionRequiredProps {
+    permission: string | string[];
+    allMustMatch?: boolean;
+  }
+  const PermissionRequired: React.FC<PermissionRequiredProps>;
+  export default PermissionRequired;
+}
+
+declare module "django-bananas/auth/UserPassesTest" {
+  export interface UserPassesTestProps {
+    testFunc?: (...args: any[]) => any;
+  }
+  const UserPassesTest: React.FC<UserPassesTestProps>;
+  export default UserPassesTest;
+}
+
+declare module "django-bananas/colors" {
+  export type Color = {
+    100: string;
+    200: string;
+    300: string;
+    400: string;
+    500: string;
+    600: string;
+    700: string;
+    800: string;
+    900: string;
+  };
+  export function createColor(base: string): Color;
+  export const django: Color;
+}
+
+declare module "django-bananas/themes" {
+  export function applyThemeDefaults(theme: any): any;
+  export function createBananasTheme(theme: any): any;
+  export function extendTheme(theme: any, overrides: any): any;
+
+  type themes = {
+    light: any;
+    dark: any;
+    darth: any;
+    default: any;
+  };
+  export default themes;
+}
+
+declare module "django-bananas" {
+    type AppProps = {
+        api: string | { url: string };
+        pages: (route: string) => any;
+        prefix?: string;
+        logLevel?: "INFO" | "DEBUG" | "WARN" | "ERROR" | "OFF" | any;
+
+        layout?: "horizontal" | "vertical";
+        permanent?: boolean;
+        collapsed?: boolean;
+        dense?: boolean;
+
+        title?: string;
+        branding?: string;
+        version?: string;
+        logo?: React.ReactNode | string | boolean;
+        nav?: string[] | Record<string, NavItem | NavAppItem>;
+
+        theme?: any;
+        pageTheme?: any;
+        loginForm?: (...args: any) => any;
+        editableSettings?: boolean;
+        customizeContext?: (...args: any) => any;
+        customiseUser?: (...args: any) => any;
+        container?: Symbol | ((...args: any) => any) | React.ReactNode;
+    };
+
+    export default class App extends React.Component<AppProps> {}
+
+    interface UserInterface {
+        email: string;
+        full_name: string;
+        groups: string[];
+        id: number;
+        is_superuser: boolean;
+        permissions: string[];
+        username?: string;
+    }
+
+    interface AdminInterface {
+        admin: AdminInterface;
+        router?: RouterInterface;
+        api: any;
+        user?: UserInterface;
+    }
+
+    function useAdmin(context: AdminContext): AdminInterface;
+    type AdminContext = React.Context<AdminInterface>;
+
+    interface ContainerProps {
+        className?: string;
+    }
+    class Container extends React.Component<ContainerProps> {}
+
+
+    interface ContentProps {
+        disablePadding?: boolean;
+        contained?: boolean;
+        className?: string;
+    }
+    class Content extends React.Component<ContentProps> {}
+
+    interface LinkProps {
+      children: string | React.ReactNode;
+      route?: string;
+      params?: Record<string, string | number>;
+      path?: string;
+      query?: string | Record<string, string | number>;
+      hash?: string;
+      href?: string;
+      patch?: boolean;
+      passHref?: boolean;
+    }
+    class Link extends React.Component<LinkProps> {}
+
+    interface PageInterface<T> {
+        title: string;
+        route: RouteData;
+        referer?: string;
+        data: PageData<T>;
+    }
+
+    interface PageData<T> {
+      obj: T;
+      body: T;
+      headers: Record<string, string>;
+      status: number;
+      statusText: string;
+      ok: boolean;
+      url: string;
+      text: string;
+    }
+
+    function usePage<T>(context: PageContext<T>): PageContext<T>;
+    type PageContext<T> = React.Context<PageInterface<T>>;
+
+    interface LoginFormProps {
+        logger: any;
+    }
+    class LoginForm extends React.Component<LoginFormProps> {}
+
+    interface TitleBarProps {
+        overrides?: any;
+        children?: React.ReactNode[] | React.ReactNode;
+        color?: "primary" | "secondary" | "paper";
+        title?: string;
+        back?: boolean | string;
+        dense?: boolean;
+        justify?: "start" | "center" | "end" | "between" | "around" | "evenly";
+    }
+    export const TitleBar: React.FC<TitleBarProps>;
+
+    interface ToolBarProps { className?: string }
+    class ToolBar extends React.Component<ToolBarProps> {}
+
+    interface ToolsProps {
+        children?: React.ReactNode | React.ReactNode[];
+        className?: string;
+    }
+    class Tools extends React.Component<ToolsProps> {}
+
+    function t(s: string, params: any): string;
+
+    interface TranslateProps {
+        children: string;
+        params: any;
+    }
+    export const Translate: React.FC<TranslateProps>;
+
+  interface RouteData {
+    hash?: string;
+    id?: string;
+    params?: Record<string, string | number>;
+    path?: string;
+    query?: Record<string, string>;
+  }
+
+  interface PageInterfaceBase {
+    title: string;
+    route: RouteData;
+    referer?: string;
+  }
+
+  interface ListPageInterface<T> extends PageInterfaceBase {
+    data: PageData<Array<T>>;
+  }
+
+  interface PageInterface<T> extends PageInterfaceBase {
+    data: PageData<T>;
+  }
+
+  interface NavItem {
+    title?: string;
+    icon?: React.ReactComponentElement<any>;
+  }
+
+  interface NavAppItem {
+    showSubheader?: boolean;
+  }
+
+  type ApiSetting =
+    | string
+    | {
+      url: string;
+      requestInterceptor?: ((v: Request) => Request);
+      responseInterceptor?: (v: Response) => Response;
+    };
+
+  interface AlertProps {
+    classes: object;
+    open?: boolean;
+    title?: string;
+    message?: React.ReactNode | string;
+    agree?: boolean | string;
+    dismiss?: boolean | string;
+    onAgree?: () => any;
+    onDismiss?: () => any;
+    onClose?: () => any;
+    keepMounted?: boolean;
+  }
+
+  interface AdminInterface {
+    alert(message: string | AlertProps): void;
+    confirm(message: string | AlertProps): void;
+    dismissModal(): void;
+    dismissMessages(): void;
+    error(message: string): void;
+    warning(message: string): void;
+    success(message: string): void;
+    info(message: string): void;
+    loading(on: boolean): number;
+    progress(on: boolean): number;
+    login(username: string, password: string): Promise<UserInterface>;
+    logout(): void;
+    setTitle(title: string): void;
+    settings(): any;
+  }
+
+  interface RouterInterface {
+    route(
+      to: string | RouteData,
+      extra?: { rewrite?: boolean; patch?: boolean },
+    ): { location: any; action: string };
+    reroute(to: string | RouteData): { location: any; action: string };
+  }
+
+  interface ApiResponse<T = Record<string, never | never[]>> {
+    statusText: string;
+    status: number;
+    obj: T;
+  }
+
+  interface ApiPromiseError {
+    response: ApiResponse;
+  }
+}
