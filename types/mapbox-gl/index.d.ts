@@ -1346,7 +1346,8 @@ declare namespace mapboxgl {
         | CanvasSourceRaw
         | VectorSource
         | RasterSource
-        | RasterDemSource;
+        | RasterDemSource
+        | CustomSourceInterface<HTMLImageElement | ImageData | ImageBitmap>;
 
     interface VectorSourceImpl extends VectorSource {
         /**
@@ -1373,10 +1374,11 @@ declare namespace mapboxgl {
         | CanvasSource
         | VectorSourceImpl
         | RasterSource
-        | RasterDemSource;
+        | RasterDemSource
+        | CustomSource<HTMLImageElement | ImageData | ImageBitmap>;
 
     export interface Source {
-        type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas';
+        type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas' | 'custom';
     }
 
     /**
@@ -1595,6 +1597,36 @@ declare namespace mapboxgl {
         tileSize?: number | undefined;
         attribution?: string | undefined;
         encoding?: 'terrarium' | 'mapbox' | undefined;
+    }
+
+    interface CustomSourceInterface<T> {
+        id: string;
+        type: 'custom';
+        dataType: 'raster';
+        minzoom?: number;
+        maxzoom?: number;
+        scheme?: string;
+        tileSize?: number;
+        attribution?: string;
+        bounds?: [number, number, number, number];
+        hasTile?: (tileID: { z: number, x: number, y: number }) => boolean;
+        loadTile: (tileID: { z: number, x: number, y: number }, options: { signal: AbortSignal }) => Promise<T>;
+        prepareTile?: (tileID: { z: number, x: number, y: number }) => T | undefined;
+        unloadTile?: (tileID: { z: number, x: number, y: number }) => void;
+        onAdd?: (map: Map) => void;
+        onRemove?: (map: Map) => void;
+    }
+
+    interface CustomSource<T> extends Source {
+        id: string;
+        type: 'custom';
+        scheme: string;
+        minzoom: number;
+        maxzoom: number;
+        tileSize: number;
+        attribution: string;
+
+        _implementation: CustomSourceInterface<T>;
     }
 
     /**

@@ -306,9 +306,14 @@ jest.autoMockOff()
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
 
-// https://jestjs.io/docs/en/jest-object#jestusefaketimersimplementation-modern--legacy
-jest.useFakeTimers('modern');
+// https://jestjs.io/docs/configuration#faketimers-object
+jest.useFakeTimers();
+jest.useFakeTimers({ legacyFakeTimers: false });
+jest.useFakeTimers({ timerLimit: 50 });
+// $ExpectError
 jest.useFakeTimers('legacy');
+// $ExpectError
+jest.useFakeTimers('modern');
 // $ExpectError
 jest.useFakeTimers('foo');
 
@@ -958,6 +963,9 @@ describe('', () => {
 
         expect(0).toBeLessThanOrEqual(1);
 
+        expect(1.230000003).toBeCloseTo(1.23);
+        expect(1.230000003).toBeCloseTo(1.23, 2);
+
         expect(null).toBeNull();
         expect(undefined).toBeNull();
 
@@ -1044,12 +1052,14 @@ describe('', () => {
             two: '2',
             three: 3,
             four: { four: 3 },
+            five: 5.0000001,
             date: new Date(),
         }).toMatchSnapshot({
             one: expect.any(Number),
             // Leave 'two' to the auto-generated snapshot
             three: 3,
             four: { four: expect.any(Number) },
+            five: expect.closeTo(5, 1),
             date: expect.any(Date),
         });
 

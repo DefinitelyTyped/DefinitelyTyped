@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.34
+// Type definitions for auth0 2.35
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Ian Howe <https://github.com/ianhowe76>
 //                 Dan Rumney <https://github.com/dancrumb>
@@ -1983,8 +1983,14 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     getJob(params: ObjectWithId): Promise<Job>;
     getJob(params: ObjectWithId, cb?: (err: Error, data: Job) => void): void;
 
+    /**
+     * @deprecated use @see importUsersJob instead
+     */
     importUsers(data: ImportUsersOptions): Promise<ImportUsersJob>;
     importUsers(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
+
+    importUsersJob(data: ImportUsersOptions): Promise<ImportUsersJob>;
+    importUsersJob(data: ImportUsersOptions, cb?: (err: Error, data: ImportUsersJob) => void): void;
 
     exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
     exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;

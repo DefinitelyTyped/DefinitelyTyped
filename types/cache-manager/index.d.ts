@@ -1,4 +1,4 @@
-// Type definitions for cache-manager v3.4.0
+// Type definitions for cache-manager v4.0.1
 // Project: https://github.com/BryanDonovan/node-cache-manager
 // Definitions by: Dominik Einkemmer <https://github.com/dominikeinkemmer>
 //                 Eduard Marbach <https://github.com/BlackDark>
@@ -32,7 +32,8 @@ export interface StoreConfig extends CachingConfig {
     store: 'memory' | 'none' | Store | {
         create(...args: any[]): Store;
     };
-    max?: number | undefined;
+    max?: number;
+    maxSize?: number;
 
     /**
      * You may pass in any other arguments these will be passed on to the `create` method of your store,

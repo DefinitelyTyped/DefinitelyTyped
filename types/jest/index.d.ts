@@ -1,4 +1,4 @@
-// Type definitions for Jest 27.5
+// Type definitions for Jest 28.1
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -23,7 +23,6 @@
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
 //                 Tony Hallett <https://github.com/tonyhallett>
 //                 Jason Yu <https://github.com/ycmjason>
-//                 Devansh Jethmalani <https://github.com/devanshj>
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
 //                 Alexandre Germain <https://github.com/gerkindev>
@@ -71,6 +70,46 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
         : T extends Readonly<[any, any, any, any, any, any, any, any, any, any]> ? 10
         : 'fallback'
 ];
+
+type FakeableAPI =
+  | 'Date'
+  | 'hrtime'
+  | 'nextTick'
+  | 'performance'
+  | 'queueMicrotask'
+  | 'requestAnimationFrame'
+  | 'cancelAnimationFrame'
+  | 'requestIdleCallback'
+  | 'cancelIdleCallback'
+  | 'setImmediate'
+  | 'clearImmediate'
+  | 'setInterval'
+  | 'clearInterval'
+  | 'setTimeout'
+  | 'clearTimeout';
+
+interface FakeTimersConfig {
+    /**
+     * If set to `true` all timers will be advanced automatically by 20 milliseconds
+     * every 20 milliseconds. A custom time delta may be provided by passing a number.
+     * The default is `false`.
+     */
+    advanceTimers?: boolean | number;
+    /**
+     * List of names of APIs that should not be faked. The default is `[]`, meaning
+     * all APIs are faked.
+     */
+    doNotFake?: FakeableAPI[];
+    /**
+     * Use the old fake timers implementation instead of one backed by `@sinonjs/fake-timers`.
+     * The default is `false`.
+     */
+    legacyFakeTimers?: boolean;
+    /** Sets current system time to be used by fake timers. The default is `Date.now()`. */
+    now?: number | Date;
+    /** Maximum number of recursive timers that will be run. The default is `100_000` timers. */
+    timerLimit?: number;
+}
 
 declare namespace jest {
     /**
@@ -323,7 +362,7 @@ declare namespace jest {
     /**
      * Instructs Jest to use fake versions of the standard timer functions.
      */
-    function useFakeTimers(implementation?: 'modern' | 'legacy'): typeof jest;
+    function useFakeTimers(config?: FakeTimersConfig): typeof jest;
     /**
      * Instructs Jest to use the real versions of the standard timer functions.
      */
@@ -632,6 +671,14 @@ declare namespace jest {
          * make sure that assertions in a callback actually got called.
          */
         assertions(num: number): void;
+        /**
+         * Useful when comparing floating point numbers in object properties or array item.
+         * If you need to compare a number, use `.toBeCloseTo` instead.
+         *
+         * The optional `numDigits` argument limits the number of digits to check after the decimal point.
+         * For the default value 2, the test criterion is `Math.abs(expected - received) < 0.005` (that is, `10 ** -2 / 2`).
+         */
+        closeTo(num: number, numDigits?: number): any;
         /**
          * Verifies that at least one assertion is called during a test.
          * This is often useful when testing asynchronous code, in order to

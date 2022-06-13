@@ -319,6 +319,22 @@ async function testPromisify() {
 }
 
 {
+    fs.open('test', (err, fd) => {});
+    fs.open('test', 'r', (err, fd) => {});
+    fs.open('test', undefined, (err, fd) => {});
+    fs.open('test', 'r', 0o666, (err, fd) => {});
+    fs.open('test', 'r', undefined, (err, fd) => {});
+}
+
+async () => {
+    await fs.promises.open('test');
+    await fs.promises.open('test', 'r');
+    await fs.promises.open('test', undefined);
+    await fs.promises.open('test', 'r', 0o666);
+    await fs.promises.open('test', 'r', undefined);
+};
+
+{
     fs.opendir('test', async (err, dir) => {
         const dirEnt: fs.Dirent | null = await dir.read();
     });

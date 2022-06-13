@@ -771,7 +771,7 @@ toMap([
     ['foo', 1],
     ['bar', 2],
 ]);
-// $ExpectType Map<string, number>
+// $ExpectType Map<string, number> || Map<"foo" | "bar", number>
 toMap(
     new Map([
         ['foo', 1],

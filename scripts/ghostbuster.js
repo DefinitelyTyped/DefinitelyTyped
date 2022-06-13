@@ -1,7 +1,8 @@
 // @ts-check
 import { flatMap, mapDefined } from "@definitelytyped/utils";
 import * as os from "node:os";
-import { writeFileSync, readFileSync, readdirSync, existsSync } from "fs-extra";
+import fsExtra from 'fs-extra';
+const { writeFileSync, readFileSync, readdirSync, existsSync } = fsExtra;
 import hp from "@definitelytyped/header-parser";
 import { Octokit } from "@octokit/core";
 

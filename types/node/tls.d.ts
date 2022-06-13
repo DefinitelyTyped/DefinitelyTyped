@@ -158,7 +158,7 @@ declare module 'tls' {
          * Always returns `true`. This may be used to distinguish TLS sockets from regular`net.Socket` instances.
          * @since v0.11.4
          */
-        encrypted: boolean;
+        encrypted: true;
         /**
          * String containing the selected ALPN protocol.
          * Before a handshake has completed, this value is always null.
