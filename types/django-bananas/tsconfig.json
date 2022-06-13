@@ -16,7 +16,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "jsx": "react-jsx"
     },
     "files": [
         "index.d.ts",
