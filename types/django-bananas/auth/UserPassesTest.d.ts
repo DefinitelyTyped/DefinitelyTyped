@@ -1,8 +1,8 @@
+import { UserInterface } from '../';
 import * as React from 'react';
 
-export interface PermissionRequiredProps {
-    permission: string | string[];
-    allMustMatch?: boolean;
+export interface UserPassesTestProps {
+    testFunc: (user: UserInterface) => boolean;
 }
-declare const PermissionRequired: React.FC<PermissionRequiredProps>;
-export default PermissionRequired;
+declare const UserPassesTest: React.FC<UserPassesTestProps>;
+export default UserPassesTest;

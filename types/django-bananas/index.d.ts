@@ -27,14 +27,14 @@ interface AppProps {
     pageTheme?: any;
     loginForm?: (...args: any) => any;
     editableSettings?: boolean;
-    customizeContext?: (...args: any) => any;
-    customiseUser?: (...args: any) => any;
+    customizeContext?: (context: any) => any;
+    customiseUser?: (user: UserInterface) => UserInterface;
     container?: symbol | ((...args: any) => any) | React.ReactNode;
 }
 
 export class App extends React.Component<AppProps> {}
 
-interface UserInterface {
+export interface UserInterface {
     email: string;
     full_name: string;
     groups: string[];

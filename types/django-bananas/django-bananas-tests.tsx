@@ -1,5 +1,8 @@
-import Bananas from 'django-bananas';
+import Bananas, { UserInterface } from 'django-bananas';
 import themes from 'django-bananas/themes';
+import { django, createColor, Color } from 'django-bananas/colors';
+import PermissionRequired from 'django-bananas/auth/PermissionRequired';
+import UserPassesTest from 'django-bananas/auth/UserPassesTest';
 
 <Bananas.App api={{ url: '' }} pages={(route: string) => {}} />;
 <Bananas.App api="" pages={(route: string) => {}} />;
@@ -16,9 +19,15 @@ import themes from 'django-bananas/themes';
     pages={(route: string) => {}}
     nav={{
         'example.user:list': {
-            title: "example",
+            title: 'example',
             icon: undefined,
-            showSubheader: false
-        }
+            showSubheader: false,
+        },
     }}
 />;
+
+const django2: Color = django;
+const color: Color = createColor('');
+
+<PermissionRequired permission={''} />;
+<UserPassesTest testFunc={(user: UserInterface) => true} />;

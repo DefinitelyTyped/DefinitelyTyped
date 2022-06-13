@@ -1,4 +1,4 @@
-export type Color = {
+export interface Color {
     100: string;
     200: string;
     300: string;
@@ -8,6 +8,6 @@ export type Color = {
     700: string;
     800: string;
     900: string;
-};
+}
 export function createColor(base: string): Color;
 export const django: Color;
