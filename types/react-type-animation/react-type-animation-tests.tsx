@@ -8,9 +8,28 @@ const example = () => (
 const exampleWithRepeat = () => (
     <TypeAnimation
         cursor={false}
-        sequence={['얘야, 큰 힘에는 큰 책임이 따른단다', 6000, 'I am Ironman', 6500, '거 죽기 딱 좋은 날씨네', 6400]}
-        wrapper="p"
-        className="mainTyping"
+        sequence={['This text will be repeated infinitely.', 1000, '']}
+        wrapper="h2"
         repeat={Infinity}
     />
+);
+
+const repeatWithThreeTimes = () => (
+    <TypeAnimation
+        cursor={true}
+        sequence={['This animation', 2000, 'Will write', 2000, 'A sequence three times.']}
+        wrapper="a"
+        repeat={3}
+    />
+);
+
+const predefinedWidth = () => (
+    <div style={{ width: '20em' }}>
+        <TypeAnimation
+            cursor={true}
+            sequence={['Pre-define width of wrapper', 2000, 'to prevent layout-shift.', 2000]}
+            wrapper="h2"
+            repeat={Infinity}
+        />
+    </div>
 );
