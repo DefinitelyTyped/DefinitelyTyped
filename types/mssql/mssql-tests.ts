@@ -5,6 +5,10 @@ interface Entity {
     value: number;
 }
 
+interface AnotherEntity {
+    property: string;
+}
+
 var config: sql.config = {
     user: 'user',
     password: 'password',
@@ -95,6 +99,17 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
             }
             else {
                 console.info(returnValue);
+            }
+        });
+
+        requestStoredProcedure.execute<[Entity, AnotherEntity]>('StoredProcedureName', function (err, recordsets, returnValue) {
+            if (err != null) {
+                console.error(`Error happened calling Query: ${err.name} ${err.message}`);
+            }
+            else {
+                console.info(returnValue);
+                recordsets.recordsets[0] // $ExpectType IRecordSet<Entity>
+                recordsets.recordsets[1] // $ExpectType IRecordSet<AnotherEntity>
             }
         });
 
