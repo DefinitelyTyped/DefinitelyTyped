@@ -1,6 +1,6 @@
 // Type definitions for django-bananas 4.0.0
 // Project: https://github.com/5monkeys/django-bananas.js
-// Definitions by: eliassjogreen <https://github.com/eliassjogreen>
+// Definitions by: Elias Sjögreen <https://github.com/eliassjogreen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
