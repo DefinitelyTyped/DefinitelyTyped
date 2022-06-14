@@ -1,4 +1,4 @@
-// Type definitions for use-position 0.0
+// Type definitions for use-position 1.0.0
 // Project: https://github.com/trekhleb/use-position
 // Definitions by: Claudio Musumeci <https://github.com/muscla87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
