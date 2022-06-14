@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.103.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -1217,7 +1217,7 @@ declare module "sap/ui/unified/Calendar" {
        * The disabledDate to remove or its index or id
        */
       vDisabledDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -1228,7 +1228,7 @@ declare module "sap/ui/unified/Calendar" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * @SINCE 1.24.0
      *
@@ -1241,7 +1241,7 @@ declare module "sap/ui/unified/Calendar" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
     /**
      * @SINCE 1.28.9
      *
@@ -3705,7 +3705,7 @@ declare module "sap/ui/unified/calendar/Month" {
        * The disabledDate to remove or its index or id
        */
       vDisabledDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -3716,7 +3716,7 @@ declare module "sap/ui/unified/calendar/Month" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a specialDate from the aggregation {@link #getSpecialDates specialDates}.
      *
@@ -3727,7 +3727,7 @@ declare module "sap/ui/unified/calendar/Month" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
     /**
      * Sets a new value for property {@link #getDate date}.
      *
@@ -4511,7 +4511,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * @SINCE 1.30.0
      *
@@ -5205,7 +5205,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a specialDate from the aggregation {@link #getSpecialDates specialDates}.
      *
@@ -5216,7 +5216,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
     /**
      * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
      *
@@ -5926,7 +5926,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a specialDate from the aggregation {@link #getSpecialDates specialDates}.
      *
@@ -5937,7 +5937,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
     /**
      * Sets a new value for property {@link #getDate date}.
      *
@@ -6589,7 +6589,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * @SINCE 1.30.0
      *
@@ -7020,7 +7020,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
        * The customContent to remove or its index or id
        */
       vCustomContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.46.0
      *
@@ -7653,7 +7653,7 @@ declare module "sap/ui/unified/CalendarLegend" {
        * The item to remove or its index or id
        */
       vItem: int | string | CalendarLegendItem
-    ): CalendarLegendItem;
+    ): CalendarLegendItem | null;
     /**
      * Sets a new value for property {@link #getColumnWidth columnWidth}.
      *
@@ -8524,7 +8524,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a specialDate from the aggregation {@link #getSpecialDates specialDates}.
      *
@@ -8535,7 +8535,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
     /**
      * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
      *
@@ -9691,7 +9691,7 @@ declare module "sap/ui/unified/CalendarRow" {
        * The appointment to remove or its index or id
        */
       vAppointment: int | string | CalendarAppointment
-    ): CalendarAppointment;
+    ): CalendarAppointment | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -9713,7 +9713,7 @@ declare module "sap/ui/unified/CalendarRow" {
        * The intervalHeader to remove or its index or id
        */
       vIntervalHeader: int | string | CalendarAppointment
-    ): CalendarAppointment;
+    ): CalendarAppointment | null;
     /**
      * @SINCE 1.81.0
      *
@@ -10981,7 +10981,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a specialDate from the aggregation {@link #getSpecialDates specialDates}.
      *
@@ -10992,7 +10992,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
     /**
      * Sets a new value for property {@link #getIntervalMinutes intervalMinutes}.
      *
@@ -12537,7 +12537,7 @@ declare module "sap/ui/unified/ContentSwitcher" {
        * The content1 to remove or its index or id
        */
       vContent1: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a content2 from the aggregation {@link #getContent2 content2}.
      *
@@ -12548,7 +12548,7 @@ declare module "sap/ui/unified/ContentSwitcher" {
        * The content2 to remove or its index or id
        */
       vContent2: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getActiveContent activeContent}.
      *
@@ -15070,7 +15070,7 @@ declare module "sap/ui/unified/FileUploader" {
        * The headerParameter to remove or its index or id
        */
       vHeaderParameter: int | string | FileUploaderParameter
-    ): FileUploaderParameter;
+    ): FileUploaderParameter | null;
     /**
      * @SINCE 1.12.2
      *
@@ -15083,7 +15083,7 @@ declare module "sap/ui/unified/FileUploader" {
        * The parameter to remove or its index or id
        */
       vParameter: int | string | FileUploaderParameter
-    ): FileUploaderParameter;
+    ): FileUploaderParameter | null;
     /**
      * Sets a new value for property {@link #getAdditionalData additionalData}.
      *
@@ -16609,7 +16609,7 @@ declare module "sap/ui/unified/Menu" {
        * The item to remove or its index or id
        */
       vItem: int | string | MenuItemBase
-    ): MenuItemBase;
+    ): MenuItemBase | null;
     /**
      * @deprecated (since 1.27.0) - replaced by `ariaLabelledBy` association
      *
@@ -17960,7 +17960,7 @@ declare module "sap/ui/unified/Shell" {
        * The curtainContent to remove or its index or id
        */
       vCurtainContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a curtainPaneContent from the aggregation {@link #getCurtainPaneContent curtainPaneContent}.
      *
@@ -17971,7 +17971,7 @@ declare module "sap/ui/unified/Shell" {
        * The curtainPaneContent to remove or its index or id
        */
       vCurtainPaneContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a headEndItem from the aggregation {@link #getHeadEndItems headEndItems}.
      *
@@ -17982,7 +17982,7 @@ declare module "sap/ui/unified/Shell" {
        * The headEndItem to remove or its index or id
        */
       vHeadEndItem: int | string | ShellHeadItem
-    ): ShellHeadItem;
+    ): ShellHeadItem | null;
     /**
      * Removes a headItem from the aggregation {@link #getHeadItems headItems}.
      *
@@ -17993,7 +17993,7 @@ declare module "sap/ui/unified/Shell" {
        * The headItem to remove or its index or id
        */
       vHeadItem: int | string | ShellHeadItem
-    ): ShellHeadItem;
+    ): ShellHeadItem | null;
     /**
      * Setter for the aggregated `header`.
      *
@@ -19197,7 +19197,7 @@ declare module "sap/ui/unified/ShellLayout" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a paneContent from the aggregation {@link #getPaneContent paneContent}.
      *
@@ -19208,7 +19208,7 @@ declare module "sap/ui/unified/ShellLayout" {
        * The paneContent to remove or its index or id
        */
       vPaneContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getHeader header}.
      *
@@ -19589,7 +19589,7 @@ declare module "sap/ui/unified/ShellOverlay" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getSearch search}.
      *
@@ -19896,7 +19896,7 @@ declare module "sap/ui/unified/SplitContainer" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a secondaryContent from the aggregation {@link #getSecondaryContent secondaryContent}.
      *
@@ -19907,7 +19907,7 @@ declare module "sap/ui/unified/SplitContainer" {
        * The secondaryContent to remove or its index or id
        */
       vSecondaryContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.22.0
      *
