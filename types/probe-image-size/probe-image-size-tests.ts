@@ -19,6 +19,7 @@ const data = fs.readFileSync("image.jpg");
     }
     probeResult = await probe("http://example.com/image.jpg"); // $ExpectType ProbeResult
     probeResult = await probe(input); // $ExpectType ProbeResult
+    probeResult = await probe(input, true); // $ExpectType ProbeResult
     input.destroy();
     probe.sync(data); // $ExpectType ProbeResult | null
 })();
