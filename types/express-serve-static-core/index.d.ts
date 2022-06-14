@@ -175,8 +175,8 @@ export interface IRouterMatcher<
 }
 
 export interface IRouterHandler<T, Route extends string = string> {
-    (...handlers: Array<RequestHandler<RouteParameters<Route>>>): T;
     (...handlers: Array<RequestHandlerParams<RouteParameters<Route>>>): T;
+    (...handlers: Array<RequestHandler<RouteParameters<Route>>>): T;
     <
         P = RouteParameters<Route>,
         ResBody = any,
