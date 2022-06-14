@@ -25,3 +25,5 @@ fn5({ x: 50, HALF_PI: 1000 });
 const fn6 = evaluatex2('\\frac 1{20}3', {}, { latex: true });
 
 fn6();
+
+fn6.ast.children[0].children[0].value;
