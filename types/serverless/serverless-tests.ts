@@ -39,6 +39,17 @@ class CustomPlugin implements Plugin {
         this.variableResolvers = {
             echo: async (source) => source.slice(5)
         };
+
+        logging.log.info('logging some text');
+        logging.log.info('logging with %i format %s', 2, 'parameters');
+        logging.log.info('logging with lots of different arguments', 123, ["ah"], { thing: true });
+
+        const myProgress = logging.progress.create({
+            message: 'Doing extra work in custom-plugin',
+            name: 'custom-plugin-progress',
+        });
+        myProgress.update('Almost finished');
+        logging.progress.get('custom-plugin-progress').remove();
     }
 }
 
@@ -368,7 +379,8 @@ const awsServerless: Aws.Serverless = {
         },
         eventBridge: {
             useCloudFormation: true
-        }
+        },
+        layers: ['arn:aws:lambda:us-east-2:451483290750:layer:NewRelicNodeJS14X:45']
     },
     package: {
         include: ['testinclude'],
@@ -553,7 +565,7 @@ const awsServerless: Aws.Serverless = {
                     sqs: {
                         arn: 'testarn',
                         batchSize: 1,
-                        maximumRetryAttempts: 1,
+                        maximumBatchingWindow: 10,
                         enabled: true,
                         functionResponseType: 'ReportBatchItemFailures',
                         filterPatterns: [

@@ -238,7 +238,7 @@ export class Transform<S extends Schema = any> {
      * remove all marks of that type. When it is null, remove all marks of
      * any type.
      */
-    removeMark(from: number, to: number, mark?: Mark<S> | MarkType<S>): this;
+    removeMark(from: number, to: number, mark?: Mark<S> | MarkType<S> | null): this;
     /**
      * Removes all marks and nodes from the content of the node at `pos`
      * that don't match the given new parent node type. Accepts an
@@ -335,7 +335,7 @@ export class Transform<S extends Schema = any> {
     split(
         pos: number,
         depth?: number,
-        typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null | undefined }>,
+        typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null | undefined } | null | undefined>,
     ): this;
     /**
      * Join the blocks around the given position. If depth is 2, their

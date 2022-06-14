@@ -902,10 +902,10 @@ declare namespace DataTables {
         /**
          * Select a row found by a row selector
          *
-         * @param rowSelector Row selector.
+         * @param rowSelector Row selector. If undefined returns the first row in the DataTable.
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          */
-        (rowSelector: any, modifier?: ObjectSelectorModifier): RowMethods;
+        (rowSelector?: any, modifier?: ObjectSelectorModifier): RowMethods;
 
         /**
          * Add a new row to the table using the given data
@@ -956,6 +956,16 @@ declare namespace DataTables {
          * Delete the selected row from the DataTable.
          */
         remove(): Node;
+
+        /**
+         * Selects this row.
+         */
+        select(): Api;
+
+        /**
+         * Deselects this row.
+         */
+        deselect(): Api;
     }
 
     interface RowsMethodsModel {
@@ -969,10 +979,10 @@ declare namespace DataTables {
         /**
          * Select rows found by a row selector
          *
-         * @param cellSelector Row selector.
+         * @param cellSelector Row selector. If undefined returns every row in the DataTable.
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          */
-        (rowSelector: any, modifier?: ObjectSelectorModifier): RowsMethods;
+        (rowSelector?: any, modifier?: ObjectSelectorModifier): RowsMethods;
 
         /**
          * Add new rows to the table using the data given
@@ -1020,6 +1030,16 @@ declare namespace DataTables {
          * Delete the selected rows from the DataTable.
          */
         remove(): Api;
+
+        /**
+         * Selects the given rows.
+         */
+        select(): Api;
+
+        /**
+         * Deselects the given rows.
+         */
+        deselect(): Api;
     }
     //#endregion "row-methods"
 

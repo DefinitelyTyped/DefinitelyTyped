@@ -116,6 +116,16 @@ export interface Props {
     onY?(): void;
 
     /**
+     * Triggered when the Start button is pressed.
+     */
+    onStart?(): void;
+
+    /**
+     * Triggered when the Back button is pressed.
+     */
+    onBack?(): void;
+
+    /**
      * Triggered when the LT button is pressed.
      */
     onLT?(): void;

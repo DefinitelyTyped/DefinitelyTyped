@@ -1,4 +1,4 @@
-// Type definitions for UglifyJS 3.13
+// Type definitions for UglifyJS 3.16
 // Project: https://github.com/mishoo/UglifyJS
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
@@ -170,6 +170,12 @@ export interface CompressOptions {
      * @default true
      */
     merge_vars?: boolean | undefined;
+    /**
+     * set to `true` if you wish to process input as ES module,
+     * i.e. implicit `"use strict";` alongside with `toplevel` enabled.
+     * @default false
+     */
+    module?: boolean | undefined;
     /**
      * negate `Immediately-Called Function Expressions` where the return value is discarded,
      * to avoid the parens that the code generator would insert.
@@ -430,6 +436,12 @@ export interface MinifyOptions {
      */
     toplevel?: boolean | undefined;
     /**
+     * set to `true` if you wish to process input as ES module,
+     * i.e. implicit `"use strict";` alongside with `toplevel` enabled.
+     * @default false
+     */
+    module?: boolean | undefined;
+    /**
      * Pass an empty object {} or a previously used nameCache object
      * if you wish to cache mangled variable and property names across multiple invocations of minify().
      * Note: this is a read/write property. `minify()` will read the name cache state of this object
@@ -447,6 +459,12 @@ export interface MinifyOptions {
      * @default false
      */
     keep_fnames?: boolean | undefined;
+    /**
+     * Support non-standard Safari/Webkit.
+     * Equivalent to setting `webkit: true` in `minify()` for `compress`, `mangle` and `output` options.
+     * @default false
+     */
+    webkit?: boolean | undefined;
 }
 
 export interface MinifyOutput {

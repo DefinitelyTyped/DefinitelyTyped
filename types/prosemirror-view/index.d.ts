@@ -690,7 +690,7 @@ export interface DirectEditorProps<S extends Schema = any> extends EditorProps<u
      * appender) will result in an error, since such plugins must be
      * present in the state to work.
      */
-    plugins: Plugin[];
+    plugins?: Plugin[];
 
     /**
      * The callback over which to send transactions (state updates)

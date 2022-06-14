@@ -332,13 +332,14 @@ export namespace Manifest {
 
     type OptionalPermissionOrOrigin = OptionalPermission | MatchPattern;
 
+    type PermissionPrivileged = "mozillaAddons" | "activityLog" | "networkStatus" | "normandyAddonStudy" | "urlbar";
+
     type PermissionNoPrompt =
-        | OptionalPermission
+        | OptionalPermissionNoPrompt
+        | PermissionPrivileged
         | "alarms"
-        | "mozillaAddons"
         | "storage"
         | "unlimitedStorage"
-        | "activityLog"
         | "captivePortal"
         | "contextualIdentities"
         | "dns"
@@ -346,10 +347,7 @@ export namespace Manifest {
         | "identity"
         | "menus"
         | "contextMenus"
-        | "networkStatus"
-        | "normandyAddonStudy"
-        | "theme"
-        | "urlbar";
+        | "theme";
 
     type Permission = PermissionNoPrompt | OptionalPermission | string;
 

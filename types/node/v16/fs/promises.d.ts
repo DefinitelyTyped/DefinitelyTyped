@@ -487,7 +487,7 @@ declare module 'fs/promises' {
      * @param [mode=0o666] Sets the file mode (permission and sticky bits) if the file is created.
      * @return Fulfills with a {FileHandle} object.
      */
-    function open(path: PathLike, flags: string | number, mode?: Mode): Promise<FileHandle>;
+    function open(path: PathLike, flags?: string | number, mode?: Mode): Promise<FileHandle>;
     /**
      * Renames `oldPath` to `newPath`.
      * @since v10.0.0

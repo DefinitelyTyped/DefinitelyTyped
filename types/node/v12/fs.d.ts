@@ -1089,15 +1089,23 @@ declare module 'fs' {
     /**
      * Asynchronous open(2) - open and possibly create a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
+     * @param [flags='r'] See `support of file system `flags``.
+     * @param [mode] A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
      */
-    function open(path: PathLike, flags: string | number, mode: string | number | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    function open(path: PathLike, flags: string | number | undefined, mode: string | number | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+
+    /**
+     * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param [flags='r'] See `support of file system `flags``.
+     */
+    function open(path: PathLike, flags: string | number | undefined, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
 
     /**
      * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    function open(path: PathLike, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace open {
@@ -2179,10 +2187,11 @@ declare module 'fs' {
         /**
          * Asynchronous open(2) - open and possibly create a file.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-         * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not
+         * @param [flags='r'] See `support of file system `flags``.
+         * @param [mode] A file mode. If a string is passed, it is parsed as an octal integer. If not
          * supplied, defaults to `0o666`.
          */
-        function open(path: PathLike, flags: string | number, mode?: string | number): Promise<FileHandle>;
+        function open(path: PathLike, flags?: string | number, mode?: string | number): Promise<FileHandle>;
 
         /**
          * Asynchronously reads data from the file referenced by the supplied `FileHandle`.

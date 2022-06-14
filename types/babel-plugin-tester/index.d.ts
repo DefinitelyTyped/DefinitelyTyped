@@ -3,7 +3,7 @@
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Mathieu TUDISCO <https://github.com/mathieutu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.2
 
 import * as Babel from '@babel/core';
 import { Options } from 'prettier';

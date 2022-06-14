@@ -865,7 +865,13 @@ async function test_query_subscribe() {
     const query = new Parse.Query(Game);
 
     // create subscription to Game object
-    const subscription = await query.subscribe();
+    // Without a token
+    // $ExpectType LiveQuerySubscription
+    let subscription = await query.subscribe();
+
+    // With a session token
+    // $ExpectType LiveQuerySubscription
+    subscription = await query.subscribe(new Parse.User().getSessionToken());
 
     // listen for new Game objects created on Parse server
     subscription.on('create', (game: any) => {

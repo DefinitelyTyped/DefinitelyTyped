@@ -1100,6 +1100,9 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param credentials object of Google Service Account credentials
      * - import by requiring the JSON file Google supplies
      *
+     * @param impersonateAs an email of any user in the G Suite domain
+     * - only works if service account has domain-wide delegation enabled
+     *
      * @example
      * const credentials = require("./credentials.json");
      * const { GoogleSpreadsheet } = require("google-spreadsheet");
@@ -1112,7 +1115,7 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      *
      * // doc is ready to be used
      */
-    useServiceAccountAuth(credentials: ServiceAccountCredentials): Promise<void>;
+    useServiceAccountAuth(credentials: ServiceAccountCredentials, impersonateAs?: string | null): Promise<void>;
 
     /**
      * @description

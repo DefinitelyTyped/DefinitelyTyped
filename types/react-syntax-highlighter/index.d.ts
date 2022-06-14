@@ -4,6 +4,7 @@
 //                 Guo Yunhe <https://github.com/guoyunhe>
 //                 Anirban Sengupta <https://github.com/anirban09>
 //                 Michael Yuen <https://github.com/michaelyuen>
+//                 Dokyun Kim <https://github.com/DoK6n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -715,6 +716,8 @@ declare module 'react-syntax-highlighter/dist/esm/styles/prism' {
     export { default as duotoneSpace } from 'react-syntax-highlighter/dist/esm/styles/prism/duotone-space';
     export { default as funky } from 'react-syntax-highlighter/dist/esm/styles/prism/funky';
     export { default as ghcolors } from 'react-syntax-highlighter/dist/esm/styles/prism/ghcolors';
+    export { default as gruvboxDark } from 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-dark';
+    export { default as gruvboxLight } from 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-light';
     export { default as hopscotch } from 'react-syntax-highlighter/dist/esm/styles/prism/hopscotch';
     export { default as materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism/material-dark';
     export { default as materialLight } from 'react-syntax-highlighter/dist/esm/styles/prism/material-light';
@@ -809,6 +812,16 @@ declare module 'react-syntax-highlighter/dist/esm/styles/prism/funky' {
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/ghcolors' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-dark' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-light' {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }

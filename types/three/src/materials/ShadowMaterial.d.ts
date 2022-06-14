@@ -4,6 +4,7 @@ import { MaterialParameters, Material } from './Material';
 
 export interface ShadowMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
+    fog?: boolean | undefined;
 }
 
 export class ShadowMaterial extends Material {
@@ -23,4 +24,10 @@ export class ShadowMaterial extends Material {
      * @default true
      */
     transparent: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 }
