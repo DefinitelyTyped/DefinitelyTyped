@@ -774,14 +774,13 @@ declare namespace yargs {
 
     type InferredOptionType<O extends Options | PositionalOptions> =
         O extends { default: any, coerce: (arg: any) => infer T } ? T :
-        O extends { default: infer D } ? D :
         O extends { type: "count" } ? number :
         O extends { count: true } ? number :
         O extends { required: string | true } ? RequiredOptionType<O> :
         O extends { require: string | true } ? RequiredOptionType<O> :
         O extends { demand: string | true } ? RequiredOptionType<O> :
         O extends { demandOption: string | true } ? RequiredOptionType<O> :
-        RequiredOptionType<O> | undefined;
+        (O extends { default: infer D } ? D : undefined) | RequiredOptionType<O>;
 
     type RequiredOptionType<O extends Options | PositionalOptions> =
         O extends { type: "array", string: true } ? string[] :

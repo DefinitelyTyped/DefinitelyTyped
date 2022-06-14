@@ -123,7 +123,7 @@ function camelCase() {
         'my-command',
         'a command',
         { 'some-opt-in-command': { describe: 'Some option', default: 2 } },
-        (args: Arguments<{ someOptInCommand: number }>) => {}
+        (args: Arguments<{ someOptInCommand: unknown }>) => {}
     );
 }
 
@@ -409,7 +409,7 @@ async function Argv$commandModule() {
         describe = 'Set a config variable';
 
         builder(yargs: yargs.Argv<{ verbose: boolean }>) {
-            return yargs.positional('key', { default: '' }).positional('value', { default: true });
+            return yargs.positional('key', { default: '', type: 'string' }).positional('value', { default: true, type: 'boolean' });
         }
 
         handler(argv: yargs.Arguments<{ verbose: boolean, key: string, value: string | boolean }>) {
@@ -425,7 +425,7 @@ async function Argv$commandModule() {
         describe: 'Set a config variable',
 
         builder: yargs => {
-            return yargs.positional('key', { default: '' }).positional('value', { default: true });
+            return yargs.positional('key', { default: '', type: 'string' }).positional('value', { default: true, type: 'boolean' });
         },
 
         handler: argv => {
@@ -949,7 +949,7 @@ async function Argv$inferOptionTypes() {
         .option("s", { type: "string" })
         .parseAsync();
 
-    // $ExpectType { [x: string]: unknown; a: number; b: boolean; c: string; _: (string | number)[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: unknown; b: unknown; c: unknown; _: (string | number)[]; $0: string; }
     yargs
         .option("a", { default: 42 })
         .option("b", { default: false })
@@ -1059,30 +1059,32 @@ function Argv$inferRequiredOptionTypes() {
     // $ExpectType (string | number)[]
     yargs.option("x", { array: true, demandOption: true }).parseSync().x;
 
-    // $ExpectType string
+    // $ExpectType unknown
     yargs.option("x", { default: "default" as string | undefined, demandOption: true }).parseSync().x;
 
-    // $ExpectType string
+    // $ExpectType unknown
     yargs.option("x", { default: "default" as string | undefined, demand: true }).parseSync().x;
 
-    // $ExpectType string
+    // $ExpectType unknown
     yargs.option("x", { default: "default" as string | undefined, require: true }).parseSync().x;
 
-    // $ExpectType string
+    // $ExpectType unknown
     yargs.option("x", { default: "default" as string | undefined, required: true }).parseSync().x;
 }
 
-function Argv$inferMultipleOptionTypes() {
+function Argv$2() {
     // tslint:disable-next-line
-    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: boolean; a: string; d: number; e: number; c: number; _: (string | number)[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; b: unknown; a: unknown; d: number; e: number; c: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: unknown; a: unknown; c: number; d: number; e: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; a: unknown; b: unknown; c: number; d: number; e: number; _: (string | number)[]; $0: string; }
     yargs
         .option({ a: { default: "a" }, b: { default: false } })
         .number(["c", "d", "e"])
         .demandOption(["c", "d", "e"])
         .parseSync();
+}
 
+function Argv$inferMultipleOptionTypes() {
     // tslint:disable-next-line
-    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: boolean; a: string; d: number; e: number; c: number; _: (string | number)[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; b: unknown; a: unknown; d: number; e: number; c: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: unknown; a: unknown; c: number; d: number; e: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; a: unknown; b: unknown; c: number; d: number; e: number; _: (string | number)[]; $0: string; }
     yargs
         .options({ a: { default: "a" }, b: { default: false } })
         .number(["c", "d", "e"])
@@ -1132,7 +1134,7 @@ function Argv$inferOptionTypesForAliases() {
         .parseSync();
 
     // tslint:disable-next-line
-    // $ExpectType { [x: string]: unknown; v: boolean; loud: boolean; noisy: boolean; verbose: boolean; n: boolean; _: (string | number)[]; $0: string; } || { [x: string]: unknown; v: boolean; verbose: boolean; loud: boolean; noisy: boolean; n: boolean; _: (string | number)[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; v: unknown; verbose: unknown; loud: unknown; noisy: unknown; n: unknown; _: (string | number)[]; $0: string; } || { [x: string]: unknown; v: unknown; loud: unknown; noisy: unknown; verbose: unknown; n: unknown; _: (string | number)[]; $0: string; }
     yargs
         .option("v", { default: false })
         .alias("v", ["loud", "noisy", "verbose"])
