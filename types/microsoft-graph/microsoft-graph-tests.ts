@@ -203,3 +203,5 @@ const accessReviewExpirationBehavior: MicrosoftGraph.AccessReviewExpirationBehav
 const roleEligibilityScheduleFilterByCurrentUserOptions: MicrosoftGraph.RoleEligibilityScheduleFilterByCurrentUserOptions = "principal";
 
 const bookingPriceType: MicrosoftGraph.BookingPriceType = "undefined";
+
+const longRunningOperationStatus: MicrosoftGraph.LongRunningOperationStatus = "succeeded";
