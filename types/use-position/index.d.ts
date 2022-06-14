@@ -40,5 +40,7 @@ export function usePosition(watch: boolean, settings?: PositionOptions): {
     longitude: number | undefined,
     timestamp: number | undefined,
     accuracy: number | undefined,
+    speed: number | undefined,
+    heading: number | undefined,
     errorMessage: string | undefined
 };
