@@ -5,11 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+import needle = require("needle");
+
 /**
  * Get image size without full download. Supported image types: JPG, GIF, PNG, WebP, BMP, TIFF, SVG, PSD.
  */
-declare function probe(source: string, opts: probe.ProbeOptions, callback: probe.ProbeCallback): void;
-declare function probe(source: string, opts?: probe.ProbeOptions): Promise<probe.ProbeResult>;
+declare function probe(source: string, opts: needle.NeedleOptions, callback: probe.ProbeCallback): void;
+declare function probe(source: string, opts?: needle.NeedleOptions): Promise<probe.ProbeResult>;
 declare function probe(source: string | NodeJS.ReadableStream, callback: probe.ProbeCallback): void;
 declare function probe(source: NodeJS.ReadableStream): Promise<probe.ProbeResult>;
 
@@ -32,11 +34,6 @@ declare namespace probe {
     interface Variant {
         width: number;
         height: number;
-    }
-
-    interface ProbeOptions {
-        retries?: number | undefined;
-        timeout?: number | undefined;
     }
 
     interface ProbeError extends Error {

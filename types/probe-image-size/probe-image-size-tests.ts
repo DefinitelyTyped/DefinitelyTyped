@@ -7,7 +7,7 @@ const data = fs.readFileSync("image.jpg");
 (async () => {
     let probeResult: probe.ProbeResult;
     probeResult = await probe(""); // $ExpectType ProbeResult
-    probeResult = await probe("", { retries: 3 }); // $ExpectType ProbeResult
+    probeResult = await probe("", { follow_max: 10 }); // $ExpectType ProbeResult
 
     probeResult = await probe("http://example.com/image.jpg", { timeout: 5000 });
     const { variants, orientation } = probeResult;
