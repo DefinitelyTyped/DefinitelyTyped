@@ -67,7 +67,7 @@ function test_fetchUrlWithRequestObject() {
             }) => undefined,
 
             dispatchEvent: (event: any) => false,
-            onabort: null,
+            onabort: (event: string) => false,
         }
     };
     const request: Request = new Request(
@@ -119,7 +119,7 @@ function test_fetchUrlObjectWithRequestObject() {
             }) => undefined,
 
             dispatchEvent: (event: any) => false,
-            onabort: null,
+            onabort: (event: any) => "something",
         }
     };
     const request: Request = new Request(
