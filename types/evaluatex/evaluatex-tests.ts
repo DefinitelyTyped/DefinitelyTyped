@@ -29,7 +29,7 @@ fn6();
 fn6.ast.children[0].children[0].value;
 
 const fn7 = evaluatex('incr(4)', {
-    incr: function (x) {
+    incr(x) {
         return x + 1;
     },
 });
