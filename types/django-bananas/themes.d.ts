@@ -1,4 +1,4 @@
-import { Theme } from "@mui/material";
+export type Theme = Record<string, any>;
 
 export function applyThemeDefaults(theme: Theme): Theme;
 export function createBananasTheme(theme: Theme): Theme;

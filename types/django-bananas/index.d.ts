@@ -5,7 +5,7 @@
 // Minimum TypeScript Version: 4.1
 
 import * as React from 'react';
-import { Theme } from '@mui/material';
+import { Theme } from './themes';
 
 interface AppProps {
     api: ApiSetting;
