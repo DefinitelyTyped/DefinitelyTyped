@@ -176,7 +176,7 @@ type ApiSetting =
       };
 
 interface AlertProps {
-    classes: object;
+    classes: Record<string, any>;
     open?: boolean;
     title?: string;
     message?: React.ReactNode | string;
