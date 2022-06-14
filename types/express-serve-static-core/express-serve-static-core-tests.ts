@@ -214,6 +214,14 @@ app.engine('ntl', (_filePath, _options, callback) => {
     callback(new Error('not found.'));
 });
 
+// Error handlers
+app.use((err, req, res, next) => {
+    err; // $ExpectType any
+    req; // $ExpectType Request<any, any, any, any, Record<string, any>>
+    res; // $ExpectType Response<any, Record<string, any>, number>
+    next; // $ExpectType NextFunction
+});
+
 // Status test
 {
     type E = express.Response<unknown, any, 'abc'>; // $ExpectError
