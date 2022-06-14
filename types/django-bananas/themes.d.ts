@@ -1,11 +1,13 @@
-export function applyThemeDefaults(theme: any): any;
-export function createBananasTheme(theme: any): any;
-export function extendTheme(theme: any, overrides: any): any;
+import { Theme } from "@mui/material";
+
+export function applyThemeDefaults(theme: Theme): Theme;
+export function createBananasTheme(theme: Theme): Theme;
+export function extendTheme(theme: Theme, overrides: any): Theme;
 
 declare const themes: {
-    light: any;
-    dark: any;
-    darth: any;
-    default: any;
+    light: Theme;
+    dark: Theme;
+    darth: Theme;
+    default: Theme;
 };
 export default themes;

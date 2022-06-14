@@ -5,6 +5,7 @@
 // Minimum TypeScript Version: 4.1
 
 import * as React from 'react';
+import { Theme } from '@mui/material';
 
 interface AppProps {
     api: ApiSetting;
@@ -23,12 +24,12 @@ interface AppProps {
     logo?: React.ReactNode | string | boolean;
     nav?: string[] | Record<string, NavItem | NavAppItem>;
 
-    theme?: any;
-    pageTheme?: any;
+    theme?: Theme;
+    pageTheme?: Theme;
     loginForm?: (...args: any) => any;
     editableSettings?: boolean;
     customizeContext?: (context: any) => any;
-    customiseUser?: (user: UserInterface) => UserInterface;
+    customizeUser?: (user: UserInterface) => UserInterface;
     container?: symbol | ((...args: any) => any) | React.ReactNode;
 }
 
