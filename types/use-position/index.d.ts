@@ -1,6 +1,6 @@
 // Type definitions for use-position 1.0.0
 // Project: https://github.com/trekhleb/use-position
-// Definitions by: Claudio Musumeci <https://github.com/muscla87>
+// Definitions by: Claudio Musumeci <https://github.com/muscla87>, MatyiFKBT <https://github.com/MatyiFKBT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
