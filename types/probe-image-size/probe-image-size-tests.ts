@@ -22,4 +22,10 @@ const data = fs.readFileSync("image.jpg");
     probeResult = await probe(input, true); // $ExpectType ProbeResult
     input.destroy();
     probe.sync(data); // $ExpectType ProbeResult | null
+
+    probe.parsers.bmp(); // $ExpectType ParserStream
+
+    new probe.Error("Error"); // $ExpectType ProbeError
+    new probe.Error("Error", "ECONTENT"); // $ExpectType ProbeError
+    new probe.Error("Error", "ECONTENT", 404); // $ExpectType ProbeError
 })();

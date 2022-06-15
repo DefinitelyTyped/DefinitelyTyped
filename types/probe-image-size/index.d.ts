@@ -6,12 +6,21 @@
 /// <reference types="node" />
 
 import needle = require("needle");
+import { Transform } from "stream";
 
 /**
  * Get image size without full download. Supported image types: JPG, GIF, PNG, WebP, BMP, TIFF, SVG, PSD.
  */
 declare function probe(source: string, opts?: needle.NeedleOptions): Promise<probe.ProbeResult>;
 declare function probe(source: NodeJS.ReadableStream, keepOpen?: boolean): Promise<probe.ProbeResult>;
+
+declare class ProbeError extends Error {
+    constructor(
+        message: string,
+        code?: "ECONTENT" | undefined | null,
+        statusCode?: number | undefined,
+    )
+}
 
 declare namespace probe {
     interface ProbeResult {
@@ -34,14 +43,28 @@ declare namespace probe {
         height: number;
     }
 
-    interface ProbeError extends Error {
-        code?: "ECONTENT" | undefined;
-        status?: number | undefined;
-    }
-
-    type ProbeCallback = (err: ProbeError | null, result: ProbeResult) => void;
+    const Error: typeof ProbeError;
 
     function sync(data: Buffer): ProbeResult | null;
+
+    interface ParserStream extends Transform {}
+
+    type Parser = () => ParserStream;
+
+    type Parsers = {
+        avif: Parser,
+        bmp: Parser,
+        gif: Parser,
+        ico: Parser,
+        jpeg: Parser,
+        png: Parser,
+        psd: Parser,
+        svg: Parser,
+        tiff: Parser,
+        webp: Parser,
+    }
+
+    const parsers: Parsers;
 }
 
 export = probe;
