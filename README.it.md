@@ -547,10 +547,6 @@ Quando `dts-gen` viene usato per uno pacchetto con scope, nel `tsconfig.json`, l
 }
 ```
 
-#### La cronologia dei file su Github sembra incompleta.
-
-Github non [supporta](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) la cronologia per file rinominati. Usa invece [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
-
 ## Licenza
 
 Questo progetto è sotto la licenza MIT.

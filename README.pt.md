@@ -523,11 +523,6 @@ Quando `dts-gen` for usado para montar um pacote com escopo, a propriedade `path
 }
 ```
 
-
-#### O histórico do arquivo no GitHub parece incompleto.
-
-O GitHub não [suporta](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) histórico de arquivos renomeados. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) ao invés disso.
-
 ## Licença
 
 Esse projeto é licenciado sob a licença MIT.
