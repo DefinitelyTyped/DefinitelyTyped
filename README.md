@@ -603,10 +603,6 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 }
 ```
 
-#### The file history in GitHub looks incomplete.
-
-GitHub doesn't [support](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
-
 ## License
 
 This project is licensed under the MIT license.

@@ -405,10 +405,6 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 }
 ```
 
-#### История файлов в GitHub выглядит неполной.
-
-GitHub не [поддерживает](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) историю файлов для переименованных файлов. Вместо этого используйте [`git log --follow`](https://www.git-scm.com/docs/git-log).
-
 #### Должен ли я добавить пустой namespace в пакет, который не экспортирует модуль для использования импорта в стиле ES6?
 
 Некоторые пакеты, такие как [chai-http](https://github.com/chaijs/chai-http), экспортируют функцию.
