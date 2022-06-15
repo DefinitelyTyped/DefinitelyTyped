@@ -487,7 +487,7 @@ export class Printer {
     ): Printer;
 
     qrimage(content: string, callback?: (error: Error | null, printer?: Printer) => void): Printer;
-    qrimage(content: string, options?: { type: string; mode: string }, callback?: (error: Error | null, printer?: Printer) => void): Printer;
+    qrimage(content: string, options?: { type: string; mode: string, size: number }, callback?: (error: Error | null, printer?: Printer) => void): Printer;
 
     image(image: Image, density: BITMAP_FORMAT_TYPE): Printer;
 
