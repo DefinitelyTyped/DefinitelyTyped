@@ -146,6 +146,7 @@ bool = semver.eq(v1, v2, loose);
 bool = semver.neq(v1, v2, loose);
 bool = semver.cmp(v1, op, v2, loose);
 comparatorResult = semver.compare(v1, v2, loose);
+comparatorResult = semver.compareBuild(v1, v2, loose);
 comparatorResult = semver.rcompare(v1, v2, loose);
 comparatorResult = semver.compareIdentifiers(str, str);
 comparatorResult = semver.rcompareIdentifiers(str, str);
