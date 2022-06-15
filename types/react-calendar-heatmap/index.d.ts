@@ -1,30 +1,42 @@
-// Type definitions for react-calendar-heatmap 1.6
+// Type definitions for react-calendar-heatmap 1.8
 // Project: https://github.com/patientslikeme/react-calendar-heatmap
 // Definitions by: Keisuke Kan <https://github.com/9renpoto>
+//                 Seungbin Oh <https://github.com/sboh1214>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import { Component, FunctionComponentElement, ReactElement, ReactNode } from 'react';
 
-export interface Props {
-    classForValue?: ((value: any) => any) | undefined;
-    endDate?: string | number | Date | undefined;
-    gutterSize?: number | undefined;
-    horizontal?: boolean | undefined;
-    monthLabels?: string[] | undefined;
-    numDays?: number | undefined;
-    onClick?: ((value: any) => void) | undefined;
-    onMouseLeave?: ((e: any, value: any) => void) | undefined;
-    onMouseOver?: ((e: any, value: any) => void) | undefined;
-    showMonthLabels?: boolean | undefined;
-    showOutOfRangeDays?: boolean | undefined;
-    showWeekdayLabels?: boolean | undefined;
-    startDate?: string | number | Date | undefined;
-    titleForValue?: ((value: any) => any) | undefined;
-    tooltipDataAttrs?: object | undefined;
-    transformDayElement?: ((rect: any, value: any, index: number) => any) | undefined;
-    values: any[];
-    weekdayLabels?: string[] | undefined;
+type DateType = Date | string | number;
+
+interface HeatmapValue {
+    date: DateType;
+    count: number;
 }
 
-export default class ReactCalendarHeatmap extends React.Component<Props> {}
+interface HeatmapProps {
+    values: HeatmapValue[];
+    startDate?: DateType;
+    endDate?: DateType;
+    showMonthLabels?: boolean;
+    showWeekdayLabels?: boolean;
+    showOutOfRangeDays?: boolean;
+    horizontal?: boolean;
+    gutterSize?: number;
+    onClick?: (value: HeatmapValue) => void;
+    onMouseOver?: (e: any, value: HeatmapValue) => void;
+    onMouseLeave?: (e: any, value: HeatmapValue) => void;
+    titleForValue?: (value: HeatmapValue) => ReactNode;
+    tooltipDataAttrs?: object | ((value: HeatmapValue) => object);
+    classForValue?: (value: HeatmapValue) => ReactNode;
+    monthLabels?: string[];
+    weekdayLabels?: string[];
+    transformDayElement?: (
+        element: FunctionComponentElement<{ 'data-test': string }>,
+        value: HeatmapValue,
+        index: number,
+    ) => ReactElement;
+}
+
+declare class ReactCalendarHeatmap extends Component<HeatmapProps> {}
+export = ReactCalendarHeatmap;
