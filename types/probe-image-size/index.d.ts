@@ -17,8 +17,8 @@ declare function probe(source: NodeJS.ReadableStream, keepOpen?: boolean): Promi
 declare class ProbeError extends Error {
     constructor(
         message: string,
-        code?: "ECONTENT" | undefined | null,
-        statusCode?: number | undefined,
+        code?: "ECONTENT" | null,
+        statusCode?: number,
     )
 }
 
@@ -51,17 +51,17 @@ declare namespace probe {
 
     type Parser = () => ParserStream;
 
-    type Parsers = {
-        avif: Parser,
-        bmp: Parser,
-        gif: Parser,
-        ico: Parser,
-        jpeg: Parser,
-        png: Parser,
-        psd: Parser,
-        svg: Parser,
-        tiff: Parser,
-        webp: Parser,
+    interface Parsers {
+        avif: Parser;
+        bmp: Parser;
+        gif: Parser;
+        ico: Parser;
+        jpeg: Parser;
+        png: Parser;
+        psd: Parser;
+        svg: Parser;
+        tiff: Parser;
+        webp: Parser;
     }
 
     const parsers: Parsers;
