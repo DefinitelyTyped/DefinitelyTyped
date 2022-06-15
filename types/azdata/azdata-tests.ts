@@ -72,3 +72,7 @@ const updateDisplayData: azdata.nb.IUpdateDisplayData = {
         key1: 'value1'
     }
 };
+
+const connectionResult: azdata.ConnectionResult = {
+    connected: true
+};
