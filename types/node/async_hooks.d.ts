@@ -6,7 +6,7 @@
  * import async_hooks from 'async_hooks';
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/async_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/async_hooks.js)
  */
 declare module 'async_hooks' {
     /**
@@ -364,7 +364,7 @@ declare module 'async_hooks' {
      *
      * Each instance of `AsyncLocalStorage` maintains an independent storage context.
      * Multiple instances can safely exist simultaneously without risk of interfering
-     * with each other data.
+     * with each other's data.
      * @since v13.10.0, v12.17.0
      */
     class AsyncLocalStorage<T> {

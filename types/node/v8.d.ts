@@ -4,7 +4,7 @@
  * ```js
  * const v8 = require('v8');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/v8.js)
  */
 declare module 'v8' {
     import { Readable } from 'node:stream';
@@ -163,6 +163,13 @@ declare module 'v8' {
      * Chrome DevTools. The JSON schema is undocumented and specific to the
      * V8 engine. Therefore, the schema may change from one version of V8 to the next.
      *
+     * Creating a heap snapshot requires memory about twice the size of the heap at
+     * the time the snapshot is created. This results in the risk of OOM killers
+     * terminating the process.
+     *
+     * Generating a snapshot is a synchronous operation which blocks the event loop
+     * for a duration depending on the heap size.
+     *
      * ```js
      * // Print heap snapshot to the console
      * const v8 = require('v8');
@@ -181,6 +188,13 @@ declare module 'v8' {
      *
      * A heap snapshot is specific to a single V8 isolate. When using `worker threads`, a heap snapshot generated from the main thread will
      * not contain any information about the workers, and vice versa.
+     *
+     * Creating a heap snapshot requires memory about twice the size of the heap at
+     * the time the snapshot is created. This results in the risk of OOM killers
+     * terminating the process.
+     *
+     * Generating a snapshot is a synchronous operation which blocks the event loop
+     * for a duration depending on the heap size.
      *
      * ```js
      * const { writeHeapSnapshot } = require('v8');
@@ -344,6 +358,10 @@ declare module 'v8' {
     class DefaultDeserializer extends Deserializer {}
     /**
      * Uses a `DefaultSerializer` to serialize `value` into a buffer.
+     *
+     * `ERR_BUFFER_TOO_LARGE` will be thrown when trying to
+     * serialize a huge object which requires buffer
+     * larger than `buffer.constants.MAX_LENGTH`.
      * @since v8.0.0
      */
     function serialize(value: any): Buffer;

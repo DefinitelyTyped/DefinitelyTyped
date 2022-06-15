@@ -23,7 +23,7 @@
  * server.bind(41234);
  * // Prints: server listening 0.0.0.0:41234
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/dgram.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/dgram.js)
  */
 declare module 'dgram' {
     import { AddressInfo } from 'node:net';
@@ -451,7 +451,7 @@ declare module 'dgram' {
          * TTL. If the TTL is decremented to 0 by a router, it will not be forwarded.
          * Changing TTL values is typically done for network probes or when multicasting.
          *
-         * The `ttl` argument may be between between 1 and 255\. The default on most systems
+         * The `ttl` argument may be between 1 and 255\. The default on most systems
          * is 64.
          *
          * This method throws `EBADF` if called on an unbound socket.
