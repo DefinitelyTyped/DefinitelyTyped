@@ -149,5 +149,3 @@ interface Text { }
 interface TouchList { }
 interface WebGLRenderingContext { }
 interface WebGL2RenderingContext { }
-
-interface TrustedHTML { }
