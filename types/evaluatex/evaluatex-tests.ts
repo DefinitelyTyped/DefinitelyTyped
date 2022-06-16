@@ -27,3 +27,11 @@ const fn6 = evaluatex2('\\frac 1{20}3', {}, { latex: true });
 fn6();
 
 fn6.ast.children[0].children[0].value;
+
+const fn7 = evaluatex('incr(4)', {
+    incr(x) {
+        return x + 1;
+    },
+});
+
+fn7();
