@@ -5,7 +5,7 @@
 //                 Seth Macpherson <https://github.com/smacpherson64>
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// TypeScript Version: 4.5
 
 /// <reference types="jest" />
 
