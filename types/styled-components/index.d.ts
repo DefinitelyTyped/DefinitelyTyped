@@ -10,6 +10,10 @@
 //                 Aaron Reisman <https://github.com/lifeiscontent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// This is needed to make other libs happy when TS is importing this file
+// while testing others.
+/// <reference lib="dom" />
+
 // forward declarations
 declare global {
     namespace NodeJS {
@@ -401,7 +405,7 @@ export interface StyleSheetManagerProps {
     disableVendorPrefixes?: boolean | undefined;
     stylisPlugins?: StylisPlugin[] | undefined;
     sheet?: ServerStyleSheet | undefined;
-    target?: HTMLElement | undefined;
+    target?: HTMLElement | ShadowRoot | undefined;
 }
 
 export class StyleSheetManager extends React.Component<StyleSheetManagerProps> {}
