@@ -1,6 +1,8 @@
 {
     "private": true,
     "dependencies": {
+        "@testing-library/react": "^13.3.0",
+        "@testing-library/react-hooks": "^8.0.0",
         "mongodb": "^4.3.1"
     }
 }
