@@ -4830,7 +4830,7 @@ export interface ModalBaseProps {
      *
      * This is required on Apple TV and Android.
      */
-     onRequestClose?: ((event: NativeSyntheticEvent<any>) => void) | undefined;
+    onRequestClose?: ((event: NativeSyntheticEvent<any>) => void) | undefined;
     /**
      * The `onShow` prop allows passing a function that will be called once the modal has been shown.
      */
