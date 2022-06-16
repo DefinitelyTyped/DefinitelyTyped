@@ -51,7 +51,14 @@ function LoggingOut() {
     return <div>Logging out, please wait a moment.</div>;
 }
 
-class WithUser extends React.Component {
+interface DemoClassProps {
+    user: Meteor.User;
+    userId: string;
+    loggingIn: boolean;
+    loggingOut: boolean;
+}
+
+class WithUser extends React.Component<DemoClassProps> {
     render() {
         if (this.props.user === null) {
             return <h1>Log in</h1>;
@@ -63,7 +70,7 @@ class WithUser extends React.Component {
 
 const FooWithUser = withUser(WithUser);
 
-class WithUserId extends React.Component {
+class WithUserId extends React.Component<DemoClassProps> {
     render() {
         return (
             <div>
@@ -80,7 +87,7 @@ class WithUserId extends React.Component {
 
 const FooWithUserId = withUserId(WithUserId);
 
-class WithLoggingIn extends React.Component {
+class WithLoggingIn extends React.Component<DemoClassProps> {
     render() {
         if (!this.props.loggingIn) {
             return null;
@@ -92,7 +99,7 @@ class WithLoggingIn extends React.Component {
 
 const FooWithLoggingIn = withLoggingIn(WithLoggingIn);
 
-class WithLoggingOut extends React.Component {
+class WithLoggingOut extends React.Component<DemoClassProps> {
     render() {
         if (!this.props.loggingOut) {
             return null;
