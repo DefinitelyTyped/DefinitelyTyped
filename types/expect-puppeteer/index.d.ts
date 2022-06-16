@@ -3,7 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Jason Mong <https://github.com/jfm710>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.5
+// TypeScript Version: 4.3
 
 /// <reference types="jest" />
 
