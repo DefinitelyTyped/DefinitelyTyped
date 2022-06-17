@@ -17,6 +17,7 @@
  */
 declare module 'crypto' {
     import * as stream from 'node:stream';
+    import * as streamWeb from 'node:stream/web';
     import { PeerCertificate } from 'node:tls';
     interface Certificate {
         /**
@@ -3407,6 +3408,8 @@ declare module 'crypto' {
      */
     const webcrypto: webcrypto.Crypto;
     namespace webcrypto {
+        // Convenience alias so users of the webcrypto module don't need to import stream/web for this type.
+        type BufferSource = streamWeb.BufferSource;
         /**
          * Calling `require('node:crypto').webcrypto` returns an instance of the `Crypto` class.
          * `Crypto` is a singleton that provides access to the remainder of the crypto API.
@@ -3515,7 +3518,7 @@ declare module 'crypto' {
              * - `'AES-GCM'`
              * @since v15.0.0
              */
-            decrypt(algorithm: SubtleCrypto.RsaOaepAesParams, key: CryptoKey, data: NodeJS.ArrayBufferView | ArrayBuffer): Promise<ArrayBuffer>;
+            decrypt(algorithm: SubtleCrypto.RsaOaepAesParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
             /**
              * Using the method and parameters specified in `algorithm` and the keying material provided by `baseKey`,
              * `subtle.deriveBits()` attempts to generate `length` bits.
@@ -3568,7 +3571,7 @@ declare module 'crypto' {
              * If `algorithm` is provided as an `<Object>`, it must have a `name` property whose value is one of the above.
              * @since v15.0.0
              */
-            digest(algorithm: SubtleCrypto.ShaAlgorithmName | SubtleCrypto.ShaAlgorithmObject, data: NodeJS.ArrayBufferView | ArrayBuffer): Promise<ArrayBuffer>;
+            digest(algorithm: SubtleCrypto.ShaAlgorithmName | SubtleCrypto.ShaAlgorithmObject, data: BufferSource): Promise<ArrayBuffer>;
             /**
              * Using the method and parameters specified by `algorithm` and the keying material provided by `key`,
              * `subtle.encrypt()` attempts to encipher `data`. If successful,
@@ -3644,7 +3647,7 @@ declare module 'crypto' {
              * @since v15.0.0
              */
             importKey(
-                format: SubtleCrypto.KeyFormatNodeJS, keyData: NodeJS.ArrayBufferView | ArrayBuffer | KeyObject,
+                format: SubtleCrypto.KeyFormatNodeJS, keyData: BufferSource | KeyObject,
                 algorithm: SubtleCrypto.ImportParams, extractable: boolean, keyUsages: ReadonlyArray<CryptoKeyUsages>
             ): Promise<CryptoKey>;
             /**
@@ -3663,7 +3666,7 @@ declare module 'crypto' {
              * - `'NODE-ED448'`
              * @since v15.0.0
              */
-            sign(algorithm: SubtleCrypto.VerifyAlgorithm, key: CryptoKey, data: NodeJS.ArrayBufferView | ArrayBuffer): Promise<ArrayBuffer>;
+            sign(algorithm: SubtleCrypto.VerifyAlgorithm, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
             /**
              * In cryptography, "wrapping a key" refers to exporting and then encrypting the keying material.
              * The `subtle.unwrapKey()` method attempts to decrypt a wrapped key and create a `<CryptoKey>` instance.
@@ -3698,7 +3701,7 @@ declare module 'crypto' {
              * @since v15.0.0
              */
             unwrapKey(
-                format: SubtleCrypto.KeyFormat, wrappedKey: NodeJS.ArrayBufferView | ArrayBuffer, unwrappingKey: CryptoKey,
+                format: SubtleCrypto.KeyFormat, wrappedKey: BufferSource, unwrappingKey: CryptoKey,
                 unwrapAlgo: SubtleCrypto.WrappingAlgorithm, unwrappedKeyAlgo: SubtleCrypto.UnwrappedKeyAlgorithm,
                 extractable: boolean, keyUsages: ReadonlyArray<CryptoKeyUsages>
             ): Promise<CryptoKey>;
@@ -3718,7 +3721,7 @@ declare module 'crypto' {
              * - `'NODE-ED448'`
              * @since v15.0.0
              */
-            verify(algorithm: SubtleCrypto.VerifyAlgorithm, key: CryptoKey, signature: NodeJS.ArrayBufferView | ArrayBuffer, data: NodeJS.ArrayBufferView | ArrayBuffer): Promise<boolean>;
+            verify(algorithm: SubtleCrypto.VerifyAlgorithm, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
             /**
              * In cryptography, "wrapping a key" refers to exporting and then encrypting the keying material.
              * The `subtle.wrapKey()` method exports the keying material into the format identified by `format`,
@@ -3759,17 +3762,17 @@ declare module 'crypto' {
 
             interface AesCbcParams {
                 name: 'AES-CBC';
-                iv: NodeJS.ArrayBufferView | ArrayBuffer;
+                iv: BufferSource;
             }
             interface AesCtrParams {
                 name: 'AES-CTR';
                 length: number;
-                counter: NodeJS.ArrayBufferView | ArrayBuffer;
+                counter: BufferSource;
             }
             interface AesGcmParams {
                 name: 'AES-GCM';
-                iv: NodeJS.ArrayBufferView | ArrayBuffer;
-                additionalData?: NodeJS.ArrayBufferView | ArrayBuffer;
+                iv: BufferSource;
+                additionalData?: BufferSource;
                 tagLength?: 32 | 64 | 96 | 104 | 112 | 120 | 128;
             }
             interface AesKwParams {
@@ -3797,8 +3800,8 @@ declare module 'crypto' {
             interface HkdfParams {
                 name: 'HKDF';
                 hash: ShaAlgorithm;
-                salt: NodeJS.ArrayBufferView | ArrayBuffer;
-                info: NodeJS.ArrayBufferView | ArrayBuffer;
+                salt: BufferSource;
+                info: BufferSource;
             }
             interface HmacParams {
                 name: 'HMAC';
@@ -3813,12 +3816,12 @@ declare module 'crypto' {
             }
             interface Pbkdf2Params extends Pbkdf2ImportParams {
                 hash: ShaAlgorithm;
-                salt: NodeJS.ArrayBufferView | ArrayBuffer;
+                salt: BufferSource;
                 iterations: number;
             }
             interface RsaOaepParams {
                 name: 'RSA-OAEP';
-                label?: NodeJS.ArrayBufferView | ArrayBuffer;
+                label?: BufferSource;
             }
             interface RsaPssParams {
                 name: 'RSA-PSS';
@@ -3876,7 +3879,7 @@ declare module 'crypto' {
                 p?: number;
                 r?: number;
             } | {
-                salt: NodeJS.ArrayBufferView | ArrayBuffer;
+                salt: BufferSource;
                 encoding?: undefined;
                 maxmem?: number;
                 N?: number;
