@@ -174,7 +174,7 @@ export namespace DS {
             query?: {}
         ): string;
         /**
-         * Builds query parameters from snapshot.
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
          */
         buildQuery<K extends keyof ModelRegistry>(
             snapshot: Snapshot<K>
@@ -1395,7 +1395,7 @@ export namespace DS {
             query?: {}
         ): string;
         /**
-         * Builds query parameters from snapshot.
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
          */
         buildQuery<K extends keyof ModelRegistry>(
             snapshot: Snapshot<K>
