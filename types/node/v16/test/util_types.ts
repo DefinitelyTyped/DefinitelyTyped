@@ -164,7 +164,10 @@ if (types.isKeyObject(keyObj)) {
     keyObj; // $ExpectType KeyObject
 }
 
-const cryptoKeyObj: webcrypto.CryptoKey | number = new webcrypto.CryptoKey();
-if (types.isCryptoKey(cryptoKeyObj)) {
-    cryptoKeyObj; // $ExpectType CryptoKey
-}
+webcrypto.subtle.generateKey(
+    { name: 'ECDH', namedCurve: 'P-256' }, false, []
+).then(cryptoKeyObj => {
+    if (types.isCryptoKey(cryptoKeyObj)) {
+        cryptoKeyObj; // $ExpectType CryptoKey<false, never[]>
+    }
+});
