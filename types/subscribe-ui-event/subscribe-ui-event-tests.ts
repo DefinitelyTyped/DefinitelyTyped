@@ -22,3 +22,7 @@ subscription.unsubscribe();
 const {remove} = listen(document, 'onclick', console.log);
 
 remove();
+
+subscribe('resize', callback, {
+    target: document.getElementById('foobar')
+});
