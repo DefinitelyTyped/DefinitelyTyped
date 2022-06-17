@@ -175,3 +175,8 @@ app.get<{}, any, any, {}, { foo: boolean }>('/locals', (req, res, next) => {
     res.locals.bar; // $ExpectError
     res.send({ foo: 'ok' }); // $ExpectType Response<any, { foo: boolean; }, number>
 });
+
+// res.get returns string or undefined
+app.get<{}, any, any, {}, { foo: boolean }>('/locals', (req, res, next) => {
+    res.get('content-type'); // $ExpectType string | undefined
+});

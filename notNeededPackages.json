@@ -4279,6 +4279,10 @@
             "libraryName": "react-tether",
             "asOfVersion": "1.0.0"
         },
+        "react-textarea-autosize": {
+            "libraryName": "react-textarea-autosize",
+            "asOfVersion": "8.0.0"
+        },
         "react-toast-notifications": {
             "libraryName": "react-toast-notifications",
             "asOfVersion": "2.4.1"

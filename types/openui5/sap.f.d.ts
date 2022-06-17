@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.103.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -511,6 +511,8 @@ declare module "sap/f/AvatarGroup" {
 
   import Event from "sap/ui/base/Event";
 
+  import { AbsoluteCSSSize } from "sap/ui/core/library";
+
   import AvatarSize from "sap/m/AvatarSize";
 
   import { AvatarGroupType } from "sap/f/library";
@@ -721,6 +723,36 @@ declare module "sap/f/AvatarGroup" {
       }
     ): this;
     /**
+     * @SINCE 1.103
+     *
+     * Gets current value of property {@link #getAvatarCustomDisplaySize avatarCustomDisplaySize}.
+     *
+     * Specifies a custom display size for each avatar.
+     *
+     * **Notes:**
+     * 	 - Supports only `px` and code>rem values.
+     * 	 - It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     *
+     * Default value is `"3rem"`.
+     *
+     * @returns Value of property `avatarCustomDisplaySize`
+     */
+    getAvatarCustomDisplaySize(): AbsoluteCSSSize;
+    /**
+     * @SINCE 1.103
+     *
+     * Gets current value of property {@link #getAvatarCustomFontSize avatarCustomFontSize}.
+     *
+     * Specifies a custom font size for each avatar.
+     *
+     * **Note:** It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     *
+     * Default value is `"1.125rem"`.
+     *
+     * @returns Value of property `avatarCustomFontSize`
+     */
+    getAvatarCustomFontSize(): AbsoluteCSSSize;
+    /**
      * Gets current value of property {@link #getAvatarDisplaySize avatarDisplaySize}.
      *
      * Defines the display size of each avatar.
@@ -793,7 +825,51 @@ declare module "sap/f/AvatarGroup" {
        * The item to remove or its index or id
        */
       vItem: int | string | AvatarGroupItem
-    ): AvatarGroupItem;
+    ): AvatarGroupItem | null;
+    /**
+     * @SINCE 1.103
+     *
+     * Sets a new value for property {@link #getAvatarCustomDisplaySize avatarCustomDisplaySize}.
+     *
+     * Specifies a custom display size for each avatar.
+     *
+     * **Notes:**
+     * 	 - Supports only `px` and code>rem values.
+     * 	 - It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"3rem"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAvatarCustomDisplaySize(
+      /**
+       * New value for property `avatarCustomDisplaySize`
+       */
+      sAvatarCustomDisplaySize?: AbsoluteCSSSize
+    ): this;
+    /**
+     * @SINCE 1.103
+     *
+     * Sets a new value for property {@link #getAvatarCustomFontSize avatarCustomFontSize}.
+     *
+     * Specifies a custom font size for each avatar.
+     *
+     * **Note:** It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"1.125rem"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAvatarCustomFontSize(
+      /**
+       * New value for property `avatarCustomFontSize`
+       */
+      sAvatarCustomFontSize?: AbsoluteCSSSize
+    ): this;
     /**
      * Sets a new value for property {@link #getAvatarDisplaySize avatarDisplaySize}.
      *
@@ -844,6 +920,32 @@ declare module "sap/f/AvatarGroup" {
      */
     avatarDisplaySize?:
       | (AvatarSize | keyof typeof AvatarSize)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.103
+     *
+     * Specifies a custom display size for each avatar.
+     *
+     * **Notes:**
+     * 	 - Supports only `px` and code>rem values.
+     * 	 - It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     */
+    avatarCustomDisplaySize?:
+      | AbsoluteCSSSize
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.103
+     *
+     * Specifies a custom font size for each avatar.
+     *
+     * **Note:** It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     */
+    avatarCustomFontSize?:
+      | AbsoluteCSSSize
       | PropertyBindingInfo
       | `{${string}}`;
 
@@ -1612,6 +1714,8 @@ declare module "sap/f/cards/Header" {
 
   import Event from "sap/ui/base/Event";
 
+  import Control from "sap/ui/core/Control";
+
   import AvatarColor from "sap/m/AvatarColor";
 
   import AvatarShape from "sap/m/AvatarShape";
@@ -1757,6 +1861,20 @@ declare module "sap/f/cards/Header" {
        */
       oListener?: object
     ): this;
+    /**
+     * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
+     * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
+     */
+    enhanceAccessibilityState(
+      /**
+       * The Control that gets rendered by the RenderManager
+       */
+      oElement: Control,
+      /**
+       * The mapping of "aria-" prefixed attributes
+       */
+      mAriaProps: object
+    ): void;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -2140,6 +2258,8 @@ declare module "sap/f/cards/NumericHeader" {
 
   import Event from "sap/ui/base/Event";
 
+  import Control from "sap/ui/core/Control";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { ValueColor, DeviationIndicator } from "sap/m/library";
@@ -2306,6 +2426,20 @@ declare module "sap/f/cards/NumericHeader" {
        */
       oListener?: object
     ): this;
+    /**
+     * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
+     * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
+     */
+    enhanceAccessibilityState(
+      /**
+       * The Control that gets rendered by the RenderManager
+       */
+      oElement: Control,
+      /**
+       * The mapping of "aria-" prefixed attributes
+       */
+      mAriaProps: object
+    ): void;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -2502,7 +2636,7 @@ declare module "sap/f/cards/NumericHeader" {
        * The sideIndicator to remove or its index or id
        */
       vSideIndicator: int | string | NumericSideIndicator
-    ): NumericSideIndicator;
+    ): NumericSideIndicator | null;
     /**
      * Sets a new value for property {@link #getDetails details}.
      *
@@ -4612,7 +4746,7 @@ declare module "sap/f/DynamicPageHeader" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.58
      *
@@ -5391,7 +5525,7 @@ declare module "sap/f/DynamicPageTitle" {
        * The action to remove or its index or id
        */
       vAction: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes all the controls from the aggregation {@link #getActions actions}.
      *
@@ -5469,7 +5603,7 @@ declare module "sap/f/DynamicPageTitle" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a expandedContent from the aggregation {@link #getExpandedContent expandedContent}.
      *
@@ -5480,7 +5614,7 @@ declare module "sap/f/DynamicPageTitle" {
        * The expandedContent to remove or its index or id
        */
       vExpandedContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.52
      *
@@ -5493,7 +5627,7 @@ declare module "sap/f/DynamicPageTitle" {
        * The navigationAction to remove or its index or id
        */
       vNavigationAction: int | string | Button
-    ): Button;
+    ): Button | null;
     /**
      * Removes a snappedContent from the aggregation {@link #getSnappedContent snappedContent}.
      *
@@ -5504,7 +5638,7 @@ declare module "sap/f/DynamicPageTitle" {
        * The snappedContent to remove or its index or id
        */
       vSnappedContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.54
      *
@@ -7422,7 +7556,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The beginColumnPage to remove or its index or id
        */
       vBeginColumnPage: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a endColumnPage from the aggregation {@link #getEndColumnPages endColumnPages}.
      *
@@ -7433,7 +7567,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The endColumnPage to remove or its index or id
        */
       vEndColumnPage: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a midColumnPage from the aggregation {@link #getMidColumnPages midColumnPages}.
      *
@@ -7444,7 +7578,7 @@ declare module "sap/f/FlexibleColumnLayout" {
        * The midColumnPage to remove or its index or id
        */
       vMidColumnPage: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.76
      *
@@ -8764,6 +8898,9 @@ declare module "sap/f/GridContainer" {
    * Both `{@link sap.ui.core.dnd.DropInfo}` and `{@link sap.f.dnd.GridDropInfo}` can be used to configure
    * drag and drop. The difference is that the `{@link sap.f.dnd.GridDropInfo}` will provide a drop indicator,
    * which mimics the size of the dragged item and shows the potential drop position inside the grid.
+   *
+   * Drag and drop is enabled via keyboard using `Ctrl` + arrow keys (Windows) and `Control` + arrow keys
+   * (Mac OS).
    *
    * Keyboard Navigation:: `GridContainer` provides support for two-dimensional keyboard navigation through
    * its contained controls. Navigating up/down or left/right using the arrow keys follows the configurable
@@ -10652,7 +10789,7 @@ declare module "sap/f/GridListItem" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Unbinds aggregation {@link #getContent content} from model data.
      *
@@ -11129,7 +11266,7 @@ declare module "sap/f/ProductSwitch" {
        * The item to remove or its index or id
        */
       vItem: int | string | ProductSwitchItem
-    ): ProductSwitchItem;
+    ): ProductSwitchItem | null;
     /**
      * Sets the `selectedItem` association.
      *
@@ -11278,6 +11415,9 @@ declare module "sap/f/ProductSwitchItem" {
      *
      * Defines the `ProductSwitchItem` target URI. Supports standard hyperlink behavior.
      *
+     * **Note:** Redirection is handled via application logic, by subscribing to the {@link sap.f.ProductSwitch#event:change
+     * change} event of `sap.f.ProductSwitch`.
+     *
      * @returns Value of property `targetSrc`
      */
     getTargetSrc(): URI;
@@ -11343,6 +11483,9 @@ declare module "sap/f/ProductSwitchItem" {
      *
      * Defines the `ProductSwitchItem` target URI. Supports standard hyperlink behavior.
      *
+     * **Note:** Redirection is handled via application logic, by subscribing to the {@link sap.f.ProductSwitch#event:change
+     * change} event of `sap.f.ProductSwitch`.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -11389,6 +11532,9 @@ declare module "sap/f/ProductSwitchItem" {
 
     /**
      * Defines the `ProductSwitchItem` target URI. Supports standard hyperlink behavior.
+     *
+     * **Note:** Redirection is handled via application logic, by subscribing to the {@link sap.f.ProductSwitch#event:change
+     * change} event of `sap.f.ProductSwitch`.
      */
     targetSrc?: URI | PropertyBindingInfo | `{${string}}`;
 
@@ -12472,7 +12618,7 @@ declare module "sap/f/SearchManager" {
        * The suggestionItem to remove or its index or id
        */
       vSuggestionItem: int | string | SuggestionItem
-    ): SuggestionItem;
+    ): SuggestionItem | null;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -15663,7 +15809,7 @@ declare module "sap/f/semantic/SemanticPage" {
        * The customShareAction to remove or its index or id
        */
       vCustomShareAction: int | string | Button
-    ): Button;
+    ): Button | null;
     /**
      * Removes a footerCustomAction from the aggregation {@link #getFooterCustomActions footerCustomActions}.
      *
@@ -15674,7 +15820,7 @@ declare module "sap/f/semantic/SemanticPage" {
        * The footerCustomAction to remove or its index or id
        */
       vFooterCustomAction: int | string | Button
-    ): Button;
+    ): Button | null;
     /**
      * Removes a headerContent from the aggregation {@link #getHeaderContent headerContent}.
      *
@@ -15685,7 +15831,7 @@ declare module "sap/f/semantic/SemanticPage" {
        * The headerContent to remove or its index or id
        */
       vHeaderContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.52
      *
@@ -15698,7 +15844,7 @@ declare module "sap/f/semantic/SemanticPage" {
        * The titleContent to remove or its index or id
        */
       vTitleContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a titleCustomIconAction from the aggregation {@link #getTitleCustomIconActions titleCustomIconActions}.
      *
@@ -15709,7 +15855,7 @@ declare module "sap/f/semantic/SemanticPage" {
        * The titleCustomIconAction to remove or its index or id
        */
       vTitleCustomIconAction: int | string | OverflowToolbarButton
-    ): OverflowToolbarButton;
+    ): OverflowToolbarButton | null;
     /**
      * Removes a titleCustomTextAction from the aggregation {@link #getTitleCustomTextActions titleCustomTextActions}.
      *
@@ -15720,7 +15866,7 @@ declare module "sap/f/semantic/SemanticPage" {
        * The titleCustomTextAction to remove or its index or id
        */
       vTitleCustomTextAction: int | string | Button
-    ): Button;
+    ): Button | null;
     /**
      * Removes a titleExpandedContent from the aggregation {@link #getTitleExpandedContent titleExpandedContent}.
      *
@@ -15731,7 +15877,7 @@ declare module "sap/f/semantic/SemanticPage" {
        * The titleExpandedContent to remove or its index or id
        */
       vTitleExpandedContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a titleSnappedContent from the aggregation {@link #getTitleSnappedContent titleSnappedContent}.
      *
@@ -15742,7 +15888,7 @@ declare module "sap/f/semantic/SemanticPage" {
        * The titleSnappedContent to remove or its index or id
        */
       vTitleSnappedContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getAddAction addAction}.
      *
@@ -18215,7 +18361,7 @@ declare module "sap/f/ShellBar" {
        * The additionalContent to remove or its index or id
        */
       vAdditionalContent: int | string | IShellBar
-    ): IShellBar;
+    ): IShellBar | null;
     /**
      * Removes all the controls from the aggregation {@link #getAdditionalContent additionalContent}.
      *

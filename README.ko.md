@@ -413,11 +413,6 @@ npm 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 }
 ```
 
-
-#### 깃헙(GitHub)이 보여주는 파일 히스토리(History)가 불완전해요.
-
-깃헙은 이름이 바뀐 파일의 히스토리(History)를 [지원하지 않습니다](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames). 대신 [`git log --follow`](https://www.git-scm.com/docs/git-log) 명령을 사용하세요.
-
 #### ES6 에서 사용하는 임포트(Import)를 사용하기 위해 모듈을 익스포트(Export)하지 않는 패키지들에 빈 이름공간을 추가해야 하나요?
 
 [chai-http](https://github.com/chaijs/chai-http) 패키지와 같은 몇몇 패키지들은 함수를 익스포트(Export)합니다.

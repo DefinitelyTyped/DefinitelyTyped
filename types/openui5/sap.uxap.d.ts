@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.103.0
 
 declare module "sap/uxap/library" {
   /**
@@ -774,7 +774,7 @@ declare module "sap/uxap/BlockBase" {
        * The mapping to remove or its index or id
        */
       vMapping: int | string | ModelMapping
-    ): ModelMapping;
+    ): ModelMapping | null;
     /**
      * Set the column layout for this particular block.
      *
@@ -1121,7 +1121,7 @@ declare module "sap/uxap/BreadCrumbs" {
        * The link to remove or its index or id
        */
       vLink: int | string | Link
-    ): Link;
+    ): Link | null;
     /**
      * Sets the aggregated {@link #getCurrentLocation currentLocation}.
      *
@@ -2912,7 +2912,7 @@ declare module "sap/uxap/ObjectPageHeader" {
        * The action to remove or its index or id
        */
       vAction: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes all the controls from the aggregation {@link #getActions actions}.
      *
@@ -2943,7 +2943,7 @@ declare module "sap/uxap/ObjectPageHeader" {
        * The breadCrumbLink to remove or its index or id
        */
       vBreadCrumbLink: int | string | Link
-    ): Link;
+    ): Link | null;
     /**
      * @SINCE 1.50
      *
@@ -3904,7 +3904,7 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @deprecated (since 1.40.1)
      *
@@ -5416,7 +5416,7 @@ declare module "sap/uxap/ObjectPageLayout" {
        * The headerContent to remove or its index or id
        */
       vHeaderContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a section from the aggregation {@link #getSections sections}.
      *
@@ -5427,7 +5427,7 @@ declare module "sap/uxap/ObjectPageLayout" {
        * The section to remove or its index or id
        */
       vSection: int | string | ObjectPageSection
-    ): ObjectPageSection;
+    ): ObjectPageSection | null;
     /**
      * Scrolls the Object page to the given Section.
      */
@@ -6427,7 +6427,7 @@ declare module "sap/uxap/ObjectPageLazyLoader" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
   }
 
   export interface $ObjectPageLazyLoaderSettings extends $ElementSettings {
@@ -6620,7 +6620,7 @@ declare module "sap/uxap/ObjectPageSection" {
        * The subSection to remove or its index or id
        */
       vSubSection: int | string | ObjectPageSubSection
-    ): ObjectPageSubSection;
+    ): ObjectPageSubSection | null;
     /**
      * Sets the associated {@link #getSelectedSubSection selectedSubSection}.
      *
@@ -7340,7 +7340,7 @@ declare module "sap/uxap/ObjectPageSubSection" {
        * The action to remove or its index or id
        */
       vAction: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes all the controls from the aggregation {@link #getActions actions}.
      *
@@ -7375,7 +7375,7 @@ declare module "sap/uxap/ObjectPageSubSection" {
        * The block to remove or its index or id
        */
       vBlock: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a moreBlock from the aggregation {@link #getMoreBlocks moreBlocks}.
      *
@@ -7386,7 +7386,7 @@ declare module "sap/uxap/ObjectPageSubSection" {
        * The moreBlock to remove or its index or id
        */
       vMoreBlock: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getMode mode}.
      *

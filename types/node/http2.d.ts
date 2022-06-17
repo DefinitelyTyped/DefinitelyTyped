@@ -6,7 +6,7 @@
  * const http2 = require('http2');
  * ```
  * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/http2.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/http2.js)
  */
 declare module 'http2' {
     import EventEmitter = require('node:events');
@@ -83,7 +83,7 @@ declare module 'http2' {
          */
         readonly destroyed: boolean;
         /**
-         * Set the `true` if the `END_STREAM` flag was set in the request or response
+         * Set to `true` if the `END_STREAM` flag was set in the request or response
          * HEADERS frame received, indicating that no additional data should be received
          * and the readable side of the `Http2Stream` will be closed.
          * @since v10.11.0
@@ -845,6 +845,11 @@ declare module 'http2' {
         /**
          * For HTTP/2 Client `Http2Session` instances only, the `http2session.request()`creates and returns an `Http2Stream` instance that can be used to send an
          * HTTP/2 request to the connected server.
+         *
+         * When a `ClientHttp2Session` is first created, the socket may not yet be
+         * connected. if `clienthttp2session.request()` is called during this time, the
+         * actual request will be deferred until the socket is ready to go.
+         * If the `session` is closed before the actual request be executed, an`ERR_HTTP2_GOAWAY_SESSION` is thrown.
          *
          * This method is only available if `http2session.type` is equal to`http2.constants.NGHTTP2_SESSION_CLIENT`.
          *
