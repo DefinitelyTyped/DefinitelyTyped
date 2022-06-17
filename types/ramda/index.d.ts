@@ -31,6 +31,7 @@
 //                 Nikita Balikhin <https://github.com/NEWESTERS>
 //                 Wang Zengdi <https://github.com/adispring>
 //                 Marcus Blättermann <https://github.com/essenmitsosse>
+//                 adajoy <https://github.com/adajoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
@@ -6104,9 +6105,9 @@ export function zipWith<T, U, TResult>(
 
 /**
  * Creates a copy of the passed object by applying an fn function to the given prop property.
- * The function will not be invoked, and the object will not change if its corresponding property does not exist in the object. 
+ * The function will not be invoked, and the object will not change if its corresponding property does not exist in the object.
  * All non-primitive properties are copied to the new object by reference.
- * 
+ *
  * @example
  * ```typescript
  * const person = {name: 'James', age: 20, pets: ['dog', 'cat']};
@@ -6114,7 +6115,14 @@ export function zipWith<T, U, TResult>(
  * R.modify('pets', R.append('turtle'), person); //=> {name: 'James', age: 20, pets: ['dog', 'cat', 'turtle']}
  * ```
  */
- export function modify<T extends object, K extends keyof T, P>(prop: K, fn: (a: T[K]) => P, obj:T): Omit<T, K> & Record<K, P>
- export function modify<K extends string, A, P>(prop: K, fn: (a: A) => P): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>
+export function modify<T extends object, K extends keyof T, P>(
+    prop: K,
+    fn: (a: T[K]) => P,
+    obj: T,
+): Omit<T, K> & Record<K, P>;
+export function modify<K extends string, A, P>(
+    prop: K,
+    fn: (a: A) => P,
+): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
 
 export as namespace R;
