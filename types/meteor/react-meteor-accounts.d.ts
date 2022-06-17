@@ -17,7 +17,11 @@ export interface WithUserIdProps {
  * HOC to forward a stateful value of the current user id. Uses `Meteor.userId`, a reactive data source.
  * @see https://docs.meteor.com/api/accounts.html#Meteor-userId
  */
-export declare function withUserId<P>(Component: React.ComponentType<P>): React.ForwardRefExoticComponent<React.PropsWithoutRef<Omit<P, "userId"> & Partial<WithUserIdProps>> & React.RefAttributes<unknown>>;
+export declare function withUserId<P>(
+    Component: React.ComponentType<P>,
+): React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<Omit<P, 'userId'> & Partial<WithUserIdProps>> & React.RefAttributes<unknown>
+>;
 /**
  * Hook to get a stateful value of the current user record. Uses `Meteor.user`, a reactive data source.
  * @see https://docs.meteor.com/api/accounts.html#Meteor-user
@@ -30,7 +34,11 @@ export interface WithUserProps {
  * HOC to get a stateful value of the current user record. Uses `Meteor.user`, a reactive data source.
  * @see https://docs.meteor.com/api/accounts.html#Meteor-user
  */
-export declare function withUser<P>(Component: React.ComponentType<P>): React.ForwardRefExoticComponent<React.PropsWithoutRef<Omit<P, "user"> & Partial<WithUserProps>> & React.RefAttributes<unknown>>;
+export declare function withUser<P>(
+    Component: React.ComponentType<P>,
+): React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<Omit<P, 'user'> & Partial<WithUserProps>> & React.RefAttributes<unknown>
+>;
 /**
  * Hook to get a stateful value of whether a login method (e.g. `loginWith<Service>`) is currently in progress. Uses `Meteor.loggingIn`, a reactive data source.
  * @see https://docs.meteor.com/api/accounts.html#Meteor-loggingIn
@@ -43,7 +51,11 @@ export interface WithLoggingInProps {
  * HOC to forward a stateful value of whether a login method (e.g. `loginWith<Service>`) is currently in progress. Uses `Meteor.loggingIn`, a reactive data source.
  * @see https://docs.meteor.com/api/accounts.html#Meteor-loggingIn
  */
-export declare function withLoggingIn<P>(Component: React.ComponentType<P>): React.ForwardRefExoticComponent<React.PropsWithoutRef<Omit<P, "loggingIn"> & Partial<WithLoggingInProps>> & React.RefAttributes<unknown>>;
+export declare function withLoggingIn<P>(
+    Component: React.ComponentType<P>,
+): React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<Omit<P, 'loggingIn'> & Partial<WithLoggingInProps>> & React.RefAttributes<unknown>
+>;
 /**
  * Hook to get a stateful value of whether the logout method is currently in progress. Uses `Meteor.loggingOut`, a reactive data source.
  * @see https://docs.meteor.com/api/accounts.html#Meteor-loggingOut
@@ -56,4 +68,8 @@ export interface WithLoggingOutProps {
  * HOC to forward a stateful value of whether the logout method is currently in progress. Uses `Meteor.loggingOut`, a reactive data source.
  * @see https://docs.meteor.com/api/accounts.html#Meteor-loggingOut
  */
-export declare function withLoggingOut<P>(Component: React.ComponentType<P>): React.ForwardRefExoticComponent<React.PropsWithoutRef<Omit<P, "loggingOut"> & Partial<WithLoggingOutProps>> & React.RefAttributes<unknown>>;
+export declare function withLoggingOut<P>(
+    Component: React.ComponentType<P>,
+): React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<Omit<P, 'loggingOut'> & Partial<WithLoggingOutProps>> & React.RefAttributes<unknown>
+>;
