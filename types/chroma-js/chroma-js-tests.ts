@@ -20,6 +20,7 @@ function test_chroma() {
     chroma([255, 51, 153]);
     chroma(330, 1, 0.6, 'hsl');
     chroma.hsl(330, 1, 0.6);
+    chroma.hcl(50, 40, 40);
     chroma.lch(80, 40, 130);
     chroma(80, 40, 130, 'lch');
     chroma.cmyk(0.2, 0.8, 0, 0);
@@ -118,6 +119,8 @@ function test_color() {
     chroma('#cbdbff').temperature();
     chroma('#b3ccff').temperature();
     chroma('33cc00').gl();
+    chroma(50, 40, 20, 'hcl').clipped();
+    chroma(50, 40, 20, 'hcl')._rgb._unclipped;
 
     chroma('teal').alpha(0.5).css();
     chroma('teal').css('hsl');

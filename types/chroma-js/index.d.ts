@@ -1,6 +1,6 @@
 // Type definitions for Chroma.js 2.1
 // Project: https://github.com/gka/chroma.js
-// Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
+// Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>, Charlie Zhuo <https://github.com/CharlieZhuo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -70,6 +70,11 @@ declare namespace chroma {
         lab(lightness: number, a: number, b: number, alpha?: number): Color;
 
         lch(l: number, c: number, h: number): Color;
+
+        /**
+         * Same meaning as lch(), but in different order.
+         */
+        hcl(h: number, c: number, l: number): Color;
 
         rgb(r: number, g: number, b: number): Color;
 
@@ -408,6 +413,26 @@ declare namespace chroma {
          * chroma('33cc00').gl() === [0.2,0.8,0,1]
          */
         gl: () => ColorSpaces['gl'];
+
+        /**
+         * Test if a color has been clipped or not.
+         * Colors generated from CIELab color space may have their RGB
+         * channels clipped to the range of [0..255].
+         * Colors outside that range may exist in nature but are not
+         * displayable on RGB monitors (such as ultraviolet).
+         *
+         * @example
+         * chroma.hcl(50, 40, 20).clipped() === true
+         */
+        clipped: () => boolean;
+
+        /**
+         * The unclipped RGB components.
+         *
+         * @example
+         * chroma.hcl(50, 40, 100)._rgb._unclipped === [322.65,235.24,196.7,1]
+         */
+        _rgb: { _unclipped: ColorSpaces["rgb"] };
     }
 
     interface Scale<OutType = Color> {
