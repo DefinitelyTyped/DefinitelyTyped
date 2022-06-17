@@ -68,6 +68,16 @@ declare namespace GoogleAppsScript {
       setStateChanged(stateChanged: boolean): ActionResponseBuilder;
     }
     /**
+     * Represents an attachment created by an add-on. This can be used within the context of different
+     * Google extensibility products to generate new attachments, such as for Calendar events.
+     */
+    interface Attachment {
+      setIconUrl(iconUrl: string): Attachment;
+      setMimeType(mimeType: string): Attachment;
+      setResourceUrl(resourceUrl: string): Attachment;
+      setTitle(title: string): Attachment;
+    }
+    /**
      * An authorization action that will send the user to the AuthorizationUrl when clicked.
      *
      *     CardService.newAuthorizationAction()
@@ -266,6 +276,7 @@ declare namespace GoogleAppsScript {
       UpdateDraftBodyType: typeof UpdateDraftBodyType;
       newAction(): Action;
       newActionResponseBuilder(): ActionResponseBuilder;
+      newAttachment(): Attachment;
       newAuthorizationAction(): AuthorizationAction;
       newAuthorizationException(): AuthorizationException;
       /**
@@ -826,6 +837,7 @@ declare namespace GoogleAppsScript {
      * A builder for CalendarEventActionResponse objects.
      */
     interface CalendarEventActionResponseBuilder {
+      addAttachments(attachments: Attachment[]): CalendarEventActionResponseBuilder;
       addAttendees(emails: string[]): CalendarEventActionResponseBuilder;
       build(): CalendarEventActionResponse;
       setConferenceData(conferenceData: Conference_Data.ConferenceData): CalendarEventActionResponseBuilder;
