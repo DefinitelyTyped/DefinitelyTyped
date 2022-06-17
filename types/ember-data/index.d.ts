@@ -174,6 +174,12 @@ export namespace DS {
             query?: {}
         ): string;
         /**
+         * Builds query parameters from snapshot.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
+        /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */
         urlForFindRecord<K extends keyof ModelRegistry>(
@@ -1388,6 +1394,12 @@ export namespace DS {
             requestType?: string,
             query?: {}
         ): string;
+        /**
+         * Builds query parameters from snapshot.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */
