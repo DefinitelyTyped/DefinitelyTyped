@@ -852,6 +852,14 @@ declare namespace NodeJS {
     }
 
     interface ProcessEnv {
+        /**
+         * Package name (from package.json)
+         */
+        npm_package_name: string;
+        /**
+         * Package version (from package.json)
+         */
+        npm_package_version: string;
         [key: string]: string | undefined;
     }
 

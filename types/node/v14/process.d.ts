@@ -81,7 +81,16 @@ declare module 'process' {
             }
 
             // Alias for compatibility
-            interface ProcessEnv extends Dict<string> {}
+            interface ProcessEnv extends Dict<string> {
+                /**
+                 * Package name (from package.json)
+                 */
+                npm_package_name: string;
+                /**
+                 * Package version (from package.json)
+                 */
+                npm_package_version: string;
+            }
 
             interface HRTime {
                 (time?: [number, number]): [number, number];

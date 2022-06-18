@@ -110,6 +110,14 @@ declare module 'process' {
             // Alias for compatibility
             interface ProcessEnv extends Dict<string> {
                 /**
+                 * Package name (from package.json)
+                 */
+                npm_package_name: string;
+                /**
+                 * Package version (from package.json)
+                 */
+                npm_package_version: string;
+                /**
                  * Can be used to change the default timezone at runtime
                  */
                 TZ?: string;
