@@ -1,4 +1,4 @@
-// Type definitions for hyper-function-component 1.0
+// Type definitions for hyper-function-component 1.0.1
 // Project: https://hyper-function.com/ponent
 // Definitions by: terry-fei <https://github.com/terry-fei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,12 +28,22 @@ interface HfcPropTypes {
 
 type HfcPropTypeDef = any;
 
-interface Int {
-    valueOf(): 'HFC_TYPE_INT';
+interface HfcString {
+  valueOf(): "HFC_TYPE_STRING";
 }
-interface Float {
-    valueOf(): 'HFC_TYPE_FLOAT';
+
+interface HfcBoolean {
+  valueOf(): "HFC_TYPE_BOOLEAN";
 }
-interface Any {
-    valueOf(): 'HFC_TYPE_ANY';
+
+interface HfcInt {
+  valueOf(): "HFC_TYPE_INT";
+}
+
+interface HfcFloat {
+  valueOf(): "HFC_TYPE_FLOAT";
+}
+
+interface HfcAny {
+  valueOf(): "HFC_TYPE_ANY";
 }
