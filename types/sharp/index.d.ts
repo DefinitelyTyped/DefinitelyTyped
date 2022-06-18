@@ -22,8 +22,8 @@ import { Duplex } from 'stream';
  * @throws {Error} Invalid parameters
  * @returns A sharp instance that can be used to chain operations
  */
-declare function sharp(options?: sharp.SharpOptions): sharp.Sharp;
-declare function sharp(
+export default function sharp(options?: sharp.SharpOptions): sharp.Sharp;
+export default function sharp(
     input?:
         | Buffer
         | Uint8Array
@@ -1365,5 +1365,3 @@ declare namespace sharp {
 
     type Matrix3x3 = [[number, number, number], [number, number, number], [number, number, number]];
 }
-
-export = sharp;
