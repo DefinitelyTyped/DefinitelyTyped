@@ -152,6 +152,7 @@ export interface Style {
     decorationColor?: string | undefined;
     margin?: Margins | undefined;
     preserveLeadingSpaces?: boolean | undefined;
+    preserveTrailingSpaces?: boolean | undefined;
     opacity?: number | undefined;
     characterSpacing?: number | undefined;
     leadingIndent?: number | undefined;

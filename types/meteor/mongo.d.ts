@@ -174,7 +174,7 @@ declare module 'meteor/mongo' {
              * Constructor for a Collection
              * @param name The name of the collection. If null, creates an unmanaged (unsynchronized) local collection.
              */
-            new <T, U = T>(
+            new <T extends MongoNpmModule.Document, U = T>(
                 name: string | null,
                 options?: {
                     /**
@@ -199,7 +199,7 @@ declare module 'meteor/mongo' {
                 },
             ): Collection<T, U>;
         }
-        interface Collection<T, U = T> {
+        interface Collection<T extends MongoNpmModule.Document, U = T> {
             allow<Fn extends Transform<T> = undefined>(options: {
                 insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
                 update?:

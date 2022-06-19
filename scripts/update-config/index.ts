@@ -7,8 +7,8 @@
 // configuration with your rule, then register a disabler function for your rule
 // (check `disableRules` function below), then run this script with your rule as argument.
 
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import { Configuration as Config } from "tslint";
 import * as yargs from "yargs";
 import { normalizePath } from "./dependencies";

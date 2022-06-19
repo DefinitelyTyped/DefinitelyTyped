@@ -105,6 +105,8 @@ declare namespace GM {
         user?: string | undefined;
         /** Password to use for authentication purposes */
         password?: string | undefined;
+        /** Decode the response as specified type. Default value is "text" */
+        responseType?: XMLHttpRequestResponseType | undefined;
         /**
          * When `true`, this is a synchronous request.
          * Be careful: The entire Firefox UI will be locked and frozen until the

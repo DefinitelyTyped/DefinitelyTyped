@@ -6,7 +6,7 @@
  * ```js
  * const util = require('util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/util.js)
  */
 declare module 'util' {
     import * as types from 'node:util/types';
@@ -307,6 +307,21 @@ declare module 'util' {
      *   inspect(o1, { sorted: true }),
      *   inspect(o2, { sorted: true })
      * );
+     * ```
+     *
+     * The `numericSeparator` option adds an underscore every three digits to all
+     * numbers.
+     *
+     * ```js
+     * const { inspect } = require('util');
+     *
+     * const thousand = 1_000;
+     * const million = 1_000_000;
+     * const bigNumber = 123_456_789n;
+     * const bigDecimal = 1_234.123_45;
+     *
+     * console.log(thousand, million, bigNumber, bigDecimal);
+     * // 1_000 1_000_000 123_456_789n 1_234.123_45
      * ```
      *
      * `util.inspect()` is a synchronous method intended for debugging. Its maximum
@@ -859,7 +874,7 @@ declare module 'util' {
      * callbackFunction((err, ret) => {
      *   // When the Promise was rejected with `null` it is wrapped with an Error and
      *   // the original value is stored in `reason`.
-     *   err &#x26;&#x26; err.hasOwnProperty('reason') &#x26;&#x26; err.reason === null;  // true
+     *   err &#x26;&#x26; Object.hasOwn(err, 'reason') &#x26;&#x26; err.reason === null;  // true
      * });
      * ```
      * @since v8.2.0
@@ -998,13 +1013,9 @@ declare module 'util' {
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.
      *
      * ```js
-     * const decoder = new TextDecoder('shift_jis');
-     * let string = '';
-     * let buffer;
-     * while (buffer = getNextChunkSomehow()) {
-     *   string += decoder.decode(buffer, { stream: true });
-     * }
-     * string += decoder.decode(); // end-of-stream
+     * const decoder = new TextDecoder();
+     * const u8arr = new Uint8Array([72, 101, 108, 108, 111]);
+     * console.log(decoder.decode(u8arr)); // Hello
      * ```
      * @since v8.3.0
      */

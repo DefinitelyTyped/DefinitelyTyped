@@ -422,6 +422,25 @@ my.getSystemInfo({
     },
 });
 
+const sysInfo = my.getSystemInfoSync();
+sysInfo.app;
+sysInfo.brand;
+sysInfo.currentBattery;
+sysInfo.fontSizeSetting;
+sysInfo.language;
+sysInfo.model;
+sysInfo.pixelRatio;
+sysInfo.platform;
+sysInfo.screenHeight;
+sysInfo.screenWidth;
+sysInfo.statusBarHeight;
+sysInfo.storage;
+sysInfo.system;
+sysInfo.titleBarHeight;
+sysInfo.version;
+sysInfo.windowHeight;
+sysInfo.windowWidth;
+
 my.getNetworkType({
     success(res) {
         res.networkAvailable;

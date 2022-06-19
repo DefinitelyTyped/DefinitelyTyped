@@ -19,6 +19,7 @@ import * as _isFQDN from './lib/isFQDN';
 import * as _isIBAN from './lib/isIBAN';
 import * as _isISO4217 from './lib/isISO4217';
 import * as _isURL from './lib/isURL';
+import * as _isTaxID from './lib/isTaxID';
 
 declare namespace validator {
     const version: string;
@@ -570,7 +571,7 @@ declare namespace validator {
      */
     function isRgbColor(str: string, includePercentValues?: boolean): boolean;
 
-    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW';
+    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW' | 'zh-CN';
 
     /**
      * Check if the string is a valid identity card code.
@@ -984,6 +985,7 @@ declare namespace validator {
         | 'BR'
         | 'CA'
         | 'CH'
+        | 'CN'
         | 'CZ'
         | 'DE'
         | 'DK'
@@ -1069,6 +1071,8 @@ declare namespace validator {
 
     const isURL: typeof _isURL.default;
     type IsURLOptions = _isURL.IsURLOptions;
+
+    const isTaxID: typeof _isTaxID.default;
 
     /**
      * Check if the string is uppercase.

@@ -1,8 +1,9 @@
-// Type definitions for cli-progress 3.9
+// Type definitions for cli-progress 3.11
 // Project: https://github.com/AndiDittrich/Node.CLI-Progress
 // Definitions by:  Mohamed Hegazy <https://github.com/mhegazy>
 //                  Álvaro Martínez <https://github.com/alvaromartmart>
 //                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                  Marko Schilde <https://github.com/mschilde>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
@@ -82,6 +83,9 @@ export interface Options {
      */
     hideCursor?: boolean | null | undefined;
 
+    /** glue sequence (control chars) between bar elements (default: '') */
+    barGlue?: string | undefined;
+
     /** number of updates with which to calculate the eta; higher numbers give a more stable eta (default: 10) */
     etaBuffer?: number | undefined;
 
@@ -91,6 +95,9 @@ export interface Options {
      * @default false
      */
     etaAsynchronousUpdate?: boolean | undefined;
+
+    /** progress calculation relative to start value ? default start at 0 (default: false) */
+    progressCalculationRelative?: boolean | undefined;
 
     /** disable line wrapping (default: false) - pass null to keep terminal settings; pass true to trim the output to terminal width */
     linewrap?: boolean | null | undefined;
@@ -115,6 +122,9 @@ export interface Options {
 
     /** the character sequence used for autopadding (default: " ") */
     autopaddingChar?: string | undefined;
+
+    /** stop bar on SIGINT/SIGTERM to restore cursor settings (default: true) */
+    gracefulExit?: boolean | undefined;
 }
 
 export interface Preset {
@@ -144,26 +154,12 @@ export interface Preset {
     format: string;
 }
 
-export class SingleBar extends EventEmitter {
+export class GenericBar extends EventEmitter {
     /** Initialize a new Progress bar. An instance can be used multiple times! it's not required to re-create it! */
     constructor(opt: Options, preset?: Preset);
 
-    calculateETA(): void;
-    /** Force eta calculation update (long running processes) without altering the progress values. */
-    updateETA(): void;
-
-    formatTime(t: any, roundToMultipleOf: any): any;
-
-    getTotal(): any;
-
-    /** Increases the current progress value by a specified amount (default +1). Update payload optionally */
-    increment(step?: number, payload?: object): void;
-    increment(payload: object): void;
-
-    render(): void;
-
-    /** Sets the total progress value while progressbar is active. Especially useful handling dynamic tasks. */
-    setTotal(total: number): void;
+    /** Internal render function */
+    render(forceRendering?: boolean): void;
 
     /** Starts the progress bar and set the total and initial value */
     start(total: number, startValue: number, payload?: object): void;
@@ -171,21 +167,61 @@ export class SingleBar extends EventEmitter {
     /** Stops the progress bar and go to next line */
     stop(): void;
 
-    stopTimer(): void;
+    /** Sets the current progress value and optionally the payload with values of custom tokens as a second parameter */
+    update(current: number, payload?: object): void;
+    update(payload: object): void;
+
+    /** Calculate the actual progress value */
+    getProgress(): number;
+
+    /** Increases the current progress value by a specified amount (default +1). Update payload optionally */
+    increment(step?: number, payload?: object): void;
+    increment(payload: object): void;
+
+    /** Get the total (limit) value */
+    getTotal(): number;
+
+    /** Sets the total progress value while progressbar is active. Especially useful handling dynamic tasks. */
+    setTotal(total: number): void;
+
+    /** Force eta calculation update (long running processes) without altering the progress values. */
+    updateETA(): void;
+}
+
+export class SingleBar extends GenericBar {
+    /** Initialize a new Progress bar. An instance can be used multiple times! it's not required to re-create it! */
+    constructor(opt: Options, preset?: Preset);
+
+    /** Internal render function */
+    render(): void;
 
     /** Sets the current progress value and optionally the payload with values of custom tokens as a second parameter */
     update(current: number, payload?: object): void;
     update(payload: object): void;
+
+    /** Starts the progress bar and set the total and initial value */
+    start(total: number, startValue: number, payload?: object): void;
+
+    /** Stops the progress bar and go to next line */
+    stop(): void;
 }
 
 export class MultiBar extends EventEmitter {
     constructor(opt: Options, preset?: Preset);
 
-    create(total: number, startValue: number, payload?: any): SingleBar;
+    /** add a new bar to the stack */
+    create(total: number, startValue: number, payload?: any, barOptions?: Options): SingleBar;
 
+    /** remove a bar from the stack */
     remove(bar: SingleBar): boolean;
 
+    /** internal update routine */
+    update(): void;
+
     stop(): void;
+
+    /** log output above the progress bars; string must end with newline character! */
+    log(data: string): void;
 }
 
 export const Presets: {

@@ -65,7 +65,7 @@ declare namespace ScrollSpy {
         target: string | Element | JQuery;
     }
 
-    type jQueryInterface = (config?: Partial<Options> | 'refresh' | 'dispose') => void;
+    type jQueryInterface = (config?: Partial<Options> | 'refresh' | 'dispose') => JQuery;
 }
 
 export default ScrollSpy;

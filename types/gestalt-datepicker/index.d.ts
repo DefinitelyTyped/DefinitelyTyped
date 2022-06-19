@@ -1,11 +1,41 @@
-// Type definitions for gestalt-datepicker 13.4
+// Type definitions for gestalt-datepicker 55.2
 // Project: https://github.com/pinterest/gestalt/tree/master/packages/gestalt-datepicker, https://gestalt.netlify.app/DatePicker
 // Definitions by: cgu <https://github.com/czgu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
 import * as React from 'react';
-import { Locale } from 'date-fns';
+
+export interface Locale {
+    code?: string;
+    formatDistance?: (...args: any[]) => any;
+    formatRelative?: (...args: any[]) => any;
+    localize?: {
+        ordinalNumber: (...args: any[]) => any;
+        era: (...args: any[]) => any;
+        quarter: (...args: any[]) => any;
+        month: (...args: any[]) => any;
+        day: (...args: any[]) => any;
+        dayPeriod: (...args: any[]) => any;
+    };
+    formatLong?: {
+        date: (...args: any[]) => any;
+        time: (...args: any[]) => any;
+        dateTime: (...args: any[]) => any;
+    };
+    match?: {
+        ordinalNumber: (...args: any[]) => any;
+        era: (...args: any[]) => any;
+        quarter: (...args: any[]) => any;
+        month: (...args: any[]) => any;
+        day: (...args: any[]) => any;
+        dayPeriod: (...args: any[]) => any;
+    };
+    options?: {
+        weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+        firstWeekContainsDate?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+    };
+}
 
 /*
 DatePicker Props Interface
@@ -26,8 +56,8 @@ export interface DatePickerProps {
     localeData?: Locale | undefined;
     maxDate?: Date | undefined;
     minDate?: Date | undefined;
+    name?: string | undefined;
     nextRef?: React.Ref<any> | undefined;
-
     placeholder?: string | undefined;
     rangeEndDate?: Date | undefined;
     rangeSelector?: 'start' | 'end' | undefined;
@@ -36,4 +66,6 @@ export interface DatePickerProps {
     value?: Date | undefined;
 }
 
-export default class DatePicker extends React.Component<DatePickerProps, any> {}
+declare const DatePicker: React.FunctionComponent<DatePickerProps>;
+
+export default DatePicker;

@@ -1,4 +1,4 @@
-// Type definitions for google-one-tap 1.1
+// Type definitions for google-one-tap 1.2
 // Project: https://developers.google.com/identity/one-tap/web
 // Definitions by: voidpumpkin <https://github.com/voidpumpkin>
 //                 kostasmanionis <https://github.com/kostasmanionis>
@@ -15,7 +15,7 @@ export interface accounts {
         disableAutoSelect: () => void;
         storeCredential: (credential?: string, callback?: () => void) => void;
         cancel: () => void;
-        onGoogleLibraryLoad: () => void;
+        revoke: (hint: string, callback?: (response: RevocationResponse) => void) => void;
         prompt: (momentListener?: (promptMomentNotification: PromptMomentNotification) => void) => void;
         renderButton: (parent: HTMLElement, options: GsiButtonConfiguration, clickHandler?: () => void) => void;
     };
@@ -25,34 +25,41 @@ export interface GsiButtonConfiguration {
     type?: 'standard' | 'icon';
     theme?: 'outline' | 'filled_blue' | 'filled_black';
     size?: 'large' | 'medium' | 'small';
-    text?: 'signin_with' | 'signup_with' | 'continue_with' | 'signup_with';
+    text?: 'signin_with' | 'signup_with' | 'continue_with' | 'signin';
     shape?: 'rectangular' | 'pill' | 'circle' | 'square';
     logo_alignment?: 'left' | 'center';
     width?: number;
     locale?: string;
-  }
+}
 
 export interface CredentialResponse {
     credential: string;
-    select_by: string;
-    client_id: string;
+    select_by:
+        | 'auto'
+        | 'user'
+        | 'user_1tap'
+        | 'user_2tap'
+        | 'btn'
+        | 'btn_confirm'
+        | 'btn_add_session'
+        | 'btn_confirm_add_session';
 }
 
 /// https://developers.google.com/identity/gsi/web/reference/js-reference
 export interface IdConfiguration {
-    client_id?: string | undefined;
-    auto_select?: boolean | undefined;
-    callback?: ((credentialResponse: CredentialResponse) => void) | undefined;
+    client_id: string;
+    auto_select?: boolean;
+    callback?: ((credentialResponse: CredentialResponse) => void);
     login_uri?: string;
-    native_callback?: (() => void) | undefined;
-    cancel_on_tap_outside?: boolean | undefined;
-    prompt_parent_id?: string | undefined;
-    nonce?: string | undefined;
-    context?: string | undefined;
-    state_cookie_domain?: string | undefined;
+    native_callback?: (() => void);
+    cancel_on_tap_outside?: boolean;
+    prompt_parent_id?: string;
+    nonce?: string;
+    context?: 'signin' | 'signup' | 'use';
+    state_cookie_domain?: string;
     ux_mode?: 'popup' | 'redirect';
-    allowed_parent_origin?: string | string[] | undefined;
-    intermediate_iframe_close_callback?: (() => void) | undefined;
+    allowed_parent_origin?: string | string[];
+    intermediate_iframe_close_callback?: (() => void);
 }
 
 export interface PromptMomentNotification {
@@ -73,4 +80,9 @@ export interface PromptMomentNotification {
     isDismissedMoment: () => boolean;
     getDismissedReason: () => 'credential_returned' | 'cancel_called' | 'flow_restarted';
     getMomentType: () => 'display' | 'skipped' | 'dismissed';
+}
+
+export interface RevocationResponse {
+    successful: boolean;
+    error?: string;
 }

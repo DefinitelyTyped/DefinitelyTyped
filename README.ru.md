@@ -329,7 +329,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 #### Могу ли я запросить определение?
 
-Вот [текущие запрошенные определения](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Вот [текущие запрошенные определения](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### Как насчет определений типов для DOM?
 
@@ -404,10 +404,6 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
     }
 }
 ```
-
-#### История файлов в GitHub выглядит неполной.
-
-GitHub не [поддерживает](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) историю файлов для переименованных файлов. Вместо этого используйте [`git log --follow`](https://www.git-scm.com/docs/git-log).
 
 #### Должен ли я добавить пустой namespace в пакет, который не экспортирует модуль для использования импорта в стиле ES6?
 

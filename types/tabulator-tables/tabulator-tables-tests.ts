@@ -1,4 +1,4 @@
-import { Tabulator, Renderer, Module, DataTreeModule, TabulatorFull } from 'tabulator-tables';
+import { Tabulator, Renderer, Module, DataTreeModule, TabulatorFull, TooltipModule } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
@@ -1003,6 +1003,9 @@ table = new Tabulator('#test', {
     },
     invalidOptionWarning: false,
     debugInvalidOptions: false,
+    debugInitialization: true,
+    debugEventsExternal: false,
+    debugEventsInternal: false,
 });
 
 const dataProcessedEvent = () => {};
@@ -1012,8 +1015,10 @@ table.on('dataLoaded', () => {});
 table.on('dataLoadError', () => {});
 table.on('dataProcessing', () => {});
 table.on('dataProcessed', () => {});
+table.on('rowMoving', () => {});
 table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
+table.off('rowMoving', () => {});
 table.on('cellClick', () => {});
 table = Tabulator.findTable('#example-table')[0];
 table = TabulatorFull.findTable('#example-table')[0];
@@ -1039,3 +1044,5 @@ table = new Tabulator('#test', {
 });
 table.on('dataSorting', ([sorter]) => sorter.field);
 table.on('dataSorted', ([sorter]) => sorter.field);
+
+Tabulator.registerModule([TooltipModule]);

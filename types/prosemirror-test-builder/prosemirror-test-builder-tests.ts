@@ -99,8 +99,11 @@ const { h1, a } = builders(schema, {
     img: { nodeType: 'image', src: 'img.png', alt: 'x' },
 });
 
-const TEST1 = h1; // $ExpectType NodeBuilderMethod<Schema<"doc" | "paragraph" | "blockquote", "em">>
-const TEST2 = a; // $ExpectType MarkBuilderMethod<Schema<"doc" | "paragraph" | "blockquote", "em">>
+const args: Parameters<typeof h1> = [p(), { level: 1 }, { tag: { abc: 1 }, flat: [p()] }];
+const ARGS_TEST = args; // $ExpectType Args
 
-h1(''); // $ExpectType TaggedProsemirrorNode<Schema<"doc" | "paragraph" | "blockquote", "em">>
-a(''); // $ExpectType TaggedFlatObject<Schema<"doc" | "paragraph" | "blockquote", "em">>
+const TEST1 = h1; // $ExpectType NodeBuilderMethod<Schema<"doc" | "paragraph" | "blockquote", "em">> || NodeBuilderMethod<Schema<"blockquote" | "doc" | "paragraph", "em">>
+const TEST2 = a; // $ExpectType MarkBuilderMethod<Schema<"doc" | "paragraph" | "blockquote", "em">> || MarkBuilderMethod<Schema<"blockquote" | "doc" | "paragraph", "em">>
+
+h1(''); // $ExpectType TaggedProsemirrorNode<Schema<"doc" | "paragraph" | "blockquote", "em">> || TaggedProsemirrorNode<Schema<"blockquote" | "doc" | "paragraph", "em">>
+a(''); // $ExpectType TaggedFlatObject<Schema<"doc" | "paragraph" | "blockquote", "em">> || TaggedFlatObject<Schema<"blockquote" | "doc" | "paragraph", "em">>

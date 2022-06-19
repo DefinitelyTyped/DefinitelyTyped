@@ -1,6 +1,6 @@
+import { PackageJson } from "@npm/types";
 import libnpmpublish = require("libnpmpublish");
 import fetch = require("npm-registry-fetch");
-import { Manifest } from "pacote";
 
 async function test() {
     // declare variables to be used
@@ -19,14 +19,11 @@ async function test() {
         fetchRetryMintimeout: 20000,
         fetchRetryMaxtimeout: 50000,
         agent: undefined,
-        body: "bodyhere"
+        body: "bodyhere",
     };
-    const manifest: Manifest = {
+    const manifest: PackageJson = {
         name: "",
         version: "",
-        dist: {
-            tarball: ""
-        }
     };
     const tarballData: Buffer = Buffer.from("thisisafillerforthebuffertowork");
     // test param requirements and return values

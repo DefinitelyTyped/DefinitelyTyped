@@ -33,7 +33,7 @@ export default class DomConverter {
     );
     readonly document: ViewDocument;
     readonly renderingMode: 'data' | 'editing';
-    readonly blockFillerMode: BlockFillerMode;
+    blockFillerMode: BlockFillerMode;
     readonly preElements: ['pre'];
     readonly blockElements: [
         'address',
@@ -117,14 +117,23 @@ export default class DomConverter {
     domRangeToView(domRange: Range): ViewRange | null;
     domSelectionToView(domSelection: Selection): ViewSelection;
     domToView(
-        domNode: Node | DocumentFragment,
+        domNode: DocumentFragment,
         options?: {
             bind?: boolean | undefined;
             withChildren?: boolean | undefined;
             keepOriginalCase?: boolean | undefined;
             skipComments?: boolean | undefined;
         },
-    ): ViewNode | ViewDocumentFragment | null;
+    ): ViewDocumentFragment;
+    domToView(
+        domNode: Node,
+        options?: {
+            bind?: boolean | undefined;
+            withChildren?: boolean | undefined;
+            keepOriginalCase?: boolean | undefined;
+            skipComments?: boolean | undefined;
+        },
+    ): ViewNode | null;
     fakeSelectionToView(domElement: HTMLElement): ViewSelection | undefined;
     findCorrespondingDomText(viewText: ViewText): Text | null;
     findCorrespondingViewText(domText: Text): ViewText | null;
@@ -153,10 +162,19 @@ export default class DomConverter {
      * be created. For bound elements and document fragments the method will return corresponding items.
      */
     viewToDom(
-        viewNode: ViewNode | ViewDocumentFragment,
+        viewNode: ViewDocumentFragment,
         domDocument: Document,
         options?: { bind?: boolean | undefined; withChildren?: boolean | undefined },
-    ): Node | DocumentFragment;
+    ): DocumentFragment;
+    /**
+     * Converts the view to the DOM. For all text nodes, not bound elements and document fragments new items will
+     * be created. For bound elements and document fragments the method will return corresponding items.
+     */
+    viewToDom(
+        viewNode: ViewNode,
+        domDocument: Document,
+        options?: { bind?: boolean | undefined; withChildren?: boolean | undefined },
+    ): Node;
     /**
      * Sets the attribute on a DOM element.
      *
@@ -177,4 +195,4 @@ export default class DomConverter {
     removeDomElementAttribute(domElement: HTMLElement, key: string): void;
 }
 
-export type BlockFillerMode = 'br' | 'nbsp' | 'markednbsp';
+export type BlockFillerMode = 'br' | 'nbsp' | 'markedNbsp';

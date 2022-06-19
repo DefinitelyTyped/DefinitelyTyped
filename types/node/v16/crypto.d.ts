@@ -646,6 +646,7 @@ declare module 'crypto' {
     }
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm' | 'chacha20-poly1305';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
+    type CipherOCBTypes = 'aes-128-ocb' | 'aes-192-ocb' | 'aes-256-ocb';
     type BinaryLike = string | NodeJS.ArrayBufferView;
     type CipherKey = BinaryLike | KeyObject;
     interface CipherCCMOptions extends stream.TransformOptions {
@@ -653,6 +654,9 @@ declare module 'crypto' {
     }
     interface CipherGCMOptions extends stream.TransformOptions {
         authTagLength?: number | undefined;
+    }
+    interface CipherOCBOptions extends stream.TransformOptions {
+        authTagLength: number;
     }
     /**
      * Creates and returns a `Cipher` object that uses the given `algorithm` and`password`.
@@ -720,8 +724,9 @@ declare module 'crypto' {
      * @since v0.1.94
      * @param options `stream.transform` options
      */
-    function createCipheriv(algorithm: CipherCCMTypes, key: CipherKey, iv: BinaryLike | null, options: CipherCCMOptions): CipherCCM;
-    function createCipheriv(algorithm: CipherGCMTypes, key: CipherKey, iv: BinaryLike | null, options?: CipherGCMOptions): CipherGCM;
+    function createCipheriv(algorithm: CipherCCMTypes, key: CipherKey, iv: BinaryLike, options: CipherCCMOptions): CipherCCM;
+    function createCipheriv(algorithm: CipherOCBTypes, key: CipherKey, iv: BinaryLike, options: CipherOCBOptions): CipherOCB;
+    function createCipheriv(algorithm: CipherGCMTypes, key: CipherKey, iv: BinaryLike, options?: CipherGCMOptions): CipherGCM;
     function createCipheriv(algorithm: string, key: CipherKey, iv: BinaryLike | null, options?: stream.TransformOptions): Cipher;
     /**
      * Instances of the `Cipher` class are used to encrypt data. The class can be
@@ -907,6 +912,15 @@ declare module 'crypto' {
         ): this;
         getAuthTag(): Buffer;
     }
+    interface CipherOCB extends Cipher {
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options?: {
+                plaintextLength: number;
+            }
+        ): this;
+        getAuthTag(): Buffer;
+    }
     /**
      * Creates and returns a `Decipher` object that uses the given `algorithm` and`password` (key).
      *
@@ -961,8 +975,9 @@ declare module 'crypto' {
      * @since v0.1.94
      * @param options `stream.transform` options
      */
-    function createDecipheriv(algorithm: CipherCCMTypes, key: CipherKey, iv: BinaryLike | null, options: CipherCCMOptions): DecipherCCM;
-    function createDecipheriv(algorithm: CipherGCMTypes, key: CipherKey, iv: BinaryLike | null, options?: CipherGCMOptions): DecipherGCM;
+    function createDecipheriv(algorithm: CipherCCMTypes, key: CipherKey, iv: BinaryLike, options: CipherCCMOptions): DecipherCCM;
+    function createDecipheriv(algorithm: CipherOCBTypes, key: CipherKey, iv: BinaryLike, options: CipherOCBOptions): DecipherOCB;
+    function createDecipheriv(algorithm: CipherGCMTypes, key: CipherKey, iv: BinaryLike, options?: CipherGCMOptions): DecipherGCM;
     function createDecipheriv(algorithm: string, key: CipherKey, iv: BinaryLike | null, options?: stream.TransformOptions): Decipher;
     /**
      * Instances of the `Decipher` class are used to decrypt data. The class can be
@@ -1125,6 +1140,15 @@ declare module 'crypto' {
         ): this;
     }
     interface DecipherGCM extends Decipher {
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options?: {
+                plaintextLength: number;
+            }
+        ): this;
+    }
+    interface DecipherOCB extends Decipher {
         setAuthTag(buffer: NodeJS.ArrayBufferView): this;
         setAAD(
             buffer: NodeJS.ArrayBufferView,
@@ -3085,20 +3109,27 @@ declare module 'crypto' {
          */
         readonly fingerprint256: string;
         /**
+         * The SHA-512 fingerprint of this certificate.
+         * @since v16.14.0
+         */
+         readonly fingerprint512: string;
+        /**
          * The complete subject of this certificate.
          * @since v15.6.0
          */
         readonly subject: string;
         /**
-         * The subject alternative name specified for this certificate.
+         * The subject alternative name specified for this certificate or `undefined`
+         * if not available.
          * @since v15.6.0
          */
-        readonly subjectAltName: string;
+        readonly subjectAltName: string | undefined;
         /**
-         * The information access content of this certificate.
+         * The information access content of this certificate or `undefined` if not
+         * available.
          * @since v15.6.0
          */
-        readonly infoAccess: string;
+        readonly infoAccess: string | undefined;
         /**
          * An array detailing the key usages for this certificate.
          * @since v15.6.0
@@ -3146,7 +3177,7 @@ declare module 'crypto' {
          * @since v15.6.0
          * @return Returns `email` if the certificate matches, `undefined` if it does not.
          */
-        checkEmail(email: string, options?: X509CheckOptions): string | undefined;
+        checkEmail(email: string, options?: Pick<X509CheckOptions, 'subject'>): string | undefined;
         /**
          * Checks whether the certificate matches the given host name.
          * @since v15.6.0
@@ -3158,7 +3189,7 @@ declare module 'crypto' {
          * @since v15.6.0
          * @return Returns `ip` if the certificate matches, `undefined` if it does not.
          */
-        checkIP(ip: string, options?: X509CheckOptions): string | undefined;
+        checkIP(ip: string): string | undefined;
         /**
          * Checks whether this certificate was issued by the given `otherCert`.
          * @since v15.6.0

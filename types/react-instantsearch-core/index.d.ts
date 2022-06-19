@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch-core 6.10
+// Type definitions for react-instantsearch-core 6.26
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -60,6 +60,7 @@ interface ConnectedWidget {
 
 export interface ConnectorDescription<TProvided, TExposed> {
   displayName: string;
+  $$type?: string;
   propTypes?: any;
   defaultProps?: any;
 
@@ -154,6 +155,10 @@ export type ConnectorProvided<TProvided> = TProvided & {
   createURL: (...args: any[]) => string;
 } & { searchForItems: (...args: any[]) => any };
 
+interface AdditionalWidgetProperties {
+  $$widgetType?: string;
+}
+
 /**
  * Connectors are the HOC used to transform React components
  * into InstantSearch widgets.
@@ -166,9 +171,13 @@ export type ConnectorProvided<TProvided> = TProvided & {
  */
 export function createConnector<TProvided = {}, TExposed = {}>(
   connectorDesc: ConnectorDescription<TProvided, TExposed>
-): ((stateless: React.FunctionComponent<ConnectorProvided<TProvided>>) => React.ComponentClass<TExposed>) &
+): ((
+    stateless: React.FunctionComponent<ConnectorProvided<TProvided>>,
+    additionalWidgetProperties?: AdditionalWidgetProperties,
+  ) => React.ComponentClass<TExposed>) &
   (<TProps extends Partial<ConnectorProvided<TProvided>>>(
-    Composed: React.ComponentType<TProps>
+    Composed: React.ComponentType<TProps>,
+    additionalWidgetProperties?: AdditionalWidgetProperties,
   ) => ConnectedComponentClass<TProps, ConnectorProvided<TProvided>, TExposed>);
 
 // Utils
@@ -748,17 +757,17 @@ export type InsightsClient = (method: InsightsClientMethod, payload: InsightsCli
 export type InsightsClientMethod = 'clickedObjectIDsAfterSearch' | 'convertedObjectIDsAfterSearch';
 
 export interface InsightsClientPayload {
-    index: string;
-    queryID: string;
-    eventName: string;
-    objectIDs: string[];
-    positions?: number[] | undefined;
+  index: string;
+  queryID: string;
+  eventName: string;
+  objectIDs: string[];
+  positions?: number[] | undefined;
 }
 
 export type WrappedInsightsClient = (method: InsightsClientMethod, payload: Partial<InsightsClientPayload>) => void;
 export interface ConnectHitInsightsProvided {
-    hit: Hit;
-    insights: WrappedInsightsClient;
+  hit: Hit;
+  insights: WrappedInsightsClient;
 }
 
 export function EXPERIMENTAL_connectConfigureRelatedItems(
@@ -766,19 +775,61 @@ export function EXPERIMENTAL_connectConfigureRelatedItems(
 ): React.ComponentClass<any>;
 export function connectQueryRules(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectHitInsights(
-    insightsClient: InsightsClient,
+  insightsClient: InsightsClient,
 ): (
-    hitComponent: React.ComponentType<any>,
+  hitComponent: React.ComponentType<any>,
 ) => React.ComponentType<Omit<ConnectHitInsightsProvided, { insights: WrappedInsightsClient }>>;
 export function connectVoiceSearch(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
-export interface DynamicWidgetsProps  {
-    children: React.ReactNode;
-    attributesToRender: string[];
-    fallbackComponent?: React.ComponentType<{ attribute: string }>;
+export interface DynamicWidgetsExposed {
+  /**
+   * The children of this component will be displayed dynamically based
+   * on the result of facetOrdering. This means that any child needs
+   * to have either the “attribute” or “attributes” prop.
+   */
+  children?: React.ReactChild;
+  /**
+   * A function to transform the attributes to render,
+   * or using a different source to determine the attributes to render.
+   */
+  transformItems?: (items: string[], meta: { results: SearchResults }) => any;
+  /**
+   * The fallbackComponent prop is used if no widget from children matches.
+   * The component gets called with an attribute prop.
+   */
+  fallbackComponent?: React.ComponentType<{ attribute: string }>;
+  /**
+   * The facets to apply before dynamic widgets get mounted.
+   * Setting the value to ['*'] will request all facets
+   * and avoid an additional network request once the widgets are added.
+   * @default ['*']
+   */
+  facets?: never[] | ['*'];
+  /**
+   * The default number of facet values to request.
+   * It’s recommended to have this value at least as high as the highest limit
+   * and showMoreLimit of dynamic widgets, as this will prevent
+   * a second network request once that widget mounts.
+   * To avoid pinned items not showing in the result, make sure you choose
+   * a maxValuesPerFacet at least as high as all the most pinned items you have.
+   * @default 20
+   */
+  maxValuesPerFacet?: number;
 }
 
-export class DynamicWidgets extends React.Component<DynamicWidgetsProps> {}
+export type DynamicWidgetsProvided = Pick<DynamicWidgetsExposed, 'children' | 'fallbackComponent'> & {
+  /** The list of refinement values to display returned from the Algolia API. */
+  attributesToRender: string[]
+};
+
+export class DynamicWidgets extends React.Component<DynamicWidgetsExposed> {}
+
+export function connectDynamicWidgets(
+  stateless: React.FunctionComponent<DynamicWidgetsProvided>
+): React.ComponentClass<DynamicWidgetsExposed>;
+export function connectDynamicWidgets<TProps extends Partial<DynamicWidgetsProvided>>(
+  Composed: React.ComponentType<TProps>
+): ConnectedComponentClass<TProps, DynamicWidgetsProvided, DynamicWidgetsExposed>;
 
 // Turn off automatic exports - so we don't export internal types like Omit<>
 export {};

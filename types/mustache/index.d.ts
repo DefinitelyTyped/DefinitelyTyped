@@ -49,7 +49,7 @@ interface MustacheStatic {
     Writer: typeof MustacheWriter;
 
     /**
-     * HTML escaping by default, can be overriden by setting Mustache.escape explicitly or providing the `options`
+     * HTML escaping by default, can be overridden by setting Mustache.escape explicitly or providing the `options`
      * argument with an `escape` function when invoking Mustache.render().
      *
      * Escaping can be avoided when needed by using `{{{ value }}}` or `{{& value }}` in templates.
@@ -105,7 +105,7 @@ interface MustacheStatic {
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
      *
      * @param tagsOrOptions
-     * The delimeter tags to use or options overriding global defaults.
+     * The delimiter tags to use or options overriding global defaults.
      */
     render(
         template: string,
@@ -409,7 +409,7 @@ type EscapeFunction = (value: any) => string;
 type OpeningAndClosingTags = [string, string];
 
 /**
- * Whenever partials are provided, it can either be an object that contains the names and templates of partials that are used in tempaltes
+ * Whenever partials are provided, it can either be an object that contains the names and templates of partials that are used in templates
  *
  * -- or --
  *

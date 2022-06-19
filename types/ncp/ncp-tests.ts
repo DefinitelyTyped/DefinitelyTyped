@@ -66,7 +66,7 @@ ncp.ncp('foo', 'bar', err => {
 });
 
 ncp.ncp('foo', 'bar', opts, err => {
-    err; // $ExpectType Error | Error[] | WriteStream | null
+    err; // $ExpectType Error | Error[] | WriteStream | null || Error | WriteStream | Error[] | null
 });
 
 // $ExpectType (source: string, destination: string, options?: Options | undefined) => Promise<void>

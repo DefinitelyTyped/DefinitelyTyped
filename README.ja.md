@@ -346,7 +346,7 @@ npm パッケージは数分で更新されます。もし1時間以上かかっ
 
 #### 型定義をリクエストしたいです。
 
-現在リクエストされている型定義は[こちら](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest)です。
+現在リクエストされている型定義は[こちら](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package)です。
 
 #### DOM に対する型定義はどうすればよいですか？
 
@@ -525,10 +525,6 @@ TypeScript ハンドブックには、[型定義を書くにあたっての一�
   }
 }
 ```
-
-#### GitHub のファイル履歴がおかしいです。
-
-GitHubは、名前が変更されたファイルの履歴には[対応していない](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames)ので、代わりに [`git log --follow`](https://www.git-scm.com/docs/git-log) を使用してください。
 
 ## ライセンス
 

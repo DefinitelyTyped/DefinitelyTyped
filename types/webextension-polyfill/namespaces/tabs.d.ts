@@ -581,6 +581,12 @@ export namespace Tabs {
          * Optional.
          */
         title?: string;
+
+        /**
+         * Whether the tab should be muted when created.
+         * Optional.
+         */
+        muted?: boolean;
     }
 
     interface DuplicateDuplicatePropertiesType {
@@ -700,7 +706,7 @@ export namespace Tabs {
          * The CookieStoreId used for the tab.
          * Optional.
          */
-        cookieStoreId?: string;
+        cookieStoreId?: string[] | string;
 
         /**
          * The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as this tab.

@@ -1384,15 +1384,22 @@ pathStringMaybe = sym.getPathString({ size: 10, type: 'circle' });
 
 // Test pre-fab symbols ===============================================================
 
-const symbolArray: d3Shape.SymbolType[] = d3Shape.symbols;
+let symbolArray: d3Shape.SymbolType[] = d3Shape.symbolsFill;
+symbolArray = d3Shape.symbolsStroke;
 
+customSymbol = d3Shape.symbolAsterisk;
 customSymbol = d3Shape.symbolCircle;
 customSymbol = d3Shape.symbolCross;
 customSymbol = d3Shape.symbolDiamond;
+customSymbol = d3Shape.symbolDiamond2;
+customSymbol = d3Shape.symbolPlus;
 customSymbol = d3Shape.symbolSquare;
+customSymbol = d3Shape.symbolSquare2;
 customSymbol = d3Shape.symbolStar;
 customSymbol = d3Shape.symbolTriangle;
+customSymbol = d3Shape.symbolTriangle2;
 customSymbol = d3Shape.symbolWye;
+customSymbol = d3Shape.symbolX;
 
 // -----------------------------------------------------------------------------------
 // Test pointRadial

@@ -99,6 +99,7 @@ export interface SchemaDefinition {
     type: any;
     label?: string | (() => string) | undefined;
     optional?: boolean | (() => boolean) | undefined;
+    required?: boolean | (() => boolean) | undefined;
     min?: number | boolean | Date | (() => number | boolean | Date) | undefined;
     max?: number | boolean | Date | (() => number | boolean | Date) | undefined;
     minCount?: number | (() => number) | undefined;

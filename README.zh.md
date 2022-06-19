@@ -368,7 +368,7 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 #### 我可以请求类型定义吗？
 
-这里是 [当前在请求的类型定义](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest)。
+这里是 [当前在请求的类型定义](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package)。
 
 #### DOM 上的类型定义是什么？
 
@@ -536,10 +536,6 @@ TypeScript 手册包含了优秀的 [关于编写类型定义的概括信息](ht
     }
 }
 ```
-
-#### GitHub 中的文件记录看起来不完整。
-
-GitHub 不 [支持](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) 重命名文件的历史记录。请使用 [`git log --follow`](https://www.git-scm.com/docs/git-log) 命令代替。
 
 ## 许可证
 
