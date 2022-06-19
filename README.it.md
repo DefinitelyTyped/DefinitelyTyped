@@ -362,7 +362,7 @@ Questo significa che non vanno bene e noi non ce ne siamo ancora accorti. Puoi c
 
 ####  Posso chiedere che venga implementata una definizione per un modulo che non le ha ancora?
 
-Se un modulo che utilizzi non ha ancora delle definizioni, puoi chiedere che vengano implementate aprendo un Issue. Qui trovi le [richieste di implementazione](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest) attuali.
+Se un modulo che utilizzi non ha ancora delle definizioni, puoi chiedere che vengano implementate aprendo un Issue. Qui trovi le [richieste di implementazione](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package) attuali.
 
 #### E per le definizioni dei tipi del DOM?
 
@@ -546,10 +546,6 @@ Quando `dts-gen` viene usato per uno pacchetto con scope, nel `tsconfig.json`, l
     }
 }
 ```
-
-#### La cronologia dei file su Github sembra incompleta.
-
-Github non [supporta](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) la cronologia per file rinominati. Usa invece [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
 ## Licenza
 

@@ -8,6 +8,14 @@ parsedName.suffix;
 parsedName.middleName;
 parsedName.salutation;
 
+let parsedNameWithSuffixIgnored = human.parseName("Mr. William R. Hearst, III", ['III']);
+parsedNameWithSuffixIgnored.firstName;
+parsedNameWithSuffixIgnored.lastName;
+parsedNameWithSuffixIgnored.fullName;
+parsedNameWithSuffixIgnored.suffix;
+parsedNameWithSuffixIgnored.middleName;
+parsedNameWithSuffixIgnored.salutation;
+
 let parsedAddress = human.parseAddress("123 Happy Street, Honolulu, HI  65780");
 parsedAddress.address;
 parsedAddress.state;

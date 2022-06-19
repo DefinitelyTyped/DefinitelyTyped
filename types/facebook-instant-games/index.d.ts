@@ -1,8 +1,7 @@
 // Type definitions for non-npm package facebook-instant-games 7.0
 // Project: https://developers.facebook.com/docs/games/instant-games
-// Definitions by: Menushka Weeratunga <https://github.com/menushka>,
-//                 Øyvind Johansen Amundrud <https://github.com/oyvindjam>,
-//                 Liana Pigeot <https://github.com/nialna>
+// Definitions by: Menushka Weeratunga <https://github.com/menushka>
+//                 Øyvind Johansen Amundrud <https://github.com/oyvindjam>
 //                 Alex A. Yermoshenko <https://github.com/doterax>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

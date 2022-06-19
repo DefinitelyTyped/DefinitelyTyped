@@ -19,7 +19,7 @@ export class XRHandModelFactory {
 
     createHandModel(
         controller: Group,
-        profile?: 'spheres' | 'boxes' | 'oculus',
+        profile?: 'spheres' | 'boxes' | 'mesh',
         options?: XRHandPrimitiveModelOptions,
     ): XRHandModel;
 }

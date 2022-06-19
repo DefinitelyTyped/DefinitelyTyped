@@ -76,13 +76,22 @@ export interface EditorConfig {
         | string[]
         | {
               items?: string[] | undefined;
-              viewportTopOffset?: number | undefined;
               shouldNotGroupWhenFull?: boolean | undefined;
               removeItems?: string[] | undefined;
           }
         | undefined;
     trackChanges?: TrackChangesConfig | undefined;
     typing?: TypingConfig | undefined;
+    ui?:
+        | {
+              viewportTopOffset?: {
+                  top: number;
+                  right: number;
+                  bottom: number;
+                  left: number;
+              };
+          }
+        | undefined;
     wordCount?: WordCountConfig | undefined;
 }
 

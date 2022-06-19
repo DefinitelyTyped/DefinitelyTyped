@@ -16,6 +16,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "react": ["react/v16"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

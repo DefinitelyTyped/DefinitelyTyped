@@ -71,6 +71,11 @@ export interface PlotMouseEvent {
     event: MouseEvent;
 }
 
+export interface PlotHoverEvent extends PlotMouseEvent {
+    xvals: Datum[];
+    yvals: Datum[];
+}
+
 export interface PlotCoordinate {
     x: number;
     y: number;
@@ -242,7 +247,8 @@ export interface BeforePlotEvent {
 }
 
 export interface PlotlyHTMLElement extends HTMLElement {
-    on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+    on(event: 'plotly_click' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+    on(event: 'plotly_hover', callback: (event: PlotHoverEvent) => void): void;
     on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
     on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
     on(event: 'plotly_relayout' | 'plotly_relayouting', callback: (event: PlotRelayoutEvent) => void): void;
@@ -623,7 +629,7 @@ export interface Axis {
         | 'median descending';
     categoryarray: any[];
     tickfont: Partial<Font>;
-    tickangle: "auto" | number;
+    tickangle: 'auto' | number;
     tickprefix: string;
     /**
      * If `all`, all tick labels are displayed with a prefix.
@@ -1316,7 +1322,19 @@ export interface TransformStyle {
 
 export interface TransformAggregation {
     target: string;
-    func?: 'count' | 'sum' | 'avg' | 'median' | 'mode' | 'rms' | 'stddev' | 'min' | 'max' | 'first' | 'last' | undefined;
+    func?:
+        | 'count'
+        | 'sum'
+        | 'avg'
+        | 'median'
+        | 'mode'
+        | 'rms'
+        | 'stddev'
+        | 'min'
+        | 'max'
+        | 'first'
+        | 'last'
+        | undefined;
     funcmode?: 'sample' | 'population' | undefined;
     enabled?: boolean | undefined;
 }
@@ -1363,7 +1381,7 @@ export interface ColorBar {
     tickcolor: Color;
     showticklabels: boolean;
     tickfont: Font;
-    tickangle: "auto" | number;
+    tickangle: 'auto' | number;
     tickformat: string;
     tickformatstops: Array<Partial<TickFormatStop>>;
     tickprefix: string;
@@ -1409,12 +1427,14 @@ export interface PlotMarker {
     pad?: Partial<Padding> | undefined;
     width?: number | undefined;
     colorbar?: Partial<ColorBar> | undefined;
-    gradient?: {
-        type: 'radial' | 'horizontal' | 'vertical' | 'none';
-        color: Color;
-        typesrc: any;
-        colorsrc: any;
-    } | undefined;
+    gradient?:
+        | {
+              type: 'radial' | 'horizontal' | 'vertical' | 'none';
+              color: Color;
+              typesrc: any;
+              colorsrc: any;
+          }
+        | undefined;
 }
 
 export type ScatterMarker = PlotMarker;
@@ -1584,7 +1604,7 @@ export interface Config {
      * function to add the background color to a different container
      * or 'opaque' to ensure there's white behind it
      */
-    setBackground: () => string | 'opaque' | 'transparent';
+    setBackground: ((gd: PlotlyHTMLElement, bgColor: string) => void) | 'opaque' | 'transparent';
 
     /** URL to topojson files used in geo charts */
     topojsonURL: string;
@@ -2201,29 +2221,29 @@ export interface Slider {
 }
 
 export interface CurrentValue {
-  /**
-   * Shows the currently-selected value above the slider.
-   */
-  visible: boolean;
-  /**
-   * The alignment of the value readout relative to the length of the slider.
-   */
-  xanchor: 'left' | 'center' | 'right';
-  /**
-   * The amount of space, in pixels, between the current value label
-   * and the slider.
-   */
-  offset: number;
-  /**
-   * When currentvalue.visible is true, this sets the prefix of the label.
-   */
-  prefix: string;
-  /**
-   * When currentvalue.visible is true, this sets the suffix of the label.
-   */
-  suffix: string;
-  /**
-   * Sets the font of the current value label text.
-   */
-  font: Partial<Font>;
+    /**
+     * Shows the currently-selected value above the slider.
+     */
+    visible: boolean;
+    /**
+     * The alignment of the value readout relative to the length of the slider.
+     */
+    xanchor: 'left' | 'center' | 'right';
+    /**
+     * The amount of space, in pixels, between the current value label
+     * and the slider.
+     */
+    offset: number;
+    /**
+     * When currentvalue.visible is true, this sets the prefix of the label.
+     */
+    prefix: string;
+    /**
+     * When currentvalue.visible is true, this sets the suffix of the label.
+     */
+    suffix: string;
+    /**
+     * Sets the font of the current value label text.
+     */
+    font: Partial<Font>;
 }

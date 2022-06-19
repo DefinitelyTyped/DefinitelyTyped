@@ -10,8 +10,8 @@
 
 /// <reference path="helpers.d.ts" />
 
-import { JSONSchema4 } from "json-schema";
 import * as ESTree from "estree";
+import { JSONSchema4 } from "json-schema";
 
 export namespace AST {
     type TokenType =
@@ -763,6 +763,15 @@ export namespace Linter {
         suggestions?: LintSuggestion[] | undefined;
     }
 
+    interface LintSuppression {
+        kind: string;
+        justification: string;
+    }
+
+    interface SuppressedLintMessage extends LintMessage {
+        suppressions: LintSuppression[];
+    }
+
     interface FixOptions extends LintOptions {
         fix?: boolean | undefined;
     }
@@ -828,6 +837,20 @@ export class ESLint {
 }
 
 export namespace ESLint {
+    type ConfigData<Rules extends Linter.RulesRecord = Linter.RulesRecord> = Omit<Linter.Config<Rules>, "$schema">;
+
+    interface Environment {
+        globals?: { [name: string]: boolean; } | undefined;
+        parserOptions?: Linter.ParserOptions | undefined;
+    }
+
+    interface Plugin {
+        configs?: Record<string, ConfigData> | undefined;
+        environments?: Record<string, Environment> | undefined;
+        processors?: Record<string, Linter.Processor> | undefined;
+        rules?: Record<string, ((...args: any[]) => any) | Rule.RuleModule> | undefined;
+    }
+
     interface Options {
         // File enumeration
         cwd?: string | undefined;
@@ -842,7 +865,7 @@ export namespace ESLint {
         baseConfig?: Linter.Config | undefined;
         overrideConfig?: Linter.Config | undefined;
         overrideConfigFile?: string | undefined;
-        plugins?: Record<string, any> | undefined;
+        plugins?: Record<string, Plugin> | undefined;
         reportUnusedDisableDirectives?: Linter.RuleLevel | undefined;
         resolvePluginsRelativeTo?: string | undefined;
         rulePaths?: string[] | undefined;
@@ -861,6 +884,7 @@ export namespace ESLint {
     interface LintResult {
         filePath: string;
         messages: Linter.LintMessage[];
+        suppressedMessages: Linter.SuppressedLintMessage[];
         errorCount: number;
         fatalErrorCount: number;
         warningCount: number;

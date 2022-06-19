@@ -2,8 +2,8 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
-and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
 
@@ -423,7 +423,7 @@ No. We've explored trying to make DT's code-formatting consistent before but rea
 
 #### Can I request a definition?
 
-Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### What about type definitions for the DOM?
 
@@ -602,10 +602,6 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
   }
 }
 ```
-
-#### The file history in GitHub looks incomplete.
-
-GitHub doesn't [support](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
 ## License
 

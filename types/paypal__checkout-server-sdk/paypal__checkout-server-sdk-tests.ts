@@ -31,9 +31,23 @@ ordersCreateRequest.requestBody({
                 currency_code: 'USD',
                 value: '100.00',
             },
+            payee: { email_address: 'sendMoreMoney@me.com' },
         },
     ],
+    application_context: {
+        shipping_preference: 'NO_SHIPPING',
+        user_action: 'CONTINUE',
+    },
 });
+
+ordersPatchRequest.requestBody([
+    {
+        from: '',
+        op: paypal.orders.Operation.REPLACE,
+        path: `/purchase_units/@reference_id=='default'/shipping/type`,
+        value: 'SHIPPING',
+    },
+]);
 
 async () => {
     const ordersAuthorizeResponse = await client.execute(ordersAuthorizeRequest);

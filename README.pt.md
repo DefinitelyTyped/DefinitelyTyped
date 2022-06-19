@@ -350,7 +350,7 @@ Então eles estão errados, e nós não notamos ainda. Você pode ajudar enviand
 
 #### Posso requisitar uma definição?
 
-Aqui estão as [definições requisitadas atualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Aqui estão as [definições requisitadas atualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### Mas e as definições de tipo para a DOM?
 
@@ -522,11 +522,6 @@ Quando `dts-gen` for usado para montar um pacote com escopo, a propriedade `path
     }
 }
 ```
-
-
-#### O histórico do arquivo no GitHub parece incompleto.
-
-O GitHub não [suporta](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) histórico de arquivos renomeados. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) ao invés disso.
 
 ## Licença
 

@@ -368,6 +368,14 @@ async function testPromisify() {
 })();
 
 {
+    fs.open('test', (err, fd) => {});
+    fs.open('test', 'r', (err, fd) => {});
+    fs.open('test', undefined, (err, fd) => {});
+    fs.open('test', 'r', 0o666, (err, fd) => {});
+    fs.open('test', 'r', undefined, (err, fd) => {});
+}
+
+{
     fs.opendir('test', async (err, dir) => {
         const dirEnt: fs.Dirent | null = await dir.read();
     });
@@ -687,17 +695,21 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.rand
 }
 
 {
-    fs.promises.open('/dev/input/event0', 'r').then((fd) => {
+    fs.promises.open('/dev/input/event0').then(fd => {
         // Create a stream from some character device.
         const stream = fd.createReadStream(); // $ExpectType ReadStream
         stream.close();
         stream.push(null);
         stream.read(0);
     });
-}
-
-{
-    fs.promises.open('/tmp/tmp.txt', 'w').then((fd) => {
+    fs.promises.open('/dev/input/event0', 'r').then(fd => {
+        // Create a stream from some character device.
+        const stream = fd.createReadStream(); // $ExpectType ReadStream
+        stream.close();
+        stream.push(null);
+        stream.read(0);
+    });
+    fs.promises.open('/tmp/tmp.txt', 'w', 0o666).then(fd => {
         // Create a stream from some character device.
         const stream = fd.createWriteStream(); // $ExpectType WriteStream
         stream.close();

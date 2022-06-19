@@ -1,4 +1,4 @@
-// Type definitions for pubnub 4.29
+// Type definitions for pubnub 7.0
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
@@ -10,6 +10,7 @@
 //                  elviswolcott <https://github.com/elviswolcott>
 //                  mohitpubnub <https://github.com/mohitpubnub>
 //                  Salet <https://github.com/Salet>
+//                  elvis-pn <https://github.com/elvis-pn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
 // TypeScript Version: 3.5
@@ -167,191 +168,6 @@ declare class Pubnub {
     publishFile(params: Pubnub.PublishFileParameters, callback: Callback<Pubnub.PublishFileResponse>): void;
 
     publishFile(params: Pubnub.PublishFileParameters): Promise<Pubnub.PublishFileResponse>;
-
-    // objects v1
-
-    /**
-     * deprecated: For objects v2, use objects.setUUIDMetadata
-     */
-    createUser(params: Pubnub.UserInputParameters, callback: Callback<Pubnub.GetUserResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.setUUIDMetadata
-     */
-    createUser(params: Pubnub.UserInputParameters): Promise<Pubnub.GetUserResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.setUUIDMetadata
-     */
-    updateUser(params: Pubnub.UserInputParameters, callback: Callback<Pubnub.GetUserResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.setUUIDMetadata
-     */
-    updateUser(params: Pubnub.UserInputParameters): Promise<Pubnub.GetUserResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.removeUUIDMetadata
-     */
-    deleteUser(userId: string, callback: Callback<Pubnub.DeleteUserResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.removeUUIDMetadata
-     */
-    deleteUser(userId: string): Promise<Pubnub.DeleteUserResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.getAllUUIDMetadata
-     */
-    getUsers(params: Pubnub.GetObjectsParameters, callback: Callback<Pubnub.GetUsersResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.getAllUUIDMetadata
-     */
-    getUsers(params: Pubnub.GetObjectsParameters): Promise<Pubnub.GetUsersResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.getUUIDMetadata
-     */
-    getUser(params: Pubnub.GetUserParameters, callback: Callback<Pubnub.GetUserResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.getUUIDMetadata
-     */
-    getUser(params: Pubnub.GetUserParameters): Promise<Pubnub.GetUserResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.setChannelMetadata
-     */
-    createSpace(params: Pubnub.SpaceInputParameters, callback: Callback<Pubnub.GetSpaceResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.setChannelMetadata
-     */
-    createSpace(params: Pubnub.SpaceInputParameters): Promise<Pubnub.GetSpaceResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.setChannelMetadata
-     */
-    updateSpace(params: Pubnub.SpaceInputParameters, callback: Callback<Pubnub.GetSpaceResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.setChannelMetadata
-     */
-    updateSpace(params: Pubnub.SpaceInputParameters): Promise<Pubnub.GetSpaceResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.removeChannelMetadata
-     */
-    deleteSpace(spaceId: string, callback: Callback<Pubnub.DeleteSpaceResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.removeChannelMetadata
-     */
-    deleteSpace(spaceId: string): Promise<Pubnub.DeleteSpaceResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.getAllChannelMetadata
-     */
-    getSpaces(params: Pubnub.GetObjectsParameters, callback: Callback<Pubnub.GetSpacesResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.getAllChannelMetadata
-     */
-    getSpaces(params: Pubnub.GetObjectsParameters): Promise<Pubnub.GetSpacesResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.getChannelMetadata
-     */
-    getSpace(params: Pubnub.GetSpaceParameters, callback: Callback<Pubnub.GetSpaceResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.getChannelMetadata
-     */
-    getSpace(params: Pubnub.GetSpaceParameters): Promise<Pubnub.GetSpaceResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.getMemberships
-     */
-    getMemberships(params: Pubnub.GetMembershipsParameters, callback: Callback<Pubnub.GetMembershipsResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.getMemberships
-     */
-    getMemberships(params: Pubnub.GetMembershipsParameters): Promise<Pubnub.GetMembershipsResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.getChannelMembers
-     */
-    getMembers(params: Pubnub.GetMembersParameters, callback: Callback<Pubnub.GetMembersResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.getChannelMembers
-     */
-    getMembers(params: Pubnub.GetMembersParameters): Promise<Pubnub.GetMembersResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.setMemberships
-     */
-    joinSpaces(params: Pubnub.MembershipsInputParameters, callback: Callback<Pubnub.GetMembershipsResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.setMemberships
-     */
-    joinSpaces(params: Pubnub.MembershipsInputParameters): Promise<Pubnub.GetMembershipsResponse>;
-
-    /**
-     * deprecated: removed in objects v2
-     */
-    updateMemberships(
-        params: Pubnub.MembershipsInputParameters,
-        callback: Callback<Pubnub.GetMembershipsResponse>,
-    ): void;
-
-    /**
-     * deprecated: removed in objects v2
-     */
-    updateMemberships(params: Pubnub.MembershipsInputParameters): Promise<Pubnub.GetMembershipsResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.removeMemberships
-     */
-    leaveSpaces(params: Pubnub.LeaveSpacesParameters, callback: Callback<Pubnub.GetMembershipsResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.removeMemberships
-     */
-    leaveSpaces(params: Pubnub.LeaveSpacesParameters): Promise<Pubnub.GetMembershipsResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.setChannelMembers
-     */
-    addMembers(params: Pubnub.MembersInputParameters, callback: Callback<Pubnub.GetMembersResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.setChannelMembers
-     */
-    addMembers(params: Pubnub.MembersInputParameters): Promise<Pubnub.GetMembersResponse>;
-
-    /**
-     * deprecated: removed in objects v2
-     */
-    updateMembers(params: Pubnub.MembersInputParameters, callback: Callback<Pubnub.GetMembersResponse>): void;
-
-    /**
-     * deprecated: removed in objects v2
-     */
-    updateMembers(params: Pubnub.MembersInputParameters): Promise<Pubnub.GetMembersResponse>;
-
-    /**
-     * deprecated: For objects v2, use objects.removeChannelMembers
-     */
-    removeMembers(params: Pubnub.RemoveMembersParameters, callback: Callback<Pubnub.GetMembersResponse>): void;
-
-    /**
-     * deprecated: For objects v2, use objects.removeChannelMembers
-     */
-    removeMembers(params: Pubnub.RemoveMembersParameters): Promise<Pubnub.GetMembersResponse>;
 
     // objects v2
     objects: {
@@ -534,6 +350,7 @@ declare namespace Pubnub {
             maxSockets?: number | undefined;
             maxFreeSockets?: number | undefined;
         } | undefined;
+        subscribeRequestTimeout?: number | undefined;
         suppressLeaveEvents?: boolean | undefined;
         secretKey?: string | undefined;
         requestMessageCountThreshold?: number | undefined;
@@ -598,60 +415,6 @@ declare namespace Pubnub {
         subscription: string;
         timetoken: string;
         message: any;
-        publisher: string;
-    }
-
-    /**
-     * deprecated: For objects v2, use objects.the ObjectsEvent
-     */
-    interface UserEvent {
-        channel: string;
-        subscription: string;
-        timetoken: string;
-        message: {
-            event: string;
-            type: string;
-            data: UserData;
-        };
-        publisher: string;
-    }
-
-    /**
-     * deprecated: For objects v2, use objects.the ObjectsEvent
-     */
-    interface SpaceEvent {
-        channel: string;
-        subscription: string;
-        timetoken: string;
-        message: {
-            event: string;
-            type: string;
-            data: SpaceData;
-        };
-        publisher: string;
-    }
-
-    interface MembershipData {
-        userId: string;
-        spaceId: string;
-        eTag: string;
-        created: string;
-        updated: string;
-        custom?: object | null | undefined;
-    }
-
-    /**
-     * deprecated: For objects v2, use objects.the ObjectsEvent
-     */
-    interface MembershipEvent {
-        channel: string;
-        subscription: string;
-        timetoken: string;
-        message: {
-            event: string;
-            type: string;
-            data: MembershipData;
-        };
         publisher: string;
     }
 
@@ -989,21 +752,6 @@ declare namespace Pubnub {
 
         signal?(signalEvent: SignalEvent): void;
 
-        /**
-         * deprecated: For objects v2, use objects.the objects listener
-         */
-        user?(userEvent: UserEvent): void;
-
-        /**
-         * deprecated: For objects v2, use objects.the objects listener
-         */
-        space?(spaceEvent: SpaceEvent): void;
-
-        /**
-         * deprecated: For objects v2, use objects.the objects listener
-         */
-        membership?(membershipEvent: MembershipEvent): void;
-
         messageAction?(messageActionEvent: MessageActionEvent): void;
 
         file?(fileEvent: FileEvent): void;
@@ -1136,135 +884,7 @@ declare namespace Pubnub {
         data: object;
     }
 
-    // Objects v1
-    // Object
-
-    interface ObjectData {
-        id: string;
-        eTag: string;
-        created: string;
-        updated: string;
-        custom?: {
-            [key: string]: string;
-        } | null | undefined;
-    }
-
-    interface GetObjectsParameters {
-        limit?: number | undefined;
-        page?: {
-            next?: string | undefined;
-            prev?: string | undefined;
-        } | undefined;
-        include?: {
-            customFields?: boolean | undefined;
-        } | undefined;
-    }
-
-    type DeleteObjectResponse = ObjectsResponse<null>;
-
-    // User
-    interface UserData extends ObjectData {
-        name: string;
-        externalId?: string | null | undefined;
-        profileUrl?: string | null | undefined;
-        email?: string | null | undefined;
-    }
-
-    interface UserInputParameters {
-        id: string;
-        name: string;
-        externalId?: string | null | undefined;
-        profileUrl?: string | null | undefined;
-        email?: string | null | undefined;
-        custom?: object | null | undefined;
-        include?: {
-            customFields?: boolean | undefined;
-        } | undefined;
-    }
-
-    type GetUsersResponse = ObjectsResponse<UserData[]>;
-
-    type DeleteUserResponse = ObjectsResponse<null>;
-
-    interface GetUserParameters {
-        userId: string;
-        include?: {
-            customFields?: boolean | undefined;
-        } | undefined;
-    }
-
-    type GetUserResponse = ObjectsResponse<UserData>;
-
-    // Space
-    interface SpaceData extends ObjectData {
-        id: string;
-        name: string;
-        description?: string | null | undefined;
-    }
-
-    interface SpaceInputParameters {
-        id: string;
-        name: string;
-        description?: string | null | undefined;
-        custom?: object | null | undefined;
-        include?: {
-            customFields?: boolean | undefined;
-        } | undefined;
-    }
-
-    type DeleteSpaceResponse = ObjectsResponse<null>;
-
-    type GetSpacesResponse = PagedObjectsResponse<SpaceData>;
-
-    interface GetSpaceParameters {
-        spaceId: string;
-        include?: {
-            customFields?: boolean | undefined;
-        } | undefined;
-    }
-
-    type GetSpaceResponse = ObjectsResponse<SpaceData>;
-
-    // Memberships
-    interface GetMembershipsParameters extends GetObjectsParameters {
-        userId: string;
-    }
-
-    type GetMembershipsResponse = PagedObjectsResponse<ObjectData>;
-
-    interface MembershipsInputParameters extends GetObjectsParameters {
-        userId: string;
-        spaces: Array<{
-            id: string;
-            custom?: object | null | undefined;
-        }>;
-    }
-
-    interface LeaveSpacesParameters extends GetObjectsParameters {
-        userId: string;
-        spaces: string[];
-    }
-
-    // Member
-    interface GetMembersParameters extends GetObjectsParameters {
-        spaceId: string;
-    }
-
-    type GetMembersResponse = PagedObjectsResponse<ObjectData>;
-
-    interface MembersInputParameters extends GetObjectsParameters {
-        spaceId: string;
-        users: Array<{
-            id: string;
-            custom?: object | null | undefined;
-        }>;
-    }
-
-    interface RemoveMembersParameters extends GetObjectsParameters {
-        spaceId: string;
-        users: string[];
-    }
-
+    // message actions
     interface AddMessageActionParameters {
         channel: string;
         messageTimetoken: string;

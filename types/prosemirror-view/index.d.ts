@@ -11,7 +11,7 @@
 // TypeScript Version: 3.0
 
 import { DOMParser, DOMSerializer, Node as ProsemirrorNode, ResolvedPos, Slice, Schema, Mark } from 'prosemirror-model';
-import { EditorState, Selection, Transaction } from 'prosemirror-state';
+import { EditorState, Selection, Transaction, Plugin } from 'prosemirror-state';
 import { Mapping } from 'prosemirror-transform';
 
 // Exported for testing
@@ -672,7 +672,7 @@ export type HandleDOMEventsProp<ThisT = unknown, S extends Schema = any> = Parti
     [key: string]: (this: ThisT, view: EditorView<S>, event: any) => boolean;
 };
 /**
- * The props object given directly to the editor view supports two
+ * The props object given directly to the editor view supports some
  * fields that can't be used in plugins:
  */
 export interface DirectEditorProps<S extends Schema = any> extends EditorProps<unknown, S> {
@@ -680,6 +680,18 @@ export interface DirectEditorProps<S extends Schema = any> extends EditorProps<u
      * The current state of the editor.
      */
     state: EditorState<S>;
+
+    /**
+     * A set of plugins to use in the view, applying their [plugin
+     * view](#state.PluginSpec.view) and
+     * [props](#state.PluginSpec.props). Passing plugins with a state
+     * component (a [state field](#state.PluginSpec.state) field or a
+     * [transaction](#state.PluginSpec.filterTransaction) filter or
+     * appender) will result in an error, since such plugins must be
+     * present in the state to work.
+     */
+    plugins?: Plugin[];
+
     /**
      * The callback over which to send transactions (state updates)
      * produced by the view. If you specify this, you probably want to

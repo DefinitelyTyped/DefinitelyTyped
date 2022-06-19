@@ -1196,7 +1196,7 @@ declare namespace SpotifyApi {
         added_at: string;
         added_by: UserObjectPublic;
         is_local: boolean;
-        track: TrackObjectFull;
+        track: TrackObjectFull | null;
     }
 
     /**
@@ -1614,7 +1614,7 @@ declare namespace SpotifyApi {
      * [](https://developer.spotify.com/web-api/web-api-personalization-endpoints/get-recently-played/#play-history-object)
      */
     interface PlayHistoryObject {
-        track: TrackObjectSimplified;
+        track: TrackObjectFull;
         played_at: string;
         context: ContextObject;
     }

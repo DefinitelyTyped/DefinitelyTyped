@@ -308,7 +308,7 @@ Entonces están equivocados. Puedes ayudar enviando un pull request para arregla
 
 #### Puedo pedir una definition?
 
-Aquí están las [definiciones solicitadas actualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
+Aquí están las [definiciones solicitadas actualmente](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package).
 
 #### ¿Qué pasa con las type definitions para el DOM?
 
@@ -385,10 +385,6 @@ Cuando `dts-gen` es utilizado como scaffold en un paquete scoped, las propiedade
     }
 }
 ```
-
-#### El historial de archivos en GitHub parece incompleto.
-
-GitHub no le hace [support](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) historial de archivos para archivos renombrados. Utilice [`git log --follow`](https://www.git-scm.com/docs/git-log) en su lugar.
 
 #### Debería añadir un namespace que no exporte un módulo que utilice que utilice imports estilo ES6?
 

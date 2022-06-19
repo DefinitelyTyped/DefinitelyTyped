@@ -275,12 +275,18 @@ jest.autoMockOff()
     .doMock('moduleName', jest.fn())
     .doMock('moduleName', jest.fn(), {})
     .doMock('moduleName', jest.fn(), { virtual: true })
+    .doMock<{animal: string}>('moduleName', () => ({animal: 'cat'}))
+    // $ExpectError
+    .doMock<{animal: string}>('moduleName', () => ({name: 'tom'}))
     .dontMock('moduleName')
     .enableAutomock()
     .mock('moduleName')
     .mock('moduleName', jest.fn())
     .mock('moduleName', jest.fn(), {})
     .mock('moduleName', jest.fn(), { virtual: true })
+    .mock<{animal: string}>('moduleName', () => ({animal: 'cat'}))
+    // $ExpectError
+    .mock<{animal: string}>('moduleName', () => ({name: 'tom'}))
     .resetModules()
     .isolateModules(() => {})
     .retryTimes(3)
@@ -300,9 +306,14 @@ jest.autoMockOff()
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
 
-// https://jestjs.io/docs/en/jest-object#jestusefaketimersimplementation-modern--legacy
-jest.useFakeTimers('modern');
+// https://jestjs.io/docs/configuration#faketimers-object
+jest.useFakeTimers();
+jest.useFakeTimers({ legacyFakeTimers: false });
+jest.useFakeTimers({ timerLimit: 50 });
+// $ExpectError
 jest.useFakeTimers('legacy');
+// $ExpectError
+jest.useFakeTimers('modern');
 // $ExpectError
 jest.useFakeTimers('foo');
 
@@ -637,16 +648,21 @@ const module = {
 const mockedModule = module as jest.Mocked<typeof module>;
 mockedModule.testFunction.mock.calls[0][0]; // $ExpectType number
 mockedModule.testFunction.mock.calls[0][1]; // $ExpectType string
+mockedModule.testFunction.mock.lastCall[0]; // $ExpectType number
+mockedModule.testFunction.mock.lastCall[1]; // $ExpectType string
 const testFunction_0_ret = mockedModule.testFunction.mock.results[0];
 if (testFunction_0_ret.type === 'return') {
     testFunction_0_ret.value; // $ExpectType boolean
 }
 
 mockedModule.TestClass.mock.calls[0][0]; // $ExpectType string
+mockedModule.TestClass.mock.lastCall[0]; // $ExpectType string
 mockedModule.TestClass.mock.instances[0]; // $ExpectType TestClass
 
 mockedModule.TestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 mockedModule.TestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
+mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
+mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
 const TestClass_testClassMethod_0_ret = mockedModule.TestClass.prototype.testClassMethod.mock.results[0];
 if (TestClass_testClassMethod_0_ret.type === 'return') {
     TestClass_testClassMethod_0_ret.value; // $ExpectType boolean
@@ -655,6 +671,8 @@ if (TestClass_testClassMethod_0_ret.type === 'return') {
 const mockedTestFunction = module.testFunction as jest.MockedFunction<typeof module.testFunction>;
 mockedTestFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestFunction.mock.calls[0][1]; // $ExpectType string
+mockedTestFunction.mock.lastCall[0]; // $ExpectType number
+mockedTestFunction.mock.lastCall[1]; // $ExpectType string
 const mockedTestFunction_0_ret = mockedTestFunction.mock.results[0];
 if (mockedTestFunction_0_ret.type === 'return') {
     mockedTestFunction_0_ret.value; // $ExpectType boolean
@@ -663,6 +681,8 @@ if (mockedTestFunction_0_ret.type === 'return') {
 const mockedTestLambdaFunction = module.testLambdaFunction as jest.MockedFunction<typeof module.testLambdaFunction>;
 mockedTestLambdaFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestLambdaFunction.mock.calls[0][1]; // $ExpectType string
+mockedTestLambdaFunction.mock.lastCall[0]; // $ExpectType number
+mockedTestLambdaFunction.mock.lastCall[1]; // $ExpectType string
 const mockedTestLambdaFunction_0_ret = mockedTestLambdaFunction.mock.results[0];
 if (mockedTestLambdaFunction_0_ret.type === 'return') {
     mockedTestLambdaFunction_0_ret.value; // $ExpectType boolean
@@ -671,6 +691,8 @@ if (mockedTestLambdaFunction_0_ret.type === 'return') {
 const MockedTestClass = module.TestClass as jest.MockedClass<typeof module.TestClass>;
 MockedTestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 MockedTestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
+MockedTestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
+MockedTestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
 const MockedTestClass_testClassMethod_0_ret = mockedModule.TestClass.prototype.testClassMethod.mock.results[0];
 if (MockedTestClass_testClassMethod_0_ret.type === 'return') {
     MockedTestClass_testClassMethod_0_ret.value; // $ExpectType boolean
@@ -941,6 +963,9 @@ describe('', () => {
 
         expect(0).toBeLessThanOrEqual(1);
 
+        expect(1.230000003).toBeCloseTo(1.23);
+        expect(1.230000003).toBeCloseTo(1.23, 2);
+
         expect(null).toBeNull();
         expect(undefined).toBeNull();
 
@@ -1027,12 +1052,14 @@ describe('', () => {
             two: '2',
             three: 3,
             four: { four: 3 },
+            five: 5.0000001,
             date: new Date(),
         }).toMatchSnapshot({
             one: expect.any(Number),
             // Leave 'two' to the auto-generated snapshot
             three: 3,
             four: { four: expect.any(Number) },
+            five: expect.closeTo(5, 1),
             date: expect.any(Date),
         });
 
