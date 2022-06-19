@@ -145,6 +145,11 @@ declare namespace chrome.action {
         tabId?: number | undefined;
     }
 
+    export interface OpenPopupOptions {
+        /** The id of the window to open the action popup in. Defaults to the currently-active window if unspecified. */
+        windowId?: number
+    }
+
     /**
      * Since Chrome 88.
      * Disables the action for a tab.
@@ -241,6 +246,14 @@ declare namespace chrome.action {
     export function getTitle(details: TabDetails): Promise<string>;
 
     /**
+     * Since Chrome 99.
+     * Opens the extension's popup.
+     * @param callback The callback parameter looks like:
+     * () => {...}
+     */
+    export function openPopup(options?: OpenPopupOptions, callback?: () => void): Promise<void>;
+
+    /**
      * Since Chrome 88.
      * Sets the background color for the badge.
      * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -308,6 +321,8 @@ declare namespace chrome.action {
      * () => {...}
      */
     export function setTitle(details: TitleDetails, callback?: () => void): void;
+
+
 
     /** Fired when an action icon is clicked. This event will not fire if the action has a popup. */
     export var onClicked: BrowserClickedEvent;
