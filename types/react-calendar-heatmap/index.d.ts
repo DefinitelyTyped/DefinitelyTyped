@@ -5,38 +5,38 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, FunctionComponentElement, ReactElement, ReactNode } from 'react';
+import * as React from 'react';
 
-type DateType = Date | string | number;
+type HeatmapDate = Date | string | number;
 
 interface HeatmapValue {
-    date: DateType;
+    date: HeatmapDate;
     count: number;
 }
 
 interface HeatmapProps {
-    values: HeatmapValue[];
-    startDate?: DateType;
-    endDate?: DateType;
-    showMonthLabels?: boolean;
-    showWeekdayLabels?: boolean;
-    showOutOfRangeDays?: boolean;
-    horizontal?: boolean;
+    classForValue?: (value: HeatmapValue) => React.ReactNode;
+    endDate?: HeatmapDate;
     gutterSize?: number;
-    onClick?: (value: HeatmapValue) => void;
-    onMouseOver?: (e: any, value: HeatmapValue) => void;
-    onMouseLeave?: (e: any, value: HeatmapValue) => void;
-    titleForValue?: (value: HeatmapValue) => ReactNode;
-    tooltipDataAttrs?: object | ((value: HeatmapValue) => object);
-    classForValue?: (value: HeatmapValue) => ReactNode;
+    horizontal?: boolean;
     monthLabels?: string[];
-    weekdayLabels?: string[];
+    onClick?: (value: HeatmapValue) => void;
+    onMouseLeave?: (e: any, value: HeatmapValue) => void;
+    onMouseOver?: (e: any, value: HeatmapValue) => void;
+    showMonthLabels?: boolean;
+    showOutOfRangeDays?: boolean;
+    showWeekdayLabels?: boolean;
+    startDate?: HeatmapDate;
+    titleForValue?: (value: HeatmapValue) => React.ReactNode;
+    tooltipDataAttrs?: object | ((value: HeatmapValue) => object);
     transformDayElement?: (
-        element: FunctionComponentElement<{ 'data-test': string }>,
+        element: React.FunctionComponentElement<{ 'data-test': string }>,
         value: HeatmapValue,
         index: number,
-    ) => ReactElement;
+    ) => React.ReactElement;
+    values: HeatmapValue[];
+    weekdayLabels?: string[];
 }
 
-declare class ReactCalendarHeatmap extends Component<HeatmapProps> {}
+declare class ReactCalendarHeatmap extends React.Component<HeatmapProps> {}
 export = ReactCalendarHeatmap;

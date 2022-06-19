@@ -1,5 +1,5 @@
 import * as React from 'react';
-import CalendarHeatmap from 'react-calendar-heatmap';
+import CalendarHeatmap = require('react-calendar-heatmap');
 
 const basic = (
     <CalendarHeatmap
