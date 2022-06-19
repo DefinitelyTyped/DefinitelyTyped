@@ -282,16 +282,24 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
+    function spyOn<
+        T extends {},
+        M extends keyof T,
+        A extends M extends NonFunctionPropertyNames<Required<T>> ? 'get' | 'set' : never
+            = M extends NonFunctionPropertyNames<Required<T>> ? 'get' | 'set' : never,
+    >(
         object: T,
         method: M,
-        accessType: 'get'
-    ): SpyInstance<Required<T>[M], []>;
-    function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
-        object: T,
-        method: M,
-        accessType: 'set'
-    ): SpyInstance<void, [Required<T>[M]]>;
+        accessType: A,
+    ): M extends NonFunctionPropertyNames<Required<T>>
+        ? A extends 'set'
+            ? SpyInstance<void, [Required<T>[M]]>
+            : SpyInstance<Required<T>[M], []>
+        : Required<T>[M] extends new (...args: any[]) => any
+        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
+        : Required<T>[M] extends (...args: any) => any
+        ? SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>>
+        : never;
     function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
         object: T,
         method: M
