@@ -3019,9 +3019,39 @@ declare namespace asana {
              */
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams,
+                params?: Typeahead.TypeaheadParams & { resource_type: 'custom_field' },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<CustomFields.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: 'project' },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Projects.Type>>;
+            // typeaheadForWorkspace(
+            //     workspaceGid: string,
+            //     params?: Typeahead.TypeaheadParams & { resource_type: 'portfolio' },
+            //     dispatchOptions?: any,
+            // ): Promise<ResourceList<Portfolios.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: 'tag' },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tags.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: 'task' },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tasks.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: 'user' },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Users.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Resource>>;
         }
     }
 

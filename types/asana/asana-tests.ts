@@ -253,3 +253,55 @@ client.sections.findById('123').then((section) => {
 });
 
 client.userTaskLists.findByUser('123', {workspace: '456'});
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'custom_field', query: 'foo'})
+    .then((customFields) => {
+        const customField = customFields.data[0];
+        // $ExpectError
+        customField.completed_at;
+    });
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'project', query: 'foo'})
+    .then((projects) => {
+        const project = projects.data[0];
+        // $ExpectType string
+        project.color;
+        // $ExpectError
+        tag.completed_at;
+    });
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'portfolio', query: 'foo'})
+    .then((portfolios) => {
+        const portfolio = portfolios.data[0];
+        // $ExpectError
+        portfolio.completed_at;
+    });
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'tag', query: 'foo'})
+    .then((tags) => {
+        const tag = tags.data[0];
+        // $ExpectType string
+        tag.notes;
+        // $ExpectError
+        tag.completed_at;
+    });
+
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'task', query: 'foo'})
+    .then((tasks: asana.resources.ResourceList<asana.resources.Tasks.Type>) => {
+        const task = tasks.data[0];
+        // $ExpectType string
+        task.completed_at;
+        // $ExpectError
+        task.color;
+    });
+
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'user', query: 'foo'})
+    .then((users) => {
+        const user = users.data[0];
+        // $ExpectType Resource[]
+        user.workspaces;
+        // $ExpectError
+        user.completed_at;
+    });
