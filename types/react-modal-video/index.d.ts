@@ -5,7 +5,56 @@
 // Minimum TypeScript Version: 4.1
 
 import * as React from 'react';
-import { VimeoApi, YoukuApi, YoutubeApi } from './vendors';
+
+interface VimeoApi {
+    api?: boolean;
+    autopause?: boolean;
+    autoplay?: boolean;
+    byline?: boolean;
+    callback?: string;
+    color?: string;
+    height?: number;
+    loop?: boolean;
+    maxheight?: number;
+    maxwidth?: number;
+    player_id?: string;
+    portrait?: boolean;
+    title?: boolean;
+    width?: boolean;
+    xhtml?: true;
+    [key: string]: any;
+}
+interface YoutubeApi {
+    autoplay?: 0 | 1;
+    cc_load_policy?: 0 | 1;
+    color?: 'red | white';
+    controls?: 0 | 1;
+    disablekb?: 0 | 1;
+    enablejsapi?: 0 | 1;
+    end?: number;
+    fs?: 0 | 1;
+    h1?: string;
+    iv_load_policy?: 0 | 1;
+    list?: string;
+    listType?: 'playlist' | 'user_uploads';
+    loop?: 0 | 1;
+    modestbranding?: 0 | 1;
+    origin?: string;
+    playlist?: `${string},${string}`;
+    playsinline?: 0 | 1;
+    rel?: 0 | 1;
+    showinfo?: 0 | 1;
+    start?: 0 | 1;
+    wmode?: string;
+    theme?: string;
+    mute?: 0 | 1;
+    [key: string]: any;
+}
+interface YoukuApi {
+    autoplay?: 1 | 0;
+    show_related?: 1 | 0;
+    [key: string]: any;
+}
 
 interface Vendor {
     /**
@@ -50,7 +99,7 @@ export interface Aria {
     openMessage: string;
     dismissBtnMessage: string;
 }
-export interface ModalVideoBaseProps {
+interface ModalVideoBaseProps {
     /**
      * @default false
      */
@@ -84,7 +133,7 @@ export interface ModalVideoBaseProps {
      * @default
      * {
      *      openMessage: 'You just opened the modal video';
-     *       dismissBtnMessage: 'Close the modal by clicking here';
+     *      dismissBtnMessage: 'Close the modal by clicking here';
      *  }
      */
     aria: Aria;
@@ -114,5 +163,5 @@ declare class ModalVideo extends React.Component<ModalVideoProps> {
         ratio: '16:9';
     };
 }
-export { VimeoApi, YoukuApi, YoutubeApi } from './vendors';
+
 export default ModalVideo;
