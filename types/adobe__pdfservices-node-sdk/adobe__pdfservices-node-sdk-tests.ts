@@ -1,4 +1,5 @@
 import {
+    Error,
     Credentials,
     ExecutionContext,
     ExportPDF,
@@ -82,7 +83,11 @@ function createPDF() {
     createPDFOperation
         .execute(executionContext)
         .then(result => result.saveAsFile('output/createPDF.pdf'))
-        .catch(err => {});
+        .catch(err => {
+            if (err instanceof Error.ServiceApiError || err instanceof Error.ServiceUsageError) {
+            } else {
+            }
+        });
 }
 
 function deletePages() {
@@ -276,7 +281,7 @@ function pdfProperties() {
 
     pdfPropertiesOperation
         .execute(clientContext)
-        .then(result => new Error(result))
+        .then(result => {})
         .catch(err => {});
 }
 

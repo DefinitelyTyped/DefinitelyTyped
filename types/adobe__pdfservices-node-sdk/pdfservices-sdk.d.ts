@@ -36,6 +36,8 @@ import { ReplacePagesOperation } from './operation/replace-pages-operation';
 import { RotatePagesOperation } from './operation/rotate-pages-operation';
 import { SplitPDFOperation } from './operation/split-pdf-operation';
 
+import { ServiceApiError } from './error/service-api-error';
+import { ServiceUsageError } from './error/service-usage-error';
 import { Credentials } from './auth/credentials';
 import { ClientConfig } from './client-config';
 import { ExecutionContext } from './execution-context';
@@ -384,8 +386,8 @@ export namespace PDFProperties {
     }
 }
 export namespace Error {
-    const ServiceApiError: any;
-    const ServiceUsageError: any;
+    export { ServiceApiError };
+    export { ServiceUsageError };
 }
 export const Fragments: FragmentsType;
 export { Credentials, ClientConfig, ExecutionContext, FileRef, PageRanges };
