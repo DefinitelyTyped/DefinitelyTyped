@@ -1,4 +1,4 @@
-import './index.d';
+import 'react-native-get-random-values';
 
 (() => {
     const arr: Uint8Array = crypto.getRandomValues(new Uint8Array(1));
