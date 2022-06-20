@@ -1147,7 +1147,7 @@ namespace MeteorTests {
 
     // Covers https://github.com/meteor-typings/meteor/issues/18
     if (Meteor.isDevelopment) {
-        Rooms._dropIndex({ field: 1 });
+        Rooms._dropIndex('indexName');
     }
 
     // Covers https://github.com/meteor-typings/meteor/issues/20

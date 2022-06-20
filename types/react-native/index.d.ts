@@ -4826,10 +4826,11 @@ export interface ModalBaseProps {
      */
     visible?: boolean | undefined;
     /**
-     * The `onRequestClose` prop allows passing a function that will be called once the modal has been dismissed.
-     * _On the Android platform, this is a required function._
+     * The `onRequestClose` callback is called when the user taps the hardware back button on Android or the menu button on Apple TV.
+     *
+     * This is required on Apple TV and Android.
      */
-    onRequestClose?: (() => void) | undefined;
+    onRequestClose?: ((event: NativeSyntheticEvent<any>) => void) | undefined;
     /**
      * The `onShow` prop allows passing a function that will be called once the modal has been shown.
      */
