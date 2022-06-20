@@ -250,7 +250,7 @@ declare namespace chrome.action {
      * @param callback The callback parameter looks like:
      * () => {...}
      */
-         export function openPopup(options?: OpenPopupOptions, callback?: () => void): Promise<void>;
+    export function openPopup(options?: OpenPopupOptions, callback?: () => void): Promise<void>;
 
     /**
      * Since Chrome 88.
