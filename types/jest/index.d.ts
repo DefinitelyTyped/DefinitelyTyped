@@ -284,22 +284,19 @@ declare namespace jest {
      */
     function spyOn<
         T extends {},
-        M extends keyof T,
-        A extends M extends NonFunctionPropertyNames<Required<T>> ? 'get' | 'set' : never
-            = M extends NonFunctionPropertyNames<Required<T>> ? 'get' | 'set' : never,
+        Key extends keyof T,
+        A extends PropertyAccessors<Key, T> = PropertyAccessors<Key, T>,
+        Value extends Required<T>[Key] = Required<T>[Key],
     >(
         object: T,
-        method: M,
+        method: Key,
         accessType: A,
-    ): M extends NonFunctionPropertyNames<Required<T>>
-        ? A extends 'set'
-            ? SpyInstance<void, [Required<T>[M]]>
-            : SpyInstance<Required<T>[M], []>
-        : Required<T>[M] extends new (...args: any[]) => any
-        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
-        : Required<T>[M] extends (...args: any) => any
-        ? SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>>
-        : never;
+    ):
+      A extends SetAccessor ? SpyInstance<void, [Value]>
+    : A extends GetAccessor ? SpyInstance<Value, []>
+    : Value extends Constructor ? SpyInstance<InstanceType<Value>, ConstructorArgsType<Value>>
+    : Value extends Func ? SpyInstance<ReturnType<Value>, ArgsType<Value>>
+    : never;
     function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
         object: T,
         method: M
@@ -332,15 +329,20 @@ declare namespace jest {
 
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
+    type Constructor = new (...args: any[]) => any;
+    type Func = (...args: any[]) => any;
     type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
     type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
     type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
     // see https://github.com/Microsoft/TypeScript/issues/25215
-    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K }[keyof T] &
+    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Func ? never : K }[keyof T] &
         string;
-    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] &
+    type GetAccessor = 'get';
+    type SetAccessor = 'set';
+    type PropertyAccessors<M extends keyof T, T extends {}> = M extends NonFunctionPropertyNames<Required<T>> ? GetAccessor | SetAccessor : never;
+    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Func ? K : never }[keyof T] &
         string;
-    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends new (...args: any[]) => any ? K : never }[keyof T] &
+    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends Constructor ? K : never }[keyof T] &
         string;
 
     interface DoneCallback {
