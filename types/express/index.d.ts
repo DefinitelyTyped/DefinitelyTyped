@@ -1,4 +1,4 @@
-// Type definitions for Express 4.17
+// Type definitions for Express 4.18
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 China Medical University Hospital <https://github.com/CMUH>

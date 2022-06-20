@@ -1,4 +1,4 @@
-// Type definitions for Express 4.17
+// Type definitions for Express 4.18
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
@@ -331,7 +331,7 @@ export interface IRoute<Route extends string = string> {
 export interface Router extends IRouter {}
 
 export interface CookieOptions {
-    maxAge?: number | undefined;
+    maxAge?: number | undefined | null;
     signed?: boolean | undefined;
     expires?: Date | undefined;
     httpOnly?: boolean | undefined;
@@ -340,6 +340,7 @@ export interface CookieOptions {
     secure?: boolean | undefined;
     encode?: ((val: string) => string) | undefined;
     sameSite?: boolean | 'lax' | 'strict' | 'none' | undefined;
+    priority?: 'high' | 'medium' | 'low';
 }
 
 export interface ByteRange {
@@ -803,6 +804,7 @@ export interface Response<
      */
     download(path: string, fn?: Errback): void;
     download(path: string, filename: string, fn?: Errback): void;
+    download(path: string, options: any, fn?: Errback): void;
     download(path: string, filename: string, options: any, fn?: Errback): void;
 
     /**

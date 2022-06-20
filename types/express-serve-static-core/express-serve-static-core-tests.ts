@@ -210,6 +210,16 @@ app.get('/clearcookie', (req, res) => {
     });
 });
 
+// Downloads
+app.get('/download', (req, res) => {
+    res.download('/path1'); // $ExpectType void
+    res.download('/path1', (err: Error) => {}); // $ExpectType void
+    res.download('/path1', 'file'); // $ExpectType void
+    res.download('/path1', 'file', (err: Error) => {}); // $ExpectType void
+    res.download('/path1', {}); // $ExpectType void
+    res.download('/path1', 'file', {}, (err: Error) => {}); // $ExpectType void
+});
+
 app.engine('ntl', (_filePath, _options, callback) => {
     callback(new Error('not found.'));
 });
