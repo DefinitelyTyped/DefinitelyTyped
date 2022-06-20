@@ -29,21 +29,21 @@ interface HfcPropTypes {
 type HfcPropTypeDef = any;
 
 interface HfcString {
-  valueOf(): "HFC_TYPE_STRING";
+    valueOf(): 'HFC_TYPE_STRING';
 }
 
 interface HfcBoolean {
-  valueOf(): "HFC_TYPE_BOOLEAN";
+    valueOf(): 'HFC_TYPE_BOOLEAN';
 }
 
 interface HfcInt {
-  valueOf(): "HFC_TYPE_INT";
+    valueOf(): 'HFC_TYPE_INT';
 }
 
 interface HfcFloat {
-  valueOf(): "HFC_TYPE_FLOAT";
+    valueOf(): 'HFC_TYPE_FLOAT';
 }
 
 interface HfcAny {
-  valueOf(): "HFC_TYPE_ANY";
+    valueOf(): 'HFC_TYPE_ANY';
 }
