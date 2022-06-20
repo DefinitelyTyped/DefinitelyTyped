@@ -1601,12 +1601,18 @@ declare namespace asana {
                 custom_fields: CustomField[];
             }
 
+            // https://developers.asana.com/docs/create-a-task
+            // https://forum.asana.com/t/add-task-to-a-section-upon-creation-via-api-request/51957/5
             interface CreateParams {
                 name: string;
                 completed?: boolean | undefined;
                 hearted?: boolean | undefined;
                 notes?: string | undefined;
                 custom_fields?: Object | undefined;
+                memberships?: {
+                    project: string;
+                    section: string;
+                }[] | undefined;
             }
 
             // https://developers.asana.com/docs/update-a-task
