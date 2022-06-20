@@ -1,10 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import * as React from 'react';
-declare module 'meteor/meteor' {
-    module Meteor {
-        function loggingOut(): boolean;
-    }
-}
+
 /**
  * Hook to get a stateful value of the current user id. Uses `Meteor.userId`, a reactive data source.
  * @see https://docs.meteor.com/api/accounts.html#Meteor-userId
