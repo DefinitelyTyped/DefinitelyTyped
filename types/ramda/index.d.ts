@@ -31,7 +31,6 @@
 //                 Nikita Balikhin <https://github.com/NEWESTERS>
 //                 Wang Zengdi <https://github.com/adispring>
 //                 Marcus Blättermann <https://github.com/essenmitsosse>
-//                 adajoy <https://github.com/adajoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
