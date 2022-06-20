@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "log4js": "^6.4.1",
+        "stream": "0.0.2"
+    }
+}
