@@ -2889,6 +2889,10 @@
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
         },
+        "minipass": {
+            "libraryName": "minipass",
+            "asOfVersion": "3.3.1"
+        },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",
             "asOfVersion": "1.1.0"
