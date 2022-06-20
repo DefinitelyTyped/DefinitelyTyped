@@ -2085,8 +2085,10 @@ declare namespace asana {
         }
 
         namespace Sections {
+            // https://developers.asana.com/docs/section
             interface Type extends Resource {
                 created_at: string;
+                project?: Projects.Type;
             }
 
             interface SectionsParams {

@@ -245,3 +245,9 @@ client.tasks.create({
         },
     ],
 });
+
+client.sections.findById('123').then((section) => {
+    const project: asana.resources.Projects.Type | undefined = section.project;
+    const name: string = section.name;
+    const createdAt: string = section.created_at;
+});
