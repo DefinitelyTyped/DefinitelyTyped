@@ -31,7 +31,7 @@ export class ReorderPagesOperation {
      * Constructs a {@link ReorderPagesOperation} instance.
      */
     static createNew(): ReorderPagesOperation;
-    static get SupportedSourceFormat(): PdfFormat
+    static get SupportedSourceFormat(): PdfFormat;
     sourceFileRef: any;
     pageRanges: PageRanges;
     /**

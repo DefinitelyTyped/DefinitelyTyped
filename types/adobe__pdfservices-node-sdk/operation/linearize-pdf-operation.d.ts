@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef, PdfFormat } from "../pdfservices-sdk";
+import { ExecutionContext, FileRef, PdfFormat } from '../pdfservices-sdk';
 
 /**
  * An operation that converts a PDF file into a linearized (also known as “web optimized”) PDF file.
@@ -29,7 +29,7 @@ export class LinearizePDFOperation {
      * Constructs a {@link LinearizePDFOperation} instance.
      */
     static createNew(): LinearizePDFOperation;
-    static get SupportedSourceFormat(): PdfFormat
+    static get SupportedSourceFormat(): PdfFormat;
     sourceFileRef: any;
     /**
      * Sets an input file.

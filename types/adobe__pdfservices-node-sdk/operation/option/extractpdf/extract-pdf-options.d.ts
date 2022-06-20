@@ -17,7 +17,7 @@ export class ExtractPdfOptions {
     includeStyling: boolean;
     validate(): boolean;
 }
-export interface ExtractElementType  {
+export interface ExtractElementType {
     /**
      * Represents Text elements to extract in the JSON
      */
@@ -31,7 +31,7 @@ export interface ExtractElementType  {
 /**
  * Supported Output formats for exporting Tables in {@link ExtractPdfOperation}
  */
-export interface TableStructureType  {
+export interface TableStructureType {
     /**
      * Represents CSV format for exporting extracted Table Data
      */
@@ -41,7 +41,7 @@ export interface TableStructureType  {
      */
     XLSX: 'xlsx';
 }
-export interface ExtractRenditionsElementType  {
+export interface ExtractRenditionsElementType {
     /**
      * Represents png renditions of Tables to generate from the PDF
      */

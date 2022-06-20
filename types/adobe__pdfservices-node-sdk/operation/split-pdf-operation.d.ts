@@ -34,7 +34,7 @@ export class SplitPDFOperation {
      * Constructs a {@link SplitPDFOperation} instance.
      */
     static createNew(): SplitPDFOperation;
-    static get SupportedSourceFormat(): PdfFormat
+    static get SupportedSourceFormat(): PdfFormat;
     sourceFileRef: any;
     pageRanges: PageRanges;
     pageCount: number;
@@ -66,4 +66,4 @@ export class SplitPDFOperation {
     execute(context: ExecutionContext): Promise<FileRef[]>;
     validate(context: any): void;
 }
-import { ExecutionContext, FileRef, PageRanges, PdfFormat } from "../pdfservices-sdk";
+import { ExecutionContext, FileRef, PageRanges, PdfFormat } from '../pdfservices-sdk';

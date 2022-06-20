@@ -26,7 +26,7 @@ import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
  * </pre>
  *
  */
- export class PageActions {
+export class PageActions {
     pageActions: any[];
     withRotateAction(pageRanges: any, angle: any): PageActions;
     withDeleteAction(pageRanges: any): PageActions;
