@@ -2692,7 +2692,7 @@ declare namespace asana {
              * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            findByUser(user: number | string, params?: Params, dispatchOptions?: any): Promise<UserTaskLists.Type>;
+            findByUser(user: number | string, params?: Params & { workspace?: string }, dispatchOptions?: any): Promise<UserTaskLists.Type>;
 
             /**
              * Returns the full record for a user task list.

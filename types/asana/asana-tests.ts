@@ -251,3 +251,5 @@ client.sections.findById('123').then((section) => {
     const name: string = section.name;
     const createdAt: string = section.created_at;
 });
+
+client.userTaskLists.findByUser('123', {workspace: '456'});
