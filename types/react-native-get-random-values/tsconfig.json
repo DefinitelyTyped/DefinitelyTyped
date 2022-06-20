@@ -18,5 +18,5 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "preserve"
     },
-    "files": ["index.d.ts", "react-native-get-random-values-test.ts"]
+    "files": ["index.d.ts", "react-native-get-random-values-tests.ts"]
 }
