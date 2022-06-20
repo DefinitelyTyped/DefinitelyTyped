@@ -9,7 +9,7 @@ interface MainType {
   children: MainType[];
 }
 declare const _instanceFactory: (
-  processArgs?: readonly string[] | string,
+  processArgs?: ReadonlyArray<string> | string,
   cwd?: string, 
   parentRequire?: RequireType
 ) => yargs.Argv;
