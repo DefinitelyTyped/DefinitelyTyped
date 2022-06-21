@@ -1756,8 +1756,6 @@ declare namespace videojs {
          */
         options(obj: any): any;
 
-        played(): TimeRanges;
-
         /**
          * Return the {@link Player} that the `Component` has attached to.
          *
@@ -6804,7 +6802,7 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return A time range object that represents all the increments of time that have
      *         been played.
      */
-    played(): any;
+    played(): TimeRanges;
 
     /**
      * Set or unset the playsinline attribute.
