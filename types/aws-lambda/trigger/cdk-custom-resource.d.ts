@@ -28,13 +28,13 @@ export type CdkCustomResourceCallback<
     Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData
 > = Callback<CdkCustomResourceResponse<Data>>;
 
-export type CdkCustomResourceResponseData =  Record<string, any> | undefined
+export type CdkCustomResourceResponseData =  Record<string, any> | undefined;
 
-export type CdkCustomResourceResponse<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> = WithData<Data> & {
+export type CdkCustomResourceResponse<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> = CdkCustomResourceResponseDataObject<Data> & {
     PhysicalResourceId?: string;
     // Any extra properties will be provided to the isComplete handler for asynchronous resources.
     [Key: string]: any;
-}
+};
 
 // IsComplete events will contain all normal request fields, as well as those returned from
 // the initial onEvent handler.
@@ -50,15 +50,15 @@ export type CdkCustomResourceIsCompleteResponse<Data extends CdkCustomResourceRe
 /**
  * The `Data` property will be merged with the `Data` property of the onEvent handler's response.
  */
-export type CdkCustomResourceIsCompleteResponseSuccess<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> = WithData<Data> & {
+export type CdkCustomResourceIsCompleteResponseSuccess<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> = CdkCustomResourceResponseDataObject<Data> & {
     IsComplete: true;
-}
+};
 
 export interface CdkCustomResourceIsCompleteResponseWaiting {
     IsComplete: false;
 }
 
-type WithData<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> =
+export type CdkCustomResourceResponseDataObject<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> =
     Data extends undefined ? {
         Data?: Data
     } : {

@@ -39,14 +39,14 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
         NoEcho: boolOrUndefined,
     };
 
-    let customResponse: CloudFormationCustomResourceResponse<{ foo: string }> = {
+    const customResponse: CloudFormationCustomResourceResponse<{ foo: string }> = {
         ...response,
         Data: {
             foo: str,
             // $ExpectError
             bar: anyObj,
         }
-    }
+    };
 
     let successResponse: CloudFormationCustomResourceSuccessResponse;
     let failedResponse: CloudFormationCustomResourceFailedResponse;

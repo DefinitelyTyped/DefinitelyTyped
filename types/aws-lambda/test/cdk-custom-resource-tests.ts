@@ -57,7 +57,7 @@ const onEventHandlerCustom: CdkCustomResourceHandler<{ foo: string }, { bar: str
     str = event.ResourceProperties.invalidFoo;
 
     // $ExpectError
-    const invalidResponseDataEmpty: CdkCustomResourceResponse<{ bar: string }> = {}
+    const invalidResponseDataEmpty: CdkCustomResourceResponse<{ bar: string }> = {};
     const validResponseDataEmpty: CdkCustomResourceResponse<{ bar: string } | undefined> = {};
 
     const invalidResponse: CdkCustomResourceResponse<{ bar: string }> = {

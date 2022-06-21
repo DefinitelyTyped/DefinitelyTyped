@@ -63,14 +63,14 @@ export type CloudFormationCustomResourceResponseCommon<Data extends Record<strin
     RequestId: string;
     LogicalResourceId: string;
     NoEcho?: boolean | undefined;
-} & (Data extends undefined ? { Data?: Data } : { Data: Data })
+} & (Data extends undefined ? { Data?: Data } : { Data: Data });
 
 export type CloudFormationCustomResourceSuccessResponse<Data extends Record<string, any> | undefined = Record<string, any> | undefined> = CloudFormationCustomResourceResponseCommon<Data> & {
     Status: 'SUCCESS';
     Reason?: string | undefined;
-}
+};
 
 export type CloudFormationCustomResourceFailedResponse<Data extends Record<string, any> | undefined = Record<string, any> | undefined> = CloudFormationCustomResourceResponseCommon<Data> & {
     Status: 'FAILED';
     Reason: string;
-}
+};
