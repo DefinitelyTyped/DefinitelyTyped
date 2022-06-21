@@ -1758,7 +1758,7 @@ declare namespace videojs {
 
         /**
          * Get a TimeRange object representing the current ranges of time that the user has played.
-         * 
+         *
          * @return A time range object that represents all the increments of time that have been played.
          */
         played(): TimeRanges;
