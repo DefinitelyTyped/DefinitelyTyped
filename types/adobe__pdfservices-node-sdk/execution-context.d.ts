@@ -25,9 +25,8 @@ import { ClientConfig } from './client-config';
  *     .catch(err => console.log(err));
  * </code>
  * </pre>
- * @hideconstructor
- *
  */
+/* tslint:disable-next-line:no-unnecessary-class */
 export class ExecutionContext {
     /**
      *

@@ -1,6 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-unnecessary-class": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }
