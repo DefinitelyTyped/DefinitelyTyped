@@ -102,17 +102,17 @@ interface WebApp {
     /**
      * Returns true if the user's app supports a version of the Bot API that is equal to or higher than the version passed as the parameter.
      */
-    isVersionAtLeast(version: string): () => boolean
+    isVersionAtLeast(version: string): boolean
     /**
      * A method that sets the app header color. You can only pass 
      * Telegram.WebApp.themeParams.bg_color or Telegram.WebApp.themeParams.secondary_bg_colo 
      * as a color or you can use keywords bg_color, secondary_bg_color instead.
      */
-    setHeaderColor(color: "bg_color" | "secondary_bg_color"): () => void
+    setHeaderColor(color: "bg_color" | "secondary_bg_color"): void
     /**
      * A method that sets the app background color in the #RRGGBB format or you can use keywords bg_color, secondary_bg_color instead.
      */
-    setBackgroundColor(color: "bg_color" | "secondary_bg_color" | string): () => void
+    setBackgroundColor(color: "bg_color" | "secondary_bg_color" | string): void
     /**
      * A method that sets the app event handler. Check the list of available
      * events.
@@ -136,17 +136,17 @@ interface WebApp {
      * Note that this method can be called only in response to the user
      *  interaction with the Web App interface (e.g. click inside the Web App or on the main button)
      */
-    openLink(url: string)
+    openLink(url: string): void
     /**
      * A method that opens a telegram link inside Telegram app. The Web App will be closed.
      */
-    openTelegramLink(url: string)
+    openTelegramLink(url: string): void
     /**
      * A method that opens an invoice using the link url. The Web App will receive the
      *  event invoiceClosed when the invoice is closed. If an optional callback parameter was passed,
      *  the callback function will be called and the invoice status will be passed as the first argument.
      */
-    openInvoice(url: string, callback: () => void): () => void
+    openInvoice(url: string, callback: () => void): void
     /**
      * A method that informs the Telegram app that the Web App is ready to be
      * displayed. It is recommended to call this method as early as possible, as
@@ -220,11 +220,11 @@ interface BackButton {
     /**
      * A method that sets the button press event handler. An alias for Telegram.WebApp.onEvent('backButtonClicked', callback)
      */
-    onClick(callback: () => void): () => BackButton;
+    onClick(callback: () => void): BackButton;
     /**
      *  A method that removes the button press event handler. An alias for Telegram.WebApp.offEvent('backButtonClicked', callback)
      */
-    offClick(callback: () => void): () => BackButton;
+    offClick(callback: () => void): BackButton;
     /**
      * A method to make the button active and visible.
      */
@@ -338,7 +338,7 @@ interface HapticFeedback {
      * 
      * Do not use this feedback when the user makes or confirms a selection; use it only when the selection changes.
      */
-    selectionChanged(): () => void
+    selectionChanged(): void
 }
 
 /**
