@@ -1757,13 +1757,6 @@ declare namespace videojs {
         options(obj: any): any;
 
         /**
-         * Get a TimeRange object representing the current ranges of time that the user has played.
-         *
-         * @return A time range object that represents all the increments of time that have been played.
-         */
-        played(): TimeRanges;
-
-        /**
          * Return the {@link Player} that the `Component` has attached to.
          *
          * @return The player that this `Component` has attached to.
