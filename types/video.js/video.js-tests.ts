@@ -147,7 +147,8 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     const howMuchIsDownloaded: number = this.bufferedPercent();
 
-    const timeRanges: TimeRanges = this.played();
+    // $ExpectType TimeRanges
+    const timeRanges = this.played();
 
     const howLoudIsIt: number = this.volume();
 
