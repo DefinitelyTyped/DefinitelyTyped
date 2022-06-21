@@ -15,27 +15,27 @@ interface HeatmapValue {
 }
 
 interface HeatmapProps {
-    classForValue?: (value: HeatmapValue) => React.ReactNode;
-    endDate?: HeatmapDate;
-    gutterSize?: number;
-    horizontal?: boolean;
-    monthLabels?: string[];
-    onClick?: (value: HeatmapValue) => void;
-    onMouseLeave?: (e: any, value: HeatmapValue) => void;
-    onMouseOver?: (e: any, value: HeatmapValue) => void;
-    showMonthLabels?: boolean;
-    showOutOfRangeDays?: boolean;
-    showWeekdayLabels?: boolean;
-    startDate?: HeatmapDate;
-    titleForValue?: (value: HeatmapValue) => React.ReactNode;
-    tooltipDataAttrs?: object | ((value: HeatmapValue) => object);
+    classForValue?: (value: HeatmapValue) => React.ReactNode | undefined;
+    endDate?: HeatmapDate | undefined;
+    gutterSize?: number | undefined;
+    horizontal?: boolean | undefined;
+    monthLabels?: string[] | undefined;
+    onClick?: (value: HeatmapValue) => void | undefined;
+    onMouseLeave?: (e: any, value: HeatmapValue) => void | undefined;
+    onMouseOver?: (e: any, value: HeatmapValue) => void | undefined;
+    showMonthLabels?: boolean | undefined;
+    showOutOfRangeDays?: boolean | undefined;
+    showWeekdayLabels?: boolean | undefined;
+    startDate?: HeatmapDate | undefined;
+    titleForValue?: (value: HeatmapValue) => React.ReactNode | undefined;
+    tooltipDataAttrs?: object | ((value: HeatmapValue) => object) | undefined;
     transformDayElement?: (
         element: React.FunctionComponentElement<{ 'data-test': string }>,
         value: HeatmapValue,
         index: number,
-    ) => React.ReactElement;
+    ) => React.ReactElement | undefined;
     values: HeatmapValue[];
-    weekdayLabels?: string[];
+    weekdayLabels?: string[] | undefined;
 }
 
 declare class ReactCalendarHeatmap extends React.Component<HeatmapProps> {}
