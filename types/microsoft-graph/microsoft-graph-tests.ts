@@ -205,3 +205,7 @@ const roleEligibilityScheduleFilterByCurrentUserOptions: MicrosoftGraph.RoleElig
 const bookingPriceType: MicrosoftGraph.BookingPriceType = "undefined";
 
 const longRunningOperationStatus: MicrosoftGraph.LongRunningOperationStatus = "succeeded";
+
+const album: MicrosoftGraph.Album = {
+    coverImageItemId: "test",
+};
