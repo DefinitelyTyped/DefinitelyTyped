@@ -1756,6 +1756,11 @@ declare namespace videojs {
          */
         options(obj: any): any;
 
+        /**
+         * Get a TimeRange object representing the current ranges of time that the user has played.
+         * 
+         * @return A time range object that represents all the increments of time that have been played.
+         */
         played(): TimeRanges;
 
         /**
@@ -6804,7 +6809,7 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return A time range object that represents all the increments of time that have
      *         been played.
      */
-    played(): any;
+    played(): TimeRanges;
 
     /**
      * Set or unset the playsinline attribute.
