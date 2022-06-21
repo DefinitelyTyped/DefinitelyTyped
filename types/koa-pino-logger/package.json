@@ -2,6 +2,7 @@
     "private": true,
     "dependencies": {
         "pino": "8.0.0",
-        "pino-http": "7.1.0"
+        "pino-http": "7.1.0",
+        "pino-pretty": "8.0.0"
     }
 }
