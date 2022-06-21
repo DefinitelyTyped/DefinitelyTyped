@@ -2,9 +2,6 @@
  * ServiceUsageError is thrown when either service usage limit has been reached or credentials quota has been exhausted.
  */
 export class ServiceUsageError extends Error {
-    /**
-     * @hideconstructor
-     */
     constructor(message: any, requestTrackingId: any, statusCode: any, errorCode: any);
     requestTrackingId: any;
     statusCode: any;

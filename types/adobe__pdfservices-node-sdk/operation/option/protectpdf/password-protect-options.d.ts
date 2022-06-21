@@ -77,7 +77,6 @@ export class PasswordProtectOptions {
     validate(): boolean;
 }
 export class PasswordProtectOptionsBuilder {
-    constructor();
     setUserPassword(userPassword: string): PasswordProtectOptionsBuilder;
     setOwnerPassword(ownerPassword: string): PasswordProtectOptionsBuilder;
     setEncryptionAlgorithm(encryptionAlgorithm: keyof EncryptionAlgorithm): PasswordProtectOptionsBuilder;

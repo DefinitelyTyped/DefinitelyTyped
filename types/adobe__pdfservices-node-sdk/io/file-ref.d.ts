@@ -28,10 +28,6 @@ export class FileRef {
      *
      */
     static createFromURL(url: string): FileRef;
-    /**
-     * @hideconstructor
-     * @param input
-     */
     constructor(input: any);
     /**
      *

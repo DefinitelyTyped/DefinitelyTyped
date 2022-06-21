@@ -52,8 +52,6 @@ export interface ExtractRenditionsElementType {
     FIGURES: 'figures';
 }
 export class ExtractPDFOptionsBuilder {
-    constructor();
-
     /**
      * Sets the elements to extract - like text and/or tables.
      */
