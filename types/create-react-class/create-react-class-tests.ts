@@ -24,9 +24,11 @@ const container: Element = document.createElement("div");
 const ClassicComponent: React.ClassicComponentClass<Props> = createReactClass<Props, State>({
     childContextTypes: {},
     componentDidCatch(err, errorInfo) {
-        const msg: string = err.message;
-        const name: string = err.name;
-        const stack: string | undefined = err.stack;
+        if (err instanceof Error) {
+            const msg: string = err.message;
+            const name: string = err.name;
+            const stack: string | undefined = err.stack;
+        }
         const componentStack: string = errorInfo.componentStack;
     },
     componentDidMount() {},

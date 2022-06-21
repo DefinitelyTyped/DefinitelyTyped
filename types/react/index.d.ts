@@ -613,7 +613,7 @@ declare namespace React {
          * Catches exceptions generated in descendant components. Unhandled exceptions will cause
          * the entire component tree to unmount.
          */
-        componentDidCatch?(error: Error, errorInfo: ErrorInfo): void;
+        componentDidCatch?(error: unknown, errorInfo: ErrorInfo): void;
     }
 
     // Unfortunately, we have no way of declaring that the component constructor must implement this
@@ -637,7 +637,7 @@ declare namespace React {
          *
          * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
          */
-        (error: any) => Partial<S> | null;
+        (error: unknown) => Partial<S> | null;
 
     // This should be "infer SS" but can't use it yet
     interface NewLifecycle<P, S, SS> {
