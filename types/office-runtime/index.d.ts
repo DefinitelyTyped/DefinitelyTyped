@@ -255,7 +255,7 @@ declare namespace OfficeRuntime {
    *
    * @remarks
    *
-   * The methods in this interface are equivalent to those in the {@link https://docs.microsoft.com/javascript/api/office/office.auth | `Office.auth` interface}.
+   * The methods in this interface are equivalent to those in the {@link https://docs.microsoft.com/javascript/api/office/office.auth | Office.auth interface}.
    * If new authentication types are added in the future, they will only be added to the `Office.auth` interface.
    * For simplicity, the code examples throughout the documentation use `Office.auth`.
    */
