@@ -54,6 +54,7 @@ interface AdminInterface {
 
 export function useAdmin(context: AdminContext): AdminInterface;
 export type AdminContext = React.Context<AdminInterface>;
+export const AdminContext: React.Context<AdminInterface>;
 
 interface ContainerProps {
     className?: string;
@@ -80,14 +81,7 @@ interface LinkProps {
 }
 export class Link extends React.Component<LinkProps> {}
 
-interface PageInterface<T> {
-    title: string;
-    route: RouteData;
-    referer?: string;
-    data: PageData<T>;
-}
-
-interface PageData<T> {
+export interface PageData<T> {
     obj: T;
     body: T;
     headers: Record<string, string>;
@@ -136,7 +130,7 @@ interface TranslateProps {
 }
 export const Translate: React.FC<TranslateProps>;
 
-interface RouteData {
+export interface RouteData {
     hash?: string;
     id?: string;
     params?: Record<string, string | number>;
@@ -144,17 +138,17 @@ interface RouteData {
     query?: Record<string, string>;
 }
 
-interface PageInterfaceBase {
+export interface PageInterfaceBase {
     title: string;
     route: RouteData;
     referer?: string;
 }
 
-interface ListPageInterface<T> extends PageInterfaceBase {
+export interface ListPageInterface<T> extends PageInterfaceBase {
     data: PageData<T[]>;
 }
 
-interface PageInterface<T> extends PageInterfaceBase {
+export interface PageInterface<T> extends PageInterfaceBase {
     data: PageData<T>;
 }
 
@@ -210,7 +204,7 @@ interface RouterInterface {
     reroute(to: string | RouteData): { location: any; action: string };
 }
 
-interface ApiResponse<T = Record<string, never | never[]>> {
+export interface ApiResponse<T = Record<string, never | never[]>> {
     statusText: string;
     status: number;
     obj: T;

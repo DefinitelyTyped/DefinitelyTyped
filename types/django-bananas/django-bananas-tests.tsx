@@ -1,4 +1,4 @@
-import Bananas, { UserInterface } from 'django-bananas';
+import Bananas, { UserInterface, AdminContext } from 'django-bananas';
 import themes from 'django-bananas/themes';
 import { django, createColor, Color } from 'django-bananas/colors';
 import PermissionRequired from 'django-bananas/auth/PermissionRequired';
@@ -31,3 +31,4 @@ const color: Color = createColor('');
 
 <PermissionRequired permission={''} />;
 <UserPassesTest testFunc={(user: UserInterface) => true} />;
+<AdminContext.Consumer>{context => (<></>)}</AdminContext.Consumer>;
