@@ -3,12 +3,6 @@
 // that don't have corresponding globals belong in
 // `meteor-tests-module-only.ts`.
 
-declare namespace Meteor {
-    interface UserProfile {
-        name?: string | undefined;
-    }
-}
-
 /**
  * All code below was copied from the examples at http://docs.meteor.com/.
  * When necessary, code was added to make the examples work (e.g. declaring a variable
@@ -16,6 +10,16 @@ declare namespace Meteor {
  */
 
 /*********************************** Begin setup for tests ******************************/
+
+declare namespace Meteor {
+    interface User {
+        // One of the tests assigns a new property to the user so it has to be typed
+        dexterity?: number | undefined;
+    }
+    interface UserProfile {
+        name?: string | undefined;
+    }
+}
 
 // Avoid conflicts between `meteor-tests.ts` and `globals/meteor-tests.ts`.
 namespace MeteorTests {
@@ -110,6 +114,8 @@ namespace MeteorTests {
         // Todo: Not sure how to define in typescript
         //  self.added("counts", roomId, {count: count});
         self.ready();
+
+        self.unblock();
 
         self.onStop(function () {
             handle.stop();
@@ -663,7 +669,7 @@ namespace MeteorTests {
         var d6 = function () {
             return Math.floor(Math.random() * 6) + 1;
         };
-        (user as any).dexterity = d6() + d6() + d6();
+        user.dexterity = d6() + d6() + d6();
         // We still want the default hook's 'profile' behavior.
         if (options.profile) user.profile = options.profile;
         return user;
@@ -1124,7 +1130,7 @@ namespace MeteorTests {
 
     // Covers https://github.com/meteor-typings/meteor/issues/18
     if (Meteor.isDevelopment) {
-        Rooms._dropIndex({ field: 1 });
+        Rooms._dropIndex('indexName');
     }
 
     // Covers https://github.com/meteor-typings/meteor/issues/20

@@ -76,6 +76,12 @@ export function buildCredDefRequest(submitterDid: Did, credDef: CredDef): Promis
 export function buildGetCredDefRequest(submitterDid: Did | null, credDefId: CredDefId): Promise<LedgerRequest>;
 export function parseGetCredDefResponse(response: LedgerResponse): Promise<[CredDefId, CredDef]>;
 
+// Logging
+export function setLogger(
+    logFn: (level: number, target: string, message: string, modulePath: string, file: string, line: number) => void,
+): void;
+export function setDefaultLogger(pattern: 'trace' | 'info' | 'debug'): void;
+
 // Revocation Ledger methods
 export function buildRevocRegDefRequest(submitterDid: Did, data: RevocRegDef): Promise<LedgerRequest>;
 export function buildGetRevocRegDefRequest(submitterDid: Did | null, revRegId: RevRegId): Promise<LedgerRequest>;

@@ -192,7 +192,7 @@ if (App) {
     App.modsPopup();
 }
 
-alert(Game.Upgrades['Reinforced index finger'].dname);
+alert(Game.Upgrades['Reinforced index finger'].dname + Game.Upgrades['Reinforced index finger'].ddesc);
 
 Game.ToggleFullscreen();
 
@@ -203,3 +203,19 @@ Game.registerMod('typemod', {
         console.log(this.dir);
     },
 });
+
+writeIcon([0, 0]);
+
+// This doesn't exist anymore, was renamed to WritePrefButton
+// $ExpectError
+Game.WriteButton;
+
+Game.Objects.Bank.unshackleUpgrade;
+
+Game.AllBGs[0].order = 12;
+
+Game.jukebox.musicScrub(5);
+
+if (Music) {
+    Music.pause();
+}

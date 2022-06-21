@@ -21,7 +21,7 @@ ReactReconciler<
 >(ReactTestHostConfig);
 
 function isEqual(target: number, value: number): boolean {
-  return target === value;
+    return target === value;
 }
 
 // $ExpectType boolean

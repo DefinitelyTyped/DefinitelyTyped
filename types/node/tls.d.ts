@@ -6,7 +6,7 @@
  * ```js
  * const tls = require('tls');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/tls.js)
  */
 declare module 'tls' {
     import { X509Certificate } from 'node:crypto';
@@ -143,8 +143,8 @@ declare module 'tls' {
          */
         constructor(socket: net.Socket, options?: TLSSocketOptions);
         /**
-         * Returns `true` if the peer certificate was signed by one of the CAs specified
-         * when creating the `tls.TLSSocket` instance, otherwise `false`.
+         * This property is `true` if the peer certificate was signed by one of the CAs
+         * specified when creating the `tls.TLSSocket` instance, otherwise `false`.
          * @since v0.11.4
          */
         authorized: boolean;
@@ -343,9 +343,9 @@ declare module 'tls' {
          * When enabled, TLS packet trace information is written to `stderr`. This can be
          * used to debug TLS connection problems.
          *
-         * Note: The format of the output is identical to the output of `openssl s_client -trace` or `openssl s_server -trace`. While it is produced by OpenSSL's`SSL_trace()` function, the format is
-         * undocumented, can change without notice,
-         * and should not be relied on.
+         * The format of the output is identical to the output of`openssl s_client -trace` or `openssl s_server -trace`. While it is produced by
+         * OpenSSL's `SSL_trace()` function, the format is undocumented, can change
+         * without notice, and should not be relied on.
          * @since v12.2.0
          */
         enableTrace(): void;
@@ -374,7 +374,7 @@ declare module 'tls' {
          *   128,
          *   'client finished');
          *
-         *
+         * /*
          *  Example return value of keyingMaterial:
          *  <Buffer 76 26 af 99 c5 56 8e 42 09 91 ef 9f 93 cb ad 6c 7b 65 f8 53 f1 d8 d9
          *     12 5a 33 b8 b5 25 df 7b 37 9f e0 e2 4f b8 67 83 a3 2f cd 5d 41 42 4c 91
@@ -814,13 +814,19 @@ declare module 'tls' {
      * Returns [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object, populating it with `reason`, `host`, and `cert` on
      * failure. On success, returns [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Undefined_type).
      *
-     * This function can be overwritten by providing alternative function as part of
-     * the `options.checkServerIdentity` option passed to `tls.connect()`. The
+     * This function is intended to be used in combination with the`checkServerIdentity` option that can be passed to {@link connect} and as
+     * such operates on a `certificate object`. For other purposes, consider using `x509.checkHost()` instead.
+     *
+     * This function can be overwritten by providing an alternative function as the`options.checkServerIdentity` option that is passed to `tls.connect()`. The
      * overwriting function can call `tls.checkServerIdentity()` of course, to augment
      * the checks done with additional verification.
      *
      * This function is only called if the certificate passed all other checks, such as
      * being issued by trusted CA (`options.ca`).
+     *
+     * Earlier versions of Node.js incorrectly accepted certificates for a given`hostname` if a matching `uniformResourceIdentifier` subject alternative name
+     * was present (see [CVE-2021-44531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44531)). Applications that wish to accept`uniformResourceIdentifier` subject alternative names can use
+     * a custom`options.checkServerIdentity` function that implements the desired behavior.
      * @since v0.8.4
      * @param hostname The host name or IP address to verify the certificate against.
      * @param cert A `certificate object` representing the peer's certificate.
@@ -972,6 +978,8 @@ declare module 'tls' {
      * Returns an array with the names of the supported TLS ciphers. The names are
      * lower-case for historical reasons, but must be uppercased to be used in
      * the `ciphers` option of {@link createSecureContext}.
+     *
+     * Not all supported ciphers are enabled by default. See `Modifying the default TLS cipher suite`.
      *
      * Cipher names that start with `'tls_'` are for TLSv1.3, all the others are for
      * TLSv1.2 and below.

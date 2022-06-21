@@ -526,10 +526,6 @@ TypeScript ハンドブックには、[型定義を書くにあたっての一�
 }
 ```
 
-#### GitHub のファイル履歴がおかしいです。
-
-GitHubは、名前が変更されたファイルの履歴には[対応していない](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames)ので、代わりに [`git log --follow`](https://www.git-scm.com/docs/git-log) を使用してください。
-
 ## ライセンス
 
 このプロジェクトは MIT License でライセンスされています。

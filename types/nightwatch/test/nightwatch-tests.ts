@@ -273,6 +273,14 @@ const testPage = {
         browser.end();
     },
 
+    'Test passing CSS selector string to frame': () => {
+        const iFrame = browser.page.IFrame();
+        iFrame.navigate().waitForElementPresent('#mce_0_ifr', 10000);
+        browser.frame('#mce_0_ifr');
+        iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
+        browser.end();
+    },
+
     'Test nested page objects': () => {
         const google = browser.page.subfolder1.subfolder2.subfolder3.google();
     },
