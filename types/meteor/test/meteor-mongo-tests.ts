@@ -42,6 +42,19 @@ Users.find(
     return doc;
 });
 
+// $ExpectType number
+Users.find({}).count();
+
+// $ExpectType Promise<number>
+Users.find({}).countAsync();
+
+// $ExpectType Promise<DBUser[]>
+Users.find({}).mapAsync(doc => {
+    // $ExpectType DBUser
+    doc;
+    return doc;
+});
+
 Users.deny({
     update: (userId, doc) => {
         // $ExpectType string
@@ -327,6 +340,8 @@ Attachment.findOne(
         },
     },
 );
+// $ExpectType Promise<AttachmentDocument | undefined>
+Attachment.findOneAsync({}, { hint: 'indexName' });
 
 Attachment.deny({
     update: (userId, doc) => {

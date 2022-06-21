@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.36
+// Type definitions for Azure Data Studio 1.37
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -13,7 +13,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.36 Extension API
+ * Type Definition for Azure Data Studio 1.37 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -204,8 +204,10 @@ declare module 'azdata' {
             connectionCompletionOptions?: IConnectionCompletionOptions): Thenable<Connection>;
 
         /**
-         * Opens the connection and add it to object explorer and opens the dashboard and returns the ConnectionResult
-         * @param connectionProfile connection profile
+         * Attempts to open a new connection with the options from the given connection profile.
+         * @param connectionProfile The {@link IConnectionProfile} containing the information for the connection
+         * @param saveConnection Whether to save the connection in the saved connections list of the Servers view. Default is true
+         * @param showDashboard Whether to show the dashboard for the connection upon success. Default is true
          */
         export function connect(connectionProfile: IConnectionProfile, saveConnection?: boolean, showDashboard?: boolean): Thenable<ConnectionResult>;
 
@@ -2368,7 +2370,11 @@ declare module 'azdata' {
         /**
          * Kusto
          */
-        AzureKusto = 10
+        AzureKusto = 10,
+        /**
+         * Power BI
+         */
+        PowerBi = 11
     }
 
     export interface DidChangeAccountsParams {
@@ -5252,10 +5258,28 @@ declare module 'azdata' {
     }
 
     export interface ConnectionResult {
+        /**
+         * Whether the connection was successful
+         */
         connected: boolean;
-        connectionId: string;
-        errorMessage: string;
-        errorCode: number;
+        /**
+         * The ID of the connection if it was successful. {@link connection.getUriForConnection} can be used to get
+         * the URI for this connection used by many of the other Extension API functions.
+         */
+        connectionId?: string | undefined;
+        /**
+         * The error message if the connection was unsuccessful
+         *
+         * e.g. Login failed for user '<user>'.
+         */
+        errorMessage?: string | undefined;
+        /**
+         * The error code number associated with the error if the connection was unsuccessful.
+         *
+         * e.g. 18456
+         * (https://docs.microsoft.com/sql/relational-databases/errors-events/mssqlserver-18456-database-engine-error)
+         */
+        errorCode?: number | undefined;
     }
 
     export namespace nb {

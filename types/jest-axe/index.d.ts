@@ -2,7 +2,7 @@
 // Project: https://github.com/nickcolley/jest-axe
 // Definitions by: erbridge <https://github.com/erbridge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// Minimum TypeScript Version: 4.3
 
 /// <reference types="jest" />
 

@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/fs.js)
  */
 declare module 'fs' {
     import * as stream from 'node:stream';
@@ -1123,15 +1123,15 @@ declare module 'fs' {
      * ```js
      * import { symlink } from 'fs';
      *
-     * symlink('./mew', './example/mewtwo', callback);
+     * symlink('./mew', './mewtwo', callback);
      * ```
      *
-     * The above example creates a symbolic link `mewtwo` in the `example` which points
-     * to `mew` in the same directory:
+     * The above example creates a symbolic link `mewtwo` which points to `mew` in the
+     * same directory:
      *
      * ```bash
-     * $ tree example/
-     * example/
+     * $ tree .
+     * .
      * ├── mew
      * └── mewtwo -> ./mew
      * ```
@@ -2099,8 +2099,7 @@ declare module 'fs' {
      */
     export function fsyncSync(fd: number): void;
     /**
-     * Write `buffer` to the file specified by `fd`. If `buffer` is a normal object, it
-     * must have an own `toString` function property.
+     * Write `buffer` to the file specified by `fd`.
      *
      * `offset` determines the part of the buffer to be written, and `length` is
      * an integer specifying the number of bytes to write.
@@ -2223,8 +2222,6 @@ declare module 'fs' {
         }>;
     }
     /**
-     * If `buffer` is a plain object, it must have an own (not inherited) `toString`function property.
-     *
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link write}.
      * @since v0.1.21
@@ -2296,10 +2293,7 @@ declare module 'fs' {
         options: ReadAsyncOptions<TBuffer>,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void
     ): void;
-    export function read(
-        fd: number,
-        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => void
-    ): void;
+    export function read(fd: number, callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => void): void;
     export namespace read {
         /**
          * @param fd A file descriptor.
@@ -2325,9 +2319,7 @@ declare module 'fs' {
             bytesRead: number;
             buffer: TBuffer;
         }>;
-        function __promisify__(
-            fd: number
-        ): Promise<{
+        function __promisify__(fd: number): Promise<{
             bytesRead: number;
             buffer: NodeJS.ArrayBufferView;
         }>;
@@ -2595,8 +2587,6 @@ declare module 'fs' {
      *
      * The `mode` option only affects the newly created file. See {@link open} for more details.
      *
-     * If `data` is a plain object, it must have an own (not inherited) `toString`function property.
-     *
      * ```js
      * import { writeFile } from 'fs';
      * import { Buffer } from 'buffer';
@@ -2672,8 +2662,6 @@ declare module 'fs' {
     }
     /**
      * Returns `undefined`.
-     *
-     * If `data` is a plain object, it must have an own (not inherited) `toString`function property.
      *
      * The `mode` option only affects the newly created file. See {@link open} for more details.
      *
@@ -3272,9 +3260,9 @@ declare module 'fs' {
     /**
      * Tests a user's permissions for the file or directory specified by `path`.
      * The `mode` argument is an optional integer that specifies the accessibility
-     * checks to be performed. Check `File access constants` for possible values
-     * of `mode`. It is possible to create a mask consisting of the bitwise OR of
-     * two or more values (e.g. `fs.constants.W_OK | fs.constants.R_OK`).
+     * checks to be performed. `mode` should be either the value `fs.constants.F_OK`or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`,`fs.constants.W_OK`, and `fs.constants.X_OK`
+     * (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
+     * possible values of `mode`.
      *
      * The final argument, `callback`, is a callback function that is invoked with
      * a possible error argument. If any of the accessibility checks fail, the error
@@ -3300,14 +3288,9 @@ declare module 'fs' {
      *   console.log(`${file} ${err ? 'is not writable' : 'is writable'}`);
      * });
      *
-     * // Check if the file exists in the current directory, and if it is writable.
-     * access(file, constants.F_OK | constants.W_OK, (err) => {
-     *   if (err) {
-     *     console.error(
-     *       `${file} ${err.code === 'ENOENT' ? 'does not exist' : 'is read-only'}`);
-     *   } else {
-     *     console.log(`${file} exists, and it is writable`);
-     *   }
+     * // Check if the file is readable and writable.
+     * access(file, constants.R_OK | constants.W_OK, (err) => {
+     *   console.log(`${file} ${err ? 'is not' : 'is'} readable and writable`);
      * });
      * ```
      *
@@ -3451,10 +3434,9 @@ declare module 'fs' {
     /**
      * Synchronously tests a user's permissions for the file or directory specified
      * by `path`. The `mode` argument is an optional integer that specifies the
-     * accessibility checks to be performed. Check `File access constants` for
-     * possible values of `mode`. It is possible to create a mask consisting of
-     * the bitwise OR of two or more values
-     * (e.g. `fs.constants.W_OK | fs.constants.R_OK`).
+     * accessibility checks to be performed. `mode` should be either the value`fs.constants.F_OK` or a mask consisting of the bitwise OR of any of`fs.constants.R_OK`, `fs.constants.W_OK`, and
+     * `fs.constants.X_OK` (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
+     * possible values of `mode`.
      *
      * If any of the accessibility checks fail, an `Error` will be thrown. Otherwise,
      * the method will return `undefined`.
@@ -3557,9 +3539,9 @@ declare module 'fs' {
     /**
      * `options` may also include a `start` option to allow writing data at some
      * position past the beginning of the file, allowed values are in the
-     * \[0, [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)\] range. Modifying a file rather than replacing
-     * it may require the `flags` option to be set to `r+` rather than the default `w`.
-     * The `encoding` can be any one of those accepted by `Buffer`.
+     * \[0, [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)\] range. Modifying a file rather than
+     * replacing it may require the `flags` option to be set to `r+` rather than the
+     * default `w`. The `encoding` can be any one of those accepted by `Buffer`.
      *
      * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'`the file descriptor will be closed automatically. If `autoClose` is false,
      * then the file descriptor won't be closed, even if there's an error.

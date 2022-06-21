@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.103.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -2701,7 +2701,7 @@ declare module "sap/ui/integration/widgets/Card" {
        * The actionDefinition to remove or its index or id
        */
       vActionDefinition: int | string | ActionDefinition
-    ): ActionDefinition;
+    ): ActionDefinition | null;
     /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)
@@ -3102,7 +3102,7 @@ declare module "sap/ui/integration/widgets/Card" {
        * The actionDefinition to remove or its index or id
        */
       vActionDefinition: int | string | ActionDefinition
-    ): ActionDefinition;
+    ): ActionDefinition | null;
     /**
      * @EXPERIMENTAL (since 1.79)
      *

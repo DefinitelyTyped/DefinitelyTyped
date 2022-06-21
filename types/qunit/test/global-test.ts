@@ -1,6 +1,8 @@
 QUnit.module( "group a" );
 
 QUnit.test( "a basic test example", function( assert ) {
+  assert.timeout(5_000);
+
   assert.ok( true, "this test is fine" );
 });
 QUnit.test( "a basic test example 2", function( assert ) {

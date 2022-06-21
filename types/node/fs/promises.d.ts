@@ -164,9 +164,9 @@ declare module 'fs/promises' {
         /**
          * `options` may also include a `start` option to allow writing data at some
          * position past the beginning of the file, allowed values are in the
-         * \[0, [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)\] range. Modifying a file rather than replacing
-         * it may require the `flags` `open` option to be set to `r+` rather than the
-         * default `r`. The `encoding` can be any one of those accepted by `Buffer`.
+         * \[0, [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)\] range. Modifying a file rather than
+         * replacing it may require the `flags` `open` option to be set to `r+` rather than
+         * the default `r`. The `encoding` can be any one of those accepted by `Buffer`.
          *
          * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'`the file descriptor will be closed automatically. If `autoClose` is false,
          * then the file descriptor won't be closed, even if there's an error.
@@ -333,9 +333,8 @@ declare module 'fs/promises' {
         /**
          * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, an
          * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface) or
-         * [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object, or an
-         * object with an own `toString` function
-         * property. The promise is resolved with no arguments upon success.
+         * [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object.
+         * The promise is resolved with no arguments upon success.
          *
          * If `options` is a string, then it specifies the `encoding`.
          *
@@ -353,20 +352,18 @@ declare module 'fs/promises' {
         /**
          * Write `buffer` to the file.
          *
-         * If `buffer` is a plain object, it must have an own (not inherited) `toString`function property.
-         *
          * The promise is resolved with an object containing two properties:
          *
          * It is unsafe to use `filehandle.write()` multiple times on the same file
          * without waiting for the promise to be resolved (or rejected). For this
-         * scenario, use `fs.createWriteStream()`.
+         * scenario, use `filehandle.createWriteStream()`.
          *
          * On Linux, positional writes do not work when the file is opened in append mode.
          * The kernel ignores the position argument and always appends the data to
          * the end of the file.
          * @since v10.0.0
          * @param [offset=0] The start position from within `buffer` where the data to write begins.
-         * @param [length=buffer.byteLength] The number of bytes from `buffer` to write.
+         * @param [length=buffer.byteLength - offset] The number of bytes from `buffer` to write.
          * @param position The offset from the beginning of the file where the data from `buffer` should be written. If `position` is not a `number`, the data will be written at the current position.
          * See the POSIX pwrite(2) documentation for more detail.
          */
@@ -432,9 +429,9 @@ declare module 'fs/promises' {
     /**
      * Tests a user's permissions for the file or directory specified by `path`.
      * The `mode` argument is an optional integer that specifies the accessibility
-     * checks to be performed. Check `File access constants` for possible values
-     * of `mode`. It is possible to create a mask consisting of the bitwise OR of
-     * two or more values (e.g. `fs.constants.W_OK | fs.constants.R_OK`).
+     * checks to be performed. `mode` should be either the value `fs.constants.F_OK`or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`,`fs.constants.W_OK`, and `fs.constants.X_OK`
+     * (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
+     * possible values of `mode`.
      *
      * If the accessibility check is successful, the promise is resolved with no
      * value. If any of the accessibility checks fail, the promise is rejected
@@ -854,7 +851,9 @@ declare module 'fs/promises' {
      */
     function mkdtemp(prefix: string, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
     /**
-     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a `Buffer`, or, an object with an own (not inherited)`toString` function property.
+     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, an
+     * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface) or
+     * [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object.
      *
      * The `encoding` option is ignored if `data` is a buffer.
      *
@@ -869,7 +868,7 @@ declare module 'fs/promises' {
      *
      * Similarly to `fsPromises.readFile` \- `fsPromises.writeFile` is a convenience
      * method that performs multiple `write` calls internally to write the buffer
-     * passed to it. For performance sensitive code consider using `fs.createWriteStream()`.
+     * passed to it. For performance sensitive code consider using `fs.createWriteStream()` or `filehandle.createWriteStream()`.
      *
      * It is possible to use an `AbortSignal` to cancel an `fsPromises.writeFile()`.
      * Cancelation is "best effort", and some amount of data is likely still

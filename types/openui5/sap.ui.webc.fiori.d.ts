@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.103.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -1125,7 +1125,7 @@ declare module "sap/ui/webc/fiori/Bar" {
        * The endContent to remove or its index or id
        */
       vEndContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a middleContent from the aggregation {@link #getMiddleContent middleContent}.
      *
@@ -1136,7 +1136,7 @@ declare module "sap/ui/webc/fiori/Bar" {
        * The middleContent to remove or its index or id
        */
       vMiddleContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a startContent from the aggregation {@link #getStartContent startContent}.
      *
@@ -1147,7 +1147,7 @@ declare module "sap/ui/webc/fiori/Bar" {
        * The startContent to remove or its index or id
        */
       vStartContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getDesign design}.
      *
@@ -1973,7 +1973,7 @@ declare module "sap/ui/webc/fiori/DynamicSideContent" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a sideContent from the aggregation {@link #getSideContent sideContent}.
      *
@@ -1984,7 +1984,7 @@ declare module "sap/ui/webc/fiori/DynamicSideContent" {
        * The sideContent to remove or its index or id
        */
       vSideContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getEqualSplit equalSplit}.
      *
@@ -2385,7 +2385,7 @@ declare module "sap/ui/webc/fiori/FilterItem" {
        * The value to remove or its index or id
        */
       vValue: int | string | IFilterItemOption
-    ): IFilterItemOption;
+    ): IFilterItemOption | null;
     /**
      * Sets a new value for property {@link #getText text}.
      *
@@ -3408,7 +3408,7 @@ declare module "sap/ui/webc/fiori/IllustratedMessage" {
        * The action to remove or its index or id
        */
       vAction: int | string | IButton
-    ): IButton;
+    ): IButton | null;
     /**
      * Removes all the controls from the aggregation {@link #getActions actions}.
      *
@@ -4010,7 +4010,7 @@ declare module "sap/ui/webc/fiori/MediaGallery" {
        * The item to remove or its index or id
        */
       vItem: int | string | IMediaGalleryItem
-    ): IMediaGalleryItem;
+    ): IMediaGalleryItem | null;
     /**
      * Sets a new value for property {@link #getInteractiveDisplayArea interactiveDisplayArea}.
      *
@@ -5206,7 +5206,7 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
        * The action to remove or its index or id
        */
       vAction: int | string | INotificationAction
-    ): INotificationAction;
+    ): INotificationAction | null;
     /**
      * Removes all the controls from the aggregation {@link #getActions actions}.
      *
@@ -5233,7 +5233,7 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
        * The item to remove or its index or id
        */
       vItem: int | string | INotificationListItem
-    ): INotificationListItem;
+    ): INotificationListItem | null;
     /**
      * Sets a new value for property {@link #getBusy busy}.
      *
@@ -5883,7 +5883,7 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
        * The action to remove or its index or id
        */
       vAction: int | string | INotificationAction
-    ): INotificationAction;
+    ): INotificationAction | null;
     /**
      * Removes all the controls from the aggregation {@link #getActions actions}.
      *
@@ -5910,7 +5910,7 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
        * The footnote to remove or its index or id
        */
       vFootnote: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getAvatar avatar}.
      *
@@ -6423,7 +6423,7 @@ declare module "sap/ui/webc/fiori/Page" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getBackgroundDesign backgroundDesign}.
      *
@@ -6784,7 +6784,7 @@ declare module "sap/ui/webc/fiori/ProductSwitch" {
        * The item to remove or its index or id
        */
       vItem: int | string | IProductSwitchItem
-    ): IProductSwitchItem;
+    ): IProductSwitchItem | null;
   }
 
   export interface $ProductSwitchSettings extends $WebComponentSettings {
@@ -8085,7 +8085,7 @@ declare module "sap/ui/webc/fiori/ShellBar" {
        * The item to remove or its index or id
        */
       vItem: int | string | IShellBarItem
-    ): IShellBarItem;
+    ): IShellBarItem | null;
     /**
      * Removes a menuItem from the aggregation {@link #getMenuItems menuItems}.
      *
@@ -8096,7 +8096,7 @@ declare module "sap/ui/webc/fiori/ShellBar" {
        * The menuItem to remove or its index or id
        */
       vMenuItem: int | string | IListItem
-    ): IListItem;
+    ): IListItem | null;
     /**
      * Sets a new value for property {@link #getAccessibilityTexts accessibilityTexts}.
      *
@@ -9065,7 +9065,7 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
        * The fixedItem to remove or its index or id
        */
       vFixedItem: int | string | ISideNavigationItem
-    ): ISideNavigationItem;
+    ): ISideNavigationItem | null;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
      *
@@ -9076,7 +9076,7 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
        * The header to remove or its index or id
        */
       vHeader: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -9087,7 +9087,7 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
        * The item to remove or its index or id
        */
       vItem: int | string | ISideNavigationItem
-    ): ISideNavigationItem;
+    ): ISideNavigationItem | null;
     /**
      * Sets a new value for property {@link #getCollapsed collapsed}.
      *
@@ -9373,7 +9373,7 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
        * The item to remove or its index or id
        */
       vItem: int | string | ISideNavigationSubItem
-    ): ISideNavigationSubItem;
+    ): ISideNavigationSubItem | null;
     /**
      * Sets a new value for property {@link #getExpanded expanded}.
      *
@@ -10068,7 +10068,7 @@ declare module "sap/ui/webc/fiori/Timeline" {
        * The item to remove or its index or id
        */
       vItem: int | string | ITimelineItem
-    ): ITimelineItem;
+    ): ITimelineItem | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -10473,7 +10473,7 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
@@ -11169,7 +11169,7 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
        * The header to remove or its index or id
        */
       vHeader: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -11180,7 +11180,7 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
        * The item to remove or its index or id
        */
       vItem: int | string | IUploadCollectionItem
-    ): IUploadCollectionItem;
+    ): IUploadCollectionItem | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -11979,7 +11979,7 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getDisableDeleteButton disableDeleteButton}.
      *
@@ -12646,7 +12646,7 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
        * The filterItem to remove or its index or id
        */
       vFilterItem: int | string | IFilterItem
-    ): IFilterItem;
+    ): IFilterItem | null;
     /**
      * Removes a sortItem from the aggregation {@link #getSortItems sortItems}.
      *
@@ -12657,7 +12657,7 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
        * The sortItem to remove or its index or id
        */
       vSortItem: int | string | ISortItem
-    ): ISortItem;
+    ): ISortItem | null;
     /**
      * Sets a new value for property {@link #getSortDescending sortDescending}.
      *
@@ -13029,7 +13029,7 @@ declare module "sap/ui/webc/fiori/Wizard" {
        * The step to remove or its index or id
        */
       vStep: int | string | IWizardStep
-    ): IWizardStep;
+    ): IWizardStep | null;
     /**
      * Sets a new value for property {@link #getHeight height}.
      *
@@ -13327,7 +13327,7 @@ declare module "sap/ui/webc/fiori/WizardStep" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getBranching branching}.
      *

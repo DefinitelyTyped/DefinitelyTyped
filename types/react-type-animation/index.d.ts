@@ -3,50 +3,16 @@
 // Definitions by: Seungbin Oh <https://github.com/sboh1214>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReactNode, FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
-interface TypingProps {
-    element?: string;
-    children: ReactNode;
+export interface TypeAnimationProps {
+    sequence: Array<string | number>;
+    wrapper?: string;
+    repeat?: number;
+    cursor?: boolean;
     className?: string;
-    cursorClassName?: string;
-    cursorElement?: string;
-    cursor?: ReactNode;
-    hideCursor?: boolean;
-    speed?: number;
-    startDelay?: number;
-    loop?: boolean;
-    onStartedTyping?: () => void;
-    onBeforeType?: () => void;
-    onAfterType?: () => void;
-    onFinishedTyping?: () => void;
 }
 
-interface BackspaceProps {
-    count?: number;
-    delay?: number;
-    speed?: number;
-}
+declare const TypeAnimation: FunctionComponent<TypeAnimationProps>;
 
-interface DelayProps {
-    ms: number;
-}
-
-interface SpeedProps {
-    ms: number;
-}
-
-interface ResetProps {
-    count?: number;
-    delay?: number;
-    speed?: number;
-}
-
-declare const Typing: FunctionComponent<TypingProps> & {
-    Backspace: FunctionComponent<BackspaceProps>;
-    Delay: FunctionComponent<DelayProps>;
-    Speed: FunctionComponent<SpeedProps>;
-    Reset: FunctionComponent<ResetProps>;
-};
-
-export default Typing;
+export default TypeAnimation;

@@ -1,0 +1,11 @@
+{
+  "name": "generate-inspector",
+  "version": "1.0.0",
+  "description": "The entry point to this script is `index.ts`. It takes a single, optional argument (a tag in node-core), using the current Node `process.version` in lieu of this argument.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

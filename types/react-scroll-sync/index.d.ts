@@ -17,7 +17,7 @@ export interface ScrollSyncProps {
 export interface ScrollSyncPaneProps {
     attachTo?: HTMLElement | undefined;
     children?: React.ReactNode;
-    group?: string | undefined;
+    group?: string | string[] | undefined;
     enabled?: boolean | undefined;
 }
 
