@@ -1,68 +1,76 @@
 import { Handler } from "../handler";
 
 // Note, responses are *not* lambda results, they are sent to the event ResponseURL.
-export type CloudFormationCustomResourceHandler = Handler<CloudFormationCustomResourceEvent, void>;
+export type CloudFormationCustomResourceHandler<
+    Properties extends CloudFormationCustomResourceProperties = CloudFormationCustomResourceProperties
+> = Handler<CloudFormationCustomResourceEvent<Properties>, void>;
 
-export type CloudFormationCustomResourceEvent =
-    | CloudFormationCustomResourceCreateEvent
-    | CloudFormationCustomResourceUpdateEvent
-    | CloudFormationCustomResourceDeleteEvent;
+export type CloudFormationCustomResourceEvent<
+    Properties extends CloudFormationCustomResourceProperties = CloudFormationCustomResourceProperties
+> =
+    | CloudFormationCustomResourceCreateEvent<Properties>
+    | CloudFormationCustomResourceUpdateEvent<Properties>
+    | CloudFormationCustomResourceDeleteEvent<Properties>;
 
-export type CloudFormationCustomResourceResponse =
-    | CloudFormationCustomResourceSuccessResponse
-    | CloudFormationCustomResourceFailedResponse;
+export type CloudFormationCustomResourceResponse<Data extends Record<string, any> | undefined = Record<string, any> | undefined> =
+    | CloudFormationCustomResourceSuccessResponse<Data>
+    | CloudFormationCustomResourceFailedResponse<Data>;
+
+export type CloudFormationCustomResourceProperties = Record<string, any>;
 
 /**
  * CloudFormation Custom Resource event and response
  * http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/crpg-ref.html
  */
-export interface CloudFormationCustomResourceEventCommon {
+export interface CloudFormationCustomResourceEventCommon<
+    Properties extends CloudFormationCustomResourceProperties = CloudFormationCustomResourceProperties
+> {
     ServiceToken: string;
     ResponseURL: string;
     StackId: string;
     RequestId: string;
     LogicalResourceId: string;
     ResourceType: string;
-    ResourceProperties: {
+    ResourceProperties: Properties & {
         ServiceToken: string;
-        [Key: string]: any;
     };
 }
 
-export interface CloudFormationCustomResourceCreateEvent extends CloudFormationCustomResourceEventCommon {
+export interface CloudFormationCustomResourceCreateEvent<
+    Properties extends CloudFormationCustomResourceProperties = CloudFormationCustomResourceProperties
+> extends CloudFormationCustomResourceEventCommon<Properties> {
     RequestType: 'Create';
 }
 
-export interface CloudFormationCustomResourceUpdateEvent extends CloudFormationCustomResourceEventCommon {
+export interface CloudFormationCustomResourceUpdateEvent<
+    Properties extends CloudFormationCustomResourceProperties = CloudFormationCustomResourceProperties
+> extends CloudFormationCustomResourceEventCommon<Properties> {
     RequestType: 'Update';
     PhysicalResourceId: string;
-    OldResourceProperties: {
-        [Key: string]: any;
-    };
+    OldResourceProperties: CloudFormationCustomResourceProperties;
 }
 
-export interface CloudFormationCustomResourceDeleteEvent extends CloudFormationCustomResourceEventCommon {
+export interface CloudFormationCustomResourceDeleteEvent<
+    Properties extends CloudFormationCustomResourceProperties = CloudFormationCustomResourceProperties
+> extends CloudFormationCustomResourceEventCommon<Properties> {
     RequestType: 'Delete';
     PhysicalResourceId: string;
 }
 
-export interface CloudFormationCustomResourceResponseCommon {
+export type CloudFormationCustomResourceResponseCommon<Data extends Record<string, any> | undefined = Record<string, any> | undefined> = {
     PhysicalResourceId: string;
     StackId: string;
     RequestId: string;
     LogicalResourceId: string;
-    Data?: {
-        [Key: string]: any;
-    } | undefined;
     NoEcho?: boolean | undefined;
-}
+} & (Data extends undefined ? { Data?: Data } : { Data: Data })
 
-export interface CloudFormationCustomResourceSuccessResponse extends CloudFormationCustomResourceResponseCommon {
+export type CloudFormationCustomResourceSuccessResponse<Data extends Record<string, any> | undefined = Record<string, any> | undefined> = CloudFormationCustomResourceResponseCommon<Data> & {
     Status: 'SUCCESS';
     Reason?: string | undefined;
 }
 
-export interface CloudFormationCustomResourceFailedResponse extends CloudFormationCustomResourceResponseCommon {
+export type CloudFormationCustomResourceFailedResponse<Data extends Record<string, any> | undefined = Record<string, any> | undefined> = CloudFormationCustomResourceResponseCommon<Data> & {
     Status: 'FAILED';
     Reason: string;
 }

@@ -1,11 +1,13 @@
-import { CloudFormationCustomResourceEvent } from './cloudformation-custom-resource';
+import { CloudFormationCustomResourceEvent, CloudFormationCustomResourceProperties } from './cloudformation-custom-resource';
 import { Handler, Callback } from '../handler';
 
 // The CDK docs only specify 'important' properties, but in reality the incoming event
 // to the Lambda matches that of a traditional custom resource.
 // This includes the ResponseURL property which should not be used as the framework
 // itself will deal with delivering responses.
-export type CdkCustomResourceEvent = CloudFormationCustomResourceEvent & {
+export type CdkCustomResourceEvent<
+    Properties extends CloudFormationCustomResourceProperties = CloudFormationCustomResourceProperties
+> = CloudFormationCustomResourceEvent<Properties> & {
     /**
      * **This URL should not be used.** The CDK Provider Framework will call this URL
      * automatically based on the response produced by the Lambda handler.
@@ -18,50 +20,60 @@ export type CdkCustomResourceEvent = CloudFormationCustomResourceEvent & {
  * This is not to be confused with traditional CloudFormation custom resources.
  * @link https://docs.aws.amazon.com/cdk/api/latest/docs/custom-resources-readme.html#handling-lifecycle-events-onevent
  */
-export type CdkCustomResourceHandler = Handler<CdkCustomResourceEvent, CdkCustomResourceResponse>;
-export type CdkCustomResourceCallback = Callback<CdkCustomResourceResponse>;
+export type CdkCustomResourceHandler<
+    Properties extends CloudFormationCustomResourceProperties = CloudFormationCustomResourceProperties,
+    Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData
+> = Handler<CdkCustomResourceEvent<Properties>, CdkCustomResourceResponse<Data>>;
+export type CdkCustomResourceCallback<
+    Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData
+> = Callback<CdkCustomResourceResponse<Data>>;
 
-export interface CdkCustomResourceResponse {
+export type CdkCustomResourceResponseData =  Record<string, any> | undefined
+
+export type CdkCustomResourceResponse<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> = WithData<Data> & {
     PhysicalResourceId?: string;
-    Data?:
-        | {
-              [Key: string]: any;
-          }
-        | undefined;
     // Any extra properties will be provided to the isComplete handler for asynchronous resources.
     [Key: string]: any;
 }
 
 // IsComplete events will contain all normal request fields, as well as those returned from
 // the initial onEvent handler.
-export type CdkCustomResourceIsCompleteEvent = CdkCustomResourceEvent & CdkCustomResourceResponse;
+export type CdkCustomResourceIsCompleteEvent<
+    Properties extends CloudFormationCustomResourceProperties = CloudFormationCustomResourceProperties,
+    Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData
+> = CdkCustomResourceEvent<Properties> & CdkCustomResourceResponse<Data>;
 
-export type CdkCustomResourceIsCompleteResponse =
-    | CdkCustomResourceIsCompleteResponseSuccess
+export type CdkCustomResourceIsCompleteResponse<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> =
+    | CdkCustomResourceIsCompleteResponseSuccess<Data>
     | CdkCustomResourceIsCompleteResponseWaiting;
 
-export interface CdkCustomResourceIsCompleteResponseSuccess {
+/**
+ * The `Data` property will be merged with the `Data` property of the onEvent handler's response.
+ */
+export type CdkCustomResourceIsCompleteResponseSuccess<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> = WithData<Data> & {
     IsComplete: true;
-    /**
-     * This will be merged with the `Data` property of the onEvent handler's response.
-     */
-    Data?:
-        | {
-              [Key: string]: any;
-          }
-        | undefined;
 }
 
 export interface CdkCustomResourceIsCompleteResponseWaiting {
     IsComplete: false;
 }
 
+type WithData<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> =
+    Data extends undefined ? {
+        Data?: Data
+    } : {
+        Data: Data
+    };
+
 /**
  * An asynchronous custom resource handler.
  * @link https://docs.aws.amazon.com/cdk/api/latest/docs/custom-resources-readme.html#asynchronous-providers-iscomplete
  */
-export type CdkCustomResourceIsCompleteHandler = Handler<
-    CdkCustomResourceIsCompleteEvent,
-    CdkCustomResourceIsCompleteResponse
+export type CdkCustomResourceIsCompleteHandler<
+    Properties extends CloudFormationCustomResourceProperties = CloudFormationCustomResourceProperties,
+    Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData
+> = Handler<
+    CdkCustomResourceIsCompleteEvent<Properties, Data>,
+    CdkCustomResourceIsCompleteResponse<Data>
 >;
-export type CdkCustomResourceIsCompleteCallback = Callback<CdkCustomResourceIsCompleteResponse>;
+export type CdkCustomResourceIsCompleteCallback<Data extends CdkCustomResourceResponseData = CdkCustomResourceResponseData> = Callback<CdkCustomResourceIsCompleteResponse<Data>>;

@@ -1,7 +1,8 @@
 import {
     CloudFormationCustomResourceFailedResponse,
     CloudFormationCustomResourceHandler,
-    CloudFormationCustomResourceResponse, CloudFormationCustomResourceSuccessResponse,
+    CloudFormationCustomResourceResponse,
+    CloudFormationCustomResourceSuccessResponse,
 } from "aws-lambda";
 
 const handler: CloudFormationCustomResourceHandler = async (event, context, callback) => {
@@ -37,6 +38,15 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
         Status: "SUCCESS",
         NoEcho: boolOrUndefined,
     };
+
+    let customResponse: CloudFormationCustomResourceResponse<{ foo: string }> = {
+        ...response,
+        Data: {
+            foo: str,
+            // $ExpectError
+            bar: anyObj,
+        }
+    }
 
     let successResponse: CloudFormationCustomResourceSuccessResponse;
     let failedResponse: CloudFormationCustomResourceFailedResponse;
