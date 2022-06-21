@@ -1,4 +1,4 @@
-// Type definitions for node-asana 0.18.4
+// Type definitions for node-asana 0.18.14
 // Project: https://github.com/Asana/node-asana
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Tasyp <https://github.com/tasyp>
