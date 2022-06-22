@@ -1,10 +1,9 @@
 {
     "compilerOptions": {
-        "module": "ES2022",
+        "module": "commonjs",
         "lib": [
             "es6"
         ],
-        "moduleResolution": "node",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
