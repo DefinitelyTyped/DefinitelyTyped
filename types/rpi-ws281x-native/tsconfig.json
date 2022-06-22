@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "ES2022",
+        "lib": [
+            "es6"
+        ],
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "rpi-ws281x-native-tests.ts"
+    ]
+}
