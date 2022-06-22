@@ -1687,10 +1687,10 @@ declare namespace GoogleAppsScript {
       getParent(): Spreadsheet;
       getPivotTables(): PivotTable[];
       getProtections(type: ProtectionType): Protection[];
+      getRange(a1Notation: string): Range;
       getRange(row: Integer, column: Integer): Range;
       getRange(row: Integer, column: Integer, numRows: Integer): Range;
       getRange(row: Integer, column: Integer, numRows: Integer, numColumns: Integer): Range;
-      getRange(a1Notation: string): Range;
       getRangeList(a1Notations: string[]): RangeList;
       getRowGroup(rowIndex: Integer, groupDepth: Integer): Group | null;
       getRowGroupControlPosition(): GroupControlTogglePosition;
