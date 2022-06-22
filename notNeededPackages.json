@@ -50,7 +50,7 @@
         },
         "agilite": {
             "libraryName": "agilite",
-            "asOfVersion": "7.3"
+            "asOfVersion": "7.3.0"
         },
         "agora-rtc-sdk": {
             "libraryName": "agora-rtc-sdk",
