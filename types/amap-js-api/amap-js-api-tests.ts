@@ -1347,7 +1347,7 @@ testLabelsLayer.on('click', (event: AMap.LabelsLayer.EventMap['click']) => {
         data.id;
         // $ExpectType string
         data.name;
-        // $ExpectType [number, number] | [string, string]
+        // $ExpectType [number, number] | [string, string] || [string, string] | [number, number]
         data.position;
         // $ExpectType number | undefined
         data.rank;
@@ -2707,7 +2707,7 @@ const testLabelMarker = new AMap.LabelMarker({
 // $ExpectType void
 testLabelMarker.setPosition(lnglatTuple);
 
-// $ExpectType [number, number] | [string, string]
+// $ExpectType [number, number] | [string, string] || [string, string] | [number, number]
 testLabelMarker.getPosition();
 
 // $ExpectType [number, number]
