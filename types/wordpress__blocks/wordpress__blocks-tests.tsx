@@ -90,7 +90,7 @@ blocks.findTransform(
             },
         },
     ],
-    transform => transform.type === 'block'
+    transform => transform.type === 'block',
 );
 
 declare const RAW_TRANSFORM_ARRAY: Array<blocks.TransformRaw<any>>;
@@ -343,7 +343,7 @@ blocks.registerBlockType<{ foo: string }>('my/foo', {
 blocks.registerBlockType<{ foo: object }>('my/foo', {
     attributes: {
         foo: {
-            type: 'object'
+            type: 'object',
         },
     },
     icon: {
@@ -395,6 +395,15 @@ blocks.registerBlockType({
     usesContext: ['groupId'],
     supports: {
         align: true,
+        color: {
+            background: true,
+            gradients: false,
+            link: true,
+        },
+        spacing: {
+            blockGap: ['horizontal'],
+            margin: ['top', 'left'],
+        },
     },
     styles: [
         { name: 'default', label: 'Default', isDefault: true },
@@ -486,7 +495,7 @@ blocks.registerBlockType(
         editorStyle: 'file:./build/index.css',
         style: 'file:./build/style.css',
     },
-    { edit: () => null, save: () => null }
+    { edit: () => null, save: () => null },
 );
 
 // $ExpectType void
@@ -566,7 +575,7 @@ blocks.doBlocksMatchTemplate([BLOCK_INSTANCE]);
 // $ExpectType boolean
 blocks.doBlocksMatchTemplate(
     [BLOCK_INSTANCE, BLOCK_INSTANCE],
-    [['core/test-block'], ['core/test-block-2', {}, [['core/test-block']]], ['core/test-block-2']]
+    [['core/test-block'], ['core/test-block-2', {}, [['core/test-block']]], ['core/test-block-2']],
 );
 
 // $ExpectType BlockInstance<{ [k: string]: any; }>[]
@@ -578,11 +587,17 @@ blocks.synchronizeBlocksWithTemplate([BLOCK_INSTANCE, BLOCK_INSTANCE]);
 // $ExpectType BlockInstance<{ [k: string]: any; }>[]
 blocks.synchronizeBlocksWithTemplate(
     [BLOCK_INSTANCE, BLOCK_INSTANCE],
-    [['my/foo', { foo: 'bar' }], ['my/foo', { foo: 'bar' }]]
+    [
+        ['my/foo', { foo: 'bar' }],
+        ['my/foo', { foo: 'bar' }],
+    ],
 );
 
 // $ExpectType BlockInstance<{ [k: string]: any; }>[]
-blocks.synchronizeBlocksWithTemplate(undefined, [['my/foo', { foo: 'bar' }], ['my/foo', { foo: 'bar' }]]);
+blocks.synchronizeBlocksWithTemplate(undefined, [
+    ['my/foo', { foo: 'bar' }],
+    ['my/foo', { foo: 'bar' }],
+]);
 
 //
 // utils

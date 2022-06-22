@@ -52,18 +52,7 @@ export interface BlockStyle {
     readonly isDefault?: boolean | undefined;
 }
 
-export interface SerializableProps {
-    /**
-     * Skip serialization of values to the HTML
-     *
-     * If set to `true`, classes and inline styles won't be applied to
-     * the wrapper, and it's up to the block author to implement their
-     * specific application.
-     */
-    __experimentalSkipSerialization?: boolean;
-}
-
-export interface ColorProps extends SerializableProps {
+export interface ColorProps {
     /**
      * This property adds UI controls which allow the user to apply
      * a solid background color to a block.
@@ -74,7 +63,7 @@ export interface ColorProps extends SerializableProps {
      *
      * @defaultValue true
      */
-    background: string;
+    background: boolean;
     /**
      * This property adds UI controls which allow the user to apply
      * a gradient background to a block.
@@ -100,21 +89,9 @@ export interface ColorProps extends SerializableProps {
      * @defaultValue true
      */
     text: string;
-    /**
-     * This property adds UI controls which allow to apply a duotone
-     * filter to a specified selector within the block.
-     *
-     * The parent block selector is automatically added.
-     *
-     * When the block declares support for `color.__experimentalDuotone`,
-     * the attributes of a block will include `style`.
-     *
-     * @defaultValue false
-     */
-    __experimentalDuotone?: string;
 }
 
-export interface SpacingProps extends SerializableProps {
+export interface SpacingProps {
     blockGap: boolean | AxialDirections[];
     /**
      * Enable margin control UI for all or specified element directions
@@ -381,7 +358,7 @@ export interface BlockSupports {
      * of `true`, so if the color property is present they’ll also
      * be considered enabled.
      */
-    readonly color?: ColorProps | undefined;
+    readonly color?: Partial<ColorProps> | undefined;
     /**
      * This property adds a field to define a custom className for the
      * block's wrapper.
@@ -431,7 +408,7 @@ export interface BlockSupports {
      * When the block declares support for a specific spacing property,
      * the attributes definition is extended to include the `style` attribute.
      */
-    readonly spacing?: SpacingProps | undefined;
+    readonly spacing?: Partial<SpacingProps> | undefined;
 }
 
 //
