@@ -62,10 +62,15 @@ export type Depascalized<T> = {
             : T[K];
 };
 
-export function camelize(value: string): string;
-export function pascalize(value: string): string;
+export function camelize<T extends string>(value: T): SnakeToCamelCase<T>;
+
+export function pascalize<T extends string>(value: T): SnakeToPascalCase<T>;
+
 export function decamelize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
+export function decamelize<T extends string>(value: T): CamelToSnakeCase<T>;
+
 export function depascalize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
+export function depascalize<T extends string>(value: T): PascalToSnakeCase<T>;
 
 export function camelizeKeys(str: object[], optionsOrProcessor?: OptionOrProcessor): object[];
 export function camelizeKeys(str: object, optionsOrProcessor?: OptionOrProcessor): object;
