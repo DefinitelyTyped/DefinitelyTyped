@@ -4260,6 +4260,8 @@ declare namespace videojs {
         }
     }
 
+    type Preload = 'auto' | 'metadata' | 'none';
+
     interface ProgressControl extends Component {
         /**
          * Create the `Component`'s DOM element
@@ -7135,7 +7137,7 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     noUITitleAttributes?: boolean | undefined;
     plugins?: Partial<VideoJsPlayerPluginOptions> | undefined;
     poster?: string | undefined;
-    preload?: string | undefined;
+    preload?: videojs.Preload | undefined;
     responsive?: boolean | undefined;
     sourceOrder?: boolean | undefined;
     sources?: videojs.Tech.SourceObject[] | undefined;

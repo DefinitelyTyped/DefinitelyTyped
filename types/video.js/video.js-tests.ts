@@ -109,6 +109,11 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
         { type: 'video/ogg', src: 'http://www.example.com/path/to/video.ogv' },
     ]);
 
+    // the option passed when initializing player is a string
+    const preload: videojs.Preload | undefined = this.options_.preload;
+    // but the option when setting preload later is boolean
+    this.preload(false);
+
     const liveTracker = this.liveTracker;
     liveTracker.on('seekableendchange', () => {});
     liveTracker.on('liveedgechange', () => {});
