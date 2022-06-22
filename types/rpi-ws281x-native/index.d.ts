@@ -38,7 +38,7 @@ interface ChannelOptions {
      */
     brightness?: number;
     /**
-     * The type of LED strip.
+     * The LED-type connected on this channel. Can be a string-constant or one of the values from `ws281x.stripType` (default `ws281x.stripType.WS2812`).
      */
     stripType?: StripTypeEnum;
 }
