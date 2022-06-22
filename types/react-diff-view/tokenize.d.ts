@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { HunkData } from ".";
+import { ReactNode } from 'react';
+import { HunkData } from '.';
 
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/tokenize/index.js#L7-L14 Source}) */
 export interface TokenizeOptions {
@@ -19,36 +19,20 @@ export interface TokenizeResponse {
 }
 
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/tokenize/index.js#L6-L25 Source}) */
-export declare const tokenize: (
-    hunks: HunkData[],
-    options: TokenizeOptions,
-) => TokenizeResponse;
+export function tokenize(hunks: HunkData[], options: TokenizeOptions): TokenizeResponse;
 
-export type PickRanges = ([oldLinesOfPath, newLinesOfPath]: [
-    number[],
-    number[],
-]) => [number[], number[]];
+export type PickRangesFn = ([oldLinesOfPath, newLinesOfPath]: [number[], number[]]) => [number[], number[]];
 
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/tokenize/pickRanges.js Source}) */
-export declare const pickRanges: (
-    oldRanges: number[],
-    newRanges: number[],
-) => PickRanges;
+export function pickRanges(oldRanges: number[], newRanges: number[]): PickRangesFn;
 
 export interface MarkEditOptions {
     /** @default 'block' */
-    type?: string | "block";
+    type?: string | 'block';
 }
 
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/tokenize/markEdits.js Source}) */
-export declare const markEdit: (
-    hunks: HunkData[],
-    options: MarkEditOptions,
-) => PickRanges;
+export function markEdit(hunks: HunkData[], options: MarkEditOptions): PickRangesFn;
 
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/tokenize/markWord.js#L32 Source}) */
-export declare const markWord: (
-    word: string,
-    name: string,
-    replacement: string,
-) => PickRanges;
+export function markWord(word: string, name: string, replacement: string): PickRangesFn;

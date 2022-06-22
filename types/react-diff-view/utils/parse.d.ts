@@ -1,7 +1,7 @@
-import { File } from "gitdiff-parser";
+import { File } from 'gitdiff-parser';
 
-interface ParseDiffOptions {
-    nearbySequences?: "zip";
+export interface ParseDiffOptions {
+    nearbySequences?: 'zip';
 }
 
 /**
@@ -14,7 +14,7 @@ interface ParseDiffOptions {
  *
  * ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/utils/parse.js#L78-L84 Source})
  */
-export declare const parseDiff: (
+export function parseDiff(
     diffText: string,
     /**
      * - `{string} nearbySequences`: The action to take when meet nearby sequences, only the `"zip"` value has its own behavior.
@@ -23,4 +23,4 @@ export declare const parseDiff: (
      * {@link https://github.com/otakustay/react-diff-view/tree/v2.4.10#parse-diff-text README/Parse diff text}
      */
     options?: ParseDiffOptions,
-) => File[];
+): File[];

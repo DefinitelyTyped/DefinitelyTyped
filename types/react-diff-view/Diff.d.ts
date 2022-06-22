@@ -1,20 +1,20 @@
-import { Change, File, Hunk } from "gitdiff-parser";
-import { FunctionComponent, ReactHTML, ReactNode } from "react";
-import { HunkData } from "react-diff-view";
+import { Change, File, Hunk } from 'gitdiff-parser';
+import { FunctionComponent, ReactHTML, ReactNode } from 'react';
+import { HunkData } from '.';
 
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/Diff/index.js#L107 Source}) */
-export type DiffType = File["type"];
+export type DiffType = File['type'];
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/Diff/index.js#L108 Source}) */
-export type ViewType = "unified" | "split";
+export type ViewType = 'unified' | 'split';
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/Diff/index.js#L110 Source}) */
-export type GutterType = "default" | "none" | "anchor";
+export type GutterType = 'default' | 'none' | 'anchor';
 
 /**
  * A function that receives an element and wrap it in an `<a>` element if `gutterAnchor` is enabled.
  *
  * ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/Hunk/utils.js#L8-L14 Source})
  */
-export type WrapInAnchor = (element: ReactNode) => ReactNode | ReactHTML["a"];
+export type WrapInAnchor = (element: ReactNode) => ReactNode | ReactHTML['a'];
 
 /**
  * A default render function which returns line number if possible.
@@ -44,7 +44,7 @@ export type DefaultRenderToken = (token: Token, i: number) => ReactNode;
 export interface RenderGutterProps {
     /** Current change */
     change: Change;
-    side: "new" | "old";
+    side: 'new' | 'old';
     /** A default render function which returns line number if possible. */
     renderDefault: RenderDefault;
     /** A function that receives an element and wrap it in an `<a>` element if `gutterAnchor` is enabled. */
@@ -108,11 +108,7 @@ export interface DiffProps {
      * {@link https://github.com/otakustay/react-diff-view/tree/v2.4.10#pick-ranges Pick ranges}
      * section for detail.
      */
-    renderToken?: (
-        token: Token,
-        DefaultRenderToken: DefaultRenderToken,
-        i: number,
-    ) => ReactNode;
+    renderToken?: (token: Token, DefaultRenderToken: DefaultRenderToken, i: number) => ReactNode;
     /**
      * A function to render content in gutter cells, see
      * {@link https://github.com/otakustay/react-diff-view/tree/v2.4.10#customize-gutter Customize gutter}
@@ -126,4 +122,4 @@ export interface DiffProps {
 /**
  * {@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/Diff/index.js Source}
  */
-export declare const Diff: FunctionComponent<DiffProps>;
+export const Diff: FunctionComponent<DiffProps>;

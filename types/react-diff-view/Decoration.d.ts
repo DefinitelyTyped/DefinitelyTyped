@@ -1,6 +1,4 @@
-import { FunctionComponent, ReactElement } from "react";
-
-type ReactChild = ReactElement | string | number;
+import { FunctionComponent, ReactChild } from 'react';
 
 /**
  * ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/Decoration/index.js#L33-L44 Source})
@@ -54,4 +52,4 @@ export interface DecorationProps {
  *
  * Read more: {@link https://github.com/otakustay/react-diff-view/tree/v2.4.10#add-decoration-around-hunks README/Add Decoration Around Hunks}
  */
-export declare const Decoration: FunctionComponent<DecorationProps>;
+export const Decoration: FunctionComponent<DecorationProps>;

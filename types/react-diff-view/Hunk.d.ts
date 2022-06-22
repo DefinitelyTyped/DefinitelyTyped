@@ -64,4 +64,4 @@ export interface HunkProps {
     codeEvents?: CustomCallbacks;
 }
 
-export declare const Hunk: FunctionComponent<PropsWithChildren<HunkProps>>;
+export const Hunk: FunctionComponent<PropsWithChildren<HunkProps>>;
