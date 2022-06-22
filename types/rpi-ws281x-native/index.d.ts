@@ -2,27 +2,13 @@
 // Project: https://github.com/beyondscreen/node-rpi-ws281x-native
 // Definitions by: Nathan Rajlich <https://github.com/TooTallNate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
 
 /// <reference types="node" />
 
-declare enum StripType {
-    SK6812_RGBW = 403703808,
-    SK6812_RBGW = 403701768,
-    SK6812_GRBW = 403181568,
-    SK6812_GBRW = 403177488,
-    SK6812_BRGW = 402657288,
-    SK6812_BGRW = 402655248,
-    WS2811_RGB = 1050624,
-    WS2811_RBG = 1048584,
-    WS2811_GRB = 528384,
-    WS2811_GBR = 524304,
-    WS2811_BRG = 4104,
-    WS2811_BGR = 2064,
-    WS2812 = 528384,
-    SK6812 = 528384,
-    SK6812W = 403177488,
-}
+import type { stripType, stripTypeIds } from './lib/constants';
+
+type StripType = typeof stripType[keyof typeof stripType];
+type StripTypeEnum = StripType | keyof typeof stripTypeIds;
 
 interface Channel {
     readonly count: number;
@@ -35,15 +21,60 @@ interface Channel {
 }
 
 interface ChannelOptions {
-    stripType: StripType;
+    /**
+     * Number of LEDs on this channel.
+     */
+    count: number;
+    /**
+     * The GPIO port-number the LED strip is connected to (default `18` for the first channel, and `12` for the second channel).
+     */
+    gpio?: number;
+    /**
+     * `true` to invert the output-signal (for example, if you are using an inverting level-shifter).
+     */
+    invert?: boolean;
+    /**
+     * Initial brightness for the channel (0-255).
+     */
+    brightness?: number;
+    /**
+     * The type of LED strip.
+     */
+    stripType?: StripTypeEnum;
+}
+
+interface InitOptions {
+    /**
+     * The dma-number to use for the driver's data-transport to the LEDs (default `10`).
+     */
+    dma?: number;
+    /**
+     * The frequency in Hz of the control-signal. This is 800kHz for ws2812/sk6812 LEDs
+     * and 400kHz for older ws2811 LEDs (default `800000`).
+     */
+    freq?: number;
+    /**
+     * An array of one or two objects with channel-specific configuration for the two
+     * possible outputs.
+     */
+    channels: ChannelOptions[];
 }
 
 interface Ws281x {
-    (numLeds: number, opts: ChannelOptions): Channel;
-    stripType: typeof StripType;
-    init(): Channel[];
+    (numLeds: number, opts?: Omit<ChannelOptions, 'count'>): Channel;
+    stripType: typeof stripType;
+    init(opts: InitOptions): Channel[];
+    /**
+     * Shut down the drivers and free all resources.
+     */
     finalize(): void;
+    /**
+     * Clear all color-values and render.
+     */
     reset(): void;
+    /**
+     * Send the current state of the channel color-buffers to the LEDs.
+     */
     render(): void;
 }
 
