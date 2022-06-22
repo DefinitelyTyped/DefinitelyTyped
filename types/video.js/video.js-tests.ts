@@ -110,7 +110,7 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     ]);
 
     // the option passed when initializing player is a string
-    // $ExpectType videojs.Preload
+    // $ExpectType Preload | undefined
     this.options_.preload;
     // but the option when setting preload later is boolean
     this.preload(false);
