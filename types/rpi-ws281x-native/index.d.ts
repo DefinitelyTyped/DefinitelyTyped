@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-export enum StripType {
+declare enum StripType {
 	SK6812_RGBW = 403703808,
 	SK6812_RBGW = 403701768,
 	SK6812_GRBW = 403181568,
@@ -24,7 +24,7 @@ export enum StripType {
 	SK6812W = 403177488,
 }
 
-export interface Channel {
+interface Channel {
 	readonly count: number;
 	readonly stripType: StripType;
 	readonly invert: boolean;
@@ -34,7 +34,7 @@ export interface Channel {
 	buffer: Buffer;
 }
 
-export interface ChannelOptions {
+interface ChannelOptions {
 	stripType: StripType;
 }
 
@@ -50,4 +50,4 @@ interface Ws281x {
 }
 
 declare const ws281x: Ws281x;
-export default ws281x;
+export = ws281x;

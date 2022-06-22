@@ -1,4 +1,4 @@
-import ws281x from 'rpi-ws281x-native';
+import ws281x = require('rpi-ws281x-native');
 
 const NUM_LEDS = 100;
 
