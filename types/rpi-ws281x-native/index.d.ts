@@ -40,9 +40,7 @@ interface ChannelOptions {
 
 interface Ws281x {
     (numLeds: number, opts: ChannelOptions): Channel;
-    stripType: {
-        [k: string]: StripType;
-    };
+    stripType: typeof StripType;
     init(): Channel[];
     finalize(): void;
     reset(): void;
