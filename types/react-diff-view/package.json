@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "definitely-typed": "file:../..",
+        "gitdiff-parser": "^0.2.2"
+    }
+}
