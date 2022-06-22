@@ -4262,7 +4262,7 @@ declare namespace videojs {
         }
     }
 
-    type Preload = 'audio' | 'metadata' | 'none';
+    type Preload = 'auto' | 'metadata' | 'none';
 
     interface ProgressControl extends Component {
         /**
