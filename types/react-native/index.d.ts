@@ -9716,10 +9716,6 @@ declare global {
         groupEnd(): void;
         group(label?: string): void;
         /**
-         * @deprecated Use LogBox.ignoreAllLogs(disable) instead
-         */
-        disableYellowBox: boolean;
-        /**
          * @deprecated Use LogBox.ignoreLogs(patterns) instead
          */
         ignoredYellowBox: string[];
