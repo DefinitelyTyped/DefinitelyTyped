@@ -686,7 +686,6 @@ type FlexAlignType = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baselin
  * Flex Prop Types
  * @see https://reactnative.dev/docs/flexbox#proptypes
  * @see https://reactnative.dev/docs/layout-props
- * @see https://github.com/facebook/react-native/blob/master/Libraries/StyleSheet/LayoutPropTypes.js
  */
 export interface FlexStyle {
     alignContent?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'space-between' | 'space-around' | undefined;
@@ -1958,7 +1957,6 @@ export interface GestureResponderHandlers {
 
 /**
  * @see https://reactnative.dev/docs/view#style
- * @see https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewStylePropTypes.js
  */
 export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     backfaceVisibility?: 'visible' | 'hidden' | undefined;
@@ -3376,7 +3374,7 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
     step?: number | undefined;
 
     /**
-     * Used to style and layout the Slider. See StyleSheet.js and ViewStylePropTypes.js for more info.
+     * Used to style and layout the Slider. See StyleSheet.js for more info.
      */
     style?: StyleProp<ViewStyle> | undefined;
 
@@ -3504,7 +3502,6 @@ export interface ShadowStyleIOS {
 /**
  * Image style
  * @see https://reactnative.dev/docs/image#style
- * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageStylePropTypes.js
  */
 export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     resizeMode?: ImageResizeMode | undefined;
@@ -9682,16 +9679,6 @@ export namespace addons {
     export const TestModule: TestModuleStatic;
     export type TestModule = TestModuleStatic;
 }
-
-//
-// Prop Types
-//
-export const ColorPropType: React.Validator<string>;
-export const EdgeInsetsPropType: React.Validator<Insets>;
-export const PointPropType: React.Validator<PointPropType>;
-export const ViewPropTypes: React.ValidationMap<ViewProps>;
-export const TextPropTypes: React.ValidationMap<TextProps>;
-export const ImagePropTypes: React.ValidationMap<ImageProps>;
 
 declare global {
     interface NodeRequire {
