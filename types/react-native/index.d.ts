@@ -684,7 +684,7 @@ type FlexAlignType = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baselin
 
 /**
  * Flex Prop Types
- * @see https://reactnative.dev/docs/flexbox#proptypes
+ * @see https://reactnative.dev/docs/flexbox
  * @see https://reactnative.dev/docs/layout-props
  */
 export interface FlexStyle {
