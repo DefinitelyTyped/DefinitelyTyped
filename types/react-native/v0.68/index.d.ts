@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.69
+// Type definitions for react-native 0.68
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -428,7 +428,7 @@ export interface NativeTouchEvent {
 export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
 // See https://reactnative.dev/docs/scrollview#contentoffset
-export interface PointProp {
+export interface PointPropType {
     x: number;
     y: number;
 }
@@ -684,8 +684,9 @@ type FlexAlignType = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baselin
 
 /**
  * Flex Prop Types
- * @see https://reactnative.dev/docs/flexbox
+ * @see https://reactnative.dev/docs/flexbox#proptypes
  * @see https://reactnative.dev/docs/layout-props
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/StyleSheet/LayoutPropTypes.js
  */
 export interface FlexStyle {
     alignContent?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'space-between' | 'space-around' | undefined;
@@ -1957,6 +1958,7 @@ export interface GestureResponderHandlers {
 
 /**
  * @see https://reactnative.dev/docs/view#style
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewStylePropTypes.js
  */
 export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     backfaceVisibility?: 'visible' | 'hidden' | undefined;
@@ -2587,6 +2589,54 @@ export interface KeyboardAvoidingViewProps extends ViewProps {
 }
 
 /**
+ * @see https://reactnative.dev/docs/segmentedcontrolios
+ * @see SegmentedControlIOS.ios.js
+ */
+export interface NativeSegmentedControlIOSChangeEvent extends TargetedEvent {
+    value: string;
+    selectedSegmentIndex: number;
+}
+
+export interface SegmentedControlIOSProps extends ViewProps {
+    /**
+     * If false the user won't be able to interact with the control. Default value is true.
+     */
+    enabled?: boolean | undefined;
+
+    /**
+     * If true, then selecting a segment won't persist visually.
+     * The onValueChange callback will still work as expected.
+     */
+    momentary?: boolean | undefined;
+
+    /**
+     * Callback that is called when the user taps a segment;
+     * passes the event as an argument
+     */
+    onChange?: ((event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void) | undefined;
+
+    /**
+     * Callback that is called when the user taps a segment; passes the segment's value as an argument
+     */
+    onValueChange?: ((value: string) => void) | undefined;
+
+    /**
+     * The index in props.values of the segment to be (pre)selected.
+     */
+    selectedIndex?: number | undefined;
+
+    /**
+     * Accent color of the control.
+     */
+    tintColor?: ColorValue | undefined;
+
+    /**
+     * The labels for the control's segment buttons, in order.
+     */
+    values?: string[] | undefined;
+}
+
+/**
  * Renders nested content and automatically applies paddings reflect the portion of the view
  * that is not covered by navigation bars, tab bars, toolbars, and other ancestor views.
  * Moreover, and most importantly, Safe Area's paddings reflect physical limitation of the screen,
@@ -2617,6 +2667,37 @@ export interface InputAccessoryViewProps {
 
     style?: StyleProp<ViewStyle> | undefined;
 }
+
+/**
+ * Use `SegmentedControlIOS` to render a UISegmentedControl iOS.
+ *
+ * #### Programmatically changing selected index
+ *
+ * The selected index can be changed on the fly by assigning the
+ * selectIndex prop to a state variable, then changing that variable.
+ * Note that the state variable would need to be updated as the user
+ * selects a value and changes the index, as shown in the example below.
+ *
+ * ````
+ * <SegmentedControlIOS
+ *   values={['One', 'Two']}
+ *   selectedIndex={this.state.selectedIndex}
+ *   onChange={(event) => {
+ *     this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
+ *   }}
+ * />
+ * ````
+ */
+declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> {}
+declare const SegmentedControlIOSBase: Constructor<NativeMethods> & typeof SegmentedControlIOSComponent;
+
+/**
+ * SegmentedControlIOS has been extracted from react-native core and will be removed in a future release.
+ * It can now be installed and imported from `@react-native-community/segmented-control` instead of 'react-native'.
+ * @see https://github.com/react-native-community/segmented-control
+ * @deprecated
+ */
+export class SegmentedControlIOS extends SegmentedControlIOSBase {}
 
 export interface NavigatorIOSProps {
     /**
@@ -3295,7 +3376,7 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
     step?: number | undefined;
 
     /**
-     * Used to style and layout the Slider. See StyleSheet.js for more info.
+     * Used to style and layout the Slider. See StyleSheet.js and ViewStylePropTypes.js for more info.
      */
     style?: StyleProp<ViewStyle> | undefined;
 
@@ -3423,6 +3504,7 @@ export interface ShadowStyleIOS {
 /**
  * Image style
  * @see https://reactnative.dev/docs/image#style
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageStylePropTypes.js
  */
 export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     resizeMode?: ImageResizeMode | undefined;
@@ -3442,7 +3524,7 @@ export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
 }
 
 /*
- * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageSource.js
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageSourcePropType.js
  */
 export interface ImageURISource {
     /**
@@ -6297,7 +6379,7 @@ export interface ScrollViewPropsIOS {
      * Used to manually set the starting scroll offset.
      * The default value is {x: 0, y: 0}
      */
-    contentOffset?: PointProp | undefined; // zeros
+    contentOffset?: PointPropType | undefined; // zeros
 
     /**
      * This property specifies how the safe area insets are used to modify the content area of the scroll view.
@@ -8505,6 +8587,13 @@ export namespace Appearance {
      * Add an event handler that is fired when appearance preferences change.
      */
     export function addChangeListener(listener: AppearanceListener): NativeEventSubscription;
+
+    /**
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove a handler by passing the change event type and the handler.
+     */
+    export function removeChangeListener(listener: AppearanceListener): void;
 }
 
 /**
@@ -9594,6 +9683,16 @@ export namespace addons {
     export type TestModule = TestModuleStatic;
 }
 
+//
+// Prop Types
+//
+export const ColorPropType: React.Validator<string>;
+export const EdgeInsetsPropType: React.Validator<Insets>;
+export const PointPropType: React.Validator<PointPropType>;
+export const ViewPropTypes: React.ValidationMap<ViewProps>;
+export const TextPropTypes: React.ValidationMap<TextProps>;
+export const ImagePropTypes: React.ValidationMap<ImageProps>;
+
 declare global {
     interface NodeRequire {
         (id: string): any;
@@ -9616,6 +9715,10 @@ declare global {
         groupCollapsed(label?: string): void;
         groupEnd(): void;
         group(label?: string): void;
+        /**
+         * @deprecated Use LogBox.ignoreAllLogs(disable) instead
+         */
+        disableYellowBox: boolean;
         /**
          * @deprecated Use LogBox.ignoreLogs(patterns) instead
          */
