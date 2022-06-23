@@ -12,15 +12,12 @@ for (let i = 0; i < channel.count; i++) {
 ws281x.render();
 
 // ws281x(numLeds: number, options = {}): Channel
-const options = {
-    dma: 10,
-    freq: 800000,
+const channel2 = ws281x(20, {
     gpio: 18,
     invert: false,
     brightness: 255,
     stripType: ws281x.stripType.WS2812,
-};
-const channel2 = ws281x(20, options);
+});
 channel2.buffer[0] = 0xab;
 
 // ws281x.init(options: Object): Channel[]
