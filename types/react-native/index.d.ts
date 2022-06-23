@@ -2618,37 +2618,6 @@ export interface InputAccessoryViewProps {
     style?: StyleProp<ViewStyle> | undefined;
 }
 
-/**
- * Use `SegmentedControlIOS` to render a UISegmentedControl iOS.
- *
- * #### Programmatically changing selected index
- *
- * The selected index can be changed on the fly by assigning the
- * selectIndex prop to a state variable, then changing that variable.
- * Note that the state variable would need to be updated as the user
- * selects a value and changes the index, as shown in the example below.
- *
- * ````
- * <SegmentedControlIOS
- *   values={['One', 'Two']}
- *   selectedIndex={this.state.selectedIndex}
- *   onChange={(event) => {
- *     this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
- *   }}
- * />
- * ````
- */
-declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> {}
-declare const SegmentedControlIOSBase: Constructor<NativeMethods> & typeof SegmentedControlIOSComponent;
-
-/**
- * SegmentedControlIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from `@react-native-community/segmented-control` instead of 'react-native'.
- * @see https://github.com/react-native-community/segmented-control
- * @deprecated
- */
-export class SegmentedControlIOS extends SegmentedControlIOSBase {}
-
 export interface NavigatorIOSProps {
     /**
      * The default background color of the navigation bar.
