@@ -2587,54 +2587,6 @@ export interface KeyboardAvoidingViewProps extends ViewProps {
 }
 
 /**
- * @see https://reactnative.dev/docs/segmentedcontrolios
- * @see SegmentedControlIOS.ios.js
- */
-export interface NativeSegmentedControlIOSChangeEvent extends TargetedEvent {
-    value: string;
-    selectedSegmentIndex: number;
-}
-
-export interface SegmentedControlIOSProps extends ViewProps {
-    /**
-     * If false the user won't be able to interact with the control. Default value is true.
-     */
-    enabled?: boolean | undefined;
-
-    /**
-     * If true, then selecting a segment won't persist visually.
-     * The onValueChange callback will still work as expected.
-     */
-    momentary?: boolean | undefined;
-
-    /**
-     * Callback that is called when the user taps a segment;
-     * passes the event as an argument
-     */
-    onChange?: ((event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void) | undefined;
-
-    /**
-     * Callback that is called when the user taps a segment; passes the segment's value as an argument
-     */
-    onValueChange?: ((value: string) => void) | undefined;
-
-    /**
-     * The index in props.values of the segment to be (pre)selected.
-     */
-    selectedIndex?: number | undefined;
-
-    /**
-     * Accent color of the control.
-     */
-    tintColor?: ColorValue | undefined;
-
-    /**
-     * The labels for the control's segment buttons, in order.
-     */
-    values?: string[] | undefined;
-}
-
-/**
  * Renders nested content and automatically applies paddings reflect the portion of the view
  * that is not covered by navigation bars, tab bars, toolbars, and other ancestor views.
  * Moreover, and most importantly, Safe Area's paddings reflect physical limitation of the screen,
