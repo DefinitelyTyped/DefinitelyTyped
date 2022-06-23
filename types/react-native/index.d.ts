@@ -8584,13 +8584,6 @@ export namespace Appearance {
      * Add an event handler that is fired when appearance preferences change.
      */
     export function addChangeListener(listener: AppearanceListener): NativeEventSubscription;
-
-    /**
-     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
-     *
-     * Remove a handler by passing the change event type and the handler.
-     */
-    export function removeChangeListener(listener: AppearanceListener): void;
 }
 
 /**
