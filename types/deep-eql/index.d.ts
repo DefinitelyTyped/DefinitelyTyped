@@ -1,6 +1,6 @@
 // Type definitions for deep-eql 4.0
 // Project: https://github.com/chaijs/deep-eql
-// Definitions by: ghnoob <https://github.com/ghnoob>
+// Definitions by: Rodrigo Pietnechuk <https://github.com/ghnoob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace deepEqual {
