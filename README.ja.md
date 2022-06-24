@@ -224,7 +224,7 @@ const result = twoslash("//")
 + // オプションの引数に対応
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // 引数が正しくないとき
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -232,13 +232,13 @@ const result = twoslash("//")
 
 レポジトリのルートで `npm test <テストしたいパッケージ名>` を実行すると、このコマンドはファイルが変更された状態でテストを実行するので、[変更を検証](#テストの実行)することができます。
 
-式が与えられた型であるか確認するには `$ExpectType` を、コンパイルエラーになるかを確認するには `$ExpectError` をそれぞれ使います。 例:
+式が与えられた型であるか確認するには `$ExpectType` を、コンパイルエラーになるかを確認するには `@ts-expect-error` をそれぞれ使います。 例:
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("one");
 ```
 
@@ -272,7 +272,8 @@ DefinitelyTyped 外のモジュールに依存しないパッケージについ�
 * フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier -- --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
   ```tsx
   // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  // @ts-expect-error
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
   ```
 * `function sum(nums: number[]): number`: 関数が引数に対して書き込まないときは `ReadonlyArray` を使用してください。
 * `interface Foo { new(): Foo; }`:

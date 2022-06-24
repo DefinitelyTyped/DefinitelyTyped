@@ -29,17 +29,22 @@ const myEvents = Object.create(Pizzicato.Events, {});
 const fileSound = new Pizzicato.Sound('foo.wav');
 fileSound.detached; // $ExpectType boolean
 // prettier-ignore
-fileSound.detached = false; // $ExpectError
+// @ts-expect-error
+fileSound.detached = false;
 const fileSoundEffect = new Pizzicato.Effects.Compressor();
 // prettier-ignore
-fileSound.effects.push(fileSoundEffect); // $ExpectError
+// @ts-expect-error
+fileSound.effects.push(fileSoundEffect);
 // prettier-ignore
-fileSound.playing = false; // $ExpectError
+// @ts-expect-error
+fileSound.playing = false;
 // prettier-ignore
-fileSound.loop = false; // $ExpectError
+// @ts-expect-error
+fileSound.loop = false;
 fileSound.volume = 0.4;
 // prettier-ignore
-fileSound.frequency = 440; // $ExpectError
+// @ts-expect-error
+fileSound.frequency = 440;
 fileSound.frequency; // $ExpectType null
 fileSound.attack = 4;
 fileSound.release = 5;
@@ -114,10 +119,12 @@ new Pizzicato.Group();
 const group = new Pizzicato.Group([inputSound, scriptSound]);
 group.volume = 0.7;
 // prettier-ignore
-group.sounds[1] = cloneSound; // $ExpectError
+// @ts-expect-error
+group.sounds[1] = cloneSound;
 group.sounds.length; // $ExpectType number
 // prettier-ignore
-group.effects[0] = new Pizzicato.Effects.Compressor(); // $ExpectError
+// @ts-expect-error
+group.effects[0] = new Pizzicato.Effects.Compressor();
 group.sounds.length; // $ExpectType number
 
 group.play();
@@ -144,10 +151,12 @@ const baseEffect: Pizzicato.BaseEffect = {
 };
 
 // prettier-ignore
-waveSound.addEffect(baseEffect); // $ExpectError
+// @ts-expect-error
+waveSound.addEffect(baseEffect);
 
 // prettier-ignore
-group.addEffect(baseEffect); // $ExpectError
+// @ts-expect-error
+group.addEffect(baseEffect);
 
 new Pizzicato.Effects.Compressor();
 new Pizzicato.Effects.Convolver({ impulse: 'impulseFile' });

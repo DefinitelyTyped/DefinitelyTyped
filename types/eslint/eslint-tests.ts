@@ -474,7 +474,7 @@ rule = {
             },
             WhileStatement(node: WhileStatement) {},
             Program(node) {
-                // $ExpectError
+                // @ts-expect-error
                 node.parent;
             },
             'Program:exit'() {},

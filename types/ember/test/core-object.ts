@@ -47,11 +47,14 @@ const class05 = Ember.CoreObject.extend({
         return [this.foo, this.bar];
     },
 });
-const c05 = class05.create({ foo: 99 }); // $ExpectError
+// @ts-expect-error
+const c05 = class05.create({ foo: 99 });
 const c05b = class05.create({ foo: true });
 const c05c = class05.create({ foo: 'abc' });
-assertType<string>(c05b.foo); // $ExpectError
-assertType<boolean>(c05c.foo); // $ExpectError
+// @ts-expect-error
+assertType<string>(c05b.foo);
+// @ts-expect-error
+assertType<boolean>(c05c.foo);
 
 /** two .extend arguments with a zero-argument .create() */
 const co6 = Ember.CoreObject.extend(
@@ -67,7 +70,8 @@ const co6 = Ember.CoreObject.extend(
             // this includes stuff from this extend-arg
             this.foo; // $ExpectType string
             // this does not include stuff from later extend args
-            this.bee; // $ExpectError
+            // @ts-expect-error
+            this.bee;
         },
     },
     {
@@ -86,7 +90,7 @@ const co6 = Ember.CoreObject.extend(
 ).create();
 
 // TODO: enable in TS 3.0  see: https://github.com/typed-ember/ember-cli-typescript/issues/291
-// assertType<string>(co6.foo); // $ExpectError
+// assertType<string>(co6.foo); // @ts-expect-error
 assertType<number>(co6.bar); // $ExpectType number
 assertType<() => Array<string | number>>(co6.baz); // $ExpectType () => (string | number)[]
 
@@ -104,7 +108,8 @@ const co7 = Ember.CoreObject.extend(
             // this includes stuff from this extend-arg
             this.foo; // $ExpectType string
             // this does not include stuff from later extend args
-            this.bee; // $ExpectError
+            // @ts-expect-error
+            this.bee;
         },
     },
     {
@@ -135,7 +140,7 @@ const co7 = Ember.CoreObject.extend(
     },
 ).create();
 // TODO: enable in TS 3.0  see: https://github.com/typed-ember/ember-cli-typescript/issues/291
-// assertType<number>(co7.foo); // $ExpectError
+// assertType<number>(co7.foo); // @ts-expect-error
 assertType<number>(co7.bar); // $ExpectType number
 assertType<string>(co7.money); // $ExpectType string
 assertType<() => Array<string | number>>(co7.baz); // $ExpectType () => (string | number)[]
@@ -154,7 +159,8 @@ const co8 = Ember.CoreObject.extend(
             // this includes stuff from this extend-arg
             this.foo; // $ExpectType string
             // this does not include stuff from later extend args
-            this.bee; // $ExpectError
+            // @ts-expect-error
+            this.bee;
         },
     },
     {
@@ -169,7 +175,8 @@ const co8 = Ember.CoreObject.extend(
             // this includes stuff from earlier extend-args
             this.bar; // $ExpectType number
             // this does not include stuff from later extend args
-            this.money; // $ExpectError
+            // @ts-expect-error
+            this.money;
         },
     },
     {
@@ -184,7 +191,8 @@ const co8 = Ember.CoreObject.extend(
             this.bee; // $ExpectType string
             this.bar; // $ExpectType number
             // this does not include stuff from later extend args
-            this.neighborhood; // $ExpectError
+            // @ts-expect-error
+            this.neighborhood;
         },
     },
     {
@@ -204,7 +212,7 @@ const co8 = Ember.CoreObject.extend(
 ).create();
 
 // TODO: enable in TS 3.0  see: https://github.com/typed-ember/ember-cli-typescript/issues/291
-// assertType<number>(co8.foo); // $ExpectError
+// assertType<number>(co8.foo); // @ts-expect-error
 assertType<number>(co8.bar); // $ExpectType number
 assertType<string>(co8.money); // $ExpectType string
 assertType<() => Array<string | number>>(co8.baz); // $ExpectType () => (string | number)[]

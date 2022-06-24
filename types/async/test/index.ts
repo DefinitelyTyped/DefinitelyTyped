@@ -378,8 +378,10 @@ async.auto<A>({
     (err, results) => { console.log('finished auto'); }
 );
 
-async.retry(); // $ExpectError
-async.retry(3); // $ExpectError
+// @ts-expect-error
+async.retry();
+// @ts-expect-error
+async.retry(3);
 
 async.retry(async () => 2); // $ExpectType Promise<number>
 async.retry<number>(async () => 2); // $ExpectType Promise<number>

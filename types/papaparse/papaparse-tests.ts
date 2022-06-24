@@ -128,17 +128,17 @@ Papa.parse('/resources/files/normal.csv', {
 });
 
 // Callback must provided for async parser
-// $ExpectError
+// @ts-expect-error
 Papa.parse('/resources/files/normal.csv', {
     download: true,
 });
-// $ExpectError
+// @ts-expect-error
 Papa.parse('1,2,3', {
     worker: true,
 });
-// $ExpectError
+// @ts-expect-error
 Papa.parse(file);
-// $ExpectError
+// @ts-expect-error
 Papa.parse(file, {});
 
 // $ExpectType ReadWriteStream
@@ -166,7 +166,7 @@ Papa.parse<string>('a,b,c', {
 });
 
 // `chunk` Works only with local and remote files
-// $ExpectError
+// @ts-expect-error
 Papa.parse<string>('a,b,c', {
     chunk(a) {
         a.data[0];

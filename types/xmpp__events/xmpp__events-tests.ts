@@ -32,6 +32,7 @@ deferred.reject('err'); // $ExpectType void
 const deferred2 = new events.Deferred<string>();
 deferred2.promise; // $ExpectType Promise<string>
 deferred2.resolve('foo'); // $ExpectType void
-deferred2.resolve(10); // $ExpectError
+// @ts-expect-error
+deferred2.resolve(10);
 
 class MyDeferred<T> extends events.Deferred<T> {}

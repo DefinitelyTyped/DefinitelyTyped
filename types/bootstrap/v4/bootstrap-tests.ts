@@ -16,7 +16,7 @@ $("#alert").on("close.bs.alert", () => {});
 // Button
 // --------------------------------------------------------------------------------------
 
-// $ExpectError
+// @ts-expect-error
 $("#button").button();
 
 // $ExpectType JQuery<HTMLElement>
@@ -362,7 +362,7 @@ $("#tooltip").tooltip({
 
 $("#tooltip").tooltip({
     placement(this, tooltip, trigger) {
-        // $ExpectError
+        // @ts-expect-error
         console.log(this.config.content); // only for PopoverOption, not TooltipOption
         return "left";
     },

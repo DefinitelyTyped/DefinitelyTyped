@@ -1,15 +1,21 @@
-browser.nonexistentNS; // $ExpectError
-browser.nonexistentNS.unknownMethod(); // $ExpectError
+// @ts-expect-error
+browser.nonexistentNS;
+// @ts-expect-error
+browser.nonexistentNS.unknownMethod();
 
 // Test that out overwritten things at least worked
 browser.runtime.getManifest(); // $ExpectType WebExtensionManifest
-browser.test; // $ExpectError
-browser.manifest; // $ExpectError
-browser._manifest; // $ExpectError
+// @ts-expect-error
+browser.test;
+// @ts-expect-error
+browser.manifest;
+// @ts-expect-error
+browser._manifest;
 
 // browser.runtime
 const port = browser.runtime.connect();
-port.postMessage(); // $ExpectError
+// @ts-expect-error
+port.postMessage();
 port.postMessage({ test: 'ok' });
 
 port.onDisconnect.addListener((p) => {
