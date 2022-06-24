@@ -469,6 +469,8 @@ const spiedTarget2 = new SpiedTargetClass();
 // $ExpectError
 jest.spyOn(spiedTarget, 'setValue', 'get');
 // $ExpectError
+jest.spyOn(spiedTarget, 'setValue', undefined);
+// $ExpectError
 jest.spyOn(spiedTarget2, 'value');
 
 const spy1 = jest.spyOn(spiedTarget, 'returnsVoid');

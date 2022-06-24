@@ -12,6 +12,7 @@ import {
     APIGatewayEventRequestContextWithAuthorizer,
     APIGatewayProxyEvent,
     APIGatewayProxyHandler,
+    APIGatewayProxyWebsocketHandlerV2,
     APIGatewayProxyResult,
     APIGatewayProxyEventV2,
     APIGatewayProxyHandlerV2,
@@ -199,6 +200,32 @@ const proxyHandlerV2: APIGatewayProxyHandlerV2 = async (event, context, callback
         str = event.requestContext.authentication.clientCert.validity.notAfter;
         str = event.requestContext.authentication.clientCert.validity.notBefore;
     }
+
+    const result = createProxyResultV2();
+
+    callback(new Error());
+    callback(null, result);
+    return result;
+};
+
+const proxyHandlerV2Websocket: APIGatewayProxyWebsocketHandlerV2 = async (event, context, callback) => {
+    strOrUndefined = event.body;
+    bool = event.isBase64Encoded;
+    strOrUndefined = event.stageVariables ? event.stageVariables['example'] : undefined;
+
+    str = event.requestContext.routeKey;
+    str = event.requestContext.messageId;
+    str = event.requestContext.eventType;
+    str = event.requestContext.extendedRequestId;
+    str = event.requestContext.requestTime;
+    str = event.requestContext.messageDirection;
+    str = event.requestContext.stage;
+    num = event.requestContext.connectedAt;
+    num = event.requestContext.requestTimeEpoch;
+    str = event.requestContext.requestId;
+    str = event.requestContext.domainName;
+    str = event.requestContext.connectionId;
+    str = event.requestContext.apiId;
 
     const result = createProxyResultV2();
 

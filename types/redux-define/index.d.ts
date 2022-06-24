@@ -31,10 +31,10 @@ export interface PlainAction<OwnAction extends string, Namespace extends string 
 
 export type Action<
     OwnAction extends string = string,
-    SubAction extends string = string,
-    SubActions extends SubAction[] | undefined = undefined,
+    SubAction extends string | undefined = undefined,
     Namespace extends string | undefined = undefined,
-> = SubActions extends string[]
+    SubActions extends SubAction[] = SubAction[],
+> = SubAction extends string
     ? PlainAction<OwnAction, Namespace> & SubActionProps<SubAction, SubActions, Namespace, OwnAction>
     : PlainAction<OwnAction, Namespace>;
 
@@ -42,7 +42,7 @@ export function defineAction<OwnAction extends string>(actionType: OwnAction): A
 export function defineAction<OwnAction extends string, SubAction extends string, SubActions extends SubAction[]>(
     actionType: OwnAction,
     subactions: SubActions,
-): Action<OwnAction, SubAction, SubActions>;
+): Action<OwnAction, SubAction, undefined, SubActions>;
 export function defineAction<
     OwnAction extends string,
     SubAction extends string,
@@ -52,16 +52,16 @@ export function defineAction<
     actionType: OwnAction,
     subactions: SubActions,
     namespace: Namespace,
-): Action<OwnAction, SubAction, SubActions, NamespaceString<Namespace>>;
+): Action<OwnAction, SubAction, NamespaceString<Namespace>, SubActions>;
 export function defineAction<OwnAction extends string, Namespace extends string | Action>(
     actionType: OwnAction,
     namespace: Namespace,
-): Action<OwnAction, string, undefined, NamespaceString<Namespace>>;
+): Action<OwnAction, string, NamespaceString<Namespace>, []>;
 
 export type defineChildAction = <Parent extends Action, OwnAction extends string>(
     this: Parent,
     actionType: OwnAction,
-) => Action<OwnAction, string, undefined, Parent['ACTION']>;
+) => Action<OwnAction, string, Parent['ACTION'], []>;
 
 export type defineChildActionWithNamespace = <OwnAction extends string, Namespace extends string | Action>(
     this: Action,
@@ -69,7 +69,7 @@ export type defineChildActionWithNamespace = <OwnAction extends string, Namespac
     namespace: Namespace,
     // Here we use the namespace passed as an argument, rather than the one from `this`.
     // This is accurate reflection of the lib behaviour, but possibly a bug.
-) => Action<OwnAction, string, undefined, NamespaceString<Namespace>>;
+) => Action<OwnAction, string, NamespaceString<Namespace>, []>;
 
 export type defineChildActionWithSubactionsAndNamespace = <
     Parent extends Action,
@@ -81,4 +81,4 @@ export type defineChildActionWithSubactionsAndNamespace = <
     actionType: OwnAction,
     subactions: SubActions,
     namespace?: string | Action, // Has no effect but is permitted.
-) => Action<OwnAction, SubAction, SubActions, Parent['ACTION']>;
+) => Action<OwnAction, SubAction, Parent['ACTION'], SubActions>;

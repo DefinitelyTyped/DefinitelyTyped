@@ -66,3 +66,21 @@ const { defineAction } = reduxDefine;
     CREATE.ERROR; // $ExpectType "my-app/todos/CREATE_ERROR"
     CREATE.SUCCESS; // $ExpectType "my-app/todos/CREATE_SUCCESS"
 }
+
+// Tests for usage of Action type
+
+type MyActionWithSubActions = reduxDefine.Action<'TEST', 'A' | 'B'>;
+declare const MyActionWithSubActions: MyActionWithSubActions;
+MyActionWithSubActions.toString(); // $ExpectType "TEST"
+MyActionWithSubActions.A; // $ExpectType "TEST_A"
+MyActionWithSubActions.B; // $ExpectType "TEST_B"
+
+type MyActionWithNamespace = reduxDefine.Action<'TEST', undefined, 'FOO'>;
+declare const myActionWithNamespace: MyActionWithNamespace;
+myActionWithNamespace.toString(); // $ExpectType "FOO/TEST"
+
+type MyActionWithSubActionsAndNamespace = reduxDefine.Action<'TEST', 'A' | 'B', 'FOO'>;
+declare const myActionWithSubactionsAndNamespace: MyActionWithSubActionsAndNamespace;
+myActionWithSubactionsAndNamespace.toString(); // $ExpectType "FOO/TEST"
+myActionWithSubactionsAndNamespace.A; // $ExpectType "FOO/TEST_A"
+myActionWithSubactionsAndNamespace.B; // $ExpectType "FOO/TEST_B"

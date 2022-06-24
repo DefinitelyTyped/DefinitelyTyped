@@ -109,7 +109,7 @@ dt.toISOWeekDate(); // $ExpectType string
 dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string
 dt.toLocaleParts(); // $ExpectType DateTimeFormatPart[]
-dt.toLocaleParts()[0].type; // $ExpectType DateTimeFormatPartTypes
+dt.toLocaleParts()[0].type; // $ExpectType DateTimeFormatPartTypes || keyof DateTimeFormatPartTypesRegistry
 dt.toLocaleParts()[0].value; // $ExpectType string
 dt.toLocaleString(); // $ExpectType string
 dt.toLocaleString({ month: 'long', day: 'numeric' }); // $ExpectType string

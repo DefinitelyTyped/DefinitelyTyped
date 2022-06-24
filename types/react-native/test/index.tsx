@@ -23,7 +23,6 @@ import {
     Appearance,
     BackHandler,
     Button,
-    ColorPropType,
     ColorValue,
     DataSourceAssetCallback,
     DatePickerAndroid,
@@ -107,7 +106,6 @@ import {
     UIManager,
     View,
     ViewPagerAndroid,
-    ViewPropTypes,
     ViewStyle,
     VirtualizedList,
     YellowBox,
@@ -315,11 +313,6 @@ class CustomView extends React.Component {
 }
 
 class Welcome extends React.Component<ElementProps<View> & { color: string }> {
-    static propTypes = {
-        ...ViewPropTypes,
-        color: ColorPropType,
-    };
-
     // tslint:disable-next-line:no-object-literal-type-assertion
     refs = {} as {
         [key: string]: React.ReactInstance;
@@ -1384,7 +1377,6 @@ const NativeBridgedComponent = requireNativeComponent<{ nativeProp: string }>('N
 class BridgedComponentTest extends React.Component {
     static propTypes = {
         jsProp: PropTypes.string.isRequired,
-        ...ViewPropTypes,
     };
 
     nativeComponentRef: React.ElementRef<typeof NativeBridgedComponent> | null;
@@ -1444,13 +1436,6 @@ const NativeIDTest = () => (
 
 const ScrollViewMaintainVisibleContentPositionTest = () => (
     <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}></ScrollView>
-);
-
-const ScrollViewInsetsTest = () => (
-  <>
-    <ScrollView automaticallyAdjustKeyboardInsets />
-    <ScrollView automaticallyAdjustKeyboardInsets={false} />
-  </>
 );
 
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;
@@ -1752,10 +1737,6 @@ const DarkMode = () => {
     const isDarkMode = Appearance.getColorScheme() === 'dark';
 
     const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-        console.log(colorScheme);
-    });
-
-    Appearance.removeChangeListener(({ colorScheme }) => {
         console.log(colorScheme);
     });
 

@@ -48,6 +48,10 @@
             "libraryName": "aggregate-error",
             "asOfVersion": "2.2.0"
         },
+        "agilite": {
+            "libraryName": "agilite",
+            "asOfVersion": "7.3.0"
+        },
         "agora-rtc-sdk": {
             "libraryName": "agora-rtc-sdk",
             "asOfVersion": "3.2.0"
