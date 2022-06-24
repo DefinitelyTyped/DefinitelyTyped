@@ -532,6 +532,10 @@ declare namespace OSRM {
          * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
          */
         snapping?: SnappingTypes;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     /**
@@ -597,6 +601,10 @@ declare namespace OSRM {
          * ['duration', distance'] (return both the duration matrix and the distance matrix).
          */
         annotations?: Array<('duration' | 'distance')>;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     /**
@@ -648,6 +656,10 @@ declare namespace OSRM {
          * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
          */
         snapping?: SnappingTypes;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     /**
@@ -694,6 +706,10 @@ declare namespace OSRM {
          * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
          */
         snapping?: SnappingTypes;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     interface RouteResults {
