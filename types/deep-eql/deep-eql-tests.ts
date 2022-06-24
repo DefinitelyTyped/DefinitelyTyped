@@ -1,9 +1,9 @@
-import deepEqual = require("deep-eql");
+import deepEqual = require('deep-eql');
 
 const { MemoizeMap } = deepEqual;
 
 // only operators
-deepEqual("x", "x");
+deepEqual('x', 'x');
 deepEqual(null, undefined);
 deepEqual(1, 1);
 deepEqual(true, false);
@@ -23,11 +23,7 @@ interface Foo {
     bar: string | number;
 }
 
-deepEqual(
-    { bar: 1 },
-    { bar: '1' },
-    { comparator: (a: Foo, b: Foo) => String(a.bar) === String(b.bar) },
-);
+deepEqual({ bar: 1 }, { bar: '1' }, { comparator: (a: Foo, b: Foo) => String(a.bar) === String(b.bar) });
 
 // $ExpectError leftHandOperand should be a number as typed in the comparator function
 deepEqual(

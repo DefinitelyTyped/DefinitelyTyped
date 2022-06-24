@@ -34,6 +34,10 @@ declare namespace deepEqual {
  * @param options (optional) Additional options
  * @return equal match
  */
-declare function deepEqual<T1, T2>(leftHandOperand: T1, rightHandOperand: T2, options?: deepEqual.DeepEqualOptions<T1, T2>): boolean;
+declare function deepEqual<T1, T2>(
+    leftHandOperand: T1,
+    rightHandOperand: T2,
+    options?: deepEqual.DeepEqualOptions<T1, T2>,
+): boolean;
 
 export = deepEqual;
