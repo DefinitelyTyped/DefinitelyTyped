@@ -518,7 +518,7 @@ export interface TailwindConfig {
     purge?: string[] | TailwindPurgeConfig;
     // Not documented yet.
     content?: string[] | { files: string[]; extract: any; transform: any };
-    presets?: any[];
+    presets?: TailwindConfig[];
     darkMode?: false | 'media' | 'class';
     variantOrder?: TailwindVariant[];
     prefix?: string;
