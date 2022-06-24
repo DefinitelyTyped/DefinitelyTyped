@@ -89,7 +89,7 @@ declare module 'leaflet' {
             waypointNameFallback?: ((latLng: LatLng) => string) | undefined;
             createGeocoder?: ((waypointIndex: number, numberWaypoints: number, plan: Plan) => {}) | undefined;
             addButtonClassName?: string | undefined;
-            createMarker?: ((waypointIndex: number, waypoint: Waypoint, numberWaypoints: number) => Marker) | undefined;
+            createMarker?: ((waypointIndex: number, waypoint: Waypoint, numberWaypoints: number) => Marker | boolean) | undefined;
             routeWhileDragging?: boolean | undefined;
             reverseWaypoints?: boolean | undefined;
             language?: string | undefined;
