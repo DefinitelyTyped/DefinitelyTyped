@@ -5,6 +5,7 @@ import { setupTest, setupRenderingTest } from 'ember-qunit';
 
 import {
     TestContext,
+    getContext,
     click,
     doubleClick,
     tap,
@@ -35,6 +36,11 @@ import {
     setupOnerror,
     resetOnerror
 } from '@ember/test-helpers';
+
+/** Static assertion that `value` has type `T` */
+declare function assertType<T>(value: T): T;
+
+assertType<TestContext>(getContext());
 
 interface LocalContext extends TestContext {
     something: 'cool';
