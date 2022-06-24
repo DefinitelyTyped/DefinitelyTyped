@@ -40,6 +40,11 @@ declare class Service {
               Resources: {
                   [key: string]: any;
               };
+              Outputs?:
+                  | {
+                        [key: string]: any;
+                    }
+                  | undefined;
           }
         | { [key: string]: any };
     package: { [key: string]: any };
