@@ -816,6 +816,7 @@ export interface LayoutAxis extends Axis {
     automargin: boolean;
     autotick: boolean;
     angle: any;
+    griddash: Dash;
 }
 
 export interface SceneAxis extends Axis {
@@ -1249,6 +1250,7 @@ export interface PlotData {
     textfont: Partial<Font>;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
+    fillpattern: Partial<Pattern>;
     showlegend: boolean;
     legendgroup: string;
     parents: string[];
@@ -1435,6 +1437,7 @@ export interface PlotMarker {
               colorsrc: any;
           }
         | undefined;
+    pattern?: Partial<Pattern>;
 }
 
 export type ScatterMarker = PlotMarker;
@@ -2246,4 +2249,51 @@ export interface CurrentValue {
      * Sets the font of the current value label text.
      */
     font: Partial<Font>;
+}
+
+/**
+ * 'Sets the pattern within the marker.
+ */
+export interface Pattern {
+    /**
+     * Sets the shape of the pattern fill.
+     * By default, no pattern is used for filling the area.
+     */
+    shape?: '' | '/' | '\\' | 'x' | '-' | '|' | '+' | '.';
+    /**
+     * Determines whether `marker.color` should be used
+     * as a default to `bgcolor` or a `fgcolor`.
+     */
+    fillmode?: 'replace' | 'overlay';
+    /**
+     * When there is no colorscale sets the color of background pattern fill.
+     * Defaults to a `marker.color` background when `fillmode` is *overlay*.
+     * Otherwise, defaults to a transparent background.
+     */
+    bgcolor?: string;
+    /**
+     * When there is no colorscale sets the color of foreground pattern fill.
+     * Defaults to a `marker.color` background when `fillmode` is *replace*.
+     * Otherwise, defaults to dark grey or white
+     * to increase contrast with the `bgcolor`.
+     */
+    fgcolor?: string;
+    /**
+     * Sets the opacity of the foreground pattern fill.
+     * Defaults to a 0.5 when `fillmode` is *overlay*.
+     * Otherwise, defaults to 1.
+     */
+    fgopacity?: string;
+    /**
+     * Sets the size of unit squares of the pattern fill in pixels,
+     * which corresponds to the interval of repetition of the pattern.
+     */
+    size?: number;
+    /**
+     * Sets the solidity of the pattern fill.
+     * Solidity is roughly the fraction of the area filled by the pattern.
+     * Solidity of 0 shows only the background color without pattern
+     * and solidty of 1 shows only the foreground color without pattern.
+     */
+    solidarity?: number;
 }
