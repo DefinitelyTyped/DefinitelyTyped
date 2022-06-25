@@ -507,6 +507,12 @@ declare module 'perf_hooks' {
          * @since v15.9.0, v14.18.0
          */
         recordDelta(): void;
+        /**
+         * Combines other histograms into a single one
+         *
+         * @since v17.4.0, v16.14.0
+         */
+         add(other: RecordableHistogram): RecordableHistogram;
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
