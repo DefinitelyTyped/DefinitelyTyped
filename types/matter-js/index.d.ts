@@ -577,7 +577,7 @@ declare namespace Matter {
     * Factories for commonly used body configurations (such as rectangles, circles and other polygons) can be found in the module `Matter.Bodies`.
     *
     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-
+    *
     * @class Body
     */
     export class Body {
@@ -1173,6 +1173,135 @@ declare namespace Matter {
          * @param {vector} position
          */
         static shift(bounds: Bounds, position: Vector): void;
+    }
+
+    /**
+     * The `Matter.Collision`module contains methods for detecting collisions between a given pair of bodies.
+     *
+     * For efficient detection between a list of bodies, see `Matter.Detector` and `Matter.Query`.
+     *
+     * See `Matter.Engine` for collision events.
+     *
+     * @class Collision
+     */
+    export class Collision {
+        /**
+         * The first body part represented by the collision (see also `collision.parentA`).
+         *
+         * @property bodyA
+         * @type body
+         */
+        bodyA: Body
+
+        /**
+         * The second body part represented by the collision (see also `collision.parentB`).
+         *
+         * @property bodyB
+         * @type body
+         */
+        bodyB: Body
+
+        /**
+         * A flag that indicates if the bodies were colliding when the collision was last updated.
+         *
+         * @property collided
+         * @type boolean
+         * @default false
+         */
+        collided: boolean
+
+        /**
+         * A `Number` that represents the minimum separating distance between the bodies along the collision normal.
+         *
+         * @readOnly
+         * @property depth
+         * @type number
+         * @default 0
+         */
+        depth: number
+
+        /**
+         * A normalised `Vector` that represents the direction between the bodies that provides the minimum separating distance.
+         *
+         * @property normal
+         * @type vector
+         * @default { x: 0, y: 0 }
+         */
+        normal: Vector
+
+        /**
+         * A reference to the pair using this collision record, if there is one.
+         *
+         * @property pair
+         * @type {pair|null}
+         * @default null
+         */
+        pair: null
+
+        /**
+         * The first body represented by the collision (i.e. `collision.bodyA.parent`).
+         *
+         * @property parentA
+         * @type body
+         */
+        parentA: Body
+
+        /**
+         * The second body represented by the collision (i.e. `collision.bodyB.parent`).
+         *
+         * @property parentB
+         * @type body
+         */
+        parentB: Body
+
+        /**
+         * A `Vector` that represents the direction and depth of the collision.
+         *
+         * @property penetration
+         * @type vector
+         * @default { x: 0, y: 0 }
+         */
+        penetration: Vector
+
+        /**
+         * An array of body vertices that represent the support points in the collision.
+         * These are the deepest vertices (along the collision normal) of each body that are contained by the other body's vertices.
+         *
+         * @property supports
+         * @type vector[]
+         * @default []
+         */
+        supports: Array<Vector>
+
+        /**
+         * A normalised `Vector` that is the tangent direction to the collision normal.
+         *
+         * @property tangent
+         * @type vector
+         * @default { x: 0, y: 0 }
+         */
+        tangent: Vector
+
+        /**
+         * Creates a new collision record.
+         *
+         * @method create
+         * @param {Body} bodyA The first body part represented by the collision record.
+         * @param {Body} bodyB The second body part represented by the collision record.
+         * @return {collision} A new collision record
+         */
+        static create(bodyA: Body, bodyB: Body): Collision;
+
+        /**
+         * Detect collision between two bodies.
+         *
+         * @method collides
+         * @param {Body} bodyA The first body part represented by the collision record.
+         * @param {Body} bodyB The second body part represented by the collision record.
+         * @param {Pairs} [pairs] Optionally reuse collision records from existing pairs.
+         * @return {collision|null} A collision record if detected, otherwise null.
+         */
+        static collides(bodyA: Body, bodyB: Body, pairs?: Pairs): Collision | null;
     }
 
     export interface ICompositeDefinition {
