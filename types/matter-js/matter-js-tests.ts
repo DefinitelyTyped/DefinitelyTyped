@@ -3,11 +3,13 @@ var Engine = Matter.Engine,
     World = Matter.World,
     Body = Matter.Body,
     Bodies = Matter.Bodies,
+    Collision = Matter.Collision,
     Composite = Matter.Composite,
     Composites = Matter.Composites,
     Constraint = Matter.Constraint,
     Events = Matter.Events,
     Query = Matter.Query,
+    Pairs = Matter.Pairs,
     Plugin = Matter.Plugin,
     Render = Matter.Render,
     SAT = Matter.SAT,
@@ -59,6 +61,12 @@ var box3 = Bodies.rectangle(400, 200, 80, 80, {
 var box4 = Bodies.rectangle(400, 200, 80, 80, {
     collisionFilter: {}, // Or none
 });
+
+// Collision
+// $ExpectType Collision
+Collision.create(box1, box2);
+// $ExpectType Collision | null
+Collision.collides(box1, box2);
 
 // Composites
 var stack = Composites.stack(0, 100, 5, 1, 20, 0, function (x: number, y: number, column: number, row: number) {
