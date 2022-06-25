@@ -85,4 +85,7 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
     // create empty document
     const emptyDoc = new GoogleSpreadsheet();
     await emptyDoc.createNewSpreadsheetDocument({ title: 'This is a new Spread Sheet' });
+
+    // duplicate document
+    await emptyDoc.duplicate({ title: 'Duplicate Document' });
 })();
