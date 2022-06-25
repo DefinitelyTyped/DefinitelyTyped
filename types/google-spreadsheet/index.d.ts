@@ -545,6 +545,26 @@ export class GoogleSpreadsheetRow {
 
 // #region GOOGLE SPREADSHEET WORKSHEET
 
+export interface DuplicateWorksheetBasicProperties {
+    /**
+     * @description
+     * name/title for new sheet, must be unique within the document
+     */
+    title?: string;
+
+    /**
+     * @description
+     * where to insert the new sheet (zero-indexed)
+     */
+    index?: number;
+
+    /**
+     * @description
+     * unique ID to use for new sheet
+     */
+    id?: string;
+}
+
 export interface WorksheetBasicProperties {
     // #region BASIC PROPERTIES
     /* separates basic (editable) properties as they are used as inputs to various methods
@@ -1189,6 +1209,14 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param properties basic Spreadsheet document properties to set
      */
     createNewSpreadsheetDocument(properties: SpreadsheetBasicProperties): Promise<void>;
+
+    /**
+     * @description
+     * duplicate this sheet within this document
+     *
+     * @param properties all worksheet properties to set
+     */
+    duplicate(properties?: DuplicateWorksheetBasicProperties): Promise<GoogleSpreadsheetWorksheet>;
 
     // #endregion
 }
