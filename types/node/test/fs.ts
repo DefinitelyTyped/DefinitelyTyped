@@ -703,10 +703,13 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.rand
     };
     cp('src', 'dest', (err: Error | null) => {});
     cp('src', 'dest', opts, (err: Error | null) => {});
+    cp(new URL(`file://${__dirname}`), new URL(`file://${__dirname}`), (err: Error | null) => {});
     cpSync('src', 'dest');
     cpSync('src', 'dest', opts);
+    cpSync(new URL(`file://${__dirname}`), new URL(`file://${__dirname}`));
     cpAsync('src', 'dest'); // $ExpectType Promise<void>
     cpAsync('src', 'dest', opts); // $ExpectType Promise<void>
+    cpAsync(new URL(`file://${__dirname}`), new URL(`file://${__dirname}`)); // $ExpectType Promise<void>
 }
 
 {
