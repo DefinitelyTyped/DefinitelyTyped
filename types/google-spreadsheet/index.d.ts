@@ -550,7 +550,7 @@ export interface DuplicateWorksheetBasicProperties {
      * @description
      * name/title for new sheet, must be unique within the document
      */
-    title?: String;
+    title?: string;
 
     /**
      * @description
