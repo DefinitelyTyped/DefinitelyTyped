@@ -1828,7 +1828,7 @@ declare namespace asana {
              * * Every task is required to be created in a specific workspace, and this
              * * workspace cannot be changed once set. The workspace need not be set
              * * explicitly if you specify a `project` or a `parent` task instead.
-             *   * @Param {Object} data Data for the request
+             *   * @param {Object} data Data for the request
              *   * @param {Number} [data.workspace] The workspace to create a task in.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -2175,7 +2175,7 @@ declare namespace asana {
             // https://developers.asana.com/docs/create-a-subtask
             /**
              * * Creates a new subtask and adds it to the parent task. Returns the full record
-             * * for the newly created Subtask.
+             * * for the newly created subtask.
              *   * @param {String|Number} task The task to add a subtask to.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -2235,7 +2235,6 @@ declare namespace asana {
              * @param {Object} [dispatchOptions]: Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-
             getTask(taskGid: string,
                     params?: { opt_fields?: never },
                     dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
