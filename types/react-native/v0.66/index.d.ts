@@ -34,7 +34,6 @@
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
-//                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
@@ -3220,12 +3219,6 @@ export interface RefreshControlPropsAndroid extends ViewProps {
      * Size of the refresh indicator, see RefreshControl.SIZE.
      */
     size?: number | undefined;
-
-    /**
-     * Progress view top offset
-     * @platform android
-     */
-    progressViewOffset?: number | undefined;
 }
 
 export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshControlPropsAndroid {
@@ -3238,6 +3231,11 @@ export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshCont
      * Whether the view should be indicating an active refresh.
      */
     refreshing: boolean;
+
+    /**
+     * Progress view top offset
+     */
+    progressViewOffset?: number | undefined;
 }
 
 /**

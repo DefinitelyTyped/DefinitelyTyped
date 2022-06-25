@@ -24,7 +24,7 @@
  * made available to developers as a convenience. Fixes or other modifications to
  * the module must be directed to the [Punycode.js](https://github.com/bestiejs/punycode.js) project.
  * @deprecated Since v7.0.0 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/punycode.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/punycode.js)
  */
 declare module 'punycode' {
     /**

@@ -68,7 +68,7 @@ iti.promise.then(() => {
 });
 
 intlTelInput; // $ExpectType (node: Element, options?: Options | undefined) => Plugin
-// $ExpectError
+// @ts-expect-error
 const options: IntlTelInput.Options = {
     allowDropdown: true,
 };

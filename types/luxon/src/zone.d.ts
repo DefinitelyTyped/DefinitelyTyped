@@ -15,7 +15,7 @@ export interface ZoneOffsetOptions {
  */
 export type ZoneOffsetFormat = 'narrow' | 'short' | 'techie';
 
-export class Zone {
+export abstract class Zone {
     /**
      * The type of zone
      */

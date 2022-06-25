@@ -10,7 +10,7 @@
 /**
  * The inspector module provides an API for interacting with the V8 inspector.
  */
-declare module 'node:inspector' {
+declare module 'inspector' {
     import EventEmitter = require('node:events');
 
     interface InspectorNotification<T> {
@@ -91,5 +91,6 @@ declare module 'node:inspector' {
  * The inspector module provides an API for interacting with the V8 inspector.
  */
 declare module 'node:inspector' {
-    export * from 'inspector';
+    import inspector = require('inspector');
+    export = inspector;
 }

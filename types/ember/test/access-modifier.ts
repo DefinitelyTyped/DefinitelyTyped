@@ -19,9 +19,11 @@ class Foo extends Ember.Object {
 const f = new Foo();
 assertType<string>(f.hello());
 // protected property should not be visible from outside of Foo
-assertType<string>(f.bar()); // $ExpectError
+// @ts-expect-error
+assertType<string>(f.bar());
 // private property should not be visible from outside of Foo
-assertType<string>(f.baz()); // $ExpectError
+// @ts-expect-error
+assertType<string>(f.baz());
 
 class Foo2 extends Ember.Object.extend({
     bar: '',
@@ -30,7 +32,7 @@ class Foo2 extends Ember.Object.extend({
         return 'world';
     }
     // Cannot override with a mis-matched property type
-    // $ExpectError
+    // @ts-expect-error
     protected bar() {
         return 'bar';
     }

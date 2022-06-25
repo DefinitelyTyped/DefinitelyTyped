@@ -1,4 +1,4 @@
-import { DynamoDBStreamEvent } from "aws-lambda";
+import { DynamoDBStreamEvent, DynamoDBStreamHandler, DynamoDBBatchResponse } from "aws-lambda";
 
 // TODO: Update test to read all event properties, and write all result
 //       properties, like the user will.
@@ -96,3 +96,28 @@ const event: DynamoDBStreamEvent = {
         },
     ],
 };
+
+const streamHandlerWithResponse: DynamoDBStreamHandler = async (event, context, callback) => {
+    // Check result type
+    let result: DynamoDBBatchResponse;
+    // check minimally assignable case
+    result = {
+        batchItemFailures: []
+    };
+    // check maximally assignable case
+    result = {
+        batchItemFailures: [
+            {
+                itemIdentifier: ''
+            }
+        ]
+    };
+
+    // check reasonable result-returning styles
+    callback(new Error());
+    callback(null, result);
+    callback(null);
+    return result;
+};
+
+const streamHandlerNoResponse: DynamoDBStreamHandler = async (event, context, callback) => {};

@@ -6,7 +6,9 @@ import EmailEditor, {
     HtmlExport,
     SimpleMergeTag,
     GroupedMergeTag,
-    ConditionalMergeTag, DisplayCondition, EmptyDisplayCondition, DisplayConditionDoneCallback
+    ConditionalMergeTag, DisplayCondition, EmptyDisplayCondition, DisplayConditionDoneCallback,
+    SimpleSpecialLink,
+    GroupedSpecialLink
 } from 'react-email-editor';
 
 const TOOLS_CONFIG = {
@@ -27,7 +29,8 @@ const groupedMergeTag: GroupedMergeTag = {
     {
       name: 'Tag 2',
       mergeTags: [{ name: 'Tag 4', value: '{tag_4}' }]
-    }
+    },
+    { name: 'Tag 3', value: '{tag_3}', sample: 'sample value'},
   ],
 };
 const conditionalMergeTag: ConditionalMergeTag = {
@@ -38,6 +41,27 @@ const conditionalMergeTag: ConditionalMergeTag = {
     after: '{{/if}}'
   }],
   mergeTags: [{ name: 'Tag 1', value: '{tag_1}' }]
+};
+
+const simpleSpecialLink: SimpleSpecialLink = {
+  name: 'Simple Special Link',
+  href: '[simpleSpecialLink]',
+  target: '_self',
+};
+const groupedSpecialLink: GroupedSpecialLink = {
+  name: 'Grouped Special Links',
+  specialLinks: [
+    {
+      name: 'Simple Special Link in Group',
+      href: '[groupSpecialLink]',
+      target: '_self',
+    },
+    {
+      name: 'Simple Special Link in Group 1',
+      href: '[groupSpecialLink1]',
+      target: '_blank',
+    },
+  ],
 };
 
 class App extends React.Component {
@@ -116,6 +140,7 @@ class App extends React.Component {
               email: 'john.doe@acme.com',
             },
             mergeTags: [simpleMergeTag, groupedMergeTag, conditionalMergeTag],
+            specialLinks: [simpleSpecialLink, groupedSpecialLink],
             designTags: {
               current_user_name: 'John Doe',
             },

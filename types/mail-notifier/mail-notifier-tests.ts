@@ -2,8 +2,10 @@ import mailNotifier = require('mail-notifier');
 import debug = require('debug');
 
 const notifier = mailNotifier({ user: 'hello', password: 'world' }); // $ExpectType Notifier
-mailNotifier({ user: 'hello' }); // $ExpectError
-mailNotifier({ password: 'world' }); // $ExpectError
+// @ts-expect-error
+mailNotifier({ user: 'hello' });
+// @ts-expect-error
+mailNotifier({ password: 'world' });
 mailNotifier({ user: 'hello', password: 'world', host: 'imap.gmail.com' }); // $ExpectType Notifier
 mailNotifier({ user: 'hello', password: 'world', port: 993 }); // $ExpectType Notifier
 mailNotifier({ user: 'hello', password: 'world', tls: true }); // $ExpectType Notifier

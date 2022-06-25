@@ -39,7 +39,8 @@ logProcessErrors({ level: { uncaughtException: "warn" } });
 logProcessErrors({ level: { uncaughtException: "error" } });
 logProcessErrors({ level: { uncaughtException: "silent" } });
 logProcessErrors({ level: { uncaughtException: "default" } });
-logProcessErrors({ level: { uncaughtException: "foo" } }); // $ExpectError
+// @ts-expect-error
+logProcessErrors({ level: { uncaughtException: "foo" } });
 logProcessErrors({
     level: {
         uncaughtException(error) {
@@ -53,22 +54,26 @@ logProcessErrors({ level: { rejectionHandled: "debug" } });
 logProcessErrors({ level: { multipleResolves: "debug" } });
 logProcessErrors({ level: { warning: "debug" } });
 logProcessErrors({ level: { default: "debug" } });
-logProcessErrors({ level: { foo: "debug" } }); // $ExpectError
+// @ts-expect-error
+logProcessErrors({ level: { foo: "debug" } });
 
 logProcessErrors({ exitOn: ["uncaughtException"] });
 logProcessErrors({ exitOn: ["unhandledRejection"] });
 logProcessErrors({ exitOn: ["rejectionHandled"] });
 logProcessErrors({ exitOn: ["multipleResolves"] });
 logProcessErrors({ exitOn: ["warning"] });
-logProcessErrors({ exitOn: ["foo"] }); // $ExpectError
+// @ts-expect-error
+logProcessErrors({ exitOn: ["foo"] });
 
 logProcessErrors({ testing: "ava" });
 logProcessErrors({ testing: "mocha" });
 logProcessErrors({ testing: "jasmine" });
 logProcessErrors({ testing: "tape" });
 logProcessErrors({ testing: "node-tap" });
-logProcessErrors({ testing: "foo" }); // $ExpectError
+// @ts-expect-error
+logProcessErrors({ testing: "foo" });
 
 logProcessErrors({ colors: false });
 
-logProcessErrors({ foo: "bar" }); // $ExpectError
+// @ts-expect-error
+logProcessErrors({ foo: "bar" });

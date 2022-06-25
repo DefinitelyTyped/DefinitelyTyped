@@ -1,7 +1,8 @@
-// Type definitions for chess.js 0.11
+// Type definitions for chess.js 0.13
 // Project: https://github.com/jhlywa/chess.js
 // Definitions by: Jacob Fischer <https://github.com/JacobFischer>
 //                 Zachary Svoboda <https://github.com/zacnomore>
+//                 Lars Kecker <https://github.com/CapOfCave>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
 
@@ -155,116 +156,120 @@ export interface Comment {
     comment: string;
 }
 
+/** The string that represents the White color side */
+export const WHITE: "w";
+
+/** The string that represents the Black color side */
+export const BLACK: "b";
+
+/** The string that represents a Pawn */
+export const PAWN: "p";
+
+/** The string that represents a Knight */
+export const KNIGHT: "n";
+
+/** The string that represents a Bishop */
+export const BISHOP: "b";
+
+/** The string that represents a Rook */
+export const ROOK: "r";
+
+/** The string that represents a Queen */
+export const QUEEN: "q";
+
+/** The string that represents a King */
+export const KING: "k";
+
+/** The constant that represents an empty square or value */
+export const EMPTY: number;
+
+/** A list of all the squares in the game, from "a1" to "h8" */
+export const SQUARES: [
+    "a8",
+    "b8",
+    "c8",
+    "d8",
+    "e8",
+    "f8",
+    "g8",
+    "h8",
+    "a7",
+    "b7",
+    "c7",
+    "d7",
+    "e7",
+    "f7",
+    "g7",
+    "h7",
+    "a6",
+    "b6",
+    "c6",
+    "d6",
+    "e6",
+    "f6",
+    "g6",
+    "h6",
+    "a5",
+    "b5",
+    "c5",
+    "d5",
+    "e5",
+    "f5",
+    "g5",
+    "h5",
+    "a4",
+    "b4",
+    "c4",
+    "d4",
+    "e4",
+    "f4",
+    "g4",
+    "h4",
+    "a3",
+    "b3",
+    "c3",
+    "d3",
+    "e3",
+    "f3",
+    "g3",
+    "h3",
+    "a2",
+    "b2",
+    "c2",
+    "d2",
+    "e2",
+    "f2",
+    "g2",
+    "h2",
+    "a1",
+    "b1",
+    "c1",
+    "d1",
+    "e1",
+    "f1",
+    "g1",
+    "h1",
+];
+
+/** Flags used to build flag strings for moves */
+export const FLAGS: {
+    /** a non-capture */
+    NORMAL: "n";
+    /** a standard capture */
+    CAPTURE: "c";
+    /** a pawn push of two squares */
+    BIG_PAWN: "b";
+    /** an en passant capture */
+    EP_CAPTURE: "e";
+    /** a promotion */
+    PROMOTION: "p";
+    /** kingside castling */
+    KSIDE_CASTLE: "k";
+    /** queenside castling */
+    QSIDE_CASTLE: "q";
+};
+
 export interface ChessInstance {
-    /** The string that represents the White color side */
-    readonly WHITE: "w";
-
-    /** The string that represents the Black color side */
-    readonly BLACK: "b";
-
-    /** The string that represents a Pawn */
-    readonly PAWN: "p";
-
-    /** The string that represents a Knight */
-    readonly KNIGHT: "n";
-    /** The string that represents a Bishop */
-    readonly BISHOP: "b";
-
-    /** The string that represents a Rook */
-    readonly ROOK: "r";
-
-    /** The string that represents a Queen */
-    readonly QUEEN: "q";
-
-    /** The string that represents a King */
-    readonly KING: "k";
-
-    /** A list of all the squares in the game, from "a1" to "h8" */
-    readonly SQUARES: [
-        "a8",
-        "b8",
-        "c8",
-        "d8",
-        "e8",
-        "f8",
-        "g8",
-        "h8",
-        "a7",
-        "b7",
-        "c7",
-        "d7",
-        "e7",
-        "f7",
-        "g7",
-        "h7",
-        "a6",
-        "b6",
-        "c6",
-        "d6",
-        "e6",
-        "f6",
-        "g6",
-        "h6",
-        "a5",
-        "b5",
-        "c5",
-        "d5",
-        "e5",
-        "f5",
-        "g5",
-        "h5",
-        "a4",
-        "b4",
-        "c4",
-        "d4",
-        "e4",
-        "f4",
-        "g4",
-        "h4",
-        "a3",
-        "b3",
-        "c3",
-        "d3",
-        "e3",
-        "f3",
-        "g3",
-        "h3",
-        "a2",
-        "b2",
-        "c2",
-        "d2",
-        "e2",
-        "f2",
-        "g2",
-        "h2",
-        "a1",
-        "b1",
-        "c1",
-        "d1",
-        "e1",
-        "f1",
-        "g1",
-        "h1",
-    ];
-
-    /** Flags used to build flag strings for moves */
-    readonly FLAGS: {
-        /** a non-capture */
-        NORMAL: "n";
-        /** a standard capture */
-        CAPTURE: "c";
-        /** a pawn push of two squares */
-        BIG_PAWN: "b";
-        /** an en passant capture */
-        EP_CAPTURE: "e";
-        /** a promotion */
-        PROMOTION: "p";
-        /** kingside castling */
-        KSIDE_CASTLE: "k";
-        /** queenside castling */
-        QSIDE_CASTLE: "q";
-    };
-
     /**
      * The board is cleared, and the FEN string is loaded.
      * Returns true if the position was successfully loaded, otherwise false
@@ -620,7 +625,7 @@ export interface ChessInstance {
         verbose?: boolean | undefined;
     }): string[] | Move[];
 
-    board(): Array<Array<{ type: PieceType; color: "w" | "b" } | null>>;
+    board(): Array<Array<{ type: PieceType; color: "w" | "b", square: Square } | null>>;
 
     get_comment(): string | undefined;
 

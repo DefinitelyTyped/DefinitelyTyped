@@ -214,7 +214,7 @@ new Collection<Props>().first;
 new Collection({ idProperty: 'name' }).first;
 // $ExpectType Collection<Props, "id">
 new Collection<Props>().add({ id: 'id' });
-// $ExpectError
+// @ts-expect-error
 new Collection<Props>().add({ id: '', name: '' });
 // $ExpectType ({ name: string; } & { id: string; }) | null
 new Collection([{ name: '' }]).first;
@@ -222,7 +222,7 @@ new Collection([{ name: '' }]).first;
 new Collection([{ name: '' }], { idProperty: 'uuid' }).first;
 // $ExpectType Collection<{ name: string; }, "id">
 new Collection([{ name: '' }]).add({ name: 'foo' });
-// $ExpectError
+// @ts-expect-error
 new Collection([{ name: '' }]).add({ surname: 'foo' });
 // $ExpectType void
 new Collection().clear();
@@ -238,7 +238,7 @@ new Collection([{ name: '' }]).get('');
 new Collection().getIndex('id1');
 // $ExpectType number
 new Collection().getIndex({});
-// $ExpectError
+// @ts-expect-error
 new Collection([{ name: '' }]).getIndex({});
 // $ExpectType { name: string; } & { id: string; }
 new Collection([{ name: '' }]).remove(0);
@@ -246,12 +246,18 @@ new Collection([{ name: '' }]).remove(0);
 new Collection([{ name: '' }]).remove('id1');
 // $ExpectType { name: string; } & { id: string; }
 new Collection([{ name: '' }]).remove({ name: '' });
-// $ExpectError
+// @ts-expect-error
 new Collection([{ name: '' }]).remove({ surname: '' });
 // $ExpectType string[]
 new Collection([{ name: '' }]).map(item => item.name);
 // $ExpectType number[]
 new Collection([{ name: '' }]).map((_, idx) => idx);
+new Collection().off("foo", (ev, ...args) => {
+    // $ExpectType EventInfo<Collection<Record<string, any>, "id">, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
 
 // collection#bindTo
 
@@ -304,7 +310,7 @@ const source3 = new Collection({ idProperty: 'label' });
 const target3 = new Collection([{ value: '' }]);
 
 target3.bindTo(source3).using('label');
-// $ExpectError
+// @ts-expect-error
 source3.bindTo(target3).using('label');
 
 const source4 = new Collection<HiddenObj>();
@@ -583,7 +589,7 @@ new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('Created file in %1ms.
 new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('', '');
 new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('', [5]);
 new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('', [5, '']);
-// $ExpectError
+// @ts-expect-error
 new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('', false);
 
 // utils/mapsequal ============================================================
@@ -642,7 +648,7 @@ nth(2, [5] as const);
 
 // utils/objecttomap ==========================================================
 
-// $ExpectError Map<"foo" | "bar", number>
+// $ExpectType Map<"foo" | "bar", number>
 objectToMap({ foo: 1, bar: 2 });
 // $ExpectType number | undefined
 objectToMap({ foo: 1, bar: 2 }).get('foo');
@@ -650,9 +656,7 @@ objectToMap({ foo: 1, bar: 2 }).get('foo');
 // utils/observablemixin ======================================================
 
 class Car implements Observable {
-    set(option: Record<string, unknown>): void;
-    set(name: string, value: unknown): void;
-    set(_name: any, _value?: any): void {
+    set(...args: [option: Record<string, unknown>] | [name: string, value: unknown] | [name: string]): void {
         throw new Error('Method not implemented.');
     }
     bind(..._bindProperties: string[]): BindChain {
@@ -739,6 +743,7 @@ bettle.set('seats', undefined);
 bettle.set({
     color: 'red',
 });
+bettle.set('color');
 
 bettle.unbind();
 bettle.unbind('color');
@@ -766,7 +771,7 @@ toMap([
     ['foo', 1],
     ['bar', 2],
 ]);
-// $ExpectType Map<string, number>
+// $ExpectType Map<string, number> || Map<"foo" | "bar", number>
 toMap(
     new Map([
         ['foo', 1],
@@ -894,3 +899,91 @@ isVisible(document.documentElement);
 isVisible(null);
 // $ExpectType boolean
 isVisible();
+
+declare class Foo implements Emitter {
+    on<K extends string>(
+        event: K,
+        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: {
+            priority?: PriorityString | number | undefined;
+        },
+    ): void;
+    on(
+        event: 'init',
+        callback: (this: this, info: EventInfo<this, 'init'>, arg: { init: true }) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<K extends string>(
+        event: K,
+        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
+        options?: {
+            priority?: PriorityString | number | undefined;
+        },
+    ): void;
+    once(
+        event: 'init',
+        callback: (this: this, info: EventInfo<this, 'init'>, arg: { init: true }) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
+    off(event: 'init', callback?: (this: this, info: EventInfo<this, 'init'>, arg: { init: true }) => void): void;
+    listenTo<P extends string, E extends Emitter>(
+        emitter: E,
+        event: P,
+        callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    stopListening<E extends Emitter, P extends string>(
+        emitter?: E,
+        event?: P,
+        callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
+    ): void;
+    fire(eventOrInfo: 'init', arg: { init: true }): unknown;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
+    delegate(...events: string[]): EmitterMixinDelegateChain;
+    stopDelegating(event?: string, emitter?: Emitter): void;
+}
+
+const foo = new Foo();
+
+foo.on('init', (info, arg) => {
+    // $ExpectType EventInfo<Foo, "init">
+    info;
+    // $ExpectType { init: true; }
+    arg;
+});
+
+new Foo().on('foo', (info, ...args) => {
+    // $ExpectType EventInfo<Foo, "foo">
+    info;
+    // $ExpectType any[]
+    args;
+});
+
+foo.once('init', (info, arg) => {
+    // $ExpectType EventInfo<Foo, "init">
+    info;
+    // $ExpectType { init: true; }
+    arg;
+});
+
+new Foo().once('foo', (info, ...args) => {
+    // $ExpectType EventInfo<Foo, "foo">
+    info;
+    // $ExpectType any[]
+    args;
+});
+
+foo.off('init', (info, arg) => {
+    // $ExpectType EventInfo<Foo, "init">
+    info;
+    // $ExpectType { init: true; }
+    arg;
+});
+
+foo.off('foo', (info, ...args) => {
+    // $ExpectType EventInfo<Foo, "foo">
+    info;
+    // $ExpectType any[]
+    args;
+});

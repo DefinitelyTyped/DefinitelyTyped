@@ -17,7 +17,7 @@ import Expand from 'react-expand-animated';
 </Expand>;
 
 <Expand
-    // $ExpectError
+    // @ts-expect-error
     transitions={['not-a-css-prop']}
 >
     <div />
@@ -25,7 +25,7 @@ import Expand from 'react-expand-animated';
 
 <Expand
     styles={{
-        // $ExpectError
+        // @ts-expect-error
         open: { notACssProp: 100 },
         close: { marginBottom: 100 },
     }}
@@ -36,7 +36,7 @@ import Expand from 'react-expand-animated';
 <Expand
     styles={{
         open: { marginBottom: 100 },
-        // $ExpectError
+        // @ts-expect-error
         close: { notACssProp: 100 },
     }}
 >
@@ -44,7 +44,7 @@ import Expand from 'react-expand-animated';
 </Expand>;
 
 <Expand
-    // $ExpectError
+    // @ts-expect-error
     tag="notATag"
 >
     <div />

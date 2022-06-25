@@ -216,3 +216,11 @@ jspreadsheet.tabs(document.getElementById('minExample') as HTMLDivElement, [
         minDimensions: [10, 5],
     },
 ]);
+
+/**
+ * Freeze columns
+ */
+instance = jspreadsheet(document.getElementById('spreadsheet') as HTMLDivElement, {
+    minDimensions: [10, 5],
+    freezeColumns: 2
+});

@@ -15,6 +15,9 @@ import { EditorWithUI } from '@ckeditor/ckeditor5-core/src/editor/editorwithui';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import ParagraphCommand from '@ckeditor/ckeditor5-paragraph/src/paragraphcommand';
 import View from '@ckeditor/ckeditor5-ui/src/view';
+import { Emitter } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 
 /**
  * Editor
@@ -53,7 +56,7 @@ PluginArray.forEach(plugin => typeof plugin !== 'string' && plugin.pluginName);
 
 const editor = new MyEditor(document.createElement('div'));
 const editorState: 'initializing' | 'ready' | 'destroyed' = editor.state;
-// $ExpectError
+// @ts-expect-error
 editor.state = editorState;
 editor.focus();
 editor.destroy().then(() => {});
@@ -62,9 +65,9 @@ editor.initPlugins().then(plugins => plugins.map(plugin => plugin.pluginName));
 MyEditor.defaultConfig = {
     placeholder: 'foo',
 };
-// $ExpectError
+// @ts-expect-error
 MyEditor.defaultConfig = 4;
-// $ExpectError
+// @ts-expect-error
 MyEditor.defaultConfig = { foo: 5 };
 
 /**
@@ -82,6 +85,12 @@ class MyPlugin extends Plugin {
 }
 
 const myPlugin = new MyPlugin(editor);
+myPlugin.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<MyPlugin, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
 const promise = myPlugin.init?.();
 promise != null && promise.then(() => {});
 myPlugin.myMethod();
@@ -103,10 +112,10 @@ editor.plugins.get(MyPlugin).myMethod();
 editor.plugins.has('foo');
 // $ExpectType boolean
 editor.plugins.has(MyPlugin);
-// $ExpectError
+// @ts-expect-error
 editor.plugins.has(class Foo {});
 
-// $ExpectError
+// @ts-expect-error
 editor.plugins.get(class Foo {});
 editor.plugins.get(class Foo extends Plugin {});
 
@@ -117,6 +126,7 @@ class MyEmptyEditor extends Editor {
 /**
  * Command
  */
+
 class MyCommand extends Command {
     get value(): boolean {
         return this.value;
@@ -132,13 +142,20 @@ class MyCommand extends Command {
 
 const command = new MyCommand(editor);
 
+command.on('execute', (ev, ...args) => {
+    // $ExpectType EventInfo<MyCommand, "execute">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
 // $ExpectType boolean
 command.value;
-// $ExpectError
+// @ts-expect-error
 command.value = false;
-// $ExpectError
+// @ts-expect-error
 delete command.value;
-// $ExpectError
+// @ts-expect-error
 delete command.isEnabled;
 
 // $ExpectType boolean
@@ -155,7 +172,7 @@ command.editor;
 // $ExpectType boolean
 command.isEnabled;
 
-// $ExpectError
+// @ts-expect-error
 command.isEnabled = false;
 
 command.destroy();
@@ -175,7 +192,7 @@ contextWithConfig.initPlugins().then(plugins => plugins.map(plugin => plugin.plu
  * ContextPlugin
  */
 class CPlugin extends ContextPlugin {}
-// $ExpectError
+// @ts-expect-error
 class CPlugin2 extends ContextPlugin {
     static requires: [MyPlugin];
 }
@@ -203,12 +220,19 @@ editor.plugins.get(MyCPlugin).myCMethod();
 context.plugins.get(MyCPlugin).myCMethod();
 (context.plugins.get('MyCPlugin') as MyCPlugin).myCMethod();
 
+editor.plugins.get(MyCPlugin).on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<MyCPlugin, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
 /**
  * DataApiMixin
  */
 
 DataApiMixin.setData('foo');
-// $ExpectError
+// @ts-expect-error
 DataApiMixin.getData('foo');
 DataApiMixin.getData({ rootName: 'foo' });
 DataApiMixin.getData({ rootName: 'foo', trim: 'none' });
@@ -216,7 +240,7 @@ DataApiMixin.getData({ rootName: 'foo', trim: 'none' });
 /**
  * attachToForm
  */
-// $ExpectError
+// @ts-expect-error
 attachToForm();
 attachToForm(editor);
 
@@ -232,11 +256,19 @@ new EditorUI(editor).componentFactory.add('', locale => new View(locale));
 new EditorUI(editor).set('foo', true);
 // $ExpectType { top: number; right: number; bottom: number; left: number; }
 new EditorUI(editor).viewportOffset;
+new EditorUI(editor).on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<EditorUI, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new EditorUI(editor).set('foo');
 
 /** Pending Actions */
 // $ExpectType boolean
 new PendingActions(context).hasAny;
-// $ExpectError
+// @ts-expect-error
 new PendingActions(context).hasAny = true;
 new PendingActions(context).remove(new PendingActions(context).add(''));
 
@@ -256,9 +288,9 @@ cc.get('paragraph');
 // $ExpectType void
 cc.execute('paragraph');
 cc.execute('paragraph', { selection: new Selection() });
-// $ExpectError
+// @ts-expect-error
 cc.execute('paragraph', { selection: true });
-// $ExpectError
+// @ts-expect-error
 cc.execute('paragraph', null);
 // $ExpectType string[]
 Array.from(cc.names());

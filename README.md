@@ -2,8 +2,8 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
-and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
 
@@ -53,9 +53,9 @@ or just look for any ".d.ts" files in the package and manually include them with
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
 
 <details>
-<summary>Currently versions 3.8 and above are tested...</summary>
+<summary>Currently versions 4.0 and above are tested...</summary>
 
-If you're using TypeScript 2.0 to 3.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+If you're using TypeScript 2.0 to 3.9, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -260,7 +260,7 @@ const result = twoslash("//")
 + // Handle options param
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // When the param is incorrect
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -268,13 +268,13 @@ If you're wondering where to start with test code, the examples in the README of
 
 You can [validate your changes](#running-tests) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
 
-Use `$ExpectType` to assert that an expression is of a given type, and `$ExpectError` to assert that a compile error. Examples:
+Use `$ExpectType` to assert that an expression is of a given type, and `@ts-expect-error` to assert that a compile error. Examples:
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("one");
 ```
 
@@ -340,7 +340,8 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 * Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
   ```tsx
   // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  // @ts-expect-error
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
   ```
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
@@ -602,10 +603,6 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
   }
 }
 ```
-
-#### The file history in GitHub looks incomplete.
-
-GitHub doesn't [support](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
 ## License
 

@@ -24,6 +24,19 @@ export interface User {
     readonly email?: string | undefined;
 }
 
+export interface GroupedSpecialLink {
+    readonly name: string;
+    readonly specialLinks: Array<SimpleSpecialLink | GroupedSpecialLink>;
+}
+
+export interface SimpleSpecialLink {
+    readonly name: string;
+    readonly href: string;
+    readonly target: string;
+}
+
+export type SpecialLink = SimpleSpecialLink | GroupedSpecialLink;
+
 export interface GroupedMergeTag {
     readonly name: string;
     readonly mergeTags: Array<SimpleMergeTag | GroupedMergeTag>;
@@ -32,6 +45,7 @@ export interface GroupedMergeTag {
 export interface SimpleMergeTag {
     readonly name: string;
     readonly value: string;
+    readonly sample?: string;
 }
 
 export interface ConditionalMergeTagRule {
@@ -103,6 +117,7 @@ export interface UnlayerOptions {
     readonly appearance?: AppearanceConfig | undefined;
     readonly user?: User | undefined;
     readonly mergeTags?: MergeTag[] | undefined;
+    readonly specialLinks?: SpecialLink[] | undefined;
     readonly designTags?: StringList | undefined;
     readonly designTagsConfig?: DesignTagConfig | undefined;
     readonly tools?: ToolsConfig | undefined;

@@ -28,8 +28,11 @@
  * identical to the behavior of pipes in the shell. Use the `{ stdio: 'ignore' }`option if the output will not be consumed.
  *
  * The command lookup is performed using the `options.env.PATH` environment
- * variable if it is in the `options` object. Otherwise, `process.env.PATH` is
- * used.
+ * variable if `env` is in the `options` object. Otherwise, `process.env.PATH` is
+ * used. If `options.env` is set without `PATH`, lookup on Unix is performed
+ * on a default search path search of `/usr/bin:/bin` (see your operating system's
+ * manual for execvpe/execvp), on Windows the current processes environment
+ * variable `PATH` is used.
  *
  * On Windows, environment variables are case-insensitive. Node.js
  * lexicographically sorts the `env` keys and uses the first one that
@@ -60,7 +63,7 @@
  * For certain use cases, such as automating shell scripts, the `synchronous counterparts` may be more convenient. In many cases, however,
  * the synchronous methods can have significant impact on performance due to
  * stalling the event loop while spawned processes complete.
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/child_process.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/child_process.js)
  */
 declare module 'child_process' {
     import { ObjectEncodingOptions } from 'node:fs';

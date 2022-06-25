@@ -70,5 +70,5 @@ const res3_2: state.Selection = state.Selection.findFrom({} as model.ResolvedPos
 const res4_1 = new state.PluginKey<string>();
 const res4_2: string = res4_1.getState({} as state.EditorState)!;
 
-// $ExpectError
+// @ts-expect-error
 new state.Transaction({} as ConstructorParameters<typeof state.Transaction>[0]);

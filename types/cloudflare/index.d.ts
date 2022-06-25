@@ -127,7 +127,7 @@ declare namespace Cloudflare {
         edit(
             id: string,
             page_rule: {
-                tragets: [
+                targets: [
                     {
                         target: string;
                         constraint: {
@@ -147,7 +147,7 @@ declare namespace Cloudflare {
             },
         ): ResponseObjectPromise;
         add(zone: {
-            tragets: [
+            targets: [
                 {
                     target: string;
                     constraint: {

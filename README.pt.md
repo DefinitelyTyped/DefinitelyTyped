@@ -49,11 +49,11 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (3.7 e anteriores)
+#### Versões antigas do TypeScript (3.9 e anteriores)
 
 O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 3.8 e acima são testadas.
-Se você está usando as versões 2.0 a 3.7 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
+Atualmente, as versões 4.0 e acima são testadas.
+Se você está usando as versões 2.0 a 3.9 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
@@ -225,7 +225,7 @@ const result = twoslash("//")
 + // Lida com o parâmetro options
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // Quando o parâmetro está incorreto
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -233,13 +233,13 @@ Se você está se perguntando por onde começar os testes em seu código, os exe
 
 Você pode [validar suas mudanças](#verificando) executando `npm test` na raiz deste repositório, que leva em consideração os arquivos alterados.
 
-Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `$ExpectError`.
+Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `@ts-expect-error`.
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("um");
 ```
 
@@ -280,7 +280,8 @@ Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em u
 * Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `npm run prettier -- --write path/to/package/**/*.ts`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
   ```tsx
   // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  // @ts-expect-error
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
   ```
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` se a função não adiciona valores a seus parâmetros.
 * `interface Foo { new(): Foo; }`:
@@ -522,11 +523,6 @@ Quando `dts-gen` for usado para montar um pacote com escopo, a propriedade `path
     }
 }
 ```
-
-
-#### O histórico do arquivo no GitHub parece incompleto.
-
-O GitHub não [suporta](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) histórico de arquivos renomeados. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) ao invés disso.
 
 ## Licença
 

@@ -1,4 +1,4 @@
-// Type definitions for OpenUI5 1.100
+// Type definitions for OpenUI5 1.103
 // Project: https://github.com/SAP/openui5
 // Definitions by: OpenUI5 Bot <https://github.com/openui5bot>
 //                 Peter Muessig <https://github.com/petermuessig>
@@ -8,7 +8,7 @@
 // TypeScript Version: 4.3
 
 /**
- * Copyright (c) 2021 SAP SE or an SAP affiliate company and OpenUI5 contributors.
+ * Copyright (c) 2022 SAP SE or an SAP affiliate company and OpenUI5 contributors.
  */
 
 /**

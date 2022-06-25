@@ -114,7 +114,7 @@ declare function afterEach(action: jasmine.ImplementationCallback, timeout?: num
 declare function beforeAll(action: jasmine.ImplementationCallback, timeout?: number): void;
 
 /**
- * Run some shared teardown once before all of the specs in the describe are run.
+ * Run some shared teardown once after all of the specs in the describe are run.
  * Note: Be careful, sharing the teardown from a afterAll makes it easy to accidentally leak state between your specs so that they erroneously pass or fail.
  * @param action Function that contains the code to teardown your specs.
  * @param timeout Custom timeout for an async afterAll
@@ -717,6 +717,15 @@ declare namespace jasmine {
          * expect(array).toHaveSize(2);
          */
         toHaveSize(expected: number): void;
+
+        /**
+         * {@link expect} the actual (a {@link SpyObj}) spies to have been called.
+         * @since 4.1.0
+         * @example
+         * expect(mySpyObj).toHaveSpyInteractions();
+         * expect(mySpyObj).not.toHaveSpyInteractions();
+         */
+        toHaveSpyInteractions(): void;
 
         /**
          * Add some context for an expect.

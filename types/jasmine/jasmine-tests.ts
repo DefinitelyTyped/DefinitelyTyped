@@ -29,7 +29,7 @@ import JasmineClass from "jasmine";
     });
 
     jasmineClass.loadConfig({
-        // $ExpectError
+        // @ts-expect-error
         jsLoader: "other string",
     });
 
@@ -263,7 +263,7 @@ describe("Included matchers:", () => {
         expect({ length: 5 }).toHaveSize(5);
         expect({ a: 5, b: 6 }).toHaveSize(2);
         // Expected size should be number
-        // $ExpectError
+        // @ts-expect-error
         expect([1, 2, 3]).toHaveSize("size should be number");
     });
 
@@ -326,7 +326,15 @@ describe("toBePositiveInfinity", () => {
 describe("toHaveClass", () => {
     const element: HTMLElement = null!;
     expect(element).toHaveClass("some-class");
-    expect(element).toHaveClass(Element); // $ExpectError
+    // @ts-expect-error
+    expect(element).toHaveClass(Element);
+});
+
+describe('toHaveSpyInteractions', () => {
+    const mySpyObj = jasmine.createSpyObj('NewClass', ['spyA', 'spyB']);
+    mySpyObj.otherMethod = () => {};
+    expect(mySpyObj).toHaveSpyInteractions();
+    expect(mySpyObj).not.toHaveSpyInteractions();
 });
 
 describe("A spec", () => {
@@ -439,7 +447,7 @@ describe("setSpecProperty", () => {
     it("should be able to set spec property", () => {
         setSpecProperty("name", "value");
         // Key must be string
-        // $ExpectError
+        // @ts-expect-error
         setSpecProperty(42, "value");
     });
 });
@@ -448,7 +456,7 @@ describe("setSuiteProperty", () => {
     it("should be able to set suite property", () => {
         setSuiteProperty("name", true);
         // Key must be string
-        // $ExpectError
+        // @ts-expect-error
         setSuiteProperty(42, true);
     });
 });
@@ -553,7 +561,8 @@ describe("A spy, when configured to fake a return value", () => {
 
     it("verifies return value type", () => {
         spyOn(foo, "getBar").and.returnValue(745);
-        spyOn(foo, "getBar").and.returnValue("42"); // $ExpectError
+        // @ts-expect-error
+        spyOn(foo, "getBar").and.returnValue("42");
     });
 
     it("tracks that the spy was called", () => {
@@ -615,7 +624,8 @@ describe("A spy, when configured to fake a promised return value", () => {
 
     it("verifies return value type", () => {
         spyOn(foo, "getAsyncBar").and.resolveTo(745);
-        spyOn(foo, "getAsyncBar").and.resolveTo("42"); // $ExpectError
+        // @ts-expect-error
+        spyOn(foo, "getAsyncBar").and.resolveTo("42");
     });
 
     it("tracks that the spy was called", async () => {
@@ -642,7 +652,8 @@ describe("A spy, when configured to fake a promised rejection", () => {
 
     it("verifies rejection value type", () => {
         spyOn(foo, "getAsyncBar").and.rejectWith("Error message");
-        spyOn(foo, "getBar").and.rejectWith("42"); // $ExpectError
+        // @ts-expect-error
+        spyOn(foo, "getBar").and.rejectWith("42");
     });
 
     it("when called, it is rejected with the requested value", async () => {
@@ -970,20 +981,28 @@ describe("a spy on a typed method", () => {
             t.method(1);
 
             expect(t.method).toHaveBeenCalledWith(1);
-            expect(t.method).toHaveBeenCalledWith("1"); // $ExpectError
-            expect(t.method).not.toHaveBeenCalledWith("1"); // $ExpectError
+            // @ts-expect-error
+            expect(t.method).toHaveBeenCalledWith("1");
+            // @ts-expect-error
+            expect(t.method).not.toHaveBeenCalledWith("1");
 
             expect(spy).toHaveBeenCalledWith(1);
-            expect(spy).toHaveBeenCalledWith("1"); // $ExpectError
-            expect(spy).not.toHaveBeenCalledWith("1"); // $ExpectError
+            // @ts-expect-error
+            expect(spy).toHaveBeenCalledWith("1");
+            // @ts-expect-error
+            expect(spy).not.toHaveBeenCalledWith("1");
 
             expect(t.method).toHaveBeenCalledOnceWith(1);
-            expect(t.method).toHaveBeenCalledOnceWith("1"); // $ExpectError
-            expect(t.method).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+            // @ts-expect-error
+            expect(t.method).toHaveBeenCalledOnceWith("1");
+            // @ts-expect-error
+            expect(t.method).not.toHaveBeenCalledOnceWith("1");
 
             expect(spy).toHaveBeenCalledOnceWith(1);
-            expect(spy).toHaveBeenCalledOnceWith("1"); // $ExpectError
-            expect(spy).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+            // @ts-expect-error
+            expect(spy).toHaveBeenCalledOnceWith("1");
+            // @ts-expect-error
+            expect(spy).not.toHaveBeenCalledOnceWith("1");
         });
     });
 
@@ -1015,20 +1034,28 @@ describe("a spy on a typed method", () => {
             t.method({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
 
             expect(t.method).toHaveBeenCalledWith({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
-            expect(t.method).toHaveBeenCalledWith("1"); // $ExpectError
-            expect(t.method).not.toHaveBeenCalledWith("1"); // $ExpectError
+            // @ts-expect-error
+            expect(t.method).toHaveBeenCalledWith("1");
+            // @ts-expect-error
+            expect(t.method).not.toHaveBeenCalledWith("1");
 
             expect(spy).toHaveBeenCalledWith({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
-            expect(spy).toHaveBeenCalledWith("1"); // $ExpectError
-            expect(spy).not.toHaveBeenCalledWith("1"); // $ExpectError
+            // @ts-expect-error
+            expect(spy).toHaveBeenCalledWith("1");
+            // @ts-expect-error
+            expect(spy).not.toHaveBeenCalledWith("1");
 
             expect(t.method).toHaveBeenCalledOnceWith({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
-            expect(t.method).toHaveBeenCalledOnceWith("1"); // $ExpectError
-            expect(t.method).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+            // @ts-expect-error
+            expect(t.method).toHaveBeenCalledOnceWith("1");
+            // @ts-expect-error
+            expect(t.method).not.toHaveBeenCalledOnceWith("1");
 
             expect(spy).toHaveBeenCalledOnceWith({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
-            expect(spy).toHaveBeenCalledOnceWith("1"); // $ExpectError
-            expect(spy).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+            // @ts-expect-error
+            expect(spy).toHaveBeenCalledOnceWith("1");
+            // @ts-expect-error
+            expect(spy).not.toHaveBeenCalledOnceWith("1");
         });
 
         it("should match arguments using jasmine matchers", () => {
@@ -1079,7 +1106,8 @@ describe("Spy for generic method", () => {
 
     it("should allow to configure generic method with non-named spy", () => {
         const spy = jasmine.createSpyObj<Test>(["method"]);
-        jasmine.createSpyObj<Test>(["methodUnknown"]); // $ExpectError
+        // @ts-expect-error
+        jasmine.createSpyObj<Test>(["methodUnknown"]);
 
         spy.method.and.returnValue([{ value: 1 }, { value: 2 }]);
     });
@@ -1135,11 +1163,13 @@ describe("Multiple spies, when created manually", () => {
 
     it("tracks all the arguments of its calls", () => {
         expect(tape.rewind).toHaveBeenCalledWith(0);
-        expect(tape.rewind).toHaveBeenCalledWith("42"); // $ExpectError
+        // @ts-expect-error
+        expect(tape.rewind).toHaveBeenCalledWith("42");
         expect(tape.rewind).toHaveBeenCalledWith(jasmine.anything());
         expect(tape.rewind).toHaveBeenCalledWith(jasmine.falsy());
         expect(tape.rewind).not.toHaveBeenCalledWith(1);
-        expect(tape.rewind).not.toHaveBeenCalledWith("42"); // $ExpectError
+        // @ts-expect-error
+        expect(tape.rewind).not.toHaveBeenCalledWith("42");
         expect(tape.rewind).not.toHaveBeenCalledWith(jasmine.truthy());
     });
 
@@ -1159,7 +1189,8 @@ describe("multiple spies, when created with spyOnAllFunctions", () => {
 
         spy.x.and.returnValue(42);
         spy.y.and.returnValue(24);
-        spy.z; // $ExpectError
+        // @ts-expect-error
+        spy.z;
 
         obj.x(0);
         obj.y(1);
@@ -1167,7 +1198,8 @@ describe("multiple spies, when created with spyOnAllFunctions", () => {
         expect(obj.x).toHaveBeenCalled();
         expect(obj.y).toHaveBeenCalledWith(1);
         expect(spy.y).toHaveBeenCalledWith(1);
-        expect(spy.y).toHaveBeenCalledWith("one"); // $ExpectError
+        // @ts-expect-error
+        expect(spy.y).toHaveBeenCalledWith("one");
     });
 });
 
@@ -1181,8 +1213,10 @@ describe("jasmine.any", () => {
     it("matches any value", () => {
         expect({}).toEqual(jasmine.any(Object));
         expect(12).toEqual(jasmine.any(Number));
-        expect(42).toEqual(jasmine.any(42)); // $ExpectError
-        expect({}).toEqual(jasmine.any({})); // $ExpectError
+        // @ts-expect-error
+        expect(42).toEqual(jasmine.any(42));
+        // @ts-expect-error
+        expect({}).toEqual(jasmine.any({}));
         expect(() => null).toEqual(jasmine.any(Function));
     });
 
@@ -1358,7 +1392,8 @@ describe("jasmine.objectContaining", () => {
         expect(foo).not.toEqual(
             jasmine.objectContaining<fooType>({
                 bar: "",
-                foo: 1, // $ExpectError
+                // @ts-expect-error
+                foo: 1,
             }),
         );
     });
@@ -1767,7 +1802,7 @@ describe("custom object formatter", () => {
     beforeEach(() => {
         jasmine.addCustomObjectFormatter(myCustomFormatter);
         // Invalid return value
-        // $ExpectError
+        // @ts-expect-error
         jasmine.addCustomObjectFormatter(() => 3);
     });
 
@@ -1907,7 +1942,7 @@ describe("Custom async matcher: 'toBeEight'", () => {
         });
 
         jasmine.addAsyncMatchers({
-            // $ExpectError
+            // @ts-expect-error
             toBeBadlyTyped: () => {
                 return {
                     compare: () => {
@@ -1964,7 +1999,8 @@ describe("better typed spys", () => {
                 value: "value",
             };
             const spy = spyOn(foo, "method");
-            const spy2 = spyOn(foo, "value"); // $ExpectError
+            // @ts-expect-error
+            const spy2 = spyOn(foo, "value");
 
             // $ExpectType string
             spy.calls.first().returnValue;
@@ -1976,8 +2012,10 @@ describe("better typed spys", () => {
             const namespace = { MyClass };
             const spy = spyOn(namespace, "MyClass");
             spy.and.returnValue({ foo: "test" });
-            spy.and.returnValue({}); // $ExpectError
-            spy.and.returnValue({ foo: 123 }); // $ExpectError
+            // @ts-expect-error
+            spy.and.returnValue({});
+            // @ts-expect-error
+            spy.and.returnValue({ foo: 123 });
         });
         it("can allows overriding the generic", () => {
             class Base {
@@ -1987,7 +2025,8 @@ describe("better typed spys", () => {
                 service2() {}
             }
             spyOn<Base>(new Super(), "service");
-            spyOn<Base>(new Super(), "service2"); // $ExpectError
+            // @ts-expect-error
+            spyOn<Base>(new Super(), "service2");
         });
     });
     describe("spyOnProperty", () => {
@@ -1995,7 +2034,8 @@ describe("better typed spys", () => {
             const obj = {prop: "test", otherProp: 1};
             const getSpy = spyOnProperty(obj, "prop");
             getSpy.and.returnValue("spy");
-            getSpy.and.returnValue(123); // $ExpectError
+            // @ts-expect-error
+            getSpy.and.returnValue(123);
             getSpy.and.callFake(function() {
                 this.otherProp; // $ExpectType number
                 return "spy";

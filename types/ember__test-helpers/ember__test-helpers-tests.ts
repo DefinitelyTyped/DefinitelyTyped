@@ -76,7 +76,8 @@ module('proper module', function (hooks) {
     });
 
     test('without custom test context, it does not "work"', function (assert) {
-        this.something; // $ExpectError
+        // @ts-expect-error
+        this.something;
         assert.notOk(true);
     });
 

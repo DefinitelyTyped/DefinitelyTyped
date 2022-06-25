@@ -16,6 +16,14 @@ import { Locale } from '@ckeditor/ckeditor5-utils';
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
+// $ExpectType LinkConfig | undefined
+new MyEditor().config.get('link');
+// $ExpectType boolean | undefined
+new MyEditor().config.get('link.addTargetToExternalLinks');
+// $ExpectType string | undefined
+new MyEditor().config.get('link.defaultProtocol');
+new MyEditor().config.get('link.decorators');
+
 new Link(editor);
 Link.requires.map(Plugin => new Plugin(editor).init());
 
@@ -45,16 +53,16 @@ new AutoLink(editor).afterInit();
 
 new LinkCommand(editor).execute('http://example.com');
 new LinkCommand(editor).execute('http://example.com', { target: '_blank' });
-// $ExpectError
+// @ts-expect-error
 new LinkCommand(editor).execute();
 
 new UnlinkCommand(editor).execute();
-// $ExpectError
+// @ts-expect-error
 new UnlinkCommand(editor).execute('');
 
 const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('div');
 utils.isLinkElement(emptyElement);
-// $ExpectError
+// @ts-expect-error
 utils.isLinkElement('');
 
 const api = {} as unknown as DowncastConversionApi;
@@ -75,7 +83,7 @@ new LinkActionsView().destroy();
 new LinkFormView(new Locale(), new LinkCommand(editor)).destroy();
 
 utils.openLink('');
-// $ExpectError
+// @ts-expect-error
 utils.openLink();
 
 new ManualDecorator({
@@ -92,6 +100,29 @@ new ManualDecorator({
     classes: 'foo',
     styles: { bg: 'red' },
 });
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+    defaultValue: true,
+    classes: 'foo',
+    styles: { bg: 'red' },
+}).on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<ManualDecorator, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+    defaultValue: true,
+    classes: 'foo',
+    styles: { bg: 'red' },
+}).set('foo');
 
 // $ExpectType AutoLink
 editor.plugins.get('AutoLink');
