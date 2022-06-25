@@ -2,7 +2,6 @@
 // Project: https://developers.google.com/publisher-tag/reference
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 /**
  * The global namespace the [Google Publisher Tag](https://developers.google.com/publisher-tag) uses for its API.
