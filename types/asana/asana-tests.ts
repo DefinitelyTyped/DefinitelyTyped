@@ -34,7 +34,7 @@ client.useOauth({
 // https://github.com/Asana/node-asana#collections
 // Collections
 
-let tagId: number = null;
+let tagId = 123;
 client.tasks.findByTag(tagId, { limit: 5 }).then((collection: any) => {
   console.log(collection.data);
   // [ .. array of up to 5 task objects .. ]
@@ -171,7 +171,7 @@ client.tasks.update('task_gid', {
 
 // redacted response from client.tasks.getTask('gid here') with no options passed,
 // from a Premium-level account.
-const _returnedTask: asana.resources.Tasks.Type = {
+const _returnedTask: asana.resources.Tasks.DefaultFieldsType = {
     gid: "123",
     assignee: {
         gid: "456",
@@ -259,12 +259,12 @@ const _returnedTask: asana.resources.Tasks.Type = {
 };
 
 // redacted response from client.tasks.getTask('gid here', {opt_fields: ['gid']})
-const _minimalReturnedTask: asana.resources.Tasks.Type = {
+const _minimalReturnedTask: asana.resources.Tasks.OptFieldsType = {
     gid: '123',
 };
 
 // redacted response from client.tasks.getTask('gid here', {opt_fields: ['name']})
-const _secondMinimalReturnedTask: asana.resources.Tasks.Type = {
+const _secondMinimalReturnedTask: asana.resources.Tasks.OptFieldsType = {
     gid: '123',
     name: 'name here',
 };
@@ -433,9 +433,9 @@ client.workspaces.typeahead('baz', {type: 'task', query: 'foobar'}).then();
 
 // Workspaces have a boolean property "is_organization"
 // https://developers.asana.com/docs/workspace
-let workspaceShort: asana.resources.Workspaces.ShortType;
+let workspaceShort: asana.resources.Workspaces.ShortType = { gid: '123' };
 workspaceShort.is_organization = true;
-let workspace: asana.resources.Workspaces.Type;
+let workspace: asana.resources.Workspaces.Type = { is_organization: true, email_domains: [], gid: '123' };
 workspace.is_organization = true;
 
 // Tasks.FindAllParams should accept a project gid and/or a section gid, and the workspace gid should be optional
@@ -470,7 +470,29 @@ client.tasks.updateTask('task_gid', {
   workspace: 'some_workspace_gid',
 }).then((task) => console.log(task.name));
 
-client.tasks.getTask('task_gid');
+client.tasks.getTask('task_gid').then((task) => {
+    // $ExpectType DefaultFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string
+    task.resource_type;
+    // $ExpectType string | null
+    task.start_at;
+    // $ExpectError
+    task.approval_status;
+});
+
+client.tasks.getTask('task_gid', {opt_fields: 'name'}).then((task) => {
+    // $ExpectType OptFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null | undefined
+    task.start_at;
+    // $ExpectType string | undefined
+    task.approval_status;
+});
 
 client.workspaces.getWorkspaces();
 
@@ -497,3 +519,340 @@ const typeaheadForWorkspaceQuery: asana.resources.Typeahead.TypeaheadParams = {
     opt_fields: ['name', 'completed', 'parent', 'custom_fields.gid', 'custom_fields.number_value'],
 };
 client.typeahead.typeaheadForWorkspace('workspace_gid', typeaheadForWorkspaceQuery);
+
+
+client.projects.tasks('123').then(tasks => {
+    const task = tasks.data[0];
+    // By default tasks() returns a https://developers.asana.com/docs/task-compact
+    // $ExpectType Required<Resource>
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string
+    task.resource_type;
+    // $ExpectType string
+    task.name;
+    // $ExpectError
+    task.start_at;
+});
+
+client.projects.tasks('123', {opt_fields: 'start_at'}).then(tasks => {
+    const task = tasks.data[0];
+    // when fields are provided, only gid is always defined in practice
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | undefined
+    task.resource_type;
+    // $ExpectType string | undefined
+    task.name;
+    // $ExpectType string | null | undefined
+    task.start_at;
+});
+
+
+const workspaceGid = '123';
+client.tasks.create({name: 'foo', workspace: workspaceGid}).then(task => {
+    // $ExpectType DefaultFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null
+    task.start_at;
+});
+
+
+client.tasks.create({name: 'foo', workspace: workspaceGid}, {opt_fields: ''}).then(task => {
+    // POST /tasks ignores opt_fields and always returns the default
+    // fields, despite including opt_fields in the documentation at
+    // https://developers.asana.com/docs/create-a-task
+
+    // $ExpectType DefaultFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null
+    task.start_at;
+});
+
+// the POST /workspaces/{workspace_gid}/tasks endpoint used by
+// node-asana is not documented, but this is the behavior observed
+client.tasks.createInWorkspace(workspaceGid, {name: 'foo'}).then(task => {
+    // POST /tasks ignores opt_fields and always returns the default
+    // fields
+    // $ExpectType DefaultFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null
+    task.start_at;
+});
+
+client.tasks.findById('task_gid').then(task => {
+    // $ExpectType DefaultFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null
+    task.start_at;
+    // $ExpectError
+    task.approval_status;
+});
+
+client.tasks.findById('task_gid', {opt_fields: 'name'}).then(task => {
+    // $ExpectType OptFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null | undefined
+    task.start_at;
+    // $ExpectType string | undefined
+    task.approval_status;
+});
+
+// without opt_fields, this returns
+client.tasks.searchInWorkspace(workspaceGid, {text: 'foo'}).then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType Required<Resource>
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string
+    task.resource_type;
+    // $ExpectType string
+    task.name;
+    // $ExpectError
+    task.start_at;
+});
+
+client.tasks.searchInWorkspace(workspaceGid, {text: 'foo', opt_fields: 'name'}).then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType OptFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null | undefined
+    task.start_at;
+    // $ExpectType string | undefined
+    task.approval_status;
+});
+
+// This endpoint ignores opt_fields, despite documentation to the contrary.
+client.tasks.update('foobar', { name: 'Test' }).then(task => {
+    // $ExpectType DefaultFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null
+    task.start_at;
+    // $ExpectError
+    task.approval_status;
+});
+
+client.tasks.findByProject('123').then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType Required<Resource>
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string
+    task.resource_type;
+    // $ExpectType string
+    task.name;
+    // $ExpectError
+    task.start_at;
+});
+
+client.tasks.findByProject('123', {opt_fields: 'whatever'}).then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType OptFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null | undefined
+    task.start_at;
+    // $ExpectType string | undefined
+    task.approval_status;
+});
+
+client.tasks.findByTag('123').then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType Required<Resource>
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string
+    task.resource_type;
+    // $ExpectType string
+    task.name;
+    // $ExpectError
+    task.start_at;
+});
+
+client.tasks.findByTag('123', {opt_fields: 'whatever'}).then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType OptFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null | undefined
+    task.start_at;
+    // $ExpectType string | undefined
+    task.approval_status;
+});
+
+
+client.tasks.findAll({ tag: '123' }).then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType Required<Resource>
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string
+    task.resource_type;
+    // $ExpectType string
+    task.name;
+    // $ExpectError
+    task.start_at;
+});
+
+client.tasks.findAll({ tag: '123', opt_fields: 'foo' }).then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType OptFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null | undefined
+    task.start_at;
+    // $ExpectType string | undefined
+    task.approval_status;
+});
+
+// this endpoint gives back a task object with default fields, despite
+// documentation claiming it provides nothing.  it also ignores
+// opt_fields, despite documentation to the contrary.
+client.tasks.addFollowers('123', { followers: ['456'] }).then(task => {
+    // $ExpectType DefaultFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null
+    task.start_at;
+    // $ExpectError
+    task.approval_status;
+});
+
+// this endpoint gives back a task object with default fields, despite
+// documentation claiming it provides nothing.  it also ignores
+// opt_fields, despite documentation to the contrary.
+client.tasks.removeFollowers('123', { followers: ['456'] }).then(task => {
+    // $ExpectType DefaultFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null
+    task.start_at;
+    // $ExpectError
+    task.approval_status;
+});
+
+
+client.tasks.subtasks('123').then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType Required<Resource>
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string
+    task.resource_type;
+    // $ExpectType string
+    task.name;
+    // $ExpectError
+    task.start_at;
+});
+
+client.tasks.subtasks('123', { opt_fields: 'blah' }).then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType OptFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null | undefined
+    task.start_at;
+    // $ExpectType string | undefined
+    task.approval_status;
+});
+
+client.tasks.addSubtask('123', { name: 'foo' }).then(task => {
+    // $ExpectType DefaultFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null
+    task.start_at;
+    // $ExpectError
+    task.approval_status;
+});
+
+client.tasks.updateTask('123', {name: 'foo'}).then(task => {
+    // $ExpectType DefaultFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null
+    task.start_at;
+    // $ExpectError
+    task.approval_status;
+});
+
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'task', query: 'foo'}).then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType Required<Resource>
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string
+    task.resource_type;
+    // $ExpectType string
+    task.name;
+    // $ExpectError
+    task.start_at;
+});
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'task', query: 'foo', opt_fields: ['foo']}).then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType OptFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null | undefined
+    task.start_at;
+    // $ExpectType string | undefined
+    task.approval_status;
+});
+
+client.tags.getTasksWithTag('123').then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType Required<Resource>
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string
+    task.resource_type;
+    // $ExpectType string
+    task.name;
+    // $ExpectError
+    task.start_at;
+});
+
+client.tags.getTasksWithTag('123', { opt_fields: 'foo' }).then(tasks => {
+    const task = tasks.data[0];
+    // $ExpectType OptFieldsType
+    task;
+    // $ExpectType string
+    task.gid;
+    // $ExpectType string | null | undefined
+    task.start_at;
+    // $ExpectType string | undefined
+    task.approval_status;
+});

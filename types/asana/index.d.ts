@@ -895,10 +895,10 @@ declare namespace asana {
                 };
             }
 
-            type EventProject = EventResource & Partial<Tasks.Type>;
+            type EventProject = EventResource & Partial<Tasks.OptFieldsType>;
             type EventSection = EventSectionResource & Partial<Sections.Type>;
             type EventStory = EventResource & Partial<Stories.Type>;
-            type EventTask = EventResource & Partial<Tasks.Type>;
+            type EventTask = EventResource & Partial<Tasks.OptFieldsType>;
 
             interface EventDataEntity {
                 user: Users.ShortType | null;
@@ -1214,6 +1214,7 @@ declare namespace asana {
                 dispatchOptions?: any,
             ): Promise<ResourceList<Sections.Type>>;
 
+            // https://developers.asana.com/docs/get-tasks-from-a-project
             /**
              * * Returns the compact task records for all tasks within the given project,
              * * ordered by their priority within the project. Tasks can exist in more than one project at a time.
@@ -1228,9 +1229,14 @@ declare namespace asana {
              */
             tasks(
                 project: string | number,
+                params?: PaginationParams & { opt_fields?: never },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.CompactType>>;
+            tasks(
+                project: string | number,
                 params?: PaginationParams,
                 dispatchOptions?: any,
-            ): Promise<ResourceList<Tasks.Type>>;
+            ): Promise<ResourceList<Tasks.OptFieldsType>>;
 
             /**
              * * Adds the specified list of users as followers to the project. Followers are a subset of members, therefore if
@@ -1630,6 +1636,7 @@ declare namespace asana {
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tags.Type>>;
 
+            // https://developers.asana.com/docs/get-tasks-from-a-tag
             /**
              * * Returns the compact task records for all tasks with the given tag.
              * * Tasks can have more than one tag at a time.
@@ -1644,9 +1651,14 @@ declare namespace asana {
              */
             getTasksWithTag(
                 tag: string | number,
-                params?: PaginationParams,
+                params?: PaginationParams & { opt_fields?: never },
                 dispatchOptions?: any,
-            ): Promise<ResourceList<Tasks.Type>>;
+            ): Promise<ResourceList<Tasks.CompactType>>;
+            getTasksWithTag(
+                tag: string | number,
+                params: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.OptFieldsType>>;
         }
 
         interface TasksStatic {
@@ -1658,14 +1670,11 @@ declare namespace asana {
 
         namespace Tasks {
             // https://developers.asana.com/docs/task
-            interface Type extends Resource {
-                approval_status?: string | undefined;
+            interface DefaultFieldsOptionalType extends Resource {
                 created_at?: string;
                 modified_at?: string;
                 completed_at?: string | null;
                 completed?: boolean;
-                dependencies?: Resource[]; // opt in
-                dependents?: Resource[]; // opt in
                 due_on?: string | null;
                 start_at?: string | null;
                 start_on?: string | null;
@@ -1673,12 +1682,6 @@ declare namespace asana {
                 assignee_status?: string; // deprecated
                 assignee?: Assignee | null;
                 assignee_section?: Resource;
-                external?: { // opt-in
-                    data?: string | undefined;
-                    gid?: string | undefined;
-                } | undefined;
-                html_notes?: string | undefined; // opt in
-                is_rendered_as_separator?: boolean | undefined; // opt in
                 notes?: string;
                 workspace?: Resource;
                 num_hearts?: number; // deprecated
@@ -1686,7 +1689,6 @@ declare namespace asana {
                 hearts?: Resource[]; // deprecated
                 parent?: Resource | null;
                 num_likes?: number;
-                num_subtasks?: number; // opt in
                 liked?: boolean;
                 likes?: {
                     gid: string
@@ -1699,6 +1701,25 @@ declare namespace asana {
                 custom_fields?: CustomField[];
                 permalink_url?: string;
             }
+
+            interface OptFieldsType extends DefaultFieldsOptionalType {
+                // these additional fields not included by default getTask() calls and require explicit opt_fields mentions to receive
+                approval_status?: string; // conditional
+                dependencies?: Resource[]; // opt in
+                dependents?: Resource[]; // opt in
+                external?: { // opt-in
+                    data?: string | undefined;
+                    gid?: string | undefined;
+                } | undefined;
+                html_notes?: string | undefined; // opt in
+                is_rendered_as_separator?: boolean | undefined; // opt in
+                num_subtasks?: number; // opt in
+            }
+
+            type DefaultFieldsType = { [Property in keyof DefaultFieldsOptionalType]-?: DefaultFieldsOptionalType[Property] };
+
+            // https://developers.asana.com/docs/task-compact
+            type CompactType = Required<Resource>;
 
             // https://developers.asana.com/docs/create-a-task
             interface CreateParams {
@@ -1780,6 +1801,7 @@ declare namespace asana {
                 assignee?: number | undefined;
                 project?: string | number | undefined;
                 section?: string | number | undefined;
+                tag?: string | number | undefined;
                 workspace?: string | number | undefined;
                 completed_since?: string | undefined;
                 modified_since?: string | undefined;
@@ -1797,6 +1819,7 @@ declare namespace asana {
          * @param {Dispatcher} dispatcher The API dispatcher
          */
         interface Tasks extends TopLevelResource {
+            // https://developers.asana.com/docs/create-a-task
             /**
              * * Creating a new task is as easy as POSTing to the `/tasks` endpoint
              * * with a data block containing the fields you'd like to set on the task.
@@ -1805,7 +1828,7 @@ declare namespace asana {
              * * Every task is required to be created in a specific workspace, and this
              * * workspace cannot be changed once set. The workspace need not be set
              * * explicitly if you specify a `project` or a `parent` task instead.
-             *   * @param {Object} data Data for the request
+             *   * @Param {Object} data Data for the request
              *   * @param {Number} [data.workspace] The workspace to create a task in.
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              *   * @return {Promise} The response from the API
@@ -1813,7 +1836,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            create(data: Tasks.CreateParams & { workspace: string }, dispatchOptions?: any): Promise<Tasks.Type>;
+            create(data: Tasks.CreateParams & { workspace: string }, dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
 
             /**
              * * Creating a new task is as easy as POSTing to the `/tasks` endpoint
@@ -1836,7 +1859,7 @@ declare namespace asana {
                 workspace: number | string,
                 data: Tasks.CreateParams,
                 dispatchOptions?: any,
-            ): Promise<Tasks.Type>;
+            ): Promise<Tasks.DefaultFieldsType>;
 
             /**
              * * Returns the complete task record for a single task.
@@ -1849,8 +1872,12 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findById(task: string | number, params?: Params, dispatchOptions?: any): Promise<Tasks.Type>;
+            findById(task: string | number,
+                     params?: PaginationParams & { opt_fields?: never },
+                     dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
+            findById(task: string | number, params?: Params, dispatchOptions?: any): Promise<Tasks.OptFieldsType>;
 
+            // https://developers.asana.com/docs/search-tasks-in-a-workspace
             /**
              * * The search endpoint allows you to build complex queries to find and fetch exactly the data you need from Asana.
              * * For a more comprehensive description of all the query parameters and limitations of this endpoint, see our
@@ -1866,10 +1893,16 @@ declare namespace asana {
              */
             searchInWorkspace(
                 workspace: number | string,
-                params?: Params,
+                params?: { opt_fields?: never } & { [key: string]: string },
                 dispatchOptions?: any,
-            ): Promise<ResourceList<Tasks.Type>>;
+            ): Promise<ResourceList<Tasks.CompactType>>;
+            searchInWorkspace(
+                workspace: number | string,
+                params: { opt_fields: string } & { [key: string]: string },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.OptFieldsType>>;
 
+            // https://developers.asana.com/docs/update-a-task
             /**
              * * A specific, existing task can be updated by making a PUT request on the
              * * URL for that task. Only the fields provided in the `data` block will be
@@ -1889,7 +1922,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            update(task: string | number, data: Tasks.UpdateParams, dispatchOptions?: any): Promise<Tasks.Type>;
+            update(task: string | number, data: Tasks.UpdateParams, dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
 
             /**
              * * A specific, existing task can be deleted by making a DELETE request on the
@@ -1907,6 +1940,7 @@ declare namespace asana {
              */
             delete(task: string | number, dispatchOptions?: any): Promise<void>;
 
+            // https://developers.asana.com/docs/get-tasks-from-a-project
             /**
              * * Returns the compact task records for all tasks within the given project,
              * * ordered by their priority within the project.
@@ -1921,9 +1955,14 @@ declare namespace asana {
              */
             findByProject(
                 projectId: string | number,
-                params?: PaginationParams,
+                params?: PaginationParams & { opt_fields?: never },
                 dispatchOptions?: any,
-            ): Promise<ResourceList<Tasks.Type>>;
+            ): Promise<ResourceList<Tasks.CompactType>>;
+            findByProject(
+                projectId: string | number,
+                params: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.OptFieldsType>>;
 
             /**
              * * Returns the compact task records for all tasks with the given tag.
@@ -1938,10 +1977,16 @@ declare namespace asana {
              */
             findByTag(
                 tag: string | number,
-                params?: PaginationParams,
+                params?: PaginationParams & { opt_fields?: never },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.CompactType>>;
+            findByTag(
+                tag: string | number,
+                params: PaginationParams,
                 dispatchOptions?: any
-            ): Promise<ResourceList<Tasks.Type>>;
+            ): Promise<ResourceList<Tasks.OptFieldsType>>;
 
+            // https://developers.asana.com/docs/get-multiple-tasks
             /**
              * * Returns the compact task records for some filtered set of tasks. Use one
              * * or more of the parameters provided to filter the tasks returned.
@@ -1957,8 +2002,10 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findAll(params?: Tasks.FindAllParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+            findAll(params?: Tasks.FindAllParams & { opt_fields?: never }, dispatchOptions?: any): Promise<ResourceList<Tasks.CompactType>>;
+            findAll(params: Tasks.FindAllParams, dispatchOptions?: any): Promise<ResourceList<Tasks.OptFieldsType>>;
 
+            // https://developers.asana.com/docs/add-followers-to-a-task
             /**
              * * Adds each of the specified followers to the task, if they are not already
              * * following. Returns the complete, updated record for the affected task.
@@ -1976,7 +2023,7 @@ declare namespace asana {
                 task: string | number,
                 data: Tasks.FollowersParams,
                 dispatchOptions?: any,
-            ): Promise<Tasks.Type>;
+            ): Promise<Tasks.DefaultFieldsType>;
 
             /**
              * * Removes each of the specified followers from the task if they are
@@ -1995,7 +2042,7 @@ declare namespace asana {
                 task: string | number,
                 data: Tasks.FollowersParams,
                 dispatchOptions?: any,
-            ): Promise<Tasks.Type>;
+            ): Promise<Tasks.DefaultFieldsType>;
 
             /**
              * * Returns a compact representation of all of the projects the task is in.
@@ -2116,13 +2163,19 @@ declare namespace asana {
              */
             subtasks(
                 task: string | number,
-                params?: PaginationParams,
+                params?: PaginationParams & { opt_fields?: never },
                 dispatchOptions?: any,
-            ): Promise<ResourceList<Tasks.Type>>;
+            ): Promise<ResourceList<Tasks.CompactType>>;
+            subtasks(
+                task: string | number,
+                params: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.OptFieldsType>>;
 
+            // https://developers.asana.com/docs/create-a-subtask
             /**
              * * Creates a new subtask and adds it to the parent task. Returns the full record
-             * * for the newly created subtask.
+             * * for the newly created Subtask.
              *   * @param {String|Number} task The task to add a subtask to.
              *   * @param {Object} data Data for the request
              *   * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
@@ -2132,7 +2185,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addSubtask(task: string | number, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.Type>;
+            addSubtask(task: string | number, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
 
             /**
              * * Returns a compact representation of all of the stories on the task.
@@ -2182,7 +2235,11 @@ declare namespace asana {
              * @param {Object} [dispatchOptions]: Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            getTask(taskGid: string, params?: any, dispatchOptions?: any): Promise<Tasks.Type>;
+
+            getTask(taskGid: string,
+                    params?: { opt_fields?: never },
+                    dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
+            getTask(taskGid: string, params: any, dispatchOptions?: any): Promise<Tasks.OptFieldsType>;
 
             // https://developers.asana.com/docs/update-a-task
             // https://github.com/Asana/node-asana/blob/6bf00fb3257847744bf0ebe2dc0e95c445477282/lib/resources/gen/tasks.js#L563-L578
@@ -2193,7 +2250,7 @@ declare namespace asana {
              * @param {Object} [dispatchOptions]: Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            updateTask(taskGid: string, data?: Tasks.UpdateParams, dispatchOptions?: any): Promise<Tasks.Type>;
+            updateTask(taskGid: string, data?: Tasks.UpdateParams, dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
         }
 
         interface SectionsStatic {
@@ -3142,9 +3199,14 @@ declare namespace asana {
              */
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams,
+                params: Typeahead.TypeaheadParams & { opt_fields?: never },
                 dispatchOptions?: any,
-            ): Promise<ResourceList<Tasks.Type>>;
+            ): Promise<ResourceList<Tasks.CompactType>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params: Typeahead.TypeaheadParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.OptFieldsType>>;
         }
     }
 
