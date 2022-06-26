@@ -1014,7 +1014,9 @@ async function testScriptingForPromise() {
     // @ts-expect-error
     await chrome.scripting.executeScript({ target: { tabId: 0 } });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: function() {} });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: function() {}, args: [] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [''] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'ISOLATED', func: () => {} });
