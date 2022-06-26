@@ -826,7 +826,7 @@ declare module 'http' {
      * may be reused multiple times in case of keep-alive.
      * @since v0.1.17
      */
-    class IncomingMessage extends stream.Readable {
+    class IncomingMessage extends stream.Readable<Buffer | string> {
         constructor(socket: Socket);
         /**
          * The `message.aborted` property will be `true` if the request has

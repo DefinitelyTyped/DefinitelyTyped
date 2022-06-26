@@ -15,12 +15,12 @@ import { MessageChannel } from 'node:worker_threads';
 function simplified_stream_ctor_test() {
     new Readable({
         construct(cb) {
-            // $ExpectType Readable
+            // $ExpectType Readable<any>
             this;
             cb();
         },
         read(size) {
-            // $ExpectType Readable
+            // $ExpectType Readable<any>
             this;
             // $ExpectType number
             size;
@@ -238,7 +238,7 @@ function streamPipelineAsyncTransform() {
                 yield chunk.toUpperCase();
             }
         },
-        async function *(source: AsyncIterable<string>) {
+        async function *(source) {
             // $ExpectType AsyncIterable<string>
             source;
             for await(const chunk of source) {
@@ -255,7 +255,7 @@ function streamPipelineAsyncTransform() {
                 yield chunk.toUpperCase();
             }
         },
-        async (source: AsyncIterable<string>) => {
+        async (source) => {
             return new Date();
         },
         (err, val) => {
@@ -295,7 +295,7 @@ function streamPipelineAsyncTransform() {
                 yield chunk.toFixed(3);
             }
         },
-        async function *(source: AsyncIterable<string>) {
+        async function *(source) {
             for await(const chunk of source)
                 console.log(chunk);
             yield null;
@@ -331,7 +331,7 @@ async function streamPipelineAsyncPromiseTransform() {
                 yield chunk.toUpperCase();
             }
         },
-        async function *(source: AsyncIterable<string>) {
+        async function *(source) {
             // $ExpectType AsyncIterable<string>
             source;
             for await(const chunk of source) {
@@ -407,7 +407,7 @@ async function streamPipelineAsyncPromiseAbortTransform() {
                 yield chunk.toUpperCase();
             }
         },
-        async function *(source: AsyncIterable<string>) {
+        async function *(source) {
             // $ExpectType AsyncIterable<string>
             source;
             for await(const chunk of source) {
@@ -427,7 +427,7 @@ async function streamPipelineAsyncPromiseAbortTransform() {
                 yield chunk.toUpperCase();
             }
         },
-        async (source: AsyncIterable<string>) => {
+        async (source) => {
             return new Date();
         },
         {signal}).then(r => {
@@ -514,6 +514,13 @@ addAbortSignal(new AbortSignal(), new Readable());
 }
 
 {
+    // $ExpectType Readable<{ a: string; }>
+    const a = Readable.from([{ a: 'test' }], {
+        objectMode: true,
+    });
+}
+
+{
     const a = new Readable();
     a.unshift('something', 'utf8');
 }
@@ -545,12 +552,16 @@ addAbortSignal(new AbortSignal(), new Readable());
 {
     const web = new ReadableStream();
 
-    // $ExpectType Readable
+    // $ExpectType Readable<any>
     Readable.fromWeb(web);
 
     // Handles subset of ReadableOptions param
-    // $ExpectType Readable
+    // $ExpectType Readable<any>
     Readable.fromWeb(web, { objectMode: true });
+
+    // uses type from web stream
+    // $ExpectType Readable<number>
+    Readable.fromWeb(new ReadableStream<number>(), { objectMode: true });
 
     // When the param includes unsupported ReadableOptions
     // $ExpectError

@@ -1181,7 +1181,7 @@ declare module 'http2' {
      * data.
      * @since v8.4.0
      */
-    export class Http2ServerRequest extends stream.Readable {
+    export class Http2ServerRequest extends stream.Readable<Buffer | string> {
         constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: ReadonlyArray<string>);
         /**
          * The `request.aborted` property will be `true` if the request has

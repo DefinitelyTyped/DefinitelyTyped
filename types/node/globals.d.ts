@@ -197,18 +197,18 @@ declare namespace NodeJS {
         syscall?: string | undefined;
     }
 
-    interface ReadableStream extends EventEmitter {
+    interface ReadableStream<R = any> extends EventEmitter {
         readable: boolean;
-        read(size?: number): string | Buffer;
+        read(size?: number): R | null;
         setEncoding(encoding: BufferEncoding): this;
         pause(): this;
         resume(): this;
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
         unpipe(destination?: WritableStream): this;
-        unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
-        wrap(oldStream: ReadableStream): this;
-        [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
+        unshift(chunk: R, encoding?: BufferEncoding): void;
+        wrap(oldStream: ReadableStream<R>): this;
+        [Symbol.asyncIterator](): AsyncIterableIterator<R>;
     }
 
     interface WritableStream extends EventEmitter {

@@ -323,7 +323,7 @@ declare module 'fs' {
      * Instances of `fs.ReadStream` are created and returned using the {@link createReadStream} function.
      * @since v0.1.93
      */
-    export class ReadStream extends stream.Readable {
+    export class ReadStream extends stream.Readable<Buffer | string> {
         close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         /**
          * The number of bytes that have been read so far.

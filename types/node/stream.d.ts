@@ -48,17 +48,17 @@ declare module 'stream' {
         /**
          * @since v0.9.4
          */
-        class Readable extends Stream implements NodeJS.ReadableStream {
+        class Readable<R = any> extends Stream implements NodeJS.ReadableStream<R> {
             /**
              * A utility method for creating Readable Streams out of iterators.
              */
-            static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
+            static from<R>(iterable: Iterable<R> | AsyncIterable<R>, options?: ReadableOptions): Readable<R>;
             /**
              * A utility method for creating a `Readable` from a web `ReadableStream`.
              * @since v17.0.0
              * @experimental
              */
-            static fromWeb(readableStream: streamWeb.ReadableStream, options?: Pick<ReadableOptions, 'encoding' | 'highWaterMark' | 'objectMode' | 'signal'>): Readable;
+            static fromWeb<R>(readableStream: streamWeb.ReadableStream<R>, options?: Pick<ReadableOptions, 'encoding' | 'highWaterMark' | 'objectMode' | 'signal'>): Readable<R>;
             /**
              * Returns whether the stream has been read from or cancelled.
              * @since v16.8.0
@@ -69,7 +69,7 @@ declare module 'stream' {
              * @since v17.0.0
              * @experimental
              */
-            static toWeb(streamReadable: Readable): streamWeb.ReadableStream;
+            static toWeb<R>(streamReadable: Readable<R>): streamWeb.ReadableStream<R>;
             /**
              * Returns whether the stream was destroyed or errored before emitting `'end'`.
              * @since v16.8.0
@@ -205,7 +205,7 @@ declare module 'stream' {
              * @since v0.9.4
              * @param size Optional argument to specify how much data to read.
              */
-            read(size?: number): any;
+            read(size?: number): R | null;
             /**
              * The `readable.setEncoding()` method sets the character encoding for
              * data read from the `Readable` stream.
@@ -381,7 +381,7 @@ declare module 'stream' {
              * streams, `chunk` may be any JavaScript value.
              * @param encoding Encoding of string chunks. Must be a valid `Buffer` encoding, such as `'utf8'` or `'ascii'`.
              */
-            unshift(chunk: any, encoding?: BufferEncoding): void;
+            unshift(chunk: R | null, encoding?: BufferEncoding): void;
             /**
              * Prior to Node.js 0.10, streams did not implement the entire `stream` module API
              * as it is currently defined. (See `Compatibility` for more information.)
@@ -407,8 +407,8 @@ declare module 'stream' {
              * @since v0.9.4
              * @param stream An "old style" readable stream
              */
-            wrap(stream: NodeJS.ReadableStream): this;
-            push(chunk: any, encoding?: BufferEncoding): boolean;
+            wrap(stream: NodeJS.ReadableStream<R>): this;
+            push(chunk: R | null, encoding?: BufferEncoding): boolean;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             /**
              * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'`event (unless `emitClose` is set to `false`). After this call, the readable
@@ -434,7 +434,7 @@ declare module 'stream' {
              * 7. resume
              */
             addListener(event: 'close', listener: () => void): this;
-            addListener(event: 'data', listener: (chunk: any) => void): this;
+            addListener(event: 'data', listener: (chunk: R) => void): this;
             addListener(event: 'end', listener: () => void): this;
             addListener(event: 'error', listener: (err: Error) => void): this;
             addListener(event: 'pause', listener: () => void): this;
@@ -442,7 +442,7 @@ declare module 'stream' {
             addListener(event: 'resume', listener: () => void): this;
             addListener(event: string | symbol, listener: (...args: any[]) => void): this;
             emit(event: 'close'): boolean;
-            emit(event: 'data', chunk: any): boolean;
+            emit(event: 'data', chunk: R): boolean;
             emit(event: 'end'): boolean;
             emit(event: 'error', err: Error): boolean;
             emit(event: 'pause'): boolean;
@@ -450,7 +450,7 @@ declare module 'stream' {
             emit(event: 'resume'): boolean;
             emit(event: string | symbol, ...args: any[]): boolean;
             on(event: 'close', listener: () => void): this;
-            on(event: 'data', listener: (chunk: any) => void): this;
+            on(event: 'data', listener: (chunk: R) => void): this;
             on(event: 'end', listener: () => void): this;
             on(event: 'error', listener: (err: Error) => void): this;
             on(event: 'pause', listener: () => void): this;
@@ -458,7 +458,7 @@ declare module 'stream' {
             on(event: 'resume', listener: () => void): this;
             on(event: string | symbol, listener: (...args: any[]) => void): this;
             once(event: 'close', listener: () => void): this;
-            once(event: 'data', listener: (chunk: any) => void): this;
+            once(event: 'data', listener: (chunk: R) => void): this;
             once(event: 'end', listener: () => void): this;
             once(event: 'error', listener: (err: Error) => void): this;
             once(event: 'pause', listener: () => void): this;
@@ -466,7 +466,7 @@ declare module 'stream' {
             once(event: 'resume', listener: () => void): this;
             once(event: string | symbol, listener: (...args: any[]) => void): this;
             prependListener(event: 'close', listener: () => void): this;
-            prependListener(event: 'data', listener: (chunk: any) => void): this;
+            prependListener(event: 'data', listener: (chunk: R) => void): this;
             prependListener(event: 'end', listener: () => void): this;
             prependListener(event: 'error', listener: (err: Error) => void): this;
             prependListener(event: 'pause', listener: () => void): this;
@@ -474,7 +474,7 @@ declare module 'stream' {
             prependListener(event: 'resume', listener: () => void): this;
             prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
             prependOnceListener(event: 'close', listener: () => void): this;
-            prependOnceListener(event: 'data', listener: (chunk: any) => void): this;
+            prependOnceListener(event: 'data', listener: (chunk: R) => void): this;
             prependOnceListener(event: 'end', listener: () => void): this;
             prependOnceListener(event: 'error', listener: (err: Error) => void): this;
             prependOnceListener(event: 'pause', listener: () => void): this;
@@ -482,14 +482,14 @@ declare module 'stream' {
             prependOnceListener(event: 'resume', listener: () => void): this;
             prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
             removeListener(event: 'close', listener: () => void): this;
-            removeListener(event: 'data', listener: (chunk: any) => void): this;
+            removeListener(event: 'data', listener: (chunk: R) => void): this;
             removeListener(event: 'end', listener: () => void): this;
             removeListener(event: 'error', listener: (err: Error) => void): this;
             removeListener(event: 'pause', listener: () => void): this;
             removeListener(event: 'readable', listener: () => void): this;
             removeListener(event: 'resume', listener: () => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+            [Symbol.asyncIterator](): AsyncIterableIterator<R>;
         }
         interface WritableOptions extends StreamOptions<Writable> {
             decodeStrings?: boolean | undefined;
