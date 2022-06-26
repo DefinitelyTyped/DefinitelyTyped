@@ -544,6 +544,23 @@ class SpyableClass {
 // $ExpectType SpyInstance<SpyableClass, [number, string]> || SpyInstance<SpyableClass, [a: number, b: string]>
 jest.spyOn({ SpyableClass }, "SpyableClass");
 
+interface SpyableWithIndexSignature {
+    [index: string]: {
+        [x: string]: any;
+    };
+    prop: {some: string};
+    methodOne: () => void;
+}
+let spyWithIndexSignatureImpl: SpyableWithIndexSignature = {methodOne: () => {}, prop: {some: "thing"}};
+// $ExpectType SpyInstance<void, []>
+jest.spyOn(spyWithIndexSignatureImpl, "methodOne");
+// @ts-expect-error
+jest.spyOn(spyWithIndexSignatureImpl, "nonExistentMethod");
+// @ts-expect-error
+jest.spyOn(spyWithIndexSignatureImpl, "prop");
+// $ExpectType SpyInstance<{ some: string; }, []>
+jest.spyOn(spyWithIndexSignatureImpl, 'prop', 'get');
+
 // $ExpectType MockedObject<{}>
 jest.mocked({});
 // @ts-expect-error
