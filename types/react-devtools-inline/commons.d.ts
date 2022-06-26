@@ -4,7 +4,7 @@ import { Config } from './frontend';
 export type AnyFn = (...args: any[]) => any;
 export interface Wall {
     listen(fn: AnyFn): AnyFn;
-    send(event: string, payload: any, transferable?: any[] | undefined): void;
+    send(event: string, payload: any, transferable?: any[]): void;
 }
 
 export type ElementType =
@@ -628,7 +628,7 @@ export class Store extends EventEmitter<{
     unsupportedBridgeProtocolDetected: [];
     unsupportedRendererVersionDetected: [];
 }> {
-    constructor(bridge: FrontendBridge, config?: Config | undefined);
+    constructor(bridge: FrontendBridge, config?: Config);
 
     /** This is only used in tests to avoid memory leaks. */
     assertExpectedRootMapSizes(): void;
@@ -1024,14 +1024,8 @@ export type FindNativeNodesForFiberID = (id: number) => any[] | null | undefined
 export type Type = 'props' | 'hooks' | 'state' | 'context';
 
 export type NativeType = unknown;
-export type GetFiberIDForNative = (
-    component: NativeType,
-    findNearestUnfilteredAncestor?: boolean | undefined,
-) => number | null;
-export type GetDisplayNameForFiberID = (
-    id: number,
-    findNearestUnfilteredAncestor?: boolean | undefined,
-) => string | null;
+export type GetFiberIDForNative = (component: NativeType, findNearestUnfilteredAncestor?: boolean) => number | null;
+export type GetDisplayNameForFiberID = (id: number, findNearestUnfilteredAncestor?: boolean) => string | null;
 
 export interface InstanceAndStyle {
     instance: Record<string, unknown> | null;
@@ -1172,7 +1166,7 @@ export interface RendererInterface {
     getProfilingData(): ProfilingDataBackend;
     getOwnersList: (id: number) => SerializedElement[] | null;
     getPathForElement: (id: number) => PathFrame[] | null;
-    handleCommitFiberRoot: (fiber: Record<string, unknown>, commitPriority?: number | undefined) => void;
+    handleCommitFiberRoot: (fiber: Record<string, unknown>, commitPriority?: number) => void;
     handleCommitFiberUnmount: (fiber: Record<string, unknown>) => void;
     handlePostCommitFiberRoot: (fiber: Record<string, unknown>) => void;
     inspectElement: (
@@ -1291,8 +1285,8 @@ export interface DevToolsHook {
         /** Added in v16.9 to support Profiler priority labels */
         fiber: Record<string, unknown>,
         /** Added in v16.9 to support Fast Refresh */
-        commitPriority?: number | undefined,
-        didError?: boolean | undefined,
+        commitPriority?: number,
+        didError?: boolean,
     ) => void;
     /** Timeline internal module filtering */
     getInternalModuleRanges: () => Array<[string, string]>;

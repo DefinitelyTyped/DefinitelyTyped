@@ -9,15 +9,13 @@ export interface Config {
     supportsProfiling?: boolean | undefined;
 }
 
-export function createStore(bridge: FrontendBridge, config?: Config | undefined): Store;
-export function createBridge(contentWindow: Window, wall?: Wall | undefined): FrontendBridge;
+export function createStore(bridge: FrontendBridge, config?: Config): Store;
+export function createBridge(contentWindow: Window, wall?: Wall): FrontendBridge;
 
 export function initialize(
     contentWindow: Window,
-    options?:
-        | {
-              bridge?: FrontendBridge | undefined;
-              store?: Store | undefined;
-          }
-        | undefined,
+    options?: {
+        bridge?: FrontendBridge | undefined;
+        store?: Store | undefined;
+    },
 ): Component<DevtoolsProps>;
