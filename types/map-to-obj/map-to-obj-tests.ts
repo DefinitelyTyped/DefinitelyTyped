@@ -14,5 +14,5 @@ MapToObj(new Map([[0, 1]]));
 // $ExpectType Record<symbol, symbol>
 MapToObj(new Map([[Symbol('hello'), Symbol('world')]]));
 
-// $ExpectError
+// @ts-expect-error
 MapToObj(new Map([[{}, {}]]));

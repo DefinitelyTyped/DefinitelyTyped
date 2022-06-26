@@ -11,10 +11,10 @@ define.supportsDescriptors;
 // $ExpectType typeof defineProperties
 define;
 
-// $ExpectError
+// @ts-expect-error
 define(object);
 
-// $ExpectError
+// @ts-expect-error
 define(null, {});
 
 define(object, {
@@ -35,7 +35,8 @@ define(object, {
     foo: 'any' // $ExpectType string
 }, {
     foo: () => (object as any).foo !== 'any',
-    bar: () => { throw new Error(); }, // $ExpectError
+    // @ts-expect-error
+    bar: () => { throw new Error(); },
 });
 
 define(object, {

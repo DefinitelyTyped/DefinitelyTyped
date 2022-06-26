@@ -224,7 +224,7 @@ client.customFields
   });
 
 // no type in params
-// $ExpectError
+// @ts-expect-error
 client.typeahead.typeaheadForWorkspace('workspace_gid', {});
 
 const typeaheadForWorkspaceQuery: asana.resources.Typeahead.TypeaheadParams = {

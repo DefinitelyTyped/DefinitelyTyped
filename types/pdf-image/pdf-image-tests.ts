@@ -12,10 +12,10 @@ new PDFImage('path', { combinedImage: true }).convertFile();
 // $ExpectType Promise<string | string[]>
 new PDFImage<boolean>('path', { combinedImage: true }).convertFile();
 
-// $ExpectError
+// @ts-expect-error
 new PDFImage<false>('path', { combinedImage: true });
 
 new PDFImage('path', { convertOptions: { "-adaptive-blur": '' } });
 
-// $ExpectError
+// @ts-expect-error
 new PDFImage('path', { convertOptions: { invalidOptionKey: '' } });

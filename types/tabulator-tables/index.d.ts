@@ -1508,7 +1508,7 @@ declare namespace Tabulator {
 
     type TextDirection = 'auto' | 'ltr' | 'rtl';
 
-    type GlobalTooltipOption = boolean | ((cell: CellComponent) => string);
+    type GlobalTooltipOption = boolean | ((event: MouseEvent, cell: CellComponent, onRender: (() => void)) => string);
 
     type CustomMutator = (
         value: any,

@@ -95,20 +95,19 @@ declare namespace googletag {
      *
      * **Note**: Checking `googletag.pubadsReady` is discouraged. Please use `googletag.cmd.push` instead.
      */
-    let pubadsReady: boolean;
+    let pubadsReady: boolean | undefined;
     /**
      * Returns a reference to the `CompanionAdsService`.
      * @returns The Companion Ads service.
      */
     function companionAds(): CompanionAdsService;
     /**
-     * Constructs an out-of-page (interstitial) ad slot with the given ad unit path.
+     * Constructs an out-of-page ad slot with the given ad unit path.
      *
      * For custom out-of-page ads, `div` is the ID of the div element that will contain the ad.
      * See the article on [out-of-page creatives](https://support.google.com/admanager/answer/6088046) for more details.
      *
      * For GPT managed out-of-page ads, `div` is a supported `OutOfPageFormat`.
-     * See the article on [web interstitials](https://support.google.com/admanager/answer/9840201) for more details.
      *
      * **Example**
      * ```
@@ -118,6 +117,11 @@ declare namespace googletag {
      * googletag.defineOutOfPageSlot('/1234567/sports',
      *                               googletag.enums.OutOfPageFormat.INTERSTITIAL);
      * ```
+     * **See also**
+     * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
+     * - [Display a web interstitial ad](https://developers.google.com/publisher-tag/samples/display-web-interstitial-ad)
+     * - [Display an anchor ad](https://developers.google.com/publisher-tag/samples/display-anchor-ad)
+     * - [Display an out-of-page ad](https://developers.google.com/publisher-tag/samples/display-out-of-page-ad)
      *
      * @param adUnitPath Full [ad unit path](https://developers.google.com/publisher-tag/guides/get-started#ad-unit-path) with the network code and ad unit code.
      * @param div ID of the div that will contain this ad unit or OutOfPageFormat.
@@ -207,7 +211,7 @@ declare namespace googletag {
      * @param divOrSlot Either the ID of the div element containing the ad slot or the div element, or the slot object.
      * If a div element is provided, it must have an 'id' attribute which matches the ID passed into `googletag.defineSlot()`.
      */
-    function display(divOrSlot: string | Slot | Element): void;
+    function display(divOrSlot: string | Element | Slot): void;
     /**
      * Enables all GPT services that have been defined for ad slots on the page.
      */
@@ -754,8 +758,7 @@ declare namespace googletag {
          * var pageConfig = {
          *   allowOverlayExpansion: true,
          *   allowPushExpansion: true,
-         *   sandbox: true,
-         *   useUniqueDomain: true
+         *   sandbox: true
          * };
          * var slotConfig = {allowOverlayExpansion: false};
          * googletag.pubads().setSafeFrameConfig(pageConfig);
@@ -1512,6 +1515,9 @@ declare namespace googletag {
             | 'slotVisibilityChanged';
         /**
          * Base Interface for all GPT events. All GPT events below will have the following fields.
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         interface Event {
             /**
@@ -1541,6 +1547,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface ImpressionViewableEvent extends Event {}
@@ -1564,6 +1573,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
          */
         // tslint:disable-next-line:no-empty-interface
         interface RewardedSlotClosedEvent extends Event {}
@@ -1590,6 +1602,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
          */
         interface RewardedSlotGrantedEvent extends Event {
             /**
@@ -1611,7 +1626,7 @@ declare namespace googletag {
          *       var slot = event.slot;
          *       console.log('Rewarded ad slot', slot.getSlotElementId(),
          *                   'is ready to be displayed.');
-         *       if(<!--User consents to viewing the ad.-->) {
+         *       if('User consents to viewing the ad.') {
          *         // Display the ad.
          *         event.makeRewardedVisible();
          *       }
@@ -1621,6 +1636,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
          */
         interface RewardedSlotReadyEvent extends Event {
             /**
@@ -1644,6 +1662,9 @@ declare namespace googletag {
          *   }
          * });
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface SlotOnloadEvent extends Event {}
@@ -1679,6 +1700,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         interface SlotRenderEndedEvent extends Event {
             /**
@@ -1734,6 +1758,9 @@ declare namespace googletag {
          *   }
          * });
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface SlotRequestedEvent extends Event {}
@@ -1756,6 +1783,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface SlotResponseReceived extends Event {}
@@ -1781,6 +1811,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         interface SlotVisibilityChangedEvent extends Event {
             /**

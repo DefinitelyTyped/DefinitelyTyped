@@ -36,5 +36,5 @@ register3({
     cache: true,
     rootMode: 'upward',
 });
-// $ExpectError
+// @ts-expect-error
 register3({ blah: 'blah' });

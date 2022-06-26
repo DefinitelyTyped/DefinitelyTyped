@@ -46,7 +46,7 @@ const jsonOrdinalEdge: JSONEdge = {
     fact_name: '/',
 };
 
-// $ExpectError
+// @ts-expect-error
 const incompleteVName: VName = {
     signature: 'sig#0',
     root: '',
@@ -56,24 +56,29 @@ const incompleteVName: VName = {
 const incompleteFact: Fact = {
     source: vname,
     label: 'incomplete',
-    kind: 'notEdge', // $ExpectError
+    // @ts-expect-error
+    kind: 'notEdge',
 };
 
 const incompleteEdge: Edge = {
     source: vname,
     target: vname,
-    value: 'notFact', // $ExpectError
+    // @ts-expect-error
+    value: 'notFact',
 };
 
 const incompleteJsonFact: JSONFact = {
     source: vname,
-    fact_name: 'notFact', // $ExpectError
+    // @ts-expect-error
+    fact_name: 'notFact',
     fact_value: 'testvalue',
 };
 
 const incompleteJsonEdge: JSONEdge = {
     source: vname,
     target: vname,
-    edge_kind: 'asdasd', // $ExpectError
-    fact_name: 'nonEmpty', // $ExpectError
+    // @ts-expect-error
+    edge_kind: 'asdasd',
+    // @ts-expect-error
+    fact_name: 'nonEmpty',
 };
