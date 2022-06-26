@@ -1,6 +1,2 @@
-{ "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "strict-export-declare-modifiers": false
-    }
-}
+{ "extends": "@definitelytyped/dtslint/dt.json" }
 

@@ -1295,7 +1295,6 @@ export interface DevToolsHook {
     dangerous_setTargetConsoleForTesting?: (fakeConsole: Record<string, unknown>) => void | undefined;
 }
 
-declare var __REACT_DEVTOOLS_GLOBAL_HOOK__: DevToolsHook;
 declare global {
     interface Window {
         __REACT_DEVTOOLS_GLOBAL_HOOK__: DevToolsHook;
