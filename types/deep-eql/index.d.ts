@@ -31,7 +31,7 @@ declare namespace deepEqual {
  *
  * @param leftHandOperand
  * @param rightHandOperand
- * @param options (optional) Additional options
+ * @param [options] Additional options
  * @return equal match
  */
 declare function deepEqual<T1, T2>(
