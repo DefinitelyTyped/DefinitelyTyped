@@ -16,7 +16,7 @@ const waypoints = [
 const myPlan = new L.Routing.Plan(waypoints, {
     addWaypoints: false,
     createMarker: (index: number, waypoint: L.Routing.Waypoint, numberOfWaypoints: number) => {
-      if(waypoint && index > -1 && index < numberOfWaypoints){
+      if (waypoint && index > -1 && index < numberOfWaypoints) {
         return L.marker(waypoint.latLng);
       }
       return false;
