@@ -1,4 +1,4 @@
-// Type definitions for node-zendesk 2.2.0
+// Type definitions for node-zendesk 2.0
 // Project: https://github.com/blakmatrix/node-zendesk
 // Definitions by: jgeth <https://github.com/jgeth>
 //                 dannyhostetler <https://github.com/dannyhostetler>
