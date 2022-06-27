@@ -9,6 +9,19 @@ const BLOCK: blocks.Block<{ foo: string }> = {
         },
     },
     category: 'common',
+    deprecated: [
+        {
+            attributes: {
+                bar: {
+                    type: 'string',
+                },
+            },
+            migrate(attributes) {
+                return { foo: attributes.bar };
+            },
+            save: () => null,
+        }
+    ],
     edit: () => null,
     icon: {
         src: 'block-default',
