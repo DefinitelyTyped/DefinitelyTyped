@@ -100,7 +100,6 @@ histogram.record(123);
 histogram.record(123n);
 histogram.recordDelta();
 
-
 /**
  * Now intelligence is working for the "add" function added
  * under interface RecordableHistogram
