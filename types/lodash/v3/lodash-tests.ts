@@ -7015,12 +7015,12 @@ namespace TestIsEmpty {
             anything; // $ExpectType any
         }
 
-        let string: string | undefined;
+        let string = 'isEmpty';
         if (Math.random()) {
             string = '';
         }
         if (_.isEmpty(string)) {
-            string; // $ExpectType '' | undefined
+            string; // $ExpectType ""
         } else {
             string; // $ExpectType string
         }
@@ -7036,7 +7036,7 @@ namespace TestIsEmpty {
         if (_.isEmpty(obj)) {
             const result: { value?: undefined } = obj;
         } else {
-            obj; // $ExpectType { value?: boolean | undefined; }
+            obj; // $ExpectType { value?: boolean; }
         }
         let obj2: { value: boolean } | null | undefined = { value: true };
         if (Math.random()) {
