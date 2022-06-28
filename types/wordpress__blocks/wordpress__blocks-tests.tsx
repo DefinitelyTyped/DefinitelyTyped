@@ -85,7 +85,7 @@ blocks.findTransform(
             type: 'block',
             blocks: [],
             priority: 1,
-            transform(atts) {
+            transform() {
                 return blocks.createBlock('my/foo');
             },
         },
@@ -94,7 +94,8 @@ blocks.findTransform(
 );
 
 declare const RAW_TRANSFORM_ARRAY: Array<blocks.TransformRaw<any>>;
-blocks.findTransform(RAW_TRANSFORM_ARRAY, ({ isMatch }) => true);
+blocks.findTransform(RAW_TRANSFORM_ARRAY, ({}) => true);
+blocks.findTransform(RAW_TRANSFORM_ARRAY, ({ isMatch }) => isMatch?.(new Node()) ?? true);
 
 // $ExpectType string
 blocks.getBlockTransforms('to', 'my/foo')[0].blockName;
@@ -261,7 +262,7 @@ blocks.getBlockSupport('core/paragraph', 'inserter', 1234);
 // $ExpectType { foo: string; }
 blocks.getBlockSupport('core/paragraph', 'inserter', { foo: 'bar' });
 
-// $ExpectType Block<any> | undefined
+// $ExpectType Block<Record<string, any>> | undefined
 blocks.getBlockType('core/paragraph');
 
 // $ExpectType Block<any>[]
