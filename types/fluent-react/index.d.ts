@@ -24,6 +24,7 @@ export interface Context {
 }
 export interface LocalizationProviderProps {
   bundles: IterableIterator<FluentBundle>;
+  children: React.ReactElement;
   parseMarkup?: MarkupParser | undefined;
 }
 export class LocalizationProvider extends React.Component<LocalizationProviderProps> {

@@ -725,7 +725,7 @@ declare global {
              */
             resolveMatch(
                 promiseOrFn: Promise<any> | ((...args: any[]) => Promise<any>),
-                wanted: string | RegExp | { [key: string]: RegExp },
+                wanted: any,
                 message?: string,
                 extra?: Options.Assert,
             ): Promise<void>;
@@ -903,8 +903,14 @@ declare global {
             }
         }
 
+        interface MochaIt {
+            (name?: string, fn?: (a: any) => any): void;
+            skip: (name?: string, fn?: (a: any) => any) => void;
+            todo: (name?: string, fn?: (a: any) => any) => void;
+        }
+
         interface Mocha {
-            it: (name?: string, fn?: (a: any) => any) => void;
+            it: MochaIt;
             describe: (name?: string, fn?: (a: any) => any) => void;
             global: () => void;
         }

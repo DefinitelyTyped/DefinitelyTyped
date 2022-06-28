@@ -7,11 +7,11 @@ import Queue = require("bull");
 
 const videoQueue = new Queue('video transcoding', 'redis://127.0.0.1:6379');
 const audioQueue = new Queue('audio transcoding', {
-    redis: {port: 6379, host: '127.0.0.1'}, // Specify Redis connection using object
+    redis: { port: 6379, host: '127.0.0.1' }, // Specify Redis connection using object
     settings: {},
 });
 const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
-const rateLimitedQueue = new Queue('api calls', { limiter: { max: 1, duration: 500, groupKey: "apiKey", bounceBack: true }});
+const rateLimitedQueue = new Queue('api calls', { limiter: { max: 1, duration: 500, groupKey: "apiKey", bounceBack: true } });
 
 videoQueue.getWorkers();
 videoQueue.setWorkerName();
@@ -85,8 +85,9 @@ imageQueue.process((job, done) => {
     job.progress(42);
 
     // update job data
-    job.update({ image: 'image2.jpg'});
-    job.update({ url: 'image2.jpg'}); // $ExpectError
+    job.update({ image: 'image2.jpg' });
+    // @ts-expect-error
+    job.update({ url: 'image2.jpg' });
 
     // call done when finished
     done();
@@ -101,13 +102,20 @@ imageQueue.process((job, done) => {
     throw new Error('some unexpected error');
 });
 
-videoQueue.add({video: 'http://example.com/video1.mov'});
-audioQueue.add({audio: 'http://example.com/audio1.mp3'});
-imageQueue.add({image: 'http://example.com/image1.tiff'});
+videoQueue.add({ video: 'http://example.com/video1.mov' });
+audioQueue.add({ audio: 'http://example.com/audio1.mp3' });
+imageQueue.add({ image: 'http://example.com/image1.tiff' }, { repeat: { cron: "00 06 * * 1", tz: "America/New_York" } });
 videoQueue.addBulk([
-    { name: 'frame1', data: { video: 'http://example.com/video1.mov'}, opts: { attempts: 6 }},
-    {  data: { audio: 'http://example.com/video1.mov'}},
+    { name: 'frame1', data: { video: 'http://example.com/video1.mov' }, opts: { attempts: 6 } },
+    { data: { audio: 'http://example.com/video1.mov' } },
+    {
+      opts: {
+        // @ts-expect-error
+        repeat: { cron: "00 06 * * 1", tz: "America/New_York" }
+      }
+    }
 ]);
+imageQueue.add({ image: 'http://example.com/image1.tiff' }, { removeOnComplete: { age: 60 * 60 * 24 }, removeOnFail: { age: 60 * 60 * 24, count: 10 } });
 
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -118,7 +126,7 @@ videoQueue.addBulk([
 const clusterQueue = new Queue('queue on redis cluster', {
     prefix: 'cluster-test',
     createClient: (clusterUri: Redis.ClusterNode) => {
-        return new Redis.Cluster([{port: 6379, host: '127.0.0.1'}]);
+        return new Redis.Cluster([{ port: 6379, host: '127.0.0.1' }]);
     }
 });
 
@@ -162,22 +170,22 @@ async function pfdPromise(job: Queue.Job) {
 pdfQueue.process(1, pfdPromise);
 
 videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
-.then((video1Job) => {
-    // When job has successfully be placed in the queue the job is returned
-    // then wait for completion
-    return video1Job.finished();
-})
-.then(() => {
-    // completed successfully
-})
-.catch((err) => {
-    // error
-});
+    .then((video1Job) => {
+        // When job has successfully be placed in the queue the job is returned
+        // then wait for completion
+        return video1Job.finished();
+    })
+    .then(() => {
+        // completed successfully
+    })
+    .catch((err) => {
+        // error
+    });
 
 pdfQueue.whenCurrentJobsFinished()
-.then(() => {
-    // Jobs finished
-});
+    .then(() => {
+        // Jobs finished
+    });
 
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -186,19 +194,19 @@ pdfQueue.whenCurrentJobsFinished()
 //////////////////////////////////////////////////////////////////////////////////
 
 pdfQueue
-.on('error', (err: Error) => undefined)
-.on('active', (job: Queue.Job, jobPromise: Queue.JobPromise) => jobPromise.cancel())
-.on('waiting', (jobId: Queue.JobId) => undefined)
-.on('active', (job: Queue.Job) => undefined)
-.on('stalled', (job: Queue.Job) => undefined)
-.on('progress', (job: Queue.Job) => undefined)
-.on('completed', (job: Queue.Job) => undefined)
-.on('failed', (job: Queue.Job) => undefined)
-.on('paused', () => undefined)
-.on('resumed', () => undefined)
-.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatusClean) => undefined)
-.on('drained', () => undefined)
-.on('removed', (job: Queue.Job) => undefined);
+    .on('error', (err: Error) => undefined)
+    .on('active', (job: Queue.Job, jobPromise: Queue.JobPromise) => jobPromise.cancel())
+    .on('waiting', (jobId: Queue.JobId) => undefined)
+    .on('active', (job: Queue.Job) => undefined)
+    .on('stalled', (job: Queue.Job) => undefined)
+    .on('progress', (job: Queue.Job) => undefined)
+    .on('completed', (job: Queue.Job) => undefined)
+    .on('failed', (job: Queue.Job) => undefined)
+    .on('paused', () => undefined)
+    .on('resumed', () => undefined)
+    .on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatusClean) => undefined)
+    .on('drained', () => undefined)
+    .on('removed', (job: Queue.Job) => undefined);
 
 pdfQueue.setMaxListeners(42);
 
@@ -206,8 +214,8 @@ pdfQueue.setMaxListeners(42);
 
 const profileQueue = new Queue('profile');
 // Max concurrency for requestProfile is 100
-profileQueue.process('requestProfile', 100, () => {});
-profileQueue.process(100, () => {});
+profileQueue.process('requestProfile', 100, () => { });
+profileQueue.process(100, () => { });
 
 // other tests
 const myQueue = new Queue('myQueue', {
@@ -279,8 +287,15 @@ myQueue.removeJobs('?oo*').then(() => {
 myQueue.obliterate().then(() => {
     console.log('queue obliterated');
 });
-myQueue.obliterate({force: true}).then(() => {
+myQueue.obliterate({ force: true }).then(() => {
     console.log('queue obliterated');
+});
+
+myQueue.add({ foo: 'bar' }).then(job => {
+    job.getState().then(state => {
+        // state could equal 'stuck'
+        state === 'stuck';
+    });
 });
 
 // Close queues
@@ -299,6 +314,8 @@ new Queue('profile');
 new Queue('profile', 'url');
 new Queue('profile', { prefix: 'test' });
 new Queue('profile', 'url', { prefix: 'test' });
+// @ts-expect-error
+new Queue('profile', { redis: 'url' });
 
 // Use low-level API
 const multi = myQueue.multi();

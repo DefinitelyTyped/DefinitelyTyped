@@ -9,7 +9,6 @@ export interface FileUploaderButtonProps extends Omit<ReactLabelAttr, "onChange"
     disabled?: boolean | undefined;
     disableLabelChanges?: boolean | undefined,
     labelText?: React.ReactNode | undefined,
-    listFiles?: boolean | undefined,
     multiple?: boolean | undefined,
     name?: string | undefined;
     onChange?(event: React.ChangeEvent<HTMLInputElement>): void,

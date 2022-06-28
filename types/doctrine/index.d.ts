@@ -111,7 +111,7 @@ export module type {
     type: 'FunctionType';
     'this': Type;
     'new': Type, params: Type[];
-    result: Type[]
+    result: Type;
   }
   export interface NameExpression { type: 'NameExpression', name: string }
   export interface NonNullableType {

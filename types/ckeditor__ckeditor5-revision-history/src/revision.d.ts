@@ -1,45 +1,23 @@
 import { User } from '@ckeditor/ckeditor5-collaboration-core/src/users';
-import { DomEventData } from '@ckeditor/ckeditor5-engine';
-import { Emitter } from '@ckeditor/ckeditor5-utils/src/dom/emittermixin';
-import { EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
-import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
-import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
-import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
+import { Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
 
-export default class Revision implements Emitter, Observable {
+// tslint:disable-next-line:no-empty-interface
+export default interface Revision extends Observable {}
+
+export default class Revision implements Observable {
+    get attributes(): Record<string, any>;
+    protected set attributes(attrs: Record<string, any>);
     readonly authors: Set<User>;
+    get createdAt(): Date;
+    protected set createdAt(date: Date);
     readonly creator: User | null;
-    readonly data: Record<string, string>;
+    readonly diffData: Record<string, unknown>;
+    readonly fromVersion: number;
     readonly id: string;
+    readonly toVersion: number;
+
     removeAttribute(name: string): void;
     setAttribute(name: string, value: unknown): void;
     toJSON(): Record<string, string>;
-
-    set(option: Record<string, string>): void;
-    set(name: string, value: unknown): void;
-    bind(...bindProperties: string[]): BindChain;
-    unbind(...unbindProperties: string[]): void;
-    decorate(methodName: string): void;
-
-    delegate(...events: string[]): EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
-    ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    on: (
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ) => void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ): void;
-    stopDelegating(event?: string, emitter?: Emitter): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
+    setName(name: string): void;
 }

@@ -17,7 +17,7 @@ iconv.convert('hoge');
 iconv.convert('hoge', 'utf-8');
 // $ExpectType Buffer
 iconv.convert(Buffer.from('hoge'));
-// $ExpectError
+// @ts-expect-error
 iconv.convert(Buffer.from('hoge'), 'utf-8');
 
 // $ExpectType boolean
@@ -26,7 +26,7 @@ iconv.write('hoge');
 iconv.write('hoge', 'utf-8');
 // $ExpectType boolean
 iconv.write(Buffer.from('hoge'));
-// $ExpectError
+// @ts-expect-error
 iconv.write(Buffer.from('hoge'), 'utf-8');
 
 // $ExpectType void
@@ -35,7 +35,7 @@ iconv.end();
 iconv.end('hoge');
 // $ExpectType void
 iconv.end('hoge', 'utf-8');
-// $ExpectError
+// @ts-expect-error
 iconv.end(Buffer.from('hoge'), 'utf-8');
 // $ExpectType void
 iconv.end(Buffer.from('hoge'));

@@ -2,7 +2,7 @@
 // Project: https://github.com/MithrilJS/mithril.js/tree/next/ospec
 // Definitions by: Már Örlygsson <https://github.com/maranomynet>
 //                 Mike Linkovich <https://github.com/spacejack>
-//                 Isiah Meadows <https://github.com/isiahmeadows>
+//                 Claudia Meadows <https://github.com/dead-claudia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 

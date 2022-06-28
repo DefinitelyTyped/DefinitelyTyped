@@ -8,6 +8,7 @@ const options: datadog.Options = {
     service: 'service',
     hostname: 'host',
     keepMsg: true,
+    eu: true,
 };
 
 // $ExpectType Promise<WritableStream>
@@ -16,11 +17,11 @@ datadog.createWriteStream(options);
 // $ExpectType WritableStream
 datadog.createWriteStreamSync(options);
 
-// $ExpectError
+// @ts-expect-error
 datadog.createWriteStream();
 
-// $ExpectError
+// @ts-expect-error
 datadog.createWriteStreamSync({});
 
-// $ExpectError
+// @ts-expect-error
 datadog.createWriteStream(null);

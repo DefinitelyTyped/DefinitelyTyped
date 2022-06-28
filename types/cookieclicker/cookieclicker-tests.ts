@@ -31,7 +31,7 @@ new Game.Object(
     'Hi',
     5,
     7,
-    // $ExpectError
+    // @ts-expect-error
     { bg: 'artBackground' },
     12345,
     () => 123,
@@ -43,7 +43,7 @@ new Game.Upgrade('Example upgrade', 'Does <b>nothing</b>.', 456, [1, 2]);
 new Game.Upgrade('Example upgrade', 'Does <b>nothing</b>.', 456, [1, 2, 'https://example.com/icons.png']);
 
 // Invalid tier type
-// $ExpectError
+// @ts-expect-error
 Game.SynergyUpgrade('Example synergy', 'Example', 'Cursor', 'Grandma', { hello: 'there' });
 
 Game.GrandmaSynergy('Example grandmas', 'A nice example', 'Example building');
@@ -54,7 +54,7 @@ Game.GrandmaSynergy('Example grandmas', 'A nice example', 'Example building');
 Game.Loader.Load(['Hi']);
 
 // Loads assets "H" and "i", unintended
-// $ExpectError
+// @ts-expect-error
 Game.Loader.Load('Hi');
 
 // Some achievements
@@ -75,21 +75,21 @@ const PantheonMG = Game.Objects.Temple.minigame;
 
 PantheonMG.godTooltip(3);
 
-// $ExpectError
+// @ts-expect-error
 PantheonMG.slotGod(PantheonMG.godsById[2], 3);
 
 const GrimoireMG = Game.Objects['Wizard tower'].minigame;
 
 GrimoireMG.castSpell(GrimoireMG.spellsById[7], { cost: 123 });
 
-// $ExpectError
+// @ts-expect-error
 GrimoireMG.getFailChance('conjure baked goods');
 
 const StocksMG = Game.Objects.Bank.minigame;
 
 StocksMG.buyGood(9, 36);
 
-// $ExpectError
+// @ts-expect-error
 StocksMG.tradeTooltip(StocksMG.goodsById[13], 46);
 
 // Mod api
@@ -110,12 +110,13 @@ No clicking achievements may be obtained in this mode.
 <div class="line"></div>
 Reaching 1 quadrillion cookies in this mode unlocks a special heavenly upgrade.`,
     icon: [12, 0],
+    dname: loc('Trigger finger'),
 };
 
 const selector: Game.SelectorSwitchChoice = { name: 'Example choice', icon: [10, 0] };
 
 // `TickerEffect` can also be 0
-// $ExpectError
+// @ts-expect-error
 Game.TickerEffect.type;
 
 const coolUpgrade = new Game.Upgrade('Example upgrade', 'Does <b>nothing</b>.', 456, [1, 2]);
@@ -136,17 +137,17 @@ Game.Objects.Cursor.tieredUpgrades[10] = tiered;
 
 Game.cookiesPsByType.kitten;
 
-// $ExpectError
+// @ts-expect-error
 l('lumps').style;
 
-// $ExpectError
+// @ts-expect-error
 Game.Notify('Hello!');
 
 replaceAll(escapeRegExp('++'), '--', '++--++');
 
 const testMod = Game.mods['test-mod'];
 
-// $ExpectError
+// @ts-expect-error
 if (testMod && testMod.id) testMod.id++;
 
 Math.seedrandom();
@@ -161,7 +162,7 @@ Game.UnlockTiered(Game.Objects.Factory);
 
 const buildingPicture: Game.BuildingArtPicture = { frame: 0, id: 0, pic: 'icons.png', x: 0, y: 0, z: 0 };
 
-// $ExpectError
+// @ts-expect-error
 Game.effs.cps + 1;
 
 Game.eff('cps', 5) + 123;
@@ -181,3 +182,40 @@ if (gainedBuff.time === gainedBuff.maxTime && gainedBuff.arg1) console.log(gaine
 gainedBuff.type === buffType;
 
 console.log(SimpleBeautify(1e6));
+
+console.log(loc('%1 types', LBeautify(10)));
+
+AddLanguage('TS', 'TypeScript', { Game: '{PseudoNull:0}', '': { 'plural-forms': '', language: 'unused' } });
+
+if (App) {
+    App.gotAchiev(Game.Achievements['Wake and bake'].id);
+    App.modsPopup();
+}
+
+alert(Game.Upgrades['Reinforced index finger'].dname + Game.Upgrades['Reinforced index finger'].ddesc);
+
+Game.ToggleFullscreen();
+
+Game.RuinTheFun();
+
+Game.registerMod('typemod', {
+    init() {
+        console.log(this.dir);
+    },
+});
+
+writeIcon([0, 0]);
+
+// This doesn't exist anymore, was renamed to WritePrefButton
+// @ts-expect-error
+Game.WriteButton;
+
+Game.Objects.Bank.unshackleUpgrade;
+
+Game.AllBGs[0].order = 12;
+
+Game.jukebox.musicScrub(5);
+
+if (Music) {
+    Music.pause();
+}

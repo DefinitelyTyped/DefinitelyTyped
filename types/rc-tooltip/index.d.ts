@@ -1,5 +1,5 @@
 // Type definitions for rc-tooltip 3.7
-// Project: http://github.com/react-component/tooltip
+// Project: https://github.com/react-component/tooltip
 // Definitions by: rhysd <https://github.com/rhysd>
 //                 ahstro <https://github.com/ahstro>
 //                 vsaarinen <https://github.com/vsaarinen>
@@ -17,7 +17,9 @@ declare namespace RCTooltip {
         "left" | "right" | "top" | "bottom" |
         "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 
-    export interface Props extends React.Props<any> {
+    export interface Props {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<any> | undefined;
         overlayClassName?: string | undefined;
         trigger?: Trigger[] | undefined;
         mouseEnterDelay?: number | undefined;

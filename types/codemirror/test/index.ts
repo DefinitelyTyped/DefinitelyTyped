@@ -4,7 +4,7 @@ const myCodeMirror: CodeMirror.Editor = CodeMirror(document.body);
 
 const myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {
     value: 'function myScript(){return 100;}\n',
-    mode: {name: 'javascript', json: true},
+    mode: { name: 'javascript', json: true },
     extraKeys: {
         Enter: cm => {
             console.log('save');
@@ -17,7 +17,7 @@ const myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {
 
 const myCodeMirror2_1: CodeMirror.Editor = CodeMirror(document.body, {
     extraKeys: {
-        // $ExpectError
+        // @ts-expect-error
         'Shift-Enter': cm => {
             return 42;
         }, // not a valid return value
@@ -55,7 +55,7 @@ myCodeMirror.setCursor({ ch: 1, line: 0 });
 myCodeMirror.on('renderLine', (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => {});
 
 myCodeMirror.on('beforeChange', (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeCancellable) => {
-    // $ExpectError
+    // @ts-expect-error
     change.update();
     if (change.update != null) change.update();
 });
@@ -77,6 +77,7 @@ htmlElement2.remove();
 CodeMirror.commands.newlineAndIndent(myCodeMirror);
 
 const stringStream = new CodeMirror.StringStream('var myEditor;');
+stringStream.lookAhead(1);
 
 // Call a method from the CodeMirror.Doc interface to confirm a CodeMirror.Editor extends it
 myCodeMirror.getCursor();
@@ -86,6 +87,13 @@ myCodeMirror.markText(from, to, {
     readOnly: true,
     inclusiveLeft: true,
     inclusiveRight: false,
+});
+
+// Ensure extendSelection accepts the same options as setSelection
+myCodeMirror.extendSelection(from, to, {
+    scroll: true,
+    bias: -1,
+    origin: "+input"
 });
 
 const textMarker = myCodeMirror.markText(
@@ -102,5 +110,5 @@ textMarker.clear();
 
 const marks = myCodeMirror.getAllMarks();
 
-// $ExpectType TextMarker<MarkerRange | Position>
+// $ExpectType TextMarker<MarkerRange | Position> || TextMarker<Position | MarkerRange>
 const mark = marks[0];

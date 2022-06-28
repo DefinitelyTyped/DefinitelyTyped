@@ -13,11 +13,11 @@ getDeltaE94(green, blue);
 // $ExpectType number
 getDeltaE00(blue, red);
 
-// $ExpectError
+// @ts-expect-error
 getDeltaE00('#f00', '#00f');
 
-// $ExpectError
+// @ts-expect-error
 getDeltaE00({ l: 1, a: 2, b: 3 }, { l: 2, a: 3, b: 4 });
 
-// $ExpectError
+// @ts-expect-error
 getDeltaE00({ r: 1, g: 2, b: 3 }, { r: 2, g: 3, b: 4 });

@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/node": "^16.11.6"
+    }
+}

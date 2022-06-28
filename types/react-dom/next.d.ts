@@ -23,41 +23,12 @@
  * Either the import or the reference only needs to appear once, anywhere in the project.
  */
 
-// See https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOM.js to see how the exports are declared,
+// See https://github.com/facebook/react/blob/main/packages/react-dom/index.js to see how the exports are declared,
+// but confirm with published source code (e.g. https://unpkg.com/react-dom@next) that these exports end up in the published code
 
 import React = require('react');
 import ReactDOM = require('.');
 
 export {};
 
-declare module '.' {
-    interface HydrationOptions {
-        onHydrated?(suspenseInstance: Comment): void;
-        onDeleted?(suspenseInstance: Comment): void;
-    }
-
-    interface RootOptions {
-        /**
-         * @deprecated Use `hydrateRoot(container)` instead
-         */
-        hydrate?: boolean | undefined;
-        /**
-         * @deprecated Use `hydrateRoot(container, hydrateOptions)` instead
-         */
-        hydrationOptions?: HydrationOptions | undefined;
-    }
-
-    interface Root {
-        render(children: React.ReactChild | React.ReactNodeArray): void;
-        unmount(): void;
-    }
-
-    /**
-     * Replaces `ReactDOM.render` when the `.render` method is called and enables Concurrent Mode.
-     *
-     * @see https://reactjs.org/docs/concurrent-mode-reference.html#createroot
-     */
-    function createRoot(container: Element | Document | DocumentFragment | Comment, options?: RootOptions): Root;
-
-    function hydrateRoot(container: Element | Document | DocumentFragment | Comment, options?: HydrationOptions): Root;
-}
+declare module '.' {}

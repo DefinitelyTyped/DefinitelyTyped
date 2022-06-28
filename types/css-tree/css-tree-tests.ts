@@ -83,10 +83,12 @@ csstree.generate(ast, {
 });
 
 const property = csstree.property('*-vendor-property');
-property.name = 'test'; // $ExpectError
+// @ts-expect-error
+property.name = 'test';
 
 const keyword = csstree.keyword('-vendor-keyword');
-keyword.name = 'test'; // $ExpectError
+// @ts-expect-error
+keyword.name = 'test';
 
 csstree.clone(ast); // $ExpectType CssNode
 
@@ -703,3 +705,10 @@ csstree.definitionSyntax.walk(syntax, (node) => {
 csstree.definitionSyntax.walk(syntax, (node) => {
     node; // $ExpectType DSNode
 }, undefined);
+
+csstree.parse('.selector { /* comment */ }', {
+  onComment(value, loc) {
+    value; // $ExpectType string
+    loc; // $ExpectType CssLocation
+  }
+});

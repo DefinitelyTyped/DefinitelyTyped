@@ -3,13 +3,9 @@ import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import * as PropTypes from "prop-types";
 import createFragment = require("react-addons-create-fragment");
-import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
-import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
-import * as TestUtils from "react-addons-test-utils";
-import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
@@ -223,24 +219,6 @@ FunctionComponent2.defaultProps = {
     foo: 42
 };
 
-const LegacyStatelessComponent2: React.SFC<SCProps> =
-    // props is contextually typed
-    props => DOM.div(null, props.foo);
-LegacyStatelessComponent2.displayName = "LegacyStatelessComponent2";
-LegacyStatelessComponent2.defaultProps = {
-    foo: 42
-};
-
-const FunctionComponent3: React.FunctionComponent<SCProps> =
-    // allows usage of props.children
-    // allows null return
-    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
-
-const LegacyStatelessComponent3: React.SFC<SCProps> =
-    // allows usage of props.children
-    // allows null return
-    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
-
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
 
@@ -261,8 +239,6 @@ const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> =
 
 const legacyStatelessComponentFactory: React.SFCFactory<SCProps> =
     React.createFactory(FunctionComponent);
-const legacyStatelessComponentFactoryElement: React.SFCElement<SCProps> =
-    legacyStatelessComponentFactory(props);
 
 const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
     React.createFactory("div");
@@ -275,8 +251,6 @@ const elementNoState: React.CElement<Props, ModernComponentNoState> = React.crea
 const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
 const functionComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent, scProps);
 const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent4, null);
-const legacyStatelessComponentElement: React.SFCElement<SCProps> = React.createElement(FunctionComponent, scProps);
-const legacyStatelessComponentElementNullProps: React.SFCElement<SCProps> = React.createElement(FunctionComponent4, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
@@ -297,10 +271,6 @@ function foo3(child: React.ComponentClass<{ name: string }> | React.FunctionComp
     React.createElement(child, { name: "bar" });
 }
 
-function foo4(child: React.ComponentClass<{ name: string }> | React.SFC<{ name: string }> | string) {
-    React.createElement(child, { name: "bar" });
-}
-
 // React.cloneElement
 const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement(element, { foo: 43 });
 
@@ -318,8 +288,6 @@ const clonedElement3: React.CElement<Props, ModernComponent> =
     });
 const clonedfunctionComponentElement: React.FunctionComponentElement<SCProps> =
     React.cloneElement(functionComponentElement, { foo: 44 });
-const clonedlegacyStatelessComponentElement: React.SFCElement<SCProps> =
-    React.cloneElement(legacyStatelessComponentElement, { foo: 44 });
 // Clone base DOMElement
 const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
@@ -499,6 +467,22 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     onAnimationStart: event => {
         const currentTarget: EventTarget & HTMLElement = event.currentTarget;
     },
+    onBlur: (event: React.FocusEvent) => {
+        const {
+            // $ExpectType (EventTarget & Element) | null
+            relatedTarget,
+            // $ExpectType EventTarget & Element
+            target
+        } = event;
+    },
+    onFocus: (event: React.FocusEvent) => {
+        const {
+            // $ExpectType (EventTarget & Element) | null
+            relatedTarget,
+            // $ExpectType EventTarget & Element
+            target
+        } = event;
+    },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
     },
@@ -628,33 +612,6 @@ createFragment({
 });
 
 //
-// CSSTransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(CSSTransitionGroup)({
-    component: createReactClass({
-        render: (): null => null
-    }),
-    childFactory: (c) => c,
-    transitionName: "transition",
-    transitionAppear: false,
-    transitionEnter: true,
-    transitionLeave: true,
-    id: "some-id",
-    className: "some-class"
-});
-
-React.createFactory(CSSTransitionGroup)({
-    transitionName: {
-        enter: "enter",
-        enterActive: "enterActive",
-        leave: "leave",
-        leaveActive: "leaveActive",
-        appear: "appear",
-        appearActive: "appearActive"
-    }
-});
-
-//
 // LinkedStateMixin addon
 // --------------------------------------------------------------------------
 createReactClass({
@@ -680,83 +637,12 @@ createReactClass({
 });
 
 //
-// Perf addon
-// --------------------------------------------------------------------------
-Perf.start();
-Perf.stop();
-const measurements = Perf.getLastMeasurements();
-Perf.printInclusive(measurements);
-Perf.printExclusive(measurements);
-Perf.printWasted(measurements);
-Perf.printOperations(measurements);
-Perf.printInclusive();
-Perf.printExclusive();
-Perf.printWasted();
-Perf.printOperations();
-
-console.log(Perf.getExclusive());
-console.log(Perf.getInclusive());
-console.log(Perf.getWasted());
-console.log(Perf.getOperations());
-console.log(Perf.getExclusive(measurements));
-console.log(Perf.getInclusive(measurements));
-console.log(Perf.getWasted(measurements));
-console.log(Perf.getOperations(measurements));
-
-// Renamed to printOperations().  Please use it instead.
-Perf.printDOM(measurements);
-Perf.printDOM();
-
-//
 // PureRenderMixin addon
 // --------------------------------------------------------------------------
 createReactClass({
     mixins: [PureRenderMixin],
     render() { return DOM.div(null); }
 });
-
-//
-// TestUtils addon
-// --------------------------------------------------------------------------
-
-const inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
-const node: Element = TestUtils.renderIntoDocument(DOM.div());
-
-TestUtils.Simulate.click(node);
-TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
-
-const renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
-renderer.render(React.createElement(Timer));
-const output: React.ReactElement<React.Props<Timer>> =
-    renderer.getRenderOutput();
-
-const foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
-    inst, ModernComponent);
-const foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
-    inst, ModernComponent);
-
-// ReactTestUtils custom type guards
-
-const emptyElement1: React.ReactElement<Props> = React.createElement(ModernComponent);
-if (TestUtils.isElementOfType(emptyElement1, FunctionComponent)) {
-    emptyElement1.props.foo;
-}
-const emptyElement2: React.ReactElement<SCProps> = React.createElement(FunctionComponent);
-if (TestUtils.isElementOfType(emptyElement2, FunctionComponent)) {
-    emptyElement2.props.foo;
-}
-
-if (TestUtils.isDOMComponent(container)) {
-    const reassignedContainer: Element = container;
-} else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: 'hi', foo: 3 }))) {
-    new ModernComponent({ hello: 'hi', foo: 3 }).props;
-}
-
-//
-// TransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(TransitionGroup)({ component: "div" });
 
 //
 // update addon
@@ -791,6 +677,8 @@ function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
 function handler(e: React.MouseEvent) {
     eventHandler(e);
 }
+
+const keyboardExtendsUI: React.UIEventHandler = (e: React.KeyboardEvent) => {};
 
 //
 // The SyntheticEvent.target.value should be accessible for onChange
@@ -852,11 +740,36 @@ declare var x: React.DOMElement<{
 }, Element>;
 
 // React 16 should be able to render its children directly
-class RenderChildren extends React.Component {
+class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     render() {
         const { children } = this.props;
         return children !== undefined ? children : null;
     }
+}
+
+// ReactNode tests
+{
+    // Mix of empty return and some return results in `(undefined | JSX.Element)[]`
+    const mixedEmptyReturn: React.ReactNode = ['a', 'b', null].map(label => {
+        if (!label) {
+            return;
+        }
+        return label;
+    });
+    // But just an empty return results in `void`.
+    // $ExpectError
+    const emptyReturn: React.ReactNode = ['a', 'b'].map(label => {
+        return;
+    });
+    // Mix of no return and some return results in `(undefined | JSX.Element)[]`
+    const mixedNoReturn: React.ReactNode = ['a', 'b', null].map(label => {
+        if (label) {
+            return label;
+        }
+    });
+    // But no return results in `void`.
+    // $ExpectError
+    const noReturn: React.ReactNode = ['a', 'b'].map(label => {});
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
@@ -870,15 +783,11 @@ React.createElement(Memoized2, { bar: 'string' });
 
 const specialSfc1: React.ExoticComponent<any> = Memoized1;
 const functionComponent: React.FunctionComponent<any> = Memoized2;
-const sfc: React.SFC<any> = Memoized2;
-// this $ExpectError is failing on TypeScript@next
-// // $ExpectError Property '$$typeof' is missing in type
-// const specialSfc2: React.SpecialSFC = props => null;
 
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",
     foo: 42,
-    children: functionComponent,
+    children: React.createElement(functionComponent),
 };
 
 type UnionProps =
@@ -890,3 +799,52 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     type: 'single',
     value: [2],
 };
+
+// JSXElemenConstructor vs Component assignability
+{
+    interface ExactProps {
+        value: 'A' | 'B';
+    }
+    interface NarrowerProps {
+        value: 'A';
+    }
+    interface WiderProps {
+        value: 'A' | 'B' | 'C';
+    }
+
+    // We don't actually care about the concrete type of `Wrapper` i.e.
+    // we don't care about the value created by `new Wrapper()`.
+    // We only care about the props we can pass to the component.
+    let Wrapper: React.JSXElementConstructor<ExactProps>;
+    // $ExpectError
+    Wrapper = class Narrower extends React.Component<NarrowerProps> {};
+    // $ExpectError
+    Wrapper = (props: NarrowerProps) => null;
+    Wrapper = class Exact extends React.Component<ExactProps> {};
+    Wrapper = (props: ExactProps) => null;
+    Wrapper = class Wider extends React.Component<WiderProps> {};
+    Wrapper = (props: WiderProps) => null;
+
+    React.createElement(Wrapper, { value: 'A' });
+    React.createElement(Wrapper, { value: 'B' });
+    // $ExpectError
+    React.createElement(Wrapper, { value: 'C' });
+}
+
+// ComponentPropsWithRef and JSXElementConstructor
+{
+    interface Props {
+        value: string;
+    }
+    type InferredProps = React.ComponentPropsWithRef<React.JSXElementConstructor<Props>>;
+    const props: Props = {
+        value: 'inferred',
+        // $ExpectError
+        notImplemented: 5
+    };
+    const inferredProps: InferredProps = {
+        value: 'inferred',
+        // $ExpectError
+        notImplemented: 5
+    };
+}

@@ -27,11 +27,14 @@ langs.codes('3');
 // $ExpectType string[]
 langs.names(true);
 
+// $ExpectType string[]
+langs.names();
+
 // $ExpectType Language | undefined
 langs.where('1', 'he');
 
-// $ExpectError
+// @ts-expect-error
 langs.codes(5);
 
-// $ExpectError
+// @ts-expect-error
 langs.codes('foo');

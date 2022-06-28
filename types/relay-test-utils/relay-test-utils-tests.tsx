@@ -26,7 +26,7 @@ function TestQueryRenderer() {
             environment={environment}
             query={graphql``}
             render={({ error, props }) => {
-                if (error) return <div>{error}</div>;
+                if (error) return <div>{String(error)}</div>;
 
                 if (props) return <TestFragment {...props} />;
 

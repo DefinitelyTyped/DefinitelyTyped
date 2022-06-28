@@ -1,4 +1,4 @@
-import assert = require('assert');
+import assert = require('node:assert');
 
 {
     const { stack } = new assert.AssertionError({});

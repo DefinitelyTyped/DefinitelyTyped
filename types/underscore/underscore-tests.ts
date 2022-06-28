@@ -246,7 +246,7 @@ explicitDictionaryLiteralItem; // $ExpectType StringRecord
     const collectionFunctionIteratee: _.Iteratee<_.Dictionary<StringRecord> | StringRecord[], string> = (element, key, collection) => {
         element; // $ExpectType StringRecord
         key; // $ExpectType string | number
-        collection; // $ExpectType StringRecord[] | Dictionary<StringRecord>
+        collection; // $ExpectType StringRecord[] | Dictionary<StringRecord> || Dictionary<StringRecord> | StringRecord[]
         return element.a;
     };
     collectionFunctionIteratee(recordDictionary['a'], 'a', recordDictionary); // $ExpectType string
@@ -2504,7 +2504,8 @@ _.object([['moe', 30], ['larry', 40], ['curly', 50]] as [string, number][]); // 
     extractChainTypes(_.chain(level2UnionList).object()); // $ExpectType ChainType<Dictionary<string | number>, string | number>
 
     // non-nested lists
-    _.object(recordList); // $ExpectError
+    // @ts-expect-error
+    _.object(recordList);
     _(recordList).object(); // $ExpectType Dictionary<never>
     extractChainTypes(_.chain(recordList).object()); // $ExpectType ChainType<Dictionary<never>, never>
 }

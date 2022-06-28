@@ -8,14 +8,12 @@
  * Unfortunately, while it gives the most precise results, its to complex for longer strings/arrow (above 200 items).
  * Therefore, `diff()` automatically switches to {@link module:utils/fastdiff~fastDiff `fastDiff()`} when detecting
  * such a scenario. The return formats of both functions are identical.
- *
  */
-export default function diff(a: string, b: string, cmp?: (a: string, b: string) => boolean): Change[];
 
 export default function diff(
-    a: ReadonlyArray<string>,
-    b: ReadonlyArray<string>,
+    a: string | string[] | ReadonlyArray<string>,
+    b: string | string[] | ReadonlyArray<string>,
     cmp?: (a: string, b: string) => boolean,
 ): Change[];
 
-export type Change = "equal" | "insert" | "delete";
+export type Change = 'equal' | 'insert' | 'delete';

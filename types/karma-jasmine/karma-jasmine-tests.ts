@@ -18,11 +18,12 @@ const testOne = (config: karma.Config) => {
 const testTwo = (config: karma.Config) => {
     config.set({
         client: {
+            // $ExpectType { random: true; seed: number; stopSpecOnExpectationFailure: true; stopOnSpecFailure: true; timeoutInterval: number; }
             jasmine: {
                 random: true,
                 seed: 4321,
-                oneFailurePerSpec: true,
-                failFast: true,
+                stopSpecOnExpectationFailure: true,
+                stopOnSpecFailure: true,
                 timeoutInterval: 1000,
             },
             shardIndex: 1,

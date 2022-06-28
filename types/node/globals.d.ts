@@ -100,6 +100,16 @@ interface BigInt64Array extends RelativeIndexable<bigint> {}
 interface BigUint64Array extends RelativeIndexable<bigint> {}
 //#endregion ArrayLike.at() end
 
+/**
+ * @since v17.0.0
+ *
+ * Creates a deep clone of an object.
+ */
+declare function structuredClone<T>(
+    value: T,
+    transfer?: { transfer: ReadonlyArray<import('worker_threads').TransferListItem> },
+): T;
+
 /*----------------------------------------------*
 *                                               *
 *               GLOBAL INTERFACES               *
@@ -205,9 +215,9 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
         write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
-        end(cb?: () => void): void;
-        end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(data: string | Uint8Array, cb?: () => void): this;
+        end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -262,11 +272,11 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        /** @deprecated since 14.6.0 Please use `require.main` and `module.children` instead. */
+        /** @deprecated since v14.6.0 Please use `require.main` and `module.children` instead. */
         parent: Module | null | undefined;
         children: Module[];
         /**
-         * @since 11.14.0
+         * @since v11.14.0
          *
          * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
          */

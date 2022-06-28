@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/mongoose": "5.10.5"
+        "mongoose": "^5.11 || ^6"
     }
 }

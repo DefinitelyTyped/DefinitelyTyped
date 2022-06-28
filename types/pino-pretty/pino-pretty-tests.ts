@@ -1,6 +1,8 @@
 import prettyFactory = require("pino-pretty");
 import { PrettyOptions } from "pino-pretty";
 
+prettyFactory();
+
 const options: PrettyOptions = {
     colorize: true,
     crlf: false,
@@ -26,8 +28,10 @@ pretty({ foo: "bar" });
 
 // Argument of type 'number' is not assignable to parameter of type 'string | object'.
 // prettier-ignore
-pretty(12345); // $ExpectError
+// @ts-expect-error
+pretty(12345);
 
 // Argument of type 'boolean' is not assignable to parameter of type 'string | object'.
 // prettier-ignore
-pretty(false); // $ExpectError
+// @ts-expect-error
+pretty(false);

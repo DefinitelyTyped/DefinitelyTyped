@@ -1,3 +1,5 @@
+import 'webxr';
+
 import {
     BufferGeometry,
     Intersection,
@@ -10,10 +12,12 @@ import {
     Vector3,
 } from '../../../src/Three';
 
+import { XRHandMeshModel } from './XRHandMeshModel';
+
 export class OculusHandPointerModel extends Object3D {
     hand: Object3D;
     controller: Object3D;
-    motionController: Object3D | null;
+    motionController: XRHandMeshModel | null;
 
     envMap: Texture | null;
 
@@ -31,7 +35,7 @@ export class OculusHandPointerModel extends Object3D {
     raycaster: Raycaster;
 
     visible: boolean;
-    xrInputSource: unknown;
+    xrInputSource: XRInputSource;
 
     constructor(hand: Object3D, controller: Object3D);
 
@@ -53,11 +57,11 @@ export class OculusHandPointerModel extends Object3D {
 
     public isAttached(): boolean;
 
-    public intersectObject(object: Object3D): Intersection[] | void;
+    public intersectObject(object: Object3D, recursive?: boolean): Intersection[] | void;
 
-    public intersectObjects(objects: Object3D[]): Intersection[] | void;
+    public intersectObjects(objects: Object3D[], recursive?: boolean): Intersection[] | void;
 
-    public checkIntersections(objects: Object3D[]): void;
+    public checkIntersections(objects: Object3D[], recursive?: boolean): void;
 
     public setCursor(distance: number): void;
 }

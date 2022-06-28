@@ -6,12 +6,23 @@ import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import { AutoLink, Link, LinkEditing, LinkImage, LinkImageUI, LinkUI } from '@ckeditor/ckeditor5-link';
 import LinkCommand from '@ckeditor/ckeditor5-link/src/linkcommand';
+import LinkActionsView from '@ckeditor/ckeditor5-link/src/ui/linkactionsview';
+import LinkFormView from '@ckeditor/ckeditor5-link/src/ui/linkformview';
 import UnlinkCommand from '@ckeditor/ckeditor5-link/src/unlinkcommand';
 import * as utils from '@ckeditor/ckeditor5-link/src/utils';
-import { View } from '@ckeditor/ckeditor5-ui';
+import ManualDecorator from '@ckeditor/ckeditor5-link/src/utils/manualdecorator';
+import { Locale } from '@ckeditor/ckeditor5-utils';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
+
+// $ExpectType LinkConfig | undefined
+new MyEditor().config.get('link');
+// $ExpectType boolean | undefined
+new MyEditor().config.get('link.addTargetToExternalLinks');
+// $ExpectType string | undefined
+new MyEditor().config.get('link.defaultProtocol');
+new MyEditor().config.get('link.decorators');
 
 new Link(editor);
 Link.requires.map(Plugin => new Plugin(editor).init());
@@ -19,11 +30,14 @@ Link.requires.map(Plugin => new Plugin(editor).init());
 LinkUI.requires.map(Plugin => new Plugin(editor));
 new LinkUI(editor).init();
 new LinkUI(editor).destroy();
-let view: View = new LinkUI(editor).formview;
-view = new LinkUI(editor).actionsView;
+// $ExpectType LinkFormView
+new LinkUI(editor).formview;
+// $ExpectType LinkActionsView
+new LinkUI(editor).actionsView;
 
 new AutoLink(editor).init();
 new AutoLink(editor).afterInit();
+AutoLink.requires.map(Plugin => new Plugin(editor));
 
 new LinkImage(editor);
 LinkImage.requires.map(Plugin => new Plugin(editor).init());
@@ -39,16 +53,16 @@ new AutoLink(editor).afterInit();
 
 new LinkCommand(editor).execute('http://example.com');
 new LinkCommand(editor).execute('http://example.com', { target: '_blank' });
-// $ExpectError
+// @ts-expect-error
 new LinkCommand(editor).execute();
 
 new UnlinkCommand(editor).execute();
-// $ExpectError
+// @ts-expect-error
 new UnlinkCommand(editor).execute('');
 
 const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('div');
 utils.isLinkElement(emptyElement);
-// $ExpectError
+// @ts-expect-error
 utils.isLinkElement('');
 
 const api = {} as unknown as DowncastConversionApi;
@@ -64,6 +78,51 @@ utils.isLinkableElement(new Writer().createElement('div'), new Schema());
 utils.isEmail('') === ''.startsWith('');
 
 utils.addLinkProtocolIfApplicable('', '') === ''.startsWith('');
+
+new LinkActionsView().destroy();
+new LinkFormView(new Locale(), new LinkCommand(editor)).destroy();
+
+utils.openLink('');
+// @ts-expect-error
+utils.openLink();
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+});
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+    defaultValue: true,
+    classes: 'foo',
+    styles: { bg: 'red' },
+});
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+    defaultValue: true,
+    classes: 'foo',
+    styles: { bg: 'red' },
+}).on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<ManualDecorator, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+new ManualDecorator({
+    id: '',
+    label: '',
+    attributes: { foo: 'bar' },
+    defaultValue: true,
+    classes: 'foo',
+    styles: { bg: 'red' },
+}).set('foo');
 
 // $ExpectType AutoLink
 editor.plugins.get('AutoLink');

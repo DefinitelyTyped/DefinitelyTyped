@@ -27,6 +27,7 @@ import './test/readline';
 import './test/repl';
 import './test/stream';
 import './test/string_decoder';
+import './test/test';
 import './test/timers_promises';
 import './test/timers';
 import './test/tls';
@@ -59,7 +60,8 @@ import * as trace_events from 'node:trace_events';
         maxSockets: Infinity,
         maxFreeSockets: 256,
         maxCachedSessions: 100,
-        timeout: 15000
+        timeout: 15000,
+        family: 4,
     });
 
     agent = https.globalAgent;

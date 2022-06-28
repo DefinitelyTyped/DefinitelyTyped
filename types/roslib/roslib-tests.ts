@@ -2,19 +2,20 @@ import ROSLIB = require('roslib');
 
 var ros = new ROSLIB.Ros({
     url: 'ws://localhost:9090',
-});
+})
+    .on('connection', function () {
+        console.log('Connected to websocket server.');
+    })
+    .on('error', function (error: Error) {
+        console.log('Error connecting to websocket server: ', error);
+    })
+    .on('close', function () {
+        console.log('Connection to websocket server closed.');
+    });
 
-ros.on('connection', function () {
-    console.log('Connected to websocket server.');
-});
+console.log(`ros.isConnected: ${ros.isConnected}`);
 
-ros.on('error', function (error) {
-    console.log('Error connecting to websocket server: ', error);
-});
-
-ros.on('close', function () {
-    console.log('Connection to websocket server closed.');
-});
+console.log(`ros.transportLibrary: ${ros.transportLibrary.constructor.name ?? ros.transportLibrary}`);
 
 // Publishing a Topic
 // ------------------
@@ -55,6 +56,14 @@ let subscription_callback = function (message: ROSLIB.Message) {
 
 listener.subscribe(subscription_callback);
 listener.unsubscribe(subscription_callback);
+
+// Listening for topic event
+// -------------------------
+
+function eventEmitterCallback() {}
+
+listener.on("message", eventEmitterCallback);
+listener.off("message", eventEmitterCallback);
 
 // Calling a service
 // -----------------
@@ -142,9 +151,9 @@ pose.orientation;
 {
     const parser = new DOMParser();
     const document = parser.parseFromString('<actual-xml />', 'text/xml');
-    // $ExpectError
+    // @ts-expect-error
     new ROSLIB.UrdfModel({});
-    // $ExpectError
+    // @ts-expect-error
     new ROSLIB.UrdfModel();
     new ROSLIB.UrdfModel({ xml: document });
     new ROSLIB.UrdfModel({ xml: document, string: '<actual-xml />' });
@@ -185,7 +194,7 @@ pose.orientation;
         case ROSLIB.URDF_SPHERE:
             // $ExpectType number
             visual.geometry.radius;
-            // $ExpectError
+            // @ts-expect-error
             visual.geometry.dimension;
             break;
         case ROSLIB.URDF_BOX:
@@ -203,11 +212,11 @@ pose.orientation;
             visual.geometry.filename;
             // $ExpectType Vector3 | null
             visual.geometry.scale;
-            // $ExpectError
+            // @ts-expect-error
             visual.geometry.length;
             break;
     }
-    // $ExpectError
+    // @ts-expect-error
     visual.geometry?.radius;
 
     const joint: ROSLIB.UrdfJoint = model.joints[0];

@@ -69,6 +69,11 @@ declare namespace PouchDB {
              * 'update_after': Returns results immediately, but kicks off a build afterwards.
              */
             stale?: 'ok' | 'update_after' | undefined;
+            /**
+             * Include an update_seq value indicating which sequence id
+             * of the underlying database the view reflects.
+             */
+            update_seq?: boolean | undefined;
         }
 
         interface Response<Content extends {}> {
@@ -107,17 +112,20 @@ declare namespace PouchDB {
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts: Query.Options<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
+        query<
+            Result extends {},
+            Model extends {} = Content
+        >(fun: string | Map<Model, Result> | Filter<Model, Result>, opts: Query.Options<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
+        query<Result extends {}, Model extends {} = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts?: Query.Options<Model, Result>): Promise<Query.Response<Result>>;
+        query<Result extends {}, Model extends {} = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts?: Query.Options<Model, Result>): Promise<Query.Response<Result>>;
     }
 }
 

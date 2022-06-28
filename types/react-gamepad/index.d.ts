@@ -43,6 +43,8 @@ export interface Layout {
 }
 
 export interface Props {
+    children: React.ReactElement;
+
     /**
      * The index of the gamepad to use, from 0 to 4 Default: 0
      */
@@ -112,6 +114,16 @@ export interface Props {
      * Triggered when the Y button is pressed.
      */
     onY?(): void;
+
+    /**
+     * Triggered when the Start button is pressed.
+     */
+    onStart?(): void;
+
+    /**
+     * Triggered when the Back button is pressed.
+     */
+    onBack?(): void;
 
     /**
      * Triggered when the LT button is pressed.

@@ -1,4 +1,4 @@
-// Type definitions for svgo 2.4
+// Type definitions for svgo 2.6
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -21,7 +21,10 @@ export interface DefaultPlugin<N extends string, P = never> {
 /**
  * adds attributes to an outer <svg> element
  */
-export type AddAttributesToSVGElementPlugin = DefaultPlugin<'addAttributesToSVGElement'>;
+export type AddAttributesToSVGElementPlugin = DefaultPlugin<
+    'addAttributesToSVGElement',
+    { attribute: string | Record<string, null | string> } | { attributes: Array<string | Record<string, null | string>> }
+>;
 
 /**
  * adds classnames to an outer <svg> element
@@ -142,12 +145,14 @@ export type ConvertPathDataPlugin = DefaultPlugin<
         applyTransforms?: boolean | undefined;
         /** @default true */
         applyTransformsStroked?: boolean | undefined;
-        makeArcs?: {
+        makeArcs?:
+        | {
             /** @default 2.5 */
             threshold?: number | undefined;
             /** @default 0.5 */
             tolerance?: number | undefined;
-        } | undefined;
+        }
+        | undefined;
         /** @default true */
         straightCurves?: boolean | undefined;
         /** @default true */
@@ -303,12 +308,62 @@ export type MoveGroupAttrsToElemsPlugin = DefaultPlugin<'moveGroupAttrsToElems'>
  */
 export type PluginsPlugin = DefaultPlugin<'plugins'>;
 
+export interface XastDoctype {
+    type: 'doctype';
+    name: string;
+    data: {
+        doctype: string;
+    };
+}
+
+export interface XastInstruction {
+    type: 'instruction';
+    name: string;
+    value: string;
+}
+
+export interface XastComment {
+    type: 'comment';
+    value: string;
+}
+
+export interface XastCdata {
+    type: 'cdata';
+    value: string;
+}
+
+export interface XastText {
+    type: 'text';
+    value: string;
+}
+
+export type XastChild =
+    | XastDoctype
+    | XastInstruction
+    | XastComment
+    | XastCdata
+    | XastText
+    | XastElement;
+
+export interface XastElement {
+    type: 'element';
+    name: string;
+    attributes: Record<string, string>;
+    children: XastChild[];
+}
+
+export interface PluginInfo {
+    path?: string;
+    multipassCount: number;
+}
+
 /**
  * prefix IDs
  */
 export type PrefixIdsPlugin = DefaultPlugin<
     'prefixIds',
     {
+        prefix?: boolean | string | ((node: XastElement, info: PluginInfo) => string) | undefined;
         /** @default '__' */
         delim?: string | undefined;
         /** @default true */
@@ -622,13 +677,16 @@ export type DefaultPresetPlugins =
 /**
  * default plugin preset, customize plugin options by overriding them
  */
-export type PresetDefault = Preset<'preset-default', {
-    floatPrecision?: number | undefined;
-    overrides?: { [P in DefaultPresetPlugins['name']]?: false | DefaultPresetPlugins['params']};
-}>;
+export type PresetDefault = Preset<
+    'preset-default',
+    {
+        floatPrecision?: number | undefined;
+        overrides?: { [P in DefaultPresetPlugins['name']]?: false | DefaultPresetPlugins['params'] };
+    }
+>;
 
 export type DefaultPlugins =
-    DefaultPresetPlugins
+    | DefaultPresetPlugins
     | PresetDefault
     | AddAttributesToSVGElementPlugin
     | AddClassesToSVGElementPlugin
@@ -654,6 +712,18 @@ export interface CustomPlugin<P extends object = never> {
     fn: (ast: any, params: P, info: any) => any;
 }
 
+export interface SvgoParserError extends Error {
+    reason: string;
+    line: number;
+    column: number;
+    source: string;
+}
+
+export interface OptimizedError {
+    error: string;
+    modernError: SvgoParserError;
+}
+
 export interface OptimizedSvg {
     data: string;
     info: {
@@ -661,6 +731,8 @@ export interface OptimizedSvg {
         height: string;
     };
     path?: string | undefined;
+    modernError: undefined;
+    error: undefined;
 }
 
 export type Plugin = DefaultPlugins | DefaultPlugins['name'] | CustomPlugin;
@@ -670,6 +742,14 @@ export interface Js2SvgOptions {
     doctypeStart?: string | undefined;
     /** @default '>' */
     doctypeEnd?: string | undefined;
+    /**
+     * Allows to customize end of line characters which is usually resolved by os.EOL in node.
+     */
+    eol?: 'lf' | 'crlf' | undefined;
+    /**
+     * Ensures SVG output has a final newline which is required for some tools like git.
+     */
+    finalNewline?: boolean | undefined;
     /** @default '<?' */
     procInstStart?: string | undefined;
     /** @default '?>' */
@@ -770,7 +850,7 @@ export interface OptimizeOptions {
 }
 
 /* The core of SVGO is optimize function. */
-export function optimize(svgString: string | Buffer, options?: OptimizeOptions): OptimizedSvg;
+export function optimize(svgString: string | Buffer, options?: OptimizeOptions): OptimizedSvg | OptimizedError;
 
 /**
  * If you write a tool on top of svgo you might need a way to load svgo config.

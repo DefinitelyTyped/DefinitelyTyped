@@ -58,15 +58,14 @@ export * from './core/Clock';
 /**
  * Extras
  */
-export * from './extras/objects/ImmediateRenderObject';
 export * from './extras/curves/Curves';
 export * from './extras/core/Shape';
 export * from './extras/core/Path';
 export * from './extras/core/ShapePath';
-export * from './extras/core/Font';
 export * from './extras/core/CurvePath';
 export * from './extras/core/Curve';
 export * from './extras/DataUtils';
+export * from './extras/Earcut';
 export * from './extras/ImageUtils';
 export * from './extras/ShapeUtils';
 export * from './extras/PMREMGenerator';
@@ -121,7 +120,6 @@ export * from './loaders/BufferGeometryLoader';
 export * from './loaders/LoadingManager';
 export * from './loaders/ImageLoader';
 export * from './loaders/ImageBitmapLoader';
-export * from './loaders/FontLoader';
 export * from './loaders/FileLoader';
 export * from './loaders/Loader';
 export * from './loaders/LoaderUtils';
@@ -184,6 +182,8 @@ export * from './renderers/WebGLMultipleRenderTargets';
 export * from './renderers/WebGLRenderTarget';
 export * from './renderers/WebGLRenderer';
 export * from './renderers/WebGL1Renderer';
+export * from './renderers/WebGL3DRenderTarget';
+export * from './renderers/WebGLArrayRenderTarget';
 export * from './renderers/shaders/ShaderLib';
 export * from './renderers/shaders/UniformsLib';
 export * from './renderers/shaders/UniformsUtils';
@@ -207,9 +207,9 @@ export * from './renderers/webgl/WebGLShadowMap';
 export * from './renderers/webgl/WebGLState';
 export * from './renderers/webgl/WebGLTextures';
 export * from './renderers/webgl/WebGLUniforms';
-export * from './renderers/webxr/WebXR';
 export * from './renderers/webxr/WebXRController';
 export * from './renderers/webxr/WebXRManager';
+export { WebGLUtils } from './renderers/webgl/WebGLUtils.js';
 /**
  * Scenes
  */
@@ -225,6 +225,10 @@ export * from './textures/DataTexture2DArray';
 export * from './textures/DataTexture3D';
 export * from './textures/CompressedTexture';
 export * from './textures/CubeTexture';
+export * from './textures/Data3DTexture';
+export * from './textures/DataArrayTexture';
 export * from './textures/CanvasTexture';
 export * from './textures/DepthTexture';
+export * from './textures/FramebufferTexture';
+export * from './textures/Source';
 export * from './textures/Texture';

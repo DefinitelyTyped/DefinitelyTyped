@@ -37,7 +37,9 @@ class App extends React.Component {
                 onDisconnect={this.disconnectHandler}
                 onButtonChange={this.buttonChangeHandler}
                 onAxisChange={this.axisChangeHandler}
-            />
+            >
+                <React.Fragment />
+            </Gamepad>
         );
     }
 }
@@ -61,9 +63,8 @@ console.log(<App />);
     onB={() => {}}
     onX={() => {}}
     onY={() => {}}
-    // These are mentioned in the README and default props but are never used.
-    // onStart={() => {}}
-    // onBack={() => {}}
+    onStart={() => {}}
+    onBack={() => {}}
     onLT={() => {}}
     onRT={() => {}}
     onLB={() => {}}
@@ -74,4 +75,6 @@ console.log(<App />);
     onDown={() => {}}
     onLeft={() => {}}
     onRight={() => {}}
-/>;
+>
+    <React.Fragment />
+</Gamepad>;

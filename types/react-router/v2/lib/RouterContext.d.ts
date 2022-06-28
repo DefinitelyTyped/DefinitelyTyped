@@ -7,7 +7,9 @@ type self = self.RouterContext;
 export default self;
 
 declare namespace self {
-    interface RouterContextProps extends React.Props<RouterContext> {
+    interface RouterContextProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<RouterContext> | undefined;
         history?: H.History | undefined;
         router: Router;
         createElement: (component: Router.RouteComponent, props: Object) => any;

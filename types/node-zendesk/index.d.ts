@@ -35,7 +35,7 @@ export interface Client {
     oauthtokens: unknown;
     organizationfields: unknown;
     organizationmemberships: unknown;
-    organizations: unknown;
+    organizations: Organizations.Methods;
     policies: unknown;
     requests: Requests.Methods;
     satisfactionratings: unknown;
@@ -48,7 +48,7 @@ export interface Client {
     ticketaudits: unknown;
     ticketevents: unknown;
     ticketexport: unknown;
-    ticketfields: unknown;
+    ticketfields: Tickets.Fields.Methods;
     ticketforms: unknown;
     ticketimport: unknown;
     ticketmetrics: unknown;
@@ -200,7 +200,39 @@ export namespace Macros {
  * @see {@link https://developer.zendesk.com/rest_api/docs/support/organizations|Zendesk Organizations}
  */
 export namespace Organizations {
-    interface Model extends AuditableModel {
+    interface Methods {
+        /** Listing Organizations */
+        list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        list(): Promise<ListPayload>;
+
+        /** Showing Organizations */
+        show(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        show(organizationId: ZendeskID): Promise<ResponsePayload>;
+
+        /** Creating Organizations */
+        create(organization: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        create(organization: CreatePayload): Promise<ResponsePayload>;
+        createMany(organizations: CreateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        createMany(organizations: CreateManyPayload): Promise<JobStatuses.ResponsePayload>;
+
+        /** Updating Organizations */
+        update(organizationId: ZendeskID, organization: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        update(organizationId: ZendeskID, organization: UpdatePayload): Promise<ResponsePayload>;
+        updateMany(organizations: UpdateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        updateMany(organizations: UpdateManyPayload): Promise<JobStatuses.ResponsePayload>;
+
+        /** Deleting Organizations */
+        delete(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+        delete(organizationId: ZendeskID): Promise<unknown>;
+
+        /** Searching Organizations */
+        search(params: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        search(params: unknown): Promise<ListPayload>;
+        autocomplete(params: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        autocomplete(params: unknown): Promise<ListPayload>;
+    }
+
+    interface ResponseModel extends AuditableModel {
         readonly url?: string | undefined;
         external_id?: string | null | undefined;
         name: string;
@@ -212,6 +244,42 @@ export namespace Organizations {
         shared_comments?: boolean | undefined;
         tags?: ReadonlyArray<string> | undefined;
         organization_fields?: object | null | undefined;
+    }
+
+    interface CreateModel {
+        name: string;
+    }
+
+    interface UpdateModel {
+        notes: string;
+    }
+
+    interface UpdateManyModel extends UpdateModel {
+        id: ZendeskID;
+    }
+
+    interface ResponsePayload {
+        readonly organization: ResponseModel;
+    }
+
+    interface ListPayload extends PaginablePayload {
+        readonly organizations: ReadonlyArray<ResponseModel>;
+    }
+
+    interface CreatePayload {
+        readonly organization: CreateModel;
+    }
+
+    interface CreateManyPayload {
+        readonly organizations: ReadonlyArray<CreateModel>;
+    }
+
+    interface UpdatePayload {
+        readonly organization: UpdateModel;
+    }
+
+    interface UpdateManyPayload {
+        readonly organizations: ReadonlyArray<UpdateManyModel>;
     }
 }
 
@@ -488,6 +556,7 @@ export namespace Tickets {
         status?: Status | null | undefined;
         recipient?: string | null | undefined;
         requester_id?: ZendeskID | undefined;
+        requester?: Requests.RequesterAnonymous | undefined;
         submitter_id?: ZendeskID | null | undefined;
         assignee_id?: ZendeskID | null | undefined;
         organization_id?: number | null | undefined;
@@ -723,6 +792,56 @@ export namespace Tickets {
 
         interface ListPayload {
             readonly ticket_metrics: ReadonlyArray<ResponseModel>;
+        }
+    }
+
+    namespace Fields {
+        interface Methods {
+            list(cb: ZendeskCallback<unknown, unknown>): unknown;
+            list(): Promise<unknown>;
+            show(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+            show(fieldId: ZendeskID): Promise<unknown>;
+            create(field: CreateTicketField, cb: ZendeskCallback<unknown, unknown>): unknown;
+            create(field: CreateTicketField): Promise<unknown>;
+            create(field: CreateTicketField, cb: ZendeskCallback<unknown, unknown>): unknown;
+            update(fieldId: ZendeskID, field: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
+            update(fieldId: ZendeskID, field: unknown): Promise<unknown>;
+            delete(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+            delete(fieldId: ZendeskID): Promise<unknown>;
+        }
+
+        /**
+         * Represents 'ticket_fields'
+         */
+        interface TicketField {
+            readonly type: string | undefined;
+            readonly title: string | undefined;
+            id?: number | undefined;
+            active?: true;
+            agent_description?: string | undefined;
+            collapsed_for_agents?: boolean | undefined;
+            created_at?: Date | undefined;
+            description?: string | undefined;
+            editable_in_portal?: boolean | undefined;
+            position?: number | undefined;
+            raw_description?: string | undefined;
+            raw_title?: string | undefined;
+            raw_title_in_portal?: string | undefined;
+            regexp_for_validation?: string | undefined;
+            removable?: boolean | undefined;
+            required?: boolean | undefined;
+            required_in_portal?: boolean | undefined;
+            tag?: string | undefined;
+            title_in_portal?: string | undefined;
+            updated_at?: Date | undefined;
+            visible_in_portal?: boolean | undefined;
+            url?: string | undefined;
+        }
+        interface CreateTicketField extends TicketField {
+            key: string;
+        }
+        interface CustomFieldOptions {
+            [key: string]: unknown;
         }
     }
 }
@@ -1070,8 +1189,8 @@ export namespace Users {
 }
 
 export interface PaginablePayload {
-    next_page: number | null;
-    previous_page: number | null;
+    next_page: string | null;
+    previous_page: string | null;
     count: number;
 }
 

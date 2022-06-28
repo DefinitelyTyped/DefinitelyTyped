@@ -15,13 +15,13 @@ const SampleNotification = () => {
 
 const WrongSampleNotification = () => {
     store.addNotification({
-        // $ExpectError
+        // @ts-expect-error
         somethingRandom: 'Wonderful!',
         animationOut: ['animated', 'fadeOut'],
     });
 };
 
-const ComponentTest: React.SFC = () => {
+const ComponentTest: React.FC = () => {
     return (
         <div>
             <ReactNotification />
@@ -29,8 +29,8 @@ const ComponentTest: React.SFC = () => {
     );
 };
 
-const WrongPropTest: React.SFC = () => {
-    // $ExpectError
+const WrongPropTest: React.FC = () => {
+    // @ts-expect-error
     return <ReactNotification randomProp={false} />;
 };
 
@@ -46,10 +46,10 @@ const OptionsTest: ReactNotificationOptions = {
 };
 
 const WrongOptionsTest: ReactNotificationOptions = {
-    // $ExpectError
+    // @ts-expect-error
     container: 'center-full',
     touchSlidingExit: {
-        // $ExpectError
+        // @ts-expect-error
         notValid: 1,
     }
 };

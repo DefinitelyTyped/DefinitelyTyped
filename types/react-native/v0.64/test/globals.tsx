@@ -1,3 +1,95 @@
+const noop = () => { };
+
+function testInterval() {
+    let handle = setInterval(noop, 0);
+    clearInterval(handle);
+
+    handle = setInterval((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    }, 0, 100, '200');
+    clearInterval(handle);
+
+    handle = setInterval((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    // @ts-expect-error
+    }, 0, 'wrong-type', '200');
+    clearInterval(handle);
+
+    // @ts-expect-error
+    handle = setInterval((missingArg: any) => {
+        console.log('missingArg', missingArg);
+    }, 0);
+    clearInterval(handle);
+
+    handle = setInterval((arg1: number) => {
+        console.log('arg1', arg1);
+    // @ts-expect-error
+    }, 0, 100, 'missing-arg');
+    clearInterval(handle);
+}
+
+function testTimeout() {
+    let handle = setTimeout(noop, 0);
+    clearTimeout(handle);
+
+    handle = setTimeout((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    }, 0, 100, '200');
+    clearTimeout(handle);
+
+    handle = setTimeout((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    // @ts-expect-error
+    }, 0, 'wrong-type', '200');
+    clearTimeout(handle);
+
+    // @ts-expect-error
+    handle = setTimeout((missingArg: any) => {
+        console.log('missingArg', missingArg);
+    }, 0);
+    clearTimeout(handle);
+
+    handle = setTimeout((arg1: number) => {
+        console.log('arg1', arg1);
+    // @ts-expect-error
+    }, 0, 100, 'missing-arg');
+    clearTimeout(handle);
+}
+
+function testImmediate() {
+    let handle = setImmediate(noop);
+    clearImmediate(handle);
+
+    handle = setImmediate((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    }, 100, '200');
+    clearImmediate(handle);
+
+    handle = setImmediate((arg1: number, arg2: string) => {
+        console.log('arg1', arg1);
+        console.log('arg2', arg2);
+    // @ts-expect-error
+    }, 'wrong-type', '200');
+    clearImmediate(handle);
+
+    // @ts-expect-error
+    handle = setImmediate((missingArg: any) => {
+        console.log('missingArg', missingArg);
+    });
+    clearImmediate(handle);
+
+    handle = setImmediate((arg1: number) => {
+        console.log('arg1', arg1);
+    // @ts-expect-error
+    }, 100, 'missing-arg');
+    clearImmediate(handle);
+}
+
 const fetchCopy: WindowOrWorkerGlobalScope['fetch'] = fetch;
 
 const myHeaders = new Headers();

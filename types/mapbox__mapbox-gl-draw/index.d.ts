@@ -102,7 +102,7 @@ declare namespace MapboxDraw {
         type: 'draw.selectionchange';
     }
 
-    interface DrawModeChageEvent extends DrawEvent {
+    interface DrawModeChangeEvent extends DrawEvent {
         mode: DrawMode; // The next mode, i.e. the mode that Draw is changing to
         type: 'draw.modechange';
     }

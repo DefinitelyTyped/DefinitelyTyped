@@ -9,7 +9,7 @@ import { FlexboxPropTypes } from '../utils';
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Callout: React.StatelessComponent<CalloutProps>;
+export declare const Callout: React.FunctionComponent<CalloutProps>;
 export interface CalloutProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
     color?: CalloutColors | undefined;
     size?: CalloutSizes | undefined;

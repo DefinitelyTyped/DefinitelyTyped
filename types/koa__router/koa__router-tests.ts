@@ -9,6 +9,12 @@ interface MyContext { bar: string; }
 
 const app = new Koa<{}, {}>();
 
+class MyRouter extends Router {
+  myMethod() {
+    const prefix = this.opts.prefix; // $ExpectType string | undefined
+  }
+}
+
 const router = new Router<MyState, MyContext>({
     prefix: "/users"
 });
@@ -200,13 +206,13 @@ router6.post<MyState, MyContext>('/foo', async (ctx) => {
 });
 router6.put<MyState>('/bar', async (ctx) => {
     ctx.state.foo = 'bar';
-    // $ExpectError
+    // @ts-expect-error
     ctx.bar = 'foo';
 });
 router6.del('/baz', async (ctx) => {
-    // $ExpectError
+    // @ts-expect-error
     ctx.state.foo = 'bar';
-    // $ExpectError
+    // @ts-expect-error
     ctx.bar = 'foo';
 });
 router6.put<number>('/blah', async (ctx) => {
@@ -215,3 +221,12 @@ router6.put<number>('/blah', async (ctx) => {
 router6.put<string>('/blerg', async (ctx) => {
     ctx.state = 'abc';
 });
+
+const optsName = router6.stack[0].opts.name; // $ExpectType string | null
+const layerName = router6.stack[0].name; // $ExpectType string | null
+
+class MyRouter2 extends Router {
+  route(name: string): Router.Layer | boolean {
+    return super.route(name);
+  }
+}

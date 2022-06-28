@@ -1,7 +1,7 @@
 // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
 declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
-declare module Mongo {
+declare namespace Mongo {
     // prettier-ignore
     type BsonType = 1 | "double" |
         2 | "string" |
@@ -77,7 +77,7 @@ declare module Mongo {
         $query: Query<T>;
         $comment?: string | undefined;
         $explain?: any;
-        $hint?: any;
+        $hint?: unknown;
         $maxScan?: any;
         $max?: any;
         $maxTimeMS?: any;
@@ -150,6 +150,8 @@ declare module Mongo {
         limit?: number | undefined;
         /** Dictionary of fields to return or exclude. */
         fields?: FieldSpecifier | undefined;
+        /** (Server only) Overrides MongoDB's default index selection and query optimization process. Specify an index to force its use, either by its name or index specification. */
+        hint?: unknown | undefined;
         /** (Client only) Default `true`; pass `false` to disable reactivity */
         reactive?: boolean | undefined;
         /**  Overrides `transform` on the  [`Collection`](#collections) for this cursor.  Pass `null` to disable transformation. */
@@ -197,21 +199,36 @@ declare module Mongo {
         allow<Fn extends Transform<T> = undefined>(options: {
             insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             update?:
-                | ((userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean)
+                | ((
+                      userId: string,
+                      doc: DispatchTransform<Fn, T, U>,
+                      fieldNames: string[],
+                      modifier: any,
+                  ) => boolean)
                 | undefined;
             remove?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             fetch?: string[] | undefined;
             transform?: Fn | undefined;
         }): boolean;
+        createCappedCollectionAsync(byteSize?: number, maxDocuments?: number): Promise<void>;
+        createIndex(indexSpec: { [key: string]: number | string } | string, options?: any): void;
+        createIndexAsync(indexSpec: { [key: string]: number | string } | string, options?: any): Promise<void>;
         deny<Fn extends Transform<T> = undefined>(options: {
             insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             update?:
-                | ((userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean)
+                | ((
+                      userId: string,
+                      doc: DispatchTransform<Fn, T, U>,
+                      fieldNames: string[],
+                      modifier: any,
+                  ) => boolean)
                 | undefined;
             remove?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
             fetch?: string[] | undefined;
             transform?: Fn | undefined;
         }): boolean;
+        dropCollectionAsync(): Promise<void>;
+        dropIndexAsync(indexName: string): void;
         /**
          * Find the documents in a collection that match the selector.
          * @param selector A query describing the documents to find
@@ -239,11 +256,30 @@ declare module Mongo {
             options?: O,
         ): DispatchTransform<O['transform'], T, U> | undefined;
         /**
+         * Finds the first document that matches the selector, as ordered by sort and skip options. Returns `undefined` if no matching document is found.
+         * @param selector A query describing the documents to find
+         */
+        findOneAsync(selector?: Selector<T> | ObjectID | string): Promise<U | undefined>;
+        /**
+         * Finds the first document that matches the selector, as ordered by sort and skip options. Returns `undefined` if no matching document is found.
+         * @param selector A query describing the documents to find
+         */
+        findOneAsync<O extends Omit<Options<T>, 'limit'>>(
+            selector?: Selector<T> | ObjectID | string,
+            options?: O,
+        ): Promise<DispatchTransform<O['transform'], T, U> | undefined>;
+        /**
          * Insert a document in the collection.  Returns its unique _id.
          * @param doc The document to insert. May not yet have an _id attribute, in which case Meteor will generate one for you.
          * @param callback If present, called with an error object as the first argument and, if no error, the _id as the second.
          */
         insert(doc: OptionalId<T>, callback?: Function): string;
+        /**
+         * Insert a document in the collection.  Returns its unique _id.
+         * @param doc The document to insert. May not yet have an _id attribute, in which case Meteor will generate one for you.
+         * @param callback If present, called with an error object as the first argument and, if no error, the _id as the second.
+         */
+        insertAsync(doc: OptionalId<T>, callback?: Function): Promise<string>;
         /**
          * Returns the [`Collection`](http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html) object corresponding to this collection from the
          * [npm `mongodb` driver module](https://www.npmjs.com/package/mongodb) which is wrapped by `Mongo.Collection`.
@@ -260,6 +296,12 @@ declare module Mongo {
          * @param callback If present, called with an error object as its argument.
          */
         remove(selector: Selector<T> | ObjectID | string, callback?: Function): number;
+        /**
+         * Remove documents from the collection
+         * @param selector Specifies which documents to remove
+         * @param callback If present, called with an error object as its argument.
+         */
+        removeAsync(selector: Selector<T> | ObjectID | string, callback?: Function): Promise<number>;
         /**
          * Modify one or more documents in the collection. Returns the number of matched documents.
          * @param selector Specifies which documents to modify
@@ -283,6 +325,28 @@ declare module Mongo {
             callback?: Function,
         ): number;
         /**
+         * Modify one or more documents in the collection. Returns the number of matched documents.
+         * @param selector Specifies which documents to modify
+         * @param modifier Specifies how to modify the documents
+         * @param callback If present, called with an error object as the first argument and, if no error, the number of affected documents as the second.
+         */
+        updateAsync(
+            selector: Selector<T> | ObjectID | string,
+            modifier: Modifier<T>,
+            options?: {
+                /** True to modify all matching documents; false to only modify one of the matching documents (the default). */
+                multi?: boolean | undefined;
+                /** True to insert a document if no matching documents are found. */
+                upsert?: boolean | undefined;
+                /**
+                 * Used in combination with MongoDB [filtered positional operator](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/) to specify which elements to
+                 * modify in an array field.
+                 */
+                arrayFilters?: { [identifier: string]: any }[] | undefined;
+            },
+            callback?: Function,
+        ): Promise<number>;
+        /**
          * Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified) and
          * `insertedId` (the unique _id of the document that was inserted, if any).
          * @param selector Specifies which documents to modify
@@ -301,8 +365,30 @@ declare module Mongo {
             numberAffected?: number | undefined;
             insertedId?: string | undefined;
         };
-        _ensureIndex(keys: { [key: string]: number | string } | string, options?: { [key: string]: any }): void;
-        _dropIndex(keys: { [key: string]: number | string } | string): void;
+        /**
+         * Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified) and
+         * `insertedId` (the unique _id of the document that was inserted, if any).
+         * @param selector Specifies which documents to modify
+         * @param modifier Specifies how to modify the documents
+         * @param callback If present, called with an error object as the first argument and, if no error, the number of affected documents as the second.
+         */
+        upsertAsync(
+            selector: Selector<T> | ObjectID | string,
+            modifier: Modifier<T>,
+            options?: {
+                /** True to modify all matching documents; false to only modify one of the matching documents (the default). */
+                multi?: boolean | undefined;
+            },
+            callback?: Function,
+        ): Promise<{
+            numberAffected?: number | undefined;
+            insertedId?: string | undefined;
+        }>;
+        _createCappedCollection(byteSize?: number, maxDocuments?: number): void;
+        /** @deprecated */
+        _ensureIndex(indexSpec: { [key: string]: number | string } | string, options?: any): void;
+        _dropCollection(): Promise<void>;
+        _dropIndex(indexName: string): void;
     }
 
     var Cursor: CursorStatic;
@@ -335,9 +421,18 @@ declare module Mongo {
          */
         count(applySkipLimit?: boolean): number;
         /**
+         * Returns the number of documents that match a query.
+         * @param applySkipLimit If set to `false`, the value returned will reflect the total number of matching documents, ignoring any value supplied for limit. (Default: true)
+         */
+        countAsync(applySkipLimit?: boolean): Promise<number>;
+        /**
          * Return all matching documents as an Array.
          */
         fetch(): Array<U>;
+        /**
+         * Return all matching documents as an Array.
+         */
+        fetchAsync(): Promise<Array<U>>;
         /**
          * Call `callback` once for each matching document, sequentially and
          *          synchronously.
@@ -346,11 +441,24 @@ declare module Mongo {
          */
         forEach(callback: (doc: U, index: number, cursor: Cursor<T, U>) => void, thisArg?: any): void;
         /**
+         * Call `callback` once for each matching document, sequentially and
+         *          synchronously.
+         * @param callback Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.
+         * @param thisArg An object which will be the value of `this` inside `callback`.
+         */
+        forEachAsync(callback: (doc: U, index: number, cursor: Cursor<T, U>) => void, thisArg?: any): Promise<void>;
+        /**
          * Map callback over all matching documents. Returns an Array.
          * @param callback Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.
          * @param thisArg An object which will be the value of `this` inside `callback`.
          */
         map<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Array<M>;
+        /**
+         * Map callback over all matching documents. Returns an Array.
+         * @param callback Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.
+         * @param thisArg An object which will be the value of `this` inside `callback`.
+         */
+        mapAsync<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Promise<Array<M>>;
         /**
          * Watch a query. Receive callbacks as the result set changes.
          * @param callbacks Functions to call to deliver the result set as it changes
@@ -364,6 +472,8 @@ declare module Mongo {
             callbacks: ObserveChangesCallbacks<T>,
             options?: { nonMutatingCallbacks?: boolean | undefined },
         ): Meteor.LiveQueryHandle;
+        [Symbol.iterator](): Iterator<T, never, never>;
+        [Symbol.asyncIterator](): AsyncIterator<T, never, never>;
     }
 
     var ObjectID: ObjectIDStatic;
@@ -383,7 +493,7 @@ declare module Mongo {
     function setConnectionOptions(options: any): void;
 }
 
-declare module Mongo {
+declare namespace Mongo {
     interface AllowDenyOptions {
         insert?: ((userId: string, doc: any) => boolean) | undefined;
         update?: ((userId: string, doc: any, fieldNames: string[], modifier: any) => boolean) | undefined;
@@ -402,4 +512,9 @@ declare function defaultRemoteCollectionDriver(): {
     mongo: MongoConnection;
 };
 
-declare var NpmModules: any;
+declare var NpmModules: {
+    mongodb: {
+        version: string,
+        module: any
+    }
+};

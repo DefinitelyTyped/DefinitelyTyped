@@ -60,4 +60,8 @@ prompt.get(
     },
 );
 
+// prompt 1.1 (at least) and higher also take a schema directly
+// per https://github.com/flatiron/prompt#prompting-with-validation-default-values-and-more-complex-properties , so add a test for that:
+prompt.get(schema);
+
 prompt.colors = false;

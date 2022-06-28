@@ -9,7 +9,7 @@ const LifetimeHooks = Ember.Object.extend({
     },
 
     willDestroy() {
-        delete this.resource;
+        this.resource = undefined;
         this._super();
     },
 });
@@ -46,7 +46,7 @@ class Foo extends Ember.Object.extend({
         this.set('b', 10).toFixed(4); // $ExpectType string
 
         this.setProperties({ b: 11 });
-        // this.setProperties({ b: '11' }); // $ExpectError
+        // this.setProperties({ b: '11' }); // @ts-expect-error
         this.setProperties({
             a: 'def',
             b: 11,
@@ -59,9 +59,11 @@ export class Foo2 extends Ember.Object {
 
     changeName(name: string) {
         const a: string = this.set('name', name);
-        const b: number = this.set('name', name); // $ExpectError
+        // @ts-expect-error
+        const b: number = this.set('name', name);
         const x: string = Ember.set(this, 'name', name);
-        const y: number = Ember.set(this, 'name', name); // $ExpectError
+        // @ts-expect-error
+        const y: number = Ember.set(this, 'name', name);
         this.setProperties({
             name,
         });
@@ -72,8 +74,11 @@ export class Foo2 extends Ember.Object {
 
     bar() {
         Ember.notifyPropertyChange(this, 'name');
-        Ember.notifyPropertyChange(this); // $ExpectError
-        Ember.notifyPropertyChange('name'); // $ExpectError
-        Ember.notifyPropertyChange(this, 'name', 'bar'); // $ExpectError
+        // @ts-expect-error
+        Ember.notifyPropertyChange(this);
+        // @ts-expect-error
+        Ember.notifyPropertyChange('name');
+        // @ts-expect-error
+        Ember.notifyPropertyChange(this, 'name', 'bar');
     }
 }

@@ -2,7 +2,7 @@
 import * as chai from 'chai';
 
 const expect = chai.expect;
-const assert = chai.assert;
+const assert: typeof chai.assert = chai.assert; // assertion aliases require explicit type annotation
 const should = chai.should();
 const util = chai.util;
 
@@ -1373,6 +1373,14 @@ function oneOf() {
     expect('Today is sunny').to.contain.oneOf(['sunny', 'cloudy']);
 }
 
+function deepOneOf() {
+    expect({z: 3}).to.be.deep.oneOf([{z: 3}]);
+    expect({z: 3}).to.deep.be.oneOf([{z: 3}]);
+
+    expect({z: 3}).to.not.be.deep.oneOf([{x: 1}, {y: 2}]);
+    expect({z: 3}).to.not.deep.be.oneOf([{x: 1}, {y: 2}]);
+}
+
 function testInspectType() {
     const x: string = util.inspect([1, 2, 3], false, 4, false);
     expect(x).to.be.equal('[ 1, 2, 3 ]');
@@ -1398,7 +1406,10 @@ suite('assert', () => {
         const foo = 'bar' as string;
         assert(foo === 'bar', 'expected foo to equal `bar`');
 
-        assert(foo === 'baz', 'expected foo to equal `bar`');
+        function assertTypeNever(_: never) {}
+        if (foo !== 'bar') {
+            assertTypeNever(foo);
+        }
     });
 
     test('isTrue', () => {

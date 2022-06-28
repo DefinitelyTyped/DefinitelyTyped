@@ -1,4 +1,4 @@
-// Type definitions for google-spreadsheet 3.1
+// Type definitions for google-spreadsheet 3.2
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
@@ -545,6 +545,26 @@ export class GoogleSpreadsheetRow {
 
 // #region GOOGLE SPREADSHEET WORKSHEET
 
+export interface DuplicateWorksheetBasicProperties {
+    /**
+     * @description
+     * name/title for new sheet, must be unique within the document
+     */
+    title?: string;
+
+    /**
+     * @description
+     * where to insert the new sheet (zero-indexed)
+     */
+    index?: number;
+
+    /**
+     * @description
+     * unique ID to use for new sheet
+     */
+    id?: string;
+}
+
 export interface WorksheetBasicProperties {
     // #region BASIC PROPERTIES
     /* separates basic (editable) properties as they are used as inputs to various methods
@@ -763,15 +783,18 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * set the header (first) row in the worksheet
      *
      * @param headers
+     * @param headerRowIndex The index of the header row, if not the first. NOTE: not zero-indexed
      */
-    setHeaderRow(headers: string[]): Promise<void>;
+    setHeaderRow(headers: string[], headerRowIndex?: number): Promise<void>;
 
     /**
      * @description
      * loads the header row (first row) of the sheet
      * - usually do not need to call this directly
+     *
+     * @param headerRowIndex The index of the header row, if not the first. NOTE: not zero-indexed
      */
-    loadHeaderRow(): Promise<void>;
+    loadHeaderRow(headerRowIndex?: number): Promise<void>;
 
     /**
      * @description
@@ -854,6 +877,18 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
         properties: WorksheetDimensionProperties,
         bounds: WorksheetDimensionBounds,
     ): Promise<void>;
+
+    /**
+     * @description
+     * insert into worksheet "dimension properties"
+     *
+     * @param columnsOrRows which dimension to update
+     *
+     * @param bounds start index and end index of the dimension to be added
+     *
+     * @param inheritFromBefore to inherit properties from the previous dimension
+     */
+    insertDimension(columnsOrRows: WorksheetDimension, bounds: WorksheetDimensionBounds, inheritFromBefore?: boolean): Promise<void>;
 
     /**
      * @description
@@ -1085,6 +1120,9 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param credentials object of Google Service Account credentials
      * - import by requiring the JSON file Google supplies
      *
+     * @param impersonateAs an email of any user in the G Suite domain
+     * - only works if service account has domain-wide delegation enabled
+     *
      * @example
      * const credentials = require("./credentials.json");
      * const { GoogleSpreadsheet } = require("google-spreadsheet");
@@ -1097,7 +1135,7 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      *
      * // doc is ready to be used
      */
-    useServiceAccountAuth(credentials: ServiceAccountCredentials): Promise<void>;
+    useServiceAccountAuth(credentials: ServiceAccountCredentials, impersonateAs?: string | null): Promise<void>;
 
     /**
      * @description
@@ -1171,6 +1209,14 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param properties basic Spreadsheet document properties to set
      */
     createNewSpreadsheetDocument(properties: SpreadsheetBasicProperties): Promise<void>;
+
+    /**
+     * @description
+     * duplicate this sheet within this document
+     *
+     * @param properties all worksheet properties to set
+     */
+    duplicate(properties?: DuplicateWorksheetBasicProperties): Promise<GoogleSpreadsheetWorksheet>;
 
     // #endregion
 }

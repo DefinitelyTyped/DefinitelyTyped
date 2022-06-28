@@ -43,7 +43,7 @@ declare namespace Cloudflare {
     }
 
     interface DnsRecordWithPriority {
-        type: Exclude<RecordTypes, 'MX' | 'SRV' | 'URI'>;
+        type: Extract<RecordTypes, 'MX' | 'URI'>;
         name: string;
         content: string;
         ttl: number;
@@ -127,7 +127,7 @@ declare namespace Cloudflare {
         edit(
             id: string,
             page_rule: {
-                tragets: [
+                targets: [
                     {
                         target: string;
                         constraint: {
@@ -147,7 +147,7 @@ declare namespace Cloudflare {
             },
         ): ResponseObjectPromise;
         add(zone: {
-            tragets: [
+            targets: [
                 {
                     target: string;
                     constraint: {

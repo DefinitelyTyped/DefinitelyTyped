@@ -508,6 +508,18 @@ blocks.unregisterBlockStyle('my/foo', 'foo__bar');
 // $ExpectType Block<any> | undefined
 blocks.unregisterBlockType('my/foo');
 
+// $ExpectType BlockVariation<BlockAttributes>[] | undefined || BlockVariation<Record<string, any>>[] | undefined
+blocks.getBlockVariations('core/columns');
+
+// $ExpectType void
+blocks.registerBlockVariation('core/columns', {
+    name: 'core/columns/variation',
+    title: 'Core Column Variation',
+});
+
+// $ExpectType void
+blocks.unregisterBlockVariation('core/columns', 'core/columns/variation');
+
 //
 // serializer
 // ----------------------------------------------------------------------------
@@ -527,11 +539,17 @@ blocks.getSaveContent('my/foo', { foo: 'bar' });
 // $ExpectType string
 blocks.getSaveContent(BLOCK, { foo: 'bar' }, []);
 
+// @ts-expect-error
+blocks.getSavecontent(BLOCK, false, []);
+
 // $ExpectType ReactChild
 blocks.getSaveElement('my/foo', { foo: 'bar' });
 
 // $ExpectType ReactChild
 blocks.getSaveElement(BLOCK, { foo: 'bar' });
+
+// @ts-expect-error
+blocks.getSaveElement(BLOCK, false, []);
 
 // $ExpectType string
 blocks.serialize([BLOCK_INSTANCE, BLOCK_INSTANCE]);
@@ -601,6 +619,9 @@ blocks.isValidBlockContent('my/foo', { foo: 'bar' }, 'Foobar');
 
 // $ExpectType boolean
 blocks.isValidBlockContent(BLOCK, { foo: 'bar' }, 'Foobar');
+
+// @ts-expect-error
+blocks.isValidBlockContent(BLOCK, false, true);
 
 //
 // stores

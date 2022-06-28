@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.7
+// Type definitions for @yaireo/tagify 4.12
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -308,6 +308,16 @@ declare namespace Tagify {
         dropdownWrapper: string;
 
         /**
+         * @default 'tagify__dropdown__header'
+         */
+        dropdownHeader: string;
+
+        /**
+         * @default 'tagify__dropdown__footer'
+         */
+        dropdownFooter: string;
+
+        /**
          * @default 'tagify__dropdown__item'
          */
         dropdownItem: string;
@@ -403,11 +413,23 @@ declare namespace Tagify {
          */
         dropdown?:
         /**
-         * @param Current settings for the dropdown instance.
+         * @param settings Current settings for the dropdown instance.
          * @returns HTML string with the dropdown menu container to use for the
          * dropdown menu.
          */
         ((this: Tagify<T>, settings: TagifySettings<T>) => string) | undefined;
+
+        /**
+         * This callback is called to prepend the {@link dropdownHeader} template and
+         * append {@link dropdownFooter} template to the generated HTML string of the
+         * list of dropdown items.
+         */
+        dropdownContent?:
+        /**
+         * @param htmlContent List of dropdown items as HTML string.
+         * @returns `htmlContent` wrapped into {@link dropdownHeader} and {@link dropdownFooter}.
+         */
+        ((this: Tagify<T>, htmlContent: string) => string) | undefined;
 
         /**
          * This callback is called once for each item in the dropdown list. It
@@ -420,6 +442,28 @@ declare namespace Tagify {
          * shown in the dropdown menu.
          */
         ((this: Tagify<T>, item: T) => string) | undefined;
+
+        /**
+         * Template for a header that is rendered above the list of dropdown items.
+         */
+        dropdownHeader?:
+        /**
+         * @param suggestions An array of all the matched suggested items,
+         * including those which were sliced away due to the {@link DropDownSettings.maxItems} setting.
+         * @returns HTML string that is displayed at the top of the dropdown list.
+         */
+        ((this: Tagify<T>, suggestions: T[]) => string) | undefined;
+
+        /**
+         * Template for a footer that is rendered beneath the list of dropdown items.
+         */
+        dropdownFooter?:
+        /**
+         * @param suggestions An array of all the matched suggested items,
+         * including those which were sliced away due to the {@link DropDownSettings.maxItems} setting.
+         * @returns HTML string that is displayed at the bottom of the dropdown list.
+         */
+        ((this: Tagify<T>, suggestions: T[]) => string) | undefined;
 
         /**
          * Callback invoked when no matching dropdown item was found. If there
@@ -612,6 +656,12 @@ declare namespace Tagify {
         trim?: boolean | undefined;
 
         /**
+         * Assign a unique id to enable the feature to store and load persisted data via `localStorage`.
+         * @default undefined
+         */
+        id?: string | undefined;
+
+        /**
          * Should ONLY use tags allowed in whitelist.
          * In `mix` mode, setting it to `false` will not allow creating new tags.
          * @default false
@@ -707,9 +757,9 @@ declare namespace Tagify {
 
         /**
          * Takes a tag data as an argument and allows mutating it before a tag
-         * is created or edited.
+         * is created or edited and also before validation.
          *
-         * Should not return anything, only mutate.
+         * Should not return anything, only mutate the argument.
          */
         transformTag?:
         /**
@@ -1245,9 +1295,10 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
         toggle(show?: boolean): void;
 
         /**
-         * Add all whitelist items as tags and close the suggestion dropdown.
+         * Add all suggested items as tags and close the suggestion dropdown.
+         * @param onlyRendered Include only suggested items that are currently rendered, otherwise include all.
          */
-        selectAll(): void;
+        selectAll(onlyRendered?: boolean): void;
     };
 
     /**
@@ -1601,6 +1652,31 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * Toggles "disabled" mode on/off.
      */
     setDisabled(disabled: boolean): void;
+
+    /**
+     * Get data for the specific instance by `key` parameter from `localStorage`.
+     * @param key `localStorage` key (under the tagify namespace).
+     * @returns Data stored under `key` in `localStorage`.
+     * Returns `undefined` if {@link TagifyConstructorSettings.id} has not been set or no entry exists for `key` in `localStorage`.
+     */
+    getPersistedData(key: string): unknown;
+
+    /**
+     * Set data for the specific instance.
+     * Must supply a second parameter which will be the key to save the data in the `localStorage`
+     * (under the tagify namespace).
+     * In order to use this method, {@link TagifyConstructorSettings.id} must be set.
+     * @param data Data to store in `localStorage`.
+     * @param key `localStorage` key (under the tagify namespace).
+     */
+    setPersistedData(data: unknown, key: string): void;
+
+    /**
+     * Clears data for the specific instance by `key` parameter.
+     * If the `key` parameter is omitted, clears all persisted data related to this instance (by its `id` which was set in the settings).
+     * @param key `localStorage` key (under the tagify namespace).
+     */
+    clearPersistedData(key?: string): void;
 
     /**
      * Removes a listener previously added via `on`.

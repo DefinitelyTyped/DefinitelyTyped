@@ -1,5 +1,5 @@
-import { useSyncExternalStore } from 'use-sync-external-store';
-import { useSyncExternalStoreExtra } from 'use-sync-external-store/extra';
+import { useSyncExternalStore } from 'use-sync-external-store/shim';
+import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector';
 
 interface Store<State> {
     getState(): State;
@@ -15,7 +15,7 @@ function useVersion(): number {
 function useStoreWrong() {
     useSyncExternalStore(
         // no unsubscribe returned
-        // $ExpectError
+        // @ts-expect-error
         () => {
             return null;
         },
@@ -23,7 +23,7 @@ function useStoreWrong() {
     );
 
     // `string` is not assignable to `number`
-    // $ExpectError
+    // @ts-expect-error
     const version: number = useSyncExternalStore(
         () => () => {},
         () => '1',
@@ -38,10 +38,15 @@ function useUsers(): string[] {
 function useReduxSelector<Selection>(
     selector: (state: { version: { major: number; minor: number }; users: string[] }) => Selection,
 ): Selection {
-    return useSyncExternalStoreExtra(objectStore.subscribe, objectStore.getState, objectStore.getServerState, selector);
+    return useSyncExternalStoreWithSelector(
+        objectStore.subscribe,
+        objectStore.getState,
+        objectStore.getServerState,
+        selector,
+    );
 }
 function useReduxUsers(): string[] {
-    return useSyncExternalStoreExtra(
+    return useSyncExternalStoreWithSelector(
         objectStore.subscribe,
         objectStore.getState,
         objectStore.getServerState,
@@ -49,16 +54,16 @@ function useReduxUsers(): string[] {
     );
 }
 function useReduxVersion(): { major: number; minor: number } {
-    useSyncExternalStoreExtra(
+    useSyncExternalStoreWithSelector(
         objectStore.subscribe,
         objectStore.getState,
         objectStore.getServerState,
         state => state.version,
         // `patch` does not exist on type `{ major: number, minor: number }`
-        // $ExpectError
+        // @ts-expect-error
         (a, b) => a.patch === b.patch,
     );
-    return useSyncExternalStoreExtra(
+    return useSyncExternalStoreWithSelector(
         objectStore.subscribe,
         objectStore.getState,
         objectStore.getServerState,

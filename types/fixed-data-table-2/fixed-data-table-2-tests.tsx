@@ -3,7 +3,7 @@
  */
 
 import * as React from "react";
-import { Table, Cell, Column, CellProps } from "fixed-data-table-2";
+import { Table, Cell, Column, ColumnGroup, CellProps } from "fixed-data-table-2";
 
 // create your Table
 class MyTable1 extends React.Component {
@@ -178,12 +178,82 @@ class MyTable5 extends React.Component {
                 onScrollEnd={(x: number, y: number) => { }}
                 onContentHeightChange={(newHeight: number) => { }}
                 onRowClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}
+                onRowContextMenu={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}
                 onRowDoubleClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}
                 onRowMouseDown={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}
                 onRowMouseEnter={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}
                 onRowMouseLeave={(event: React.SyntheticEvent<Table>, rowIndex: number) => { }}
                 onColumnResizeEndCallback={(newColumnWidth: number, columnKey: string) => { }}>
             // add columns
+            </Table>
+        );
+    }
+}
+
+// Test ColumnGroup
+class MyTable6 extends React.Component<{}, MyTable4State> {
+    state = {
+        tableData: [
+            { name: "Rylan", email: "Angelita_Weimann42@gmail.com", age: "18", address: "123 Collins Street" },
+            { name: "Amelia", email: "Dexter.Trantow57@hotmail.com", age: "54", address: "Herrengasse 12" },
+            { name: "Estevan", email: "Aimee7@hotmail.com", age: "36", address: "Rue du Fosse-aux-Loups 47" },
+            { name: "Florence", email: "Jarrod.Bernier13@yahoo.com", age: "68", address: "72 Liverpool St" },
+            { name: "Tressa", email: "Yadira1@hotmail.com", age: "45", address: "Hammerichsgade 1" }
+        ]
+    };
+
+    render() {
+        return (
+            <Table
+                rowsCount={this.state.tableData.length}
+                rowHeight={50}
+                headerHeight={50}
+                width={1000}
+                height={500}>
+                    <ColumnGroup header={"Basic Info"}>
+                        <Column
+                            key={"name"}
+                            header={<Cell>{"name"}</Cell>}
+                            cell={
+                                <MyTextCell
+                                    myData={this.state.tableData}
+                                    field={"name"}
+                                />
+                            }
+                            width={200} />
+                        <Column
+                            key={"age"}
+                            header={<Cell>{"age"}</Cell>}
+                            cell={
+                                <MyTextCell
+                                    myData={this.state.tableData}
+                                    field={"age"}
+                                />
+                            }
+                            width={200} />
+                    </ColumnGroup>
+                    <ColumnGroup header={"Contact Info"}>
+                        <Column
+                            key={"email"}
+                            header={<Cell>{"email"}</Cell>}
+                            cell={
+                                <MyTextCell
+                                    myData={this.state.tableData}
+                                    field={"email"}
+                                />
+                            }
+                            width={200} />
+                        <Column
+                            key={"address"}
+                            header={<Cell>{"address"}</Cell>}
+                            cell={
+                                <MyTextCell
+                                    myData={this.state.tableData}
+                                    field={"address"}
+                                />
+                            }
+                            width={200} />
+                    </ColumnGroup>
             </Table>
         );
     }

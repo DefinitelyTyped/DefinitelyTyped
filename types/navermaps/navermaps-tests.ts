@@ -99,6 +99,14 @@ const marker2 = new naver.maps.Marker({
     map: map3,
     position: cityhall,
 });
+const marker3 = new naver.maps.Marker({
+    map: map3,
+    position: cityhall,
+    animation: naver.maps.Animation.BOUNCE,
+    icon: {
+        content: '<p>Test</p>'
+    }
+});
 
 const contentString = [
     `<div class="iw_inner">
@@ -187,3 +195,62 @@ const getTerrainMap = naver.maps.NaverStyleMapTypeOptions.getTerrainMap();
 const getTrafficLayer = naver.maps.NaverStyleMapTypeOptions.getTrafficLayer();
 const getVectorMap = naver.maps.NaverStyleMapTypeOptions.getVectorMap();
 const getWorldMap = naver.maps.NaverStyleMapTypeOptions.getWorldMap();
+
+// Point x,y
+const point = new naver.maps.Point(37.1793196, 125.8795594);
+point.x;
+point.y;
+
+const geoAddress = '경기도 성남시 분당구 불정로 6';
+naver.maps.Service.geocode(
+    {
+        query: geoAddress,
+    },
+    (status, response) => {
+        const point = response.result.items[0].point;
+        point.x;
+        point.y;
+        const addresses = response.v2.addresses;
+        addresses[0].roadAddress;
+    },
+);
+
+naver.maps.Service.reverseGeocode(
+    {
+        coords: jeju,
+        orders: [naver.maps.Service.OrderType.ADDR, naver.maps.Service.OrderType.ROAD_ADDR].join(','),
+    },
+    (status, response) => {
+        const address = response.v2.address;
+        address.roadAddress;
+        address.jibunAddress;
+
+        const results = response.v2.results;
+        results[0].name;
+        results[0].code;
+        results[0].region;
+
+        const v2Status = response.v2.status;
+        v2Status.code;
+        v2Status.name;
+        v2Status.message;
+    },
+);
+
+const panoramaOptions = {
+    size: new naver.maps.Size(256, 256),
+    panoId: 'aaa',
+    position: new naver.maps.LatLng(37.3599605, 127.1058814),
+    pov: {
+        pan: -135,
+        tilt: 29,
+        fov: 100,
+    },
+    flightSpot: true,
+};
+
+const pano = new naver.maps.Panorama('pano', panoramaOptions);
+if (pano.aroundControl) {
+    pano.aroundControl.getElement();
+}
+pano.controls[0].clear();

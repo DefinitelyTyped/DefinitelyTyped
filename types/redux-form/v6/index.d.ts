@@ -10,7 +10,7 @@
 
 import {
   ComponentClass,
-  StatelessComponent,
+  FunctionComponent,
   ReactElement
 } from "react";
 
@@ -43,11 +43,11 @@ export type FormMeta<FormData extends DataShape> = {
 
 /**
  * A component class or stateless function component.
- * Workaround for: ComponentClass<P> | SFC<P> which does
+ * Workaround for: ComponentClass<P> | FC<P> which does
  * not resolve due to a bug in TypeScript.
  * https://github.com/Microsoft/TypeScript/pull/8674
  */
-export type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
+export type ComponentConstructor<P> = ComponentClass<P> | FunctionComponent<P>;
 
 export * from "./lib/reduxForm";
 export * from "./lib/Field";

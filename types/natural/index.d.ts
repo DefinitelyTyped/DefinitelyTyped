@@ -1,4 +1,4 @@
-// Type definitions for Natural 5.0
+// Type definitions for Natural 5.1
 // Project: https://github.com/NaturalNode/natural
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire>
 //                 Emily Marigold Klassen <https://github.com/forivall>
@@ -131,15 +131,21 @@ interface Stemmer {
     tokenizeAndStem(text: string): string[];
     attach(): void;
 }
+
+declare var CarryStemmerFr: Stemmer;
+declare var LancasterStemmer: Stemmer;
 declare var PorterStemmer: Stemmer;
-declare var PorterStemmerRu: Stemmer;
 declare var PorterStemmerEs: Stemmer;
 declare var PorterStemmerFa: Stemmer;
 declare var PorterStemmerFr: Stemmer;
 declare var PorterStemmerIt: Stemmer;
+declare var PorterStemmerNl: Stemmer;
 declare var PorterStemmerNo: Stemmer;
 declare var PorterStemmerPt: Stemmer;
-declare var LancasterStemmer: Stemmer;
+declare var PorterStemmerRu: Stemmer;
+declare var PorterStemmerSv: Stemmer;
+declare var StemmerId: Stemmer;
+declare var StemmerJa: Stemmer;
 
 interface BayesClassifierClassification {
     label: string;
@@ -149,6 +155,7 @@ interface BayesClassifierCallback {
     (err: any, classifier: any): void;
 }
 declare class BayesClassifier {
+    constructor(stem?: Stemmer);
     events: events.EventEmitter;
     addDocument(text: string, stem: string): void;
     addDocument(text: string[], stem: string): void;

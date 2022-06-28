@@ -38,7 +38,7 @@ interface InitialPersonProps {
 
 type PersonProps = RouteComponentProps<{ id: string }>;
 
-const Person: React.SFC<InitialPersonProps | PersonProps> = ({ match }) => {
+const Person: React.FC<InitialPersonProps | PersonProps> = ({ match }) => {
   const person = find(match.params.id);
 
   return (
@@ -53,7 +53,7 @@ const Person: React.SFC<InitialPersonProps | PersonProps> = ({ match }) => {
           </li>
         ))}
       </ul>
-      <Route path={`${match.url}/:id`} component={Person as React.SFC<PersonProps>}/>
+      <Route path={`${match.url}/:id`} component={Person as React.FC<PersonProps>}/>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 // Type definitions for react-responsive 8.0
-// Project: http://github.com/contra/react-responsive
+// Project: https://github.com/contra/react-responsive
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Alec Hill <https://github.com/alechill>
 //                 Javier Gonzalez <https://github.com/xaviergonz>
@@ -75,7 +75,7 @@ export interface MediaQueryFeatures extends MediaQueryMatchers {
 export interface MediaQueryAllQueryable extends MediaQueryFeatures, MediaQueryTypes {}
 
 export interface MediaQueryProps extends MediaQueryAllQueryable {
-    component?: string | React.SFC<any> | React.ClassType<any, any, any> | React.ComponentClass<any> | undefined;
+    component?: React.ElementType | undefined;
     query?: string | undefined;
     style?: React.CSSProperties | undefined;
     className?: string | undefined;

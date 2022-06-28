@@ -102,7 +102,7 @@ declare namespace AdazzleReactDataGrid {
          * A react component to customize how rows are rendered.
          * If you want to define your own, consider extending ReactDataGrid.Row.
          */
-        rowRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any> | undefined
+        rowRenderer?: React.ReactElement | React.ComponentClass<any> | React.FunctionComponent<any> | undefined
 
         /**
          * A react component to customize how the grouping header row is rendered
@@ -112,7 +112,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * A component to display when there are no rows to render.
          */
-        emptyRowsView?: React.ComponentClass<any> | React.StatelessComponent<any> | undefined
+        emptyRowsView?: React.ComponentClass<any> | React.FunctionComponent<any> | undefined
 
         /**
          * The minimum width of the entire grid in pixels.
@@ -254,12 +254,12 @@ declare namespace AdazzleReactDataGrid {
          * A custom formatter for the select all checkbox cell
          * @default react-data-grid/src/formatters/SelectAll.js
          */
-        selectAllRenderer?: React.ComponentClass<any> | React.StatelessComponent<any> | undefined;
+        selectAllRenderer?: React.ComponentClass<any> | React.FunctionComponent<any> | undefined;
         /**
          * A custom formatter for select row column
          * @default AdazzleReactDataGridPlugins.Editors.CheckboxEditor
          */
-        rowActionsCell?: React.ComponentClass<any> | React.StatelessComponent<any> | undefined;
+        rowActionsCell?: React.ComponentClass<any> | React.FunctionComponent<any> | undefined;
         /**
          * An event function called when a row is clicked.
          * Clicking the header row will trigger a call with -1 for the rowIdx.
@@ -345,7 +345,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * A custom formatter for this column's filter.
          */
-        filterRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any> | undefined;
+        filterRenderer?: React.ReactElement | React.ComponentClass<any> | React.FunctionComponent<any> | undefined;
         /**
          * The editor for this column. Several editors are available in "react-data-grid/addons".
          * @default A simple text editor
@@ -353,15 +353,15 @@ declare namespace AdazzleReactDataGrid {
         editor?:
             | React.ReactElement<EditorBaseProps>
             | React.ComponentClass<EditorBaseProps>
-            | React.StatelessComponent<EditorBaseProps> | undefined;
+            | React.FunctionComponent<EditorBaseProps> | undefined;
         /**
          * A custom read-only formatter for this column. An image formatter is available in "react-data-grid/addons".
          */
-        formatter?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any> | undefined
+        formatter?: React.ReactElement | React.ComponentClass<any> | React.FunctionComponent<any> | undefined
         /**
          * A custom formatter for this column's header.
          */
-        headerRenderer?: React.ReactElement | React.ComponentClass<any> | React.StatelessComponent<any> | undefined
+        headerRenderer?: React.ReactElement | React.ComponentClass<any> | React.FunctionComponent<any> | undefined
         /**
          * Events to be bound to the cells in this specific column.
          * Each event must respect this standard in order to work correctly:
@@ -418,7 +418,7 @@ declare namespace AdazzleReactDataGrid {
          */
         (ev: React.SyntheticEvent<any>, args: {rowIdx: number, idx: number, name: string}): void
     }
-    
+
     /**
      * Information about a row update. Generic event type returns untyped row, use parameterized type with the row type as the parameter
      * @default T = any

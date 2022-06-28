@@ -48,16 +48,15 @@ declare namespace ConnectFailover {
     interface Server {
         connectOptions: ConnectOptions;
         remoteAddress: AddressInfo;
+    }
+
+    interface ConnectState {
+        serverProperties: Server;
+        failedConnects: number;
 
         blacklist(error?: Error): void;
         isBlacklisted(): boolean;
         getBlacklistError(): Error;
-    }
-
-    // Internal class, which is not exported
-    interface ConnectState {
-        serverProperties: Server;
-        failedConnects: number;
     }
 
     interface ConnectError extends Error {

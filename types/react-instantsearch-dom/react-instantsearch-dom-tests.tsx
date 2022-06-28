@@ -1,21 +1,22 @@
 import * as React from 'react';
 import {
-  InstantSearch,
-  Hits,
-  Highlight,
-  SearchBox,
-  RefinementList,
-  CurrentRefinements,
   ClearRefinements,
-  Pagination,
-  Menu,
   Configure,
-  Index,
-  SortBy,
+  CurrentRefinements,
+  DynamicWidgets,
+  Highlight,
+  Hits,
   HitsPerPage,
-  MenuSelect
+  Index,
+  InstantSearch,
+  Menu,
+  MenuSelect,
+  Pagination,
+  RefinementList,
+  SearchBox,
+  SortBy,
 } from 'react-instantsearch/dom';
-import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-core';
+import { Hit, InstantSearchProps } from 'react-instantsearch-core';
 
 // DOM
 () => {
@@ -233,15 +234,11 @@ declare function createServer(handler: (req: any, res: any) => any): any;
 import { renderToString } from 'react-dom/server';
 
 const test = () => {
-  class App extends React.Component<any> {
+  class App extends React.Component<InstantSearchProps & { something: boolean }> {
     render() {
       return (
-        <InstantSearch
-          indexName="indexName"
-          searchClient={{}}
-          searchState={this.props.searchState}
-          resultsState={this.props.resultsState}
-        >
+        <InstantSearch {...this.props}>
+          {this.props.something}
           <SearchBox />
           <Hits />
         </InstantSearch>
@@ -251,13 +248,18 @@ const test = () => {
 
   const server = createServer(async (req, res) => {
     const searchState = { query: 'chair' };
-    const resultsState = await findResultsState(App, {
+    const props = {
       searchClient: {},
       indexName: '',
       searchState,
-    });
-    const appInitialState = { searchState, resultsState };
-    const appAsString = renderToString(<App {...appInitialState} />);
+      something: false,
+    };
+    const resultsState = await findResultsState(App, props);
+    const appInitialState = {
+      searchState,
+      resultsState,
+    };
+    const appAsString = renderToString(<App {...props} {...appInitialState} />);
     res.send(
       `
   <!doctype html>
@@ -331,4 +333,17 @@ const test = () => {
       seeAllOption: 'See all',
     }}
   />;
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/dynamic-facets/react/
+  <DynamicWidgets
+    transformItems={item => item}
+    fallbackComponent={RefinementList}
+    facets={['*']}
+    maxValuesPerFacet={20}
+    className="test"
+  >
+    <RefinementList attribute="brand"/>
+  </DynamicWidgets>;
 };

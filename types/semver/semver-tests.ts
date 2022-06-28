@@ -146,6 +146,7 @@ bool = semver.eq(v1, v2, loose);
 bool = semver.neq(v1, v2, loose);
 bool = semver.cmp(v1, op, v2, loose);
 comparatorResult = semver.compare(v1, v2, loose);
+comparatorResult = semver.compareBuild(v1, v2, loose);
 comparatorResult = semver.rcompare(v1, v2, loose);
 comparatorResult = semver.compareIdentifiers(str, str);
 comparatorResult = semver.rcompareIdentifiers(str, str);
@@ -174,6 +175,8 @@ semver.subset('1.x', '1.x'); // $ExpectType boolean
 semver.subset(new Range('1.2.3'), new Range('1.2.3')); // $ExpectType boolean
 semver.subset('^1.2.3-pre.0', '1.x', { includePrerelease: true }); // $ExpectType boolean
 semver.subset('', ''); // $ExpectType boolean
+semver.toComparators('1.x'); // $ExpectType string[][]
+semver.toComparators(new Range('1.2.3')); // $ExpectType string[][]
 
 // Coercion
 sem = semver.coerce(str);

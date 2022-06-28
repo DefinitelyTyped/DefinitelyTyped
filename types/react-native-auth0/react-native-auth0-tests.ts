@@ -1,4 +1,4 @@
-import Auth0, { UserInfo } from 'react-native-auth0';
+import Auth0 from 'react-native-auth0';
 
 const auth0 = new Auth0({
     domain: 'definitely-typed',
@@ -72,6 +72,7 @@ auth0.webAuth.authorize({
     scope: 'openid',
     language: 'en',
     prompt: 'login',
+    organization: 'orgId',
 });
 
 auth0.webAuth.authorize({
@@ -106,7 +107,8 @@ auth0.webAuth.authorize(
         prompt: 'login',
     },
     {
-        incorrectValue: true, // $ExpectError
+        // @ts-expect-error
+        incorrectValue: true,
     },
 );
 
@@ -128,7 +130,19 @@ auth0.webAuth
         language: 'en',
         prompt: 'login',
     })
-    .then(credentials => credentials.doesNotExist); // $ExpectError
+    // @ts-expect-error
+    .then(credentials => credentials.doesNotExist);
+
+auth0.webAuth
+.authorize({
+    state: 'state',
+    nonce: 'nonce',
+    scope: 'openid',
+    language: 'en',
+    prompt: 'login',
+    customParam1: 'MyValue', // User defined custom string parameter
+    customParam2: 9001, // User defined custom number parameter
+});
 
 auth0.webAuth.clearSession({ federated: false });
 auth0.webAuth.clearSession({ federated: true, customScheme: 'customUrlScheme' });

@@ -11,12 +11,13 @@ declare namespace memoizee {
     maxAge?: number | undefined;
     max?: number | undefined;
     preFetch?: number | true | undefined;
-    promise?: boolean | undefined;
+    promise?: boolean | "then" | "done" | "done:finally" | undefined;
     dispose?(value: any): void;
     async?: boolean | undefined;
     primitive?: boolean | undefined;
     normalizer?(args: Parameters<F>): string;
     resolvers?: Array<(arg: any) => any> | undefined;
+    profileName?: string;
   }
 
   interface Memoized<F> {

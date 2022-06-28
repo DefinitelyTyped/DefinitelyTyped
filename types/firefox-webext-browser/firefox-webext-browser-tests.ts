@@ -1,15 +1,21 @@
-browser.nonexistentNS; // $ExpectError
-browser.nonexistentNS.unknownMethod(); // $ExpectError
+// @ts-expect-error
+browser.nonexistentNS;
+// @ts-expect-error
+browser.nonexistentNS.unknownMethod();
 
 // Test that out overwritten things at least worked
 browser.runtime.getManifest(); // $ExpectType WebExtensionManifest
-browser.test; // $ExpectError
-browser.manifest; // $ExpectError
-browser._manifest; // $ExpectError
+// @ts-expect-error
+browser.test;
+// @ts-expect-error
+browser.manifest;
+// @ts-expect-error
+browser._manifest;
 
 // browser.runtime
 const port = browser.runtime.connect();
-port.postMessage(); // $ExpectError
+// @ts-expect-error
+port.postMessage();
 port.postMessage({ test: 'ok' });
 
 port.onDisconnect.addListener((p) => {
@@ -22,7 +28,18 @@ port.onMessage.addListener((response) => {
     console.log('Received: ' + response);
 });
 
+browser.bookmarks.create({ title: 'Mozilla Developer Network (MDN)' });
+browser.bookmarks.get('bookmarkId');
+browser.bookmarks.get(['bookmarkId_1', 'bookmarkId_2']);
+browser.bookmarks.getChildren('bookmarkId');
+browser.bookmarks.getRecent(2);
+browser.bookmarks.getSubTree('bookmarkId');
 browser.bookmarks.getTree();
+browser.bookmarks.move('bookmarkId', { index: 0 });
+browser.bookmarks.remove('bookmarkId');
+browser.bookmarks.removeTree('bookmarkId');
+browser.bookmarks.search({});
+browser.bookmarks.update('bookmarkId', { title: 'Mozilla Developer Network (MDN)' });
 
 browser.proxy.onError.addListener((error) => {
     console.error(`Proxy error: ${error.message}`);

@@ -3,6 +3,7 @@ import LoadOptions = yaml.LoadOptions;
 import DumpOptions = yaml.DumpOptions;
 import TypeConstructorOptions = yaml.TypeConstructorOptions;
 import SchemaDefinition = yaml.SchemaDefinition;
+import Mark = yaml.Mark;
 
 const bool = true;
 const num = 0;
@@ -28,6 +29,15 @@ const typeConstructorOptions: TypeConstructorOptions = {
     defaultStyle: str,
     multi: false,
     styleAliases: map,
+};
+
+const yamlExceptionMark: Mark = {
+    buffer: str,
+    column: num,
+    line: num,
+    name: str,
+    position: num,
+    snippet: str,
 };
 
 const schema: yaml.Schema = new yaml.Schema(schemaDefinition);
@@ -125,7 +135,7 @@ type.construct;
 type.instanceOf;
 // $ExpectType ((data: object) => boolean) | null
 type.predicate;
-// $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null
+// $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null || { [x: string]: (data: object) => any; } | ((data: object) => any) | null
 type.represent;
 // $ExpectType string | null
 type.defaultStyle;
@@ -168,7 +178,14 @@ yaml.dump(str);
 // $ExpectType string
 yaml.dump(str, dumpOpts);
 
+// $ExpectType YAMLException
 new yaml.YAMLException();
+
+// $ExpectType YAMLException
+const exception = new yaml.YAMLException('error', yamlExceptionMark);
+
+// $ExpectType Mark
+exception.mark;
 
 // $ExpectType Schema
 yaml.DEFAULT_SCHEMA.extend([type]);

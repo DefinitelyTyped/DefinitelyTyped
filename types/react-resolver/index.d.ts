@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentType, StatelessComponent, Factory } from 'react';
+import { ComponentType, FunctionComponent, Factory } from 'react';
 
 export interface Resolver {
   resolve<P>(
     factory: Factory<P>,
   ): Promise<{
     data: any;
-    Resolved: StatelessComponent<P>;
+    Resolved: FunctionComponent<P>;
   }>;
 
   render(factory: Factory<any>, root: Node | null): void;
@@ -26,7 +26,7 @@ export function context<K extends string>(
   prop: K,
 ): <OwnProps>(
   component: ComponentType<OwnProps>,
-) => StatelessComponent<OwnProps & Record<K, any>>;
+) => FunctionComponent<OwnProps & Record<K, any>>;
 
 /**
  * Use `@client(LoaderComponent)` (or `client(LoaderComponent)(YourComponent)`)
@@ -37,7 +37,7 @@ export function client(
   loadingComponent: ComponentType<any>,
 ): <OwnProps>(
   component: ComponentType<OwnProps>,
-) => StatelessComponent<OwnProps>;
+) => FunctionComponent<OwnProps>;
 
 export function resolve<
   OwnProps,
@@ -49,7 +49,7 @@ export function resolve<
   resolveFn: ResolveFn<OwnProps & MoreProps, V>,
 ): (
   component: ComponentType<OwnProps & { [C in K]: V }>,
-) => StatelessComponent<OwnProps & MoreProps>;
+) => FunctionComponent<OwnProps & MoreProps>;
 
 export function resolve<
   OwnProps,
@@ -66,4 +66,4 @@ export function resolve<
   component: ComponentType<
     OwnProps & { [K in keyof ResolvableProps]?: ResolvableProps[K] }
   >,
-) => StatelessComponent<OwnProps & MoreProps>;
+) => FunctionComponent<OwnProps & MoreProps>;

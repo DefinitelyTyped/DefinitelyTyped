@@ -5,6 +5,9 @@
             "es6",
             "dom"
         ],
+        "paths": {
+            "react": ["react/v17"]
+        },
         "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,14 +17,6 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "react-select": [
-                "react-select/v1"
-            ],
-            "react-select/*": [
-                "react-select/v1/*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

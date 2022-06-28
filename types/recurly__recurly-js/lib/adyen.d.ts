@@ -9,17 +9,17 @@ export type AdyenOptions = {
   /**
    * 2 Digit Country Code
    */
-  countryCode?: string | undefined;
+  countryCode?: string;
 
   /**
    * Shopper locale for Payment Modal
    */
-  shopperLocale?: string | undefined;
+  shopperLocale?: string;
 
   /**
    * Skin code provided by Adyen
    */
-  skinCode?: string | undefined;
+  skinCode?: string;
 };
 
 export type AdyenEvent = 'token' | 'error';

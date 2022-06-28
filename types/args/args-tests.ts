@@ -63,5 +63,6 @@ args.parse(['~/bin/node', '~/dir', 'arg', '--param'], {
 });
 
 args.showHelp();
+args.showVersion();
 
 const x: string = args.sub[0];

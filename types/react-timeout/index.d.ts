@@ -11,7 +11,7 @@ import * as React from 'react';
 export = ReactTimeout;
 
 declare function ReactTimeout<T>(
-    SourceComponent: React.ComponentClass<T> | React.StatelessComponent<T>
+    SourceComponent: React.ComponentClass<T> | React.FunctionComponent<T>
 ): React.ComponentClass<T>;
 
 declare namespace ReactTimeout {

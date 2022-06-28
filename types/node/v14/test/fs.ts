@@ -1,6 +1,7 @@
-import * as fs from 'fs';
-import assert = require('assert');
-import * as util from 'util';
+import * as fs from 'node:fs';
+import assert = require('node:assert');
+import * as util from 'node:util';
+import * as url from 'node:url';
 
 {
     fs.writeFile("thebible.txt",
@@ -348,11 +349,43 @@ async function testPromisify() {
 })();
 
 {
+    fs.open('test', (err, fd) => {});
+    fs.open('test', 'r', (err, fd) => {});
+    fs.open('test', undefined, (err, fd) => {});
+    fs.open('test', 'r', 0o666, (err, fd) => {});
+    fs.open('test', 'r', undefined, (err, fd) => {});
+}
+
+async () => {
+    await fs.promises.open('test');
+    await fs.promises.open('test', 'r');
+    await fs.promises.open('test', undefined);
+    await fs.promises.open('test', 'r', 0o666);
+    await fs.promises.open('test', 'r', undefined);
+};
+
+{
     fs.opendir('test', async (err, dir) => {
         const dirEnt: fs.Dirent | null = await dir.read();
     });
 
+    fs.opendir(Buffer.from('test'), async (err, dir) => {
+        const dirEnt: fs.Dirent | null = await dir.read();
+    });
+
+    fs.opendir(new url.URL(`file://${__dirname}`), async (err, dir) => {
+        const dirEnt: fs.Dirent | null = await dir.read();
+    });
+
     const dir: fs.Dir = fs.opendirSync('test', {
+        encoding: 'utf8',
+    });
+
+    const dirBuffer: fs.Dir = fs.opendirSync(Buffer.from('test'), {
+        encoding: 'utf8',
+    });
+
+    const dirUrl: fs.Dir = fs.opendirSync(new url.URL(`file://${__dirname}`), {
         encoding: 'utf8',
     });
 
@@ -363,6 +396,16 @@ async function testPromisify() {
     // });
 
     const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
+        encoding: 'utf8',
+        bufferSize: 42,
+    });
+
+    const dirEntBufferProm: Promise<fs.Dir> = fs.promises.opendir(Buffer.from('test'), {
+        encoding: 'utf8',
+        bufferSize: 42,
+    });
+
+    const dirEntURLProm: Promise<fs.Dir> = fs.promises.opendir(new url.URL(`file://${__dirname}`), {
         encoding: 'utf8',
         bufferSize: 42,
     });
@@ -392,6 +435,14 @@ async function testPromisify() {
     fs.createReadStream('./index.d.ts', { encoding: 'utf8' });
     // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
     // fs.createReadStream('./index.d.ts', { encoding: 'invalid encoding' }); // $ExpectError
+}
+
+{
+    fs.createReadStream('path').close();
+    fs.createReadStream('path').close((err?: NodeJS.ErrnoException | null) => {});
+
+    fs.createWriteStream('path').close();
+    fs.createWriteStream('path').close((err?: NodeJS.ErrnoException | null) => {});
 }
 
 {

@@ -60,7 +60,7 @@ const AnimationExample = () => (
   </Router>
 );
 
-const NavLink: React.SFC<LinkProps> = (props) => (
+const NavLink: React.FC<LinkProps> = (props) => (
   <li style={styles.navItem}>
     <Link {...props} style={{ color: 'inherit' }}/>
   </li>
@@ -72,7 +72,7 @@ interface HSLParams {
   l: string;
 }
 
-const HSL: React.SFC<RouteComponentProps<HSLParams>> = ({ match: { params } }) => (
+const HSL: React.FC<RouteComponentProps<HSLParams>> = ({ match: { params } }) => (
   <div style={{
     ...styles.fill,
     ...styles.hsl,

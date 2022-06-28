@@ -65,13 +65,19 @@ import { promisify } from 'node:util';
     let hmac: crypto.Hmac;
     (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
         const hash: Buffer | string = hmac.read();
-    });
+    }).end();
 }
 
 {
     // update Hmac with base64 encoded string
     const message = Buffer.from('message').toString('base64');
     crypto.createHmac('sha256', 'key').update(message, 'base64').digest();
+}
+
+{
+    // update Hmac with base64url encoded string
+    const message = Buffer.from('message').toString('base64url');
+    crypto.createHmac('sha256', 'key').update(message, 'base64url').digest();
 }
 
 {
@@ -181,6 +187,34 @@ import { promisify } from 'node:util';
     });
     const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
     decipher.final();
+}
+
+{
+    // crypto_cipheriv_decipheriv_aad_ocb_test
+    const key = 'keykeykeykeykeykeykeykey';
+    const iv = crypto.randomBytes(12);
+    const aad = Buffer.from('0123456789', 'hex');
+
+    const cipher = crypto.createCipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    const plaintext = 'Hello world';
+    cipher.setAAD(aad, {
+        plaintextLength: Buffer.byteLength(plaintext),
+    });
+    const ciphertext = Buffer.concat([
+        cipher.update(plaintext, 'utf8'),
+        cipher.final(),
+    ]);
+    const tag = cipher.getAuthTag();
+
+    const decipher = crypto.createDecipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    decipher.setAuthTag(tag);
+    decipher.setAAD(aad, {
+        plaintextLength: ciphertext.length,
+    });
+    const receivedPlaintext: Buffer = Buffer.concat([
+        decipher.update(ciphertext),
+        decipher.final(),
+    ]);
 }
 
 {
@@ -828,13 +862,12 @@ import { promisify } from 'node:util';
 
     const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.write('some data to sign');
-    sign.end();
+    sign.end().end();
     const signature: string = sign.sign(privateKey, 'hex');
 
     const verify: crypto.Verify = crypto.createVerify('SHA256');
     verify.write('some data to sign');
-    verify.end();
-    verify.verify(publicKey, signature); // $ExpectType boolean
+    verify.end().verify(publicKey, signature); // $ExpectType boolean
 
     // ensure that instanceof works
     verify instanceof crypto.Verify;
@@ -848,13 +881,12 @@ import { promisify } from 'node:util';
 
     const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.update('some data to sign');
-    sign.end();
+    sign.end().end();
     const signature: Buffer = sign.sign(privateKey);
 
     const verify: crypto.Verify = crypto.createVerify('SHA256');
     verify.update('some data to sign');
-    verify.end();
-    verify.verify(publicKey, signature); // $ExpectType boolean
+    verify.end().verify(publicKey, signature); // $ExpectType boolean
 }
 
 {
@@ -1154,7 +1186,8 @@ import { promisify } from 'node:util';
     cert.ca; // $ExpectType boolean
     cert.fingerprint; // $ExpectType string
     cert.fingerprint256; // $ExpectType string
-    cert.infoAccess; // $ExpectType string
+    cert.fingerprint512; // $ExpectType string
+    cert.infoAccess; // $ExpectType string | undefined
     cert.issuer; // $ExpectType string
     cert.issuerCertificate; // $ExpectType X509Certificate | undefined
     cert.keyUsage; // $ExpectType string[]
@@ -1162,7 +1195,7 @@ import { promisify } from 'node:util';
     cert.raw; // $ExpectType Buffer
     cert.serialNumber; // $ExpectType string
     cert.subject; // $ExpectType string
-    cert.subjectAltName; // $ExpectType string
+    cert.subjectAltName; // $ExpectType string | undefined
     cert.validFrom; // $ExpectType string
     cert.validTo; // $ExpectType string
 
@@ -1176,10 +1209,10 @@ import { promisify } from 'node:util';
 
     cert.checkEmail('test@test.com'); // $ExpectType string | undefined
     cert.checkEmail('test@test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkEmail('test@test.com', { subject: 'always' }); // $ExpectType string | undefined
     cert.checkHost('test.com'); // $ExpectType string | undefined
     cert.checkHost('test.com', checkOpts); // $ExpectType string | undefined
     cert.checkIP('1.1.1.1'); // $ExpectType string | undefined
-    cert.checkIP('1.1.1.1', checkOpts); // $ExpectType string | undefined
     cert.checkIssued(new crypto.X509Certificate('dummycert')); // $ExpectType boolean
     cert.checkPrivateKey(crypto.createPrivateKey('dummy')); // $ExpectType boolean
     cert.toLegacyObject(); // $ExpectType PeerCertificate
@@ -1272,4 +1305,8 @@ import { promisify } from 'node:util';
 {
     // tslint:disable-next-line no-object-literal-type-assertion (webcrypto.CryptoKey is a placeholder)
     crypto.KeyObject.from({} as crypto.webcrypto.CryptoKey); // $ExpectType KeyObject
+}
+
+{
+    crypto.generateKeySync('aes', { length: 128 }); // $ExpectType KeyObject
 }

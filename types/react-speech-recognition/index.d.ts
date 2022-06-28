@@ -1,4 +1,4 @@
-// Type definitions for react-speech-recognition 3.6
+// Type definitions for react-speech-recognition 3.9
 // Project: https://github.com/JamesBrill/react-speech-recognition#readme
 // Definitions by: OleksandrYehorov <https://github.com/OleksandrYehorov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,6 +23,7 @@ interface SpeechRecognition {
     stopListening(): void;
     abortListening(): void;
     browserSupportsSpeechRecognition(): boolean;
+    applyPolyfill(speechRecognitionPolyfill: any): void;
 }
 
 export interface SpeechRecognitionOptions {
@@ -39,6 +40,8 @@ export function useSpeechRecognition(
     finalTranscript: string;
     listening: boolean;
     resetTranscript: () => void;
+    browserSupportsSpeechRecognition: boolean;
+    isMicrophoneAvailable: boolean;
 };
 
 declare const SpeechRecognition: SpeechRecognition;

@@ -1,4 +1,5 @@
-declare module Blaze {
+
+declare namespace Blaze {
     var View: ViewStatic;
 
     interface ViewStatic {
@@ -29,13 +30,13 @@ declare module Blaze {
         [key: string]: Function;
     }
 
-    interface EventsMap<D = Record<string, any>, T = TemplateInstance<D>> {
+    interface EventsMap<D = any, T = TemplateInstance<D>> {
         [key: string]: (event: Meteor.Event, instance: T) => any;
     }
 
     var Template: TemplateStatic;
 
-    interface TemplateStatic<D = Record<string, any>, T = TemplateInstance<D>> {
+    interface TemplateStatic<D = any, T = TemplateInstance<D>> {
         new (viewName?: string, renderFunction?: Function): Template;
 
         registerHelper(name: string, func: Function): void;
@@ -44,7 +45,7 @@ declare module Blaze {
         parentData(numLevels?: number): Record<string, any>;
     }
 
-    interface Template<D = Record<string, any>, T = TemplateInstance<D>> {
+    interface Template<D = any, T = TemplateInstance<D>> {
         viewName: string;
         renderFunction: Function;
         constructView(): View;
@@ -74,7 +75,7 @@ declare module Blaze {
         events(eventsMap: EventsMap<D, T>): void;
     }
 
-    class TemplateInstance<D = Record<string, any>> {
+    class TemplateInstance<D = any> {
         constructor(view: View);
 
         $<TElement extends HTMLElement = HTMLElement>(selector: string): JQuery<TElement>;

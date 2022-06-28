@@ -2582,6 +2582,8 @@ declare namespace d3 {
             tickFormat(): (t: any , index : number) => string;
             tickFormat(format: (t: any , index : number) => string): Axis;
             tickFormat(format: string): Axis;
+
+            tickSubdivide(...args: any[]): Axis;
         }
 
         export function brush(): Brush<any, number, number>;
@@ -2610,11 +2612,11 @@ declare namespace d3 {
 
             x(): brush.Scale<X>;
             x(x: brush.Scale<X>): Brush<T, X, Y>;
-            x<A, B extends X>(x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>): Brush<T, X, Y>;
+            x<A extends { toString(): string; }, B extends X>(x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>): Brush<T, X, Y>;
 
             y(): brush.Scale<Y>;
             y(y: brush.Scale<Y>): Brush<T, X, Y>;
-            y<A, B extends Y>(x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>): Brush<T, X, Y>;
+            y<A extends { toString(): string; }, B extends Y>(x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>): Brush<T, X, Y>;
 
             // https://github.com/d3/d3-3.x-api-reference/blob/master/SVG-Controls.md#brush_extent
             extent(): [X, X] | [Y, Y] | [[X, Y], [X, Y]] | null;
@@ -3129,6 +3131,7 @@ declare namespace d3 {
             value(accessor: (datum: T, index: number) => number): Pie<T>;
 
             sort(): (a: T, b: T) => number;
+            sort(comparator: null): Pie<T>;
             sort(comparator: (a: T, b: T) => number): Pie<T>;
 
             startAngle(): number | ((data: T[], index: number) => number);
@@ -3204,7 +3207,7 @@ declare namespace d3 {
             }
         }
 
-        interface Tree<T> {
+        interface Tree<T extends tree.Node> {
             (root: T, index?: number): T[];
 
             nodes(root: T, index?: number): T[];

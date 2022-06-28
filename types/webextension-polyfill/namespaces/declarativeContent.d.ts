@@ -49,14 +49,9 @@ export namespace DeclarativeContent {
     }
 
     /**
-     * Declarative event action that shows the extension's $(ref:pageAction page action) while the corresponding conditions are
-     * met. This action can be used without <a href="declare_permissions#host-permissions">host permissions</a>,
-     * but the extension must have a page action. If the extension has the <a href="activeTab.html">activeTab</a> permission,
-     * clicking the page action grants access to the active tab.
+     * Please use ShowAction.
      */
-    interface ShowPageAction {
-        [s: string]: unknown;
-    }
+    type ShowPageAction = never;
 
     /**
      * Declarative event action that shows the extension's toolbar action ($(ref:pageAction page action)
@@ -172,8 +167,6 @@ export namespace DeclarativeContent {
 
     interface Static {
         PageStateMatcher: { new (options?: PageStateMatcher): PageStateMatcher };
-
-        ShowPageAction: { new (options?: ShowPageAction): ShowPageAction };
 
         ShowAction: { new (options?: ShowAction): ShowAction };
 

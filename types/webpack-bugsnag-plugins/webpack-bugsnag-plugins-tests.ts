@@ -7,19 +7,19 @@ import {
  * Missing or invalid options
  */
 
-// $ExpectError
+// @ts-expect-error
 new BugsnagSourceMapUploaderPlugin();
 
-// $ExpectError
+// @ts-expect-error
 new BugsnagBuildReporterPlugin();
 
-// $ExpectError
+// @ts-expect-error
 new BugsnagSourceMapUploaderPlugin({});
 
-// $ExpectError
+// @ts-expect-error
 new BugsnagBuildReporterPlugin({});
 
-// $ExpectError
+// @ts-expect-error
 new BugsnagBuildReporterPlugin({
     apiKey: "123456789"
 });
@@ -37,6 +37,15 @@ new BugsnagSourceMapUploaderPlugin({
 new BugsnagBuildReporterPlugin({
     apiKey: "123456789",
     appVersion: "1.2.3"
+});
+
+// $ExpectType BugsnagBuildReporterPlugin
+new BugsnagBuildReporterPlugin({
+    apiKey: "123456789",
+    appVersion: "1.2.3",
+    metadata: {
+        foo: "bar"
+    }
 });
 
 /**
@@ -65,7 +74,10 @@ new BugsnagBuildReporterPlugin(
             revision: "123456789"
         },
         builderName: "whoami",
-        autoAssignRelease: false
+        autoAssignRelease: false,
+        metadata: {
+            foo: "bar"
+        }
     },
     {
         logLevel: "debug",

@@ -153,7 +153,7 @@ export interface DataTableCustomRenderProps<
     getSelectionProps<E extends object = {}>(
         data?: ShapeOf<DataTableCustomSelectionData, E>
     ): ShapeOf<DataTableCustomSelectionProps<R>, E> | ShapeOf<DataTableCustomSelectionProps<never>, E>;
-    getTableContainerProps(): Pick<TableContainerProps, "stickyHeader">,
+    getTableContainerProps(): Pick<TableContainerProps, "stickyHeader" | "useStaticWidth">,
     getTableProps(): TableCarbonProps;
     getToolbarProps(props?: TableToolbarProps): TableToolbarProps;
     headers: DataTableProps<R, H>['headers'];

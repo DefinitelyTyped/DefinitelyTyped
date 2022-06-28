@@ -297,7 +297,7 @@ declare namespace Glide {
          *
          * @default 'ltr'
          */
-        direction?: 'ltr' | 'rtr' | undefined;
+        direction?: 'ltr' | 'rtl' | undefined;
 
         /**
          * The value of the future viewports which have to be visible in the

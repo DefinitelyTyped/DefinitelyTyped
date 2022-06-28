@@ -29,9 +29,9 @@ if (findResult.done) {
 }
 
 type FindResult = find.FindResult; // $ExpectType FindResult
-type Pkg = find.Package; // $ExpectType Package
+type Pkg = find.Package; // $ExpectType PackageJSON
+type PkgJSON = find.PackageJSON; // $ExpectType PackageJSON
 type PkgWithPath = find.PackageWithPath; // $ExpectType PackageWithPath
-type Person = find.Person; // $ExpectType Person
 type Done = find.Done; // $ExpectType Done
 type Iter = find.FinderIterator; // $ExpectType FinderIterator
 type FoundPkg = find.FoundPackage; // $ExpectType FoundPackage

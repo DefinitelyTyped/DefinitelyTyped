@@ -27,6 +27,10 @@ declare namespace JsReport {
         /** recipe used for printing previously assembled document */
         recipe: Recipe | string;
         pathToEngine?: string | undefined;
+        unoconv?: {
+            format?: string | undefined;
+            enabled?: boolean | undefined;
+        };
     }
 
     interface Template extends TemplateBase {
@@ -96,7 +100,11 @@ declare namespace JsReport {
     }
 
     interface DocumentStore {
+        init(): Promise<any>;
         collection(name: string): Collection;
+        registerEntityType(name: string, options: { [key: string]: any }): void;
+        registerEntitySet(name: string, options: { [key: string]: any }): void;
+        internalCollection(name: string): any;
     }
 
     type Extension = (reporter: Reporter, definition: object) => void;
@@ -229,8 +237,9 @@ declare namespace JsReport {
         store?: {
             provider?: ReporterOptionsStoreProvider | undefined;
         } | undefined;
-        blobStorge?: {
+        blobStorage?: {
             provider?: ReporterOptionsBlobStorageProvider | undefined;
+            dataDirectory?: string | undefined;
         } | undefined;
         extensions?: any;
         extensionsList?: string[] | undefined;

@@ -6,8 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
-/// <reference types="jquery" />
-
 export as namespace bootstrap;
 
 import Alert from './js/dist/alert';

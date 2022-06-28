@@ -29,14 +29,15 @@ export namespace Manifest {
         manifest_version: number;
 
         /**
+         * The applications property is deprecated, please use 'browser_specific_settings'
          * Optional.
          */
-        applications?: ManifestBaseApplicationsType;
+        applications?: BrowserSpecificSettings;
 
         /**
          * Optional.
          */
-        browser_specific_settings?: ManifestBaseBrowserSpecificSettingsType;
+        browser_specific_settings?: BrowserSpecificSettings;
 
         name: string;
 
@@ -61,6 +62,24 @@ export namespace Manifest {
          * Optional.
          */
         homepage_url?: string;
+
+        /**
+         * Optional.
+         */
+        install_origins?: string[];
+
+        /**
+         * Optional.
+         */
+        developer?: ManifestBaseDeveloperType;
+
+        /**
+         * In addition to the version field, which is used for update purposes, version_name can be set to a descriptive version
+         * string and will be used for display purposes if present. If no version_name is present,
+         * the version field will be used for display purposes as well.
+         * Optional.
+         */
+        version_name?: string;
     }
 
     /**
@@ -113,7 +132,17 @@ export namespace Manifest {
         /**
          * Optional.
          */
-        permissions?: PermissionOrOrigin[];
+        permissions?: PermissionOrOrigin[] | Permission[];
+
+        /**
+         * Optional.
+         */
+        granted_host_permissions?: boolean;
+
+        /**
+         * Optional.
+         */
+        host_permissions?: MatchPattern[];
 
         /**
          * Optional.
@@ -124,11 +153,6 @@ export namespace Manifest {
          * Optional.
          */
         web_accessible_resources?: string[] | WebExtensionManifestWebAccessibleResourcesC2ItemType[];
-
-        /**
-         * Optional.
-         */
-        developer?: WebExtensionManifestDeveloperType;
 
         /**
          * Optional.
@@ -153,7 +177,7 @@ export namespace Manifest {
         /**
          * Optional.
          */
-        commands?: WebExtensionManifestCommandsType;
+        commands?: Record<string, WebExtensionManifestCommandsType>;
 
         /**
          * Optional.
@@ -243,6 +267,15 @@ export namespace Manifest {
         dictionaries: Record<string, string>;
     }
 
+    /**
+     * Represents a WebExtension site permissions manifest.json file
+     */
+    interface WebExtensionSitePermissionsManifest extends ManifestBase {
+        site_permissions: SitePermission[];
+
+        install_origins: [string];
+    }
+
     interface ThemeIcons {
         /**
          * A light icon to use for dark themes
@@ -264,10 +297,12 @@ export namespace Manifest {
         | "idle"
         | "cookies"
         | "menus.overrideContext"
+        | "scripting"
         | "search"
         | "activeTab"
         | "webRequest"
-        | "webRequestBlocking";
+        | "webRequestBlocking"
+        | "webRequestFilterResponse.serviceWorkerScript";
 
     type OptionalPermission =
         | OptionalPermissionNoPrompt
@@ -292,17 +327,19 @@ export namespace Manifest {
         | "tabs"
         | "tabHide"
         | "topSites"
-        | "webNavigation";
+        | "webNavigation"
+        | "identity.email";
 
     type OptionalPermissionOrOrigin = OptionalPermission | MatchPattern;
 
+    type PermissionPrivileged = "mozillaAddons" | "activityLog" | "networkStatus" | "normandyAddonStudy" | "urlbar";
+
     type PermissionNoPrompt =
-        | OptionalPermission
+        | OptionalPermissionNoPrompt
+        | PermissionPrivileged
         | "alarms"
-        | "mozillaAddons"
         | "storage"
         | "unlimitedStorage"
-        | "activityLog"
         | "captivePortal"
         | "contextualIdentities"
         | "dns"
@@ -310,14 +347,13 @@ export namespace Manifest {
         | "identity"
         | "menus"
         | "contextMenus"
-        | "networkStatus"
-        | "normandyAddonStudy"
-        | "theme"
-        | "urlbar";
+        | "theme";
 
     type Permission = PermissionNoPrompt | OptionalPermission | string;
 
     type PermissionOrOrigin = Permission | MatchPattern;
+
+    type SitePermission = "midi" | "midi-sysex";
 
     type HttpURL = string;
 
@@ -349,6 +385,13 @@ export namespace Manifest {
          * Optional.
          */
         strict_max_version?: string;
+    }
+
+    interface BrowserSpecificSettings {
+        /**
+         * Optional.
+         */
+        gecko?: FirefoxSpecificProperties;
     }
 
     type MatchPattern = "<all_urls>" | MatchPatternRestricted | MatchPatternUnestricted;
@@ -423,8 +466,6 @@ export namespace Manifest {
     type IconPath = Record<string, ExtensionFileUrl> | ExtensionFileUrl;
 
     type IconImageData = Record<string, ImageData> | ImageData;
-
-    type PersistentBackgroundProperty = boolean;
 
     interface ActionManifest {
         /**
@@ -581,27 +622,16 @@ export namespace Manifest {
         icons?: Record<string, string>;
     }
 
-    interface ManifestBaseApplicationsType {
+    interface ManifestBaseDeveloperType {
         /**
          * Optional.
          */
-        gecko?: FirefoxSpecificProperties;
-    }
-
-    interface ManifestBaseBrowserSpecificSettingsEdgeType {
-        [s: string]: unknown;
-    }
-
-    interface ManifestBaseBrowserSpecificSettingsType {
-        /**
-         * Optional.
-         */
-        gecko?: FirefoxSpecificProperties;
+        name?: string;
 
         /**
          * Optional.
          */
-        edge?: ManifestBaseBrowserSpecificSettingsEdgeType;
+        url?: string;
     }
 
     type WebExtensionManifestIncognitoEnum = "not_allowed" | "spanning";
@@ -653,24 +683,21 @@ export namespace Manifest {
          * Optional.
          */
         extension_pages?: string;
+
+        /**
+         * In addition, Manifest V3 disallows certain CSP modifications for `extension_pages` that were permitted in Manifest V2.
+         * The `script-src`, `object-src`, and `worker-src` directives may only have the following values:
+         * - `self`
+         * - `none` - Any localhost source, (`http://localhost`, `http://127.0.0.1`, or any port on those domains)
+         * Optional.
+         */
+        sandbox?: string;
     }
 
     interface WebExtensionManifestWebAccessibleResourcesC2ItemType {
         resources: string[];
 
         matches: MatchPatternRestricted[];
-    }
-
-    interface WebExtensionManifestDeveloperType {
-        /**
-         * Optional.
-         */
-        name?: string;
-
-        /**
-         * Optional.
-         */
-        url?: string;
     }
 
     interface WebExtensionManifestChromeSettingsOverridesSearchProviderParamsItemType {
@@ -1117,6 +1144,11 @@ export namespace Manifest {
         /**
          * Optional.
          */
+        ntp_card_background?: ThemeColor;
+
+        /**
+         * Optional.
+         */
         ntp_text?: ThemeColor;
 
         /**
@@ -1173,6 +1205,10 @@ export namespace Manifest {
 
     type ThemeTypePropertiesAdditionalBackgroundsTilingItemEnum = "no-repeat" | "repeat" | "repeat-x" | "repeat-y";
 
+    type ThemeTypePropertiesColorSchemeEnum = "auto" | "light" | "dark" | "system";
+
+    type ThemeTypePropertiesContentColorSchemeEnum = "auto" | "light" | "dark" | "system";
+
     interface ThemeTypePropertiesType {
         /**
          * Optional.
@@ -1183,6 +1219,16 @@ export namespace Manifest {
          * Optional.
          */
         additional_backgrounds_tiling?: ThemeTypePropertiesAdditionalBackgroundsTilingItemEnum[];
+
+        /**
+         * Optional.
+         */
+        color_scheme?: ThemeTypePropertiesColorSchemeEnum;
+
+        /**
+         * Optional.
+         */
+        content_color_scheme?: ThemeTypePropertiesContentColorSchemeEnum;
     }
 
     interface Static {

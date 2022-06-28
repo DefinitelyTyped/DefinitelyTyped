@@ -10,6 +10,7 @@ import { RouteProps, RouteComponentProps, match as MatchObject } from "react-rou
 
 export interface ScrollIntoViewProps {
     alignToTop?: boolean | undefined;
+    children?: React.ReactNode;
     id: string;
 }
 
@@ -66,11 +67,11 @@ export interface StatusProps {
 
 export class Status extends React.Component<StatusProps> { }
 
-export type GetKeyFunction<Params> = (match: MatchObject<Params>, route: RouteConfiguration, location: H.Location) => string;
+export type GetKeyFunction<Params extends { [K in keyof Params]?: string } = {}> = (match: MatchObject<Params>, route: RouteConfiguration, location: H.Location) => string;
 
-export interface WrapSwitchProps<Params> extends SwitchProps {
+export interface WrapSwitchProps<Params extends { [K in keyof Params]?: string } = {}> extends SwitchProps {
     getKey?: GetKeyFunction<Params> | undefined;
 }
 
-export function wrapSwitch<WrapperProps, Params>(Wrapper: ComponentConstructor<WrapperProps>):
+export function wrapSwitch<WrapperProps, Params extends { [K in keyof Params]?: string } = {}>(Wrapper: ComponentConstructor<WrapperProps>):
     ComponentConstructor<WrapSwitchProps<Params> & WrapperProps>;

@@ -4,15 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Plugin, Module, compilation } from 'webpack';
+/// <reference types="node" />
+import { Compiler, WebpackPluginInstance, Module, Compilation } from 'webpack';
 
 export = CircularDependencyPlugin;
 
 /**
  * Detect modules with circular dependencies when bundling with webpack.
  */
-declare class CircularDependencyPlugin extends Plugin {
+declare class CircularDependencyPlugin implements WebpackPluginInstance {
   constructor(options?: CircularDependencyPlugin.Options);
+
+  apply(compiler: Compiler): void;
   // Not exposing `isCyclic` because it isn't meant to be public, I believe
 }
 
@@ -44,9 +47,9 @@ declare namespace CircularDependencyPlugin {
     onDetected?: false | ((x: {
       module: Module;
       paths: string[];
-      compilation: compilation.Compilation;
+      compilation: Compilation;
     }) => void) | undefined;
-    onEnd?: ((x: { compilation: compilation.Compilation }) => void) | undefined;
-    onStart?: ((x: { compilation: compilation.Compilation }) => void) | undefined;
+    onEnd?: ((x: { compilation: Compilation }) => void) | undefined;
+    onStart?: ((x: { compilation: Compilation }) => void) | undefined;
   }
 }

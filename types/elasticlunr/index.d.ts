@@ -2,16 +2,16 @@
 // Project: http://weixsong.github.io
 // Definitions by: Luis Rodrigues <https://github.com/goblindegook>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// Minimum TypeScript Version: 4.1
 
 export = elasticlunr;
 
-declare function elasticlunr<T>(
+declare function elasticlunr<T extends {}>(
     config?: (this: elasticlunr.Index<T>, idx: elasticlunr.Index<T>) => void,
 ): elasticlunr.Index<T>;
 
 declare namespace elasticlunr {
-    class Configuration<T> {
+    class Configuration<T extends {}> {
         constructor(config: string, fields: Array<keyof T>);
 
         addAllFields2UserConfig(bool: Bool, expand: boolean, fields: Array<keyof T>): void;
@@ -94,9 +94,10 @@ declare namespace elasticlunr {
         };
     };
 
-    interface SearchConfig<T> {
+    interface SearchConfig<T extends {}> {
         fields?: FieldSearchConfig<T> | undefined;
         expand?: boolean | undefined;
+        bool?: Bool;
     }
 
     interface SerialisedInvertedIndex {
@@ -123,7 +124,7 @@ declare namespace elasticlunr {
         index: { [K in keyof T]?: InvertedIndexNode };
     }
 
-    class Index<T> {
+    class Index<T extends {}> {
         constructor();
 
         documentStore: DocumentStore<T>;
@@ -172,7 +173,7 @@ declare namespace elasticlunr {
 
         use(plugin: (...args: any[]) => any, ...args: any[]): void;
 
-        static load<T>(serialisedData: SerialisedIndexData<T>): Index<T>;
+        static load<T extends {}>(serialisedData: SerialisedIndexData<T>): Index<T>;
     }
 
     interface TokenInfo {

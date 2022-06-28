@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PDFPageProxy as _PDFPageProxy } from 'pdfjs-dist';
+import { PDFPageProxy as _PDFPageProxy } from 'pdfjs-dist/types/src/display/api';
 
 export type RenderFunction = () => JSX.Element;
 
@@ -21,6 +21,7 @@ export interface TextLayerItemInternal {
     str: string;
     transform: number[];
     width: number;
+    height: number;
 }
 
 export interface TextItem {
@@ -114,7 +115,7 @@ export interface Props {
     /**
      * Function called when the page is successfully rendered on the screen.
      */
-    onRenderSuccess?: (() => void) | undefined;
+    onRenderSuccess?: ((page: PDFPageProxy) => void) | undefined;
 
     /**
      * Function called when annotations are successfully loaded.

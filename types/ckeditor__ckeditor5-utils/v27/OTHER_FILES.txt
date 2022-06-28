@@ -1,2 +1,0 @@
-src/areconnectedthroughproperties.d.ts
-src/language.d.ts

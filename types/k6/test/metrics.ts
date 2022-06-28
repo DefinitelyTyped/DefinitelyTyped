@@ -7,33 +7,49 @@ let rate: Rate;
 let trend: Trend;
 
 // Counter
-new Counter(); // $ExpectError
+// @ts-expect-error
+new Counter();
 counter = new Counter('counter');
-new Counter('counter', 5); // $ExpectError
+counter.name; // $ExpectType string
+// @ts-expect-error
+new Counter('counter', 5);
 counter = new Counter('counter', true);
 metric = new Counter('counter');
-gauge = new Counter('counter'); // $ExpectError
+// @ts-expect-error
+gauge = new Counter('counter');
 
 // Gauge
-new Gauge(); // $ExpectError
+// @ts-expect-error
+new Gauge();
 gauge = new Gauge('gauge');
-new Gauge('gauge', 5); // $ExpectError
+gauge.name; // $ExpectType string
+// @ts-expect-error
+new Gauge('gauge', 5);
 gauge = new Gauge('gauge', true);
 metric = new Gauge('gauge');
-rate = new Gauge('gauge'); // $ExpectError
+// @ts-expect-error
+rate = new Gauge('gauge');
 
 // Rate
-new Rate(); // $ExpectError
+// @ts-expect-error
+new Rate();
 rate = new Rate('rate');
-new Rate('rate', 5); // $ExpectError
+rate.name; // $ExpectType string
+// @ts-expect-error
+new Rate('rate', 5);
 rate = new Rate('rate', true);
 metric = new Rate('rate');
-trend = new Rate('rate'); // $ExpectError
+// @ts-expect-error
+trend = new Rate('rate');
 
 // Trend
-new Trend(); // $ExpectError
+// @ts-expect-error
+new Trend();
 trend = new Trend('trend');
-new Trend('trend', 5); // $ExpectError
+trend.name; // $ExpectType string
+// @ts-expect-error
+new Trend('trend', 5);
 trend = new Trend('trend', true);
 metric = new Trend('trend');
-counter = new Trend('trend'); // $ExpectError
+// @ts-expect-error
+counter = new Trend('trend');

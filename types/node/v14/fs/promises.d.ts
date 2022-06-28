@@ -184,10 +184,11 @@ declare module 'fs/promises' {
     /**
      * Asynchronous open(2) - open and possibly create a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not
+     * @param [flags='r'] See `support of file system `flags``.
+     * @param [mode] A file mode. If a string is passed, it is parsed as an octal integer. If not
      * supplied, defaults to `0o666`.
      */
-    function open(path: PathLike, flags: string | number, mode?: Mode): Promise<FileHandle>;
+    function open(path: PathLike, flags?: string | number, mode?: string | number): Promise<FileHandle>;
 
     /**
      * Asynchronously reads data from the file referenced by the supplied `FileHandle`.
@@ -561,5 +562,8 @@ declare module 'fs/promises' {
      */
     function readFile(path: PathLike | FileHandle, options?: BaseEncodingOptions & { flag?: OpenMode | undefined } | BufferEncoding | null): Promise<string | Buffer>;
 
-    function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
+    function opendir(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
+}
+declare module 'node:fs/promises' {
+    export * from 'fs/promises';
 }

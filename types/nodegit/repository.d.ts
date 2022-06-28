@@ -1,38 +1,38 @@
-import { Oid } from './oid';
-import { Buf } from './buf';
-import { Reference } from './reference';
-import { Odb } from './odb';
-import { Object } from './object';
-import { Index } from './index_';
-import { Commit } from './commit';
-import { Blob } from './blob';
-import { Tree } from './tree';
-import { Signature } from './signature';
 import { AnnotatedCommit } from './annotated-commit';
-import { FetchOptions } from './fetch-options';
+import { Blob } from './blob';
 import { CheckoutOptions } from './checkout-options';
-import { Remote } from './remote';
-import { Tag } from './tag';
+import { Commit } from './commit';
 import { Config } from './config';
+import { DiffLine } from './diff-line';
+import { Error } from './error';
+import { FetchOptions } from './fetch-options';
+import { Index } from './index_';
 import { Merge } from './merge';
 import { MergeOptions } from './merge-options';
+import { Odb } from './odb';
+import { Oid } from './oid';
 import { Refdb } from './ref-db';
+import { Reference } from './reference';
+import { Remote } from './remote';
 import { Revwalk } from './rev-walk';
+import { Signature } from './signature';
 import { StatusFile } from './status-file';
 import { StatusOptions } from './status-options';
-import { DiffLine } from './diff-line';
+import { Submodule } from './submodule';
+import { Tag } from './tag';
+import { Tree } from './tree';
 import { Treebuilder } from './tree-builder';
-import { Error } from './error';
+import { Worktree } from './worktree';
 
 export interface RepositoryInitOptions {
-    description: string;
-    flags: number;
-    initialHead: string;
-    mode: number;
-    originUrl: string;
-    templatePath: string;
-    version: number;
-    workdirPath: string;
+    description?: string;
+    flags?: number;
+    initialHead?: string;
+    mode?: number;
+    originUrl?: string;
+    templatePath?: string;
+    version?: number;
+    workdirPath?: string;
 }
 
 export class Repository {
@@ -45,9 +45,10 @@ export class Repository {
     static open(path: string): Promise<Repository>;
     static openBare(barePath: string): Promise<Repository>;
     static openExt(path: string, flags?: number, ceilingDirs?: string): Promise<Repository>;
+    static openFromWorktree(wt: Worktree): Promise<Repository>;
     static wrapOdb(odb: Odb): Promise<Repository>;
 
-    cleanup(): void;
+    cleanup(): Promise<void>;
     commondir(): string;
     config(): Promise<Config>;
     configSnapshot(): Promise<Config>;
@@ -56,6 +57,7 @@ export class Repository {
 
     free(): void;
     getNamespace(): string;
+    getSubmodules(): Promise<Submodule[]>;
     head(): Promise<Reference>;
     headDetached(): number;
     headUnborn(): number;
@@ -63,11 +65,13 @@ export class Repository {
     isBare(): number;
     isEmpty(): number;
     isShallow(): number;
+    itemPath(item: number): Promise<string>;
     mergeheadForeach(callback?: Function): Promise<any>;
     messageRemove(): number;
     odb(): Promise<Odb>;
     path(): string;
     refdb(): Promise<Refdb>;
+    refreshReferences(): Promise<void>;
     setHead(refname: string): Promise<number>;
     setHeadDetached(commitish: Oid): number;
     setHeadDetachedFromAnnotated(commitish: AnnotatedCommit): number;
@@ -109,7 +113,7 @@ export class Repository {
      * Lookup reference names for a repository.
      */
     getReferenceNames(type: Reference.TYPE): Promise<string[]>;
-    getCommit(string: string | Commit| Oid): Promise<Commit>;
+    getCommit(string: string | Commit | Oid): Promise<Commit>;
     /**
      * Retrieve the blob represented by the oid.
      */
@@ -147,7 +151,15 @@ export class Repository {
      * Retrieve the commit that HEAD is currently pointing to
      */
     getHeadCommit(): Promise<Commit>;
-    createCommit(updateRef: string, author: Signature, committer: Signature, message: string, Tree: Tree | Oid | string, parents: Array<string | Commit | Oid>, callback?: Function): Promise<Oid>;
+    createCommit(
+        updateRef: string,
+        author: Signature,
+        committer: Signature,
+        message: string,
+        Tree: Tree | Oid | string,
+        parents: Array<string | Commit | Oid>,
+        callback?: Function,
+    ): Promise<Oid>;
     createCommitWithSignature(
         updateRef: string,
         author: Signature,
@@ -155,7 +167,11 @@ export class Repository {
         message: string,
         Tree: Tree | Oid | string,
         parents: Array<string | Commit | Oid>,
-        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string | undefined, signedData: string}> | {code: Error.CODE, field?: string | undefined, signedData: string}
+        onSignature: (
+            data: string,
+        ) =>
+            | Promise<{ code: Error.CODE; field?: string | undefined; signedData: string }>
+            | { code: Error.CODE; field?: string | undefined; signedData: string },
     ): Promise<Oid>;
     /**
      * Creates a new commit on HEAD from the list of passed in files
@@ -170,6 +186,10 @@ export class Repository {
      * Gets the default signature for the default user and now timestamp
      */
     defaultSignature(): Signature;
+    /**
+     * Lists out the names of remotes in the given repository.
+     */
+    getRemoteNames(): Promise<string[]>;
     /**
      * Lists out the remotes in the given repository.
      */
@@ -186,11 +206,23 @@ export class Repository {
      * Fetches from all remotes. This is done in series due to deadlocking issues with fetching from many remotes that can happen.
      */
     fetchAll(fetchOptions?: FetchOptions, callback?: Function): Promise<void>;
-    mergeBranches(to: string | Reference, from: string | Reference, signature?: Signature, mergePreference?: Merge.PREFERENCE, mergeOptions?: MergeOptions): Promise<Oid>;
+    mergeBranches(
+        to: string | Reference,
+        from: string | Reference,
+        signature?: Signature,
+        mergePreference?: Merge.PREFERENCE,
+        mergeOptions?: MergeOptions,
+    ): Promise<Oid>;
     /**
      * Rebases a branch onto another branch
      */
-    rebaseBranches(branch: string, upstream: string, onto: string, signature: Signature, beforeNextFn: Function): Promise<Oid>;
+    rebaseBranches(
+        branch: string,
+        upstream: string,
+        onto: string,
+        signature: Signature,
+        beforeNextFn: Function,
+    ): Promise<Oid>;
     continueRebase(signature: Signature, beforeNextFn: Function): Promise<Oid>;
     /**
      * Get the status of a repo to it's working directory

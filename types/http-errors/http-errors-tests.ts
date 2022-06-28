@@ -15,79 +15,94 @@ app.use((req, res, next) => {
 /* Examples taken from https://github.com/jshttp/http-errors/blob/1.6.2/test/test.js */
 
 // create(status)
-let err = create(404);
-err; // $ExpectType HttpError
+const err = create(404);
+err; // $ExpectType HttpError<404>
 err.name; // $ExpectType string
 err.message; // $ExpectType string
-err.status; // $ExpectType number
-err.statusCode; // $ExpectType number
+err.status; // $ExpectType 404
+err.statusCode; // $ExpectType 404
 err.expose; // $ExpectType boolean
 err.headers; // $ExpectType { [key: string]: string; } | undefined
 
 // create(status, msg)
-err = create(404, 'LOL');
+// $ExpectType HttpError<404>
+create(404, 'LOL');
 
 // create(status, props)
-err = create(404, {id: 1});
+// $ExpectType HttpError<404>
+create(404, {id: 1});
 
 // create(status, props) with status prop
-err = create(404, {
+// $ExpectType HttpError<404>
+create(404, {
     id: 1,
     status: 500
 });
 
 // create(status, props) with statusCode prop
-err = create(404, {
+// $ExpectType HttpError<404>
+create(404, {
     id: 1,
     statusCode: 500
 });
 
 // create(props)
-err = create({id: 1});
+// $ExpectType HttpError<number>
+create({id: 1});
 // $ExpectType any
 err.id;
 
 // create(msg, status)
-err = create('LOL', 404);
+// $ExpectType HttpError<number>
+create('LOL', 404);
 
 // create(msg)
-err = create('LOL');
+// $ExpectType HttpError<number>
+create('LOL');
 
 // create(msg, props)
-err = create('LOL', {id: 1});
+// $ExpectType HttpError<number>
+create('LOL', {id: 1});
 
 // create(err)
-err = create(new Error('LOL'));
+// $ExpectType HttpError<number>
+create(new Error('LOL'));
 
 // create(err, props)
-err = create(new Error('LOL'), {id: 1});
+// $ExpectType HttpError<number>
+create(new Error('LOL'), {id: 1});
 
 // create(status, err, props)
-err = create(404, new Error('LOL'), {id: 1});
+// $ExpectType HttpError<404>
+create(404, new Error('LOL'), {id: 1});
 
 // create(status, msg, props)
-err = create(404, 'LOL', {id: 1});
+// $ExpectType HttpError<404>
+create(404, 'LOL', {id: 1});
 
 // create(status, msg, { expose: false })
-err = create(404, 'LOL', {expose: false});
+// $ExpectType HttpError<404>
+create(404, 'LOL', {expose: false});
 
-err = new create.NotFound();
-err = new create.InternalServerError();
-err = new create[404]();
-err = new create['404']();
+new create.NotFound(); // $ExpectType HttpError<404>
+new create.InternalServerError(); // $ExpectType HttpError<500>
+new create[404](); // $ExpectType HttpError<404>
+new create['404'](); // $ExpectType HttpError<404>
 
-create['404'](); // $ExpectError
-new create(); // $ExpectError
+// @ts-expect-error
+create['404']();
+// @ts-expect-error
+new create();
 
 // Error messages can have custom messages
-err = new create.NotFound('This might be a problem');
-err = new create[404]('This might be a problem');
+new create.NotFound('This might be a problem'); // $ExpectType HttpError<404>
+new create[404]('This might be a problem'); // $ExpectType HttpError<404>
 
 // 1.5.0 supports 421 - Misdirected Request
-err = new create.MisdirectedRequest();
-err = new create.MisdirectedRequest('Where should this go?');
+new create.MisdirectedRequest(); // $ExpectType HttpError<421>
+new create.MisdirectedRequest('Where should this go?'); // $ExpectType HttpError<421>
 
-// $ExpectType HttpError
+// $ExpectType HttpError<number>
 new create.HttpError();
 
 // $ExpectType boolean

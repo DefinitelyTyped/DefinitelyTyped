@@ -130,7 +130,25 @@ export let CORE_SCHEMA: Schema;
 /** all supported YAML types */
 export let DEFAULT_SCHEMA: Schema;
 
+export interface Mark {
+    buffer: string;
+    column: number;
+    line: number;
+    name: string;
+    position: number;
+    snippet: string;
+}
+
 export class YAMLException extends Error {
-    constructor(reason?: any, mark?: any);
+    constructor(reason?: string, mark?: Mark);
+
     toString(compact?: boolean): string;
+
+    name: string;
+
+    reason: string;
+
+    message: string;
+
+    mark: Mark;
 }

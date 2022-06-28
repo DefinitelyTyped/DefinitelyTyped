@@ -1,4 +1,4 @@
-// Type definitions for chai 4.2
+// Type definitions for chai 4.3
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
@@ -313,6 +313,7 @@ declare namespace Chai {
     }
 
     interface Deep extends KeyFilter {
+        be: Assertion;
         equal: Equal;
         equals: Equal;
         eq: Equal;
@@ -323,6 +324,7 @@ declare namespace Chai {
         property: Property;
         ordered: Ordered;
         nested: Nested;
+        oneOf: OneOf;
         own: Own;
     }
 
@@ -407,7 +409,7 @@ declare namespace Chai {
          * @param expression    Expression to test for truthiness.
          * @param message    Message to display on error.
          */
-        (expression: any, message?: string): void;
+        (expression: any, message?: string): asserts expression;
 
         /**
          * Throws a failure.

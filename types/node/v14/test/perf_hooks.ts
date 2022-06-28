@@ -7,7 +7,7 @@ import {
     EntryType,
     constants,
     EventLoopUtilization,
-} from 'perf_hooks';
+} from 'node:perf_hooks';
 
 performance.mark('start');
 (

@@ -1,11 +1,11 @@
-// Type definitions for k6 0.32
+// Type definitions for k6 0.37
 // Project: https://k6.io/docs/
-// Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
-//                 Book Moons <https://github.com/bookmoons>
-//                 na-- <https://github.com/na-->
+// Definitions by: na-- <https://github.com/na-->
+//                 Mihail Stoykov <https://github.com/MStoykov>
+//                 Ivan <https://github.com/codebien>
+//                 Théo Crevon <https://github.com/oleiade>
+//                 Oleg Bespalov <https://github.com/olegbespalov>
 //                 Pepe Cano <https://github.com/ppcano>
-//                 Simon Aronsson <https://github.com/simskij>
-//                 Ivan Mirić <https://github.com/imiric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -34,6 +34,7 @@ import './global'; // Type global environment
 import './crypto';
 import './data';
 import './encoding';
+import './execution';
 import './html';
 import './http';
 import './metrics';

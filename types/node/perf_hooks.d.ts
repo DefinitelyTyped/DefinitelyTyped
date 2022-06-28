@@ -26,7 +26,7 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/perf_hooks.js)
  */
 declare module 'perf_hooks' {
     import { AsyncResource } from 'node:async_hooks';
@@ -270,6 +270,9 @@ declare module 'perf_hooks' {
          *    *   }
          *    * ]
          *
+         *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
          *   observer.disconnect();
          * });
          * obs.observe({ type: 'mark' });
@@ -317,6 +320,9 @@ declare module 'perf_hooks' {
          *    * ]
          *
          *   console.log(perfObserverList.getEntriesByName('test', 'measure')); // []
+         *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
          *   observer.disconnect();
          * });
          * obs.observe({ entryTypes: ['mark', 'measure'] });
@@ -355,6 +361,8 @@ declare module 'perf_hooks' {
          *    *   }
          *    * ]
          *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
          *   observer.disconnect();
          * });
          * obs.observe({ type: 'mark' });
@@ -384,7 +392,7 @@ declare module 'perf_hooks' {
          * } = require('perf_hooks');
          *
          * const obs = new PerformanceObserver((list, observer) => {
-         *   // Called three times synchronously. `list` contains one item.
+         *   // Called once asynchronously. `list` contains three items.
          * });
          * obs.observe({ type: 'mark' });
          *
@@ -397,9 +405,11 @@ declare module 'perf_hooks' {
             options:
                 | {
                       entryTypes: ReadonlyArray<EntryType>;
+                      buffered?: boolean | undefined;
                   }
                 | {
                       type: EntryType;
+                      buffered?: boolean | undefined;
                   }
         ): void;
     }
@@ -485,7 +495,7 @@ declare module 'perf_hooks' {
     }
     interface RecordableHistogram extends Histogram {
         /**
-         * @since v15.9.0
+         * @since v15.9.0, v14.18.0
          * @param val The amount to record in the histogram.
          */
         record(val: number | bigint): void;
@@ -494,7 +504,7 @@ declare module 'perf_hooks' {
          * previous call to `recordDelta()` and records that amount in the histogram.
          *
          * ## Examples
-         * @since v15.9.0
+         * @since v15.9.0, v14.18.0
          */
         recordDelta(): void;
     }
@@ -546,7 +556,7 @@ declare module 'perf_hooks' {
     }
     /**
      * Returns a `RecordableHistogram`.
-     * @since v15.9.0
+     * @since v15.9.0, v14.18.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
 }

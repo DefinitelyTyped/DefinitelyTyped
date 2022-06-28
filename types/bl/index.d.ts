@@ -13,7 +13,7 @@ import { Duplex } from "readable-stream";
 interface BufferListStream extends Duplex, BufferList {}
 
 declare class BufferListStream {
-    constructor(initialData?: Buffer | Buffer[] | BufferList | BufferList[] | string);
+    constructor(callbackOrData?: ((err: Error, buffer: Buffer) => void) | Buffer | Buffer[] | BufferList | BufferList[] | string);
     static isBufferList: (other: any) => boolean;
     duplicate: () => BufferListStream;
     shallowSlice(start?: number, end?: number): BufferListStream;

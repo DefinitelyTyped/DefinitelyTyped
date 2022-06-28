@@ -5,10 +5,11 @@ import { StaticRouter, Route } from 'react-router-dom';
 import { StaticContext, StaticRouterContext } from 'react-router';
 
 interface RouteStatusProps {
+    children?: React.ReactNode;
     statusCode: number;
 }
 
-const RouteStatus: React.SFC<RouteStatusProps> = (props) => (
+const RouteStatus: React.FC<RouteStatusProps> = (props) => (
     <Route
         render={({ staticContext }: {staticContext?: StaticContext | undefined}) => {
             if (staticContext) {
@@ -28,7 +29,7 @@ interface PrintContextProps {
     staticContext: StaticContext;
 }
 
-const PrintContext: React.SFC<PrintContextProps> = (props) => (
+const PrintContext: React.FC<PrintContextProps> = (props) => (
     <p>
         Static context: {JSON.stringify(props.staticContext)}
     </p>

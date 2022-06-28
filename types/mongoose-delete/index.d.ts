@@ -2,14 +2,14 @@
 // Project: https://github.com/dsanel/mongoose-delete
 // Definitions by: Mochamad Arifin <https://github.com/ndunks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 4.1
 
 import mongoose = require('mongoose');
 
 /**
  * This is interface helper to declaring model that using Soft Delete
  */
-declare namespace mongoose_delete {
+declare namespace MongooseDelete {
     interface Callback<T, THIS = T> {
         (this: THIS, err: any, doc: T): void;
     }
@@ -20,52 +20,57 @@ declare namespace mongoose_delete {
         | 'findOne'
         | 'findOneAndUpdate'
         | 'update'
+        | 'updateOne'
         | 'updateMany'
         | 'aggregate';
-    interface SoftDeleteModel<T extends mongoose.Document, QueryHelpers = {}>
+    interface SoftDeleteModel<T extends Omit<mongoose.Document, 'delete'>, QueryHelpers = {}>
         extends mongoose.Model<T, QueryHelpers> {
         /** Count only deleted documents */
-        countDeleted: typeof mongoose.Model.count;
+        countDeleted: this["count"];
         /** Count all documents including deleted */
-        countWithDeleted: typeof mongoose.Model.count;
+        countWithDeleted: this["count"];
         /** Count only deleted documents */
-        countDocumentsDeleted: typeof mongoose.Model.countDocuments;
+        countDocumentsDeleted: this["countDocuments"];
         /** Count all documents including deleted */
-        countDocumentsWithDeleted: typeof mongoose.Model.countDocuments;
+        countDocumentsWithDeleted: this["countDocuments"];
         /** Find only deleted documents */
-        findDeleted: typeof mongoose.Model.find;
+        findDeleted: this["find"];
         /** Find all documents including deleted */
-        findWithDeleted: typeof mongoose.Model.find;
+        findWithDeleted: this["find"];
         /** Find One only deleted documents */
-        findOneDeleted: typeof mongoose.Model.findOne;
+        findOneDeleted: this["findOne"];
         /** Find One all documents including deleted */
-        findOneWithDeleted: typeof mongoose.Model.findOne;
+        findOneWithDeleted: this["findOne"];
         /** Find One And Update only deleted documents */
-        findOneAndUpdateDeleted: typeof mongoose.Model.findOneAndUpdate;
+        findOneAndUpdateDeleted: this["findOneAndUpdate"];
         /** Find One And Update all documents including deleted */
-        findOneAndUpdateWithDeleted: typeof mongoose.Model.findOneAndUpdate;
+        findOneAndUpdateWithDeleted: this["findOneAndUpdate"];
         /** Update only deleted documents */
-        updateDeleted: typeof mongoose.Model.update;
+        updateDeleted: this["update"];
         /** Update all documents including deleted */
-        updateWithDeleted: typeof mongoose.Model.update;
+        updateWithDeleted: this["update"];
+        /** Update One only deleted documents */
+        updateOneDeleted: this["updateOne"];
+        /** Update One all documents including deleted */
+        updateOneWithDeleted: this["updateOne"];
         /** Update Many only deleted documents */
-        updateManyDeleted: typeof mongoose.Model.updateMany;
+        updateManyDeleted: this["updateMany"];
         /** Update Many all documents including deleted */
-        updateManyWithDeleted: typeof mongoose.Model.updateMany;
+        updateManyWithDeleted: this["updateMany"];
         /** Aggregate only deleted documents */
-        aggregateDeleted: typeof mongoose.Model.aggregate;
+        aggregateDeleted: this["aggregate"];
         /** Aggregate all documents including deleted */
-        aggregateWithDeleted: typeof mongoose.Model.aggregate;
+        aggregateWithDeleted: this["aggregate"];
 
         /**
          * Delete documents by conditions
          */
-        delete(conditions?: any, deleteBy?: any, fn?: Callback<T, this>): mongoose.Query<T> & QueryHelpers;
+        delete(conditions?: any, deleteBy?: any, fn?: Callback<T, this>): mongoose.Query<ReturnType<mongoose.Model<T>['deleteMany']>, T, QueryHelpers>;
 
         /**
          * Restore documents by conditions
          */
-        restore(conditions?: any, fn?: Callback<T, this>): mongoose.Query<T> & QueryHelpers;
+        restore(conditions?: any, fn?: Callback<T, this>): mongoose.Query<ReturnType<mongoose.Model<T>['updateMany']>, T, QueryHelpers>;
 
         /**
          * Delete a document by ID
@@ -74,11 +79,11 @@ declare namespace mongoose_delete {
             id?: string | mongoose.Types.ObjectId | Callback<T, this>,
             deleteBy?: string | mongoose.Types.ObjectId | mongoose.Document | Callback<T, this>,
             fn?: Callback<T, this>,
-        ): mongoose.Query<T> & QueryHelpers;
+        ): mongoose.Query<ReturnType<mongoose.Model<T>['deleteOne']>, T, QueryHelpers> & QueryHelpers;
     }
 
     interface SoftDeleteDocument
-        extends mongoose.Document,
+        extends Omit<mongoose.Document, 'delete'>,
         SoftDeleteInterface {
         /** Soft delete this document */
         delete(
@@ -90,15 +95,15 @@ declare namespace mongoose_delete {
     interface SoftDeleteInterface {
         /** Soft deleted ? */
         deleted?: boolean | undefined;
-        deleteAt?: Date | undefined;
+        deletedAt?: Date | undefined;
         deletedBy?: mongoose.Types.ObjectId | string | mongoose.Document | undefined;
     }
 }
 interface Options {
-    overrideMethods: boolean | 'all' | mongoose_delete.overridableMethods[];
+    overrideMethods: boolean | 'all' | MongooseDelete.overridableMethods[];
     deletedAt: boolean;
     deletedBy: boolean;
-    indexFields: boolean | 'all' | Array<keyof mongoose_delete.SoftDeleteInterface>;
+    indexFields: boolean | 'all' | Array<keyof MongooseDelete.SoftDeleteInterface>;
     validateBeforeDelete: boolean;
 
     /**
@@ -115,5 +120,5 @@ interface Options {
     deletedByType: any;
 }
 
-declare function mongoose_delete(schema: mongoose.Schema, options?: Partial<Options>): void;
-export = mongoose_delete;
+declare function MongooseDelete(schema: mongoose.Schema, options?: Partial<Options>): void;
+export = MongooseDelete;

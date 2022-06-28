@@ -1,6 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-const-enum": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

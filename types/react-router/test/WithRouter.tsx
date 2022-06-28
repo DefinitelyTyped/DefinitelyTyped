@@ -28,7 +28,6 @@ WithRouterComponentClass.WrappedComponent; // $ExpectType typeof ComponentClass
 // Fix introduced in https://github.com/DefinitelyTyped/DefinitelyTyped/pull/38326
 // caused more common use cases with `strictFunctionTypes` to fail
 // declare const Component: React.ComponentType<TOwnProps>;
-// $ExpectError ^3.6.3
 // const WithRouterComponent = withRouter(Component);
 
 const WithRouterTestFunction = () => (
@@ -56,7 +55,7 @@ const WithRouterTestClass2 = () => <WithRouterComponentClass username="John" wra
 
     type SomethingToRead = (Book | Magazine) & RouteComponentProps<{}, StaticContext, State>;
 
-    const Readable: React.SFC<SomethingToRead> = props => {
+    const Readable: React.FC<SomethingToRead> = props => {
         props.location.state; // $ExpectType State
         props.history.location.state; // $ExpectType State
 
@@ -70,5 +69,6 @@ const WithRouterTestClass2 = () => <WithRouterComponentClass username="John" wra
     const RoutedReadable = withRouter(Readable);
 
     <RoutedReadable kind="book" author="Hejlsberg" />;
-    <RoutedReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
+    // @ts-expect-error
+    <RoutedReadable kind="magazine" author="Hejlsberg" />;
 }

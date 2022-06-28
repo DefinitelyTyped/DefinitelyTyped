@@ -3,7 +3,7 @@ import Frame, { FrameContextConsumer, useFrame } from 'react-frame-component';
 
 function UseFrameHook() {
   const { document, window } = useFrame();
-  return <span>{window?.location}{document?.documentURI}</span>;
+  return <span>{window?.location?.toString()}{document?.documentURI}</span>;
 }
 
 <div>

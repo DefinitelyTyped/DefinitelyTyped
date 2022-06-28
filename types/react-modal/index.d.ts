@@ -1,4 +1,4 @@
-// Type definitions for react-modal 3.12
+// Type definitions for react-modal 3.13
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
@@ -9,6 +9,7 @@
 //                 Justin Powell <https://github.com/jpowell>
 //                 Juwan Wheatley <https://github.com/fiberjw>
 //                 Nitzan Mousan <https://github.com/nitzanmo>
+//                 dkrk <https://github.com/grgr-dkrk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -52,6 +53,8 @@ declare namespace ReactModal {
     }
 
     interface Props {
+        children?: React.ReactNode;
+
         /* Boolean describing if the modal should be shown or not. Defaults to false. */
         isOpen: boolean;
 
@@ -74,7 +77,7 @@ declare namespace ReactModal {
         overlayClassName?: string | Classes | undefined;
 
         /* Set this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */
-        appElement?: HTMLElement | {} | undefined;
+        appElement?: HTMLElement | HTMLElement[] | HTMLCollection | NodeList | undefined;
 
         /* Function that will be run after the modal has opened. */
         onAfterOpen?: OnAfterOpenCallback | undefined;

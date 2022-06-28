@@ -123,7 +123,7 @@ export interface Renderer {
   ): Element;
 
   (
-    element: React.SFCElement<any> | Array<React.SFCElement<any>>,
+    element: React.FunctionComponentElement<any> | Array<React.FunctionComponentElement<any>>,
     container: Element | null,
     callback?: () => void
   ): void;
@@ -154,7 +154,7 @@ export interface Renderer {
 
   (
     parentComponent: React.Component<any> | Array<React.Component<any>>,
-    element: React.SFCElement<any>,
+    element: React.FunctionComponentElement<any>,
     container: Element,
     callback?: () => void
   ): void;

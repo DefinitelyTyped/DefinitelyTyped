@@ -7,6 +7,7 @@ declare class Scheduler {
     delTasks(taskIds: string | string[], userId?: string, password?: string): void;
     startTasks(taskIds: string | string[]): void;
     stopTasks(taskIds: string | string[]): void;
+    getCurrentTaskId(): string | null;
 }
 declare namespace Scheduler {
     function getInstance(): Scheduler;

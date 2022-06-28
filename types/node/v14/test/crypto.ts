@@ -1,6 +1,6 @@
-import * as crypto from 'crypto';
-import assert = require('assert');
-import { promisify } from 'util';
+import * as crypto from 'node:crypto';
+import assert = require('node:assert');
+import { promisify } from 'node:util';
 
 {
     const copied: crypto.Hash = crypto.createHash('md5').copy();
@@ -70,6 +70,12 @@ import { promisify } from 'util';
     // update Hmac with base64 encoded string
     const message = Buffer.from('message').toString('base64');
     crypto.createHmac('sha256', 'key').update(message, 'base64').digest();
+}
+
+{
+    // update Hmac with base64url encoded string
+    const message = Buffer.from('message').toString('base64url');
+    crypto.createHmac('sha256', 'key').update(message, 'base64url').digest();
 }
 
 {
@@ -179,6 +185,34 @@ import { promisify } from 'util';
     });
     const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
     decipher.final();
+}
+
+{
+    // crypto_cipheriv_decipheriv_aad_ocb_test
+    const key = 'keykeykeykeykeykeykeykey';
+    const iv = crypto.randomBytes(12);
+    const aad = Buffer.from('0123456789', 'hex');
+
+    const cipher = crypto.createCipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    const plaintext = 'Hello world';
+    cipher.setAAD(aad, {
+        plaintextLength: Buffer.byteLength(plaintext),
+    });
+    const ciphertext = Buffer.concat([
+        cipher.update(plaintext, 'utf8'),
+        cipher.final(),
+    ]);
+    const tag = cipher.getAuthTag();
+
+    const decipher = crypto.createDecipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    decipher.setAuthTag(tag);
+    decipher.setAAD(aad, {
+        plaintextLength: ciphertext.length,
+    });
+    const receivedPlaintext: Buffer = Buffer.concat([
+        decipher.update(ciphertext),
+        decipher.final(),
+    ]);
 }
 
 {

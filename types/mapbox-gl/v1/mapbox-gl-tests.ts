@@ -37,7 +37,7 @@ expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
  * Set RTL Text Plugin
  */
 // $ExpectType void
-mapboxgl.setRTLTextPlugin('http://github.com', e => {}, false);
+mapboxgl.setRTLTextPlugin('https://github.com', e => {}, false);
 
 // $ExpectType void
 mapboxgl.prewarm();
@@ -694,7 +694,7 @@ new mapboxgl.FullscreenControl(null);
 new mapboxgl.FullscreenControl({});
 new mapboxgl.FullscreenControl({ container: document.querySelector('body') });
 
-// $expectType boolean
+// $ExpectType boolean
 map.hasControl(attributionControl);
 
 declare var lnglat: mapboxgl.LngLat;
@@ -858,7 +858,7 @@ expectType<mapboxgl.Map>(map.setFilter('layerId', false));
 map.setFilter('layerId', true, { validate: true });
 map.setFilter('layerId', true, { validate: null });
 map.setFilter('layerId', true, {});
-// $ExpectError
+// @ts-expect-error
 map.setFilter('layerId', true, { some_option: 'some_string' });
 
 // $ExpectType Map
@@ -1659,15 +1659,15 @@ expectType<mapboxgl.AnyPaint>(
  */
 
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'background-opacity': 1 } });
-// $ExpectError
+// @ts-expect-error
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'line-opacity': 1 } });
 
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'fill-opacity': 1 } });
-// $ExpectError
+// @ts-expect-error
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'line-opacity': 1 } });
 
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'line-opacity': 1 } });
-// $ExpectError
+// @ts-expect-error
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'fill-opacity': 1 } });
 
 /**

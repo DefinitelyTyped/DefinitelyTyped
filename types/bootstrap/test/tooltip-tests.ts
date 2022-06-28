@@ -64,16 +64,16 @@ element.addEventListener(Tooltip.Events.shown, event => {
     // do something…
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').tooltip();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').tooltip({ delay: 0.5, title: () => 'foo', customClass: () => 'custom-class' });
 
-$('.alert').tooltip('hide'); // $ExpectType void
-$('.alert').tooltip('show'); // $ExpectType void
-$('.alert').tooltip('toggle'); // $ExpectType void
-$('.alert').tooltip('enable'); // $ExpectType void
-$('.alert').tooltip('disable'); // $ExpectType void
-$('.alert').tooltip('toggleEnabled'); // $ExpectType void
-$('.alert').tooltip('update'); // $ExpectType void
+$('.alert').tooltip('hide'); // $ExpectType JQuery<HTMLElement>
+$('.alert').tooltip('show'); // $ExpectType JQuery<HTMLElement>
+$('.alert').tooltip('toggle'); // $ExpectType JQuery<HTMLElement>
+$('.alert').tooltip('enable'); // $ExpectType JQuery<HTMLElement>
+$('.alert').tooltip('disable'); // $ExpectType JQuery<HTMLElement>
+$('.alert').tooltip('toggleEnabled'); // $ExpectType JQuery<HTMLElement>
+$('.alert').tooltip('update'); // $ExpectType JQuery<HTMLElement>
