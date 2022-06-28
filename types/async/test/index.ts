@@ -162,10 +162,10 @@ function whileFn(callback: (err: any, ...rest: any[]) => void) {
 function whileTest(callback: (err: any, truth: boolean) => void) { callback(null, count < 5); }
 
 let count = 0;
-async.whilst(whileTest, whileFn, err => { });
-async.until(whileTest, whileFn, err => { });
-async.doWhilst(whileFn, whileTest, err => { });
-async.doUntil(whileFn, whileTest, err => { });
+async.whilst(whileTest, whileFn, (err: Error, res: number, res2: string) => { });
+async.until(whileTest, whileFn, (err: Error) => { });
+async.doWhilst(whileFn, whileTest, (err: Error) => { });
+async.doUntil(whileFn, whileTest, (err: Error) => { });
 
 async.during(testCallback => { testCallback(new Error(), false); }, callback => { callback(); }, error => { console.log(error); });
 async.doDuring(callback => { callback(); }, testCallback => { testCallback(new Error(), false); }, error => { console.log(error); });
