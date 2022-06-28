@@ -4138,12 +4138,12 @@ fp.now(); // $ExpectType number
         anything; // $ExpectType any
     }
 
-    let string: string | undefined;
+    let string = 'isEmpty';
     if (Math.random()) {
         string = '';
     }
     if (_.isEmpty(string)) {
-        string; // $ExpectType '' | undefined
+        string; // $ExpectType ""
     } else {
         string; // $ExpectType string
     }
