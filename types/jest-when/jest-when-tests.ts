@@ -172,12 +172,14 @@ describe('mock-when test', () => {
         expect(fn({ foo: true, bar: false }, 13)).toEqual(undefined);
 
         when(fn)
-            .calledWith('foo', 123) // $ExpectError
+            // @ts-expect-error
+            .calledWith('foo', 123)
             .mockReturnValue('nay!');
 
         const badMatcher = when((arg: string) => arg.length === 5);
         when(fn)
-            .calledWith(badMatcher, numberDivisibleBy3) // $ExpectError
+            // @ts-expect-error
+            .calledWith(badMatcher, numberDivisibleBy3)
             .mockReturnValue('nay!');
     });
 
@@ -190,9 +192,12 @@ describe('mock-when test', () => {
         );
 
         when(fn).calledWith(allValuesTrue, 10).mockReturnValue('yay!');
-        when(fn).calledWith({ foo: true }, allValuesTrue); // $ExpectError
-        when(fn).calledWith(10, allValuesTrue); // $ExpectError
-        when(fn).calledWith(allValuesTrue, '10'); // $ExpectError
+        // @ts-expect-error
+        when(fn).calledWith({ foo: true }, allValuesTrue);
+        // @ts-expect-error
+        when(fn).calledWith(10, allValuesTrue);
+        // @ts-expect-error
+        when(fn).calledWith(allValuesTrue, '10');
     });
 
     it('supports allArgs', () => {
@@ -207,10 +212,12 @@ describe('mock-when test', () => {
 
         // allArgs matcher should be the only argument to calledWith/expectCalledWith
         when(fn)
-            .calledWith(allArgsMatcher, 456) // $ExpectError
+            // @ts-expect-error
+            .calledWith(allArgsMatcher, 456)
             .mockReturnValue('nay!');
 
-        when.allArgs((args: number) => args > 0); // $ExpectError
+        // @ts-expect-error
+        when.allArgs((args: number) => args > 0);
 
         when.allArgs((args: number[], equals) => args.length > 0 && equals(args, expect.arrayContaining([123])));
     });

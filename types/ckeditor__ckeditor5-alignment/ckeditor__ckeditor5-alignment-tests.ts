@@ -20,19 +20,19 @@ utils.isDefault('left', new Locale());
 // $ExpectType boolean
 utils.isSupported('left');
 utils.supportedOptions.length === 4;
-// $ExpectError
+// @ts-expect-error
 utils.normalizeAlignmentOptions(['foo']);
 // $ExpectType AlignmentFormat[]
 utils.normalizeAlignmentOptions(['left']);
 // $ExpectType AlignmentFormat[]
 utils.normalizeAlignmentOptions([{ name: 'left' }, { name: 'right' }]);
-// $ExpectError
+// @ts-expect-error
 utils.normalizeAlignmentOptions([{ name: 'foo', className: 'bar' }]);
 // $ExpectType AlignmentFormat[]
 utils.normalizeAlignmentOptions([{ name: 'left', className: 'bar' }]);
 
 const command = new AlignmentCommand(new MyEditor());
-// $ExpectError
+// @ts-expect-error
 command.execute('foo');
 // $ExpectType void
 command.execute();

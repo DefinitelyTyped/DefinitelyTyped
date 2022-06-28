@@ -35,11 +35,32 @@ interface BaseNode extends BaseNodeWithoutComments {
   trailingComments?: Array<Comment> | undefined;
 }
 
-export type Node =
-    Identifier | Literal | Program | Function | SwitchCase | CatchClause |
-    VariableDeclarator | Statement | Expression | PrivateIdentifier | Property | PropertyDefinition |
-    AssignmentProperty | Super | TemplateElement | SpreadElement | Pattern |
-    ClassBody | Class | MethodDefinition | ModuleDeclaration | ModuleSpecifier;
+interface NodeMap {
+  AssignmentProperty: AssignmentProperty;
+  CatchClause: CatchClause;
+  Class: Class;
+  ClassBody: ClassBody;
+  Expression: Expression;
+  Function: Function;
+  Identifier: Identifier;
+  Literal: Literal;
+  MethodDefinition: MethodDefinition;
+  ModuleDeclaration: ModuleDeclaration;
+  ModuleSpecifier: ModuleSpecifier;
+  Pattern: Pattern;
+  PrivateIdentifier: PrivateIdentifier;
+  Program: Program;
+  Property: Property;
+  PropertyDefinition: PropertyDefinition;
+  SpreadElement: SpreadElement;
+  Statement: Statement;
+  Super: Super;
+  SwitchCase: SwitchCase;
+  TemplateElement: TemplateElement;
+  VariableDeclarator: VariableDeclarator;
+}
+
+export type Node = NodeMap[keyof NodeMap]
 
 export interface Comment extends BaseNodeWithoutComments {
   type: "Line" | "Block";
@@ -223,14 +244,35 @@ export interface VariableDeclarator extends BaseNode {
   init?: Expression | null | undefined;
 }
 
-type Expression =
-    ThisExpression | ArrayExpression | ObjectExpression | FunctionExpression |
-    ArrowFunctionExpression | YieldExpression | Literal | UnaryExpression |
-    UpdateExpression | BinaryExpression | AssignmentExpression |
-    LogicalExpression | MemberExpression | ConditionalExpression |
-    CallExpression | NewExpression | SequenceExpression | TemplateLiteral |
-    TaggedTemplateExpression | ClassExpression | MetaProperty | Identifier |
-    AwaitExpression | ImportExpression | ChainExpression;
+export interface ExpressionMap {
+  ArrayExpression: ArrayExpression;
+  ArrowFunctionExpression: ArrowFunctionExpression;
+  AssignmentExpression: AssignmentExpression;
+  AwaitExpression: AwaitExpression;
+  BinaryExpression: BinaryExpression;
+  CallExpression: CallExpression;
+  ChainExpression: ChainExpression;
+  ClassExpression: ClassExpression;
+  ConditionalExpression: ConditionalExpression;
+  FunctionExpression: FunctionExpression;
+  Identifier: Identifier;
+  ImportExpression: ImportExpression;
+  Literal: Literal;
+  LogicalExpression: LogicalExpression;
+  MemberExpression: MemberExpression;
+  MetaProperty: MetaProperty;
+  NewExpression: NewExpression;
+  ObjectExpression: ObjectExpression;
+  SequenceExpression: SequenceExpression;
+  TaggedTemplateExpression: TaggedTemplateExpression;
+  TemplateLiteral: TemplateLiteral;
+  ThisExpression: ThisExpression;
+  UnaryExpression: UnaryExpression;
+  UpdateExpression: UpdateExpression;
+  YieldExpression: YieldExpression;
+}
+
+type Expression = ExpressionMap[keyof ExpressionMap]
 
 export interface BaseExpression extends BaseNode { }
 

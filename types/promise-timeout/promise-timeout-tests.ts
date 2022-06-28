@@ -4,8 +4,10 @@ function acceptError(e: Error) { }
 
 acceptError(new TimeoutError());
 
-timeout();                       // $ExpectError
-timeout(new Promise(() => { })); // $ExpectError
+// @ts-expect-error
+timeout();
+// @ts-expect-error
+timeout(new Promise(() => { }));
 
 const top = (<T>(x?: T): T => x!)();
 type Top = typeof top;

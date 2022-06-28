@@ -541,20 +541,20 @@ Attachment.find({}, { transform: null }).observe({
 MongoInternals.NpmModules.mongodb.module.MongoClient.connect('...');
 
 // Check Errors
-// $ExpectError
+// @ts-expect-error
 Attachment.find({}, { transform: '' });
 
-// $ExpectError
+// @ts-expect-error
 Attachment.find({}, { transform: (foo: { foo: string }) => foo });
 
-// $ExpectError
+// @ts-expect-error
 Attachment.findOne({}, { transform: 123 });
 
-// $ExpectError
+// @ts-expect-error
 Attachment.allow({ transform: { foo: 'foo' } });
 
-// $ExpectError
+// @ts-expect-error
 Attachment.deny({ transform: [] });
 
-// $ExpectError
+// @ts-expect-error
 new Mongo.Collection<DBAttachment, AttachmentDocument>('attachments', { transform: '' });

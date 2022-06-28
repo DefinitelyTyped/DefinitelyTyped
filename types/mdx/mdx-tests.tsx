@@ -122,7 +122,7 @@ const Div = customComponents.div!;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -158,7 +158,7 @@ const Div = customComponents.div!;
                 },
             },
         },
-        // $ExpectError
+        // @ts-expect-error
         invalid: 'Not just any type is allowed though',
         // Aliasing is valid though
         span: 'div',
@@ -186,7 +186,7 @@ const Div = customComponents.div!;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -222,7 +222,7 @@ const Div = customComponents.div!;
                 },
             },
         },
-        // $ExpectError
+        // @ts-expect-error
         invalid: 'Not just any type is allowed though',
         // Aliasing is valid though
         span: 'div',
@@ -250,7 +250,7 @@ const Div = customComponents.div!;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -286,7 +286,7 @@ const Div = customComponents.div!;
                 },
             },
         },
-        // $ExpectError
+        // @ts-expect-error
         invalid: 'Not just any type is allowed though',
         // Aliasing is valid though
         span: 'div',
@@ -314,7 +314,7 @@ const Div = customComponents.div!;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -350,7 +350,7 @@ const Div = customComponents.div!;
                 },
             },
         },
-        // $ExpectError
+        // @ts-expect-error
         invalid: 'Not just any type is allowed though',
         // Aliasing is valid though
         span: 'div',
@@ -378,7 +378,7 @@ const Div = customComponents.div!;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -414,7 +414,7 @@ const Div = customComponents.div!;
                 },
             },
         },
-        // $ExpectError
+        // @ts-expect-error
         invalid: 'Not just any type is allowed though',
         // Aliasing is valid though
         span: 'div',
@@ -442,7 +442,7 @@ const Div = customComponents.div!;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -478,7 +478,7 @@ const Div = customComponents.div!;
                 },
             },
         },
-        // $ExpectError
+        // @ts-expect-error
         invalid: 'Not just any type is allowed though',
         // Aliasing is valid though
         span: 'div',
@@ -506,7 +506,7 @@ const Div = customComponents.div!;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -542,7 +542,7 @@ const Div = customComponents.div!;
                 },
             },
         },
-        // $ExpectError
+        // @ts-expect-error
         invalid: 'Not just any type is allowed though',
         // Aliasing is valid though
         span: 'div',
@@ -570,7 +570,7 @@ const Div = customComponents.div!;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -606,7 +606,7 @@ const Div = customComponents.div!;
                 },
             },
         },
-        // $ExpectError
+        // @ts-expect-error
         invalid: 'Not just any type is allowed though',
         // Aliasing is valid though
         span: 'div',

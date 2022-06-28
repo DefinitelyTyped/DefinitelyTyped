@@ -174,6 +174,12 @@ export namespace DS {
             query?: {}
         ): string;
         /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
+        /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */
         urlForFindRecord<K extends keyof ModelRegistry>(
@@ -1388,6 +1394,12 @@ export namespace DS {
             requestType?: string,
             query?: {}
         ): string;
+        /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */

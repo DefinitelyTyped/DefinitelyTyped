@@ -24,14 +24,14 @@ import * as R from 'ramda';
 
     sliceFromSecondToThird<A>(arr); // => [ { text: 'two' }, { text: 'three' } ]
 
-    // $ExpectError
+    // @ts-expect-error
     sliceFromSecondToThird<string>(arr);
 
     const sliceFromSecondTo = R.slice(1);
 
     sliceFromSecondTo<A>(3, arr); // => [ { text: 'two' }, { text: 'three' } ]
 
-    // $ExpectError
+    // @ts-expect-error
     sliceFromSecondTo<string>(3, arr);
 };
 

@@ -25,13 +25,23 @@ viz.renderImageElement("string");
 viz.renderJSONObject("string");
 
 // Incorrect
-new Viz({Module: 1, render}); // $ExpectError
-new Viz({Module: {}, render}); // $ExpectError
-new Viz({Module, render: (instance: Module, src: string, options: Options) => 1}); // $ExpectError
-new Viz({Module, render: (instance: string, src: string, options: Options) => "hello"}); // $ExpectError
-new Viz({Module, render: (instance: Module, src: number, options: Options) => "string"}); // $ExpectError
-new Viz({Module, render: (instance: Module, src: string, options: {format: string}) => "string"}); // $ExpectError
-viz.renderString(1, {}); // $ExpectError
-viz.renderString("string", { a: 1 }); // $ExpectError
-viz.renderString("string", { yInvert: "true" }); // $ExpectError
-viz.renderString("string", { engine: 1}); // $ExpectError
+// @ts-expect-error
+new Viz({Module: 1, render});
+// @ts-expect-error
+new Viz({Module: {}, render});
+// @ts-expect-error
+new Viz({Module, render: (instance: Module, src: string, options: Options) => 1});
+// @ts-expect-error
+new Viz({Module, render: (instance: string, src: string, options: Options) => "hello"});
+// @ts-expect-error
+new Viz({Module, render: (instance: Module, src: number, options: Options) => "string"});
+// @ts-expect-error
+new Viz({Module, render: (instance: Module, src: string, options: {format: string}) => "string"});
+// @ts-expect-error
+viz.renderString(1, {});
+// @ts-expect-error
+viz.renderString("string", { a: 1 });
+// @ts-expect-error
+viz.renderString("string", { yInvert: "true" });
+// @ts-expect-error
+viz.renderString("string", { engine: 1});

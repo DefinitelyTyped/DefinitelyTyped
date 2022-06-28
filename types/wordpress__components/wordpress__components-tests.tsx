@@ -138,7 +138,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // Card renders a `div` by default:
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 // `div` doesn't support autoFocus:
-// $ExpectError
+// @ts-expect-error
 <C.Card autoFocus />;
 
 <C.CardBody isShady size="extraSmall">
@@ -154,9 +154,9 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 </C.CardFooter>;
 
 // Divider has no children or props except className
-// $ExpectError
+// @ts-expect-error
 <C.CardDivider>Hello world!</C.CardDivider>;
-// $ExpectError
+// @ts-expect-error
 <C.CardDivider isShady />;
 <C.CardDivider />;
 

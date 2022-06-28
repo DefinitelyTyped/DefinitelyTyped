@@ -83,7 +83,7 @@ const tokens = Prism.tokenize('var n = 1;', Prism.languages[language]);
     }
 })(tokens);
 
-// $ExpectError
+// @ts-expect-error
 if (Prism.util.type(language) === 'Null') {
     // `language` is a non-null string constant
 }

@@ -20,5 +20,7 @@ applyBind(Object.prototype.hasOwnProperty);
 applyBind(Object.prototype.hasOwnProperty, unknown);
 
 // These are invalid because of `package.json#exports`:
-import callBindIllegal1 = require('call-bind/index'); // $ExpectError
-import callBindIllegal2 = require('call-bind/index.js'); // $ExpectError
+// @ts-expect-error
+import callBindIllegal1 = require('call-bind/index');
+// @ts-expect-error
+import callBindIllegal2 = require('call-bind/index.js');

@@ -1,4 +1,4 @@
-// Type definitions for ssh2 v0.5.x
+// Type definitions for ssh2 v1.11
 // Project: https://github.com/mscdex/ssh2
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Ron Buckton <https://github.com/rbuckton>
@@ -14,33 +14,91 @@
 import * as stream from "stream";
 import * as events from "events";
 import * as net from "net";
+import { Agent as BaseHTTPAgent, AgentOptions } from "http";
+import { Agent as BaseHTTPSAgent } from "https";
 
-import {
-    utils as streamsUtils,
-    Algorithms,
-    Header,
-    Prompt,
-    SFTPStream,
-    InputAttributes,
-    Attributes,
-    Stats,
-    TransferOptions,
-    ReadFileOptions,
-    WriteFileOptions,
-    ReadStreamOptions,
-    WriteStreamOptions,
-    FileEntry,
-    ParsedKey,
-} from "ssh2-streams";
+export interface Prompt {
+    prompt: string;
+    echo?: boolean;
+}
 
-export import SFTP_STATUS_CODE = SFTPStream.STATUS_CODE;
-export import SFTP_OPEN_MODE = SFTPStream.OPEN_MODE;
+/**
+ * Overrides for the default transport layer algorithms used for the connection.
+ *
+ * The order of the algorithms in the arrays are important, with the most favorable being first.
+ */
+export interface Algorithms {
+    kex?: string[] | undefined;
+    cipher?: string[] | undefined;
+    serverHostKey?: string[] | undefined;
+    hmac?: string[] | undefined;
+    compress?: string[] | undefined;
+}
+
+export interface ParsedKey {
+    type: string;
+    comment: string;
+    sign(data: Buffer | string, algo?: string): Buffer;
+    verify(data: Buffer | string, signature: Buffer, algo?: string): boolean;
+    isPrivateKey(): boolean;
+    getPrivatePEM(): string;
+    getPublicPEM(): string;
+    getPublicSSH(): Buffer;
+    equals(key: Buffer | string | ParsedKey): boolean;
+}
+
+export interface Versions {
+    /**
+     * The SSH protocol version supported by the remote party.
+     */
+    protocol: string;
+
+    /**
+     * The software name and version used by the remote party.
+     */
+    software: string;
+}
+
+export interface Header {
+    /**
+     * The raw identification string sent by the remote party.
+     */
+    identRaw: string;
+
+    /**
+     * Contains various version information parsed from identRaw.
+     */
+    versions: Versions;
+
+    /**
+     * Any text that comes after the software name/version.
+     */
+    comments: string;
+}
 
 export namespace utils {
-    let parseKey: typeof streamsUtils['parseKey'];
+    function parseKey(data: Buffer | string | ParsedKey, passphrase?: Buffer | string): ParsedKey | Error;
     namespace sftp {
-        const STATUS_CODE: typeof SFTP_STATUS_CODE;
-        const OPEN_MODE: typeof SFTP_OPEN_MODE;
+        enum OPEN_MODE {
+            READ = 0x00000001,
+            WRITE = 0x00000002,
+            APPEND = 0x00000004,
+            CREAT = 0x00000008,
+            TRUNC = 0x00000010,
+            EXCL = 0x00000020
+        }
+
+        enum STATUS_CODE {
+            OK = 0,
+            EOF = 1,
+            NO_SUCH_FILE = 2,
+            PERMISSION_DENIED = 3,
+            FAILURE = 4,
+            BAD_MESSAGE = 5,
+            NO_CONNECTION = 6,
+            CONNECTION_LOST = 7,
+            OP_UNSUPPORTED = 8
+        }
 
         function stringToFlags(str: string): number | null;
         function flagsToString(flags: number): string | null;
@@ -859,6 +917,8 @@ export interface ClientInfo {
     ip: string;
     /** Information about the client. */
     header: Header;
+    family: string;
+    port: number;
 }
 
 export interface Connection extends events.EventEmitter {
@@ -1173,7 +1233,7 @@ export interface Session extends events.EventEmitter {
     /**
      * Emitted when the client has requested the SFTP subsystem.
      */
-    on(event: "sftp", listener: (accept: () => SFTPStream, reject: SessionAcceptReject) => void): this;
+    on(event: "sftp", listener: (accept: () => SFTPWrapper, reject: SessionAcceptReject) => void): this;
 
     /**
      * Emitted when the client has requested an arbitrary subsystem.
@@ -1359,78 +1419,131 @@ export interface SubsystemInfo {
     name: string;
 }
 
+export interface TransferOptions {
+    concurrency?: number;
+    chunkSize?: number;
+    fileSize?: number;
+    step?: (total: number, nb: number, fsize: number) => void;
+    mode?: number | string;
+}
+
+export interface ReadFileOptions {
+    encoding?: BufferEncoding;
+    flag?: string;
+}
+
+export interface WriteFileOptions {
+    encoding?: BufferEncoding;
+    mode?: number;
+    flag?: string;
+}
+
+export interface InputAttributes {
+    mode?: number | string;
+    uid?: number;
+    gid?: number;
+    size?: number;
+    atime?: number | Date;
+    mtime?: number | Date;
+}
+
+export interface Attributes {
+    mode: number;
+    uid: number;
+    gid: number;
+    size: number;
+    atime: number;
+    mtime: number;
+}
+
+export interface Stats extends Attributes {
+    isDirectory(): boolean;
+    isFile(): boolean;
+    isBlockDevice(): boolean;
+    isCharacterDevice(): boolean;
+    isSymbolicLink(): boolean;
+    isFIFO(): boolean;
+    isSocket(): boolean;
+}
+
+export interface FileEntry {
+    filename: string;
+    longname: string;
+    attrs: Attributes;
+}
+
 export interface SFTPWrapper extends events.EventEmitter {
     /**
      * (Client-only)
      * Downloads a file at `remotePath` to `localPath` using parallel reads for faster throughput.
      */
-    fastGet(remotePath: string, localPath: string, options: TransferOptions, callback: (err: any) => void): void;
+    fastGet(remotePath: string, localPath: string, options: TransferOptions, callback: (err: Error | undefined) => void): void;
 
     /**
      * (Client-only)
      * Downloads a file at `remotePath` to `localPath` using parallel reads for faster throughput.
      */
-    fastGet(remotePath: string, localPath: string, callback: (err: any) => void): void;
+    fastGet(remotePath: string, localPath: string, callback: (err: Error | undefined) => void): void;
 
     /**
      * (Client-only)
      * Uploads a file from `localPath` to `remotePath` using parallel reads for faster throughput.
      */
-    fastPut(localPath: string, remotePath: string, options: TransferOptions, callback: (err: any) => void): void;
+    fastPut(localPath: string, remotePath: string, options: TransferOptions, callback: (err: Error | undefined) => void): void;
 
     /**
      * (Client-only)
      * Uploads a file from `localPath` to `remotePath` using parallel reads for faster throughput.
      */
-    fastPut(localPath: string, remotePath: string, callback: (err: any) => void): void;
+    fastPut(localPath: string, remotePath: string, callback: (err: Error | undefined) => void): void;
 
     /**
      * (Client-only)
      * Reads a file in memory and returns its contents
      */
-    readFile(remotePath: string, options: ReadFileOptions, callback: (err: any, handle: Buffer) => void): void;
+    readFile(remotePath: string, options: ReadFileOptions, callback: (err: Error | undefined, handle: Buffer) => void): void;
 
     /**
      * (Client-only)
      * Reads a file in memory and returns its contents
      */
-    readFile(remotePath: string, encoding: string, callback: (err: any, handle: Buffer) => void): void;
+    readFile(remotePath: string, encoding: BufferEncoding, callback: (err: Error | undefined, handle: Buffer) => void): void;
 
     /**
      * (Client-only)
      * Reads a file in memory and returns its contents
      */
-    readFile(remotePath: string, callback: (err: any, handle: Buffer) => void): void;
+    readFile(remotePath: string, callback: (err: Error | undefined, handle: Buffer) => void): void;
 
     /**
      * (Client-only)
      * Returns a new readable stream for `path`.
      */
-    createReadStream(path: string, options?: ReadStreamOptions): stream.Readable;
+    createReadStream(path: string, options?: stream.ReadableOptions): stream.Readable;
 
     /**
      * (Client-only)
      * Writes data to a file
      */
-    writeFile(remotePath: string, data: string | Buffer, options: WriteFileOptions, callback?: (err: any) => void): void;
+    writeFile(remotePath: string, data: string | Buffer, options: WriteFileOptions, callback?: (err: Error | undefined) => void): void;
 
     /**
      * (Client-only)
      * Writes data to a file
      */
-    writeFile(remotePath: string, data: string | Buffer, encoding: string, callback?: (err: any) => void): void;
+    writeFile(remotePath: string, data: string | Buffer, encoding: string, callback?: (err: Error | undefined) => void): void;
 
     /**
      * (Client-only)
      * Writes data to a file
      */
-    writeFile(remotePath: string, data: string | Buffer, callback?: (err: any) => void): void;
+    writeFile(remotePath: string, data: string | Buffer, callback?: (err: Error | undefined) => void): void;
 
     /**
      * (Client-only)
      * Returns a new writable stream for `path`.
      */
-    createWriteStream(path: string, options?: WriteStreamOptions): stream.Writable;
+    createWriteStream(path: string, options?: stream.WritableOptions): stream.Writable;
 
     /**
      * (Client-only)
@@ -1438,7 +1551,8 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    open(filename: string, mode: string, attributes: InputAttributes, callback: (err: any, handle: Buffer) => void): boolean;
+    open(filename: string, mode: number | string, attributes: InputAttributes, callback: (err: Error | undefined, handle: Buffer) => void): boolean;
+    open(filename: string, mode: number | string, attributes: string | number, callback: (err: Error | undefined, handle: Buffer) => void): boolean;
 
     /**
      * (Client-only)
@@ -1446,7 +1560,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    open(filename: string, mode: string, callback: (err: any, handle: Buffer) => void): boolean;
+    open(filename: string, mode: number | string, callback: (err: Error | undefined, handle: Buffer) => void): boolean;
 
     /**
      * (Client-only)
@@ -1454,7 +1568,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    close(handle: Buffer, callback: (err: any) => void): boolean;
+    close(handle: Buffer, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1463,13 +1577,13 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    read(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number, callback: (err: any, bytesRead: number, buffer: Buffer, position: number) => void): boolean;
+    read(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number, callback: (err: Error | undefined, bytesRead: number, buffer: Buffer, position: number) => void): boolean;
 
     /**
      * (Client-only)
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    write(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number, callback: (err: any) => void): boolean;
+    write(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1477,7 +1591,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    fstat(handle: Buffer, callback: (err: any, stats: Stats) => void): boolean;
+    fstat(handle: Buffer, callback: (err: Error | undefined, stats: Stats) => void): boolean;
 
     /**
      * (Client-only)
@@ -1485,7 +1599,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    fsetstat(handle: Buffer, attributes: InputAttributes, callback: (err: any) => void): boolean;
+    fsetstat(handle: Buffer, attributes: InputAttributes, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1493,7 +1607,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    futimes(handle: Buffer, atime: number | Date, mtime: number | Date, callback: (err: any) => void): boolean;
+    futimes(handle: Buffer, atime: number | Date, mtime: number | Date, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1501,7 +1615,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    fchown(handle: Buffer, uid: number, gid: number, callback: (err: any) => void): boolean;
+    fchown(handle: Buffer, uid: number, gid: number, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1509,7 +1623,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    fchmod(handle: Buffer, mode: number | string, callback: (err: any) => void): boolean;
+    fchmod(handle: Buffer, mode: number | string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1517,7 +1631,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    opendir(path: string, callback: (err: any, handle: Buffer) => void): boolean;
+    opendir(path: string, callback: (err: Error | undefined, handle: Buffer) => void): boolean;
 
     /**
      * (Client-only)
@@ -1525,7 +1639,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    readdir(location: string | Buffer, callback: (err: any, list: FileEntry[]) => void): boolean;
+    readdir(location: string | Buffer, callback: (err: Error | undefined, list: FileEntry[]) => void): boolean;
 
     /**
      * (Client-only)
@@ -1533,7 +1647,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    unlink(path: string, callback: (err: any) => void): boolean;
+    unlink(path: string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1541,7 +1655,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    rename(srcPath: string, destPath: string, callback: (err: any) => void): boolean;
+    rename(srcPath: string, destPath: string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1549,7 +1663,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    mkdir(path: string, attributes: InputAttributes, callback: (err: any) => void): boolean;
+    mkdir(path: string, attributes: InputAttributes, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1557,7 +1671,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    mkdir(path: string, callback: (err: any) => void): boolean;
+    mkdir(path: string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1565,7 +1679,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    rmdir(path: string, callback: (err: any) => void): boolean;
+    rmdir(path: string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1573,7 +1687,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    stat(path: string, callback: (err: any, stats: Stats) => void): boolean;
+    stat(path: string, callback: (err: Error | undefined, stats: Stats) => void): boolean;
 
     /**
      * (Client-only)
@@ -1581,7 +1695,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    exists(path: string, callback: (err: any) => void): boolean;
+    exists(path: string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1590,7 +1704,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    lstat(path: string, callback: (err: any, stats: Stats) => void): boolean;
+    lstat(path: string, callback: (err: Error | undefined, stats: Stats) => void): boolean;
 
     /**
      * (Client-only)
@@ -1598,7 +1712,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    setstat(path: string, attributes: InputAttributes, callback: (err: any) => void): boolean;
+    setstat(path: string, attributes: InputAttributes, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1606,7 +1720,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    utimes(path: string, atime: number | Date, mtime: number | Date, callback: (err: any) => void): boolean;
+    utimes(path: string, atime: number | Date, mtime: number | Date, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1614,7 +1728,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    chown(path: string, uid: number, gid: number, callback: (err: any) => void): boolean;
+    chown(path: string, uid: number, gid: number, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1622,7 +1736,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    chmod(path: string, mode: number | string, callback: (err: any) => void): boolean;
+    chmod(path: string, mode: number | string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1630,7 +1744,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    readlink(path: string, callback: (err: any, target: string) => void): boolean;
+    readlink(path: string, callback: (err: Error | undefined, target: string) => void): boolean;
 
     /**
      * (Client-only)
@@ -1638,7 +1752,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    symlink(targetPath: string, linkPath: string, callback: (err: any) => void): boolean;
+    symlink(targetPath: string, linkPath: string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only)
@@ -1646,7 +1760,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    realpath(path: string, callback: (err: any, absPath: string) => void): boolean;
+    realpath(path: string, callback: (err: Error | undefined, absPath: string) => void): boolean;
 
     /**
      * (Client-only, OpenSSH extension)
@@ -1654,7 +1768,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    ext_openssh_rename(srcPath: string, destPath: string, callback: (err: any) => void): boolean;
+    ext_openssh_rename(srcPath: string, destPath: string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only, OpenSSH extension)
@@ -1662,7 +1776,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    ext_openssh_statvfs(path: string, callback: (err: any, fsInfo: any) => void): boolean;
+    ext_openssh_statvfs(path: string, callback: (err: Error | undefined, fsInfo: any) => void): boolean;
 
     /**
      * (Client-only, OpenSSH extension)
@@ -1670,7 +1784,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    ext_openssh_fstatvfs(handle: Buffer, callback: (err: any, fsInfo: any) => void): boolean;
+    ext_openssh_fstatvfs(handle: Buffer, callback: (err: Error | undefined, fsInfo: any) => void): boolean;
 
     /**
      * (Client-only, OpenSSH extension)
@@ -1678,7 +1792,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    ext_openssh_hardlink(targetPath: string, linkPath: string, callback: (err: any) => void): boolean;
+    ext_openssh_hardlink(targetPath: string, linkPath: string, callback: (err: Error | undefined) => void): boolean;
 
     /**
      * (Client-only, OpenSSH extension)
@@ -1686,7 +1800,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    ext_openssh_fsync(handle: Buffer, callback: (err: any, fsInfo: any) => void): boolean;
+    ext_openssh_fsync(handle: Buffer, callback: (err: Error | undefined, fsInfo: any) => void): boolean;
 
     /**
      * Ends the stream.
@@ -1696,7 +1810,7 @@ export interface SFTPWrapper extends events.EventEmitter {
     /**
      * Emitted when an error occurred.
      */
-    on(event: "error", listener: (err: any) => void): this;
+    on(event: "error", listener: (err: Error | undefined) => void): this;
 
     /**
      * Emitted when the session has ended.
@@ -1854,4 +1968,16 @@ export class CygwinAgent extends OpenSSHAgent {
  */
 export class PageantAgent extends OpenSSHAgent {
     constructor(socketPath: string)
+}
+
+export interface HTTPAgentOptions extends AgentOptions {
+    srcIP?: string;
+}
+
+export class HTTPAgent extends BaseHTTPAgent {
+    constructor(connectCfg: ConnectConfig, agentOptions: HTTPAgentOptions);
+}
+
+export class HTTPSAgent extends BaseHTTPSAgent {
+    constructor(connectCfg: ConnectConfig, agentOptions: HTTPAgentOptions);
 }

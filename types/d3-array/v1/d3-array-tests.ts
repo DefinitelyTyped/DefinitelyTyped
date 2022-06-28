@@ -178,7 +178,7 @@ strOrUndefined = d3Array.max(mixedObjectArray, (d) => {
     return l.str;
 });
 
-// $ExpectError
+// @ts-expect-error
 numOrUndefined = d3Array.max(readonlyNumbersArray, (d, i, a) => { a.push(3); return 0; });
 
 // min() -----------------------------------------------------------------------
@@ -528,9 +528,9 @@ let mergedArray: MixedObject[];
 
 mergedArray = d3Array.merge(testArrays); // inferred type
 mergedArray = d3Array.merge<MixedObject>(testArrays); // explicit type
-// $ExpectError
+// @ts-expect-error
 mergedArray = d3Array.merge<MixedObject>([[10, 40, 30], [15, 30]]); // fails, type mismatch
-// $ExpectError
+// @ts-expect-error
 mergedArray = d3Array.merge([testArray1, [15, 30]]); // fails, type mismatch
 
 mergedArray = d3Array.merge(readonlyTestArrays); // inferred type
@@ -609,7 +609,7 @@ const testObject = {
 
 const p1: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
 const p2: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['when', 'more']);
-// $ExpectError
+// @ts-expect-error
 const p3 = d3Array.permute(testObject, ['when', 'unknown']);
 
 // range() ---------------------------------------------------------------------
@@ -623,7 +623,7 @@ numbersArray = d3Array.range(1, 10, 0.5);
 mergedArray = d3Array.shuffle(mergedArray);
 mergedArray = d3Array.shuffle(mergedArray, 1);
 mergedArray = d3Array.shuffle(mergedArray, 1, 3);
-// $ExpectError
+// @ts-expect-error
 mergedArray = d3Array.shuffle(readonlyMergedArray); // fails, shuffle mutates input array in-place
 
 // Test each TypedArray explicitly. Can't use ArrayLike in this case because shuffle is mutable and ArrayLike would include ReadonlyArray
@@ -772,7 +772,7 @@ domainFnDate = histoMixedObject_Date.domain();
 histoMixedObject_Date = histoMixedObject_Date.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
 histoMixedObject_Date = histoMixedObject_Date.domain([domain[0], domain[domain.length]]);
 histoMixedObject_Date = histoMixedObject_Date.domain((values) => [values[0], values[values.length]]);
-// $ExpectError
+// @ts-expect-error
 histoMixedObject_Date = histoMixedObject_Date.domain(timeScale.domain()); // fails, as scale domain is an array with possibly more than the two elements expected by histogram
 
 // MixedObject - Date | undefined
@@ -827,7 +827,7 @@ histoMixedObject_Date = histoMixedObject_Date.thresholds((values: ArrayLike<Date
     const thresholds: Date[] = [values[0], values[2], values[4]];
     return thresholds;
 });
-// $ExpectError
+// @ts-expect-error
 histoMixedObject_Date = histoMixedObject_Date.thresholds(d3Array.thresholdScott);
 
 // MixedObject - Date | undefined

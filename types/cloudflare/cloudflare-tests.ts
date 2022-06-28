@@ -6,7 +6,7 @@ const cf = new Cloudflare({ token: 'abvd' });
 // $ExpectType Promise<object> || ResponseObjectPromise
 cf.ips.browse();
 
-// $ExpectError
+// @ts-expect-error
 cf.user.edit('asd');
 
 const types: Cloudflare.RecordTypes = 'AAAA';
@@ -31,7 +31,7 @@ cf.dnsRecords.add("123", {
     name: "irrelevant",
     content: "irrelevant",
     ttl: 1,
-    // $ExpectError
+    // @ts-expect-error
     priority: 12
 });
 
@@ -50,5 +50,5 @@ cf.dnsRecords.add("123", {
 });
 
 cf.enterpriseZoneWorkersKV.add('account_id', 'namespace_id', 'key_name', 'value');
-// $ExpectError
+// @ts-expect-error
 cf.enterpriseZoneWorkersKV.add('account_id', 'namespace_id', 'value');

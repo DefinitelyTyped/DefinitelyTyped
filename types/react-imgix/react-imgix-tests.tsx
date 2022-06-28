@@ -73,5 +73,7 @@ buildURL('http://yourdomain.imgix.net/image.png', { w: 450, h: 100 });
 
 PublicConfigAPI.disableWarning('fallbackImage');
 PublicConfigAPI.enableWarning('sizesAttribute');
-PublicConfigAPI.disableWarning('unknown'); // $ExpectError
-PublicConfigAPI.enableWarning('unknown'); // $ExpectError
+// @ts-expect-error
+PublicConfigAPI.disableWarning('unknown');
+// @ts-expect-error
+PublicConfigAPI.enableWarning('unknown');

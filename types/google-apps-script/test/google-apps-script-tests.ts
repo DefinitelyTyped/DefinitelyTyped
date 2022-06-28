@@ -656,3 +656,16 @@ const requestAnalyticsData = (): string => {
 
     return totalSessions;
 };
+
+// Example of adding an attachment to a calendar event.
+const onItemSelected = () => {
+    // $ExpectType Attachment
+    const attachment = CardService.newAttachment()
+      .setResourceUrl('https://example.com')
+      .setTitle('My Attachment')
+      .setMimeType('text/html')
+      .setIconUrl('https://example.com/icon.png');
+
+    // $ExpectType CalendarEventActionResponseBuilder
+    CardService.newCalendarEventActionResponseBuilder().addAttachments([attachment]);
+};
