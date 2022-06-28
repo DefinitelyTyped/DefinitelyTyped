@@ -6661,8 +6661,8 @@ fp.now(); // $ExpectType number
 {
     _.words("fred, barney, & pebbles"); // $ExpectType string[]
     _.words("fred, barney, & pebbles", /[^, ]+/g); // $ExpectType string[]
-    _("fred, barney, & pebbles").words(); // $ExpectType string[]
-    _("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType string[]
+    _("fred, barney, & pebbles").words(); // $ExpectType Collection<string>
+    _("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType Collection<string>
     _.chain("fred, barney, & pebbles").words(); // $ExpectType CollectionChain<string>
     _.chain("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType CollectionChain<string>
     fp.words("fred, barney, & pebbles"); // $ExpectType string[]
