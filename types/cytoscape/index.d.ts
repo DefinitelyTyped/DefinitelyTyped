@@ -1502,8 +1502,8 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#eles.trigger
          * alias: emit
          */
-        trigger(events: EventNames, extra?: string[]): this;
-        emit(events: EventNames, extra?: string[]): this;
+        trigger(events: EventNames, extra?: unknown[]): this;
+        emit(events: EventNames, extra?: unknown[]): this;
     }
 
     /**
