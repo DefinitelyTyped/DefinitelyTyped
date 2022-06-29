@@ -548,12 +548,19 @@ interface SpyableWithIndexSignature {
     [index: string]: {
         [x: string]: any;
     };
-    prop: {some: string};
+    prop: { some: string };
     methodOne: () => void;
+    methodTwo: (s: string, b: boolean) => { b: boolean; n: number };
 }
-let spyWithIndexSignatureImpl: SpyableWithIndexSignature = {methodOne: () => {}, prop: {some: "thing"}};
+let spyWithIndexSignatureImpl: SpyableWithIndexSignature = {
+    methodOne: () => {},
+    methodTwo: (s, b) => ({ b, n: Number(s) }),
+    prop: { some: 'thing' },
+};
 // $ExpectType SpyInstance<void, []>
 jest.spyOn(spyWithIndexSignatureImpl, "methodOne");
+// $ExpectType SpyInstance<{ b: boolean; n: number; }, [s: string, b: boolean]>
+jest.spyOn(spyWithIndexSignatureImpl, "methodTwo");
 // @ts-expect-error
 jest.spyOn(spyWithIndexSignatureImpl, "nonExistentMethod");
 // @ts-expect-error
