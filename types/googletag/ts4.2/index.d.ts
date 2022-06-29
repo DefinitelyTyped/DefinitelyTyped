@@ -1424,7 +1424,7 @@ declare namespace googletag {
         getName(): string;
     }
     /**
-     * This is the namespace that GPT uses for `Adsense`.
+     * This is the namespace that GPT uses for `adsense`.
      */
     namespace adsense {
         /**
@@ -1458,11 +1458,14 @@ declare namespace googletag {
             | 'page_url';
     }
     /**
-     * This is the namespace that GPT uses for `enum types`.
+     * This is the namespace that GPT uses for `enums`.
      */
     namespace enums {
         /**
-         * Out of page formats supported by GPT.
+         * Out-of-page formats supported by GPT.
+         *
+         * **See also**
+         * - [googletag.defineOutOfPageSlot](https://developers.google.com/publisher-tag/reference#googletag.defineOutOfPageSlot)
          */
         enum OutOfPageFormat {
             /**
@@ -1484,6 +1487,9 @@ declare namespace googletag {
         }
         /**
          * [Traffic sources](https://support.google.com/admanager/answer/11233407) supported by GPT.
+         *
+         * **See also**
+         * - [PrivacySettingsConfig.trafficSource](https://developers.google.com/publisher-tag/reference#googletag.PrivacySettingsConfig_trafficSource)
          */
         enum TrafficSource {
             /**
@@ -1497,7 +1503,7 @@ declare namespace googletag {
         }
     }
     /**
-     * This is the namespace that GPT uses for `Events`. Your code can react to these events using `Service.addEventListener`.
+     * This is the namespace that GPT uses for `events`.
      */
     namespace events {
         /**

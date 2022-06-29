@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2022-06-22 UTC) 2.1
+// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2022-06-29 UTC) 2.1
 // Project: https://developers.google.com/publisher-tag/reference
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1429,7 +1429,7 @@ declare namespace googletag {
         getName(): string;
     }
     /**
-     * This is the namespace that GPT uses for `Adsense`.
+     * This is the namespace that GPT uses for `adsense`.
      */
     namespace adsense {
         /**
@@ -1463,11 +1463,14 @@ declare namespace googletag {
             | 'page_url';
     }
     /**
-     * This is the namespace that GPT uses for `enum types`.
+     * This is the namespace that GPT uses for `enums`.
      */
     namespace enums {
         /**
-         * Out of page formats supported by GPT.
+         * Out-of-page formats supported by GPT.
+         *
+         * **See also**
+         * - {@link googletag.defineOutOfPageSlot}
          */
         enum OutOfPageFormat {
             /**
@@ -1489,6 +1492,9 @@ declare namespace googletag {
         }
         /**
          * [Traffic sources](https://support.google.com/admanager/answer/11233407) supported by GPT.
+         *
+         * **See also**
+         * - {@link PrivacySettingsConfig.trafficSource}
          */
         enum TrafficSource {
             /**
@@ -1502,7 +1508,7 @@ declare namespace googletag {
         }
     }
     /**
-     * This is the namespace that GPT uses for `Events`. Your code can react to these events using {@link Service.addEventListener}.
+     * This is the namespace that GPT uses for `events`.
      */
     namespace events {
         /**
