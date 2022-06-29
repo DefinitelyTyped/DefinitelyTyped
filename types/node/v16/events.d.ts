@@ -261,6 +261,24 @@ declare module 'events' {
          */
         static getEventListeners(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
         /**
+         * ```js
+         * const {
+         *   setMaxListeners,
+         *   EventEmitter
+         * } = require('events');
+         *
+         * const target = new EventTarget();
+         * const emitter = new EventEmitter();
+         *
+         * setMaxListeners(5, target, emitter);
+         * ```
+         * @since v15.4.0
+         * @param n A non-negative number. The maximum number of listeners per `EventTarget` event.
+         * @param eventsTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
+         * objects.
+         */
+        static setMaxListeners(n?: number, ...eventTargets: Array<DOMEventTarget | NodeJS.EventEmitter>): void;
+        /**
          * This symbol shall be used to install a listener for only monitoring `'error'`
          * events. Listeners installed using this symbol are called before the regular
          * `'error'` listeners are called.
