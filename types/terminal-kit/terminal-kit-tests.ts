@@ -483,6 +483,12 @@ screen1.fill({
     bgColor: 0
   }
 });
+screen1.fill({
+    attr: {
+        color: 'black',
+        bgColor: 'black',
+    },
+});
 
 ScreenBuffer.loadImage(
   path_to_image,
@@ -516,3 +522,6 @@ term.table([
   width: 60,
   fit: true
 });
+
+term.width; // $ExpectType number
+term.height; // $ExpectType number
