@@ -190,14 +190,16 @@ conn2.on('ready', () => {
 
 // Host verification:
 new ssh2.Client().connect({
-    hostVerifier: (hash: string) => {
-        return hash === 'cool'
+    hostVerifier: (hash: Buffer) => {
+        const expected = Buffer.from('cool');
+        return expected.length === hash.length && crypto.timingSafeEqual(hash, Buffer.from('cool'));
     }
 });
 
 new ssh2.Client().connect({
     hostVerifier: (hash, callback) => {
-        callback(hash === 'cool');
+        const expected = Buffer.from('cool');
+        callback(expected.length === hash.length && crypto.timingSafeEqual(hash, Buffer.from('cool')));
     }
 });
 
@@ -346,7 +348,7 @@ new ssh2.Server({
         else if (ctx.method === 'publickey'
             && ctx.key.algo === pubKey.type
             && buffersEqual(ctx.key.data, pubKeySSH)) {
-            if (ctx.signature) {
+            if (ctx.signature && ctx.blob) {
                 if (pubKey.verify(ctx.blob, ctx.signature)) {
                     ctx.accept();
                 } else {
@@ -453,11 +455,12 @@ new ssh2.Client().connect({
 
 new ssh2.Client().connect({
     agent: new (class extends ssh2.BaseAgent<string> {
-        getIdentities(callback: (err: Error | undefined, publicKeys?: string[]) => void): void {
+        getIdentities(callback: (err: Error | undefined, publicKeys: string[]) => void): void {
             callback(undefined, ['some key'])
         }
-        sign(publicKey: string, data: Buffer, options: ssh2.SigningRequestOptions, callback: (err: Error | undefined, signature?: Buffer) => void): void {
-            callback(undefined, Buffer.concat([Buffer.from(publicKey), data]));
+        sign(publicKey: string, data: Buffer, options: ssh2.SigningRequestOptions | ssh2.SignCallback, callback?: ssh2.SignCallback): void {
+            const cb = typeof options === 'function' ? options : callback;
+            cb && cb(undefined, Buffer.concat([Buffer.from(publicKey), data]));
         }
     })()
 });
