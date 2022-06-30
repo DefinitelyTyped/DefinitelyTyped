@@ -5793,6 +5793,10 @@ export class BaseBrush {
     width: number;
 
     /**
+     * Discard points that are less than `decimate` pixel distant from each other
+     */
+    decimate: number;
+    /**
      * Shadow object representing shadow of this shape.
      * <b>Backwards incompatibility note:</b> This property replaces "shadowColor" (String), "shadowOffsetX" (Number),
      * "shadowOffsetY" (Number) and "shadowBlur" (Number) since v1.2.12
