@@ -15,6 +15,7 @@
     "files": [
         "index.d.ts",
         "three-tests.ts",
+        "test/audio/audio-context.ts",
         "test/buffergeometry/buffergeometry-instancing-interleaved.ts",
         "test/cameras/camera.ts",
         "test/cameras/camera-array.ts",
