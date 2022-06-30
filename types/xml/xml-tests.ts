@@ -165,7 +165,7 @@ test('xml declaration options', t => {
 
 const xmlElement = xml.element({_attr: {xmlns: 'http://www.w3.org/1999/xhtml'}});
 
-// $ExpectType ReadableStream
+// $ExpectType ReadableStream<any>
 xml(
     { 'd:foo': xmlElement },
     {

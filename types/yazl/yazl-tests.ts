@@ -6,7 +6,7 @@ zipfile.addFile("file1.txt", "file1.txt");
 // (add only files, not directories)
 zipfile.addFile("path/to/file.txt", "path/in/zipfile.txt");
 // pipe() can be called any time after the constructor
-// $ExpectType ReadableStream
+// $ExpectType ReadableStream<any>
 zipfile.outputStream;
 zipfile.outputStream.pipe(fs.createWriteStream("output.zip")).on("close", () => {
     console.log("done");

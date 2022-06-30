@@ -1,6 +1,6 @@
 import walker = require('folder-walker');
 
-// $ExpectType ReadableStream
+// $ExpectType ReadableStream<any>
 const stream = walker(['./somedir']);
 
 stream.on('data', (file: walker.Entry) => {
