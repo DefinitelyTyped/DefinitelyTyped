@@ -30,10 +30,10 @@ polyfillLibrary.getPolyfills({
     },
 });
 
-// $ExpectType Promise<string | Readable>
+// $ExpectType Promise<string | Readable<any>>
 polyfillLibrary.getPolyfillString();
 
-// $ExpectType Promise<string | Readable>
+// $ExpectType Promise<string | Readable<any>>
 polyfillLibrary.getPolyfillString({
     uaString: 'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)',
     minify: true,

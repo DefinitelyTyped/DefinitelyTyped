@@ -9,7 +9,7 @@ import { Http2ServerResponse } from 'node:http2';
 function simplified_stream_ctor_test() {
     new Readable({
         read(size) {
-            // $ExpectType Readable<any>
+            // $ExpectType Readable
             this;
             // $ExpectType number
             size;

@@ -15,12 +15,12 @@ import { MessageChannel } from 'node:worker_threads';
 function simplified_stream_ctor_test() {
     new Readable({
         construct(cb) {
-            // $ExpectType Readable<any>
+            // $ExpectType Readable
             this;
             cb();
         },
         read(size) {
-            // $ExpectType Readable<any>
+            // $ExpectType Readable
             this;
             // $ExpectType number
             size;
@@ -601,7 +601,7 @@ async function testTransferringStreamWithPostMessage() {
 }
 
 function testEndandDestroy() {
-    // $ExpectType Readable<any>
+    // $ExpectType Readable
     new Readable().destroy();
     // $ExpectType Writable
     new Writable().destroy();

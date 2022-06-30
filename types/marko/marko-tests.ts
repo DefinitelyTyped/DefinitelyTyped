@@ -49,7 +49,7 @@ template.render({ name: 'Frank' }, writeStream);
 // $ExpectType WriteStream
 template.stream({}).pipe(writeStream);
 
-// $ExpectType Readable<any>
+// $ExpectType Readable
 template.stream({ name: 'Frank' });
 
 // rendering tests
