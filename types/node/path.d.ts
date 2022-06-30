@@ -22,11 +22,11 @@ declare module 'path' {
          */
         interface ParsedPath {
             /**
-             * The root of the path such as '/' or 'c:\'
+             * The root of the path such as '/' or 'c:\\'
              */
             root: string;
             /**
-             * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+             * The full directory path such as '/home/user/dir' or 'c:\\path\\dir'
              */
             dir: string;
             /**
@@ -44,11 +44,11 @@ declare module 'path' {
         }
         interface FormatInputPathObject {
             /**
-             * The root of the path such as '/' or 'c:\'
+             * The root of the path such as '/' or 'c:\\'
              */
             root?: string | undefined;
             /**
-             * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+             * The full directory path such as '/home/user/dir' or 'c:\\path\\dir'
              */
             dir?: string | undefined;
             /**
