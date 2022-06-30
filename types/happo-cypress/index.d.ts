@@ -1,4 +1,4 @@
-// Type definitions for happo-cypress 3.1
+// Type definitions for happo-cypress 3.0
 // Project: https://github.com/happo/happo-cypress#readme
 // Definitions by: Alexander Polyankin <https://github.com/alexanderpolyankin>
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
