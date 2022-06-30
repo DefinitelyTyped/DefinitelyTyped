@@ -267,9 +267,9 @@ export interface ImgixProviderProps extends CommonProps {
     attributeConfig?: AttributeConfig | undefined;
 }
 
-export class Picture extends React.Component<React.PropsWithChildren<CommonProps>> {}
-export class Source extends React.Component<SharedImgixAndSourceProps> {}
-export class ImgixProvider extends React.Component<React.PropsWithChildren<ImgixProviderProps>> {}
+export const Picture: React.FC<React.PropsWithChildren<CommonProps>>;
+export const Source: React.FC<SharedImgixAndSourceProps>;
+export const ImgixProvider: React.FC<React.PropsWithChildren<ImgixProviderProps>>;
 export function buildURL(src: string, imgixParams?: ImgixParams, options?: SharedImgixAndSourceProps): string;
 
 type Warnings = 'fallbackImage' | 'sizesAttribute' | 'invalidARFormat';
@@ -289,5 +289,5 @@ export interface BackgroundProps {
 
 export const Background: React.FunctionComponent<React.PropsWithChildren<BackgroundProps>>;
 
-declare class Imgix extends React.Component<SharedImgixAndSourceProps> {}
+declare const Imgix: React.FC<SharedImgixAndSourceProps>;
 export default Imgix;
