@@ -999,7 +999,7 @@ export namespace DS {
         /**
          * A hash of adapter options
          */
-        adapterOptions: {};
+        adapterOptions: Record<string, unknown>;
         /**
          * The name of the type of the underlying record for this snapshot, as a string.
          */
