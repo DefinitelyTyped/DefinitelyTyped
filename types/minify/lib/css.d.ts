@@ -1,4 +1,4 @@
-import { Options } from './minify';
+import type { Options } from './minify';
 
 /**
  * minify css data.
