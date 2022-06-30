@@ -351,6 +351,7 @@ export class Input extends Component<InputHTMLAttributes<'min' | 'max' | 'step'>
     disabled?: boolean | undefined,
     readOnly?: boolean | undefined,
     onChange?: ((e: React.ChangeEvent<any>) => void) | undefined,
+    onInput?: ((e: React.ChangeEvent<any>) => void) | undefined,
     onBlur?: ((e: React.FocusEvent<any>) => void) | undefined,
     onFocus?: ((e: React.FocusEvent<any>) => void) | undefined,
     value?: string | undefined,

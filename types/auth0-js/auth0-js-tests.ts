@@ -217,7 +217,8 @@ webAuth.client.login(
     },
 );
 
-webAuth.popup.buildPopupHandler(); // $ExpectError
+// @ts-expect-error
+webAuth.popup.buildPopupHandler();
 webAuth.popup.preload({});
 webAuth.popup.authorize({ domain: "", redirectUri: "", responseType: "code" }, (err, result) => {
     if (err) /* handle error */ return;
@@ -346,9 +347,9 @@ const authentication = new auth0.Authentication({
     _sendTelemetry: false,
 });
 
-// $ExpectError
+// @ts-expect-error
 authentication.buildAuthorizeUrl({ state: "1234" });
-// $ExpectError
+// @ts-expect-error
 authentication.buildAuthorizeUrl();
 // $ExpectType string
 authentication.buildAuthorizeUrl({
@@ -403,13 +404,13 @@ authentication.getUserCountry((err, data) => {});
 authentication.getSSOData();
 authentication.getSSOData(true, (err, data) => {});
 
-// $ExpectError
+// @ts-expect-error
 authentication.dbConnection.signup();
-// $ExpectError
+// @ts-expect-error
 authentication.dbConnection.signup({});
-// $ExpectError
+// @ts-expect-error
 authentication.dbConnection.signup({ connection: "bla", email: "blabla" });
-// $ExpectError
+// @ts-expect-error
 authentication.dbConnection.signup({ connection: "bla", email: "blabla", password: "123456" });
 authentication.dbConnection.signup(
     { connection: "bla", email: "blabla", password: "123456", username: "blabla" },
@@ -469,7 +470,10 @@ management.patchUserMetadata("asd", { role: "admin" }, (err, user) => {
 
 // tslint:disable-next-line: prefer-const
 let user: auth0.Auth0UserProfile;
-management.patchUserAttributes(); // $ExpectError
-management.patchUserAttributes("..."); // $ExpectError
-management.patchUserAttributes("...", {}); // $ExpectError
+// @ts-expect-error
+management.patchUserAttributes();
+// @ts-expect-error
+management.patchUserAttributes("...");
+// @ts-expect-error
+management.patchUserAttributes("...", {});
 management.patchUserAttributes("auth0|123", user, (err, user) => {}); // $ExpectType void

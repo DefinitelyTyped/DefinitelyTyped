@@ -1,4 +1,4 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.103.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -14,6 +14,8 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
   interface ControlVariantApplyAPI {
     /**
      * Activates the passed variant applicable to the passed control/component.
+     *
+     * @returns Resolves after the variant is activated or rejects if an error occurs
      */
     activateVariant(
       /**
@@ -110,6 +112,8 @@ declare module "sap/ui/fl/changeHandler/BaseAddViaDelegate" {
 
     /**
      * Returns an instance of the addViaDelegate change handler
+     *
+     * @returns The addViaDelegate change handler object
      */
     static createAddViaDelegateChangeHandler(
       /**
@@ -203,6 +207,8 @@ declare module "sap/ui/fl/interfaces/Delegate" {
      * Creates a control to show and edit the corresponding metadata property and provide a value help if that
      * is needed in addition. The control should be created with the modifier as it will be called by change
      * handlers during XML preprocessing with XML nodes as well as at runtime when real control instances exist.
+     *
+     * @returns Map containing the controls to add
      */
     createControlForProperty(
       /**
@@ -260,6 +266,8 @@ declare module "sap/ui/fl/interfaces/Delegate" {
      * Creates a label for the corresponding metadata property. The control should be created with the modifier
      * as it will be called by change handlers during XML preprocessing with XML nodes as well as at runtime
      * when real control instances exist.
+     *
+     * @returns Control representation of the label (e.g. `sap.m.Label`)
      */
     createLabel(
       /**
@@ -309,6 +317,8 @@ declare module "sap/ui/fl/interfaces/Delegate" {
      * property in an arrangement fitting a generic layout container. The controls should be created with the
      * modifier as it will be called by change handlers during XML preprocessing with XML nodes as well as at
      * runtime when real control instances exist.
+     *
+     * @returns Map containing the controls to add
      */
     createLayout(
       /**
@@ -361,6 +371,8 @@ declare module "sap/ui/fl/interfaces/Delegate" {
     /**
      * Provides all properties that are available at the current binding context. In OData, this will probably
      * be all properties of the entityType. Technical properties, such as field control, should not be returned.
+     *
+     * @returns Metadata in a deep structure of nodes and properties
      */
     getPropertyInfo(
       /**
@@ -387,6 +399,10 @@ declare module "sap/ui/fl/interfaces/Delegate" {
      * Optional method to provide all properties and the corresponding controls that represent them. Implement
      * this method if evaluating the binding is not enough e.g. a Table has not yet received a binding or if
      * e.g. a filter field represents a property without binding.
+     *
+     * @returns Data about properties represented. Resolve `undefined` or don't implement the method if you
+     * don't want to take over the check for representation. Resolve an empty array if no property is represented
+     * at the moment.
      */
     getRepresentedProperties(
       /**
@@ -574,6 +590,8 @@ declare module "sap/ui/fl/transport/TransportDialog" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Dialog.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -592,6 +610,8 @@ declare module "sap/ui/fl/transport/TransportDialog" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.fl.transport.TransportDialog.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -665,6 +685,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -683,10 +705,14 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.fl.variants.VariantManagement.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some for into the association {@link #getFor for}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addFor(
       /**
@@ -701,6 +727,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
      *
      * This event is fired when users presses the cancel button inside Save As dialog.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachCancel(
       /**
@@ -725,6 +753,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
      *
      * This event is fired when users presses the cancel button inside Save As dialog.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachCancel(
       /**
@@ -744,6 +774,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
      *
      * This event is fired when the model and context are set.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInitialized(
       /**
@@ -768,6 +800,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
      *
      * This event is fired when the model and context are set.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachInitialized(
       /**
@@ -787,6 +821,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
      *
      * This event is fired when users apply changes to variants in the Manage Views dialog.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachManage(
       /**
@@ -811,6 +847,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
      *
      * This event is fired when users apply changes to variants in the Manage Views dialog.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachManage(
       /**
@@ -831,6 +869,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * This event is fired when the Save View dialog or the Save As dialog is closed with the
      * save button.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSave(
       /**
@@ -856,6 +896,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * This event is fired when the Save View dialog or the Save As dialog is closed with the
      * save button.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSave(
       /**
@@ -875,6 +917,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
      *
      * This event is fired when a new variant is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -899,6 +943,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
      *
      * This event is fired when a new variant is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -915,6 +961,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Detaches event handler `fnFunction` from the {@link #event:cancel cancel} event of this `sap.ui.fl.variants.VariantManagement`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachCancel(
       /**
@@ -930,6 +978,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Detaches event handler `fnFunction` from the {@link #event:initialized initialized} event of this `sap.ui.fl.variants.VariantManagement`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachInitialized(
       /**
@@ -945,6 +995,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Detaches event handler `fnFunction` from the {@link #event:manage manage} event of this `sap.ui.fl.variants.VariantManagement`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachManage(
       /**
@@ -960,6 +1012,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Detaches event handler `fnFunction` from the {@link #event:save save} event of this `sap.ui.fl.variants.VariantManagement`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSave(
       /**
@@ -975,6 +1029,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.ui.fl.variants.VariantManagement`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
@@ -988,6 +1044,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     ): this;
     /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireCancel(
       /**
@@ -997,6 +1055,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     ): this;
     /**
      * Fires event {@link #event:initialized initialized} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireInitialized(
       /**
@@ -1006,6 +1066,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     ): this;
     /**
      * Fires event {@link #event:manage manage} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireManage(
       /**
@@ -1015,6 +1077,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     ): this;
     /**
      * Fires event {@link #event:save save} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSave(
       /**
@@ -1045,6 +1109,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     ): this;
     /**
      * Fires event {@link #event:select select} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelect(
       /**
@@ -1059,6 +1125,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     ): this;
     /**
      * Gets the currently selected variant key.
+     *
+     * @returns Key of the currently selected variant. In case the model is not yet set `null` will be returned.
      */
     getCurrentVariantKey(): string;
     /**
@@ -1073,6 +1141,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * **Note:** the usage of this property is restricted to `sap.fe` components only.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `displayTextForExecuteOnSelectionForStandardVariant`
      */
     getDisplayTextForExecuteOnSelectionForStandardVariant(): string;
     /**
@@ -1082,6 +1152,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * be hidden.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
@@ -1092,6 +1164,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Determines the behavior for Apply Automatically if the standard variant is marked as the default variant.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `executeOnSelectionForStandardDefault`
      */
     getExecuteOnSelectionForStandardDefault(): boolean;
     /**
@@ -1106,6 +1180,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * the variant is opened.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `inErrorState`
      */
     getInErrorState(): boolean;
     /**
@@ -1115,6 +1191,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *  **Note:**This flag is only used internally in the app variant scenarios.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `manualVariantKey`
      */
     getManualVariantKey(): boolean;
     /**
@@ -1122,15 +1200,21 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * Determines the name of the model. The binding context will be defined by the current ID.  **Note:**
      * In a UI adaptation scenario, this property is not used at all, because the model name is `$FlexVariants`.
+     *
+     * @returns Value of property `modelName`
      */
     getModelName(): string;
     /**
      * Determines if the current variant is modified.
+     *
+     * @returns If the current variant is modified `true`, otherwise `false`
      */
     getModified(): boolean;
     /**
      * Required by the {@link sap.m.IOverflowToolbarContent} interface. Registers invalidations event which
      * is fired when width of the control is changed.
+     *
+     * @returns Configuration information for the `sap.m.IOverflowToolbarContent` interface.
      */
     getOverflowToolbarConfig(): object;
     /**
@@ -1140,6 +1224,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * context is changed.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `resetOnContextChange`
      */
     getResetOnContextChange(): boolean;
     /**
@@ -1148,10 +1234,14 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Indicates that Set as Default is visible in the Save View and the Manage Views dialogs.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `showSetAsDefault`
      */
     getShowSetAsDefault(): boolean;
     /**
      * Returns the title control of the `VariantManagement`. This is used in the key user scenario.
+     *
+     * @returns Title part of the `VariantManagement` control.
      */
     getTitle(): Title;
     /**
@@ -1161,18 +1251,26 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * `VariantManagement` control does not react in any way to this property.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `updateVariantInURL`
      */
     getUpdateVariantInURL(): boolean;
     /**
      * Retrieves all variants.
+     *
+     * @returns All variants. In case the model is not yet set, an empty array will be returned.
      */
     getVariants(): any[];
     /**
      * Removes all the controls in the association named {@link #getFor for}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllFor(): ID[];
     /**
      * Removes an for from the association named {@link #getFor for}.
+     *
+     * @returns The removed for or `null`
      */
     removeFor(
       /**
@@ -1182,6 +1280,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     ): ID;
     /**
      * Sets the new selected variant.
+     *
+     * @returns Current instance of {@link sap.ui.fl.variants.VariantManagement}.
      */
     setCurrentVariantKey(
       /**
@@ -1203,6 +1303,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDisplayTextForExecuteOnSelectionForStandardVariant(
       /**
@@ -1219,6 +1321,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
       /**
@@ -1236,6 +1340,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setExecuteOnSelectionForStandardDefault(
       /**
@@ -1252,6 +1358,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInErrorState(
       /**
@@ -1268,6 +1376,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setManualVariantKey(
       /**
@@ -1282,6 +1392,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * In a UI adaptation scenario, this property is not used at all, because the model name is `$FlexVariants`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setModelName(
       /**
@@ -1298,6 +1410,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setResetOnContextChange(
       /**
@@ -1313,6 +1427,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowSetAsDefault(
       /**
@@ -1329,6 +1445,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setUpdateVariantInURL(
       /**
@@ -1342,25 +1460,25 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * Indicates that Set as Default is visible in the Save View and the Manage Views dialogs.
      */
-    showSetAsDefault?: boolean | PropertyBindingInfo;
+    showSetAsDefault?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * If set to `true`, the key for a vendor variant will be added manually.
      *  **Note:**This flag is only used internally in the app variant scenarios.
      */
-    manualVariantKey?: boolean | PropertyBindingInfo;
+    manualVariantKey?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Indicates that the control is in error state. If set to `true`, an error message will be displayed whenever
      * the variant is opened.
      */
-    inErrorState?: boolean | PropertyBindingInfo;
+    inErrorState?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Indicates that the control is in edit state. If set to `false`, the footer of the Views list will
      * be hidden.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the name of the model. The binding context will be defined by the current ID.  **Note:**
@@ -1372,20 +1490,23 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Determines the intention of setting the current variant based on passed information.  **Note:** The
      * `VariantManagement` control does not react in any way to this property.
      */
-    updateVariantInURL?: boolean | PropertyBindingInfo;
+    updateVariantInURL?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * When set to false, doesn't reset the `VariantManagement` control to the default variant, when its binding
      * context is changed.
      */
-    resetOnContextChange?: boolean | PropertyBindingInfo;
+    resetOnContextChange?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @SINCE 1.80
      *
      * Determines the behavior for Apply Automatically if the standard variant is marked as the default variant.
      */
-    executeOnSelectionForStandardDefault?: boolean | PropertyBindingInfo;
+    executeOnSelectionForStandardDefault?:
+      | boolean
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.85
@@ -1448,6 +1569,8 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVa
      * with name `sClassName` and enriches it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.Object.extend}.
+     *
+     * @returns Created class / constructor function
      */
     extend(
       /**
@@ -1466,6 +1589,8 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVa
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.fl.write._internal.fieldExtensibility.ABAPExtensibilityVariant.
+     *
+     * @returns Metadata object describing this class
      */
     getMetadata(): Metadata;
   }
@@ -1487,6 +1612,8 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/MultiTenantABAPExte
      * with name `sClassName` and enriches it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.fl.write._internal.fieldExtensibility.ABAPExtensibilityVariant.extend}.
+     *
+     * @returns Created class / constructor function
      */
     extend(
       /**
@@ -1505,6 +1632,8 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/MultiTenantABAPExte
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.fl.write._internal.fieldExtensibility.MultiTenantABAPExtensibilityVariant.
+     *
+     * @returns Metadata object describing this class
      */
     getMetadata(): Metadata;
   }
@@ -1526,6 +1655,8 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExt
      * with name `sClassName` and enriches it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.fl.write._internal.fieldExtensibility.ABAPExtensibilityVariant.extend}.
+     *
+     * @returns Created class / constructor function
      */
     extend(
       /**
@@ -1544,6 +1675,8 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExt
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.fl.write._internal.fieldExtensibility.SingleTenantABAPExtensibilityVariant.
+     *
+     * @returns Metadata object describing this class
      */
     getMetadata(): Metadata;
   }
@@ -1573,6 +1706,8 @@ declare module "sap/ui/fl/write/api/FeaturesAPI" {
   interface FeaturesAPI {
     /**
      * Checks if context sharing is enabled.
+     *
+     * @returns Resolves to a boolean indicating if context sharing is enabled
      */
     isContextSharingEnabled(
       /**
@@ -1584,10 +1719,14 @@ declare module "sap/ui/fl/write/api/FeaturesAPI" {
      * Checks if key user rights are available for the current user. Application developers can use this API
      * to decide if the key user adaptation feature should be visible to the current user. This only applies
      * if key user adaptation should be handled standalone without an SAP Fiori launchpad.
+     *
+     * @returns Resolves to a boolean indicating if key user is available
      */
     isKeyUser(): Promise<boolean>;
     /**
      * Checks if key user has also the admin role to enable the translation button
+     *
+     * @returns Resolves to a boolean indicating if the key user is also an admin
      */
     isKeyUserTranslationEnabled(
       /**
@@ -1597,6 +1736,8 @@ declare module "sap/ui/fl/write/api/FeaturesAPI" {
     ): Promise<boolean>;
     /**
      * Checks if the data storing implementation for a given layer is capable of handling versioning.
+     *
+     * @returns Resolves to a boolean indicating if versioning is enabled
      */
     isVersioningEnabled(
       /**
@@ -1676,6 +1817,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/flexObjects/RevertData": undefined;
 
     "sap/ui/fl/apply/_internal/flexObjects/UpdatableChange": undefined;
+
+    "sap/ui/fl/apply/_internal/flexObjects/Variant": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/changes/DependencyHandler": undefined;
 

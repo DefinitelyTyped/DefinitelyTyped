@@ -295,7 +295,7 @@ datacontroller.init('').then(() => {});
 datacontroller.set('');
 datacontroller.set({ foo: '' });
 datacontroller.set({ foo: '' }, { batchType: 'transparent' });
-// $ExpectError
+// @ts-expect-error
 datacontroller.set({ foo: 5 });
 
 const downcastDispA = new DowncastDispatcher({});
@@ -305,7 +305,7 @@ const conversion = new Conversion([downcastDispA, downcastDispB], [upcastDispaA]
 conversion.addAlias('upcast', upcastDispaA);
 let upcastHelper: UpcastHelpers = conversion.for('upcast');
 upcastHelper = new UpcastHelpers([new UpcastDispatcher()]).add(() => {});
-// $ExpectError
+// @ts-expect-error
 upcastHelper = new UpcastHelpers([new DowncastDispatcher()]);
 upcastHelper = upcastHelper.add(dispatcher => {
     dispatcher.on('element:p', (evt, data, conversionApi) => {
@@ -554,9 +554,9 @@ attributeOperation2.toJSON().newValue;
 
 let operation: Operation;
 
-// $ExpectError
+// @ts-expect-error
 transformSets(insertOperation, insertOperation);
-// $ExpectError
+// @ts-expect-error
 transformSets([insertOperation], insertOperation);
 operation = transformSets([insertOperation], [insertOperation]).operationsA[0];
 operation = transformSets([insertOperation], [insertOperation]).operationsB[0];
@@ -717,14 +717,14 @@ let domConverter = new DomConverter(viewDocument);
 domConverter.setDomElementAttribute(document.body, 'foo', 'bar');
 domConverter.setDomElementAttribute(document.body, 'foo', 'bar', viewElement);
 domConverter.removeDomElementAttribute(document.body, 'foo');
-// $ExpectError
+// @ts-expect-error
 domConverter.isComment;
 // $ExpectType boolean
 domConverter.shouldRenderAttribute('', '', '');
-// $ExpectError
+// @ts-expect-error
 domConverter.shouldRenderAttribute('', 5);
 domConverter.setContentOf(document.createElement('div'), '');
-// $ExpectError
+// @ts-expect-error
 domConverter.setContentOf(document.createElement(''), 5);
 let blockFillerMode: BlockFillerMode = 'nbsp';
 const viewEditableElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEditableElement('div');
@@ -855,9 +855,9 @@ if (
         // $ExpectType (RootElement & { name: "paragraph"; }) | (RootElement & { name: "blockQuote"; })
         obj;
     }
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('rootElement') || obj.is('rootElement', 'paragraph')) 1;
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('model:rootElement') || obj.is('model:rootElement', 'paragraph')) 1;
 }
 {
@@ -878,9 +878,9 @@ if (
         // $ExpectType "paragraph" | "blockQuote"
         obj.name;
     }
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('element') || obj.is('element', 'paragraph')) 1;
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('model:element') || obj.is('model:element', 'paragraph')) 1;
 }
 
@@ -990,9 +990,9 @@ if (
         // $ExpectType "p"
         obj.name;
     }
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('element') || obj.is('element', 'p')) 1;
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('view:element') || obj.is('view:element', 'p')) 1;
 }
 
@@ -1023,9 +1023,9 @@ if (
         // $ExpectType "p"
         obj.name;
     }
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('containerElement') || obj.is('containerElement', 'p')) 1;
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('view:containerElement') || obj.is('view:containerElement', 'p')) 1;
 }
 
@@ -1055,9 +1055,9 @@ if (
         // $ExpectType "p"
         obj.name;
     }
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('editableElement') || obj.is('editableElement', 'p')) 1;
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('view:editableElement') || obj.is('view:editableElement', 'p')) 1;
 }
 
@@ -1087,9 +1087,9 @@ if (
         // $ExpectType RootEditableElement & { name: "p"; }
         obj;
     }
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('rootEditableElement') || obj.is('rootEditableElement', 'p')) 1;
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('view:rootEditableElement') || obj.is('view:rootEditableElement', 'p')) 1;
 }
 if (
@@ -1118,9 +1118,9 @@ if (
         // $ExpectType RawElement & { name: "p"; }
         obj;
     }
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('rawElement') || obj.is('rawElement', 'p')) 1;
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('view:rawElement') || obj.is('view:rawElement', 'p')) 1;
 }
 
@@ -1150,9 +1150,9 @@ if (
         // $ExpectType AttributeElement & { name: "p"; }
         obj;
     }
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('attributeElement') || obj.is('attributeElement', 'p')) 1;
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('view:attributeElement') || obj.is('view:attributeElement', 'p')) 1;
 }
 
@@ -1182,9 +1182,9 @@ if (
         // $ExpectType UIElement & { name: "p"; }
         obj;
     }
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('uiElement') || obj.is('uiElement', 'p')) 1;
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('view:uiElement') || obj.is('view:uiElement', 'p')) 1;
 }
 
@@ -1214,9 +1214,9 @@ if (
         // $ExpectType EmptyElement & { name: "hr"; }
         obj;
     }
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('emptyElement') || obj.is('emptyElement', 'hr')) 1;
-    // $ExpectError
+    // @ts-expect-error
     if (obj.is('view:emptyElement') || obj.is('view:emptyElement', 'hr')) 1;
 }
 
@@ -1389,7 +1389,7 @@ new MarkerCollection().has(
     new Marker('', new LiveRange(new ModelPosition(model.document.createRoot(), [0])), true, true),
 );
 
-// $ExpectError
+// @ts-expect-error
 downcastWriter.createRawElement();
 // prettier-ignore
 downcastWriter.createRawElement('div').render = function(domElement: HTMLElement, domConverter: DomConverter) {
@@ -1426,7 +1426,7 @@ injectSelectionPostFixer(model);
 mergeIntersectingRanges([range]);
 
 class MyViewNode extends ViewNode {}
-// $ExpectError
+// @ts-expect-error
 new DomConverter(viewDocument).viewToDom(new MyViewNode());
 new DomConverter(viewDocument).viewToDom(new MyViewNode(), window.document);
 
@@ -1584,7 +1584,7 @@ view.getObserver(MouseObserver);
 new MouseObserver(view).destroy();
 new MouseObserver(view).observe(document.body);
 new MouseObserver(view).onDomEvent(new MouseEvent(''));
-// $ExpectError
+// @ts-expect-error
 new MouseObserver(view).onDomEvent(new KeyboardEvent(''));
 
 // $ExpectType FocusObserver
@@ -1592,7 +1592,7 @@ view.getObserver(FocusObserver);
 new FocusObserver(view).destroy();
 new FocusObserver(view).observe(document.body);
 new FocusObserver(view).onDomEvent(new FocusEvent(''));
-// $ExpectError
+// @ts-expect-error
 new FocusObserver(view).onDomEvent(new KeyboardEvent(''));
 
 // $ExpectType KeyObserver
@@ -1600,7 +1600,7 @@ view.getObserver(KeyObserver);
 new KeyObserver(view).destroy();
 new KeyObserver(view).observe(document.body);
 new KeyObserver(view).onDomEvent(new KeyboardEvent(''));
-// $ExpectError
+// @ts-expect-error
 new KeyObserver(view).onDomEvent(new FocusEvent(''));
 
 // $ExpectType ClickObserver
@@ -1608,7 +1608,7 @@ view.getObserver(ClickObserver);
 new ClickObserver(view).destroy();
 new ClickObserver(view).observe(document.body);
 new ClickObserver(view).onDomEvent(new MouseEvent(''));
-// $ExpectError
+// @ts-expect-error
 new ClickObserver(view).onDomEvent(new FocusEvent(''));
 
 // $ExpectType InputObserver
@@ -1616,7 +1616,7 @@ view.getObserver(InputObserver);
 new InputObserver(view).destroy();
 new InputObserver(view).observe(document.body);
 new InputObserver(view).onDomEvent(new InputEvent(''));
-// $ExpectError
+// @ts-expect-error
 new InputObserver(view).onDomEvent(new FocusEvent(''));
 
 class MyClickObserver extends DomEventObserver {
@@ -1624,19 +1624,19 @@ class MyClickObserver extends DomEventObserver {
 
     onDomEvent(domEvent: MouseEvent) {
         this.fire('click', domEvent, { button: 1 });
-        // $ExpectError
+        // @ts-expect-error
         this.fire('click', domEvent, { button: true });
     }
 
     expectError(domEvent: KeyboardEvent) {
-        // $ExpectError
+        // @ts-expect-error
         this.fire('click', domEvent);
     }
 }
 
 new DomEventData(view, new DragEvent(''));
 new DomEventData(view, new DragEvent(''), { dataTransfer: null });
-// $ExpectError
+// @ts-expect-error
 new DomEventData(view, new KeyboardEvent(''), { button: 1 });
 
 // $ExpectType void

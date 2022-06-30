@@ -151,9 +151,9 @@ pose.orientation;
 {
     const parser = new DOMParser();
     const document = parser.parseFromString('<actual-xml />', 'text/xml');
-    // $ExpectError
+    // @ts-expect-error
     new ROSLIB.UrdfModel({});
-    // $ExpectError
+    // @ts-expect-error
     new ROSLIB.UrdfModel();
     new ROSLIB.UrdfModel({ xml: document });
     new ROSLIB.UrdfModel({ xml: document, string: '<actual-xml />' });
@@ -194,7 +194,7 @@ pose.orientation;
         case ROSLIB.URDF_SPHERE:
             // $ExpectType number
             visual.geometry.radius;
-            // $ExpectError
+            // @ts-expect-error
             visual.geometry.dimension;
             break;
         case ROSLIB.URDF_BOX:
@@ -212,11 +212,11 @@ pose.orientation;
             visual.geometry.filename;
             // $ExpectType Vector3 | null
             visual.geometry.scale;
-            // $ExpectError
+            // @ts-expect-error
             visual.geometry.length;
             break;
     }
-    // $ExpectError
+    // @ts-expect-error
     visual.geometry?.radius;
 
     const joint: ROSLIB.UrdfJoint = model.joints[0];

@@ -1409,6 +1409,8 @@ declare class TelegramBot extends EventEmitter {
 
     kickChatMember(chatId: TelegramBot.ChatId, userId: string): Promise<boolean>;
 
+    banChatMember(chatId: number | string, userId: string, untilDate?: number, revokeMessages?: boolean): Promise<boolean>;
+
     unbanChatMember(chatId: TelegramBot.ChatId, userId: string): Promise<boolean>;
 
     banChatSenderChat(chatId: TelegramBot.ChatId, senderChatId: TelegramBot.ChatId): Promise<boolean>;

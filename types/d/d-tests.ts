@@ -21,7 +21,8 @@ d('ce', 'foo'); // $ExpectType PropertyDescriptor
 d('cw', 'foo'); // $ExpectType PropertyDescriptor
 d('ew', 'foo'); // $ExpectType PropertyDescriptor
 d('cew', 'foo'); // $ExpectType PropertyDescriptor
-d('foo', 'foo'); // $ExpectError
+// @ts-expect-error
+d('foo', 'foo');
 
 d.gs('c', { enumerable: true }); // $ExpectType PropertyDescriptor
 d.gs('c', () => ({}), { enumerable: true }); // $ExpectType PropertyDescriptor
@@ -37,7 +38,8 @@ d.gs('c', undefined, () => ({}), { enumerable: true }); // $ExpectType PropertyD
 d.gs('c', () => ({})); // $ExpectType PropertyDescriptor
 d.gs('e', () => ({})); // $ExpectType PropertyDescriptor
 d.gs('ce', () => ({})); // $ExpectType PropertyDescriptor
-d.gs('cew', () => ({})); // $ExpectError
+// @ts-expect-error
+d.gs('cew', () => ({}));
 
 class Foo {
     _count: number;

@@ -4,7 +4,7 @@ const element = document.createElement('div');
 
 // $ExpectType void
 cornerstone.enable(element);
-// $ExpectError
+// @ts-expect-error
 cornerstone.enable();
 
 cornerstone.loadImage('IMAGE_ID').then(image => {

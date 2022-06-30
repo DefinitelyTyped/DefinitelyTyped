@@ -16,10 +16,10 @@ declare global {
 
 export namespace Plaid {
     interface CreateConfig {
-        clientName: string;
-        product: Product[];
-        key: string;
-        env: Environment;
+        clientName?: string | undefined;
+        product?: Product[] | undefined;
+        key?: string | undefined;
+        env?: Environment | undefined;
         onSuccess: OnSuccess;
         onExit?: OnExit | undefined;
         onEvent?: OnEvent | undefined;
@@ -35,6 +35,7 @@ export namespace Plaid {
         oauthNonce?: string | undefined;
         oauthRedirectUri?: string | undefined;
         oauthStateId?: string | undefined;
+        receivedRedirectUri?: string | null | undefined;
     }
 
     type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;

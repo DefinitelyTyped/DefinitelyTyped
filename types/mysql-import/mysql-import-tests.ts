@@ -1,8 +1,10 @@
 import * as mysqlImport from 'mysql-import';
 
-mysqlImport.config(); // $ExpectError
+// @ts-expect-error
+mysqlImport.config();
 
-mysqlImport.config({}); // $ExpectError
+// @ts-expect-error
+mysqlImport.config({});
 
 // $ExpectType Importer
 const importer = mysqlImport.config({

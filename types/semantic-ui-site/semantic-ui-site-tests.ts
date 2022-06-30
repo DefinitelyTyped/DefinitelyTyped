@@ -46,8 +46,10 @@ function test_site() {
     });
     $(selector).site(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).site('foo'); // $ExpectError
-    $(selector).site({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).site('foo');
+    // @ts-expect-error
+    $(selector).site({ foo: 'bar' });
 }
 
 import site = require('semantic-ui-site');

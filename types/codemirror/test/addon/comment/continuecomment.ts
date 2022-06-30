@@ -23,11 +23,13 @@ const cm4 = CodeMirror(document.body, {
 });
 
 const cm5 = CodeMirror(document.body, {
-    continueComments: 12, // $ExpectError
+    // @ts-expect-error
+    continueComments: 12,
 });
 
 const cm6 = CodeMirror(document.body, {
     continueComments: {
-        key: 12, // $ExpectError
+        // @ts-expect-error
+        key: 12,
     },
 });

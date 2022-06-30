@@ -15,6 +15,13 @@ var config: sql.config = {
         encrypt: true
     },
     pool: {},
+    authentication: {
+        type: "default",
+        options: {
+            userName: "user",
+            password: "password"
+        }
+    },
     beforeConnect: (conn) => {
         conn.on('debug', message => console.info(message));
         conn.on('error', err => console.error(err));
@@ -146,6 +153,10 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
         });
     }
 });
+
+function test_connection_string_parser() {
+    var parsedConfig: sql.config = sql.ConnectionPool.parseConnectionString(connectionString);
+}
 
 function test_table() {
     var table = new sql.Table('#temp_table');

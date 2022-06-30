@@ -69,4 +69,5 @@ getLanguagePlugin(() => ({
         },
     },
 }));
+
 getLanguagePlugin('typescript').outputExtension;

@@ -130,4 +130,10 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
     // get a specific header and do string operations
     const acceptHeader = headers["accept-encoding"];
     acceptHeader.forEach(val => val.toUpperCase());
+
+    // EW.ResponseProviderRequest.text()
+    const stringBody = request.text();
+
+    // EW.ResponseProviderRequest.json()
+    const jsonBody = request.json();
 }

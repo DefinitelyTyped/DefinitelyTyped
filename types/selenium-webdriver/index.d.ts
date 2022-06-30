@@ -1,4 +1,4 @@
-// Type definitions for Selenium WebDriverJS 4.0
+// Type definitions for Selenium WebDriverJS 4.1
 // Project: https://github.com/SeleniumHQ/selenium
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
 //   Yuki Kokubun <https://github.com/Kuniwak>,
@@ -10,6 +10,7 @@
 //   Aleksey Chemakin <https://github.com/Dzenly>
 //   David Burns <https://github.com/AutomatedTester>
 //   Pirasis Leelatanon <https://github.com/1pete>
+//   Harmandeep Singh <https://github.com/SinghHrmn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -17,7 +18,7 @@ import * as chrome from './chrome';
 import * as edge from './edge';
 import * as firefox from './firefox';
 import * as ie from './ie';
-import { By, ByHash } from './lib/by';
+import { By, ByHash, RelativeBy } from './lib/by';
 import { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
 import * as command from './lib/command';
 import * as http from './http';
@@ -26,10 +27,11 @@ import { promise } from './lib/promise';
 import * as logging from './lib/logging';
 import * as until from './lib/until';
 import * as safari from './safari';
+import { ShadowRootPromise } from './lib/webdriver';
 import { WebSocket } from 'ws';
-import { HttpResponse } from './networkinterceptor';
+import { HttpResponse } from './networkinterceptor'
 
-export { By, ByHash } from './lib/by';
+export * from './lib/by';
 export { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
 export { Actions, Button, Key, Origin } from './lib/input';
 export { promise } from './lib/promise';
@@ -902,7 +904,7 @@ export class Builder {
   // endregion
 }
 
-export type Locator = By | Function | ByHash;
+export type Locator = By | Function | ByHash | RelativeBy;
 
 /**
  * Describes an event listener registered on an {@linkplain EventEmitter}.
@@ -2881,6 +2883,14 @@ export class WebElement implements Serializable<IWebElementId> {
    *     resolved to the screenshot as a base-64 encoded PNG.
    */
   takeScreenshot(opt_scroll?: boolean): Promise<string>;
+
+  /**
+   * Get the shadow root of the current web element.
+   * @returns {!Promise<ShadowRoot>} A promise that will be
+   *      resolved with the elements shadow root or rejected
+   *      with {@link NoSuchShadowRootError}
+   */
+  getShadowRoot(): ShadowRootPromise;
 
   /** @override */
   serialize(): Promise<IWebElementId>;

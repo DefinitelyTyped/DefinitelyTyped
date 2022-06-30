@@ -8,8 +8,10 @@ const gif = new GIF({
 
 // change GIF options
 gif.setOption('dither', 'Atkinson');
-gif.setOption('quality', 'Atkinson'); // $ExpectError
-gif.setOptions(); // $ExpectError
+// @ts-expect-error
+gif.setOption('quality', 'Atkinson');
+// @ts-expect-error
+gif.setOptions();
 
 // add an image element
 declare const imageElement: HTMLImageElement;

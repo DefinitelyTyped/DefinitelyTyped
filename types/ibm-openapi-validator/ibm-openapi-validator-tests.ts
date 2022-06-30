@@ -184,8 +184,8 @@ oasValidator(oasExamplePetstore);
 // $ExpectType Promise<validatorResult>
 oasValidator(oasExamplePetstore, true);
 
-// $ExpectError
+// @ts-expect-error
 oasValidator('');
 
-// $ExpectError
+// @ts-expect-error
 oasValidator(1);

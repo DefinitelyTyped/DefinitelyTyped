@@ -83,10 +83,12 @@ csstree.generate(ast, {
 });
 
 const property = csstree.property('*-vendor-property');
-property.name = 'test'; // $ExpectError
+// @ts-expect-error
+property.name = 'test';
 
 const keyword = csstree.keyword('-vendor-keyword');
-keyword.name = 'test'; // $ExpectError
+// @ts-expect-error
+keyword.name = 'test';
 
 csstree.clone(ast); // $ExpectType CssNode
 

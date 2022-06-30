@@ -417,18 +417,18 @@ const tagifyOneArg = new Tagify(inputElement);
 const tagifyEmptySettings = new Tagify(inputElement, {});
 new Tagify(inputElement, { dropdown: { appendTarget: null } });
 new Tagify(inputElement, { pattern: null });
-// $ExpectError
+// @ts-expect-error
 new Tagify(inputElement, { required: false });
-// $ExpectError
+// @ts-expect-error
 new Tagify(inputElement, { readonly: false });
-// $ExpectError
+// @ts-expect-error
 new Tagify(inputElement, { mixTagsInterpolator: ["", "", ""] });
-// $ExpectError
+// @ts-expect-error
 new Tagify(inputElement, { mixTagsInterpolator: [""] });
 
 new Tagify<TagData>(inputElement, { tagTextProp: "foobar" });
 new Tagify<MyTagData>(inputElement, { tagTextProp: "active" });
-// $ExpectError
+// @ts-expect-error
 new Tagify<MyTagData>(inputElement, { tagTextProp: "foobar" });
 
 const tagArray: TagData[] = tagify.value;
@@ -452,9 +452,9 @@ tagify.on('add', (event) => { });
 // $ExpectType Tagify<TagData>
 tagify.off('add', (event) => { });
 
-// $ExpectError
+// @ts-expect-error
 tagify.on('foobar', (event) => { });
-// $ExpectError
+// @ts-expect-error
 tagify.off('foobar', (event) => { });
 
 tagify.on('change', (event) => {
@@ -825,7 +825,7 @@ tagify.addEmptyTag();
 tagify.addEmptyTag({ label: 'Apple' });
 typedTagify.addEmptyTag();
 typedTagify.addEmptyTag({ active: false });
-// $ExpectError
+// @ts-expect-error
 typedTagify.addEmptyTag({ label: "Apple" });
 tagify.loadOriginalValues('banana');
 tagify.loadOriginalValues(['banana', 'orange']);
@@ -841,7 +841,7 @@ typedTagify.getWhitelistItem("foo");
 typedTagify.getWhitelistItem("foo", "title");
 // $ExpectType MyTagData[]
 typedTagify.getWhitelistItem("foo", "title", [{ value: 'foo', active: false, name: "", title: "" }]);
-// $ExpectError
+// @ts-expect-error
 typedTagify.getWhitelistItem("foo", "banana");
 // $ExpectType number[]
 tagify.getTagIndexByValue('foo');
@@ -891,15 +891,15 @@ if (typedTagElement !== undefined) {
     typedTagify.tagData(typedTagElement, { active: true }, undefined);
     // $ExpectType MyTagData
     typedTagify.tagData(typedTagElement, { active: true, name: '', title: '', value: '' }, true);
-    // $ExpectError
+    // @ts-expect-error
     typedTagify.tagData(typedTagElement, { active: true }, true);
-    // $ExpectError
+    // @ts-expect-error
     typedTagify.replaceTag(typedTagElement, { value: 'bar' });
     typedTagify.replaceTag(typedTagElement, { value: 'bar', title: "", name: "", active: false });
 }
 
 const newTag = tagify.createTagElem({ value: 'hello' });
-// $ExpectError
+// @ts-expect-error
 typedTagify.createTagElem({ value: 'hello' });
 typedTagify.createTagElem({ value: 'hello', title: "", name: "", active: false });
 // $ExpectType Tagify<TagData>
@@ -918,7 +918,7 @@ tagify.parseTemplate('dropdownItem', [tags[0]]);
 tagify.parseTemplate('dropdown', [settings]);
 tagify.parseTemplate('dropdownItemNoMatch', [{ value: "" }]);
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
-// $ExpectError
+// @ts-expect-error
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags]);
 tagify.setReadonly(false);
 tagify.setDisabled(false);

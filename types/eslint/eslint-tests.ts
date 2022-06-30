@@ -474,7 +474,7 @@ rule = {
             },
             WhileStatement(node: WhileStatement) {},
             Program(node) {
-                // $ExpectError
+                // @ts-expect-error
                 node.parent;
             },
             'Program:exit'() {},
@@ -666,9 +666,38 @@ eslint = new ESLint({ ignore: true });
 eslint = new ESLint({ ignorePath: 'foo' });
 eslint = new ESLint({ useEslintrc: false });
 eslint = new ESLint({ plugins: { foo: {} } });
-eslint = new ESLint({ reportUnusedDisableDirectives: 'error' });
-eslint = new ESLint({ resolvePluginsRelativeTo: 'test' });
-eslint = new ESLint({ rulePaths: ['foo'] });
+eslint = new ESLint({
+    plugins: {
+        bar: {
+            configs: {
+                myConfig: {
+                    noInlineConfig: true
+                }
+            },
+            environments: {
+                production: {
+                    parserOptions: {
+                        ecmaVersion: 6
+                    }
+                }
+            },
+            processors: {
+                myProcessor: {
+                    supportsAutofix: false
+                }
+            },
+            rules: {
+                myRule: {
+                    create(context) { return {}; },
+                    meta: {},
+                }
+            }
+        }
+    }
+});
+eslint = new ESLint({ reportUnusedDisableDirectives: "error" });
+eslint = new ESLint({ resolvePluginsRelativeTo: "test" });
+eslint = new ESLint({ rulePaths: ["foo"] });
 
 let resultsPromise = eslint.lintFiles(['myfile.js', 'lib/']);
 
