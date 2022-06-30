@@ -7,17 +7,17 @@ const fromObjectsTestArray = ['hello', { a: 1, b: false }, 1];
 
 function runTest() {
   StreamTest.versions.forEach((version) => {
-    StreamTest[version].fromChunks(['hello']); // $ExpectType Readable
-    StreamTest[version].fromChunks(['hello'], 10); // $ExpectType Readable
+    StreamTest[version].fromChunks(['hello']); // $ExpectType Readable<any>
+    StreamTest[version].fromChunks(['hello'], 10); // $ExpectType Readable<any>
 
-    StreamTest[version].fromObjects(fromObjectsTestArray); // $ExpectType Readable
-    StreamTest[version].fromObjects(fromObjectsTestArray, 10); // $ExpectType Readable
+    StreamTest[version].fromObjects(fromObjectsTestArray); // $ExpectType Readable<any>
+    StreamTest[version].fromObjects(fromObjectsTestArray, 10); // $ExpectType Readable<any>
 
     const errorChunkStream1 = StreamTest[version].fromErroredChunks(
       new Error('bad thing'),
       [Buffer.from('some data')],
     );
-    errorChunkStream1; // $ExpectType Readable
+    errorChunkStream1; // $ExpectType Readable<any>
     errorChunkStream1.on('error', (err) => {
       return; // keep on working
     });
@@ -27,7 +27,7 @@ function runTest() {
       [Buffer.from('some data')],
       10
     );
-    errorChunkStream2; // $ExpectType Readable
+    errorChunkStream2; // $ExpectType Readable<any>
     errorChunkStream2.on('error', (err) => {
       return; // keep on working
     });
@@ -36,7 +36,7 @@ function runTest() {
       new Error('bad thing'),
       fromObjectsTestArray,
     );
-    errorObjectStream1; // $ExpectType Readable
+    errorObjectStream1; // $ExpectType Readable<any>
     errorObjectStream1.on('error', (err) => {
       return; // keep on working
     });
@@ -46,7 +46,7 @@ function runTest() {
       fromObjectsTestArray,
       10,
     );
-    errorObjectStream2; // $ExpectType Readable
+    errorObjectStream2; // $ExpectType Readable<any>
     errorObjectStream2.on('error', (err) => {
       return; // keep on working
     });

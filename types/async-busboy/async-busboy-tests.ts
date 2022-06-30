@@ -18,7 +18,7 @@ asyncBusboy(req, { highWaterMark: 10 }); // $ExpectType Promise<Result>
 const onFileResultPromise = asyncBusboy(req, {
     onFile: (fieldname, file, filename, encoding, mimetype) => {
         fieldname; // $ExpectType string
-        file; // $ExpectType Readable
+        file; // $ExpectType Readable<any>
         filename; // $ExpectType string
         encoding; // $ExpectType string
         mimetype; // $ExpectType string

@@ -80,7 +80,7 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
     const statement = conn.execute({
         sqlText: ''
     });
-    // $ExpectType Readable
+    // $ExpectType Readable<any>
     const stream = statement.streamRows();
     stream.on('data', data => {
         //

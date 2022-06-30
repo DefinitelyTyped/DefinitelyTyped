@@ -4,5 +4,5 @@ import streamify = require('stream-array');
 streamify();
 // @ts-expect-error
 streamify('abc');
-streamify([]); // $ExpectType Readable
-streamify([1, '2', { 3: 4 }]); // $ExpectType Readable
+streamify([]); // $ExpectType Readable<any>
+streamify([1, '2', { 3: 4 }]); // $ExpectType Readable<any>

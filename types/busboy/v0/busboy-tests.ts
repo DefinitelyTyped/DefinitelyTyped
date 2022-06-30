@@ -25,7 +25,7 @@ new Busboy({ headers: { 'content-type': 'foo' }, limits: { headerPairs: 200 } })
 
 busboy.addListener('file', (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
-    file; // $ExpectType Readable
+    file; // $ExpectType Readable<any>
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
@@ -63,7 +63,7 @@ busboy.on(Symbol('foo'), foo => {
 
 busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
-    file; // $ExpectType Readable
+    file; // $ExpectType Readable<any>
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
@@ -101,7 +101,7 @@ busboy.on(Symbol('foo'), foo => {
 
 busboy.once('file', (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
-    file; // $ExpectType Readable
+    file; // $ExpectType Readable<any>
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
@@ -139,7 +139,7 @@ busboy.once(Symbol('foo'), foo => {
 
 busboy.removeListener('file', (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
-    file; // $ExpectType Readable
+    file; // $ExpectType Readable<any>
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
@@ -177,7 +177,7 @@ busboy.removeListener(Symbol('foo'), foo => {
 
 busboy.off('file', (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
-    file; // $ExpectType Readable
+    file; // $ExpectType Readable<any>
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
@@ -215,7 +215,7 @@ busboy.off(Symbol('foo'), foo => {
 
 busboy.prependListener('file', (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
-    file; // $ExpectType Readable
+    file; // $ExpectType Readable<any>
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
@@ -253,7 +253,7 @@ busboy.prependListener(Symbol('foo'), foo => {
 
 busboy.prependOnceListener('file', (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
-    file; // $ExpectType Readable
+    file; // $ExpectType Readable<any>
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string

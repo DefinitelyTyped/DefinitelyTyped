@@ -5,10 +5,10 @@ import gitRawCommits from "git-raw-commits";
 declare const execOptions: gitRawCommits.ExecOptions;
 declare const gitOptions: gitRawCommits.GitOptions;
 
-// $ExpectType Readable
+// $ExpectType Readable<any>
 gitRawCommits(gitOptions);
 
-// $ExpectType Readable
+// $ExpectType Readable<any>
 gitRawCommits(gitOptions, execOptions);
 
 // @ts-expect-error

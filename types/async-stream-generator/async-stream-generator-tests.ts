@@ -18,5 +18,5 @@ streamify();
 streamify(notGenerator());
 // @ts-expect-error
 streamify(notAsync());
-streamify(generator());  // $ExpectType Readable
+streamify(generator());  // $ExpectType Readable<any>
 streamify(generator()).pipe(process.stdout);

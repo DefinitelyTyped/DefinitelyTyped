@@ -120,12 +120,12 @@ import fs = require("fs");
     });
 
     saxStream.on("pipe", src => {
-        // $ExpectType Readable
+        // $ExpectType Readable<any>
         src;
     });
 
     saxStream.on("unpipe", src => {
-        // $ExpectType Readable
+        // $ExpectType Readable<any>
         src;
     });
 
