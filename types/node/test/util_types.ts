@@ -165,9 +165,12 @@ if (types.isKeyObject(keyObj)) {
 }
 
 webcrypto.subtle.generateKey(
-    { name: 'ECDH', namedCurve: 'P-256' }, false, []
+    'Algorithm', false, []
 ).then(cryptoKeyObj => {
     if (types.isCryptoKey(cryptoKeyObj)) {
-        cryptoKeyObj; // $ExpectType CryptoKey<false, never[]>
+        cryptoKeyObj; // $ExpectType CryptoKey
+    } else {
+        cryptoKeyObj.privateKey; // $ExpectType CryptoKey
+        cryptoKeyObj.publicKey; // $ExpectType CryptoKey
     }
 });

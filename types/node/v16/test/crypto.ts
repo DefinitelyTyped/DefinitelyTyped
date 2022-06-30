@@ -1368,42 +1368,23 @@ import { promisify } from 'node:util';
     new crypto.webcrypto.CryptoKey(); // Illegal constructor
 
     crypto.webcrypto.subtle.generateKey({ name: 'HMAC', hash: 'SHA-1' }, true, ['sign', 'decrypt', 'deriveBits']).then((out) => {
-        if (out instanceof crypto.webcrypto.CryptoKey) {
-            out.algorithm; // $ExpectType KeyGenParams
-            out.extractable; // $ExpectType true
-        } else {
-            out.publicKey.type; // $ExpectType "public"
-            out.privateKey.type; // $ExpectType "private"
-            out.publicKey.extractable; // $ExpectType boolean
-            out.privateKey.extractable; // $ExpectType true
-        }
+        out.algorithm; // $ExpectType KeyAlgorithm
+        out.extractable; // $ExpectType boolean
     });
 }
 
 {
     // Note: The following tests are not examples of correct usage of these APIs and are simply for typechecking testing.
     const subtle = crypto.webcrypto.subtle;
-    const rsaAes: crypto.webcrypto.SubtleCrypto.RsaOaepAesParams = { name: 'RSA-OAEP' };
-    const deriveAlgo: crypto.webcrypto.SubtleCrypto.DeriveAlgorithm = {
-        name: 'PBKDF2',
-        iterations: 1000,
-        hash: 'SHA-1',
-        salt: new Uint8Array([1, 2, 3, 4])
-    };
     // The lack of top level await makes it annoying to use generateKey so let's just fake it for typings.
     const key = null as unknown as crypto.webcrypto.CryptoKey;
     const buf = new Uint8Array(16);
 
-    subtle.decrypt(rsaAes, key, Buffer.alloc(8)); // $ExpectType Promise<ArrayBuffer>
-    subtle.deriveBits(deriveAlgo, key, 8); // $ExpectType Promise<ArrayBuffer>
-    subtle.deriveKey(deriveAlgo, key, { name: 'AES-KW', length: 128 }, true, []); // $ExpectType Promise<CryptoKey<boolean, readonly CryptoKeyUsages[]>>
     subtle.digest('SHA-384', buf); // $ExpectType Promise<ArrayBuffer>
-    subtle.encrypt(rsaAes, key, 'data'); // $ExpectType Promise<ArrayBuffer>
     subtle.exportKey('jwk', key);
     subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, false, ['deriveKey', 'deriveBits']);
-    subtle.importKey('pkcs8', buf, { name: 'NODE-SCRYPT' }, false, []); // $ExpectType Promise<CryptoKey<boolean, readonly CryptoKeyUsages[]>>
+    subtle.importKey('pkcs8', buf, { name: 'NODE-SCRYPT' }, false, []); // $ExpectType Promise<CryptoKey>
     subtle.sign({ name: 'RSA-PSS', saltLength: 64 }, key, buf); // $ExpectType Promise<ArrayBuffer>
-    // $ExpectType Promise<CryptoKey<boolean, readonly CryptoKeyUsages[]>>
     subtle.unwrapKey('raw', buf, key, { name: 'AES-CTR', length: 192, counter: buf }, { name: 'RSA-OAEP', hash: 'SHA-512' }, true, []);
     subtle.verify({ name: 'RSASSA-PKCS1-v1_5' }, key, buf, buf); // $ExpectType Promise<boolean>
     subtle.wrapKey('spki', key, key, { name: 'AES-GCM', tagLength: 104, iv: buf }); // $ExpectType Promise<ArrayBuffer>
