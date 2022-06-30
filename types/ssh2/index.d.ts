@@ -1695,7 +1695,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    exists(path: string, callback: (err: Error | undefined) => void): boolean;
+    exists(path: string, callback: (hasError: boolean) => void): boolean;
 
     /**
      * (Client-only)
