@@ -5,8 +5,12 @@ ibmdb.open("DATABASE=<dbname>;HOSTNAME=<myhost>;UID=db2user;PWD=password;PORT=<d
 
   conn.query('select 1 from sysibm.sysdummy1', (err, data) => {
     if (err) return false;
-    conn.close(() => {
-      //
+    conn.close((connErr) => {
+      if (connErr) {
+        //
+      } else {
+        //
+      }
     });
   });
 
