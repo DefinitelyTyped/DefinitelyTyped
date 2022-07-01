@@ -7,5 +7,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "no-dead-reference": "error",
+      "no-const-enum": "error"
     }
 }
