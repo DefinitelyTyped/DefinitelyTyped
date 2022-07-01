@@ -61,5 +61,5 @@ test((t) => {
   sub;
 });
 
-// $ExpectError
+// @ts-expect-error
 test(1, () => {});
