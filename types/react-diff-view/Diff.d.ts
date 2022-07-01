@@ -1,6 +1,6 @@
-import { Change, File, Hunk } from 'gitdiff-parser';
 import { FunctionComponent, ReactHTML, ReactNode } from 'react';
-import { HunkData } from '.';
+import { HunkData } from './HunkData';
+import { Change } from './Change';
 
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/Diff/index.js#L107 Source}) */
 export type DiffType = File['type'];
@@ -61,7 +61,7 @@ export interface DiffProps {
     /** Can be either `"unified"` or `"split"` to determine how the diff should look like. */
     viewType: ViewType;
     /**  Hunks of diff. */
-    hunks: Hunk[];
+    hunks: HunkData[];
     /**
      * How the gutter cell should be rendered, can be either `"default"` to
      * render only the line number, `"none"` to hide the gutter column, or

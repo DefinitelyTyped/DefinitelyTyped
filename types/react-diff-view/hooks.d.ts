@@ -1,5 +1,7 @@
+import { Change } from './Change';
+import { Token } from './Diff';
+import { HunkData } from './HunkData';
 import { expandCollapsedBlockBy } from './utils';
-import { Change, HunkData, Token } from '.';
 
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/hooks/useMinCollapsedLines.js Source}) */
 export function useMinCollapsedLines(

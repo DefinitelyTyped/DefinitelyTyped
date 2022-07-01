@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { HunkData } from '.';
+import { HunkData } from './HunkData';
 
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/tokenize/index.js#L7-L14 Source}) */
 export interface TokenizeOptions {

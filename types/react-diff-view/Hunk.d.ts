@@ -1,12 +1,13 @@
-import { Change, Hunk as HunkData } from "gitdiff-parser";
-import { FunctionComponent, PropsWithChildren } from "react";
+import { FunctionComponent, PropsWithChildren } from 'react';
+import { Change } from './Change';
+import { HunkData } from './HunkData';
 
 export interface CustomCallbackProps {
     /**
      * Is `undefined` in unified mode, in split mode it could be either
      * `"old"` and `"new"` responding to the triggering element.
      */
-    side: "new" | "old" | undefined;
+    side: 'new' | 'old' | undefined;
     change: Change;
 }
 export type CustomCallback = (object: CustomCallbackProps) => void;

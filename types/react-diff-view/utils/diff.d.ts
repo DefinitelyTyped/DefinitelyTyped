@@ -1,5 +1,5 @@
-import { Change } from 'gitdiff-parser';
-import { HunkData } from '../';
+import { Change } from '../Change';
+import { HunkData } from '../HunkData';
 
 /** ({@link https://github.com/otakustay/react-diff-view/blob/v2.4.10/src/utils/diff/insertHunk.js#L61-L75 Source}) */
 export function textLinesToHunk(lines: string[], oldStartLineNumber: number, newStartLineNumber: number): HunkData;

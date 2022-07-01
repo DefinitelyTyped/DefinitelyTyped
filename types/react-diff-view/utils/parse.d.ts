@@ -1,4 +1,4 @@
-import { File } from 'gitdiff-parser';
+import { File } from '../File';
 
 export interface ParseDiffOptions {
     nearbySequences?: 'zip';
