@@ -247,14 +247,14 @@ declare module 'leaflet' {
          *
          * ```
          * var geoJsonDocument = {
-         * 	type: 'FeatureCollection',
-         * 	features: [ ... ]
+         *   type: 'FeatureCollection',
+         *   features: [ ... ]
          * };
          *
          * L.vectorGrid.slicer(geoJsonDocument, {
-         * 	vectorTileLayerStyles: {
-         * 		sliced: { ... }
-         * 	}
+         *   vectorTileLayerStyles: {
+         *     sliced: { ... }
+         *   }
          * }).addTo(map);
          *
          * ```
@@ -319,10 +319,10 @@ declare module 'leaflet' {
          *
          * ```
          * L.vectorGrid.protobuf("https://free-{s}.tilehosting.com/data/v3/{z}/{x}/{y}.pbf.pict?key={key}", {
-         * 	vectorTileLayerStyles: { ... },
-         * 	subdomains: "0123",
-         * 	key: 'abcdefghi01234567890',
-         * 	maxNativeZoom: 14
+         *   vectorTileLayerStyles: { ... },
+         *   subdomains: "0123",
+         *   key: 'abcdefghi01234567890',
+         *   maxNativeZoom: 14
          * }).addTo(map);
          * ```
          *
@@ -330,9 +330,9 @@ declare module 'leaflet' {
          *
          * ```
          * L.vectorGrid.protobuf("https://{s}.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6/{z}/{x}/{y}.vector.pbf?access_token={token}", {
-         * 	vectorTileLayerStyles: { ... },
-         * 	subdomains: "abcd",
-         * 	token: "pk.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRTS.TUVWXTZ0123456789abcde"
+         *   vectorTileLayerStyles: { ... },
+         *   subdomains: "abcd",
+         *   token: "pk.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRTS.TUVWXTZ0123456789abcde"
          * }).addTo(map);
          * ```
          */
@@ -392,14 +392,14 @@ declare module 'leaflet' {
          *
          * ```
          * var geoJsonDocument = {
-         * 	type: 'FeatureCollection',
-         * 	features: [ ... ]
+         *   type: 'FeatureCollection',
+         *   features: [ ... ]
          * };
          *
          * L.vectorGrid.slicer(geoJsonDocument, {
-         * 	vectorTileLayerStyles: {
-         * 		sliced: { ... }
-         * 	}
+         *   vectorTileLayerStyles: {
+         *     sliced: { ... }
+         *   }
          * }).addTo(map);
          *
          * ```
@@ -442,10 +442,10 @@ declare module 'leaflet' {
          *
          * ```
          * L.vectorGrid.protobuf("https://free-{s}.tilehosting.com/data/v3/{z}/{x}/{y}.pbf.pict?key={key}", {
-         * 	vectorTileLayerStyles: { ... },
-         * 	subdomains: "0123",
-         * 	key: 'abcdefghi01234567890',
-         * 	maxNativeZoom: 14
+         *   vectorTileLayerStyles: { ... },
+         *   subdomains: "0123",
+         *   key: 'abcdefghi01234567890',
+         *   maxNativeZoom: 14
          * }).addTo(map);
          * ```
          *
@@ -453,9 +453,9 @@ declare module 'leaflet' {
          *
          * ```
          * L.vectorGrid.protobuf("https://{s}.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6/{z}/{x}/{y}.vector.pbf?access_token={token}", {
-         * 	vectorTileLayerStyles: { ... },
-         * 	subdomains: "abcd",
-         * 	token: "pk.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRTS.TUVWXTZ0123456789abcde"
+         *   vectorTileLayerStyles: { ... },
+         *   subdomains: "abcd",
+         *   token: "pk.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRTS.TUVWXTZ0123456789abcde"
          * }).addTo(map);
          * ```
          */
