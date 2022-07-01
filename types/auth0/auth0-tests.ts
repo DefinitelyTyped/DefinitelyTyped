@@ -1029,6 +1029,8 @@ async () => {
     };
     signInUserData.realm = 'email';
     signInUserData.realm = 'sms';
+
+    signInUserData.scope = 'openid profile email';
     const emailUserData: auth0.RequestEmailCodeOrLinkOptions = {
         email: '{YOUR_EMAIL}',
         send: 'code',

@@ -350,8 +350,8 @@ declare namespace jest {
     function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
         object: T,
         method: M
-    ): Required<T>[M] extends (...args: any[]) => any
-        ? SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>>
+    ): FunctionProperties<Required<T>>[M] extends Func
+        ? SpyInstance<ReturnType<FunctionProperties<Required<T>>[M]>, ArgsType<FunctionProperties<Required<T>>[M]>>
         : never;
     function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
         object: T,
@@ -413,13 +413,12 @@ declare namespace jest {
     type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
     type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
     // see https://github.com/Microsoft/TypeScript/issues/25215
-    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Func ? never : K }[keyof T] &
-        string;
+    type NonFunctionPropertyNames<T> = keyof { [K in keyof T as T[K] extends Func ? never : K]: T[K]; };
     type GetAccessor = 'get';
     type SetAccessor = 'set';
     type PropertyAccessors<M extends keyof T, T extends {}> = M extends NonFunctionPropertyNames<Required<T>> ? GetAccessor | SetAccessor : never;
-    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Func ? K : never }[keyof T] &
-        string;
+    type FunctionProperties<T> = { [K in keyof T as T[K] extends (...args: any[]) => any ? K : never]: T[K] };
+    type FunctionPropertyNames<T> = keyof FunctionProperties<T>;
     type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends Constructor ? K : never }[keyof T] &
         string;
 

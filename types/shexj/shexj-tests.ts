@@ -17,23 +17,23 @@ function test_pieces() {
     const l1: STRING = 'literal 1';
 
     const anotationIRI: Annotation = { type: "Annotation", predicate: i1, object: i2 };
-    // $ExpectError
+    // @ts-expect-error
     const anotationIRI_e0: Annotation = { type: "Annotation999", predicate: i1, object: i2 };
-    // $ExpectError
+    // @ts-expect-error
     const anotationIRI_e1: Annotation = { type: "Annotation", predicate999: i1, object: i2 };
-    // $ExpectError
+    // @ts-expect-error
     const anotationIRI_e2: Annotation = { type: "Annotation", predicate: i1, object999: i2 };
     const anotationLit: Annotation = { type: "Annotation", predicate: i1, object: l1 };
 
     const anotation: Annotation = { type: "Annotation", predicate: i1, object: i2 };
 
     const semAct1: SemAct = { type: "SemAct", name: i1 };
-    // // $ExpectError
+    // // @ts-expect-error
     // const semAct1_e0: SemAct = { type: "SemAct", name: l1 } // can typescript detect this?
-    // $ExpectError
+    // @ts-expect-error
     const semAct1_e1: SemAct = { type: "SemAct", code: l1 };
     const semAct2: SemAct = { type: "SemAct", name: i1, code: l1 };
-    // $ExpectError
+    // @ts-expect-error
     const semAct2_e0: SemAct = { type: "Semact", name: i1, code: l1 };
 
     const tel1: tripleExprLabel = i1;
@@ -44,14 +44,14 @@ function test_pieces() {
 
     const eo1: EachOf = { type: "EachOf", expressions: [tc1, tc2] };
     const oo1: OneOf = { type: "OneOf", expressions: [tc1, eo1, ter1] };
-    // $ExpectError
+    // @ts-expect-error
     const oo1_e1: OneOf = { type: "OneOf", expressions: [tc1, semAct1] };
 
     const te1: tripleExpr = ter1;
     const te2: tripleExpr = tc1;
     const te3: tripleExpr = eo1;
     const te4: tripleExpr = oo1;
-    // $ExpectError
+    // @ts-expect-error
     const te_e1: tripleExpr = semAct1;
 
     const sh1: Shape = { type: "Shape" };
@@ -83,7 +83,7 @@ function test_pieces() {
     const xsf1: xsFacet[] = [nf1, sf1];
 
     const nc1: NodeConstraint = { type: "NodeConstraint", nodeKind: "iri" };
-    // $ExpectError
+    // @ts-expect-error
     const nc_e1: NodeConstraint = { type: "NodeConstraint", nodeKind: "iri999" };
     const nc2: NodeConstraint = { type: "NodeConstraint", datatype: i2, values: vsv1, minlength: 2, minexclusive: 99 };
 

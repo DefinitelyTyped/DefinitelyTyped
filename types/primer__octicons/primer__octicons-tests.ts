@@ -4,10 +4,10 @@ import { IconName } from '@primer/octicons';
 // $ExpectType string
 octicons.alert.toSVG();
 
-// $ExpectError
+// @ts-expect-error
 const name: IconName = 'foo';
 
-// $ExpectError
+// @ts-expect-error
 octicons.alert.heights[48];
 
 type Removed = 'eye-slash' | 'fire' | 'no-entry-fill';

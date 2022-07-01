@@ -1,11 +1,11 @@
-import cleanCSS = require('clean-css');
-import htmlMinifier = require('html-minifier-terser');
-import terser = require('terser');
-
 import css from './css';
 import html from './html';
 import img from './img';
 import js from './js';
+
+import type { Options as CleanCssOptions } from 'clean-css';
+import type { Options as HtmlMinifierOptions } from 'html-minifier-terser';
+import type { MinifyOptions } from 'terser';
 
 // supported extensions
 export type Ext = 'js' | 'html' | 'css';
@@ -32,15 +32,15 @@ export interface Options {
     /**
      * see {@link https://github.com/kangax/html-minifier}
      */
-    html?: htmlMinifier.Options | undefined;
+    html?: HtmlMinifierOptions | undefined;
     /**
      * see {@link https://github.com/jakubpawlowicz/clean-css}
      */
-    css?: cleanCSS.Options | undefined;
+    css?: CleanCssOptions | undefined;
     /**
      * see {@link https://github.com/terser/terser}
      */
-    js?: terser.MinifyOptions | undefined;
+    js?: MinifyOptions | undefined;
     /**
      * see {@link https://github.com/Filirom1/css-base64-images}
      */

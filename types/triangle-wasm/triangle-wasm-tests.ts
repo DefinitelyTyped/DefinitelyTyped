@@ -8,7 +8,7 @@ const data = {
 triangle.init();
 // $ExpectType Promise<void>
 triangle.init('path');
-// $ExpectError
+// @ts-expect-error
 triangle.init(1234);
 
 // $ExpectType TriangulateIO
@@ -18,11 +18,11 @@ const outputIo = triangle.makeIO();
 // $ExpectType string
 const switches = triangle.getSwitchesStr('', inputIo);
 
-// $ExpectError
+// @ts-expect-error
 triangle.triangulate();
-// $ExpectError
+// @ts-expect-error
 triangle.triangulate(switches);
-// $ExpectError
+// @ts-expect-error
 triangle.triangulate(switches, inputIo);
 
 // $ExpectType void

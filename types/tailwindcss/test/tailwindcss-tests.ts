@@ -2583,7 +2583,7 @@ defaultTheme.colors.blue[800];
 // $ExpectType TailwindPlugin<any>[] | undefined
 tailwindConfig.plugins;
 
-// $ExpectType any[] | undefined
+// $ExpectType TailwindConfig[] | undefined
 tailwindConfig.presets;
 
 // $ExpectType false | "media" | "class" | undefined

@@ -220,5 +220,7 @@ adapter.updateNodeSourceCodeLocation(defaultTextNode, endLocation); // $ExpectTy
 adapter.getNodeSourceCodeLocation(defaultTextNode);
 
 // The `interface *Base` types are intentionally not exported:
-type _EndLocationBase = parse5.EndLocationBase; // $ExpectError
-type _ElementLocationBase = parse5.ElementLocationBase; // $ExpectError
+// @ts-expect-error
+type _EndLocationBase = parse5.EndLocationBase;
+// @ts-expect-error
+type _ElementLocationBase = parse5.ElementLocationBase;

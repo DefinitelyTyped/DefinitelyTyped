@@ -7597,7 +7597,7 @@ declare namespace chrome.scripting {
         target: InjectionTarget;
     }
 
-    export type ScriptInjection<Args extends any[] = []> = {
+    export type ScriptInjection<Args extends any[]> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
         /* The JavaScript world for a script to execute within. */
@@ -7607,14 +7607,13 @@ declare namespace chrome.scripting {
         files: string[];
     } | ({
         /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        func: ((...args: Args) => void);
-    } & (Args extends [] ? {
-        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
-        args?: Args;
-    } : {
+        func: () => void;
+    }  | {
+        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
+        func: (...args: Args) => void;
         /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
         args: Args;
-    })))
+    }))
 
     /**
      * Injects a script into a target context. The script will be run at document_end.

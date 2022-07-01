@@ -93,8 +93,10 @@ function test_dimmer() {
     });
     $(selector).dimmer(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).dimmer('foo'); // $ExpectError
-    $(selector).dimmer({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).dimmer('foo');
+    // @ts-expect-error
+    $(selector).dimmer({ foo: 'bar' });
 }
 
 import dimmer = require('semantic-ui-dimmer');

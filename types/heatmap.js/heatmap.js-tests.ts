@@ -17,7 +17,7 @@ declare const container: HTMLElement;
 }
 
 {
-    // $ExpectError
+    // @ts-expect-error
     const config: h337.HeatmapConfiguration = { container, valueField: 'foo' };
 }
 
@@ -66,12 +66,18 @@ declare const container: HTMLElement;
         { x: 2, y: 2, value: 2 },
     ]);
 
-    heatmap.addData({ x: null, y: 1, value: 1 }); // $ExpectError
-    heatmap.addData({ x: 1, y: null, value: 1 }); // $ExpectError
-    heatmap.addData({ x: 1, y: 1, value: null }); // $ExpectError
-    heatmap.addData({ y: 1, value: 1 }); // $ExpectError
-    heatmap.addData({ x: 1, value: 1 }); // $ExpectError
-    heatmap.addData({ x: 1, y: 1, }); // $ExpectError
+    // @ts-expect-error
+    heatmap.addData({ x: null, y: 1, value: 1 });
+    // @ts-expect-error
+    heatmap.addData({ x: 1, y: null, value: 1 });
+    // @ts-expect-error
+    heatmap.addData({ x: 1, y: 1, value: null });
+    // @ts-expect-error
+    heatmap.addData({ y: 1, value: 1 });
+    // @ts-expect-error
+    heatmap.addData({ x: 1, value: 1 });
+    // @ts-expect-error
+    heatmap.addData({ x: 1, y: 1, });
 }
 
 {
@@ -90,12 +96,18 @@ declare const container: HTMLElement;
         { xPos: 2, yPos: 2, count: 2 },
     ]);
 
-    heatmap.addData({ xPos: null, yPos: 1, count: 1 }); // $ExpectError
-    heatmap.addData({ xPos: 1, yPos: null, count: 1 }); // $ExpectError
-    heatmap.addData({ xPos: 1, yPos: 1, count: null }); // $ExpectError
-    heatmap.addData({ yPos: 1, count: 1 }); // $ExpectError
-    heatmap.addData({ xPos: 1, count: 1 }); // $ExpectError
-    heatmap.addData({ xPos: 1, yPos: 1, }); // $ExpectError
+    // @ts-expect-error
+    heatmap.addData({ xPos: null, yPos: 1, count: 1 });
+    // @ts-expect-error
+    heatmap.addData({ xPos: 1, yPos: null, count: 1 });
+    // @ts-expect-error
+    heatmap.addData({ xPos: 1, yPos: 1, count: null });
+    // @ts-expect-error
+    heatmap.addData({ yPos: 1, count: 1 });
+    // @ts-expect-error
+    heatmap.addData({ xPos: 1, count: 1 });
+    // @ts-expect-error
+    heatmap.addData({ xPos: 1, yPos: 1, });
 }
 
 // -- Heatmap#setData --
@@ -105,8 +117,10 @@ declare const container: HTMLElement;
         [{ x: 1, y: 2, value: 1 }];
 
     const heatmap = h337.create({ container });
-    heatmap.setData({ max: 5, data: validData }); // $ExpectError
-    heatmap.setData({ min: 5, data: validData }); // $ExpectError
+    // @ts-expect-error
+    heatmap.setData({ max: 5, data: validData });
+    // @ts-expect-error
+    heatmap.setData({ min: 5, data: validData });
 
     // $ExpectType Heatmap<"value", "x", "y">
     heatmap.setData({
@@ -115,7 +129,7 @@ declare const container: HTMLElement;
         data: validData
     });
 
-    // $ExpectError
+    // @ts-expect-error
     heatmap.setData({ min: 0, max: 1, data: [{ xPos: 1, yPos: 2, value: 5 }] });
 }
 
@@ -124,8 +138,10 @@ declare const container: HTMLElement;
         [{ xPos: 1, yPos: 2, count: 1 }];
 
     const heatmap = h337.create<"count", "xPos", "yPos">({ container });
-    heatmap.setData({ max: 5, data: validData }); // $ExpectError
-    heatmap.setData({ min: 5, data: validData }); // $ExpectError
+    // @ts-expect-error
+    heatmap.setData({ max: 5, data: validData });
+    // @ts-expect-error
+    heatmap.setData({ min: 5, data: validData });
 
     // $ExpectType Heatmap<"count", "xPos", "yPos">
     heatmap.setData({
@@ -134,7 +150,7 @@ declare const container: HTMLElement;
         data: validData
     });
 
-    // $ExpectError
+    // @ts-expect-error
     heatmap.setData({ min: 0, max: 1, data: [{ x: 1, y: 2, value: 5 }] });
 }
 
@@ -145,12 +161,16 @@ declare const container: HTMLElement;
 
     // $ExpectType Heatmap<"value", "x", "y">
     heatmap.setDataMax(500);
-    heatmap.setDataMax(null); // $ExpectError
-    heatmap.setDataMax(); // $ExpectError
+    // @ts-expect-error
+    heatmap.setDataMax(null);
+    // @ts-expect-error
+    heatmap.setDataMax();
 
     heatmap.setDataMin(500);
-    heatmap.setDataMin(null); // $ExpectError
-    heatmap.setDataMin(); // $ExpectError
+    // @ts-expect-error
+    heatmap.setDataMin(null);
+    // @ts-expect-error
+    heatmap.setDataMin();
 }
 
 // -- Heatmap#configure --

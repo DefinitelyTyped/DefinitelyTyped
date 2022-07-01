@@ -1256,7 +1256,7 @@ async function Argv$fallbackToUnknownForUnknownOptions() {
     // $ExpectType unknown
     argv.c;
 
-    // $ExpectError
+    // @ts-expect-error
     const x: string = (await yargs.argv).x;
     return x;
 }

@@ -31,7 +31,8 @@ data.registerStore<FooBar>('foo', {
 
 data.registerStore<{ key: string }>('bad-persist', {
     reducer: (state = { key: 'value' }) => state,
-    persist: ['invalid-persist-key'], // $ExpectError
+    // @ts-expect-error
+    persist: ['invalid-persist-key'],
 });
 
 const HookComponent = () => {
@@ -73,8 +74,8 @@ data.select('foo/bar').getFoo();
 // $ExpectType string
 data.select('foo/bar').getFoo<string>();
 
-// $ExpectError
+// @ts-expect-error
 data.use(data.plugins.persistence, 'b');
 
-// $ExpectError
+// @ts-expect-error
 data.use('b', { storage: window.localStorage });

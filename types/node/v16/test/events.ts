@@ -111,3 +111,14 @@ async function test() {
         events.EventEmitter.captureRejectionSymbol;
     captureRejectionSymbol2 = events.captureRejectionSymbol;
 }
+
+{
+    events.EventEmitter.setMaxListeners();
+    events.EventEmitter.setMaxListeners(42);
+
+    const eventTarget = new EventTarget();
+    events.EventEmitter.setMaxListeners(42, eventTarget);
+
+    const eventEmitter = new events.EventEmitter();
+    events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
+}

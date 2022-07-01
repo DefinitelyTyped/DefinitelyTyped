@@ -996,6 +996,7 @@ export interface SignInOptions {
     otp: string;
     realm?: 'email' | 'sms';
     audience?: string | undefined;
+    scope?: string | undefined;
     /**
      * @deprecated
      */

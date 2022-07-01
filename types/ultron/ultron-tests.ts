@@ -9,7 +9,8 @@ const assignable: Ultron.EventEmitter = ee;
 {
     const constructed: Ultron = new Ultron(ee);
     const called: Ultron = Ultron(ee);
-    const notAnEmitter = Ultron({}); // $ExpectError
+    // @ts-expect-error
+    const notAnEmitter = Ultron({});
 }
 
 {
