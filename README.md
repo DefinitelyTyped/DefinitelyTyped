@@ -178,7 +178,7 @@ Your package should have this structure:
 | [`<my-package>-tests.ts`](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | [`tsconfig.json`](#tsconfigjson) | This allows you to run `tsc` within the package. |
 | [`tslint.json`](#linter-tslintjson)   | Enables linting. |
-| [`.eslintrc.json`](#linter-eslintrc)   | (Rarely) Needed only to disable lint rules written for eslint. |
+| [`.eslintrc.json`](#linter-eslintrcjson)   | (Rarely) Needed only to disable lint rules written for eslint. |
 
 Generate these by running `npx dts-gen --dt --name <my-package> --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name <my-package> --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
