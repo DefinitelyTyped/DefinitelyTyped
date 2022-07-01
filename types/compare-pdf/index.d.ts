@@ -1,4 +1,4 @@
-// Type definitions for compare-pdf 1.1.7
+// Type definitions for compare-pdf 1.1
 // Project: https://github.com/marcdacz/compare-pdf
 // Definitions by: Marc Dacanay <https://github.com/marcdacz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,8 +29,8 @@ interface ComparePdfConfig {
 }
 
 interface ComparePdfOpts {
-    masks: Array<PageMask>;
-    crops: Array<PageCrop>;
+    masks: PageMask[];
+    crops: PageCrop[];
     onlyPageIndexes: Array<string | number>;
     skipPageIndexes: Array<string | number>;
 }
@@ -75,7 +75,7 @@ interface Results {
 declare class ComparePdf {
     constructor(config: ComparePdfConfig);
 
-    opts: ComparePdfOpts
+    opts: ComparePdfOpts;
 
     baselinePdfBuffer(baselinePdfBuffer: Uint8Array, baselinePdfFilename: string): ComparePdf;
 
@@ -87,7 +87,7 @@ declare class ComparePdf {
 
     addMask(pageIndex: number, coordinates?: Coordinates, color?: string): ComparePdf;
 
-    addMasks(masks: Array<PageMask>): ComparePdf;
+    addMasks(masks: PageMask[]): ComparePdf;
 
     onlyPageIndexes(pageIndexes: Array<string | number>): ComparePdf;
 
@@ -95,7 +95,7 @@ declare class ComparePdf {
 
     cropPage(pageIndex: number, coordinates?: Dimension): ComparePdf;
 
-    cropPages(cropPagesList: Array<PageCrop>): ComparePdf;
+    cropPages(cropPagesList: PageCrop[]): ComparePdf;
 
     compare(comparisonType?: string): Results;
 }
