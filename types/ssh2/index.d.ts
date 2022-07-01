@@ -498,6 +498,8 @@ export class Client extends EventEmitter {
 
 export type HostVerifier = (key: Buffer, verify: VerifyCallback) => void;
 export type SyncHostVerifier = (key: Buffer) => boolean;
+export type HostFingerprintVerifier = (fingerprint: string, verify: VerifyCallback) => boolean;
+export type SyncHostFingerprintVerifier = (fingerprint: string) => boolean;
 export type DebugFunction = (message: string) => void;
 export type AuthenticationType = "password" | "publickey" | "hostbased" | "agent" | "keyboard-interactive" | "none";
 
@@ -513,7 +515,7 @@ export interface ConnectConfig {
     /** The host's key is hashed using this method and passed to `hostVerifier`. */
     hostHash?: string;
     /** Verifies a hexadecimal hash of the host's key. */
-    hostVerifier?: HostVerifier | SyncHostVerifier;
+    hostVerifier?: HostVerifier | SyncHostVerifier | HostFingerprintVerifier | SyncHostFingerprintVerifier;
     /** Username for authentication. */
     username?: string;
     /** Password for password-based user authentication. */
