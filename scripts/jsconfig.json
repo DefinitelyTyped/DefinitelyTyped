@@ -1,6 +1,7 @@
 {
-    "exclude": ["fix-tslint.ts", "update-config"],
+    "exclude": ["close-old-issues.js", "fix-tslint.js"],
     "compilerOptions": {
+        "noUnusedLocals": true,
         "target": "es6",
         "module": "esnext",
         "strict": true,
@@ -9,7 +10,8 @@
         "resolveJsonModule": true,
         "typeRoots": ["../types"],
         "types": [],
-        "allowSyntheticDefaultImports": true,
-        "forceConsistentCasingInFileNames": true
+        "checkJs": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es2019"]
     }
 }

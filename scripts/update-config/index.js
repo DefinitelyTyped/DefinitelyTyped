@@ -39,6 +39,7 @@ async function main() {
             if (!arg.package && !arg.dt) {
                 throw new Error("You must provide either argument 'package' or 'dt'.");
             }
+            // @ts-expect-error
             const unsupportedRules = arg.rules.filter(rule => ignoredRules.has(rule));
             if (unsupportedRules.length > 0) {
                 throw new Error(`Rules ${unsupportedRules.join(", ")} are not supported at the moment.`);
@@ -55,8 +56,11 @@ async function main() {
     }
 }
 
-function dtConfig(updatedRules: string[]): Config.IConfigurationFile {
-    const resolvedDtslint = require.resolve('dtslint');
+/**
+ * @param {string[]} updatedRules
+ */
+function dtConfig(updatedRules) {
+    const resolvedDtslint = require.resolve("dtslint");
     const dtConfigPath = normalizePath(
         path.join(
             resolvedDtslint.slice(0, resolvedDtslint.lastIndexOf("dtslint")),
@@ -77,7 +81,11 @@ function dtConfig(updatedRules: string[]): Config.IConfigurationFile {
     return config;
 }
 
-function updateAll(dtPath: string, config: Config.IConfigurationFile): void {
+/**
+ * @param {string} dtPath
+ * @param {Config.IConfigurationFile} config
+ */
+function updateAll(dtPath, config) {
     const packages = fs.readdirSync(path.join(dtPath, "types"));
     for (const pkg of packages) {
         updatePackage(path.join(dtPath, "types", pkg), config);

@@ -1,5 +1,3 @@
-// Usage: ts-node generate-tsconfigs.ts
-
 /// <reference types="node" />
 
 import * as fs from 'node:fs';
@@ -24,30 +22,20 @@ for (const dirName of fs.readdirSync(home)) {
     }
 }
 
-function fixTsconfig(dir: URL): void {
+/**
+ * @param {URL} dir
+ */
+function fixTsconfig(dir) {
     const target = new URL('tsconfig.json', dir);
-    let json = JSON.parse(fs.readFileSync(target, 'utf-8'));
-    json = fix(json);
+    const json = JSON.parse(fs.readFileSync(target, 'utf-8'));
+    json.compilerOptions = fixCompilerOptions(json.compilerOptions);
     fs.writeFileSync(target, JSON.stringify(json, undefined, 4), 'utf-8');
 }
 
-function fix(config: any): any {
-    const out: any = {};
-    for (const key in config) {
-        let value = config[key];
-        if (key === 'compilerOptions') {
-            value = fixCompilerOptions(value);
-        }
-        out[key] = value;
-    }
-    return out;
-}
-
-function fixCompilerOptions(config: any): any {
-    const out: any = {};
-    for (const key in config) {
-        out[key] = config[key];
-        // Do something interesting here
-    }
-    return out;
+/**
+ * @param {{}} compilerOptions
+ */
+function fixCompilerOptions(compilerOptions) {
+    // Do something interesting here
+    return Object.fromEntries(Object.entries(compilerOptions).map(([key, value]) => [key, value]));
 }
