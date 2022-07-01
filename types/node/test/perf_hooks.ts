@@ -100,11 +100,7 @@ histogram.record(123);
 histogram.record(123n);
 histogram.recordDelta();
 
-/**
- * Now intelligence is working for the "add" function added
- * under interface RecordableHistogram
- * under perf_hooks.ts
- */
+//intelligence is working
 declare let histo1: RecordableHistogram;
 declare let histo2: RecordableHistogram;
 declare let histo3: RecordableHistogram;
