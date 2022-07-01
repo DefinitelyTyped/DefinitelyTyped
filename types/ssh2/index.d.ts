@@ -7,6 +7,7 @@
 //                 Tom Xu <https://github.com/hengkx>
 //                 Leo Toneff <https://github.com/bragle>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
+//                 Dan Hensby <https://github.com/dhensby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
