@@ -3791,7 +3791,7 @@ declare module 'fs' {
     export interface StatSyncOptions extends StatOptions {
         throwIfNoEntry?: boolean | undefined;
     }
-    export interface CopyOptions {
+    interface CopyOptionsBase {
         /**
          * Dereference symlinks
          * @default false
@@ -3803,65 +3803,43 @@ declare module 'fs' {
          * @default false
          */
         errorOnExist?: boolean;
+        /**
+         * Overwrite existing file or directory. _The copy
+         * operation will ignore errors if you set this to false and the destination
+         * exists. Use the `errorOnExist` option to change this behavior.
+         * @default true
+         */
+        force?: boolean;
+        /**
+         * When `true` timestamps from `src` will
+         * be preserved.
+         * @default false
+         */
+        preserveTimestamps?: boolean;
+        /**
+         * Copy directories recursively.
+         * @default false
+         */
+        recursive?: boolean;
+        /**
+         * When true, path resolution for symlinks will be skipped
+         * @default false
+         */
+        verbatimSymlinks?: boolean;
+    }
+    export interface CopyOptions extends CopyOptionsBase {
         /**
          * Function to filter copied files/directories. Return
          * `true` to copy the item, `false` to ignore it.
          */
         filter?(source: string, destination: string): boolean | Promise<boolean>;
-        /**
-         * Overwrite existing file or directory. _The copy
-         * operation will ignore errors if you set this to false and the destination
-         * exists. Use the `errorOnExist` option to change this behavior.
-         * @default true
-         */
-        force?: boolean;
-        /**
-         * When `true` timestamps from `src` will
-         * be preserved.
-         * @default false
-         */
-        preserveTimestamps?: boolean;
-        /**
-         * Copy directories recursively.
-         * @default false
-         */
-        recursive?: boolean;
     }
-    export interface CopySyncOptions {
-        /**
-         * Dereference symlinks
-         * @default false
-         */
-        dereference?: boolean;
-        /**
-         * When `force` is `false`, and the destination
-         * exists, throw an error.
-         * @default false
-         */
-        errorOnExist?: boolean;
+    export interface CopySyncOptions extends CopyOptionsBase {
         /**
          * Function to filter copied files/directories. Return
          * `true` to copy the item, `false` to ignore it.
          */
         filter?(source: string, destination: string): boolean;
-        /**
-         * Overwrite existing file or directory. _The copy
-         * operation will ignore errors if you set this to false and the destination
-         * exists. Use the `errorOnExist` option to change this behavior.
-         * @default true
-         */
-        force?: boolean;
-        /**
-         * When `true` timestamps from `src` will
-         * be preserved.
-         * @default false
-         */
-        preserveTimestamps?: boolean;
-        /**
-         * Copy directories recursively.
-         * @default false
-         */
-        recursive?: boolean;
     }
     /**
      * Asynchronously copies the entire directory structure from `src` to `dest`,

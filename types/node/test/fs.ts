@@ -700,6 +700,7 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.rand
         force: true,
         preserveTimestamps: true,
         recursive: false,
+        verbatimSymlinks: false,
     };
     const optsSync: CopySyncOptions = {
         ...opts,
