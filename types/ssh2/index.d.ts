@@ -1040,7 +1040,7 @@ export interface Session extends ServerChannel {
     /**
      * Emitted when the client has requested the SFTP subsystem.
      */
-    on(event: "sftp", listener: (accept: () => AcceptSftpConnection, reject: RejectConnection) => void): this;
+    on(event: "sftp", listener: (accept: AcceptSftpConnection, reject: RejectConnection) => void): this;
 
     /**
      * Emitted when the client has requested an arbitrary subsystem.
@@ -1636,14 +1636,15 @@ export type KnownPublicKeys<T extends string | Buffer | ParsedKey = string | Buf
 
 export type PrivateKeys = (Buffer | ParsedKey | EncryptedPrivateKey | string)[];
 
-export type Callback = (err: Error | undefined) => void;
+export type Callback = (err?: Error | null) => void;
+
 export type ErrorCallback = (err: Error) => void;
 
-export type IdentityCallback<T extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> = (err: Error | undefined, keys: KnownPublicKeys<T>) => void;
+export type IdentityCallback<T extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> = (err?: Error | null, keys?: KnownPublicKeys<T>) => void;
 
-export type SignCallback = (err: Error | undefined, signature: Buffer) => void;
+export type SignCallback = (err?: Error | null, signature?: Buffer) => void;
 
-export type GetStreamCallback = (err: Error | undefined, stream: Duplex) => void;
+export type GetStreamCallback = (err?: Error | null, stream?: Duplex) => void;
 
 /**
  * Interface representing an inbound agent request. This is defined as an
@@ -1655,7 +1656,7 @@ export interface AgentInboundRequest {
 }
 
 export interface SigningRequestOptions  {
-    hash?: 'sha256' | 'sha512';
+    hash: 'sha256' | 'sha512';
 }
 
 export class AgentProtocol extends Duplex {
@@ -1690,7 +1691,7 @@ export class AgentProtocol extends Duplex {
      * Signs the datawith the given public key, and calls back with its signature.
      */
     sign(pubKey: ParsedKey | Buffer | string, data: Buffer, options?: SigningRequestOptions, callback?: SignCallback): boolean;
-    sign(pubKey: ParsedKey | Buffer | string, data: Buffer, cb?: SignCallback): boolean;
+    sign(pubKey: ParsedKey | Buffer | string, data: Buffer, callback?: SignCallback): boolean;
 
     /**
      * (Server mode only)
