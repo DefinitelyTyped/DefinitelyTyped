@@ -3807,6 +3807,42 @@ declare module 'fs' {
          * Function to filter copied files/directories. Return
          * `true` to copy the item, `false` to ignore it.
          */
+        filter?(source: string, destination: string): boolean | Promise<boolean>;
+        /**
+         * Overwrite existing file or directory. _The copy
+         * operation will ignore errors if you set this to false and the destination
+         * exists. Use the `errorOnExist` option to change this behavior.
+         * @default true
+         */
+        force?: boolean;
+        /**
+         * When `true` timestamps from `src` will
+         * be preserved.
+         * @default false
+         */
+        preserveTimestamps?: boolean;
+        /**
+         * Copy directories recursively.
+         * @default false
+         */
+        recursive?: boolean;
+    }
+    export interface CopySyncOptions {
+        /**
+         * Dereference symlinks
+         * @default false
+         */
+        dereference?: boolean;
+        /**
+         * When `force` is `false`, and the destination
+         * exists, throw an error.
+         * @default false
+         */
+        errorOnExist?: boolean;
+        /**
+         * Function to filter copied files/directories. Return
+         * `true` to copy the item, `false` to ignore it.
+         */
         filter?(source: string, destination: string): boolean;
         /**
          * Overwrite existing file or directory. _The copy
@@ -3851,7 +3887,7 @@ declare module 'fs' {
      * @param src source path to copy.
      * @param dest destination path to copy to.
      */
-    export function cpSync(source: string, destination: string, opts?: CopyOptions): void;
+    export function cpSync(source: string, destination: string, opts?: CopySyncOptions): void;
 }
 declare module 'node:fs' {
     export * from 'fs';
