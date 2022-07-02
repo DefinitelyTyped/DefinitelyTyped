@@ -165,10 +165,7 @@ export declare var ISOLATION_LEVEL: {
 export interface IOptions extends tds.ConnectionOptions {
     beforeConnect?: void | undefined;
     connectionString?: string | undefined;
-    enableArithAbort?: boolean | undefined;
-    instanceName?: string | undefined;
     trustedConnection?: boolean | undefined;
-    useUTC?: boolean | undefined;
 }
 
 export declare var pool: ConnectionPool;
@@ -195,6 +192,7 @@ export interface config {
     options?: IOptions | undefined;
     pool?: PoolOpts<Connection> | undefined;
     arrayRowMode?: boolean | undefined;
+    authentication?: tds.ConnectionAuthentication | undefined;
     /**
      * Invoked before opening the connection. The parameter conn is the configured
      * tedious Connection. It can be used for attaching event handlers.

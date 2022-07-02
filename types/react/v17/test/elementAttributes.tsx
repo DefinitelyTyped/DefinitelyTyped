@@ -39,7 +39,7 @@ const testCases = [
     <input accept="image/*" capture />,
     <input accept="video/*" capture="user" />,
     <input accept="video/*" capture="environment" />,
-    // $ExpectError
+    // @ts-expect-error
     <input accept="video/*" capture="haha" />,
     <input accept="video/*" capture />,
     <input accept="audio/*" capture />,
@@ -51,7 +51,7 @@ const testCases = [
     <a target="some-frame"></a>,
     <input type="button" />,
     <input type="some-type" />,
-    // $ExpectError
+    // @ts-expect-error
     <input enterKeyHint="don" />,
     <video disableRemotePlayback />,
     <picture>

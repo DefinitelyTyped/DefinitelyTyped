@@ -26,35 +26,35 @@ function checkQSConfig(u: UrlAssembler) {
     });
 
     u.qsConfig({
-        // $ExpectError
+        // @ts-expect-error
         delimiter: true,
-        // $ExpectError
+        // @ts-expect-error
         strictNullHandling: 'boop',
-        // $ExpectError
+        // @ts-expect-error
         skipNulls: 'boop',
-        // $ExpectError
+        // @ts-expect-error
         encode: 'encode',
-        // $ExpectError
+        // @ts-expect-error
         filter: true,
-        // $ExpectError
+        // @ts-expect-error
         arrayFormat: 'uncool',
-        // $ExpectError
+        // @ts-expect-error
         indices: 'true',
-        // $ExpectError
+        // @ts-expect-error
         sort: false,
-        // $ExpectError
+        // @ts-expect-error
         serializeDate: (s: string) => s,
-        // $ExpectError
+        // @ts-expect-error
         format: 'RFC1111',
-        // $ExpectError
+        // @ts-expect-error
         encodeValuesOnly: 'values',
-        // $ExpectError
+        // @ts-expect-error
         addQueryPrefix: 'yes please',
-        // $ExpectError
+        // @ts-expect-error
         allowDots: 'no dots',
-        // $ExpectError
+        // @ts-expect-error
         charset: 'UtF-eight',
-        // $ExpectError
+        // @ts-expect-error
         charsetSentinel: 'sentinel?',
     });
 }

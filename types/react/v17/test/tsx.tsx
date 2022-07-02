@@ -32,7 +32,7 @@ VoidFunctionComponent.defaultProps = {
 };
 <VoidFunctionComponent />;
 
-// $ExpectError
+// @ts-expect-error
 const VoidFunctionComponent2: React.VoidFunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
 };
@@ -40,7 +40,8 @@ VoidFunctionComponent2.displayName = "VoidFunctionComponent2";
 VoidFunctionComponent2.defaultProps = {
     foo: 42
 };
-<VoidFunctionComponent2>24</VoidFunctionComponent2>; // $ExpectError
+// @ts-expect-error
+<VoidFunctionComponent2>24</VoidFunctionComponent2>;
 
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
@@ -82,8 +83,10 @@ VoidFunctionComponent2.defaultProps = {
 <button type="submit">foo</button>;
 <button type="reset">foo</button>;
 <button type="button">foo</button>;
-<button type="botton">foo</button>; // $ExpectError
-<button type={"botton" as string}>foo</button>; // $ExpectError
+// @ts-expect-error
+<button type="botton">foo</button>;
+// @ts-expect-error
+<button type={"botton" as string}>foo</button>;
 
 interface Props {
     hello: string;
@@ -112,9 +115,9 @@ const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
 const ContextWithRenderProps = React.createContext('defaultValue');
 
 // unstable APIs should not be part of the typings
-// $ExpectError
+// @ts-expect-error
 const ContextUsingUnstableObservedBits = React.createContext(undefined, (previous, next) => 7);
-// $ExpectError
+// @ts-expect-error
 <ContextWithRenderProps.Consumer unstable_observedBits={4}>
     {(value: unknown) => null}
 </ContextWithRenderProps.Consumer>;
@@ -143,19 +146,25 @@ const ContextUsingUnstableObservedBits = React.createContext(undefined, (previou
 // Below tests that setState() works properly for both regular and callback modes
 class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
     handleSomething = () => {
-      this.setState({ foo: '' }); // $ExpectError
+      // @ts-expect-error
+      this.setState({ foo: '' });
       this.setState({ foo: true });
       this.setState({ foo: true, bar: true });
       this.setState({});
       this.setState(null);
-      this.setState({ foo: true, foo2: true }); // $ExpectError
-      this.setState(() => ({ foo: '' })); // $ExpectError
+      // @ts-expect-error
+      this.setState({ foo: true, foo2: true });
+      // @ts-expect-error
+      this.setState(() => ({ foo: '' }));
       this.setState(() => ({ foo: true }));
       this.setState(() => ({ foo: true, bar: true }));
-      this.setState(() => ({ foo: true, foo2: true })); // $ExpectError
-      this.setState(() => ({ foo: '', foo2: true })); // $ExpectError
+      // @ts-expect-error
+      this.setState(() => ({ foo: true, foo2: true }));
+      // @ts-expect-error
+      this.setState(() => ({ foo: '', foo2: true }));
       this.setState(() => ({ })); // ok!
-      this.setState({ foo: true, bar: undefined}); // $ExpectError
+      // @ts-expect-error
+      this.setState({ foo: true, bar: undefined});
       this.setState(prevState => (prevState.bar ? { bar: false } : null));
     }
 }
@@ -232,10 +241,12 @@ class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', st
 const AssignedComponentWithLargeState: React.ComponentClass = ComponentWithLargeState;
 
 const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> {})({});
-componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
+// @ts-expect-error
+componentWithBadLifecycle.getSnapshotBeforeUpdate = () => {
     return 'number';
 };
-componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => { // $ExpectError
+// @ts-expect-error
+componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => {
     return;
 };
 
@@ -264,7 +275,7 @@ const Memoized5 = React.memo<{ test: boolean }>(
 
 const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 <Memoized6/>;
-// $ExpectError
+// @ts-expect-error
 <Memoized6 foo/>;
 
 // NOTE: this test _requires_ TypeScript 3.1
@@ -291,11 +302,11 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 </React.Suspense>;
 
 <React.Suspense fallback={null}/>;
-// $ExpectError
+// @ts-expect-error
 <React.Suspense/>;
 
 // unstable API should not be part of the typings
-// $ExpectError
+// @ts-expect-error
 <React.Suspense fallback={null} unstable_avoidThisFallback />;
 
 class LegacyContext extends React.Component {
@@ -337,10 +348,12 @@ const divRef = React.createRef<HTMLDivElement>();
 
 <ForwardRef ref={divFnRef}/>;
 <ForwardRef ref={divRef}/>;
-<ForwardRef ref='string'/>; // $ExpectError
+// @ts-expect-error
+<ForwardRef ref='string'/>;
 <ForwardRef2 ref={divFnRef}/>;
 <ForwardRef2 ref={divRef}/>;
-<ForwardRef2 ref='string'/>; // $ExpectError
+// @ts-expect-error
+<ForwardRef2 ref='string'/>;
 
 const htmlElementFnRef = (instance: HTMLElement | null) => {};
 const htmlElementRef = React.createRef<HTMLElement>();
@@ -361,7 +374,8 @@ const newContextRef = React.createRef<NewContext>();
 
 const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref}/>);
 <ForwardNewContext ref={newContextRef}/>;
-<ForwardNewContext ref='string'/>; // $ExpectError
+// @ts-expect-error
+<ForwardNewContext ref='string'/>;
 
 const ForwardRef3 = React.forwardRef(
     (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} | undefined }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
@@ -374,11 +388,14 @@ const ForwardRef3 = React.forwardRef(
 const { Profiler } = React;
 
 // 'id' is missing
-<Profiler />; // $ExpectError
+// @ts-expect-error
+<Profiler />;
 // 'onRender' is missing
-<Profiler id="test" />; // $ExpectError
+// @ts-expect-error
+<Profiler id="test" />;
 // 'number' is not assignable to 'string'
-<Profiler id={2} />; // $ExpectError
+// @ts-expect-error
+<Profiler id={2} />;
 
 <Profiler
   id="test"
@@ -415,9 +432,9 @@ imgProps.decoding = 'auto';
 imgProps.decoding = 'sync';
 imgProps.loading = 'eager';
 imgProps.loading = 'lazy';
-// $ExpectError
+// @ts-expect-error
 imgProps.loading = 'nonsense';
-// $ExpectError
+// @ts-expect-error
 imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
 // $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
@@ -427,13 +444,17 @@ type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
 type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;
 
 const HasClassName: React.ReactType<{ className?: string | undefined }> = 'a';
-const HasFoo: React.ReactType<{ foo: boolean }> = 'a'; // $ExpectError
+// @ts-expect-error
+const HasFoo: React.ReactType<{ foo: boolean }> = 'a';
 const HasFoo2: React.ReactType<{ foo: boolean }> = (props: { foo: boolean }) => null;
-const HasFoo3: React.ReactType<{ foo: boolean }> = (props: { foo: string }) => null; // $ExpectError
+// @ts-expect-error
+const HasFoo3: React.ReactType<{ foo: boolean }> = (props: { foo: string }) => null;
 const HasHref: React.ReactType<{ href?: string | undefined }> = 'a';
-const HasHref2: React.ReactType<{ href?: string | undefined }> = 'div'; // $ExpectError
+// @ts-expect-error
+const HasHref2: React.ReactType<{ href?: string | undefined }> = 'div';
 
-const CustomElement: React.ReactType = 'my-undeclared-element'; // $ExpectError
+// @ts-expect-error
+const CustomElement: React.ReactType = 'my-undeclared-element';
 
 // custom elements now need to be declared as intrinsic elements
 declare global {

@@ -5,7 +5,7 @@ import { Agent } from 'http';
 import { Headers } from 'node-fetch';
 
 // Needs arguments when invoked
-// $ExpectError
+// @ts-expect-error
 fetcher();
 
 // Works with no defaults applied.
@@ -13,7 +13,7 @@ fetcher();
 fetcher.defaults();
 
 // When used recursively, still needs arguments when invoked.
-// $ExpectError
+// @ts-expect-error
 fetcher.defaults()();
 
 // Recursively, should do the same!
@@ -40,7 +40,7 @@ fetcher.defaults()('http://url');
 // $ExpectType Promise<Response>
 fetcher.defaults().defaults()('http://url');
 
-// $ExpectError
+// @ts-expect-error
 fetcher('https://secure', { cache: 'invalid-option' });
 
 // Test existence of a couple important types from the `dom` lib (`Request`)

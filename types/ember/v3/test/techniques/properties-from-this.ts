@@ -42,20 +42,27 @@ class Foo123 extends GetAndSet {
 let f = new Foo123();
 
 f.get('a'); // $ExpectType number
-f.set('a'); // $ExpectError
-f.set('a', '1'); // $ExpectError
+// @ts-expect-error
+f.set('a');
+// @ts-expect-error
+f.set('a', '1');
 f.set('a', 1); // $ExpectType number
 
 f.get('b'); // $ExpectType [boolean, boolean]
-f.set('b', 1); // $ExpectError
-f.set('b', []); // $ExpectError
-f.set('b', [true]); // $ExpectError
+// @ts-expect-error
+f.set('b', 1);
+// @ts-expect-error
+f.set('b', []);
+// @ts-expect-error
+f.set('b', [true]);
 f.set('b', [false, true]); // $ExpectType [boolean, boolean]
-f.set('b', [false, true, false]); // $ExpectError
+// @ts-expect-error
+f.set('b', [false, true, false]);
 
 f.get('c'); // $ExpectType string
 f.set('c', '1'); // $ExpectType string
 
 f.get('cpA'); // $ExpectType string
-f.set('cpA', ['newValue']); // $ExpectError
+// @ts-expect-error
+f.set('cpA', ['newValue']);
 f.set('cpA', 'newValue'); // $ExpectType string

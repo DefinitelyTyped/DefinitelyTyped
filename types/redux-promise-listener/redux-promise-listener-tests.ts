@@ -40,16 +40,18 @@ action.asyncFunction('test');
 // $ExpectType void
 action.unsubscribe();
 
-// $ExpectError
+// @ts-expect-error
 promiseListener.createAsyncFunction();
 
-// $ExpectError
+// @ts-expect-error
 promiseListener.createAsyncFunction("I'm not a config");
 
 promiseListener.createAsyncFunction({
     start: API_REQUEST,
-    resolve: 0, // $ExpectError
-    reject: null, // $ExpectError
+    // @ts-expect-error
+    resolve: 0,
+    // @ts-expect-error
+    reject: null,
 });
 
 interface ActionRequest {

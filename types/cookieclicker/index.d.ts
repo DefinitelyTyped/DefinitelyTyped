@@ -1,4 +1,4 @@
-// Type definitions for non-npm package cookieclicker 2.044
+// Type definitions for non-npm package cookieclicker 2.048
 // Project: https://orteil.dashnet.org/cookieclicker/
 // Definitions by: Lubomir <https://github.com/TheGLander>
 //                 Bob <https://github.com/MasterOfBob777>
@@ -333,17 +333,23 @@ declare namespace ________COOKIECLICKER_TYPES_HACK_DOESNT_EXIST {
             play: (this: Track) => void;
             stop: (this: Track) => void;
         }
-
+        let tracks: Record<string, Track>;
         let context: AudioContext;
         let gain: GainNode;
         let filter: BiquadFilterNode;
         let out: BiquadFilterNode;
-        function addTrack(name: string, url: string): void;
+        function addTrack(name: string, author: string, url: string): void;
         let cues: Record<string, (arg: any) => void>;
         function cue(cue: string, arg?: any): void;
         let playing: boolean;
         function playTrack(name: string, callback: (track: Track) => void): void;
         function loopTrack(name: string): void;
+        function setFilter(val: number, secs?: number): void;
+        function setVolume(val: number, secs?: number): void;
+        function pause(): void;
+        function unpause(): void;
+        function loop(loop: boolean): void;
+        function setTime(time: number): void;
     }
 }
 
@@ -374,6 +380,9 @@ declare function getAchievementName(name: string): string;
 
 declare function localStorageGet(key: string): Game.PseudoNull | null | string;
 declare function localStorageSet(key: string, str: string): Game.PseudoNull | void;
+
+declare function writeIcon(icon: Game.Icon): string;
+declare function tinyIcon(icon: Game.Icon, css?: string): string;
 
 declare class Loader {
     constructor();
@@ -642,6 +651,7 @@ declare namespace Game {
         notScary: PseudoBoolean;
         fullscreen: PseudoBoolean;
         screenreader: PseudoBoolean;
+        discordPresence: PseudoBoolean;
     }
     export let prefs: undefined[] & Prefs;
     /**
@@ -809,9 +819,10 @@ declare namespace Game {
 
     export function crate(
         me: Upgrade | Achievement,
-        context: 'store' | 'ascend' | 'stats' | undefined,
-        forceClickStr: string,
-        id: string,
+        context?: 'store' | 'ascend' | 'stats',
+        forceClickStr?: string,
+        id?: string,
+        style?: string,
     ): string;
 
     export function crateTooltip(me: Upgrade | Achievement, context: 'store' | 'ascend' | 'stats' | undefined): string;
@@ -824,7 +835,7 @@ declare namespace Game {
     export function HowManyCookiesReset(chips: number): number;
     export let gainedPrestige: number;
 
-    export function EarnHeavenlyChips(cookiesForfeited: number): void;
+    export function EarnHeavenlyChips(cookiesForfeited: number, silent: boolean): void;
 
     export function GetHeavenlyMultiplier(): number;
     /**
@@ -865,7 +876,7 @@ declare namespace Game {
     export function Reincarnate(bypass: boolean): void;
 
     export function Ascend(bypass: boolean): void;
-    export let DebuggingPrestige: number;
+    export let DebuggingPrestige: PseudoBoolean;
     export let AscendDragX: number;
     export let AscendDragY: number;
     export let AscendOffX: number;
@@ -885,7 +896,7 @@ declare namespace Game {
 
     export function PurchaseHeavenlyUpgrade(what: Upgrade): void;
 
-    export function BuildAscendTree(): void;
+    export function BuildAscendTree(justBought?: HeavenlyUpgrade): void;
     export let lumpMatureAge: number;
     export let lumpRipeAge: number;
     export let lumpOverripeAge: number;
@@ -1170,7 +1181,7 @@ declare namespace Game {
      * @param callback The code to execute, in a string
      * @param invert To invert the displayed button state or not
      */
-    export function WriteButton(
+    export function WritePrefButton(
         prefName: keyof Prefs,
         button: string,
         on: string,
@@ -1643,6 +1654,11 @@ declare namespace Game {
         lockSeed(me: GardenPlant): true;
         cursorL: HTMLDivElement;
         lumpRefill: HTMLDivElement;
+        logic(): void;
+        draw(): void;
+        onResize(): void;
+        onLevel(): void;
+        onRuinTheFun(): void;
     }
 
     export interface PantheonSpirit {
@@ -1748,6 +1764,8 @@ declare namespace Game {
          * Generates the lump refill tooltip
          */
         refillTooltip(): string;
+        logic(): void;
+        draw(): void;
     }
 
     export let useSwap: PantheonMinigame['useSwap'] | undefined;
@@ -1795,6 +1813,14 @@ declare namespace Game {
          * The displayed name for the spell
          */
         name: string;
+        /**
+         * If set, the fail chance is overwritten with the result of the function
+         */
+        failFunc?: (failChance: number) => number;
+        /**
+         * If true, this spell doesn't count for the total spell count
+         */
+        passthrough?: boolean;
     }
 
     export interface GrimoireMinigame extends Minigame {
@@ -1870,6 +1896,8 @@ declare namespace Game {
         spellsCast: number;
         spellsCastTotal: number;
         magicPS: number;
+        logic(): void;
+        draw(): void;
     }
 
     export interface StocksColors {
@@ -2122,6 +2150,9 @@ declare namespace Game {
         graph: HTMLCanvasElement;
         graphCtx: CanvasRenderingContext2D;
         toRedraw: 0 | 1 | 2;
+        logic(): void;
+        draw(): void;
+        onResize(): void;
     }
 
     export let Objects: Record<string, GameObject> & {
@@ -2180,7 +2211,7 @@ declare namespace Game {
         launch(): void;
         init(div: HTMLDivElement): void;
         effs?: Effects | undefined;
-        onLevel?(): void;
+        onLevel?(level: number): void;
         onRuinTheFun?(): void;
         draw?(): void;
         logic?(): void;
@@ -2472,6 +2503,8 @@ declare namespace Game {
         totalCookies: number;
 
         vanilla: PseudoBoolean;
+
+        unshackleUpgrade?: HeavenlyUpgrade;
     }
     export { GameObject as Object };
 
@@ -2533,6 +2566,7 @@ declare namespace Game {
          * The description of the upgrade with auto-adjusted text
          */
         desc: string;
+        ddesc: string;
         /**
          * The function to generate the upgrade descroption
          */
@@ -2657,6 +2691,7 @@ declare namespace Game {
          */
         toggle(): void;
         unlock(): void;
+        getType(): 'Upgrade';
     }
 
     export function storeBuyAll(): void | false;
@@ -2757,6 +2792,7 @@ declare namespace Game {
          */
         special: PseudoBoolean | boolean;
         upgrades: GenericTieredUpgrade[];
+        unshackleUpgrade?: HeavenlyUpgrade;
     }
     export let Tiers: Record<string | number, Tier>;
     export function GetIcon(type: string, tier: string | number): Icon;
@@ -2947,14 +2983,18 @@ declare namespace Game {
     /**
      * A generic cosmetic which the game uses, can be chosen by the player
      */
-    export interface ChoiceCosmetics {
+    export interface Background {
         /**
          * The picture to use
          */
         pic: string;
+        name: string;
+        icon: Icon;
+        order?: number;
     }
+    export let AllBGs: Background[];
 
-    export let BGsByChoice: Record<number, ChoiceCosmetics>;
+    export let BGsByChoice: Record<number, Background>;
 
     export function loseShimmeringVeil(context: string): void | false;
 
@@ -3009,6 +3049,7 @@ declare namespace Game {
          * The function that determines if the heavenly upgrade should be shown
          */
         showIf?: (() => boolean) | undefined;
+        placedByCode?: boolean;
     }
 
     export let PrestigeUpgrades: HeavenlyUpgrade[];
@@ -3049,6 +3090,7 @@ declare namespace Game {
          * The description of the upgrade with auto-adjusted text
          */
         desc: string;
+        ddesc: string;
         icon: Icon;
         won: PseudoBoolean;
         /** Unused @deprecated */
@@ -3072,6 +3114,7 @@ declare namespace Game {
          * Toggles the achievement state
          */
         toggle(): void;
+        getType(): 'Achievement';
     }
 
     /**
@@ -3361,7 +3404,7 @@ declare namespace Game {
 
     export function DrawSpecial(): void;
 
-    interface Milk extends ChoiceCosmetics {
+    export interface Milk {
         /**
          * The English name of the milk
          */
@@ -3505,5 +3548,38 @@ declare namespace Game {
      * The treshold when the game considers itself to be too narrow
      */
     export let tickerTooNarrow: number;
+    export interface UnshackledBuildingObj {
+        building: string;
+        q: string;
+    }
+    export function NewUnshackleBuilding(obj: UnshackledBuildingObj): HeavenlyUpgrade;
+    export interface UnshackledTierObj {
+        tier: number;
+        q: string;
+    }
+    export function NewUnshackleUpgradeTier(obj: UnshackledTierObj): HeavenlyUpgrade;
+    export interface Jukebox {
+        sounds: string[];
+        tracks: [];
+        onSound: number;
+        onTrack: number;
+        trackLooped: boolean;
+        trackAuto: boolean;
+        trackShuffle: boolean;
+        reset(): void;
+        setSound(id: number): void;
+        setTrack(id: number, dontPlay: boolean): void;
+        pressPlayMusic(): void;
+        pressLoopMusic(): void;
+        pressMusicAuto(): void;
+        pressMusicShuffle(): void;
+        updateMusicCurrentTime(noLoop: boolean): void;
+        musicScrub(time: number): void;
+    }
+    export let jukebox: Jukebox;
+    export function getVeilDefense(): number;
+    export function getVeilBoost(): number;
+    export let showedScriptLoadError: boolean;
+    export function playGoldenCookieChime(): void;
     export {};
 }

@@ -102,13 +102,12 @@ declare namespace googletag {
      */
     function companionAds(): CompanionAdsService;
     /**
-     * Constructs an out-of-page (interstitial) ad slot with the given ad unit path.
+     * Constructs an out-of-page ad slot with the given ad unit path.
      *
      * For custom out-of-page ads, `div` is the ID of the div element that will contain the ad.
      * See the article on [out-of-page creatives](https://support.google.com/admanager/answer/6088046) for more details.
      *
      * For GPT managed out-of-page ads, `div` is a supported `OutOfPageFormat`.
-     * See the article on [web interstitials](https://support.google.com/admanager/answer/9840201) for more details.
      *
      * **Example**
      * ```
@@ -118,10 +117,15 @@ declare namespace googletag {
      * googletag.defineOutOfPageSlot('/1234567/sports',
      *                               googletag.enums.OutOfPageFormat.INTERSTITIAL);
      * ```
+     * **See also**
+     * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
+     * - [Display a web interstitial ad](https://developers.google.com/publisher-tag/samples/display-web-interstitial-ad)
+     * - [Display an anchor ad](https://developers.google.com/publisher-tag/samples/display-anchor-ad)
+     * - [Display an out-of-page ad](https://developers.google.com/publisher-tag/samples/display-out-of-page-ad)
      *
      * @param adUnitPath Full [ad unit path](https://developers.google.com/publisher-tag/guides/get-started#ad-unit-path) with the network code and ad unit code.
      * @param div ID of the div that will contain this ad unit or OutOfPageFormat.
-     * @returns The newly created slot, or `null` if the `div` has been used in a previous `defineSlot` or `defineOutOfPageSlot` call.
+     * @returns The newly created slot, or `null` if a slot cannot be created.
      */
     function defineOutOfPageSlot(adUnitPath: string, div: string | enums.OutOfPageFormat): Slot | null;
     function defineOutOfPageSlot(adUnitPath: string): Slot;
@@ -137,7 +141,7 @@ declare namespace googletag {
      * @param size Width and height of the added slot.
      * This is the size that is used in the ad request if no responsive size mapping is provided or the size of the viewport is smaller than the smallest size provided in the mapping.
      * @param div ID of the div that will contain this ad unit.
-     * @returns The newly created slot, or `null` if the `div` has been used in a previous `defineSlot` or `defineOutOfPageSlot` call.
+     * @returns The newly created slot, or `null` if a slot cannot be created.
      */
     function defineSlot(adUnitPath: string, size: GeneralSize, div: string): Slot | null;
     function defineSlot(adUnitPath: string, size: GeneralSize): Slot;
@@ -207,7 +211,7 @@ declare namespace googletag {
      * @param divOrSlot Either the ID of the div element containing the ad slot or the div element, or the slot object.
      * If a div element is provided, it must have an 'id' attribute which matches the ID passed into `googletag.defineSlot()`.
      */
-    function display(divOrSlot: string | Slot | Element): void;
+    function display(divOrSlot: string | Element | Slot): void;
     /**
      * Enables all GPT services that have been defined for ad slots on the page.
      */
@@ -309,25 +313,43 @@ declare namespace googletag {
         /**
          * Indicates whether the page should be [treated as child-directed](https://support.google.com/admanager/answer/3671211). Set to `null` to clear the configuration.
          */
-        childDirectedTreatment?: boolean | null | undefined;
+        childDirectedTreatment?: boolean | null;
         /**
          * Enables serving to run in [limited ads](https://support.google.com/admanager/answer/9882911) mode to aid in publisher regulatory compliance needs.
          * When enabled, the GPT library itself may optionally be requested from a cookie-less,
          * [limited ads URL](https://developers.google.com/publisher-tag/guides/general-best-practices#load_from_an_official_source).
          */
-        limitedAds?: boolean | undefined;
+        limitedAds?: boolean;
         /**
          * Enables serving to run in [non-personalized ads](https://support.google.com/admanager/answer/9005435) mode to aid in publisher regulatory compliance needs.
          */
-        nonPersonalizedAds?: boolean | undefined;
+        nonPersonalizedAds?: boolean;
         /**
          * Enables serving to run in [restricted processing mode](https://support.google.com/admanager/answer/9598414) to aid in publisher regulatory compliance needs.
          */
-        restrictDataProcessing?: boolean | undefined;
+        restrictDataProcessing?: boolean;
+        /**
+         * Indicates whether requests represent purchased or organic traffic.
+         * This value populates the [Traffic source](https://support.google.com/admanager/answer/11233407) dimension in Ad Manager reporting.
+         * If not set, traffic source defaults to `undefined` in reporting.
+         *
+         * **Example**
+         * ```
+         * // Indicate requests represent organic traffic.
+         * googletag.pubads().setPrivacySettings({
+         *   trafficSource: googletag.enums.TrafficSource.ORGANIC
+         * });
+         * // Indicate requests represent purchased traffic.
+         * googletag.pubads().setPrivacySettings({
+         *   trafficSource: googletag.enums.TrafficSource.PURCHASED
+         * });
+         * ```
+         */
+        trafficSource?: enums.TrafficSource;
         /**
          * Indicates whether to mark ad requests as coming from users [under the age of consent](https://support.google.com/admanager/answer/9004919). Set to `null` to clear the configuration.
          */
-        underAgeOfConsent?: boolean | null | undefined;
+        underAgeOfConsent?: boolean | null;
     }
     /**
      * Publisher Ads service. This service is used to fetch and show ads from your Google Ad Manager account.
@@ -454,9 +476,9 @@ declare namespace googletag {
          * For example, a value of 2.0 will multiply all margins by 2 on mobile devices, increasing the minimum distance a slot can be before fetching and rendering.
          */
         enableLazyLoad(config?: {
-            fetchMarginPercent?: number | undefined;
-            renderMarginPercent?: number | undefined;
-            mobileScaling?: number | undefined;
+            fetchMarginPercent?: number;
+            renderMarginPercent?: number;
+            mobileScaling?: number;
         }): void;
         /**
          * Enables single request mode for fetching multiple ads at the same time.
@@ -736,8 +758,7 @@ declare namespace googletag {
          * var pageConfig = {
          *   allowOverlayExpansion: true,
          *   allowPushExpansion: true,
-         *   sandbox: true,
-         *   useUniqueDomain: true
+         *   sandbox: true
          * };
          * var slotConfig = {allowOverlayExpansion: false};
          * googletag.pubads().setSafeFrameConfig(pageConfig);
@@ -833,16 +854,16 @@ declare namespace googletag {
         /**
          * Whether SafeFrame should allow ad content to expand by overlaying page content.
          */
-        allowOverlayExpansion?: boolean | undefined;
+        allowOverlayExpansion?: boolean;
         /**
          * Whether SafeFrame should allow ad content to expand by pushing page content.
          */
-        allowPushExpansion?: boolean | undefined;
+        allowPushExpansion?: boolean;
         /**
          * Whether SafeFrame should use the HTML5 sandbox attribute to prevent top level navigation without user interaction.
          * The only valid value is `true` (cannot be forced to `false`). Note that the sandbox attribute disables plugins (e.g. Flash).
          */
-        sandbox?: boolean | undefined;
+        sandbox?: boolean;
     }
     /**
      * Base service class that contains methods common for all services.
@@ -1461,6 +1482,19 @@ declare namespace googletag {
              */
             TOP_ANCHOR,
         }
+        /**
+         * [Traffic sources](https://support.google.com/admanager/answer/11233407) supported by GPT.
+         */
+        enum TrafficSource {
+            /**
+             * Direct URL entry, site search, or app download.
+             */
+            ORGANIC,
+            /**
+             * Traffic redirected from properties other than owned (acquired or otherwise incentivized activity).
+             */
+            PURCHASED,
+        }
     }
     /**
      * This is the namespace that GPT uses for `Events`. Your code can react to these events using `Service.addEventListener`.
@@ -1481,6 +1515,9 @@ declare namespace googletag {
             | 'slotVisibilityChanged';
         /**
          * Base Interface for all GPT events. All GPT events below will have the following fields.
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         interface Event {
             /**
@@ -1510,6 +1547,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface ImpressionViewableEvent extends Event {}
@@ -1533,6 +1573,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
          */
         // tslint:disable-next-line:no-empty-interface
         interface RewardedSlotClosedEvent extends Event {}
@@ -1559,6 +1602,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
          */
         interface RewardedSlotGrantedEvent extends Event {
             /**
@@ -1580,7 +1626,7 @@ declare namespace googletag {
          *       var slot = event.slot;
          *       console.log('Rewarded ad slot', slot.getSlotElementId(),
          *                   'is ready to be displayed.');
-         *       if(<!--User consents to viewing the ad.-->) {
+         *       if('User consents to viewing the ad.') {
          *         // Display the ad.
          *         event.makeRewardedVisible();
          *       }
@@ -1590,6 +1636,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
          */
         interface RewardedSlotReadyEvent extends Event {
             /**
@@ -1613,6 +1662,9 @@ declare namespace googletag {
          *   }
          * });
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface SlotOnloadEvent extends Event {}
@@ -1648,6 +1700,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         interface SlotRenderEndedEvent extends Event {
             /**
@@ -1703,6 +1758,9 @@ declare namespace googletag {
          *   }
          * });
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface SlotRequestedEvent extends Event {}
@@ -1725,6 +1783,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface SlotResponseReceived extends Event {}
@@ -1750,6 +1811,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         interface SlotVisibilityChangedEvent extends Event {
             /**

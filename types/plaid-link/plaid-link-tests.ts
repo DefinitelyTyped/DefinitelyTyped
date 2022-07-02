@@ -14,3 +14,12 @@ const config: Plaid.CreateConfig = {
     countryCodes,
     onSuccess: () => {},
 };
+
+const newConfig: Plaid.CreateConfig = {
+    token: 'GENERATED_LINK_TOKEN',
+    onSuccess: (public_token, metadata) => {},
+    onLoad: () => {},
+    onExit: (err, metadata) => {},
+    onEvent: (eventName, metadata) => {},
+    receivedRedirectUri: 'https://example.com/',
+};

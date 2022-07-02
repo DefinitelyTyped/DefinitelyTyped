@@ -818,3 +818,7 @@ const myExt: cytoscape.Ext = (cy) => {
     // $ExpectType unknown
     cy("core", "prop");
 };
+
+// Test CollectionEvents
+collSel.emit('myEvt', ['string', 1, {a: 1, b: true}]);
+collSel.trigger('myEvt', ['string', 1, {a: 1, b: true}]);

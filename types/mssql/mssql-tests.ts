@@ -15,6 +15,13 @@ var config: sql.config = {
         encrypt: true
     },
     pool: {},
+    authentication: {
+        type: "default",
+        options: {
+            userName: "user",
+            password: "password"
+        }
+    },
     beforeConnect: (conn) => {
         conn.on('debug', message => console.info(message));
         conn.on('error', err => console.error(err));

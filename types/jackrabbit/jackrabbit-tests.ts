@@ -5,9 +5,9 @@ const RABBIT_URL = 'amqp://localhost';
 function onMessage(data: any) {}
 function ack() {}
 
-// $ExpectError
+// @ts-expect-error
 jackrabbit();
-// $ExpectError
+// @ts-expect-error
 jackrabbit(1);
 
 const rabbit = jackrabbit(RABBIT_URL);

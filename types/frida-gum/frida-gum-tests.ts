@@ -1,6 +1,6 @@
 Frida.version; // $ExpectType string
 
-// $ExpectError
+// @ts-expect-error
 SourceMap;
 
 // $ExpectType (target: any, callback: WeakRefCallback) => number
@@ -21,21 +21,21 @@ p.toUInt32();
 p.sign();
 // $ExpectType NativePointer
 p.sign("ia", 42);
-// $ExpectError
+// @ts-expect-error
 p.sign("invalid", 42);
 
 // $ExpectType NativePointer
 p.strip();
 // $ExpectType NativePointer
 p.strip("ia");
-// $ExpectError
+// @ts-expect-error
 p.strip("invalid");
 
 // $ExpectType NativePointer
 p.blend(1337);
-// $ExpectError
+// @ts-expect-error
 p.blend(ptr(42));
-// $ExpectError
+// @ts-expect-error
 p.blend();
 
 // $ExpectType NativePointer
@@ -44,9 +44,9 @@ Memory.alloc(1);
 Memory.alloc(1, {});
 // $ExpectType NativePointer
 Memory.alloc(1, { near: ptr(1234), maxDistance: 42 });
-// $ExpectError
+// @ts-expect-error
 Memory.alloc(1, { near: ptr(1234) });
-// $ExpectError
+// @ts-expect-error
 Memory.alloc(1, { maxDistance: 42 });
 
 new NativeCallback(
@@ -73,12 +73,12 @@ const otherPuts = new NativeCallback(
     ["pointer"],
 );
 
-// $ExpectError
+// @ts-expect-error
 new NativeFunction(NULL, "void", "pointer");
 
 // $ExpectType NativeFunction<void, []>
 const nf0 = new NativeFunction(NULL, "void", []);
-// $ExpectError
+// @ts-expect-error
 nf0({} as any);
 
 // $ExpectType NativeFunction<[number, number], [number | Int64, [number, [NativePointerValue, NativePointerValue]]]>
@@ -173,7 +173,7 @@ const cm2 = new CModule(ccode, symbols, {});
 const cm3 = new CModule(ccode, {}, { toolchain: "any" });
 const cm4 = new CModule(ccode, {}, { toolchain: "internal" });
 const cm5 = new CModule(ccode, {}, { toolchain: "external" });
-// $ExpectError
+// @ts-expect-error
 const cmE = new CModule(ccode, {}, { toolchain: "nope" });
 
 const precompiledSharedLibrary = new ArrayBuffer(4 * Process.pageSize);
@@ -219,7 +219,7 @@ Java.enumerateClassLoadersSync()
         }
         // $ExpectType Wrapper<Props>
         const MyJavaClass = factory.use<Props>("my.java.class");
-        // $ExpectError
+        // @ts-expect-error
         factory.use<{ illegal: string }>("");
         // $ExpectType string
         MyJavaClass.$className;

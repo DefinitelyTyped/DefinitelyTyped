@@ -9,8 +9,8 @@ import * as R from 'ramda';
     R.splitWhen(R.equals<string | number>(2), [1, 2, 3, 1, 2, '3']); // => [[1], [2, 3, 1, 2, '3']]
     // $ExpectType [(string | number)[], (string | number)[]]
     R.splitWhen<string | number>(R.equals<string | number>(2), [1, 2, 3, 1, 2, '3']); // => [[1], [2, 3, 1, 2, '3']]
-    // $ExpectError
+    // @ts-expect-error
     R.splitWhen(R.equals(2))(['1', '2']);
-    // $ExpectError
+    // @ts-expect-error
     R.splitWhen(R.equals(2))([1, 2, 3, 1, 2, '3']);
 };

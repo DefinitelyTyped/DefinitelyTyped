@@ -21,15 +21,15 @@ Migrations.add({
   down() {}
 });
 
-// $ExpectError
+// @ts-expect-error
 Migrations.add({});
 
-// $ExpectError
+// @ts-expect-error
 Migrations.add({
   version: 1
 });
 
-// $ExpectError
+// @ts-expect-error
 Migrations.add({
   up() {}
 });
@@ -73,7 +73,7 @@ Migrations.config({});
 // $ExpectType void
 Migrations.config({ logger: null });
 
-// $ExpectError
+// @ts-expect-error
 Migrations.config();
 
 // $ExpectType number

@@ -261,6 +261,23 @@ function TestBy() {
     locatorHash = { xpath: 'xpath' };
 
     webdriver.By.js('script', 1, 2, 3)(driver).then((abc: number) => {});
+
+    let cssEscape = webdriver.escapeCss('css');
+    let check  = webdriver.checkedLocator(locatorHash);
+    let fromTagName = webdriver.withTagName(webdriver.By.tagName('tag'));
+    let fromLocateWith = webdriver.locateWith(webdriver.By.tagName('tag'))
+                            .above(webdriver.By.tagName('tag'));
+
+    let relativeLocator: webdriver.RelativeBy = new webdriver.RelativeBy(locator, []);
+    relativeLocator = relativeLocator.above(By.tagName('tag'));
+    relativeLocator = relativeLocator.below(By.id('id'));
+    relativeLocator = relativeLocator.toLeftOf(By.className('class'));
+    relativeLocator = relativeLocator.toRightOf(By.xpath('xpath'));
+    relativeLocator = relativeLocator.near(By.name('name'));
+    let relativeLocatorStr = relativeLocator.toString();
+    let relativeLocatorObject = relativeLocator.marshall();
+
+    webdriver.WebElement
 }
 
 function TestSession() {

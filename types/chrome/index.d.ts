@@ -7214,8 +7214,9 @@ declare namespace chrome.runtime {
             type?: string | undefined;
             id?: string | undefined;
             description?: string | undefined;
-            language?: string | undefined;
+            language?: string[] | string | undefined;
             layouts?: string[] | undefined;
+            indicator?: string | undefined;
         }[] | undefined;
         key?: string | undefined;
         minimum_chrome_version?: string | undefined;
@@ -7596,7 +7597,7 @@ declare namespace chrome.scripting {
         target: InjectionTarget;
     }
 
-    export type ScriptInjection<Args extends any[] = []> = {
+    export type ScriptInjection<Args extends any[]> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
         /* The JavaScript world for a script to execute within. */
@@ -7606,14 +7607,13 @@ declare namespace chrome.scripting {
         files: string[];
     } | ({
         /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        func: ((...args: Args) => void);
-    } & (Args extends [] ? {
-        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
-        args?: Args;
-    } : {
+        func: () => void;
+    }  | {
+        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
+        func: (...args: Args) => void;
         /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
         args: Args;
-    })))
+    }))
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7888,7 +7888,12 @@ declare namespace chrome.storage {
         MAX_WRITE_OPERATIONS_PER_MINUTE: number;
     }
 
-    type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed'>;
+    export interface SessionStorageArea extends StorageArea {
+        /** The maximum amount (in bytes) of data that can be stored in memory, as measured by estimating the dynamically allocated memory usage of every value and key. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
+        QUOTA_BYTES: number;
+    }
+
+    type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed' | 'session'>;
     export interface StorageChangedEvent
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void> { }
 
@@ -7902,6 +7907,12 @@ declare namespace chrome.storage {
      * @since Chrome 33.
      */
     export var managed: StorageArea;
+
+    /**
+     * Items in the session storage area are stored in-memory and will not be persisted to disk.
+     * @since Chrome 102.
+     */
+    export var session: SessionStorageArea;
 
     /** Fired when one or more items change. */
     export var onChanged: StorageChangedEvent;

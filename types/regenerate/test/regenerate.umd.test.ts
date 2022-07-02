@@ -1,7 +1,8 @@
 /// <reference types="regenerate"/>
 
 regenerate.version; // $ExpectType string
-regenerate.version = "1.69420"; // $ExpectError
+// @ts-expect-error
+regenerate.version = "1.69420";
 
 // $ExpectType regenerate
 const r = regenerate("1", "2", "3")

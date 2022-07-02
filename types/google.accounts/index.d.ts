@@ -304,7 +304,7 @@ declare namespace google.accounts {
          * Displays the One Tap prompt or the browser native credential manager
          * after the initialize() method is invoked.
          */
-        function prompt(momentListener: (promptMomentNotification: PromptMomentNotification) => void): void;
+        function prompt(momentListener?: (promptMomentNotification: PromptMomentNotification) => void): void;
 
         /**
          * Renders a Sign In With Google button in your web pages.

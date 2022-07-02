@@ -430,9 +430,15 @@ declare namespace Aws {
 
     interface Sqs {
         arn: string | { [key: string]: any };
-        batchSize?: number | string | undefined;
-        maximumRetryAttempts?: number | string | undefined;
-        functionResponseType?: string | undefined;
+        /**
+         * minimum: 1, maximum: 10000
+         */
+        batchSize?: number | undefined;
+        /**
+         * minimum: 0, maximum: 300
+         */
+        maximumBatchingWindow?: number | undefined;
+        functionResponseType?: 'ReportBatchItemFailures' | undefined;
         enabled?: boolean | undefined;
         filterPatterns?: FilterPattern[] | undefined;
     }
