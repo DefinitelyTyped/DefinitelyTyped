@@ -14,7 +14,7 @@ declare function parseDataURL(stringInput: string): parseDataURL.DataURL | null;
 declare namespace parseDataURL {
     interface DataURL {
         mimeType: MIMEType;
-        body: Buffer;
+        body: Uint8Array;
     }
 
     function fromURLRecord(urlRecord: URLRecord): DataURL | null;
