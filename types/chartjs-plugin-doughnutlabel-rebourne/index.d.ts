@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { Chart, ChartType, Plugin } from 'chart.js';
-import { EmptyObject } from 'chart.js/types/basic';
+import { ChartType, Plugin } from 'chart.js';
 
 declare module 'chart.js' {
     interface PluginOptionsByType<TType extends ChartType> {
@@ -51,12 +50,8 @@ declare namespace DoughnutLabel {
         /** Defaults to `'normal'` */
         weight?: string;
     }
-
-    interface Internal {
-        _drawLabels: (chart: Chart, args: EmptyObject, options: Options) => void;
-    }
 }
 
-declare const DoughnutLabelPlugin: Plugin<'doughnut'> & DoughnutLabel.Internal;
+declare const DoughnutLabelPlugin: Plugin<'doughnut'>;
 
 export = DoughnutLabelPlugin;
