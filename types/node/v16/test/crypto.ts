@@ -1380,10 +1380,22 @@ import { promisify } from 'node:util';
     const key = null as unknown as crypto.webcrypto.CryptoKey;
     const buf = new Uint8Array(16);
 
+    subtle.encrypt({ name: 'AES-CBC', iv: new Uint8Array(16) }, key, new TextEncoder().encode('hello')); // $ExpectType Promise<ArrayBuffer>
+    subtle.decrypt({ name: 'AES-CBC', iv: new Uint8Array(16) }, key, new ArrayBuffer(8)); // $ExpectType Promise<ArrayBuffer>
+    subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-512', salt: new ArrayBuffer(8), iterations: 1000 }, key, length); // $ExpectType Promise<ArrayBuffer>
+    subtle.deriveKey({
+        name: 'PBKDF2',
+        hash: 'SHA-512',
+        salt: new ArrayBuffer(8),
+        iterations: 1000
+    }, key, {
+        name: 'AES-GCM',
+        length: 256
+    }, true, ['encrypt', 'decrypt']);
     subtle.digest('SHA-384', buf); // $ExpectType Promise<ArrayBuffer>
-    subtle.exportKey('jwk', key);
-    subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, false, ['deriveKey', 'deriveBits']);
-    subtle.importKey('pkcs8', buf, { name: 'NODE-SCRYPT' }, false, []); // $ExpectType Promise<CryptoKey>
+    subtle.exportKey('jwk', key); // $ExpectType Promise<JsonWebKey>
+    subtle.importKey('pkcs8', buf, { name: 'RSA-PSS', hash: 'SHA-1' }, false, []); // $ExpectType Promise<CryptoKey>
+    subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, false, ['deriveKey', 'deriveBits']); // $ExpectType Promise<CryptoKeyPair>
     subtle.sign({ name: 'RSA-PSS', saltLength: 64 }, key, buf); // $ExpectType Promise<ArrayBuffer>
     subtle.unwrapKey('raw', buf, key, { name: 'AES-CTR', length: 192, counter: buf }, { name: 'RSA-OAEP', hash: 'SHA-512' }, true, []);
     subtle.verify({ name: 'RSASSA-PKCS1-v1_5' }, key, buf, buf); // $ExpectType Promise<boolean>
