@@ -1,5 +1,4 @@
-import benchmark from './index';
-import type { BenchmarkResult, DoneCallback } from './index';
+import benchmark from 'nodemark';
 
 console.log('benchmark:', benchmark);
 
@@ -18,12 +17,12 @@ function setup() {
     x = Math.random();
 }
 
-function asyncSubject(cb: DoneCallback) {
+function asyncSubject(cb: benchmark.DoneCallback) {
     subject();
     cb();
 }
 
-function asyncSetup(cb: DoneCallback) {
+function asyncSetup(cb: benchmark.DoneCallback) {
     setup();
     cb();
 }
@@ -34,7 +33,7 @@ function assertNumber(x: number) {
     }
 }
 
-function assertResult(result: BenchmarkResult) {
+function assertResult(result: benchmark.BenchmarkResult) {
     console.log(result);
 
     assertNumber(result.mean);
