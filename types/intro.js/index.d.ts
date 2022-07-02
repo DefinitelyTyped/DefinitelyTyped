@@ -82,6 +82,7 @@ declare namespace introJs {
         setOptions(options: Options): IntroJs;
 
         onexit(callback: Function): IntroJs;
+        onbeforeexit(callback: () => boolean | void): IntroJs;
         onbeforechange(callback: (element: HTMLElement) => any): IntroJs;
         onafterchange(callback: (element: HTMLElement) => any): IntroJs;
         onchange(callback: (element: HTMLElement) => any): IntroJs;
