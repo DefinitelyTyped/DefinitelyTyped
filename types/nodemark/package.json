@@ -1,6 +1,5 @@
 {
   "private": true,
-  "license": "BSD-2-Clause",
   "dependencies": {
     "@types/node": "^18.0.0",
     "nodemark": "^0.3.0",
