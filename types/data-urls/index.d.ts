@@ -1,4 +1,4 @@
-// Type definitions for data-urls 3.0.2
+// Type definitions for data-urls 3.0
 // Project: https://github.com/jsdom/data-urls#readme
 // Definitions by: Jaime Filho <https://github.com/jaimeadf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
