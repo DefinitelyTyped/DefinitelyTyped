@@ -20,7 +20,6 @@ export interface StrategyOption {
     clientID: string;
     callbackURL: string;
 
-    passReqToCallback?: boolean;
     clientSecret?: string;
     scopeSeparator?: string;
     customHeaders?: string;

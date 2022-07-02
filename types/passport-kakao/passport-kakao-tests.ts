@@ -5,18 +5,19 @@ new KakaoStrategy({
         clientID: 'client',
         callbackURL: 'callbackUrl',
     },
-    (accessToken: string, refreshToken: string, profile: any, done: any) => {
+    (accessToken, refreshToken, profile, done) => {
         // signUp or signIn
+        console.log(accessToken, refreshToken, profile, done);
     },
 );
 
 new KakaoStrategy({
         clientID: 'client',
         callbackURL: 'callbackUrl',
-        passReqToCallback: false,
     },
-    (accessToken: string, refreshToken: string, profile: any, done: any) => {
+    (accessToken, refreshToken, profile, done) => {
         // signUp or signIn
+        console.log(accessToken, refreshToken, profile, done);
     },
 );
 
@@ -25,7 +26,8 @@ new KakaoStrategy({
         callbackURL: 'callbackUrl',
         passReqToCallback: true,
     },
-    (req: Request, accessToken: string, refreshToken: string, profile: any, done: any) => {
+    (req: Request, accessToken, refreshToken, profile, done) => {
         // signUp or signIn
+        console.log(req, accessToken, refreshToken, profile, done);
     },
 );
