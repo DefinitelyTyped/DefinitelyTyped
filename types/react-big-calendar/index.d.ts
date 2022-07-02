@@ -177,10 +177,10 @@ export interface DateHeaderProps {
     onDrillDown: () => void;
 }
 
-export interface ResourceHeaderProps {
+export interface ResourceHeaderProps<TResource extends object = object> {
     label: React.ReactNode;
     index: number;
-    resource: object;
+    resource: TResource;
 }
 
 export interface DateCellWrapperProps {
@@ -235,7 +235,7 @@ export interface Components<TEvent extends object = Event, TResource extends obj
      * component used as a header for each column in the TimeGridHeader
      */
     header?: React.ComponentType<HeaderProps> | undefined;
-    resourceHeader?: React.ComponentType<ResourceHeaderProps> | undefined;
+    resourceHeader?: React.ComponentType<ResourceHeaderProps<TResource>> | undefined;
 }
 
 export interface ToolbarProps<TEvent extends object = Event, TResource extends object = object> {
