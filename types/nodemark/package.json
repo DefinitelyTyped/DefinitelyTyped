@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "@types/node": "^18.0.0",
+    "nodemark": "^0.3.0",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
+  }
+}
