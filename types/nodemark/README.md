@@ -4,7 +4,7 @@ Type definitions for nodemark 0.3.0
 
 ## License
 
-This project is licensed with [BSD-2-Clause](./LICENSE)
+This project is licensed with BSD-2-Clause.
 
 This is free, libre, and open-source software. It comes down to four essential freedoms [[ref]](https://seirdy.one/2021/01/27/whatsapp-and-the-domestication-of-users.html#fnref:2):
 
