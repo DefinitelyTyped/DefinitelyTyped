@@ -1,7 +1,1 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-any-union": false,
-        "no-unnecessary-generics": false
-    }
-}
+{ "extends": "dtslint/dt.json" }
