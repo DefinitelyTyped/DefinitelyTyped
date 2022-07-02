@@ -1,5 +1,5 @@
 import { Chart } from 'chart.js';
-import DoughnutLabel = require('chartjs-plugin-doughnutlabel-rebourne');
+import * as DoughnutLabel from 'chartjs-plugin-doughnutlabel-rebourne';
 
 // Example taken from https://github.com/alexkuc/chartjs-plugin-doughnutlabel-rebourne/blob/master/samples/index.js
 // And extended to use all the options
@@ -87,7 +87,7 @@ const chart = new Chart(ctx, {
                         text: '95%',
                         font: {
                             family: 'Arial',
-                            lineHeight: 1.2,
+                            lineHeight: '1.2',
                             size: '12',
                             style: 'normal',
                             weight: 'normal',
