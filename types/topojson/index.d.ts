@@ -1,6 +1,6 @@
 // Type definitions for topojson 3.2
 // Project: https://github.com/topojson/topojson
-// Definitions by: Ricardo Mello <https://github.com/ricardo-mello>
+// Definitions by: Ricardo Mello <https://github.com/ricmello>
 //                 Zhutian Chen <https://github.com/chenzhutian>
 //                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@ export as namespace topojson;
 // TopoJSON Server
 // ---------------------------------------------------------------
 
-export function topology(objects: {[k: string]: GeoJSON.GeoJsonObject}, quantization?: number): TopoJSON.Topology;
+export * from 'topojson-server';
 
 // ---------------------------------------------------------------
 // TopoJSON Simplify

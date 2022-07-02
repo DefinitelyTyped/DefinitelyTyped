@@ -15,11 +15,11 @@ declare module 'angular' {
      * Used as optional parameter provided on definitions of permissions and roles
      */
     export interface TransitionProperties {
-      fromState?: angular.ui.IState;
-      fromParams?: angular.ui.IStateParamsService;
-      toState?: angular.ui.IState;
-      toParams?: angular.ui.IStateParamsService;
-      options?: angular.ui.IStateOptions;
+      fromState?: angular.ui.IState | undefined;
+      fromParams?: angular.ui.IStateParamsService | undefined;
+      toState?: angular.ui.IState | undefined;
+      toParams?: angular.ui.IStateParamsService | undefined;
+      options?: angular.ui.IStateOptions | undefined;
     }
 
     export interface PermissionStore {
@@ -158,13 +158,13 @@ declare module 'angular' {
     export interface Role {
       roleName: string;
       permissionNames: string[];
-      validationFunction?: RoleValidationFunction;
+      validationFunction?: RoleValidationFunction | undefined;
       validateRole: () => angular.IPromise<any>;
     }
 
     export interface Permission {
       permissionName: string;
-      validationFunction?: PermissionValidationFunction;
+      validationFunction?: PermissionValidationFunction | undefined;
       validatePermission: () => angular.IPromise<any>;
     }
 
@@ -179,21 +179,21 @@ declare module 'angular' {
     ) => boolean | angular.IPromise<any>;
 
     export interface IPermissionState extends angular.ui.IState {
-      data?: any | DataWithPermissions;
+      data?: any | DataWithPermissions | undefined;
     }
 
     export interface DataWithPermissions {
       permissions?: {
-        only?: (() => void) | string | string[] | angular.IPromise<any>;
-        except?: (() => void) | string | string[] | angular.IPromise<any>;
+        only?: (() => void) | string | string[] | angular.IPromise<any> | undefined;
+        except?: (() => void) | string | string[] | angular.IPromise<any> | undefined;
         redirectTo: string | (() => string) | (() => PermissionRedirectConfigation) | { [index: string]: PermissionRedirectConfigation }
-      };
+      } | undefined;
     }
 
     export interface PermissionRedirectConfigation {
       state: string;
-      params?: {};
-      options?: angular.ui.IStateOptions;
+      params?: {} | undefined;
+      options?: angular.ui.IStateOptions | undefined;
     }
   }
 }

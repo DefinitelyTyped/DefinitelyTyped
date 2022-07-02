@@ -1,6 +1,10 @@
-// Type definitions for react-image-crop 3.0
+// Type definitions for react-image-crop 8.1
 // Project: https://github.com/DominicTobias/react-image-crop
 // Definitions by: Daniela Yassuda <https://github.com/danielasy>
+//                 Elias Chaaya <https://github.com/chaaya>
+//                 Søren Englund <https://github.com/englund0110>
+//                 Jonathan Guo <https://github.com/JonathanGuo>
+//                 Lewis Monteith <https://github.com/lemonJS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -10,44 +14,48 @@ export as namespace ReactCrop;
 
 declare namespace ReactCrop {
     interface Crop {
-        aspect?: number;
-        x: number;
-        y: number;
-        width?: number;
-        height?: number;
+        aspect?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        unit?: 'px' | '%' | undefined;
     }
 
-    interface PixelCrop {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
+    interface PercentCrop extends Crop {
+        unit?: '%' | undefined;
     }
 
     interface ReactCropProps {
         src: string;
-        crop?: Crop;
-        imageAlt?: string;
-        minWidth?: number;
-        minHeight?: number;
-        maxWidth?: number;
-        maxHeight?: number;
-        keepSelection?: boolean;
-        onChange: (crop: Crop, pixelCrop: PixelCrop) => void;
-        onComplete?: (crop: Crop, pixelCrop: PixelCrop) => void;
-        onImageLoaded?: (target: HTMLImageElement) => void;
-        onDragStart?: () => void;
-        onDragEnd?: () => void;
-        disabled?: boolean;
-        crossorigin?: string;
-        children?: ReactNode;
-        style?: CSSProperties;
-        imageStyle?: CSSProperties;
+        crop?: Crop | undefined;
+        imageAlt?: string | undefined;
+        minWidth?: number | undefined;
+        minHeight?: number | undefined;
+        maxWidth?: number | undefined;
+        maxHeight?: number | undefined;
+        keepSelection?: boolean | undefined;
+        onChange: (crop: Crop, percentCrop: PercentCrop) => void;
+        onComplete?: ((crop: Crop, percentCrop: PercentCrop) => void) | undefined;
+        onImageLoaded?: ((target: HTMLImageElement) => void) | undefined;
+        onDragStart?: (() => void) | undefined;
+        onDragEnd?: (() => void) | undefined;
+        disabled?: boolean | undefined;
+        crossorigin?: 'anonymous' | 'use-credentials' | undefined;
+        children?: ReactNode | undefined;
+        style?: CSSProperties | undefined;
+        imageStyle?: CSSProperties | undefined;
+        onImageError?: ((event: React.SyntheticEvent<HTMLImageElement>) => void) | undefined;
+        className?: string | undefined;
+        locked?: boolean | undefined;
+        renderComponent?: ReactNode | undefined;
+        renderSelectionAddon?: ((state: any) => ReactNode) | undefined;
+        ruleOfThirds?: boolean | undefined;
+        circularCrop?: boolean | undefined;
     }
 
-    function getPixelCrop(image: HTMLImageElement, percentCrop: Crop): Crop;
-    function makeAspectCrop(crop: Crop, imageAspect: number): Crop;
-    function containCrop(crop: Crop, imageAspect: number): Crop;
+    function makeAspectCrop(crop: Crop, imageWidth: number, imageHeight: number): Crop;
+    function containCrop(prevCrop: Crop, crop: Crop, imageWidth: number, imageHeight: number): Crop;
 }
 
 declare class ReactCrop extends Component<ReactCrop.ReactCropProps> {
@@ -62,6 +70,7 @@ declare class ReactCrop extends Component<ReactCrop.ReactCropProps> {
         width: number,
         height: number,
     };
+    resolveCrop: (crop: ReactCrop.Crop, imageWidth: number, imageHeight: number) => ReactCrop.Crop;
     dragCrop: () => ReactCrop.Crop;
     resizeCrop: () => ReactCrop.Crop;
     straightenYPath: (clientX: number) => number;

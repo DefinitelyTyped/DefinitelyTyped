@@ -2,14 +2,27 @@ import * as chrome from 'selenium-webdriver/chrome';
 import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
 
-function TestChromeDriver() {
+async function TestChromeDriver() {
     let driver: chrome.Driver = chrome.Driver.createSession();
     driver = chrome.Driver.createSession(webdriver.Capabilities.chrome());
-    driver = chrome.Driver.createSession(webdriver.Capabilities.chrome(),
-        new remote.DriverService('executable', new chrome.Options()),
-        new webdriver.promise.ControlFlow());
 
     let baseDriver: webdriver.WebDriver = driver;
+    await driver.setDownloadPath('/path/to/dir');
+    await driver.sendDevToolsCommand('command', {});
+    let response = await driver.sendAndGetDevToolsCommand('command', []);
+    let networkConditions = await driver.getNetworkConditions();
+    await driver.setNetworkConditions(networkConditions);
+    await driver.deleteNetworkConditions();
+    await driver.launchApp('appId');
+    await driver.setPermission('javaScriptEnabled', 'granted');
+    await driver.startDesktopMirroring('deviceName');
+    await driver.startCastTabMirroring('deviceName');
+    await driver.getCastIssueMessage();
+    await driver.getCastSinks();
+    await driver.setCastSinkToUse('deviceName');
+    await driver.stopCasting('deviceName');
+
+    driver.quit();
 }
 
 function TestChromeOptions() {
@@ -30,14 +43,13 @@ function TestChromeOptions() {
     options = options.androidPackage('com.android.chrome');
     options = options.androidProcess('com.android.chrome');
     options = options.androidUseRunningApp(true);
-    options = options.setLoggingPrefs(new webdriver.logging.Preferences());
     options = options.setPerfLoggingPrefs({
-        enableNetwork: true, enablePage: true, enableTimeline: true,
-        tracingCategories: 'category', bufferUsageReportingInterval: 1000 });
-    options = options.setProxy({ proxyType: 'proxyType' });
+        enableNetwork: true,
+        enablePage: true,
+        traceCategories: 'category',
+        bufferUsageReportingInterval: 1000,
+    });
     options = options.setUserPreferences('preferences');
-    let capabilities: webdriver.Capabilities = options.toCapabilities();
-    capabilities = options.toCapabilities(webdriver.Capabilities.chrome());
 }
 
 function TestServiceBuilder() {

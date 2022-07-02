@@ -5,6 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
 export interface SpawnWith {
     customFds: number[];
     setsid: boolean;
@@ -13,26 +15,26 @@ export interface SpawnWith {
 }
 
 export interface Options {
-    silent?: boolean;
-    uid?: string;
-    pidFile?: string;
-    max?: number;
-    killTree?: boolean;
-    minUptime?: number;
-    spinSleepTime?: number;
-    command?: string;
-    args?: string[];
-    sourceDir?: string;
-    watch?: boolean;
-    watchIgnoreDotFiles?: boolean;
-    watchIgnorePatters?: string[];
-    watchDirectory?: string;
-    spawnWith?: SpawnWith;
-    env?: NodeJS.ProcessEnv;
-    cwd?: string;
-    logFile?: string;
-    outFile?: string;
-    errFile?: string;
+    silent?: boolean | undefined;
+    uid?: string | undefined;
+    pidFile?: string | undefined;
+    max?: number | undefined;
+    killTree?: boolean | undefined;
+    minUptime?: number | undefined;
+    spinSleepTime?: number | undefined;
+    command?: string | undefined;
+    args?: string[] | undefined;
+    sourceDir?: string | undefined;
+    watch?: boolean | undefined;
+    watchIgnoreDotFiles?: boolean | undefined;
+    watchIgnorePatterns?: string[] | undefined;
+    watchDirectory?: string | undefined;
+    spawnWith?: SpawnWith | undefined;
+    env?: NodeJS.ProcessEnv | undefined;
+    cwd?: string | undefined;
+    logFile?: string | undefined;
+    outFile?: string | undefined;
+    errFile?: string | undefined;
     parser?(command: string, args: string[]): { command: string, args: string[] };
 }
 
@@ -41,7 +43,7 @@ export function kill(pid: number, killTree?: boolean, signal?: string, callback?
 export function checkProcess(pid: number): boolean;
 export const version: string;
 
-export class Monitor extends NodeJS.EventEmitter {
+export class Monitor extends EventEmitter {
     /**
      * @param script - Location of the target script to run.
      * @param [options] - Configuration for this instance.
@@ -89,5 +91,5 @@ export class Monitor extends NodeJS.EventEmitter {
      * @param command - Command string to parse
      * @param args - Additional default arguments
      */
-    parseCommand(command: string, args?: string[]): (false | { command: string, args?: string[]});
+    parseCommand(command: string, args?: string[]): (false | { command: string, args?: string[] | undefined});
 }

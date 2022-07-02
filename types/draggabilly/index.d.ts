@@ -1,5 +1,5 @@
 // Type definitions for draggabilly 2.1
-// Project: http://draggabilly.desandro.com/
+// Project: https://draggabilly.desandro.com
 // Definitions by: Jason Wu <https://github.com/jaydubu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -10,10 +10,10 @@ export interface Position {
 }
 
 export interface DraggabillyOptions {
-    axis?: 'x' | 'y';
-    containment?: Element | string | boolean;
-    grid?: [number, number];
-    handle?: string;
+    axis?: 'x' | 'y' | undefined;
+    containment?: Element | string | boolean | undefined;
+    grid?: [number, number] | undefined;
+    handle?: string | undefined;
 }
 
 export type DraggabillyClickEventName = 'dragStart' | 'dragEnd' | 'pointerDown' | 'pointerUp' | 'staticClick';

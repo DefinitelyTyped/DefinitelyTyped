@@ -1,5 +1,5 @@
 // Type definitions for form-serialize 0.7
-// Project: https://github.com/defunctzombie/form-serialize#readme
+// Project: https://github.com/defunctzombie/form-serialize#readme, https://github.com/shtylman/form-serialize
 // Definitions by: Tyler Johnson <https://github.com/tyler-johnson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -10,16 +10,16 @@ interface ResultHash {
 
 interface Options<Result> {
     /** Configure the output type. If true, the output will be a js object. */
-    hash?: boolean;
+    hash?: boolean | undefined;
     /**
      * Optional serializer function to override the default one. The function takes 3 arguments (result, key,
      * value) and should return new result hash and url encoded str serializers are provided with this module
      */
-    serializer?: (result: Result, key: string, value: string) => Result;
+    serializer?: ((result: Result, key: string, value: string) => Result) | undefined;
     /** If true serialize disabled fields. */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /** If true serialize empty fields */
-    empty?: boolean;
+    empty?: boolean | undefined;
 }
 
 interface OptionsHash extends Options<ResultHash> {

@@ -67,11 +67,11 @@ function testPropsAndFuncs(){
     var obj = [ 5, 6, -3, [ 7, 8, -2, 1 ], { f : 10, g : -13 } ];
 
     traverse(obj).forEach(function (x) {
-		console.log(this.keys);
-		console.log(this.parents);
+        console.log(this.keys);
+        console.log(this.parents);
 
         if (this.level == 2) this.block();
-		if (this.level > 10) this.stop();
+        if (this.level > 10) this.stop();
     });
 
     console.dir(obj);

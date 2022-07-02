@@ -11,10 +11,10 @@ const callback2 = (err: Error, isLocked: boolean) => {
 };
 
 opts = {
-	wait: num,
-	stale: num,
-	retries: num,
-	retryWait: num
+    wait: num,
+    stale: num,
+    retries: num,
+    retryWait: num
 };
 
 lockfile.lock(path, opts, callback);

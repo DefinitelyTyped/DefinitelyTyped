@@ -1,40 +1,42 @@
-// Type definitions for shuffle-array
+// Type definitions for shuffle-array 1.0
 // Project: https://github.com/pazguille/shuffle-array
-// Definitions by: rhysd <https://rhysd.github.io>
+// Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/**
- * copy - Sets if should return a shuffled copy of the given array. By default it's a falsy value.
- * rng - Specifies a custom random number generator.
- */
-interface ShuffleOption {
-    copy?: boolean;
-    rng?: () => number;
-}
-/**
- * picks - Specifies how many random elements you want to pick. By default it picks 1.
- * rng - Specifies a custom random number generator.
- */
-interface PickOption {
-    picks?: number;
-    rng?: () => number;
-}
-interface ShuffleArray {
+declare namespace shuffleArray {
     /**
-     * Randomizes the order of the elements in a given array.
-     *
-     * arr - The given array.
-     * options - Optional configuration options.
+     * copy - Sets if should return a shuffled copy of the given array. By default it's a falsy value.
+     * rng - Specifies a custom random number generator.
      */
-    <T>(arr: T[], options?: ShuffleOption): T[];
+    interface ShuffleOptions {
+        copy?: boolean;
+        rng?: () => number;
+    }
     /**
-     * Pick one or more random elements from the given array.
-     *
-     * arr - The given array.
-     * options - Optional configuration options.
+     * picks - Specifies how many random elements you want to pick. By default it picks 1.
+     * rng - Specifies a custom random number generator.
      */
-    pick<T>(arr: T[], options?: Object): T[];
+    interface PickOptions {
+        picks?: number;
+        rng?: () => number;
+    }
+    interface ShuffleArray {
+        /**
+         * Randomizes the order of the elements in a given array.
+         *
+         * arr - The given array.
+         * options - Optional configuration options.
+         */
+        <T>(arr: T[], options?: ShuffleOptions): T[];
+        /**
+         * Pick one or more random elements from the given array. If options.picks is
+         * omitted or === 1, a single element will be returned; otherwise an array.
+         *
+         * arr - The given array.
+         * options - Optional configuration options.
+         */
+        pick<T>(arr: ReadonlyArray<T>, options?: PickOptions): T | T[];
+    }
 }
-declare var shuffle: ShuffleArray;
-export = shuffle;
+declare var shuffleArray: shuffleArray.ShuffleArray;
+export = shuffleArray;

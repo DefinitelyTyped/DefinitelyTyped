@@ -1,11 +1,11 @@
-import * as yog2Kernel from 'yog2-kernel';
+import yog2Kernel = require('yog2-kernel');
 import { Request, Response, NextFunction } from 'express';
 
-yog.log.notice('some debug');
-yog.log.debug('some debug');
-yog.log.trace('some debug');
-yog.log.warning('some debug');
-yog.log.fatal('some debug');
+yog2Kernel.log.notice('some debug');
+yog2Kernel.log.debug('some debug');
+yog2Kernel.log.trace('some debug');
+yog2Kernel.log.warning('some debug');
+yog2Kernel.log.fatal('some debug');
 
 const handler = async function(req: yog2Kernel.Request, resp: yog2Kernel.Response, next: NextFunction) {
     const test = await req.ralP("test", {});
@@ -27,8 +27,8 @@ const handler31 = router.wrapAsync(function(req: yog2Kernel.Request, resp: yog2K
 const handler33 = router.wrapAsync(function(req: Request, resp: Response) { });
 const handler4 = router.wrapAsync(function(req: Request, resp: Response, next: NextFunction) { });
 
-yog.bootstrap({});
+yog2Kernel.bootstrap({});
 
-yog.bootstrap({
+yog2Kernel.bootstrap({
     rootPath: ''
 });

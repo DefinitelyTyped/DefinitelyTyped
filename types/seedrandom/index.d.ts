@@ -1,45 +1,49 @@
-// Type definitions for seedrandom 2.4.2
+// Type definitions for seedrandom 3.0
 // Project: https://github.com/davidbau/seedrandom
 // Definitions by: Kern Handa <https://github.com/kernhanda>
+//                 Eugene Zaretskiy <https://github.com/EugeneZ>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace seedrandom {
+    type State = object;
 
-  export type seedrandomStateType = boolean | (() => prng);
+    interface Callback {
+        (prng?: PRNG, shortseed?: string, global?: boolean, state?: State): PRNG;
+    }
 
-  interface prng {
-    new (seed?: string, options?: seedRandomOptions, callback?: any): prng;
-    (): number;
-    quick(): number;
-    int32(): number;
-    double(): number;
-    state(): () => prng;
-  }
+    interface Options {
+        entropy?: boolean | undefined;
+        global?: boolean | undefined;
+        pass?: Callback | undefined;
+        state?: boolean | State | undefined;
+    }
 
-  interface seedrandom_prng {
-    (seed?: string, options?: seedRandomOptions, callback?: any): prng;
-    alea: (seed?: string, options?: seedRandomOptions, callback?: seedrandomCallback) => prng;
-    xor128: (seed?: string, options?: seedRandomOptions, callback?: seedrandomCallback) => prng;
-    tychei: (seed?: string, options?: seedRandomOptions, callback?: seedrandomCallback) => prng;
-    xorwow: (seed?: string, options?: seedRandomOptions, callback?: seedrandomCallback) => prng;
-    xor4096: (seed?: string, options?: seedRandomOptions, callback?: seedrandomCallback) => prng;
-    xorshift7: (seed?: string, options?: seedRandomOptions, callback?: seedrandomCallback) => prng;
-    quick: (seed?: string, options?: seedRandomOptions, callback?: seedrandomCallback) => prng;
-  }
-
-  interface seedrandomCallback {
-    (prng?: prng, shortseed?: string, global?: boolean, state?: seedrandomStateType): prng;
-  }
-
-  interface seedRandomOptions {
-    entropy?: boolean;
-    'global'?: boolean;
-    state?: seedrandomStateType;
-    pass?: seedrandomCallback;
-  }
+    interface PRNG {
+        (): number;
+        double(): number;
+        int32(): number;
+        quick(): number;
+        state(): State;
+    }
 }
 
-declare var seedrandom: seedrandom.seedrandom_prng;
+interface seedrandom {
+    (seed?: string, options?: seedrandom.Options, callback?: seedrandom.Callback): seedrandom.PRNG;
+    alea(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    Alea: new (seed?: string) => seedrandom.PRNG;
+    tychei(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    Tychei: new (seed?: string) => seedrandom.PRNG;
+    xor128(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    Xor128: new (seed?: string) => seedrandom.PRNG;
+    xor4096(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    Xor4096: new (seed?: string) => seedrandom.PRNG;
+    xorshift7(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    XorShift7: new (seed?: string) => seedrandom.PRNG;
+    xorwow(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    XorWow: new (seed?: string) => seedrandom.PRNG;
+}
+
+declare const seedrandom: seedrandom;
 
 export = seedrandom;
-export as namespace seedrandom;

@@ -8,7 +8,7 @@ declare namespace echarts {
          *
          * **Example:**
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+         * [see doc](https://echarts.apache.org/en/option.html#series-treemap)
          *
          * **Visual Mapping:**
          *
@@ -18,19 +18,19 @@ declare namespace echarts {
          * channel, like colors, lightness of colors and etc.
          *
          * About visual encoding, see details in
-         * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+         * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
          * .
          *
          * **Drill Down:**
          *
          * The feature `drill down` means: when clicking a tree node, this node
          * will be set as root and its children will be shown. When
-         * [leafDepth](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.leafDepth)
+         * [leafDepth](https://echarts.apache.org/en/option.html#series-treemap.leafDepth)
          * is set, this feature is enabled.
          *
          * **An example about drill down:**
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+         * [see doc](https://echarts.apache.org/en/option.html#series-treemap)
          *
          * Notice: There are some difference in treemap configuration between
          * ECharts3 and ECharts2.
@@ -45,7 +45,7 @@ declare namespace echarts {
          *
          * + The configuration item `root` is not avaliable temporarily.User
          * can zoom treemap to see some tiny or deep descendants, or using
-         * [leafDepth](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.leafDepth)
+         * [leafDepth](https://echarts.apache.org/en/option.html#series-treemap.leafDepth)
          * to enable the feature of "drill down".
          *
          * + The configuration item `label` is moved outside the `itemStyle/itemStyle.emphasis`,
@@ -55,20 +55,19 @@ declare namespace echarts {
          * and `itemStyle.childBorderColor`
          * are not supported anymore (because in this way only 2 levels can
          * be defined).
-         * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+         * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
          * is used to define all levels now.
          *
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap
+         * @see https://echarts.apache.org/en/option.html#series-treemap
          */
         interface SeriesTreemap {
-
             /**
              * @default
              * "treemap"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.type
+             * @see https://echarts.apache.org/en/option.html#series-treemap.type
              */
-            type?: string;
+            type?: string | undefined;
 
             /**
              * Component ID, not specified by default.
@@ -76,21 +75,21 @@ declare namespace echarts {
              * or API.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.id
+             * @see https://echarts.apache.org/en/option.html#series-treemap.id
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * Series name used for displaying in
-             * [tooltip](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip)
+             * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
              * and filtering with
-             * [legend](https://ecomfe.github.io/echarts-doc/public/en/option.html#legend)
+             * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.name
+             * @see https://echarts.apache.org/en/option.html#series-treemap.name
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * `zlevel` value of all graghical elements in .
@@ -107,9 +106,9 @@ declare namespace echarts {
              * smaller `zlevel`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.zlevel
+             * @see https://echarts.apache.org/en/option.html#series-treemap.zlevel
              */
-            zlevel?: number;
+            zlevel?: number | undefined;
 
             /**
              * `z` value of all graghical elements in , which controls order
@@ -123,9 +122,9 @@ declare namespace echarts {
              *
              * @default
              * 2
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.z
+             * @see https://echarts.apache.org/en/option.html#series-treemap.z
              */
-            z?: number;
+            z?: number | undefined;
 
             /**
              * Distance between treemap component and the left side of the container.
@@ -140,9 +139,9 @@ declare namespace echarts {
              *
              * @default
              * "center"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.left
+             * @see https://echarts.apache.org/en/option.html#series-treemap.left
              */
-            left?: number | string;
+            left?: number | string | undefined;
 
             /**
              * Distance between treemap component and the top side of the container.
@@ -157,9 +156,9 @@ declare namespace echarts {
              *
              * @default
              * "middle"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.top
+             * @see https://echarts.apache.org/en/option.html#series-treemap.top
              */
-            top?: number | string;
+            top?: number | string | undefined;
 
             /**
              * Distance between treemap component and the right side of the
@@ -173,9 +172,9 @@ declare namespace echarts {
              *
              * @default
              * "auto"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.right
+             * @see https://echarts.apache.org/en/option.html#series-treemap.right
              */
-            right?: number | string;
+            right?: number | string | undefined;
 
             /**
              * Distance between treemap component and the bottom side of the
@@ -189,9 +188,9 @@ declare namespace echarts {
              *
              * @default
              * "auto"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.bottom
+             * @see https://echarts.apache.org/en/option.html#series-treemap.bottom
              */
-            bottom?: number | string;
+            bottom?: number | string | undefined;
 
             /**
              * Width of treemap component.
@@ -199,9 +198,9 @@ declare namespace echarts {
              *
              * @default
              * 80%
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.width
+             * @see https://echarts.apache.org/en/option.html#series-treemap.width
              */
-            width?: number | string;
+            width?: number | string | undefined;
 
             /**
              * Height of treemap component.
@@ -209,9 +208,9 @@ declare namespace echarts {
              *
              * @default
              * 80%
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.height
+             * @see https://echarts.apache.org/en/option.html#series-treemap.height
              */
-            height?: number | string;
+            height?: number | string | undefined;
 
             /**
              * The expected square ratio.
@@ -221,9 +220,9 @@ declare namespace echarts {
              * * (1 + Math.sqrt(5))`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.squareRatio
+             * @see https://echarts.apache.org/en/option.html#series-treemap.squareRatio
              */
-            squareRatio?: number;
+            squareRatio?: number | undefined;
 
             /**
              * When `leafDepth` is set, the feature "drill down" is enabled,
@@ -239,12 +238,12 @@ declare namespace echarts {
              *
              * **An example about drill down:**
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.leafDepth
+             * @see https://echarts.apache.org/en/option.html#series-treemap.leafDepth
              */
-            leafDepth?: number;
+            leafDepth?: number | undefined;
 
             /**
              * Marker when the node is able to be drilled down.
@@ -252,9 +251,9 @@ declare namespace echarts {
              *
              * @default
              * '▶'
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.drillDownIcon
+             * @see https://echarts.apache.org/en/option.html#series-treemap.drillDownIcon
              */
-            drillDownIcon?: string;
+            drillDownIcon?: string | undefined;
 
             /**
              * Whether to enable dragging roam (move and zoom).
@@ -268,9 +267,9 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.roam
+             * @see https://echarts.apache.org/en/option.html#series-treemap.roam
              */
-            roam?: boolean | string;
+            roam?: boolean | string | undefined;
 
             /**
              * The behaviour when clicking a node. Optional values are:
@@ -278,29 +277,29 @@ declare namespace echarts {
              * + `false`: Do nothing after clicked.
              * + `'zoomToNode'`: Zoom to clicked node.
              * + `'link'`: If there is
-             * [link](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.link)
+             * [link](https://echarts.apache.org/en/option.html#series-treemap.data.link)
              * in node data, do hyperlink jump after clicked.
              *
              *
              * @default
              * "zoomToNode"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.nodeClick
+             * @see https://echarts.apache.org/en/option.html#series-treemap.nodeClick
              */
-            nodeClick?: boolean | string;
+            nodeClick?: boolean | string | undefined;
 
             /**
              * The treemap will be auto zoomed to a appropriate ratio when a
              * node is clicked (when
-             * [nodeClick](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.nodeClick)
+             * [nodeClick](https://echarts.apache.org/en/option.html#series-treemap.nodeClick)
              * is set as `'zoomToNode'` and no drill down happens).
              * This configuration item indicates the ratio.
              *
              *
              * @default
              * 0.32*0.32
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.zoomToNodeRatio
+             * @see https://echarts.apache.org/en/option.html#series-treemap.zoomToNodeRatio
              */
-            zoomToNodeRatio?: number;
+            zoomToNodeRatio?: number | undefined;
 
             /**
              * **Multiple Levels Configuration**
@@ -320,7 +319,7 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
              * **The Rules about Visual Mapping**
              *
@@ -331,7 +330,7 @@ declare namespace echarts {
              * of rectangular" and so on on each level.
              *
              * See
-             * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=treemap-disk&edit=1&reset=1)
+             * [example](https://echarts.apache.org/examples/en/editor.html?c=treemap-disk&edit=1&reset=1)
              *
              * The top level is divided into several parts by colors "red",
              * "green", "blue", and etc
@@ -363,16 +362,16 @@ declare namespace echarts {
              * See the example below: every `value` field is set as an Array,
              * in which each item in the array represents a dimension respectively.
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
              * `treemap` will map the first dimension (the first item of the
              * array) to "area".
              * If we want to express more information, we could map another
              * dimension (specified by
-             * [series-treemap.visualDimension](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.viusalDimension)
+             * [series-treemap.visualDimension](https://echarts.apache.org/en/option.html#series-treemap.viusalDimension)
              * ) to another visual types, such as `colorSaturation` and so on.
              * See the
-             * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=treemap-obama&edit=1&reset=1)
+             * [example](https://echarts.apache.org/examples/en/editor.html?c=treemap-obama&edit=1&reset=1)
              * and select the legend 'Growth'.
              *
              * **How to avoid confusion by setting border/gap of node**
@@ -382,7 +381,7 @@ declare namespace echarts {
              * the same time.
              *
              * See the
-             * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/treemap-borderColor&edit=1&reset=1)
+             * [example](https://echarts.apache.org/examples/en/editor.html?c=doc-example/treemap-borderColor&edit=1&reset=1)
              *
              * Noticed that the child rectangles in the red area are in the
              * deeper level than rectangles that are saparated by white gap.
@@ -391,107 +390,106 @@ declare namespace echarts {
              *
              * **Explanation about borderWidth, gapWidth, borderColor**
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
              *
              * @default
              * []
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels
+             * @see https://echarts.apache.org/en/option.html#series-treemap.levels
              */
             levels?: {
-
                 /**
                  * `treemap` is able to map any dimensions of data to visual.
                  *
                  * The value of
-                 * [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * can be an array.
                  * And each item of the array represents a "dimension".
                  * `visualDimension` specifies the dimension on which visual
                  * mapping will be performed.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `visualDimension` attribute could appear
                  * in more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.visualDimension
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visualDimension
                  */
-                visualDimension?: number;
+                visualDimension?: number | undefined;
 
                 /**
                  * The minimal value of current level.
                  * Auto-statistics by default.
                  *
                  * When
-                 * [colorMappingBy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorMappingBy)
+                 * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
                  * is set to `'value'`, you are able to specify extent manually
                  * for visual mapping by specifying `visualMin` or `visualMax`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.visualMin
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visualMin
                  */
-                visualMin?: number;
+                visualMin?: number | undefined;
 
                 /**
                  * The maximal value of current level.
                  * Auto-statistics by default.
                  *
                  * When
-                 * [colorMappingBy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorMappingBy)
+                 * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
                  * is set to `'value'`, you are able to specify extent manually
                  * for visual mapping by specifying `visualMin` or `visualMax`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.visualMax
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visualMax
                  */
-                visualMax?: number;
+                visualMax?: number | undefined;
 
                 /**
                  * A color list for a level.
                  * Each node in the level will obtain a color from the color
                  * list (the rule see
-                 * [colorMappingBy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorMappingBy)
+                 * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
                  * ).
                  * It is empty by default, which means the global color list
                  * will be used.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `color` attribute could appear in more
                  * than one places:
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.color
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.color
                  */
-                color?: any[];
+                color?: any[] | undefined;
 
                 /**
                  * It indicates the range of tranparent rate (color alpha) for
@@ -500,29 +498,29 @@ declare namespace echarts {
                  * For example, `colorAlpha` can be `[0.3, 1]`.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `colorAlpha` attribute could appear in
                  * more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorAlpha
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.colorAlpha
                  */
-                colorAlpha?: any[];
+                colorAlpha?: any[] | undefined;
 
                 /**
                  * It indicates the range of saturation (color alpha) for nodes
@@ -531,47 +529,47 @@ declare namespace echarts {
                  * For example, `colorSaturation` can be `[0.3, 1]`.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `colorSaturation` attribute could appear
                  * in more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorSaturation
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.colorSaturation
                  */
-                colorSaturation?: number;
+                colorSaturation?: number | undefined;
 
                 /**
                  * Specify the rule according to which each node obtain color
                  * from
-                 * [color list](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.color)
+                 * [color list](https://echarts.apache.org/en/option.html#series-treemap.levels.color)
                  * . Optional values:
                  *
                  * + `'value'`:
                  *
                  * Map
-                 * [series-treemap.data.value](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.value)
+                 * [series-treemap.data.value](https://echarts.apache.org/en/option.html#series-treemap.data.value)
                  * to color.
                  *
                  * In this way, the color of each node indicate its value.
                  *
-                 * [visualDimension](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.visualDimension)
+                 * [visualDimension](https://echarts.apache.org/en/option.html#series-treemap.levels.visualDimension)
                  * can be used to specify which dimension of
-                 * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * [data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * is used to perform visual mapping.
                  *
                  * + `'index'`:
@@ -579,7 +577,7 @@ declare namespace echarts {
                  * Map the `index` (ordinal number) of nodes to color.
                  * Namely, in a level, the first node is mapped to the first
                  * color of
-                 * [color list](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.color)
+                 * [color list](https://echarts.apache.org/en/option.html#series-treemap.levels.color)
                  * , and the second node gets the second color.
                  *
                  * In this way, adjacent nodes are distinguished by color.
@@ -587,41 +585,41 @@ declare namespace echarts {
                  * + `'id'`:
                  *
                  * Map
-                 * [series-treemap.data.id](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.id)
+                 * [series-treemap.data.id](https://echarts.apache.org/en/option.html#series-treemap.data.id)
                  * to color.
                  *
                  * Since `id` is used to identify node, if user call `setOption`
                  * to modify the tree, each node will remain the original color
                  * before and after `setOption` called. See this
-                 * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=treemap-obama&edit=1&reset=1)
+                 * [example](https://echarts.apache.org/examples/en/editor.html?c=treemap-obama&edit=1&reset=1)
                  * .
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `colorMappingBy` attribute could appear
                  * in more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
                  * @default
                  * "index"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorMappingBy
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy
                  */
-                colorMappingBy?: string;
+                colorMappingBy?: string | undefined;
 
                 /**
                  * A node will not be shown when its area size is smaller than
@@ -634,31 +632,31 @@ declare namespace echarts {
                  * this threshold.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `visibleMin` attribute could appear in
                  * more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
                  * @default
                  * 10
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.visibleMin
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visibleMin
                  */
-                visibleMin?: number;
+                visibleMin?: number | undefined;
 
                 /**
                  * Children will not be shown when area size of a node is smaller
@@ -670,29 +668,29 @@ declare namespace echarts {
                  * is larger than this threshold.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `childrenVisibleMin` attribute could appear
                  * in more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.childrenVisibleMin
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.childrenVisibleMin
                  */
-                childrenVisibleMin?: number;
+                childrenVisibleMin?: number | undefined;
 
                 /**
                  * `label` decribes the style of the label in each node.
@@ -701,30 +699,29 @@ declare namespace echarts {
                  * than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -737,7 +734,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                      *
                      * + 'top'
                      *
@@ -755,43 +752,43 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -799,9 +796,9 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -840,12 +837,12 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -856,9 +853,9 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -872,9 +869,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -890,9 +887,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -902,9 +899,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -912,9 +909,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -928,12 +925,12 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -947,12 +944,12 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -960,12 +957,12 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -974,7 +971,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -985,9 +982,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -998,25 +995,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -1030,9 +1027,9 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -1040,33 +1037,33 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -1089,9 +1086,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -1105,9 +1102,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -1118,17 +1115,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -1136,54 +1133,52 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1193,9 +1188,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -1209,9 +1204,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -1227,9 +1222,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -1239,9 +1234,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -1249,9 +1244,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -1265,12 +1260,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -1284,12 +1279,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -1297,12 +1292,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -1312,7 +1307,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -1323,9 +1318,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -1336,25 +1331,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -1370,9 +1365,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -1380,33 +1375,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -1431,9 +1426,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -1448,9 +1443,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -1461,17 +1456,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -1479,35 +1474,35 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
                      * When the text is overflow, whether to replace the excess
@@ -1516,66 +1511,65 @@ declare namespace echarts {
                      *
                      * @default
                      * "true"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.ellipsis
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.ellipsis
                      */
-                    ellipsis?: boolean;
-                };
+                    ellipsis?: boolean | undefined;
+                } | undefined;
 
                 /**
                  * `upperLabel` is used to specify whether show label when the
                  * node has children. When
-                 * [upperLabel.show](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.show)
+                 * [upperLabel.show](https://echarts.apache.org/en/option.html#series-treemap.upperLabel.show)
                  * is set as `true`, the feature that "show parent label" is
                  * enabled.
                  *
                  * The same as
-                 * [series-treemap.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label)
+                 * [series-treemap.label](https://echarts.apache.org/en/option.html#series-treemap.label)
                  * , the option `upperLabel` can be placed at the root of
-                 * [series-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * [series-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * directly, or in
-                 * [series-treemap.level](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.level)
+                 * [series-treemap.level](https://echarts.apache.org/en/option.html#series-treemap.level)
                  * , or in each item of
-                 * [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * .
                  *
                  * Specifically,
-                 * [series-treemap.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label)
+                 * [series-treemap.label](https://echarts.apache.org/en/option.html#series-treemap.label)
                  * specifies the style when a node is a leaf, while `upperLabel`
                  * specifies the style when a node has children, in which case
                  * the label is displayed in the inner top of the node.
                  *
                  * See:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels)
                  *
                  * > Tps: In treemap, `label` attribute could appear in more
                  * than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel
                  */
                 upperLabel?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.show
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -1588,7 +1582,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                      *
                      * + 'top'
                      *
@@ -1606,43 +1600,43 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.position
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.distance
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -1650,9 +1644,9 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.offset
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -1691,12 +1685,12 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -1707,9 +1701,9 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.color
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -1723,9 +1717,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -1741,9 +1735,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -1753,9 +1747,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -1763,9 +1757,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -1779,12 +1773,12 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.align
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -1798,12 +1792,12 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -1811,12 +1805,12 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -1825,7 +1819,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -1836,9 +1830,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -1849,25 +1843,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -1881,9 +1875,9 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.padding
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -1891,33 +1885,33 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -1940,9 +1934,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.width
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of label area.
@@ -1950,9 +1944,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 20
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.height
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.height
                      */
-                    height?: number;
+                    height?: number | undefined;
 
                     /**
                      * Storke color of the text.
@@ -1963,17 +1957,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -1981,54 +1975,52 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2038,9 +2030,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -2054,9 +2046,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -2072,9 +2064,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -2084,9 +2076,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -2094,9 +2086,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -2110,12 +2102,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -2129,12 +2121,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -2142,12 +2134,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -2157,7 +2149,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -2168,9 +2160,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -2181,25 +2173,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -2215,9 +2207,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -2225,33 +2217,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -2276,9 +2268,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -2293,9 +2285,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -2306,17 +2298,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -2324,35 +2316,35 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
                      * When the text is overflow, whether to replace the excess
@@ -2361,10 +2353,10 @@ declare namespace echarts {
                      *
                      * @default
                      * "true"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.ellipsis
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.ellipsis
                      */
-                    ellipsis?: boolean;
-                };
+                    ellipsis?: boolean | undefined;
+                } | undefined;
 
                 /**
                  *
@@ -2372,70 +2364,69 @@ declare namespace echarts {
                  * more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * The color of a node. It use global palette
-                     * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                     * [option.color](https://echarts.apache.org/en/option.html#color)
                      * by default.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * The tranparent rate of a node, the range is between 0
                      * ~ 1.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle.colorAlpha
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.colorAlpha
                      */
-                    colorAlpha?: number;
+                    colorAlpha?: number | undefined;
 
                     /**
                      * The color saturation of a node.
                      * The range is between 0 ~ 1.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle.colorSaturation
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.colorSaturation
                      */
-                    colorSaturation?: number;
+                    colorSaturation?: number | undefined;
 
                     /**
                      * The border width of a node.
                      * There is no border when it is set as `0`.
                      *
                      * Tip, gaps between child nodes are specified by
-                     * [gapWidth](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.gapWidth)
+                     * [gapWidth](https://echarts.apache.org/en/option.html#series-treemap.levels.gapWidth)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Gaps between child nodes.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle.gapWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.gapWidth
                      */
-                    gapWidth?: number;
+                    gapWidth?: number | undefined;
 
                     /**
                      * The border color and gap color of a node.
@@ -2443,9 +2434,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "#fff',"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * The color saturation of a border or gap.
@@ -2470,7 +2461,7 @@ declare namespace echarts {
                      * levels display at the same time.
                      *
                      * See the
-                     * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/treemap-borderColor&edit=1&reset=1)
+                     * [example](https://echarts.apache.org/examples/en/editor.html?c=doc-example/treemap-borderColor&edit=1&reset=1)
                      *
                      * Noticed that the child rectangles in the red area are
                      * in the deeper level than rectangles that are saparated
@@ -2479,44 +2470,42 @@ declare namespace echarts {
                      * and use `borderColorSaturation` to lift the saturation.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle.borderColorSaturation
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.borderColorSaturation
                      */
-                    borderColorSaturation?: string;
+                    borderColorSaturation?: string | undefined;
 
                     /**
                      * Stroke color of each rect.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle.strokeColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.strokeColor
                      */
-                    strokeColor?: string;
+                    strokeColor?: string | undefined;
 
                     /**
                      * Stroke width of each rect.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle.strokeWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.strokeWidth
                      */
-                    strokeWidth?: number;
-                };
+                    strokeWidth?: number | undefined;
+                } | undefined;
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis
                  */
                 emphasis?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.show
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -2529,7 +2518,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
                          *
                          * + 'top'
                          *
@@ -2547,43 +2536,43 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * "inside"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.position
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.distance
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -2591,9 +2580,9 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.offset
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * Data label formatter, which supports string template
@@ -2634,12 +2623,12 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.formatter
                          */
-                        formatter?: Function | string;
+                        formatter?: Function | string | undefined;
 
                         /**
                          * text color.
@@ -2650,9 +2639,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -2666,9 +2655,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -2684,9 +2673,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -2696,9 +2685,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -2706,9 +2695,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -2722,12 +2711,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.align
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -2741,12 +2730,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -2754,12 +2743,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -2768,7 +2757,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -2779,9 +2768,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -2792,25 +2781,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -2825,9 +2814,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.padding
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -2835,33 +2824,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -2886,9 +2875,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.width
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -2903,9 +2892,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.height
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -2916,17 +2905,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -2934,54 +2923,52 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -2991,9 +2978,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -3007,9 +2994,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -3025,9 +3012,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -3037,9 +3024,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -3047,9 +3034,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -3065,12 +3052,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -3086,12 +3073,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -3100,12 +3087,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -3115,7 +3102,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -3127,9 +3114,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -3140,25 +3127,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -3175,9 +3162,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -3185,33 +3172,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -3240,9 +3227,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -3258,9 +3245,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -3271,17 +3258,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -3289,35 +3276,35 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
+                        } | undefined;
 
                         /**
                          * When the text is overflow, whether to replace the
@@ -3326,23 +3313,22 @@ declare namespace echarts {
                          *
                          * @default
                          * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.ellipsis
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.ellipsis
                          */
-                        ellipsis?: boolean;
-                    };
+                        ellipsis?: boolean | undefined;
+                    } | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel
                      */
                     upperLabel?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.show
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -3355,7 +3341,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
                          *
                          * + 'top'
                          *
@@ -3373,43 +3359,43 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * "inside"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.position
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.distance
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -3417,9 +3403,9 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.offset
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * Data label formatter, which supports string template
@@ -3460,12 +3446,12 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.formatter
                          */
-                        formatter?: Function | string;
+                        formatter?: Function | string | undefined;
 
                         /**
                          * text color.
@@ -3476,9 +3462,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -3492,9 +3478,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -3510,9 +3496,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -3522,9 +3508,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -3532,9 +3518,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -3548,12 +3534,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.align
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -3567,12 +3553,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -3580,12 +3566,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -3594,7 +3580,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -3605,9 +3591,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -3618,25 +3604,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -3651,9 +3637,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.padding
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -3661,33 +3647,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -3712,9 +3698,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.width
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -3729,9 +3715,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.height
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -3742,17 +3728,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -3760,54 +3746,52 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3817,9 +3801,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -3833,9 +3817,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -3851,9 +3835,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -3863,9 +3847,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -3873,9 +3857,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -3891,12 +3875,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -3912,12 +3896,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -3926,12 +3910,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -3941,7 +3925,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -3953,9 +3937,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -3966,25 +3950,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -4001,9 +3985,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -4011,33 +3995,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -4066,9 +4050,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -4084,9 +4068,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -4097,17 +4081,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -4115,35 +4099,35 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
+                        } | undefined;
 
                         /**
                          * When the text is overflow, whether to replace the
@@ -4152,28 +4136,27 @@ declare namespace echarts {
                          *
                          * @default
                          * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.ellipsis
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.ellipsis
                          */
-                        ellipsis?: boolean;
-                    };
+                        ellipsis?: boolean | undefined;
+                    } | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * The color of a node. It use global palette
-                         * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                         * [option.color](https://echarts.apache.org/en/option.html#color)
                          * by default.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.itemStyle.color
                          */
-                        color?: string;
-                    };
-                };
-            };
+                        color?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }[] | undefined;
 
             /**
              * Whether to ignore mouse events.
@@ -4181,564 +4164,118 @@ declare namespace echarts {
              * events.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent
+             * @see https://echarts.apache.org/en/option.html#series-treemap.silent
              */
             silent?: {
-
                 /**
                  * Enable hyperlink jump when clicking on node.
                  * It is avaliable when
-                 * [series-treemap.nodeClick](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.nodeClick)
+                 * [series-treemap.nodeClick](https://echarts.apache.org/en/option.html#series-treemap.nodeClick)
                  * is `'link'`.
                  *
                  * See
-                 * [series-treemap.data.target](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.target)
+                 * [series-treemap.data.target](https://echarts.apache.org/en/option.html#series-treemap.data.target)
                  * .
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.link
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.silent.link
                  */
-                link?: string;
+                link?: string | undefined;
 
                 /**
                  * The same meaning as `target` in `html` `<a>` label, See
-                 * [series-treemap.data.link](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.link)
+                 * [series-treemap.data.link](https://echarts.apache.org/en/option.html#series-treemap.data.link)
                  * . Option values are: `'blank'` or `'self'`.
                  *
                  *
                  * @default
                  * "blank"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.target
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.silent.target
                  */
-                target?: string;
+                target?: string | undefined;
 
                 /**
                  * child nodes, recursive definition, configurations are the
                  * same as
-                 * [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * .
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.children
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.silent.children
                  */
-                children?: any[];
+                children?: any[] | undefined;
 
                 /**
                  * tooltip settings in this series data.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip
                  */
-                tooltip?: {
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The position of the tooltip's floating layer, which would
-                     * follow the position of mouse by default.
-                     *
-                     * Options:
-                     *
-                     * + `Array`
-                     *
-                     * Display the position of tooltip's floating layer through
-                     * array, which supports absolute position and relative
-                     * percentage.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * + `Function`
-                     *
-                     * Callback function in the following form:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * **Parameters:**
-                     * point: Mouse position.
-                     * param: The same as formatter.
-                     * dom: The DOM object of tooltip.
-                     * rect: It is valid only when mouse is on graphic elements,
-                     * which stands for a bounding box with `x`, `y`, `width`,
-                     * and `height`.
-                     * size: The size of dom echarts container.
-                     * For example: `{contentSize: [width, height], viewSize:
-                     * [width, height]}`.
-                     *
-                     * **Return:**
-                     * Return value is an array standing for tooltip position,
-                     * which can be absolute pixels, or relative percentage.
-                     * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                     * '20%', bottom: 40}`.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * Or:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * + `'inside'`
-                     *
-                     * Center position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'top'`
-                     *
-                     * Top position of the graphic element where the mouse is
-                     * in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'left'`
-                     *
-                     * Left position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'right'`
-                     *
-                     * Right position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'bottom'`
-                     *
-                     * Bottom position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.position
-                     */
-                    position?: any[] | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The content formatter of tooltip's floating layer which
-                     * supports string template and callback function.
-                     *
-                     * **1\. String template**
-                     *
-                     * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
-                     * and `{e}`, which stands for series name, data name and
-                     * data value and ect. When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is set to be `'axis'`, there may be data from multiple
-                     * series.
-                     * In this time, series index can be refered as `{a0}`,
-                     * `{a1}`, or `{a2}`.
-                     *
-                     * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for
-                     * different series types:
-                     *
-                     * + Line (area) charts, bar (column) charts, K charts:
-                     * `{a}` for series name, `{b}` for category name, `{c}`
-                     * for data value, `{d}` for none;
-                     *
-                     * + Scatter (bubble) charts: `{a}` for series name, `{b}`
-                     * for data name, `{c}` for data value, `{d}` for none;
-                     *
-                     * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                     * for merging data, `{d}` for none;
-                     *
-                     * + Pie charts, gauge charts, funnel charts: `{a}` for
-                     * series name, `{b}` for data item name, `{c}` for data
-                     * value, `{d}` for percentage.
-                     *
-                     * **Example:**
-                     *
-                     * ```
-                     * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                     *
-                     * ```
-                     *
-                     * **2\. Callback function**
-                     *
-                     * The format of callback function:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * The first parameter `params` is the data that the formatter
-                     * needs. Its format is shown as follows:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'axis'`, or when tooltip is triggered by
-                     * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
-                     * , `params` is the data array of multiple series.
-                     * The content of each item of the array is the same as
-                     * above. Besides,
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     * **Note:** Using array to present all the parameters in
-                     * ECharts 2.x is not supported anymore.
-                     *
-                     * The second parameter `ticket` is the asynchronous callback
-                     * flag which should be used along with the third parameter
-                     * `callback` when it is used.
-                     *
-                     * The third parameter `callback` is asynchronous callback.
-                     * When the content of tooltip is acquired asynchronously,
-                     * `ticket` and `htm` as introduced above can be used to
-                     * update tooltip with callback.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The background color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * "rgba(50,50,50,0.7)"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.backgroundColor
-                     */
-                    backgroundColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * '#333'
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border width of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The floating layer of tooltip space around content.
-                     * The unit is px.
-                     * Default values for each position are 5.
-                     * And they can be set to different values with left, right,
-                     * top, and bottom.
-                     *
-                     * Examples:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.silent.tooltip)
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.padding
-                     */
-                    padding?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The text syle of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle
-                     */
-                    textStyle?: {
-
-                        /**
-                         * text color.
-                         *
-                         *
-                         * @default
-                         * "#fff"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 14
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.silent.tooltip.textStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-                    };
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * Extra CSS style for floating layer.
-                     * The following is an example for adding shadow.
-                     *
-                     * ```
-                     * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                     *
-                     * ```
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.extraCssText
-                     */
-                    extraCssText?: string;
-                };
-            };
+                tooltip?: BaseTooltip | undefined;
+            } | undefined;
 
             /**
              * `treemap` is able to map any dimensions of data to visual.
              *
              * The value of
-             * [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * can be an array.
              * And each item of the array represents a "dimension".
              * `visualDimension` specifies the dimension on which visual mapping
              * will be performed.
              *
              * About visual encoding, see details in
-             * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * .
              *
              * > Tps: In treemap, `visualDimension` attribute could appear in
              * more than one places:
              * >
              * > + It could appear in
-             * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+             * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
              * > , indicating the unified setting of the series.
              * >
              * > + It could appear in each array element of
-             * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * > , indicating the unified setting of each level of the tree.
              * >
              * > + It could appear in each node of
-             * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * > , indicating the particular setting of each node.
              * >
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.visualDimension
+             * @see https://echarts.apache.org/en/option.html#series-treemap.visualDimension
              */
-            visualDimension?: number;
+            visualDimension?: number | undefined;
 
             /**
              * The minimal value of current level.
              * Auto-statistics by default.
              *
              * When
-             * [colorMappingBy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorMappingBy)
+             * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
              * is set to `'value'`, you are able to specify extent manually
              * for visual mapping by specifying `visualMin` or `visualMax`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.visualMin
+             * @see https://echarts.apache.org/en/option.html#series-treemap.visualMin
              */
-            visualMin?: number;
+            visualMin?: number | undefined;
 
             /**
              * The maximal value of current level.
              * Auto-statistics by default.
              *
              * When
-             * [colorMappingBy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorMappingBy)
+             * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
              * is set to `'value'`, you are able to specify extent manually
              * for visual mapping by specifying `visualMin` or `visualMax`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.visualMax
+             * @see https://echarts.apache.org/en/option.html#series-treemap.visualMax
              */
-            visualMax?: number;
+            visualMax?: number | undefined;
 
             /**
              * It indicates the range of tranparent rate (color alpha) of the
@@ -4747,29 +4284,29 @@ declare namespace echarts {
              * For example, `colorAlpha` can be `[0.3, 1]`.
              *
              * About visual encoding, see details in
-             * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * .
              *
              * > Tps: In treemap, `colorAlpha` attribute could appear in more
              * than one places:
              * >
              * > + It could appear in
-             * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+             * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
              * > , indicating the unified setting of the series.
              * >
              * > + It could appear in each array element of
-             * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * > , indicating the unified setting of each level of the tree.
              * >
              * > + It could appear in each node of
-             * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * > , indicating the particular setting of each node.
              * >
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.colorAlpha
+             * @see https://echarts.apache.org/en/option.html#series-treemap.colorAlpha
              */
-            colorAlpha?: any[];
+            colorAlpha?: any[] | undefined;
 
             /**
              * It indicates the range of saturation (color alpha) of the series.
@@ -4778,46 +4315,46 @@ declare namespace echarts {
              * For example, `colorSaturation` can be `[0.3, 1]`.
              *
              * About visual encoding, see details in
-             * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * .
              *
              * > Tps: In treemap, `colorSaturation` attribute could appear in
              * more than one places:
              * >
              * > + It could appear in
-             * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+             * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
              * > , indicating the unified setting of the series.
              * >
              * > + It could appear in each array element of
-             * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * > , indicating the unified setting of each level of the tree.
              * >
              * > + It could appear in each node of
-             * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * > , indicating the particular setting of each node.
              * >
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.colorSaturation
+             * @see https://echarts.apache.org/en/option.html#series-treemap.colorSaturation
              */
-            colorSaturation?: number;
+            colorSaturation?: number | undefined;
 
             /**
              * Specify the rule according to which each node obtain color from
-             * [color list](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.color)
+             * [color list](https://echarts.apache.org/en/option.html#series-treemap.levels.color)
              * . Optional values:
              *
              * + `'value'`:
              *
              * Map
-             * [series-treemap.data.value](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.value)
+             * [series-treemap.data.value](https://echarts.apache.org/en/option.html#series-treemap.data.value)
              * to color.
              *
              * In this way, the color of each node indicate its value.
              *
-             * [visualDimension](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.visualDimension)
+             * [visualDimension](https://echarts.apache.org/en/option.html#series-treemap.levels.visualDimension)
              * can be used to specify which dimension of
-             * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * [data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * is used to perform visual mapping.
              *
              * + `'index'`:
@@ -4825,7 +4362,7 @@ declare namespace echarts {
              * Map the `index` (ordinal number) of nodes to color.
              * Namely, in a level, the first node is mapped to the first color
              * of
-             * [color list](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.color)
+             * [color list](https://echarts.apache.org/en/option.html#series-treemap.levels.color)
              * , and the second node gets the second color.
              *
              * In this way, adjacent nodes are distinguished by color.
@@ -4833,41 +4370,41 @@ declare namespace echarts {
              * + `'id'`:
              *
              * Map
-             * [series-treemap.data.id](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.id)
+             * [series-treemap.data.id](https://echarts.apache.org/en/option.html#series-treemap.data.id)
              * to color.
              *
              * Since `id` is used to identify node, if user call `setOption`
              * to modify the tree, each node will remain the original color
              * before and after `setOption` called. See this
-             * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=treemap-obama&edit=1&reset=1)
+             * [example](https://echarts.apache.org/examples/en/editor.html?c=treemap-obama&edit=1&reset=1)
              * .
              *
              * About visual encoding, see details in
-             * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * .
              *
              * > Tps: In treemap, `colorMappingBy` attribute could appear in
              * more than one places:
              * >
              * > + It could appear in
-             * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+             * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
              * > , indicating the unified setting of the series.
              * >
              * > + It could appear in each array element of
-             * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * > , indicating the unified setting of each level of the tree.
              * >
              * > + It could appear in each node of
-             * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * > , indicating the particular setting of each node.
              * >
              *
              *
              * @default
              * "index"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.colorMappingBy
+             * @see https://echarts.apache.org/en/option.html#series-treemap.colorMappingBy
              */
-            colorMappingBy?: string;
+            colorMappingBy?: string | undefined;
 
             /**
              * A node will not be shown when its area size is smaller than this
@@ -4880,31 +4417,31 @@ declare namespace echarts {
              * threshold.
              *
              * About visual encoding, see details in
-             * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * .
              *
              * > Tps: In treemap, `visibleMin` attribute could appear in more
              * than one places:
              * >
              * > + It could appear in
-             * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+             * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
              * > , indicating the unified setting of the series.
              * >
              * > + It could appear in each array element of
-             * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * > , indicating the unified setting of each level of the tree.
              * >
              * > + It could appear in each node of
-             * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * > , indicating the particular setting of each node.
              * >
              *
              *
              * @default
              * 10
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.visibleMin
+             * @see https://echarts.apache.org/en/option.html#series-treemap.visibleMin
              */
-            visibleMin?: number;
+            visibleMin?: number | undefined;
 
             /**
              * Children will not be shown when area size of a node is smaller
@@ -4916,29 +4453,29 @@ declare namespace echarts {
              * is larger than this threshold.
              *
              * About visual encoding, see details in
-             * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * .
              *
              * > Tps: In treemap, `childrenVisibleMin` attribute could appear
              * in more than one places:
              * >
              * > + It could appear in
-             * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+             * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
              * > , indicating the unified setting of the series.
              * >
              * > + It could appear in each array element of
-             * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * > , indicating the unified setting of each level of the tree.
              * >
              * > + It could appear in each node of
-             * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * > , indicating the particular setting of each node.
              * >
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.childrenVisibleMin
+             * @see https://echarts.apache.org/en/option.html#series-treemap.childrenVisibleMin
              */
-            childrenVisibleMin?: number;
+            childrenVisibleMin?: number | undefined;
 
             /**
              * `label` decribes the style of the label in each node.
@@ -4947,30 +4484,29 @@ declare namespace echarts {
              * one places:
              * >
              * > + It could appear in
-             * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+             * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
              * > , indicating the unified setting of the series.
              * >
              * > + It could appear in each array element of
-             * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * > , indicating the unified setting of each level of the tree.
              * >
              * > + It could appear in each node of
-             * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * > , indicating the particular setting of each node.
              * >
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label
+             * @see https://echarts.apache.org/en/option.html#series-treemap.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.show
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.show
                  */
-                show?: boolean;
+                show?: boolean | undefined;
 
                 /**
                  * Label position.
@@ -4983,7 +4519,7 @@ declare namespace echarts {
                  * position of label relative to top-left corner of bounding
                  * box. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
                  *
                  * + 'top'
                  *
@@ -5001,43 +4537,43 @@ declare namespace echarts {
                  * + 'insideBottomRight'
                  *
                  * See:
-                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                  * .
                  *
                  *
                  * @default
                  * "inside"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.position
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.position
                  */
-                position?: any[] | string;
+                position?: any[] | string | undefined;
 
                 /**
                  * Distance to the host graphic element.
                  * Works when position is string value (like `'top'`、`'insideRight'`).
                  *
                  * See:
-                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                  * .
                  *
                  *
                  * @default
                  * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.distance
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.distance
                  */
-                distance?: number;
+                distance?: number | undefined;
 
                 /**
                  * Rotate label, from -90 degree to 90, positive value represents
                  * rotate anti-clockwise.
                  *
                  * See:
-                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                  * .
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rotate
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.rotate
                  */
-                rotate?: number;
+                rotate?: number | undefined;
 
                 /**
                  * Whether to move text slightly.
@@ -5045,9 +4581,9 @@ declare namespace echarts {
                  * move `40` vertically.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.offset
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.offset
                  */
-                offset?: any[];
+                offset?: any[] | undefined;
 
                 /**
                  * Data label formatter, which supports string template and
@@ -5085,12 +4621,12 @@ declare namespace echarts {
                  * where `params` is the single dataset needed by formatter,
                  * which is formed as:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.formatter
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.formatter
                  */
-                formatter?: Function | string;
+                formatter?: Function | string | undefined;
 
                 /**
                  * text color.
@@ -5101,9 +4637,9 @@ declare namespace echarts {
                  *
                  * @default
                  * ""#fff""
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.color
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.color
                  */
-                color?: string;
+                color?: string | undefined;
 
                 /**
                  * font style
@@ -5117,9 +4653,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.fontStyle
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.fontStyle
                  */
-                fontStyle?: string;
+                fontStyle?: string | undefined;
 
                 /**
                  * font thick weight
@@ -5135,9 +4671,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.fontWeight
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number | undefined;
 
                 /**
                  * font family
@@ -5147,9 +4683,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "sans-serif"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.fontFamily
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.fontFamily
                  */
-                fontFamily?: string;
+                fontFamily?: string | undefined;
 
                 /**
                  * font size
@@ -5157,9 +4693,9 @@ declare namespace echarts {
                  *
                  * @default
                  * 12
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.fontSize
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.fontSize
                  */
-                fontSize?: number;
+                fontSize?: number | undefined;
 
                 /**
                  * Horizontal alignment of text, automatic by default.
@@ -5173,12 +4709,12 @@ declare namespace echarts {
                  * If `align` is not set in `rich`, `align` in parent level
                  * will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.align
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.align
                  */
-                align?: string;
+                align?: string | undefined;
 
                 /**
                  * Vertical alignment of text, automatic by default.
@@ -5192,12 +4728,12 @@ declare namespace echarts {
                  * If `verticalAlign` is not set in `rich`, `verticalAlign`
                  * in parent level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.verticalAlign
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.verticalAlign
                  */
-                verticalAlign?: string;
+                verticalAlign?: string | undefined;
 
                 /**
                  * Line height of the text fregment.
@@ -5205,12 +4741,12 @@ declare namespace echarts {
                  * If `lineHeight` is not set in `rich`, `lineHeight` in parent
                  * level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.lineHeight
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.lineHeight
                  */
-                lineHeight?: number;
+                lineHeight?: number | undefined;
 
                 /**
                  * Background color of the text fregment.
@@ -5219,7 +4755,7 @@ declare namespace echarts {
                  *
                  * Or image can be used, for example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
                  *
                  * `width` or `height` can be specified when using background
                  * image, or auto adapted by default.
@@ -5230,9 +4766,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.backgroundColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.backgroundColor
                  */
-                backgroundColor?: object | string;
+                backgroundColor?: object | string | undefined;
 
                 /**
                  * Border color of the text fregment.
@@ -5243,25 +4779,25 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.borderColor
                  */
-                borderColor?: string;
+                borderColor?: string | undefined;
 
                 /**
                  * Border width of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.borderWidth
                  */
-                borderWidth?: number;
+                borderWidth?: number | undefined;
 
                 /**
                  * Border radius of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.borderRadius
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.borderRadius
                  */
-                borderRadius?: number;
+                borderRadius?: number | undefined;
 
                 /**
                  * Padding of the text fregment, for example:
@@ -5275,9 +4811,9 @@ declare namespace echarts {
                  * of the content, without `padding`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.padding
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.padding
                  */
-                padding?: any[] | number;
+                padding?: any[] | number | undefined;
 
                 /**
                  * Shadow color of the text block.
@@ -5285,33 +4821,33 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: string | undefined;
 
                 /**
                  * Show blur of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow X offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.shadowOffsetY
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
 
                 /**
                  * Width of the text block.
@@ -5333,9 +4869,9 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.width
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.width
                  */
-                width?: number | string;
+                width?: number | string | undefined;
 
                 /**
                  * Height of the text block.
@@ -5349,9 +4885,9 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.height
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.height
                  */
-                height?: number | string;
+                height?: number | string | undefined;
 
                 /**
                  * Storke color of the text.
@@ -5362,17 +4898,17 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.textBorderColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.textBorderColor
                  */
-                textBorderColor?: string;
+                textBorderColor?: string | undefined;
 
                 /**
                  * Storke line width of the text.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.textBorderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.textBorderWidth
                  */
-                textBorderWidth?: number;
+                textBorderWidth?: number | undefined;
 
                 /**
                  * Shadow color of the text itself.
@@ -5380,54 +4916,52 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.textShadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.textShadowColor
                  */
-                textShadowColor?: string;
+                textShadowColor?: string | undefined;
 
                 /**
                  * Shadow blue of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.textShadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.textShadowBlur
                  */
-                textShadowBlur?: number;
+                textShadowBlur?: number | undefined;
 
                 /**
                  * Shadow X offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.textShadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.textShadowOffsetX
                  */
-                textShadowOffsetX?: number;
+                textShadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.textShadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.textShadowOffsetY
                  */
-                textShadowOffsetY?: number;
+                textShadowOffsetY?: number | undefined;
 
                 /**
                  * "Rich text styles" can be defined in this `rich` property.
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
                  *
                  * For more details, see
-                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                  * please.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich
                  */
                 rich?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -5437,9 +4971,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -5453,9 +4987,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -5471,9 +5005,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -5483,9 +5017,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -5493,9 +5027,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -5509,12 +5043,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -5528,12 +5062,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -5541,12 +5075,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -5555,7 +5089,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -5566,9 +5100,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -5579,25 +5113,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -5612,9 +5146,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -5622,33 +5156,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -5673,9 +5207,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -5690,9 +5224,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -5703,17 +5237,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -5721,35 +5255,35 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
                     };
-                };
+                } | undefined;
 
                 /**
                  * When the text is overflow, whether to replace the excess
@@ -5758,65 +5292,64 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.ellipsis
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.label.ellipsis
                  */
-                ellipsis?: boolean;
-            };
+                ellipsis?: boolean | undefined;
+            } | undefined;
 
             /**
              * `upperLabel` is used to specify whether show label when the node
              * has children. When
-             * [upperLabel.show](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.show)
+             * [upperLabel.show](https://echarts.apache.org/en/option.html#series-treemap.upperLabel.show)
              * is set as `true`, the feature that "show parent label" is enabled.
              *
              * The same as
-             * [series-treemap.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label)
+             * [series-treemap.label](https://echarts.apache.org/en/option.html#series-treemap.label)
              * , the option `upperLabel` can be placed at the root of
-             * [series-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+             * [series-treemap](https://echarts.apache.org/en/option.html#series-treemap)
              * directly, or in
-             * [series-treemap.level](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.level)
+             * [series-treemap.level](https://echarts.apache.org/en/option.html#series-treemap.level)
              * , or in each item of
-             * [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * .
              *
              * Specifically,
-             * [series-treemap.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label)
+             * [series-treemap.label](https://echarts.apache.org/en/option.html#series-treemap.label)
              * specifies the style when a node is a leaf, while `upperLabel`
              * specifies the style when a node has children, in which case the
              * label is displayed in the inner top of the node.
              *
              * See:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
              * > Tps: In treemap, `label` attribute could appear in more than
              * one places:
              * >
              * > + It could appear in
-             * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+             * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
              * > , indicating the unified setting of the series.
              * >
              * > + It could appear in each array element of
-             * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * > , indicating the unified setting of each level of the tree.
              * >
              * > + It could appear in each node of
-             * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * > , indicating the particular setting of each node.
              * >
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel
+             * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel
              */
             upperLabel?: {
-
                 /**
                  * Whether to show label.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.show
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.show
                  */
-                show?: boolean;
+                show?: boolean | undefined;
 
                 /**
                  * Label position.
@@ -5829,7 +5362,7 @@ declare namespace echarts {
                  * position of label relative to top-left corner of bounding
                  * box. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
                  *
                  * + 'top'
                  *
@@ -5847,43 +5380,43 @@ declare namespace echarts {
                  * + 'insideBottomRight'
                  *
                  * See:
-                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                  * .
                  *
                  *
                  * @default
                  * "inside"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.position
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.position
                  */
-                position?: any[] | string;
+                position?: any[] | string | undefined;
 
                 /**
                  * Distance to the host graphic element.
                  * Works when position is string value (like `'top'`、`'insideRight'`).
                  *
                  * See:
-                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                  * .
                  *
                  *
                  * @default
                  * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.distance
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.distance
                  */
-                distance?: number;
+                distance?: number | undefined;
 
                 /**
                  * Rotate label, from -90 degree to 90, positive value represents
                  * rotate anti-clockwise.
                  *
                  * See:
-                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                  * .
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rotate
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rotate
                  */
-                rotate?: number;
+                rotate?: number | undefined;
 
                 /**
                  * Whether to move text slightly.
@@ -5891,9 +5424,9 @@ declare namespace echarts {
                  * move `40` vertically.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.offset
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.offset
                  */
-                offset?: any[];
+                offset?: any[] | undefined;
 
                 /**
                  * Data label formatter, which supports string template and
@@ -5931,12 +5464,12 @@ declare namespace echarts {
                  * where `params` is the single dataset needed by formatter,
                  * which is formed as:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.formatter
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.formatter
                  */
-                formatter?: Function | string;
+                formatter?: Function | string | undefined;
 
                 /**
                  * text color.
@@ -5947,9 +5480,9 @@ declare namespace echarts {
                  *
                  * @default
                  * ""#fff""
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.color
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.color
                  */
-                color?: string;
+                color?: string | undefined;
 
                 /**
                  * font style
@@ -5963,9 +5496,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.fontStyle
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.fontStyle
                  */
-                fontStyle?: string;
+                fontStyle?: string | undefined;
 
                 /**
                  * font thick weight
@@ -5981,9 +5514,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.fontWeight
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number | undefined;
 
                 /**
                  * font family
@@ -5993,9 +5526,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "sans-serif"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.fontFamily
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.fontFamily
                  */
-                fontFamily?: string;
+                fontFamily?: string | undefined;
 
                 /**
                  * font size
@@ -6003,9 +5536,9 @@ declare namespace echarts {
                  *
                  * @default
                  * 12
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.fontSize
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.fontSize
                  */
-                fontSize?: number;
+                fontSize?: number | undefined;
 
                 /**
                  * Horizontal alignment of text, automatic by default.
@@ -6019,12 +5552,12 @@ declare namespace echarts {
                  * If `align` is not set in `rich`, `align` in parent level
                  * will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.align
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.align
                  */
-                align?: string;
+                align?: string | undefined;
 
                 /**
                  * Vertical alignment of text, automatic by default.
@@ -6038,12 +5571,12 @@ declare namespace echarts {
                  * If `verticalAlign` is not set in `rich`, `verticalAlign`
                  * in parent level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.verticalAlign
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.verticalAlign
                  */
-                verticalAlign?: string;
+                verticalAlign?: string | undefined;
 
                 /**
                  * Line height of the text fregment.
@@ -6051,12 +5584,12 @@ declare namespace echarts {
                  * If `lineHeight` is not set in `rich`, `lineHeight` in parent
                  * level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.lineHeight
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.lineHeight
                  */
-                lineHeight?: number;
+                lineHeight?: number | undefined;
 
                 /**
                  * Background color of the text fregment.
@@ -6065,7 +5598,7 @@ declare namespace echarts {
                  *
                  * Or image can be used, for example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
                  *
                  * `width` or `height` can be specified when using background
                  * image, or auto adapted by default.
@@ -6076,9 +5609,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.backgroundColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.backgroundColor
                  */
-                backgroundColor?: object | string;
+                backgroundColor?: object | string | undefined;
 
                 /**
                  * Border color of the text fregment.
@@ -6089,25 +5622,25 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.borderColor
                  */
-                borderColor?: string;
+                borderColor?: string | undefined;
 
                 /**
                  * Border width of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.borderWidth
                  */
-                borderWidth?: number;
+                borderWidth?: number | undefined;
 
                 /**
                  * Border radius of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.borderRadius
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.borderRadius
                  */
-                borderRadius?: number;
+                borderRadius?: number | undefined;
 
                 /**
                  * Padding of the text fregment, for example:
@@ -6121,9 +5654,9 @@ declare namespace echarts {
                  * of the content, without `padding`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.padding
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.padding
                  */
-                padding?: any[] | number;
+                padding?: any[] | number | undefined;
 
                 /**
                  * Shadow color of the text block.
@@ -6131,33 +5664,33 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: string | undefined;
 
                 /**
                  * Show blur of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow X offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.shadowOffsetY
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
 
                 /**
                  * Width of the text block.
@@ -6179,9 +5712,9 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.width
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.width
                  */
-                width?: number | string;
+                width?: number | string | undefined;
 
                 /**
                  * Height of label area.
@@ -6189,9 +5722,9 @@ declare namespace echarts {
                  *
                  * @default
                  * 20
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.height
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.height
                  */
-                height?: number;
+                height?: number | undefined;
 
                 /**
                  * Storke color of the text.
@@ -6202,17 +5735,17 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.textBorderColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textBorderColor
                  */
-                textBorderColor?: string;
+                textBorderColor?: string | undefined;
 
                 /**
                  * Storke line width of the text.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.textBorderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textBorderWidth
                  */
-                textBorderWidth?: number;
+                textBorderWidth?: number | undefined;
 
                 /**
                  * Shadow color of the text itself.
@@ -6220,54 +5753,52 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.textShadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textShadowColor
                  */
-                textShadowColor?: string;
+                textShadowColor?: string | undefined;
 
                 /**
                  * Shadow blue of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.textShadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textShadowBlur
                  */
-                textShadowBlur?: number;
+                textShadowBlur?: number | undefined;
 
                 /**
                  * Shadow X offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.textShadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textShadowOffsetX
                  */
-                textShadowOffsetX?: number;
+                textShadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.textShadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textShadowOffsetY
                  */
-                textShadowOffsetY?: number;
+                textShadowOffsetY?: number | undefined;
 
                 /**
                  * "Rich text styles" can be defined in this `rich` property.
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
                  *
                  * For more details, see
-                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                  * please.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich
                  */
                 rich?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -6277,9 +5808,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -6293,9 +5824,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -6311,9 +5842,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -6323,9 +5854,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -6333,9 +5864,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -6349,12 +5880,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -6368,12 +5899,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -6381,12 +5912,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -6395,7 +5926,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -6406,9 +5937,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -6419,25 +5950,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -6452,9 +5983,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -6462,33 +5993,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -6513,9 +6044,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -6530,9 +6061,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -6543,17 +6074,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -6561,35 +6092,35 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
                     };
-                };
+                } | undefined;
 
                 /**
                  * When the text is overflow, whether to replace the excess
@@ -6598,10 +6129,10 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.ellipsis
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.ellipsis
                  */
-                ellipsis?: boolean;
-            };
+                ellipsis?: boolean | undefined;
+            } | undefined;
 
             /**
              *
@@ -6609,69 +6140,68 @@ declare namespace echarts {
              * than one places:
              * >
              * > + It could appear in
-             * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+             * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
              * > , indicating the unified setting of the series.
              * >
              * > + It could appear in each array element of
-             * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+             * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
              * > , indicating the unified setting of each level of the tree.
              * >
              * > + It could appear in each node of
-             * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * > , indicating the particular setting of each node.
              * >
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle
+             * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * The color of a node. It use global palette
-                 * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                 * [option.color](https://echarts.apache.org/en/option.html#color)
                  * by default.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle.color
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.color
                  */
-                color?: string;
+                color?: string | undefined;
 
                 /**
                  * The tranparent rate of a node, the range is between 0 ~ 1.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle.colorAlpha
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.colorAlpha
                  */
-                colorAlpha?: number;
+                colorAlpha?: number | undefined;
 
                 /**
                  * The color saturation of a node.
                  * The range is between 0 ~ 1.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle.colorSaturation
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.colorSaturation
                  */
-                colorSaturation?: number;
+                colorSaturation?: number | undefined;
 
                 /**
                  * The border width of a node.
                  * There is no border when it is set as `0`.
                  *
                  * Tip, gaps between child nodes are specified by
-                 * [gapWidth](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.gapWidth)
+                 * [gapWidth](https://echarts.apache.org/en/option.html#series-treemap.levels.gapWidth)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.borderWidth
                  */
-                borderWidth?: number;
+                borderWidth?: number | undefined;
 
                 /**
                  * Gaps between child nodes.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle.gapWidth
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.gapWidth
                  */
-                gapWidth?: number;
+                gapWidth?: number | undefined;
 
                 /**
                  * The border color and gap color of a node.
@@ -6679,9 +6209,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "#fff',"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: string | undefined;
 
                 /**
                  * The color saturation of a border or gap.
@@ -6706,7 +6236,7 @@ declare namespace echarts {
                  * at the same time.
                  *
                  * See the
-                 * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/treemap-borderColor&edit=1&reset=1)
+                 * [example](https://echarts.apache.org/examples/en/editor.html?c=doc-example/treemap-borderColor&edit=1&reset=1)
                  *
                  * Noticed that the child rectangles in the red area are in
                  * the deeper level than rectangles that are saparated by white
@@ -6715,44 +6245,42 @@ declare namespace echarts {
                  * and use `borderColorSaturation` to lift the saturation.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle.borderColorSaturation
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.borderColorSaturation
                  */
-                borderColorSaturation?: string;
+                borderColorSaturation?: string | undefined;
 
                 /**
                  * Stroke color of each rect.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle.strokeColor
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.strokeColor
                  */
-                strokeColor?: string;
+                strokeColor?: string | undefined;
 
                 /**
                  * Stroke width of each rect.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle.strokeWidth
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.strokeWidth
                  */
-                strokeWidth?: number;
-            };
+                strokeWidth?: number | undefined;
+            } | undefined;
 
             /**
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis
+             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis
              */
             emphasis?: {
-
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -6765,7 +6293,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
                      *
                      * + 'top'
                      *
@@ -6783,43 +6311,43 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -6827,9 +6355,9 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -6868,12 +6396,12 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -6884,9 +6412,9 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -6900,9 +6428,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -6918,9 +6446,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -6930,9 +6458,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -6940,9 +6468,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -6956,12 +6484,12 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -6975,12 +6503,12 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -6988,12 +6516,12 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -7002,7 +6530,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -7013,9 +6541,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -7026,25 +6554,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -7058,9 +6586,9 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -7068,33 +6596,33 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -7117,9 +6645,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -7133,9 +6661,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -7146,17 +6674,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -7164,54 +6692,52 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -7221,9 +6747,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -7237,9 +6763,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -7255,9 +6781,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -7267,9 +6793,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -7277,9 +6803,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -7293,12 +6819,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -7312,12 +6838,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -7325,12 +6851,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -7340,7 +6866,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -7351,9 +6877,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -7364,25 +6890,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -7398,9 +6924,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -7408,33 +6934,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -7459,9 +6985,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -7476,9 +7002,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -7489,17 +7015,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -7507,35 +7033,35 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
                      * When the text is overflow, whether to replace the excess
@@ -7544,23 +7070,22 @@ declare namespace echarts {
                      *
                      * @default
                      * "true"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.ellipsis
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.ellipsis
                      */
-                    ellipsis?: boolean;
-                };
+                    ellipsis?: boolean | undefined;
+                } | undefined;
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel
                  */
                 upperLabel?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.show
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -7573,7 +7098,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
                      *
                      * + 'top'
                      *
@@ -7591,43 +7116,43 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.position
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.distance
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -7635,9 +7160,9 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.offset
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -7676,12 +7201,12 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -7692,9 +7217,9 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.color
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -7708,9 +7233,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -7726,9 +7251,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -7738,9 +7263,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -7748,9 +7273,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -7764,12 +7289,12 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.align
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -7783,12 +7308,12 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -7796,12 +7321,12 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -7810,7 +7335,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -7821,9 +7346,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -7834,25 +7359,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -7866,9 +7391,9 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.padding
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -7876,33 +7401,33 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -7925,9 +7450,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.width
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -7941,9 +7466,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.height
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -7954,17 +7479,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -7972,54 +7497,52 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8029,9 +7552,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -8045,9 +7568,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -8063,9 +7586,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -8075,9 +7598,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -8085,9 +7608,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -8101,12 +7624,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -8120,12 +7643,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -8133,12 +7656,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -8148,7 +7671,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -8159,9 +7682,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -8172,25 +7695,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -8206,9 +7729,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -8216,33 +7739,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -8267,9 +7790,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -8284,9 +7807,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -8297,17 +7820,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -8315,35 +7838,35 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
                      * When the text is overflow, whether to replace the excess
@@ -8352,45 +7875,43 @@ declare namespace echarts {
                      *
                      * @default
                      * "true"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.ellipsis
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.ellipsis
                      */
-                    ellipsis?: boolean;
-                };
+                    ellipsis?: boolean | undefined;
+                } | undefined;
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * The color of a node. It use global palette
-                     * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                     * [option.color](https://echarts.apache.org/en/option.html#color)
                      * by default.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.itemStyle.color
                      */
-                    color?: string;
-                };
-            };
+                    color?: string | undefined;
+                } | undefined;
+            } | undefined;
 
             /**
              * breadcrumb, showing the path of the current node.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb
+             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb
              */
             breadcrumb?: {
-
                 /**
                  * Whether to show the breadcrumb.
                  *
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.show
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.show
                  */
-                show?: boolean;
+                show?: boolean | undefined;
 
                 /**
                  * Distance between asdf component and the left side of the
@@ -8407,9 +7928,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "center"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.left
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.left
                  */
-                left?: number | string;
+                left?: number | string | undefined;
 
                 /**
                  * Distance between asdf component and the top side of the container.
@@ -8425,9 +7946,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "auto"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.top
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.top
                  */
-                top?: number | string;
+                top?: number | string | undefined;
 
                 /**
                  * Distance between asdf component and the right side of the
@@ -8442,9 +7963,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "auto"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.right
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.right
                  */
-                right?: number | string;
+                right?: number | string | undefined;
 
                 /**
                  * Distance between asdf component and the bottom side of the
@@ -8457,9 +7978,9 @@ declare namespace echarts {
                  * Adaptive by default.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.bottom
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.bottom
                  */
-                bottom?: number | string;
+                bottom?: number | string | undefined;
 
                 /**
                  * The height of breadcrumb.
@@ -8467,9 +7988,9 @@ declare namespace echarts {
                  *
                  * @default
                  * 22
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.height
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.height
                  */
-                height?: number;
+                height?: number | undefined;
 
                 /**
                  * When is no content in breadcrumb, this minimal width need
@@ -8478,19 +7999,18 @@ declare namespace echarts {
                  *
                  * @default
                  * 25
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emptyItemWidth
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emptyItemWidth
                  */
-                emptyItemWidth?: number;
+                emptyItemWidth?: number | undefined;
 
                 /**
                  * Graphic style of , `emphasis` is the style when it is highlighted,
                  * like being hovered by mouse, or highlighted via legend connect.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * boxplot color.
                      *
@@ -8502,14 +8022,14 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle)
                      *
                      *
                      * @default
                      * "rgba(0,0,0,0.7)"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * boxplot border color, whose format is similar to that
@@ -8518,9 +8038,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "rgba(255,255,255,0.7)"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color | undefined;
 
                     /**
                      * boxplot border width.
@@ -8529,9 +8049,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 1
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -8540,9 +8060,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.borderType
                      */
-                    borderType?: string;
+                    borderType?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -8551,14 +8071,14 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle)
                      *
                      *
                      * @default
                      * 3
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
@@ -8566,25 +8086,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "rgba(150,150,150,1)"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -8592,24 +8112,23 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.opacity
                      */
-                    opacity?: number;
+                    opacity?: number | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *
                          *
                          * @default
                          * "#fff"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -8623,9 +8142,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -8641,9 +8160,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -8653,9 +8172,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -8663,9 +8182,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -8679,12 +8198,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.align
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -8698,12 +8217,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -8711,12 +8230,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -8725,7 +8244,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -8733,9 +8252,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -8743,25 +8262,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -8776,9 +8295,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.padding
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -8786,33 +8305,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -8837,9 +8356,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.width
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -8854,9 +8373,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.height
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -8864,17 +8383,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -8882,63 +8401,61 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -8952,9 +8469,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -8970,9 +8487,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -8982,9 +8499,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -8992,9 +8509,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -9010,12 +8527,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -9031,12 +8548,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -9045,12 +8562,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -9060,7 +8577,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -9069,9 +8586,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -9079,25 +8596,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -9114,9 +8631,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -9124,33 +8641,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -9179,9 +8696,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -9197,9 +8714,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -9207,17 +8724,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -9225,48 +8742,46 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
-                    };
-                };
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis
                  */
                 emphasis?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * boxplot color.
                          *
@@ -9279,14 +8794,14 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle)
                          *
                          *
                          * @default
                          * "rgba(0,0,0,0.7)"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * boxplot border color, whose format is similar to
@@ -9295,9 +8810,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "rgba(255,255,255,0.7)"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color | undefined;
 
                         /**
                          * boxplot border width.
@@ -9306,9 +8821,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 1
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
@@ -9317,9 +8832,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.borderType
                          */
-                        borderType?: string;
+                        borderType?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -9328,14 +8843,14 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle)
                          *
                          *
                          * @default
                          * 3
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
@@ -9343,25 +8858,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "rgba(150,150,150,1)"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -9369,24 +8884,23 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.opacity
                          */
-                        opacity?: number;
+                        opacity?: number | undefined;
 
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle
                          */
                         textStyle?: {
-
                             /**
                              * text color.
                              *
                              *
                              * @default
                              * "#fff"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -9400,9 +8914,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -9418,9 +8932,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -9430,9 +8944,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -9440,9 +8954,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -9456,12 +8970,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.align
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -9475,12 +8989,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -9488,12 +9002,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -9503,7 +9017,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -9511,9 +9025,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -9521,25 +9035,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -9555,9 +9069,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.padding
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -9565,33 +9079,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -9616,9 +9130,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.width
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -9633,9 +9147,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.height
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -9643,17 +9157,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -9661,63 +9175,61 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
 
                             /**
                              * "Rich text styles" can be defined in this `rich`
                              * property. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
                              *
                              * For more details, see
-                             * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich
                              */
                             rich?: {
-
                                 /**
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
                                      *
                                      * @default
                                      * ""#fff""
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
-                                    color?: string;
+                                    color?: string | undefined;
 
                                     /**
                                      * font style
@@ -9731,9 +9243,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
-                                    fontStyle?: string;
+                                    fontStyle?: string | undefined;
 
                                     /**
                                      * font thick weight
@@ -9749,9 +9261,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number | undefined;
 
                                     /**
                                      * font family
@@ -9762,9 +9274,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "sans-serif"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
-                                    fontFamily?: string;
+                                    fontFamily?: string | undefined;
 
                                     /**
                                      * font size
@@ -9772,9 +9284,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * 12
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
-                                    fontSize?: number;
+                                    fontSize?: number | undefined;
 
                                     /**
                                      * Horizontal alignment of text, automatic
@@ -9790,12 +9302,12 @@ declare namespace echarts {
                                      * in parent level will be used.
                                      * For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
-                                    align?: string;
+                                    align?: string | undefined;
 
                                     /**
                                      * Vertical alignment of text, automatic
@@ -9811,12 +9323,12 @@ declare namespace echarts {
                                      * `verticalAlign` in parent level will
                                      * be used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
-                                    verticalAlign?: string;
+                                    verticalAlign?: string | undefined;
 
                                     /**
                                      * Line height of the text fregment.
@@ -9825,12 +9337,12 @@ declare namespace echarts {
                                      * `lineHeight` in parent level will be
                                      * used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
-                                    lineHeight?: number;
+                                    lineHeight?: number | undefined;
 
                                     /**
                                      * Background color of the text fregment.
@@ -9840,7 +9352,7 @@ declare namespace echarts {
                                      *
                                      * Or image can be used, for example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      * `width` or `height` can be specified
                                      * when using background image, or auto
@@ -9849,9 +9361,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
-                                    backgroundColor?: object | string;
+                                    backgroundColor?: object | string | undefined;
 
                                     /**
                                      * Border color of the text fregment.
@@ -9859,25 +9371,25 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
-                                    borderColor?: string;
+                                    borderColor?: string | undefined;
 
                                     /**
                                      * Border width of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
-                                    borderWidth?: number;
+                                    borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
-                                    borderRadius?: number;
+                                    borderRadius?: number | undefined;
 
                                     /**
                                      * Padding of the text fregment, for example:
@@ -9894,9 +9406,9 @@ declare namespace echarts {
                                      * without `padding`.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
-                                    padding?: any[] | number;
+                                    padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
@@ -9904,33 +9416,33 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
-                                    shadowColor?: string;
+                                    shadowColor?: string | undefined;
 
                                     /**
                                      * Show blur of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
-                                    shadowBlur?: number;
+                                    shadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
-                                    shadowOffsetX?: number;
+                                    shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
-                                    shadowOffsetY?: number;
+                                    shadowOffsetY?: number | undefined;
 
                                     /**
                                      * Width of the text block.
@@ -9959,9 +9471,9 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
-                                    width?: number | string;
+                                    width?: number | string | undefined;
 
                                     /**
                                      * Height of the text block.
@@ -9977,9 +9489,9 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
-                                    height?: number | string;
+                                    height?: number | string | undefined;
 
                                     /**
                                      * Storke color of the text.
@@ -9987,17 +9499,17 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
-                                    textBorderColor?: string;
+                                    textBorderColor?: string | undefined;
 
                                     /**
                                      * Storke line width of the text.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
-                                    textBorderWidth?: number;
+                                    textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
@@ -10005,77 +9517,77 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
-                                    textShadowColor?: string;
+                                    textShadowColor?: string | undefined;
 
                                     /**
                                      * Shadow blue of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
-                                    textShadowBlur?: number;
+                                    textShadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
-                                    textShadowOffsetX?: number;
+                                    textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
-                                    textShadowOffsetY?: number;
+                                    textShadowOffsetY?: number | undefined;
                                 };
-                            };
-                        };
-                    };
-                };
-            };
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
 
             /**
              * the the data format of
-             * [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+             * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * is a forest. For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data
+             * @see https://echarts.apache.org/en/option.html#series-treemap.data
              */
-            data?: SeriesTreemap.DataObject[];
+            data?: SeriesTreemap.DataObject[] | undefined;
 
             /**
              * Duration of the first animation, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
              *
              * @default
              * 1500
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.animationDuration
+             * @see https://echarts.apache.org/en/option.html#series-treemap.animationDuration
              */
-            animationDuration?: Function | number;
+            animationDuration?: Function | number | undefined;
 
             /**
              * Easing method used for the first animation.
              * Varied easing effects can be found at
-             * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+             * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
              *
              *
              * @default
              * "quinticInOut"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.animationEasing
+             * @see https://echarts.apache.org/en/option.html#series-treemap.animationEasing
              */
-            animationEasing?: string;
+            animationEasing?: string | undefined;
 
             /**
              * Delay before updating the first animation, which supports callback
@@ -10083,477 +9595,29 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap)
+             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.animationDelay
+             * @see https://echarts.apache.org/en/option.html#series-treemap.animationDelay
              */
-            animationDelay?: Function | number;
+            animationDelay?: Function | number | undefined;
 
             /**
              * tooltip settings in this series.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip
+             * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip
              */
-            tooltip?: {
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The position of the tooltip's floating layer, which would
-                 * follow the position of mouse by default.
-                 *
-                 * Options:
-                 *
-                 * + `Array`
-                 *
-                 * Display the position of tooltip's floating layer through
-                 * array, which supports absolute position and relative percentage.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * + `Function`
-                 *
-                 * Callback function in the following form:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * **Parameters:**
-                 * point: Mouse position.
-                 * param: The same as formatter.
-                 * dom: The DOM object of tooltip.
-                 * rect: It is valid only when mouse is on graphic elements,
-                 * which stands for a bounding box with `x`, `y`, `width`, and
-                 * `height`.
-                 * size: The size of dom echarts container.
-                 * For example: `{contentSize: [width, height], viewSize: [width,
-                 * height]}`.
-                 *
-                 * **Return:**
-                 * Return value is an array standing for tooltip position, which
-                 * can be absolute pixels, or relative percentage.
-                 * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                 * '20%', bottom: 40}`.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * Or:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * + `'inside'`
-                 *
-                 * Center position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'top'`
-                 *
-                 * Top position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'left'`
-                 *
-                 * Left position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'right'`
-                 *
-                 * Right position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'bottom'`
-                 *
-                 * Bottom position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.position
-                 */
-                position?: any[] | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The content formatter of tooltip's floating layer which supports
-                 * string template and callback function.
-                 *
-                 * **1\. String template**
-                 *
-                 * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
-                 * `{e}`, which stands for series name, data name and data value
-                 * and ect. When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is set to be `'axis'`, there may be data from multiple series.
-                 * In this time, series index can be refered as `{a0}`, `{a1}`,
-                 * or `{a2}`.
-                 *
-                 * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for different
-                 * series types:
-                 *
-                 * + Line (area) charts, bar (column) charts, K charts: `{a}`
-                 * for series name, `{b}` for category name, `{c}` for data
-                 * value, `{d}` for none;
-                 *
-                 * + Scatter (bubble) charts: `{a}` for series name, `{b}` for
-                 * data name, `{c}` for data value, `{d}` for none;
-                 *
-                 * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                 * for merging data, `{d}` for none;
-                 *
-                 * + Pie charts, gauge charts, funnel charts: `{a}` for series
-                 * name, `{b}` for data item name, `{c}` for data value, `{d}`
-                 * for percentage.
-                 *
-                 * **Example:**
-                 *
-                 * ```
-                 * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                 *
-                 * ```
-                 *
-                 * **2\. Callback function**
-                 *
-                 * The format of callback function:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * The first parameter `params` is the data that the formatter
-                 * needs. Its format is shown as follows:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
-                 * , `params` is the data array of multiple series.
-                 * The content of each item of the array is the same as above.
-                 * Besides,
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 * **Note:** Using array to present all the parameters in ECharts
-                 * 2.x is not supported anymore.
-                 *
-                 * The second parameter `ticket` is the asynchronous callback
-                 * flag which should be used along with the third parameter
-                 * `callback` when it is used.
-                 *
-                 * The third parameter `callback` is asynchronous callback.
-                 * When the content of tooltip is acquired asynchronously, `ticket`
-                 * and `htm` as introduced above can be used to update tooltip
-                 * with callback.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.formatter
-                 */
-                formatter?: Function | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The background color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * "rgba(50,50,50,0.7)"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.backgroundColor
-                 */
-                backgroundColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * '#333'
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.borderColor
-                 */
-                borderColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border width of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.borderWidth
-                 */
-                borderWidth?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The floating layer of tooltip space around content.
-                 * The unit is px.
-                 * Default values for each position are 5.
-                 * And they can be set to different values with left, right,
-                 * top, and bottom.
-                 *
-                 * Examples:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.tooltip)
-                 *
-                 *
-                 * @default
-                 * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.padding
-                 */
-                padding?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The text syle of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle
-                 */
-                textStyle?: {
-
-                    /**
-                     * text color.
-                     *
-                     *
-                     * @default
-                     * "#fff"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 14
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.tooltip.textStyle)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-                };
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * Extra CSS style for floating layer.
-                 * The following is an example for adding shadow.
-                 *
-                 * ```
-                 * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                 *
-                 * ```
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.extraCssText
-                 */
-                extraCssText?: string;
-            };
+            tooltip?: BaseTooltip | undefined;
         }
 
         namespace SeriesTreemap {
             interface DataObject {
-                children?: DataObject[];
+                children?: DataObject[] | undefined;
 
                 /**
                  * The value of this node, indicating the area size.
@@ -10565,119 +9629,119 @@ declare namespace echarts {
                  * mapping. See details in series-treemp.levels.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.value
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.value
                  */
-                value?: any[] | number;
+                value?: any[] | number | undefined;
 
                 /**
                  * `id` is not mandatory.
                  * But if using API, id is used to locate node.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.id
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.id
                  */
-                id?: string;
+                id?: string | undefined;
 
                 /**
                  * Show the description text in rectangle.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.name
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.name
                  */
-                name?: string;
+                name?: string | undefined;
 
                 /**
                  * `treemap` is able to map any dimensions of data to visual.
                  *
                  * The value of
-                 * [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * can be an array.
                  * And each item of the array represents a "dimension".
                  * `visualDimension` specifies the dimension on which visual
                  * mapping will be performed.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `visualDimension` attribute could appear
                  * in more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.visualDimension
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.visualDimension
                  */
-                visualDimension?: number;
+                visualDimension?: number | undefined;
 
                 /**
                  * The minimal value of current level.
                  * Auto-statistics by default.
                  *
                  * When
-                 * [colorMappingBy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorMappingBy)
+                 * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
                  * is set to `'value'`, you are able to specify extent manually
                  * for visual mapping by specifying `visualMin` or `visualMax`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.visualMin
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.visualMin
                  */
-                visualMin?: number;
+                visualMin?: number | undefined;
 
                 /**
                  * The maximal value of current level.
                  * Auto-statistics by default.
                  *
                  * When
-                 * [colorMappingBy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorMappingBy)
+                 * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
                  * is set to `'value'`, you are able to specify extent manually
                  * for visual mapping by specifying `visualMin` or `visualMax`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.visualMax
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.visualMax
                  */
-                visualMax?: number;
+                visualMax?: number | undefined;
 
                 /**
                  * A color list for a level.
                  * Each node in the level will obtain a color from the color
                  * list (the rule see
-                 * [colorMappingBy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.colorMappingBy)
+                 * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
                  * ).
                  * It is empty by default, which means the global color list
                  * will be used.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `color` attribute could appear in more
                  * than one places:
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.color
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.color
                  */
-                color?: any[];
+                color?: any[] | undefined;
 
                 /**
                  * It indicates the range of tranparent rate (color alpha) for
@@ -10686,29 +9750,29 @@ declare namespace echarts {
                  * For example, `colorAlpha` can be `[0.3, 1]`.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `colorAlpha` attribute could appear in
                  * more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.colorAlpha
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.colorAlpha
                  */
-                colorAlpha?: any[];
+                colorAlpha?: any[] | undefined;
 
                 /**
                  * It indicates the range of saturation (color alpha) for nodes
@@ -10717,47 +9781,47 @@ declare namespace echarts {
                  * For example, `colorSaturation` can be `[0.3, 1]`.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `colorSaturation` attribute could appear
                  * in more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.colorSaturation
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.colorSaturation
                  */
-                colorSaturation?: number;
+                colorSaturation?: number | undefined;
 
                 /**
                  * Specify the rule according to which each node obtain color
                  * from
-                 * [color list](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.color)
+                 * [color list](https://echarts.apache.org/en/option.html#series-treemap.levels.color)
                  * . Optional values:
                  *
                  * + `'value'`:
                  *
                  * Map
-                 * [series-treemap.data.value](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.value)
+                 * [series-treemap.data.value](https://echarts.apache.org/en/option.html#series-treemap.data.value)
                  * to color.
                  *
                  * In this way, the color of each node indicate its value.
                  *
-                 * [visualDimension](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.visualDimension)
+                 * [visualDimension](https://echarts.apache.org/en/option.html#series-treemap.levels.visualDimension)
                  * can be used to specify which dimension of
-                 * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * [data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * is used to perform visual mapping.
                  *
                  * + `'index'`:
@@ -10765,7 +9829,7 @@ declare namespace echarts {
                  * Map the `index` (ordinal number) of nodes to color.
                  * Namely, in a level, the first node is mapped to the first
                  * color of
-                 * [color list](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.color)
+                 * [color list](https://echarts.apache.org/en/option.html#series-treemap.levels.color)
                  * , and the second node gets the second color.
                  *
                  * In this way, adjacent nodes are distinguished by color.
@@ -10773,41 +9837,41 @@ declare namespace echarts {
                  * + `'id'`:
                  *
                  * Map
-                 * [series-treemap.data.id](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.id)
+                 * [series-treemap.data.id](https://echarts.apache.org/en/option.html#series-treemap.data.id)
                  * to color.
                  *
                  * Since `id` is used to identify node, if user call `setOption`
                  * to modify the tree, each node will remain the original color
                  * before and after `setOption` called. See this
-                 * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=treemap-obama&edit=1&reset=1)
+                 * [example](https://echarts.apache.org/examples/en/editor.html?c=treemap-obama&edit=1&reset=1)
                  * .
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `colorMappingBy` attribute could appear
                  * in more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
                  * @default
                  * "index"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.colorMappingBy
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.colorMappingBy
                  */
-                colorMappingBy?: string;
+                colorMappingBy?: string | undefined;
 
                 /**
                  * A node will not be shown when its area size is smaller than
@@ -10820,31 +9884,31 @@ declare namespace echarts {
                  * this threshold.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `visibleMin` attribute could appear in
                  * more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
                  * @default
                  * 10
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.visibleMin
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.visibleMin
                  */
-                visibleMin?: number;
+                visibleMin?: number | undefined;
 
                 /**
                  * Children will not be shown when area size of a node is smaller
@@ -10856,29 +9920,29 @@ declare namespace echarts {
                  * is larger than this threshold.
                  *
                  * About visual encoding, see details in
-                 * [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * .
                  *
                  * > Tps: In treemap, `childrenVisibleMin` attribute could appear
                  * in more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.childrenVisibleMin
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.childrenVisibleMin
                  */
-                childrenVisibleMin?: number;
+                childrenVisibleMin?: number | undefined;
 
                 /**
                  * `label` decribes the style of the label in each node.
@@ -10887,30 +9951,29 @@ declare namespace echarts {
                  * than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -10923,7 +9986,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
                      *
                      * + 'top'
                      *
@@ -10941,43 +10004,43 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -10985,9 +10048,9 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -11026,12 +10089,12 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -11042,9 +10105,9 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -11058,9 +10121,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -11076,9 +10139,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -11088,9 +10151,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -11098,9 +10161,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -11114,12 +10177,12 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -11133,12 +10196,12 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -11146,12 +10209,12 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -11160,7 +10223,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -11171,9 +10234,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -11184,25 +10247,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -11216,9 +10279,9 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -11226,33 +10289,33 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -11275,9 +10338,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -11291,9 +10354,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -11304,17 +10367,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -11322,54 +10385,52 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -11379,9 +10440,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -11395,9 +10456,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -11413,9 +10474,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -11425,9 +10486,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -11435,9 +10496,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -11451,12 +10512,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -11470,12 +10531,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -11483,12 +10544,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -11498,7 +10559,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -11509,9 +10570,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -11522,25 +10583,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -11556,9 +10617,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -11566,33 +10627,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -11617,9 +10678,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -11634,9 +10695,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -11647,17 +10708,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -11665,35 +10726,35 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
                      * When the text is overflow, whether to replace the excess
@@ -11702,66 +10763,65 @@ declare namespace echarts {
                      *
                      * @default
                      * "true"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.ellipsis
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.ellipsis
                      */
-                    ellipsis?: boolean;
-                };
+                    ellipsis?: boolean | undefined;
+                } | undefined;
 
                 /**
                  * `upperLabel` is used to specify whether show label when the
                  * node has children. When
-                 * [upperLabel.show](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.show)
+                 * [upperLabel.show](https://echarts.apache.org/en/option.html#series-treemap.upperLabel.show)
                  * is set as `true`, the feature that "show parent label" is
                  * enabled.
                  *
                  * The same as
-                 * [series-treemap.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label)
+                 * [series-treemap.label](https://echarts.apache.org/en/option.html#series-treemap.label)
                  * , the option `upperLabel` can be placed at the root of
-                 * [series-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * [series-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * directly, or in
-                 * [series-treemap.level](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.level)
+                 * [series-treemap.level](https://echarts.apache.org/en/option.html#series-treemap.level)
                  * , or in each item of
-                 * [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * .
                  *
                  * Specifically,
-                 * [series-treemap.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label)
+                 * [series-treemap.label](https://echarts.apache.org/en/option.html#series-treemap.label)
                  * specifies the style when a node is a leaf, while `upperLabel`
                  * specifies the style when a node has children, in which case
                  * the label is displayed in the inner top of the node.
                  *
                  * See:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data)
                  *
                  * > Tps: In treemap, `label` attribute could appear in more
                  * than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel
                  */
                 upperLabel?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.show
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -11774,7 +10834,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
                      *
                      * + 'top'
                      *
@@ -11792,43 +10852,43 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.position
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.distance
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -11836,9 +10896,9 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.offset
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -11877,12 +10937,12 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -11893,9 +10953,9 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.color
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -11909,9 +10969,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -11927,9 +10987,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -11939,9 +10999,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -11949,9 +11009,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -11965,12 +11025,12 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.align
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -11984,12 +11044,12 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -11997,12 +11057,12 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -12011,7 +11071,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -12022,9 +11082,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -12035,25 +11095,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -12067,9 +11127,9 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.padding
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -12077,33 +11137,33 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -12126,9 +11186,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.width
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of label area.
@@ -12136,9 +11196,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 20
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.height
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.height
                      */
-                    height?: number;
+                    height?: number | undefined;
 
                     /**
                      * Storke color of the text.
@@ -12149,17 +11209,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -12167,54 +11227,52 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -12224,9 +11282,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -12240,9 +11298,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -12258,9 +11316,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -12270,9 +11328,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -12280,9 +11338,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -12296,12 +11354,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -12315,12 +11373,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -12328,12 +11386,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -12343,7 +11401,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -12354,9 +11412,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -12367,25 +11425,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -12401,9 +11459,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -12411,33 +11469,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -12462,9 +11520,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -12479,9 +11537,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -12492,17 +11550,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -12510,35 +11568,35 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
                      * When the text is overflow, whether to replace the excess
@@ -12547,10 +11605,10 @@ declare namespace echarts {
                      *
                      * @default
                      * "true"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.ellipsis
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.ellipsis
                      */
-                    ellipsis?: boolean;
-                };
+                    ellipsis?: boolean | undefined;
+                } | undefined;
 
                 /**
                  *
@@ -12558,70 +11616,69 @@ declare namespace echarts {
                  * more than one places:
                  * >
                  * > + It could appear in
-                 * > [sereis-treemap](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap)
+                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
                  * > , indicating the unified setting of the series.
                  * >
                  * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels)
+                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                  * > , indicating the unified setting of each level of the tree.
                  * >
                  * > + It could appear in each node of
-                 * > [series-treemap.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data)
+                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * The color of a node. It use global palette
-                     * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                     * [option.color](https://echarts.apache.org/en/option.html#color)
                      * by default.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * The tranparent rate of a node, the range is between 0
                      * ~ 1.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle.colorAlpha
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.colorAlpha
                      */
-                    colorAlpha?: number;
+                    colorAlpha?: number | undefined;
 
                     /**
                      * The color saturation of a node.
                      * The range is between 0 ~ 1.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle.colorSaturation
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.colorSaturation
                      */
-                    colorSaturation?: number;
+                    colorSaturation?: number | undefined;
 
                     /**
                      * The border width of a node.
                      * There is no border when it is set as `0`.
                      *
                      * Tip, gaps between child nodes are specified by
-                     * [gapWidth](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.gapWidth)
+                     * [gapWidth](https://echarts.apache.org/en/option.html#series-treemap.levels.gapWidth)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Gaps between child nodes.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle.gapWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.gapWidth
                      */
-                    gapWidth?: number;
+                    gapWidth?: number | undefined;
 
                     /**
                      * The border color and gap color of a node.
@@ -12629,9 +11686,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "#fff',"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * The color saturation of a border or gap.
@@ -12656,7 +11713,7 @@ declare namespace echarts {
                      * levels display at the same time.
                      *
                      * See the
-                     * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/treemap-borderColor&edit=1&reset=1)
+                     * [example](https://echarts.apache.org/examples/en/editor.html?c=doc-example/treemap-borderColor&edit=1&reset=1)
                      *
                      * Noticed that the child rectangles in the red area are
                      * in the deeper level than rectangles that are saparated
@@ -12665,44 +11722,42 @@ declare namespace echarts {
                      * and use `borderColorSaturation` to lift the saturation.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle.borderColorSaturation
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.borderColorSaturation
                      */
-                    borderColorSaturation?: string;
+                    borderColorSaturation?: string | undefined;
 
                     /**
                      * Stroke color of each rect.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle.strokeColor
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.strokeColor
                      */
-                    strokeColor?: string;
+                    strokeColor?: string | undefined;
 
                     /**
                      * Stroke width of each rect.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle.strokeWidth
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.strokeWidth
                      */
-                    strokeWidth?: number;
-                };
+                    strokeWidth?: number | undefined;
+                } | undefined;
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis
+                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis
                  */
                 emphasis?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.show
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -12715,7 +11770,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
                          *
                          * + 'top'
                          *
@@ -12733,43 +11788,43 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * "inside"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.position
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.distance
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -12777,9 +11832,9 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.offset
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * Data label formatter, which supports string template
@@ -12820,12 +11875,12 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.formatter
                          */
-                        formatter?: Function | string;
+                        formatter?: Function | string | undefined;
 
                         /**
                          * text color.
@@ -12836,9 +11891,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -12852,9 +11907,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -12870,9 +11925,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -12882,9 +11937,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -12892,9 +11947,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -12908,12 +11963,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.align
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -12927,12 +11982,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -12940,12 +11995,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -12954,7 +12009,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -12965,9 +12020,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -12978,25 +12033,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -13011,9 +12066,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.padding
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -13021,33 +12076,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -13072,9 +12127,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.width
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -13089,9 +12144,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.height
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -13102,17 +12157,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -13120,54 +12175,52 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -13177,9 +12230,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -13193,9 +12246,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -13211,9 +12264,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -13223,9 +12276,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -13233,9 +12286,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -13251,12 +12304,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -13272,12 +12325,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -13286,12 +12339,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -13301,7 +12354,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -13313,9 +12366,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -13326,25 +12379,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -13361,9 +12414,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -13371,33 +12424,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -13426,9 +12479,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -13444,9 +12497,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -13457,17 +12510,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -13475,35 +12528,35 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
+                        } | undefined;
 
                         /**
                          * When the text is overflow, whether to replace the
@@ -13512,23 +12565,22 @@ declare namespace echarts {
                          *
                          * @default
                          * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.ellipsis
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.ellipsis
                          */
-                        ellipsis?: boolean;
-                    };
+                        ellipsis?: boolean | undefined;
+                    } | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel
                      */
                     upperLabel?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.show
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -13541,7 +12593,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
                          *
                          * + 'top'
                          *
@@ -13559,43 +12611,43 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * "inside"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.position
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.distance
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -13603,9 +12655,9 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.offset
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * Data label formatter, which supports string template
@@ -13646,12 +12698,12 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.formatter
                          */
-                        formatter?: Function | string;
+                        formatter?: Function | string | undefined;
 
                         /**
                          * text color.
@@ -13662,9 +12714,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -13678,9 +12730,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -13696,9 +12748,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -13708,9 +12760,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -13718,9 +12770,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -13734,12 +12786,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.align
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -13753,12 +12805,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -13766,12 +12818,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -13780,7 +12832,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -13791,9 +12843,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -13804,25 +12856,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -13837,9 +12889,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.padding
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -13847,33 +12899,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -13898,9 +12950,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.width
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -13915,9 +12967,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.height
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -13928,17 +12980,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -13946,54 +12998,52 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -14003,9 +13053,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -14019,9 +13069,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -14037,9 +13087,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -14049,9 +13099,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -14059,9 +13109,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -14077,12 +13127,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -14098,12 +13148,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -14112,12 +13162,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -14127,7 +13177,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -14139,9 +13189,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -14152,25 +13202,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -14187,9 +13237,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -14197,33 +13247,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -14252,9 +13302,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -14270,9 +13320,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -14283,17 +13333,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -14301,35 +13351,35 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
+                        } | undefined;
 
                         /**
                          * When the text is overflow, whether to replace the
@@ -14338,27 +13388,26 @@ declare namespace echarts {
                          *
                          * @default
                          * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.ellipsis
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.ellipsis
                          */
-                        ellipsis?: boolean;
-                    };
+                        ellipsis?: boolean | undefined;
+                    } | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * The color of a node. It use global palette
-                         * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                         * [option.color](https://echarts.apache.org/en/option.html#color)
                          * by default.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.itemStyle.color
                          */
-                        color?: string;
-                    };
-                };
+                        color?: string | undefined;
+                    } | undefined;
+                } | undefined;
             }
         }
     }

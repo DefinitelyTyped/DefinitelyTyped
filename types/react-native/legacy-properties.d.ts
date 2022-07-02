@@ -11,12 +11,7 @@ import {
     ViewProps,
     ViewPropsIOS,
     ViewPropsAndroid,
-    ToolbarAndroidProps,
     ViewPagerAndroidProps,
-    WebViewProps,
-    WebViewPropsIOS,
-    WebViewPropsAndroid,
-    SegmentedControlIOSProps,
     ScrollViewProps,
     ScrollViewPropsIOS,
     ScrollViewPropsAndroid,
@@ -26,12 +21,6 @@ import {
     ActivityIndicatorIOSProps,
     DatePickerIOSProps,
     DrawerLayoutAndroidProps,
-    PickerItemProps,
-    PickerIOSItemProps,
-    PickerProps,
-    PickerPropsIOS,
-    PickerPropsAndroid,
-    PickerIOSProps,
     ProgressBarAndroidProps,
     ProgressViewIOSProps,
     RefreshControlProps,
@@ -51,7 +40,6 @@ import {
     VirtualizedListProps,
     SectionListProps,
     ListViewProps,
-    MapViewProps,
     MaskedViewIOSProps,
     ModalProps,
     TouchableWithoutFeedbackProps,
@@ -67,9 +55,9 @@ import {
     StatusBarPropsAndroid,
     SwitchProps,
     SwitchPropsIOS,
-} from "react-native";
+} from 'react-native';
 
-declare module "react-native" {
+declare module 'react-native' {
     /*
      * Previously, props interfaces where named *Properties
      * They have been renamed to *Props to match React Native documentation
@@ -112,23 +100,8 @@ declare module "react-native" {
     /** @deprecated Use ViewPropsAndroid */
     export type ViewPropertiesAndroid = ViewPropsAndroid;
 
-    /** @deprecated Use ToolbarAndroidProps */
-    export type ToolbarAndroidProperties = ToolbarAndroidProps;
-
     /** @deprecated Use ViewPagerAndroidProps */
     export type ViewPagerAndroidProperties = ViewPagerAndroidProps;
-
-    /** @deprecated Use WebViewProps */
-    export type WebViewProperties = WebViewProps;
-
-    /** @deprecated Use WebViewPropsIOS */
-    export type WebViewPropertiesIOS = WebViewPropsIOS;
-
-    /** @deprecated Use WebViewPropsAndroid */
-    export type WebViewPropertiesAndroid = WebViewPropsAndroid;
-
-    /** @deprecated Use SegmentedControlIOSProps */
-    export type SegmentedControlIOSProperties = SegmentedControlIOSProps;
 
     /** @deprecated Use ScrollViewProps */
     export type ScrollViewProperties = ScrollViewProps;
@@ -156,24 +129,6 @@ declare module "react-native" {
 
     /** @deprecated Use DrawerLayoutAndroidProps */
     export type DrawerLayoutAndroidProperties = DrawerLayoutAndroidProps;
-
-    /** @deprecated Use PickerItemProps */
-    export type PickerItemProperties = PickerItemProps;
-
-    /** @deprecated Use PickerIOSItemProps */
-    export type PickerIOSItemProperties = PickerIOSItemProps;
-
-    /** @deprecated Use PickerProps */
-    export type PickerProperties = PickerProps;
-
-    /** @deprecated Use PickerPropsIOS */
-    export type PickerPropertiesIOS = PickerPropsIOS;
-
-    /** @deprecated Use PickerPropsAndroid */
-    export type PickerPropertiesAndroid = PickerPropsAndroid;
-
-    /** @deprecated Use PickerIOSProps */
-    export type PickerIOSProperties = PickerIOSProps;
 
     /** @deprecated Use ProgressBarAndroidProps */
     export type ProgressBarAndroidProperties = ProgressBarAndroidProps;
@@ -231,9 +186,6 @@ declare module "react-native" {
 
     /** @deprecated Use ListViewProps */
     export type ListViewProperties = ListViewProps;
-
-    /** @deprecated Use MapViewProps */
-    export type MapViewProperties = MapViewProps;
 
     /** @deprecated Use MaskedViewIOSProps */
     export type MaskedViewIOSProperties = MaskedViewIOSProps;

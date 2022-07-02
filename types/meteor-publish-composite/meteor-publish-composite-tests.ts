@@ -53,15 +53,15 @@ publishComposite('postsByUser', function(userId, limit) {
             return Posts.find({ authorId: userId }, { limit: limit });
         },
         children: [ 
-						{
-								// Set a collection for an "alternative client side collections" as shown
-								// here: http://braindump.io/meteor/2014/09/20/publishing-to-an-alternative-clientside-collection-in-meteor.html
-								collectionName: 'user-post-comments',
-								find: function(post) {
-										// Find all comments from these posts too
-										return Comments.find( { postId: post._id } );
-								}
-						},
+                        {
+                                // Set a collection for an "alternative client side collections" as shown
+                                // here: http://braindump.io/meteor/2014/09/20/publishing-to-an-alternative-clientside-collection-in-meteor.html
+                                collectionName: 'user-post-comments',
+                                find: function(post) {
+                                        // Find all comments from these posts too
+                                        return Comments.find( { postId: post._id } );
+                                }
+                        },
         ]
     }
 });

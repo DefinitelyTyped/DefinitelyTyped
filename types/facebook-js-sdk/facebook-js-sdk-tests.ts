@@ -1,3 +1,10 @@
+window.fbAsyncInit = function() {
+};
+
+FB.init({
+    version: 'v8.0',
+});
+
 FB.init({
     appId: '***********',
     version: 'v2.5',
@@ -22,6 +29,14 @@ FB.getLoginStatus(function(response: fb.StatusResponse) {
 const authResponse: fb.AuthResponse = FB.getAuthResponse();
 console.log(authResponse.accessToken);
 
+FB.login();
+
+FB.login(function(response: fb.StatusResponse) {
+    console.log(response);
+    console.log(response.status);
+    console.log(response.authResponse.accessToken);
+});
+
 FB.login(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
@@ -39,6 +54,10 @@ FB.logout(function(response: fb.StatusResponse) {
     console.log(response.status);
     console.log(response.authResponse.accessToken);
 });
+
+FB.login({ auth_type: 'reauthenticate' });
+FB.login({ auth_type: 'reauthorize' });
+FB.login({ auth_type: 'rerequest' });
 
 FB.logout();
 
@@ -169,4 +188,23 @@ FB.ui({
     display: 'popup',
     method: 'canvas_preview',
     canvas_id: '<CANVAS_ID>'
+});
+
+FB.Event.subscribe('auth.authResponseChange', response => {
+    if (response.status === 'connected') {
+        response.authResponse.accessToken;
+    }
+});
+
+FB.Event.unsubscribe('auth.authResponseChange', () => {});
+
+FB.api('/me', response => {});
+FB.api('/me', 'get', { fields: ['last_name'] }, response => {});
+FB.api('/me',  { fields: ['last_name', 'age_range'] }, response => {
+    console.log(response.last_name)
+    console.log(response.age_range.min === 18 && response.age_range.max === 20)
+});
+FB.api('/me',  { fields: ['last_name'] }, response => {
+    console.log(response.last_name)
+    console.log(response.age_range === undefined)
 });

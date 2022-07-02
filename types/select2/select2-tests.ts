@@ -84,11 +84,29 @@ interface ServerResult {
 $("#mySelect2").select2({
     ajax: {
         url: "/example/api",
+        delay: 250,
+        cache: true,
+        dataType: "json",
         processResults: (data: ServerResult) => {
             return {
-                results: data.items
+                results: data.items,
             };
-        }
+        },
+        transport: (params, success, failure) => {
+            const $request = $.ajax(params);
+
+            $request.then(success);
+            $request.fail(failure);
+
+            return $request;
+        },
+        data: params => {
+            const queryParameters = {
+                q: params.term,
+            };
+
+            return queryParameters;
+        },
     }
 });
 
@@ -175,7 +193,7 @@ interface GithubRepositories {
         avatar_url: string
         gravatar_id: string
     };
-    description?: string;
+    description?: string | undefined;
     stargazers_count: number;
     watchers_count: number;
     forks_count: number;
@@ -404,9 +422,11 @@ $("select").select2({
 // Customizing placeholder appearance
 
 $("select").select2({
-    templateSelection: (data: Select2.IdTextPair | Select2.LoadingData | Select2.OptionData) => {
+    templateSelection: (data: Select2.IdTextPair | Select2.LoadingData | Select2.OptionData, container: JQuery) => {
         if (data.id === "") {
-            return "Custom styled placeholder text";
+            container.css("background-color", "#f6f6f6");
+
+            return "Custom styled placeholder";
         }
         return data.text;
     }
@@ -776,8 +796,8 @@ const selectedData: Select2.OptionData[] = $("#mySelect2").select2("data");
 declare let select: HTMLSelectElement;
 const $select: JQuery<HTMLSelectElement> = $(select);
 
-select = $select.select2().get(0);
-select = $select.select2({tags: true}).get(0);
-select = $select.select2("open").get(0);
-select = $select.select2("close").get(0);
-select = $select.select2("destroy").get(0);
+select = $select.select2().get(0)!;
+select = $select.select2({tags: true}).get(0)!;
+select = $select.select2("open").get(0)!;
+select = $select.select2("close").get(0)!;
+select = $select.select2("destroy").get(0)!;

@@ -7,7 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -22,6 +22,7 @@
         "test/request/catch-all.ts",
         "test/request/event-types.ts",
         "test/request/get-log.ts",
+        "test/request/info.ts",
         "test/request/methods.ts",
         "test/request/parameters.ts",
         "test/request/query.ts",
@@ -54,7 +55,6 @@
         "test/server/server-expose.ts",
         "test/server/server-info.ts",
         "test/server/server-inject.ts",
-        "test/server/server-listener.ts",
         "test/server/server-load.ts",
         "test/server/server-lookup.ts",
         "test/server/server-match.ts",

@@ -4,6 +4,7 @@ namespace nvd3_test_sparkLine {
     nv.addGraph({
         generate: function () {
             var chart = nv.models.sparkline()
+                .showMinMaxPoints(false)
                 .width(400)
                 .height(30)
 

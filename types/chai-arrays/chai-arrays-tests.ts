@@ -7,6 +7,11 @@ should();
 const arr: any[] = [1, 2, 3];
 const str = 'abcdef';
 
+const uint8Array: Uint8Array = new Uint8Array([1, 2, 3]);
+const uint16Array: Uint16Array = new Uint16Array([1, 2, 3]);
+const uint32Array: Uint32Array = new Uint32Array([1, 2, 3]);
+const uint8ClampedArray: Uint8ClampedArray = new Uint8ClampedArray([1, 2, 3]);
+
 const otherArr: number[] = [1, 2, 3];
 const anotherArr: number[] = [2, 4];
 const yetAnotherArr: number[] = [8, 5, 7];
@@ -18,6 +23,21 @@ expect(arr).to.be.array();
 expect(str).not.to.be.array();
 
 assert.array(arr, 'is array');
+
+uint8Array.should.be.Uint8Array();
+uint16Array.should.be.Uint16Array();
+uint32Array.should.be.Uint32Array();
+uint8ClampedArray.should.be.Uint8ClampedArray();
+
+expect(uint8Array).to.be.Uint8Array();
+expect(uint16Array).to.be.Uint16Array();
+expect(uint32Array).to.be.Uint32Array();
+expect(uint8ClampedArray).to.be.Uint8ClampedArray();
+
+assert.Uint8Array(uint8Array, 'is an Uint8Array');
+assert.Uint16Array(uint16Array, 'is an Uint16Array');
+assert.Uint32Array(uint32Array, 'is an Uint32Array');
+assert.Uint8ClampedArray(uint8ClampedArray, 'is an Uint8ClampedArray');
 
 arr.should.be.ofSize(3);
 arr.should.not.be.ofSize(4);

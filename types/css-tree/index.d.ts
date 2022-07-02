@@ -1,6 +1,7 @@
 // Type definitions for css-tree 1.0
 // Project: https://github.com/csstree/csstree
 // Definitions by: Erik Källén <https://github.com/erik-kallen>
+//                 Jason Kratzer <https://github.com/pyoor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -49,8 +50,8 @@ export class List<TData> {
     nextUntil(start: ListItem<TData>, fn: IteratorFn<TData, boolean>): void;
     prevUntil<TContext>(start: ListItem<TData>, fn: IteratorFn<TData, boolean, TContext>, context: TContext): void;
     prevUntil(start: ListItem<TData>, fn: IteratorFn<TData, boolean>): void;
-    some<TContext>(fn: IteratorFn<TData, boolean, TContext>, context: TContext): void;
-    some(fn: IteratorFn<TData, boolean>): void;
+    some<TContext>(fn: IteratorFn<TData, boolean, TContext>, context: TContext): boolean;
+    some(fn: IteratorFn<TData, boolean>): boolean;
     map<TContext, TResult>(fn: IteratorFn<TData, TResult, TContext>, context: TContext): List<TResult>;
     map<TResult>(fn: IteratorFn<TData, TResult>): List<TResult>;
     filter<TContext, TResult extends TData>(fn: FilterFn<TData, TResult, TContext>, context: TContext): List<TResult>;
@@ -78,7 +79,7 @@ export class List<TData> {
 
 export interface CssNodeCommon {
     type: string;
-    loc?: CssLocation;
+    loc?: CssLocation | undefined;
 }
 
 export interface AnPlusB extends CssNodeCommon {
@@ -204,8 +205,8 @@ export interface FunctionNodePlain extends CssNodeCommon {
     children: CssNodePlain[];
 }
 
-export interface HexColor extends CssNodeCommon {
-    type: 'HexColor';
+export interface Hash extends CssNodeCommon {
+    type: 'Hash';
     value: string;
 }
 
@@ -410,7 +411,7 @@ export type CssNode =
     | DeclarationList
     | Dimension
     | FunctionNode
-    | HexColor
+    | Hash
     | IdSelector
     | Identifier
     | MediaFeature
@@ -452,7 +453,7 @@ export type CssNodePlain =
     | DeclarationListPlain
     | Dimension
     | FunctionNodePlain
-    | HexColor
+    | Hash
     | IdSelector
     | Identifier
     | MediaFeature
@@ -485,18 +486,19 @@ export interface SyntaxParseError extends SyntaxError {
 }
 
 export interface ParseOptions {
-    context?: string;
-    atrule?: string;
-    positions?: boolean;
-    onParseError?: (error: SyntaxParseError, fallbackNode: CssNode) => void;
-    filename?: string;
-    offset?: number;
-    line?: number;
-    column?: number;
-    parseAtrulePrelude?: boolean;
-    parseRulePrelude?: boolean;
-    parseValue?: boolean;
-    parseCustomProperty?: boolean;
+    context?: string | undefined;
+    atrule?: string | undefined;
+    positions?: boolean | undefined;
+    onComment?: (value: string, loc: CssLocation) => void;
+    onParseError?: ((error: SyntaxParseError, fallbackNode: CssNode) => void) | undefined;
+    filename?: string | undefined;
+    offset?: number | undefined;
+    line?: number | undefined;
+    column?: number | undefined;
+    parseAtrulePrelude?: boolean | undefined;
+    parseRulePrelude?: boolean | undefined;
+    parseValue?: boolean | undefined;
+    parseCustomProperty?: boolean | undefined;
 }
 
 export function parse(text: string, options?: ParseOptions): CssNode;
@@ -509,34 +511,89 @@ export interface GenerateHandlers {
 }
 
 export interface GenerateOptions {
-    sourceMap?: boolean;
-    decorator?: (handlers: GenerateHandlers) => GenerateHandlers;
+    sourceMap?: boolean | undefined;
+    decorator?: ((handlers: GenerateHandlers) => GenerateHandlers) | undefined;
 }
 
 export function generate(ast: CssNode, options?: GenerateOptions): string;
 
 export interface WalkContext {
     root: CssNode;
-    stylesheet: StyleSheet;
-    atrule: Atrule;
-    atrulePrelude: AtrulePrelude;
-    rule: Rule;
-    selector: SelectorList;
-    block: Block;
-    declaration: Declaration;
-    function: FunctionNode | PseudoClassSelector | PseudoElementSelector;
+    stylesheet: StyleSheet | null;
+    atrule: Atrule | null;
+    atrulePrelude: AtrulePrelude | null;
+    rule: Rule | null;
+    selector: SelectorList | null;
+    block: Block | null;
+    declaration: Declaration | null;
+    function: FunctionNode | PseudoClassSelector | PseudoElementSelector | null;
 }
 
-export type EnterOrLeaveFn = (this: WalkContext, node: CssNode, item: ListItem<CssNode>, list: List<CssNode>) => void;
+export type EnterOrLeaveFn<NodeType = CssNode> = (this: WalkContext, node: NodeType, item: ListItem<CssNode>, list: List<CssNode>) => void;
 
-export interface WalkOptions {
-    enter?: EnterOrLeaveFn;
-    leave?: EnterOrLeaveFn;
-    visit?: string;
-    reverse?: boolean;
+export interface WalkOptionsNoVisit {
+    enter?: EnterOrLeaveFn | undefined;
+    leave?: EnterOrLeaveFn | undefined;
+    reverse?: boolean | undefined;
 }
+
+export interface WalkOptionsVisit<NodeType extends CssNode = CssNode> {
+    visit: NodeType['type'];
+    enter?: EnterOrLeaveFn<NodeType> | undefined;
+    leave?: EnterOrLeaveFn<NodeType> | undefined;
+    reverse?: boolean | undefined;
+}
+
+export type WalkOptions =
+    WalkOptionsVisit<AnPlusB>
+    | WalkOptionsVisit<Atrule>
+    | WalkOptionsVisit<AtrulePrelude>
+    | WalkOptionsVisit<AttributeSelector>
+    | WalkOptionsVisit<Block>
+    | WalkOptionsVisit<Brackets>
+    | WalkOptionsVisit<CDC>
+    | WalkOptionsVisit<CDO>
+    | WalkOptionsVisit<ClassSelector>
+    | WalkOptionsVisit<Combinator>
+    | WalkOptionsVisit<Comment>
+    | WalkOptionsVisit<Declaration>
+    | WalkOptionsVisit<DeclarationList>
+    | WalkOptionsVisit<Dimension>
+    | WalkOptionsVisit<FunctionNode>
+    | WalkOptionsVisit<Hash>
+    | WalkOptionsVisit<IdSelector>
+    | WalkOptionsVisit<Identifier>
+    | WalkOptionsVisit<MediaFeature>
+    | WalkOptionsVisit<MediaQuery>
+    | WalkOptionsVisit<MediaQueryList>
+    | WalkOptionsVisit<Nth>
+    | WalkOptionsVisit<NumberNode>
+    | WalkOptionsVisit<Operator>
+    | WalkOptionsVisit<Parentheses>
+    | WalkOptionsVisit<Percentage>
+    | WalkOptionsVisit<PseudoClassSelector>
+    | WalkOptionsVisit<PseudoElementSelector>
+    | WalkOptionsVisit<Ratio>
+    | WalkOptionsVisit<Raw>
+    | WalkOptionsVisit<Rule>
+    | WalkOptionsVisit<Selector>
+    | WalkOptionsVisit<SelectorList>
+    | WalkOptionsVisit<StringNode>
+    | WalkOptionsVisit<StyleSheet>
+    | WalkOptionsVisit<TypeSelector>
+    | WalkOptionsVisit<UnicodeRange>
+    | WalkOptionsVisit<Url>
+    | WalkOptionsVisit<Value>
+    | WalkOptionsVisit<WhiteSpace>
+    | WalkOptionsNoVisit;
 
 export function walk(ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;
+
+export type FindFn = (this: WalkContext, node: CssNode, item: ListItem<CssNode>, list: List<CssNode>) => boolean;
+
+export function find(ast: CssNode, fn: FindFn): CssNode;
+export function findLast(ast: CssNode, fn: FindFn): CssNode;
+export function findAll(ast: CssNode, fn: FindFn): CssNode[];
 
 export interface Property {
     readonly basename: string;
@@ -563,3 +620,196 @@ export function clone(node: CssNode): CssNode;
 
 export function fromPlainObject(node: CssNodePlain): CssNode;
 export function toPlainObject(node: CssNode): CssNodePlain;
+
+/**
+ * Definition syntax AtWord node
+ */
+export interface DSNodeAtWord {
+    type: 'AtKeyword';
+    name: string;
+}
+
+/**
+ * Definition syntax Comma node
+ */
+export interface DSNodeComma {
+    type: 'Comma';
+}
+
+/**
+ * Definition syntax Function node
+ */
+export interface DSNodeFunction {
+    type: 'Function';
+    name: string;
+}
+
+export type DSNodeCombinator = '|' | '||' | '&&' | ' ';
+
+/**
+ * Definition syntax Group node
+ */
+export interface DSNodeGroup {
+    type: 'Group';
+    terms: DSNode[];
+    combinator: DSNodeCombinator;
+    disallowEmpty: boolean;
+    explicit: boolean;
+}
+
+/**
+ * Definition syntax Keyword node
+ */
+export interface DSNodeKeyword {
+    type: 'Keyword';
+    name: string;
+}
+
+/**
+ * Definition syntax Multiplier node
+ */
+export interface DSNodeMultiplier {
+    type: 'Multiplier';
+    comma: boolean;
+    min: number;
+    max: number;
+    term: DSNodeMultiplied;
+}
+
+/**
+ * Definition syntax Property node
+ */
+export interface DSNodeProperty {
+    type: 'Property';
+    name: string;
+}
+
+/**
+ * Definition syntax String node
+ */
+export interface DSNodeString {
+    type: 'String';
+    value: string;
+}
+
+/**
+ * Definition syntax Token node
+ */
+export interface DSNodeToken {
+    type: 'Token';
+    value: string;
+}
+
+/**
+ * Definition syntax Type node options
+ */
+export interface DSNodeTypeOpts {
+    type: 'Range';
+    min: number | null;
+    max: number | null;
+}
+
+/**
+ * Definition syntax Type node
+ */
+export interface DSNodeType {
+    type: 'Type';
+    name: string;
+    opts: DSNodeTypeOpts | null;
+}
+
+/**
+ * Definition syntax node
+ */
+export type DSNode =
+    DSNodeAtWord
+    | DSNodeComma
+    | DSNodeFunction
+    | DSNodeGroup
+    | DSNodeKeyword
+    | DSNodeMultiplier
+    | DSNodeProperty
+    | DSNodeString
+    | DSNodeToken
+    | DSNodeType;
+
+/**
+ * Definition syntax node compatible with a multiplier
+ */
+export type DSNodeMultiplied =
+    DSNodeFunction
+    | DSNodeGroup
+    | DSNodeKeyword
+    | DSNodeProperty
+    | DSNodeString
+    | DSNodeType;
+
+/**
+ * Definition syntax generate options
+ */
+export interface DSGenerateOptions {
+    forceBraces?: boolean | undefined;
+    compact?: boolean | undefined;
+    decorate?: ((result: string, node: DSNode) => void) | undefined;
+}
+
+/**
+ * Definition syntax walk options
+ */
+export interface DSWalkOptions {
+    enter?: DSWalkEnterOrLeaveFn | undefined;
+    leave?: DSWalkEnterOrLeaveFn | undefined;
+}
+
+/**
+ * Definition syntax walk callback
+ */
+export type DSWalkEnterOrLeaveFn = (node: DSNode) => void;
+
+/**
+ * DefinitionSyntax
+ */
+export interface DefinitionSyntax {
+    /**
+     * Generates CSS value definition syntax from an AST
+     *
+     * @param node - The AST
+     * @param options - Options that affect generation
+     *
+     * @example
+     *  generate({type: 'Keyword', name: 'foo'}) => 'foo'
+     */
+    generate(node: DSNode, options?: DSGenerateOptions): string;
+
+    /**
+     * Generates an AST from a CSS value syntax
+     *
+     * @param source - The CSS value syntax to parse
+     *
+     * @example
+     *  parse('foo | bar') =>
+     *    {
+     *      type: 'Group',
+     *      terms: [
+     *        { type: 'Keyword', name: 'foo' },
+     *        { type: 'Keyword', name: 'bar' }
+     *      ],
+     *      combinator: '|',
+     *      disallowEmpty: false,
+     *      explicit: false
+     *    }
+     */
+    parse(source: string): DSNodeGroup;
+
+    /**
+     * Walks definition syntax AST
+     */
+    walk(node: DSNode, options: DSWalkEnterOrLeaveFn | DSWalkOptions, context?: any): void;
+
+    /**
+     * Wrapper for syntax errors
+     */
+    syntaxError: SyntaxError;
+}
+
+export const definitionSyntax: DefinitionSyntax;

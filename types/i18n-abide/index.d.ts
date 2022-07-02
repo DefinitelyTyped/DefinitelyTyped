@@ -2,7 +2,7 @@
 // Project: https://github.com/mozilla/i18n-abide
 // Definitions by: Steven Bell <https://github.com/smbell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { RequestHandler } from 'express';
 
@@ -17,11 +17,11 @@ export function format(fmt: string, obj?: any, named?: boolean): string;
 export function getLocales(): string[];
 
 export interface AbideOptions {
-    gettext_alias?: string;
-    supported_languages?: string[];
-    default_lang?: string;
-    debug_lang?: string;
-    disable_locale_check?: boolean;
-    translation_directory?: string;
-    logger?: { warn(msg: string): void, error(msg: string): void };
+    gettext_alias?: string | undefined;
+    supported_languages?: string[] | undefined;
+    default_lang?: string | undefined;
+    debug_lang?: string | undefined;
+    disable_locale_check?: boolean | undefined;
+    translation_directory?: string | undefined;
+    logger?: { warn(msg: string): void, error(msg: string): void } | undefined;
 }

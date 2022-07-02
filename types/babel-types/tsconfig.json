@@ -2,22 +2,20 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "ES2015"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "babel-types-tests.ts"
+        "babel-types-tests.ts",
+        "index.d.ts"
     ]
 }

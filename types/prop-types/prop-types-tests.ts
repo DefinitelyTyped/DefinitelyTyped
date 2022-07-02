@@ -9,9 +9,9 @@ interface Props {
     any?: any;
     array: string[];
     bool: boolean;
-    element: ReactElement<any>;
+    element: ReactElement;
     func(foo: string): void;
-    node?: ReactNode;
+    node?: ReactNode | undefined;
     requiredNode: NonNullable<ReactNode>;
     number: number;
     object: object;
@@ -20,20 +20,23 @@ interface Props {
     instanceOf: TestClass;
     oneOf: 'a' | 'b' | 'c';
     oneOfType: string | boolean | {
-        foo?: string;
+        foo?: string | null | undefined;
         bar: number;
     };
     numberOrFalse: false | number;
-    nodeOrRenderFn?: ReactNode | (() => ReactNode);
+    nodeOrRenderFn?: ReactNode | (() => ReactNode) | undefined;
     arrayOf: boolean[];
     objectOf: { [K: string]: number };
     shape: {
         foo: string;
-        bar?: boolean;
-        baz?: any
+        bar?: boolean | null | undefined;
+        baz?: any;
     };
-    optionalNumber?: number | null;
-    customProp?: typeof uniqueType;
+    optionalNumber?: number | null | undefined;
+    nullableNumber: number | null;
+    undefinableNumber?: number | undefined;
+    customProp?: typeof uniqueType | undefined;
+    component: PropTypes.ReactComponentLike;
 }
 
 const innerProps = {
@@ -74,7 +77,10 @@ const propTypes: PropTypesMap = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
-    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
+    nullableNumber: (() => null) as PropTypes.Validator<number | null>,
+    undefinableNumber: (() => null) as PropTypes.Validator<number | undefined>,
+    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>,
+    component: PropTypes.elementType.isRequired
 };
 
 // JS checking
@@ -100,7 +106,10 @@ const propTypesWithoutAnnotation = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
-    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
+    nullableNumber: (() => null) as PropTypes.Validator<number | null>,
+    undefinableNumber: (() => null) as PropTypes.Validator<number | undefined>,
+    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>,
+    component: PropTypes.elementType.isRequired
 };
 
 const partialPropTypes = {
@@ -150,6 +159,7 @@ type ExtractFromOuterPropsMatch4 = Props extends ExtractedPropsFromOuterPropsWit
 type ExtractPropsMismatch = ExtractedPartialProps extends Props ? true : false;
 
 PropTypes.checkPropTypes({ xs: PropTypes.array }, { xs: [] }, 'location', 'componentName');
+PropTypes.resetWarningCache();
 
 // This would be the type that JSX sees
 type Defaultize<T, D> =
@@ -182,16 +192,16 @@ type UndefaultizedProps = Undefaultize<PropTypes.InferProps<typeof componentProp
 
 // $ExpectType true
 type DefaultizedPropsTest = {
-    fi?: (...args: any[]) => any;
-    foo?: string | null;
+    fi?: ((...args: any[]) => any) | undefined;
+    foo?: string | null | undefined;
     bar: number;
-    baz?: boolean | null;
-    bat?: ReactNode;
+    baz?: boolean | null | undefined;
+    bat?: ReactNode | undefined;
 } extends DefaultizedProps ? true : false;
 // $ExpectType true
 type UndefaultizedPropsTest = {
     fi: (...args: any[]) => any;
-    foo?: string | null;
+    foo?: string | null | undefined;
     bar: number;
     baz: boolean;
     bat: Exclude<ReactNode, undefined>;

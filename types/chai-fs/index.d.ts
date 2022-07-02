@@ -2,7 +2,7 @@
 // Project: https://github.com/chaijs/chai-fs
 // Definitions by: Dimitar Danailov <https://github.com/dimitardanailov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
 /// <reference types="chai" />
@@ -214,7 +214,7 @@ declare global {
     }
 }
 
-declare function chaiFs(chai: any, utils: any): void;
+declare const chaiFs: Chai.ChaiPlugin;
 export = chaiFs;
 
 interface Object {

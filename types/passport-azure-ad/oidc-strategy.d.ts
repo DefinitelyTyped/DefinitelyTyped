@@ -6,38 +6,43 @@ export interface IOIDCStrategyOption extends IBaseStrategyOption {
     responseType: "code" | "code id_token" | "id_token code" | "id_token";
     responseMode: "query" | "form_post";
     redirectUrl: string;
-    allowHttpForRedirectUrl?: boolean;
-    clientSecret?: string;
-    thumbprint?: string;
-    privatePEMKey?: string;
-    useCookieInsteadOfSession?: boolean;
-    cookieEncryptionKeys?: {key: string, iv: string}[];
-    nonceLifetime?: number;
-    nonceMaxAmount?: number;
-    scope?: string | string[];
+    allowHttpForRedirectUrl?: boolean | undefined;
+    clientSecret?: string | undefined;
+    thumbprint?: string | undefined;
+    privatePEMKey?: string | undefined;
+    useCookieInsteadOfSession?: boolean | undefined;
+    cookieEncryptionKeys?: {key: string, iv: string}[] | undefined;
+    nonceLifetime?: number | undefined;
+    nonceMaxAmount?: number | undefined;
+    scope?: string | string[] | undefined;
+    cookieSameSite?: boolean | undefined;
 }
 
 export interface IOIDCStrategyOptionWithRequest extends IOIDCStrategyOption {
     passReqToCallback: true;
 }
 
+export interface IOIDCStrategyOptionWithoutRequest extends IOIDCStrategyOption {
+    passReqToCallback: false;
+}
+
 export interface IProfile {
-    sub?: string;
-    oid?: string;
-    upn?: string;
-    displayName?: string;
+    sub?: string | undefined;
+    oid?: string | undefined;
+    upn?: string | undefined;
+    displayName?: string | undefined;
     name?: {
-        familyName?: string;
-        givenName?: string;
-        middleName?: string;
-    };
+        familyName?: string | undefined;
+        givenName?: string | undefined;
+        middleName?: string | undefined;
+    } | undefined;
     emails?: any;
-    _raw?: string;
+    _raw?: string | undefined;
     _json?: any;
 }
 
 export type VerifyOIDCFunction =
-    ((profile: IProfile, done: VerifyCallback) => void) | 
+    ((profile: IProfile, done: VerifyCallback) => void) |
     ((iss: string, sub: string, done: VerifyCallback) => void) |
     ((iss: string, sub: string, profile: IProfile, done: VerifyCallback) => void) |
     ((iss: string, sub: string, profile: IProfile, access_token: string, refresh_token: string, done: VerifyCallback) => void) |
@@ -45,7 +50,7 @@ export type VerifyOIDCFunction =
     ((iss: string, sub: string, profile: IProfile, jwtClaims: any, access_token: string, refresh_token: string, params: any, done: VerifyCallback) => void);
 
 export type VerifyOIDCFunctionWithReq =
-    ((req: Request, profile: IProfile, done: VerifyCallback) => void) | 
+    ((req: Request, profile: IProfile, done: VerifyCallback) => void) |
     ((req: Request, iss: string, sub: string, done: VerifyCallback) => void) |
     ((req: Request, iss: string, sub: string, profile: IProfile, done: VerifyCallback) => void) |
     ((req: Request, iss: string, sub: string, profile: IProfile, access_token: string, refresh_token: string, done: VerifyCallback) => void) |
@@ -57,7 +62,7 @@ export class OIDCStrategy implements passport.Strategy {
         options: IOIDCStrategyOptionWithRequest,
         verify: VerifyOIDCFunctionWithReq
     );
-    constructor(options: IOIDCStrategyOption, verify: VerifyOIDCFunction);
+    constructor(options: IOIDCStrategyOptionWithoutRequest, verify: VerifyOIDCFunction);
 
     name: string;
 

@@ -14,7 +14,9 @@
             "../"
         ],
         "paths": {
-            "@rebass/grid": ["rebass__grid"]
+            "@rebass/*": [
+                "rebass__*"
+            ]
         },
         "types": [],
         "noEmit": true,

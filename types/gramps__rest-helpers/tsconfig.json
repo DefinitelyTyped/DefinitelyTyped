@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@gramps/rest-helpers": [
-                "gramps__rest-helpers"
+            "@gramps/*": [
+                "gramps__*"
             ]
         }
     },

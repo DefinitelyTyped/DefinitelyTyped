@@ -127,11 +127,11 @@ configuration = {
 configuration = {
     externals: [
         // Disable TSLint for allowing non-arrow functions
-        /* tslint:disable-next-line */
+        /* tslint:disable-next-line:only-arrow-functions */
         function(context, request, callback) {
           if (/^yourregex$/.test(request)) {
             // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
-            /* tslint:disable-next-line */
+            /* tslint:disable-next-line:no-void-expression */
             return callback(null, 'commonjs ' + request);
           }
           callback({}, {});
@@ -154,11 +154,11 @@ configuration = {
             subtract: ['./math', 'subtract']
             },
             // Disable TSLint for allowing non-arrow functions
-            /* tslint:disable-next-line */
+            /* tslint:disable-next-line:only-arrow-functions */
             function(context, request, callback) {
               if (/^yourregex$/.test(request)) {
                 // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
-                /* tslint:disable-next-line */
+                /* tslint:disable-next-line:no-void-expression */
                 return callback(null, 'commonjs ' + request);
               }
               callback({}, {});
@@ -440,8 +440,11 @@ plugin = new webpack.optimize.UglifyJsPlugin({
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
-        warnings: false
-    }
+        dead_code: true,
+        collapse_vars: true,
+        drop_debugger: true,
+    },
+    warnings: false,
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     sourceMap: false,

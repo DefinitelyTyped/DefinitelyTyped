@@ -1,5 +1,5 @@
 import * as express from "express";
-import correlator from "express-correlation-id";
+import correlator = require("express-correlation-id");
 
 const app = express();
 app.use(correlator());

@@ -9,11 +9,11 @@ import {
     Plugin,
     ResponseToolkit,
     AuthenticationData,
-  } from 'hapi';
+  } from '@hapi/hapi';
 
   type ValidateReturn = AuthenticationData & { isValid: boolean };
 
-  declare module 'hapi' {
+  declare module '@hapi/hapi' {
     interface ServerAuth {
       strategy(name: string, scheme: 'bearer-access-token', options: BearerToken.SchemaOptions): void;
     }
@@ -22,13 +22,13 @@ import {
   declare namespace BearerToken {
     interface SchemaOptions {
       validate: Validate;
-      accessTokenName?: string;
-      allowQueryToken?: boolean;
-      allowCookieToken?: boolean;
-      allowMultipleHeaders?: boolean;
-      allowChaining?: boolean;
-      tokenType?: string;
-      unauthorized?: (message: string | null, scheme: string) => any;
+      accessTokenName?: string | undefined;
+      allowQueryToken?: boolean | undefined;
+      allowCookieToken?: boolean | undefined;
+      allowMultipleHeaders?: boolean | undefined;
+      allowChaining?: boolean | undefined;
+      tokenType?: string | undefined;
+      unauthorized?: ((message: string | null, scheme: string) => any) | undefined;
     }
 
     type Validate = (request: Request, token: string, h: ResponseToolkit) => Promise<ValidateReturn> | ValidateReturn;

@@ -9,10 +9,10 @@ declare function imageminOptipng(options?: imageminOptipng.Options): Plugin;
 
 declare namespace imageminOptipng {
     interface Options {
-        bitDepthReduction?: boolean;
-        colorTypeReduction?: boolean;
-        optimizationLevel?: number;
-        paletteReduction?: boolean;
+        bitDepthReduction?: boolean | undefined;
+        colorTypeReduction?: boolean | undefined;
+        optimizationLevel?: number | undefined;
+        paletteReduction?: boolean | undefined;
     }
 }
 

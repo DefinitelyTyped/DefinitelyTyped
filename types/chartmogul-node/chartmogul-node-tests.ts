@@ -1,9 +1,8 @@
 import * as ChartMogul from 'chartmogul-node';
 
-const config = new ChartMogul.Config("token", "secret", "baseURL");
+const config = new ChartMogul.Config("token", "baseURL");
 config.retries = 10;
 config.getAccountToken(); // $ExpectType string
-config.getSecretKey(); // $ExpectType string
 config.VERSION; // $ExpectType string
 
 ChartMogul.Ping.ping(config); // $ExpectType Promise<string>
@@ -35,12 +34,12 @@ ChartMogul.Customer.create(config, {
     name: "",
     external_id: "",
     attributes: {
-		tags: ["important", "Prio1"],
-		custom: [
-			{type: "String", key: "channel", value: "Facebook", source: "integration"},
-			{type: "Integer", key: "age", value: 18}
-		]
-	}
+        tags: ["important", "Prio1"],
+        custom: [
+            {type: "String", key: "channel", value: "Facebook", source: "integration"},
+            {type: "Integer", key: "age", value: 18}
+        ]
+    }
 });
 
 // $ExpectType Promise<Customer>

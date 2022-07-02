@@ -29,12 +29,13 @@ const opts = {
     min: 2,
     maxWaitingClients: 2,
     testOnBorrow: true,
+    testOnReturn: true,
     acquireTimeoutMillis: 100,
     fifo: true,
     priorityRange: 5,
     autostart: false,
     evictionRunIntervalMillis: 200,
-    numTestsPerRun: 3,
+    numTestsPerEvictionRun: 3,
     softIdleTimeoutMillis: 100,
     idleTimeoutMillis: 5000
 };
@@ -43,7 +44,7 @@ const pool = genericPool.createPool<Connection>(factory, opts);
 
 pool.start();
 
-pool.use((conn: Connection) => 'test')
+pool.use((conn: Connection) => Promise.resolve('test'))
     .then((result: string) => { });
 
 pool.acquire()

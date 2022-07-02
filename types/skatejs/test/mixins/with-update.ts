@@ -1,8 +1,6 @@
 import { props, withUpdate } from 'skatejs';
 
-// tslint:disable-next-line interface-over-type-literal
 type Props = { name: string };
-// tslint:disable-next-line interface-over-type-literal
 type State = undefined;
 
 class WithProps extends withUpdate<Props, State>() {

@@ -5,19 +5,19 @@ declare namespace echarts {
          *
          * Bar chart shows different data through the height of a bar, which
          * is used in
-         * [rectangular coordinate](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+         * [rectangular coordinate](https://echarts.apache.org/en/option.html#grid)
          * with at least 1 category axis.
          *
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar
+         * @see https://echarts.apache.org/en/option.html#series-bar
          */
         interface SeriesBar {
             /**
              * @default
              * "bar"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.type
+             * @see https://echarts.apache.org/en/option.html#series-bar.type
              */
-            type?: 'bar';
+            type?: 'bar' | undefined;
 
             /**
              * Component ID, not specified by default.
@@ -25,33 +25,33 @@ declare namespace echarts {
              * or API.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.id
+             * @see https://echarts.apache.org/en/option.html#series-bar.id
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * Series name used for displaying in
-             * [tooltip](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip)
+             * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
              * and filtering with
-             * [legend](https://ecomfe.github.io/echarts-doc/public/en/option.html#legend)
+             * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.name
+             * @see https://echarts.apache.org/en/option.html#series-bar.name
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * Whether to enable highlighting chart when
-             * [legend](https://ecomfe.github.io/echarts-doc/public/en/option.html#legend)
+             * [legend](https://echarts.apache.org/en/option.html#legend)
              * is being hovered.
              *
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.legendHoverLink
+             * @see https://echarts.apache.org/en/option.html#series-bar.legendHoverLink
              */
-            legendHoverLink?: boolean;
+            legendHoverLink?: boolean | undefined;
 
             /**
              * The coordinate used in the series, whose options are:
@@ -60,37 +60,37 @@ declare namespace echarts {
              *
              * Use a two-dimensional rectangular coordinate (also known as Cartesian
              * coordinate), with
-             * [xAxisIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.xAxisIndex)
+             * [xAxisIndex](https://echarts.apache.org/en/option.html#series-bar.xAxisIndex)
              * and
-             * [yAxisIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.yAxisIndex)
+             * [yAxisIndex](https://echarts.apache.org/en/option.html#series-bar.yAxisIndex)
              * to assign the corresponding axis component.
              *
              *
              * @default
              * "cartesian2d"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.coordinateSystem
+             * @see https://echarts.apache.org/en/option.html#series-bar.coordinateSystem
              */
-            coordinateSystem?: string;
+            coordinateSystem?: string | undefined;
 
             /**
              * Index of
-             * [x axis](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis)
+             * [x axis](https://echarts.apache.org/en/option.html#xAxis)
              * to combine with, which is useful for multiple x axes in one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.xAxisIndex
+             * @see https://echarts.apache.org/en/option.html#series-bar.xAxisIndex
              */
-            xAxisIndex?: number;
+            xAxisIndex?: number | undefined;
 
             /**
              * Index of
-             * [y axis](https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis)
+             * [y axis](https://echarts.apache.org/en/option.html#yAxis)
              * to combine with, which is useful for multiple y axes in one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.yAxisIndex
+             * @see https://echarts.apache.org/en/option.html#series-bar.yAxisIndex
              */
-            yAxisIndex?: number;
+            yAxisIndex?: number | undefined;
 
             /**
              * Text label of , to explain some data information about graphic
@@ -101,7 +101,7 @@ declare namespace echarts {
              * as `itemStyle` does.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label
+             * @see https://echarts.apache.org/en/option.html#series-bar.label
              */
             label?: {
                 /**
@@ -114,9 +114,9 @@ declare namespace echarts {
                  * Whether to show label.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.show
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.show
                  */
-                show?: boolean;
+                show?: boolean | undefined;
 
                 /**
                  * Label position.
@@ -129,7 +129,7 @@ declare namespace echarts {
                  * position of label relative to top-left corner of bounding
                  * box. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label)
                  *
                  * + 'top'
                  *
@@ -147,43 +147,43 @@ declare namespace echarts {
                  * + 'insideBottomRight'
                  *
                  * See:
-                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                  * .
                  *
                  *
                  * @default
                  * "inside"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.position
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.position
                  */
-                position?: any[] | string;
+                position?: any[] | string | undefined;
 
                 /**
                  * Distance to the host graphic element.
                  * Works when position is string value (like `'top'`、`'insideRight'`).
                  *
                  * See:
-                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                  * .
                  *
                  *
                  * @default
                  * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.distance
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.distance
                  */
-                distance?: number;
+                distance?: number | undefined;
 
                 /**
                  * Rotate label, from -90 degree to 90, positive value represents
                  * rotate anti-clockwise.
                  *
                  * See:
-                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                  * .
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rotate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.rotate
                  */
-                rotate?: number;
+                rotate?: number | undefined;
 
                 /**
                  * Whether to move text slightly.
@@ -191,9 +191,9 @@ declare namespace echarts {
                  * move `40` vertically.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.offset
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.offset
                  */
-                offset?: any[];
+                offset?: any[] | undefined;
 
                 /**
                  * Data label formatter, which supports string template and
@@ -231,12 +231,12 @@ declare namespace echarts {
                  * where `params` is the single dataset needed by formatter,
                  * which is formed as:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.formatter
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.formatter
                  */
-                formatter?: Function | string;
+                formatter?: Function | string | undefined;
 
                 /**
                  * text color.
@@ -247,9 +247,9 @@ declare namespace echarts {
                  *
                  * @default
                  * ""#fff""
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.color
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.color
                  */
-                color?: string;
+                color?: string | undefined;
 
                 /**
                  * font style
@@ -263,9 +263,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.fontStyle
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.fontStyle
                  */
-                fontStyle?: string;
+                fontStyle?: string | undefined;
 
                 /**
                  * font thick weight
@@ -281,9 +281,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.fontWeight
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number | undefined;
 
                 /**
                  * font family
@@ -293,9 +293,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "sans-serif"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.fontFamily
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.fontFamily
                  */
-                fontFamily?: string;
+                fontFamily?: string | undefined;
 
                 /**
                  * font size
@@ -303,9 +303,9 @@ declare namespace echarts {
                  *
                  * @default
                  * 12
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.fontSize
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.fontSize
                  */
-                fontSize?: number;
+                fontSize?: number | undefined;
 
                 /**
                  * Horizontal alignment of text, automatic by default.
@@ -319,12 +319,12 @@ declare namespace echarts {
                  * If `align` is not set in `rich`, `align` in parent level
                  * will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.align
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.align
                  */
-                align?: string;
+                align?: string | undefined;
 
                 /**
                  * Vertical alignment of text, automatic by default.
@@ -338,12 +338,12 @@ declare namespace echarts {
                  * If `verticalAlign` is not set in `rich`, `verticalAlign`
                  * in parent level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.verticalAlign
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.verticalAlign
                  */
-                verticalAlign?: string;
+                verticalAlign?: string | undefined;
 
                 /**
                  * Line height of the text fregment.
@@ -351,12 +351,12 @@ declare namespace echarts {
                  * If `lineHeight` is not set in `rich`, `lineHeight` in parent
                  * level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.lineHeight
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.lineHeight
                  */
-                lineHeight?: number;
+                lineHeight?: number | undefined;
 
                 /**
                  * Background color of the text fregment.
@@ -365,7 +365,7 @@ declare namespace echarts {
                  *
                  * Or image can be used, for example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label)
                  *
                  * `width` or `height` can be specified when using background
                  * image, or auto adapted by default.
@@ -376,9 +376,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.backgroundColor
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.backgroundColor
                  */
-                backgroundColor?: object | string;
+                backgroundColor?: object | string | undefined;
 
                 /**
                  * Border color of the text fregment.
@@ -389,25 +389,25 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.borderColor
                  */
-                borderColor?: string;
+                borderColor?: string | undefined;
 
                 /**
                  * Border width of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.borderWidth
                  */
-                borderWidth?: number;
+                borderWidth?: number | undefined;
 
                 /**
                  * Border radius of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.borderRadius
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.borderRadius
                  */
-                borderRadius?: number;
+                borderRadius?: number | undefined;
 
                 /**
                  * Padding of the text fregment, for example:
@@ -421,9 +421,9 @@ declare namespace echarts {
                  * of the content, without `padding`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.padding
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.padding
                  */
-                padding?: any[] | number;
+                padding?: any[] | number | undefined;
 
                 /**
                  * Shadow color of the text block.
@@ -431,33 +431,33 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: string | undefined;
 
                 /**
                  * Show blur of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow X offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.shadowOffsetY
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
 
                 /**
                  * Width of the text block.
@@ -479,9 +479,9 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.width
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.width
                  */
-                width?: number | string;
+                width?: number | string | undefined;
 
                 /**
                  * Height of the text block.
@@ -495,9 +495,9 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.height
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.height
                  */
-                height?: number | string;
+                height?: number | string | undefined;
 
                 /**
                  * Storke color of the text.
@@ -508,17 +508,17 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.textBorderColor
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.textBorderColor
                  */
-                textBorderColor?: string;
+                textBorderColor?: string | undefined;
 
                 /**
                  * Storke line width of the text.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.textBorderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.textBorderWidth
                  */
-                textBorderWidth?: number;
+                textBorderWidth?: number | undefined;
 
                 /**
                  * Shadow color of the text itself.
@@ -526,54 +526,52 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.textShadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.textShadowColor
                  */
-                textShadowColor?: string;
+                textShadowColor?: string | undefined;
 
                 /**
                  * Shadow blue of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.textShadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.textShadowBlur
                  */
-                textShadowBlur?: number;
+                textShadowBlur?: number | undefined;
 
                 /**
                  * Shadow X offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.textShadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.textShadowOffsetX
                  */
-                textShadowOffsetX?: number;
+                textShadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.textShadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.textShadowOffsetY
                  */
-                textShadowOffsetY?: number;
+                textShadowOffsetY?: number | undefined;
 
                 /**
                  * "Rich text styles" can be defined in this `rich` property.
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label)
                  *
                  * For more details, see
-                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                  * please.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich
+                 * @see https://echarts.apache.org/en/option.html#series-bar.label.rich
                  */
                 rich?: {
-
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E
+                     * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -583,9 +581,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -599,9 +597,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -617,9 +615,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -629,9 +627,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -639,9 +637,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -655,12 +653,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -674,12 +672,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -687,12 +685,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -701,7 +699,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -712,9 +710,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -725,25 +723,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -758,9 +756,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -768,33 +766,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -819,9 +817,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -836,9 +834,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -849,17 +847,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -867,43 +865,43 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
                     };
-                };
-            };
+                } | undefined;
+            } | undefined;
 
             /**
              * Graphic style of , `emphasis` is the style when it is highlighted,
              * like being hovered by mouse, or highlighted via legend connect.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle
+             * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle
              */
             itemStyle?: {
                 /**
@@ -914,15 +912,15 @@ declare namespace echarts {
 
                 /**
                  * Bar color. defaults to acquire colors from global palette
-                 * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                 * [option.color](https://echarts.apache.org/en/option.html#color)
                  * .
                  *
                  *
                  * @default
                  * "auto"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.color
+                 * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color | undefined;
 
                 /**
                  * The bodrder color of bar.
@@ -930,17 +928,17 @@ declare namespace echarts {
                  *
                  * @default
                  * '#000'
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.barBorderColor
+                 * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle.barBorderColor
                  */
-                barBorderColor?: string;
+                barBorderColor?: string | undefined;
 
                 /**
                  * The bodrder width of bar. defaults to have no border.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.barBorderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle.barBorderWidth
                  */
-                barBorderWidth?: number;
+                barBorderWidth?: number | undefined;
 
                 /**
                  * The radius of rounded corner.
@@ -950,12 +948,12 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.itemStyle)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.itemStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.barBorderRadius
+                 * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle.barBorderRadius
                  */
-                barBorderRadius?: any[] | number;
+                barBorderRadius?: any[] | number | undefined;
 
                 /**
                  * Size of shadow blur.
@@ -964,36 +962,36 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.itemStyle)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.itemStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle.shadowBlur
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color | undefined;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle.shadowOffsetX
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle.shadowOffsetY
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
 
                 /**
                  * Opacity of the component.
@@ -1001,28 +999,26 @@ declare namespace echarts {
                  * drawn when set to 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.itemStyle.opacity
+                 * @see https://echarts.apache.org/en/option.html#series-bar.itemStyle.opacity
                  */
-                opacity?: number;
-            };
+                opacity?: number | undefined;
+            } | undefined;
 
             /**
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis
+             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis
              */
             emphasis?: {
-
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label
+                 * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -1035,7 +1031,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label)
                      *
                      * + 'top'
                      *
@@ -1053,41 +1049,41 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -1095,9 +1091,9 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -1136,12 +1132,12 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -1152,9 +1148,9 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -1168,9 +1164,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -1186,9 +1182,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -1198,9 +1194,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -1208,9 +1204,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -1224,12 +1220,12 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -1243,12 +1239,12 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -1256,12 +1252,12 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -1270,7 +1266,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -1281,9 +1277,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -1294,25 +1290,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -1326,9 +1322,9 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -1336,33 +1332,33 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -1385,9 +1381,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -1401,9 +1397,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -1414,17 +1410,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -1432,54 +1428,52 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1489,9 +1483,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -1505,9 +1499,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -1523,9 +1517,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -1535,9 +1529,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -1545,9 +1539,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -1561,12 +1555,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -1580,12 +1574,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -1593,12 +1587,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -1608,7 +1602,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -1619,9 +1613,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -1632,25 +1626,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -1666,9 +1660,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -1676,33 +1670,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -1727,9 +1721,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -1744,9 +1738,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -1757,17 +1751,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -1775,51 +1769,50 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
-                };
+                    } | undefined;
+                } | undefined;
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * Bar color..
                      *
                      *
                      * @default
                      * "auto"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * The bodrder color of bar.
@@ -1827,17 +1820,17 @@ declare namespace echarts {
                      *
                      * @default
                      * '#000'
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.itemStyle.barBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.itemStyle.barBorderColor
                      */
-                    barBorderColor?: string;
+                    barBorderColor?: string | undefined;
 
                     /**
                      * The bodrder width of bar. defaults to have no border.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.itemStyle.barBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.itemStyle.barBorderWidth
                      */
-                    barBorderWidth?: number;
+                    barBorderWidth?: number | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -1846,36 +1839,36 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.emphasis.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.emphasis.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -1883,11 +1876,11 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.emphasis.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-bar.emphasis.itemStyle.opacity
                      */
-                    opacity?: number;
-                };
-            };
+                    opacity?: number | undefined;
+                } | undefined;
+            } | undefined;
 
             /**
              * Name of stack.
@@ -1895,9 +1888,9 @@ declare namespace echarts {
              * would be put on top of each other.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.stack
+             * @see https://echarts.apache.org/en/option.html#series-bar.stack
              */
-            stack?: string;
+            stack?: string | undefined;
 
             /**
              * The mouse style when mouse hovers on an element, the same as
@@ -1906,13 +1899,15 @@ declare namespace echarts {
              *
              * @default
              * "pointer"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.cursor
+             * @see https://echarts.apache.org/en/option.html#series-bar.cursor
              */
-            cursor?: string;
+            cursor?: string | undefined;
 
             /**
              * The width of the bar. Adaptive when not specified.
              *
+             * Can be an absolute value like 40 or a percent value like '60%'. The percent is based on the calculated category width.
+             *
              * In a single coodinate system, this attribute is shared by multiple
              * `'bar'` series.
              * This attribute should be set on the last `'bar'` series in the
@@ -1920,13 +1915,17 @@ declare namespace echarts {
              * in the coordinate system.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.barWidth
+             * @see https://echarts.apache.org/en/option.html#series-bar.barWidth
              */
-            barWidth?: number;
+            barWidth?: number | string | undefined;
 
             /**
              * The maximum width of the bar. Adaptive when not specified.
              *
+             * Has higer priority than barWidth.
+             *
+             * Can be an absolute value like 40 or a percent value like '60%'. The percent is based on the calculated category width.
+             *
              * In a single coodinate system, this attribute is shared by multiple
              * `'bar'` series.
              * This attribute should be set on the last `'bar'` series in the
@@ -1934,9 +1933,27 @@ declare namespace echarts {
              * in the coordinate system.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.barMaxWidth
+             * @see https://echarts.apache.org/en/option.html#series-bar.barMaxWidth
              */
-            barMaxWidth?: number;
+            barMaxWidth?: number | string | undefined;
+
+            /**
+             * The minimum width of the bar. In cartesian the default value is 1, otherwise the default value if null.
+             *
+             * Has higer priority than barWidth.
+             *
+             * Can be an absolute value like 40 or a percent value like ''60%''. The percent is based on the calculated category width.
+             *
+             * In a single coodinate system, this attribute is shared by multiple
+             * ''bar'' series.
+             * This attribute should be set on the last ''bar'' series in the
+             * coodinate system, then it will be adopted by all 'bar' series
+             * in the coordinate system.
+             *
+             *              *
+             * @see https://echarts.apache.org/en/option.html#series-bar.barMinWidth
+             */
+            barMinWidth?: number | string | undefined;
 
             /**
              * The minimum width of bar.
@@ -1944,9 +1961,9 @@ declare namespace echarts {
              * would be affected when the value of some data item is too small.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.barMinHeight
+             * @see https://echarts.apache.org/en/option.html#series-bar.barMinHeight
              */
-            barMinHeight?: number;
+            barMinHeight?: number | undefined;
 
             /**
              * The gap between bars between different series, is a percent value
@@ -1963,14 +1980,14 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              *
              * @default
              * 30%
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.barGap
+             * @see https://echarts.apache.org/en/option.html#series-bar.barGap
              */
-            barGap?: string;
+            barGap?: string | undefined;
 
             /**
              * The bar gap of a single series, defaults to be `20%` of the category
@@ -1985,9 +2002,9 @@ declare namespace echarts {
              *
              * @default
              * '20%'
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.barCategoryGap
+             * @see https://echarts.apache.org/en/option.html#series-bar.barCategoryGap
              */
-            barCategoryGap?: string;
+            barCategoryGap?: string | undefined;
 
             /**
              * Whether to enable the optimization of large-scale data.
@@ -2000,9 +2017,9 @@ declare namespace echarts {
              * can't be customized any more.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.large
+             * @see https://echarts.apache.org/en/option.html#series-bar.large
              */
-            large?: boolean;
+            large?: boolean | undefined;
 
             /**
              * The threshold enabling the drawing optimization.
@@ -2010,9 +2027,9 @@ declare namespace echarts {
              *
              * @default
              * 400
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.largeThreshold
+             * @see https://echarts.apache.org/en/option.html#series-bar.largeThreshold
              */
-            largeThreshold?: number;
+            largeThreshold?: number | undefined;
 
             /**
              * `progressive` specifies the amount of graphic elements that can
@@ -2028,9 +2045,9 @@ declare namespace echarts {
              *
              * @default
              * 5000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.progressive
+             * @see https://echarts.apache.org/en/option.html#series-bar.progressive
              */
-            progressive?: number;
+            progressive?: number | undefined;
 
             /**
              * If current data amount is over the threshold, "progressive rendering"
@@ -2039,9 +2056,9 @@ declare namespace echarts {
              *
              * @default
              * 3000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.progressiveThreshold
+             * @see https://echarts.apache.org/en/option.html#series-bar.progressiveThreshold
              */
-            progressiveThreshold?: number;
+            progressiveThreshold?: number | undefined;
 
             /**
              * Chunk approach, optional values:
@@ -2054,19 +2071,19 @@ declare namespace echarts {
              *
              * @default
              * "mod"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.progressiveChunkMode
+             * @see https://echarts.apache.org/en/option.html#series-bar.progressiveChunkMode
              */
-            progressiveChunkMode?: string;
+            progressiveChunkMode?: string | undefined;
 
             /**
              * `dimensions` can be used to define dimension info for `series.data`
              * or `dataset.source`.
              *
              * Notice: if
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * is used, we can provide dimension names in the first column/row
              * of
-             * [dataset.source](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset.source)
+             * [dataset.source](https://echarts.apache.org/en/option.html#dataset.source)
              * , and not need to specify `dimensions` here.
              * But if `dimensions` is specified here, echarts will not retrieve
              * dimension names from the first row/column of `dataset.source`
@@ -2074,8 +2091,8 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              * Each data item of `dimensions` can be:
              *
@@ -2093,7 +2110,7 @@ declare namespace echarts {
              *
              * + `ordinal`, discrete value, which represents string generally.
              * + `time`, time value, see
-             * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.data)
+             * [data](https://echarts.apache.org/en/option.html#series.data)
              * to check the format of time value.
              * + displayName: `string`, generally used in tooltip for dimension
              * display. If not specified, use `name` by default.
@@ -2103,51 +2120,51 @@ declare namespace echarts {
              * Otherwise, `tooltip` will displayed only value horizontally.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.dimensions
+             * @see https://echarts.apache.org/en/option.html#series-bar.dimensions
              */
-            dimensions?: any[];
+            dimensions?: any[] | undefined;
 
             /**
              * Define what is encoded to for each dimension of `data`.
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              * Attributes of encode are different according to the type of coordinate
              * systtems. For
-             * [cartesian2d](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+             * [cartesian2d](https://echarts.apache.org/en/option.html#grid)
              * , `x` and `y` can be defined. For
-             * [polar](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+             * [polar](https://echarts.apache.org/en/option.html#polar)
              * , `radius` and `angle` can be defined. For
-             * [geo](https://ecomfe.github.io/echarts-doc/public/en/option.html#geo)
+             * [geo](https://echarts.apache.org/en/option.html#geo)
              * , `lng` and `lat` can be defined.
              * Attribute `tooltip` and `itemName` (data item name in tooltip)
              * are always able to be defined.
              *
              * When
-             * [dimensions](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.dimensions)
+             * [dimensions](https://echarts.apache.org/en/option.html#series.dimensions)
              * is used to defined name for a certain dimension, `encode` can
              * refer the name directly. For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              * Specially, in \[custom series(~series-custom), some property
              * in `encode`, corresponding to axis, can be set as null to make
              * the series not controlled by the axis, that is, the series data
              * will not be count in the extent of the axis, and the
-             * [dataZoom](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataZoom)
+             * [dataZoom](https://echarts.apache.org/en/option.html#dataZoom)
              * on the axis will not filter the series.
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.encode
+             * @see https://echarts.apache.org/en/option.html#series-bar.encode
              */
-            encode?: object;
+            encode?: object | undefined;
 
             /**
              * When
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * is used, `seriesLayoutBy` specifies whether the column or the
              * row of `dataset` is mapped to the series, namely, the series
              * is "layout" on columns or rows. Optional values:
@@ -2158,85 +2175,85 @@ declare namespace echarts {
              * In this case, each row represents a dimension.
              *
              * Check this
-             * [example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=dataset-series-layout-by)
+             * [example](https://echarts.apache.org/examples/en/editor.html?c=dataset-series-layout-by)
              * .
              *
              *
              * @default
              * "column"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.seriesLayoutBy
+             * @see https://echarts.apache.org/en/option.html#series-bar.seriesLayoutBy
              */
-            seriesLayoutBy?: string;
+            seriesLayoutBy?: string | undefined;
 
             /**
              * If
-             * [series.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.data)
+             * [series.data](https://echarts.apache.org/en/option.html#series.data)
              * is not specified, and
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * exists, the series will use `dataset`.
              * `datasetIndex` specifies which dataset will be used.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.datasetIndex
+             * @see https://echarts.apache.org/en/option.html#series-bar.datasetIndex
              */
-            datasetIndex?: number;
+            datasetIndex?: number | undefined;
 
             /**
              * Data array of series, which can be in the following forms:
              *
              * Notice, if no `data` specified in series, and there is
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * in option, series will use the first
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * as its datasource. If `data` has been specified,
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * will not used.
              *
              * `series.datasetIndex` can be used to specify other
-             * [dataset](https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset)
+             * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * .
              *
              * Basically, data is represented by a two-dimension array, like
              * the example below, where each colum is named as a "dimension".
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              * + In
-             * [cartesian (grid)](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+             * [cartesian (grid)](https://echarts.apache.org/en/option.html#grid)
              * , "dimX" and "dimY" correspond to
-             * [xAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis)
+             * [xAxis](https://echarts.apache.org/en/option.html#xAxis)
              * and
-             * [yAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis)
+             * [yAxis](https://echarts.apache.org/en/option.html#yAxis)
              * repectively.
              * + In
-             * [polar](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+             * [polar](https://echarts.apache.org/en/option.html#polar)
              * "dimX" and "dimY" correspond to
-             * [radiusAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#radiusAxis)
+             * [radiusAxis](https://echarts.apache.org/en/option.html#radiusAxis)
              * 和
-             * [angleAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#anbleAxis)
+             * [angleAxis](https://echarts.apache.org/en/option.html#anbleAxis)
              * repectively.
              * + Other dimensions are optional, which can be used in other place.
              * For example:
-             * + [visualMap](https://ecomfe.github.io/echarts-doc/public/en/option.html#visualMap)
+             * + [visualMap](https://echarts.apache.org/en/option.html#visualMap)
              * can map one or more dimensions to viusal (color, symbol size
              * ...).
-             * + [series.symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.symbolSize)
+             * + [series.symbolSize](https://echarts.apache.org/en/option.html#series.symbolSize)
              * can be set as a callback function, where symbol size can be calculated
              * by values of a certain dimension.
              * + Values in other dimensions can be shown by
-             * [tooltip.formatter](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.formatter)
+             * [tooltip.formatter](https://echarts.apache.org/en/option.html#tooltip.formatter)
              * or
-             * [series.label.formatter](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.label.formatter)
+             * [series.label.formatter](https://echarts.apache.org/en/option.html#series.label.formatter)
              * .
              *
              * Especially, when there is one and only one category axis (axis.type
              * is `'category'`), data can be simply be represented by a one-dimension
              * array, like:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              * **Relationship between "value" and
-             * [axis.type](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.type)
+             * [axis.type](https://echarts.apache.org/en/option.html#xAxis.type)
              * **
              *
              * + When a dimension corresponds to a value axis (axis.type
@@ -2252,10 +2269,10 @@ declare namespace echarts {
              * (based on `0`), the string value of the axis.data.
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              * There is an example of double category axes:
-             * [Github Punchcard](https://ecomfe.github.io/echarts-examples/public/editor.html?c=scatter-punchCard)
+             * [Github Punchcard](https://echarts.apache.org/examples/en/editor.html?c=scatter-punchCard)
              * .
              *
              * + When a dimension corresponds to a time axis (type is `'time'`),
@@ -2299,7 +2316,7 @@ declare namespace echarts {
              * When needing to customize a data item, it can be set as an object,
              * where property `value` reprensent real value. For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              * **Empty value:**
              *
@@ -2311,21 +2328,19 @@ declare namespace echarts {
              * and scatter chart do not display graphic elements for empty values.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data
+             * @see https://echarts.apache.org/en/option.html#series-bar.data
              */
-            data?: (
-                (void | string | number | SeriesBar.DataObject)[]
-                | (void | string | number | SeriesBar.DataObject)[][]
-            );
+            data?:
+                | (void | string | number | SeriesBar.DataObject)[]
+                | (void | string | number | SeriesBar.DataObject)[][] | undefined;
 
             /**
              * Mark point in a chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint
+             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -2345,7 +2360,7 @@ declare namespace echarts {
                  *
                  * A `dataURI` example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint)
                  *
                  * Icons can be set to arbitrary vector path via `'path://'`
                  * in ECharts.
@@ -2360,14 +2375,14 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint)
                  *
                  *
                  * @default
                  * "pin"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.symbol
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.symbol
                  */
-                symbol?: string;
+                symbol?: string | undefined;
 
                 /**
                  * symbol size.
@@ -2385,16 +2400,16 @@ declare namespace echarts {
                  * ```
                  *
                  * The first parameter `value` is the value in
-                 * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.data)
+                 * [data](https://echarts.apache.org/en/option.html#series-.data)
                  * , and the second parameter `params` is the rest parameters
                  * of data item.
                  *
                  *
                  * @default
                  * 50
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.symbolSize
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.symbolSize
                  */
-                symbolSize?: any[] | Function | number;
+                symbolSize?: any[] | Function | number | undefined;
 
                 /**
                  * Rotate degree of symbol.
@@ -2403,17 +2418,17 @@ declare namespace echarts {
                  * tangent angle.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.symbolRotate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.symbolRotate
                  */
-                symbolRotate?: number;
+                symbolRotate?: number | undefined;
 
                 /**
                  * Whether to keep aspect for symbols in the form of `path://`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.symbolKeepAspect
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.symbolKeepAspect
                  */
-                symbolKeepAspect?: boolean;
+                symbolKeepAspect?: boolean | undefined;
 
                 /**
                  * Offset of symbol relative to original position.
@@ -2434,9 +2449,9 @@ declare namespace echarts {
                  *
                  * @default
                  * [0, 0]
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.symbolOffset
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.symbolOffset
                  */
-                symbolOffset?: any[];
+                symbolOffset?: any[] | undefined;
 
                 /**
                  * Whether to ignore mouse events.
@@ -2444,25 +2459,24 @@ declare namespace echarts {
                  * mouse events.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.silent
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.silent
                  */
-                silent?: boolean;
+                silent?: boolean | undefined;
 
                 /**
                  * Label of mark point.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -2475,7 +2489,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label)
                      *
                      * + 'top'
                      *
@@ -2493,43 +2507,43 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -2537,9 +2551,9 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -2578,12 +2592,12 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
                      * text color.
@@ -2594,9 +2608,9 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -2610,9 +2624,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -2628,9 +2642,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -2640,9 +2654,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -2650,9 +2664,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -2666,12 +2680,12 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -2685,12 +2699,12 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -2698,12 +2712,12 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -2712,7 +2726,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -2723,9 +2737,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -2736,25 +2750,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -2768,9 +2782,9 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -2778,33 +2792,33 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -2827,9 +2841,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -2843,9 +2857,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -2856,17 +2870,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -2874,54 +2888,52 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2931,9 +2943,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -2947,9 +2959,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -2965,9 +2977,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -2977,9 +2989,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -2987,9 +2999,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -3003,12 +3015,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -3022,12 +3034,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -3035,12 +3047,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -3050,7 +3062,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -3061,9 +3073,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -3074,25 +3086,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -3108,9 +3120,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -3118,33 +3130,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -3169,9 +3181,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -3186,9 +3198,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -3199,17 +3211,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -3217,48 +3229,47 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -3271,7 +3282,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis)
                          *
                          * + 'top'
                          *
@@ -3289,41 +3300,41 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.position
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.distance
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -3331,9 +3342,9 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.offset
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * Data label formatter, which supports string template
@@ -3374,12 +3385,12 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.formatter
                          */
-                        formatter?: Function | string;
+                        formatter?: Function | string | undefined;
 
                         /**
                          * text color.
@@ -3390,9 +3401,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -3406,9 +3417,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -3424,9 +3435,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -3436,9 +3447,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -3446,9 +3457,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -3462,12 +3473,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.align
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -3481,12 +3492,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -3494,12 +3505,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -3508,7 +3519,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -3519,9 +3530,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -3532,25 +3543,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -3565,9 +3576,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.padding
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -3575,33 +3586,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -3626,9 +3637,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.width
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -3643,9 +3654,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.height
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -3656,17 +3667,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -3674,54 +3685,52 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3731,9 +3740,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -3747,9 +3756,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -3765,9 +3774,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -3777,9 +3786,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -3787,9 +3796,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -3805,12 +3814,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -3826,12 +3835,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -3840,12 +3849,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -3855,7 +3864,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -3867,9 +3876,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -3880,25 +3889,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -3915,9 +3924,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -3925,33 +3934,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -3980,9 +3989,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -3998,9 +4007,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -4011,17 +4020,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -4029,46 +4038,45 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
-                    };
-                };
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Mark point style.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -4080,12 +4088,12 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -4093,17 +4101,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color | undefined;
 
                     /**
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -4112,9 +4120,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.borderType
                      */
-                    borderType?: string;
+                    borderType?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -4123,36 +4131,36 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -4160,15 +4168,14 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.opacity
                      */
-                    opacity?: number;
+                    opacity?: number | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -4181,12 +4188,12 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.itemStyle.emphasis)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4195,17 +4202,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color | undefined;
 
                         /**
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
@@ -4214,9 +4221,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.emphasis.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis.borderType
                          */
-                        borderType?: string;
+                        borderType?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -4225,36 +4232,36 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.itemStyle.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -4262,34 +4269,34 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.itemStyle.emphasis.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.itemStyle.emphasis.opacity
                          */
-                        opacity?: number;
-                    };
-                };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Data array for mark points, each of which is an object.
                  * Here are some ways to assign mark point position.
                  *
                  * 1. Assign coordinate according to container with
-                 * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.x)
+                 * [x](https://echarts.apache.org/en/option.html#series-bar.markPoint.data.x)
                  * ,
-                 * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.y)
+                 * [y](https://echarts.apache.org/en/option.html#series-bar.markPoint.data.y)
                  * attribute, in which pixel values and percentage are supported.
                  *
                  * 2. Assign coordinate position with
-                 * [coord](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.coord)
+                 * [coord](https://echarts.apache.org/en/option.html#series-bar.markPoint.data.coord)
                  * attribute, in which `'min'`, `'max'`, `'average'` are supported
                  * for each dimension.
                  *
                  * 3. Use
-                 * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.type)
+                 * [type](https://echarts.apache.org/en/option.html#series-bar.markPoint.data.type)
                  * attribute to mark the maximum and minimum values in the series,
                  * in which
-                 * [valueIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.valueIndex)
+                 * [valueIndex](https://echarts.apache.org/en/option.html#series-bar.markPoint.data.valueIndex)
                  * or
-                 * [valueDim](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.valueDim)
+                 * [valueDim](https://echarts.apache.org/en/option.html#series-bar.markPoint.data.valueDim)
                  * can be used to assign the dimension.
                  *
                  * When multiple attributes exist, priority is as the above
@@ -4297,22 +4304,21 @@ declare namespace echarts {
                  *
                  * **For example:**
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
                      *
                      * @default
                      * ''
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.name
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.name
                      */
-                    name?: string;
+                    name?: string | undefined;
 
                     /**
                      * Special label types, are used to label maximum value,
@@ -4325,26 +4331,26 @@ declare namespace echarts {
                      * + `'average'` average value.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.type
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.type
                      */
-                    type?: string;
+                    type?: string | undefined;
 
                     /**
                      * Available when using
-                     * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.type)
+                     * [type](https://echarts.apache.org/en/option.html#series-bar.markPoint.data.type)
                      * it is used to assign maximum value and minimum value
                      * in dimensions, it could be `0` (xAxis, radiusAxis), `1`
                      * (yAxis, angleAxis), and use the first value axis dimension
                      * by default.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.valueIndex
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.valueIndex
                      */
-                    valueIndex?: number;
+                    valueIndex?: number | undefined;
 
                     /**
                      * Works only when
-                     * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.type)
+                     * [type](https://echarts.apache.org/en/option.html#series-bar.markPoint.data.type)
                      * is assigned.
                      * It is used to state the dimension used to calculate maximum
                      * value or minimum value.
@@ -4353,29 +4359,29 @@ declare namespace echarts {
                      * charts.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.valueDim
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.valueDim
                      */
-                    valueDim?: string;
+                    valueDim?: string | undefined;
 
                     /**
                      * Coordinates of the starting point or ending point, whose
                      * format depends on the coordinate of the series.
                      * It can be `x`, and `y` for
-                     * [rectangular coordinates](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+                     * [rectangular coordinates](https://echarts.apache.org/en/option.html#grid)
                      * , or `radius`, and `angle` for
-                     * [polar coordinates](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+                     * [polar coordinates](https://echarts.apache.org/en/option.html#polar)
                      * .
                      *
                      * **Notice:** For axis with
-                     * [axis.type](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAixs.type)
+                     * [axis.type](https://echarts.apache.org/en/option.html#xAixs.type)
                      * `'category'`:
                      *
                      * + If coord value is `number`, it represents index of
-                     * [axis.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.data)
+                     * [axis.data](https://echarts.apache.org/en/option.html#xAxis.data)
                      * .
                      * + If coord value is `string`, it represents concrete
                      * value in
-                     * [axis.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.data)
+                     * [axis.data](https://echarts.apache.org/en/option.html#xAxis.data)
                      *
                      *
                      * Please notice that in this case `xAxis.data`
@@ -4393,36 +4399,36 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.coord
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.coord
                      */
-                    coord?: any[];
+                    coord?: any[] | undefined;
 
                     /**
                      * X position according to container, in pixel.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.x
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.x
                      */
-                    x?: number;
+                    x?: number | undefined;
 
                     /**
                      * Y position according to container, in pixel.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.y
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.y
                      */
-                    y?: number;
+                    y?: number | undefined;
 
                     /**
                      * Label value, which can be ignored.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.value
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.value
                      */
-                    value?: number;
+                    value?: number | undefined;
 
                     /**
                      * Symbol of .
@@ -4443,7 +4449,7 @@ declare namespace echarts {
                      *
                      * A `dataURI` example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data)
                      *
                      * Icons can be set to arbitrary vector path via `'path://'`
                      * in ECharts.
@@ -4458,12 +4464,12 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.symbol
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.symbol
                      */
-                    symbol?: string;
+                    symbol?: string | undefined;
 
                     /**
                      * symbol size.
@@ -4473,9 +4479,9 @@ declare namespace echarts {
                      * height is`10`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.symbolSize
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.symbolSize
                      */
-                    symbolSize?: any[] | number;
+                    symbolSize?: any[] | number | undefined;
 
                     /**
                      * Rotate degree of symbol.
@@ -4484,17 +4490,17 @@ declare namespace echarts {
                      * use tangent angle.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.symbolRotate
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.symbolRotate
                      */
-                    symbolRotate?: number;
+                    symbolRotate?: number | undefined;
 
                     /**
                      * Whether to keep aspect for symbols in the form of `path://`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.symbolKeepAspect
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.symbolKeepAspect
                      */
-                    symbolKeepAspect?: boolean;
+                    symbolKeepAspect?: boolean | undefined;
 
                     /**
                      * Offset of symbol relative to original position.
@@ -4515,18 +4521,17 @@ declare namespace echarts {
                      *
                      * @default
                      * [0, 0]
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.symbolOffset
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.symbolOffset
                      */
-                    symbolOffset?: any[];
+                    symbolOffset?: any[] | undefined;
 
                     /**
                      * Mark point style.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4539,12 +4544,12 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.itemStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4553,17 +4558,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color | undefined;
 
                         /**
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
@@ -4572,9 +4577,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.borderType
                          */
-                        borderType?: string;
+                        borderType?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -4583,36 +4588,36 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.itemStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -4620,15 +4625,14 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.opacity
                          */
-                        opacity?: number;
+                        opacity?: number | undefined;
 
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.emphasis
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -4641,12 +4645,12 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.itemStyle.emphasis)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.itemStyle.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * border color, whose format is similar to that
@@ -4655,18 +4659,18 @@ declare namespace echarts {
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color | undefined;
 
                             /**
                              * border width.
                              * No border when it is set to be 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border type, which can be `'solid'`, `'dashed'`,
@@ -4675,9 +4679,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.borderType
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.borderType
                              */
-                            borderType?: string;
+                            borderType?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -4686,38 +4690,38 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.itemStyle.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.itemStyle.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -4725,24 +4729,23 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.itemStyle.emphasis.opacity
                              */
-                            opacity?: number;
-                        };
-                    };
+                            opacity?: number | undefined;
+                        } | undefined;
+                    } | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.show
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -4755,7 +4758,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label)
                          *
                          * + 'top'
                          *
@@ -4773,41 +4776,41 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.position
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.distance
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -4815,9 +4818,9 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.offset
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * text color.
@@ -4828,9 +4831,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.color
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -4844,9 +4847,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -4862,9 +4865,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -4874,9 +4877,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -4884,9 +4887,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -4900,12 +4903,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.align
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -4919,12 +4922,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -4932,12 +4935,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -4946,7 +4949,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -4957,9 +4960,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -4970,25 +4973,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -5003,9 +5006,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.padding
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -5013,33 +5016,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -5064,9 +5067,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.width
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -5081,9 +5084,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.height
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -5094,17 +5097,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -5112,54 +5115,52 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -5169,9 +5170,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -5185,9 +5186,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -5203,9 +5204,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -5215,9 +5216,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -5225,9 +5226,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -5243,12 +5244,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -5264,12 +5265,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -5278,12 +5279,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -5293,7 +5294,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -5305,9 +5306,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -5318,25 +5319,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -5353,9 +5354,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -5363,33 +5364,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -5418,9 +5419,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -5436,9 +5437,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -5449,17 +5450,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -5467,48 +5468,47 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
+                        } | undefined;
 
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.show
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.show
                              */
-                            show?: boolean;
+                            show?: boolean | undefined;
 
                             /**
                              * Label position.
@@ -5521,7 +5521,7 @@ declare namespace echarts {
                              * to represent position of label relative to top-left
                              * corner of bounding box. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
                              *
                              * + 'top'
                              *
@@ -5539,41 +5539,41 @@ declare namespace echarts {
                              * + 'insideBottomRight'
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.position
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.position
                              */
-                            position?: any[] | string;
+                            position?: any[] | string | undefined;
 
                             /**
                              * Distance to the host graphic element.
                              * Works when position is string value (like `'top'`、`'insideRight'`).
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
                              *
                              *
                              * @default
                              * 5
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.distance
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.distance
                              */
-                            distance?: number;
+                            distance?: number | undefined;
 
                             /**
                              * Rotate label, from -90 degree to 90, positive
                              * value represents rotate anti-clockwise.
                              *
                              * See:
-                             * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rotate
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rotate
                              */
-                            rotate?: number;
+                            rotate?: number | undefined;
 
                             /**
                              * Whether to move text slightly.
@@ -5581,9 +5581,9 @@ declare namespace echarts {
                              * and move `40` vertically.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.offset
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.offset
                              */
-                            offset?: any[];
+                            offset?: any[] | undefined;
 
                             /**
                              * text color.
@@ -5594,9 +5594,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -5610,9 +5610,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -5628,9 +5628,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -5640,9 +5640,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -5650,9 +5650,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -5666,12 +5666,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.align
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -5685,12 +5685,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -5698,12 +5698,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -5713,7 +5713,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -5724,9 +5724,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -5737,25 +5737,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -5771,9 +5771,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.padding
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -5781,33 +5781,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -5832,9 +5832,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.width
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -5849,9 +5849,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.height
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -5862,17 +5862,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -5880,54 +5880,52 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
 
                             /**
                              * "Rich text styles" can be defined in this `rich`
                              * property. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.emphasis)
                              *
                              * For more details, see
-                             * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -5937,9 +5935,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * ""#fff""
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
-                                    color?: string;
+                                    color?: string | undefined;
 
                                     /**
                                      * font style
@@ -5953,9 +5951,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
-                                    fontStyle?: string;
+                                    fontStyle?: string | undefined;
 
                                     /**
                                      * font thick weight
@@ -5971,9 +5969,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number | undefined;
 
                                     /**
                                      * font family
@@ -5984,9 +5982,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "sans-serif"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
-                                    fontFamily?: string;
+                                    fontFamily?: string | undefined;
 
                                     /**
                                      * font size
@@ -5994,9 +5992,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * 12
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
-                                    fontSize?: number;
+                                    fontSize?: number | undefined;
 
                                     /**
                                      * Horizontal alignment of text, automatic
@@ -6012,12 +6010,12 @@ declare namespace echarts {
                                      * in parent level will be used.
                                      * For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
-                                    align?: string;
+                                    align?: string | undefined;
 
                                     /**
                                      * Vertical alignment of text, automatic
@@ -6033,12 +6031,12 @@ declare namespace echarts {
                                      * `verticalAlign` in parent level will
                                      * be used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
-                                    verticalAlign?: string;
+                                    verticalAlign?: string | undefined;
 
                                     /**
                                      * Line height of the text fregment.
@@ -6047,12 +6045,12 @@ declare namespace echarts {
                                      * `lineHeight` in parent level will be
                                      * used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
-                                    lineHeight?: number;
+                                    lineHeight?: number | undefined;
 
                                     /**
                                      * Background color of the text fregment.
@@ -6062,7 +6060,7 @@ declare namespace echarts {
                                      *
                                      * Or image can be used, for example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      * `width` or `height` can be specified
                                      * when using background image, or auto
@@ -6074,9 +6072,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
-                                    backgroundColor?: object | string;
+                                    backgroundColor?: object | string | undefined;
 
                                     /**
                                      * Border color of the text fregment.
@@ -6087,25 +6085,25 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
-                                    borderColor?: string;
+                                    borderColor?: string | undefined;
 
                                     /**
                                      * Border width of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
-                                    borderWidth?: number;
+                                    borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
-                                    borderRadius?: number;
+                                    borderRadius?: number | undefined;
 
                                     /**
                                      * Padding of the text fregment, for example:
@@ -6122,9 +6120,9 @@ declare namespace echarts {
                                      * without `padding`.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
-                                    padding?: any[] | number;
+                                    padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
@@ -6132,33 +6130,33 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
-                                    shadowColor?: string;
+                                    shadowColor?: string | undefined;
 
                                     /**
                                      * Show blur of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
-                                    shadowBlur?: number;
+                                    shadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
-                                    shadowOffsetX?: number;
+                                    shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
-                                    shadowOffsetY?: number;
+                                    shadowOffsetY?: number | undefined;
 
                                     /**
                                      * Width of the text block.
@@ -6187,9 +6185,9 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
-                                    width?: number | string;
+                                    width?: number | string | undefined;
 
                                     /**
                                      * Height of the text block.
@@ -6205,9 +6203,9 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
-                                    height?: number | string;
+                                    height?: number | string | undefined;
 
                                     /**
                                      * Storke color of the text.
@@ -6218,17 +6216,17 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
-                                    textBorderColor?: string;
+                                    textBorderColor?: string | undefined;
 
                                     /**
                                      * Storke line width of the text.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
-                                    textBorderWidth?: number;
+                                    textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
@@ -6236,38 +6234,38 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
-                                    textShadowColor?: string;
+                                    textShadowColor?: string | undefined;
 
                                     /**
                                      * Shadow blue of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
-                                    textShadowBlur?: number;
+                                    textShadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
-                                    textShadowOffsetX?: number;
+                                    textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
-                                    textShadowOffsetY?: number;
+                                    textShadowOffsetY?: number | undefined;
                                 };
-                            };
-                        };
-                    };
-                };
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
+                }[] | undefined;
 
                 /**
                  * Whether to enable animation.
@@ -6275,9 +6273,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.animation
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.animation
                  */
-                animation?: boolean;
+                animation?: boolean | undefined;
 
                 /**
                  * Whether to set graphic number threshold to animation.
@@ -6287,35 +6285,35 @@ declare namespace echarts {
                  *
                  * @default
                  * 2000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.animationThreshold
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.animationThreshold
                  */
-                animationThreshold?: number;
+                animationThreshold?: number | undefined;
 
                 /**
                  * Duration of the first animation, which supports callback
                  * function for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint)
                  *
                  *
                  * @default
                  * 1000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.animationDuration
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.animationDuration
                  */
-                animationDuration?: Function | number;
+                animationDuration?: Function | number | undefined;
 
                 /**
                  * Easing method used for the first animation.
                  * Varied easing effects can be found at
-                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+                 * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
                  *
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.animationEasing
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.animationEasing
                  */
-                animationEasing?: string;
+                animationEasing?: string | undefined;
 
                 /**
                  * Delay before updating the first animation, which supports
@@ -6324,29 +6322,29 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.animationDelay
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.animationDelay
                  */
-                animationDelay?: Function | number;
+                animationDelay?: Function | number | undefined;
 
                 /**
                  * Time for animation to complete, which supports callback function
                  * for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint)
                  *
                  *
                  * @default
                  * 300
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.animationDurationUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.animationDurationUpdate
                  */
-                animationDurationUpdate?: Function | number;
+                animationDurationUpdate?: Function | number | undefined;
 
                 /**
                  * Easing method used for animation.
@@ -6354,9 +6352,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.animationEasingUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.animationEasingUpdate
                  */
-                animationEasingUpdate?: string;
+                animationEasingUpdate?: string | undefined;
 
                 /**
                  * Delay before updating animation, which supports callback
@@ -6364,49 +6362,48 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markPoint)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markPoint)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  * prefix
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.animationDelayUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.animationDelayUpdate
                  */
-                animationDelayUpdate?: Function | number;
-            };
+                animationDelayUpdate?: Function | number | undefined;
+            } | undefined;
 
             /**
              * Use a line in the chart to illustrate.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine
+             * @see https://echarts.apache.org/en/option.html#series-bar.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
                  * mouse events.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.silent
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.silent
                  */
-                silent?: boolean;
+                silent?: boolean | undefined;
 
                 /**
                  * Symbol type at the two ends of the mark line.
                  * It can be an array for two ends, or assigned seperately.
                  * See
-                 * [data.symbol](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.symbol)
+                 * [data.symbol](https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.symbol)
                  * for more format information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.symbol
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.symbol
                  */
-                symbol?: any[] | string;
+                symbol?: any[] | string | undefined;
 
                 /**
                  * Symbol size at the two ends of the mark line.
@@ -6416,9 +6413,9 @@ declare namespace echarts {
                  * as normal `symbolSize`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.symbolSize
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.symbolSize
                  */
-                symbolSize?: any[] | number;
+                symbolSize?: any[] | number | undefined;
 
                 /**
                  * Precison of marking line value, which is useful when displaying
@@ -6427,27 +6424,26 @@ declare namespace echarts {
                  *
                  * @default
                  * 2
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.precision
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.precision
                  */
-                precision?: number;
+                precision?: number | undefined;
 
                 /**
                  * Mark line text.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.label
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
                      *
                      * @default
                      * "true"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Positions of labels can be:
@@ -6459,9 +6455,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "end"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.label.position
                      */
-                    position?: string;
+                    position?: string | undefined;
 
                     /**
                      * Data label formatter, which supports string template
@@ -6501,27 +6497,26 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.label.formatter
                      */
-                    formatter?: Function | string;
+                    formatter?: Function | string | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.label.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
                          *
                          * @default
                          * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.label.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.label.emphasis.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Positions of labels can be:
@@ -6533,9 +6528,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "end"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.label.emphasis.position
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.label.emphasis.position
                          */
-                        position?: string;
+                        position?: string | undefined;
 
                         /**
                          * Data label formatter, which supports string template
@@ -6577,23 +6572,22 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.label.emphasis.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.label.emphasis.formatter
                          */
-                        formatter?: Function | string;
-                    };
-                };
+                        formatter?: Function | string | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Mark line style.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -6605,22 +6599,22 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.lineStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.lineStyle)
                      *
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * line width.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.width
                      */
-                    width?: number;
+                    width?: number | undefined;
 
                     /**
                      * line type.
@@ -6634,9 +6628,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.type
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.type
                      */
-                    type?: string;
+                    type?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -6645,36 +6639,36 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.lineStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.lineStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -6682,24 +6676,23 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.opacity
                      */
-                    opacity?: number;
+                    opacity?: number | undefined;
 
                     /**
                      * Edge curvature, which supports value from 0 to 1.
                      * The larger the value, the greater the curvature.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.curveness
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.curveness
                      */
-                    curveness?: number;
+                    curveness?: number | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -6712,22 +6705,22 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.lineStyle.emphasis)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.lineStyle.emphasis)
                          *
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * line width.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.emphasis.width
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.emphasis.width
                          */
-                        width?: number;
+                        width?: number | undefined;
 
                         /**
                          * line type.
@@ -6741,9 +6734,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.emphasis.type
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.emphasis.type
                          */
-                        type?: string;
+                        type?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -6752,36 +6745,36 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.lineStyle.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.lineStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -6789,11 +6782,11 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.lineStyle.emphasis.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.lineStyle.emphasis.opacity
                          */
-                        opacity?: number;
-                    };
-                };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Data array of marking line.
@@ -6804,30 +6797,30 @@ declare namespace echarts {
                  * and ending point.
                  *
                  * 1. Assign coordinate according to container with
-                 * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.x)
+                 * [x](https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.x)
                  * ,
-                 * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.y)
+                 * [y](https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.y)
                  * attribute, in which pixel values and percentage are supported.
                  *
                  * 2. Assign coordinate position with
-                 * [coord](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.coord)
+                 * [coord](https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.coord)
                  * attribute, in which `'min'`, `'max'`, `'average'` are supported
                  * for each dimension.
                  *
                  * 3. Use
-                 * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.type)
+                 * [type](https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.type)
                  * attribute to mark the maximum and minimum values in the series,
                  * in which
-                 * [valueIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.valueIndex)
+                 * [valueIndex](https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.valueIndex)
                  * or
-                 * [valueDim](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.valueDim)
+                 * [valueDim](https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.valueDim)
                  * can be used to assign the dimension.
                  *
                  * 4.
                  * You may also create a mark line in Cartesian coordinate at
                  * a specific position in X or Y axis by assigning `xAxis` or
                  * `yAxis`. See
-                 * [scatter-weight](https://ecomfe.github.io/echarts-examples/public/editor.html?c=scatter-weight)
+                 * [scatter-weight](https://echarts.apache.org/examples/en/editor.html?c=scatter-weight)
                  * for example.
                  *
                  * When multiple attributes exist, priority is as the above
@@ -6837,21 +6830,19 @@ declare namespace echarts {
                  * whether it is for the maximum value or average value.
                  * Likewise, dimensions can be assigned through `valueIndex`.
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -6863,13 +6854,13 @@ declare namespace echarts {
                          * + `'average'` average value.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.type
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.type
                          */
-                        type?: string;
+                        type?: string | undefined;
 
                         /**
                          * Works only when
-                         * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.markLine.data.type)
+                         * [type](https://echarts.apache.org/en/option.html#series-.markLine.data.type)
                          * is assigned.
                          * It is used to state the dimension used to calculate
                          * maximum value or minimum value.
@@ -6878,13 +6869,13 @@ declare namespace echarts {
                          * Dimension of the first numeric axis is used by default.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.valueIndex
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.valueIndex
                          */
-                        valueIndex?: number;
+                        valueIndex?: number | undefined;
 
                         /**
                          * Works only when
-                         * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.markLine.data.type)
+                         * [type](https://echarts.apache.org/en/option.html#series-.markLine.data.type)
                          * is assigned.
                          * It is used to state the dimension used to calculate
                          * maximum value or minimum value.
@@ -6893,30 +6884,30 @@ declare namespace echarts {
                          * for candlestick charts.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.valueDim
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.valueDim
                          */
-                        valueDim?: string;
+                        valueDim?: string | undefined;
 
                         /**
                          * Coordinates of the starting point or ending point,
                          * whose format depends on the coordinate of the series.
                          * It can be `x`, and `y` for
-                         * [rectangular coordinates](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+                         * [rectangular coordinates](https://echarts.apache.org/en/option.html#grid)
                          * , or `radius`, and `angle` for
-                         * [polar coordinates](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+                         * [polar coordinates](https://echarts.apache.org/en/option.html#polar)
                          * .
                          *
                          * **Notice:** For axis with
-                         * [axis.type](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAixs.type)
+                         * [axis.type](https://echarts.apache.org/en/option.html#xAixs.type)
                          * `'category'`:
                          *
                          * + If coord value is `number`, it represents index
                          * of
-                         * [axis.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.data)
+                         * [axis.data](https://echarts.apache.org/en/option.html#xAxis.data)
                          * .
                          * + If coord value is `string`, it represents concrete
                          * value in
-                         * [axis.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.data)
+                         * [axis.data](https://echarts.apache.org/en/option.html#xAxis.data)
                          *
                          *
                          * Please notice that in this case `xAxis.data`
@@ -6934,36 +6925,44 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.0)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.0)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.coord
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.coord
                          */
-                        coord?: any[];
+                        coord?: any[] | undefined;
+
+                        /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.name
+                         */
+                        name?: string | undefined;
 
                         /**
                          * X position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.x
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.x
                          */
-                        x?: number;
+                        x?: number | undefined;
 
                         /**
                          * Y position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.y
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.y
                          */
-                        y?: number;
+                        y?: number | undefined;
 
                         /**
                          * Label value, which can be ignored.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.value
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.value
                          */
-                        value?: number;
+                        value?: number | undefined;
 
                         /**
                          * Symbol of starting point.
@@ -6985,7 +6984,7 @@ declare namespace echarts {
                          *
                          * A `dataURI` example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.0)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.0)
                          *
                          * Icons can be set to arbitrary vector path via `'path://'`
                          * in ECharts.
@@ -7001,12 +7000,12 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.0)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.0)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.symbol
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.symbol
                          */
-                        symbol?: string;
+                        symbol?: string | undefined;
 
                         /**
                          * starting point symbol size.
@@ -7016,9 +7015,9 @@ declare namespace echarts {
                          * and height is`10`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.symbolSize
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.symbolSize
                          */
-                        symbolSize?: any[] | number;
+                        symbolSize?: any[] | number | undefined;
 
                         /**
                          * Rotate degree of starting point symbol.
@@ -7027,18 +7026,18 @@ declare namespace echarts {
                          * and compulsively use tangent angle.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.symbolRotate
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.symbolRotate
                          */
-                        symbolRotate?: number;
+                        symbolRotate?: number | undefined;
 
                         /**
                          * Whether to keep aspect for symbols in the form of
                          * `path://`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.symbolKeepAspect
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.symbolKeepAspect
                          */
-                        symbolKeepAspect?: boolean;
+                        symbolKeepAspect?: boolean | undefined;
 
                         /**
                          * Offset of starting point symbol relative to original
@@ -7060,19 +7059,18 @@ declare namespace echarts {
                          *
                          * @default
                          * [0, 0]
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.symbolOffset
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.symbolOffset
                          */
-                        symbolOffset?: any[];
+                        symbolOffset?: any[] | undefined;
 
                         /**
                          * Line style of this data item, which will be merged
                          * with `lineStyle` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7085,22 +7083,22 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.0.lineStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.0.lineStyle)
                              *
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * line width.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.width
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.width
                              */
-                            width?: number;
+                            width?: number | undefined;
 
                             /**
                              * line type.
@@ -7114,9 +7112,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.type
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.type
                              */
-                            type?: string;
+                            type?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -7125,38 +7123,38 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.0.lineStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.0.lineStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -7164,9 +7162,9 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.opacity
                              */
-                            opacity?: number;
+                            opacity?: number | undefined;
 
                             /**
                              * Edge curvature, which supports value from 0 to
@@ -7174,15 +7172,14 @@ declare namespace echarts {
                              * The larger the value, the greater the curvature.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.curveness
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.curveness
                              */
-                            curveness?: number;
+                            curveness?: number | undefined;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7195,22 +7192,22 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.0.lineStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.0.lineStyle.emphasis)
                                  *
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color | undefined;
 
                                 /**
                                  * line width.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.width
                                  */
-                                width?: number;
+                                width?: number | undefined;
 
                                 /**
                                  * line type.
@@ -7224,9 +7221,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.type
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.type
                                  */
-                                type?: string;
+                                type?: string | undefined;
 
                                 /**
                                  * Size of shadow blur.
@@ -7236,39 +7233,39 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.0.lineStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.0.lineStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow color.
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * Offset distance on the horizontal direction
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Offset distance on the vertical direction
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Opacity of the component.
@@ -7276,9 +7273,9 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.opacity
                                  */
-                                opacity?: number;
+                                opacity?: number | undefined;
 
                                 /**
                                  * Edge curvature, which supports value from
@@ -7286,30 +7283,29 @@ declare namespace echarts {
                                  * The larger the value, the greater the curvature.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.curveness
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.lineStyle.emphasis.curveness
                                  */
-                                curveness?: number;
-                            };
-                        };
+                                curveness?: number | undefined;
+                            } | undefined;
+                        } | undefined;
 
                         /**
                          * Label of this data item, which will be merged with
                          * `label` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.label
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
                              *
                              * @default
                              * "true"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.label.show
                              */
-                            show?: boolean;
+                            show?: boolean | undefined;
 
                             /**
                              * Positions of labels can be:
@@ -7321,9 +7317,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "end"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.label.position
                              */
-                            position?: string;
+                            position?: string | undefined;
 
                             /**
                              * Data label formatter, which supports string template
@@ -7365,27 +7361,26 @@ declare namespace echarts {
                              * where `params` is the single dataset needed by
                              * formatter, which is formed as:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.label.formatter
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.label.formatter
                              */
-                            formatter?: Function | string;
+                            formatter?: Function | string | undefined;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
                                  *
                                  * @default
                                  * "true"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.label.emphasis.show
                                  */
-                                show?: boolean;
+                                show?: boolean | undefined;
 
                                 /**
                                  * Positions of labels can be:
@@ -7397,9 +7392,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "end"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.label.emphasis.position
                                  */
-                                position?: string;
+                                position?: string | undefined;
 
                                 /**
                                  * Data label formatter, which supports string
@@ -7441,24 +7436,23 @@ declare namespace echarts {
                                  * where `params` is the single dataset needed
                                  * by formatter, which is formed as:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.0.label.emphasis.formatter
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.0.label.emphasis.formatter
                                  */
-                                formatter?: Function | string;
-                            };
-                        };
-                    };
+                                formatter?: Function | string | undefined;
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
 
                     /**
                      * Data of the ending point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -7470,13 +7464,13 @@ declare namespace echarts {
                          * + `'average'` average value.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.type
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.type
                          */
-                        type?: string;
+                        type?: string | undefined;
 
                         /**
                          * Works only when
-                         * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.markLine.data.type)
+                         * [type](https://echarts.apache.org/en/option.html#series-.markLine.data.type)
                          * is assigned.
                          * It is used to state the dimension used to calculate
                          * maximum value or minimum value.
@@ -7485,13 +7479,13 @@ declare namespace echarts {
                          * Dimension of the first numeric axis is used by default.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.valueIndex
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.valueIndex
                          */
-                        valueIndex?: number;
+                        valueIndex?: number | undefined;
 
                         /**
                          * Works only when
-                         * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.markLine.data.type)
+                         * [type](https://echarts.apache.org/en/option.html#series-.markLine.data.type)
                          * is assigned.
                          * It is used to state the dimension used to calculate
                          * maximum value or minimum value.
@@ -7500,30 +7494,30 @@ declare namespace echarts {
                          * for candlestick charts.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.valueDim
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.valueDim
                          */
-                        valueDim?: string;
+                        valueDim?: string | undefined;
 
                         /**
                          * Coordinates of the starting point or ending point,
                          * whose format depends on the coordinate of the series.
                          * It can be `x`, and `y` for
-                         * [rectangular coordinates](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+                         * [rectangular coordinates](https://echarts.apache.org/en/option.html#grid)
                          * , or `radius`, and `angle` for
-                         * [polar coordinates](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+                         * [polar coordinates](https://echarts.apache.org/en/option.html#polar)
                          * .
                          *
                          * **Notice:** For axis with
-                         * [axis.type](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAixs.type)
+                         * [axis.type](https://echarts.apache.org/en/option.html#xAixs.type)
                          * `'category'`:
                          *
                          * + If coord value is `number`, it represents index
                          * of
-                         * [axis.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.data)
+                         * [axis.data](https://echarts.apache.org/en/option.html#xAxis.data)
                          * .
                          * + If coord value is `string`, it represents concrete
                          * value in
-                         * [axis.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.data)
+                         * [axis.data](https://echarts.apache.org/en/option.html#xAxis.data)
                          *
                          *
                          * Please notice that in this case `xAxis.data`
@@ -7541,36 +7535,44 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.1)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.1)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.coord
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.coord
                          */
-                        coord?: any[];
+                        coord?: any[] | undefined;
+
+                        /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.name
+                         */
+                        name?: string | undefined;
 
                         /**
                          * X position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.x
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.x
                          */
-                        x?: number;
+                        x?: number | undefined;
 
                         /**
                          * Y position according to container, in pixel.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.y
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.y
                          */
-                        y?: number;
+                        y?: number | undefined;
 
                         /**
                          * Label value, which can be ignored.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.value
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.value
                          */
-                        value?: number;
+                        value?: number | undefined;
 
                         /**
                          * Symbol of ending point.
@@ -7592,7 +7594,7 @@ declare namespace echarts {
                          *
                          * A `dataURI` example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.1)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.1)
                          *
                          * Icons can be set to arbitrary vector path via `'path://'`
                          * in ECharts.
@@ -7608,12 +7610,12 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.1)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.1)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.symbol
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.symbol
                          */
-                        symbol?: string;
+                        symbol?: string | undefined;
 
                         /**
                          * ending point symbol size.
@@ -7623,9 +7625,9 @@ declare namespace echarts {
                          * and height is`10`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.symbolSize
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.symbolSize
                          */
-                        symbolSize?: any[] | number;
+                        symbolSize?: any[] | number | undefined;
 
                         /**
                          * Rotate degree of ending point symbol.
@@ -7634,18 +7636,18 @@ declare namespace echarts {
                          * and compulsively use tangent angle.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.symbolRotate
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.symbolRotate
                          */
-                        symbolRotate?: number;
+                        symbolRotate?: number | undefined;
 
                         /**
                          * Whether to keep aspect for symbols in the form of
                          * `path://`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.symbolKeepAspect
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.symbolKeepAspect
                          */
-                        symbolKeepAspect?: boolean;
+                        symbolKeepAspect?: boolean | undefined;
 
                         /**
                          * Offset of ending point symbol relative to original
@@ -7667,19 +7669,18 @@ declare namespace echarts {
                          *
                          * @default
                          * [0, 0]
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.symbolOffset
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.symbolOffset
                          */
-                        symbolOffset?: any[];
+                        symbolOffset?: any[] | undefined;
 
                         /**
                          * Line style of this data item, which will be merged
                          * with `lineStyle` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7692,22 +7693,22 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.1.lineStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.1.lineStyle)
                              *
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * line width.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.width
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.width
                              */
-                            width?: number;
+                            width?: number | undefined;
 
                             /**
                              * line type.
@@ -7721,9 +7722,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.type
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.type
                              */
-                            type?: string;
+                            type?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -7732,38 +7733,38 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.1.lineStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.1.lineStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -7771,9 +7772,9 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.opacity
                              */
-                            opacity?: number;
+                            opacity?: number | undefined;
 
                             /**
                              * Edge curvature, which supports value from 0 to
@@ -7781,15 +7782,14 @@ declare namespace echarts {
                              * The larger the value, the greater the curvature.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.curveness
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.curveness
                              */
-                            curveness?: number;
+                            curveness?: number | undefined;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7802,22 +7802,22 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.1.lineStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.1.lineStyle.emphasis)
                                  *
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color | undefined;
 
                                 /**
                                  * line width.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.width
                                  */
-                                width?: number;
+                                width?: number | undefined;
 
                                 /**
                                  * line type.
@@ -7831,9 +7831,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.type
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.type
                                  */
-                                type?: string;
+                                type?: string | undefined;
 
                                 /**
                                  * Size of shadow blur.
@@ -7843,39 +7843,39 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.1.lineStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.1.lineStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow color.
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * Offset distance on the horizontal direction
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Offset distance on the vertical direction
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Opacity of the component.
@@ -7883,9 +7883,9 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.opacity
                                  */
-                                opacity?: number;
+                                opacity?: number | undefined;
 
                                 /**
                                  * Edge curvature, which supports value from
@@ -7893,30 +7893,29 @@ declare namespace echarts {
                                  * The larger the value, the greater the curvature.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.curveness
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.lineStyle.emphasis.curveness
                                  */
-                                curveness?: number;
-                            };
-                        };
+                                curveness?: number | undefined;
+                            } | undefined;
+                        } | undefined;
 
                         /**
                          * Label of this data item, which will be merged with
                          * `label` of starting point and ending point.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.label
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
                              *
                              * @default
                              * "true"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.label.show
                              */
-                            show?: boolean;
+                            show?: boolean | undefined;
 
                             /**
                              * Positions of labels can be:
@@ -7928,9 +7927,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "end"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.label.position
                              */
-                            position?: string;
+                            position?: string | undefined;
 
                             /**
                              * Data label formatter, which supports string template
@@ -7972,27 +7971,26 @@ declare namespace echarts {
                              * where `params` is the single dataset needed by
                              * formatter, which is formed as:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.label.formatter
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.label.formatter
                              */
-                            formatter?: Function | string;
+                            formatter?: Function | string | undefined;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
                                  *
                                  * @default
                                  * "true"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.label.emphasis.show
                                  */
-                                show?: boolean;
+                                show?: boolean | undefined;
 
                                 /**
                                  * Positions of labels can be:
@@ -8004,9 +8002,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "end"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.label.emphasis.position
                                  */
-                                position?: string;
+                                position?: string | undefined;
 
                                 /**
                                  * Data label formatter, which supports string
@@ -8048,16 +8046,16 @@ declare namespace echarts {
                                  * where `params` is the single dataset needed
                                  * by formatter, which is formed as:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.data.1.label.emphasis.formatter
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.data.1.label.emphasis.formatter
                                  */
-                                formatter?: Function | string;
-                            };
-                        };
-                    };
-                };
+                                formatter?: Function | string | undefined;
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Whether to enable animation.
@@ -8065,9 +8063,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.animation
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.animation
                  */
-                animation?: boolean;
+                animation?: boolean | undefined;
 
                 /**
                  * Whether to set graphic number threshold to animation.
@@ -8077,35 +8075,35 @@ declare namespace echarts {
                  *
                  * @default
                  * 2000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.animationThreshold
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.animationThreshold
                  */
-                animationThreshold?: number;
+                animationThreshold?: number | undefined;
 
                 /**
                  * Duration of the first animation, which supports callback
                  * function for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine)
                  *
                  *
                  * @default
                  * 1000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.animationDuration
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.animationDuration
                  */
-                animationDuration?: Function | number;
+                animationDuration?: Function | number | undefined;
 
                 /**
                  * Easing method used for the first animation.
                  * Varied easing effects can be found at
-                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+                 * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
                  *
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.animationEasing
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.animationEasing
                  */
-                animationEasing?: string;
+                animationEasing?: string | undefined;
 
                 /**
                  * Delay before updating the first animation, which supports
@@ -8114,29 +8112,29 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.animationDelay
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.animationDelay
                  */
-                animationDelay?: Function | number;
+                animationDelay?: Function | number | undefined;
 
                 /**
                  * Time for animation to complete, which supports callback function
                  * for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine)
                  *
                  *
                  * @default
                  * 300
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.animationDurationUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.animationDurationUpdate
                  */
-                animationDurationUpdate?: Function | number;
+                animationDurationUpdate?: Function | number | undefined;
 
                 /**
                  * Easing method used for animation.
@@ -8144,9 +8142,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.animationEasingUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.animationEasingUpdate
                  */
-                animationEasingUpdate?: string;
+                animationEasingUpdate?: string | undefined;
 
                 /**
                  * Delay before updating animation, which supports callback
@@ -8154,52 +8152,50 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markLine)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markLine)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markLine.animationDelayUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markLine.animationDelayUpdate
                  */
-                animationDelayUpdate?: Function | number;
-            };
+                animationDelayUpdate?: Function | number | undefined;
+            } | undefined;
 
             /**
              * Used to mark an area in chart.
              * For example, mark a time interval.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea
+             * @see https://echarts.apache.org/en/option.html#series-bar.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
                  * mouse events.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.silent
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.silent
                  */
-                silent?: boolean;
+                silent?: boolean | undefined;
 
                 /**
                  * Label in mark area.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -8212,7 +8208,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label)
                      *
                      * + 'top'
                      *
@@ -8230,41 +8226,41 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -8272,9 +8268,9 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * text color.
@@ -8285,9 +8281,9 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -8301,9 +8297,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -8319,9 +8315,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -8331,9 +8327,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -8341,9 +8337,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -8357,12 +8353,12 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -8376,12 +8372,12 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -8389,12 +8385,12 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -8403,7 +8399,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -8414,9 +8410,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -8427,25 +8423,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -8459,9 +8455,9 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -8469,33 +8465,33 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -8518,9 +8514,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -8534,9 +8530,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -8547,17 +8543,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -8565,54 +8561,52 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8622,9 +8616,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -8638,9 +8632,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -8656,9 +8650,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -8668,9 +8662,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -8678,9 +8672,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -8694,12 +8688,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -8713,12 +8707,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -8726,12 +8720,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -8741,7 +8735,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -8752,9 +8746,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -8765,25 +8759,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -8799,9 +8793,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -8809,33 +8803,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -8860,9 +8854,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -8877,9 +8871,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -8890,17 +8884,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -8908,48 +8902,47 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -8962,7 +8955,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.emphasis)
                          *
                          * + 'top'
                          *
@@ -8980,41 +8973,41 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.position
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.distance
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -9022,9 +9015,9 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.offset
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * text color.
@@ -9035,9 +9028,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -9051,9 +9044,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -9069,9 +9062,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -9081,9 +9074,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -9091,9 +9084,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -9107,12 +9100,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.align
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -9126,12 +9119,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -9139,12 +9132,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -9153,7 +9146,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.emphasis)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -9164,9 +9157,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -9177,25 +9170,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -9210,9 +9203,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.padding
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -9220,33 +9213,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -9271,9 +9264,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.width
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -9288,9 +9281,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.height
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -9301,17 +9294,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -9319,54 +9312,52 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.emphasis)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -9376,9 +9367,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -9392,9 +9383,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -9410,9 +9401,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -9422,9 +9413,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -9432,9 +9423,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -9450,12 +9441,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -9471,12 +9462,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -9485,12 +9476,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -9500,7 +9491,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -9512,9 +9503,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -9525,25 +9516,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -9560,9 +9551,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -9570,33 +9561,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -9625,9 +9616,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -9643,9 +9634,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -9656,17 +9647,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -9674,46 +9665,45 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
-                    };
-                };
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Style of the mark area.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -9725,12 +9715,12 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -9738,17 +9728,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color | undefined;
 
                     /**
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
@@ -9757,9 +9747,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.borderType
                      */
-                    borderType?: string;
+                    borderType?: string | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -9768,36 +9758,36 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -9805,15 +9795,14 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.opacity
                      */
-                    opacity?: number;
+                    opacity?: number | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -9826,12 +9815,12 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.itemStyle.emphasis)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color | undefined;
 
                         /**
                          * border color, whose format is similar to that of
@@ -9840,17 +9829,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color | undefined;
 
                         /**
                          * border width. No border when it is set to be 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
@@ -9859,9 +9848,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.emphasis.borderType
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis.borderType
                          */
-                        borderType?: string;
+                        borderType?: string | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -9870,36 +9859,36 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.itemStyle.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -9907,11 +9896,11 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.itemStyle.emphasis.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.itemStyle.emphasis.opacity
                          */
-                        opacity?: number;
-                    };
-                };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * The scope of the area is defined by `data`, which is an array
@@ -9921,9 +9910,9 @@ declare namespace echarts {
                  *
                  * 1.
                  * Specify the coordinate in screen coordinate system using
-                 * [x](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.x)
+                 * [x](https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.x)
                  * ,
-                 * [y](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.y)
+                 * [y](https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.y)
                  * , where the unit is pixel (e.g.,
                  * the value is `5`), or percent (e.g.,
                  * the value is `'35%'`).
@@ -9931,7 +9920,7 @@ declare namespace echarts {
                  * 2.
                  * Specify the coordinate in data coordinate system (i.e.,
                  * cartesian) using
-                 * [coord](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.coord)
+                 * [coord](https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.coord)
                  * , which can be also set as `'min'`, `'max'`, `'average'`
                  * (e.g,
                  * `coord: [23, 'min']`, or `coord: ['average', 'max']`)。
@@ -9939,36 +9928,34 @@ declare namespace echarts {
                  * 1.
                  * Locate the point on the min value or max value of `series.data`
                  * using
-                 * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.type)
+                 * [type](https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.type)
                  * , where
-                 * [valueIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.valueIndex)
+                 * [valueIndex](https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.valueIndex)
                  * or
-                 * [valueDim](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markPoint.data.0.valueDim)
+                 * [valueDim](https://echarts.apache.org/en/option.html#series-bar.markPoint.data.0.valueDim)
                  * can be used to specify the dimension on which the min, max
                  * or average are calculated.
                  * 2.
                  * If in cartesian, you can only specify `xAxis` or `yAxis`
                  * to define a mark area based on only X or Y axis, see sample
-                 * [scatter-weight](https://ecomfe.github.io/echarts-examples/public/editor.html?c=scatter-weight)
+                 * [scatter-weight](https://echarts.apache.org/examples/en/editor.html?c=scatter-weight)
                  *
                  * The priority follows as above if more than one above definition
                  * used.
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -9979,76 +9966,84 @@ declare namespace echarts {
                          * + `'average'` average value。
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.type
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.type
                          */
-                        type?: string;
+                        type?: string | undefined;
 
                         /**
                          * Specify the dimension on which min, max, average
                          * are calculated, available when
-                         * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.markArea.data.type)
+                         * [type](https://echarts.apache.org/en/option.html#series-.markArea.data.type)
                          * used.
                          * The value can be `0` (means xAxis, radiusAxis) or
                          * `1` (means yAxis, angleAxis), using the dimension
                          * of the first axis by default.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.valueIndex
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.valueIndex
                          */
-                        valueIndex?: number;
+                        valueIndex?: number | undefined;
 
                         /**
                          * Specify the dimension on which min, max, average
                          * are calculated, available when
-                         * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.markArea.data.type)
+                         * [type](https://echarts.apache.org/en/option.html#series-.markArea.data.type)
                          * used.
                          * The value can be the name of the dimension (for example,
                          * the value can be `x`, `angle` in line chart, and
                          * `open`, `close` in candlestick).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.valueDim
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.valueDim
                          */
-                        valueDim?: string;
+                        valueDim?: string | undefined;
 
                         /**
                          * The format is \[start coordinate, end coordinate\],
                          * where the coordinate system can be `x`, `y` on
-                         * [cartesian](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+                         * [cartesian](https://echarts.apache.org/en/option.html#grid)
                          * , or `radius`, `angle` on
-                         * [polar](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+                         * [polar](https://echarts.apache.org/en/option.html#polar)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.coord
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.coord
                          */
-                        coord?: any[];
+                        coord?: any[] | undefined;
+
+                        /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.name
+                         */
+                        name?: string | undefined;
 
                         /**
                          * x value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.x
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.x
                          */
-                        x?: number;
+                        x?: number | undefined;
 
                         /**
                          * y value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.y
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.y
                          */
-                        y?: number;
+                        y?: number | undefined;
 
                         /**
                          * value of the item, not necessary.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.value
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.value
                          */
-                        value?: number;
+                        value?: number | undefined;
 
                         /**
                          * Style of the item.
@@ -10056,10 +10051,9 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -10072,12 +10066,12 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.itemStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * border color, whose format is similar to that
@@ -10086,18 +10080,18 @@ declare namespace echarts {
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color | undefined;
 
                             /**
                              * border width.
                              * No border when it is set to be 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border type, which can be `'solid'`, `'dashed'`,
@@ -10106,9 +10100,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.borderType
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.borderType
                              */
-                            borderType?: string;
+                            borderType?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -10117,38 +10111,38 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.itemStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -10156,15 +10150,14 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.opacity
                              */
-                            opacity?: number;
+                            opacity?: number | undefined;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -10177,12 +10170,12 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.itemStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color | undefined;
 
                                 /**
                                  * border color, whose format is similar to
@@ -10191,18 +10184,18 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * border width.
                                  * No border when it is set to be 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border type, which can be `'solid'`, `'dashed'`,
@@ -10211,9 +10204,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.borderType
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.borderType
                                  */
-                                borderType?: string;
+                                borderType?: string | undefined;
 
                                 /**
                                  * Size of shadow blur.
@@ -10223,39 +10216,39 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.itemStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow color.
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * Offset distance on the horizontal direction
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Offset distance on the vertical direction
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Opacity of the component.
@@ -10263,11 +10256,11 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.itemStyle.emphasis.opacity
                                  */
-                                opacity?: number;
-                            };
-                        };
+                                opacity?: number | undefined;
+                            } | undefined;
+                        } | undefined;
 
                         /**
                          * Label style of the item.
@@ -10275,17 +10268,16 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.show
                              */
-                            show?: boolean;
+                            show?: boolean | undefined;
 
                             /**
                              * Label position.
@@ -10298,7 +10290,7 @@ declare namespace echarts {
                              * to represent position of label relative to top-left
                              * corner of bounding box. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label)
                              *
                              * + 'top'
                              *
@@ -10316,41 +10308,41 @@ declare namespace echarts {
                              * + 'insideBottomRight'
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.position
                              */
-                            position?: any[] | string;
+                            position?: any[] | string | undefined;
 
                             /**
                              * Distance to the host graphic element.
                              * Works when position is string value (like `'top'`、`'insideRight'`).
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
                              *
                              *
                              * @default
                              * 5
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.distance
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.distance
                              */
-                            distance?: number;
+                            distance?: number | undefined;
 
                             /**
                              * Rotate label, from -90 degree to 90, positive
                              * value represents rotate anti-clockwise.
                              *
                              * See:
-                             * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rotate
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rotate
                              */
-                            rotate?: number;
+                            rotate?: number | undefined;
 
                             /**
                              * Whether to move text slightly.
@@ -10358,9 +10350,9 @@ declare namespace echarts {
                              * and move `40` vertically.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.offset
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.offset
                              */
-                            offset?: any[];
+                            offset?: any[] | undefined;
 
                             /**
                              * text color.
@@ -10371,9 +10363,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -10387,9 +10379,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -10405,9 +10397,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -10417,9 +10409,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -10427,9 +10419,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -10443,12 +10435,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.align
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -10462,12 +10454,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -10475,12 +10467,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -10490,7 +10482,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -10501,9 +10493,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -10514,25 +10506,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -10548,9 +10540,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.padding
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -10558,33 +10550,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -10609,9 +10601,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.width
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -10626,9 +10618,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.height
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -10639,17 +10631,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -10657,54 +10649,52 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
 
                             /**
                              * "Rich text styles" can be defined in this `rich`
                              * property. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label)
                              *
                              * For more details, see
-                             * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -10714,9 +10704,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * ""#fff""
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
-                                    color?: string;
+                                    color?: string | undefined;
 
                                     /**
                                      * font style
@@ -10730,9 +10720,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
-                                    fontStyle?: string;
+                                    fontStyle?: string | undefined;
 
                                     /**
                                      * font thick weight
@@ -10748,9 +10738,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number | undefined;
 
                                     /**
                                      * font family
@@ -10761,9 +10751,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "sans-serif"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
-                                    fontFamily?: string;
+                                    fontFamily?: string | undefined;
 
                                     /**
                                      * font size
@@ -10771,9 +10761,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * 12
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
-                                    fontSize?: number;
+                                    fontSize?: number | undefined;
 
                                     /**
                                      * Horizontal alignment of text, automatic
@@ -10789,12 +10779,12 @@ declare namespace echarts {
                                      * in parent level will be used.
                                      * For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
-                                    align?: string;
+                                    align?: string | undefined;
 
                                     /**
                                      * Vertical alignment of text, automatic
@@ -10810,12 +10800,12 @@ declare namespace echarts {
                                      * `verticalAlign` in parent level will
                                      * be used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
-                                    verticalAlign?: string;
+                                    verticalAlign?: string | undefined;
 
                                     /**
                                      * Line height of the text fregment.
@@ -10824,12 +10814,12 @@ declare namespace echarts {
                                      * `lineHeight` in parent level will be
                                      * used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
-                                    lineHeight?: number;
+                                    lineHeight?: number | undefined;
 
                                     /**
                                      * Background color of the text fregment.
@@ -10839,7 +10829,7 @@ declare namespace echarts {
                                      *
                                      * Or image can be used, for example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      * `width` or `height` can be specified
                                      * when using background image, or auto
@@ -10851,9 +10841,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
-                                    backgroundColor?: object | string;
+                                    backgroundColor?: object | string | undefined;
 
                                     /**
                                      * Border color of the text fregment.
@@ -10864,25 +10854,25 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
-                                    borderColor?: string;
+                                    borderColor?: string | undefined;
 
                                     /**
                                      * Border width of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
-                                    borderWidth?: number;
+                                    borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
-                                    borderRadius?: number;
+                                    borderRadius?: number | undefined;
 
                                     /**
                                      * Padding of the text fregment, for example:
@@ -10899,9 +10889,9 @@ declare namespace echarts {
                                      * without `padding`.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
-                                    padding?: any[] | number;
+                                    padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
@@ -10909,33 +10899,33 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
-                                    shadowColor?: string;
+                                    shadowColor?: string | undefined;
 
                                     /**
                                      * Show blur of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
-                                    shadowBlur?: number;
+                                    shadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
-                                    shadowOffsetX?: number;
+                                    shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
-                                    shadowOffsetY?: number;
+                                    shadowOffsetY?: number | undefined;
 
                                     /**
                                      * Width of the text block.
@@ -10964,9 +10954,9 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
-                                    width?: number | string;
+                                    width?: number | string | undefined;
 
                                     /**
                                      * Height of the text block.
@@ -10982,9 +10972,9 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
-                                    height?: number | string;
+                                    height?: number | string | undefined;
 
                                     /**
                                      * Storke color of the text.
@@ -10995,17 +10985,17 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
-                                    textBorderColor?: string;
+                                    textBorderColor?: string | undefined;
 
                                     /**
                                      * Storke line width of the text.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
-                                    textBorderWidth?: number;
+                                    textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
@@ -11013,48 +11003,47 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
-                                    textShadowColor?: string;
+                                    textShadowColor?: string | undefined;
 
                                     /**
                                      * Shadow blue of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
-                                    textShadowBlur?: number;
+                                    textShadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
-                                    textShadowOffsetX?: number;
+                                    textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
-                                    textShadowOffsetY?: number;
+                                    textShadowOffsetY?: number | undefined;
                                 };
-                            };
+                            } | undefined;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.show
                                  */
-                                show?: boolean;
+                                show?: boolean | undefined;
 
                                 /**
                                  * Label position.
@@ -11068,7 +11057,7 @@ declare namespace echarts {
                                  * to top-left corner of bounding box.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
                                  *
                                  * + 'top'
                                  *
@@ -11086,13 +11075,13 @@ declare namespace echarts {
                                  * + 'insideBottomRight'
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.position
                                  */
-                                position?: any[] | string;
+                                position?: any[] | string | undefined;
 
                                 /**
                                  * Distance to the host graphic element.
@@ -11100,28 +11089,28 @@ declare namespace echarts {
                                  * `'top'`、`'insideRight'`).
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
                                  * @default
                                  * 5
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.distance
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.distance
                                  */
-                                distance?: number;
+                                distance?: number | undefined;
 
                                 /**
                                  * Rotate label, from -90 degree to 90, positive
                                  * value represents rotate anti-clockwise.
                                  *
                                  * See:
-                                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rotate
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rotate
                                  */
-                                rotate?: number;
+                                rotate?: number | undefined;
 
                                 /**
                                  * Whether to move text slightly.
@@ -11129,9 +11118,9 @@ declare namespace echarts {
                                  * and move `40` vertically.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.offset
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.offset
                                  */
-                                offset?: any[];
+                                offset?: any[] | undefined;
 
                                 /**
                                  * text color.
@@ -11142,9 +11131,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -11158,9 +11147,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -11176,9 +11165,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -11188,9 +11177,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -11198,9 +11187,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -11216,12 +11205,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.align
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -11237,12 +11226,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -11251,12 +11240,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -11266,7 +11255,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -11278,9 +11267,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -11291,25 +11280,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -11326,9 +11315,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -11336,33 +11325,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -11391,9 +11380,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -11409,9 +11398,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.height
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -11422,17 +11411,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -11440,54 +11429,52 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
 
                                 /**
                                  * "Rich text styles" can be defined in this
                                  * `rich` property. For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.emphasis)
                                  *
                                  * For more details, see
-                                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                                  * please.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -11498,9 +11485,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * ""#fff""
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                          */
-                                        color?: string;
+                                        color?: string | undefined;
 
                                         /**
                                          * font style
@@ -11514,9 +11501,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                          */
-                                        fontStyle?: string;
+                                        fontStyle?: string | undefined;
 
                                         /**
                                          * font thick weight
@@ -11532,9 +11519,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number | undefined;
 
                                         /**
                                          * font family
@@ -11545,9 +11532,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "sans-serif"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                          */
-                                        fontFamily?: string;
+                                        fontFamily?: string | undefined;
 
                                         /**
                                          * font size
@@ -11555,9 +11542,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * 12
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                          */
-                                        fontSize?: number;
+                                        fontSize?: number | undefined;
 
                                         /**
                                          * Horizontal alignment of text, automatic
@@ -11573,12 +11560,12 @@ declare namespace echarts {
                                          * `align` in parent level will be used.
                                          * For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                          */
-                                        align?: string;
+                                        align?: string | undefined;
 
                                         /**
                                          * Vertical alignment of text, automatic
@@ -11594,12 +11581,12 @@ declare namespace echarts {
                                          * `rich`, `verticalAlign` in parent
                                          * level will be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                          */
-                                        verticalAlign?: string;
+                                        verticalAlign?: string | undefined;
 
                                         /**
                                          * Line height of the text fregment.
@@ -11608,12 +11595,12 @@ declare namespace echarts {
                                          * `lineHeight` in parent level will
                                          * be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                          */
-                                        lineHeight?: number;
+                                        lineHeight?: number | undefined;
 
                                         /**
                                          * Background color of the text fregment.
@@ -11623,7 +11610,7 @@ declare namespace echarts {
                                          *
                                          * Or image can be used, for example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          * `width` or `height` can be specified
                                          * when using background image, or auto
@@ -11636,9 +11623,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                          */
-                                        backgroundColor?: object | string;
+                                        backgroundColor?: object | string | undefined;
 
                                         /**
                                          * Border color of the text fregment.
@@ -11650,25 +11637,25 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                          */
-                                        borderColor?: string;
+                                        borderColor?: string | undefined;
 
                                         /**
                                          * Border width of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                          */
-                                        borderWidth?: number;
+                                        borderWidth?: number | undefined;
 
                                         /**
                                          * Border radius of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                          */
-                                        borderRadius?: number;
+                                        borderRadius?: number | undefined;
 
                                         /**
                                          * Padding of the text fregment, for
@@ -11687,9 +11674,9 @@ declare namespace echarts {
                                          * without `padding`.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                          */
-                                        padding?: any[] | number;
+                                        padding?: any[] | number | undefined;
 
                                         /**
                                          * Shadow color of the text block.
@@ -11697,33 +11684,33 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                          */
-                                        shadowColor?: string;
+                                        shadowColor?: string | undefined;
 
                                         /**
                                          * Show blur of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                          */
-                                        shadowBlur?: number;
+                                        shadowBlur?: number | undefined;
 
                                         /**
                                          * Shadow X offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                          */
-                                        shadowOffsetX?: number;
+                                        shadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                          */
-                                        shadowOffsetY?: number;
+                                        shadowOffsetY?: number | undefined;
 
                                         /**
                                          * Width of the text block.
@@ -11753,9 +11740,9 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                          */
-                                        width?: number | string;
+                                        width?: number | string | undefined;
 
                                         /**
                                          * Height of the text block.
@@ -11772,9 +11759,9 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                          */
-                                        height?: number | string;
+                                        height?: number | string | undefined;
 
                                         /**
                                          * Storke color of the text.
@@ -11786,17 +11773,17 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                          */
-                                        textBorderColor?: string;
+                                        textBorderColor?: string | undefined;
 
                                         /**
                                          * Storke line width of the text.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                          */
-                                        textBorderWidth?: number;
+                                        textBorderWidth?: number | undefined;
 
                                         /**
                                          * Shadow color of the text itself.
@@ -11804,47 +11791,46 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                          */
-                                        textShadowColor?: string;
+                                        textShadowColor?: string | undefined;
 
                                         /**
                                          * Shadow blue of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                          */
-                                        textShadowBlur?: number;
+                                        textShadowBlur?: number | undefined;
 
                                         /**
                                          * Shadow X offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                          */
-                                        textShadowOffsetX?: number;
+                                        textShadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                          */
-                                        textShadowOffsetY?: number;
+                                        textShadowOffsetY?: number | undefined;
                                     };
-                                };
-                            };
-                        };
-                    };
+                                } | undefined;
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
 
                     /**
                      * Specify the right-bottom point.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1
+                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -11855,76 +11841,84 @@ declare namespace echarts {
                          * + `'average'` average value。
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.type
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.type
                          */
-                        type?: string;
+                        type?: string | undefined;
 
                         /**
                          * Specify the dimension on which min, max, average
                          * are calculated, available when
-                         * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.markArea.data.type)
+                         * [type](https://echarts.apache.org/en/option.html#series-.markArea.data.type)
                          * used.
                          * The value can be `0` (means xAxis, radiusAxis) or
                          * `1` (means yAxis, angleAxis), using the dimension
                          * of the first axis by default.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.valueIndex
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.valueIndex
                          */
-                        valueIndex?: number;
+                        valueIndex?: number | undefined;
 
                         /**
                          * Specify the dimension on which min, max, average
                          * are calculated, available when
-                         * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.markArea.data.type)
+                         * [type](https://echarts.apache.org/en/option.html#series-.markArea.data.type)
                          * used.
                          * The value can be the name of the dimension (for example,
                          * the value can be `x`, `angle` in line chart, and
                          * `open`, `close` in candlestick).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.valueDim
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.valueDim
                          */
-                        valueDim?: string;
+                        valueDim?: string | undefined;
 
                         /**
                          * The format is \[start coordinate, end coordinate\],
                          * where the coordinate system can be `x`, `y` on
-                         * [cartesian](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+                         * [cartesian](https://echarts.apache.org/en/option.html#grid)
                          * , or `radius`, `angle` on
-                         * [polar](https://ecomfe.github.io/echarts-doc/public/en/option.html#polar)
+                         * [polar](https://echarts.apache.org/en/option.html#polar)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.coord
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.coord
                          */
-                        coord?: any[];
+                        coord?: any[] | undefined;
+
+                        /**
+                         * Name of the marker, which will display as a label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.name
+                         */
+                        name?: string | undefined;
 
                         /**
                          * x value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.x
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.x
                          */
-                        x?: number;
+                        x?: number | undefined;
 
                         /**
                          * y value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.y
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.y
                          */
-                        y?: number;
+                        y?: number | undefined;
 
                         /**
                          * value of the item, not necessary.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.value
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.value
                          */
-                        value?: number;
+                        value?: number | undefined;
 
                         /**
                          * Style of the item.
@@ -11932,10 +11926,9 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -11948,12 +11941,12 @@ declare namespace echarts {
                              * Gradient color and texture are also supported
                              * besides single colors.
                              * >
-                             * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.itemStyle)
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color | undefined;
 
                             /**
                              * border color, whose format is similar to that
@@ -11962,18 +11955,18 @@ declare namespace echarts {
                              *
                              * @default
                              * "#000"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color | undefined;
 
                             /**
                              * border width.
                              * No border when it is set to be 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border type, which can be `'solid'`, `'dashed'`,
@@ -11982,9 +11975,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "solid"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.borderType
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.borderType
                              */
-                            borderType?: string;
+                            borderType?: string | undefined;
 
                             /**
                              * Size of shadow blur.
@@ -11993,38 +11986,38 @@ declare namespace echarts {
                              *
                              * For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.itemStyle)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.itemStyle)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color | undefined;
 
                             /**
                              * Offset distance on the horizontal direction of
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Offset distance on the vertical direction of
                              * shadow.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Opacity of the component.
@@ -12032,15 +12025,14 @@ declare namespace echarts {
                              * will not be drawn when set to 0.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.opacity
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.opacity
                              */
-                            opacity?: number;
+                            opacity?: number | undefined;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -12053,12 +12045,12 @@ declare namespace echarts {
                                  * Gradient color and texture are also supported
                                  * besides single colors.
                                  * >
-                                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.itemStyle.emphasis)
+                                 * > [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color | undefined;
 
                                 /**
                                  * border color, whose format is similar to
@@ -12067,18 +12059,18 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "#000"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * border width.
                                  * No border when it is set to be 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border type, which can be `'solid'`, `'dashed'`,
@@ -12087,9 +12079,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "solid"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.borderType
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.borderType
                                  */
-                                borderType?: string;
+                                borderType?: string | undefined;
 
                                 /**
                                  * Size of shadow blur.
@@ -12099,39 +12091,39 @@ declare namespace echarts {
                                  *
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.itemStyle.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.itemStyle.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow color.
                                  * Support same format as `color`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color | undefined;
 
                                 /**
                                  * Offset distance on the horizontal direction
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Offset distance on the vertical direction
                                  * of shadow.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Opacity of the component.
@@ -12139,11 +12131,11 @@ declare namespace echarts {
                                  * will not be drawn when set to 0.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.opacity
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.itemStyle.emphasis.opacity
                                  */
-                                opacity?: number;
-                            };
-                        };
+                                opacity?: number | undefined;
+                            } | undefined;
+                        } | undefined;
 
                         /**
                          * Label style of the item.
@@ -12151,17 +12143,16 @@ declare namespace echarts {
                          * merged together.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label
+                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.show
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.show
                              */
-                            show?: boolean;
+                            show?: boolean | undefined;
 
                             /**
                              * Label position.
@@ -12174,7 +12165,7 @@ declare namespace echarts {
                              * to represent position of label relative to top-left
                              * corner of bounding box. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label)
                              *
                              * + 'top'
                              *
@@ -12192,41 +12183,41 @@ declare namespace echarts {
                              * + 'insideBottomRight'
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.position
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.position
                              */
-                            position?: any[] | string;
+                            position?: any[] | string | undefined;
 
                             /**
                              * Distance to the host graphic element.
                              * Works when position is string value (like `'top'`、`'insideRight'`).
                              *
                              * See:
-                             * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
                              *
                              *
                              * @default
                              * 5
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.distance
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.distance
                              */
-                            distance?: number;
+                            distance?: number | undefined;
 
                             /**
                              * Rotate label, from -90 degree to 90, positive
                              * value represents rotate anti-clockwise.
                              *
                              * See:
-                             * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rotate
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rotate
                              */
-                            rotate?: number;
+                            rotate?: number | undefined;
 
                             /**
                              * Whether to move text slightly.
@@ -12234,9 +12225,9 @@ declare namespace echarts {
                              * and move `40` vertically.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.offset
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.offset
                              */
-                            offset?: any[];
+                            offset?: any[] | undefined;
 
                             /**
                              * text color.
@@ -12247,9 +12238,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -12263,9 +12254,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -12281,9 +12272,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -12293,9 +12284,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -12303,9 +12294,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -12319,12 +12310,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.align
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -12338,12 +12329,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -12351,12 +12342,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -12366,7 +12357,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -12377,9 +12368,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -12390,25 +12381,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -12424,9 +12415,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.padding
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -12434,33 +12425,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -12485,9 +12476,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.width
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -12502,9 +12493,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.height
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -12515,17 +12506,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -12533,54 +12524,52 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
 
                             /**
                              * "Rich text styles" can be defined in this `rich`
                              * property. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label)
                              *
                              * For more details, see
-                             * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -12590,9 +12579,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * ""#fff""
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                      */
-                                    color?: string;
+                                    color?: string | undefined;
 
                                     /**
                                      * font style
@@ -12606,9 +12595,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                      */
-                                    fontStyle?: string;
+                                    fontStyle?: string | undefined;
 
                                     /**
                                      * font thick weight
@@ -12624,9 +12613,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "normal"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number | undefined;
 
                                     /**
                                      * font family
@@ -12637,9 +12626,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "sans-serif"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                      */
-                                    fontFamily?: string;
+                                    fontFamily?: string | undefined;
 
                                     /**
                                      * font size
@@ -12647,9 +12636,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * 12
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                      */
-                                    fontSize?: number;
+                                    fontSize?: number | undefined;
 
                                     /**
                                      * Horizontal alignment of text, automatic
@@ -12665,12 +12654,12 @@ declare namespace echarts {
                                      * in parent level will be used.
                                      * For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
-                                    align?: string;
+                                    align?: string | undefined;
 
                                     /**
                                      * Vertical alignment of text, automatic
@@ -12686,12 +12675,12 @@ declare namespace echarts {
                                      * `verticalAlign` in parent level will
                                      * be used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
-                                    verticalAlign?: string;
+                                    verticalAlign?: string | undefined;
 
                                     /**
                                      * Line height of the text fregment.
@@ -12700,12 +12689,12 @@ declare namespace echarts {
                                      * `lineHeight` in parent level will be
                                      * used. For example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
-                                    lineHeight?: number;
+                                    lineHeight?: number | undefined;
 
                                     /**
                                      * Background color of the text fregment.
@@ -12715,7 +12704,7 @@ declare namespace echarts {
                                      *
                                      * Or image can be used, for example:
                                      *
-                                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
                                      * `width` or `height` can be specified
                                      * when using background image, or auto
@@ -12727,9 +12716,9 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                      */
-                                    backgroundColor?: object | string;
+                                    backgroundColor?: object | string | undefined;
 
                                     /**
                                      * Border color of the text fregment.
@@ -12740,25 +12729,25 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                      */
-                                    borderColor?: string;
+                                    borderColor?: string | undefined;
 
                                     /**
                                      * Border width of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
-                                    borderWidth?: number;
+                                    borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
-                                    borderRadius?: number;
+                                    borderRadius?: number | undefined;
 
                                     /**
                                      * Padding of the text fregment, for example:
@@ -12775,9 +12764,9 @@ declare namespace echarts {
                                      * without `padding`.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
-                                    padding?: any[] | number;
+                                    padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
@@ -12785,33 +12774,33 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                      */
-                                    shadowColor?: string;
+                                    shadowColor?: string | undefined;
 
                                     /**
                                      * Show blur of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
-                                    shadowBlur?: number;
+                                    shadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
-                                    shadowOffsetX?: number;
+                                    shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
-                                    shadowOffsetY?: number;
+                                    shadowOffsetY?: number | undefined;
 
                                     /**
                                      * Width of the text block.
@@ -12840,9 +12829,9 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
-                                    width?: number | string;
+                                    width?: number | string | undefined;
 
                                     /**
                                      * Height of the text block.
@@ -12858,9 +12847,9 @@ declare namespace echarts {
                                      * when `rich` specified.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
-                                    height?: number | string;
+                                    height?: number | string | undefined;
 
                                     /**
                                      * Storke color of the text.
@@ -12871,17 +12860,17 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                      */
-                                    textBorderColor?: string;
+                                    textBorderColor?: string | undefined;
 
                                     /**
                                      * Storke line width of the text.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
-                                    textBorderWidth?: number;
+                                    textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
@@ -12889,48 +12878,47 @@ declare namespace echarts {
                                      *
                                      * @default
                                      * "transparent"
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                      */
-                                    textShadowColor?: string;
+                                    textShadowColor?: string | undefined;
 
                                     /**
                                      * Shadow blue of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
-                                    textShadowBlur?: number;
+                                    textShadowBlur?: number | undefined;
 
                                     /**
                                      * Shadow X offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
-                                    textShadowOffsetX?: number;
+                                    textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
                                      *
                                      *
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
-                                    textShadowOffsetY?: number;
+                                    textShadowOffsetY?: number | undefined;
                                 };
-                            };
+                            } | undefined;
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis
+                             * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.show
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.show
                                  */
-                                show?: boolean;
+                                show?: boolean | undefined;
 
                                 /**
                                  * Label position.
@@ -12944,7 +12932,7 @@ declare namespace echarts {
                                  * to top-left corner of bounding box.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
                                  *
                                  * + 'top'
                                  *
@@ -12962,13 +12950,13 @@ declare namespace echarts {
                                  * + 'insideBottomRight'
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.position
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.position
                                  */
-                                position?: any[] | string;
+                                position?: any[] | string | undefined;
 
                                 /**
                                  * Distance to the host graphic element.
@@ -12976,28 +12964,28 @@ declare namespace echarts {
                                  * `'top'`、`'insideRight'`).
                                  *
                                  * See:
-                                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                                  * .
                                  *
                                  *
                                  * @default
                                  * 5
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.distance
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.distance
                                  */
-                                distance?: number;
+                                distance?: number | undefined;
 
                                 /**
                                  * Rotate label, from -90 degree to 90, positive
                                  * value represents rotate anti-clockwise.
                                  *
                                  * See:
-                                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                                  * .
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rotate
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rotate
                                  */
-                                rotate?: number;
+                                rotate?: number | undefined;
 
                                 /**
                                  * Whether to move text slightly.
@@ -13005,9 +12993,9 @@ declare namespace echarts {
                                  * and move `40` vertically.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.offset
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.offset
                                  */
-                                offset?: any[];
+                                offset?: any[] | undefined;
 
                                 /**
                                  * text color.
@@ -13018,9 +13006,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.color
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -13034,9 +13022,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -13052,9 +13040,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -13064,9 +13052,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -13074,9 +13062,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -13092,12 +13080,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.align
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -13113,12 +13101,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -13127,12 +13115,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -13142,7 +13130,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -13154,9 +13142,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -13167,25 +13155,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -13202,9 +13190,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -13212,33 +13200,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -13267,9 +13255,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.width
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -13285,9 +13273,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.height
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -13298,17 +13286,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -13316,54 +13304,52 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
 
                                 /**
                                  * "Rich text styles" can be defined in this
                                  * `rich` property. For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.emphasis)
                                  *
                                  * For more details, see
-                                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                                  * please.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
-                                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                                     * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -13374,9 +13360,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * ""#fff""
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                          */
-                                        color?: string;
+                                        color?: string | undefined;
 
                                         /**
                                          * font style
@@ -13390,9 +13376,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                          */
-                                        fontStyle?: string;
+                                        fontStyle?: string | undefined;
 
                                         /**
                                          * font thick weight
@@ -13408,9 +13394,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "normal"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number | undefined;
 
                                         /**
                                          * font family
@@ -13421,9 +13407,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "sans-serif"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                          */
-                                        fontFamily?: string;
+                                        fontFamily?: string | undefined;
 
                                         /**
                                          * font size
@@ -13431,9 +13417,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * 12
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                          */
-                                        fontSize?: number;
+                                        fontSize?: number | undefined;
 
                                         /**
                                          * Horizontal alignment of text, automatic
@@ -13449,12 +13435,12 @@ declare namespace echarts {
                                          * `align` in parent level will be used.
                                          * For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                          */
-                                        align?: string;
+                                        align?: string | undefined;
 
                                         /**
                                          * Vertical alignment of text, automatic
@@ -13470,12 +13456,12 @@ declare namespace echarts {
                                          * `rich`, `verticalAlign` in parent
                                          * level will be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                          */
-                                        verticalAlign?: string;
+                                        verticalAlign?: string | undefined;
 
                                         /**
                                          * Line height of the text fregment.
@@ -13484,12 +13470,12 @@ declare namespace echarts {
                                          * `lineHeight` in parent level will
                                          * be used. For example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                          */
-                                        lineHeight?: number;
+                                        lineHeight?: number | undefined;
 
                                         /**
                                          * Background color of the text fregment.
@@ -13499,7 +13485,7 @@ declare namespace echarts {
                                          *
                                          * Or image can be used, for example:
                                          *
-                                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
                                          * `width` or `height` can be specified
                                          * when using background image, or auto
@@ -13512,9 +13498,9 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                          */
-                                        backgroundColor?: object | string;
+                                        backgroundColor?: object | string | undefined;
 
                                         /**
                                          * Border color of the text fregment.
@@ -13526,25 +13512,25 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                          */
-                                        borderColor?: string;
+                                        borderColor?: string | undefined;
 
                                         /**
                                          * Border width of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                          */
-                                        borderWidth?: number;
+                                        borderWidth?: number | undefined;
 
                                         /**
                                          * Border radius of the text fregment.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                          */
-                                        borderRadius?: number;
+                                        borderRadius?: number | undefined;
 
                                         /**
                                          * Padding of the text fregment, for
@@ -13563,9 +13549,9 @@ declare namespace echarts {
                                          * without `padding`.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                          */
-                                        padding?: any[] | number;
+                                        padding?: any[] | number | undefined;
 
                                         /**
                                          * Shadow color of the text block.
@@ -13573,33 +13559,33 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                          */
-                                        shadowColor?: string;
+                                        shadowColor?: string | undefined;
 
                                         /**
                                          * Show blur of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                          */
-                                        shadowBlur?: number;
+                                        shadowBlur?: number | undefined;
 
                                         /**
                                          * Shadow X offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                          */
-                                        shadowOffsetX?: number;
+                                        shadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text block.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                          */
-                                        shadowOffsetY?: number;
+                                        shadowOffsetY?: number | undefined;
 
                                         /**
                                          * Width of the text block.
@@ -13629,9 +13615,9 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                          */
-                                        width?: number | string;
+                                        width?: number | string | undefined;
 
                                         /**
                                          * Height of the text block.
@@ -13648,9 +13634,9 @@ declare namespace echarts {
                                          * work when `rich` specified.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                          */
-                                        height?: number | string;
+                                        height?: number | string | undefined;
 
                                         /**
                                          * Storke color of the text.
@@ -13662,17 +13648,17 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                          */
-                                        textBorderColor?: string;
+                                        textBorderColor?: string | undefined;
 
                                         /**
                                          * Storke line width of the text.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                          */
-                                        textBorderWidth?: number;
+                                        textBorderWidth?: number | undefined;
 
                                         /**
                                          * Shadow color of the text itself.
@@ -13680,39 +13666,39 @@ declare namespace echarts {
                                          *
                                          * @default
                                          * "transparent"
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                          */
-                                        textShadowColor?: string;
+                                        textShadowColor?: string | undefined;
 
                                         /**
                                          * Shadow blue of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                          */
-                                        textShadowBlur?: number;
+                                        textShadowBlur?: number | undefined;
 
                                         /**
                                          * Shadow X offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                          */
-                                        textShadowOffsetX?: number;
+                                        textShadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text itself.
                                          *
                                          *
-                                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                         * @see https://echarts.apache.org/en/option.html#series-bar.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                          */
-                                        textShadowOffsetY?: number;
+                                        textShadowOffsetY?: number | undefined;
                                     };
-                                };
-                            };
-                        };
-                    };
-                };
+                                } | undefined;
+                            } | undefined;
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * Whether to enable animation.
@@ -13720,9 +13706,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.animation
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.animation
                  */
-                animation?: boolean;
+                animation?: boolean | undefined;
 
                 /**
                  * Whether to set graphic number threshold to animation.
@@ -13732,35 +13718,35 @@ declare namespace echarts {
                  *
                  * @default
                  * 2000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.animationThreshold
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.animationThreshold
                  */
-                animationThreshold?: number;
+                animationThreshold?: number | undefined;
 
                 /**
                  * Duration of the first animation, which supports callback
                  * function for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea)
                  *
                  *
                  * @default
                  * 1000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.animationDuration
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.animationDuration
                  */
-                animationDuration?: Function | number;
+                animationDuration?: Function | number | undefined;
 
                 /**
                  * Easing method used for the first animation.
                  * Varied easing effects can be found at
-                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+                 * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
                  *
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.animationEasing
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.animationEasing
                  */
-                animationEasing?: string;
+                animationEasing?: string | undefined;
 
                 /**
                  * Delay before updating the first animation, which supports
@@ -13769,29 +13755,29 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.animationDelay
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.animationDelay
                  */
-                animationDelay?: Function | number;
+                animationDelay?: Function | number | undefined;
 
                 /**
                  * Time for animation to complete, which supports callback function
                  * for different data to have different animation effect:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea)
                  *
                  *
                  * @default
                  * 300
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.animationDurationUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.animationDurationUpdate
                  */
-                animationDurationUpdate?: Function | number;
+                animationDurationUpdate?: Function | number | undefined;
 
                 /**
                  * Easing method used for animation.
@@ -13799,9 +13785,9 @@ declare namespace echarts {
                  *
                  * @default
                  * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.animationEasingUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.animationEasingUpdate
                  */
-                animationEasingUpdate?: string;
+                animationEasingUpdate?: string | undefined;
 
                 /**
                  * Delay before updating animation, which supports callback
@@ -13809,17 +13795,34 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.markArea)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.markArea)
                  *
                  * See
-                 * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+                 * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.markArea.animationDelayUpdate
+                 * @see https://echarts.apache.org/en/option.html#series-bar.markArea.animationDelayUpdate
                  */
-                animationDelayUpdate?: Function | number;
-            };
+                animationDelayUpdate?: Function | number | undefined;
+            } | undefined;
+
+            /**
+             * If clip the overflow on the coordinate system. Clip results varies between series:
+             *
+             * Scatter/EffectScatter：Ignore the symbols exceeds the coordinate system. Not clip the elements.
+             * Bar：Clip all the overflowed. With bar width kept.
+             * Line：Clip the overflowed line.
+             * Lines: Clip all the overflowed.
+             * Candlestick: Ignore the elements exceeds the coordinate system.
+             * Custom: Clip all the olverflowed.
+             *
+             * All these series have default value true except custom series. Set it to false if you don't want to clip.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-bar.clip
+             */
+            clip?: boolean | undefined;
 
             /**
              * `zlevel` value of all graghical elements in bar chart.
@@ -13836,9 +13839,9 @@ declare namespace echarts {
              * smaller `zlevel`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.zlevel
+             * @see https://echarts.apache.org/en/option.html#series-bar.zlevel
              */
-            zlevel?: number;
+            zlevel?: number | undefined;
 
             /**
              * `z` value of all graghical elements in bar chart, which controls
@@ -13852,9 +13855,9 @@ declare namespace echarts {
              *
              * @default
              * 2
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.z
+             * @see https://echarts.apache.org/en/option.html#series-bar.z
              */
-            z?: number;
+            z?: number | undefined;
 
             /**
              * Whether to enable animation.
@@ -13862,9 +13865,9 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.animation
+             * @see https://echarts.apache.org/en/option.html#series-bar.animation
              */
-            animation?: boolean;
+            animation?: boolean | undefined;
 
             /**
              * Whether to set graphic number threshold to animation.
@@ -13874,35 +13877,35 @@ declare namespace echarts {
              *
              * @default
              * 2000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.animationThreshold
+             * @see https://echarts.apache.org/en/option.html#series-bar.animationThreshold
              */
-            animationThreshold?: number;
+            animationThreshold?: number | undefined;
 
             /**
              * Duration of the first animation, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              *
              * @default
              * 1000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.animationDuration
+             * @see https://echarts.apache.org/en/option.html#series-bar.animationDuration
              */
-            animationDuration?: Function | number;
+            animationDuration?: Function | number | undefined;
 
             /**
              * Easing method used for the first animation.
              * Varied easing effects can be found at
-             * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+             * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
              *
              *
              * @default
              * "cubicOut"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.animationEasing
+             * @see https://echarts.apache.org/en/option.html#series-bar.animationEasing
              */
-            animationEasing?: string;
+            animationEasing?: string | undefined;
 
             /**
              * Delay before updating the first animation, which supports callback
@@ -13910,29 +13913,29 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.animationDelay
+             * @see https://echarts.apache.org/en/option.html#series-bar.animationDelay
              */
-            animationDelay?: Function | number;
+            animationDelay?: Function | number | undefined;
 
             /**
              * Time for animation to complete, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              *
              * @default
              * 300
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.animationDurationUpdate
+             * @see https://echarts.apache.org/en/option.html#series-bar.animationDurationUpdate
              */
-            animationDurationUpdate?: Function | number;
+            animationDurationUpdate?: Function | number | undefined;
 
             /**
              * Easing method used for animation.
@@ -13940,9 +13943,9 @@ declare namespace echarts {
              *
              * @default
              * "cubicOut"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.animationEasingUpdate
+             * @see https://echarts.apache.org/en/option.html#series-bar.animationEasingUpdate
              */
-            animationEasingUpdate?: string;
+            animationEasingUpdate?: string | undefined;
 
             /**
              * Delay before updating animation, which supports callback function
@@ -13950,508 +13953,58 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.animationDelayUpdate
+             * @see https://echarts.apache.org/en/option.html#series-bar.animationDelayUpdate
              */
-            animationDelayUpdate?: Function | number;
+            animationDelayUpdate?: Function | number | undefined;
 
             /**
              * tooltip settings in this series.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip
+             * @see https://echarts.apache.org/en/option.html#series-bar.tooltip
              */
-            tooltip?: {
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The position of the tooltip's floating layer, which would
-                 * follow the position of mouse by default.
-                 *
-                 * Options:
-                 *
-                 * + `Array`
-                 *
-                 * Display the position of tooltip's floating layer through
-                 * array, which supports absolute position and relative percentage.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.tooltip)
-                 *
-                 * + `Function`
-                 *
-                 * Callback function in the following form:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.tooltip)
-                 *
-                 * **Parameters:**
-                 * point: Mouse position.
-                 * param: The same as formatter.
-                 * dom: The DOM object of tooltip.
-                 * rect: It is valid only when mouse is on graphic elements,
-                 * which stands for a bounding box with `x`, `y`, `width`, and
-                 * `height`.
-                 * size: The size of dom echarts container.
-                 * For example: `{contentSize: [width, height], viewSize: [width,
-                 * height]}`.
-                 *
-                 * **Return:**
-                 * Return value is an array standing for tooltip position, which
-                 * can be absolute pixels, or relative percentage.
-                 * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                 * '20%', bottom: 40}`.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.tooltip)
-                 *
-                 * Or:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.tooltip)
-                 *
-                 * + `'inside'`
-                 *
-                 * Center position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'top'`
-                 *
-                 * Top position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'left'`
-                 *
-                 * Left position of the graphic element where the mouse is in,
-                 * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'right'`
-                 *
-                 * Right position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 * + `'bottom'`
-                 *
-                 * Bottom position of the graphic element where the mouse is
-                 * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'item'`.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.position
-                 */
-                position?: any[] | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The content formatter of tooltip's floating layer which supports
-                 * string template and callback function.
-                 *
-                 * **1\. String template**
-                 *
-                 * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
-                 * `{e}`, which stands for series name, data name and data value
-                 * and ect. When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is set to be `'axis'`, there may be data from multiple series.
-                 * In this time, series index can be refered as `{a0}`, `{a1}`,
-                 * or `{a2}`.
-                 *
-                 * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for different
-                 * series types:
-                 *
-                 * + Line (area) charts, bar (column) charts, K charts: `{a}`
-                 * for series name, `{b}` for category name, `{c}` for data
-                 * value, `{d}` for none;
-                 *
-                 * + Scatter (bubble) charts: `{a}` for series name, `{b}` for
-                 * data name, `{c}` for data value, `{d}` for none;
-                 *
-                 * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                 * for merging data, `{d}` for none;
-                 *
-                 * + Pie charts, gauge charts, funnel charts: `{a}` for series
-                 * name, `{b}` for data item name, `{c}` for data value, `{d}`
-                 * for percentage.
-                 *
-                 * **Example:**
-                 *
-                 * ```
-                 * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                 *
-                 * ```
-                 *
-                 * **2\. Callback function**
-                 *
-                 * The format of callback function:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.tooltip)
-                 *
-                 * The first parameter `params` is the data that the formatter
-                 * needs. Its format is shown as follows:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.tooltip)
-                 *
-                 * When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
-                 * , `params` is the data array of multiple series.
-                 * The content of each item of the array is the same as above.
-                 * Besides,
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.tooltip)
-                 *
-                 * **Note:** Using array to present all the parameters in ECharts
-                 * 2.x is not supported anymore.
-                 *
-                 * The second parameter `ticket` is the asynchronous callback
-                 * flag which should be used along with the third parameter
-                 * `callback` when it is used.
-                 *
-                 * The third parameter `callback` is asynchronous callback.
-                 * When the content of tooltip is acquired asynchronously, `ticket`
-                 * and `htm` as introduced above can be used to update tooltip
-                 * with callback.
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.tooltip)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.formatter
-                 */
-                formatter?: Function | string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The background color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * "rgba(50,50,50,0.7)"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.backgroundColor
-                 */
-                backgroundColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border color of tooltip's floating layer.
-                 *
-                 *
-                 * @default
-                 * '#333'
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.borderColor
-                 */
-                borderColor?: string;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The border width of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.borderWidth
-                 */
-                borderWidth?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The floating layer of tooltip space around content.
-                 * The unit is px.
-                 * Default values for each position are 5.
-                 * And they can be set to different values with left, right,
-                 * top, and bottom.
-                 *
-                 * Examples:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.tooltip)
-                 *
-                 *
-                 * @default
-                 * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.padding
-                 */
-                padding?: number;
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * The text syle of tooltip's floating layer.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle
-                 */
-                textStyle?: {
-
-                    /**
-                     * text color.
-                     *
-                     *
-                     * @default
-                     * "#fff"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 14
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.tooltip.textStyle)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.textStyle.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-                };
-
-                /**
-                 *
-                 * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                 * > is `'item'`.
-                 *
-                 * Extra CSS style for floating layer.
-                 * The following is an example for adding shadow.
-                 *
-                 * ```
-                 * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                 *
-                 * ```
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.tooltip.extraCssText
-                 */
-                extraCssText?: string;
-            };
+            tooltip?: BaseTooltip | undefined;
         }
 
         namespace SeriesBar {
             interface DataObject {
-
                 /**
                  * The name of data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.name
+                 * @see https://echarts.apache.org/en/option.html#series-bar.data.name
                  */
-                name?: string;
+                name?: string | undefined;
 
                 /**
                  * The value of a single data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.value
+                 * @see https://echarts.apache.org/en/option.html#series-bar.data.value
                  */
-                value?: number;
+                value?: number | undefined;
 
                 /**
                  * The style setting of the text label in a single bar.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label
+                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.show
                      */
-                    show?: boolean;
+                    show?: boolean | undefined;
 
                     /**
                      * Label position.
@@ -14464,7 +14017,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label)
                      *
                      * + 'top'
                      *
@@ -14482,43 +14035,43 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.position
                      */
-                    position?: any[] | string;
+                    position?: any[] | string | undefined;
 
                     /**
                      * Distance to the host graphic element.
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.distance
                      */
-                    distance?: number;
+                    distance?: number | undefined;
 
                     /**
                      * Rotate label, from -90 degree to 90, positive value represents
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rotate
                      */
-                    rotate?: number;
+                    rotate?: number | undefined;
 
                     /**
                      * Whether to move text slightly.
@@ -14526,9 +14079,9 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.offset
                      */
-                    offset?: any[];
+                    offset?: any[] | undefined;
 
                     /**
                      * text color.
@@ -14539,9 +14092,9 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * font style
@@ -14555,9 +14108,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.fontStyle
                      */
-                    fontStyle?: string;
+                    fontStyle?: string | undefined;
 
                     /**
                      * font thick weight
@@ -14573,9 +14126,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number | undefined;
 
                     /**
                      * font family
@@ -14585,9 +14138,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.fontFamily
                      */
-                    fontFamily?: string;
+                    fontFamily?: string | undefined;
 
                     /**
                      * font size
@@ -14595,9 +14148,9 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.fontSize
                      */
-                    fontSize?: number;
+                    fontSize?: number | undefined;
 
                     /**
                      * Horizontal alignment of text, automatic by default.
@@ -14611,12 +14164,12 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.align
                      */
-                    align?: string;
+                    align?: string | undefined;
 
                     /**
                      * Vertical alignment of text, automatic by default.
@@ -14630,12 +14183,12 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.verticalAlign
                      */
-                    verticalAlign?: string;
+                    verticalAlign?: string | undefined;
 
                     /**
                      * Line height of the text fregment.
@@ -14643,12 +14196,12 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.lineHeight
                      */
-                    lineHeight?: number;
+                    lineHeight?: number | undefined;
 
                     /**
                      * Background color of the text fregment.
@@ -14657,7 +14210,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -14668,9 +14221,9 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.backgroundColor
                      */
-                    backgroundColor?: object | string;
+                    backgroundColor?: object | string | undefined;
 
                     /**
                      * Border color of the text fregment.
@@ -14681,25 +14234,25 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: string | undefined;
 
                     /**
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.borderWidth
                      */
-                    borderWidth?: number;
+                    borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.borderRadius
                      */
-                    borderRadius?: number;
+                    borderRadius?: number | undefined;
 
                     /**
                      * Padding of the text fregment, for example:
@@ -14713,9 +14266,9 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.padding
                      */
-                    padding?: any[] | number;
+                    padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
@@ -14723,33 +14276,33 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Width of the text block.
@@ -14772,9 +14325,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.width
                      */
-                    width?: number | string;
+                    width?: number | string | undefined;
 
                     /**
                      * Height of the text block.
@@ -14788,9 +14341,9 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.height
                      */
-                    height?: number | string;
+                    height?: number | string | undefined;
 
                     /**
                      * Storke color of the text.
@@ -14801,17 +14354,17 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.textBorderColor
                      */
-                    textBorderColor?: string;
+                    textBorderColor?: string | undefined;
 
                     /**
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.textBorderWidth
                      */
-                    textBorderWidth?: number;
+                    textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
@@ -14819,54 +14372,52 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.textShadowColor
                      */
-                    textShadowColor?: string;
+                    textShadowColor?: string | undefined;
 
                     /**
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.textShadowBlur
                      */
-                    textShadowBlur?: number;
+                    textShadowBlur?: number | undefined;
 
                     /**
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.textShadowOffsetX
                      */
-                    textShadowOffsetX?: number;
+                    textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.textShadowOffsetY
                      */
-                    textShadowOffsetY?: number;
+                    textShadowOffsetY?: number | undefined;
 
                     /**
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich
                      */
                     rich?: {
-
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -14876,9 +14427,9 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
-                            color?: string;
+                            color?: string | undefined;
 
                             /**
                              * font style
@@ -14892,9 +14443,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
-                            fontStyle?: string;
+                            fontStyle?: string | undefined;
 
                             /**
                              * font thick weight
@@ -14910,9 +14461,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number | undefined;
 
                             /**
                              * font family
@@ -14922,9 +14473,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
-                            fontFamily?: string;
+                            fontFamily?: string | undefined;
 
                             /**
                              * font size
@@ -14932,9 +14483,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
-                            fontSize?: number;
+                            fontSize?: number | undefined;
 
                             /**
                              * Horizontal alignment of text, automatic by default.
@@ -14948,12 +14499,12 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
-                            align?: string;
+                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -14967,12 +14518,12 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
-                            verticalAlign?: string;
+                            verticalAlign?: string | undefined;
 
                             /**
                              * Line height of the text fregment.
@@ -14980,12 +14531,12 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
-                            lineHeight?: number;
+                            lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
@@ -14995,7 +14546,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -15006,9 +14557,9 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
-                            backgroundColor?: object | string;
+                            backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
@@ -15019,25 +14570,25 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
-                            borderWidth?: number;
+                            borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
-                            borderRadius?: number;
+                            borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
@@ -15053,9 +14604,9 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
-                            padding?: any[] | number;
+                            padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
@@ -15063,33 +14614,33 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
-                            shadowBlur?: number;
+                            shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
-                            shadowOffsetX?: number;
+                            shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
-                            shadowOffsetY?: number;
+                            shadowOffsetY?: number | undefined;
 
                             /**
                              * Width of the text block.
@@ -15114,9 +14665,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
-                            width?: number | string;
+                            width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
@@ -15131,9 +14682,9 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
-                            height?: number | string;
+                            height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
@@ -15144,17 +14695,17 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
-                            textBorderColor?: string;
+                            textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
-                            textBorderWidth?: number;
+                            textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
@@ -15162,48 +14713,47 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
-                            textShadowColor?: string;
+                            textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
-                            textShadowBlur?: number;
+                            textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
-                            textShadowOffsetX?: number;
+                            textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
-                            textShadowOffsetY?: number;
+                            textShadowOffsetY?: number | undefined;
                         };
-                    };
+                    } | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.show
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.show
                          */
-                        show?: boolean;
+                        show?: boolean | undefined;
 
                         /**
                          * Label position.
@@ -15216,7 +14766,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.emphasis)
                          *
                          * + 'top'
                          *
@@ -15234,41 +14784,41 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.position
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.position
                          */
-                        position?: any[] | string;
+                        position?: any[] | string | undefined;
 
                         /**
                          * Distance to the host graphic element.
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.distance
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.distance
                          */
-                        distance?: number;
+                        distance?: number | undefined;
 
                         /**
                          * Rotate label, from -90 degree to 90, positive value
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rotate
                          */
-                        rotate?: number;
+                        rotate?: number | undefined;
 
                         /**
                          * Whether to move text slightly.
@@ -15276,9 +14826,9 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.offset
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.offset
                          */
-                        offset?: any[];
+                        offset?: any[] | undefined;
 
                         /**
                          * text color.
@@ -15289,9 +14839,9 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * font style
@@ -15305,9 +14855,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.fontStyle
                          */
-                        fontStyle?: string;
+                        fontStyle?: string | undefined;
 
                         /**
                          * font thick weight
@@ -15323,9 +14873,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number | undefined;
 
                         /**
                          * font family
@@ -15335,9 +14885,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.fontFamily
                          */
-                        fontFamily?: string;
+                        fontFamily?: string | undefined;
 
                         /**
                          * font size
@@ -15345,9 +14895,9 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.fontSize
                          */
-                        fontSize?: number;
+                        fontSize?: number | undefined;
 
                         /**
                          * Horizontal alignment of text, automatic by default.
@@ -15361,12 +14911,12 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.align
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.align
                          */
-                        align?: string;
+                        align?: string | undefined;
 
                         /**
                          * Vertical alignment of text, automatic by default.
@@ -15380,12 +14930,12 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.verticalAlign
                          */
-                        verticalAlign?: string;
+                        verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
@@ -15393,12 +14943,12 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.lineHeight
                          */
-                        lineHeight?: number;
+                        lineHeight?: number | undefined;
 
                         /**
                          * Background color of the text fregment.
@@ -15407,7 +14957,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.emphasis)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -15418,9 +14968,9 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.backgroundColor
                          */
-                        backgroundColor?: object | string;
+                        backgroundColor?: object | string | undefined;
 
                         /**
                          * Border color of the text fregment.
@@ -15431,25 +14981,25 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.borderWidth
                          */
-                        borderWidth?: number;
+                        borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.borderRadius
                          */
-                        borderRadius?: number;
+                        borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
@@ -15464,9 +15014,9 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.padding
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.padding
                          */
-                        padding?: any[] | number;
+                        padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
@@ -15474,33 +15024,33 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Width of the text block.
@@ -15525,9 +15075,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.width
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.width
                          */
-                        width?: number | string;
+                        width?: number | string | undefined;
 
                         /**
                          * Height of the text block.
@@ -15542,9 +15092,9 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.height
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.height
                          */
-                        height?: number | string;
+                        height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
@@ -15555,17 +15105,17 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.textBorderColor
                          */
-                        textBorderColor?: string;
+                        textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.textBorderWidth
                          */
-                        textBorderWidth?: number;
+                        textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
@@ -15573,54 +15123,52 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.textShadowColor
                          */
-                        textShadowColor?: string;
+                        textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.textShadowBlur
                          */
-                        textShadowBlur?: number;
+                        textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.textShadowOffsetX
                          */
-                        textShadowOffsetX?: number;
+                        textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.textShadowOffsetY
                          */
-                        textShadowOffsetY?: number;
+                        textShadowOffsetY?: number | undefined;
 
                         /**
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.emphasis)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -15630,9 +15178,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
-                                color?: string;
+                                color?: string | undefined;
 
                                 /**
                                  * font style
@@ -15646,9 +15194,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
-                                fontStyle?: string;
+                                fontStyle?: string | undefined;
 
                                 /**
                                  * font thick weight
@@ -15664,9 +15212,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number | undefined;
 
                                 /**
                                  * font family
@@ -15676,9 +15224,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
-                                fontFamily?: string;
+                                fontFamily?: string | undefined;
 
                                 /**
                                  * font size
@@ -15686,9 +15234,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
-                                fontSize?: number;
+                                fontSize?: number | undefined;
 
                                 /**
                                  * Horizontal alignment of text, automatic by
@@ -15704,12 +15252,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
-                                align?: string;
+                                align?: string | undefined;
 
                                 /**
                                  * Vertical alignment of text, automatic by
@@ -15725,12 +15273,12 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
-                                verticalAlign?: string;
+                                verticalAlign?: string | undefined;
 
                                 /**
                                  * Line height of the text fregment.
@@ -15739,12 +15287,12 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
-                                lineHeight?: number;
+                                lineHeight?: number | undefined;
 
                                 /**
                                  * Background color of the text fregment.
@@ -15754,7 +15302,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -15766,9 +15314,9 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
-                                backgroundColor?: object | string;
+                                backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
@@ -15779,25 +15327,25 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
-                                borderWidth?: number;
+                                borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
-                                borderRadius?: number;
+                                borderRadius?: number | undefined;
 
                                 /**
                                  * Padding of the text fregment, for example:
@@ -15814,9 +15362,9 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
-                                padding?: any[] | number;
+                                padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
@@ -15824,33 +15372,33 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
-                                shadowBlur?: number;
+                                shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
-                                shadowOffsetX?: number;
+                                shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
-                                shadowOffsetY?: number;
+                                shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
@@ -15879,9 +15427,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
-                                width?: number | string;
+                                width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
@@ -15897,9 +15445,9 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
-                                height?: number | string;
+                                height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
@@ -15910,17 +15458,17 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
-                                textBorderColor?: string;
+                                textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
-                                textBorderWidth?: number;
+                                textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
@@ -15928,52 +15476,51 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
-                                textShadowColor?: string;
+                                textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
-                                textShadowBlur?: number;
+                                textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
-                                textShadowOffsetX?: number;
+                                textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-bar.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
-                                textShadowOffsetY?: number;
+                                textShadowOffsetY?: number | undefined;
                             };
-                        };
-                    };
-                };
+                        } | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * Bar color..
                      *
                      *
                      * @default
                      * "auto"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: string | undefined;
 
                     /**
                      * The bodrder color of bar.
@@ -15981,17 +15528,17 @@ declare namespace echarts {
                      *
                      * @default
                      * '#000'
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.barBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.barBorderColor
                      */
-                    barBorderColor?: string;
+                    barBorderColor?: string | undefined;
 
                     /**
                      * The bodrder width of bar. defaults to have no border.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.barBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.barBorderWidth
                      */
-                    barBorderWidth?: number;
+                    barBorderWidth?: number | undefined;
 
                     /**
                      * The radius of rounded corner.
@@ -16001,12 +15548,12 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.barBorderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.barBorderRadius
                      */
-                    barBorderRadius?: any[] | number;
+                    barBorderRadius?: any[] | number | undefined;
 
                     /**
                      * Size of shadow blur.
@@ -16015,36 +15562,36 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.shadowBlur
                      */
-                    shadowBlur?: number;
+                    shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: string | undefined;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.shadowOffsetX
                      */
-                    shadowOffsetX?: number;
+                    shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.shadowOffsetY
                      */
-                    shadowOffsetY?: number;
+                    shadowOffsetY?: number | undefined;
 
                     /**
                      * Opacity of the component.
@@ -16052,24 +15599,23 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.opacity
                      */
-                    opacity?: number;
+                    opacity?: number | undefined;
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.emphasis
+                     * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Bar color..
                          *
                          *
                          * @default
                          * "auto"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.emphasis.color
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: string | undefined;
 
                         /**
                          * The bodrder color of bar.
@@ -16077,18 +15623,18 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.emphasis.barBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.emphasis.barBorderColor
                          */
-                        barBorderColor?: string;
+                        barBorderColor?: string | undefined;
 
                         /**
                          * The bodrder width of bar.
                          * defaults to have no border.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.emphasis.barBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.emphasis.barBorderWidth
                          */
-                        barBorderWidth?: number;
+                        barBorderWidth?: number | undefined;
 
                         /**
                          * Size of shadow blur.
@@ -16097,36 +15643,36 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.itemStyle.emphasis)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-bar.bar.data.itemStyle.emphasis)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.emphasis.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.emphasis.shadowBlur
                          */
-                        shadowBlur?: number;
+                        shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.emphasis.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: string | undefined;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.emphasis.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.emphasis.shadowOffsetX
                          */
-                        shadowOffsetX?: number;
+                        shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.emphasis.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.emphasis.shadowOffsetY
                          */
-                        shadowOffsetY?: number;
+                        shadowOffsetY?: number | undefined;
 
                         /**
                          * Opacity of the component.
@@ -16134,464 +15680,19 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.itemStyle.emphasis.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-bar.data.itemStyle.emphasis.opacity
                          */
-                        opacity?: number;
-                    };
-                };
+                        opacity?: number | undefined;
+                    } | undefined;
+                } | undefined;
 
                 /**
                  * tooltip settings in this series data.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip
+                 * @see https://echarts.apache.org/en/option.html#series-bar.data.tooltip
                  */
-                tooltip?: {
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The position of the tooltip's floating layer, which would
-                     * follow the position of mouse by default.
-                     *
-                     * Options:
-                     *
-                     * + `Array`
-                     *
-                     * Display the position of tooltip's floating layer through
-                     * array, which supports absolute position and relative
-                     * percentage.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.tooltip)
-                     *
-                     * + `Function`
-                     *
-                     * Callback function in the following form:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.tooltip)
-                     *
-                     * **Parameters:**
-                     * point: Mouse position.
-                     * param: The same as formatter.
-                     * dom: The DOM object of tooltip.
-                     * rect: It is valid only when mouse is on graphic elements,
-                     * which stands for a bounding box with `x`, `y`, `width`,
-                     * and `height`.
-                     * size: The size of dom echarts container.
-                     * For example: `{contentSize: [width, height], viewSize:
-                     * [width, height]}`.
-                     *
-                     * **Return:**
-                     * Return value is an array standing for tooltip position,
-                     * which can be absolute pixels, or relative percentage.
-                     * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                     * '20%', bottom: 40}`.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.tooltip)
-                     *
-                     * Or:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.tooltip)
-                     *
-                     * + `'inside'`
-                     *
-                     * Center position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'top'`
-                     *
-                     * Top position of the graphic element where the mouse is
-                     * in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'left'`
-                     *
-                     * Left position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'right'`
-                     *
-                     * Right position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'bottom'`
-                     *
-                     * Bottom position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.position
-                     */
-                    position?: any[] | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The content formatter of tooltip's floating layer which
-                     * supports string template and callback function.
-                     *
-                     * **1\. String template**
-                     *
-                     * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
-                     * and `{e}`, which stands for series name, data name and
-                     * data value and ect. When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is set to be `'axis'`, there may be data from multiple
-                     * series.
-                     * In this time, series index can be refered as `{a0}`,
-                     * `{a1}`, or `{a2}`.
-                     *
-                     * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for
-                     * different series types:
-                     *
-                     * + Line (area) charts, bar (column) charts, K charts:
-                     * `{a}` for series name, `{b}` for category name, `{c}`
-                     * for data value, `{d}` for none;
-                     *
-                     * + Scatter (bubble) charts: `{a}` for series name, `{b}`
-                     * for data name, `{c}` for data value, `{d}` for none;
-                     *
-                     * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                     * for merging data, `{d}` for none;
-                     *
-                     * + Pie charts, gauge charts, funnel charts: `{a}` for
-                     * series name, `{b}` for data item name, `{c}` for data
-                     * value, `{d}` for percentage.
-                     *
-                     * **Example:**
-                     *
-                     * ```
-                     * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                     *
-                     * ```
-                     *
-                     * **2\. Callback function**
-                     *
-                     * The format of callback function:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.tooltip)
-                     *
-                     * The first parameter `params` is the data that the formatter
-                     * needs. Its format is shown as follows:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.tooltip)
-                     *
-                     * When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'axis'`, or when tooltip is triggered by
-                     * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
-                     * , `params` is the data array of multiple series.
-                     * The content of each item of the array is the same as
-                     * above. Besides,
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.tooltip)
-                     *
-                     * **Note:** Using array to present all the parameters in
-                     * ECharts 2.x is not supported anymore.
-                     *
-                     * The second parameter `ticket` is the asynchronous callback
-                     * flag which should be used along with the third parameter
-                     * `callback` when it is used.
-                     *
-                     * The third parameter `callback` is asynchronous callback.
-                     * When the content of tooltip is acquired asynchronously,
-                     * `ticket` and `htm` as introduced above can be used to
-                     * update tooltip with callback.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.tooltip)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The background color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * "rgba(50,50,50,0.7)"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.backgroundColor
-                     */
-                    backgroundColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * '#333'
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border width of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The floating layer of tooltip space around content.
-                     * The unit is px.
-                     * Default values for each position are 5.
-                     * And they can be set to different values with left, right,
-                     * top, and bottom.
-                     *
-                     * Examples:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.tooltip)
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.padding
-                     */
-                    padding?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The text syle of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle
-                     */
-                    textStyle?: {
-
-                        /**
-                         * text color.
-                         *
-                         *
-                         * @default
-                         * "#fff"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 14
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.bar.data.tooltip.textStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.textStyle.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-                    };
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * Extra CSS style for floating layer.
-                     * The following is an example for adding shadow.
-                     *
-                     * ```
-                     * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                     *
-                     * ```
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data.tooltip.extraCssText
-                     */
-                    extraCssText?: string;
-                };
+                tooltip?: BaseTooltip | undefined;
             }
         }
     }

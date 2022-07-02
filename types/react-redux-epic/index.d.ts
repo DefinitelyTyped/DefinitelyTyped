@@ -6,7 +6,6 @@
 
 import * as React from 'react';
 import { Observable } from 'rxjs/Observable';
-import { Action } from 'redux';
 import { Epic } from 'redux-observable';
 
 export interface Action {
@@ -18,6 +17,6 @@ export function wrapRootEpic<T extends Action, S, D, O extends T>(
 ): Epic<T, S, D, O>;
 
 export function renderToString(
-    element: React.ReactElement<any>,
+    element: React.ReactElement,
     wrappedEpic: Epic<any, any>
 ): Observable<{ markup: string }>;

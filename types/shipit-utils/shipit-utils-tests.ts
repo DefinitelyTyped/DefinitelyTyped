@@ -1,4 +1,4 @@
-import shipit = require("shipit");
+import shipit = require("shipit-cli");
 import utils = require("shipit-utils");
 
 const originalShipit = utils.getShipit(shipit);

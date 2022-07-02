@@ -1,10 +1,11 @@
-// Type definitions for binary-parser 1.3
+// Type definitions for binary-parser 1.5
 // Project: https://github.com/keichi/binary-parser
 // Definitions by: Benjamin Riggs <https://github.com/riggs>,
 //                 Dolan Miu <https://github.com/dolanmiu>,
-//                 Yu Shimura <https://github.com/yuhr>
+//                 Yu Shimura <https://github.com/yuhr>,
+//                 John Mark Gabriel Caguicla <https://github.com/caguiclajmg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
@@ -29,6 +30,13 @@ export interface Parser<O extends object | undefined = undefined> {
     int32be<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, number>;
     uint32le<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, number>;
     uint32be<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, number>;
+
+    int64<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, bigint>;
+    uint64<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, bigint>;
+    int64le<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, bigint>;
+    int64be<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, bigint>;
+    uint64le<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, bigint>;
+    uint64be<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, bigint>;
 
     bit1<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, number>;
     bit2<N extends string>(name: N, options?: Parser.Options): Parser.Next<O, N, number>;
@@ -109,6 +117,8 @@ export interface Parser<O extends object | undefined = undefined> {
 
     skip(length: number): Parser<O>;
 
+    seek(length: number): Parser<O>;
+
     endianess(endianess: Parser.Endianness): Parser<O>;   /* [sic] */
 
     namely(alias: string): Parser<O>;
@@ -129,35 +139,35 @@ export namespace Parser {
     type Parsed<O extends object | undefined> = O extends undefined ? {} : O;
 
     interface Options {
-        formatter?: ((value: Data) => any);
-        assert?: string | number | ((value: Data) => boolean);
+        formatter?: ((value: Data) => any) | undefined;
+        assert?: string | number | ((value: Data) => boolean) | undefined;
     }
 
     interface StringOptions extends Options {
-        encoding?: string;
-        length?: number | string | ((this: Parser<any>) => number);
-        zeroTerminated?: boolean;
-        greedy?: boolean;
-        stripNull?: boolean;
+        encoding?: string | undefined;
+        length?: number | string | ((this: Parser<any>) => number) | undefined;
+        zeroTerminated?: boolean | undefined;
+        greedy?: boolean | undefined;
+        stripNull?: boolean | undefined;
     }
 
     interface BufferOptions extends Options {
-        clone?: boolean;
-        length?: number | string | ((this: Parser<any>) => number);
-        readUntil?: string | ((item: number, buffer: Buffer) => boolean);
+        clone?: boolean | undefined;
+        length?: number | string | ((this: Parser<any>) => number) | undefined;
+        readUntil?: string | ((item: number, buffer: Buffer) => boolean) | undefined;
     }
 
     interface ArrayOptions extends Options {
         type: string | Parser<any>;
-        length?: number | string | ((this: Parser<any>) => number);
-        lengthInBytes?: number | string | ((this: Parser<any>) => number);
-        readUntil?: string | ((item: number, buffer: Buffer) => boolean);
+        length?: number | string | ((this: Parser<any>) => number) | undefined;
+        lengthInBytes?: number | string | ((this: Parser<any>) => number) | undefined;
+        readUntil?: string | ((item: number, buffer: Buffer) => boolean) | undefined;
     }
 
     interface ChoiceOptions extends Options {
         tag: string | ((this: Parser<any>) => number);
         choices: { [item: number]: Parser<any> | string };
-        defaultChoice?: Parser<any> | string;
+        defaultChoice?: Parser<any> | string | undefined;
     }
 
     interface NestOptions extends Options {

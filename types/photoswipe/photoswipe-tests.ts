@@ -1,5 +1,5 @@
-import PhotoSwipeUI_Default = require('./dist/photoswipe-ui-default/index');
-import PhotoSwipe = require('./index');
+import PhotoSwipeUI_Default = require('photoswipe/dist/photoswipe-ui-default');
+import PhotoSwipe = require('photoswipe');
 
 function test_defaultUI() {
     var items: PhotoSwipeUI_Default.Item[] = [
@@ -7,12 +7,25 @@ function test_defaultUI() {
             src: "path/to/image.jpg",
             w: 100,
             h: 200,
+            pid: 'image-one',
         },
         {
             src: "path/to/image2.jpg",
             w: 1000,
             h: 2000,
-        }
+            pid: 'image-two',
+        },
+        {
+            src: "path/to/image3.jpg",
+            w: 1000,
+            h: 2000,
+            pid: 'image-three',
+
+            msrc: "path/to/image3-thumb.jpg"
+        },
+        {
+            html: "<h1>Hello World</h1>",
+        },
     ];
 
     var options: PhotoSwipe.Options = {
@@ -25,7 +38,7 @@ function test_defaultUI() {
         showHideOpacity: false,
         bgOpacity: 1,
         spacing: 0.12,
-        allowNoPanText: true,
+        allowPanToNext: true,
         maxSpreadZoom: 2,
         getDoubleTapZoom: function(isMouseClick, item) {
             if (isMouseClick) {
@@ -43,6 +56,7 @@ function test_defaultUI() {
         arrowKeys: true,
         history: true,
         galleryUID: 3,
+        galleryPIDs: true,
         errorMsg: '<div class="pswp__error-msg"><a href="%url%" target="_blank">The image</a> could not be loaded.</div>',
         preload: [1, 1],
         mainClass: "",
@@ -51,8 +65,6 @@ function test_defaultUI() {
         isClickableElement: function(el) {
             return el.tagName === 'A';
         },
-        mainScrollEndFriction: 0.35,
-        panEndFriction: 0.35,
         modal: true
     };
 

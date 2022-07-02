@@ -53,9 +53,7 @@ class TransitionTest extends React.Component {
             <div>
                 {interpolatedItems.map(config => {
                     return (
-                        <div key={config.key}>
-                            style={{ height: config.style['height'] }}
-                            >
+                        <div key={config.key} style={{ height: config.style['height'] as number }}>
                             {config.data}
                         </div>
                     );
@@ -71,6 +69,7 @@ class StaggeredTest extends React.Component {
             <StaggeredMotion defaultStyles={[{ h: 0 }, { h: 0 }, { h: 0 }]}
                 styles={this.getStyles.bind(this)}
                 >
+                    {() => <div />}
             </StaggeredMotion>
         )
     }

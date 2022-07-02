@@ -11,17 +11,17 @@ interface ConstructorOptions {
     /**
      * The current working directory of the file. Default: process.cwd()
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Used for relative pathing. Typically where a glob starts. Default: options.cwd
      */
-    base?: string;
+    base?: string | undefined;
 
     /**
      * Full path to the file.
      */
-    path?: string;
+    path?: string | undefined;
 
     /**
      * Stores the path history. If `options.path` and `options.history` are both passed,
@@ -29,21 +29,21 @@ interface ConstructorOptions {
      * normalized by the `file.path` setter.
      * Default: `[]` (or `[options.path]` if `options.path` is passed)
      */
-    history?: string[];
+    history?: string[] | undefined;
 
     /**
      * The result of an fs.stat call. This is how you mark the file as a directory or
      * symbolic link. See `isDirectory()`, `isSymbolic()` and `fs.Stats` for more information.
-     * http://nodejs.org/api/fs.html#fs_class_fs_stats
+     * https://nodejs.org/api/fs.html#fs_class_fs_stats
      */
-    stat?: fs.Stats;
+    stat?: fs.Stats | undefined;
 
     /**
      * File contents.
      * Type: `Buffer`, `Stream`, or null
      * Default: null
      */
-    contents?: Buffer | NodeJS.ReadableStream | null;
+    contents?: Buffer | NodeJS.ReadableStream | null | undefined;
 
     /**
      * Any custom option properties will be directly assigned to the new Vinyl object.
@@ -52,9 +52,11 @@ interface ConstructorOptions {
 }
 
 interface FileConstructor {
-    new (options: ConstructorOptions & { contents: null }): NullFile;
-    new (options: ConstructorOptions & { contents: Buffer }): BufferFile;
-    new (options: ConstructorOptions & { contents: NodeJS.ReadableStream }): StreamFile;
+    new (options: ConstructorOptions & { contents: null }): File.NullFile;
+    new (options: ConstructorOptions & { contents: Buffer }): File.BufferFile;
+    new (
+        options: ConstructorOptions & { contents: NodeJS.ReadableStream }
+    ): File.StreamFile;
     new (options?: ConstructorOptions): File;
 
     /**
@@ -257,17 +259,17 @@ interface File {
     /**
      * Returns `true` if the file contents are a `Buffer`, otherwise `false`.
      */
-    isBuffer(): this is BufferFile;
+    isBuffer(): this is File.BufferFile;
 
     /**
      * Returns `true` if the file contents are a `Stream`, otherwise `false`.
      */
-    isStream(): this is StreamFile;
+    isStream(): this is File.StreamFile;
 
     /**
      * Returns `true` if the file contents are `null`, otherwise `false`.
      */
-    isNull(): this is NullFile;
+    isNull(): this is File.NullFile;
 
     /**
      * Returns `true` if the file represents a directory, otherwise `false`.
@@ -281,7 +283,7 @@ interface File {
      * When constructing a Vinyl object, pass in a valid `fs.Stats` object via `options.stat`.
      * If you are mocking the `fs.Stats` object, you may need to stub the `isDirectory()` method.
      */
-    isDirectory(): this is DirectoryFile;
+    isDirectory(): this is File.DirectoryFile;
 
     /**
      * Returns `true` if the file represents a symbolic link, otherwise `false`.
@@ -295,7 +297,7 @@ interface File {
      * When constructing a Vinyl object, pass in a valid `fs.Stats` object via `options.stat`.
      * If you are mocking the `fs.Stats` object, you may need to stub the `isSymbolicLink()` method.
      */
-    isSymbolic(): this is SymbolicFile;
+    isSymbolic(): this is File.SymbolicFile;
 
     /**
      * Returns a new Vinyl object with all attributes cloned.
@@ -307,7 +309,7 @@ interface File {
      * If `file.contents` is a `Buffer` and `options.contents` is `false`, the `Buffer` reference
      * will be reused instead of copied.
      */
-    clone(opts?: { contents?: boolean, deep?: boolean } | boolean): this;
+    clone(opts?: { contents?: boolean | undefined, deep?: boolean | undefined } | boolean): this;
 
     /**
      * Returns a formatted-string interpretation of the Vinyl object.
@@ -327,45 +329,48 @@ interface File {
             /**
              * If false, the destination stream will not be ended (same as node core).
              */
-            end?: boolean;
-        }): T;
+            end?: boolean | undefined;
+        }
+    ): T;
 }
 
-// See https://github.com/Microsoft/TypeScript/issues/11796
+declare namespace File {
+    // See https://github.com/Microsoft/TypeScript/issues/11796
 
-interface BufferFile extends File {
-    contents: Buffer;
-    isStream(): this is never;
-    isBuffer(): true;
-    isNull(): this is never;
-    isDirectory(): this is never;
-    isSymbolic(): this is never;
-}
+    interface BufferFile extends File {
+        contents: Buffer;
+        isStream(): this is never;
+        isBuffer(): true;
+        isNull(): this is never;
+        isDirectory(): this is never;
+        isSymbolic(): this is never;
+    }
 
-interface StreamFile extends File {
-    contents: NodeJS.ReadableStream;
-    isStream(): true;
-    isBuffer(): this is never;
-    isNull(): this is never;
-    isDirectory(): this is never;
-    isSymbolic(): this is never;
-}
+    interface StreamFile extends File {
+        contents: NodeJS.ReadableStream;
+        isStream(): true;
+        isBuffer(): this is never;
+        isNull(): this is never;
+        isDirectory(): this is never;
+        isSymbolic(): this is never;
+    }
 
-interface NullFile extends File {
-    contents: null;
-    isStream(): this is never;
-    isBuffer(): this is never;
-    isNull(): true;
-    isDirectory(): this is DirectoryFile;
-    isSymbolic(): this is SymbolicFile;
-}
+    interface NullFile extends File {
+        contents: null;
+        isStream(): this is never;
+        isBuffer(): this is never;
+        isNull(): true;
+        isDirectory(): this is DirectoryFile;
+        isSymbolic(): this is SymbolicFile;
+    }
 
-interface DirectoryFile extends NullFile {
-    isDirectory(): true;
-    isSymbolic(): this is never;
-}
+    interface DirectoryFile extends NullFile {
+        isDirectory(): true;
+        isSymbolic(): this is never;
+    }
 
-interface SymbolicFile extends NullFile {
-    isDirectory(): this is never;
-    isSymbolic(): true;
+    interface SymbolicFile extends NullFile {
+        isDirectory(): this is never;
+        isSymbolic(): true;
+    }
 }

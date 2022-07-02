@@ -2,6 +2,7 @@
 // Project: https://github.com/nmuldavin/chai-almost#readme
 // Definitions by: Lennard Schulz <https://github.com/kclnn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
@@ -29,5 +30,5 @@ declare global {
     }
 }
 
-declare function chaiAlmost(tolerance?: number): ((chai: any, utils: any) => void);
+declare function chaiAlmost(tolerance?: number): Chai.ChaiPlugin;
 export = chaiAlmost;

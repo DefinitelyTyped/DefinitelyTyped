@@ -7,7 +7,7 @@ declare global {
 }
 
 class Person extends EmberObject {
-    name: string;
+    declare name: string;
 }
 
 const person = Person.create({ name: 'Joe' });
@@ -20,3 +20,4 @@ assertType<string[]>(array.map(p => p.get('name')));
 assertType<Person[]>(array.sortBy('name'));
 assertType<Person[]>(array.uniq());
 assertType<Person[]>(array.uniqBy('name'));
+assertType<Person[]>(array.uniqBy(p => p.get('name')));

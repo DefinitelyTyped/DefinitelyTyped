@@ -28,28 +28,28 @@ export declare function crop(options: Options, callback: (err: Error, result: an
 export declare function resizeArgs(options: Options): ResizeArgs;
 
 export interface Features {
-    format?: string;
-    width?: number;
-    height?: number;
-    depth?: number;
+    format?: string | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    depth?: number | undefined;
 }
 
 export interface Options {
-    srcPath?: string; //: null,
-    srcData?: string; //: null,
-    srcFormat?: string; //: null,
-    dstPath?: string; //: null,
-    quality?: number; //: 0.8,
-    format?: string; //: 'jpg',
-    progressive?: boolean; //: false,
+    srcPath?: string | undefined; //: null,
+    srcData?: string | undefined; //: null,
+    srcFormat?: string | undefined; //: null,
+    dstPath?: string | undefined; //: null,
+    quality?: number | undefined; //: 0.8,
+    format?: string | undefined; //: 'jpg',
+    progressive?: boolean | undefined; //: false,
     colorspace?: any; //: null,
-    width?: number; //: 0,
-    height?: number; //: 0,
-    strip?: boolean; //: true,
-    filter?: string; //: 'Lagrange',
-    sharpening?: number; //: 0.2,
-    customArgs?: any[]; //: [],
-    timeout?: number; //: 0
+    width?: number | undefined; //: 0,
+    height?: number | undefined; //: 0,
+    strip?: boolean | undefined; //: true,
+    filter?: string | undefined; //: 'Lagrange',
+    sharpening?: number | undefined; //: 0.2,
+    customArgs?: any[] | undefined; //: [],
+    timeout?: number | undefined; //: 0
 }
 
 export interface ResizeArgs {

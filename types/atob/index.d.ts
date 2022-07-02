@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export default function(str: string): string;
+export = _default;
+declare function _default(str: string): string;

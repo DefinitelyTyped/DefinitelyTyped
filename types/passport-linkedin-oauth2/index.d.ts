@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Profile as passportProfile, AuthenticateOptions, Strategy as passportStrategy } from 'passport';
+import { Profile as passportProfile, AuthenticateOptions as PassportAuthenticateOptions, Strategy as passportStrategy } from 'passport';
 import { Request } from 'express';
 
 export interface Profile extends passportProfile {
@@ -20,8 +20,8 @@ export interface Profile extends passportProfile {
     _json: any;
 }
 
-export interface AuthenticateOptions extends AuthenticateOptions {
-    authType?: string;
+export interface AuthenticateOptions extends PassportAuthenticateOptions {
+    authType?: string | undefined;
 }
 
 export interface StrategyOption {
@@ -29,9 +29,10 @@ export interface StrategyOption {
     clientSecret: string;
     callbackURL: string;
 
-    scopeSeparator?: string;
-    enableProof?: boolean;
-    profileFields?: string[];
+    scope?: string[] | undefined;
+    scopeSeparator?: string | undefined;
+    enableProof?: boolean | undefined;
+    profileFields?: string[] | undefined;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {

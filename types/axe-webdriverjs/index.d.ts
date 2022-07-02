@@ -1,9 +1,8 @@
-// Type definitions for axe-webdriverjs 2.0
+// Type definitions for axe-webdriverjs 2.3
 // Project: https://github.com/dequelabs/axe-webdriverjs#readme
-// Definitions by: My Self <https://github.com/JoshuaKGoldberg>
+// Definitions by: Tyler Krupicka <https://github.com/tylerkrupicka>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { Result, RunOptions, Spec } from "axe-core";
 import { WebDriver } from "selenium-webdriver";
 
@@ -15,6 +14,9 @@ export interface AxeAnalysis {
     url: string;
     violations: Result[];
 }
+
+export type DeprecatedAnalyzeCallback = (results: AxeAnalysis) => void;
+export type AnalyzeCallback = (err: Error | null, results: AxeAnalysis) => void;
 
 export interface AxeBuilder {
     /**
@@ -74,10 +76,20 @@ export interface AxeBuilder {
      * Perform analysis and retrieve results.
      * @param callback   Function to execute when analysis completes.
      */
-    analyze(callback: (results: AxeAnalysis) => void): Promise<AxeAnalysis>;
+    analyze(
+        callback?: AnalyzeCallback | DeprecatedAnalyzeCallback
+    ): Promise<AxeAnalysis>;
+}
+
+export interface BuilderOptions {
+    /**
+     * Should errors be printed into console
+     * @default true
+     */
+    logIframeErrors?: boolean | undefined;
 }
 
 export const AxeBuilder: {
-    (driver: WebDriver): AxeBuilder;
-    new (driver: WebDriver): AxeBuilder;
+    (driver: WebDriver, source?: string, builderOptions?: BuilderOptions): AxeBuilder;
+    new (driver: WebDriver, source?: string, builderOptions?: BuilderOptions): AxeBuilder;
 };

@@ -21,7 +21,7 @@ interface KoliteAsyncCommand extends KoliteCommand {
 
 interface KoLiteCommandOptions {
     execute(...args: any[]): any;
-    canExecute?: (isExecuting: boolean) => any;
+    canExecute?: ((isExecuting: boolean) => any) | undefined;
 }
 
 // when not AMD, add to ko object

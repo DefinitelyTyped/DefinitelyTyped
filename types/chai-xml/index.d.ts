@@ -2,6 +2,7 @@
 // Project: https://github.com/krampstudio/chai-xml
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
@@ -34,5 +35,5 @@ declare namespace ChaiXml {
   }
 }
 
-declare  function chaiXml(chai: any, utils: any): void;
+declare const chaiXml: Chai.ChaiPlugin;
 export = chaiXml;

@@ -6,23 +6,20 @@
             "dom"
         ],
         "noImplicitAny": false,
-        "noImplicitThis": false,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {
-        },
+        "paths": {},
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "lib/sharedb.d.ts",
         "index.d.ts",
-        "lib/client.d.ts",
         "sharedb-tests.ts"
     ]
 }

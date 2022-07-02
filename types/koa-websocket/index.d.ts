@@ -4,6 +4,8 @@
 //                 Jaco Greeff <https://github.com/jacogr>
 //                 Martin Ždila <https://github.com/zdila>
 //                 Eunchong Yu <https://github.com/Kroisse>
+//                 Christopher N. Katoyi-Kaba <https://github.com/Christopher2K>
+//                 Zuo Jiazi <https://github.com/Aoiujz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -21,31 +23,39 @@ declare module "koa" {
 }
 
 declare namespace KoaWebsocket {
-    type Middleware = compose.Middleware<MiddlewareContext>;
+    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = compose.Middleware<MiddlewareContext<StateT> & ContextT>;
 
-    interface MiddlewareContext extends Koa.Context {
+    interface MiddlewareContext<StateT> extends Koa.Context {
         // Limitation: Declaration merging cannot overwrap existing properties.
         // That's why this property is here, not in the merged declaration above.
         app: App;
+        state: StateT;
     }
 
-    class Server {
+    class Server<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
         app: App;
-        middleware: Middleware[];
-        server?: ws.Server;
+        middleware: Array<Middleware<StateT, ContextT>>;
+        server?: ws.Server | undefined;
 
-        constructor(app: Koa);
+        constructor(app: Koa<StateT, ContextT>);
 
         listen(options: ws.ServerOptions): ws.Server;
         onConnection(socket: ws, request: http.IncomingMessage): void;
-        use(middleware: Middleware): this;
+        use(middleware: Middleware<StateT, ContextT>): this;
     }
 
-    interface App extends Koa {
-        ws: Server;
+    interface App<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> extends Koa<StateT, ContextT> {
+        ws: Server<StateT, ContextT>;
     }
 }
 
-declare function KoaWebsocket(app: Koa, wsOptions?: ws.ServerOptions, httpsOptions?: https.ServerOptions): KoaWebsocket.App;
+declare function KoaWebsocket<
+  StateT = Koa.DefaultState,
+  ContextT = Koa.DefaultContext
+>(
+  app: Koa<StateT, ContextT>,
+  wsOptions?: ws.ServerOptions,
+  httpsOptions?: https.ServerOptions
+): KoaWebsocket.App<StateT, ContextT>;
 
 export = KoaWebsocket;

@@ -5,7 +5,7 @@ import * as Backbone from 'backbone';
 class DestroyWarn extends Marionette.Behavior {
     // you can set default options
     // just like you can in your Backbone Models
-    // they will be overriden if you pass in an option with the same key
+    // they will be overridden if you pass in an option with the same key
     defaults = {
         message: 'you are destroying!'
     };
@@ -114,19 +114,17 @@ class MyBaseView extends Marionette.View<MyModel> {
 }
 
 class MyView extends Marionette.View<MyModel> {
-    behaviors: any;
+    behaviors: any = {
+        DestroyWarn: {
+            message: 'hello'
+        }
+    };
 
     constructor(model: MyModel) {
         super({ model });
 
         this.ui = {
             destroy: '.destroy'
-        };
-
-        this.behaviors = {
-            DestroyWarn: {
-                message: 'hello'
-            }
         };
     }
 
@@ -194,9 +192,11 @@ class MyHtmlElRegion extends Marionette.Region {
     }
 }
 
-class MyCollectionView extends Marionette.CollectionView<MyModel, MyView | MyOtherView> {
-    constructor() {
-        super();
+type MyCollectionViewChildViews = MyView | MyOtherView;
+
+class MyCollectionView extends Marionette.CollectionView<MyModel, MyCollectionViewChildViews> {
+    constructor(options?: Marionette.CollectionViewOptions<MyModel>) {
+        super(options);
 
         this.childView = (model: MyModel) => {
             if (model.get('isFoo')) {
@@ -297,11 +297,15 @@ function ViewTests() {
 }
 
 function CollectionViewTests() {
-    const cv = new MyCollectionView();
+    const cvWithoutOptions = new MyCollectionView();
+    const cv = new MyCollectionView({
+        viewFilter: (_view?: MyCollectionViewChildViews, _index?: number, children?: MyCollectionViewChildViews[]) =>
+            true,
+    });
     cv.collection.add(new MyModel());
     app.mainRegion.show(cv);
     cv.emptyView = MyView;
-    const view: Marionette.CollectionView<MyModel, MyView | MyOtherView> = cv.destroy();
+    const view: Marionette.CollectionView<MyModel, MyCollectionViewChildViews> = cv.destroy();
 }
 
 class MyController {

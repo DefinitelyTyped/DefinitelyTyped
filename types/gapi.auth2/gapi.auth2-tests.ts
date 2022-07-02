@@ -24,7 +24,8 @@ function test_getAuthInstance() {
 function test_signIn() {
   gapi.auth2.getAuthInstance().signIn({
     scope: 'email profile',
-    prompt: 'content'
+    prompt: 'content',
+    login_hint: 'example@example.com'
   });
 }
 
@@ -34,6 +35,7 @@ function test_signInOptionsBuild() {
   options.setFetchBasicProfile(true);
   options.setPrompt('select_account');
   options.setScope('profile').setScope('email');
+  options.setLoginHint('example@example.com');
   gapi.auth2.getAuthInstance().signIn(options);
 }
 
@@ -49,6 +51,11 @@ function test_reloadAuthResponse() {
       const token: string = response.access_token;
       const expires_in: number = response.expires_in;
     });
+}
+
+function test_grantOfflineAccess() {
+  gapi.auth2.getAuthInstance().currentUser.get().grantOfflineAccess({ scope: "profile" })
+  .then(response => console.log(response.code));
 }
 
 function test_render() {
@@ -152,4 +159,11 @@ function makeApiCall() {
     p.appendChild(document.createTextNode(`Hello, ${name}!`));
     document.getElementById('content').appendChild(p);
   });
+}
+
+async function test_await() {
+  // This used to result in TS1062: "Type is referenced directly or indirectly in the fulfillment callback of its own 'then' method"
+  // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+  const auth = await gapi.auth2.getAuthInstance();
+  console.log(auth.isSignedIn.get());
 }

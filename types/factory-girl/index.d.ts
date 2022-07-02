@@ -3,92 +3,156 @@
 // Definitions by: Stack Builders <https://github.com/stackbuilders>
 //                 Sebastián Estrella <https://github.com/sestrella>
 //                 Luis Fernando Alvarez <https://github.com/elcuy>
+//                 Olivier Kamers <https://github.com/OlivierKamers>
+//                 Dan McNamara <https://github.com/DMcNamara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 declare const factory: factory.Static;
 
 declare namespace factory {
-  interface Static {
-    /**
-     * Associate the factory to other model
-     */
-    assoc(model: string, attributes: string): any;
+    type Generator<T> = () => T;
 
-    /**
-     * Associate the factory to a model that's not persisted
-     */
-    assocAttrs(name: string, key?: string, attributes?: any): any;
+    type Definition<T> = T | Generator<T> | Promise<T>;
 
-    /**
-     * Associate the factory to multiple other models
-     */
-    assocMany(model: string, num: number, attributes: string): any[];
+    type Attributes<T> = {
+        [P in keyof T]: Definition<T[P]>;
+    };
 
-    /**
-     * Generates and returns model attributes as an object hash instead of the model instance
-     */
-    attrs<T>(name: string, attrs?: Partial<T>): Promise<T>;
+    type MaybeReadonlyArray<T> = T | ReadonlyArray<T>;
 
-    /**
-     * Generates and returns a collection of model attributes as an object hash instead of the model instance
-     */
-    attrsMany<T>(name: string, num: number, attrs?: Array<Partial<T>>): Promise<T[]>;
+    type BuildOptions = Record<string, any>;
 
-    /**
-     * Builds a new model instance that is not persisted
-     */
-    build<T>(name: string, attrs?: Partial<T>): Promise<T>;
+    type Initializer<T, BO = BuildOptions> =
+        | Attributes<T>
+        | ((buildOptions?: BO) => Attributes<T>)
+        | ((buildOptions?: BO) => Promise<Attributes<T>>);
 
-    /**
-     * Builds an array of model instances that are persisted
-     */
-    buildMany<T>(name: string, num: number, attrs?: Partial<T>): Promise<T[]>;
-    buildMany<T>(name: string, attrs?: Array<Partial<T>>): Promise<T[]>;
+    interface Static {
+        factory: Static;
 
-    /**
-     * Destroys all of the created models
-     */
-    cleanUp(): void;
+        /**
+         * Associate the factory to other model
+         */
+        assoc(name: string, key?: string, attrs?: Attributes<any>, buildOptions?: BuildOptions): any;
 
-    /**
-     * Builds a new model instance that is persisted
-     */
-    create<T>(name: string, attrs?: Partial<T>): Promise<T>;
+        /**
+         * Associate the factory to a model that's not persisted
+         */
+        assocAttrs(name: string, key?: string, attrs?: Attributes<any>, buildOptions?: BuildOptions): any;
 
-    /**
-     * Builds an array of model instances that are persisted
-     */
-    createMany<T>(name: string, num: number, attrs?: Partial<T>, buildOptions?: Options<T>): Promise<T[]>;
-    createMany<T>(name: string, attrs?: Array<Partial<T>>, buildOptions?: Options<T>): Promise<T[]>;
+        /**
+         * Associate the factory to multiple other models
+         */
+        assocMany(name: string, num: number, key?: string, attrs?: Attributes<any>, buildOptions?: BuildOptions): any[];
 
-    /**
-     * Define a new factory with a set of options
-     */
-    define<T>(name: string, model: any, attrs: T, options?: Options<T>): void;
+        /**
+         * Associate the factory to multiple other models that aren't persisted
+         */
+        assocAttrsMany(
+            name: string,
+            num: number,
+            key?: string,
+            attrs?: Attributes<any>,
+            buildOptions?: BuildOptions,
+        ): any[];
 
-    /**
-     * Extends a factory
-     */
-    extend(parent: string, name: string, initializer: any, options?: Options<any>): any;
+        /**
+         * Generates and returns model attributes as an object hash instead of the model instance
+         */
+        attrs<T>(name: string, attrs?: Attributes<Partial<T>>, buildOptions?: BuildOptions): Promise<T>;
 
-    /**
-     * Generate values sequentially inside a factory
-     */
-    seq<T>(name: string, fn: (sequence: number) => T): T;
+        /**
+         * Generates and returns a collection of model attributes as an object hash instead of the model instance
+         */
+        attrsMany<T>(
+            name: string,
+            num: number,
+            attrs?: MaybeReadonlyArray<Attributes<Partial<T>>>,
+            buildOptions?: BuildOptions | ReadonlyArray<BuildOptions>,
+        ): Promise<T[]>;
 
-    /**
-     * Register an adapter, either as default or tied to a specific model
-     */
-    setAdapter(adapter: any, name?: string): void;
-  }
+        /**
+         * Builds a new model instance that is not persisted
+         */
+        build<T>(name: string, attrs?: Attributes<Partial<T>>, buildOptions?: BuildOptions): Promise<T>;
 
-  interface Options<T> {
-    afterBuild?: Hook<T>;
-    afterCreate?: Hook<T>;
-  }
+        /**
+         * Builds an array of model instances that are not persisted
+         */
+        buildMany<T>(
+            name: string,
+            num: number,
+            attrs?: MaybeReadonlyArray<Attributes<Partial<T>>>,
+            buildOptions?: MaybeReadonlyArray<BuildOptions>,
+        ): Promise<T[]>;
 
-  type Hook<T> = (model: any, attrs: T[], options: any) => void;
+        /**
+         * Destroys all of the created models
+         */
+        cleanUp(): void;
+
+        /**
+         * Builds a new model instance that is persisted
+         */
+        create<T>(name: string, attrs?: Attributes<Partial<T>>, buildOptions?: BuildOptions): Promise<T>;
+
+        /**
+         * Builds an array of model instances that are persisted
+         */
+        createMany<T>(
+            name: string,
+            num: number,
+            attrs?: MaybeReadonlyArray<Attributes<Partial<T>>>,
+            buildOptions?: MaybeReadonlyArray<BuildOptions>,
+        ): Promise<T[]>;
+        createMany<T>(
+            name: string,
+            attrs?: ReadonlyArray<Attributes<Partial<T>>>,
+            buildOptions?: MaybeReadonlyArray<BuildOptions>,
+        ): Promise<T[]>;
+
+        /**
+         * Define a new factory with a set of options
+         */
+        define<T>(name: string, model: any, attrs: Initializer<Partial<T>>, options?: Options<T>): void;
+
+        /**
+         * Extends a factory
+         */
+        extend(parent: string, name: string, initializer: any, options?: Options<any>): any;
+
+        /**
+         * Generate values sequentially inside a factory
+         */
+        seq(name?: string): Generator<number>;
+        seq<T>(name: string, fn: (sequence: number) => T): Generator<T>;
+        seq<T>(fn: (sequence: number) => T): Generator<T>;
+
+        sequence(name?: string): Generator<number>;
+        sequence<T>(name: string, fn: (sequence: number) => T): Generator<T>;
+        sequence<T>(fn: (sequence: number) => T): Generator<T>;
+
+        /**
+         * Register an adapter, either as default or tied to a specific model
+         */
+        setAdapter(adapter: any, name?: string): void;
+
+        /**
+         *  Reset sequence generator with the given name
+         *  or all generators if no name is given.
+         */
+        resetSequence(name?: string): void;
+        resetSeq(name?: string): void;
+
+        chance(chanceMethod: string, ...options: any): any;
+    }
+
+    interface Options<T> {
+        afterBuild?: Hook<T> | undefined;
+        afterCreate?: Hook<T> | undefined;
+    }
+
+    type Hook<T> = (model: any, attrs: T | T[], options: any) => void;
 }
 
 export = factory;

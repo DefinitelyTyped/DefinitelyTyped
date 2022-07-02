@@ -1,8 +1,7 @@
-// Type definitions for hapi-auth-cookie 9.1
+// Type definitions for hapi-auth-cookie 10.0
 // Project: https://github.com/hapijs/hapi-auth-cookie
 // Definitions by: Silas Rech <https://github.com/lenovouser>
 //                 Simon Schick <https://github.com/SimonSchick>
-//                 Matt Erickson <https://github.com/Mutmatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -15,8 +14,8 @@ declare module 'hapi' {
 
     interface PluginSpecificConfiguration {
         'hapi-auth-cookie'?: {
-            redirectTo?: boolean;
-        };
+            redirectTo?: boolean | undefined;
+        } | undefined;
     }
 
     interface Request {
@@ -30,101 +29,46 @@ declare module 'hapi' {
 }
 
 declare namespace hapiAuthCookie {
-    interface ValidateResponse { valid: boolean; credentials?: AuthCredentials; }
+    interface ValidateResponse { valid: boolean; credentials?: AuthCredentials | undefined; }
     type ValidateFunction = (request?: Request, session?: object) => Promise<ValidateResponse>;
-    type RedirectToFunction = (request?: Request) => void;
+    type RedirectToFunction = (request?: Request) => string;
 
     /**
      * Options passed to 'hapi.auth.strategy' when this plugin is used
      */
     interface Options {
         /**
-         * The cookie name.
+         * Cookie options.
          *
-         * @default 'sid'
+         * @default { name: 'sid', clearInvalid: false, isSameSite: 'Strict', isSecure: true, isHttpOnly: true }
          */
-        cookie?: string;
-
-        /**
-         * Used for Iron cookie encoding.
-         * Should be at least 32 characters long.
-         */
-        password: string;
-
-        /**
-         * Sets the cookie expires time in milliseconds.
-         * Required when 'keepAlive' is true.
-         * Defaults to single browser session (ends when browser closes).
-         */
-        ttl?: number;
-
-        /**
-         * Sets the cookie Domain value.
-         * Defaults to none.
-         */
-        domain?: string;
-
-        /**
-         * Sets the cookie path value.
-         *
-         * @default '/'
-         */
-        path?: string;
-
-        /**
-         * Any authentication cookie that fails validation will be marked as expired in the response and cleared.
-         *
-         * @default false
-         */
-        clearInvalid?: boolean;
+        cookie?: ServerStateCookieOptions & { name: string } | undefined;
 
         /**
          * Automatically sets the session cookie after validation to extend the current session for a new TTL duration.
          *
          * @default false
          */
-        keepAlive?: boolean;
-
-        /**
-         * If false omitted.
-         * Other options Strict or Lax.
-         *
-         * @default 'Strict'
-         */
-        isSameSite?: ServerStateCookieOptions['isSameSite'];
-
-        /**
-         * If false, the cookie is allowed to be transmitted over insecure connections which exposes it to attacks.
-         *
-         * @default true
-         */
-        isSecure?: boolean;
-
-        /**
-         * If false, the cookie will not include the 'HttpOnly' flag.
-         *
-         * @default true
-         */
-        isHttpOnly?: boolean;
+        keepAlive?: boolean | undefined;
 
         /**
          * Login URI or function that returns a URI to redirect unauthenticated requests to.
          * Note that it will only trigger when the authentication mode is 'required'.
          * Defaults to no redirection.
          */
-        redirectTo?: string | RedirectToFunction;
+        redirectTo?: string | RedirectToFunction | undefined;
 
         /**
          * Only works if 'redirectTo' is true
          * If set to true, a string, or an object, appends the current request path to the query component of the 'redirectTo' URI.
          */
-        appendNext?: boolean | string;
+        appendNext?: boolean | string | undefined;
 
         /**
          * An optional session validation function used to validate the content of the session cookie on each request.
          * Used to verify that the internal session state is still valid (e.g. user account still exists).
          */
-        validateFunc?: ValidateFunction;
+        validateFunc?: ValidateFunction | undefined;
 
         /**
          * A name to use with decorating the request object.
@@ -133,7 +77,7 @@ declare namespace hapiAuthCookie {
          *
          * @default 'cookieAuth'
          */
-        requestDecoratorName?: string;
+        requestDecoratorName?: string | undefined;
     }
 }
 

@@ -40,47 +40,59 @@ export interface LevelDown extends AbstractLevelDOWN<Bytes, Bytes> {
   batch(array: AbstractBatch[], cb: ErrorCallback): AbstractChainedBatch<Bytes, Bytes>;
   batch(array: AbstractBatch[], options: LevelDownBatchOptions, cb: ErrorCallback): AbstractChainedBatch<Bytes, Bytes>;
 
+  clear(cb: ErrorCallback): void;
+  clear(options: LevelDownClearOptions, cb: ErrorCallback): void;
+
   approximateSize(start: Bytes, end: Bytes, cb: ErrorSizeCallback): void;
   compactRange(start: Bytes, end: Bytes, cb: ErrorCallback): void;
   getProperty(property: string): string;
-  destroy(location: string, cb: ErrorCallback): void;
-  repair(location: string, cb: ErrorCallback): void;
   iterator(options?: LevelDownIteratorOptions): LevelDownIterator;
 }
 
 interface LevelDownConstructor {
   new(location: string): LevelDown;
   (location: string): LevelDown;
+  destroy(location: string, cb: ErrorCallback): void;
+  repair(location: string, cb: ErrorCallback): void;
 }
 
 export interface LevelDownOpenOptions extends AbstractOpenOptions {
-  compression?: boolean;
-  cacheSize?: number;
-  writeBufferSize?: number;
-  blockSize?: number;
-  maxOpenFiles?: number;
-  blockRestartInterval?: number;
-  maxFileSize?: number;
+  compression?: boolean | undefined;
+  cacheSize?: number | undefined;
+  writeBufferSize?: number | undefined;
+  blockSize?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  blockRestartInterval?: number | undefined;
+  maxFileSize?: number | undefined;
 }
 
 export interface LevelDownGetOptions extends AbstractGetOptions {
-  fillCache?: boolean;
+  fillCache?: boolean | undefined;
 }
 
 export interface LevelDownPutOptions extends AbstractOptions {
-  sync?: boolean;
+  sync?: boolean | undefined;
 }
 
 export interface LevelDownDelOptions extends AbstractOptions {
-  sync?: boolean;
+  sync?: boolean | undefined;
 }
 
 export interface LevelDownBatchOptions extends AbstractOptions {
-  sync?: boolean;
+  sync?: boolean | undefined;
 }
 
 export interface LevelDownIteratorOptions extends AbstractIteratorOptions<Bytes> {
-  fillCache?: boolean;
+  fillCache?: boolean | undefined;
+}
+
+export interface LevelDownClearOptions {
+  gt?: Bytes | undefined;
+  gte?: Bytes | undefined;
+  lt?: Bytes | undefined;
+  lte?: Bytes | undefined;
+  reverse?: boolean | undefined;
+  limit?: number | undefined;
 }
 
 export interface LevelDownIterator extends AbstractIterator<Bytes, Bytes> {

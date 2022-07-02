@@ -18,7 +18,7 @@ declare module 'angular' {
 
       bind($scope: ng.IScope, key: string, opts?: {
         defaultValue?: any;
-        storeName?: string;
+        storeName?: string | undefined;
       }): any;
       unbind($scope: ng.IScope, key: string, storeName?: string): void;
     }

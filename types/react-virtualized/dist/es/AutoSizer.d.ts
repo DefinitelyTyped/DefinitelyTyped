@@ -1,5 +1,5 @@
-import { PureComponent, Validator, Requireable } from "react";
-import * as PropTypes from "prop-types";
+import { PureComponent, Validator, Requireable } from 'react';
+import * as PropTypes from 'prop-types';
 
 export type Size = {
     height: number;
@@ -15,33 +15,33 @@ export type AutoSizerProps = {
      */
     children: (props: Size) => React.ReactNode;
     /**
-     * 	Optional custom CSS class name to attach to root AutoSizer element.
+     *     Optional custom CSS class name to attach to root AutoSizer element.
      * This is an advanced property and is not typically necessary.
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Height passed to child for initial render; useful for server-side rendering.
      * This value will be overridden with an accurate height after mounting.
      */
-    defaultHeight?: number;
+    defaultHeight?: number | undefined;
     /**
      * Width passed to child for initial render; useful for server-side rendering.
      * This value will be overridden with an accurate width after mounting.
      */
-    defaultWidth?: number;
+    defaultWidth?: number | undefined;
     /** Disable dynamic :height property */
-    disableHeight?: boolean;
+    disableHeight?: boolean | undefined;
     /** Disable dynamic :width property */
-    disableWidth?: boolean;
+    disableWidth?: boolean | undefined;
     /** Nonce of the inlined stylesheet for Content Security Policy */
-    nonce?: string;
+    nonce?: string | undefined;
     /** Callback to be invoked on-resize: ({ height, width }) */
-    onResize?: (info: Size) => any;
+    onResize?: ((info: Size) => any) | undefined;
     /**
      * Optional custom inline style to attach to root AutoSizer element.
      * This is an advanced property and is not typically necessary.
      */
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
     /**
      * PLEASE NOTE
      * The [key: string]: any; line is here on purpose
@@ -72,3 +72,5 @@ export class AutoSizer extends PureComponent<AutoSizerProps, Size> {
 
     render(): JSX.Element;
 }
+
+export default AutoSizer;

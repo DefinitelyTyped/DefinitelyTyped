@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import EventEmitter = NodeJS.EventEmitter;
+import { EventEmitter } from 'events';
 declare class ServiceClient extends EventEmitter {
     public host: string;
     public port: number;

@@ -1,12 +1,13 @@
-// Type definitions for meteor-astronomy 2.6
+// Type definitions for non-npm package meteor-astronomy 2.6
 // Project: https://github.com/jagi/meteor-astronomy/
 // Definitions by: Igor Golovin <https://github.com/Deadly0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="meteor" />
 
 declare namespace MeteorAstronomy {
+    type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
     type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // tslint:disable-line:ban-types
     type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
     type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]; // tslint:disable-line:ban-types
@@ -16,10 +17,10 @@ declare namespace MeteorAstronomy {
     type TypeOptions = TypeOptionsPrimitives | TypeOptionsPrimitives[] | Class<any> | Enum<any>;
 
     interface SaveAndValidateOptions<K> {
-        fields?: K[];
-        stopOnFirstError?: boolean;
-        simulation?: boolean;
-        cast?: boolean;
+        fields?: K[] | undefined;
+        stopOnFirstError?: boolean | undefined;
+        simulation?: boolean | undefined;
+        cast?: boolean | undefined;
     }
 
     type SaveAndValidateCallback = (err: any, id: any) => void;
@@ -32,13 +33,13 @@ declare namespace MeteorAstronomy {
 
     interface ModelFullField<Field, Doc> {
         type: TypeOptions;
-        optional?: boolean;
-        transient?: boolean;
-        immutable?: boolean;
-        default?: () => Field | Field;
-        index?: string | number;
-        validators?: Validator[];
-        resolve?: (doc: Doc) => Field;
+        optional?: boolean | undefined;
+        transient?: boolean | undefined;
+        immutable?: boolean | undefined;
+        default?: (() => Field | Field) | undefined;
+        index?: string | number | undefined;
+        validators?: Validator[] | undefined;
+        resolve?: ((doc: Doc) => Field) | undefined;
     }
 
     type ModelField<Field, Doc> = ModelFullField<Field, Doc> | TypeOptions;
@@ -53,18 +54,18 @@ declare namespace MeteorAstronomy {
 
     interface ClassModel<T> {
         name: string;
-        collection?: Mongo.Collection<T>;
-        fields: Fields<T>;
-        behaviors?: object;
+        collection?: Mongo.Collection<T> | undefined;
+        fields: Fields<Omit<T, '_id'>>;
+        behaviors?: object | undefined;
         secured?: {
             insert: boolean,
             update: boolean,
             remove: boolean,
-        } | boolean;
-        helpers?: Helpers<T>;
-        events?: object;
-        meteorMethods?: object;
-        indexes?: object;
+        } | boolean | undefined;
+        helpers?: Helpers<T> | undefined;
+        events?: object | undefined;
+        meteorMethods?: object | undefined;
+        indexes?: object | undefined;
     }
 
     interface EnumModel<T> {
@@ -73,46 +74,46 @@ declare namespace MeteorAstronomy {
     }
 
     type Model<T> = T & {
-        set(fields: Partial<T>, options?: {cast?: boolean; clone?: boolean; merge?: boolean}): void;
+        set(fields: Partial<T>, options?: {cast?: boolean | undefined; clone?: boolean | undefined; merge?: boolean | undefined}): void;
         set(field: string, value: any): void;
         get(field: string): any;
-        get(fields: string[]): any[];
+        get(fields: string[]): Partial<T>;
         isModified(field?: string): boolean;
         getModified(): any;
-        getModifiedValues(options?: {old?: boolean, raw?: boolean}): Partial<T>;
+        getModifiedValues(options?: {old?: boolean | undefined, raw?: boolean | undefined}): Partial<T>;
         getModifier(): any;
         raw(): T;
         raw(field: string): any;
-        raw(fields: string[]): any[];
-        save(options?: SaveAndValidateOptions<keyof T>, callback?: SaveAndValidateCallback): void;
-        save(callback?: SaveAndValidateCallback): void;
-        copy(save: boolean): any;
-        validate(options?: SaveAndValidateOptions<keyof T>, callback?: SaveAndValidateCallback): void;
-        validate(callback?: SaveAndValidateCallback): void;
+        raw(fields: string[]): Partial<T>;
+        save(options: SaveAndValidateOptions<keyof T>, callback: SaveAndValidateCallback): void;
+        save(optionsOrCallback?: SaveAndValidateOptions<keyof T> | SaveAndValidateCallback): void;
+        copy(save?: boolean): Model<T>;
+        validate(options: SaveAndValidateOptions<keyof T>, callback: SaveAndValidateCallback): void;
+        validate(optionsOrCallback?: SaveAndValidateOptions<keyof T> | SaveAndValidateCallback): void;
         remove(callback?: RemoveCallback): void;
     };
 
     interface FindOneOptions {
-        sort?: Mongo.SortSpecifier;
-        skip?: number;
-        fields?: Mongo.FieldSpecifier;
-        reactive?: boolean;
-        transform?: (...args: any[]) => any;
-        disableEvents?: boolean;
-        children?: number;
-        defaults?: boolean;
+        sort?: Mongo.SortSpecifier | undefined;
+        skip?: number | undefined;
+        fields?: Mongo.FieldSpecifier | undefined;
+        reactive?: boolean | undefined;
+        transform?: ((...args: any[]) => any) | undefined;
+        disableEvents?: boolean | undefined;
+        children?: number | undefined;
+        defaults?: boolean | undefined;
     }
 
     interface FindOptions extends FindOneOptions {
-        limit?: number;
+        limit?: number | undefined;
     }
 
     interface UpsertOptions {
-        multi?: boolean;
+        multi?: boolean | undefined;
     }
 
     interface UpdateOptions extends UpsertOptions {
-        upsert?: boolean;
+        upsert?: boolean | undefined;
     }
 
     type MongoQuery<T> = Mongo.Selector<T> | Mongo.ObjectID | string;

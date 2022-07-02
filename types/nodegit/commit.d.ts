@@ -8,14 +8,35 @@ import { Object } from './object';
 import { Tree } from './tree';
 import { TreeEntry } from './tree-entry';
 import { Diff } from './diff';
+import { Error } from './error';
 
 export interface HistoryEventEmitter extends EventEmitter {
     start(): void;
 }
 
 export class Commit {
-    static create(repo: Repository, updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree, parentCount: number, parents: any[]): Oid;
-    static createV(id: Oid, repo: Repository, updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree, parentCount: number): number;
+    static create(
+        repo: Repository,
+        updateRef: string,
+        author: Signature,
+        committer: Signature,
+        messageEncoding: string,
+        message: string,
+        tree: Tree,
+        parentCount: number,
+        parents: any[],
+    ): Oid;
+    static createV(
+        id: Oid,
+        repo: Repository,
+        updateRef: string,
+        author: Signature,
+        committer: Signature,
+        messageEncoding: string,
+        message: string,
+        tree: Tree,
+        parentCount: number,
+    ): number;
     /**
      * Retrieves the commit pointed to by the oid
      *
@@ -23,9 +44,34 @@ export class Commit {
      */
     static lookup(repo: Repository, id: string | Oid | Commit): Promise<Commit>;
     static lookupPrefix(repo: Repository, id: Oid, len: number): Promise<Commit>;
-    static createWithSignature(repo: Repository, commitContent: string, signature: string, signatureField: string): Promise<Oid>;
+    static createWithSignature(
+        repo: Repository,
+        commitContent: string,
+        signature: string,
+        signatureField: string,
+    ): Promise<Oid>;
 
-    amend(updateRef: string, author: Signature, committer: Signature, messageEncoding: string, message: string, tree: Tree): Promise<Oid>;
+    amend(
+        updateRef: string,
+        author: Signature,
+        committer: Signature,
+        messageEncoding: string,
+        message: string,
+        tree: Tree | Oid,
+    ): Promise<Oid>;
+    amendWithSignature(
+        updateRef: string,
+        author: Signature,
+        committer: Signature,
+        messageEncoding: string,
+        message: string,
+        tree: Tree | Oid,
+        onSignature: (
+            data: string,
+        ) =>
+            | Promise<{ code: Error.CODE; field?: string | undefined; signedData: string }>
+            | { code: Error.CODE; field?: string | undefined; signedData: string },
+    ): Promise<Oid>;
     author(): Signature;
     committer(): Signature;
 
@@ -121,4 +167,9 @@ export class Commit {
      *
      */
     body(): string;
+
+    getSignature(field?: string): Promise<{
+        signature: string;
+        signedData: string;
+    }>;
 }

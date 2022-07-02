@@ -12,7 +12,7 @@ export function parseModule(input: string, config?: ParseOptions, delegate?: (no
 export function tokenize(input: string, config?: TokenizeOptions): Token[];
 
 export interface Program extends ESTree.Program {
-    tokens?: Token[];
+    tokens?: Token[] | undefined;
 }
 
 export interface Token {
@@ -21,19 +21,19 @@ export interface Token {
 }
 
 export interface ParseOptions {
-    jsx?: boolean;
-    range?: boolean;
-    loc?: boolean;
-    tolerant?: boolean;
-    tokens?: boolean;
-    comment?: boolean;
+    jsx?: boolean | undefined;
+    range?: boolean | undefined;
+    loc?: boolean | undefined;
+    tolerant?: boolean | undefined;
+    tokens?: boolean | undefined;
+    comment?: boolean | undefined;
 }
 
 export interface TokenizeOptions {
-    tolerant?: boolean;
-    range?: boolean;
-    loc?: boolean;
-    comment?: boolean;
+    tolerant?: boolean | undefined;
+    range?: boolean | undefined;
+    loc?: boolean | undefined;
+    comment?: boolean | undefined;
 }
 
 export const Syntax: {

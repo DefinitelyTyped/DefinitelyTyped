@@ -1,24 +1,24 @@
 import Ember from 'ember';
 
 class AuthService extends Ember.Service {
-    isAuthenticated: boolean;
+    declare isAuthenticated: boolean;
 }
 
 class ApplicationController extends Ember.Controller {
-    model: {};
-    string: string;
+    model = {};
+    declare string: string;
     transitionToLogin() {}
 }
 
 declare module '@ember/service' {
     interface Registry {
-        'auth': AuthService;
+        auth: AuthService;
     }
 }
 
 declare module '@ember/controller' {
     interface Registry {
-        'application': ApplicationController;
+        application: ApplicationController;
     }
 }
 
@@ -33,7 +33,8 @@ class LoginRoute extends Ember.Route {
     }
 
     anyOldMethod() {
-        this.controllerFor('application').set('string', 'must be a string');
+        this.get('application').set('string', 'must be a string');
+        this.controllerFor('application'); // $ExpectType Controller
     }
 }
 

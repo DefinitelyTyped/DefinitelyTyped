@@ -1,4 +1,3 @@
-import { Buffer } from 'buffer';
 import assert = require('assert');
 import * as async from 'async';
 import PQ = require('libpq');
@@ -95,19 +94,6 @@ describe('async connection', () => {
         new PQ().connect('host=asldkfjasldkfjalskdfjasdf', err => {
             assert(err, 'should have passed an error');
             done();
-        });
-    });
-
-    it('respects the active domain', (done) => {
-        const pq = new PQ();
-        const domain = require('domain').create();
-        domain.run(() => {
-            const activeDomain = process.domain;
-            assert(activeDomain, 'Should have an active domain');
-            pq.connect(() => {
-                assert.strictEqual(process.domain, activeDomain, 'Active domain is lost');
-                done();
-            });
         });
     });
 });

@@ -131,7 +131,9 @@ describe("ApplePaySession", () => {
             },
             {
                 label: "2-hour Shipping",
-                amount: "5.00"
+                amount: "5.00",
+                detail: "2-hour Shipping",
+                identifier: "BusinessShipping"
             }
         ];
 
@@ -179,6 +181,9 @@ describe("ApplePaySession", () => {
         session.onpaymentmethodselected = (event: ApplePayJS.ApplePayPaymentMethodSelectedEvent) => {
             if (event.paymentMethod) {
                 console.log("Payment method:", JSON.stringify(event.paymentMethod));
+            }
+            if (event.paymentMethod.billingContact) {
+                console.log("Billing contact:", JSON.stringify(event.paymentMethod.billingContact));
             }
         };
 
@@ -301,11 +306,29 @@ describe("ApplePayPaymentRequest", () => {
             },
             {
                 label: "2-hour Shipping",
-                amount: "5.00"
+                amount: "5.00",
+                detail: "2-hour Shipping",
+                identifier: "BusinessShipping"
             }
         ];
 
         paymentRequest.shippingType = "storePickup";
         paymentRequest.shippingType = "delivery";
+    });
+});
+
+describe("ApplePayError", () => {
+    it("can create a new instance", () => {
+        new ApplePayError('shippingContactInvalid');
+        new ApplePayError('shippingContactInvalid', 'emailAddress');
+        new ApplePayError('shippingContactInvalid', 'emailAddress', 'some message');
+    });
+});
+
+describe("ApplePayJS.ApplePayError", () => {
+    it("can be used as a type", () => {
+        const a: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid');
+        const b: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid', 'emailAddress');
+        const c: ApplePayJS.ApplePayError = new ApplePayError('shippingContactInvalid', 'emailAddress', 'some message');
     });
 });

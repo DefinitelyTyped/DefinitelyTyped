@@ -12,101 +12,73 @@
 interface MailDevOptions {
     /**
      * IP Address to bind SMTP service to', '0.0.0.0'
-     *
-     * @type {string}
      */
-    ip?: string;
+    ip?: string | undefined;
 
     /**
      * SMTP host for outgoing emails
-     *
-     * @type {string}
      */
-    outgoingHost?: string;
+    outgoingHost?: string | undefined;
 
     /**
      * SMTP password for outgoing emails
-     *
-     * @type {string}
      */
-    outgoingPass?: string;
+    outgoingPass?: string | undefined;
 
     /**
      * SMTP port for outgoing emails.
-     *
-     * @type {number}
      */
-    outgoingPort?: number;
+    outgoingPort?: number | undefined;
 
     /**
      * SMTP user for outgoing emails
-     *
-     * @type {string}
      */
-    outgoingUser?: string;
+    outgoingUser?: string | undefined;
 
     /**
      * Use SMTP SSL for outgoing emails
-     *
-     * @type {boolean}
      */
-    outgoingSecure?: boolean;
+    outgoingSecure?: boolean | undefined;
 
     /**
      * SMTP port to catch emails.
-     *
-     * @type {number}
      */
-    smtp?: number;
+    smtp?: number | undefined;
 
     /**
      * Port to use for web UI
-     *
-     * @type {number}
      */
-    web?: number;
+    web?: number | undefined;
 
     /**
      * IP Address to bind HTTP service to
-     *
-     * @type {string}
      */
-    webIp?: string;
+    webIp?: string | undefined;
 
     /**
      * Do not start web UI
-     *
-     * @type {boolean}
      */
-    disableWeb?: boolean;
+    disableWeb?: boolean | undefined;
 
     /**
      * Do not output console.log messages
-     *
-     * @type {boolean}
      */
-    silent?: boolean;
+    silent?: boolean | undefined;
 
     /**
      * HTTP user for GUI
-     *
-     * @type {string}
      */
-    webUser?: string;
+    webUser?: string | undefined;
 
     /**
      * HTTP password for GUI
-     *
-     * @type {string}
      */
-    webPass?: string;
+    webPass?: string | undefined;
 
     /**
      * Open the Web GUI after startup
-     *
-     * @type {boolean}
      */
-    open?: boolean;
+    open?: boolean | undefined;
 }
 
 /**
@@ -116,12 +88,12 @@ interface Mail {
     /**
      * Identifier.
      */
-    id?: string;
+    id?: string | undefined;
 
     /**
      * Client.
      */
-    envelope?: Object;
+    envelope?: Object | undefined;
 }
 
 declare module "maildev" {
@@ -134,82 +106,72 @@ declare module "maildev" {
         /**
          * Constructor.
          *
-         * @public
-         * @param {MailDevOptions} options The options.
+         * @param options The options.
          */
         constructor(options: MailDevOptions);
 
         /**
          * Deletes a given email by identifier.
          *
-         * @public
-         * @param {string}    id        The email identifier.
-         * @param {Function}  callback  The error callback.
+         * @param  id        The email identifier.
+         * @param  callback  The error callback.
          */
         deleteEmail(id: string, callback?: (error: Error) => void): void;
 
         /**
          * Deletes all email and their attachments.
          *
-         * @public
-         * @param {Function} callback The error callback.
+         * @param callback The error callback.
          */
         deleteAllEmail(callback?: (error: Error) => void): void;
 
         /**
          * Stops the SMTP server.
          *
-         * @public
-         * @param {Function} callback The error callback.
+         * @param callback The error callback.
          */
         end(callback?: (error: Error) => void): void;
 
         /**
          * Accepts e-mail identifier, returns email object.
          *
-         * @public
-         * @param {string}    id        The e-mail identifier.
-         * @param {Function}  callback  The error callback.
+         * @param  id        The e-mail identifier.
+         * @param  callback  The error callback.
          */
         getEmail(id: string, callback?: (error: Error) => void): void;
 
         /**
          * Returns a readable stream of the raw e-mail.
          *
-         * @public
-         * @param {string} id The e-mail identifier.
+         * @param id The e-mail identifier.
          */
         getRawEmail(id: string, callback?: (error: Error, readStream: fs.ReadStream) => void): void;
 
         /**
          * Returns array of all e-mail.
-
-         * @public
          */
         getAllEmail(done: (error: Error, emails: Array<Object>) => void): void;
 
         /**
          * Starts the SMTP server.
          *
-         * @public
-         * @param {Function} callback The error callback.
+         * @param callback The error callback.
          */
         listen(callback?: (error: Error) => void): void;
 
         /**
          * Event called when a new e-mail is received. Callback receives single mail object.
          *
-         * @public
-         * @param {string}    eventName The event name.
-         * @param {Function}  email     The email.
+         * @param  eventName The event name.
+         * @param  email     The email.
          */
         on(eventName: string, callback: (email: Object) => void): void;
 
         /**
          * Relay the e-mail.
          *
-         * @param {string} idOrMailObject The identifier or mail object.
-         * @param {Function} done The callback.
+         * @param idOrMailObject The identifier or mail object.
+         * @param done The callback.
          */
         relayMail(idOrMailObject: string, done: (error: Error) => void): void;
     }

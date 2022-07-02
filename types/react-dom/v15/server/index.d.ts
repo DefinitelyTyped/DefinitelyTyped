@@ -10,7 +10,7 @@ import { ReactElement } from 'react';
  * React will preserve it and only attach event handlers, allowing you
  * to have a very performant first-load experience.
  */
-export function renderToString(element: ReactElement<any>): string;
+export function renderToString(element: ReactElement): string;
 
 /**
  * Similar to `renderToString`, except this doesn't create extra DOM attributes
@@ -18,7 +18,7 @@ export function renderToString(element: ReactElement<any>): string;
  * to use React as a simple static page generator, as stripping away the extra
  * attributes can save lots of bytes.
  */
-export function renderToStaticMarkup(element: ReactElement<any>): string;
+export function renderToStaticMarkup(element: ReactElement): string;
 export const version: string;
 
 export as namespace ReactDOMServer;

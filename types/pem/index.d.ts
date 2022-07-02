@@ -1,7 +1,8 @@
 // Type definitions for PEM 1.9
-// Project: https://github.com/andris9/pem
+// Project: https://github.com/dexus/pem
 // Definitions by: Anthony Trinh <https://github.com/tony19>, Ruslan Arkhipau <https://github.com/DethAriel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
 export interface ModuleConfiguration {
     /**
@@ -18,14 +19,14 @@ export interface PrivateKeyCreationOptions {
 }
 
 export interface Pkcs12CreationOptions {
-    cipher?: PrivateKeyCipher;
-    clientKeyPassword?: string;
-    certFiles?: string[];
+    cipher?: PrivateKeyCipher | undefined;
+    clientKeyPassword?: string | undefined;
+    certFiles?: string[] | undefined;
 }
 
 export interface Pkcs12ReadOptions {
-    p12Password?: string;
-    clientKeyPassword?: string;
+    p12Password?: string | undefined;
+    clientKeyPassword?: string | undefined;
 }
 
 export type HashFunction = 'md5' | 'sha1' | 'sha256' | string;
@@ -33,89 +34,89 @@ export interface CSRCreationOptions {
     /**
      *  Optional client key to use
      */
-    clientKey?: string;
-    clientKeyPassword?: string;
+    clientKey?: string | undefined;
+    clientKeyPassword?: string | undefined;
     /**
      * If clientKey is undefined, bit size to use for generating a new key (defaults to 2048)
      */
-    keyBitsize?: number;
+    keyBitsize?: number | undefined;
     /**
      * Hash function to use, defaults to sha256
      */
-    hash?: HashFunction;
+    hash?: HashFunction | undefined;
     /**
      * CSR country field
      */
-    country?: string;
+    country?: string | undefined;
     /**
      * CSR state field
      */
-    state?: string;
+    state?: string | undefined;
     /**
      * CSR locality field
      */
-    locality?: string;
+    locality?: string | undefined;
     /**
      * CSR organization field
      */
-    organization?: string;
+    organization?: string | undefined;
     /**
      * CSR organizational unit field
      */
-    organizationUnit?: string;
+    organizationUnit?: string | undefined;
     /**
      * CSR common name field, defaults to 'localhost'
      */
-    commonName?: string;
+    commonName?: string | undefined;
     /**
      * CSR email address field
      */
-    emailAddress?: string;
+    emailAddress?: string | undefined;
     /**
      * CSR config file
      */
-    csrConfigFile?: string;
+    csrConfigFile?: string | undefined;
     /**
      * A list of subjectAltNames in the subjectAltName field
      */
-    altNames?: string[];
+    altNames?: string[] | undefined;
 }
 
 export interface CertificateCreationOptions extends CSRCreationOptions {
     /**
      * Private key for signing the certificate, if not defined a new one is generated
      */
-    serviceKey?: string;
+    serviceKey?: string | undefined;
     /**
      * Password of the service key
      */
-    serviceKeyPassword?: string;
+    serviceKeyPassword?: string | undefined;
     serviceCertificate?: any;
     serial?: any;
     /**
      * If set to true and serviceKey is not defined, use clientKey for signing
      */
-    selfSigned?: boolean;
+    selfSigned?: boolean | undefined;
     /**
      * CSR for the certificate, if not defined a new one is generated from the provided parameters
      */
-    csr?: string;
+    csr?: string | undefined;
     /**
      * Certificate expire time in days, defaults to 365
      */
-    days?: number;
+    days?: number | undefined;
     /**
      * Password of the client key
      */
-    clientKeyPassword?: string;
+    clientKeyPassword?: string | undefined;
     /**
      * extension config file - without '-extensions v3_req'
      */
-    extFile?: string;
+    extFile?: string | undefined;
     /**
      * extension config file - with '-extensions v3_req'
      */
-    config?: string;
+    config?: string | undefined;
 }
 
 export interface CertificateCreationResult {
@@ -133,6 +134,12 @@ export interface CertificateSubjectReadResult {
     organizationUnit: string;
     commonName: string;
     emailAddress: string;
+}
+
+export interface Pkcs12ReadResult {
+    key: string;
+    cert: string;
+    ca: string[];
 }
 
 export type Callback<T> = (error: any, result: T) => any;
@@ -244,8 +251,8 @@ export function createPkcs12(key: string, certificate: string, password: string,
  * @param callback Callback function with an error object and {pkcs12}
  * @returns the result of the callback
  */
-export function readPkcs12(bufferOrPath: string, options: Pkcs12ReadOptions, callback: Callback<{ pkcs12: any }>): any;
-export function readPkcs12(bufferOrPath: string, callback: Callback<{ pkcs12: any }>): any;
+export function readPkcs12(bufferOrPath: Buffer | string, options: Pkcs12ReadOptions, callback: Callback<Pkcs12ReadResult>): any;
+export function readPkcs12(bufferOrPath: Buffer | string, callback: Callback<Pkcs12ReadResult>): any;
 
 /**
  * Verifies the signing chain of the passed certificate

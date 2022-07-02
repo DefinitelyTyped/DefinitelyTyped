@@ -1,6 +1,7 @@
-// Type definitions for moveto 1.7
+// Type definitions for moveto 1.8
 // Project: https://github.com/hsnaydd/moveTo
 // Definitions by: Rostislav Shermenyov <https://github.com/shermendev>
+//                 pea3nut <https://github.com/pea3nut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class MoveTo {
@@ -57,19 +58,23 @@ declare namespace MoveTo {
         /**
          * The tolerance of the target to be scrolled, can be negative or positive
          */
-        tolerance?: number;
+        tolerance?: number | undefined;
         /**
          * Duration of scrolling, in milliseconds
          */
-        duration?: number;
+        duration?: number | undefined;
         /**
          * Ease function name
          */
-        easing?: string;
+        easing?: string | undefined;
+        /**
+         * The container been computed and scrolled
+         */
+        container?: Window | HTMLElement | undefined;
         /**
          * The function to be run after scrolling complete. Target passes as the first argument
          */
-        callback?: callbackType;
+        callback?: callbackType | undefined;
     }
 
     interface MoveToEaseFunctionsObject {

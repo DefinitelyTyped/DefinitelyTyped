@@ -1,17 +1,15 @@
-// Type definitions for ftp 0.3.8
+// Type definitions for ftp 0.3.9
 // Project: https://github.com/mscdex/node-ftp
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
+//                 Nathan Rajlich <https://github.com/TooTallNate>
+//                 Marvin Witt <https://github.com/NurMarvin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
-
-
-import events = require("events");
 import tls = require("tls");
+import events = require("events");
 
 declare namespace Client {
-
     /**
      * Options for Client#connect()
      */
@@ -19,44 +17,63 @@ declare namespace Client {
         /**
          * The hostname or IP address of the FTP server. Default: 'localhost'
          */
-        host?: string;
+        host?: string | undefined;
         /**
          * The port of the FTP server. Default: 21
          */
-        port?: number;
+        port?: number | undefined;
         /**
          * Set to true for both control and data connection encryption, 'control' for control connection encryption only, or 'implicit' for
          * implicitly encrypted control connection (this mode is deprecated in modern times, but usually uses port 990) Default: false
          */
-        secure?: string | boolean;
+        secure?: string | boolean | undefined;
         /**
          * Additional options to be passed to tls.connect(). Default: (none)
          */
-        secureOptions?: tls.ConnectionOptions;
+        secureOptions?: tls.ConnectionOptions | undefined;
         /**
          * Username for authentication. Default: 'anonymous'
          */
-        user?: string;
+        user?: string | undefined;
         /**
          * Password for authentication. Default: 'anonymous@'
          */
-        password?: string;
+        password?: string | undefined;
         /**
          * How long (in milliseconds) to wait for the control connection to be established. Default: 10000
          */
-        connTimeout?: number;
+        connTimeout?: number | undefined;
         /**
          * How long (in milliseconds) to wait for a PASV data connection to be established. Default: 10000
          */
-        pasvTimeout?: number;
+        pasvTimeout?: number | undefined;
         /**
          * How often (in milliseconds) to send a 'dummy' (NOOP) command to keep the connection alive. Default: 10000
          */
-        keepalive?: number;
+        keepalive?: number | undefined;
+        /**
+         * Debug function to invoke to enable debug logging.
+         */
+        debug?: ((message: string) => void) | undefined;
+    }
+
+    export interface FilePermissions {
+        /**
+         * An empty string or any combination of 'r', 'w', 'x'.
+         */
+        user: string;
+        /**
+         * An empty string or any combination of 'r', 'w', 'x'.
+         */
+        group: string;
+        /**
+         * An empty string or any combination of 'r', 'w', 'x'.
+         */
+        other: string;
     }
 
     /**
-     * Element returned by Client#list()
+     * Element returned by `Client#list()`
      */
     export interface ListingElement {
         /**
@@ -70,7 +87,7 @@ declare namespace Client {
         /**
          * The size of the entry in bytes
          */
-        size: string;
+        size: number;
         /**
          * The last modified date of the entry
          */
@@ -78,39 +95,34 @@ declare namespace Client {
         /**
          * The various permissions for this entry **(*NIX only)**
          */
-        rights?: {
-			/**
-			 * An empty string or any combination of 'r', 'w', 'x'.
-			 */
-            user: string;
-			/**
-			 * An empty string or any combination of 'r', 'w', 'x'.
-			 */
-            group: string;
-			/**
-			 * An empty string or any combination of 'r', 'w', 'x'.
-			 */
-            other: string;
-        };
+        rights?: Client.FilePermissions | undefined;
         /**
          * The user name or ID that this entry belongs to **(*NIX only)**.
          */
-        owner?: string;
+        owner?: string | undefined;
         /**
          * The group name or ID that this entry belongs to **(*NIX only)**.
          */
-        group?: string;
+        group?: string | undefined;
         /**
          * For symlink entries, this is the symlink's target **(*NIX only)**.
          */
-        target?: string;
+        target?: string | undefined;
         /**
          * True if the sticky bit is set for this entry **(*NIX only)**.
          */
-        sticky?: boolean;
+        sticky?: boolean | undefined;
     }
 }
 
+declare interface Client {
+  on(event: 'error', listener: (error: Error) => void): this;
+  on(event: 'greeting', listener: (msg: string) => void): this;
+  on(event: 'ready', listener: () => void): this;
+  on(event: 'end', listener: () => void): this;
+  on(event: 'close', listener: (hadErr: boolean) => void): this;
+  on(event: string, listener: () => void): this;
+}
 
 /**
  * FTP client.
@@ -124,7 +136,6 @@ declare namespace Client {
  *                              a 'code' property that references the related 3-digit FTP response code.
  */
 declare class Client extends events.EventEmitter {
-
     /**
      * Creates and returns a new FTP client instance.
      */
@@ -233,7 +244,6 @@ declare class Client extends events.EventEmitter {
     mkdir(path: string, recursive: boolean, callback: (error: Error) => void): void;
     mkdir(path: string, callback: (error: Error) => void): void;
 
-
     /**
      * Optional "standard" commands (RFC 959)
      * Removes a directory, path, on the server. If recursive, this call will delete the contents of the directory if it is not empty
@@ -287,7 +297,6 @@ declare class Client extends events.EventEmitter {
      * Sets the file byte offset for the next file transfer action (get/put) to byteOffset
      */
     restart(byteOffset: number, callback: (error: Error) => void): void;
-
 }
 
 export = Client;

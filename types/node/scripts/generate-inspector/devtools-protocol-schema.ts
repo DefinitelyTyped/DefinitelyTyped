@@ -11,17 +11,17 @@ export interface BaseType<T= string> {
     type: T;
 }
 
-export interface StringType extends BaseType<"string"> {
+export interface StringType extends BaseType<'string'> {
     enum?: string[];
 }
 
-export interface ArrayType extends BaseType<"array"> {
+export interface ArrayType extends BaseType<'array'> {
     items: Field;
     minItems?: number;
     maxItems?: number;
 }
 
-export interface ObjectDefinition extends BaseType<"object"> {
+export interface ObjectDefinition extends BaseType<'object'> {
     properties?: Parameter[];
 }
 
@@ -29,7 +29,7 @@ export interface ObjectReference {
     $ref: string;
 }
 
-export type TypeDefinition = BaseType<"any"|"integer"|"number"|"boolean"> |
+export type TypeDefinition = BaseType<'any'|'integer'|'number'|'boolean'> |
     StringType | ArrayType | ObjectDefinition;
 
 export type Type = TypeDefinition & Documentable & {
@@ -45,18 +45,15 @@ export type Parameter = Field & Documentable & {
 
 export interface Command extends Documentable {
     name: string;
-    description?: string;
     handlers?: string[];
     parameters?: Parameter[];
     returns?: Parameter[];
-    experimental?: boolean;
     redirect?: string;
 }
 
 export interface Event extends Documentable {
     name: string;
     parameters?: Parameter[];
-    description?: string;
 }
 
 // It should be safe to load a devtools-protocol/json file and cast it to
@@ -69,7 +66,7 @@ export interface Schema {
     domains: Array<{
         domain: string,
         types?: Type[],
-        commands: Command[],
+        commands?: Command[],
         events?: Event[],
         dependencies?: string[],
     } & Documentable>;

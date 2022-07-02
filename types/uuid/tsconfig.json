@@ -18,10 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "v1.d.ts",
-        "v4.d.ts",
-        "v5.d.ts",
-        "interfaces.d.ts",
         "uuid-tests.ts"
     ]
 }

@@ -53,8 +53,8 @@ interface GulpIf {
 }
 
 interface StatFilterCondition {
-    isDirectory?: boolean;
-    isFile?: boolean;
+    isDirectory?: boolean | undefined;
+    isFile?: boolean | undefined;
 }
 
 declare var gulpIf: GulpIf;

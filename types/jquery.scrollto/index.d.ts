@@ -10,7 +10,7 @@ interface ScrollToOptions {
     /**
     * Which axis must be scrolled, use 'x', 'y', 'xy' or 'yx'.
     */
-    axis?: string;
+    axis?: string | undefined;
     /**
     * The OVERALL length of the animation.
     */
@@ -18,11 +18,11 @@ interface ScrollToOptions {
     /**
     * The easing method for the animation.
     */
-    easing?: string;
+    easing?: string | undefined;
     /**
     * If true, the margin of the target element will be deducted from the final position.
     */
-    margin?: boolean;
+    margin?: boolean | undefined;
     /**
     * Add/deduct from the end position. 
     * One number for both axes or { top:x, left:y }.
@@ -37,15 +37,15 @@ interface ScrollToOptions {
     * If true, and both axis are given.
     * The 2nd axis will only be animated after the first one ends.
     */
-    queue?: boolean;
+    queue?: boolean | undefined;
     /**
     * Function to be called after the scrolling ends. 
     */
-    onAfter?: () => void;
+    onAfter?: (() => void) | undefined;
     /**
     *  If queuing is activated, this function will be called after the first scrolling ends.
     */
-    onAfterFirst?: () => void;
+    onAfterFirst?: (() => void) | undefined;
 }
 
 interface JQuery {

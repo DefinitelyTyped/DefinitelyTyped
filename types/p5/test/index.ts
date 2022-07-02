@@ -32,3 +32,5 @@ function s(
 const myp5 = new p5(
   s
 );
+
+myp5.createGraphics(10, 10).ellipse(5, 5, 5);

@@ -13,6 +13,11 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "d3-dsv": [
+                "d3-dsv/v1"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

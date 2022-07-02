@@ -38,7 +38,7 @@ backoff(dns.resolve, 'chilts.org', (err, addresses, priorErrors) => {
 });
 
 // Example 2
-function intermediate(err: Error, tries: number, delay: number): boolean {
+function intermediate(err: Error | null, tries: number, delay: number): boolean {
     console.log(err);   // last error
     console.log(tries); // total number of tries performed thus far
     console.log(delay); // the delay for the next attempt

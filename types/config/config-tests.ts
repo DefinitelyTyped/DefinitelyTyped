@@ -1,5 +1,8 @@
 
 import * as config from "config";
+import { asyncConfig, resolveAsyncConfigs } from 'config/async';
+import { deferConfig } from 'config/defer';
+import { raw } from 'config/raw';
 
 var class1: config.IConfig = config;
 
@@ -11,6 +14,7 @@ var has: boolean = config.has("");
 // util tests:
 var extended1: any = config.util.extendDeep({}, {});
 var extended2: any = config.util.extendDeep({}, {}, 20);
+var extended3: any = config.util.extendDeep({}, {}, {}, 20);
 
 var clone1: any = config.util.cloneDeep({});
 var clone2: any = config.util.cloneDeep({}, 20);
@@ -36,3 +40,18 @@ var configSourceName: string = configSource.name;
 var configSourceOriginal: string | undefined = configSource.original;
 
 var moduleDefaults: any = config.util.setModuleDefaults("moduleName", {});
+
+asyncConfig(Promise.resolve());
+resolveAsyncConfigs(config);
+
+var deferredValueConfig = {
+  firstName: 'Foo',
+  lastName: 'Bar',
+  fullName: deferConfig(function() {
+    return this.firstName + ' ' + this.lastName;
+  }),
+};
+
+var rawValueConfig = {
+  outputFile: raw(Promise.resolve('foo')),
+};

@@ -79,10 +79,10 @@ export interface TimezoneJs {
 }
 
 export interface TimezoneJsOptions {
-    async?: boolean;
-    success?: (data: string) => void;
-    error?: (err: Error) => void;
-    url?: string;
+    async?: boolean | undefined;
+    success?: ((data: string) => void) | undefined;
+    error?: ((err: Error) => void) | undefined;
+    url?: string | undefined;
 }
 
 export declare class TimezoneJsLoadingSchemes {

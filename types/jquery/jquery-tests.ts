@@ -115,6 +115,9 @@ function JQueryStatic() {
         $('span', $('p'));
 
         // $ExpectType JQuery<HTMLElement>
+        $('span', 'p');
+
+        // $ExpectType JQuery<HTMLElement>
         $('span');
 
         // $ExpectType JQuery<SVGLineElement>
@@ -190,9 +193,6 @@ function JQueryStatic() {
                 target;
             });
             const myDocForced: JQuery<Document> = $(document);
-            const myWindow = $(window);
-            // $ExpectType JQuery<Window>
-            myWindow;
             const myWindowForced: JQuery<Window> = $(window);
             // $ExpectType JQuery<Window>
             myWindowForced;
@@ -317,7 +317,7 @@ function JQueryStatic() {
         const element: Element | Document | Window | JQuery.PlainObject = {} as any;
 
         const value: string | undefined = {} as any;
-        // $ExpectError
+        // @ts-expect-error
         $.data(element, 'myKey', value);
 
         // $ExpectType "myValue"
@@ -810,7 +810,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name"
+            // $ExpectType "myProp" | "name" || "name" | "myProp"
             key;
 
             switch (key) {
@@ -830,7 +830,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name"
+            // $ExpectType "myProp" | "name" || "name" | "myProp"
             key;
 
             return [propertyOfObject, 24];
@@ -846,7 +846,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | number | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name" | "anotherProp"
+            // $ExpectType "myProp" | "name" | "anotherProp" || "name" | "myProp" | "anotherProp"
             key;
 
             switch (key) {
@@ -869,7 +869,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | number | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name" | "anotherProp"
+            // $ExpectType "myProp" | "name" | "anotherProp" || "name" | "myProp" | "anotherProp"
             key;
 
             switch (key) {
@@ -2038,7 +2038,7 @@ function JQueryStatic() {
         });
 
         // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-        // $ExpectError
+        // @ts-expect-error
         $.speed(false);
 
         // $ExpectType EffectsOptions<HTMLElement>
@@ -3042,7 +3042,7 @@ function JQuery() {
             $('p').offset({});
 
             // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-            // $ExpectError
+            // @ts-expect-error
             $('p').offset(20);
 
             // $ExpectType JQuery<HTMLElement>
@@ -3202,7 +3202,7 @@ function JQuery() {
     function data() {
         function data() {
             const value: string | undefined = {} as any;
-            // $ExpectError
+            // @ts-expect-error
             $('p').data('myData', value);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5849,14 +5849,29 @@ function JQuery() {
         }
 
         function find() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').find('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find('.class-name');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').find(new HTMLElement());
 
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find(new HTMLSpanElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find(new Element());
+
             // $ExpectType JQuery<HTMLElement>
             $('p').find($('span'));
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find($<HTMLSpanElement>('.class-name'));
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find<HTMLSpanElement>($('.class-name'));
         }
 
         function addBack() {
@@ -5868,11 +5883,23 @@ function JQuery() {
         }
 
         function children() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').children('span');
+
+            // $ExpectType JQuery<HTMLDivElement>
+            $('p').children('div');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children('.class-name');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').children();
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children();
+
+            // $ExpectType JQuery<HTMLElement>
+            $<HTMLDivElement>('p').children();
         }
 
         function siblings() {
@@ -5897,11 +5924,25 @@ function JQuery() {
         function first() {
             // $ExpectType JQuery<HTMLElement>
             $('p').first();
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find('span').first();
         }
 
         function last() {
             // $ExpectType JQuery<HTMLElement>
             $('p').last();
+
+            // $ExpectType JQuery<HTMLSpanElement>
+            $('p').find('span').first();
+        }
+
+        function even() {
+            $('li').even().css('background-color', 'red');
+        }
+
+        function odd() {
+            $('li').odd().css('background-color', 'red');
         }
 
         function offsetParent() {
@@ -6074,11 +6115,20 @@ function JQuery() {
         }
 
         function parents() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').parents('span');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').parents();
+
+            // $ExpectType JQuery<HTMLDivElement>
+            $(document).find('select').parents('div');
+
+            // $ExpectType JQuery<HTMLElement>
+            $(document).find('select').parents('.container');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parents('.container');
         }
 
         function parentsUntil() {
@@ -6289,11 +6339,14 @@ function JQuery() {
         }
 
         function get() {
-            // $ExpectType HTMLElement
+            // $ExpectType HTMLElement | undefined
             $('p').get(0);
 
             // $ExpectType HTMLElement[]
             $('p').get();
+
+            // $ExpectType HTMLElement | undefined
+            $('nonExistentElement').get(0);
         }
 
         function index() {
@@ -6385,6 +6438,7 @@ function JQuery_AjaxSettings() {
             return 'filtered';
         },
         dataType: 'mycustomtype',
+        enctype: 'application/x-www-form-urlencoded',
         error(jqXHR, textStatus, errorThrown) {
             // $ExpectType any
             this;
@@ -6761,7 +6815,14 @@ function JQuery_jqXHR() {
         }
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // @ts-expect-error
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -6897,7 +6958,7 @@ function JQuery_CSSHooks() {
     };
 
     // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-    // $ExpectError
+    // @ts-expect-error
     $.cssHooks.borderRadius = function get(elem: HTMLElement, computed: any, extra: any) {
         return 1;
     };
@@ -7317,7 +7378,14 @@ function JQuery_Promise3() {
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // @ts-expect-error
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7462,7 +7530,14 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // @ts-expect-error
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 
@@ -7583,7 +7658,14 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
         return s;
     }
 
+    // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
+    // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
+        // @ts-expect-error
+        return p;
+    }
+
+    function compatibleWithPromiseLike(): PromiseLike<any> {
         return p;
     }
 }
@@ -7829,7 +7911,7 @@ function JQuery_TweenStatic() {
         };
 
         // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-        // $ExpectError
+        // @ts-expect-error
         $.Tween.propHooks['myProp'] = 1;
     }
 
@@ -8015,6 +8097,54 @@ function JQuery_TypeEventHandlers() {
             // $ExpectType MouseUpEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
             event;
         },
+        drag(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragend(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragEndEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragenter(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragEnterEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragexit(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragExitEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragleave(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragLeaveEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragover(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragOverEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragstart(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragStartEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        drop(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DropEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
         keydown(event) {
             // $ExpectType HTMLElement
             this;
@@ -8097,7 +8227,7 @@ function JQuery_EventExtensions() {
                 data;
                 // $ExpectType string
                 namespaces;
-                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>>
+                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>> || EventHandler<EventTarget, any>
                 eventHandle;
 
                 return false;
@@ -8161,7 +8291,7 @@ function JQuery_EventExtensions() {
         };
 
         // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-        // $ExpectError
+        // @ts-expect-error
         jQuery.event.special.multiclick = 1;
     }
 }
@@ -8189,7 +8319,7 @@ function JQuery_ValHooks() {
     };
 
     // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-    // $ExpectError
+    // @ts-expect-error
     jQuery.valHooks.textarea = function get(elem: HTMLTextAreaElement) {
         return elem.value.replace(/\r?\n/g, "\r\n");
     };

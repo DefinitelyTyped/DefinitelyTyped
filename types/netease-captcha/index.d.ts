@@ -1,10 +1,10 @@
-// Type definitions for netease-captcha 2.1
+// Type definitions for non-npm package netease-captcha 2.1
 // Project: https://cstaticdun.126.net/load.min.js
 // Definitions by: Minjie Shen <https://github.com/norubidium>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Window {
-    initNECaptcha?: NeteaseCaptcha.InitFunction;
+    initNECaptcha?: NeteaseCaptcha.InitFunction | undefined;
 }
 
 declare namespace NeteaseCaptcha {
@@ -22,24 +22,24 @@ declare namespace NeteaseCaptcha {
         element: string | HTMLElement;
 
         /**
-         * Defaults to 'float' on desktop, and 'popup' on mobile
+         * Defaults to 'float' on desktop, and 'popup' on mobile. 'bind' is for invisible captcha
          */
-        mode?: 'float' | 'embed' | 'popup';
+        mode?: 'float' | 'embed' | 'popup' | 'bind' | undefined;
 
         /**
          * Defaults to page protocol
          */
-        protocol?: 'http' | 'https';
+        protocol?: 'http' | 'https' | undefined;
 
         /**
          * Defaults to 'auto'
          */
-        width?: number | string;
+        width?: number | string | undefined;
 
         /**
          * Defaults to 'zh-CN'
          */
-        lang?: 'zh-CN' | 'en';
+        lang?: 'zh-CN' | 'en' | undefined;
 
         onReady?(instance: Instance): void;
 
@@ -61,6 +61,10 @@ declare namespace NeteaseCaptcha {
          * Available when the mode is set to 'popup' - opens the popup to accept verification
          */
         popUp?(): void;
+        /**
+         * Available when the mode is set to 'bind' - verify token manually
+         */
+        verify?(): void;
     }
 
     interface Data {

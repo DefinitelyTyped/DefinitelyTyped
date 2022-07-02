@@ -29,7 +29,7 @@ export interface OntimeSchedule {
      *
      * Default: false
      */
-    keepLast?: boolean;
+    keepLast?: boolean | undefined;
 
     /**
      * The step option enables a job to be skipped periodically.Setting it to n forces ontime to skip a given job n-1
@@ -37,14 +37,14 @@ export interface OntimeSchedule {
      *
      * Default: 1
      */
-    step?: number;
+    step?: number | undefined;
 
     /**
      * Setting the utc option to true changes ontime to interpret the time expressions as UTC.
      *
      * Default: false
      */
-    utc?: boolean;
+    utc?: boolean | undefined;
 
     /**
      * ontime launches a job on its scheduled time. If the job takes longer than the time interval of the cycle, more
@@ -53,7 +53,7 @@ export interface OntimeSchedule {
      *
      * Default: false
      */
-    single?: boolean;
+    single?: boolean | undefined;
 
     /**
      * ontime has a very simple form of logging that is useful when checking if your configuration works as intended.
@@ -61,7 +61,7 @@ export interface OntimeSchedule {
      *
      * Default: false
      */
-    log?: boolean;
+    log?: boolean | undefined;
 }
 
 export interface OntimeReport {

@@ -5,8 +5,8 @@ import uiRouterModule from "angular-ui-router";
 var myApp = angular.module("testModule", [uiRouterModule]);
 
 interface MyAppScope extends ng.IScope {
-	items: string[];
-	things: string[];
+    items: string[];
+    things: string[];
 }
 
 myApp.config((
@@ -33,7 +33,7 @@ myApp.config((
   $urlMatcherFactory.type("fullType", {
     decode: (val) => parseInt(val, 10),
     encode: (val) => val && val.toString(),
-    equals: (a, b) => this.is(a) && a === b,
+    equals: function (a, b) { return this.is(a) && a === b },
     is: (val) => angular.isNumber(val) && isFinite(val) && val % 1 === 0,
     pattern: /\d+/
   });
@@ -219,7 +219,7 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         }
 
         // Accesses the currently resolved values for the current state
-        // http://stackoverflow.com/questions/28026620/is-there-a-way-to-access-resolved-state-dependencies-besides-injecting-them-into/28027023#28027023
+        // https://stackoverflow.com/questions/28026620/is-there-a-way-to-access-resolved-state-dependencies-besides-injecting-them-into/28027023#28027023
         var resolvedValues = this.$state.$current.locals.globals;
     }
 }

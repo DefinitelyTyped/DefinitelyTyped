@@ -10,14 +10,20 @@ flatMapImpl(["foo"], word => word.split("")); // $ExpectType string[]
 ["foo"].flatMap(word => word.split("")); // $ExpectType string[]
 
 // infers the type of the value argument to the callback
-flatMap([1, 2], word => word.split("")); // $ExpectError
-flatMapImpl([1, 2], word => word.split("")); // $ExpectError
-[1, 2].flatMap(word => word.split("")); // $ExpectError
+// @ts-expect-error
+flatMap([1, 2], word => word.split(""));
+// @ts-expect-error
+flatMapImpl([1, 2], word => word.split(""));
+// @ts-expect-error
+[1, 2].flatMap(word => word.split(""));
 
 // the callback must return an array
-flatMap([1, 2], word => word); // $ExpectError
-flatMapImpl([1, 2], word => word); // $ExpectError
-[1, 2].flatMap(word => word); // $ExpectError
+// @ts-expect-error
+flatMap([1, 2], word => word);
+// @ts-expect-error
+flatMapImpl([1, 2], word => word);
+// @ts-expect-error
+[1, 2].flatMap(word => word);
 
 // the callback accepts an index argument
 flatMap(["foo"], (_, index) => [index]); // $ExpectType number[]
@@ -45,3 +51,12 @@ getPolyfill()(["foo"], word => word.split("")); // $ExpectType string[]
 
 // `shim` installs a flatMap implementation in `Array` prototype and returns it
 shim()(["foo"], word => word.split("")); // $ExpectType string[]
+
+// `ReadonlyArray` is supported
+(["foo"] as ReadonlyArray<string>).flatMap(word => word.split("")); // $ExpectType string[]
+
+// Readonly result from callback is supported
+flatMap([[1], [2]], a => a as ReadonlyArray<number>); // $ExpectType number[]
+flatMap([[1], [2]] as ReadonlyArray<ReadonlyArray<number>>, a => a); // $ExpectType number[]
+([[1], [2]]).flatMap(a => a as ReadonlyArray<number>); // $ExpectType number[]
+([[1], [2]] as ReadonlyArray<ReadonlyArray<number>>).flatMap(a => a); // $ExpectType number[]

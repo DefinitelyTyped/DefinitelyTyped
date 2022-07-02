@@ -1,19 +1,25 @@
-// Type definitions for https://github.com/vazco/meteor-universe-i18n 1.14
+// Type definitions for non-npm package https://github.com/vazco/meteor-universe-i18n 1.14
 // Project: meteor-universe-i18n
 // Definitions by: Mathias Scherer <https://github.com/mathewmeconry>
+//                 Radosław Miernik <https://github.com/radekmie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.7
 
 /// <reference types="react" />
 /// <reference types="node" />
 
 // tslint:disable-next-line no-single-declare-module
-declare module "meteor/universe:i18n" {
-    import { OutgoingHttpHeaders } from "http";
+declare module 'meteor/universe:i18n' {
+    import { OutgoingHttpHeaders } from 'http';
 
     namespace i18n {
         // component functions
-        function createComponent(translator?: Translator, locale?: string, reactjs?: React.ReactInstance, type?: any): new () => React.Component<ReactComponentProps>;
+        function createComponent(
+            translator?: Translator,
+            locale?: string,
+            reactjs?: React.ReactInstance,
+            type?: any,
+        ): new () => React.Component<ReactComponentProps>;
 
         // translator functions
         function createTranslator(namespace: string, options?: TranslaterOptions): Translator;
@@ -33,8 +39,9 @@ declare module "meteor/universe:i18n" {
         function __(...key: string[]): string;
         function getTranslations(namespace: string, locale?: string): string[];
 
-        // options setter
-        function setOptions(options: i18nOptions): void;
+        // options
+        let options: Readonly<i18nOptions>;
+        function setOptions(options: Partial<i18nOptions>): void;
 
         // number operations
         function parseNumber(number: string, locale?: string): string;
@@ -48,9 +55,10 @@ declare module "meteor/universe:i18n" {
         // executes function in the locale context,
         // it means that every default locale used inside a called function will be set to a passed locale
         // keep in mind that locale must be loaded first (if it is not bundled)
-        function runWithLocale(locale: string, func: (...keys: any[]) => void): void;
+        function runWithLocale<T>(locale: string, func: () => T): T;
 
         // language getters
+        let _locales: Readonly<{ [locale: string]: Readonly<i18nLocaleEntry> }>;
         function getLanguages(type?: 'code' | 'name' | 'nativeNames'): string[];
         function getLanguageName(locale?: string): string;
         function getLanguageNativeName(locale?: string): string;
@@ -62,55 +70,68 @@ declare module "meteor/universe:i18n" {
         // others
         function isRTL(locale?: string): boolean;
         function getAllKeysForLocale(locale?: string, excactlyThis?: boolean): string[];
+        function normalize(locale: string): string | undefined;
 
         // events
         function onChangeLocale(callback: (locale: string) => void): void;
+        function offChangeLocale(callback: (locale: string) => void): void;
     }
 
     interface ReactComponentProps {
-        _locale?: string;
-        _tagType?: string;
-        _namespace?: string;
-        _props?: React.HTMLAttributes<React.Component>;
-        _translateProps?: string[];
-        _containerType?: string;
+        _locale?: string | undefined;
+        _tagType?: string | undefined;
+        _namespace?: string | undefined;
+        _props?: React.HTMLAttributes<React.Component> | undefined;
+        _translateProps?: string[] | undefined;
+        _containerType?: string | undefined;
     }
 
+    type i18nLocaleEntry = [
+        string, // code
+        string, // name
+        string, // localName
+        boolean, // isRTL
+        string, // numberTypographic
+        number, // decimal
+        string, // currency
+        [number] | [number, number], // groupNumberBY
+    ];
+
     interface i18nOptions {
-        defaultLocale?: string;
-        open?: string;
-        close?: string;
-        purify?: () => void;
-        hideMissing?: boolean;
-        hostUrl?: string;
-        translationsHeaders?: OutgoingHttpHeaders;
-        sameLocaleOnServerConnection?: boolean;
+        defaultLocale: string;
+        open: string;
+        close: string;
+        purify?: (() => void) | undefined;
+        hideMissing: boolean;
+        hostUrl: string;
+        translationsHeaders?: OutgoingHttpHeaders | undefined;
+        sameLocaleOnServerConnection: boolean;
     }
 
     interface GetTranslationParams {
-        _locale?: string;
-        _namespace?: string;
+        _locale?: string | undefined;
+        _namespace?: string | undefined;
         [key: string]: any;
     }
 
     interface TranslaterOptions {
-        _locale?: string;
-        _purify?: boolean;
+        _locale?: string | undefined;
+        _purify?: boolean | undefined;
     }
 
     interface LoadLocaleParams {
-        fresh?: boolean;
-        async?: boolean;
-        silent?: boolean;
-        host?: string;
-        pathOnHost?: string;
+        fresh?: boolean | undefined;
+        async?: boolean | undefined;
+        silent?: boolean | undefined;
+        host?: string | undefined;
+        pathOnHost?: string | undefined;
     }
 
     interface LocateParams {
-        noDownload?: boolean;
-        silent?: boolean;
-        async?: boolean;
-        fresh?: boolean;
+        noDownload?: boolean | undefined;
+        silent?: boolean | undefined;
+        async?: boolean | undefined;
+        fresh?: boolean | undefined;
     }
 
     type Translator = (...args: any[]) => string;

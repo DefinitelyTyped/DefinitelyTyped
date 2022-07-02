@@ -123,7 +123,7 @@ new Umzug({
 
 });
 
-const mongodb = new MongoDB.Db('database', new MongoDB.Server('host', 21017));
+const mongodb = new MongoDB.Db(new MongoDB.MongoClient('host', { localPort: 21017 }), 'database');
 
 new Umzug({
     // The storage.
@@ -139,7 +139,7 @@ new Umzug({
          * The to be used Mongo collection cursor.
          * Defaults to collection created from collectionName attribute.
          */
-        collection: mongodb.collection,
+        collection: mongodb.collection('migrations'),
 
         /**
          * The name of the collection used by the connection.

@@ -2,7 +2,7 @@ import { DataProvider } from '../ojdataprovider';
 import { dvtBaseComponent, dvtBaseComponentEventMap, dvtBaseComponentSettableProperties } from '../ojdvt-base';
 import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
 export interface ojPictoChart<K, D> extends dvtBaseComponent<ojPictoChartSettableProperties<K, D>> {
-    animationDuration?: number;
+    animationDuration?: number | undefined;
     animationOnDataChange: 'auto' | 'none';
     animationOnDisplay: 'auto' | 'popIn' | 'alphaFade' | 'zoom' | 'none';
     as: string;
@@ -29,23 +29,23 @@ export interface ojPictoChart<K, D> extends dvtBaseComponent<ojPictoChartSettabl
         })) | null;
     };
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
     onAnimationDurationChanged: ((event: JetElementCustomEvent<ojPictoChart<K, D>["animationDuration"]>) => any) | null;
     onAnimationOnDataChangeChanged: ((event: JetElementCustomEvent<ojPictoChart<K, D>["animationOnDataChange"]>) => any) | null;
@@ -133,7 +133,7 @@ export interface ojPictoChartEventMap<K, D> extends dvtBaseComponentEventMap<ojP
     'tooltipChanged': JetElementCustomEvent<ojPictoChart<K, D>["tooltip"]>;
 }
 export interface ojPictoChartSettableProperties<K, D> extends dvtBaseComponentSettableProperties {
-    animationDuration?: number;
+    animationDuration?: number | undefined;
     animationOnDataChange: 'auto' | 'none';
     animationOnDisplay: 'auto' | 'popIn' | 'alphaFade' | 'zoom' | 'none';
     as: string;
@@ -160,23 +160,23 @@ export interface ojPictoChartSettableProperties<K, D> extends dvtBaseComponentSe
         })) | null;
     };
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
 }
 export interface ojPictoChartSettablePropertiesLenient<K, D> extends Partial<ojPictoChartSettableProperties<K, D>> {
@@ -192,7 +192,7 @@ export interface ojPictoChartItem extends JetElement<ojPictoChartItemSettablePro
     drilling: 'inherit' | 'off' | 'on';
     name: string;
     rowSpan: number;
-    shape?: 'circle' | 'diamond' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | 'none' | string;
+    shape?: 'circle' | 'diamond' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | 'none' | string | undefined;
     shortDesc: string;
     source: string;
     sourceHover: string;
@@ -254,7 +254,7 @@ export interface ojPictoChartItemSettableProperties extends JetSettablePropertie
     drilling: 'inherit' | 'off' | 'on';
     name: string;
     rowSpan: number;
-    shape?: 'circle' | 'diamond' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | 'none' | string;
+    shape?: 'circle' | 'diamond' | 'human' | 'plus' | 'rectangle' | 'square' | 'star' | 'triangleDown' | 'triangleUp' | 'none' | string | undefined;
     shortDesc: string;
     source: string;
     sourceHover: string;

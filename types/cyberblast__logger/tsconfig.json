@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "paths": {
+          "@cyberblast/*": ["cyberblast__*"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "cyberblast__logger-tests.ts"
+    ]
+}

@@ -1,6 +1,8 @@
-// Type definitions for Angular Translate (pascalprecht.translate module) 2.16
+// Type definitions for Angular Translate (pascalprecht.translate module) 2.19
 // Project: https://github.com/PascalPrecht/angular-translate
-// Definitions by: Michel Salib <https://github.com/michelsalib>, Gabriel Gil <https://github.com/GabrielGil>
+// Definitions by: Michel Salib <https://github.com/michelsalib>,
+//                 Gabriel Gil <https://github.com/GabrielGil>,
+//                 Dmitry Gurovich <https://github.com/yrtimiD>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -28,7 +30,7 @@ declare module 'angular' {
         interface IStaticFilesLoaderOptions {
             prefix: string;
             suffix: string;
-            key?: string;
+            key?: string | undefined;
         }
 
         interface IPartialLoader<T> {
@@ -51,11 +53,27 @@ declare module 'angular' {
             (translationId: string[], interpolateParams?: any, interpolationId?: string, defaultTranslationText?: string, forceLanguage?: string, sanitizeStrategy?: string): angular.IPromise<{ [key: string]: string }>;
             cloakClassName(): string;
             cloakClassName(name: string): ITranslateProvider;
+            allowNamespaces(): boolean;
             fallbackLanguage(langKey?: string): string;
             fallbackLanguage(langKey?: string[]): string;
             instant(translationId: string, interpolateParams?: any, interpolationId?: string, forceLanguage?: string, sanitizeStrategy?: string): string;
             instant(translationId: string[], interpolateParams?: any, interpolationId?: string, forceLanguage?: string, sanitizeStrategy?: string): { [key: string]: string };
             isPostCompilingEnabled(): boolean;
+            /**
+             * @ngdoc function
+             * @name pascalprecht.translate.$translate#negotiateLocale
+             * @methodOf pascalprecht.translate.$translate
+             *
+             * @description
+             * Returns a language key based on available languages and language aliases. If a
+             * language key cannot be resolved, returns undefined.
+             *
+             * If no or a falsy key is given, returns undefined.
+             *
+             * @param key Language key
+             * @return Language key or undefined if no language key is found.
+             */
+            negotiateLocale(key?: string): string | undefined;
             preferredLanguage(langKey?: string): string;
             proposedLanguage(): string;
             refresh(langKey?: string): angular.IPromise<void>;
@@ -77,6 +95,8 @@ declare module 'angular' {
             translations(key: string, translationTable: ITranslationTable): ITranslateProvider;
             cloakClassName(): string;
             cloakClassName(name: string): ITranslateProvider;
+            allowNamespaces(): boolean;
+            allowNamespaces(namespacesEnabled: boolean): ITranslateProvider;
             addInterpolation(factory: any): ITranslateProvider;
             useMessageFormatInterpolation(): ITranslateProvider;
             useInterpolation(factory: string): ITranslateProvider;
@@ -121,6 +141,7 @@ declare module 'angular' {
     interface IFilterService {
         (name: 'translate'): {
             (translationId: string, interpolateParams?: any, interpolation?: string, forceLanguage?: string): string;
+            (translationIds: string[], interpolateParams?: any, interpolation?: string, forceLanguage?: string): { [key: string]: string };
         };
     }
 }

@@ -1,5 +1,5 @@
 // Type definitions for screeps-profiler 1.2
-// Project: https://github.com/gdborton/screeps-profiler
+// Project: https://github.com/screepers/screeps-profiler
 // Definitions by: Casey Link <https://github.com/ramblurr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

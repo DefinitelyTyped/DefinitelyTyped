@@ -14,128 +14,128 @@ declare namespace d3pie {
   }
 
   interface ID3PieStyleOptions {
-    color?: string
-    fontSize?: number
-    font?: string
+    color?: string | undefined
+    fontSize?: number | undefined
+    font?: string | undefined
   }
 
   interface ID3PieTextOptions extends ID3PieStyleOptions {
-    text?: string
+    text?: string | undefined
   }
 
   interface ID3PieLabelsOptions {
-    format?: 'label' | 'value' | 'percentage' | 'label-value1' | 'label-value2' | 'label-percentage1' | 'label-percentage2'
-    hideWhenLessThanPercentage?: number
+    format?: 'label' | 'value' | 'percentage' | 'label-value1' | 'label-value2' | 'label-percentage1' | 'label-percentage2' | undefined
+    hideWhenLessThanPercentage?: number | undefined
   }
 
   interface ID3PieOptions {
     header?: {
-      title?: ID3PieTextOptions
-      subtitle?: ID3PieTextOptions
-      location?: 'top-center' | 'top-left' | 'pie-center'
-      titleSubtitlePadding?: number
-    }
-    footer?: { location?: 'left' } & ID3PieTextOptions
+      title?: ID3PieTextOptions | undefined
+      subtitle?: ID3PieTextOptions | undefined
+      location?: 'top-center' | 'top-left' | 'pie-center' | undefined
+      titleSubtitlePadding?: number | undefined
+    } | undefined
+    footer?: { location?: 'left' | undefined } & ID3PieTextOptions | undefined
     size?: {
-      canvasHeight?: number
-      canvasWidth?: number
-      pieOuterRadius?: string | number
-      pieInnerRadius?: string | number
-    }
+      canvasHeight?: number | undefined
+      canvasWidth?: number | undefined
+      pieOuterRadius?: string | number | undefined
+      pieInnerRadius?: string | number | undefined
+    } | undefined
     data: {
-      sortOrder?: 'none' | 'random' | 'value-asc' | 'value-desc' | 'label-asc' | 'label-desc'
+      sortOrder?: 'none' | 'random' | 'value-asc' | 'value-desc' | 'label-asc' | 'label-desc' | undefined
       smallSegmentGrouping?: {
-        enabled?: boolean
-        value?: number
-        valueType?: 'percentage' | 'value'
-        label?: string
-        color?: string
-      }
+        enabled?: boolean | undefined
+        value?: number | undefined
+        valueType?: 'percentage' | 'value' | undefined
+        label?: string | undefined
+        color?: string | undefined
+      } | undefined
       content: {
         label: string
         value: number
-        color?: string
+        color?: string | undefined
       }[]
     }
     labels?: {
-      outer?: { pieDistance?: number } & ID3PieLabelsOptions
-      inner?: ID3PieLabelsOptions
-      mainLabel?: ID3PieStyleOptions
-      percentage?: { decimalPlaces?: number } & ID3PieStyleOptions
-      value?: ID3PieStyleOptions
+      outer?: { pieDistance?: number | undefined } & ID3PieLabelsOptions | undefined
+      inner?: ID3PieLabelsOptions | undefined
+      mainLabel?: ID3PieStyleOptions | undefined
+      percentage?: { decimalPlaces?: number | undefined } & ID3PieStyleOptions | undefined
+      value?: ID3PieStyleOptions | undefined
       lines?: {
-        enabled?: boolean
-        style?: 'curved' | 'straight'
-        color?: string
-      }
+        enabled?: boolean | undefined
+        style?: 'curved' | 'straight' | undefined
+        color?: string | undefined
+      } | undefined
       truncation?: {
-        enabled?: boolean
-        truncateLength?: number
-      }
-      formatter?: (context: {
+        enabled?: boolean | undefined
+        truncateLength?: number | undefined
+      } | undefined
+      formatter?: ((context: {
         section: 'outer' | 'inner'
         value: number
         label: string
-      }) => string
-    }
+      }) => string) | undefined
+    } | undefined
     effects?: {
       load?: {
-        effect?: 'none' | 'default'
-        speed?: number
-      }
+        effect?: 'none' | 'default' | undefined
+        speed?: number | undefined
+      } | undefined
       pullOutSegmentOnClick?: {
-        effect?: 'none' | 'linear' | 'bounce' | 'elastic' | 'back'
-        speed?: number
-        size?: number
-      }
-      highlightSegmentOnMouseover?: boolean
-      highlightLuminosity?: number
-    }
+        effect?: 'none' | 'linear' | 'bounce' | 'elastic' | 'back' | undefined
+        speed?: number | undefined
+        size?: number | undefined
+      } | undefined
+      highlightSegmentOnMouseover?: boolean | undefined
+      highlightLuminosity?: number | undefined
+    } | undefined
     tooltips?: {
-      enabled?: boolean
-      type?: 'placeholder' | 'caption'
-      string?: string
-      placeholderParser?: (index: number, data: { label?: string, percentage?: number, value?: number }) => void
+      enabled?: boolean | undefined
+      type?: 'placeholder' | 'caption' | undefined
+      string?: string | undefined
+      placeholderParser?: ((index: number, data: { label?: string | undefined, percentage?: number | undefined, value?: number | undefined }) => void) | undefined
       styles?: {
-        fadeInSpeed?: number
-        backgroundColor?: string
-        backgroundOpacity?: number
-        color?: string
-        borderRadius?: number
-        font?: string
-        fontSize?: number
-        padding?: number
-      }
-    }
+        fadeInSpeed?: number | undefined
+        backgroundColor?: string | undefined
+        backgroundOpacity?: number | undefined
+        color?: string | undefined
+        borderRadius?: number | undefined
+        font?: string | undefined
+        fontSize?: number | undefined
+        padding?: number | undefined
+      } | undefined
+    } | undefined
     misc?: {
       colors?: {
-        background?: string
-        segments?: string[]
-        segmentStroke?: string
-      }
+        background?: string | undefined
+        segments?: string[] | undefined
+        segmentStroke?: string | undefined
+      } | undefined
       gradient?: {
-        enabled?: boolean
-        percentage?: number
-        color?: string
-      }
+        enabled?: boolean | undefined
+        percentage?: number | undefined
+        color?: string | undefined
+      } | undefined
       canvasPadding?: {
-        top?: number
-        right?: number
-        bottom?: number
-        left?: number
-      }
+        top?: number | undefined
+        right?: number | undefined
+        bottom?: number | undefined
+        left?: number | undefined
+      } | undefined
       pieCenterOffset?: {
-        x?: number
-        y?: number
-      }
-      cssPrefix?: string
-    }
+        x?: number | undefined
+        y?: number | undefined
+      } | undefined
+      cssPrefix?: string | undefined
+    } | undefined
     callbacks?: {
-      onload?: Function
-      onMouseoverSegment?: Function
-      onMouseoutSegment?: Function
-      onClickSegment?: Function
-    }
+      onload?: Function | undefined
+      onMouseoverSegment?: Function | undefined
+      onMouseoutSegment?: Function | undefined
+      onClickSegment?: Function | undefined
+    } | undefined
   }
 
   interface ID3PieClass {

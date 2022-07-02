@@ -1,9 +1,16 @@
-import { Component } from "react";
+import { Component, CSSProperties } from "react";
 import { ColorPickerProps } from "../../..";
+import { Classes } from "reactcss";
 
-export interface HuePickerProps extends ColorPickerProps<HuePicker> {
-    height?: string;
-    width?: string;
+export interface HuePickerStylesProps {
+    picker: CSSProperties;
+    hue: CSSProperties;
 }
 
-export default class HuePicker extends Component<HuePickerProps> {}
+export interface HuePickerProps extends ColorPickerProps<HuePicker> {
+    height?: string | undefined;
+    width?: string | undefined;
+    styles?: Partial<Classes<HuePickerStylesProps>> | undefined;
+}
+
+export default class HuePicker extends Component<HuePickerProps> { }

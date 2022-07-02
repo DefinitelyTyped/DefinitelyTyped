@@ -1,7 +1,11 @@
-
 import cron = require('cron');
+import luxon = require('luxon');
+
+
 var CronJob = cron.CronJob;
 var CronTime = cron.CronTime;
+
+var DateTime = luxon.DateTime;
 
 var timeZone = 'America/Los_Angeles';
 
@@ -24,6 +28,19 @@ var job = new CronJob('00 30 11 * * 1-5', () => {
   timeZone /* Time zone of this job. */
 );
 
+// Another example with nullable onComplete
+var job = new CronJob('00 30 11 * * 1-5', () => {
+  /*
+   * Runs every weekday (Monday through Friday)
+   * at 11:30:00 AM. It does not run on Saturday
+   * or Sunday.
+   */
+  },
+    null,
+  true, /* Start the job right now */
+  timeZone /* Time zone of this job. */
+);
+
 // Another example with Date
 var job = new CronJob(new Date(), () => {
   /* runs once at the specified date. */
@@ -34,8 +51,24 @@ var job = new CronJob(new Date(), () => {
   timeZone /* Time zone of this job. */
 );
 
+// Another example with luxon
+var job = new CronJob(DateTime.local(), () => {
+  /* runs once at the specified DateTime. */
+  }, () => {
+    /* This function is executed when the job stops */
+  },
+  true, /* Start the job right now */
+  timeZone /* Time zone of this job. */
+);
+
+// Another example with system commands
+var job = new CronJob('00 30 11 * * 1-5', 'ls', { command: 'ls', args: ['./'] },
+  true, /* Start the job right now */
+  timeZone /* Time zone of this job. */
+);
+
 // For good measure
-var job = new CronJob({
+var job = cron.job({
   cronTime: '00 30 11 * * 1-5',
   onTick: () => {
     /*
@@ -47,9 +80,14 @@ var job = new CronJob({
   start: false,
   timeZone: 'America/Los_Angeles'
 });
-console.log(job.lastDate());
-console.log(job.nextDates(1));
-console.log(job.running);
+const ld = job.lastDate(); // $ExpectType Date
+console.log(ld);
+const nd = job.nextDates(); // $ExpectType DateTime
+console.log(nd);
+const nds = job.nextDates(1); // $ExpectType DateTime | DateTime[]
+console.log(nds);// Should be a DateTime array
+const ru = job.running // $ExpectType boolean
+console.log(ru);
 job.setTime(new CronTime('00 30 11 * * 1-2'));
 job.start();
 job.stop();
@@ -64,7 +102,7 @@ try {
 }
 
 
-// Check cronTime fomat
+// Check cronTime format
 new CronTime('* * * * * *');
 new CronTime(new Date());
-
+new CronTime(DateTime.local());

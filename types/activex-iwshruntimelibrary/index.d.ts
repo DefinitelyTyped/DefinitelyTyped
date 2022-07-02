@@ -1,4 +1,4 @@
-// Type definitions for Windows Script Host Runtime Object Model 0.0
+// Type definitions for non-npm package Windows Script Host Runtime Object Model 0.0
 // Project: https://msdn.microsoft.com/en-us/library/9bbdkx3k.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -32,7 +32,7 @@ declare namespace IWshRuntimeLibrary {
     const enum IconType {
         Stop = 16,
         QuestionMark = 32,
-        ExclamationMakr = 48,
+        ExclamationMark = 48,
         InformationMark = 64,
     }
 

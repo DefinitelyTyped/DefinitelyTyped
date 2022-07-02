@@ -12,22 +12,22 @@ declare module "uglifycss" {
             /**
              * Adds a newline (approx.) every n characters; 0 means no newline and is the default value
              */
-            maxLineLen?: number
+            maxLineLen?: number | undefined
 
             /**
              * eEpands variables; by default, @variables blocks are preserved and var(x)s are not expanded
              */
-            expandVars?: boolean
+            expandVars?: boolean | undefined
 
             /**
              * Removes newlines within preserved comments; by default, newlines are preserved
              */
-            uglyComments?: boolean
+            uglyComments?: boolean | undefined
 
             /**
              * Preserves newlines within and around preserved comments
              */
-            cuteComments?: boolean
+            cuteComments?: boolean | undefined
         }
 
         /**

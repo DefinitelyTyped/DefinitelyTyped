@@ -24,6 +24,9 @@ function testRecommendedOptions() {
         columnWidth: 200,
         itemSelector: '.grid-item'
     });
+
+    // Test JQuery 2-parameter interface added to address issue 59558
+    $('.grid').masonry('remove', $('.grid-item'));
 }
 
 // extended Options
@@ -40,7 +43,16 @@ function testExtendedOptions() {
         containerStyle: {
             position: 'relative'
         },
+        hiddenStyle: {
+            transform: 'translateY(100px)',
+            opacity: 0,
+        },
+        visibleStyle: {
+            transform: 'translateY(0px)',
+            opacity: 1
+        },
         transitionDuration: '0.4s',
+        stagger: 30,
         resize: true,
         initLayout: true,
         horizontalOrder: true

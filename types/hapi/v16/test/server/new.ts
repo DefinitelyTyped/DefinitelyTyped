@@ -1,6 +1,6 @@
 'use strict';
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 new Hapi.Server();
 new Hapi.Server({
@@ -45,10 +45,10 @@ new Hapi.Server({
 });
 
 //+ Code added in addition to docs
-declare module '../../' {
+declare module 'hapi' {
     interface PluginSpecificConfiguration {
         // Set this to non optional if plugin config is non optional
-        'some-plugin-name'?: {options: string;};
+        'some-plugin-name'?: {options: string;} | undefined;
     }
 }
 //- Code added in addition to docs

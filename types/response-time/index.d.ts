@@ -3,7 +3,7 @@
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik>, TonyYang <https://github.com/TonyPythoneer>
 //                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 
 /* =================== USAGE ===================
@@ -37,9 +37,9 @@ declare function responseTime(fn: (request: express.Request, response: express.R
 
 declare namespace responseTime {
     export interface ResponseTimeOptions {
-        digits?: number;
-        header?: string;
-        suffix?: boolean;
+        digits?: number | undefined;
+        header?: string | undefined;
+        suffix?: boolean | undefined;
     }
 
     export interface ResponseTimeFunction {

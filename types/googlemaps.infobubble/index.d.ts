@@ -2,6 +2,7 @@
 // Project: http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/
 // Definitions by: Johan Nilsson <https://github.com/Dashue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.0
 
 /// <reference types="google-maps" />
 
@@ -58,7 +59,7 @@ declare namespace google.maps.infobubble {
           */
         open(map: google.maps.Map, marker: google.maps.Marker) : void;
 
-		/**
+        /**
           * Returns the position of the InfoBubble
           */
         getPosition(): google.maps.LatLng;
@@ -69,40 +70,40 @@ declare namespace google.maps.infobubble {
         /**
           * Percentage from the bottom left corner of the infobubble
           */
-        arrowPosition?: number;
+        arrowPosition?: number | undefined;
 
-        arrowSize?: number;
+        arrowSize?: number | undefined;
 
         /**
           * 0: Middle, 1: Left, 2: Right
           */
-        arrowStyle?: number;
+        arrowStyle?: number | undefined;
 
-        backgroundColor?: string;
+        backgroundColor?: string | undefined;
 
-        borderColor?: string;
+        borderColor?: string | undefined;
 
-        borderRadius?: number;
+        borderRadius?: number | undefined;
 
-        borderWidth?: number;
+        borderWidth?: number | undefined;
 
-        disableAnimation?: boolean;
+        disableAnimation?: boolean | undefined;
 
-        disableAutoPan?: boolean;
+        disableAutoPan?: boolean | undefined;
 
-        maxHeight?: number;
+        maxHeight?: number | undefined;
 
-        maxWidth?: number;
+        maxWidth?: number | undefined;
 
-        minHeight?: number;
+        minHeight?: number | undefined;
 
-        minWidth?: number;
+        minWidth?: number | undefined;
 
-        padding?: number;
+        padding?: number | undefined;
 
         /**
           * 0: None, 1: Right, 2: Under
           */
-        shadowStyle?: number;
+        shadowStyle?: number | undefined;
     }
 }

@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "jsx": "react",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "react-table": [
+                "react-table/v6"
+            ],
+            "react-table/*": [
+                "react-table/v6/*"
+            ]
+        },
+
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "react-table-tests.tsx",
+        "test/select-table-tests.tsx",
+        "test/tree-table-tests.tsx"
+    ]
+}

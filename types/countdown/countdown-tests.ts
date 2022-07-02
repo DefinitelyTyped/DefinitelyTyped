@@ -6,6 +6,9 @@ let interval: number;
 ts = <countdown.Timespan>countdown(new Date());
 ts = <countdown.Timespan>countdown(150);
 
+ts = <countdown.Timespan>countdown(undefined, Date.now() + 60000);
+ts = <countdown.Timespan>countdown(Date.now() - 60000, null);
+
 interval = <number>countdown(new Date(),
     function (ts: countdown.Timespan) {
         document.getElementById('pageTimer').innerHTML = ts.toHTML('strong');

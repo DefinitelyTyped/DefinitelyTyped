@@ -14,9 +14,15 @@
             "../../"
         ],
         "paths": {
-            "ember": ["ember/v2"],
-            "ember-data": ["ember-data/v2"],
-            "ember-data/*": ["ember-data/v2/*"]
+            "ember": [
+                "ember/v2"
+            ],
+            "ember-data": [
+                "ember-data/v2"
+            ],
+            "ember-data/*": [
+                "ember-data/v2/*"
+            ]
         },
         "types": [],
         "noEmit": true,
@@ -25,25 +31,6 @@
     },
     "files": [
         "index.d.ts",
-        "adapter.d.ts",
-        "serializer.d.ts",
-        "model.d.ts",
-        "attr.d.ts",
-        "relationships.d.ts",
-        "store.d.ts",
-        "transform.d.ts",
-        "adapters/errors.d.ts",
-        "adapters/rest.d.ts",
-        "adapters/json-api.d.ts",
-        "serializers/json-api.d.ts",
-        "serializers/json.d.ts",
-        "serializers/rest.d.ts",
-        "serializers/embedded-records-mixin.d.ts",
-        "transforms/transform.d.ts",
-        "transforms/date.d.ts",
-        "transforms/boolean.d.ts",
-        "transforms/string.d.ts",
-        "transforms/number.d.ts",
         "test/lib/assert.ts",
         "test/model.ts",
         "test/module-api.ts",

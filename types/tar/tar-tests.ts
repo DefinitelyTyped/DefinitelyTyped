@@ -44,9 +44,17 @@ tar.c(
     ['some', 'files', 'and', 'folders']
 ).pipe(fs.createWriteStream('my-tarball.tgz'));
 
+tar.c(
+    {
+        prefix: 'some-prefix',
+    },
+    ['some', 'files', 'and', 'folders']
+).pipe(fs.createWriteStream('my-tarball.tgz'));
+
 tar.x(
     {
         file: 'my-tarball.tgz',
+        noChmod: true,
     }
 ).then(() => undefined);
 
@@ -65,3 +73,7 @@ tar.t({
 fs.createReadStream('my-tarball.tgz')
     .pipe(tar.t())
     .on('entry', entry => console.log(entry.size));
+
+fs.createReadStream('my-tarball.tgz')
+    .pipe(new tar.Parse())
+    .on('entry', entry => entry.on('data', data => console.log(data)));

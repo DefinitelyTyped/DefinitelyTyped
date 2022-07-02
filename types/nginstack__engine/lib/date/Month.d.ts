@@ -1,0 +1,14 @@
+export type exports = number;
+declare const JAN: number;
+declare const FEB: number;
+declare const MAR: number;
+declare const APR: number;
+declare const MAY: number;
+declare const JUN: number;
+declare const JUL: number;
+declare const AUG: number;
+declare const SEP: number;
+declare const OCT: number;
+declare const NOV: number;
+declare const DEC: number;
+export {};

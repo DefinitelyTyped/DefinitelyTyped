@@ -5,20 +5,20 @@ class AuthService extends Ember.Service {
 }
 
 class ApplicationController extends Ember.Controller {
-    model: {};
+    model = {};
     string: string;
     transitionToLogin() {}
 }
 
 declare module '@ember/service' {
     interface Registry {
-        'auth': AuthService;
+        auth: AuthService;
     }
 }
 
 declare module '@ember/controller' {
     interface Registry {
-        'application': ApplicationController;
+        application: ApplicationController;
     }
 }
 

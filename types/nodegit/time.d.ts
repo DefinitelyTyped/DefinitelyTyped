@@ -1,4 +1,4 @@
 export class Time {
-    time: number;
-    offset: number;
+    time(): number;
+    offset(): number;
 }

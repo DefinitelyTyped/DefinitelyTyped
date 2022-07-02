@@ -3,22 +3,22 @@
 // Definitions by: Maxime Kjaer <https://github.com/MaximeKjaer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="index.d.ts"/>
+/// <reference path="index.d.ts"/>
 
 interface RangyStatic {
     createClassApplier(theClass: string, options?: RangyClassApplierOptions, tagNames?: string|string[]): RangyClassApplier;
 }
 
 interface RangyClassApplierOptions {
-    elementTagName?: string;
-    elementProperties?: {[property: string]: string};
-    elementAttributes?: {[attribute: string]: string};
-    ignoreWhiteSpace?: boolean;
-    applyToEditableOnly?: boolean;
-    tagNames?: string|string[];
-    normalize?: boolean;
-    onElementCreate?: (element: Element, classApplier: RangyClassApplier) => void;
-    useExistingElements?: boolean;
+    elementTagName?: string | undefined;
+    elementProperties?: {[property: string]: string} | undefined;
+    elementAttributes?: {[attribute: string]: string} | undefined;
+    ignoreWhiteSpace?: boolean | undefined;
+    applyToEditableOnly?: boolean | undefined;
+    tagNames?: string|string[] | undefined;
+    normalize?: boolean | undefined;
+    onElementCreate?: ((element: Element, classApplier: RangyClassApplier) => void) | undefined;
+    useExistingElements?: boolean | undefined;
 }
 
 interface RangyClassApplier extends RangyClassApplierOptions {

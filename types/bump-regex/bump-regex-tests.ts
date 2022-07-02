@@ -19,4 +19,4 @@ bump({regex: /^.+$/, str: '1.0.0'}, (err, res) => {});
 
 bump({regex: /^.+$/, global: true, str: '1.0.0'}, (err, res) => {});
 
-bump({regex: /^.+$/, case: true, str: '1.0.0'}, (err, res) => {});
+bump({regex: /^.+$/, case: true, keepmetadata: true, str: '1.0.0'}, (err, res) => {});

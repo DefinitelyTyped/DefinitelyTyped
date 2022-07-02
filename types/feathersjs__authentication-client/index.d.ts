@@ -1,7 +1,7 @@
 // Type definitions for @feathersjs/authentication-client 1.0
-// Project: http://feathersjs.com/
+// Project: https://feathersjs.com
 // Definitions by: Abraao Alves <https://github.com/AbraaoAlves>, Jan Lohage <https://github.com/j2L4e>
-// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as self from '@feathersjs/authentication-client';
 
@@ -9,14 +9,15 @@ declare const feathersAuthClient: ((config?: FeathersAuthClientConfig) => () => 
 export default feathersAuthClient;
 
 export interface FeathersAuthClientConfig {
-    storage?: Storage;
-    header?: string;
-    cookie?: string;
-    storageKey?: string;
-    jwtStrategy?: string;
-    path?: string;
-    entity?: string;
-    service?: string;
+    storage?: Storage | undefined;
+    header?: string | undefined;
+    cookie?: string | undefined;
+    storageKey?: string | undefined;
+    jwtStrategy?: string | undefined;
+    path?: string | undefined;
+    entity?: string | undefined;
+    service?: string | undefined;
+    timeout?: number | undefined;
 }
 
 export interface FeathersAuthCredentials {

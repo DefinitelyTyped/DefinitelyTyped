@@ -2,7 +2,7 @@
 // Project: https://github.com/avinoamr/connect-slashes
 // Definitions by: Sam Herrmann <https://github.com/samherrmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
@@ -31,9 +31,9 @@ declare namespace slashes {
      * @see https://github.com/avinoamr/connect-slashes#additional-settings
      */
     interface Options {
-        base?: string;
-        code?: number;
-        headers?: { [field: string]: string };
+        base?: string | undefined;
+        code?: number | undefined;
+        headers?: { [field: string]: string } | undefined;
     }
 }
 

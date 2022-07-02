@@ -56,48 +56,48 @@ export type miscTypes = babelTypes.Noop | babelTypes.ParenthesizedExpression;
 export type NodeTypes = coreTypes | es2015Types | flowTypes | jsxTypes | miscTypes;
 
 export interface coreVisitors<V> {
-    ArrayExpression?: V; AssignmentExpression?: V; BinaryExpression?: V; Directive?: V; DirectiveLiteral?: V;
-    BlockStatement?: V; BreakStatement?: V; CallExpression?: V; CatchClause?: V; ConditionalExpression?: V;
-    ContinueStatement?: V; DebuggerStatement?: V; DoWhileStatement?: V; EmptyStatement?: V; ExpressionStatement?: V;
-    File?: V; ForInStatement?: V; ForStatement?: V; FunctionDeclaration?: V; FunctionExpression?: V; Identifier?: V;
-    IfStatement?: V; LabeledStatement?: V; StringLiteral?: V; NumericLiteral?: V; NullLiteral?: V; BooleanLiteral?: V;
-    RegExpLiteral?: V; LogicalExpression?: V; MemberExpression?: V; NewExpression?: V; Program?: V;
-    ObjectExpression?: V; ObjectMethod?: V; ObjectProperty?: V; RestElement?: V; ReturnStatement?: V;
-    SequenceExpression?: V; SwitchCase?: V; SwitchStatement?: V; ThisExpression?: V; ThrowStatement?: V;
-    TryStatement?: V; UnaryExpression?: V; UpdateExpression?: V; VariableDeclaration?: V; VariableDeclarator?: V;
-    WhileStatement?: V; WithStatement?: V;
+    ArrayExpression?: V | undefined; AssignmentExpression?: V | undefined; BinaryExpression?: V | undefined; Directive?: V | undefined; DirectiveLiteral?: V | undefined;
+    BlockStatement?: V | undefined; BreakStatement?: V | undefined; CallExpression?: V | undefined; CatchClause?: V | undefined; ConditionalExpression?: V | undefined;
+    ContinueStatement?: V | undefined; DebuggerStatement?: V | undefined; DoWhileStatement?: V | undefined; EmptyStatement?: V | undefined; ExpressionStatement?: V | undefined;
+    File?: V | undefined; ForInStatement?: V | undefined; ForStatement?: V | undefined; FunctionDeclaration?: V | undefined; FunctionExpression?: V | undefined; Identifier?: V | undefined;
+    IfStatement?: V | undefined; LabeledStatement?: V | undefined; StringLiteral?: V | undefined; NumericLiteral?: V | undefined; NullLiteral?: V | undefined; BooleanLiteral?: V | undefined;
+    RegExpLiteral?: V | undefined; LogicalExpression?: V | undefined; MemberExpression?: V | undefined; NewExpression?: V | undefined; Program?: V | undefined;
+    ObjectExpression?: V | undefined; ObjectMethod?: V | undefined; ObjectProperty?: V | undefined; RestElement?: V | undefined; ReturnStatement?: V | undefined;
+    SequenceExpression?: V | undefined; SwitchCase?: V | undefined; SwitchStatement?: V | undefined; ThisExpression?: V | undefined; ThrowStatement?: V | undefined;
+    TryStatement?: V | undefined; UnaryExpression?: V | undefined; UpdateExpression?: V | undefined; VariableDeclaration?: V | undefined; VariableDeclarator?: V | undefined;
+    WhileStatement?: V | undefined; WithStatement?: V | undefined;
 }
 
 export interface es2015Visitors<V> {
-    AssignmentPattern?: V; ArrayPattern?: V; ArrowFunctionExpression?: V; ClassBody?: V; ClassDeclaration?: V;
-    ClassExpression?: V; ExportAllDeclaration?: V; ExportDefaultDeclaration?: V; ExportNamedDeclaration?: V;
-    ExportSpecifier?: V; ForOfStatement?: V; ImportDeclaration?: V; ImportDefaultSpecifier?: V;
-    ImportNamespaceSpecifier?: V; ImportSpecifier?: V; MetaProperty?: V; ClassMethod?: V; ObjectPattern?: V;
-    SpreadElement?: V; Super?: V; TaggedTemplateExpression?: V; TemplateElement?: V; TemplateLiteral?: V;
-    YieldExpression?: V; AwaitExpression?: V; BindExpression?: V; ClassProperty?: V; Decorator?: V; DoExpression?: V;
-    ExportDefaultSpecifier?: V; ExportNamespaceSpecifier?: V;
+    AssignmentPattern?: V | undefined; ArrayPattern?: V | undefined; ArrowFunctionExpression?: V | undefined; ClassBody?: V | undefined; ClassDeclaration?: V | undefined;
+    ClassExpression?: V | undefined; ExportAllDeclaration?: V | undefined; ExportDefaultDeclaration?: V | undefined; ExportNamedDeclaration?: V | undefined;
+    ExportSpecifier?: V | undefined; ForOfStatement?: V | undefined; ImportDeclaration?: V | undefined; ImportDefaultSpecifier?: V | undefined;
+    ImportNamespaceSpecifier?: V | undefined; ImportSpecifier?: V | undefined; MetaProperty?: V | undefined; ClassMethod?: V | undefined; ObjectPattern?: V | undefined;
+    SpreadElement?: V | undefined; Super?: V | undefined; TaggedTemplateExpression?: V | undefined; TemplateElement?: V | undefined; TemplateLiteral?: V | undefined;
+    YieldExpression?: V | undefined; AwaitExpression?: V | undefined; BindExpression?: V | undefined; ClassProperty?: V | undefined; Decorator?: V | undefined; DoExpression?: V | undefined;
+    ExportDefaultSpecifier?: V | undefined; ExportNamespaceSpecifier?: V | undefined;
 }
 
 export interface flowVisitors<V> {
-    AnyTypeAnnotation?: V; ArrayTypeAnnotation?: V; BooleanTypeAnnotation?: V; BooleanLiteralTypeAnnotation?: V;
-    NullLiteralTypeAnnotation?: V; ClassImplements?: V; DeclareClass?: V; DeclareFunction?: V; DeclareInterface?: V;
-    DeclareModule?: V; DeclareTypeAlias?: V; DeclareVariable?: V; FunctionTypeAnnotation?: V; FunctionTypeParam?: V;
-    GenericTypeAnnotation?: V; InterfaceExtends?: V; InterfaceDeclaration?: V; IntersectionTypeAnnotation?: V;
-    MixedTypeAnnotation?: V; NullableTypeAnnotation?: V; NumberTypeAnnotation?: V; ObjectTypeAnnotation?: V;
-    ObjectTypeCallProperty?: V; ObjectTypeIndexer?: V; ObjectTypeProperty?: V; QualifiedTypeIdentifier?: V;
-    StringLiteralTypeAnnotation?: V; StringTypeAnnotation?: V; ThisTypeAnnotation?: V; TupleTypeAnnotation?: V;
-    TypeofTypeAnnotation?: V; TypeAlias?: V; TypeAnnotation?: V; TypeCastExpression?: V; TypeParameterDeclaration?: V;
-    TypeParameterInstantiation?: V; UnionTypeAnnotation?: V; VoidTypeAnnotation?: V;
+    AnyTypeAnnotation?: V | undefined; ArrayTypeAnnotation?: V | undefined; BooleanTypeAnnotation?: V | undefined; BooleanLiteralTypeAnnotation?: V | undefined;
+    NullLiteralTypeAnnotation?: V | undefined; ClassImplements?: V | undefined; DeclareClass?: V | undefined; DeclareFunction?: V | undefined; DeclareInterface?: V | undefined;
+    DeclareModule?: V | undefined; DeclareTypeAlias?: V | undefined; DeclareVariable?: V | undefined; FunctionTypeAnnotation?: V | undefined; FunctionTypeParam?: V | undefined;
+    GenericTypeAnnotation?: V | undefined; InterfaceExtends?: V | undefined; InterfaceDeclaration?: V | undefined; IntersectionTypeAnnotation?: V | undefined;
+    MixedTypeAnnotation?: V | undefined; NullableTypeAnnotation?: V | undefined; NumberTypeAnnotation?: V | undefined; ObjectTypeAnnotation?: V | undefined;
+    ObjectTypeCallProperty?: V | undefined; ObjectTypeIndexer?: V | undefined; ObjectTypeProperty?: V | undefined; QualifiedTypeIdentifier?: V | undefined;
+    StringLiteralTypeAnnotation?: V | undefined; StringTypeAnnotation?: V | undefined; ThisTypeAnnotation?: V | undefined; TupleTypeAnnotation?: V | undefined;
+    TypeofTypeAnnotation?: V | undefined; TypeAlias?: V | undefined; TypeAnnotation?: V | undefined; TypeCastExpression?: V | undefined; TypeParameterDeclaration?: V | undefined;
+    TypeParameterInstantiation?: V | undefined; UnionTypeAnnotation?: V | undefined; VoidTypeAnnotation?: V | undefined;
 }
 
 export interface jsxVisitors<V> {
-    JSXAttribute?: V; JSXClosingElement?: V; JSXElement?: V; JSXEmptyExpression?: V; JSXExpressionContainer?: V;
-    JSXIdentifier?: V; JSXMemberExpression?: V; JSXNamespacedName?: V; JSXOpeningElement?: V; JSXSpreadAttribute?: V;
-    JSXText?: V;
+    JSXAttribute?: V | undefined; JSXClosingElement?: V | undefined; JSXElement?: V | undefined; JSXEmptyExpression?: V | undefined; JSXExpressionContainer?: V | undefined;
+    JSXIdentifier?: V | undefined; JSXMemberExpression?: V | undefined; JSXNamespacedName?: V | undefined; JSXOpeningElement?: V | undefined; JSXSpreadAttribute?: V | undefined;
+    JSXText?: V | undefined;
 }
 
 export interface miscVisitors<V> {
-    Noop?: V; ParenthesizedExpression?: V;
+    Noop?: V | undefined; ParenthesizedExpression?: V | undefined;
 }
 
 export interface visitors<V> extends coreVisitors<V>, es2015Visitors<V>, flowVisitors<V>, jsxVisitors<V>, miscVisitors<V> {

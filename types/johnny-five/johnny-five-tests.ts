@@ -56,7 +56,27 @@ board.on('ready', function(){
     var esc = new five.ESC(11);
 
     // Set to top speed. (this can be physically dangerous, you've been warned.)
-    esc.max();
+    esc.throttle(100);
+
+    // other options for creating an ESC instance
+    esc = new five.ESC({
+      device: 'FORWARD_REVERSE',
+      pin: 11,
+      pwmRange: [800, 1800],
+    });
+
+    // set a percentage value between 0 and 100
+    esc.throttle(25);
+
+    // set a micro-second
+    esc.throttle(1500);
+
+    // create a collection of ESC instances
+    var escs = new five.ESCs([11, 12]);
+
+    escs.throttle(80);
+
+    escs.forEach(item => item.brake());
 
 
     var gyro = new five.Gyro({
@@ -78,10 +98,16 @@ board.on('ready', function(){
         pin: 7
     });
 
-    var proximity = new five.Proximity({
-        controller: "GP2Y0A21YK",
-        pin: "A0"
-    });
+    var proximityOption: five.ProximityOption = {
+      controller: "HCSR04",
+      pin: "10",
+      freq: 500	// optional
+    };
+
+    let proximityController: string = proximityOption.controller;
+    let proximityPin: string | number = proximityOption.pin;
+    let proximityFrequency: number | undefined = proximityOption.freq;
+    let proximity = new five.Proximity(proximityOption);
 
     var eyes = new five.IR.Reflect.Array({
         emitter: 13,

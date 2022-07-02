@@ -213,7 +213,7 @@ $('ul').undelegate('click', 'li', () => {
 $('li').on('click', () => {
     $.noop;
 });
-$('ul').on('click', 'li', () => {
+$('ul').on('click', 'li', function() {
     console.log($(this).text());
 });
 $('li').off('click');

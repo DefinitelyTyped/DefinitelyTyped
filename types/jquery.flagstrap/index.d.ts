@@ -17,7 +17,7 @@ declare module jQueryFlagStrap {
          * Default: uniquely generated
          * the `id` attribute for the actual `select` input
          */
-        inputId?: string;
+        inputId?: string | undefined;
         /**
          * Default: "btn-md"
          * The bootstrap button size `class` for this drop down
@@ -42,7 +42,7 @@ declare module jQueryFlagStrap {
          * Default: "250px"
          * `max-height` for the scrollable drop down
          */
-        scrollableHeight?: string;
+        scrollableHeight?: string | undefined;
         /**
         * Default: (all)
         * Only show specific countries
@@ -52,7 +52,7 @@ declare module jQueryFlagStrap {
         * 
         * will only show the USA and UK.
         */
-        countries?: Object;
+        countries?: Object | undefined;
         /**
          * Default: {value: "", text: "Please select a country"}
          * Set the placeholder value and text. To disable the placeholder define as (boolean) false.
@@ -66,7 +66,7 @@ declare module jQueryFlagStrap {
     }
 
     interface FlagStrapStatic {
-        flagStrap?: void;
+        flagStrap?: void | undefined;
     }
 
     interface FlagStrapPlaceholderOptions {

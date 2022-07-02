@@ -6,11 +6,9 @@ declare const html: (...args: any[]) => string;
 // import withLitHtml from '@skatejs/renderer-lit-html';
 declare const withLitHtml: () => any;
 
-// tslint:disable-next-line interface-over-type-literal
 type Props = {
   state: State;
 };
-// tslint:disable-next-line interface-over-type-literal
 type State = {
   email: string;
 };

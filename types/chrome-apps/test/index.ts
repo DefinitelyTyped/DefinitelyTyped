@@ -34,22 +34,14 @@ var distortion = audioCtx.createWaveShaper();
 var gainNode = audioCtx.createGain();
 var biquadFilter = audioCtx.createBiquadFilter();
 
-navigator.getUserMedia({
-    audio: true
-},
-    (stream) => {
-        const source = audioCtx.createMediaStreamSource(stream);
-        source.connect(analyser);
-        analyser.connect(distortion);
-        distortion.connect(biquadFilter);
-        biquadFilter.connect(gainNode);
-        gainNode.connect(audioCtx.destination); // connecting the different audio graph nodes together
-    },
-    (error) => {
-        console.error(error);
-    }
-);
-
+navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+    const source = audioCtx.createMediaStreamSource(stream);
+    source.connect(analyser);
+    analyser.connect(distortion);
+    distortion.connect(biquadFilter);
+    biquadFilter.connect(gainNode);
+    gainNode.connect(audioCtx.destination); // connecting the different audio graph nodes together
+});
 
 ///
 /// HTML5 Canvas
@@ -799,6 +791,10 @@ const deviceAttr = chrome.enterprise.deviceAttributes;
 
 if (deviceAttr.getDirectoryDeviceId && deviceAttr.getDeviceAssetId) {
     if (deviceAttr.getDeviceSerialNumber && deviceAttr.getDeviceAnnotatedLocation) {
+        void deviceAttr.getDirectoryDeviceId;
+        void deviceAttr.getDeviceAssetId;
+        void deviceAttr.getDeviceSerialNumber;
+        void deviceAttr.getDeviceAnnotatedLocation;
         console.log('API OK :)');
     }
 }
@@ -813,9 +809,9 @@ chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((loc) => loc.charA
 
 // ENTERPRISE - PLATFORM KEYS
 
-if (chrome.enterprise.platformKeys.getTokens) {
-    if (chrome.enterprise.platformKeys.importCertificate) {
-        if (chrome.enterprise.platformKeys.removeCertificate) {
+if (chrome.enterprise.platformKeys.getTokens as any) {
+    if (chrome.enterprise.platformKeys.importCertificate as any) {
+        if (chrome.enterprise.platformKeys.removeCertificate as any) {
             console.log('API Present');
         }
     }
@@ -1210,6 +1206,8 @@ if (chrome.platformKeys.subtleCrypto &&
     chrome.platformKeys.subtleCrypto() &&
     chrome.platformKeys.subtleCrypto().sign &&
     chrome.platformKeys.subtleCrypto().exportKey) {
+    void chrome.platformKeys.subtleCrypto().sign;
+    void chrome.platformKeys.subtleCrypto().exportKey;
     console.log('Subtle crypto working (Y)')
 }
 
@@ -1309,6 +1307,11 @@ chrome.runtime.getPackageDirectoryEntry((pentry) => {
 });
 
 chrome.runtime.reload();
+chrome.runtime.restart();
+chrome.runtime.restartAfterDelay(10);
+chrome.runtime.restartAfterDelay(10, () => {
+    console.log('This is a callback!');
+});
 chrome.runtime.requestUpdateCheck((status, details) => {
     if (status === chrome.runtime.RequestUpdateCheckStatus.THROTTLED) {
         if (details !== undefined) {
@@ -1682,6 +1685,30 @@ function onPowerChanged() {
         }
     });
     chrome.system.powerSource.requestStatusUpdate();
+}
+
+async function getCpuInfo() {
+    function logCpuInfo(cpuInfo: chrome.system.cpu.CpuInfo) {
+        console.log('numOfProcessors: ', cpuInfo.numOfProcessors);
+        console.log('archName: ', cpuInfo.archName);
+        console.log('modelName: ', cpuInfo.modelName);
+        console.log('features: ', cpuInfo.features);
+        console.log('# Processors');
+        cpuInfo.processors.forEach((processor) => {
+            console.log('## Usage');
+            console.log('user: ', processor.usage.user);
+            console.log('kernel: ', processor.usage.kernel);
+            console.log('idle: ', processor.usage.idle);
+            console.log('total: ', processor.usage.total);
+        });
+    }
+
+    chrome.system.cpu.getInfo(cpuInfo => {
+        logCpuInfo(cpuInfo);
+    });
+
+    const cpuInfo = await chrome.system.cpu.getInfo();
+    logCpuInfo(cpuInfo);
 }
 
 // #endregion

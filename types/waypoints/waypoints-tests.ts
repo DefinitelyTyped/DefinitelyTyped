@@ -1,3 +1,4 @@
+/// <reference types="../waypoints/jquery" />
 // All code examples below taken from http://imakewebthings.com/waypoints/guides/getting-started/
 
 declare function notify(text: string): void;

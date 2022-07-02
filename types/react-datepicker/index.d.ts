@@ -1,131 +1,219 @@
-// Type definitions for react-datepicker 2.0
+// Type definitions for react-datepicker 4.4
 // Project: https://github.com/Hacker0x01/react-datepicker
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>,
-//                 Andrey Balokha <https://github.com/andrewBalekha>,
-//                 Greg Smith <https://github.com/smrq>,
-//                 Platon Pronko <https://github.com/Rogach>
+// Definitions by: Rajab Shakirov <https://github.com/radziksh>
+//                 Greg Smith <https://github.com/smrq>
 //                 Roy Xue <https://github.com/royxue>
 //                 Koala Human <https://github.com/KoalaHuman>
-//                 Sean Kelley <https://github.com/seansfkelley>
 //                 Justin Grant <https://github.com/justingrant>
 //                 Jake Boone <https://github.com/jakeboone02>
+//                 Roman Nuritdinov <https://github.com/Ky6uk>
+//                 Avi Klaiman <https://github.com/aviklai>
+//                 Naoki Sekiguchi <https://github.com/seckie>
+//                 Kerry Gougeon <https://github.com/kerry-g>
+//                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
+//                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Alexander Shipulin <https://github.com/y>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.8
 
-import * as React from "react";
-import * as Popper from "popper.js";
+import * as React from 'react';
+import * as Popper from '@popperjs/core';
+import { Locale } from 'date-fns';
+import { Modifier, StrictModifierNames } from 'react-popper';
 
-export function registerLocale(localeName: string, localeData: {}): void;
+export interface CalendarContainerProps {
+    className?: string | undefined;
+    children?: React.ReactNode | React.ReactNode[] | undefined;
+    showPopperArrow?: boolean | undefined;
+    arrowProps?: { [propName: string]: any } | undefined;
+}
+export function registerLocale(localeName: string, localeData: Locale): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
+export function CalendarContainer(props: CalendarContainerProps): React.ReactElement;
 
 interface HighlightDates {
-   [className: string]: Date[];
+    [className: string]: Date[];
 }
 
-export interface ReactDatePickerProps {
-	adjustDateOnChange?: boolean;
-	allowSameDay?: boolean;
-	autoComplete?: string;
-	autoFocus?: boolean;
-	calendarClassName?: string;
-	calendarContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-	children?: React.ReactNode;
-	className?: string;
-	clearButtonTitle?: string;
-	customInput?: React.ReactNode;
-	customInputRef?: string;
-	dateFormat?: string | string[];
-	dateFormatCalendar?: string;
-	dayClassName?(date: Date): string | null;
-	disabled?: boolean;
-	disabledKeyboardNavigation?: boolean;
-	dropdownMode?: 'scroll' | 'select';
-	endDate?: Date;
-	excludeDates?: Date[];
-	excludeTimes?: Date[];
-	filterDate?(date: Date): boolean;
-	fixedHeight?: boolean;
-	forceShowMonthNavigation?: boolean;
-	formatWeekDay?(date: Date): string;
-	formatWeekNumber?(date: Date): string | number;
-	highlightDates?: Array<HighlightDates|Date>;
-	id?: string;
-	includeDates?: Date[];
-	includeTimes?: Date[];
-	injectTimes?: Date[];
-	inline?: boolean;
-	isClearable?: boolean;
-	locale?: string;
-	maxDate?: Date;
-	maxTime?: Date;
-	minDate?: Date;
-	minTime?: Date;
-	monthsShown?: number;
-	name?: string;
-	nextMonthButtonLabel?: string;
-	onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
-	onChange(date: Date | null, event: React.SyntheticEvent<any> | undefined): void;
-	onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
-	onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
-	onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
-	onInputClick?(): void;
-	onInputError?(err: {code: number; msg: string}): void;
-	onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void;
-	onMonthChange?(date: Date): void;
-	onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void;
-	onWeekSelect?(firstDayOfWeek: Date, weekNumber: string | number, event: React.SyntheticEvent<any> | undefined): void;
-	onYearChange?(date: Date): void;
-	open?: boolean;
-	openToDate?: Date;
-	peekNextMonth?: boolean;
-	placeholderText?: string;
-	popperClassName?: string;
-	popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-	popperModifiers?: Popper.Modifiers;
-	popperPlacement?: string;
-	popperProps?: {};
-	preventOpenOnFocus?: boolean;
-	previousMonthButtonLabel?: string;
-	readOnly?: boolean;
-	renderCustomHeader?(params: {
-		date: Date;
-		changeYear(year: number): void;
-		changeMonth(month: number): void;
-		decreaseMonth(): void;
-		increaseMonth(): void;
-		prevMonthButtonDisabled: boolean;
-		nextMonthButtonDisabled: boolean;
-	}): React.ReactNode;
-	renderDayContents?(dayOfMonth: number): React.ReactNode;
-	required?: boolean;
-	scrollableMonthYearDropdown?: boolean;
-	scrollableYearDropdown?: boolean;
-	selected?: Date | null;
-	selectsEnd?: boolean;
-	selectsStart?: boolean;
-	shouldCloseOnSelect?: boolean;
-	showDisabledMonthNavigation?: boolean;
-	showMonthDropdown?: boolean;
-	showMonthYearDropdown?: boolean;
-	showTimeSelect?: boolean;
-	showTimeSelectOnly?: boolean;
-	showWeekNumbers?: boolean;
-	showYearDropdown?: boolean;
-	startDate?: Date;
-	startOpen?: boolean;
-	tabIndex?: number;
-	timeCaption?: string;
-	timeFormat?: string;
-	timeIntervals?: number;
-	title?: string;
-	todayButton?: React.ReactNode;
-	useShortMonthInDropdown?: boolean;
-	useWeekdaysShort?: boolean;
-	value?: string;
-	weekLabel?: string;
-	withPortal?: boolean;
-	yearDropdownItemNumber?: number;
+export interface ReactDatePickerCustomHeaderProps {
+    monthDate: Date;
+    date: Date;
+    changeYear(year: number): void;
+    changeMonth(month: number): void;
+    customHeaderCount: number;
+    decreaseMonth(): void;
+    increaseMonth(): void;
+    prevMonthButtonDisabled: boolean;
+    nextMonthButtonDisabled: boolean;
+    decreaseYear(): void;
+    increaseYear(): void;
+    prevYearButtonDisabled: boolean;
+    nextYearButtonDisabled: boolean;
 }
-declare const ReactDatePicker: React.ClassicComponentClass<ReactDatePickerProps>;
+
+export interface ReactDatePickerProps<
+    CustomModifierNames extends string = never,
+    WithRange extends boolean | undefined = undefined,
+> {
+    adjustDateOnChange?: boolean | undefined;
+    allowSameDay?: boolean | undefined;
+    ariaDescribedBy?: string | undefined;
+    ariaInvalid?: string | undefined;
+    ariaLabelClose?: string | undefined;
+    ariaLabelledBy?: string | undefined;
+    ariaRequired?: string | undefined;
+    autoComplete?: string | undefined;
+    autoFocus?: boolean | undefined;
+    calendarClassName?: string | undefined;
+    calendarContainer?(props: CalendarContainerProps): React.ReactNode;
+    calendarStartDay?: number | undefined;
+    children?: React.ReactNode | undefined;
+    chooseDayAriaLabelPrefix?: string | undefined;
+    className?: string | undefined;
+    clearButtonClassName?: string | undefined;
+    clearButtonTitle?: string | undefined;
+    closeOnScroll?: boolean | ((e: Event) => boolean) | undefined;
+    customInput?: React.ReactNode | undefined;
+    customInputRef?: string | undefined;
+    customTimeInput?: React.ReactNode | undefined;
+    dateFormat?: string | string[] | undefined;
+    dateFormatCalendar?: string | undefined;
+    dayClassName?(date: Date): string | null;
+    weekDayClassName?(date: Date): string | null;
+    monthClassName?(date: Date): string | null;
+    timeClassName?(date: Date): string | null;
+    disabledDayAriaLabelPrefix?: string | undefined;
+    disabled?: boolean | undefined;
+    disabledKeyboardNavigation?: boolean | undefined;
+    dropdownMode?: 'scroll' | 'select' | undefined;
+    endDate?: Date | null | undefined;
+    excludeDates?: Date[] | undefined;
+    excludeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;
+    excludeTimes?: Date[] | undefined;
+    filterDate?(date: Date): boolean;
+    filterTime?(date: Date): boolean;
+    fixedHeight?: boolean | undefined;
+    forceShowMonthNavigation?: boolean | undefined;
+    formatWeekDay?(formattedDate: string): React.ReactNode;
+    formatWeekNumber?(date: Date): string | number;
+    highlightDates?: Array<HighlightDates | Date> | undefined;
+    id?: string | undefined;
+    includeDates?: Date[] | undefined;
+    includeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;
+    includeTimes?: Date[] | undefined;
+    injectTimes?: Date[] | undefined;
+    inline?: boolean | undefined;
+    focusSelectedMonth?: boolean | undefined;
+    isClearable?: boolean | undefined;
+    locale?: string | Locale | undefined;
+    maxDate?: Date | null | undefined;
+    maxTime?: Date | undefined;
+    minDate?: Date | null | undefined;
+    minTime?: Date | undefined;
+    monthsShown?: number | undefined;
+    name?: string | undefined;
+    nextMonthAriaLabel?: string | undefined;
+    nextMonthButtonLabel?: string | React.ReactNode | undefined;
+    nextYearAriaLabel?: string | undefined;
+    nextYearButtonLabel?: string | React.ReactNode | undefined;
+    onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
+    onCalendarClose?(): void;
+    onCalendarOpen?(): void;
+    onChange(
+        date: WithRange extends false | undefined ? Date | null : [Date | null, Date | null],
+        event: React.SyntheticEvent<any> | undefined,
+    ): void;
+    onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
+    onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
+    onDayMouseEnter?: ((date: Date) => void) | undefined;
+    onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
+    onInputClick?(): void;
+    onInputError?(err: { code: number; msg: string }): void;
+    onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void;
+    onMonthChange?(date: Date): void;
+    onMonthMouseLeave?: (() => void) | undefined;
+    onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void;
+    onWeekSelect?(
+        firstDayOfWeek: Date,
+        weekNumber: string | number,
+        event: React.SyntheticEvent<any> | undefined,
+    ): void;
+    onYearChange?(date: Date): void;
+    open?: boolean | undefined;
+    openToDate?: Date | undefined;
+    peekNextMonth?: boolean | undefined;
+    placeholderText?: string | undefined;
+    popperClassName?: string | undefined;
+    popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
+    popperModifiers?: ReadonlyArray<Modifier<StrictModifierNames | CustomModifierNames>> | undefined;
+    popperPlacement?: Popper.Placement | undefined;
+    popperProps?: {} | undefined;
+    preventOpenOnFocus?: boolean | undefined;
+    previousMonthAriaLabel?: string | undefined;
+    previousMonthButtonLabel?: string | React.ReactNode | undefined;
+    previousYearAriaLabel?: string | undefined;
+    previousYearButtonLabel?: string | React.ReactNode | undefined;
+    readOnly?: boolean | undefined;
+    renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
+    renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
+    required?: boolean | undefined;
+    scrollableMonthYearDropdown?: boolean | undefined;
+    scrollableYearDropdown?: boolean | undefined;
+    selected?: Date | null | undefined;
+    selectsEnd?: boolean | undefined;
+    selectsStart?: boolean | undefined;
+    selectsRange?: WithRange;
+    shouldCloseOnSelect?: boolean | undefined;
+    showDisabledMonthNavigation?: boolean | undefined;
+    showFullMonthYearPicker?: boolean | undefined;
+    showMonthDropdown?: boolean | undefined;
+    showMonthYearDropdown?: boolean | undefined;
+    showMonthYearPicker?: boolean | undefined;
+    showPopperArrow?: boolean | undefined;
+    showPreviousMonths?: boolean | undefined;
+    showQuarterYearPicker?: boolean | undefined;
+    showTimeInput?: boolean | undefined;
+    showTimeSelect?: boolean | undefined;
+    showTimeSelectOnly?: boolean | undefined;
+    showTwoColumnMonthYearPicker?: boolean | undefined;
+    showFourColumnMonthYearPicker?: boolean | undefined;
+    showWeekNumbers?: boolean | undefined;
+    showYearDropdown?: boolean | undefined;
+    showYearPicker?: boolean | undefined;
+    startDate?: Date | null | undefined;
+    startOpen?: boolean | undefined;
+    strictParsing?: boolean | undefined;
+    tabIndex?: number | undefined;
+    timeCaption?: string | undefined;
+    timeFormat?: string | undefined;
+    timeInputLabel?: string | undefined;
+    timeIntervals?: number | undefined;
+    title?: string | undefined;
+    todayButton?: React.ReactNode | undefined;
+    useShortMonthInDropdown?: boolean | undefined;
+    useWeekdaysShort?: boolean | undefined;
+    weekAriaLabelPrefix?: string | undefined;
+    value?: string | undefined;
+    weekLabel?: string | undefined;
+    withPortal?: boolean | undefined;
+    portalId?: string | undefined;
+    portalHost?: ShadowRoot | undefined;
+    wrapperClassName?: string | undefined;
+    yearDropdownItemNumber?: number | undefined;
+    excludeScrollbar?: boolean | undefined;
+    enableTabLoop?: boolean | undefined;
+    yearItemNumber?: number | undefined;
+}
+
+export class ReactDatePicker<
+    CustomModifierNames extends string = never,
+    WithRange extends boolean | undefined = undefined,
+> extends React.Component<ReactDatePickerProps<CustomModifierNames, WithRange>> {
+    readonly setBlur: () => void;
+    readonly setFocus: () => void;
+    readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;
+    readonly isCalendarOpen: () => boolean;
+}
+
 export default ReactDatePicker;

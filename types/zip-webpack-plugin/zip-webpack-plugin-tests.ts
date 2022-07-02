@@ -2,6 +2,8 @@ import * as ZipPlugin from "zip-webpack-plugin";
 
 new ZipPlugin();
 
+new ZipPlugin({});
+
 const options: ZipPlugin.Options = {
     include: "include.string",
     exclude: "exclude.string",

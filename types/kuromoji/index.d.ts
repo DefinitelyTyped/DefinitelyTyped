@@ -89,8 +89,8 @@ export interface IpadicFeatures {
     conjugated_type: string;
     conjugated_form: string;
     basic_form: string;
-    reading?: string;
-    pronunciation?: string;
+    reading?: string | undefined;
+    pronunciation?: string | undefined;
 }
 
 // viterbi/ViterbiBuilder.js
@@ -148,7 +148,7 @@ export interface TokenizerBuilder<T> {
     build(callback: (err: Error, tokenizer: Tokenizer<T>) => void): void;
 }
 export interface TokenizerBuilderOption {
-    dicPath?: string;
+    dicPath?: string | undefined;
 }
 
 // kuromoji.js

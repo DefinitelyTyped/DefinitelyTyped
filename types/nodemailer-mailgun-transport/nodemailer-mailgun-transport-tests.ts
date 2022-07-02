@@ -14,7 +14,37 @@ const optsWithDomain: mailgunTransport.Options = {
     }
 };
 
-const transport: nodemailer.Transporter = nodemailer.createTransport(mailgunTransport(optsWithDomain));
+const optsWithHost: mailgunTransport.Options = {
+    auth: {
+        api_key: "harry",
+        domain: "http://www.foo.com"
+    },
+    host: 'api.eu.mailgun.net'
+};
+
+const aliasOpts: mailgunTransport.Options = {
+    auth: {
+        apiKey: "harry"
+    }
+};
+
+const aliasOptsWithDomain: mailgunTransport.Options = {
+    auth: {
+        apiKey: "harry",
+        domain: "http://www.foo.com"
+    }
+};
+
+const aliasOptsWithHost: mailgunTransport.Options = {
+    auth: {
+        apiKey: "harry",
+        domain: "http://www.foo.com"
+    },
+    host: 'api.eu.mailgun.net'
+};
+
+const transport: nodemailer.Transporter = nodemailer.createTransport(mailgunTransport(optsWithHost));
+const transportWithAliasOptions: nodemailer.Transporter = nodemailer.createTransport(mailgunTransport(aliasOptsWithHost));
 
 // setup e-mail data with unicode symbols
 const mailOptions: nodemailer.SendMailOptions = {
@@ -26,5 +56,9 @@ const mailOptions: nodemailer.SendMailOptions = {
 };
 
 transport.sendMail(mailOptions, (error: Error | null, info: nodemailer.SentMessageInfo): void => {
-	// nothing
+    // nothing
+});
+
+transportWithAliasOptions.sendMail(mailOptions, (error: Error | null, info: nodemailer.SentMessageInfo): void => {
+    // nothing
 });

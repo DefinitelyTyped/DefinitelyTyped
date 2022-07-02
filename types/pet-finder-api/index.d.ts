@@ -1,6 +1,6 @@
 // Type definitions for pet-finder-api 1.0
 // Project: https://github.com/drlukeangel/Pet-Finder-API-Javascript-Library
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: ncipollina <https://github.com/ncipollina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare function petFinder(api_key: string, api_secret: string, options?: any): petFinder.PetFinder;
 

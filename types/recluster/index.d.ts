@@ -6,10 +6,11 @@
 /// <reference types="node" />
 
 import { ChildProcess } from "child_process";
+import { EventEmitter } from "events";
 
 declare namespace recluster {
   interface LogOptions {
-    respawns?: boolean;
+    respawns?: boolean | undefined;
   }
 
   interface Logger {
@@ -18,24 +19,24 @@ declare namespace recluster {
 
   interface BalancerOptions {
     /** number of active workers */
-    workers?: number;
+    workers?: number | undefined;
     /** kill timeout for old workers after reload (sec) */
-    timeout?: number;
+    timeout?: number | undefined;
     /** min time between respawns when workers die */
-    respawn?: number;
+    respawn?: number | undefined;
     /** max time between respawns when workers die */
-    backoff?: number;
+    backoff?: number | undefined;
     /** when does the worker become ready? 'listening' or 'started' */
-    readyWhen?: string;
+    readyWhen?: string | undefined;
     /** arguments to pass to the worker (default: []) */
-    args?: string[];
+    args?: string[] | undefined;
     /** what to log to stdout (default: {respawns: true}) */
-    log?: LogOptions;
+    log?: LogOptions | undefined;
     /** logger to use, needs `log` method (default: console) */
-    logger?: Logger;
+    logger?: Logger | undefined;
   }
 
-  class Balancer {
+  class Balancer extends EventEmitter {
     constructor(file: string, options: BalancerOptions);
     run(): void;
     reload(cb?: () => void): void;

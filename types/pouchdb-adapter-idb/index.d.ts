@@ -1,5 +1,5 @@
 // Type definitions for pouchdb-adapter-idb 6.1
-// Project: https://pouchdb.com/
+// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -9,7 +9,7 @@
 declare namespace PouchDB {
     namespace Core {
         interface DatabaseInfo {
-            idb_attachment_format?: 'base64' | 'binary';
+            idb_attachment_format?: 'base64' | 'binary' | undefined;
         }
     }
 
@@ -21,7 +21,7 @@ declare namespace PouchDB {
              *
              * Only works in Firefox 26+.
              */
-            storage?: 'persistent' | 'temporary';
+            storage?: 'persistent' | 'temporary' | undefined;
             adapter: 'idb';
         }
     }

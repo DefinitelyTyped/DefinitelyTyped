@@ -9,12 +9,12 @@ import * as File from "vinyl";
 import { SrcOptions } from "vinyl-fs";
 
 interface IOptions extends SrcOptions {
-    ignoreInitial?: boolean;
-    events?: Array<string>;
-    base?: string;
-    name?: string;
-    verbose?: boolean;
-    readDelay?: number;
+    ignoreInitial?: boolean | undefined;
+    events?: Array<string> | undefined;
+    base?: string | undefined;
+    name?: string | undefined;
+    verbose?: boolean | undefined;
+    readDelay?: number | undefined;
 }
 
 interface IWatchStream extends NodeJS.ReadWriteStream {

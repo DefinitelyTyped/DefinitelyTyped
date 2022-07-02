@@ -1,13 +1,14 @@
 // Type definitions for hyco-ws 1.0
-// Project: https://github.com/Azure/azure-relay-node
+// Project: https://github.com/Azure/azure-relay-node, https://docs.microsoft.com/en-us/azure/service-bus-relay
 // Definitions by: Manuel Rodrigo Cabello <https://github.com/mrcabellom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import * as WebSocket from 'ws';
+import { EventEmitter } from 'events';
 
-export class HybridConnectionWebSocketServer extends NodeJS.EventEmitter {
+export class HybridConnectionWebSocketServer extends EventEmitter {
     constructor(options: any);
     close(callback: () => void): void;
     listenUri: string;

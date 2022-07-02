@@ -1,143 +1,181 @@
-// Type definitions for phoenix
+// Type definitions for phoenix 1.5
 // Project: https://github.com/phoenixframework/phoenix
 // Definitions by: Mirosław Ciastek <https://github.com/mciastek>
+//                 John Goff <https://github.com/John-Goff>
+//                 Po Chen <https://github.com/princemaple>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
-declare module "phoenix" {
-  class Push {
-    constructor(channel: Channel, event: string, payload: any, timeout: number);
+export type PushStatus = 'ok' | 'error' | 'timeout';
 
-    resend(timeout: number): void;
-    send(): void;
+export class Push {
+  constructor(channel: Channel, event: string, payload: object, timeout: number);
 
-    receive(status: string, callback: (response?: any) => void): Push;
-  }
+  send(): void;
+  resend(timeout: number): void;
 
-  export class Channel {
-    constructor(topic: string, params?: Object, socket?: Socket);
+  receive(status: PushStatus, callback: (response?: any) => any): this;
+}
 
-    rejoinUntilConnected(): void;
+export type ChannelState = 'closed' | 'errored' | 'joined' | 'joining' | 'leaving';
 
-    join(timeout?: number): Push;
-    leave(timeout?: number): Push;
+export class Channel {
+  constructor(topic: string, params?: object | (() => object), socket?: Socket);
 
-    onClose(callback: Function): void;
-    onError(callback: (reason?: any) => void): void;
-    onMessage(event: string, payload: any, ref: any): any;
+  state: ChannelState;
 
-    on(event: string, callback: (response?: any) => void): void;
-    off(event: string): void;
+  join(timeout?: number): Push;
+  leave(timeout?: number): Push;
 
-    canPush(): boolean;
+  onClose(callback: (payload: any, ref: any, joinRef: any) => void): void;
+  onError(callback: (reason?: any) => void): void;
+  onMessage(event: string, payload: any, ref: any): any;
 
-    push(event: string, payload: Object, timeout?: number): Push;
-  }
+  on(event: string, callback: (response?: any) => void): number;
+  off(event: string, ref?: number): void;
 
-  export class Socket {
-    constructor(endPoint: string, opts?: Object);
+  push(event: string, payload: object, timeout?: number): Push;
+}
 
-    protocol(): string;
-    endPointURL(): string;
+export type BinaryType = 'arraybuffer' | 'blob';
+export type ConnectionState = 'connecting' | 'open' | 'closing' | 'closed';
 
-    disconnect(callback?: Function, code?: string, reason?: any): void;
-    connect(params?: any): void;
+export interface SocketConnectOption {
+  binaryType: BinaryType;
+  params: object | (() => object);
+  transport: new (endpoint: string) => object;
+  timeout: number;
+  heartbeatIntervalMs: number;
+  longpollerTimeout: number;
+  encode: (payload: object, callback: (encoded: any) => void) => void;
+  decode: (payload: string, callback: (decoded: any) => void) => void;
+  logger: (kind: string, message: string, data: any) => void;
+  reconnectAfterMs: (tries: number) => number;
+  rejoinAfterMs: (tries: number) => number;
+  vsn: string;
+}
 
-    log(kind: string, msg: string, data: any): void;
+export type MessageRef = string;
 
-    onOpen(callback: Function): void;
-    onClose(callback: Function): void;
-    onError(callback: Function): void;
-    onMessage(callback: Function): void;
+export class Socket {
+  constructor(endPoint: string, opts?: Partial<SocketConnectOption>);
 
-    onConnOpen(): void;
-    onConnClose(event: any): void;
-    onConnError(error: any): void;
+  protocol(): string;
+  endPointURL(): string;
 
-    triggerChanError(): void;
+  connect(params?: any): void;
+  disconnect(callback?: () => void, code?: number, reason?: string): void;
+  connectionState(): ConnectionState;
+  isConnected(): boolean;
 
-    connectionState(): string;
+  remove(channel: Channel): void;
+  channel(topic: string, chanParams?: object): Channel;
+  push(data: object): void;
 
-    isConnected(): boolean;
+  log(kind: string, message: string, data: any): void;
+  hasLogger(): boolean;
 
-    remove(channel: Channel): void;
-    channel(topic: string, chanParams?: Object): Channel;
+  onOpen(callback: (cb: any) => void): MessageRef;
+  onClose(callback: (cb: any) => void): MessageRef;
+  onError(callback: (cb: any) => void): MessageRef;
+  onMessage(callback: (cb: any) => void): MessageRef;
 
-    push(data: any): void;
+  makeRef(): MessageRef;
+  off(refs: MessageRef[]): void;
+}
 
-    makeRef(): string;
-    sendHeartbeat(): void;
-    flushSendBuffer(): void;
+export class LongPoll {
+  constructor(endPoint: string);
 
-    onConnMessage(rawMessage: any): void;
-  }
+  normalizeEndpoint(endPoint: string): string;
+  endpointURL(): string;
 
-  export class LongPoll {
-    constructor(endPoint: string);
+  closeAndRetry(): void;
+  ontimeout(): void;
 
-    normalizeEndpoint(endPoint: string): string;
-    endpointURL(): string;
+  poll(): void;
 
-    closeAndRetry(): void;
-    ontimeout(): void;
+  send(body: any): void;
+  close(code?: any, reason?: any): void;
+}
 
-    poll(): void;
+// tslint:disable:no-unnecessary-class
+export class Ajax {
+  static states: { [state: string]: number };
 
-    send(body: any): void;
-    close(code?: any, reason?: any): void;
-  }
+  static request(
+    method: string,
+    endPoint: string,
+    accept: string,
+    body: any,
+    timeout?: number,
+    ontimeout?: any,
+    callback?: (response?: any) => void,
+  ): void;
 
-  export class Ajax {
-    request(
-      method: string,
-      endPoint: string,
-      accept: string,
-      body: any,
-      timeout?: number,
-      ontimeout?: any,
-      callback?: (response?: any) => void
-    ): void;
+  static xdomainRequest(
+    req: any,
+    method: string,
+    endPoint: string,
+    body: any,
+    timeout?: number,
+    ontimeout?: any,
+    callback?: (response?: any) => void,
+  ): void;
 
-    xdomainRequest(
-      req: any,
-      method: string,
-      endPoint: string,
-      body: any,
-      timeout?: number,
-      ontimeout?: any,
-      callback?: (response?: any) => void
-    ): void;
+  static xhrRequest(
+    req: any,
+    method: string,
+    endPoint: string,
+    accept: string,
+    body: any,
+    timeout?: number,
+    ontimeout?: any,
+    callback?: (response?: any) => void,
+  ): void;
 
-    xhrRequest(
-      req: any,
-      method: string,
-      endPoint: string,
-      accept: string,
-      body: any,
-      timeout?: number,
-      ontimeout?: any,
-      callback?: (response?: any) => void
-    ): void;
+  static parseJSON(resp: string): JSON;
+  static serialize(obj: any, parentKey: string): string;
+  static appendParams(url: string, params: any): string;
+}
 
-    parseJSON(resp: string): JSON;
-    serialize(obj: any, parentKey: string): string;
-    appendParams(url: string, params: any): string;
-  }
+export class Presence {
+  constructor(channel: Channel, opts?: PresenceOpts);
 
-  export var Presence: {
-    syncState(
-      currentState: any,
-      newState: any,
-      onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
-      onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
-    ): any;
+  onJoin(callback: PresenceOnJoinCallback): void;
+  onLeave(callback: PresenceOnLeaveCallback): void;
+  onSync(callback: () => void): void;
+  list<T = any>(chooser?: (key: string, presence: any) => T): T[];
+  inPendingSyncState(): boolean;
 
-    syncDiff(
-      currentState: any,
-      newState: any,
-      onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
-      onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
-    ): any;
+  static syncState(
+    currentState: object,
+    newState: object,
+    onJoin?: PresenceOnJoinCallback,
+    onLeave?: PresenceOnLeaveCallback,
+  ): any;
 
-    list(presences: any, chooser?: Function): any;
-  }
+  static syncDiff(
+    currentState: object,
+    diff: { joins: object; leaves: object },
+    onJoin?: PresenceOnJoinCallback,
+    onLeave?: PresenceOnLeaveCallback,
+  ): any;
+
+  static list<T = any>(presences: object, chooser?: (key: string, presence: any) => T): T[];
+}
+
+export type PresenceOnJoinCallback = (key?: string, currentPresence?: any, newPresence?: any) => void;
+
+export type PresenceOnLeaveCallback = (key?: string, currentPresence?: any, newPresence?: any) => void;
+
+export interface PresenceOpts {
+  events?: { state: string; diff: string } | undefined;
+}
+
+export class Timer {
+  constructor(callback: () => void, timerCalc: (tries: number) => number);
+
+  reset(): void;
+  scheduleTimeout(): void;
 }

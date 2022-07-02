@@ -102,7 +102,7 @@ $( "<div/>", {
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
      * @param selector A string containing a selector expression
-     * @param context A DOM Element, Document, or jQuery to use as context
+     * @param context A DOM Element, Document, Selector or jQuery to use as context
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
@@ -137,7 +137,7 @@ $( "div", xml.responseXML );
 ​
      */
     // tslint:disable-next-line:no-unnecessary-generics
-    <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery): JQuery<TElement>;
+    <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery | JQuery.Selector): JQuery<TElement>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      * @param element A DOM element to wrap in a jQuery object.
@@ -1542,8 +1542,11 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
     /**
      * Load data from the server using a HTTP GET request.
      * @param url A string containing the URL to which the request is sent.
-     * @param success A callback function that is executed if the request succeeds. Required if `dataType` is provided,
-     *                but you can use `null` or \`{@link noop jQuery.noop}\` as a placeholder.
+     * @param success_data _&#x40;param_ `success_data`
+     * <br>
+     * * `success` — A callback function that is executed if the request succeeds. Required if `dataType` is provided,
+     *               but you can use `null` or \`{@link noop jQuery.noop}\` as a placeholder. <br>
+     * * `data` — A plain object or string that is sent to the server with the request.
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
      * @since 1.0
@@ -1557,7 +1560,7 @@ $.get( "test.php", function( data ) {
 ```
      */
     get(url: string,
-        success: JQuery.jqXHR.DoneCallback | null,
+        data_success: JQuery.PlainObject | string | JQuery.jqXHR.DoneCallback | null,
         dataType: string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP GET request.
@@ -2652,14 +2655,17 @@ $.post( "test.php", { func: "getNameAndTime" }, function( data ) {
     /**
      * Load data from the server using a HTTP POST request.
      * @param url A string containing the URL to which the request is sent.
-     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                can be null in that case.
+     * @param success_data _&#x40;param_ `success_data`
+     * <br>
+     * * `success` — A callback function that is executed if the request succeeds. Required if `dataType` is provided,
+     *               but can be `null` in that case. <br>
+     * * `data` — A plain object or string that is sent to the server with the request.
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see \`{@link https://api.jquery.com/jQuery.post/ }\`
      * @since 1.0
      */
     post(url: string,
-         success: JQuery.jqXHR.DoneCallback | null,
+         data_success: JQuery.PlainObject | string | JQuery.jqXHR.DoneCallback | null,
          dataType: string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
@@ -13203,6 +13209,7 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
      * @param str The string to trim.
      * @see \`{@link https://api.jquery.com/jQuery.trim/ }\`
      * @since 1.0
+     * @deprecated ​ Deprecated since 3.5. Use \`{@link String.prototype.trim String.prototype.trim}\`.
      * @example ​ ````Remove the white spaces at the start and at the end of the string.
 ```html
 <!doctype html>

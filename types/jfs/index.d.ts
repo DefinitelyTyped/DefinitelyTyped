@@ -12,9 +12,9 @@ declare namespace JsonFileStore {
     }
 
     interface Options {
-        type?: 'single' | 'memory';
-        pretty?: boolean;
-        saveId?: boolean | string;
+        type?: 'single' | 'memory' | undefined;
+        pretty?: boolean | undefined;
+        saveId?: boolean | string | undefined;
     }
 
     interface JsonFileStore {

@@ -1,9 +1,8 @@
 import title = require("title");
 
-var document = {title: "original"};
-
-title("newtitle"); // document.title === 'newtitle'
-
-title("%s - %o", "new"); // document.title === 'new - original'
-
-title.reset(); // document.title === 'original'
+title("tHe cHicaGo maNual oF StyLe"); // $ExpectType string
+title("TypeSCRipt is great", {}); // $ExpectType string
+// $ExpectType string
+title("TypeSCRipt is great", {
+    special: ["TypeScript"],
+});
