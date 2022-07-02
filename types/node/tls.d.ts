@@ -516,10 +516,27 @@ declare module 'tls' {
     interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {
         host?: string | undefined;
         port?: number | undefined;
-        path?: string | undefined; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
-        socket?: stream.Duplex | undefined; // Establish secure connection on a given socket rather than creating a new socket
+        /**
+         * Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
+         */
+        path?: string | undefined;
+        /**
+         * Establish secure connection on a given socket rather than creating a new socket.
+         * If this option is specified, path, host, and port are ignored, except for certificate validation.
+         */
+        socket?: stream.Duplex | undefined;
+        /**
+         * If set to false, then the socket will automatically end the writable side when the readable side ends. 
+         * If the socket option is set, this option has no effect.
+         * @default false
+         */
+        allowHalfOpen?: boolean | undefined;
         checkServerIdentity?: typeof checkServerIdentity | undefined;
-        servername?: string | undefined; // SNI TLS Extension
+        /**
+         * Server name for the SNI (Server Name Indication) TLS extension.
+         * It is the name of the host being connected to, and must be a host name, and not an IP address.
+         */
+        servername?: string | undefined;
         session?: Buffer | undefined;
         minDHSize?: number | undefined;
         lookup?: net.LookupFunction | undefined;
