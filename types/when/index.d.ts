@@ -287,7 +287,7 @@ declare namespace When {
         ): Promise<TResult1 | TResult2>;
         then<TResult>(
             onFulfilled: ((value: T) => TResult | Thenable<TResult>),
-            onRejected?: ((reason: any) => TResult | Thenable<TResult>) | undefined | null,
+            onRejected?: ((reason: any) => TResult | Thenable<TResult>) | null,
             onProgress?: (update: any) => void
         ): Promise<TResult>;
         then<TResult>(
@@ -296,8 +296,8 @@ declare namespace When {
             onProgress?: (update: any) => void
         ): Promise<T | TResult>;
         then(
-            onFulfilled?: ((value: T) => T | Thenable<T>) | undefined | null,
-            onRejected?: ((reason: any) => T | Thenable<T>) | undefined | null,
+            onFulfilled?: ((value: T) => T | Thenable<T>) | null,
+            onRejected?: ((reason: any) => T | Thenable<T>) | null,
             onProgress?: (update: any) => void
         ): Promise<T>;
 

@@ -1,8 +1,8 @@
 // Type definitions for Mongoose-Promise 4.5.4
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.2
 
 /// <reference types="mongoose" />
 /// <reference types="mpromise" />
@@ -37,11 +37,11 @@ declare module 'mongoose' {
      */
     constructor(fn?: (err: any, ...args: T[]) => void);
 
-      /**
-     * Adds a single function as a listener to both err and complete.
-     * It will be executed with traditional node.js argument position when the promise is resolved.
-     * @deprecated Use onResolve instead.
-     */
+    /**
+   * Adds a single function as a listener to both err and complete.
+   * It will be executed with traditional node.js argument position when the promise is resolved.
+   * @deprecated Use onResolve instead.
+   */
     addBack(listener: (err: any, ...args: T[]) => void): this;
 
     /**

@@ -1,24 +1,29 @@
 // Usage: node generate-inspector [tag]
 // [tag] corresponds to a tag name in the node-core repository.
+// By default, uses the current Node version.
 
-import { execSync } from "child_process";
-import { existsSync, readFileSync, writeFileSync } from "fs";
-import * as https from "https";
-import * as schema from "./devtools-protocol-schema";
-import { generateSubstituteArgs } from "./generate-substitute-args";
-import { substitute, trimRight } from "./utils";
-import { string } from "parsimmon";
+import { execSync } from 'node:child_process';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import * as https from 'node:https';
+
+import * as schema from './devtools-protocol-schema';
+import { generateSubstituteArgs } from './generate-substitute-args';
+import { substitute, trimRight } from './utils';
 
 const httpsGet = (url: string) => new Promise<string>((resolve, reject) => {
     https.get(url, res => {
+        if (res.statusCode !== 200) {
+            reject(new Error(`Failed to fetch ${url} w/ error code ${res.statusCode}`));
+            return;
+        }
         const frames: Buffer[] = [];
-        res.on("data", (data: Buffer) => {
+        res.on('data', (data: Buffer) => {
             frames.push(data);
         });
-        res.on("end", () => {
-            resolve(Buffer.concat(frames).toString("utf8"));
+        res.on('end', () => {
+            resolve(Buffer.concat(frames).toString('utf8'));
         });
-        res.on("error", (err: Error) => {
+        res.on('error', (err: Error) => {
             reject(err);
         });
     });
@@ -27,10 +32,10 @@ const httpsGet = (url: string) => new Promise<string>((resolve, reject) => {
 // Input arguments
 const tag = process.argv[2] || process.version;
 
-const V8_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/deps/v8/src/inspector/js_protocol.json`;
+const V8_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/deps/v8/include/js_protocol-1.3.json`;
 const NODE_PROTOCOL_URL = `https://raw.githubusercontent.com/nodejs/node/${tag}/src/inspector/node_protocol.pdl`;
 const INSPECTOR_PROTOCOL_REMOTE = `https://chromium.googlesource.com/deps/inspector_protocol`;
-const INSPECTOR_PROTOCOL_LOCAL_DIR = "/tmp/inspector_protocol";
+const INSPECTOR_PROTOCOL_LOCAL_DIR = '/tmp/inspector_protocol';
 
 /**
  * Given a list of Inspector protocol definitions, write an inspector.d.ts
@@ -44,18 +49,23 @@ function writeProtocolsToFile(jsonProtocols: string[]) {
     };
     for (const json of jsonProtocols) {
         if (json) {
-            const protocol: schema.Schema = JSON.parse(json);
-            combinedProtocol.domains.push(...protocol.domains);
+            try {
+                const protocol: schema.Schema = JSON.parse(json);
+                combinedProtocol.domains.push(...protocol.domains);
+            } catch(e) {
+                console.error(e, json);
+                process.exit(1);
+            }
         }
     }
     const substituteArgs = generateSubstituteArgs(combinedProtocol);
-    const template = readFileSync(`${__dirname}/inspector.d.ts.template`, "utf8");
-    
-    const inspectorDts = substitute(template, substituteArgs).split("\n")
-        .map(line => trimRight(line))
-        .join("\n");
+    const template = readFileSync(`${__dirname}/inspector.d.ts.template`, 'utf8');
 
-    writeFileSync("./inspector.d.ts", inspectorDts, "utf8");
+    const inspectorDts = substitute(template, substituteArgs).split('\n')
+        .map(trimRight)
+        .join('\n');
+
+    writeFileSync('./inspector.d.ts', inspectorDts, 'utf8');
 }
 
 /**
@@ -68,12 +78,12 @@ function convertPdlToJson(pdl: string): string {
     if (!existsSync(INSPECTOR_PROTOCOL_LOCAL_DIR)) {
         execSync(`git clone ${INSPECTOR_PROTOCOL_REMOTE} ${INSPECTOR_PROTOCOL_LOCAL_DIR}`);
     }
-    writeFileSync("/tmp/inspector_protocol.pdl", pdl);
+    writeFileSync('/tmp/inspector_protocol.pdl', pdl);
     execSync(`${INSPECTOR_PROTOCOL_LOCAL_DIR}/convert_protocol_to_json.py /tmp/inspector_protocol.pdl /tmp/inspector_protocol.json`);
-    return readFileSync("/tmp/inspector_protocol.json", 'utf8');
+    return readFileSync('/tmp/inspector_protocol.json', 'utf8');
 }
 
-// "Main" -- get the V8 built-in inspector protocol definition, as well as the
+// 'Main' -- get the V8 built-in inspector protocol definition, as well as the
 // Node extensions, and then write this to inspector.d.ts.
 Promise.all([
     httpsGet(V8_PROTOCOL_URL),

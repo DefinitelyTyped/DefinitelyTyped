@@ -13,6 +13,8 @@
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
+type ImplementationCallback = (() => Promise<any>) | ((done: DoneFn) => void);
+
 /**
  * Create a group of specs (often called a suite).
  * @param description Textual description of the group
@@ -29,7 +31,7 @@ declare function xdescribe(description: string, specDefinitions: () => void): vo
  * @param assertion Function that contains the code of your test. If not provided the test will be pending.
  * @param timeout Custom timeout for an async spec.
  */
-declare function it(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
+declare function it(expectation: string, assertion?: ImplementationCallback, timeout?: number): void;
 
 /**
  * A focused it
@@ -38,8 +40,8 @@ declare function it(expectation: string, assertion?: (done: DoneFn) => void, tim
  * @param assertion
  * @param timeout
  */
-declare function fit(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
-declare function xit(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
+declare function fit(expectation: string, assertion?: ImplementationCallback, timeout?: number): void;
+declare function xit(expectation: string, assertion?: ImplementationCallback, timeout?: number): void;
 
 /**
  * Mark a spec as pending, expectation results will be ignored.
@@ -54,14 +56,14 @@ declare function pending(reason?: string): void;
  * @param action Function that contains the code to setup your specs.
  * @param timeout Custom timeout for an async beforeEach.
  */
-declare function beforeEach(action: (done: DoneFn) => void, timeout?: number): void;
+declare function beforeEach(action: ImplementationCallback, timeout?: number): void;
 
 /**
  * Run some shared teardown after each of the specs in the describe in which it is called.
  * @param action Function that contains the code to teardown your specs.
  * @param timeout Custom timeout for an async afterEach.
  */
-declare function afterEach(action: (done: DoneFn) => void, timeout?: number): void;
+declare function afterEach(action: ImplementationCallback, timeout?: number): void;
 
 /**
  * Run some shared setup once before all of the specs in the describe are run.
@@ -69,15 +71,15 @@ declare function afterEach(action: (done: DoneFn) => void, timeout?: number): vo
  * @param action Function that contains the code to setup your specs.
  * @param timeout Custom timeout for an async beforeAll.
  */
-declare function beforeAll(action: (done: DoneFn) => void, timeout?: number): void;
+declare function beforeAll(action: ImplementationCallback, timeout?: number): void;
 
 /**
- * Run some shared teardown once before all of the specs in the describe are run.
+ * Run some shared teardown once after all of the specs in the describe are called.
  * Note: Be careful, sharing the teardown from a afterAll makes it easy to accidentally leak state between your specs so that they erroneously pass or fail.
  * @param action Function that contains the code to teardown your specs.
  * @param timeout Custom timeout for an async afterAll
  */
-declare function afterAll(action: (done: DoneFn) => void, timeout?: number): void;
+declare function afterAll(action: ImplementationCallback, timeout?: number): void;
 
 /**
  * Create an expectation for a spec.
@@ -240,7 +242,7 @@ declare namespace jasmine {
 
     interface CustomMatcherResult {
         pass: boolean;
-        message?: string;
+        message?: string | undefined;
     }
 
     interface MatchersUtil {
@@ -268,11 +270,11 @@ declare namespace jasmine {
         execute(): void;
         describe(description: string, specDefinitions: () => void): Suite;
         // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
-        beforeEach(beforeEachFunction: (done: DoneFn) => void, timeout?: number): void;
-        beforeAll(beforeAllFunction: (done: DoneFn) => void, timeout?: number): void;
+        beforeEach(beforeEachFunction: ImplementationCallback, timeout?: number): void;
+        beforeAll(beforeAllFunction: ImplementationCallback, timeout?: number): void;
         currentRunner(): Runner;
-        afterEach(afterEachFunction: (done: DoneFn) => void, timeout?: number): void;
-        afterAll(afterAllFunction: (done: DoneFn) => void, timeout?: number): void;
+        afterEach(afterEachFunction: ImplementationCallback, timeout?: number): void;
+        afterAll(afterAllFunction: ImplementationCallback, timeout?: number): void;
         xdescribe(desc: string, specDefinitions: () => void): XSuite;
         it(description: string, func: () => void): Spec;
         // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
@@ -417,7 +419,7 @@ declare namespace jasmine {
         env: Env;
         actual: T;
         spec: Env;
-        isNot?: boolean;
+        isNot?: boolean | undefined;
         message(): any;
 
         /**
@@ -507,12 +509,12 @@ declare namespace jasmine {
 
     interface CustomReporterResult {
         description: string;
-        failedExpectations?: FailedExpectation[];
+        failedExpectations?: FailedExpectation[] | undefined;
         fullName: string;
         id: string;
-        passedExpectations?: PassedExpectation[];
-        pendingReason?: string;
-        status?: string;
+        passedExpectations?: PassedExpectation[] | undefined;
+        pendingReason?: string | undefined;
+        status?: string | undefined;
     }
 
     interface RunDetails {
@@ -629,7 +631,7 @@ declare namespace jasmine {
         calls: Calls;
     }
 
-    type SpyObj<T> = {
+    type SpyObj<T> = T & {
         [k in keyof T]: T[k] extends Function ? T[k] & Spy : T[k];
     }
 
@@ -667,6 +669,8 @@ declare namespace jasmine {
         first(): CallInfo;
         /** By chaining the spy with calls.reset(), will clears all tracking for a spy **/
         reset(): void;
+        /** Set this spy to do a shallow clone of arguments passed to each invocation. */
+        saveArgumentsByValue(): void;
     }
 
     interface CallInfo {

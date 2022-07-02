@@ -10,7 +10,7 @@ export namespace TreeEntry {
         BLOB = 33188,
         EXECUTABLE = 33261,
         LINK = 40960,
-        COMMIT = 57344
+        COMMIT = 57344,
     }
 }
 

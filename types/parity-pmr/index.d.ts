@@ -11,18 +11,18 @@
  */
 export interface PMRMessage {
     messageType: string;
-    version?: number;
-    timestamp?: number;
-    username?: string;
-    orderNumber?: string;
-    side?: string;
-    instrument?: string;
-    quantity?: number;
-    price?: number;
-    canceledQuantity?: number;
-    matchNumber?: number;
-    restingOrderNumber?: number;
-    incomingOrderNumber?: number;
+    version?: number | undefined;
+    timestamp?: number | undefined;
+    username?: string | undefined;
+    orderNumber?: string | undefined;
+    side?: string | undefined;
+    instrument?: string | undefined;
+    quantity?: number | undefined;
+    price?: number | undefined;
+    canceledQuantity?: number | undefined;
+    matchNumber?: number | undefined;
+    restingOrderNumber?: number | undefined;
+    incomingOrderNumber?: number | undefined;
 }
 
 export function format(message: PMRMessage): Buffer;

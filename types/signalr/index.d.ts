@@ -9,7 +9,7 @@
 
 
 declare namespace SignalR {
-    
+
     const enum ConnectionState {
         Connecting = 0,
         Connected = 1,
@@ -65,9 +65,9 @@ declare namespace SignalR {
             * Removes the callback invocation request from the server hub for the given event name.
             *
             * @param eventName The name of the hub event to unregister the callback for.
-            * @param callback The callback to be invoked.
+            * @param callback [Optional] The callback to unregister. If not provided, all callbacks previously registered under that event name will be unregistered.
             */
-            off(eventName: string, callback: (...msg: any[]) => void): Proxy;
+            off(eventName: string, callback?: (...msg: any[]) => void): Proxy;
             /**
             * Invokes a server hub method with the given arguments.
             *
@@ -77,9 +77,9 @@ declare namespace SignalR {
         }
 
         interface Options {
-            qs?: string;
-            logging?: boolean;
-            useDefaultPath?: boolean;
+            qs?: string | undefined;
+            logging?: boolean | undefined;
+            useDefaultPath?: boolean | undefined;
         }
 
         interface ClientHubInvocation {
@@ -166,19 +166,19 @@ declare namespace SignalR {
     }
 
     interface ConnectionOptions {
-        transport?: string | Array<string> | Transport;
-        callback?: Function;
-        waitForPageLoad?: boolean;
-        jsonp?: boolean;
-        pingInterval?: number;
-        withCredentials?: boolean;
+        transport?: string | Array<string> | Transport | undefined;
+        callback?: Function | undefined;
+        waitForPageLoad?: boolean | undefined;
+        jsonp?: boolean | undefined;
+        pingInterval?: number | undefined;
+        withCredentials?: boolean | undefined;
     }
 
     interface SimplifyLocation {
         protocol: string;
         host: string;
     }
-    
+
     interface ConnectionErrorContext {
         readyState: number;
         responseText: string;
@@ -188,8 +188,8 @@ declare namespace SignalR {
 
     interface ConnectionError extends Error {
         context: ConnectionErrorContext;
-        transport?: string;
-        source?: string;
+        transport?: string | undefined;
+        source?: string | undefined;
     }
 
     interface Connection {

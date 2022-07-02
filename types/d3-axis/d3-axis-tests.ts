@@ -59,7 +59,7 @@ const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node(
 
 containerElement = svg;
 containerElement = g;
-// $ExpectError
+// @ts-expect-error
 containerElement = canvas; // fails, incompatible type
 
 // --------------------------------------------------------------------------
@@ -69,7 +69,7 @@ containerElement = canvas; // fails, incompatible type
 let topAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisTop(scaleLinear());
 let rightAxis: d3Axis.Axis<Date> = d3Axis.axisRight<Date>(scaleTime());
 let bottomAxis: d3Axis.Axis<string> = d3Axis.axisBottom(scaleOrdinal<number>());
-let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scaleLinear<number>());
+let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scaleLinear());
 
 // --------------------------------------------------------------------------
 // Test Configure Axis
@@ -81,7 +81,7 @@ leftAxis = leftAxis.scale(scalePow());
 const powerScale: ScalePower<number, number> = leftAxis.scale<ScalePower<number, number>>();
 
 bottomAxis = bottomAxis.scale(scaleOrdinal<number>());
-// $ExpectError
+// @ts-expect-error
 bottomAxis = bottomAxis.scale(scalePow()); // fails, domain of scale incompatible with domain of axis
 
 const axisScale: d3Axis.AxisScale<string> = bottomAxis.scale();
@@ -104,6 +104,7 @@ const tickArguments: any[] = leftAxis.tickArguments();
 // tickValues(...) ----------------------------------------------------------------
 
 topAxis = topAxis.tickValues([1, 3, 5, 7]);
+topAxis = topAxis.tickValues(new Set([1, 3, 5, 7]));
 
 bottomAxis = bottomAxis.tickValues(['strongly negative', 'strongly positive']);
 
@@ -141,6 +142,11 @@ num = rightAxis.tickSizeOuter();
 rightAxis = rightAxis.tickPadding(5);
 num = rightAxis.tickPadding();
 
+// offset(...) ---------------------------------------------------------------------
+
+rightAxis = rightAxis.offset(5);
+num = rightAxis.offset();
+
 // --------------------------------------------------------------------------
 // Test Apply Axis
 // --------------------------------------------------------------------------
@@ -160,15 +166,15 @@ svgTransition.call(leftAxis);
 const pathSelection: Selection<SVGPathElement, any, any, any> = select<SVGPathElement, any>('path');
 const pathTransition = svgSelection.transition();
 
-// // $ExpectError
+// // @ts-expect-error
 // pathSelection.call(bottomAxis);
-// // $ExpectError
+// // @ts-expect-error
 // pathSelection.call(bottomAxis);
 
 const canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
 const canvasTransition = canvasSelection.transition();
 
-// $ExpectError
+// @ts-expect-error
 canvasSelection.call(rightAxis); // fails, incompatible context container element
-// $ExpectError
+// @ts-expect-error
 canvasTransition.call(rightAxis); // fails, incompatible context container element

@@ -1,23 +1,24 @@
-// Type definitions for multer-s3 2.7
+// Type definitions for multer-s3 3.0
 // Project: https://github.com/badunk/multer-s3
 // Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 Matt Terski <https://github.com/terski>
-// Definitions: https://github.com/DefinitelyType/DefinitelyTyped
-// TypeScript Version: 2.2
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import * as AWS from "aws-sdk";
+import { S3Client } from '@aws-sdk/client-s3';
 import { StorageEngine } from "multer";
 
 interface Options {
-    s3: AWS.S3;
+    s3: S3Client;
     bucket: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, bucket?: string) => void) => void) | string;
     key?(req: Express.Request, file: Express.Multer.File, callback: (error: any, key?: string) => void): void;
-    acl?: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, acl?: string) => void) => void) | string;
+    acl?: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, acl?: string) => void) => void) | string | undefined;
     contentType?(req: Express.Request, file: Express.Multer.File, callback: (error: any, mime?: string, stream?: NodeJS.ReadableStream) => void): void;
+    contentDisposition?: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, contentDisposition?: string) => void) => void) | string | undefined;
     metadata?(req: Express.Request, file: Express.Multer.File, callback: (error: any, metadata?: any) => void): void;
-    cacheControl?: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, cacheControl?: string) => void) => void) | string;
-    serverSideEncryption?: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, serverSideEncryption?: string) => void) => void) | string;
+    cacheControl?: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, cacheControl?: string) => void) => void) | string | undefined;
+    serverSideEncryption?: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, serverSideEncryption?: string) => void) => void) | string | undefined;
 }
 
 declare global {

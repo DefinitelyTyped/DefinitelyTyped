@@ -1,11 +1,13 @@
-// Type definitions for koa-ratelimit 4.1
+// Type definitions for koa-ratelimit 4.2
 // Project: https://github.com/koajs/ratelimit#readme
 // Definitions by: Ben Watkins <https://github.com/OutdatedVersion>
+//                 Patrick Muff <https://github.com/dislick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import { Middleware, Context } from "koa";
 import { RedisClient } from "redis";
+import { Redis } from "ioredis";
 
 declare function KoaRatelimit(options?: KoaRatelimit.MiddlewareOptions): Middleware;
 
@@ -29,50 +31,65 @@ declare namespace KoaRatelimit {
 
     interface MiddlewareOptions {
         /**
+         * Driver to use ("redis" or "memory").
+         */
+        driver: 'redis' | 'memory';
+
+        /**
          * The database powering the backing rate-limiter package.
          */
-        db: RedisClient;
+        db: Redis | RedisClient | Map<any, any>;
 
         /**
          * The length of a single limiting period. This value is expressed
          * in milliseconds, defaulting to one hour.
          */
-        duration?: number;
+        duration?: number | undefined;
 
         /**
          * The maximum amount of requests a client (see the `id` field) may
          * make during a limiting period. (see `duration`)
          */
-        max?: number;
+        max?: number | undefined;
 
         /**
          * Get the unique-identifier for a request. This defaults to the
          * client's IP address. Returning "false" will skip rate-limiting.
          */
-        id?: (context: Context) => string | false;
+        id?: ((context: Context) => string | false) | undefined;
 
         /**
          * Whether or not to disable the usage of rate limit headers. This defaults
          * to **false**.
          */
-        disableHeader?: boolean;
+        disableHeader?: boolean | undefined;
 
         /**
          * The message used on the response body if a client is rate-limited. There is
          * a default message; which includes when they should try again.
          */
-        errorMessage?: string;
+        errorMessage?: string | undefined;
 
         /**
          * Whether or not to throw an error upon being rate-limited. This uses
          * the Koa context function "throw".
          */
-        throw?: boolean;
+        throw?: boolean | undefined;
 
         /**
          * A relation of header to the header's display name.
          */
-        headers?: HeaderNameOptions;
+        headers?: HeaderNameOptions | undefined;
+
+        /**
+         * If function returns true, middleware exits before limiting
+         */
+        whitelist?: ((context: Context) => boolean | Promise<boolean>) | undefined;
+
+        /**
+         * If function returns true, 403 error is thrown
+         */
+        blacklist?: ((context: Context) => boolean | Promise<boolean>) | undefined;
     }
 }
 

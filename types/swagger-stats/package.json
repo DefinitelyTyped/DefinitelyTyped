@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "fastify": "^3.0.0",
+        "prom-client": ">=11.5.3"
+    }
+}

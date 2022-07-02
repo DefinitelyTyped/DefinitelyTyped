@@ -1,6 +1,7 @@
 import rp = require('request-promise');
 import errors = require('request-promise/errors');
 import * as path from "path";
+import constants = require('constants');
 
 rp('http://www.google.com')
     .then(console.dir)
@@ -39,7 +40,15 @@ rp('http://google.com').promise().then(console.dir);
 //rp('http://google.com').promise().bind(this).then(console.dir);
 
 rp({ uri: 'http://google.com', resolveWithFullResponse: true }).then((response) => {});
-rp({ uri: 'http://google.com', simple: false }).catch((reason) => {});
+
+rp({ uri: 'http://google.com', simple: false }
+).catch((reason: errors.StatusCodeError) => {
+  reason.name; // $ExpectType "StatusCodeError"
+}).catch((reason: errors.RequestError) => {
+  reason.name; // $ExpectType "RequestError"
+}).catch((reason: errors.TransformError) => {
+  reason.name; // $ExpectType "TransformError"
+});
 
 // todo: fix to make sure this works with BlueBird 3.0
 /* rp({
@@ -355,7 +364,7 @@ options = {
         // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
         // pfx: fs.readFileSync(pfxFilePath),
         passphrase: 'password',
-        securityOptions: 'SSL_OP_NO_SSLv3'
+        secureOptions: constants.SSL_OP_NO_SSLv3
     }
 };
 

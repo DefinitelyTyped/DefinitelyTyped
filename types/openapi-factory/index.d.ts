@@ -1,24 +1,24 @@
 // Type definitions for openapi-factory 4.2
-// Project: https://github.com/wparad/openapi-factory.js
+// Project: https://github.com/wparad/openapi-factory.js, https://github.com/wparad/node-openapi-factory
 // Definitions by: Daan Boerlage <https://github.com/runebaas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 declare namespace OpenApi {
     interface ApiOptions {
-        requestMiddleware?: () => any;
-        responseMiddleware?: () => any;
-        errorMiddleware?: () => any;
+        requestMiddleware?: (() => any) | undefined;
+        responseMiddleware?: (() => any) | undefined;
+        errorMiddleware?: (() => any) | undefined;
     }
 
     interface HttpMethodOptions {
-        rawBody?: boolean;
+        rawBody?: boolean | undefined;
     }
 
     interface HttpResponse {
-        statusCode?: number;
-        headers?: object;
-        body?: (object | string);
+        statusCode?: number | undefined;
+        headers?: object | undefined;
+        body?: (object | string) | undefined;
     }
 }
 

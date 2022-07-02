@@ -53,66 +53,66 @@ declare namespace SocketioP2PStatic {
      * Set to true if this is the initiating peer
      * @default false
      */
-    initiator?: boolean;
+    initiator?: boolean | undefined;
     /**
      * Custom WebRTC channel configuration (used by createDataChannel)
      * @default {}
      */
-    channelConfig?: object;
+    channelConfig?: object | undefined;
     /**
      * Custom WebRTC data channel name
      * @default <randomString>
      */
-    channelName?: string;
+    channelName?: string | undefined;
     /**
      * Custom WebRTC configuration (used by RTCPeerConnection constructor)
      * @default {iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:global.stun.twilio.com:3478?transport=udp'}]}
      */
-    config?: object;
+    config?: object | undefined;
     /**
      * Custom WebRTC video/voice constrainst (used by RTCPeerConnection constructor)
      * @default {}
      */
-    constraints?: object;
+    constraints?: object | undefined;
     /**
      * Custom offer contstraints (used by createOffer methode)
      * @default {}
      */
-    offerConstraints?: object;
+    offerConstraints?: object | undefined;
     /**
      * Custom answer constraints (used by createAnswer method)
      */
-    answerConstraints?: object;
+    answerConstraints?: object | undefined;
     /**
      * Function to transform generated SDP signaling data (for advanced users)
      * @default (sdp)=>sdp
      */
-    sdpTransfrom?: (sdp: any) => any;
+    sdpTransfrom?: ((sdp: any) => any) | undefined;
     /**
      * If video/voice is desired, pass stream from getUserMedia
      * @default false
      */
-    stream?: boolean;
+    stream?: boolean | undefined;
     /**
      * An array of MediaStreams returned from getUserMedia
      * @default []
      */
-    streams?: MediaStream[];
+    streams?: MediaStream[] | undefined;
     /**
      * Set to false to disable trickle ICE and get single 'signal' event (slower)
      * @default true
      */
-    trickle?: boolean;
+    trickle?: boolean | undefined;
     /**
      * Custom WebRTC implementation, mainly useful in node to specify the wrtc package
      * @default {}
      */
-    wrtc?: RTCPeerConnection | RTCSessionDescription | RTCIceCandidate;
+    wrtc?: RTCPeerConnection | RTCSessionDescription | RTCIceCandidate | undefined;
     /**
      * Set to true to create the stream in Object Mode. In this mode, incoming string data is not automatically converted to Buffer objects
      * @default false
      */
-    objectMode?: boolean;
+    objectMode?: boolean | undefined;
   }
 
   interface P2POptions {
@@ -120,16 +120,16 @@ declare namespace SocketioP2PStatic {
      * Max number of peers each client can connect to
      * @default 5
      */
-    numClients?: number;
+    numClients?: number | undefined;
     /**
      * Upgrade to p2p connection (from s.io one) when peers are ready
      * @default true
      */
-    autoUpgrade?: boolean;
+    autoUpgrade?: boolean | undefined;
     /**
      * Object of options passed to underlying peers
      * @default {}
      */
-    peerOpts?: PeerOpts;
+    peerOpts?: PeerOpts | undefined;
   }
 }

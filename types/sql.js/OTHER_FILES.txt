@@ -1,0 +1,5 @@
+dist/sql-asm-debug.d.ts
+dist/sql-asm-memory-growth.d.ts
+dist/sql-asm.d.ts
+dist/sql-wasm-debug.d.ts
+dist/sql-wasm.d.ts

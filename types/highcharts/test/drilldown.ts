@@ -1,1 +1,0 @@
-HighchartsDrilldown(Highcharts);

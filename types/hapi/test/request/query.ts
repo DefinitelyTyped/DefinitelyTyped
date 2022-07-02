@@ -6,10 +6,10 @@ const options: ServerOptions = {
 };
 
 const handlerFn: Lifecycle.Method = (request, h) => {
-    const query1 = request.query as string;
+    const query1 = request.query;
     console.log(query1);
 
-    const query2 = request.query as RequestQuery;
+    const query2 = request.query;
     // http://localhost:8000/?name=test
     return `You asked for ${query2.name}`;
 };

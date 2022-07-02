@@ -6,4 +6,4 @@
 
 import route from './lib/index';
 
-export default route;
+export = route;

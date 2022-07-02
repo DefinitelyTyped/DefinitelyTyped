@@ -12,6 +12,6 @@
  * If 'opts.platform' isn't specified, 'process.platform' will be used.
  * Anything that matches /^win/ will use the windowsy behavior.
  */
-declare function parents(dir?: string, opts?: { platform?: string }): string[];
+declare function parents(dir?: string, opts?: { platform?: string | undefined }): string[];
 
 export = parents;

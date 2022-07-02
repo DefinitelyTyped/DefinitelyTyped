@@ -6,7 +6,7 @@ interface Person {
     firstName: string;
     lastName: string;
     answer: number;
-    group?: string;
+    group?: string | undefined;
 }
 
 /* Opening/creating a database and connection */

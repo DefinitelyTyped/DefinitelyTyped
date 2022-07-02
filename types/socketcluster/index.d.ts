@@ -1,5 +1,5 @@
 // Type definitions for socketcluster 14.0
-// Project: https://github.com/SocketCluster/socketcluster
+// Project: https://github.com/SocketCluster/socketcluster, http://socketcluster.io
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -33,10 +33,10 @@ interface WorkerClusterExitInfo {
 
 interface KillWorkersOptions {
     // Shut down the workers immediately without waiting for termination timeout.
-    immediate?: boolean;
+    immediate?: boolean | undefined;
 
     // Shut down the cluster master (load balancer) as well as all the workers.
-    killClusterMaster?: boolean;
+    killClusterMaster?: boolean | undefined;
 }
 
 type ColorCodes = "red" | "green" | "yellow";

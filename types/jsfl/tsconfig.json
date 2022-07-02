@@ -6,7 +6,7 @@
         ],
         "noImplicitAny": false,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -17,7 +17,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "xJSFL.d.ts"
+        "index.d.ts"
     ]
 }

@@ -19,22 +19,22 @@ export interface Match<P> {
 // Unfortunately we can't pass `HTMLAnchorElement` since the `tagName` attribute allows you to use other tags than anchor.
 export interface LinkProps extends React.HTMLAttributes<HTMLElement> {
     to: To;
-    redirect?: boolean;
-    replace?: boolean;
-    tagName?: string;
-    down?: boolean;
-    shouldDispatch?: boolean;
-    target?: string;
+    redirect?: boolean | undefined;
+    replace?: boolean | undefined;
+    tagName?: string | undefined;
+    down?: boolean | undefined;
+    shouldDispatch?: boolean | undefined;
+    target?: string | undefined;
 }
 
 export default class Link extends React.Component<LinkProps> {}
 
 export interface NavLinkProps extends LinkProps {
-    activeClassName?: string;
-    activeStyle?: React.CSSProperties;
-    ariaCurrent?: string;
-    exact?: boolean;
-    strict?: boolean;
+    activeClassName?: string | undefined;
+    activeStyle?: React.CSSProperties | undefined;
+    ariaCurrent?: string | undefined;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
     isActive?(match: Match<object>, location: Location): boolean;
 }
 

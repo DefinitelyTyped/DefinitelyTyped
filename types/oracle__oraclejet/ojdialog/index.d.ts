@@ -1,6 +1,7 @@
 import { baseComponent, baseComponentEventMap, baseComponentSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
 export interface ojDialog extends baseComponent<ojDialogSettableProperties> {
     cancelBehavior: 'icon' | 'escape' | 'none';
+    dialogTitle: string | null;
     dragAffordance: 'title-bar' | 'none';
     initialVisibility: 'hide' | 'show';
     modality: 'modal' | 'modeless';
@@ -8,9 +9,10 @@ export interface ojDialog extends baseComponent<ojDialogSettableProperties> {
     resizeBehavior: 'resizable' | 'none';
     role: string;
     translations: {
-        labelCloseIcon?: string;
+        labelCloseIcon?: string | undefined;
     };
     onCancelBehaviorChanged: ((event: JetElementCustomEvent<ojDialog["cancelBehavior"]>) => any) | null;
+    onDialogTitleChanged: ((event: JetElementCustomEvent<ojDialog["dialogTitle"]>) => any) | null;
     onDragAffordanceChanged: ((event: JetElementCustomEvent<ojDialog["dragAffordance"]>) => any) | null;
     onInitialVisibilityChanged: ((event: JetElementCustomEvent<ojDialog["initialVisibility"]>) => any) | null;
     onModalityChanged: ((event: JetElementCustomEvent<ojDialog["modality"]>) => any) | null;
@@ -95,21 +97,21 @@ export namespace ojDialog {
     }
     // tslint:disable-next-line interface-over-type-literal
     type Position = {
-        my?: PositionAlign;
-        at?: PositionAlign;
-        offset?: PositionPoint;
-        of?: string | PositionPoint;
-        collision?: 'flip' | 'fit' | 'flipfit' | 'none';
+        my?: PositionAlign | undefined;
+        at?: PositionAlign | undefined;
+        offset?: PositionPoint | undefined;
+        of?: string | PositionPoint | undefined;
+        collision?: 'flip' | 'fit' | 'flipfit' | 'none' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type PositionAlign = {
-        vertical?: 'top' | 'bottom' | 'center';
-        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom';
+        vertical?: 'top' | 'bottom' | 'center' | undefined;
+        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type PositionPoint = {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     };
 }
 export interface ojDialogEventMap extends baseComponentEventMap<ojDialogSettableProperties> {
@@ -124,6 +126,7 @@ export interface ojDialogEventMap extends baseComponentEventMap<ojDialogSettable
     'ojResizeStart': ojDialog.ojResizeStart;
     'ojResizeStop': ojDialog.ojResizeStop;
     'cancelBehaviorChanged': JetElementCustomEvent<ojDialog["cancelBehavior"]>;
+    'dialogTitleChanged': JetElementCustomEvent<ojDialog["dialogTitle"]>;
     'dragAffordanceChanged': JetElementCustomEvent<ojDialog["dragAffordance"]>;
     'initialVisibilityChanged': JetElementCustomEvent<ojDialog["initialVisibility"]>;
     'modalityChanged': JetElementCustomEvent<ojDialog["modality"]>;
@@ -133,6 +136,7 @@ export interface ojDialogEventMap extends baseComponentEventMap<ojDialogSettable
 }
 export interface ojDialogSettableProperties extends baseComponentSettableProperties {
     cancelBehavior: 'icon' | 'escape' | 'none';
+    dialogTitle: string | null;
     dragAffordance: 'title-bar' | 'none';
     initialVisibility: 'hide' | 'show';
     modality: 'modal' | 'modeless';
@@ -140,7 +144,7 @@ export interface ojDialogSettableProperties extends baseComponentSettablePropert
     resizeBehavior: 'resizable' | 'none';
     role: string;
     translations: {
-        labelCloseIcon?: string;
+        labelCloseIcon?: string | undefined;
     };
 }
 export interface ojDialogSettablePropertiesLenient extends Partial<ojDialogSettableProperties> {

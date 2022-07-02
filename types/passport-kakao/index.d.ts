@@ -20,9 +20,9 @@ export interface StrategyOption {
     clientID: string;
     callbackURL: string;
 
-    clientSecret?: string;
-    scopeSeparator?: string;
-    customHeaders?: string;
+    clientSecret?: string | undefined;
+    scopeSeparator?: string | undefined;
+    customHeaders?: string | undefined;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {

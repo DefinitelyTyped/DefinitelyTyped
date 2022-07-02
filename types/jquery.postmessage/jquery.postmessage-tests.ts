@@ -2,6 +2,7 @@
 /// <reference types="jquery" />
 
 function test_postMessage() {
+    if (!parent) return;
     // post plain message
     $.postMessage('test message', 'http://dummy.url/', parent);
 

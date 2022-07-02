@@ -54,31 +54,31 @@ declare module "terminal-menu" {
              * Menu width in columns.
              * Default = 50.
              */
-            width?: number;
+            width?: number | undefined;
 
             /**
              * Horizontal offset for top-left corner.
              * Default = 1
              */
-            x?: number;
+            x?: number | undefined;
 
             /**
              * Vertical offset for top-left corner.
              * Default = 1
              */
-            y?: number;
+            y?: number | undefined;
 
             /**
              * Foreground color for the menu.
              * Default = 'white'
              */
-            fg?: string;
+            fg?: string | undefined;
 
             /**
              * Background color for the menu.
              * Default = 'blue'
              */
-            bg?: string;
+            bg?: string | undefined;
 
             /**
              * Padding for the bounding rectangle.
@@ -91,13 +91,13 @@ declare module "terminal-menu" {
              *      bottom: 1
              * }
              */
-            padding?: number | Thickness;
+            padding?: number | Thickness | undefined;
 
             /**
              * Index of the menu item to be selected.
              * Default = 0
              */
-            selected?: number
+            selected?: number | undefined
         }
 
         /**

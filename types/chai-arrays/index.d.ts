@@ -1,7 +1,8 @@
-// Type definitions for chai-arrays 1.0
+// Type definitions for chai-arrays 2.0
 // Project: https://github.com/GaneshSPatil/chai-arrays
 // Definitions by: Clément Prévot <https://github.com/clementprevot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
@@ -9,6 +10,10 @@ declare global {
     namespace Chai {
         interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
             array(): Assertion;
+            Uint8Array(): Assertion;
+            Uint16Array(): Assertion;
+            Uint32Array(): Assertion;
+            Uint8ClampedArray(): Assertion;
             ofSize(size: number): Assertion;
             equalTo(arr: any[]): Assertion;
             containing(value: any): Assertion;
@@ -19,6 +24,10 @@ declare global {
 
         interface Assert {
             array(val: any[], msg?: string): void;
+            Uint8Array(val: any, msg?: string): void;
+            Uint16Array(val: any, msg?: string): void;
+            Uint32Array(val: any, msg?: string): void;
+            Uint8ClampedArray(val: any, msg?: string): void;
             ofSize(val: any[], size: number, msg?: string): void;
             equalTo(val: any[], array: any[], msg?: string): void;
             containing(val: any[], value: any, msg?: string): void;
@@ -27,11 +36,7 @@ declare global {
             sorted(val: any[], msg?: string): void;
         }
     }
-
-    interface Array<T> {
-        should: Chai.Assertion;
-    }
 }
 
-declare function chaiArrays(chai: any, utils: any): void;
+declare const chaiArrays: Chai.ChaiPlugin;
 export = chaiArrays;

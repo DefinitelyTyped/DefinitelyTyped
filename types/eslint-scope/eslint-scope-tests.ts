@@ -1,13 +1,13 @@
 import * as eslint from "eslint";
 import * as estree from "estree";
-import * as escope from "eslint-scope";
+import * as eslintScope from "eslint-scope";
 
 declare const program: estree.Program;
-declare const scope: escope.Scope;
-declare const variable: escope.Variable;
-declare const reference: escope.Reference;
+declare const scope: eslintScope.Scope;
+declare const variable: eslintScope.Variable;
+declare const reference: eslintScope.Reference;
 
-const manager1: escope.ScopeManager = escope.analyze(
+const manager1: eslintScope.ScopeManager = eslintScope.analyze(
     program,
     {
         directive: false,
@@ -22,7 +22,7 @@ const manager1: escope.ScopeManager = escope.analyze(
         sourceType: "module"
     }
 );
-const manager2: escope.ScopeManager = escope.analyze(
+const manager2: eslintScope.ScopeManager = eslintScope.analyze(
     program,
     {
         ecmaVersion: 5,
@@ -33,9 +33,11 @@ const manager2: escope.ScopeManager = escope.analyze(
         sourceType: "script"
     }
 );
-const manager3: escope.ScopeManager = escope.analyze(program);
+const manager3: eslintScope.ScopeManager = eslintScope.analyze(program);
 
-const managerInterface: eslint.Scope.ScopeManager = manager1;
-const scopeInterface: eslint.Scope.Scope = scope;
-const variableInterface: eslint.Scope.Variable = variable;
-const referenceInterface: eslint.Scope.Reference = reference;
+const managerInterface = manager1; // $ExpectType ScopeManager
+const scopeInterface = scope; // $ExpectType Scope
+const variableInterface = variable; // $ExpectType Variable
+const referenceInterface = reference; // $ExpectType Reference
+
+scope.references[0].resolved?.scope; // $ExpectType Scope | undefined

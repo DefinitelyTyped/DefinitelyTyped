@@ -2,10 +2,11 @@
 // Project: https://github.com/KyleAMathews/typography.js
 // Definitions by: Boye <https://github.com/boyeborg>
 //                 Krzysztof Żuraw <https://github.com/krzysztofzuraw>
+//                 Dominic Fallows <https://github.com/dominicfallows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-interface BaseLine {
+export interface BaseLine {
     fontSize: string;
     lineHeight: string;
 }
@@ -24,30 +25,31 @@ export interface GoogleFont {
 }
 
 export interface TypographyOptions {
-    baseFontSize?: string;
-    baseLineHeight?: number;
-    scaleRatio?: number;
-    googleFonts?: GoogleFont[];
-    headerFontFamily?: string[];
-    bodyFontFamily?: string[];
-    headerColor?: string;
-    bodyColor?: string;
-    headerWeight?: number | string;
-    bodyWeight?: number | string;
-    boldWeight?: number | string;
-    blockMarginBottom?: number;
-    includeNormalize?: boolean;
-    overrideStyles?: (
+    baseFontSize?: string | undefined;
+    baseLineHeight?: number | undefined;
+    scaleRatio?: number | undefined;
+    googleFonts?: GoogleFont[] | undefined;
+    headerFontFamily?: string[] | undefined;
+    headerLineHeight?: number | undefined;
+    bodyFontFamily?: string[] | undefined;
+    headerColor?: string | undefined;
+    bodyColor?: string | undefined;
+    headerWeight?: number | string | undefined;
+    bodyWeight?: number | string | undefined;
+    boldWeight?: number | string | undefined;
+    blockMarginBottom?: number | undefined;
+    includeNormalize?: boolean | undefined;
+    overrideStyles?: ((
         VerticalRhythm: VerticalRhythm,
         options: TypographyOptions,
         styles: any
-    ) => object;
-    overrideThemeStyles?: (
+    ) => object) | undefined;
+    overrideThemeStyles?: ((
         VerticalRhythm: VerticalRhythm,
         options: TypographyOptions,
         styles: any
-    ) => object;
-    plugins?: any[];
+    ) => object) | undefined;
+    plugins?: any[] | undefined;
 }
 
 declare class Typography {

@@ -2,10 +2,10 @@
 // Project: https://github.com/allenhwkim/angularjs-google-maps
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="angular" />
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 
 declare module "ngmap" {
     let _: string;
@@ -14,8 +14,8 @@ declare module "ngmap" {
 
 declare namespace angular.map {
     interface IGetMapOptions {
-        id?: string;
-        timeout?: number;
+        id?: string | undefined;
+        timeout?: number | undefined;
     }
 
     interface INgMapOptions {
@@ -24,41 +24,41 @@ declare namespace angular.map {
              * The offset from the marker's position to the tip of an InfoWindow
              * that has been opened with the marker as anchor.
              */
-            anchorPoint?: google.maps.Point;
+            anchorPoint?: google.maps.Point | undefined;
             /** Which animation to play when marker is added to a map. */
-            animation?: google.maps.Animation;
+            animation?: google.maps.Animation | undefined;
             /**
              * If true, the marker receives mouse and touch events.
              * @default true
              */
-            clickable?: boolean;
+            clickable?: boolean | undefined;
             /** Mouse cursor to show on hover. */
-            cursor?: string;
+            cursor?: string | undefined;
             /**
              * If true, the marker can be dragged.
              * @default false
              */
-            draggable?: boolean;
+            draggable?: boolean | undefined;
            /**
              * Icon for the foreground.
              * If a string is provided, it is treated as though it were an Icon with the string as url.
              * @type {(string|Icon|Symbol)}
              */
-            icon?: string|google.maps.Icon|google.maps.Symbol;
+            icon?: string|google.maps.Icon|google.maps.Symbol | undefined;
             /**
              * Adds a label to the marker. The label can either be a string, or a MarkerLabel object.
              * Only the first character of the string will be displayed.
              * @type {string}
              */
-            label?: string;
+            label?: string | undefined;
             /**
              * Map on which to display Marker.
              * @type {(Map|StreetViewPanorama)}
              *
              */
-            map?: google.maps.Map|google.maps.StreetViewPanorama;
+            map?: google.maps.Map|google.maps.StreetViewPanorama | undefined;
             /** The marker's opacity between 0.0 and 1.0. */
-            opacity?: number;
+            opacity?: number | undefined;
             /**
              * Optimization renders many markers as a single static element.
              * Optimized rendering is enabled by default.
@@ -66,20 +66,20 @@ declare namespace angular.map {
              * marker must be rendered as a separate DOM element (advanced usage
              * only).
              */
-            optimized?: boolean;
+            optimized?: boolean | undefined;
             /** Image map region definition used for drag/click. */
-            shape?: google.maps.MarkerShape;
+            shape?: google.maps.MarkerShape | undefined;
             /** Rollover text. */
-            title?: string;
+            title?: string | undefined;
             /** If true, the marker is visible. */
-            visible?: boolean;
+            visible?: boolean | undefined;
             /**
              * All markers are displayed on the map in order of their zIndex,
              * with higher values displaying in front of markers with lower values.
              * By default, markers are displayed according to their vertical position on screen,
              * with lower markers appearing in front of markers further up the screen.
              */
-            zIndex?: number;
+            zIndex?: number | undefined;
         }
     }
 
@@ -88,29 +88,29 @@ declare namespace angular.map {
     }
 
     interface INgMap {
-    	/**
-    	 * Add map to pool
-    	 * @param {Function | any[]} mapCtrl Map controller
-    	 */
+        /**
+         * Add map to pool
+         * @param {Function | any[]} mapCtrl Map controller
+         */
         addMap(mapCtrl: Function | any[]): void;
-		/**
-		 * Delete map from pool
-		 * @param {Function | any[]} mapCtrl Map controller optional. Defaults to last
-		 * controller in pool
-		 */
+        /**
+         * Delete map from pool
+         * @param {Function | any[]} mapCtrl Map controller optional. Defaults to last
+         * controller in pool
+         */
         deleteMap(mapCtrl?: Function | any[]): void;
-		/**
-		 * Get map coordinates from address.
-		 * @param  {string}                               address Use 'current' to get users location
-		 * @param  {PositionOptions}                      options optional
-		 * @return {angular.IPromise<google.maps.LatLng>}         Latitude ang longitude of the address
-		 */
+        /**
+         * Get map coordinates from address.
+         * @param  {string}                               address Use 'current' to get users location
+         * @param  {PositionOptions}                      options optional
+         * @return {angular.IPromise<google.maps.LatLng>}         Latitude ang longitude of the address
+         */
         getGeoLocation(address: string, options?: PositionOptions): ng.IPromise<google.maps.LatLng>
-    	/**
-    	 * Get map from the pool of all shown maps.
-    	 * @param  {IGetMapOptions}                    options optional
-    	 * @return {angular.IPromise<google.maps.Map>}         promise
-    	 */
+        /**
+         * Get map from the pool of all shown maps.
+         * @param  {IGetMapOptions}                    options optional
+         * @return {angular.IPromise<google.maps.Map>}         promise
+         */
         getMap(options?: IGetMapOptions): ng.IPromise<google.maps.Map>
         /**
          * Initialize map from mapId or the current first shown map

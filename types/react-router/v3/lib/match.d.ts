@@ -1,20 +1,20 @@
-import { Basename, History, LocationDescriptor } from "history";
+import { Basename, History, Location, LocationDescriptor } from "history";
 import { ParseQueryString, RouteConfig, StringifyQuery } from "react-router";
 
 export interface MatchArgs {
     routes: RouteConfig;
-    basename?: Basename;
-    parseQueryString?: ParseQueryString;
-    stringifyQuery?: StringifyQuery;
+    basename?: Basename | undefined;
+    parseQueryString?: ParseQueryString | undefined;
+    stringifyQuery?: StringifyQuery | undefined;
 }
 
 export interface MatchLocationArgs extends MatchArgs {
     location: LocationDescriptor;
-    history?: History;
+    history?: History | undefined;
 }
 
 export interface MatchHistoryArgs extends MatchArgs {
-    location?: LocationDescriptor;
+    location?: LocationDescriptor | undefined;
     history: History;
 }
 

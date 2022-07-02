@@ -2,15 +2,18 @@ import ReactTimeago, { Unit, Suffix } from "react-timeago";
 import * as React from "react";
 
 const ReactTimeagoRequiredOptions: JSX.Element = (
-    <ReactTimeago
-        date={new Date()}
-    />
+    <ReactTimeago date={new Date()} />
 );
 
-const customFormatter = (value: number, unit: Unit, suffix: Suffix, epochMiliseconds: number) => {
-    return (
-        <div />
-    );
+const customFormatter = (
+    value: number,
+    unit: Unit,
+    suffix: Suffix,
+    epochMiliseconds: number
+) => {
+    return epochMiliseconds > 300000
+        ? `${value}${unit[0]} ${suffix}`
+        : "a really long time ago";
 };
 
 const ReactTimeagoAllOptions: JSX.Element = (
@@ -22,6 +25,33 @@ const ReactTimeagoAllOptions: JSX.Element = (
         component={() => <div />}
         title="Timeago"
         formatter={customFormatter}
+    />
+);
 
+const ReactTimeagoDefaultComponentProps: JSX.Element = (
+    // Note that the default component is <time/>, which has a style prop.
+    <ReactTimeago
+        date={new Date()}
+        style={{marginTop: 42}}
+    />
+);
+
+// inspired by react-native
+class Text extends React.Component<{
+    style?: Array<{}> | undefined;
+    numberOfLines?: number | undefined;
+    ellipsizeMode?: "head" | "middle" | "tail" | "clip" | undefined;
+    allowFontScaling?: boolean | undefined;
+}> {}
+
+const ReactTimeagoCustomComponent: JSX.Element = (
+    <ReactTimeago<typeof Text>
+        date={new Date()}
+        component={Text}
+        // props passed down to Text
+        style={[{ textAlign: "center" }, { fontSize: 24 }]}
+        numberOfLines={2}
+        ellipsizeMode="middle"
+        allowFontScaling
     />
 );

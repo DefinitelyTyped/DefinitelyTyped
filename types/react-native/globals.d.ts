@@ -9,12 +9,21 @@
 //
 declare function clearInterval(handle: number): void;
 declare function clearTimeout(handle: number): void;
-declare function setInterval(handler: (...args: any[]) => void, timeout: number): number;
-declare function setInterval(handler: any, timeout?: any, ...args: any[]): number;
-declare function setTimeout(handler: (...args: any[]) => void, timeout: number): number;
-declare function setTimeout(handler: any, timeout?: any, ...args: any[]): number;
+declare function setInterval(handler: () => void, timeout: number): number;
+declare function setInterval<Args extends any[]>(
+    handler: (...args: Args) => void,
+    timeout?: number,
+    ...args: Args
+): number;
+declare function setTimeout(handler: () => void, timeout: number): number;
+declare function setTimeout<Args extends any[]>(
+    handler: (...args: Args) => void,
+    timeout?: number,
+    ...args: Args
+): number;
 declare function clearImmediate(handle: number): void;
-declare function setImmediate(handler: (...args: any[]) => void): number;
+declare function setImmediate(handler: () => void): number;
+declare function setImmediate<Args extends any[]>(handler: (...args: Args) => void, ...args: Args): number;
 
 declare function cancelAnimationFrame(handle: number): void;
 declare function requestAnimationFrame(callback: (time: number) => void): number;
@@ -31,10 +40,44 @@ declare interface GlobalFetch {
 
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 
-interface Blob {}
+declare interface WindowOrWorkerGlobalScope {
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+}
+
+interface Blob {
+    readonly size: number;
+    readonly type: string;
+    slice(start?: number, end?: number): Blob;
+}
+
+interface BlobOptions {
+    type: string;
+    lastModified: number;
+}
+
+declare var Blob: {
+    prototype: Blob;
+    new (blobParts?: Array<Blob | string>, options?: BlobOptions): Blob;
+};
+
+type FormDataValue = string | { name?: string; type?: string; uri: string };
+
+type FormDataPart =
+    | {
+          string: string;
+          headers: { [name: string]: string };
+      }
+    | {
+          uri: string;
+          headers: { [name: string]: string };
+          name?: string;
+          type?: string;
+      };
 
 declare class FormData {
     append(name: string, value: any): void;
+    getAll(): Array<FormDataValue>;
+    getParts(): Array<FormDataPart>;
 }
 
 declare interface Body {
@@ -60,7 +103,18 @@ declare var Headers: {
     new (init?: HeadersInit_): Headers;
 };
 
+/**
+ * React Native's implementation of fetch allows this syntax for uploading files from
+ * local filesystem.
+ * See https://github.com/facebook/react-native/blob/master/Libraries/Network/convertRequestBody.js#L22
+ */
+interface _SourceUri {
+    uri: string;
+    [key: string]: any;
+}
+
 type BodyInit_ =
+    | _SourceUri
     | Blob
     | Int8Array
     | Int16Array
@@ -78,15 +132,16 @@ type BodyInit_ =
     | null;
 
 declare interface RequestInit {
-    body?: BodyInit_;
-    credentials?: RequestCredentials_;
-    headers?: HeadersInit_;
-    integrity?: string;
-    keepalive?: boolean;
-    method?: string;
-    mode?: RequestMode_;
-    referrer?: string;
+    body?: BodyInit_ | undefined;
+    credentials?: RequestCredentials_ | undefined;
+    headers?: HeadersInit_ | undefined;
+    integrity?: string | undefined;
+    keepalive?: boolean | undefined;
+    method?: string | undefined;
+    mode?: RequestMode_ | undefined;
+    referrer?: string | undefined;
     window?: any;
+    signal?: AbortSignal | undefined;
 }
 
 declare interface Request extends Object, Body {
@@ -107,9 +162,9 @@ declare var Request: {
 declare type RequestInfo = Request | string;
 
 declare interface ResponseInit {
-    headers?: HeadersInit_;
-    status?: number;
-    statusText?: string;
+    headers?: HeadersInit_ | undefined;
+    status?: number | undefined;
+    statusText?: string | undefined;
 }
 
 declare interface Response extends Object, Body {
@@ -131,13 +186,20 @@ declare var Response: {
 };
 
 type HeadersInit_ = Headers | string[][] | { [key: string]: string };
-type RequestCredentials_ = "omit" | "same-origin" | "include";
-type RequestMode_ = "navigate" | "same-origin" | "no-cors" | "cors";
-type ResponseType_ = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
+type RequestCredentials_ = 'omit' | 'same-origin' | 'include';
+type RequestMode_ = 'navigate' | 'same-origin' | 'no-cors' | 'cors';
+type ResponseType_ = 'basic' | 'cors' | 'default' | 'error' | 'opaque' | 'opaqueredirect';
 
 //
 // XMLHttpRequest
 //
+
+declare interface ProgressEvent<T extends EventTarget = EventTarget> extends Event {
+    readonly lengthComputable: boolean;
+    readonly loaded: number;
+    readonly total: number;
+    readonly target: T | null;
+}
 
 interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
     readystatechange: Event;
@@ -172,12 +234,12 @@ interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
     readonly UNSENT: number;
     addEventListener<K extends keyof XMLHttpRequestEventMap>(
         type: K,
-        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any
+        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any,
     ): void;
     //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
     removeEventListener<K extends keyof XMLHttpRequestEventMap>(
         type: K,
-        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any
+        listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any,
     ): void;
     //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
@@ -193,31 +255,31 @@ declare var XMLHttpRequest: {
 };
 
 interface XMLHttpRequestEventTargetEventMap {
-    abort: Event;
-    error: Event;
-    load: Event;
-    loadend: Event;
-    loadstart: Event;
-    progress: Event;
-    timeout: Event;
+    abort: ProgressEvent;
+    error: ProgressEvent;
+    load: ProgressEvent;
+    loadend: ProgressEvent;
+    loadstart: ProgressEvent;
+    progress: ProgressEvent;
+    timeout: ProgressEvent;
 }
 
 interface XMLHttpRequestEventTarget {
-    onabort: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onerror: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onload: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onloadend: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onloadstart: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    onprogress: ((this: XMLHttpRequest, ev: Event) => any) | null;
-    ontimeout: ((this: XMLHttpRequest, ev: Event) => any) | null;
+    onabort: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onload: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onloadend: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onloadstart: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
+    ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
     removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
@@ -225,12 +287,12 @@ interface XMLHttpRequestEventTarget {
 interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
     addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
     removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
         type: K,
-        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any
+        listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any,
     ): void;
     //  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
@@ -240,4 +302,209 @@ declare var XMLHttpRequestUpload: {
     new (): XMLHttpRequestUpload;
 };
 
-type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";
+declare type XMLHttpRequestResponseType = '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
+
+/**
+ * Based on definition from lib.dom but using class syntax.
+ * The properties are mutable to support users that use a `URL` polyfill, but the implementation
+ * built into React Native (as of 0.63) does not implement all the properties.
+ */
+declare class URL {
+    static createObjectURL(blob: Blob): string;
+    static revokeObjectURL(url: string): void;
+
+    constructor(url: string, base?: string);
+
+    href: string;
+    readonly origin: string;
+    protocol: string;
+    username: string;
+    password: string;
+    host: string;
+    hostname: string;
+    port: string;
+    pathname: string;
+    search: string;
+    readonly searchParams: URLSearchParams;
+    hash: string;
+
+    toJSON(): string;
+}
+
+/**
+ * Based on definitions of lib.dom and lib.dom.iterable
+ */
+declare class URLSearchParams {
+    constructor(init?: string[][] | Record<string, string> | string | URLSearchParams);
+
+    append(name: string, value: string): void;
+    delete(name: string): void;
+    get(name: string): string | null;
+    getAll(name: string): string[];
+    has(name: string): boolean;
+    set(name: string, value: string): void;
+    sort(): void;
+    forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
+    [Symbol.iterator](): IterableIterator<[string, string]>;
+
+    entries(): IterableIterator<[string, string]>;
+    keys(): IterableIterator<string>;
+    values(): IterableIterator<string>;
+}
+
+interface WebSocketMessageEvent extends Event {
+    data?: any;
+}
+interface WebSocketErrorEvent extends Event {
+    message: string;
+}
+interface WebSocketCloseEvent extends Event {
+    code?: number | undefined;
+    reason?: string | undefined;
+    message?: string | undefined;
+}
+
+type WebsocketMessageEventListener = (event: 'message', handler: (e: WebSocketMessageEvent) => void) => void;
+type WebsocketErrorEventListener = (event: 'error', handler: (e: WebSocketErrorEvent) => void) => void;
+type WebsocketOpenEventListener = (event: 'open', handler: () => void) => void;
+type WebsocketCloseEventListener = (event: 'close', handler: (e: WebSocketCloseEvent) => void) => void;
+
+type WebsocketEventListener = WebsocketMessageEventListener &
+    WebsocketErrorEventListener &
+    WebsocketOpenEventListener &
+    WebsocketCloseEventListener;
+
+interface WebSocket extends EventTarget {
+    readonly readyState: number;
+    send(data: string | ArrayBuffer | ArrayBufferView | Blob): void;
+    close(code?: number, reason?: string): void;
+    onopen: (() => void) | null;
+    onmessage: ((event: WebSocketMessageEvent) => void) | null;
+    onerror: ((event: WebSocketErrorEvent) => void) | null;
+    onclose: ((event: WebSocketCloseEvent) => void) | null;
+    addEventListener: WebsocketEventListener;
+    removeEventListener: WebsocketEventListener;
+}
+
+declare var WebSocket: {
+    prototype: WebSocket;
+    new (
+        uri: string,
+        protocols?: string | string[] | null,
+        options?: {
+            headers: { [headerName: string]: string };
+            [optionName: string]: any;
+        } | null,
+    ): WebSocket;
+    readonly CLOSED: number;
+    readonly CLOSING: number;
+    readonly CONNECTING: number;
+    readonly OPEN: number;
+};
+
+//
+// Abort Controller
+//
+
+interface AbortEvent extends Event {
+    type: 'abort';
+}
+
+declare class AbortSignal implements EventTarget {
+    /**
+     * AbortSignal cannot be constructed directly.
+     */
+    constructor();
+    /**
+     * Returns `true` if this `AbortSignal`'s `AbortController` has signaled to abort, and `false` otherwise.
+     */
+    readonly aborted: boolean;
+
+    onabort: (event: AbortEvent) => void;
+
+    addEventListener: (
+        type: 'abort',
+        listener: (this: AbortSignal, event: any) => any,
+        options?:
+            | boolean
+            | {
+                  capture?: boolean;
+                  once?: boolean;
+                  passive?: boolean;
+              },
+    ) => void;
+
+    removeEventListener: (
+        type: 'abort',
+        listener: (this: AbortSignal, event: any) => any,
+        options?:
+            | boolean
+            | {
+                  capture?: boolean;
+              },
+    ) => void;
+}
+
+declare class AbortController {
+    /**
+     * Initialize this controller.
+     */
+    constructor();
+    /**
+     * Returns the `AbortSignal` object associated with this object.
+     */
+    readonly signal: AbortSignal;
+    /**
+     * Abort and signal to any observers that the associated activity is to be aborted.
+     */
+    abort(): void;
+}
+
+interface FileReaderEventMap {
+    abort: ProgressEvent<FileReader>;
+    error: ProgressEvent<FileReader>;
+    load: ProgressEvent<FileReader>;
+    loadend: ProgressEvent<FileReader>;
+    loadstart: ProgressEvent<FileReader>;
+    progress: ProgressEvent<FileReader>;
+}
+
+interface FileReader extends EventTarget {
+    readonly error: Error | null;
+    onabort: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onerror: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onload: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onloadend: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onloadstart: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onprogress: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    readonly readyState: number;
+    readonly result: string | ArrayBuffer;
+    abort(): void;
+    readAsArrayBuffer(blob: Blob): void;
+    // readAsBinaryString(blob: Blob): void;
+    readAsDataURL(blob: Blob): void;
+    readAsText(blob: Blob, encoding?: string): void;
+    readonly DONE: number;
+    readonly EMPTY: number;
+    readonly LOADING: number;
+    addEventListener<K extends keyof FileReaderEventMap>(
+        type: K,
+        listener: (this: FileReader, ev: FileReaderEventMap[K]) => any,
+        options?: boolean,
+    ): void;
+    // addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof FileReaderEventMap>(
+        type: K,
+        listener: (this: FileReader, ev: FileReaderEventMap[K]) => any,
+        options?: boolean,
+    ): void;
+    // removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var FileReader: {
+    prototype: FileReader;
+    new (): FileReader;
+    readonly DONE: number;
+    readonly EMPTY: number;
+    readonly LOADING: number;
+};

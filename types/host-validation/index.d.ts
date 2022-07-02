@@ -8,9 +8,9 @@ import { Request, Response, NextFunction } from 'express';
 
 declare namespace hostValidation {
     interface config {
-        hosts?: Array<string|RegExp>;
-        referers?: Array<string|RegExp>;
-        mode?: 'both' | 'either';
+        hosts?: Array<string|RegExp> | undefined;
+        referers?: Array<string|RegExp> | undefined;
+        mode?: 'both' | 'either' | undefined;
         fail?(req: Request, res: Response, next: NextFunction): void;
     }
 }

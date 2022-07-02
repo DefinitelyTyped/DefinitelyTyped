@@ -16,7 +16,7 @@ declare namespace quantile {
          * @default
          * false
          */
-        sorted?: boolean;
+        sorted?: boolean | undefined;
     }
 }
 

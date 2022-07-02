@@ -7,11 +7,19 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-		"strictFunctionTypes": true,
-		"baseUrl": "../",
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

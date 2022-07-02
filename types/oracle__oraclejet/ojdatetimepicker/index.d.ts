@@ -123,9 +123,9 @@ export interface ojInputDate<SP extends ojInputDateSettableProperties = ojInputD
         [key: string]: {
             [key: string]: {
                 [key: string]: {
-                    disabled?: boolean;
-                    className?: string;
-                    tooltip?: string;
+                    disabled?: boolean | undefined;
+                    className?: string | undefined;
+                    tooltip?: string | undefined;
                 };
             };
         };
@@ -134,50 +134,50 @@ export interface ojInputDate<SP extends ojInputDateSettableProperties = ojInputD
     max: string | null;
     min: string | null;
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     renderMode: 'jet' | 'native';
     validators: Array<Validator<string> | Validation.RegisteredValidator> | null;
     value: string;
     translations: {
-        currentText?: string;
+        currentText?: string | undefined;
         dateRestriction?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         dateTimeRange?: {
             hint?: {
-                inRange?: string;
-                max?: string;
-                min?: string;
-            };
+                inRange?: string | undefined;
+                max?: string | undefined;
+                min?: string | undefined;
+            } | undefined;
             messageDetail?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
             messageSummary?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
-        };
-        nextText?: string;
-        prevText?: string;
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
+        } | undefined;
+        nextText?: string | undefined;
+        prevText?: string | undefined;
         regexp?: {
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        tooltipCalendar?: string;
-        tooltipCalendarDisabled?: string;
-        tooltipCalendarTime?: string;
-        tooltipCalendarTimeDisabled?: string;
-        weekHeader?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        tooltipCalendar?: string | undefined;
+        tooltipCalendarDisabled?: string | undefined;
+        tooltipCalendarTime?: string | undefined;
+        tooltipCalendarTimeDisabled?: string | undefined;
+        weekHeader?: string | undefined;
     };
     onConverterChanged: ((event: JetElementCustomEvent<ojInputDate<SP>["converter"]>) => any) | null;
     onDatePickerChanged: ((event: JetElementCustomEvent<ojInputDate<SP>["datePicker"]>) => any) | null;
@@ -225,9 +225,9 @@ export namespace ojInputDate {
     };
     // tslint:disable-next-line interface-over-type-literal
     type DayFormatterOutput = {
-        disabled?: boolean;
-        className?: string;
-        tooltip?: string;
+        disabled?: boolean | undefined;
+        className?: string | undefined;
+        tooltip?: string | undefined;
     };
 }
 export interface ojInputDateEventMap<SP extends ojInputDateSettableProperties = ojInputDateSettableProperties> extends inputBaseEventMap<string, SP> {
@@ -265,9 +265,9 @@ export interface ojInputDateSettableProperties extends inputBaseSettableProperti
         [key: string]: {
             [key: string]: {
                 [key: string]: {
-                    disabled?: boolean;
-                    className?: string;
-                    tooltip?: string;
+                    disabled?: boolean | undefined;
+                    className?: string | undefined;
+                    tooltip?: string | undefined;
                 };
             };
         };
@@ -276,50 +276,50 @@ export interface ojInputDateSettableProperties extends inputBaseSettableProperti
     max: string | null;
     min: string | null;
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     renderMode: 'jet' | 'native';
     validators: Array<Validator<string> | Validation.RegisteredValidator> | null;
     value: string;
     translations: {
-        currentText?: string;
+        currentText?: string | undefined;
         dateRestriction?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         dateTimeRange?: {
             hint?: {
-                inRange?: string;
-                max?: string;
-                min?: string;
-            };
+                inRange?: string | undefined;
+                max?: string | undefined;
+                min?: string | undefined;
+            } | undefined;
             messageDetail?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
             messageSummary?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
-        };
-        nextText?: string;
-        prevText?: string;
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
+        } | undefined;
+        nextText?: string | undefined;
+        prevText?: string | undefined;
         regexp?: {
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        tooltipCalendar?: string;
-        tooltipCalendarDisabled?: string;
-        tooltipCalendarTime?: string;
-        tooltipCalendarTimeDisabled?: string;
-        weekHeader?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        tooltipCalendar?: string | undefined;
+        tooltipCalendarDisabled?: string | undefined;
+        tooltipCalendarTime?: string | undefined;
+        tooltipCalendarTimeDisabled?: string | undefined;
+        weekHeader?: string | undefined;
     };
 }
 export interface ojInputDateSettablePropertiesLenient extends Partial<ojInputDateSettableProperties> {
@@ -338,45 +338,45 @@ export interface ojInputDateTime<SP extends ojInputDateTimeSettableProperties = 
     validators: Array<Validator<string> | Validation.RegisteredValidator> | null;
     value: string;
     translations: {
-        cancel?: string;
-        currentText?: string;
+        cancel?: string | undefined;
+        currentText?: string | undefined;
         dateRestriction?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         dateTimeRange?: {
             hint?: {
-                inRange?: string;
-                max?: string;
-                min?: string;
-            };
+                inRange?: string | undefined;
+                max?: string | undefined;
+                min?: string | undefined;
+            } | undefined;
             messageDetail?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
             messageSummary?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
-        };
-        done?: string;
-        nextText?: string;
-        prevText?: string;
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
+        } | undefined;
+        done?: string | undefined;
+        nextText?: string | undefined;
+        prevText?: string | undefined;
         regexp?: {
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        tooltipCalendar?: string;
-        tooltipCalendarDisabled?: string;
-        tooltipCalendarTime?: string;
-        tooltipCalendarTimeDisabled?: string;
-        weekHeader?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        tooltipCalendar?: string | undefined;
+        tooltipCalendarDisabled?: string | undefined;
+        tooltipCalendarTime?: string | undefined;
+        tooltipCalendarTimeDisabled?: string | undefined;
+        weekHeader?: string | undefined;
     };
     onConverterChanged: ((event: JetElementCustomEvent<ojInputDateTime<SP>["converter"]>) => any) | null;
     onMaxChanged: ((event: JetElementCustomEvent<ojInputDateTime<SP>["max"]>) => any) | null;
@@ -437,45 +437,45 @@ export interface ojInputDateTimeSettableProperties extends ojInputDateSettablePr
     validators: Array<Validator<string> | Validation.RegisteredValidator> | null;
     value: string;
     translations: {
-        cancel?: string;
-        currentText?: string;
+        cancel?: string | undefined;
+        currentText?: string | undefined;
         dateRestriction?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         dateTimeRange?: {
             hint?: {
-                inRange?: string;
-                max?: string;
-                min?: string;
-            };
+                inRange?: string | undefined;
+                max?: string | undefined;
+                min?: string | undefined;
+            } | undefined;
             messageDetail?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
             messageSummary?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
-        };
-        done?: string;
-        nextText?: string;
-        prevText?: string;
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
+        } | undefined;
+        done?: string | undefined;
+        nextText?: string | undefined;
+        prevText?: string | undefined;
         regexp?: {
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        tooltipCalendar?: string;
-        tooltipCalendarDisabled?: string;
-        tooltipCalendarTime?: string;
-        tooltipCalendarTimeDisabled?: string;
-        weekHeader?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        tooltipCalendar?: string | undefined;
+        tooltipCalendarDisabled?: string | undefined;
+        tooltipCalendarTime?: string | undefined;
+        tooltipCalendarTimeDisabled?: string | undefined;
+        weekHeader?: string | undefined;
     };
 }
 export interface ojInputDateTimeSettablePropertiesLenient extends Partial<ojInputDateTimeSettableProperties> {
@@ -487,8 +487,8 @@ export interface ojInputTime extends inputBase<string, ojInputTimeSettableProper
     max: string | null;
     min: string | null;
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     renderMode: 'jet' | 'native';
     timePicker: {
@@ -499,38 +499,38 @@ export interface ojInputTime extends inputBase<string, ojInputTimeSettableProper
     validators: Array<Validator<string> | Validation.RegisteredValidator> | null;
     value: string;
     translations: {
-        ampmWheelLabel?: string;
-        cancelText?: string;
-        currentTimeText?: string;
+        ampmWheelLabel?: string | undefined;
+        cancelText?: string | undefined;
+        currentTimeText?: string | undefined;
         dateTimeRange?: {
             hint?: {
-                inRange?: string;
-                max?: string;
-                min?: string;
-            };
+                inRange?: string | undefined;
+                max?: string | undefined;
+                min?: string | undefined;
+            } | undefined;
             messageDetail?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
             messageSummary?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
-        };
-        hourWheelLabel?: string;
-        minuteWheelLabel?: string;
-        okText?: string;
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
+        } | undefined;
+        hourWheelLabel?: string | undefined;
+        minuteWheelLabel?: string | undefined;
+        okText?: string | undefined;
         regexp?: {
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        tooltipTime?: string;
-        tooltipTimeDisabled?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        tooltipTime?: string | undefined;
+        tooltipTimeDisabled?: string | undefined;
     };
     onConverterChanged: ((event: JetElementCustomEvent<ojInputTime["converter"]>) => any) | null;
     onKeyboardEditChanged: ((event: JetElementCustomEvent<ojInputTime["keyboardEdit"]>) => any) | null;
@@ -588,8 +588,8 @@ export interface ojInputTimeSettableProperties extends inputBaseSettableProperti
     max: string | null;
     min: string | null;
     pickerAttributes: {
-        style?: string;
-        class?: string;
+        style?: string | undefined;
+        class?: string | undefined;
     };
     renderMode: 'jet' | 'native';
     timePicker: {
@@ -600,38 +600,38 @@ export interface ojInputTimeSettableProperties extends inputBaseSettableProperti
     validators: Array<Validator<string> | Validation.RegisteredValidator> | null;
     value: string;
     translations: {
-        ampmWheelLabel?: string;
-        cancelText?: string;
-        currentTimeText?: string;
+        ampmWheelLabel?: string | undefined;
+        cancelText?: string | undefined;
+        currentTimeText?: string | undefined;
         dateTimeRange?: {
             hint?: {
-                inRange?: string;
-                max?: string;
-                min?: string;
-            };
+                inRange?: string | undefined;
+                max?: string | undefined;
+                min?: string | undefined;
+            } | undefined;
             messageDetail?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
             messageSummary?: {
-                rangeOverflow?: string;
-                rangeUnderflow?: string;
-            };
-        };
-        hourWheelLabel?: string;
-        minuteWheelLabel?: string;
-        okText?: string;
+                rangeOverflow?: string | undefined;
+                rangeUnderflow?: string | undefined;
+            } | undefined;
+        } | undefined;
+        hourWheelLabel?: string | undefined;
+        minuteWheelLabel?: string | undefined;
+        okText?: string | undefined;
         regexp?: {
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
-        tooltipTime?: string;
-        tooltipTimeDisabled?: string;
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
+        tooltipTime?: string | undefined;
+        tooltipTimeDisabled?: string | undefined;
     };
 }
 export interface ojInputTimeSettablePropertiesLenient extends Partial<ojInputTimeSettableProperties> {

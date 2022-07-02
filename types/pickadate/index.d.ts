@@ -10,78 +10,78 @@ declare namespace Pickadate {
     // KlassOptions shared between date and time pickers
     interface KlassOptions {
         // The element states
-        input?: string; // default 'picker__input'
-        active?: string; // default 'picker__input--active'
+        input?: string | undefined; // default 'picker__input'
+        active?: string | undefined; // default 'picker__input--active'
 
         // The root picker and states
-        picker?: string; // default 'picker' or 'picker picker--time'
-        opened?: string; // default 'picker--opened'
-        focused?: string; // default 'picker--focused'
+        picker?: string | undefined; // default 'picker' or 'picker picker--time'
+        opened?: string | undefined; // default 'picker--opened'
+        focused?: string | undefined; // default 'picker--focused'
 
         // The picker holder
-        holder?: string; // default 'picker__holder'
+        holder?: string | undefined; // default 'picker__holder'
 
         // The picker frame, wrapper, and box
-        frame?: string; // default 'picker__frame'
-        wrap?: string; // default 'picker__wrap'
-        box?: string; // default 'picker__box'
+        frame?: string | undefined; // default 'picker__frame'
+        wrap?: string | undefined; // default 'picker__wrap'
+        box?: string | undefined; // default 'picker__box'
 
         // Day/Time states
-        disabled?: string; // default 'picker__day--disabled' or 'picker__list-item--disabled'
-        selected?: string // default 'picker__day--selected' or 'picker__list-item--selected'
-        highlighted?: string // default 'picker__day--highlighted' or 'picker__list-item--highlighted'
-        now?: string; // default 'picker__day--today' or 'picker__list-item--now'
+        disabled?: string | undefined; // default 'picker__day--disabled' or 'picker__list-item--disabled'
+        selected?: string | undefined // default 'picker__day--selected' or 'picker__list-item--selected'
+        highlighted?: string | undefined // default 'picker__day--highlighted' or 'picker__list-item--highlighted'
+        now?: string | undefined; // default 'picker__day--today' or 'picker__list-item--now'
 
         // Clear button
-        buttonClear?: string; // default 'picker__button--clear'
+        buttonClear?: string | undefined; // default 'picker__button--clear'
     }
 
     interface DateKlassOptions extends KlassOptions {
         // The picker header
-        header?: string; // default 'picker__header'
+        header?: string | undefined; // default 'picker__header'
 
         // Month navigation
-        navPrev?: string; // default 'picker__nav--prev'
-        navNext?: string; // default 'picker__nav--next'
-        navDisabled?: string; // default 'picker__nav--disabled'
+        navPrev?: string | undefined; // default 'picker__nav--prev'
+        navNext?: string | undefined; // default 'picker__nav--next'
+        navDisabled?: string | undefined; // default 'picker__nav--disabled'
 
         // Month & year labels
-        month?: string; // default 'picker__month'
-        year?: string; // default 'picker__year'
+        month?: string | undefined; // default 'picker__month'
+        year?: string | undefined; // default 'picker__year'
 
         // Month & year dropdowns
-        selectMonth?: string; // default 'picker__select--month'
-        selectYear?: string; // default 'picker__select--year'
+        selectMonth?: string | undefined; // default 'picker__select--month'
+        selectYear?: string | undefined; // default 'picker__select--year'
 
         // Table of dates
-        table?: string; // default 'picker__table'
+        table?: string | undefined; // default 'picker__table'
 
         // Weekday labels
-        weekdays?: string; // default 'picker__weekday'
+        weekdays?: string | undefined; // default 'picker__weekday'
 
         // Day states
-        day?: string; // default 'picker__day'
-        infocus?: string; // default 'picker__day--infocus'
-        outfocus?: string; // default 'picker__day--outfocus'
+        day?: string | undefined; // default 'picker__day'
+        infocus?: string | undefined; // default 'picker__day--infocus'
+        outfocus?: string | undefined; // default 'picker__day--outfocus'
 
         // The picker footer
-        footer?: string; // default 'picker__footer'
+        footer?: string | undefined; // default 'picker__footer'
 
         // Today & close buttons
-        buttonClose?: string; // default 'picker__button--close'
-        buttonToday?: string; // default 'picker__button--today'
+        buttonClose?: string | undefined; // default 'picker__button--close'
+        buttonToday?: string | undefined; // default 'picker__button--today'
     }
 
     interface TimeKlassOptions extends KlassOptions {
         // The root picker
-        picker?: string; // default 'picker picker--time'
+        picker?: string | undefined; // default 'picker picker--time'
 
         // List of times
-        list?: string; // default 'picker__list'
-        listItem?: string; // default 'picker__list-item'
+        list?: string | undefined; // default 'picker__list'
+        listItem?: string | undefined; // default 'picker__list-item'
 
         // Time states
-        viewset?: string; // default 'picker__list-item--viewset'
+        viewset?: string | undefined; // default 'picker__list-item--viewset'
     }
 
     // options shared between date and time pickers
@@ -90,34 +90,34 @@ declare namespace Pickadate {
          * Set the clear button text.
          * Defaults to 'Clear'
          */
-        clear?: string;
+        clear?: string | undefined;
 
         /**
          * The human-friendly display format.
          * Escape any "rule" characters with an exclamation mark (!).
          * Defaults to 'd mmmm, yyyy'
          */
-        format?: string;
+        format?: string | undefined;
 
         /**
          * An alternate format to submit to the server.
          * Defaults to undefined.
          */
-        formatSubmit?: string;
+        formatSubmit?: string | undefined;
 
         /**
          * An optional name prefix for the new hidden input element used
          * when a custom human-friendly display format is specified.
          * Defaults to undefined.
          */
-        hiddenPrefix?: string;
+        hiddenPrefix?: string | undefined;
 
         /**
          * An optional name suffix for the new hidden input element used
          * when a custom human-friendly display format is specified.
          * Defaults to '_submit'
          */
-        hiddenSuffix?: string;
+        hiddenSuffix?: string | undefined;
 
         /**
          * A majority of the time, the value that needs to be sent to the server
@@ -126,46 +126,46 @@ declare namespace Pickadate {
          * and hiddenSuffix, strips the name attribute from the source input, and
          * then sets it as the name of the hidden input. Defaults to undefined.
          */
-        hiddenName?: boolean;
+        hiddenName?: boolean | undefined;
 
         /**
          * By default, typing into the input is disabled by giving it a readOnly
          * attribute. Setting the editable option to true allows the input field
          * to be edited directly.
          */
-        editable?: boolean;
+        editable?: boolean | undefined;
 
         /**
          * Specify where to insert the picker's root element by passing any
          * valid CSS selector to this option. Defaults to undefined.
          */
-        container?: string|JQuery;
+        container?: string|JQuery | undefined;
 
         /**
          * The hidden input container.
          * Defaults to undefined.
          */
-        containerHidden?: string;
+        containerHidden?: string | undefined;
 
         /**
          * Whether or not to close the picker when a date is selected.
          * Defaults to `true`.
          */
-        closeOnSelect?: boolean;
+        closeOnSelect?: boolean | undefined;
 
         /**
          * Whether or not to close the picker when the "clear" button is pressed.
          * Defaults to `true`.
          */
-        closeOnClear?: boolean;
+        closeOnClear?: boolean | undefined;
 
         // Events
-        onStart?: (event: any) => void;
-        onRender?: (event: any) => void;
-        onOpen?: (event: any) => void;
-        onClose?: (event: any) => void;
-        onSet?: (event: any) => void;
-        onStop?: (event: any) => void;
+        onStart?: ((event: any) => void) | undefined;
+        onRender?: ((event: any) => void) | undefined;
+        onOpen?: ((event: any) => void) | undefined;
+        onClose?: ((event: any) => void) | undefined;
+        onSet?: ((event: any) => void) | undefined;
+        onStop?: ((event: any) => void) | undefined;
     }
 
     type MinOrMaxDateOption = Date | [number, number, number] | number | boolean;
@@ -173,22 +173,22 @@ declare namespace Pickadate {
 
     export interface DateOptions extends Options {
         // Strings and translations
-        monthsFull?: string[]; // default 'January' through 'December'
-        monthsShort?: string[]; // default 'Jan' through 'Dec'
-        weekdaysFull?: string[]; // default 'Sunday' through 'Saturday'
-        weekdaysShort?: string[]; // default 'Sun' through 'Sat'
-        showMonthsShort?: boolean;
-        showWeekdaysFull?: boolean;
+        monthsFull?: string[] | undefined; // default 'January' through 'December'
+        monthsShort?: string[] | undefined; // default 'Jan' through 'Dec'
+        weekdaysFull?: string[] | undefined; // default 'Sunday' through 'Saturday'
+        weekdaysShort?: string[] | undefined; // default 'Sun' through 'Sat'
+        showMonthsShort?: boolean | undefined;
+        showWeekdaysFull?: boolean | undefined;
 
         // Buttons
-        today?: string; // default 'Today'
-        close?: string; // default 'Close'
+        today?: string | undefined; // default 'Today'
+        close?: string | undefined; // default 'Close'
 
         // Accessibility labels
-        labelMonthNext?: string; // default 'Next month'
-        labelMonthPrev?: string; // default 'Previous month'
-        labelMonthSelect?: string; // default 'Select a month'
-        labelYearSelect?: string; //default 'Select a year'
+        labelMonthNext?: string | undefined; // default 'Next month'
+        labelMonthPrev?: string | undefined; // default 'Previous month'
+        labelMonthSelect?: string | undefined; // default 'Select a month'
+        labelYearSelect?: string | undefined; //default 'Select a year'
 
         /**
          * True enables the dropdown selector and false replaces it with text.
@@ -196,18 +196,18 @@ declare namespace Pickadate {
          * using an even integer - half before and half after the year in focus.
          * If true the value will default to 10.
          */
-        selectYears?: boolean | number;
+        selectYears?: boolean | number | undefined;
 
         /**
          * True enables the dropdown selector and false replaces it with text
          */
-        selectMonths?: boolean;
+        selectMonths?: boolean | undefined;
 
         /**
          * The first day of the week can be set to either Sunday or Monday.
          * True or 1 sets it as Monday and false or 0 as Sunday.
          */
-        firstDay?: boolean | number;
+        firstDay?: boolean | number | undefined;
 
         /**
          * Set the minimum selectable date on the picker. Accepts a Date object,
@@ -215,13 +215,13 @@ declare namespace Pickadate {
          * for a date relative to today, or a boolean (`true` sets it to today,
          * `false` removes any limit).
          */
-        min?: MinOrMaxDateOption;
+        min?: MinOrMaxDateOption | undefined;
 
         /**
          * Set the maximum selectable date on the picker.
          * Accepts the same values as the `min` property.
          */
-        max?: MinOrMaxDateOption;
+        max?: MinOrMaxDateOption | undefined;
 
         /**
          * Disable a specific or arbitrary set of dates selectable on the
@@ -232,10 +232,10 @@ declare namespace Pickadate {
          * Enable dates that fall within a range of disabled dates by
          * adding an `inverted` parameter to the item within the collection.
          */
-        disable?: any[];
+        disable?: any[] | undefined;
 
         // Classes
-        klass?: DateKlassOptions;
+        klass?: DateKlassOptions | undefined;
     }
 
     export interface TimeOptions extends Options {
@@ -243,13 +243,13 @@ declare namespace Pickadate {
          * The formatLabel option is unique. It can contain HTML and it can
          * also be a function if you want to create the label during run-time.
          */
-        formatLabel?: string | ((time: TimeItem) => string);
+        formatLabel?: string | ((time: TimeItem) => string) | undefined;
 
         /**
          * Choose the interval in minutes between each time in the list.
          * Default is 30.
          */
-        interval?: number;
+        interval?: number | undefined;
 
         /**
          * Set the minimum selectable time on the picker. Accepts a Date object,
@@ -257,13 +257,13 @@ declare namespace Pickadate {
          * for a time relative to now, or a boolean (`true` sets it to now, and
          * `false` removes any limit).
          */
-        min?: MinOrMaxTimeOption;
+        min?: MinOrMaxTimeOption | undefined;
 
         /**
          * Set the maximum selectable time on the picker.
          * Accepts the same values as the `min` property.
          */
-        max?: MinOrMaxTimeOption;
+        max?: MinOrMaxTimeOption | undefined;
 
         /**
          * Disable a specific or arbitrary set of times selectable on the picker.
@@ -273,10 +273,10 @@ declare namespace Pickadate {
          * collection. Enable times that fall within a range of disabled times by
          * adding an `inverted` parameter to the item within the collection.
          */
-        disable?: any[];
+        disable?: any[] | undefined;
 
         // Classes
-        klass?: TimeKlassOptions;
+        klass?: TimeKlassOptions | undefined;
     }
 
     interface Item {
@@ -326,12 +326,12 @@ declare namespace Pickadate {
     }
 
     export interface CallbackObject {
-        open?: () => void;
-        close?: () => void;
-        render?: () => void;
-        start?: () => void;
-        stop?: () => void;
-        set?: (thingSet: any) => void;
+        open?: (() => void) | undefined;
+        close?: (() => void) | undefined;
+        render?: (() => void) | undefined;
+        start?: (() => void) | undefined;
+        stop?: (() => void) | undefined;
+        set?: ((thingSet: any) => void) | undefined;
     }
 
     export interface SetObject {
@@ -350,7 +350,7 @@ declare namespace Pickadate {
          * Choose the minutes interval between each time in the list.
          * Defaults to 30.
          */
-        interval?: number;
+        interval?: number | undefined;
     }
 
     export interface SetOptions {
@@ -359,8 +359,8 @@ declare namespace Pickadate {
          * when its relevant thing is set. To silently set a thing, pass an
          * options object with the muted parameter set to true.
          */
-        muted?: boolean;
-        format?: string;
+        muted?: boolean | undefined;
+        format?: string | undefined;
     }
 
     interface Picker<TPickerObject, TItemObject extends Item, TOptions extends SetObject> {

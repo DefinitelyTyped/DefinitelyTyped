@@ -29,6 +29,7 @@ const test2 = (
     <ModalProvider backgroundComponent={BackgroundComponent}>
         <Modal
             isOpen={true}
+            backgroundProps={{style: {padding: "20px"}}}
             onBackgroundClick={() => console.log('Background click!')}
             onEscapeKeydown={() => console.log('Background click!')}
             afterOpen={() => console.log('After Open!')}

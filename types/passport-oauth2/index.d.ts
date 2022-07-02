@@ -4,6 +4,7 @@
 //                 Wang Zishi <https://github.com/WangZishi>
 //                 Eduardo AC <https://github.com/EduardoAC>
 //                 Ivan Fernandes <https://github.com/ivan94>
+//                 Daphne Smit <https://github.com/daphnesmit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -51,7 +52,7 @@ declare namespace OAuth2Strategy {
         verify(req: Request, state: string, meta: Metadata, callback: StateStoreVerifyCallback): void;
     }
 
-    type VerifyCallback = (err?: Error | null, user?: object, info?: object) => void;
+    type VerifyCallback = (err?: Error | null, user?: Express.User, info?: object) => void;
 
     type VerifyFunction =
         ((accessToken: string, refreshToken: string, profile: any, verified: VerifyCallback) => void) |
@@ -65,16 +66,19 @@ declare namespace OAuth2Strategy {
         tokenURL: string;
         clientID: string;
         clientSecret: string;
-        callbackURL?: string;
-        customHeaders?: OutgoingHttpHeaders;
-        scope?: string | string[];
-        scopeSeparator?: string;
-        sessionKey?: string;
-        store?: StateStore;
+        callbackURL?: string | undefined;
+        customHeaders?: OutgoingHttpHeaders | undefined;
+        scope?: string | string[] | undefined;
+        scopeSeparator?: string | undefined;
+        sessionKey?: string | undefined;
+        store?: StateStore | undefined;
         state?: any;
+        skipUserProfile?: any;
+        pkce?: boolean | undefined;
+        proxy?: any;
     }
     interface StrategyOptions extends _StrategyOptionsBase {
-        passReqToCallback?: false;
+        passReqToCallback?: false | undefined;
     }
     interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
         passReqToCallback: true;
@@ -86,14 +90,14 @@ declare namespace OAuth2Strategy {
     class TokenError extends Error {
         constructor(message: string | undefined, code: string, uri?: string, status?: number);
         code: string;
-        uri?: string;
+        uri?: string | undefined;
         status: number;
     }
 
     class AuthorizationError extends Error {
         constructor(message: string | undefined, code: string, uri?: string, status?: number);
         code: string;
-        uri?: string;
+        uri?: string | undefined;
         status: number;
     }
 

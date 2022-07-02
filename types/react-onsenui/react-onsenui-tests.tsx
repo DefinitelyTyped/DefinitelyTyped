@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import {
     SplitterSide, Splitter, SplitterContent,
     Page, Input, Button, Radio, Checkbox, Select, Switch, SearchInput,
+    List, ListItem, Tabbar, Tab
 } from "react-onsenui";
 
 class AppState {
@@ -10,6 +11,22 @@ class AppState {
 }
 
 interface AppProps {} // tslint:disable-line no-empty-interface
+
+interface Place {
+    id: number;
+    label: string;
+}
+
+const places: Place[] = [
+    {
+        id: 1,
+        label: "San Francisco",
+    },
+    {
+        id: 2,
+        label: "Montreal",
+    },
+];
 
 export class App extends React.Component<AppProps, AppState> {
     state = new AppState();
@@ -19,6 +36,7 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     onChange(event: React.ChangeEvent<HTMLInputElement>) {}
+    onInput(event: React.ChangeEvent<HTMLInputElement>) {}
     onBlur(event: React.FocusEvent<HTMLInputElement>) {}
     onFocus(event: React.FocusEvent<HTMLInputElement>) {}
     onClick(event: React.MouseEvent<HTMLButtonElement>) {}
@@ -44,7 +62,7 @@ export class App extends React.Component<AppProps, AppState> {
                 <SplitterContent>
                     <Page>
                         Test page
-                        <Input name='test' type='text' value='test' readOnly={true} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} />
+                        <Input name='test' type='text' value='test' readOnly={true} onChange={this.onChange} onInput={this.onInput} onBlur={this.onBlur} onFocus={this.onFocus} />
                         <Radio name='radioTest' defaultChecked={true} className='left' checked={true} disabled={true} inputId='radioId' onChange={this.onRadioChange} />
                         <Checkbox name='checkboxTest' checked={true} disabled={true} inputId='checkboxId' className='left' modifier='material' onChange={this.onCheckboxChange} />
                         <Select modifier='material' name='selectTest' className='left' onChange={this.onSelectChange}>
@@ -55,7 +73,29 @@ export class App extends React.Component<AppProps, AppState> {
                         <Switch className='left' modifier='material' checked={true} inputId='switchId' name='switchTest' />
                         <Button name='someButton' onClick={this.onClick} />
                         <SearchInput modifier='material' inputId='searchInputId' disabled={true} onChange={this.onSearchInputChange} value="Search value" />
-					</Page>
+                        <List
+                            dataSource={places}
+                            renderRow={(row, idx) => (
+                                <ListItem key={idx} modifier='longdivider'>
+                                    {row.label}
+                                </ListItem>
+                            )}
+                        />
+                        <Tabbar
+                            position='bottom'
+                            index={0}
+                            renderTabs={(activeIndex, tabbar) => [
+                                {
+                                    content: <div>Tab 2 {activeIndex === 0 ? "(Active)" : null} </div>,
+                                    tab: <Tab label="Home" icon="md-home" />
+                                },
+                                {
+                                    content: <div>Tab 2 {activeIndex === 1 ? "(Active)" : null} </div>,
+                                    tab: <Tab label="Settings" icon="md-settings" />
+                                }]
+                            }
+                        />
+                    </Page>
                 </SplitterContent>
             </Splitter>
         );

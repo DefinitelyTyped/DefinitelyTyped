@@ -19,13 +19,13 @@ declare module 'd3-selection' {
          * @param options either a GraphvizOptions object representing the options of the graphviz renderer or a boolean representing the
          *                  useWorker option.
          */
-        graphviz(options?: GraphvizOptions | boolean): Graphviz<GElement, Datum, BaseType, PDatum>;
+        graphviz(options?: GraphvizOptions | boolean): Graphviz<GElement, Datum, PElement, PDatum>;
 
         /**
          * For each selected element, selects the first descendant element that matches the specified selector string in the same ways as
          * d3-selection.select, but does not propagate any associated data from the current element to the corresponding selected element.
          */
-        selectWithoutDataPropagation(): Selection<GElement, Datum, PElement, PDatum>;
+        selectWithoutDataPropagation(name: string): Selection<BaseType, Datum, PElement, PDatum>;
     }
 }
 
@@ -419,23 +419,23 @@ export type KeyMode = 'title' | 'id' | 'tag-index' | 'index';
  * Most map directly to methods that can be used to set their values.
  */
 export interface GraphvizOptions {
-    useWorker?: boolean;
-    engine?: Engine;
-    totalMemory?: number;
-    keyMode?: KeyMode;
-    fade?: boolean;
-    tweenPaths?: boolean;
-    tweenShapes?: boolean;
-    convertEqualSidedPolygons?: boolean;
-    tweenPrecision?: number | string;
-    growEnteringEdges?: boolean;
-    zoom?: boolean;
-    zoomScaleExtent?: [number, number];
-    zoomTranslateExtent?: [[number, number], [number, number]];
-    width?: number;
-    height?: number;
-    scale?: number;
-    fit?: boolean;
+    useWorker?: boolean | undefined;
+    engine?: Engine | undefined;
+    totalMemory?: number | undefined;
+    keyMode?: KeyMode | undefined;
+    fade?: boolean | undefined;
+    tweenPaths?: boolean | undefined;
+    tweenShapes?: boolean | undefined;
+    convertEqualSidedPolygons?: boolean | undefined;
+    tweenPrecision?: number | string | undefined;
+    growEnteringEdges?: boolean | undefined;
+    zoom?: boolean | undefined;
+    zoomScaleExtent?: [number, number] | undefined;
+    zoomTranslateExtent?: [[number, number], [number, number]] | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    scale?: number | undefined;
+    fit?: boolean | undefined;
 }
 
 /**

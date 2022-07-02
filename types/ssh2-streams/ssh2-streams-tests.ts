@@ -87,9 +87,7 @@ server.forwardedTcpip(0, 0, 0, { bindAddr: "bindAddr", bindPort: 8080, remoteAdd
 server.x11(0, 0, 0, { originAddr: "originAddr", originPort: 0 });
 server.openssh_forwardedStreamLocal(0, 0, 0, { socketPath: "socketPath" });
 
-const maybeParsedKey = ssh2.utils.parseKey("keyData");
-ssh2.utils.decryptKey(parsedKey, "passphrase");
-const publicKey = ssh2.utils.genPublicKey(parsedKey);
+const maybeParsedKey = ssh2.utils.parseKey("keyData", "passphrase");
 
 
 declare const attrs: ssh2.Attributes;
@@ -102,4 +100,12 @@ sftp.createReadStream("path");
 sftp.createWriteStream("path");
 sftp.data(0, buffer);
 sftp.fastGet("remotePath", "localPath", () => {});
+sftp.fastGet("remotePath", "localPath", { concurrency: 64, chunkSize: 32768, step: () => {} }, () => {});
 sftp.fastPut("localPath", "remotePath", () => {});
+sftp.fastPut("localPath", "remotePath", { concurrency: 64, chunkSize: 32768, step: () => {}, mode: '0755' }, () => {});
+sftp.readFile("remotePath", () => {});
+sftp.readFile("remotePath", "utf8", () => {});
+sftp.readFile("remotePath", { encoding: "utf8", flag: "r" }, () => {});
+sftp.writeFile("remotePath", "example data", () => {});
+sftp.writeFile("remotePath", "example data", "utf8", () => {});
+sftp.writeFile("remotePath", "example data", { encoding: "utf8", mode: 438, flag: "w" }, () => {});

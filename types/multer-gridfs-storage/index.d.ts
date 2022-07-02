@@ -1,8 +1,8 @@
-// Type definitions for multer-gridfs-storage 3.1
+// Type definitions for multer-gridfs-storage 4.0
 // Project: https://github.com/devconcept/multer-gridfs-storage
 // Definitions by: devconcept <https://github.com/devconcept>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 4.1
 
 import { EventEmitter } from 'events';
 import { Express } from 'express';
@@ -47,29 +47,39 @@ declare class MulterGridfsStorage extends EventEmitter implements Multer.Storage
 
     _removeFile(req: Express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
 
+    ready(): Promise<MulterGridfsStorage.ConnectionResult>;
+
     static cache: Cache;
+
+    static generateBytes(): Promise<{filename: string}>;
 }
 
 declare namespace MulterGridfsStorage {
+    interface ConnectionResult {
+        db: Db;
+        client?: MongoClient | undefined;
+    }
+
     interface UrlStorageOptions extends MulterGfsOptions {
         url: string;
         options?: any;
-        cache?: boolean | string;
+        cache?: boolean | string | undefined;
     }
 
     interface DbStorageOptions extends MulterGfsOptions {
-        db: Mongoose | Connection | Db | MongoClient | Promise<Mongoose | Connection | Db | MongoClient>;
+        db: Mongoose | Connection | Db | Promise<Mongoose | Connection | Db>;
+        client?: MongoClient | Promise<MongoClient> | undefined;
     }
 
     interface FileConfig {
-        filename?: string;
+        filename?: string | undefined;
         id?: any;
-        metadata?: object;
-        chunkSize?: number;
-        bucketName?: string;
-        contentType?: string;
-        aliases?: string[];
-        disableMD5?: boolean;
+        metadata?: object | undefined;
+        chunkSize?: number | undefined;
+        bucketName?: string | undefined;
+        contentType?: string | undefined;
+        aliases?: string[] | undefined;
+        disableMD5?: boolean | undefined;
     }
 }
 

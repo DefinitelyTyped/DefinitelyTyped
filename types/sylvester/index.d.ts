@@ -1,7 +1,7 @@
 // Type definitions for sylvester 0.1.3
 // Project: https://github.com/jcoglan/sylvester
 // Definitions by: Stephane Alie <https://github.com/StephaneAlie>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // === Sylvester ===
 // Vector and Matrix mathematics modules for JavaScript
@@ -291,10 +291,10 @@ interface Vector {
      * Rotates the vector about the given object. The object should be a point if the vector is 2D,
      * and a line if it is 3D. Be careful with line directions!
      *
-     * @param {number} t The angle in radians.
+     * @param {number|Matrix} t The angle in radians or in rotation matrix.
      * @param {Vector|Line} obj The rotation axis.
      */
-    rotate(t: number, obj: Vector|Line): Vector;
+    rotate(t: number|Matrix, obj: Vector|Line): Vector;
 
     /**
      * Returns the result of reflecting the point in the given point, line or plane.

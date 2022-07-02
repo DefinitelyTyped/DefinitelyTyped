@@ -1,8 +1,8 @@
 // Type definitions for gm 1.18
 // Project: https://github.com/aheckmann/gm
-// Definitions by:  Joel Spadin <https://github.com/ChaosinaCan>
-//                  Maarten van Vliet <https://github.com/maartenvanvliet>
-//                  Vaclav Mlejnsky <https://github.com/mlejva>
+// Definitions by: Maarten van Vliet <https://github.com/maartenvanvliet>
+//                 Vaclav Mlejnsky <https://github.com/mlejva>
+//                 Dimitry Kooijmans <https://github.com/mrcageman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -14,8 +14,10 @@ declare function m(width: number, height: number, color?: string): m.State;
 
 declare namespace m {
     interface ClassOptions {
-        imageMagick?: boolean;
-        nativeAutoOrient?: boolean;
+        appPath?: string | undefined;
+        imageMagick?: boolean | undefined;
+        nativeAutoOrient?: boolean | undefined;
+        timeout?: string | number;
     }
 
     interface ChannelInfo<T> {
@@ -25,10 +27,10 @@ declare namespace m {
     }
 
     interface CompareOptions {
-        file?: string;
-        highlightColor?: string;
-        highlightStyle?: HighlightStyle;
-        tolerance?: number;
+        file?: string | undefined;
+        highlightColor?: string | undefined;
+        highlightStyle?: HighlightStyle | undefined;
+        tolerance?: number | undefined;
     }
 
     interface ColorStatistics {
@@ -44,7 +46,7 @@ declare namespace m {
     }
 
     interface GetterOptions {
-       bufferStream?: boolean;
+       bufferStream?: boolean | undefined;
     }
 
     interface ImageInfo {
@@ -65,24 +67,24 @@ declare namespace m {
         Geometry: string;
         Interlace: string;
         Iterations: string;
-        'JPEG-Quality'?: string;
-        'JPEG-Colorspace'?: string;
-        'JPEG-Colorspace-Name'?: string;
-        'JPEG-Sampling-factors'?: string;
+        'JPEG-Quality'?: string | undefined;
+        'JPEG-Colorspace'?: string | undefined;
+        'JPEG-Colorspace-Name'?: string | undefined;
+        'JPEG-Sampling-factors'?: string | undefined;
         'Matte Color': string;
         Orientation: string;
         'Page geometry': string;
         path: string;
 
-        'Profile-color'?: string;
+        'Profile-color'?: string | undefined;
         'Profile-iptc'?: {
             [key: string]: string;
-        };
+        } | undefined;
         'Profile-EXIF'?: {
             [key: string]: string;
-        };
-        'Profile-XMP'?: string;
-        Resolution?: string;
+        } | undefined;
+        'Profile-XMP'?: string | undefined;
+        Resolution?: string | undefined;
         size: Dimensions;
         Signature: string;
         Software: string;
@@ -119,6 +121,7 @@ declare namespace m {
         colorspace(space: ColorSpace | string): State;
         command(customCommand: string): State;
         compose(operator: ComposeOperator | string): State;
+        composite(changeImagePath: string, maskImagePath?: string): State;
         compress(type: CompressionType | string): State;
         contrast(multiplier: number): State;
         convolve(kernel: string): State;
@@ -180,9 +183,10 @@ declare namespace m {
         median(radius?: number): State;
         minify(factor: number): State;
         mode(mode: OperationMode | string): State;
-        modulate(b: number, s: number, h: number): State;
+        modulate(b: number, s?: number, h?: number): State;
         monitor(): State;
         monochrome(): State;
+        montage(otherImg: string): State;
         morph(otherImg: string | string[], outName: string, callback?: WriteCallback): State;
         mosaic(): State;
         motionBlur(radius: number, sigma?: number, angle?: number): State;
@@ -230,6 +234,8 @@ declare namespace m {
         scale(width: number, height: number): State;
         screen(): State;
         segment(clustherThreshold: number, smoothingThreshold: number): State;
+        /** change the specified frame. */
+        selectFrame(frame: number): State;
         sepia(): State;
         set(attribute: string, value: string): State;
         setFormat(format: string): State;
@@ -284,6 +290,7 @@ declare namespace m {
         format(callback: GetterCallback<string>): State;
         format(opts: GetterOptions, callback: GetterCallback<string>): State;
         identify(callback: GetterCallback<ImageInfo>): State;
+        identify(format: string, callback: GetterCallback<string>): State;
         identify(opts: GetterOptions, callback: GetterCallback<ImageInfo>): State;
         res(callback: GetterCallback<string>): State;
         res(opts: GetterOptions, callback: GetterCallback<string>): State;
@@ -314,8 +321,8 @@ declare namespace m {
         // Commands
         stream(callback?: WriteCallback): stream.PassThrough;
         stream(format: string, callback?: WriteCallback): stream.PassThrough;
-        toBuffer(callback: (err: Error, buffer: Buffer) => any): stream.PassThrough;
-        toBuffer(format: string, callback: (err: Error, buffer: Buffer) => any): stream.PassThrough;
+        toBuffer(callback: (err: Error|null, buffer: Buffer) => any): stream.PassThrough;
+        toBuffer(format: string, callback: (err: Error|null, buffer: Buffer) => any): stream.PassThrough;
         write(filename: string, callback: WriteCallback): void;
     }
 
@@ -389,7 +396,7 @@ declare namespace m {
         | 'YPbPr'
         | 'YUV';
 
-    type CompareCallback = (err: Error, isEqual: boolean, equality: number, raw: number) => any;
+    type CompareCallback = (err: Error|null, isEqual: boolean, equality: number, raw: number) => any;
 
     type ComposeOperator = 'Over'
         | 'In'
@@ -463,7 +470,7 @@ declare namespace m {
         | 'Bessel'
         | 'Sinc';
 
-    type GetterCallback<T> = (err: Error, value: T) => any;
+    type GetterCallback<T> = (err: Error|null, value: T) => any;
 
     type GravityDirection = 'NorthWest'
         | 'North'
@@ -599,7 +606,7 @@ declare namespace m {
         | 'DirectColor'
         | 'default';
 
-    type WriteCallback = (err: Error, stdout: string, stderr: string, cmd: string) => any;
+    type WriteCallback = (err: Error|null, stdout: stream.Readable, stderr: stream.Readable, cmd: string) => any;
 }
 
 export = m;

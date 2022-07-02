@@ -3,7 +3,7 @@ import { Wizard, Step, Steps, withWizard } from "react-albus";
 
 declare module "react-albus" {
     interface StepObject {
-        quote?: string;
+        quote?: string | undefined;
     }
 }
 

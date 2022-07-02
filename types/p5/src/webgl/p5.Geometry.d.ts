@@ -1,54 +1,54 @@
 // This file was auto-generated. Please do not edit it.
 
-import * as p5 from "../../index";
+import * as p5 from '../../index';
 
-declare module "../../index" {
-  class Geometry {
-    /**
-     *   p5 Geometry class
-     *
-     *   @param [detailX] number of vertices on horizontal
-     *   surface
-     *   @param [detailY] number of vertices on horizontal
-     *   surface
-     *   @param [callback] function to call upon object
-     *   instantiation.
-     */
-    constructor(
-      detailX?: number,
-      detailY?: number,
-      callback?: (
-        ...args: any[]
-      ) => any
-    );
-    computeFaces(): Geometry;
+declare module '../../index' {
+    class Geometry {
+        /**
+         *   p5 Geometry class
+         *
+         *   @param [detailX] number of vertices on horizontal
+         *   surface
+         *   @param [detailY] number of vertices on horizontal
+         *   surface
+         *   @param [callback] function to call upon object
+         *   instantiation.
+         */
+        constructor(detailX?: number, detailY?: number, callback?: (...args: any[]) => any);
 
-    /**
-     *   computes smooth normals per vertex as an average
-     *   of each face.
-     *   @chainable
-     */
-    computeNormals(): Geometry;
+        /**
+         *   computes faces for geometry objects based on the
+         *   vertices.
+         *   @chainable
+         */
+        computeFaces(): Geometry;
 
-    /**
-     *   Averages the vertex normals. Used in curved
-     *   surfaces
-     *   @chainable
-     */
-    averageNormals(): Geometry;
+        /**
+         *   computes smooth normals per vertex as an average
+         *   of each face.
+         *   @chainable
+         */
+        computeNormals(): Geometry;
 
-    /**
-     *   Averages pole normals. Used in spherical
-     *   primitives
-     *   @chainable
-     */
-    averagePoleNormals(): Geometry;
+        /**
+         *   Averages the vertex normals. Used in curved
+         *   surfaces
+         *   @chainable
+         */
+        averageNormals(): Geometry;
 
-    /**
-     *   Modifies all vertices to be centered within the
-     *   range -100 to 100.
-     *   @chainable
-     */
-    normalize(): Geometry;
-  }
+        /**
+         *   Averages pole normals. Used in spherical
+         *   primitives
+         *   @chainable
+         */
+        averagePoleNormals(): Geometry;
+
+        /**
+         *   Modifies all vertices to be centered within the
+         *   range -100 to 100.
+         *   @chainable
+         */
+        normalize(): Geometry;
+    }
 }

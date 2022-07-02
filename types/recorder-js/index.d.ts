@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export default Recorder;
+export = Recorder;
 
 declare class Recorder {
     constructor(audioContext: AudioContext, config?: Recorder.RecorderConfig);
@@ -18,7 +18,7 @@ declare namespace Recorder {
     type OnAnalysedHandler = (data: number[], lastNonZero: number) => void;
 
     interface RecorderConfig {
-        onAnalysed?: OnAnalysedHandler;
+        onAnalysed?: OnAnalysedHandler | undefined;
     }
 
     interface RecorderResult {

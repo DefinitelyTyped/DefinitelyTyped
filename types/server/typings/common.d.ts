@@ -16,6 +16,8 @@ export type LogLevel =
     | "info"
     | "debug";
 
+export type LogFn = (template: string, ...tokens: string[]) => void;
+
 export interface Context {
     options: Options;
     data: any;
@@ -26,7 +28,7 @@ export interface Context {
     cookie: { [key: string]: string };
     files: formidable.Files;
     ip: string;
-    ips?: string[];
+    ips?: string[] | undefined;
     url: string;
     method: string;
     path: string;
@@ -35,6 +37,7 @@ export interface Context {
     error: Error;
     req: express.Request;
     res: express.Response;
+    log: { [key in LogLevel]: LogFn };
 }
 
 export type Middleware = (ctx: Context) => Reply | BasicType | void;

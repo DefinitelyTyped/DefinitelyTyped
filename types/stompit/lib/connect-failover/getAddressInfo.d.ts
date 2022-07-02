@@ -9,9 +9,9 @@ declare namespace getAddressInfo {
         connectArgs: ConnectOptions;
         transport: string;
         transportPath: string;
-        path?: string;
-        host?: string;
-        port?: number;
+        path?: string | undefined;
+        host?: string | undefined;
+        port?: number | undefined;
         pseudoUri: string;
     }
 }

@@ -1,38 +1,51 @@
-import { dasherize, camelize, capitalize, classify, decamelize, htmlSafe, loc, underscore, w } from '@ember/string';
-import { SafeString } from 'handlebars';
+import {
+  dasherize,
+  camelize,
+  capitalize,
+  classify,
+  decamelize,
+  underscore,
+  w,
+} from '@ember/string';
 
-dasherize(); // $ExpectError
+// @ts-expect-error
+dasherize();
 dasherize('blue man group'); // $ExpectType string
-dasherize('', ''); // $ExpectError
+// @ts-expect-error
+dasherize('', '');
 
-camelize(); // $ExpectError
+// @ts-expect-error
+camelize();
 camelize('blue man group'); // $ExpectType string
-camelize('', ''); // $ExpectError
+// @ts-expect-error
+camelize('', '');
 
-decamelize(); // $ExpectError
+// @ts-expect-error
+decamelize();
 decamelize('blue man group'); // $ExpectType string
-decamelize('', ''); // $ExpectError
+// @ts-expect-error
+decamelize('', '');
 
-underscore(); // $ExpectError
+// @ts-expect-error
+underscore();
 underscore('blue man group'); // $ExpectType string
-underscore('', ''); // $ExpectError
+// @ts-expect-error
+underscore('', '');
 
-w(); // $ExpectError
+// @ts-expect-error
+w();
 w('blue man group'); // $ExpectType string[]
-w('', ''); // $ExpectError
+// @ts-expect-error
+w('', '');
 
-classify(); // $ExpectError
+// @ts-expect-error
+classify();
 classify('blue man group'); // $ExpectType string
-classify('', ''); // $ExpectError
+// @ts-expect-error
+classify('', '');
 
-capitalize(); // $ExpectError
+// @ts-expect-error
+capitalize();
 capitalize('blue man group'); // $ExpectType string
-capitalize('', ''); // $ExpectError
-
-loc(); // $ExpectError
-loc("_Hello World");  // $ExpectType string
-loc("_Hello %@ %@", ["John", "Smith"]);  // $ExpectType string
-
-const handlebarsSafeString: SafeString = htmlSafe('lorem ipsum...');
-htmlSafe('lorem ipsum...'); // $ExpectType SafeString
-const regularString: string = htmlSafe('lorem ipsum...'); // $ExpectError
+// @ts-expect-error
+capitalize('', '');

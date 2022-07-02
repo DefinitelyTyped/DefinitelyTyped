@@ -4,6 +4,7 @@
 *.pdb
 *.suo
 *.js
+*.cjs
 *.user
 *.cache
 *.cs
@@ -11,6 +12,8 @@
 *.csproj
 *.map
 *.swp
+*.code-workspace
+*.log
 .DS_Store
 
 _Resharper.DefinitelyTyped
@@ -30,9 +33,6 @@ _infrastructure/tests/build
 
 *.js.map
 !*.js/
-!scripts/new-package.js
-!scripts/not-needed.js
-!scripts/lint.js
 
 # npm
 node_modules
@@ -53,3 +53,8 @@ yarn.lock
 
 # pnpm
 shrinkwrap.yaml
+pnpm-lock.yaml
+pnpm-debug.log
+
+# Output of 'npm pack'
+*.tgz

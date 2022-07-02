@@ -1,7 +1,7 @@
 
 
 interface Dependency {
-    dependencies?: string;
+    dependencies?: string | undefined;
 }
 
 function doTest(test: (ctx: any, ...obj: Dependency[]) => void) {

@@ -9,3 +9,7 @@ process.stdin.pipe(cl).pipe(process.stdout);
 
 cloneable.isCloneable(ps); // $ExpectType boolean
 cloneable.isCloneable(cl); // $ExpectType boolean
+
+if (cloneable.isCloneable(ps)) {
+    ps; // $ExpectType PassThrough & Readable & { clone(): Cloneable<Readable>; }
+}

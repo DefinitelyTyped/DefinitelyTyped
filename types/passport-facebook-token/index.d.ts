@@ -41,11 +41,12 @@ declare namespace PassportFacebookToken {
     interface StrategyOptions {
         clientID: string;
         clientSecret: string;
-        authorizationURL?: string;
-        tokenURL?: string;
-        scopeSeparator?: string;
-        enableProof?: boolean;
-        profileFields?: string[];
+        authorizationURL?: string | undefined;
+        tokenURL?: string | undefined;
+        scopeSeparator?: string | undefined;
+        enableProof?: boolean | undefined;
+        profileFields?: string[] | undefined;
+        fbGraphVersion?: string | undefined;
     }
 
     interface StrategyOptionsWithRequest extends StrategyOptions {

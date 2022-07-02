@@ -67,7 +67,7 @@ interface Props {
     a: string;
 }
 
-const TestFunctionalComponentWithProps: React.SFC<Props & MeasuredComponentProps> = ({a, contentRect, measureRef}) => {
+const TestFunctionalComponentWithProps: React.FC<Props & MeasuredComponentProps> = ({a, contentRect, measureRef}) => {
     return (
         <div ref={measureRef}>{a}</div>
     );
@@ -107,3 +107,8 @@ const funcEl = <MeasuredFunctionalComponent a="test" />;
 
 const MeasuredClassComponent = withContentRect('bounds')<Props>(TestClassComponentWithProps);
 const classEl = <MeasuredClassComponent a="test" />;
+
+function testInnerRefHook() {
+    const ref = React.useRef<HTMLDivElement>();
+    return <Measure innerRef={ref} />;
+}

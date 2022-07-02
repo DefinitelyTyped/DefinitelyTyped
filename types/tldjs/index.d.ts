@@ -33,8 +33,8 @@ export declare function parse(host: string): {
 
 export declare function fromUserSettings(options: {
     rules?: any,
-    validHosts?: string[],
-    extractHostname?: ReturnType<typeof extractHostname>,
+    validHosts?: string[] | undefined,
+    extractHostname?: ReturnType<typeof extractHostname> | undefined,
 }): {
     extractHostname: typeof extractHostname,
     isValidHostname: typeof isValidHostname,

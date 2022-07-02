@@ -1,13 +1,16 @@
+// package: google.protobuf
+// file: any.proto
+
 import * as jspb from "../../index";
 
 export class Any extends jspb.Message {
   getTypeUrl(): string;
-  setTypeUrl(value: string): void;
+  setTypeUrl(value: string): Any;
 
   getValue(): Uint8Array | string;
   getValue_asU8(): Uint8Array;
   getValue_asB64(): string;
-  setValue(value: Uint8Array | string): void;
+  setValue(value: Uint8Array | string): Any;
 
   getTypeName(): string;
   pack(serialized: Uint8Array, name: string, typeUrlPrefix?: string): void;
@@ -29,4 +32,3 @@ export namespace Any {
     value: Uint8Array | string,
   }
 }
-

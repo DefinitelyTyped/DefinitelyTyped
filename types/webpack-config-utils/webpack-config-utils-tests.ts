@@ -43,17 +43,17 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
             ifProduction // $ExpectType IfUtilsFn
         } = getIfUtils('production');
 
-        // $ExpectType "value" | "alternate"
+        // $ExpectType "value" | "alternate" || "alternate" | "value"
         ifProduction('value', 'alternate'); // 'value'
     }
     {
         const { ifNotDev } = getIfUtils({ dev: false });
 
-        // $ExpectType "value" | "alternate"
+        // $ExpectType "value" | "alternate" || "alternate" | "value"
         ifNotDev('value', 'alternate'); // 'value'
     }
     {
-        // $ExpectError
+        // @ts-expect-error
         getIfUtils(false); // webpack-config-utils:getIfUtils.*?string\/Object/);
     }
     {
@@ -82,7 +82,8 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
     // $ExpectType (number | null)[]
     const emptiedArray = removeEmpty([undefined, 0, 1, 2, undefined, 3, undefined, null]); // [0, 1, 2, 3, null]
 
-    // $ExpectType NonEmptyObject<{ a: number; b: string; c: undefined; d: null; }, "b" | "a" | "d">
+    /* tslint:disable-next-line:max-line-length */
+    // $ExpectType NonEmptyObject<{ a: number; b: string; c: undefined; d: null; }, "b" | "a" | "d"> || NonEmptyObject<{ a: number; b: string; c: undefined; d: null; }, DefinedObjKeys<{ a: number; b: string; c: undefined; d: null; }>>
     const emptiedObject = removeEmpty({ a: 1, b: 'b', c: undefined, d: null }); // {a: 1, b: 'b', d: null}
     const {
         a, // $ExpectType number
@@ -91,7 +92,7 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
     } = emptiedObject;
 
     {
-        // $ExpectError
+        // @ts-expect-error
         const {a, b, c, d} = emptiedObject;
     }
 

@@ -2,14 +2,15 @@
 // Project: https://github.com/mzabriskie/moxios
 // Definitions by: Asuka Ito <https://github.com/itoasuka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { AxiosInstance, AxiosRequestConfig } from "axios";
 
 interface Item {
     response?: any;
-    responseText?: string;
-    status?: number;
-    statusText?: string;
+    responseText?: string | undefined;
+    status?: number | undefined;
+    statusText?: string | undefined;
     headers?: any;
 }
 
@@ -111,11 +112,11 @@ declare class Response {
 
     config: AxiosRequestConfig;
     data?: any;
-    status?: number;
-    statusText?: string;
+    status?: number | undefined;
+    statusText?: string | undefined;
     headers: any;
     request: Request;
-    code?: string;
+    code?: string | undefined;
 }
 
 declare let moxios: {
@@ -141,6 +142,15 @@ declare let moxios: {
      * @param response The response to use when a match is made
      */
     stubRequest(urlOrRegExp: string | RegExp, response: Item): void;
+
+    /**
+     * Stub a response to be used to respond to a request matching a URL or RegExp
+     *
+     * @param method An axios command
+     * @param urlOrRegExp A URL or RegExp to test against
+     * @param response The response to use when a match is made
+     */
+    stubRequest(method: string, urlOrRegExp: string | RegExp, response: Item): void;
 
     /**
      * Stub a response to be used one or more times to respond to a request matching a

@@ -1,5 +1,5 @@
 // Type definitions for angular-websocket 2.0
-// Project: https://github.com/AngularClass/angular-websocket
+// Project: https://github.com/gdi2290/angular-websocket, https://github.com/angular-class/angular-websocket
 // Definitions by: Nick Veys <https://github.com/nickveys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -19,13 +19,13 @@ declare module "angular" {
          * Options available to be specified for IWebSocketProvider.
          */
         interface IWebSocketConfigOptions {
-            scope?: IScope;
-            rootScopeFailOver?: boolean;
-            useApplyAsync?: boolean;
-            initialTimeout?: number;
-            maxTimeout?: number;
-            binaryType?: "blob" | "arraybuffer";
-            reconnectIfNotNormalClose?: boolean;
+            scope?: IScope | undefined;
+            rootScopeFailOver?: boolean | undefined;
+            useApplyAsync?: boolean | undefined;
+            initialTimeout?: number | undefined;
+            maxTimeout?: number | undefined;
+            binaryType?: "blob" | "arraybuffer" | undefined;
+            reconnectIfNotNormalClose?: boolean | undefined;
         }
 
         /**
@@ -44,16 +44,16 @@ declare module "angular" {
              * If specified, only messages that match the filter will cause the message event
              * to be fired.
              */
-            filter?: string | RegExp;
+            filter?: string | RegExp | undefined;
 
             /** If true, each message handled will safely call `$rootScope.$digest()`. */
-            autoApply?: boolean;
+            autoApply?: boolean | undefined;
         }
 
         /** Type corresponding to onMessage callbacks stored in $Websocket#onMessageCallbacks instance. */
         interface IWebSocketMessageHandler {
             fn: (evt: MessageEvent) => void;
-            pattern?: string | RegExp;
+            pattern?: string | RegExp | undefined;
             autoApply: boolean;
         }
 

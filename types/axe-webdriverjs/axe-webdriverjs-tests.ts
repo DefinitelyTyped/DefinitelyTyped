@@ -1,10 +1,16 @@
-import { Result, RunOptions, Spec } from "axe-core";
-import { AxeBuilder, AxeAnalysis } from "axe-webdriverjs";
-import { WebDriver } from "selenium-webdriver";
+import { Result, RunOptions, Spec } from 'axe-core';
+import { AxeAnalysis, AxeBuilder, BuilderOptions } from 'axe-webdriverjs';
+import { Builder, WebDriver } from 'selenium-webdriver';
 
-const inTest = async (webDriver: WebDriver) => {
-    const builderCalled: AxeBuilder = AxeBuilder(webDriver);
-    const builderNewed: AxeBuilder = new AxeBuilder(webDriver);
+const inTest = async (webDriver: WebDriver, source?: string, builderOptions?: BuilderOptions) => {
+    const [builderCalled, builderNewed, ...builders] = [
+        AxeBuilder(webDriver),
+        new AxeBuilder(webDriver),
+        AxeBuilder(webDriver, source),
+        new AxeBuilder(webDriver, source),
+        AxeBuilder(webDriver, source, builderOptions),
+        new AxeBuilder(webDriver, source, builderOptions),
+    ];
 
     const runOptions: RunOptions = {};
     const spec: Spec = {};
@@ -20,7 +26,11 @@ const inTest = async (webDriver: WebDriver) => {
         .disableRules("rule")
         .disableRules(["rule", "rule"])
         .configure(spec)
-        .analyze((internalResults: AxeAnalysis) => {});
+        .analyze((err: Error | null, internalResults: AxeAnalysis) => {});
+
+    const deprecatedAnalysis: AxeAnalysis = await AxeBuilder(webDriver).analyze(
+        (internalResults: AxeAnalysis) => {}
+    );
 
     const inapplicable: Result[] = analysis.inapplicable;
     const incomplete: Result[] = analysis.incomplete;
@@ -29,3 +39,10 @@ const inTest = async (webDriver: WebDriver) => {
     const url: string = analysis.url;
     const violations: Result[] = analysis.violations;
 };
+
+const driver = new Builder().forBrowser('firefox').build();
+const axeSource = 'some string literal';
+const axeBuilderOptions: BuilderOptions = {
+    logIframeErrors: false,
+};
+inTest(driver, axeSource, axeBuilderOptions);

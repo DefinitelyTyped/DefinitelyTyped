@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/move-concurrently
 // Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /**
  * Recursively moves from to to and resolves its promise when finished. If to already exists then the promise will be rejected with an EEXIST error.
@@ -14,17 +14,17 @@ declare namespace move {
         /**
          * (Default: 1) The maximum number of concurrent copies to do at once.
          */
-        maxConcurrency?: number;
+        maxConcurrency?: number | undefined;
         /**
          * (Default: process.platform === 'win32') If true enables Windows symlink semantics.
          * This requires an extra stat to determine if the destination of a symlink is a file or directory.
          * If symlinking a directory fails then we'll try making a junction instead.
          */
-        isWindows?: boolean;
+        isWindows?: boolean | undefined;
         /**
          * (Default: global.Promise) The promise implementation to use, defaults to Node's.
          */
-        Promise?: new (...args: any[]) => T;
+        Promise?: (new (...args: any[]) => T | undefined) | undefined;
         /**
          * (Default: require('fs')) The filesystem module to use. Can be used to use graceful-fs or to inject a mock.
          */

@@ -1,26 +1,29 @@
+// package: google.protobuf.compiler
+// file: compiler/plugin.proto
+
 import * as jspb from "../../../index";
 import * as google_protobuf_descriptor_pb from "../descriptor_pb";
 
 export class Version extends jspb.Message {
   hasMajor(): boolean;
-  clearMajor(): void;
-  getMajor(): number;
-  setMajor(value: number): void;
+  clearMajor(): Version;
+  getMajor(): number | undefined;
+  setMajor(value: number): Version;
 
   hasMinor(): boolean;
-  clearMinor(): void;
-  getMinor(): number;
-  setMinor(value: number): void;
+  clearMinor(): Version;
+  getMinor(): number | undefined;
+  setMinor(value: number): Version;
 
   hasPatch(): boolean;
-  clearPatch(): void;
-  getPatch(): number;
-  setPatch(value: number): void;
+  clearPatch(): Version;
+  getPatch(): number | undefined;
+  setPatch(value: number): Version;
 
   hasSuffix(): boolean;
-  clearSuffix(): void;
-  getSuffix(): string;
-  setSuffix(value: string): void;
+  clearSuffix(): Version;
+  getSuffix(): string | undefined;
+  setSuffix(value: string): Version;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Version.AsObject;
@@ -34,33 +37,33 @@ export class Version extends jspb.Message {
 
 export namespace Version {
   export type AsObject = {
-    major?: number,
-    minor?: number,
-    patch?: number,
-    suffix?: string,
+    major?: number | undefined,
+    minor?: number | undefined,
+    patch?: number | undefined,
+    suffix?: string | undefined,
   }
 }
 
 export class CodeGeneratorRequest extends jspb.Message {
-  clearFileToGenerateList(): void;
+  clearFileToGenerateList(): CodeGeneratorRequest;
   getFileToGenerateList(): Array<string>;
-  setFileToGenerateList(value: Array<string>): void;
-  addFileToGenerate(value: string, index?: number): void;
+  setFileToGenerateList(value: Array<string>): CodeGeneratorRequest;
+  addFileToGenerate(value: string, index?: number): string;
 
   hasParameter(): boolean;
-  clearParameter(): void;
-  getParameter(): string;
-  setParameter(value: string): void;
+  clearParameter(): CodeGeneratorRequest;
+  getParameter(): string | undefined;
+  setParameter(value: string): CodeGeneratorRequest;
 
-  clearProtoFileList(): void;
+  clearProtoFileList(): CodeGeneratorRequest;
   getProtoFileList(): Array<google_protobuf_descriptor_pb.FileDescriptorProto>;
-  setProtoFileList(value: Array<google_protobuf_descriptor_pb.FileDescriptorProto>): void;
-  addProtoFile(value?: google_protobuf_descriptor_pb.FileDescriptorProto, index?: number): void;
+  setProtoFileList(value: Array<google_protobuf_descriptor_pb.FileDescriptorProto>): CodeGeneratorRequest;
+  addProtoFile(value?: google_protobuf_descriptor_pb.FileDescriptorProto, index?: number): google_protobuf_descriptor_pb.FileDescriptorProto;
 
   hasCompilerVersion(): boolean;
-  clearCompilerVersion(): void;
-  getCompilerVersion(): Version;
-  setCompilerVersion(value?: Version): void;
+  clearCompilerVersion(): CodeGeneratorRequest;
+  getCompilerVersion(): Version | undefined;
+  setCompilerVersion(value?: Version): CodeGeneratorRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CodeGeneratorRequest.AsObject;
@@ -75,22 +78,27 @@ export class CodeGeneratorRequest extends jspb.Message {
 export namespace CodeGeneratorRequest {
   export type AsObject = {
     fileToGenerateList: Array<string>,
-    parameter?: string,
+    parameter?: string | undefined,
     protoFileList: Array<google_protobuf_descriptor_pb.FileDescriptorProto.AsObject>,
-    compilerVersion: Version.AsObject,
+    compilerVersion?: Version.AsObject | undefined,
   }
 }
 
 export class CodeGeneratorResponse extends jspb.Message {
   hasError(): boolean;
-  clearError(): void;
-  getError(): string;
-  setError(value: string): void;
+  clearError(): CodeGeneratorResponse;
+  getError(): string | undefined;
+  setError(value: string): CodeGeneratorResponse;
 
-  clearFileList(): void;
+  hasSupportedFeatures(): boolean;
+  clearSupportedFeatures(): CodeGeneratorResponse;
+  getSupportedFeatures(): number | undefined;
+  setSupportedFeatures(value: number): CodeGeneratorResponse;
+
+  clearFileList(): CodeGeneratorResponse;
   getFileList(): Array<CodeGeneratorResponse.File>;
-  setFileList(value: Array<CodeGeneratorResponse.File>): void;
-  addFile(value?: CodeGeneratorResponse.File, index?: number): void;
+  setFileList(value: Array<CodeGeneratorResponse.File>): CodeGeneratorResponse;
+  addFile(value?: CodeGeneratorResponse.File, index?: number): CodeGeneratorResponse.File;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CodeGeneratorResponse.AsObject;
@@ -104,25 +112,31 @@ export class CodeGeneratorResponse extends jspb.Message {
 
 export namespace CodeGeneratorResponse {
   export type AsObject = {
-    error?: string,
+    error?: string | undefined,
+    supportedFeatures?: number | undefined,
     fileList: Array<File.AsObject>,
+  }
+
+  export enum Feature {
+    FEATURE_NONE = 0,
+    FEATURE_PROTO3_OPTIONAL = 1,
   }
 
   export class File extends jspb.Message {
     hasName(): boolean;
-    clearName(): void;
-    getName(): string;
-    setName(value: string): void;
+    clearName(): File;
+    getName(): string | undefined;
+    setName(value: string): File;
 
     hasInsertionPoint(): boolean;
-    clearInsertionPoint(): void;
-    getInsertionPoint(): string;
-    setInsertionPoint(value: string): void;
+    clearInsertionPoint(): File;
+    getInsertionPoint(): string | undefined;
+    setInsertionPoint(value: string): File;
 
     hasContent(): boolean;
-    clearContent(): void;
-    getContent(): string;
-    setContent(value: string): void;
+    clearContent(): File;
+    getContent(): string | undefined;
+    setContent(value: string): File;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): File.AsObject;
@@ -136,10 +150,9 @@ export namespace CodeGeneratorResponse {
 
   export namespace File {
     export type AsObject = {
-      name?: string,
-      insertionPoint?: string,
-      content?: string,
+      name?: string | undefined,
+      insertionPoint?: string | undefined,
+      content?: string | undefined,
     }
   }
 }
-

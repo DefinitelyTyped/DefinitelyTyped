@@ -14,7 +14,7 @@ declare function Umd(name: string, src: string, options?: boolean | Umd.Options)
 declare namespace Umd {
 
     interface Options {
-        commonJS?: boolean;
+        commonJS?: boolean | undefined;
     }
 
     function prelude(moduleName: string, options?: boolean | Options): string;

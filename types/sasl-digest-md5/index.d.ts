@@ -26,7 +26,7 @@ declare class DigestMd5Mechanism implements Mechanism {
 
 declare namespace DigestMd5Mechanism {
     interface Options {
-        genNonce?: () => number;
+        genNonce?: (() => number) | undefined;
     }
 
     interface Credentials {
@@ -34,8 +34,8 @@ declare namespace DigestMd5Mechanism {
         host: string;
         username: string;
         password: string;
-        serviceName?: string;
-        realm?: string;
-        authzid?: string;
+        serviceName?: string | undefined;
+        realm?: string | undefined;
+        authzid?: string | undefined;
     }
 }

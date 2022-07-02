@@ -334,7 +334,7 @@ describe('EventEmitter', function tests() {
             assert.strictEqual(e.listeners('aaa').length, 0);
         });
 
-        it('just nukes the fuck out of everything', function () {
+        it('just nukes everything', function () {
             var e = new EventEmitter();
 
             e.addListener('foo', function () { throw new Error('oops'); });

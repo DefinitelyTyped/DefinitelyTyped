@@ -17,7 +17,7 @@ createReadStream("http://example.org/path/to/archive.zip")
         const s1: string = entry.path;
         const s2: string = entry.type;
         const o1: {
-            signature?: number;
+            signature?: number | undefined;
             versionsNeededToExtract: number;
             flags: number;
             compressionMethod: number;
@@ -48,3 +48,10 @@ const dir1: Promise<CentralDirectory> = Open.file("Z:\\path\\to\\archive.zip");
 const dir2: Promise<CentralDirectory> = Open.url(get("url/to/archive.zip"), {});
 const dir3: Promise<CentralDirectory> = Open.s3("any", "any");
 const dir4: Promise<CentralDirectory> = Open.buffer(Buffer.from('ZIPDATA'));
+
+(async () => {
+    const cd = await dir1;
+    await cd.extract({
+        path: "path/to/extraction/root"
+    });
+})();

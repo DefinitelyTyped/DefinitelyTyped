@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es6",
         "lib": [
             "es6",
             "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -19,6 +20,18 @@
     },
     "files": [
         "index.d.ts",
+        "test/common/utils.ts",
+        "test/helpers/index.ts",
+        "test/rules_core/state_core.ts",
+        "test/rules_block/state_block.ts",
+        "test/rules_inline/state_inline.ts",
+        "test/index.ts",
+        "test/parser_block.ts",
+        "test/parser_core.ts",
+        "test/parser_inline.ts",
+        "test/renderer.ts",
+        "test/ruler.ts",
+        "test/token.ts",
         "markdown-it-tests.ts"
     ]
 }

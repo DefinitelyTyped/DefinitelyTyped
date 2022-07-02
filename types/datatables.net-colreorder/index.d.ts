@@ -1,5 +1,5 @@
 // Type definitions for datatables.net-colReorder 1.4
-// Project: https://datatables.net/extensions/colreorder/
+// Project: https://datatables.net/extensions/colreorder/, https://datatables.net
 // Definitions by: Andy Ma <https://github.com/andy-maca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -12,29 +12,29 @@ declare namespace DataTables {
     /*
      * colReorder extension options
      */
-    colReorder?: boolean | ColReorderSettings;
+    colReorder?: boolean | ColReorderSettings | undefined;
   }
 
   interface ColReorderSettings {
     /*
      * Number of columns (counting from the left) to disallow reordering of, '0' in default
      */
-    fixedColumnsLeft?: number;
+    fixedColumnsLeft?: number | undefined;
 
     /*
      * Number of columns (counting from the right) to disallow reordering of, '0' in default
      */
-    fixedColumnsRight?: number;
+    fixedColumnsRight?: number | undefined;
 
     /*
      * Set a default order for the columns in the table
      */
-    order?: number[];
+    order?: number[] | undefined;
 
     /*
      * Enable / disable live reordering of columns during a drag, 'true' in default
      */
-    realtime?: boolean;
+    realtime?: boolean | undefined;
     /*
      * Callback after reorder
      */

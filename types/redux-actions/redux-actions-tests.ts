@@ -1,7 +1,6 @@
 import * as ReduxActions from 'redux-actions';
 
 let state: number;
-const minimalAction: ReduxActions.BaseAction = { type: 'INCREMENT' };
 
 const incrementAction: () => ReduxActions.Action<number> = ReduxActions.createAction<number>(
     'INCREMENT', () => 1
@@ -11,14 +10,13 @@ const multiplyAction: (...args: number[]) => ReduxActions.Action<number> = Redux
     'MULTIPLY'
 );
 
-const action: ReduxActions.Action<number> = incrementAction();
-
 const actionHandler = ReduxActions.handleAction<number, number>(
     'INCREMENT',
     (state: number, action: ReduxActions.Action<number>) => state + action.payload,
     0
 );
 
+state = actionHandler(undefined, incrementAction());
 state = actionHandler(0, incrementAction());
 
 const actionHandlerWithReduceMap = ReduxActions.handleAction<number, number>(
@@ -31,6 +29,7 @@ const actionHandlerWithReduceMap = ReduxActions.handleAction<number, number>(
     0
 );
 
+state = actionHandlerWithReduceMap(undefined, multiplyAction(10));
 state = actionHandlerWithReduceMap(0, multiplyAction(10));
 
 const actionsHandler = ReduxActions.handleActions({
@@ -38,7 +37,8 @@ const actionsHandler = ReduxActions.handleActions({
     MULTIPLY: (state: number, action: ReduxActions.Action<number>) => state * action.payload
 }, 0);
 
-state = actionsHandler(0, { type: 'INCREMENT' });
+state = actionsHandler(undefined, incrementAction());
+state = actionsHandler(0, incrementAction());
 
 const actionsHandlerWithInitialState = ReduxActions.handleActions({
     INCREMENT: {
@@ -49,7 +49,8 @@ const actionsHandlerWithInitialState = ReduxActions.handleActions({
     }
 }, 0);
 
-state = actionsHandlerWithInitialState(0, { type: 'INCREMENT' });
+state = actionsHandlerWithInitialState(undefined, incrementAction());
+state = actionsHandlerWithInitialState(0, incrementAction());
 
 const actionsHandlerWithRecursiveReducerMap = ReduxActions.handleActions<number, number>({
     ADJUST: {
@@ -58,6 +59,7 @@ const actionsHandlerWithRecursiveReducerMap = ReduxActions.handleActions<number,
     }
 }, 0);
 
+state = actionsHandlerWithRecursiveReducerMap(undefined, { type: 'ADJUST/UP', payload: 1 });
 state = actionsHandlerWithRecursiveReducerMap(0, { type: 'ADJUST/UP', payload: 1 });
 
 const actionsHandlerWithOptions = ReduxActions.handleActions({
@@ -65,7 +67,8 @@ const actionsHandlerWithOptions = ReduxActions.handleActions({
     MULTIPLY: (state: number, action: ReduxActions.Action<number>) => state * action.payload
 }, 0, {prefix: 'TEST'});
 
-state = actionsHandlerWithOptions(0, { type: 'TEST/INCREMENT' });
+state = actionsHandlerWithOptions(undefined, { type: 'TEST/INCREMENT', payload: 1 });
+state = actionsHandlerWithOptions(0, { type: 'TEST/INCREMENT', payload: 1 });
 
 const actionsHandlerWithRecursiveReducerMapAndOptions = ReduxActions.handleActions<number, number>({
     ADJUST: {
@@ -74,6 +77,7 @@ const actionsHandlerWithRecursiveReducerMapAndOptions = ReduxActions.handleActio
     }
 }, 0, {namespace: '--'});
 
+state = actionsHandlerWithRecursiveReducerMapAndOptions(undefined, { type: 'ADJUST--UP', payload: 1 });
 state = actionsHandlerWithRecursiveReducerMapAndOptions(0, { type: 'ADJUST--UP', payload: 1 });
 
 // ----------------------------------------------------------------------------------------------------
@@ -117,6 +121,7 @@ const typedActionHandler = ReduxActions.handleAction<TypedState, TypedPayload>(
 const actionNoArgs = typedIncrementAction();
 actionNoArgs.payload.increase = 1;
 
+typedState = typedActionHandler(undefined, actionNoArgs);
 typedState = typedActionHandler({ value: 0 }, actionNoArgs);
 
 const typedIncrementAction1TypedArg: (value: number) =>
@@ -144,6 +149,7 @@ const typedActionHandlerReducerMap = ReduxActions.handleActions(
     {value: 1}
 );
 
+typedState = typedActionHandlerReducerMap(undefined, actionFrom1Arg);
 typedState = typedActionHandlerReducerMap({ value: 0 }, actionFrom1Arg);
 
 const typedIncrementByActionWithMetaAnyArgs: (...args: any[]) => ReduxActions.ActionMeta<TypedPayload, MetaType> =
@@ -167,6 +173,7 @@ const typedActionHandlerWithMeta = ReduxActions.handleAction<TypedState, TypedPa
     {value: 1}
 );
 
+typedState = typedActionHandlerWithMeta(undefined, typedIncrementByActionWithMetaAnyArgs(10));
 typedState = typedActionHandlerWithMeta({ value: 0 }, typedIncrementByActionWithMetaAnyArgs(10));
 
 const typedActionHandlerReducerMetaMap = ReduxActions.handleActions<TypedState, TypedPayload, MetaType>(
@@ -181,6 +188,7 @@ const typedActionHandlerReducerMetaMap = ReduxActions.handleActions<TypedState, 
     {value: 1}
 );
 
+typedState = typedActionHandlerReducerMetaMap(undefined, actionMetaFromAnyArgs);
 typedState = typedActionHandlerReducerMetaMap({ value: 0 }, actionMetaFromAnyArgs);
 
 const typedActionWithMeta1TypedArg: (value: number) => ReduxActions.ActionMeta<TypedPayload, MetaType> =

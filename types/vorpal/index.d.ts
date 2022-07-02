@@ -1,11 +1,12 @@
-// Type definitions for vorpal 1.11
+// Type definitions for vorpal 1.12
 // Project: https://github.com/dthree/vorpal
 // Definitions by: Daniel Byrne <https://github.com/danwbyrne>
+//                 Gheorghe Avram <https://github.com/sweethuman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.5
 
 declare class Vorpal {
-    parse(argv: ReadonlyArray<string>): this;
+    parse(argv: ReadonlyArray<string>, opts?: Vorpal.ParseOpts): this;
     delimiter(value: string): this;
     show(): this;
     hide(): this;
@@ -34,6 +35,14 @@ declare namespace Vorpal {
         };
     }
 
+    interface ParseOpts {
+        use?: 'minimist';
+    }
+
+    interface PromptObject {
+        [key: string]: any;
+    }
+
     type Action = (args: Args) => Promise<void>;
     type Cancel = () => void;
 
@@ -44,7 +53,7 @@ declare namespace Vorpal {
         alias(command: string): this;
         parse(value: (command: string, args: Args) => string): this;
         option(option: string, description: string, autocomplete?: ReadonlyArray<string>): this;
-        types(types: { string?: ReadonlyArray<string> }): this;
+        types(types: { string?: ReadonlyArray<string> | undefined }): this;
         hidden(): this;
         remove(): this;
         help(value: (args: Args) => void): this;
@@ -55,9 +64,9 @@ declare namespace Vorpal {
         allowUnknownOptions(): this;
     }
 
-    class Catch extends Command { }
+    class Catch extends Command {}
 
-    class Extension { }
+    class Extension {}
 
     class UI {
         delimiter(text?: string): string;
@@ -74,7 +83,7 @@ declare namespace Vorpal {
 
     class CommandInstance {
         log(value: string, ...values: string[]): void;
-        prompt(prompt: object | ReadonlyArray<object>): Promise<object>;
+        prompt(prompt: object | ReadonlyArray<object>): Promise<PromptObject>;
         delimiter(value: string): void;
     }
 }

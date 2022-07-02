@@ -1,5 +1,5 @@
 // Type definitions for Petit-Dom 0.2
-// Project: // https://github.com/yelouafi/petit-dom
+// Project: https://github.com/yelouafi/petit-dom
 // Definitions by: James Messinger <https://github.com/JamesMessinger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -98,7 +98,8 @@ export namespace PetitDom {
     };
 
     interface IntrinsicProps {
-        key?: Key;
+        content?: Content | ReadonlyArray<Content> | undefined;
+        key?: Key | undefined;
     }
 
     type Props<E extends Element = Element> = IntrinsicProps & DOMElementProps<E>;
@@ -112,7 +113,7 @@ export namespace PetitDom {
 
     interface FunctionComponent<P extends ComponentProps> {
         (props: P, content: ReadonlyArray<Content>): FunctionComponentNode<P>;
-        shouldUpdate?: ShouldUpdate<P>;
+        shouldUpdate?: ShouldUpdate<P> | undefined;
     }
 
     interface ComponentClass<P extends ComponentProps> {
@@ -153,8 +154,8 @@ export namespace PetitDom {
         readonly props: P & IntrinsicProps;
     }
 
-    interface DomElements extends HTMLElementTagNameMap, SVGElementTagNameMap {
-        "main": HTMLMainElement;
+    interface DomElements extends HTMLElementTagNameMap, Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, "a" | "script" | "style" | "title">> {
+        "main": HTMLElement;
     }
 }
 
@@ -163,7 +164,6 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface Element extends PetitDom.VNode { }
 
-        // tslint:disable-next-line:no-empty-interface
         interface ElementClass extends PetitDom.Component<PetitDom.ComponentProps> { }
 
         // tslint:disable-next-line:no-empty-interface
@@ -180,7 +180,7 @@ declare global {
             [P in keyof PetitDom.DomElements]:
             PetitDom.Props<PetitDom.DomElements[P]> &
             {
-                content?: PetitDom.Content | ReadonlyArray<PetitDom.Content>;
+                content?: PetitDom.Content | ReadonlyArray<PetitDom.Content> | undefined;
             };
         };
     }

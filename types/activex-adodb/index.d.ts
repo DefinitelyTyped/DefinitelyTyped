@@ -1,4 +1,4 @@
-// Type definitions for Microsoft ActiveX Data Objects 6.0 Library - ADODB 6.1
+// Type definitions for non-npm package Microsoft ActiveX Data Objects 6.0 Library - ADODB 6.1
 // Project: https://msdn.microsoft.com/en-us/library/jj249010.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -888,7 +888,7 @@ declare namespace ADODB {
         _xSave(FileName?: string, PersistFormat?: PersistFormatEnum): void;
         AbsolutePage: PositionEnum;
         AbsolutePosition: PositionEnum;
-        readonly ActiveCommand?: Command;
+        readonly ActiveCommand?: Command | undefined;
 
         /**
          * Sets or returns a String value that contains a definition for a connection if the connection is closed, or a Variant containing the current Connection object if the connection is open. Default is a null object reference.

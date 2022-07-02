@@ -52,6 +52,22 @@ client.search({
 }, (error) => {
 });
 
+client.indices.create({
+  index: 'test_index',
+  includeTypeName: true,
+  ignore: [400, 404]
+}).then((body) => {
+}, (error) => {
+});
+
+client.indices.get({
+  index: 'test_index',
+  includeTypeName: false,
+  ignore: 404
+}).then((body) => {
+}, (error) => {
+});
+
 client.indices.delete({
   index: 'test_index',
   ignore: [404]
@@ -230,6 +246,15 @@ client.mget({
   body: {
     ids: [1, 2, 3],
     _source: ['test']
+  }
+}, (error, response) => {
+  // ...
+});
+
+client.mget({
+  routing: "myroute",
+  body: {
+    ids: [1, 2, 3]
   }
 }, (error, response) => {
   // ...

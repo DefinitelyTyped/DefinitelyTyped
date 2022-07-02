@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "react-dnd": "^5.0.0"
+    "react-dnd": "^11.1.3"
   }
 }

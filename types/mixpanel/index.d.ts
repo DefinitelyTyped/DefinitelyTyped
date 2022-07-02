@@ -1,8 +1,9 @@
 // Type definitions for Mixpanel 2.14
-// Project: https://mixpanel.com/
+// Project: https://mixpanel.com/, https://github.com/mixpanel/mixpanel-node
 //          https://github.com/mixpanel/mixpanel-js
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek>
 //                 Manduro <https://github.com/Manduro>
+//                 Noam Golani <https://github.com/noamgolani>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Mixpanel {
@@ -71,6 +72,34 @@ interface Mixpanel {
     track(eventName: string, properties?: { [index: string]: any }, callback?: () => void): void;
 
     /**
+     * Track an event. With a predefined EventType
+     *
+     * ### Usage:
+     *
+     *     // Create the event type, extending the EventBaseType
+     *     interface ErrorEvent {
+     *          eventName: 'ERROR' | 'VERY_BAD_ERROR';
+     *          properties: {
+     *              message: string;
+     *              id: number;
+     *          }
+     *     }
+     *
+     *     // Track the error event with the generic
+     *     mixpanel.track<ErrorEvent>('ERROR', { message: 'on no!', id: 1 });
+     *
+     * @param eventName The name of the event. This can be anything the user does - 'Button Click', 'Sign Up', 'Item Purchased', etc.
+     * @param properties A set of properties to include with the event you're sending. These describe the user who did the event or details about the event itself.
+     * @param callback If provided, the callback function will be called after tracking the event.
+     * @template EventType The Event type. Use this to set specific properties for an event name
+     */
+    track<EventType extends Mixpanel.EventBaseType>(
+        eventName: EventType['eventName'],
+        properties: EventType['properties'],
+        callback?: () => void,
+    ): void;
+
+    /**
      * Track clicks on a set of document elements. Selector must be a
      * valid query. Elements must exist on the page at the time `track_links` is called.
      *
@@ -97,7 +126,7 @@ interface Mixpanel {
      * @param eventName The name of the event to track
      * @param properties A properties object or function that returns a dictionary of properties when passed a DOMElement
      */
-    track_links(querySelector: string, eventName: string, properties?: { [index: string]: any }): void;
+    track_links(querySelector: Mixpanel.Query, eventName: string, properties?: { [index: string]: any }): void;
 
     /**
      * Track form submissions. Selector must be a valid query.
@@ -125,7 +154,7 @@ interface Mixpanel {
      * @param eventName The name of the event to track
      * @param properties This can be a set of properties, or a function that returns a set of properties after being passed a DOMElement
      */
-    track_forms(querySelector: string, eventName: string, properties?: { [index: string]: any }): void;
+    track_forms(querySelector: Mixpanel.Query, eventName: string, properties?: { [index: string]: any }): void;
 
     /**
      * Time an event by including the time between this call and a
@@ -389,7 +418,7 @@ declare namespace Mixpanel {
          * @param callback If provided, the callback will be called after the tracking event
          */
         increment(prop: string, value?: number, callback?: () => void): void;
-        increment(keys: { [index: string]: number}, callback?: () => void): void;
+        increment(keys: { [index: string]: number }, callback?: () => void): void;
 
         /**
          * Merge a given list with a list-valued people analytics property,
@@ -492,25 +521,25 @@ declare namespace Mixpanel {
         /**
          * @default HTTP_PROTOCOL + 'api.mixpanel.com'
          */
-        api_host?: string;
+        api_host?: string | undefined;
         /**
          * @default HTTP_PROTOCOL + 'mixpanel.com'
          */
-        app_host?: string;
+        app_host?: string | undefined;
         /**
          * @default true
          */
-        autotrack?: boolean;
+        autotrack?: boolean | undefined;
         /**
          * @default HTTP_PROTOCOL + 'cdn.mxpnl.com'
          */
-        cdn?: string;
+        cdn?: string | undefined;
         /**
          * Super properties span subdomains
          *
          * @default true
          */
-        cross_subdomain_cookie?: boolean;
+        cross_subdomain_cookie?: boolean | undefined;
         /**
          * Type of persistent store for super properties
          *
@@ -520,67 +549,67 @@ declare namespace Mixpanel {
          *
          * @default 'cookie'
          */
-        persistence?: 'localStorage' | 'cookie';
+        persistence?: 'localStorage' | 'cookie' | undefined;
         /**
          * Name for super properties persistent store
          *
          * @default ''
          */
-        persistence_name?: string;
+        persistence_name?: string | undefined;
         /**
          * @deprecated Use `persistence_name` instead
          * @default ''
          */
-        cookie_name?: string;
+        cookie_name?: string | undefined;
         /**
          * @default function() {}
          */
-        loaded?: (lib: Mixpanel) => void;
+        loaded?: ((lib: Mixpanel) => void) | undefined;
         /**
          * @default true
          */
-        store_google?: boolean;
+        store_google?: boolean | undefined;
         /**
          * @default true
          */
-        save_referrer?: boolean;
+        save_referrer?: boolean | undefined;
         /**
          * @default false
          */
-        test?: boolean;
+        test?: boolean | undefined;
         /**
          * @default false
          */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
         /**
          * @default false
          */
-        img?: boolean;
+        img?: boolean | undefined;
         /**
          * Should we track a page view on page load
          *
          * @default true
          */
-        track_pageview?: boolean;
+        track_pageview?: boolean | undefined;
         /**
          * Debug mode
          *
          * @default false
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
         /**
          * The amount of time track_links will wait for Mixpanel's
          * servers to respond
          *
          * @default 300
          */
-        track_links_timeout?: number;
+        track_links_timeout?: number | undefined;
         /**
          * Super properties cookie expiration (in days)
          *
          * @default 365
          */
-        cookie_expiration?: number;
+        cookie_expiration?: number | undefined;
         /**
          * If you set upgrade to be true, the library will check for
          * a cookie from our old js library and import super
@@ -590,40 +619,49 @@ declare namespace Mixpanel {
          *
          * @default false
          */
-        upgrade?: boolean;
+        upgrade?: boolean | undefined;
         /**
          * If this is true, the mixpanel cookie or localStorage entry
          * will be deleted, and no user persistence will take place
          *
          * @default false
          */
-        disable_persistence?: boolean;
+        disable_persistence?: boolean | undefined;
         /**
          * @deprecated Use `disable_persistence` instead
          * @default false
          */
-        disable_cookie?: boolean;
+        disable_cookie?: boolean | undefined;
         /**
          * If this is true, mixpanel cookies will be marked as secure,
          * meaning they will only be transmitted over https
          *
          * @default false
          */
-        secure_cookie?: boolean;
+        secure_cookie?: boolean | undefined;
         /**
          * If this is true, Mixpanel will automatically determine City,
          * Region and Country data using the IP address of the client
          *
          * @default true
          */
-        ip?: boolean;
+        ip?: boolean | undefined;
         /**
          * Names of (super) properties which should never be sent
          * with track() calls
          *
          * @default []
          */
-        property_blacklist?: string[];
+        property_blacklist?: string[] | undefined;
+    }
+
+    type Query = string | Element | Element[];
+
+    interface EventBaseType {
+        eventName: string;
+        properties: {
+            [key: string]: any;
+        };
     }
 }
 

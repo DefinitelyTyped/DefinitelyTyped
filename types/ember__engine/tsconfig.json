@@ -1,36 +1,28 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es5",
+        "target": "es6",
         "lib": [
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strict": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "paths": {
-            "@ember/object": ["ember__object"],
-            "@ember/object/*": ["ember__object/*"],
-            "@ember/engine": ["ember__engine"],
-            "@ember/engine/*": ["ember__engine/*"]
+            "@ember/*": [
+                "ember__*"
+            ]
         },
         "types": [],
         "noEmit": true,
+        "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "instance.d.ts",
-        "-private/registry-proxy-mixin.d.ts",
-        "-private/resolver.d.ts",
-        "-private/container-proxy-mixin.d.ts",
-        "-private/types/initializer.d.ts",
         "test/engine.ts",
         "test/engine-instance.ts"
     ]

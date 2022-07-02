@@ -20,12 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "utils.d.ts",
-        "lib/Dispatcher.d.ts",
-        "lib/FluxContainer.d.ts",
-        "lib/FluxMixinLegacy.d.ts",
-        "lib/FluxReduceStore.d.ts",
-        "lib/FluxStore.d.ts",
         "test/Flux.ts",
         "test/FluxUtils.tsx"
     ]

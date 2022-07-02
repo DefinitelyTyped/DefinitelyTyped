@@ -2,7 +2,7 @@
 // Project: https://github.com/overlookmotel/fs-extra-promise
 // Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>, Hiromi Shikata <https://github.com/HiromiShikata>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
@@ -16,7 +16,7 @@ export * from 'fs-extra';
 
 export interface MkdirOptions {
     fs?: any;
-    mode?: number;
+    mode?: number | undefined;
 }
 
 // promisified versions
@@ -71,6 +71,7 @@ export function readAsync(fd: number, buffer: Buffer, offset: number, length: nu
 export function readFileAsync(filename: string, options: string | ReadOptions): Promise<string>;
 export function readFileAsync(filename: string): Promise<Buffer>;
 export function writeFileAsync(filename: string, data: any, options?: string | WriteOptions): Promise<void>;
+export function mkdtempAsync(prefix: string, options: string | {encoding: string}): Promise<string>;
 export function appendFileAsync(filename: string, data: any, option?: string | WriteOptions): Promise<void>;
 
 export function existsAsync(path: string): Promise<boolean>;

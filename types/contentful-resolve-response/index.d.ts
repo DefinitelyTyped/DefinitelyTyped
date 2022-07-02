@@ -3,6 +3,10 @@
 // Definitions by: Anton Karsten <https://github.com/antonkarsten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+interface ResolveResponseOptions {
+    removeUnresolved?: boolean;
+    itemEntryPoints?: string[];
+}
 
-declare function resolveResponse(response: any): any;
+declare function resolveResponse(response: any, options?: ResolveResponseOptions): any;
 export = resolveResponse;

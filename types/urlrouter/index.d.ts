@@ -53,9 +53,9 @@ declare namespace UrlRouterInternal {
     }
 
     interface Options {
-        paramsName?: string;
-        pageNotFound?: (req: ServerRequest, res: ServerResponse) => void;
-        errorHandler?: (err: Error, req: ServerRequest, res: ServerResponse) => void;
+        paramsName?: string | undefined;
+        pageNotFound?: ((req: ServerRequest, res: ServerResponse) => void) | undefined;
+        errorHandler?: ((err: Error, req: ServerRequest, res: ServerResponse) => void) | undefined;
     }
 
     function _UrlRouterfunc(handler: (app: App) => void, options?: any): void;

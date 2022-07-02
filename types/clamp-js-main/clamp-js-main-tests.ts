@@ -1,4 +1,5 @@
-import clamp, { ClampOptions, ClampResponse } from 'clamp-js-main';
+import clamp = require('clamp-js-main');
+import { ClampOptions, ClampResponse } from 'clamp-js-main';
 
 const element: HTMLElement = document.createElement('div');
 element.style.setProperty('width', '5px');

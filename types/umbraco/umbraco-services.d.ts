@@ -460,14 +460,14 @@ declare namespace umbraco.services {
     interface ICropperHelper {
 
         /**
-		* @ngdoc method
-		* @name umbraco.services.cropperHelper#configuration
-		* @methodOf umbraco.services.cropperHelper
-		*
-		* @description
-		* Returns a collection of plugins available to the tinyMCE editor
-		*
-		*/
+        * @ngdoc method
+        * @name umbraco.services.cropperHelper#configuration
+        * @methodOf umbraco.services.cropperHelper
+        *
+        * @description
+        * Returns a collection of plugins available to the tinyMCE editor
+        *
+        */
         configuration(mediaTypeAlias: string): any;
     }
 
@@ -477,27 +477,27 @@ declare namespace umbraco.services {
     */
     interface IDialogRenderingOptions {
         /*the DOM element to inject the modal into, by default set to body*/
-        container?: HTMLElement;
+        container?: HTMLElement | undefined;
         /*function called when the modal is submitted*/
         callback: Function;
         /*the url of the template*/
         template: string;
         /*animation css class, by default set to "fade"*/
-        animation?: string;
+        animation?: string | undefined;
         /*modal css class, by default "umb-modal"*/
-        modalClass?: string;
+        modalClass?: string | undefined;
         /*show the modal instantly*/
-        show?: boolean;
+        show?: boolean | undefined;
         /*load template in an iframe, only needed for serverside templates*/
         iframe: boolean;
         /*set a width on the modal, only needed for iframes*/
-        width?: number;
+        width?: number | undefined;
         /*strips the modal from any animation and wrappers, used when you want to inject a dialog into an existing container*/
-        inline?: boolean;
+        inline?: boolean | undefined;
         /** 
          * It will set this value as a property on the dialog controller's scope as $scope.dialogData
          */
-	dialogData?: any;
+    dialogData?: any;
     }
 
     /**
@@ -613,7 +613,7 @@ declare namespace umbraco.services {
     */
     interface IDialogService {
 
-        dialogs?: any[];
+        dialogs?: any[] | undefined;
 
         /** Internal method that removes all dialogs */
         removeAllDialogs(...args: any[]): void;
@@ -993,31 +993,31 @@ declare namespace umbraco.services {
     interface IHistoryService {
 
         /**
-		* @ngdoc method
-		* @name umbraco.services.historyService#add
-		* @methodOf umbraco.services.historyService
-		*
-		* @description
-		* Adds a given history item to the users history collection.
-		*
-		* @param {Object} item the history item
-		* @param {String} item.icon icon css class for the list, ex: "icon-image", "icon-doc"
-		* @param {String} item.link route to the editor, ex: "/content/edit/1234"
-		* @param {String} item.name friendly name for the history listing
-		* @returns {Object} history item object
-		*/
+        * @ngdoc method
+        * @name umbraco.services.historyService#add
+        * @methodOf umbraco.services.historyService
+        *
+        * @description
+        * Adds a given history item to the users history collection.
+        *
+        * @param {Object} item the history item
+        * @param {String} item.icon icon css class for the list, ex: "icon-image", "icon-doc"
+        * @param {String} item.link route to the editor, ex: "/content/edit/1234"
+        * @param {String} item.name friendly name for the history listing
+        * @returns {Object} history item object
+        */
         add(item: IHistoryItem): IHistoryItem;
 
         /**
-		 * @ngdoc method
-		 * @name umbraco.services.historyService#remove
-		 * @methodOf umbraco.services.historyService
-		 *
-		 * @description
-		 * Removes a history item from the users history collection, given an index to remove from.
-		 *
-		 * @param {Int} index index to remove item from
-		 */
+         * @ngdoc method
+         * @name umbraco.services.historyService#remove
+         * @methodOf umbraco.services.historyService
+         *
+         * @description
+         * Removes a history item from the users history collection, given an index to remove from.
+         *
+         * @param {Int} index index to remove item from
+         */
         remove(index: number): void;
 
         /**
@@ -1120,8 +1120,8 @@ declare namespace umbraco.services {
     * @description A helper object used for dealing with media items
     */
     interface IMediaHelper {
-	    
-	/**
+        
+    /**
         * @ngdoc function
         * @name umbraco.services.mediaHelper#formatFileTypes
         * @methodOf umbraco.services.mediaHelper
@@ -2108,8 +2108,8 @@ declare namespace umbraco.services {
      */
     interface ICacheArgs {
         cacheKey: string;
-        section?: string;
-        childrenOf?: number;
+        section?: string | undefined;
+        childrenOf?: number | undefined;
     }
 
     /**
@@ -2124,7 +2124,7 @@ declare namespace umbraco.services {
      * Tree args
      */
     interface ITreeArgs {
-        cacheKey?: string;
+        cacheKey?: string | undefined;
         section: string;
     }
 

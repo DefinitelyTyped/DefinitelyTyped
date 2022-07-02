@@ -13,33 +13,33 @@ export type ITagsInputConfigurationProvider = angular.ngTagsInput.TagsInputConfi
 declare module 'angular' {
     namespace ngTagsInput {
         interface TagsInputParams {
-            ngModel?: string;
-            useStrings?: boolean;
-            template?: string | boolean;
-            templateScope?: string | boolean;
-            displayProperty?: string | boolean;
-            keyProperty?: string | boolean;
-            type?: string | boolean;
-            text?: string | boolean;
-            tabindex?: number | boolean;
-            placeholder?: string | boolean;
-            minLength?: number | boolean;
-            maxLength?: number | boolean;
-            minTags?: number | boolean;
-            maxTags?: number | boolean;
-            allowLeftoverText?: boolean;
-            removeTagSymbol?: string | boolean;
-            addOnEnter?: boolean;
-            addOnSpace?: boolean;
-            addOnComma?: boolean;
-            addOnBlur?: boolean;
-            addOnPaste?: boolean;
-            pasteSplitPattern?: string | boolean;
-            replaceSpacesWithDashes?: boolean;
-            allowedTagsPattern?: string | boolean;
-            enableEditingLastTag?: boolean;
-            addFromAutocompleteOnly?: boolean;
-            spellcheck?: boolean;
+            ngModel?: string | undefined;
+            useStrings?: boolean | undefined;
+            template?: string | boolean | undefined;
+            templateScope?: string | boolean | undefined;
+            displayProperty?: string | boolean | undefined;
+            keyProperty?: string | boolean | undefined;
+            type?: string | boolean | undefined;
+            text?: string | boolean | undefined;
+            tabindex?: number | boolean | undefined;
+            placeholder?: string | boolean | undefined;
+            minLength?: number | boolean | undefined;
+            maxLength?: number | boolean | undefined;
+            minTags?: number | boolean | undefined;
+            maxTags?: number | boolean | undefined;
+            allowLeftoverText?: boolean | undefined;
+            removeTagSymbol?: string | boolean | undefined;
+            addOnEnter?: boolean | undefined;
+            addOnSpace?: boolean | undefined;
+            addOnComma?: boolean | undefined;
+            addOnBlur?: boolean | undefined;
+            addOnPaste?: boolean | undefined;
+            pasteSplitPattern?: string | boolean | undefined;
+            replaceSpacesWithDashes?: boolean | undefined;
+            allowedTagsPattern?: string | boolean | undefined;
+            enableEditingLastTag?: boolean | undefined;
+            addFromAutocompleteOnly?: boolean | undefined;
+            spellcheck?: boolean | undefined;
             tagClass?: any;
             onTagAdding?: any;
             onTagAdded?: any;
@@ -51,16 +51,16 @@ declare module 'angular' {
 
         interface AutocompleteParams {
             source?: any;
-            template?: string | boolean;
-            displayProperty?: string | boolean;
-            debounceDelay?: number | boolean;
-            minLength?: number | boolean;
-            highlightMatchedText?: boolean;
-            maxResultsToShow?: number | boolean;
-            loadOnDownArrow?: boolean;
-            loadOnEmpty?: boolean;
-            loadOnFocus?: boolean;
-            selectFirstMatch?: boolean;
+            template?: string | boolean | undefined;
+            displayProperty?: string | boolean | undefined;
+            debounceDelay?: number | boolean | undefined;
+            minLength?: number | boolean | undefined;
+            highlightMatchedText?: boolean | undefined;
+            maxResultsToShow?: number | boolean | undefined;
+            loadOnDownArrow?: boolean | undefined;
+            loadOnEmpty?: boolean | undefined;
+            loadOnFocus?: boolean | undefined;
+            selectFirstMatch?: boolean | undefined;
             matchClass?: any;
         }
 

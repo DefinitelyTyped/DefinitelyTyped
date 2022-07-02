@@ -1,4 +1,4 @@
-// Type definitions for sha 2.0
+// Type definitions for sha 3.0
 // Project: https://github.com/ForbesLindesay/sha
 // Definitions by: Oscar Busk <https://github.com/oBusk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ export type GetCallback = (err: Error | null, actual: string) => void;
 
 export interface ShaOptions {
     /** defaults to `sha1` and can be any of the algorithms supported by `crypto.createHash` */
-    algorithm?: string;
+    algorithm?: string | undefined;
 }
 
 /**

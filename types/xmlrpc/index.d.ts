@@ -12,28 +12,28 @@ declare module 'xmlrpc' {
     import { TlsOptions } from 'tls';
 
     interface ClientOptions {
-        host?: string;
-        path?: string;
-        port?: number;
-        url?: string;
-        cookies?: boolean;
-        headers?: { [header: string]: string };
-        basic_auth?: { user: string, pass: string };
-        method?: string;
+        host?: string | undefined;
+        path?: string | undefined;
+        port?: number | undefined;
+        url?: string | undefined;
+        cookies?: boolean | undefined;
+        headers?: { [header: string]: string } | undefined;
+        basic_auth?: { user: string, pass: string } | undefined;
+        method?: string | undefined;
     }
 
     interface ServerOptions {
-        host?: string;
-        path?: string;
-        port?: number;
+        host?: string | undefined;
+        path?: string | undefined;
+        port?: number | undefined;
     }
 
     interface DateFormatterOptions {
-        colons?: boolean;
-        hyphens?: boolean;
-        local?: boolean;
-        ms?: boolean;
-        offset?: boolean;
+        colons?: boolean | undefined;
+        hyphens?: boolean | undefined;
+        local?: boolean | undefined;
+        ms?: boolean | undefined;
+        offset?: boolean | undefined;
     }
 
     class Cookies {
@@ -46,14 +46,14 @@ declare module 'xmlrpc' {
         function createClient(options: string | ClientOptions): Client;
         function createSecureClient(options: string | ClientOptions): Client;
 
-        function createServer(options: string | ServerOptions, callback: () => void): Server;
-        function createSecureServer(options: string | TlsOptions, callback: () => void): Server;
+        function createServer(options: string | ServerOptions, callback?: () => void): Server;
+        function createSecureServer(options: string | TlsOptions, callback?: () => void): Server;
 
         interface Client {
             options: ClientOptions;
             isSecure: boolean;
             headersProcessors: { processors: HeadersProcessor[] };
-            cookies?: Cookies;
+            cookies?: Cookies | undefined;
 
             methodCall(method: string, params: any[], callback: (error: Object, value: any) => void): void;
 

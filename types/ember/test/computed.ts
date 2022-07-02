@@ -10,11 +10,11 @@ const Person = Ember.Object.extend({
 
     noArgs: Ember.computed<string>(() => 'test'),
 
-    fullName: Ember.computed<string>('firstName', 'lastName', function() {
+    fullName: Ember.computed<string>('firstName', 'lastName', function () {
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 
-    fullNameReadonly: Ember.computed<string>('fullName', function() {
+    fullNameReadonly: Ember.computed<string>('fullName', function () {
         return this.get('fullName');
     }).readOnly(),
 
@@ -27,13 +27,13 @@ const Person = Ember.Object.extend({
             this.set('firstName', first);
             this.set('lastName', last);
             return value;
-        }
+        },
     }),
 
     fullNameGetOnly: Ember.computed<string>('fullName', {
         get() {
             return this.get('fullName');
-        }
+        },
     }),
 
     fullNameSetOnly: Ember.computed<string>('firstName', 'lastName', {
@@ -42,15 +42,16 @@ const Person = Ember.Object.extend({
             this.set('firstName', first);
             this.set('lastName', last);
             return value;
-        }
+        },
     }),
 
-    combinators: Ember.computed<string>(function() {
+    combinators: Ember.computed<string>(function () {
         return this.get('firstName');
-    }).property('firstName')
-      .meta({ foo: 'bar' })
-      .volatile()
-      .readOnly(),
+    })
+        .property('firstName')
+        .meta({ foo: 'bar' })
+        .volatile()
+        .readOnly(),
 
     explicitlyDeclared: alias('fullName') as Computed<string>,
 });
@@ -83,10 +84,10 @@ assertType<string>(person.get('fullNameSetOnly'));
 assertType<string>(person.get('combinators'));
 assertType<string>(person.get('explicitlyDeclared'));
 
-assertType<{ firstName: string, fullName: string, age: number }>(person.getProperties('firstName', 'fullName', 'age'));
+assertType<{ firstName: string; fullName: string; age: number }>(person.getProperties('firstName', 'fullName', 'age'));
 
 const person2 = Person.create({
-    fullName: 'Fred Smith'
+    fullName: 'Fred Smith',
 });
 
 assertType<string>(person2.get('firstName'));
@@ -94,7 +95,7 @@ assertType<string>(person2.get('fullName'));
 
 const person3 = Person.extend({
     firstName: 'Fred',
-    fullName: 'Fred Smith'
+    fullName: 'Fred Smith',
 }).create();
 
 assertType<string>(person3.get('firstName'));
@@ -102,7 +103,7 @@ assertType<string>(person3.get('fullName'));
 
 const person4 = Person.extend({
     firstName: Ember.computed(() => 'Fred'),
-    fullName: Ember.computed(() => 'Fred Smith')
+    fullName: Ember.computed(() => 'Fred Smith'),
 }).create();
 
 assertType<string>(person4.get('firstName'));
@@ -116,13 +117,13 @@ const objectWithComputedProperties = Ember.Object.extend({
     collect: Ember.computed.collect('foo', 'bar', 'baz', 'qux'),
     deprecatingAlias: Ember.computed.deprecatingAlias('foo', {
         id: 'hamster.deprecate-banana',
-        until: '3.0.0'
+        until: '3.0.0',
     }),
     empty: Ember.computed.empty('foo'),
     equalNumber: Ember.computed.equal('foo', 1),
     equalString: Ember.computed.equal('foo', 'bar'),
     equalObject: Ember.computed.equal('foo', {}),
-    filter: Ember.computed.filter('foo', (item) => item === 'bar'),
+    filter: Ember.computed.filter('foo', item => item === 'bar'),
     filterBy1: Ember.computed.filterBy('foo', 'bar'),
     filterBy2: Ember.computed.filterBy('foo', 'bar', false),
     gt: Ember.computed.gt('foo', 3),
@@ -130,7 +131,7 @@ const objectWithComputedProperties = Ember.Object.extend({
     intersect: Ember.computed.intersect('foo', 'bar', 'baz', 'qux'),
     lt: Ember.computed.lt('foo', 3),
     lte: Ember.computed.lte('foo', 3),
-    map: Ember.computed.map('foo', (item, index) => item.bar),
+    map: Ember.computed.map('foo', (item, index) => item),
     mapBy: Ember.computed.mapBy('foo', 'bar'),
     match: Ember.computed.match('foo', /^tom.ter$/),
     max: Ember.computed.max('foo'),
@@ -145,22 +146,47 @@ const objectWithComputedProperties = Ember.Object.extend({
     setDiff: Ember.computed.setDiff('foo', 'bar'),
     sort1: Ember.computed.sort('foo', 'bar'),
     sort2: Ember.computed.sort('foo', (itemA, itemB) => {
-        if (itemA < itemB) {
-            return -1;
-        } else if (itemA > itemB) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return `${itemA}`.length - `${itemB}`.length;
     }),
     sum: Ember.computed.sum('foo'),
     union: Ember.computed.union('foo', 'bar', 'baz', 'qux'),
     uniq: Ember.computed.uniq('foo'),
-    uniqBy: Ember.computed.uniqBy('foo', 'bar')
-});
-
-const component2 = Component.extend({
-    isAnimal: or('isDog', 'isCat')
+    uniqBy: Ember.computed.uniqBy('foo', 'bar'),
 }).create();
 
-assertType<boolean>(component2.get('isAnimal'));
+assertType<unknown>(objectWithComputedProperties.get('alias'));
+assertType<unknown>(objectWithComputedProperties.get('and'));
+assertType<boolean>(objectWithComputedProperties.get('bool'));
+assertType<unknown[]>(objectWithComputedProperties.get('collect'));
+assertType<unknown>(objectWithComputedProperties.get('deprecatingAlias'));
+assertType<boolean>(objectWithComputedProperties.get('empty'));
+assertType<boolean>(objectWithComputedProperties.get('equalNumber'));
+assertType<boolean>(objectWithComputedProperties.get('equalString'));
+assertType<boolean>(objectWithComputedProperties.get('equalObject'));
+assertType<unknown[]>(objectWithComputedProperties.get('filter'));
+assertType<unknown[]>(objectWithComputedProperties.get('filterBy1'));
+assertType<unknown[]>(objectWithComputedProperties.get('filterBy2'));
+assertType<boolean>(objectWithComputedProperties.get('gt'));
+assertType<boolean>(objectWithComputedProperties.get('gte'));
+assertType<unknown[]>(objectWithComputedProperties.get('intersect'));
+assertType<boolean>(objectWithComputedProperties.get('lt'));
+assertType<boolean>(objectWithComputedProperties.get('lte'));
+assertType<unknown[]>(objectWithComputedProperties.get('map'));
+assertType<unknown[]>(objectWithComputedProperties.get('mapBy'));
+assertType<boolean>(objectWithComputedProperties.get('match'));
+assertType<number>(objectWithComputedProperties.get('max'));
+assertType<number>(objectWithComputedProperties.get('min'));
+assertType<boolean>(objectWithComputedProperties.get('none'));
+assertType<boolean>(objectWithComputedProperties.get('not'));
+assertType<boolean>(objectWithComputedProperties.get('notEmpty'));
+assertType<unknown>(objectWithComputedProperties.get('oneWay'));
+assertType<unknown>(objectWithComputedProperties.get('or'));
+assertType<unknown>(objectWithComputedProperties.get('readOnly'));
+assertType<unknown>(objectWithComputedProperties.get('reads'));
+assertType<unknown[]>(objectWithComputedProperties.get('setDiff'));
+assertType<unknown[]>(objectWithComputedProperties.get('sort1'));
+assertType<unknown[]>(objectWithComputedProperties.get('sort2'));
+assertType<number>(objectWithComputedProperties.get('sum'));
+assertType<unknown[]>(objectWithComputedProperties.get('union'));
+assertType<unknown[]>(objectWithComputedProperties.get('uniq'));
+assertType<unknown[]>(objectWithComputedProperties.get('uniqBy'));

@@ -66,6 +66,11 @@ b = val.lessThanOrEqual(n);
 b = val.lessThanOrEqual(s);
 
 val = Long.fromValue(10);
+val = Long.fromValue('10');
+val = Long.fromValue(10, true);
+val = Long.fromValue('10', true);
+val = Long.fromValue({ low: 1, high: 1, unsigned: true });
+val = Long.fromValue({ low: 1, high: 1, unsigned: true }, true);
 val = val.modulo(val);
 val = val.modulo(n);
 val = val.modulo(s);
@@ -128,3 +133,23 @@ bytes = val.toBytesLE()
 val = Long.fromBytesLE(bytes)
 bytes = val.toBytesBE()
 val = Long.fromBytesBE(bytes)
+
+
+// Testing module augmentation
+declare module 'long' {
+    interface Long {
+        to42(): number;
+    }
+  
+    interface LongConstructor {
+        from42(input: number): Long;
+    }
+}
+
+Long.prototype.to42 = function() {
+    return 42
+}
+
+Long.from42 = function(input: number): Long {
+    return Long.fromNumber(42)
+}

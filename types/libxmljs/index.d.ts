@@ -2,6 +2,7 @@
 // Project: https://github.com/libxmljs/libxmljs
 // Definitions by: François de Campredon <https://github.com/fdecampredon>
 //                 ComFreek <https://github.com/ComFreek>
+//                 Roeland <https://github.com/r03>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -14,12 +15,49 @@ export const libxml_parser_version: string;
 // tslint:disable-next-line:strict-export-declare-modifiers
 interface StringMap { [key: string]: string; }
 
-export function parseXml(source: string, options?: StringMap): Document;
-export function parseXmlString(source: string, options?: StringMap): Document;
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface ParserOptions {
+    recover?: boolean | undefined;
+    noent?: boolean | undefined;
+    dtdload?: boolean | undefined;
+    doctype?: boolean | undefined;
+    dtdattr?: any;
+    dtdvalid?: boolean | undefined;
+    noerror?: boolean | undefined;
+    errors?: boolean | undefined;
+    nowarning?: boolean | undefined;
+    warnings?: boolean | undefined;
+    pedantic?: boolean | undefined;
+    noblanks?: boolean | undefined;
+    blanks?: boolean | undefined;
+    sax1?: boolean | undefined;
+    xinclude?: boolean | undefined;
+    nonet?: boolean | undefined;
+    net?: boolean | undefined;
+    nodict?: boolean | undefined;
+    dict?: boolean | undefined;
+    nsclean?: boolean | undefined;
+    implied?: boolean | undefined;
+    nocdata?: boolean | undefined;
+    cdata?: boolean | undefined;
+    noxincnode?: boolean | undefined;
+    compact?: boolean | undefined;
+    old?: boolean | undefined;
+    nobasefix?: boolean | undefined;
+    basefix?: boolean | undefined;
+    huge?: boolean | undefined;
+    oldsax?: boolean | undefined;
+    ignore_enc?: boolean | undefined;
+    big_lines?: boolean | undefined;
+    baseUrl?: string | undefined;
+}
 
-export function parseHtml(source: string, options?: StringMap): Document;
-export function parseHtmlString(source: string, options?: StringMap): Document;
-export function parseHtmlFragment(source: string, options?: StringMap): Document;
+export function parseXml(source: string, options?: ParserOptions): Document;
+export function parseXmlString(source: string, options?: ParserOptions): Document;
+
+export function parseHtml(source: string, options?: ParserOptions): Document;
+export function parseHtmlString(source: string, options?: ParserOptions): Document;
+export function parseHtmlFragment(source: string, options?: ParserOptions): Document;
 
 export function memoryUsage(): number;
 export function nodeCount(): number;
@@ -39,7 +77,8 @@ export class Document {
     childNodes(): Element[];
     encoding(): string;
     encoding(enc: string): this;
-    find(xpath: string): Element[];
+    find(xpath: string, ns_uri?: string): Element[];
+    find(xpath: string, namespaces: StringMap): Element[];
     get(xpath: string, namespaces?: StringMap): Element|null;
     node(name: string, content?: string): Element;
     root(): Element|null;
@@ -113,10 +152,12 @@ export class Element extends Node {
     prevElement(): Element|null;
     nextElement(): Element|null;
     addNextSibling(siblingNode: Node): Node;
+    addPrevSibling(siblingNode: Node): Node;
 
     find(xpath: string, ns_uri?: string): Node[];
     find(xpath: string, namespaces: StringMap): Node[];
     get(xpath: string, ns_uri?: string): Element|null;
+    get(xpath: string, namespaces: StringMap): Element|null;
 
     defineNamespace(prefixOrHref: string, hrefInCaseOfPrefix?: string): Namespace;
 

@@ -1,7 +1,8 @@
 // Type definitions for polymer v1.2.6
 // Project: https://github.com/Polymer/polymer
-// Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
+// Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.4
 
 import { CustomElementConstructor } from "webcomponents.js";
 
@@ -12,12 +13,12 @@ declare global {
 
     interface PropObjectType {
       type: PropConstructorType;
-      value?: boolean | number | string | Function | Object;
-      reflectToAttribute?: boolean;
-      readOnly?: boolean;
-      notify?: boolean;
-      computed?: string;
-      observer?: string;
+      value?: boolean | number | string | Function | Object | undefined;
+      reflectToAttribute?: boolean | undefined;
+      readOnly?: boolean | undefined;
+      notify?: boolean | undefined;
+      computed?: string | undefined;
+      observer?: string | undefined;
     }
 
     interface CommonBase {
@@ -25,7 +26,7 @@ declare global {
 
       // Attributes
 
-      hostAttributes?: {[name: string]: any};
+      hostAttributes?: {[name: string]: any} | undefined;
 
       reflectPropertiesToAttribute?(name: string): void;
 
@@ -43,7 +44,7 @@ declare global {
 
       // Behaviors
 
-      behaviors?:Object[];
+      behaviors?:Object[] | undefined;
 
       // Constructors
 
@@ -61,13 +62,13 @@ declare global {
 
       // Extends
 
-      extends?: string;
+      extends?: string | undefined;
 
       getNativePrototype?(tag: string): Object;
 
       // Properties
 
-      properties?:{[prop:string]:(PropConstructorType|PropObjectType);};
+      properties?:{[prop:string]:(PropConstructorType|PropObjectType);} | undefined;
 
       getPropertyInfo?(property: string): Object;
 
@@ -104,7 +105,7 @@ declare global {
 
       // Events
 
-      listeners?: {[key:string]:string;};
+      listeners?: {[key:string]:string;} | undefined;
 
       listen?(node: Element, eventName: string, methodName: string): void;
 
@@ -193,11 +194,9 @@ declare global {
 
       createdCallback?():void;
 
-      attachedCallback?():void;
-
       detachedCallback?():void;
 
-      attributeChangedCallback?(name: string):void;
+      attributeChangedCallback?(attributeName: string, oldValue: string|null, newValue: string|null, namespace: string|null): void;
 
       extend?(prototype: Object, api: Object):Object;
 
@@ -205,7 +204,7 @@ declare global {
 
       copyOwnProperty?(name: string, source: Object, target: Object):void;
 
-      observers?: string[];
+      observers?: string[] | undefined;
 
       beforeRegister?(): void;
 
@@ -218,6 +217,10 @@ declare global {
       detached?(): void;
 
       attributeChanged?(name: string, oldValue: any, newValue: any): void;
+        
+      getEffectiveChildren?(): Node[];
+
+      getEffectiveChildNodes?(): Node[];
     }
 
     // This is the type of a Polymer element after it has gone through the
@@ -277,6 +280,8 @@ declare global {
       observeNodes(callback: (info: ObservedNodeInfo) => void): {};
 
       unobserveNodes(observer: {}): void;
+
+      getEffectiveChildNodes(): Node[];
 
       childNodes:Node[];
 

@@ -1,5 +1,5 @@
 // Type definitions for shrink-ray 0.1
-// Project: https://github.com/aickin/shrink-ray
+// Project: https://github.com/aickin/shrink-ray, https://github.com/aickin/compression
 // Definitions by: forabi <https://github.com/forabi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -13,17 +13,17 @@ type Options = Partial<{
     threshold: number;
     zlib: Partial<{
         /** default: zlib.constants.Z_NO_FLUSH */
-        flush?: number;
+        flush?: number | undefined;
 
         /** default: zlib.constants.Z_FINISH */
-        finishFlush?: number;
+        finishFlush?: number | undefined;
 
         /** default: 16*1024 */
-        chunkSize?: number;
-        windowBits?: number;
+        chunkSize?: number | undefined;
+        windowBits?: number | undefined;
 
         /** compression only */
-        strategy?: number;
+        strategy?: number | undefined;
 
         /** deflate/inflate only, empty dictionary by default */
         dictionary?: any;

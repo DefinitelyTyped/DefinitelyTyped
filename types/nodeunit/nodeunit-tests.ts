@@ -13,51 +13,51 @@ var block: () =>{
 };
 
 export var testGroup: nodeunit.ITestGroup = {
-	setUp: (callback) => {
-		callback();
-	},
-	tearDown: (callback) => {
-		callback();
-	},
-	test1: function (test: nodeunit.Test) {
-		test.expect(num);
+    setUp: (callback) => {
+        callback();
+    },
+    tearDown: (callback) => {
+        callback();
+    },
+    test1: function (test: nodeunit.Test) {
+        test.expect(num);
 
-		test.fail(actual, expected, message, operator);
-		test.assert(value, message);
-		test.ok(value);
-		test.ok(value, message);
-		test.equal(actual, expected);
-		test.equal(actual, expected, message);
-		test.notEqual(actual, expected);
-		test.notEqual(actual, expected, message);
-		test.deepEqual(actual, expected);
-		test.deepEqual(actual, expected, message);
-		test.notDeepEqual(actual, expected);
-		test.notDeepEqual(actual, expected, message);
-		test.strictEqual(actual, expected);
-		test.strictEqual(actual, expected, message);
-		test.notStrictEqual(actual, expected);
-		test.notStrictEqual(actual, expected, message);
-		test.throws(block);
-		test.throws(block, error);
-		test.throws(block, error, message);
-		test.doesNotThrow(block);
-		test.doesNotThrow(block, error);
-		test.doesNotThrow(block, error, message);
-		test.ifError(value);
+        test.fail(actual, expected, message, operator);
+        test.assert(value, message);
+        test.ok(value);
+        test.ok(value, message);
+        test.equal(actual, expected);
+        test.equal(actual, expected, message);
+        test.notEqual(actual, expected);
+        test.notEqual(actual, expected, message);
+        test.deepEqual(actual, expected);
+        test.deepEqual(actual, expected, message);
+        test.notDeepEqual(actual, expected);
+        test.notDeepEqual(actual, expected, message);
+        test.strictEqual(actual, expected);
+        test.strictEqual(actual, expected, message);
+        test.notStrictEqual(actual, expected);
+        test.notStrictEqual(actual, expected, message);
+        test.throws(block);
+        test.throws(block, error);
+        test.throws(block, error, message);
+        test.doesNotThrow(block);
+        test.doesNotThrow(block, error);
+        test.doesNotThrow(block, error, message);
+        test.ifError(value);
 
-		//assertion wrappers
-		test.equals(actual, expected);
-		test.equals(actual, expected, message);
-		test.same(actual, expected);
-		test.same(actual, expected, message);
+        //assertion wrappers
+        test.equals(actual, expected);
+        test.equals(actual, expected, message);
+        test.same(actual, expected);
+        test.same(actual, expected, message);
 
-		test.done(error);
-		test.done();
-	},
-	"This is a test with a nice description": (test: nodeunit.Test) => {
-		test.done();
-	}
+        test.done(error);
+        test.done();
+    },
+    "This is a test with a nice description": (test: nodeunit.Test) => {
+        test.done();
+    }
 };
 
 

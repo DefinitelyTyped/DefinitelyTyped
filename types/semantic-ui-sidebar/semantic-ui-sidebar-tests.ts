@@ -105,15 +105,16 @@ function test_sidebar() {
             method: 'method',
             pusher: 'pusher',
             movedSidebar: 'movedSidebar',
-            animation: 'animation',
             overlay: 'overlay',
             notFound: 'notFound'
         }
     });
     $(selector).sidebar(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).sidebar('foo'); // $ExpectError
-    $(selector).sidebar({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).sidebar('foo');
+    // @ts-expect-error
+    $(selector).sidebar({ foo: 'bar' });
 }
 
 import sidebar = require('semantic-ui-sidebar');

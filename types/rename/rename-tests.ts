@@ -1,15 +1,19 @@
 import rename = require('rename');
 
-rename();                       // $ExpectError
-rename('a.js');                 // $ExpectError
-rename(undefined, undefined);   // $ExpectError
+// @ts-expect-error
+rename();
+// @ts-expect-error
+rename('a.js');
+// @ts-expect-error
+rename(undefined, undefined);
 
 // These fail to produce errors on 2.4
-// rename(1, 2);                   // $ExpectError
-// rename('a.js', () => { });       // $ExpectError
-// rename('a.js', (obj) => { });    // $ExpectError
+// rename(1, 2);                   // @ts-expect-error
+// rename('a.js', () => { });       // @ts-expect-error
+// rename('a.js', (obj) => { });    // @ts-expect-error
 
-rename({ non: "existent" }, 'b.js'); // $ExpectError
+// @ts-expect-error
+rename({ non: "existent" }, 'b.js');
 
 rename('a.js', 'b.js');         // $ExpectType FilePath
 rename('a.js', { suffix: '-debug' });
@@ -38,15 +42,16 @@ rename({
         suffix: '-${hash}'
     });
 
-rename.parse();                 // $ExpectError
-rename.parse({});               // $ExpectError
-rename.parse("p.js");
+rename.parse("p.js"); // $ExpectType ParsedFileObject
+rename.parse({ dirname: '.'}); // $ExpectType ParsedFileObject
 
-rename.stringify();             // $ExpectError
+// @ts-expect-error
+rename.stringify();
 
 // This fails to produce an error on 2.4
-// rename.stringify("abcd.js");    // $ExpectError
+// rename.stringify("abcd.js");    // @ts-expect-error
 
 rename.stringify({});
-rename.stringify({ suffix: ".js" }); // $ExpectError
+// @ts-expect-error
+rename.stringify({ suffix: ".js" });
 rename.stringify({ extname: ".js" });

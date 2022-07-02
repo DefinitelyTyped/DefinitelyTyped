@@ -1,6 +1,6 @@
 const input = "Someting to compress";
 let encoded: string;
-let decoded: string;
+let decoded: null | string;
 let encodedU8: Uint8Array;
 
 encoded = LZString.compress(input);

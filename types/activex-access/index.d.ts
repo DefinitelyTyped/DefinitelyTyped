@@ -1,4 +1,4 @@
-// Type definitions for Microsoft Access 14.0 Object Library - Access 14.0
+// Type definitions for non-npm package Microsoft Access 14.0 Object Library - Access 14.0
 // Project: https://msdn.microsoft.com/en-us/library/dn142571.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -5090,7 +5090,6 @@ declare namespace Access {
         XML: string;
     }
 
-    // tslint:disable-next-line:interface-name
     interface ImportExportSpecifications {
         Add(Name: string, SpecificationDefinition: string): ImportExportSpecification;
         readonly Application: Application;

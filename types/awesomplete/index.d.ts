@@ -9,10 +9,10 @@
 declare class Awesomplete {
     constructor(input: Element | HTMLElement | string, o?: Awesomplete.Options);
     static all: any[];
-    static $$(expr: string | NodeSelector, con?: any): NodeList;
+    static $$(expr: string | ParentNode, con?: any): NodeList;
     static ITEM: (text: string, input: string) => HTMLElement;
     static $: {
-        (expr: string|Element, con?: NodeSelector): string | Element;
+        (expr: string|Element, con?: ParentNode): string | Element;
         regExpEscape(s: { replace(arg0: RegExp, arg1: string): void }): any;
         create(tag: string, o: any): HTMLElement;
         fire(target: EventTarget, type: string, properties: any): any;
@@ -46,15 +46,15 @@ declare namespace Awesomplete {
     type SortFunction = (left: number | any[], right: number | any[]) => number;
 
     interface Options {
-        list?: string | string[] | Element | Array<{ label: string, value: any }> | Array<[string, string]>;
-        minChars?: number;
-        maxItems?: number;
-        autoFirst?: boolean;
+        list?: string | string[] | Element | Array<{ label: string, value: any }> | Array<[string, string]> | undefined;
+        minChars?: number | undefined;
+        maxItems?: number | undefined;
+        autoFirst?: boolean | undefined;
         data?(item: Suggestion, input: string): string;
         filter?(text: string, input: string): boolean;
-        sort?: boolean | SortFunction;
+        sort?: boolean | SortFunction | undefined;
         item?(text: string, input: string): HTMLElement;
-        replace?(text: string): void;
+        replace?(suggestion: string | Suggestion): void;
     }
 }
 

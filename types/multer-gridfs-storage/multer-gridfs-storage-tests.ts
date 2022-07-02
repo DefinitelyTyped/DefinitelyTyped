@@ -1,5 +1,5 @@
 import MulterGridfsStorage = require('multer-gridfs-storage');
-import { Db, MongoClient, Server } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
 import * as mongoose from 'mongoose';
 
 // Exported interfaces
@@ -8,16 +8,13 @@ const conf: MulterGridfsStorage.FileConfig = {
     bucketName: 'plants'
 };
 
-// Connection promise
-const dbPromise = MongoClient.connect('mongodb://yourhost:27017/database');
 // Mongoose promise
 const mongoosePromise = mongoose.connect('mongodb://yourhost:27017/database');
 const mgConnectionPromise = mongoose
     .connect('mongodb://yourhost:27017/database')
     .then(instance => instance.connection);
 
-const server = new Server('localhost', 27017);
-const db = new Db('database', server);
+declare const db: Db;
 
 // Database instance
 const opt1: MulterGridfsStorage.DbStorageOptions = {
@@ -71,15 +68,40 @@ const opt5: MulterGridfsStorage.UrlStorageOptions = {
     cache: 'cache'
 };
 
+// Generators
+const opt6: MulterGridfsStorage.UrlStorageOptions = {
+    url: 'mongodb://yourhost:27017/database',
+    *file(req, file) {
+        yield {
+            metadata: file.mimetype
+        };
+    }
+};
+
 const cachedStorage = new MulterGridfsStorage(opt5);
 
+// Connection promise
+const clientPromise = MongoClient.connect('mongodb://yourhost:27017/database');
+const dbPromise = clientPromise.then(client => client.db('database'));
 // Other properties are optional
 const promiseStorage = new MulterGridfsStorage({db: dbPromise});
+const clientPromiseStorage = new MulterGridfsStorage({db: dbPromise, client: clientPromise});
 
 const dbStorage = new MulterGridfsStorage({db});
 
 const urlStorage = new MulterGridfsStorage({
     url: 'mongodb://yourhost:27017/database'
+});
+
+// Ready method
+clientPromiseStorage.ready().then(result => {
+    const db = result.db;
+    const client = result.client;
+});
+
+MulterGridfsStorage.generateBytes().then(result => {
+    const filename = result.filename;
+    console.log(result);
 });
 
 // Extends event emitter

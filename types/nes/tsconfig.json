@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "client.d.ts",
         "test/client-require.ts",
         "test/nes-tests.ts",
         "test/broadcast-client.ts",

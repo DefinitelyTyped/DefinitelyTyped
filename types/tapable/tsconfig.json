@@ -13,6 +13,11 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "tapable": [
+                "./node_modules/tapable"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

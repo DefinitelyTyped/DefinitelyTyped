@@ -19,13 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "adapters/Base.d.ts",
-        "adapters/FileAsync.d.ts",
-        "adapters/FileSync.d.ts",
-        "adapters/LocalStorage.d.ts",
-        "adapters/Memory.d.ts",
-        "lib/fp.d.ts",
-        "lib/main.d.ts",
         "lowdb-tests.ts"
     ]
 }

@@ -11,7 +11,9 @@
 
 /// <reference types="node" />
 
-declare class BetterQueue<T = any, K = any> extends NodeJS.EventEmitter {
+import { EventEmitter } from 'events';
+
+declare class BetterQueue<T = any, K = any> extends EventEmitter {
   constructor(options: BetterQueue.QueueOptions<T, K>);
   constructor(process: BetterQueue.ProcessFunction<T, K>, options?: Partial<BetterQueue.QueueOptions<T, K>>);
 
@@ -44,23 +46,23 @@ declare namespace BetterQueue {
     merge?(oldTask: T, newTask: T, cb: (error: any, mergedTask: T) => void): void;
     priority?(task: T, cb: (error: any, priority: number) => void): void;
     precondition?(cb: (error: any, passOrFail: boolean) => void): void;
-    id?: keyof T | ((task: T, cb: (error: any, id: keyof T) => void) => void);
-    cancelIfRunning?: boolean;
-    autoResume?: boolean;
-    failTaskOnProcessException?: boolean;
-    filo?: boolean;
-    batchSize?: number;
-    batchDelay?: number;
-    batchDelayTimeout?: number;
-    concurrent?: number;
-    maxTimeout?: number;
-    afterProcessDelay?: number;
-    maxRetries?: number;
-    retryDelay?: number;
-    storeMaxRetries?: number;
-    storeRetryTimeout?: number;
-    preconditionRetryTimeout?: number;
-    store?: string | StoreOptions | Store<T>;
+    id?: keyof T | ((task: T, cb: (error: any, id: keyof T) => void) => void) | undefined;
+    cancelIfRunning?: boolean | undefined;
+    autoResume?: boolean | undefined;
+    failTaskOnProcessException?: boolean | undefined;
+    filo?: boolean | undefined;
+    batchSize?: number | undefined;
+    batchDelay?: number | undefined;
+    batchDelayTimeout?: number | undefined;
+    concurrent?: number | undefined;
+    maxTimeout?: number | undefined;
+    afterProcessDelay?: number | undefined;
+    maxRetries?: number | undefined;
+    retryDelay?: number | undefined;
+    storeMaxRetries?: number | undefined;
+    storeRetryTimeout?: number | undefined;
+    preconditionRetryTimeout?: number | undefined;
+    store?: string | StoreOptions | Store<T> | undefined;
   }
 
   // TODO reflect task types somehow (task: T | T[])
@@ -78,6 +80,8 @@ declare namespace BetterQueue {
     | 'batch_finish'
     | 'batch_failed'
     | 'batch_progress'
+    | 'drain'
+    | 'empty'
     | 'error';
 
   type TicketEvent =
@@ -113,7 +117,7 @@ declare namespace BetterQueue {
     [key: string]: any;
   }
 
-  class Ticket extends NodeJS.EventEmitter {
+  class Ticket extends EventEmitter {
     on(event: TicketEvent, listener: (...args: any[]) => void): this;
   }
 

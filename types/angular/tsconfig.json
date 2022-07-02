@@ -1,7 +1,6 @@
 {
     "files": [
         "index.d.ts",
-        "jqlite.d.ts",
         "angular-tests.ts",
         "test/jqlite-tests.ts",
         "test/jquery3-merging-tests.ts"
@@ -11,7 +10,8 @@
         "lib": [
             "es5",
             "dom",
-            "es2015.iterable"
+            "es2015.iterable",
+            "es2015.promise"
         ],
         "noImplicitAny": false,
         "noImplicitThis": false,

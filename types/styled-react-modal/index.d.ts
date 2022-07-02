@@ -1,6 +1,6 @@
-// Type definitions for styled-react-modal 1.1
+// Type definitions for styled-react-modal 1.2
 // Project: https://github.com/AlexanderRichey/styled-react-modal
-// Definitions by: Adam Lavin <https://github.com/Lavoaster>
+// Definitions by: Greg Perlman <https://github.com/gperl27>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -9,15 +9,17 @@ import { StyledComponent, AnyStyledComponent, CSSObject, InterpolationFunction }
 
 declare const BaseModalBackground: StyledComponent<'div', any>;
 
-interface ModalProps {
+export interface ModalProps {
+  children?: React.ReactNode | undefined;
   isOpen: boolean;
-  allowScroll?: boolean;
-  afterOpen?: () => void;
-  afterClose?: () => void;
-  beforeOpen?: Promise<void> | (() => void);
-  beforeClose?: Promise<void> | (() => void);
-  onEscapeKeydown?: (event: Event) => void;
-  onBackgroundClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
+  allowScroll?: boolean | undefined;
+  backgroundProps?: object | undefined;
+  afterOpen?: (() => void) | undefined;
+  afterClose?: (() => void) | undefined;
+  beforeOpen?: Promise<void> | (() => void) | undefined;
+  beforeClose?: Promise<void> | (() => void) | undefined;
+  onEscapeKeydown?: ((event: Event) => void) | undefined;
+  onBackgroundClick?: ((event: React.MouseEvent<HTMLDivElement>) => void) | undefined;
 }
 
 declare class Modal extends React.Component<ModalProps> {
@@ -31,7 +33,7 @@ declare class Modal extends React.Component<ModalProps> {
 }
 
 interface ModalProviderProps {
-  backgroundComponent?: AnyStyledComponent;
+  backgroundComponent?: AnyStyledComponent | undefined;
   children: React.ReactNode;
 }
 

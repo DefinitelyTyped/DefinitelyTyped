@@ -8,15 +8,12 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "history": [
-                "history/v2"
-            ],
             "react-router": [
                 "react-router/v2"
             ],

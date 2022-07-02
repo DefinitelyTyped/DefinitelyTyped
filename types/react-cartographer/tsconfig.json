@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/components/Map.d.ts",
         "react-cartographer-tests.tsx"
     ]
 }

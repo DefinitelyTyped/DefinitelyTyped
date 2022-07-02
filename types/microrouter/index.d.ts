@@ -6,9 +6,11 @@
 
 /// <reference types="node"/>
 
-import { IncomingMessage, ServerResponse, Server } from 'http';
+import { IncomingMessage, ServerResponse as HttpServerResponse, Server } from 'http';
 import { RequestHandler } from 'micro';
-export type ServerResponse = ServerResponse;
+import UrlPattern = require('url-pattern');
+
+export type ServerResponse = HttpServerResponse;
 export type ServerRequest = IncomingMessage & {
     params: { [key: string]: string },
     query: { [key: string]: string }
@@ -18,7 +20,7 @@ export type AugmentedRequestHandler = (
     res: ServerResponse
 ) => any;
 
-export type RouteHandler = (path: string, handler: AugmentedRequestHandler) => RequestHandler;
+export type RouteHandler = (path: string | UrlPattern, handler: AugmentedRequestHandler) => RequestHandler;
 
 export function router(...routes: RequestHandler[]): RequestHandler;
 export function withNamespace(namespace: string): (...routes: RequestHandler[]) => RequestHandler;

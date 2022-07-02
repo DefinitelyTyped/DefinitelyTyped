@@ -60,22 +60,22 @@ declare namespace Cordovardunio {
         /**
          * @defaultValue 9600
          */
-        baudRate?: number;
+        baudRate?: number | undefined;
 
         /**
          * @defaultValue 8
          */
-        dataBits?: number;
+        dataBits?: number | undefined;
 
         /**
          * @defaultValue 1
          */
-        stopBits?: number;
+        stopBits?: number | undefined;
 
         /**
          * @defaultValue 0
          */
-        parity?: number;
+        parity?: number | undefined;
     }
 }
 

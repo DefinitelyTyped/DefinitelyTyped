@@ -1,38 +1,38 @@
 // Type definitions for countdown.js
 // Project: http://countdownjs.org/
-// Definitions by: Gabriel Juchault <https://github.com/gjuchault>
+// Definitions by: Gabriel Juchault <https://github.com/gjuchault>, Ionaru <https://github.com/Ionaru>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace countdown {
   type DateFunction = (timespan: Timespan) => void;
-  type DateTime = number | Date | DateFunction;
+  type DateTime = number | Date | DateFunction | null | undefined;
 
   interface Timespan {
-      start?: Date;
-      end?: Date;
-      units?: number;
-      value?: number;
-      millennia?: number;
-      centuries?: number;
-      decades?: number;
-      years?: number;
-      months?: number;
-      weeks?: number;
-      days?: number;
-      hours?: number;
-      minutes?: number;
-      seconds?: number;
-      milliseconds?: number;
+      start?: Date | undefined;
+      end?: Date | undefined;
+      units?: number | undefined;
+      value?: number | undefined;
+      millennia?: number | undefined;
+      centuries?: number | undefined;
+      decades?: number | undefined;
+      years?: number | undefined;
+      months?: number | undefined;
+      weeks?: number | undefined;
+      days?: number | undefined;
+      hours?: number | undefined;
+      minutes?: number | undefined;
+      seconds?: number | undefined;
+      milliseconds?: number | undefined;
       toString(label?: string): string;
       toHTML(tagName?: string, label?: string): string;
   }
 
   interface Format {
-    singular?: string | Array<string>;
-    plural?: string | Array<string>;
-    last?: string;
-    delim?: string;
-    empty?: string;
+    singular?: string | Array<string> | undefined;
+    plural?: string | Array<string> | undefined;
+    last?: string | undefined;
+    delim?: string | undefined;
+    empty?: string | undefined;
     formatNumber?(value: number): string;
     formatter?(value: number, unit: number): string;
   }

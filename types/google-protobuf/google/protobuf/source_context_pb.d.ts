@@ -1,8 +1,11 @@
+// package: google.protobuf
+// file: source_context.proto
+
 import * as jspb from "../../index";
 
 export class SourceContext extends jspb.Message {
   getFileName(): string;
-  setFileName(value: string): void;
+  setFileName(value: string): SourceContext;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SourceContext.AsObject;
@@ -19,4 +22,3 @@ export namespace SourceContext {
     fileName: string,
   }
 }
-

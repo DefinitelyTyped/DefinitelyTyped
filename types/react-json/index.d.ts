@@ -10,7 +10,7 @@ type OnChangeHandler = (value: any) => void;
 
 interface JsonProperties {
     value: any;
-    onChange?: OnChangeHandler;
+    onChange?: OnChangeHandler | undefined;
 }
 
 declare class Json extends React.Component<JsonProperties> {

@@ -7,12 +7,12 @@
 type Params =
     | Array<[string, string | ReadonlyArray<string>]>
     | {[key: string]: string | ReadonlyArray<string>};
-export {Params};
+export { Params };
 
 export interface TokenOptions {
     scheme: string;
-    token?: string;
-    params?: Params;
+    token?: string | undefined;
+    params?: Params | undefined;
 }
 
 export interface Token {

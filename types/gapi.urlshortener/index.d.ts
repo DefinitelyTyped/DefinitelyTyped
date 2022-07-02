@@ -21,11 +21,11 @@ declare namespace gapi.client.urlshortener {
             /**
              * Additional information to return. ANALYTICS_CLICKS, ANALYTICS_TOP_STRINGS, FULL
              */
-            'projection'?: string;
+            'projection'?: string | undefined;
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            'fields'?: string
+            'fields'?: string | undefined
         }): HttpRequest<GoogleApiUrlShortenerUrlResource>;
         /**
          * Creates a new short URL.
@@ -34,11 +34,11 @@ declare namespace gapi.client.urlshortener {
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            'fields'?: string;
+            'fields'?: string | undefined;
             /**
              * HTTP Request Body
              */
-            'RequestBody'?: string
+            'RequestBody'?: string | undefined
         }): HttpRequest<GoogleApiUrlShortenerUrlResource>;
         /**
          * Retrieves a list of URLs shortened by a user.
@@ -47,15 +47,15 @@ declare namespace gapi.client.urlshortener {
             /**
              * Additional information to return. ANALYTICS_CLICKS, FULL
              */
-            'projection'?: string;
+            'projection'?: string | undefined;
             /**
              * Token for requesting successive pages of results.
              */
-            'start-token'?: string;
+            'start-token'?: string | undefined;
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            'fields'?: string
+            'fields'?: string | undefined
         }): HttpRequest<GoogleApiUrlShortenerUrlResource>;
     }
 }

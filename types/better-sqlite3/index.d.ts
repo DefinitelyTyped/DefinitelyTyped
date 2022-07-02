@@ -1,27 +1,35 @@
-// Type definitions for better-sqlite3 5.2
-// Project: http://github.com/JoshuaWise/better-sqlite3
+// Type definitions for better-sqlite3 7.5
+// Project: https://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
 //                 Santiago Aguilar <https://github.com/sant123>
 //                 Alessandro Vergani <https://github.com/loghorn>
+//                 Andrew Kaiser <https://github.com/andykais>
+//                 Mark Stewart <https://github.com/mrkstwrt>
+//                 Florian Stamer <https://github.com/stamerf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.8
 
-import Integer = require("integer");
+/// <reference types="node" />
+
+type VariableArgFunction = (...params: any[]) => any;
+type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any ? A : never;
 
 declare namespace BetterSqlite3 {
-    interface Statement {
+    interface Statement<BindParameters extends any[]> {
         database: Database;
         source: string;
         reader: boolean;
+        busy: boolean;
 
-        run(...params: any[]): Database.RunResult;
-        get(...params: any[]): any;
-        all(...params: any[]): any[];
-        iterate(...params: any[]): IterableIterator<any>;
+        run(...params: BindParameters): Database.RunResult;
+        get(...params: BindParameters): any;
+        all(...params: BindParameters): any[];
+        iterate(...params: BindParameters): IterableIterator<any>;
         pluck(toggleState?: boolean): this;
         expand(toggleState?: boolean): this;
         raw(toggleState?: boolean): this;
-        bind(...params: any[]): this;
+        bind(...params: BindParameters): this;
         columns(): ColumnDefinition[];
         safeIntegers(toggleState?: boolean): this;
     }
@@ -34,12 +42,20 @@ declare namespace BetterSqlite3 {
         type: string | null;
     }
 
-    interface Transaction {
-        (...params: any[]): any;
-        default(...params: any[]): any;
-        deferred(...params: any[]): any;
-        immediate(...params: any[]): any;
-        exclusive(...params: any[]): any;
+    interface Transaction<F extends VariableArgFunction> {
+        (...params: ArgumentTypes<F>): ReturnType<F>;
+        default(...params: ArgumentTypes<F>): ReturnType<F>;
+        deferred(...params: ArgumentTypes<F>): ReturnType<F>;
+        immediate(...params: ArgumentTypes<F>): ReturnType<F>;
+        exclusive(...params: ArgumentTypes<F>): ReturnType<F>;
+    }
+
+    interface VirtualTableOptions {
+        rows: () => Generator;
+        columns: string[];
+        parameters?: string[] | undefined;
+        safeIntegers?: boolean | undefined;
+        directOnly?: boolean | undefined;
     }
 
     interface Database {
@@ -49,25 +65,29 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        prepare(source: string): Statement;
-        transaction(fn: (...params: any[]) => any): Transaction;
+        prepare<BindParameters extends any[] | {} = any[]>(
+            source: string,
+        ): BindParameters extends any[] ? Statement<BindParameters> : Statement<[BindParameters]>;
+        transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): any;
-        checkpoint(databaseName?: string): this;
         function(name: string, cb: (...params: any[]) => any): this;
         function(name: string, options: Database.RegistrationOptions, cb: (...params: any[]) => any): this;
         aggregate(name: string, options: Database.AggregateOptions): this;
         loadExtension(path: string): this;
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
+        backup(destinationFile: string, options?: Database.BackupOptions): Promise<Database.BackupMetadata>;
+        table(name: string, options: VirtualTableOptions): this;
+        unsafeMode(unsafe?: boolean): this;
+        serialize(options?: Database.SerializeOptions): Buffer;
     }
 
     interface DatabaseConstructor {
-        new(filename: string, options?: Database.Options): Database;
+        new (filename: string, options?: Database.Options): Database;
         (filename: string, options?: Database.Options): Database;
         prototype: Database;
 
-        Integer: typeof Integer;
         SqliteError: typeof SqliteError;
     }
 }
@@ -82,38 +102,53 @@ declare class SqliteError implements Error {
 declare namespace Database {
     interface RunResult {
         changes: number;
-        lastInsertRowid: Integer.IntLike;
+        lastInsertRowid: number | bigint;
     }
 
     interface Options {
-        memory?: boolean;
-        readonly?: boolean;
-        fileMustExist?: boolean;
-        timeout?: number;
+        readonly?: boolean | undefined;
+        fileMustExist?: boolean | undefined;
+        timeout?: number | undefined;
+        verbose?: ((message?: any, ...additionalArgs: any[]) => void) | undefined;
+        nativeBinding?: string | undefined;
+    }
+
+    interface SerializeOptions {
+        attached?: string;
     }
 
     interface PragmaOptions {
-        simple?: boolean;
+        simple?: boolean | undefined;
     }
 
     interface RegistrationOptions {
-        varargs?: boolean;
-        deterministic?: boolean;
-        safeIntegers?: boolean;
+        varargs?: boolean | undefined;
+        deterministic?: boolean | undefined;
+        safeIntegers?: boolean | undefined;
+        directOnly?: boolean | undefined;
     }
 
     interface AggregateOptions extends RegistrationOptions {
         start?: any;
         step: (total: any, next: any) => any;
-        inverse?: (total: any, dropped: any) => any;
-        result?: (total: any) => any;
+        inverse?: ((total: any, dropped: any) => any) | undefined;
+        result?: ((total: any) => any) | undefined;
     }
 
-    type Integer = typeof Integer;
+    interface BackupMetadata {
+        totalPages: number;
+        remainingPages: number;
+    }
+    interface BackupOptions {
+        progress: (info: BackupMetadata) => number;
+    }
+
     type SqliteError = typeof SqliteError;
-    type Statement = BetterSqlite3.Statement;
+    type Statement<BindParameters extends any[] | {} = any[]> = BindParameters extends any[]
+        ? BetterSqlite3.Statement<BindParameters>
+        : BetterSqlite3.Statement<[BindParameters]>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
-    type Transaction = BetterSqlite3.Transaction;
+    type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
     type Database = BetterSqlite3.Database;
 }
 

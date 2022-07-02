@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "socketcluster-server": [
+                "socketcluster-server/v14"
+            ],
+            "socketcluster-server/*": [
+                "socketcluster-server/v14/*"
+            ],
+            "sc-broker-cluster": [
+                "sc-broker-cluster/v6"
+            ],
+            "sc-channel": [
+                "sc-channel/v1"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "socketcluster-server-tests.ts"
+    ]
+}

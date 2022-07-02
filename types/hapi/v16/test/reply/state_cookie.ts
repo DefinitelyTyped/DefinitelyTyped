@@ -1,7 +1,7 @@
 
 // from https://hapijs.com/tutorials/cookies?lang=en_US
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 const server = new Hapi.Server();
 server.connection({ port: 80 });

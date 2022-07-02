@@ -1,5 +1,5 @@
 // Type definitions for handlebars-helpers 0.5
-// Project: http://assemble.io/helpers/
+// Project: http://assemble.io/helpers/, https://github.com/helpers/handlebars-helpers
 // Definitions by: Toilal <https://github.com/Toilal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -39,8 +39,8 @@ interface Utils {
 
 declare namespace helpers {
     interface Options {
-        handlebars?: typeof Handlebars;
-        hbs?: typeof Handlebars;
+        handlebars?: typeof Handlebars | undefined;
+        hbs?: typeof Handlebars | undefined;
     }
 
     const utils: Utils;

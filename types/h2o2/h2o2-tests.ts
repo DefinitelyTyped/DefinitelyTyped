@@ -133,10 +133,21 @@ const badProtocolDemo: hapi.ServerRoute = {
     handler: {
         proxy: {
             host: '10.33.33.1',
-            port: '443',
-            BAD_protocol: 'https'  // TODO change typings to fix this / submit bug report
+            port: '443'
             // port: null // detected as incompatible
         }
+    }
+};
+
+const replyViaToolkit: hapi.ServerRoute = {
+    method: 'GET',
+    path: '/',
+    async handler(req, h): Promise<hapi.ResponseObject> {
+        return h.proxy({
+            host: '10.33.33.1',
+            port: '443',
+            protocol: 'https'
+        });
     }
 };
 

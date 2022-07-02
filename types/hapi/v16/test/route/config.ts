@@ -1,6 +1,6 @@
 'use strict';
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 // different methods
 var routeConfig: Hapi.RouteConfiguration = {

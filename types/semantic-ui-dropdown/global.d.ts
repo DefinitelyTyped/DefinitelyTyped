@@ -170,6 +170,7 @@ declare namespace SemanticUI {
 
     namespace DropdownSettings {
         type Param = (Pick<_Impl, 'on'> |
+            Pick<_Impl, 'values'> |
             Pick<_Impl, 'allowReselection'> |
             Pick<_Impl, 'allowAdditions'> |
             Pick<_Impl, 'hideAdditions'> |
@@ -232,6 +233,12 @@ declare namespace SemanticUI {
              * @default 'click'
              */
             on: string;
+            /**
+             * When specified allows you to initialize dropdown with specific values. See usage guide for details.
+             *
+             * @default false
+             */
+            values: any;
             /**
              * When set to true will fire onChange even when the value a user select matches the currently selected value.
              *

@@ -10,9 +10,9 @@ const compiler = webpack({
 const compilerOptions = webpack({
     plugins: [
         new UglifyjsWebpackPlugin({
-			cache: false,
-			parallel: true,
-			sourceMap: true,
-		}),
+            cache: false,
+            parallel: true,
+            sourceMap: true,
+        }),
     ],
 });

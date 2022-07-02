@@ -8,6 +8,7 @@ class Example extends React.Component {
     return (
         <React.Fragment>
             <DotIndicator color='white' />
+            <DotIndicator style={{ flex: 0 }} />
         </React.Fragment>
     );
   }

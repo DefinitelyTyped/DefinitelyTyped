@@ -1,12 +1,17 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import FacebookLogin, { ReactFacebookFailureResponse, ReactFacebookLoginInfo, ReactFacebookLoginProps } from 'react-facebook-login';
+import FacebookLoginRender, { RenderProps } from 'react-facebook-login/dist/facebook-login-render-props';
 
 const responseFacebook = (response: ReactFacebookLoginInfo) => {
     console.log(response);
 };
 
 const failureResponseFacebook = (response: ReactFacebookFailureResponse) => {
+    console.log(response);
+};
+
+const loginInfoOrFailureResponse = (response: ReactFacebookLoginInfo | ReactFacebookLoginInfo) => {
     console.log(response);
 };
 
@@ -21,6 +26,39 @@ ReactDOM.render(
         fields="name,email,picture"
         onClick={componentClicked}
         callback={responseFacebook} />,
+    document.getElementById('demo')
+);
+
+ReactDOM.render(
+    <FacebookLoginRender
+        appId="1088597931155576"
+        autoLoad={true}
+        fields="name,email,picture"
+        onClick={componentClicked}
+        callback={responseFacebook} />,
+    document.getElementById('demo')
+);
+
+ReactDOM.render(
+    <FacebookLoginRender
+        appId="1088597931155576"
+        autoLoad={true}
+        fields="name,email,picture"
+        onClick={componentClicked}
+        callback={responseFacebook}
+        render={(props: RenderProps) => (
+            <button onClick={props.onClick}>Facebook</button>
+        )} />,
+    document.getElementById('demo')
+);
+
+ReactDOM.render(
+    <FacebookLogin
+        appId="1088597931155576"
+        autoLoad={true}
+        fields="name,email,picture"
+        onClick={componentClicked}
+        callback={loginInfoOrFailureResponse} />,
     document.getElementById('demo')
 );
 
@@ -106,7 +144,7 @@ class MyComponent2 extends React.Component {
     }
 }
 
-type FacebookLoginWrapperProps = ReactFacebookLoginProps & { className?: string };
+type FacebookLoginWrapperProps = ReactFacebookLoginProps & { className?: string | undefined };
 
 export const FacebookLoginWrapper = ({ className, ...props }: FacebookLoginWrapperProps) => (
     <FacebookLogin {...props} cssClass={className} />

@@ -3,7 +3,10 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom"
+            "dom",
+            "es2017.intl",
+            "es2018.intl",
+            "esnext.intl"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -13,6 +16,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "react": ["react/v16"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

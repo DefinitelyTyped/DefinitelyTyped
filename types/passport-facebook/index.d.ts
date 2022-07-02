@@ -10,13 +10,13 @@ import express = require('express');
 export interface Profile extends passport.Profile {
     id: string;
     displayName: string;
-    gender?: string;
+    gender?: string | undefined;
     ageRange?: {
         min: number;
-        max?: number;
-    };
-    profileUrl?: string;
-    username?: string;
+        max?: number | undefined;
+    } | undefined;
+    profileUrl?: string | undefined;
+    username?: string | undefined;
     birthday: string;
 
     _raw: string;
@@ -24,7 +24,7 @@ export interface Profile extends passport.Profile {
 }
 
 export interface AuthenticateOptions extends passport.AuthenticateOptions {
-    authType?: string;
+    authType?: string | undefined;
 }
 
 export interface StrategyOption {
@@ -32,9 +32,19 @@ export interface StrategyOption {
     clientSecret: string;
     callbackURL: string;
 
-    scopeSeparator?: string;
-    enableProof?: boolean;
-    profileFields?: string[];
+    scopeSeparator?: string | undefined;
+    enableProof?: boolean | undefined;
+    profileFields?: string[] | undefined;
+
+    authorizationURL?: string | undefined;
+    tokenURL?: string | undefined;
+    profileURL?: string | undefined;
+    graphAPIVersion?: string | undefined;
+
+    display?: 'page' | 'popup' | 'touch' | undefined;
+
+    authType?: 'reauthenticate' | undefined;
+    authNonce?: string | undefined;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {
@@ -47,7 +57,7 @@ export type VerifyFunction =
 export type VerifyFunctionWithRequest =
     (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
 
-export class Strategy extends passport.Strategy {
+export class Strategy implements passport.Strategy {
     constructor(options: StrategyOptionWithRequest, verify: VerifyFunctionWithRequest);
     constructor(options: StrategyOption, verify: VerifyFunction);
 

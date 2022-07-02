@@ -1,25 +1,55 @@
-import fs = require('fs-ext');
+import fsExt = require('fs-ext');
 
-var num:number;
-var str:string;
+const fd = 1;
 
-//from node.js 'fs' module
-fs.appendFileSync(str, "data");
-
-fs.flock(num, str, (err)=>{
+fsExt.flock(fd, 'sh', (err) => {
+    const _err: NodeJS.ErrnoException | null = err;
 });
-fs.flockSync(num, str);
+fsExt.flock(fd, fsExt.constants.LOCK_SH, (err) => {
+    const _err: NodeJS.ErrnoException | null = err;
+});
+fsExt.flockSync(fd, 'ex');
+fsExt.flockSync(fd, fsExt.constants.LOCK_EX);
 
-fs.fcntl(num, str, num, (err, res)=>{
+fsExt.fcntl(fd, 'setlkw', fsExt.constants.F_WRLCK, (err) => {
+    const _err: NodeJS.ErrnoException | null = err;
 });
-fs.fcntl(num, str, (err, res)=>{
+fsExt.fcntl(fd, fsExt.constants.F_SETLKW, fsExt.constants.F_WRLCK, (err) => {
+    const _err: NodeJS.ErrnoException | null = err;
 });
-fs.fcntlSync(num, str, num);
+fsExt.fcntlSync(fd, fsExt.constants.F_SETLKW, fsExt.constants.F_WRLCK);
 
-fs.seek(num, num, num, (err, pos)=>{
+fsExt.fcntl(fd, 'getfd', (err, flags) => {
+    const _err: NodeJS.ErrnoException | null = err;
+    const _flags: number = flags;
 });
-fs.seekSync(num, num, num);
+fsExt.fcntl(fd, fsExt.constants.F_GETFD, (err, flags) => {
+    const _err: NodeJS.ErrnoException | null = err;
+    const _flags: number = flags;
+});
+{
+    const flags: number = fsExt.fcntlSync(fd, fsExt.constants.F_GETFD);
+}
 
-fs.utime(str, num, num, (err)=>{
+fsExt.seek(fd, 2, fsExt.constants.SEEK_SET, (err, pos) => {
+    const _err: NodeJS.ErrnoException | null = err;
+    const _pos: number = pos;
 });
-fs.utimeSync(str, num, num);
+{
+    const result: number = fsExt.seekSync(fd, 2, fsExt.constants.SEEK_SET);
+}
+
+fsExt.statVFS((err, stat) => {
+    const _err: NodeJS.ErrnoException | null = err;
+    const _stat: fsExt.StatFVS = stat;
+});
+fsExt.statVFS('/some/path', (err, stat) => {
+    const _err: NodeJS.ErrnoException | null = err;
+    const _stat: fsExt.StatFVS = stat;
+});
+{
+    const stat: fsExt.StatFVS = fsExt.statVFS();
+}
+{
+    const stat: fsExt.StatFVS = fsExt.statVFS('/some/path');
+}

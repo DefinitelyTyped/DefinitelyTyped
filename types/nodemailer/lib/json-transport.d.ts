@@ -15,7 +15,7 @@ declare namespace JSONTransport {
 
     interface Options extends MailOptions, TransportOptions {
         jsonTransport: true;
-        skipEncoding?: boolean;
+        skipEncoding?: boolean | undefined;
     }
 
     interface SentMessageInfo {
@@ -25,14 +25,18 @@ declare namespace JSONTransport {
         messageId: string;
         /** JSON string */
         message: string;
+        accepted: Array<string | Mail.Address>;
+        rejected: Array<string | Mail.Address>;
+        pending: Array<string | Mail.Address>;
+        response: string;
     }
 }
 
-declare class JSONTransport implements Transport {
+declare class JSONTransport implements Transport<JSONTransport.SentMessageInfo> {
     options: JSONTransport.Options;
 
     logger: shared.Logger;
-    mailer: Mail;
+    mailer: Mail<JSONTransport.SentMessageInfo>;
 
     name: string;
     version: string;
@@ -40,7 +44,7 @@ declare class JSONTransport implements Transport {
     constructor(options: JSONTransport.Options);
 
     /** Compiles a mailcomposer message and forwards it to handler that sends it */
-    send(mail: MailMessage, callback: (err: Error | null, info: JSONTransport.SentMessageInfo) => void): void;
+    send(mail: MailMessage<JSONTransport.SentMessageInfo>, callback: (err: Error | null, info: JSONTransport.SentMessageInfo) => void): void;
 }
 
 export = JSONTransport;

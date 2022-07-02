@@ -1,7 +1,8 @@
-// Type definitions for falcor 0.1
-// Project: http://netflix.github.io/falcor/
-// Definitions by: Quramy <https://github.com/Quramy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Type definitions for falcor 2.0
+// Project: https://netflix.github.io/falcor/, https://github.com/netflix/falcor
+// Definitions by: Quramy <https://github.com/Quramy>, LukeRielley <https://github.com/lukerielley>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import { Path, PathSet, PathValue, JSONEnvelope, JSONGraph, JSONGraphEnvelope } from 'falcor-json-graph';
 
@@ -62,13 +63,13 @@ export abstract class DataSource {
 /////////////////////////////////////////////////////
 
 export interface ModelOptions {
-    source?: DataSource;
-    cache?: JSONGraph;
-    maxSize?: number;
-    collectRatio?: number;
-    errorSelector?: ModelErrorSelector;
-    onChange?: ModelOnChange;
-    comparator?: ModelComparator;
+    source?: DataSource | undefined;
+    cache?: JSONGraph | undefined;
+    maxSize?: number | undefined;
+    collectRatio?: number | undefined;
+    errorSelector?: ModelErrorSelector | undefined;
+    onChange?: ModelOnChange | undefined;
+    comparator?: ModelComparator | undefined;
 }
 
 /**
@@ -217,7 +218,7 @@ export class Model {
 
 export class ModelResponse<T> extends Observable<T> {
     constructor(observable: Observable<T>);
-    progressively(): ModelResponse<JSONEnvelope<T>>;
+    progressively(): ModelResponse<T>;
     forEach(onNext: (value: T) => void, onError?: (error: Error) => void, onCompleted?: () => void): Subscription;
     then(onFulfilled?: (value: T) => any | Thenable<any>, onRejected?: (error: any) => void): Thenable<any>;
     then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;

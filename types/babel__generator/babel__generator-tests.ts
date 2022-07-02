@@ -10,14 +10,20 @@ ast.loc!.start;
 
 const output = generate(ast, { /* options */ }, code);
 
-// Example from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-generator
-const result = generate(ast, {
+// Example (originally) from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-generator
+const result = generate(
+  ast,
+  {
     retainLines: false,
-    compact: "auto",
+    compact: 'auto',
     concise: false,
-    quotes: "double",
+    jsescOption: {
+      quotes: 'double',
+    },
     jsonCompatibleStrings: true,
     // ...
-}, code);
+  },
+  code,
+);
 result.code;
 result.map;

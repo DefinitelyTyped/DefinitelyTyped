@@ -1,10 +1,13 @@
+// package: google.protobuf
+// file: field_mask.proto
+
 import * as jspb from "../../index";
 
 export class FieldMask extends jspb.Message {
-  clearPathsList(): void;
+  clearPathsList(): FieldMask;
   getPathsList(): Array<string>;
-  setPathsList(value: Array<string>): void;
-  addPaths(value: string, index?: number): void;
+  setPathsList(value: Array<string>): FieldMask;
+  addPaths(value: string, index?: number): string;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): FieldMask.AsObject;
@@ -21,4 +24,3 @@ export namespace FieldMask {
     pathsList: Array<string>,
   }
 }
-

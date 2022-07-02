@@ -4,6 +4,7 @@
 //                 Mahdi Abedi <https://github.com/abedi-ir>
 //                 Nikolai Ommundsen <https://github.com/niikoo>
 //                 Nitecube <https://github.com/Nitecube>
+//                 Hossein Hosni <https://github.com/hosni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -62,6 +63,9 @@ declare namespace Fancytree {
 
         /** Write to browser console if debugLevel >= 2 (prepending tree name)  */
         debug(msg: any): void;
+
+        /** Expand (or collapse) all parent nodes. */
+        expandAll(flag?: boolean, options?: Object): void;
 
         /** [ext-filter] Dimm or hide whole branches.
          * @returns {integer} count
@@ -129,7 +133,7 @@ declare namespace Fancytree {
         getNodesByRef(refKey: string, rootNode?: FancytreeNode): FancytreeNode[];
 
         /** [ext-persist] Return persistence information from cookies Called like $("#tree").fancytree("getTree").getPersistData(); */
-        getPersistData(): void;
+        getPersistData(): PersistData;
 
         /** Return the invisible system root node.  */
         getRootNode(): FancytreeNode;
@@ -228,6 +232,8 @@ declare namespace Fancytree {
         extraClasses: string;
         /** Folder nodes have different default icons and click behavior. Note: Also non-folders may have children. */
         folder: boolean;
+        /** Icon of the tree node. */
+        icon: string;
         /** null or type of temporarily generated system node like 'loading', or 'error'. */
         statusNodeType: string;
         /** True if this node is loaded on demand, i.e. on first expansion. */
@@ -238,6 +244,10 @@ declare namespace Fancytree {
         span: HTMLElement;
         /** Outer element of single nodes for table extension */
         tr: HTMLTableRowElement;
+        unselectable?: boolean | undefined;
+        unselectableIgnore?: boolean | undefined;
+        unselectableStatus?: boolean | undefined;
+
         //#endregion
 
         //#region Methods
@@ -755,12 +765,12 @@ declare namespace Fancytree {
         /** `data.node` was selected */
         select?(event: JQueryEventObject, data: EventData): void;
         /** Enable RTL version, default is false */
-        rtl?: boolean;
+        rtl?: boolean | undefined;
     }
 
     interface FancytreeOptions extends FancytreeEvents {
         /** Make sure that the active node is always visible, i.e. its parents are expanded (default: true). */
-        activeVisible?: boolean;
+        activeVisible?: boolean | undefined;
         /** Default options for ajax requests. */
         ajax?: {
             /**
@@ -775,81 +785,81 @@ declare namespace Fancytree {
              * Default 'json' -> Expect json format and pass json object to callbacks.
              */
             dataType: string;
-        };
+        } | undefined;
         /** (default: false) Add WAI-ARIA attributes to markup */
-        aria?: boolean;
+        aria?: boolean | undefined;
         /** Activate a node when focused with the keyboard (default: true) */
-        autoActivate?: boolean;
+        autoActivate?: boolean | undefined;
         /** Automatically collapse all siblings, when a node is expanded (default: false). */
-        autoCollapse?: boolean;
+        autoCollapse?: boolean | undefined;
         /** Scroll node into visible area, when focused by keyboard (default: false). */
-        autoScroll?: boolean;
+        autoScroll?: boolean | undefined;
         /** Display checkboxes to allow selection (default: false) */
-        checkbox?: boolean | string | ((event: JQueryEventObject, data: EventData) => boolean);
+        checkbox?: boolean | string | ((event: JQueryEventObject, data: EventData) => boolean) | undefined;
         /** Defines what happens, when the user click a folder node. (default: activate_dblclick_expands) */
-        clickFolderMode?: FancytreeClickFolderMode;
+        clickFolderMode?: FancytreeClickFolderMode | undefined;
         /** 0..4 (null: use global setting $.ui.fancytree.debugInfo) */
-        debugLevel?: 0 | 1 | 2 | 3 | 4;
+        debugLevel?: 0 | 1 | 2 | 3 | 4 | undefined;
         /** callback(node) is called for new nodes without a key. Must return a new unique key. (default null: generates default keys like that: "_" + counter) */
-        defaultKey?: (node: FancytreeNode) => string;
+        defaultKey?: ((node: FancytreeNode) => string) | undefined;
         /** Accept passing ajax data in a property named `d` (default: true). */
-        enableAspx?: boolean;
+        enableAspx?: boolean | undefined;
         /** Enable titles (default: false) */
-        enableTitles?: boolean;
+        enableTitles?: boolean | undefined;
         /** List of active extensions (default: []) */
-        extensions?: Array<keyof Extensions.List | string>;
+        extensions?: Array<keyof Extensions.List | string> | undefined;
         /** Set focus when node is checked by a mouse click (default: false) */
-        focusOnSelect?: boolean;
+        focusOnSelect?: boolean | undefined;
         /** Add `id="..."` to node markup (default: true). */
-        generateIds?: boolean;
+        generateIds?: boolean | undefined;
         /** Node icon url, if only filename, please use imagePath to set the path */
-        icon?: boolean | string;
+        icon?: boolean | string | undefined;
         /** Prefix (default: "ft_") */
-        idPrefix?: string;
+        idPrefix?: string | undefined;
         /** Path to a folder containing icons (default: null, using 'skin/' subdirectory). */
-        imagePath?: string;
+        imagePath?: string | undefined;
         /** Support keyboard navigation (default: true). */
-        keyboard?: boolean;
+        keyboard?: boolean | undefined;
         /** (default: "/") */
-        keyPathSeparator?: string;
+        keyPathSeparator?: string | undefined;
         /** 2: top-level nodes are not collapsible (default: 1) */
-        minExpandLevel?: number;
+        minExpandLevel?: number | undefined;
         /** navigate to next node by typing the first letters (default: false) */
-        quicksearch?: boolean;
+        quicksearch?: boolean | undefined;
         /** Right to left mode (default: false) */
-        rtl?: false;
+        rtl?: boolean | undefined;
         /** optional margins for node.scrollIntoView() (default: {top: 0, bottom: 0}) */
-        scrollOfs?: { top: number, bottom: number };
+        scrollOfs?: { top: number, bottom: number } | undefined;
         /** scrollable container for node.scrollIntoView() (default: $container) */
-        scrollParent?: JQuery | null;
+        scrollParent?: JQuery | null | undefined;
         /** default: multi_hier */
-        selectMode?: FancytreeSelectMode;
+        selectMode?: FancytreeSelectMode | undefined;
         /** Used to Initialize the tree. */
-        source?: any[] | any;
+        source?: any[] | any | undefined;
         /** Translation table */
-        strings?: TranslationTable;
+        strings?: TranslationTable | undefined;
         /** Add tabindex='0' to container, so tree can be reached using TAB */
-        tabbable?: boolean;
+        tabbable?: boolean | undefined;
         /** Add tabindex='0' to node title span, so it can receive keyboard focus */
-        titlesTabbable?: boolean;
+        titlesTabbable?: boolean | undefined;
         /** Animation options, false:off (default: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 }) */
-        toggleEffect?: JQueryUI.EffectOptions;
+        toggleEffect?: false | JQueryUI.EffectOptions | undefined;
         /** Tooltips */
-        tooltip?: boolean;
+        tooltip?: boolean | undefined;
 
         /** (dynamic Option)Prevent (de-)selection using mouse or keyboard. */
-        unselectable?: boolean | ((event: JQueryEventObject, data: Fancytree.EventData) => boolean | undefined);
+        unselectable?: boolean | ((event: JQueryEventObject, data: Fancytree.EventData) => boolean | undefined) | undefined;
         /** (dynamic Option)Ignore this node when calculating the partsel status of parent nodes in selectMode 3 propagation. */
-        unselectableIgnore?: boolean | ((event: JQueryEventObject, data: Fancytree.EventData) => boolean | undefined);
+        unselectableIgnore?: boolean | ((event: JQueryEventObject, data: Fancytree.EventData) => boolean | undefined) | undefined;
         /** (dynamic Option)Use this as constant selected value (overriding selectMode 3 propagation). */
-        unselectableStatus?: boolean | ((event: JQueryEventObject, data: Fancytree.EventData) => boolean | undefined);
+        unselectableStatus?: boolean | ((event: JQueryEventObject, data: Fancytree.EventData) => boolean | undefined) | undefined;
 
         ////////////////
         // EXTENSIONS //
         ////////////////
-        dnd5?: Extensions.DragAndDrop5;
-        filter?: Extensions.Filter;
-        table?: Extensions.Table;
+        dnd5?: Extensions.DragAndDrop5 | undefined;
+        filter?: Extensions.Filter | undefined;
+        table?: Extensions.Table | undefined;
 
         /** Options for misc extensions - see docs for typings */
         [extension: string]: any;
@@ -859,26 +869,33 @@ declare namespace Fancytree {
         /**
          * "Loading..."  // &#8230; would be escaped when escapeTitles is true
          */
-        loading: string;
+        loading?: string | undefined;
         /**
          * "Load error!"
          */
-        loadError: string;
+        loadError?: string | undefined;
         /**
          * "More..."
          */
-        moreData: string;
+        moreData?: string | undefined;
         /**
          * "No data."
          */
-        noData: string;
+        noData?: string | undefined;
+    }
+
+    interface PersistData {
+        active: string | null;
+        expanded: string[];
+        focus: string | null;
+        selected: string[];
     }
 
     namespace Extensions {
         interface List {
-            dnd5?: DragAndDrop5;
-            filter?: Filter;
-            table?: Table;
+            dnd5?: DragAndDrop5 | undefined;
+            filter?: Filter | undefined;
+            table?: Table | undefined;
             [extension: string]: any;
         }
 
@@ -886,74 +903,74 @@ declare namespace Fancytree {
             /**
              * Expand nodes after n milliseconds of hovering.
              */
-            autoExpandMS?: number;
+            autoExpandMS?: number | undefined;
             /**
              * Absolute position offset for .fancytree-drop-marker
              */
-            dropMarkerOffsetX?: number;
+            dropMarkerOffsetX?: number | undefined;
             /**
              * Additional offset for drop-marker with hitMode = "before"/"after"
              */
-            dropMarkerInsertOffsetX?: number;
+            dropMarkerInsertOffsetX?: number | undefined;
             /**
              * true: Drag multiple (i.e. selected) nodes.
              */
-            multiSource?: boolean;
+            multiSource?: boolean | undefined;
             /**
              * Prevent dropping nodes from different Fancytrees
              */
-            preventForeignNodes?: boolean;
+            preventForeignNodes?: boolean | undefined;
             /**
              * Prevent dropping items other than Fancytree nodes
              */
-            preventNonNodes?: boolean;
+            preventNonNodes?: boolean | undefined;
             /**
              * Prevent dropping nodes on own descendants
              */
-            preventRecursiveMoves?: boolean;
+            preventRecursiveMoves?: boolean | undefined;
             /**
              * Prevent dropping nodes 'before self', etc.
              */
-            preventVoidMoves?: boolean;
+            preventVoidMoves?: boolean | undefined;
             /**
              * Enable auto-scrolling while dragging
              */
-            scroll?: boolean;
+            scroll?: boolean | undefined;
             /**
              * Active top/bottom margin in pixel
              */
-            scrollSensitivity?: number;
+            scrollSensitivity?: number | undefined;
             /**
              * Pixel per event
              */
-            scrollSpeed?: number;
+            scrollSpeed?: number | undefined;
             /**
              * Allow dragging of nodes to different IE windows, default: false
              */
-            setTextTypeJson?: boolean;
+            setTextTypeJson?: boolean | undefined;
             /**
              * Callback(sourceNode, data), return true, to enable dnd drag
              */
-            dragStart?: (sourceNode: FancytreeNode, data: any) => void;
-            dragDrag?: (sourceNode: FancytreeNode, data: any) => void;
-            dragEnd?: (sourceNode: FancytreeNode, data: any) => void;
+            dragStart?: ((sourceNode: FancytreeNode, data: any) => void) | undefined;
+            dragDrag?: ((sourceNode: FancytreeNode, data: any) => void) | undefined;
+            dragEnd?: ((sourceNode: FancytreeNode, data: any) => void) | undefined;
             /**
              * Callback(targetNode, data), return true, to enable dnd drop
              */
-            dragEnter?: (targetNode: FancytreeNode, data: any) => void;
+            dragEnter?: ((targetNode: FancytreeNode, data: any) => void) | undefined;
             /**
              * Events (drag over)
              */
-            dragOver?: (targetNode: FancytreeNode, data: any) => void;
+            dragOver?: ((targetNode: FancytreeNode, data: any) => void) | undefined;
             /**
              * Callback(targetNode, data), return false to prevent autoExpand
              */
-            dragExpand?: (targetNode: FancytreeNode, data: any) => void;
+            dragExpand?: ((targetNode: FancytreeNode, data: any) => void) | undefined;
             /**
              * Events (drag drop)
              */
-            dragDrop?: (node: FancytreeNode, data: any) => void;
-            dragLeave?: (targetNode: FancytreeNode, data: any) => void;
+            dragDrop?: ((node: FancytreeNode, data: any) => void) | undefined;
+            dragLeave?: ((targetNode: FancytreeNode, data: any) => void) | undefined;
             /**
              * Support misc options
              */
@@ -966,43 +983,43 @@ declare namespace Fancytree {
             /**
              * Re-apply last filter if lazy data is loaded
              */
-            autoApply: boolean;
+            autoApply?: boolean | undefined;
             /**
              * Expand all branches that contain matches while filtered
              */
-            autoExpand: boolean;
+            autoExpand?: boolean | undefined;
             /**
              * Show a badge with number of matching child nodes near parent icons
              */
-            counter: boolean;
+            counter?: boolean | undefined;
             /**
              * Match single characters in order, e.g. 'fb' will match 'FooBar'
              */
-            fuzzy: boolean;
+            fuzzy?: boolean | undefined;
             /**
              * Hide counter badge if parent is expanded
              */
-            hideExpandedCounter: boolean;
+            hideExpandedCounter?: boolean | undefined;
             /**
              * Hide expanders if all child nodes are hidden by filter
              */
-            hideExpanders: boolean;
+            hideExpanders?: boolean | undefined;
             /**
              * Highlight matches by wrapping inside <mark> tags
              */
-            highlight: boolean;
+            highlight?: boolean | undefined;
             /**
              * Match end nodes only
              */
-            leavesOnly: boolean;
+            leavesOnly?: boolean | undefined;
             /**
              * Display a 'no data' status node if result is empty
              */
-            nodata: boolean;
+            nodata?: boolean | undefined;
             /**
              * Grayout unmatched nodes (pass "hide" to remove unmatched node instead); default 'dimm'
              */
-            mode: 'dimm' | 'string';
+            mode?: 'dimm' | 'hide' | undefined;
             /**
              * Support misc options
              */
@@ -1036,54 +1053,54 @@ declare namespace Fancytree {
     interface NodeData {
         /** node text (may contain HTML tags) */
         title: string;
-        icon?: boolean | string;
+        icon?: boolean | string | undefined;
         /** unique key for this node (auto-generated if omitted) */
-        key?: string;
+        key?: string | undefined;
         /** (reserved) */
-        refKey?: string;
-        expanded?: boolean;
+        refKey?: string | undefined;
+        expanded?: boolean | undefined;
         /** (initialization only, but will not be stored with the node). */
-        active?: boolean;
+        active?: boolean | undefined;
         /** (initialization only, but will not be stored with the node). */
-        focus?: boolean;
-        folder?: boolean;
-        hideCheckbox?: boolean;
-        lazy?: boolean;
-        selected?: boolean;
-        unselectable?: boolean;
+        focus?: boolean | undefined;
+        folder?: boolean | undefined;
+        hideCheckbox?: boolean | undefined;
+        lazy?: boolean | undefined;
+        selected?: boolean | undefined;
+        unselectable?: boolean | undefined;
         /** optional array of child nodes */
-        children?: NodeData[];
-        tooltip?: string;
+        children?: NodeData[] | undefined;
+        tooltip?: string | undefined;
         /** class names added to the node markup (separate with space) */
-        extraClasses?: string;
+        extraClasses?: string | undefined;
         /** all properties from will be copied to `node.data` */
-        data?: Object;
+        data?: Object | undefined;
 
         /** Will be added as title attribute of the node's icon span,thus enabling a tooltip. */
-        iconTooltip?: string;
+        iconTooltip?: string | undefined;
 
         /** If set, make this node a status node. Values: 'error', 'loading', 'nodata', 'paging'. */
-        statusNodeType?: string;
+        statusNodeType?: string | undefined;
 
         /** Made available as node.type. */
-        type?: string;
+        type?: string | undefined;
 
         /** Ignore this node when calculating the partsel status of parent nodes in selectMode 3 propagation. */
-        unselectableIgnore?: boolean;
+        unselectableIgnore?: boolean | undefined;
 
         /** Use this as constant selected value(overriding selectMode 3 propagation). */
-        unselectableStatus?: boolean;
+        unselectableStatus?: boolean | undefined;
     }
 
     /** Data object similar to NodeData, but with additional options.
       * May be passed to FancytreeNode#applyPatch (Every property that is omitted (or set to undefined) will be ignored)  */
     interface NodePatch {
         /** (not yet implemented) */
-        appendChildren?: NodeData;
+        appendChildren?: NodeData | undefined;
         /** (not yet implemented) */
-        replaceChildren?: NodeData;
+        replaceChildren?: NodeData | undefined;
         /** (not yet implemented) */
-        insertChildren?: NodeData;
+        insertChildren?: NodeData | undefined;
     }
 
     /** May be passed to Fancytree#applyPatch. */
@@ -1115,6 +1132,8 @@ declare namespace Fancytree {
         getNode(el: JQuery): FancytreeNode;
         getNode(el: Event): FancytreeNode;
         getNode(el: Element): FancytreeNode;
+
+        getTree(el: Element | JQuery | Event | number | string): Fancytree;
 
         info(msg: string): void;
 

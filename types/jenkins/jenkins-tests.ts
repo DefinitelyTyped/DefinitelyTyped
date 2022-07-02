@@ -34,6 +34,20 @@ log.on('end', () => {
   console.log('end');
 });
 
+const log2 = jenkins.build.logStream('example', 1, { type: 'html', delay: 2 * 1000 });
+
+log2.on('data', (text: string) => {
+    process.stdout.write(text);
+});
+
+log2.on('error', (err: Error) => {
+    console.log('error', err);
+});
+
+log2.on('end', () => {
+    console.log('end');
+});
+
 jenkins.build.stop('example', 1, (err) => {
   if (err) throw err;
 });
@@ -207,3 +221,5 @@ jenkins.view.remove('example', 'jobExample', (err) => {
 const jenkins2 = J({ baseUrl: 'http://user:pass@localhost:8080', crumbIssuer: true, promisify: true });
 jenkins2.info().then(info => console.log(info));
 jenkins2.job.exists('example').then(exists => { const b: boolean = exists; });
+jenkins2.job.list().then(jobs => console.log(jobs));
+jenkins2.job.list('parent').then(jobs => console.log(jobs));

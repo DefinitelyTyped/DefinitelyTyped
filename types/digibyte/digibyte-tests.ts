@@ -41,3 +41,5 @@ const paymentInfo = {
 
 const uri = new digibyte.URI(paymentInfo).toString();
 uri.toString();
+
+const isValid = digibyte.Address.isValid(paymentInfo.address);

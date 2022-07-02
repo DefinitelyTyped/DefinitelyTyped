@@ -1,6 +1,6 @@
 // Type definitions for soupbintcp 0.2
 // Project: https://github.com/jvirtanen/node-soupbintcp#readme
-// Definitions by: Vilim Stubičan <https://github.com/jewbre>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -24,10 +24,10 @@ export class Client extends EventEmitter {
 }
 
 export interface ConnectionOptions {
-    rxTimeoutMillis?: number;
-    txIntervalMillis?: number;
+    rxTimeoutMillis?: number | undefined;
+    txIntervalMillis?: number | undefined;
     heartbeatPacketType: PacketType;
-    keepAliveMillis?: number;
+    keepAliveMillis?: number | undefined;
 }
 
 export class Connection extends EventEmitter {

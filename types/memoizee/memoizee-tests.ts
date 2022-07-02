@@ -26,7 +26,7 @@ memoized.clear('bar', 7); // Dispose called with bar7 value
 memoized.delete('foo', 0);
 const mFn = memoize((hash: any) => {
     // body of memoized function
-}, { normalizer: (args: any) => {
+}, { normalizer: (args) => {
     // args is arguments object as accessible in memoized function
     return JSON.stringify(args[0]);
 } });
@@ -42,9 +42,21 @@ memoized(String({ toString() { return "12"; } }), Number({}));
     const afn = (a: number, b: number) => {
         return new Promise(res => { res(a + b); });
     };
-    const memoized = memoize(afn, { promise: true });
+    let memoized = memoize(afn, { promise: true });
     memoized(3, 7);
     memoized(3, 7);
+
+    memoized = memoize(afn, { promise: 'then' });
+    memoized(2, 7);
+    memoized(2, 7);
+
+    memoized = memoize(afn, { promise: 'done' });
+    memoized(5, 7);
+    memoized(5, 7);
+
+    memoized = memoize(afn, { promise: 'done:finally' });
+    memoized(8, 7);
+    memoized(8, 7);
 }
 
 memoized = memoize(fn, { maxAge: 1000, preFetch: 0.6 });
@@ -59,3 +71,11 @@ setTimeout(() => {
 setTimeout(() => {
   memoized('foo', 3);
 }, 1300);
+
+memoize((foo: string, bar: number) => 42, {
+  normalizer: ([foo, bar]) => { // normalizer argument should be typed
+    return foo + bar.toFixed();
+  }
+});
+
+memoized = memoize(fn, { profileName: 'foo' });
