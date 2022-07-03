@@ -907,19 +907,9 @@ declare namespace googletag {
          * @param listener Function that takes a single event object argument.
          * @returns The service object on which the method was called.
          */
-        addEventListener(eventType: events.EventType, listener: (event: events.Event) => void): Service;
-        addEventListener(
-            eventType: 'rewardedSlotGranted',
-            listener: (event: events.RewardedSlotGrantedEvent) => void,
-        ): Service;
-        addEventListener(
-            eventType: 'rewardedSlotReady',
-            listener: (event: events.RewardedSlotReadyEvent) => void,
-        ): Service;
-        addEventListener(eventType: 'slotRenderEnded', listener: (event: events.SlotRenderEndedEvent) => void): Service;
-        addEventListener(
-            eventType: 'slotVisibilityChanged',
-            listener: (event: events.SlotVisibilityChangedEvent) => void,
+        addEventListener<K extends keyof events.EventTypeMap>(
+            eventType: K,
+            listener: (event: events.EventTypeMap[K]) => void,
         ): Service;
         /**
          * Get the name of this service.
@@ -961,22 +951,9 @@ declare namespace googletag {
          * @param listener Function that takes a single event object argument.
          * @returns Whether existing event listener was removed.
          */
-        removeEventListener(eventType: events.EventType, listener: (event: events.Event) => void): boolean;
-        removeEventListener(
-            eventType: 'rewardedSlotGranted',
-            listener: (event: events.RewardedSlotGrantedEvent) => void,
-        ): boolean;
-        removeEventListener(
-            eventType: 'rewardedSlotReady',
-            listener: (event: events.RewardedSlotReadyEvent) => void,
-        ): boolean;
-        removeEventListener(
-            eventType: 'slotRenderEnded',
-            listener: (event: events.SlotRenderEndedEvent) => void,
-        ): boolean;
-        removeEventListener(
-            eventType: 'slotVisibilityChanged',
-            listener: (event: events.SlotVisibilityChangedEvent) => void,
+        removeEventListener<K extends keyof events.EventTypeMap>(
+            eventType: K,
+            listener: (event: events.EventTypeMap[K]) => void,
         ): boolean;
     }
     interface Size {
@@ -1424,7 +1401,7 @@ declare namespace googletag {
         getName(): string;
     }
     /**
-     * This is the namespace that GPT uses for `Adsense`.
+     * This is the namespace that GPT uses for `adsense`.
      */
     namespace adsense {
         /**
@@ -1458,11 +1435,14 @@ declare namespace googletag {
             | 'page_url';
     }
     /**
-     * This is the namespace that GPT uses for `enum types`.
+     * This is the namespace that GPT uses for `enums`.
      */
     namespace enums {
         /**
-         * Out of page formats supported by GPT.
+         * Out-of-page formats supported by GPT.
+         *
+         * **See also**
+         * - [googletag.defineOutOfPageSlot](https://developers.google.com/publisher-tag/reference#googletag.defineOutOfPageSlot)
          */
         enum OutOfPageFormat {
             /**
@@ -1484,6 +1464,9 @@ declare namespace googletag {
         }
         /**
          * [Traffic sources](https://support.google.com/admanager/answer/11233407) supported by GPT.
+         *
+         * **See also**
+         * - [PrivacySettingsConfig.trafficSource](https://developers.google.com/publisher-tag/reference#googletag.PrivacySettingsConfig_trafficSource)
          */
         enum TrafficSource {
             /**
@@ -1497,22 +1480,13 @@ declare namespace googletag {
         }
     }
     /**
-     * This is the namespace that GPT uses for `Events`. Your code can react to these events using `Service.addEventListener`.
+     * This is the namespace that GPT uses for `events`.
      */
     namespace events {
         /**
          * Event type for all GPT events.
          */
-        type EventType =
-            | 'impressionViewable'
-            | 'rewardedSlotClosed'
-            | 'rewardedSlotGranted'
-            | 'rewardedSlotReady'
-            | 'slotRequested'
-            | 'slotResponseReceived'
-            | 'slotRenderEnded'
-            | 'slotOnload'
-            | 'slotVisibilityChanged';
+        type EventType = keyof EventTypeMap;
         /**
          * Base Interface for all GPT events. All GPT events below will have the following fields.
          *
@@ -1528,6 +1502,21 @@ declare namespace googletag {
              * The slot that triggered the event.
              */
             slot: Slot;
+        }
+        /**
+         * This is a pseudo-type that maps an event name to its corresponding event object type for `Service.addEventListener` and `Service.removeEventListener`.
+         * It is documented for reference and type safety purposes only.
+         */
+        interface EventTypeMap {
+            impressionViewable: ImpressionViewableEvent;
+            rewardedSlotClosed: RewardedSlotClosedEvent;
+            rewardedSlotGranted: RewardedSlotGrantedEvent;
+            rewardedSlotReady: RewardedSlotReadyEvent;
+            slotOnload: SlotOnloadEvent;
+            slotRenderEnded: SlotRenderEndedEvent;
+            slotRequested: SlotRequestedEvent;
+            slotResponseReceived: SlotResponseReceived;
+            slotVisibilityChanged: SlotVisibilityChangedEvent;
         }
         /**
          * This event is fired when an impression becomes viewable, according to the [Active View criteria](https://support.google.com/admanager/answer/4524488).
