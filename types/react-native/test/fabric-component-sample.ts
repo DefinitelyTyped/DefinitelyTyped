@@ -1,7 +1,6 @@
 import codegenNativeComponent, { NativeComponentType } from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 import type { ViewProps } from 'react-native';
-('use strict');
 
 interface NativeProps extends ViewProps {
     color?: string;
