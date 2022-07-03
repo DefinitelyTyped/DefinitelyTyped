@@ -1,4 +1,4 @@
-// Type definitions for intro.js 3.0
+// Type definitions for intro.js 5.1
 // Project: https://github.com/usablica/intro.js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen>
 //                 Leon Montealegre <https://github.com/LeonMontealegre>
