@@ -28,15 +28,15 @@ const dataObjects = [
     },
 ];
 
-/*
-    const csvFromArrayOfObjects  = 'number,first,last,handle\n1,Mark,Otto,@mdo\n2,Jacob,Thornton,@fat\n3,Larry,the Bird,@twitter\n';
-  */
+// $ExpectType string
 const csvFromArrayOfObjects = convertArrayToCSV(dataObjects);
 
-/*
-    const csvFromArrayOfArrays  = 'number;first;last;handle\n1;Mark;Otto;@mdo\n2;Jacob;Thornton;@fat\n3;Larry;the Bird;@twitter\n';
-  */
+// $ExpectType string
 const csvFromArrayOfArrays = convertArrayToCSV(dataArrays, {
     header,
     separator: ';',
 });
+
+// When the param is incorrect
+// @ts-expect-error
+const csvFromString = convertArrayToCSV('1, Mark, Otto, @mdo');
