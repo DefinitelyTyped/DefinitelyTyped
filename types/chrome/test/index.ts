@@ -1067,7 +1067,7 @@ async function testTabsForPromise() {
     await chrome.tabs.get(0);
     await chrome.tabs.getAllInWindow();
     await chrome.tabs.getAllInWindow(0);
-    await chrome.tabs.getCurrent();
+    await chrome.tabs.getCurrent(); // $ExpectType Tab | undefined
     await chrome.tabs.getSelected();
     await chrome.tabs.getSelected(0);
     await chrome.tabs.create({});
