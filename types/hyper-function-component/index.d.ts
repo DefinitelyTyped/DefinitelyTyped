@@ -1,5 +1,5 @@
 // Type definitions for hyper-function-component 1.2
-// Project: https://hyper-function.com/ponent
+// Project: https://hyper-function.com/hfc/intro
 // Definitions by: terry-fei <https://github.com/terry-fei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
