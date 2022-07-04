@@ -1019,6 +1019,18 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: function() {}, args: [] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [''] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {} }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => 0 }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => '' }); // $ExpectType InjectionResult<string>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => 0, args: ['', 0] }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => '', args: ['', 0] }); // $ExpectType InjectionResult<string>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => {} }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => 0 }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => '' }); // $ExpectType InjectionResult<string>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => {}, args: ['', 0] }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => 0, args: ['', 0] }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => '', args: ['', 0] }); // $ExpectType InjectionResult<string>[]
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'ISOLATED', func: () => {} });
     // @ts-expect-error
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'not-real-world', func: () => {} });
@@ -1032,7 +1044,7 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (name: string) => {}, args: [] });
     // @ts-expect-error
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: {} });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] }); // $ExpectType InjectionResult<unknown>[]
 
     await chrome.scripting.insertCSS({ target: { tabId: 0 } });
 }
