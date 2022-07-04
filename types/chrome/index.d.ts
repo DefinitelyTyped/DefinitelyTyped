@@ -9349,7 +9349,7 @@ declare namespace chrome.tabs {
      * Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view).
      * @return The `getCurrent` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function getCurrent(): Promise<Tab>;
+    export function getCurrent(): Promise<Tab | undefined>;
     /**
      * Gets the tab that is selected in the specified window.
      * @deprecated since Chrome 33. Please use tabs.query {active: true}.
