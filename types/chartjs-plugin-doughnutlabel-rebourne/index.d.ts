@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { ChartType, Plugin } from 'chart.js';
+import { Chart, ChartType, Plugin, FontSpec } from 'chart.js';
 
 declare module 'chart.js' {
     interface PluginOptionsByType<TType extends ChartType> {
@@ -12,6 +12,9 @@ declare module 'chart.js' {
     }
 }
 
+// Using declaration merging https://www.typescriptlang.org/docs/handbook/declaration-merging.html
+// Allows importing the plugin as: import * as DoughnutLabel from 'chartjs-plugin-doughnutlabel-rebourne';
+// and using the interfaces as: DoughnutLabel.Label
 declare namespace DoughnutLabel {
     interface Options {
         labels?: Label[];
@@ -24,34 +27,21 @@ declare namespace DoughnutLabel {
         /** Color of the labels (plugin scope) */
         color?: CanvasRenderingContext2D['fillStyle'];
         /** The font options used to draw the label text (plugin scope) */
-        font?: Font;
+        font?: Partial<FontSpec>;
     }
 
     interface Label {
         /** The text to display */
-        text: string;
+        text: string | number | ((chart: Chart) => string | number);
         /** The font options used to draw the label text (single label scope) */
-        font?: Font;
+        font?: Partial<FontSpec>;
         /** Color of the labels (single label scope) */
         color?: CanvasRenderingContext2D['fillStyle'];
         /** Show the label or not (single label scope) */
         display?: boolean;
     }
-
-    interface Font {
-        /** Defaults to `Chart.defaults.global.defaultFontFamily` */
-        family?: string;
-        /** Defaults to 1.2 */
-        lineHeight?: number | `${number}`;
-        /** Defaults to `Chart.defaults.global.defaultFontSize` */
-        size?: number | `${number}`;
-        /** Defaults to `Chart.defaults.global.defaultFontStyle` */
-        style?: string;
-        /** Defaults to `'normal'` */
-        weight?: string;
-    }
 }
 
-declare const DoughnutLabelPlugin: Plugin<'doughnut'>;
+declare const DoughnutLabel: Plugin<'doughnut'>;
 
-export = DoughnutLabelPlugin;
+export = DoughnutLabel;
