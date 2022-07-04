@@ -5083,6 +5083,10 @@
             "libraryName": "tabris-plugin-firebase",
             "asOfVersion": "2.1.0"
         },
+        "tailwindcss": {
+            "libraryName": "tailwindcss",
+            "asOfVersion": "3.1.0"
+        },
         "tcomb": {
             "libraryName": "tcomb",
             "asOfVersion": "2.6.0"
