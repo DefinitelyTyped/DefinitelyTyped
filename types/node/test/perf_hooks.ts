@@ -101,7 +101,7 @@ histogram.record(123n);
 histogram.recordDelta();
 
 //intelligence is working
- 
+
 declare let histo1: RecordableHistogram;
 declare let histo2: RecordableHistogram;
 declare let histo3: RecordableHistogram;
