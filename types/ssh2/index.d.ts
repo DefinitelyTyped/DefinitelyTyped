@@ -13,7 +13,7 @@
 /// <reference types="node" />
 
 import { Duplex, Writable, Readable, ReadableOptions, WritableOptions } from "stream";
-import EventEmitter = require("events");
+import { EventEmitter } from "events";
 import { Socket, Server as NetServer } from "net";
 import { Agent as BaseHTTPAgent, AgentOptions } from "http";
 import { Agent as BaseHTTPSAgent } from "https";
