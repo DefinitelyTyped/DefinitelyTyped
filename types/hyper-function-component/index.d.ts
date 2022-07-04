@@ -1,13 +1,14 @@
-// Type definitions for hyper-function-component 1.1
+// Type definitions for hyper-function-component 1.2
 // Project: https://hyper-function.com/ponent
 // Definitions by: terry-fei <https://github.com/terry-fei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class HyperFunctionComponent {
+    static tag?: string;
     static propTypes?: HfcPropTypes;
     constructor(props: HfcProps);
 
-    connected(container: HTMLDivElement): void;
+    connected(container: HTMLElement): void;
     changed?(type: 'attr' | 'event' | 'slot', name: string, oldValue: any, newValue: any): void;
     disconnected?(): void;
 }
