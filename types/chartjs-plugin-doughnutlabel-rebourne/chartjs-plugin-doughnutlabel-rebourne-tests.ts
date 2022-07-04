@@ -68,16 +68,26 @@ const chart = new Chart(ctx, {
                         text: 'The title',
                     },
                     {
-                        text: 'The subtitle',
+                        text: () => 'The subtitle',
                         font: {
-                            size: '50',
+                            size: 50,
+                            // @ts-expect-error
+                            style: 'wrong-style',
                         },
                         color: 'grey',
                     },
                     {
-                        text: '$100.000',
+                        text: 10001,
                         font: {
-                            size: '30',
+                            size: 30,
+                        },
+                        color: 'blue',
+                    },
+                    {
+                        text: () => 10002,
+                        font: {
+                            // @ts-expect-error
+                            size: 30,
                         },
                         color: 'red',
                     },
@@ -88,7 +98,7 @@ const chart = new Chart(ctx, {
                         font: {
                             family: 'Arial',
                             lineHeight: '1.2',
-                            size: '12',
+                            size: 12,
                             style: 'normal',
                             weight: 'normal',
                         },
