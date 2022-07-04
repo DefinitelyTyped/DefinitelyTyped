@@ -171,103 +171,108 @@ client.tasks.update('task_gid', {
 
 // redacted response from client.tasks.getTask('gid here') with no options passed,
 // from a Premium-level account.
-const _returnedTask: asana.resources.Tasks.Type = {
-    gid: "123",
-    assignee: {
-        gid: "456",
-        name: "person name",
-        resource_type: "user"
-    },
-    assignee_status: "inbox",
-    assignee_section: {
-        gid: "789",
-        name: "section name",
-        resource_type: "section"
-    },
-    completed: false,
-    completed_at: null,
-    created_at: "2022-02-19T14:39:02.472Z",
-    custom_fields: [
-        {
-            gid: "123",
-            enabled: true,
-            name: "upvotes",
-            number_value: -293,
-            precision: 0,
-            created_by: {
-                gid: "456",
-                name: "person name",
-                resource_type: "user"
-            },
-            display_value: "-293",
-            resource_subtype: "number",
-            resource_type: "custom_field",
-            type: "number"
-        }
-    ],
-    due_at: null,
-    due_on: null,
-    followers: [
-        {
-            gid: "123",
-            name: "person name",
-            resource_type: "user"
-        }
-    ],
-    hearted: false,
-    hearts: [],
-    liked: false,
-    likes: [],
-    memberships: [
-        {
-            project: {
-                gid: '456',
-                name: 'project name',
-                resource_type: 'project',
-            },
-            section: {
-                gid: '789',
-                name: 'section name',
-                resource_type: 'section',
-            },
-        },
-    ],
-    modified_at: '2022-05-29T23:33:19.232Z',
-    name: 'name here',
-    notes: 'notes here',
-    num_hearts: 0,
-    num_likes: 0,
-    parent: null,
-    permalink_url: 'https://app.asana.com/0/456/123',
-    projects: [
-        {
-            gid: '123',
-            name: 'project name',
-            resource_type: 'project',
-        },
-    ],
-    resource_type: 'task',
-    start_at: null,
-    start_on: null,
-    tags: [],
-    resource_subtype: 'default_task',
-    workspace: {
-        gid: '123',
-        name: 'workspace name',
-        resource_type: 'workspace',
-    },
-};
-
+//
+// note: will not currently typecheck, due to current soundness/convenience trade-offs in definitions.  See
+// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/60589
+//
+// Kept here for use in future potential tests.
+//
+// const _returnedTask: asana.resources.Tasks.Type = {
+//     gid: "123",
+//     assignee: {
+//         gid: "456",
+//         name: "person name",
+//         resource_type: "user"
+//     },
+//     assignee_status: "inbox",
+//     assignee_section: {
+//         gid: "789",
+//         name: "section name",
+//         resource_type: "section"
+//     },
+//     completed: false,
+//     completed_at: null,
+//     created_at: "2022-02-19T14:39:02.472Z",
+//     custom_fields: [
+//         {
+//             gid: "123",
+//             enabled: true,
+//             name: "upvotes",
+//             number_value: -293,
+//             precision: 0,
+//             created_by: {
+//                 gid: "456",
+//                 name: "person name",
+//                 resource_type: "user"
+//             },
+//             display_value: "-293",
+//             resource_subtype: "number",
+//             resource_type: "custom_field",
+//             type: "number"
+//         }
+//     ],
+//     due_at: null,
+//     due_on: null,
+//     followers: [
+//         {
+//             gid: "123",
+//             name: "person name",
+//             resource_type: "user"
+//         }
+//     ],
+//     hearted: false,
+//     hearts: [],
+//     liked: false,
+//     likes: [],
+//     memberships: [
+//         {
+//             project: {
+//                 gid: '456',
+//                 name: 'project name',
+//                 resource_type: 'project',
+//             },
+//             section: {
+//                 gid: '789',
+//                 name: 'section name',
+//                 resource_type: 'section',
+//             },
+//         },
+//     ],
+//     modified_at: '2022-05-29T23:33:19.232Z',
+//     name: 'name here',
+//     notes: 'notes here',
+//     num_hearts: 0,
+//     num_likes: 0,
+//     parent: null,
+//     permalink_url: 'https://app.asana.com/0/456/123',
+//     projects: [
+//         {
+//             gid: '123',
+//             name: 'project name',
+//             resource_type: 'project',
+//         },
+//     ],
+//     resource_type: 'task',
+//     start_at: null,
+//     start_on: null,
+//     tags: [],
+//     resource_subtype: 'default_task',
+//     workspace: {
+//         gid: '123',
+//         name: 'workspace name',
+//         resource_type: 'workspace',
+//     },
+// };
+//
 // redacted response from client.tasks.getTask('gid here', {opt_fields: ['gid']})
-const _minimalReturnedTask: asana.resources.Tasks.Type = {
-    gid: '123',
-};
-
+// const _minimalReturnedTask: asana.resources.Tasks.Type = {
+//     gid: '123',
+// };
 // redacted response from client.tasks.getTask('gid here', {opt_fields: ['name']})
-const _secondMinimalReturnedTask: asana.resources.Tasks.Type = {
-    gid: '123',
-    name: 'name here',
-};
+// const _secondMinimalReturnedTask: asana.resources.Tasks.Type = {
+//     gid: '123',
+//     name: 'name here',
+// };
 
 client.projects.delete('foobar').then();
 // christmas tree create
@@ -331,74 +336,80 @@ const _returnedCustomFieldChangedStory: asana.resources.Stories.ShortType = {
 };
 
 // redacted response from client.stories.getStory('gid here')
-const _returnedLongerCustomFieldChangedStory: asana.resources.Stories.Type = {
-    gid: '123',
-    created_at: '2022-05-30T00:44:35.756Z',
-    created_by: {
-        gid: '456',
-        name: 'name',
-        resource_type: 'user',
-    },
-    previews: [],
-    resource_subtype: 'number_custom_field_changed',
-    resource_type: 'story',
-    source: 'web',
-    text: 'name changed upvotes from "-293" to "-296"',
-    type: 'system',
-    target: {
-        gid: '789',
-        name: 'name of task',
-        resource_type: 'task',
-    },
-};
-
+//
+// note: will not currently typecheck, due to current soundness/convenience trade-offs in definitions.  See
+// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/60589
+//
+// Kept here for use in future potential tests.
+//
+// const _returnedLongerCustomFieldChangedStory: asana.resources.Stories.Type = {
+//     gid: '123',
+//     created_at: '2022-05-30T00:44:35.756Z',
+//     created_by: {
+//         gid: '456',
+//         name: 'name',
+//         resource_type: 'user',
+//     },
+//     previews: [],
+//     resource_subtype: 'number_custom_field_changed',
+//     resource_type: 'story',
+//     source: 'web',
+//     text: 'name changed upvotes from "-293" to "-296"',
+//     type: 'system',
+//     target: {
+//         gid: '789',
+//         name: 'name of task',
+//         resource_type: 'task',
+//     },
+// };
+//
 // redacted response from client.stories.getStory('gid here')
-const _returnedLongerLikedCommentAddedStory: asana.resources.Stories.Type = {
-    gid: '123',
-    created_at: '2022-05-29T23:12:24.007Z',
-    created_by: {
-        gid: '456',
-        name: 'name here',
-        resource_type: 'user',
-    },
-    hearted: true,
-    hearts: [
-        {
-            gid: '789',
-            user: {
-                gid: '123',
-                name: 'name here',
-                resource_type: 'user',
-            },
-        },
-    ],
-    is_edited: false,
-    is_pinned: false,
-    liked: true,
-    likes: [
-        {
-            gid: '456',
-            user: {
-                gid: '789',
-                name: 'name here',
-                resource_type: 'user',
-            },
-        },
-    ],
-    num_hearts: 1,
-    num_likes: 1,
-    previews: [],
-    resource_subtype: 'comment_added',
-    resource_type: 'story',
-    source: 'web',
-    text: 'asdfasdf',
-    type: 'comment',
-    target: {
-        gid: '123',
-        name: 'some name',
-        resource_type: 'task',
-    },
-};
+// const _returnedLongerLikedCommentAddedStory: asana.resources.Stories.Type = {
+//     gid: '123',
+//     created_at: '2022-05-29T23:12:24.007Z',
+//     created_by: {
+//         gid: '456',
+//         name: 'name here',
+//         resource_type: 'user',
+//     },
+//     hearted: true,
+//     hearts: [
+//         {
+//             gid: '789',
+//             user: {
+//                 gid: '123',
+//                 name: 'name here',
+//                 resource_type: 'user',
+//             },
+//         },
+//     ],
+//     is_edited: false,
+//     is_pinned: false,
+//     liked: true,
+//     likes: [
+//         {
+//             gid: '456',
+//             user: {
+//                 gid: '789',
+//                 name: 'name here',
+//                 resource_type: 'user',
+//             },
+//         },
+//     ],
+//     num_hearts: 1,
+//     num_likes: 1,
+//     previews: [],
+//     resource_subtype: 'comment_added',
+//     resource_type: 'story',
+//     source: 'web',
+//     text: 'asdfasdf',
+//     type: 'comment',
+//     target: {
+//         gid: '123',
+//         name: 'some name',
+//         resource_type: 'task',
+//     },
+// };
 
 // https://github.com/Asana/node-asana/blob/master/test/resources/tasks_spec.js
 client.tasks.createInWorkspace('foobar', { name: 'Test' }).then();

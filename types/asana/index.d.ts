@@ -1328,82 +1328,82 @@ declare namespace asana {
 
             // https://developers.asana.com/docs/story
             interface Type extends ShortType {
-                html_text?: string;
-                is_pinned?: boolean;
-                sticker_name?: string | null;
-                assignee?: Resource;
-                custom_field?: CustomField;
-                dependency?: Resource;
-                duplicate_of?: Resource;
-                duplicated_from?: Resource;
-                follower?: Resource;
-                hearted?: boolean; // deprecated
-                hearts?: {
+                html_text: string;
+                is_pinned: boolean;
+                sticker_name: string | null;
+                assignee: Resource;
+                custom_field: CustomField;
+                dependency: Resource;
+                duplicate_of: Resource;
+                duplicated_from: Resource;
+                follower: Resource;
+                hearted: boolean; // deprecated
+                hearts: {
                     gid: string;
                     user: Resource;
                 }[]; // deprecated
-                is_edited?: boolean;
-                liked?: boolean;
-                likes?: {
+                is_edited: boolean;
+                liked: boolean;
+                likes: {
                     gid: string;
                     user: Resource;
                 }[];
-                new_approval_status?: string;
-                new_dates?: {
-                    due_at?: string | null;
-                    due_on?: string | null;
-                    start_on?: string | null;
+                new_approval_status: string;
+                new_dates: {
+                    due_at: string | null;
+                    due_on: string | null;
+                    start_on: string | null;
                 };
-                new_enum_value?: Resource & {
+                new_enum_value: Resource & {
                     color: string;
                     enabled: boolean;
                 };
-                new_multi_enum_values?: Resource & {
+                new_multi_enum_values: Resource & {
                     color: string;
                     enabled: boolean;
                 }[];
-                new_name?: string;
-                new_number_value?: number;
-                new_resource_subtype?: string;
-                new_section?: Resource;
-                new_text_value?: string;
-                num_hearts?: number; // deprecated
-                num_likes?: number;
-                old_approval_status?: string;
-                old_dates?: {
-                    due_at?: string | null;
-                    due_on?: string | null;
-                    start_on?: string | null;
+                new_name: string;
+                new_number_value: number;
+                new_resource_subtype: string;
+                new_section: Resource;
+                new_text_value: string;
+                num_hearts: number; // deprecated
+                num_likes: number;
+                old_approval_status: string;
+                old_dates: {
+                    due_at: string | null;
+                    due_on: string | null;
+                    start_on: string | null;
                 };
-                old_enum_value?: Resource & {
+                old_enum_value: Resource & {
                     color: string;
                     enabled: boolean
                 };
-                old_multi_enum_values?: Resource & {
+                old_multi_enum_values: Resource & {
                     color: string;
                     enabled: boolean
                 }[];
-                old_name?: string;
-                old_number_value?: number;
-                old_resource_subtype?: string;
-                old_section?: Resource;
-                old_text_value?: string;
-                previews?: {
-                    fallback?: string;
-                    footer?: string;
-                    header?: string;
-                    header_link?: string;
-                    html_text?: string;
-                    text?: string;
-                    title?: string;
-                    title_link?: string;
+                old_name: string;
+                old_number_value: number;
+                old_resource_subtype: string;
+                old_section: Resource;
+                old_text_value: string;
+                previews: {
+                    fallback: string;
+                    footer: string;
+                    header: string;
+                    header_link: string;
+                    html_text: string;
+                    text: string;
+                    title: string;
+                    title_link: string;
                 }[];
-                project?: Resource;
+                project: Resource;
                 source: string;
-                story?: ShortType;
-                tag?: Resource;
+                story: ShortType;
+                tag: Resource;
                 target: Resource;
-                task?: Resource;
+                task: Resource;
             }
         }
 
@@ -1658,45 +1658,45 @@ declare namespace asana {
         namespace Tasks {
             // https://developers.asana.com/docs/task
             interface Type extends Resource {
-                approval_status?: string | undefined;
-                created_at?: string;
-                modified_at?: string;
-                completed_at?: string | null;
-                completed?: boolean;
-                dependencies?: Resource[]; // opt in
-                dependents?: Resource[]; // opt in
-                due_on?: string | null;
-                start_at?: string | null;
-                start_on?: string | null;
-                due_at?: string | null;
-                assignee_status?: string; // deprecated
-                assignee?: Assignee | null;
-                assignee_section?: Resource;
-                external?: { // opt-in
-                    data?: string | undefined;
-                    gid?: string | undefined;
+                approval_status: string | undefined;
+                created_at: string;
+                modified_at: string;
+                completed_at: string | null;
+                completed: boolean;
+                dependencies: Resource[]; // opt in
+                dependents: Resource[]; // opt in
+                due_on: string | null;
+                start_at: string | null;
+                start_on: string | null;
+                due_at: string | null;
+                assignee_status: string; // deprecated
+                assignee: Assignee | null;
+                assignee_section: Resource;
+                external: { // opt-in
+                    data: string | undefined;
+                    gid: string | undefined;
                 } | undefined;
-                html_notes?: string | undefined; // opt in
-                is_rendered_as_separator?: boolean | undefined; // opt in
-                notes?: string;
-                workspace?: Resource;
-                num_hearts?: number; // deprecated
-                hearted?: boolean; // deprecated
-                hearts?: Resource[]; // deprecated
-                parent?: Resource | null;
-                num_likes?: number;
-                num_subtasks?: number; // opt in
-                liked?: boolean;
-                likes?: {
+                html_notes: string | undefined; // opt in
+                is_rendered_as_separator: boolean | undefined; // opt in
+                notes: string;
+                workspace: Resource;
+                num_hearts: number; // deprecated
+                hearted: boolean; // deprecated
+                hearts: Resource[]; // deprecated
+                parent: Resource | null;
+                num_likes: number;
+                num_subtasks: number; // opt in
+                liked: boolean;
+                likes: {
                     gid: string
                     user: Resource;
                 }[];
-                tags?: Resource[];
-                projects?: Resource[];
-                memberships?: Membership[];
-                followers?: Resource[];
-                custom_fields?: CustomField[];
-                permalink_url?: string;
+                tags: Resource[];
+                projects: Resource[];
+                memberships: Membership[];
+                followers: Resource[];
+                custom_fields: CustomField[];
+                permalink_url: string;
             }
 
             // https://developers.asana.com/docs/create-a-task
@@ -3091,13 +3091,13 @@ declare namespace asana {
 
         interface CustomField extends Resource {
             enabled: boolean;
-            enum_options?: EnumValue[] | null;
-            enum_value?: EnumValue | null;
-            precision?: number | null;
+            enum_options: EnumValue[] | null;
+            enum_value: EnumValue | null;
+            precision: number | null;
             number_value: number | null;
-            created_by?: Resource;
-            display_value?: string | null;
-            type?: string | null;
+            created_by: Resource;
+            display_value: string | null;
+            type: string | null;
         }
 
         interface CustomFieldsStatic {
