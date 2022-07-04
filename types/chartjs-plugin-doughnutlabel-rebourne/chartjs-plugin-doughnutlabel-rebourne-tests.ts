@@ -20,6 +20,19 @@ Chart.defaults.plugins.doughnutlabel = {
 const DEFAULT_COLORS1 = ['#f08700', '#f49f0a', '#efca08', '#00a6a6', '#bbdef0'];
 const ctx = new CanvasRenderingContext2D();
 
+const typedLabel: DoughnutLabel.Label = {
+    // hide this label
+    display: false,
+    text: '95%',
+    font: {
+        family: 'Arial',
+        lineHeight: '1.2',
+        size: 12,
+        style: 'normal',
+        weight: 'normal',
+    },
+    color: 'green',
+};
 const chart = new Chart(ctx, {
     type: 'doughnut',
     plugins: [DoughnutLabel],
@@ -70,7 +83,7 @@ const chart = new Chart(ctx, {
                     {
                         text: () => 'The subtitle',
                         font: {
-                            size: 50,
+                            size: '50',
                             // @ts-expect-error
                             style: 'wrong-style',
                         },
@@ -86,24 +99,11 @@ const chart = new Chart(ctx, {
                     {
                         text: () => 10002,
                         font: {
-                            // @ts-expect-error
                             size: 30,
                         },
                         color: 'red',
                     },
-                    {
-                        // hide this label
-                        display: false,
-                        text: '95%',
-                        font: {
-                            family: 'Arial',
-                            lineHeight: '1.2',
-                            size: 12,
-                            style: 'normal',
-                            weight: 'normal',
-                        },
-                        color: 'green',
-                    },
+                    typedLabel,
                 ],
             },
         },

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { Chart, ChartType, Plugin, FontSpec } from 'chart.js';
+import { Chart, ChartType, Plugin } from 'chart.js';
 
 declare module 'chart.js' {
     interface PluginOptionsByType<TType extends ChartType> {
@@ -27,18 +27,31 @@ declare namespace DoughnutLabel {
         /** Color of the labels (plugin scope) */
         color?: CanvasRenderingContext2D['fillStyle'];
         /** The font options used to draw the label text (plugin scope) */
-        font?: Partial<FontSpec>;
+        font?: Font;
     }
 
     interface Label {
         /** The text to display */
         text: string | number | ((chart: Chart) => string | number);
         /** The font options used to draw the label text (single label scope) */
-        font?: Partial<FontSpec>;
+        font?: Font;
         /** Color of the labels (single label scope) */
         color?: CanvasRenderingContext2D['fillStyle'];
         /** Show the label or not (single label scope) */
         display?: boolean;
+    }
+
+    interface Font {
+        /** Defaults to `Chart.defaults.global.defaultFontFamily` */
+        family?: string;
+        /** Defaults to 1.2 */
+        lineHeight?: number | `${number}`;
+        /** Defaults to `Chart.defaults.global.defaultFontSize` */
+        size?: number | `${number}`;
+        /** Defaults to `Chart.defaults.global.defaultFontStyle` */
+        style?: 'normal' | 'italic' | 'oblique' | 'initial' | 'inherit';
+        /** Defaults to `'normal'` */
+        weight?: string;
     }
 }
 
