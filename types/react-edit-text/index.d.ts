@@ -1,4 +1,4 @@
-// Type definitions for react-edit-text 4.4
+// Type definitions for react-edit-text 5.0
 // Project: https://github.com/bymi15/react-edit-text#readme
 // Definitions by: Brian Min <https://github.com/bymi15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -68,7 +68,7 @@ export interface SharedProps {
      * onChange is called when the input value changes and
      * returns a string which corresponds to the new input value
      */
-    onChange?: (value: string) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     /**
      * Sets the css styling for both input and div elements
      */

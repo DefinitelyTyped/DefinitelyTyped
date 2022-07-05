@@ -12,4 +12,5 @@ clean(knexInstance, { ignoreTables: ['table1', 'table2'] }); // $ExpectType Prom
 clean(knexInstance, { restartIdentity: false, ignoreTables: ['table1', 'table2'] }); // $ExpectType Promise<void>
 clean(knexInstance, { mode: 'delete', ignoreTables: ['table1', 'table2'] }); // $ExpectType Promise<void>
 clean(knexInstance, { mode: 'delete', restartIdentity: false }); // $ExpectType Promise<void>
-clean(knexInstance, { unknown: 1 }); // $ExpectError
+// @ts-expect-error
+clean(knexInstance, { unknown: 1 });

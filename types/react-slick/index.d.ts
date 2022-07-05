@@ -25,6 +25,10 @@ export interface ResponsiveObject {
     settings: "unslick" | Settings;
 }
 
+export interface InnerSlider {
+    list?: HTMLDivElement;
+}
+
 export type SwipeDirection = "left" | "down" | "right" | "up" | string;
 
 export type LazyLoadTypes = "ondemand" | "progressive" | "anticipated";
@@ -87,6 +91,7 @@ export interface Settings {
 }
 
 declare class Slider extends React.Component<Settings, never> {
+    innerSlider?: InnerSlider | undefined;
     slickNext(): void;
     slickPause(): void;
     slickPlay(): void;

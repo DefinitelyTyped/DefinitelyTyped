@@ -85,6 +85,7 @@ export namespace Scope {
 
     interface Variable {
         name: string;
+        scope: Scope;
         identifiers: ESTree.Identifier[];
         references: Reference[];
         defs: Definition[];
@@ -551,15 +552,15 @@ export namespace Rule {
 
     interface RuleMetaData {
         docs?: {
-            /** provides the short description of the rule in the [rules index](https://eslint.org/docs/rules/) */
+            /** Provides the short description of the rule in the [rules index](https://eslint.org/docs/rules/) */
             description?: string | undefined;
-            /** specifies the heading under which the rule is listed in the [rules index](https://eslint.org/docs/rules/) */
+            /** Specifies the heading under which the rule is listed in the [rules index](https://eslint.org/docs/rules/) */
             category?: string | undefined;
-            /** is whether the `"extends": "eslint:recommended"` property in a [configuration file](https://eslint.org/docs/user-guide/configuring#extending-configuration-files) enables the rule */
+            /** Is whether the `"extends": "eslint:recommended"` property in a [configuration file](https://eslint.org/docs/user-guide/configuring#extending-configuration-files) enables the rule */
             recommended?: boolean | undefined;
-            /** specifies the URL at which the full documentation can be accessed */
+            /** Specifies the URL at which the full documentation can be accessed */
             url?: string | undefined;
-            /** specifies whether rules can return suggestions (defaults to false if omitted) */
+            /** Specifies whether rules can return suggestions (defaults to false if omitted) */
             suggestion?: boolean | undefined;
         } | undefined;
         messages?: { [messageId: string]: string } | undefined;
@@ -567,7 +568,7 @@ export namespace Rule {
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
         deprecated?: boolean | undefined;
         type?: "problem" | "suggestion" | "layout" | undefined;
-        /** specifies whether rules can return suggestions (defaults to false if omitted) */
+        /** Specifies whether rules can return suggestions (defaults to false if omitted) */
         hasSuggestions?: boolean | undefined;
     }
 
