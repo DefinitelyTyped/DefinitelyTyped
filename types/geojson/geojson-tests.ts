@@ -145,6 +145,25 @@ const geometryCollection: GeometryCollection = {
         }
     ]
 };
+const geometryCollectionWithGenerics: GeometryCollection<Point | LineString> = {
+    type: 'GeometryCollection',
+    geometries: [
+        {
+            type: 'Point',
+            coordinates: [100.0, 0.0],
+        },
+        {
+            type: 'LineString',
+            coordinates: [[101.0, 0.0], [102.0, 1.0]]
+        },
+        {
+            // @ts-expect-error
+            type: 'Polygon',
+            // @ts-expect-error
+            coordinates: [[[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]]]
+        },
+    ],
+};
 
 let feature: Feature<GeometryObject> = {
     type: "Feature",
