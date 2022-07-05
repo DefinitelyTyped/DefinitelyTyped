@@ -4846,14 +4846,14 @@ declare namespace Java {
         fieldReturnType: Type;
     }
 
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum MethodType {
         Constructor = 1,
         Static = 2,
         Instance = 3,
     }
 
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum FieldType {
         Static = 1,
         Instance = 2,
