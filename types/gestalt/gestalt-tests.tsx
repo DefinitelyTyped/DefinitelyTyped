@@ -292,7 +292,6 @@ const CheckUseReducedMotion = () => {
 
 <Pulsar />;
 <RadioButton id="id" value="" onChange={() => {}} />;
-// $ExpectError
 <RadioGroup id="foo" legend="foo" direction="column">
     <RadioButton id="id3" value="" onChange={() => {}} />;
 </RadioGroup>;
