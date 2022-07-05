@@ -701,12 +701,22 @@ interface ConversationParticipant {
     lastRead: number;
 }
 
+type ContentType = 'text'
+    | 'carousel'
+    | 'file'
+    | 'form'
+    | 'formResponse'
+    | 'image'
+    | 'list'
+    | 'location'
+    | 'template';
+
 interface Message {
     role: 'user' | 'business';
     userId: string;
     displayName: string;
     id: string;
-    type: 'text' | 'formResponse' | 'form';
+    type: ContentType;
     received: number;
     text: string;
     source: MessageSource;
@@ -732,7 +742,7 @@ interface Conversation {
     iconUrl: string;
     type: 'sdkGroup' | string;
     participants: ConversationParticipant[];
-    metadata: {};
+    metadata: Record<string, unknown>;
     messages: Message[];
 }
 
