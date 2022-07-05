@@ -15,7 +15,6 @@
         "node": ">=7.8.0"
     },
     "scripts": {
-        "compile-scripts": "tsc -p scripts",
         "not-needed": "node scripts/not-needed.js",
         "update-codeowners": "node scripts/update-codeowners.js",
         "test-all": "node node_modules/@definitelytyped/dtslint-runner/dist/index.js --path .",

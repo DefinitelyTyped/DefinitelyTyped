@@ -1,11 +1,11 @@
-import { defaultErrors, ErrorKind, ExportErrorKind, Mode } from "dts-critic";
-import * as Lint from "tslint";
+import { defaultErrors, ErrorKind, Mode } from "@definitelytyped/dts-critic";
 
 /**
  * Given npm-naming lint failures, returns a rule configuration that prevents such failures.
+ * @param {import("tslint").IRuleFailureJson[]} failures
  */
-export function npmNamingDisabler(failures: Lint.IRuleFailureJson[]) {
-    const disabledErrors = new Set<ExportErrorKind>();
+export function npmNamingDisabler(failures) {
+    const disabledErrors = new Set();
     for (const ruleFailure of failures) {
         if (ruleFailure.ruleName !== "npm-naming") {
             throw new Error(`Expected failures of rule "npm-naming", found failures of rule ${ruleFailure.ruleName}.`);
@@ -28,10 +28,9 @@ export function npmNamingDisabler(failures: Lint.IRuleFailureJson[]) {
         }
     }
 
-    if ((defaultErrors as ExportErrorKind[]).every(error => disabledErrors.has(error))) {
+    if (defaultErrors.every(error => disabledErrors.has(error))) {
         return [true, { mode: Mode.NameOnly }];
     }
-    const errors: Array<[ExportErrorKind, boolean]> = [];
-    disabledErrors.forEach(error => errors.push([error, false]));
+    const errors = [...disabledErrors].map(error => [error, false]);
     return [true, { mode: Mode.Code, errors }];
 }

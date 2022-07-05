@@ -25,18 +25,21 @@ const supported = Object.entries(data)
 
 const x = scaleTime()
   .domain([
-    min(
-      supported,
-      (d) =>
-        // Clip 1/4 of the earliest supported version. Cuts off the
-        // release date (unimportant?) but gives the visual impression
-        // of additional, unsupported versions?
-        new Date(
-          Number(d.releaseDate) +
-            ((d.endDate as never) - (d.releaseDate as never)) / 4
-        )
-    )!,
-    max(supported, (d) => d.endDate)!,
+    /** @type {never} */ (
+      min(
+        supported,
+        (d) =>
+          // Clip 1/4 of the earliest supported version. Cuts off the
+          // release date (unimportant?) but gives the visual impression
+          // of additional, unsupported versions?
+          new Date(
+            Number(d.releaseDate) +
+              // prettier-ignore
+              (/** @type {never} */ (d.endDate) - /** @type {never} */ (d.releaseDate)) / 4
+          )
+      )
+    ),
+    /** @type {never} */ (max(supported, (d) => d.endDate)),
   ])
   .nice()
   .range([margin.left, width - margin.right]);
@@ -80,7 +83,7 @@ svg
   .data(supported)
   .join("rect")
   .attr("x", (d) => x(d.releaseDate))
-  .attr("y", (d) => y(d.version)!)
+  .attr("y", (d) => /** @type {never} */ (y(d.version)))
   .attr("width", (d) => x(d.endDate) - x(d.releaseDate))
   .attr("height", y.bandwidth())
   .attr("fill", (d, i) => (i % 2 === 0 ? "#3178c6" : "#235a97"));
@@ -106,7 +109,7 @@ texts
   .attr("fill", "#ffffff")
   .append("text")
   .attr("x", (d) => x(d.releaseDate) + (x(d.endDate) - x(d.releaseDate)) / 2)
-  .attr("y", (d) => y(d.version)!)
+  .attr("y", (d) => /** @type {never} */ (y(d.version)))
   .attr("dy", "0.35em")
   .text((d) => d.version);
 texts
@@ -116,7 +119,7 @@ texts
   .data(supported)
   .join("text")
   .attr("x", (d) => x(d.releaseDate) + (x(d.endDate) - x(d.releaseDate)) / 4)
-  .attr("y", (d) => y(d.version)!)
+  .attr("y", (d) => /** @type {never} */ (y(d.version)))
   .attr("dy", "0.35em")
   .text((d) => formatDate(d.releaseDate));
 texts
@@ -129,7 +132,7 @@ texts
     "x",
     (d) => x(d.releaseDate) + ((x(d.endDate) - x(d.releaseDate)) * 3) / 4
   )
-  .attr("y", (d) => y(d.version)!)
+  .attr("y", (d) => /** @type {never} */ (y(d.version)))
   .attr("dy", "0.35em")
   .text((d) => formatDate(d.endDate));
-process.stdout.write(serialize(svg.node()!));
+process.stdout.write(serialize(/** @type {never} */ (svg.node())));
