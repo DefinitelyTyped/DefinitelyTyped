@@ -572,6 +572,21 @@ braintree.client.create(
                 // Implementation
             });
         });
+
+        braintree.dataCollector.create({ client: clientInstance }, (error, dataCollectorInstance) => {
+            dataCollectorInstance.getDeviceData({ raw: false }, (err, deviceData) => {
+                // Implementation
+                console.log(deviceData);
+            });
+        });
+
+        braintree.dataCollector
+            .create({ client: clientInstance })
+            .then(dataCollectorInstance => dataCollectorInstance.getDeviceData())
+            .then(deviceData => {
+                // Implementation
+                console.log(deviceData);
+            });
     },
 );
 

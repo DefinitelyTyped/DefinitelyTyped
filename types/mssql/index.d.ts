@@ -8,7 +8,7 @@
 //                 Rifa Achrinza <https://github.com/achrinza>
 //                 Daniel Hensby <https://github.com/dhensby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 4.0
 
 /// <reference types="node" />
 
@@ -134,8 +134,8 @@ export interface IColumnMetadata {
     }
 }
 export interface IResult<T> {
-    recordsets: IRecordSet<T>[];
-    recordset: IRecordSet<T>;
+    recordsets: T extends Array<any> ? { [P in keyof T]: IRecordSet<T[P]> } : IRecordSet<T>[];
+    recordset: IRecordSet<T extends Array<any> ? T[0] : T>;
     rowsAffected: number[],
     output: { [key: string]: any };
 }
