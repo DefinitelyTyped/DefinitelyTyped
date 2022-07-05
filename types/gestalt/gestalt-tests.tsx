@@ -42,6 +42,7 @@ import {
     Popover,
     Pulsar,
     RadioButton,
+    RadioGroup,
     Row,
     ScrollBoundaryContainer,
     SearchField,
@@ -134,7 +135,6 @@ const CheckUseReducedMotion = () => {
         event.__nonExistentProperty__;
     }}
 />;
-
 // Test Box accepts Ref.
 () => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -143,7 +143,6 @@ const CheckUseReducedMotion = () => {
 // Test BoxProps can be forwarded to Box.
 (props: BoxProps) => <Box {...props} />;
 
-<Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <Button text="" />;
 <ButtonGroup>
     <Button text={'Click me'} />
@@ -186,7 +185,9 @@ const CheckUseReducedMotion = () => {
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
 <Collage columns={1} height={1} renderImage={({ height, index, width }) => null} width={1} />;
-<ColorSchemeProvider colorScheme="dark" id="docsExample" />;
+<ColorSchemeProvider colorScheme="dark" id="docsExample">
+    <Box />
+</ColorSchemeProvider>;
 <Column span={1} />;
 <Container />;
 <ScrollBoundaryContainer />;
@@ -205,10 +206,11 @@ const CheckUseReducedMotion = () => {
     </Dropdown.Section>
 </Dropdown>;
 <Fieldset legend="Fieldset Example">
-    <RadioButton id="id1" onChange={() => {}} />;
-    <RadioButton id="id2" onChange={() => {}} />;
-    <RadioButton id="id3" onChange={() => {}} />;
+    <RadioButton id="id1" value="" onChange={() => {}} />;
+    <RadioButton id="id2" value="" onChange={() => {}} />;
+    <RadioButton id="id3" value="" onChange={() => {}} />;
 </Fieldset>;
+
 <Flex>
     <Flex.Item>
         <Text>Flex</Text>
@@ -231,26 +233,31 @@ const CheckUseReducedMotion = () => {
 </Layer>;
 <Letterbox contentAspectRatio={1} height={1} width={1} />;
 <Link href="#" />;
-<Link href="#" externalLinkIcon={{ color: 'light', size: 'md' }} />;
+<Link href="#" externalLinkIcon={{ color: 'light', size: '100' }} />;
 <Mask />;
 <Masonry comp={MasonryComponent} items={[{}]} />;
 <Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
 <Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info" />;
-<Module.Expandable
-    id="ModuleExample1"
-    accessibilityExpandLabel="Expand the module"
-    accessibilityCollapseLabel="Collapse the module"
-    items={[
-        {
-            title: 'Title',
-            summary: ['summary1', 'summary2', 'summary3'],
-            children: <Text size="md">Children1</Text>,
-            iconButton: <IconButton accessibilityLabel="test" />,
-        },
-    ]}
-    expandedIndex={1}
-    onExpandedChange={index => {}}
-></Module.Expandable>;
+<Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info">
+    <Flex />
+</Module>;
+<Module id="foo">
+    <Module.Expandable
+        id="ModuleExample1"
+        accessibilityExpandLabel="Expand the module"
+        accessibilityCollapseLabel="Collapse the module"
+        items={[
+            {
+                title: 'Title',
+                summary: ['summary1', 'summary2', 'summary3'],
+                children: <Text size="100">Children1</Text>,
+                iconButton: <IconButton accessibilityLabel="test" />,
+            },
+        ]}
+        expandedIndex={1}
+        onExpandedChange={index => {}}
+    ></Module.Expandable>
+</Module>;
 <NumberField
     id="number"
     step={1}
@@ -284,7 +291,11 @@ const CheckUseReducedMotion = () => {
 <Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current} />;
 
 <Pulsar />;
-<RadioButton id="id" onChange={() => {}} />;
+<RadioButton id="id" value="" onChange={() => {}} />;
+// $ExpectError
+<RadioGroup id="foo" legend="foo" direction="column">
+    <RadioButton id="id3" value="" onChange={() => {}} />;
+</RadioGroup>;
 <Row gap={1}>
     <div />
 </Row>;

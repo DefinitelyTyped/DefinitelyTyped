@@ -1,4 +1,4 @@
-// Type definitions for gestalt 55.2
+// Type definitions for gestalt 58.4
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -678,7 +678,7 @@ export interface HeaderProps {
         | undefined;
     id?: string | undefined;
     overflow?: 'normal' | 'breakWord' | undefined;
-    size?: '100' | '200' | '300' | '400' | '500' | '600' | 'sm' | 'md' | 'lg' | undefined;
+    size?: '100' | '200' | '300' | '400' | '500' | '600' | undefined;
     truncate?: boolean | undefined;
     lineClamp?: number | undefined;
 }
@@ -792,6 +792,8 @@ export type Icons =
     | 'megaphone'
     | 'menu'
     | 'minimize'
+    | 'music-on'
+    | 'music-off'
     | 'move'
     | 'mute'
     | 'overlay-text'
@@ -1196,16 +1198,55 @@ export interface OnLinkNavigationProviderProps {
     onNavigation?: OnNavigationType | undefined;
 }
 
+export interface PageHeaderBadge {
+    title: string;
+    tootipText?: string | undefined;
+}
+
+export interface PageHeaderHelperIconButton {
+    accessibilityLabel?: string | undefined;
+    accessibilityControls?: string | undefined;
+    accessibilityExpanded?: boolean | undefined;
+    onClick: (args: {
+        event:
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>
+            | React.MouseEvent<HTMLButtonElement>;
+        dangerouslyDisableOnNavigation: () => void;
+    }) => void;
+}
+export interface PageHeaderAction {
+    component?:
+        | React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip | typeof Text>
+        | undefined;
+    dropdownItems?: ReadonlyArray<DropdownItemProps | DropdownLinkProps> | undefined;
+}
+
 /**
  * PageHeader Props Interface
  * https://gestalt.netlify.app/PageHeader
  */
 export interface PageHeaderProps {
     title: string;
+    badge?: PageHeaderBadge | undefined;
+    borderStyle?: 'sm' | 'none' | undefined;
+    helperIconButton?: PageHeaderHelperIconButton | undefined;
+    helperLink?: {
+        text: string;
+        href: string;
+        onClick: (args: {
+            event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>;
+            dangerouslyDisableOnNavigation: () => void;
+        }) => void;
+    };
+    items?: ReadonlyArray<React.ReactNode> | undefined;
+    dropdownAccessibilityLabel?: string | undefined;
     maxWidth?: number | string | undefined;
-    primaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip> | undefined;
-    secondaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip> | undefined;
+    primaryAction?: PageHeaderAction | undefined;
+    secondaryAction?: PageHeaderAction | undefined;
     subtext?: string | undefined;
+    thumbnail?: React.ReactElement<typeof Image>;
 }
 
 /**
@@ -1260,6 +1301,7 @@ export interface PulsarProps {
 export interface RadioButtonProps {
     id: string;
     onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
+    value: string;
     checked?: boolean | undefined;
     disabled?: boolean | undefined;
     image?: React.ReactNode | undefined;
@@ -1267,7 +1309,19 @@ export interface RadioButtonProps {
     name?: string | undefined;
     size?: 'sm' | 'md' | undefined;
     subtext?: string | undefined;
-    value?: string | undefined;
+}
+
+/**
+ * RadioGroup Props Interface
+ * https://gestalt.netlify.app/RadioGroup
+ */
+export interface RadioGroupProps {
+    id: string;
+    children: React.ReactNode;
+    legend: string;
+    direction?: 'column' | 'row' | undefined;
+    errorMessage?: string | undefined;
+    legendDisplay?: 'visible' | 'hidden' | undefined;
 }
 
 /**
@@ -1655,7 +1709,7 @@ export interface TextProps {
     inline?: boolean | undefined;
     italic?: boolean | undefined;
     overflow?: 'normal' | 'breakWord' | 'noWrap' | undefined;
-    size?: 'sm' | 'md' | 'lg' | '100' | '200' | '300' | '400' | '500' | '600' | undefined;
+    size?: '100' | '200' | '300' | '400' | '500' | '600' | undefined;
     lineClamp?: number;
     underline?: boolean | undefined;
     weight?: 'bold' | 'normal' | undefined;
@@ -1850,6 +1904,7 @@ export interface VideoProps {
     onWaiting?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
     playsInline?: boolean | undefined;
     poster?: string | undefined;
+    startTime?: number | undefined;
 }
 
 /**
@@ -1890,7 +1945,7 @@ export const Card: React.FunctionComponent<CardProps>;
 export const ComboBox: React.FunctionComponent<ComboBoxProps>;
 export const Checkbox: ReactForwardRef<HTMLInputElement, CheckboxProps>;
 export const Collage: React.FunctionComponent<CollageProps>;
-export const ColorSchemeProvider: React.FunctionComponent<ColorSchemeProviderProps>;
+export const ColorSchemeProvider: React.FunctionComponent<React.PropsWithChildren<ColorSchemeProviderProps>>;
 export const Column: React.FunctionComponent<ColumnProps>;
 export const Container: React.FunctionComponent<ContainerProps>;
 export const Datapoint: React.FunctionComponent<DatapointProps>;
@@ -1924,7 +1979,7 @@ export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
 export interface ModuleSubComponents {
     Expandable: React.FC<ModuleExpandableProps>;
 }
-export const Module: React.FunctionComponent<ModuleProps> & ModuleSubComponents;
+export const Module: React.FunctionComponent<React.PropsWithChildren<ModuleProps>> & ModuleSubComponents;
 export const NumberField: ReactForwardRef<HTMLInputElement, NumberFieldProps>;
 export const OnLinkNavigationProvider: React.FunctionComponent<OnLinkNavigationProviderProps>;
 export const PageHeader: React.FunctionComponent<PageHeaderProps>;
@@ -1932,6 +1987,13 @@ export const Pog: React.FunctionComponent<PogProps>;
 export const Popover: React.FunctionComponent<PopoverProps>;
 export const Pulsar: React.FunctionComponent<PulsarProps>;
 export const RadioButton: ReactForwardRef<HTMLInputElement, RadioButtonProps>;
+
+export interface RadioGroupSubCompnents {
+    RadioButton: typeof RadioButton;
+}
+
+export const RadioGroup: React.FunctionComponent<RadioGroupProps> & RadioGroupSubCompnents;
+
 export const Row: React.FunctionComponent<RowProps>;
 export const SearchField: ReactForwardRef<HTMLInputElement, SearchFieldProps>;
 export const SegmentedControl: React.FunctionComponent<SegmentedControlProps>;
