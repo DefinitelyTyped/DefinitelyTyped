@@ -9,7 +9,7 @@ declare class HyperFunctionComponent {
     constructor(props: HfcProps);
 
     connected(container: HTMLElement): void;
-    changed?(type: 'attr' | 'event' | 'slot', name: string, oldValue: any, newValue: any): void;
+    changed?(type: 'attr' | 'event' | 'slot' | 'other', name: string, oldValue: any, newValue: any): void;
     disconnected?(): void;
 }
 
@@ -19,6 +19,7 @@ interface HfcProps {
     slots: {
         [k: string]: (container: HTMLElement, args?: { [k: string]: any }) => void;
     };
+    others: { [k: string]: any };
 }
 
 interface HfcPropTypes {
