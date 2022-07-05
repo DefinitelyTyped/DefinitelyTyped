@@ -49,7 +49,7 @@ export default interface Scheduler extends Service {
      *
      * When first argument is a function it ignores the rest.
      */
-    schedule(target?: object, method?: () => void | string): void;
+    schedule<T, F extends (this: T, ...args: unknown[]) => void>(target: T, method: F, ...args: Parameters<F>): void;
 
     /**
      * Schedule a unique task into the scheduler.
@@ -57,12 +57,12 @@ export default interface Scheduler extends Service {
      * When first argument is a function it ignores the rest.
      *
      */
-    scheduleOnce(target?: object, method?: () => void | string): void;
+    scheduleOnce<T, F extends (this: T, ...args: unknown[]) => void>(target: T, method: F, ...args: Parameters<F>): void;
 
     /**
      * Try to cancel a given task.
      *
      * When first argument is a function it ignores the rest.
      */
-    cancel(target?: object, method?: () => void | string): null | unknown[];
+    cancel<T, F extends (this: T, ...args: unknown[]) => null | unknown[]>(target: T, method: F, ...args: Parameters<F>): null | unknown[];
 }

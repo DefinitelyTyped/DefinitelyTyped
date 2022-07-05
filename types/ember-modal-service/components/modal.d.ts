@@ -2,8 +2,10 @@ import Component from '@ember/component';
 import Evented from '@ember/object/evented';
 import Scheduler from 'ember-task-scheduler';
 import EmberModalService from '../services/modal';
+import ModalModel from "../models/modal";
 
 export default class ModalComponent extends Component {
+    declare model: ModalModel;
     /**
      * Modal service inject.
      */
@@ -53,11 +55,6 @@ export default class ModalComponent extends Component {
      * Reject current promise and close modal.
      */
     reject: (data?: unknown, label?: string) => void;
-
-    /**
-     * Action to know when modal is fully opened.
-     */
-    didOpen: () => boolean;
 
     actions: {
         /**

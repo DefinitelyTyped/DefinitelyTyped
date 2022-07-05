@@ -14,7 +14,6 @@ class Modal extends ModalComponent {
         this['data-modal-show']; // $ExpectType boolean
         this.resolve();
         this.reject();
-        this.didOpen();
         this.actions;
     }
 }
