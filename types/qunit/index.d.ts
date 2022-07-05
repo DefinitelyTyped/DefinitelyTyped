@@ -449,6 +449,24 @@ declare global {
     type ModuleSkip = { skip: moduleFunc1 & moduleFunc2 };
     type ModuleTodo = { todo: moduleFunc1 & moduleFunc2 };
 
+    type testFunc = (name: string, callback: (assert: Assert) => void | Promise<void>) => void;
+    type onlyFunc = (name: string, callback: (assert: Assert) => void | Promise<void>) => void;
+    type skipFunc = (name: string, callback?: (assert: Assert) => void | Promise<void>) => void;
+    type todoFunc = (name: string, callback?: (assert: Assert) => void | Promise<void>) => void;
+    type TestOnly = { only: onlyFunc };
+    type TestSkip = { skip: skipFunc };
+    type TestTodo = { todo: todoFunc };
+
+    type eachData<T> = T[] | Record<string, T>;
+    type eachTestFunc<T> = (name: string, data: eachData<T>, callback: (assert: Assert, data: T) => void | Promise<void>) => void;
+    type eachOnlyFunc<T> = (name: string, data: eachData<T> callback: (assert: Assert, data: T) => void | Promise<void>) => void;
+    type eachSkipFunc<T> = (name: string, data: eachData<T> callback?: (assert: Assert, data: T) => void | Promise<void>) => void;
+    type eachTodoFunc<T> = (name: string, data: eachData<T> callback?: (assert: Assert, data: T) => void | Promise<void>) => void;
+    type EachTestOnly = { only: eachOnlyFunc };
+    type EachTestSkip = { skip: eachSkipFunc };
+    type EachTestTodo = { todo: eachTodoFunc };
+    type TestEach = { each: eachTestFunc & EachTestOnly & EachTestSkip & EachTestTodo };
+
     namespace QUnit {
         interface BeginDetails {
             /** Number of registered tests */
@@ -661,7 +679,7 @@ declare global {
          * @param {string} name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        only(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        only: onlyFunc;
 
         /**
          * Handle a global error that should result in a failed test run.
@@ -700,7 +718,7 @@ declare global {
          *
          * @param {string} Title of unit being tested
          */
-        skip(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        skip: skipFunc;
 
         /**
          * Returns a single line string representing the stacktrace (call stack).
@@ -746,7 +764,7 @@ declare global {
          * @param {string} Title of unit being tested
          * @param callback Function to close over assertions
          */
-        test(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        test: testFunc & TestEach & TestOnly & TestSkip & TestTodo;
 
         /**
          * Register a callback to fire whenever a test ends.
@@ -784,7 +802,7 @@ declare global {
          * @param {string} Title of unit being tested
          * @param callback Function to close over assertions
          */
-        todo(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        todo: todoFunc;
 
         /**
          * Compares two values. Returns true if they are equivalent.
