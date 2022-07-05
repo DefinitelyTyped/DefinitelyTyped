@@ -370,6 +370,7 @@ export function react(
 ): Promise<PlotlyHTMLElement>;
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
+export function register(modules: PlotlyModule | PlotlyModule[]): void;
 
 // Layout
 export interface Layout {
@@ -2297,3 +2298,34 @@ export interface Pattern {
      */
     solidarity?: number;
 }
+
+interface TraceModule {
+    name: string;
+    categories: string[];
+    meta: Record<string, unknown>;
+}
+
+interface LocaleModule {
+    name: string;
+    dictionary: Record<string, unknown>;
+    format: Record<string, unknown>;
+}
+
+interface TransformModule {
+    name: string;
+    transform: any;
+    calcTransform: any;
+    attributes: Record<string, unknown>;
+    supplyDefaults: any;
+}
+
+interface ComponentModule {
+    name: string;
+}
+
+interface ApiMethodModule {
+    name: string;
+    fn: any;
+}
+
+type PlotlyModule = TraceModule | LocaleModule | TransformModule | ComponentModule | ApiMethodModule;
