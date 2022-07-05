@@ -32,7 +32,6 @@ barion.emailTransfer(transfer, (err, data) => {
 async function sendOrder() {
     try {
         const data = await barion.emailTransfer(transfer);
-        console.log('DATA', data.arbitraryField);
     } catch (err) {
         console.error('Some error occurred:', err);
     }
