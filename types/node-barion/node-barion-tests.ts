@@ -19,20 +19,15 @@ const transfer = {
 
 barion.emailTransfer(transfer, (err, data) => {
     if (err && err.name === 'BarionModelError') {
-        console.error('BARION MODEL ERROR', err.message);
         return;
     } else if (err) {
-        console.error('OTHER ERROR', err);
         return;
     }
-
-    console.log(data);
 });
 
 async function sendOrder() {
     try {
         const data = await barion.emailTransfer(transfer);
     } catch (err) {
-        console.error('Some error occurred:', err);
     }
 }

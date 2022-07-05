@@ -3,8 +3,6 @@
 // Definitions by: Áron Kiss <https://github.com/aron123>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export = Barion;
 
 interface BankAccount {
