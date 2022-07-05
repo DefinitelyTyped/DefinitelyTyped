@@ -9,11 +9,11 @@ fastChunkString("😀😃😄😁", { size: 2, unicodeAware: false });
 // $ExpectType string[]
 fastChunkString("😀😃😄😁", { size: 2, unicodeAware: true });
 
-// $ExpectError
+// @ts-expect-error
 fastChunkString("missing options");
 
-// $ExpectError
+// @ts-expect-error
 fastChunkString("missing size", { unicodeAware: false });
 
-// $ExpectError
+// @ts-expect-error
 fastChunkString(null, { size: 2 });

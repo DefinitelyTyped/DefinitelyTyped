@@ -199,7 +199,7 @@ const result = twoslash("//")
 + // Handle options param
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // When the param is incorrect
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -207,13 +207,13 @@ If you're wondering where to start with test code, the examples in the README of
 
 You can [validate your changes](#running-tests) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
 
-Para afirmar que una expresión es de un tipo dado, utilice `$ExpectType`. Para afirmar que una expresión causa un error de compilación, utilice `$ExpectError`.
+Para afirmar que una expresión es de un tipo dado, utilice `$ExpectType`. Para afirmar que una expresión causa un error de compilación, utilice `@ts-expect-error`.
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("one");
 ```
 

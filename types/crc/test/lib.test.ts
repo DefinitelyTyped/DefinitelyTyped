@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as crc from 'crc/lib';
 
-crc.default; // $ExpectError
+// @ts-expect-error
+crc.default;
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,

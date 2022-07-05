@@ -46,19 +46,19 @@ function SpriteSheetTest(): React.ReactElement {
         // $ExpectType number
         instance.getInfo('completeLoopCicles');
 
-        // $ExpectError
+        // @ts-expect-error
         instance.goToAndPlay('g');
 
-        // $ExpectError
+        // @ts-expect-error
         instance.goToAndPlay();
 
-        // $ExpectError
+        // @ts-expect-error
         instance.goToAndPause('g');
 
-        // $ExpectError
+        // @ts-expect-error
         instance.goToAndPause();
 
-        // $ExpectError
+        // @ts-expect-error
         instance.setDirection('no');
     }, [instance]);
 

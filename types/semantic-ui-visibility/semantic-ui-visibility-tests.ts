@@ -112,8 +112,10 @@ function test_visibility() {
     });
     $(selector).visibility(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).visibility('foo'); // $ExpectError
-    $(selector).visibility({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).visibility('foo');
+    // @ts-expect-error
+    $(selector).visibility({ foo: 'bar' });
 }
 
 import visibility = require('semantic-ui-visibility');

@@ -61,14 +61,14 @@ interface CustomAuthorizerContext extends APIGatewayAuthorizerResultContext {
 // Can't serialize objects in the response from an authorizer
 interface CustomAuthorizerInvalidResponseContext extends APIGatewayAuthorizerResultContext {
     valid: string | number | boolean | null | undefined;
-    // $ExpectError
+    // @ts-expect-error
     invalid: {
         id: number;
     };
 }
 
 // Enforce custom response contexts extend APIGatewayAuthorizerResultContext for use in authorizer,
-// $ExpectError
+// @ts-expect-error
 type InvalidCustomAuthorizerHandler = APIGatewayAuthorizerWithContextHandler<{
     valid: string | number | boolean | null | undefined;
     invalid: {
@@ -102,7 +102,7 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     let requestContext: APIGatewayEventRequestContext;
     requestContext = event.requestContext;
     let requestContextWithCustomAuthorizer: APIGatewayEventRequestContextWithAuthorizer<CustomAuthorizerContext>;
-    // $ExpectError
+    // @ts-expect-error
     requestContextWithCustomAuthorizer = event.requestContext;
     str = event.resource;
 
@@ -243,7 +243,7 @@ const proxyHandlerWithCustomAuthorizer: APIGatewayProxyWithLambdaAuthorizerHandl
 
     // It seems like it would be easy to make this mistake, but it's still a useful type.
     let requestContextWithAuthorizerDirectly: APIGatewayEventRequestContextWithAuthorizer<CustomAuthorizerContext>;
-    // $ExpectError
+    // @ts-expect-error
     requestContextWithAuthorizerDirectly = event.requestContext;
 
     // Check assignable to named types
@@ -285,7 +285,7 @@ const proxyHandlerV2WithLambdaAuthorizer: APIGatewayProxyHandlerV2WithLambdaAuth
 
     // It seems like it would be easy to make this mistake, but it's still a useful type.
     let requestContextWithAuthorizerDirectly: APIGatewayEventRequestContextLambdaAuthorizer<CustomAuthorizerContext>;
-    // $ExpectError
+    // @ts-expect-error
     requestContextWithAuthorizerDirectly = event.requestContext;
 
     // Check assignable to named types
@@ -323,7 +323,7 @@ const proxyHandlerv2WithJKTAuthorizer: APIGatewayProxyHandlerV2WithJWTAuthorizer
 
     // It seems like it would be easy to make this mistake, but it's still a useful type.
     let requestContextWithAuthorizerDirectly: APIGatewayEventRequestContextJWTAuthorizer;
-    // $ExpectError
+    // @ts-expect-error
     requestContextWithAuthorizerDirectly = event.requestContext;
 
     // Check assignable to named types
@@ -424,25 +424,27 @@ function createProxyObjectResultV2(): APIGatewayProxyResultV2<Response> {
     return result;
 }
 
-// $ExpectError
+// @ts-expect-error
 const proxyHandlerV2ForObjectResultFailure: APIGatewayProxyHandlerV2<Response> = async (event, context, callback) => {
     const result = {
         wrongExample: 'wrong example'
     };
 
     callback(new Error());
-    callback(undefined, result); // $ExpectError
+    // @ts-expect-error
+    callback(undefined, result);
     return result;
 };
 
-// $ExpectError
+// @ts-expect-error
 const proxyHandlerV2ForObjectResultFailure2: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
     const result = {
         wrongExample: 'wrong example',
     };
 
     callback(new Error());
-    callback(undefined, result); // $ExpectError
+    // @ts-expect-error
+    callback(undefined, result);
     return result;
 };
 
@@ -450,7 +452,8 @@ const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback)
     if (event.type === "TOKEN") {
         str = event.methodArn;
         str = event.authorizationToken;
-        str = event.resource; // $ExpectError
+        // @ts-expect-error
+        str = event.resource;
     } else {
         event.type; // $ExpectType "REQUEST"
         str = event.resource;
@@ -574,7 +577,8 @@ const authorizerWithCustomContext: APIGatewayAuthorizerWithContextHandler<Custom
     if (event.type === "TOKEN") {
         str = event.methodArn;
         str = event.authorizationToken;
-        str = event.resource; // $ExpectError
+        // @ts-expect-error
+        str = event.resource;
     } else {
         event.type; // $ExpectType "REQUEST"
         str = event.resource;
@@ -584,7 +588,7 @@ const authorizerWithCustomContext: APIGatewayAuthorizerWithContextHandler<Custom
     result = createAuthorizerResultWithCustomContext();
 
     // Can't convert up from existing type
-    // $ExpectError
+    // @ts-expect-error
     result = createAuthorizerResult();
 
     callback(new Error());
@@ -598,7 +602,8 @@ const tokenAuthorizer: APIGatewayTokenAuthorizerHandler = async (event, context,
     str = event.type;
     str = event.methodArn;
     str = event.authorizationToken;
-    strOrUndefined = event.resource; // $ExpectError
+    // @ts-expect-error
+    strOrUndefined = event.resource;
     // etc...
 
     const result = createAuthorizerResult();
@@ -614,7 +619,8 @@ const tokenAuthorizerWithCustomContext: APIGatewayTokenAuthorizerWithContextHand
     str = event.type;
     str = event.methodArn;
     str = event.authorizationToken;
-    strOrUndefined = event.resource; // $ExpectError
+    // @ts-expect-error
+    strOrUndefined = event.resource;
     // etc...
 
     const result = createAuthorizerResultWithCustomContext();
@@ -629,7 +635,8 @@ const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, cont
 
     str = event.type;
     str = event.methodArn;
-    str = event.authorizationToken; // $ExpectError
+    // @ts-expect-error
+    str = event.authorizationToken;
     str = event.resource;
     str = event.path;
     str = event.httpMethod;
@@ -663,7 +670,8 @@ const requestAuthorizerWithCustomContext: APIGatewayRequestAuthorizerWithContext
 
     str = event.type;
     str = event.methodArn;
-    str = event.authorizationToken; // $ExpectError
+    // @ts-expect-error
+    str = event.authorizationToken;
 
     const result = createAuthorizerResultWithCustomContext();
 
@@ -704,23 +712,23 @@ function createPolicyDocument(): PolicyDocument {
         Resource: str,
     };
 
-    // $ExpectError
+    // @ts-expect-error
     statement = { Effect: str, Action: str, Principal: 123, };
 
     // Bad Resource
-    // $ExpectError
+    // @ts-expect-error
     statement = { Effect: str, Action: str, Resource: 123, };
 
     // Bad Resource with valid Principal
-    // $ExpectError
+    // @ts-expect-error
     statement = { Effect: str, Action: str, Principal: { Service: str }, Resource: 123, };
 
     // Bad principal with valid Resource
-    // $ExpectError
+    // @ts-expect-error
     statement = { Effect: str, Action: str, Principal: 123, Resource: str, };
 
     // No Effect
-    // $ExpectError
+    // @ts-expect-error
     statement = { Action: str, Principal: str };
 
     statement = {
@@ -761,7 +769,7 @@ function createAuthorizerResultWithCustomContext(): APIGatewayAuthorizerWithCont
     let result: APIGatewayAuthorizerWithContextResult<CustomAuthorizerContext>;
 
     // Requires context
-    // $ExpectError
+    // @ts-expect-error
     result = {
         principalId: str,
         policyDocument: createPolicyDocument(),
@@ -772,7 +780,8 @@ function createAuthorizerResultWithCustomContext(): APIGatewayAuthorizerWithCont
     result = {
         principalId: str,
         policyDocument: createPolicyDocument(),
-        context: {}, // $ExpectError
+        // @ts-expect-error
+        context: {},
         usageIdentifierKey: strOrUndefinedOrNull,
     };
 
@@ -797,7 +806,7 @@ function createIAMAuthorizerResultWithCustomContext(): APIGatewayIAMAuthorizerWi
     let result: APIGatewayIAMAuthorizerWithContextResult<CustomAuthorizerContext>;
 
     // Requires context
-    // $ExpectError
+    // @ts-expect-error
     result = {
         principalId: str,
         policyDocument: createPolicyDocument(),
@@ -808,7 +817,8 @@ function createIAMAuthorizerResultWithCustomContext(): APIGatewayIAMAuthorizerWi
     result = {
         principalId: str,
         policyDocument: createPolicyDocument(),
-        context: {}, // $ExpectError
+        // @ts-expect-error
+        context: {},
         usageIdentifierKey: strOrUndefinedOrNull,
     };
 

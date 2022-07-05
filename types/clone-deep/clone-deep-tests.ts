@@ -12,5 +12,7 @@ cloneDeep({}, true); // $ExpectType {}
 cloneDeep<number>(42, true); // $ExpectType number
 cloneDeep<object>({}, _ => ({})); // $ExpectType object
 cloneDeep({}, _ => ({})); // $ExpectType {}
-cloneDeep<object>({}, _ => 42); // $ExpectError
-cloneDeep(42, _ => ({})); // $ExpectError
+// @ts-expect-error
+cloneDeep<object>({}, _ => 42);
+// @ts-expect-error
+cloneDeep(42, _ => ({}));

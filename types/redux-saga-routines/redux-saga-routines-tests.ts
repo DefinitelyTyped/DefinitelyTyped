@@ -35,29 +35,39 @@ bound_promisified_routine_anyargs(42);
 const routine_noargs = createRoutine('NOARGS', () => {});
 routine_noargs();
 routine_noargs.trigger();
-routine_noargs.trigger('string'); // $ExpectError
-routine_noargs.trigger(42); // $ExpectError
+// @ts-expect-error
+routine_noargs.trigger('string');
+// @ts-expect-error
+routine_noargs.trigger(42);
 routine_noargs.request();
 
 const promisified_routine_noargs = promisifyRoutine(routine_noargs);
 const bound_promisified_routine_noargs = bindPromiseCreators(promisified_routine_noargs, (_: any) => _);
 bound_promisified_routine_noargs();
-bound_promisified_routine_noargs('string'); // $ExpectError
-bound_promisified_routine_noargs(42); // $ExpectError
+// @ts-expect-error
+bound_promisified_routine_noargs('string');
+// @ts-expect-error
+bound_promisified_routine_noargs(42);
 
 const routine_strarg = createRoutine('STRARG', (x: string) => x);
-routine_strarg(); // $ExpectError
-routine_strarg.trigger(); // $ExpectError
+// @ts-expect-error
+routine_strarg();
+// @ts-expect-error
+routine_strarg.trigger();
 routine_strarg.trigger('string');
-routine_strarg.trigger(42); // $ExpectError
-routine_strarg.request(); // $ExpectError
+// @ts-expect-error
+routine_strarg.trigger(42);
+// @ts-expect-error
+routine_strarg.request();
 routine_strarg.request('string');
 
 const promisified_routine_strarg = promisifyRoutine(routine_strarg);
 const bound_promisified_routine_strarg = bindPromiseCreators(promisified_routine_strarg, (_: any) => _);
-bound_promisified_routine_strarg(); // $ExpectError
+// @ts-expect-error
+bound_promisified_routine_strarg();
 bound_promisified_routine_strarg('string');
-bound_promisified_routine_strarg(42); // $ExpectError
+// @ts-expect-error
+bound_promisified_routine_strarg(42);
 
 const routine_multiple_creators = createRoutine('MULTIPLE_CREATORS', {
     trigger: () => {},
@@ -66,13 +76,18 @@ const routine_multiple_creators = createRoutine('MULTIPLE_CREATORS', {
     fulfill: (result: string, content: any) => {},
 });
 routine_multiple_creators();
-routine_multiple_creators.trigger('string'); // $ExpectError
-routine_multiple_creators.request(); // $ExpectError
-routine_multiple_creators.request('string'); // $ExpectError
+// @ts-expect-error
+routine_multiple_creators.trigger('string');
+// @ts-expect-error
+routine_multiple_creators.request();
+// @ts-expect-error
+routine_multiple_creators.request('string');
 routine_multiple_creators.request(42);
 routine_multiple_creators.success();
 routine_multiple_creators.success('string');
 routine_multiple_creators.success(42);
-routine_multiple_creators.fulfill(); // $ExpectError
-routine_multiple_creators.fulfill(1, 'string'); // $ExpectError
+// @ts-expect-error
+routine_multiple_creators.fulfill();
+// @ts-expect-error
+routine_multiple_creators.fulfill(1, 'string');
 routine_multiple_creators.fulfill('string', {});

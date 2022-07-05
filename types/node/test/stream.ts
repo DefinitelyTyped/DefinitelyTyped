@@ -553,7 +553,7 @@ addAbortSignal(new AbortSignal(), new Readable());
     Readable.fromWeb(web, { objectMode: true });
 
     // When the param includes unsupported ReadableOptions
-    // $ExpectError
+    // @ts-expect-error
     Readable.fromWeb(web, { emitClose: true });
 }
 

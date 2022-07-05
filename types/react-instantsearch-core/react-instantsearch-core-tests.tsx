@@ -78,7 +78,8 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     <div>
       The query is {props.query}, the page is {props.page}. This is an error:{' '}
       {
-        props.somethingElse // $ExpectError
+        // @ts-expect-error
+        props.somethingElse
       }
       {/*
         Clicking on this button will update the searchState to:
@@ -151,7 +152,8 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     <div>
       The query is {props.query}, the page is {props.page}. This is an error:{' '}
       {
-        props.somethingElse // $ExpectError
+        // @ts-expect-error
+        props.somethingElse
       }
       {/*
         Clicking on this button will update the searchState to:
@@ -227,7 +229,8 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
   }
 
   const Stateless = connectStateResults((
-    { searchResults, additionalProp } // $ExpectError
+    // @ts-expect-error
+    { searchResults, additionalProp }
   ) => (
     <div>
       <h1>{additionalProp}</h1>
@@ -238,7 +241,8 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
   ));
 
   <Stateless />;
-  <Stateless additionalProp="test" />; // $ExpectError
+  // @ts-expect-error
+  <Stateless additionalProp="test" />;
 
   const StatelessWithType = ({ additionalProp, searchResults }: StateResultsProps) => (
     <div>
@@ -252,7 +256,8 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
   );
   const ComposedStatelessWithType = connectStateResults(StatelessWithType);
 
-  <ComposedStatelessWithType />; // $ExpectError
+  // @ts-expect-error
+  <ComposedStatelessWithType />;
 
   <ComposedStatelessWithType additionalProp="test" />;
 
@@ -277,7 +282,8 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
   }
   const ComposedMyComponent = connectStateResults(MyComponent);
 
-  <ComposedMyComponent />; // $ExpectError
+  // @ts-expect-error
+  <ComposedMyComponent />;
 
   <ComposedMyComponent additionalProp="test" />;
 };
@@ -285,7 +291,8 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
 () => {
   <InstantSearch searchClient={{}} indexName="xxx" />;
 
-  <InstantSearch indexName="xxx" />; // $ExpectError
+  // @ts-expect-error
+  <InstantSearch indexName="xxx" />;
 };
 
 // https://community.algolia.com/react-instantsearch/guide/Connectors.html

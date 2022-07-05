@@ -49,7 +49,7 @@ import { Subject } from 'rxjs';
         askAnswered: true,
     };
 
-    // $ExpectError
+    // @ts-expect-error
     expandQuestion.loop;
     // $ExpectType boolean
     rawListQuestion.loop!;
@@ -145,11 +145,11 @@ fetchAsyncQuestionProperty(
 
     // $ExpectType number
     incrementListIndex(0, 'up', options);
-    // $ExpectError
+    // @ts-expect-error
     incrementListIndex('notANumber', 'up', options);
-    // $ExpectError
+    // @ts-expect-error
     incrementListIndex(0, 'left', options);
-    // $ExpectError
+    // @ts-expect-error
     incrementListIndex(0, 'up', {});
 }
 
@@ -162,7 +162,7 @@ fetchAsyncQuestionProperty(
 
     new Paginator(screen);
     new Paginator(screen, { isInfinite: true });
-    // $ExpectError
+    // @ts-expect-error
     new Paginator(screen, { someUnsupportedOptions: 'foobar' });
 }
 
@@ -186,7 +186,7 @@ fetchAsyncQuestionProperty(
             // DO NOTHING
         },
     });
-    // $ExpectError
+    // @ts-expect-error
     promptResult.ui.process.subscribe({
         next: (value: {name_: string, answer: number}) => {
             // DO NOTHING
@@ -214,7 +214,7 @@ fetchAsyncQuestionProperty(
             }
         },
     });
-    // $ExpectError
+    // @ts-expect-error
     promptResult.ui.process.subscribe({
         next: (value: {name: string, answer: number}) => {
             // DO NOTHING
