@@ -53,6 +53,7 @@ const htmlOptions: HtmlToTextOptions = {
                 linkBrackets: ['===> ', ' <==='],
                 hideLinkHrefIfSameAsText: true,
             },
+            format: "anchor",
         },
         h1: headerOptions,
         h3: {
