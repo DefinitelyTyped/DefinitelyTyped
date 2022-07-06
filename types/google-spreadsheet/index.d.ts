@@ -1,4 +1,4 @@
-// Type definitions for google-spreadsheet 3.2
+// Type definitions for google-spreadsheet 3.3
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
@@ -892,9 +892,21 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
 
     /**
      * @description
-     * clear all data/cells in the worksheet
+     * defaults to clearing the entire sheet, or pass in a specific a1 range
+     *
+     * @param a1Range optional specific range within the sheet to clear
      */
-    clear(): Promise<void>;
+    clear(a1Range?: string): Promise<void>;
+
+    /**
+     * @description
+     * clear data/cells in a range of rows, defaulting to all rows after the header row(s)
+     *
+     * @param options options to control which rows to clear:
+     * - start: A1 style row number of first row to clear, defaults to first non-header row
+     * - end: A1 style row number of last row to clear, defaults to last row
+     */
+    clearRows(options?: {start: number, end: number}): Promise<void>;
 
     /**
      * @description
