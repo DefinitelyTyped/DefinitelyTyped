@@ -1,8 +1,3 @@
-// Type definitions for ESTree AST extensions for Facebook Flow
-// Project: https://github.com/estree/estree
-// Definitions by: RReverser <https://github.com/RReverser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ESTree {
     interface FlowTypeAnnotation extends Node {}
 
@@ -39,7 +34,7 @@ declare namespace ESTree {
         id: Identifier;
         typeParameters?: TypeParameterDeclaration | null;
         body: ObjectTypeAnnotation;
-        extends: Array<InterfaceExtends>;
+        extends: InterfaceExtends[];
     }
 
     interface DeclareFunction extends FlowDeclaration {
@@ -56,7 +51,7 @@ declare namespace ESTree {
     }
 
     interface FunctionTypeAnnotation extends FlowTypeAnnotation {
-        params: Array<FunctionTypeParam>;
+        params: FunctionTypeParam[];
         returnType: FlowTypeAnnotation;
         rest?: FunctionTypeParam | null;
         typeParameters?: TypeParameterDeclaration | null;
@@ -81,12 +76,12 @@ declare namespace ESTree {
     interface InterfaceDeclaration extends FlowDeclaration {
         id: Identifier;
         typeParameters?: TypeParameterDeclaration | null;
-        extends: Array<InterfaceExtends>;
+        extends: InterfaceExtends[];
         body: ObjectTypeAnnotation;
     }
 
     interface IntersectionTypeAnnotation extends FlowTypeAnnotation {
-        types: Array<FlowTypeAnnotation>;
+        types: FlowTypeAnnotation[];
     }
 
     interface MixedTypeAnnotation extends FlowBaseTypeAnnotation {}
@@ -104,7 +99,7 @@ declare namespace ESTree {
     interface StringTypeAnnotation extends FlowBaseTypeAnnotation {}
 
     interface TupleTypeAnnotation extends FlowTypeAnnotation {
-        types: Array<FlowTypeAnnotation>;
+        types: FlowTypeAnnotation[];
     }
 
     interface TypeofTypeAnnotation extends FlowTypeAnnotation {
@@ -127,17 +122,17 @@ declare namespace ESTree {
     }
 
     interface TypeParameterDeclaration extends Node {
-        params: Array<Identifier>;
+        params: Identifier[];
     }
 
     interface TypeParameterInstantiation extends Node {
-        params: Array<FlowTypeAnnotation>;
+        params: FlowTypeAnnotation[];
     }
 
     interface ObjectTypeAnnotation extends FlowTypeAnnotation {
-        properties: Array<ObjectTypeProperty>;
-        indexers: Array<ObjectTypeIndexer>;
-        callProperties: Array<ObjectTypeCallProperty>;
+        properties: ObjectTypeProperty[];
+        indexers: ObjectTypeIndexer[];
+        callProperties: ObjectTypeCallProperty[];
     }
 
     interface ObjectTypeCallProperty extends Node {
@@ -165,7 +160,7 @@ declare namespace ESTree {
     }
 
     interface UnionTypeAnnotation extends FlowTypeAnnotation {
-        types: Array<FlowTypeAnnotation>;
+        types: FlowTypeAnnotation[];
     }
 
     interface VoidTypeAnnotation extends FlowBaseTypeAnnotation {}

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package 1.0
+// Type definitions for non-npm package estree-jsx 1.0
 // Project: https://github.com/facebook/jsx
 // Definitions by: Tony Ross <https://github.com/antross>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

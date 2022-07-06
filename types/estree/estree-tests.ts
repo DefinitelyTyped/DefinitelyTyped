@@ -116,7 +116,7 @@ number = program.loc!.start.line;
 number = program.loc!.start.column;
 number = program.loc!.end.line;
 number = program.loc!.end.column;
-number = program!.range![0];
+number = program.range![0];
 
 // Statement
 // BlockStatement
@@ -262,13 +262,13 @@ if (memberExpressionOrCallExpression.type === 'MemberExpression') {
 var functionDeclaration: ESTree.FunctionDeclaration;
 var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
 functionDeclaration.id = null;
-var params: Array<ESTree.Pattern> = functionDeclaration.params;
+var params: ESTree.Pattern[] = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
 booleanMaybe = functionDeclaration.generator;
 booleanMaybe = functionDeclaration.async;
 
 var variableDeclaration: ESTree.VariableDeclaration;
-var declarations: Array<ESTree.VariableDeclarator> = variableDeclaration.declarations;
+var declarations: ESTree.VariableDeclarator[] = variableDeclaration.declarations;
 string = variableDeclaration.kind; // "var" | "let" | "const"
 
 var variableDeclarator: ESTree.VariableDeclarator;

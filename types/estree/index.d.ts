@@ -1,4 +1,4 @@
-// Type definitions for non-npm package 1.0
+// Type definitions for non-npm package estree 1.0
 // Project: https://github.com/estree/estree
 // Definitions by: RReverser <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,7 @@
 // but it has the notable advantage of making ESTree much easier to use as
 // an end user.
 
-interface BaseNodeWithoutComments {
+export interface BaseNodeWithoutComments {
     // Every leaf interface that extends BaseNode must specify a type property.
     // The type property should be a string literal. For example, Identifier
     // has: `type: "Identifier"`
@@ -30,12 +30,12 @@ interface BaseNodeWithoutComments {
     range?: [number, number] | undefined;
 }
 
-interface BaseNode extends BaseNodeWithoutComments {
-    leadingComments?: Array<Comment> | undefined;
-    trailingComments?: Array<Comment> | undefined;
+export interface BaseNode extends BaseNodeWithoutComments {
+    leadingComments?: Comment[] | undefined;
+    trailingComments?: Comment[] | undefined;
 }
 
-interface NodeMap {
+export interface NodeMap {
     AssignmentProperty: AssignmentProperty;
     CatchClause: CatchClause;
     Class: Class;
@@ -67,7 +67,7 @@ export interface Comment extends BaseNodeWithoutComments {
     value: string;
 }
 
-interface SourceLocation {
+export interface SourceLocation {
     source?: string | null | undefined;
     start: Position;
     end: Position;
@@ -84,7 +84,7 @@ export interface Program extends BaseNode {
     type: 'Program';
     sourceType: 'script' | 'module';
     body: Array<Directive | Statement | ModuleDeclaration>;
-    comments?: Array<Comment> | undefined;
+    comments?: Comment[] | undefined;
 }
 
 export interface Directive extends BaseNode {
@@ -93,8 +93,8 @@ export interface Directive extends BaseNode {
     directive: string;
 }
 
-interface BaseFunction extends BaseNode {
-    params: Array<Pattern>;
+export interface BaseFunction extends BaseNode {
+    params: Pattern[];
     generator?: boolean | undefined;
     async?: boolean | undefined;
     // The body is either BlockStatement or Expression because arrow functions
@@ -127,7 +127,7 @@ export type Statement =
     | ForOfStatement
     | Declaration;
 
-interface BaseStatement extends BaseNode {}
+export interface BaseStatement extends BaseNode {}
 
 export interface EmptyStatement extends BaseStatement {
     type: 'EmptyStatement';
@@ -135,8 +135,8 @@ export interface EmptyStatement extends BaseStatement {
 
 export interface BlockStatement extends BaseStatement {
     type: 'BlockStatement';
-    body: Array<Statement>;
-    innerComments?: Array<Comment> | undefined;
+    body: Statement[];
+    innerComments?: Comment[] | undefined;
 }
 
 export interface StaticBlock extends Omit<BlockStatement, 'type'> {
@@ -180,7 +180,7 @@ export interface WithStatement extends BaseStatement {
 export interface SwitchStatement extends BaseStatement {
     type: 'SwitchStatement';
     discriminant: Expression;
-    cases: Array<SwitchCase>;
+    cases: SwitchCase[];
 }
 
 export interface ReturnStatement extends BaseStatement {
@@ -220,7 +220,7 @@ export interface ForStatement extends BaseStatement {
     body: Statement;
 }
 
-interface BaseForXStatement extends BaseStatement {
+export interface BaseForXStatement extends BaseStatement {
     left: VariableDeclaration | Pattern;
     right: Expression;
     body: Statement;
@@ -236,7 +236,7 @@ export interface DebuggerStatement extends BaseStatement {
 
 export type Declaration = FunctionDeclaration | VariableDeclaration | ClassDeclaration;
 
-interface BaseDeclaration extends BaseStatement {}
+export interface BaseDeclaration extends BaseStatement {}
 
 export interface FunctionDeclaration extends BaseFunction, BaseDeclaration {
     type: 'FunctionDeclaration';
@@ -247,7 +247,7 @@ export interface FunctionDeclaration extends BaseFunction, BaseDeclaration {
 
 export interface VariableDeclaration extends BaseDeclaration {
     type: 'VariableDeclaration';
-    declarations: Array<VariableDeclarator>;
+    declarations: VariableDeclarator[];
     kind: 'var' | 'let' | 'const';
 }
 
@@ -285,11 +285,11 @@ export interface ExpressionMap {
     YieldExpression: YieldExpression;
 }
 
-type Expression = ExpressionMap[keyof ExpressionMap];
+export type Expression = ExpressionMap[keyof ExpressionMap];
 
 export interface BaseExpression extends BaseNode {}
 
-type ChainElement = SimpleCallExpression | MemberExpression;
+export type ChainElement = SimpleCallExpression | MemberExpression;
 
 export interface ChainExpression extends BaseExpression {
     type: 'ChainExpression';
@@ -341,7 +341,7 @@ export interface FunctionExpression extends BaseFunction, BaseExpression {
 
 export interface SequenceExpression extends BaseExpression {
     type: 'SequenceExpression';
-    expressions: Array<Expression>;
+    expressions: Expression[];
 }
 
 export interface UnaryExpression extends BaseExpression {
@@ -386,7 +386,7 @@ export interface ConditionalExpression extends BaseExpression {
     consequent: Expression;
 }
 
-interface BaseCallExpression extends BaseExpression {
+export interface BaseCallExpression extends BaseExpression {
     callee: Expression | Super;
     arguments: Array<Expression | SpreadElement>;
 }
@@ -411,12 +411,12 @@ export interface MemberExpression extends BaseExpression, BasePattern {
 
 export type Pattern = Identifier | ObjectPattern | ArrayPattern | RestElement | AssignmentPattern | MemberExpression;
 
-interface BasePattern extends BaseNode {}
+export interface BasePattern extends BaseNode {}
 
 export interface SwitchCase extends BaseNode {
     type: 'SwitchCase';
     test?: Expression | null | undefined;
-    consequent: Array<Statement>;
+    consequent: Statement[];
 }
 
 export interface CatchClause extends BaseNode {
@@ -528,8 +528,8 @@ export interface YieldExpression extends BaseExpression {
 
 export interface TemplateLiteral extends BaseExpression {
     type: 'TemplateLiteral';
-    quasis: Array<TemplateElement>;
-    expressions: Array<Expression>;
+    quasis: TemplateElement[];
+    expressions: Expression[];
 }
 
 export interface TaggedTemplateExpression extends BaseExpression {
@@ -576,7 +576,7 @@ export interface AssignmentPattern extends BasePattern {
 }
 
 export type Class = ClassDeclaration | ClassExpression;
-interface BaseClass extends BaseNode {
+export interface BaseClass extends BaseNode {
     superClass?: Expression | null | undefined;
     body: ClassBody;
 }
@@ -617,10 +617,10 @@ export type ModuleDeclaration =
     | ExportNamedDeclaration
     | ExportDefaultDeclaration
     | ExportAllDeclaration;
-interface BaseModuleDeclaration extends BaseNode {}
+export interface BaseModuleDeclaration extends BaseNode {}
 
 export type ModuleSpecifier = ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier | ExportSpecifier;
-interface BaseModuleSpecifier extends BaseNode {
+export interface BaseModuleSpecifier extends BaseNode {
     local: Identifier;
 }
 
@@ -651,7 +651,7 @@ export interface ImportNamespaceSpecifier extends BaseModuleSpecifier {
 export interface ExportNamedDeclaration extends BaseModuleDeclaration {
     type: 'ExportNamedDeclaration';
     declaration?: Declaration | null | undefined;
-    specifiers: Array<ExportSpecifier>;
+    specifiers: ExportSpecifier[];
     source?: Literal | null | undefined;
 }
 
