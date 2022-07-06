@@ -128,6 +128,69 @@ Memory.scan(ptr("0x1234"), Process.pageSize, new MatchPattern("13 37"), {
     }
 });
 
+// $ExpectType number
+File.SEEK_SET;
+// $ExpectType number
+File.SEEK_CUR;
+// $ExpectType number
+File.SEEK_END;
+
+// $ExpectType ArrayBuffer
+File.readAllBytes("/some/binary/blob");
+// $ExpectType string
+File.readAllText("/some/text/file");
+// $ExpectType void
+File.writeAllBytes("/some/binary/blob", new Uint8Array([1, 2, 3]).buffer);
+// $ExpectType void
+File.writeAllBytes("/some/binary/blob", [1, 2, 3]);
+// $ExpectType void
+File.writeAllText("/some/text/file", "Hello");
+
+const log = new File("/tmp/log.txt", "a");
+// $ExpectType void
+log.write("Some data");
+// $ExpectType void
+log.write(new Uint8Array([1, 2, 3]).buffer);
+// $ExpectType void
+log.write([1, 2, 3]);
+// $ExpectType void
+log.flush();
+// $ExpectType void
+log.close();
+
+const config = new File("/my/config", "r");
+// $ExpectType number
+config.seek(16);
+config.seek(1, File.SEEK_SET);
+config.seek(2, File.SEEK_CUR);
+config.seek(3, File.SEEK_END);
+// $ExpectType number
+config.tell();
+// $ExpectType ArrayBuffer
+config.readBytes();
+config.readBytes(1);
+// $ExpectType string
+config.readText();
+config.readText(2);
+// $ExpectType string
+config.readLine();
+
+// $ExpectType string
+Checksum.compute("md5", "some data");
+Checksum.compute("sha1", new Uint8Array([1, 2, 3]).buffer);
+Checksum.compute("sha256", [1, 2, 3]);
+Checksum.compute("sha384", [4, 5, 6]);
+const checksum = new Checksum("sha512");
+// $ExpectType Checksum
+checksum.update("abc");
+checksum.update(new Uint8Array([1, 2, 3]).buffer).update([4, 5, 6]);
+// $ExpectType string
+checksum.getString();
+// $ExpectType ArrayBuffer
+checksum.getDigest();
+// @ts-expect-error
+new Checksum("unknown-type");
+
 const insn: X86Instruction = null as unknown as X86Instruction;
 // $ExpectType X86Register[]
 insn.regsAccessed.read;
