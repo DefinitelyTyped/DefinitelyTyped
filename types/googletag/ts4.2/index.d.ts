@@ -95,20 +95,19 @@ declare namespace googletag {
      *
      * **Note**: Checking `googletag.pubadsReady` is discouraged. Please use `googletag.cmd.push` instead.
      */
-    let pubadsReady: boolean;
+    let pubadsReady: boolean | undefined;
     /**
      * Returns a reference to the `CompanionAdsService`.
      * @returns The Companion Ads service.
      */
     function companionAds(): CompanionAdsService;
     /**
-     * Constructs an out-of-page (interstitial) ad slot with the given ad unit path.
+     * Constructs an out-of-page ad slot with the given ad unit path.
      *
      * For custom out-of-page ads, `div` is the ID of the div element that will contain the ad.
      * See the article on [out-of-page creatives](https://support.google.com/admanager/answer/6088046) for more details.
      *
      * For GPT managed out-of-page ads, `div` is a supported `OutOfPageFormat`.
-     * See the article on [web interstitials](https://support.google.com/admanager/answer/9840201) for more details.
      *
      * **Example**
      * ```
@@ -118,6 +117,11 @@ declare namespace googletag {
      * googletag.defineOutOfPageSlot('/1234567/sports',
      *                               googletag.enums.OutOfPageFormat.INTERSTITIAL);
      * ```
+     * **See also**
+     * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
+     * - [Display a web interstitial ad](https://developers.google.com/publisher-tag/samples/display-web-interstitial-ad)
+     * - [Display an anchor ad](https://developers.google.com/publisher-tag/samples/display-anchor-ad)
+     * - [Display an out-of-page ad](https://developers.google.com/publisher-tag/samples/display-out-of-page-ad)
      *
      * @param adUnitPath Full [ad unit path](https://developers.google.com/publisher-tag/guides/get-started#ad-unit-path) with the network code and ad unit code.
      * @param div ID of the div that will contain this ad unit or OutOfPageFormat.
@@ -207,7 +211,7 @@ declare namespace googletag {
      * @param divOrSlot Either the ID of the div element containing the ad slot or the div element, or the slot object.
      * If a div element is provided, it must have an 'id' attribute which matches the ID passed into `googletag.defineSlot()`.
      */
-    function display(divOrSlot: string | Slot | Element): void;
+    function display(divOrSlot: string | Element | Slot): void;
     /**
      * Enables all GPT services that have been defined for ad slots on the page.
      */
@@ -754,8 +758,7 @@ declare namespace googletag {
          * var pageConfig = {
          *   allowOverlayExpansion: true,
          *   allowPushExpansion: true,
-         *   sandbox: true,
-         *   useUniqueDomain: true
+         *   sandbox: true
          * };
          * var slotConfig = {allowOverlayExpansion: false};
          * googletag.pubads().setSafeFrameConfig(pageConfig);
@@ -904,19 +907,9 @@ declare namespace googletag {
          * @param listener Function that takes a single event object argument.
          * @returns The service object on which the method was called.
          */
-        addEventListener(eventType: events.EventType, listener: (event: events.Event) => void): Service;
-        addEventListener(
-            eventType: 'rewardedSlotGranted',
-            listener: (event: events.RewardedSlotGrantedEvent) => void,
-        ): Service;
-        addEventListener(
-            eventType: 'rewardedSlotReady',
-            listener: (event: events.RewardedSlotReadyEvent) => void,
-        ): Service;
-        addEventListener(eventType: 'slotRenderEnded', listener: (event: events.SlotRenderEndedEvent) => void): Service;
-        addEventListener(
-            eventType: 'slotVisibilityChanged',
-            listener: (event: events.SlotVisibilityChangedEvent) => void,
+        addEventListener<K extends keyof events.EventTypeMap>(
+            eventType: K,
+            listener: (event: events.EventTypeMap[K]) => void,
         ): Service;
         /**
          * Get the name of this service.
@@ -958,22 +951,9 @@ declare namespace googletag {
          * @param listener Function that takes a single event object argument.
          * @returns Whether existing event listener was removed.
          */
-        removeEventListener(eventType: events.EventType, listener: (event: events.Event) => void): boolean;
-        removeEventListener(
-            eventType: 'rewardedSlotGranted',
-            listener: (event: events.RewardedSlotGrantedEvent) => void,
-        ): boolean;
-        removeEventListener(
-            eventType: 'rewardedSlotReady',
-            listener: (event: events.RewardedSlotReadyEvent) => void,
-        ): boolean;
-        removeEventListener(
-            eventType: 'slotRenderEnded',
-            listener: (event: events.SlotRenderEndedEvent) => void,
-        ): boolean;
-        removeEventListener(
-            eventType: 'slotVisibilityChanged',
-            listener: (event: events.SlotVisibilityChangedEvent) => void,
+        removeEventListener<K extends keyof events.EventTypeMap>(
+            eventType: K,
+            listener: (event: events.EventTypeMap[K]) => void,
         ): boolean;
     }
     interface Size {
@@ -1421,7 +1401,7 @@ declare namespace googletag {
         getName(): string;
     }
     /**
-     * This is the namespace that GPT uses for `Adsense`.
+     * This is the namespace that GPT uses for `adsense`.
      */
     namespace adsense {
         /**
@@ -1455,11 +1435,14 @@ declare namespace googletag {
             | 'page_url';
     }
     /**
-     * This is the namespace that GPT uses for `enum types`.
+     * This is the namespace that GPT uses for `enums`.
      */
     namespace enums {
         /**
-         * Out of page formats supported by GPT.
+         * Out-of-page formats supported by GPT.
+         *
+         * **See also**
+         * - [googletag.defineOutOfPageSlot](https://developers.google.com/publisher-tag/reference#googletag.defineOutOfPageSlot)
          */
         enum OutOfPageFormat {
             /**
@@ -1481,6 +1464,9 @@ declare namespace googletag {
         }
         /**
          * [Traffic sources](https://support.google.com/admanager/answer/11233407) supported by GPT.
+         *
+         * **See also**
+         * - [PrivacySettingsConfig.trafficSource](https://developers.google.com/publisher-tag/reference#googletag.PrivacySettingsConfig_trafficSource)
          */
         enum TrafficSource {
             /**
@@ -1494,24 +1480,18 @@ declare namespace googletag {
         }
     }
     /**
-     * This is the namespace that GPT uses for `Events`. Your code can react to these events using `Service.addEventListener`.
+     * This is the namespace that GPT uses for `events`.
      */
     namespace events {
         /**
          * Event type for all GPT events.
          */
-        type EventType =
-            | 'impressionViewable'
-            | 'rewardedSlotClosed'
-            | 'rewardedSlotGranted'
-            | 'rewardedSlotReady'
-            | 'slotRequested'
-            | 'slotResponseReceived'
-            | 'slotRenderEnded'
-            | 'slotOnload'
-            | 'slotVisibilityChanged';
+        type EventType = keyof EventTypeMap;
         /**
          * Base Interface for all GPT events. All GPT events below will have the following fields.
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         interface Event {
             /**
@@ -1522,6 +1502,21 @@ declare namespace googletag {
              * The slot that triggered the event.
              */
             slot: Slot;
+        }
+        /**
+         * This is a pseudo-type that maps an event name to its corresponding event object type for `Service.addEventListener` and `Service.removeEventListener`.
+         * It is documented for reference and type safety purposes only.
+         */
+        interface EventTypeMap {
+            impressionViewable: ImpressionViewableEvent;
+            rewardedSlotClosed: RewardedSlotClosedEvent;
+            rewardedSlotGranted: RewardedSlotGrantedEvent;
+            rewardedSlotReady: RewardedSlotReadyEvent;
+            slotOnload: SlotOnloadEvent;
+            slotRenderEnded: SlotRenderEndedEvent;
+            slotRequested: SlotRequestedEvent;
+            slotResponseReceived: SlotResponseReceived;
+            slotVisibilityChanged: SlotVisibilityChangedEvent;
         }
         /**
          * This event is fired when an impression becomes viewable, according to the [Active View criteria](https://support.google.com/admanager/answer/4524488).
@@ -1541,6 +1536,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface ImpressionViewableEvent extends Event {}
@@ -1564,6 +1562,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
          */
         // tslint:disable-next-line:no-empty-interface
         interface RewardedSlotClosedEvent extends Event {}
@@ -1590,6 +1591,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
          */
         interface RewardedSlotGrantedEvent extends Event {
             /**
@@ -1611,7 +1615,7 @@ declare namespace googletag {
          *       var slot = event.slot;
          *       console.log('Rewarded ad slot', slot.getSlotElementId(),
          *                   'is ready to be displayed.');
-         *       if(<!--User consents to viewing the ad.-->) {
+         *       if('User consents to viewing the ad.') {
          *         // Display the ad.
          *         event.makeRewardedVisible();
          *       }
@@ -1621,6 +1625,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
          */
         interface RewardedSlotReadyEvent extends Event {
             /**
@@ -1644,6 +1651,9 @@ declare namespace googletag {
          *   }
          * });
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface SlotOnloadEvent extends Event {}
@@ -1679,6 +1689,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         interface SlotRenderEndedEvent extends Event {
             /**
@@ -1734,6 +1747,9 @@ declare namespace googletag {
          *   }
          * });
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface SlotRequestedEvent extends Event {}
@@ -1756,6 +1772,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         // tslint:disable-next-line:no-empty-interface
         interface SlotResponseReceived extends Event {}
@@ -1781,6 +1800,9 @@ declare namespace googletag {
          *     }
          * );
          * ```
+         *
+         * **See also**
+         * - [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          */
         interface SlotVisibilityChangedEvent extends Event {
             /**

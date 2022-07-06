@@ -28,14 +28,14 @@ const result3 = libnpmdiff(['a@1', '2'], {
 
 // Test incorrect type of specs
 
-// $ExpectError
+// @ts-expect-error
 const result4 = libnpmdiff('a@1...b@2');
 
 // Test incorrect type of Options
 
-// $ExpectError
+// @ts-expect-error
 libnpmdiff(['a@1', 'b@2'], 'string');
-// $ExpectError
+// @ts-expect-error
 libnpmdiff(['a@1', 'b@2'], 12345567);
 
 // Testing that unknown properties fails will unfortunately not be possible
@@ -43,7 +43,7 @@ libnpmdiff(['a@1', 'b@2'], 12345567);
 //
 // libnpmdiff(
 //     ['a@1', 'b@2'],
-//     // $ExpectError
+//     // @ts-expect-error
 //     { unknownproperty: 'hello' },
 // );
 
@@ -51,11 +51,11 @@ libnpmdiff(['a@1', 'b@2'], 12345567);
 
 libnpmdiff(
     ['a@1', 'b@2'],
-    // $ExpectError
+    // @ts-expect-error
     { diffUnified: 'string' },
 );
 libnpmdiff(
     ['a@1', 'b@2'],
-    // $ExpectError
+    // @ts-expect-error
     { tagVersionPrefix: true },
 );

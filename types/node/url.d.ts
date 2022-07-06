@@ -5,7 +5,7 @@
  * ```js
  * import url from 'url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/url.js)
  */
 declare module 'url' {
     import { Blob } from 'node:buffer';
@@ -205,7 +205,7 @@ declare module 'url' {
     function format(urlObject: UrlObject | string): string;
     /**
      * The `url.resolve()` method resolves a target URL relative to a base URL in a
-     * manner similar to that of a Web browser resolving an anchor tag HREF.
+     * manner similar to that of a web browser resolving an anchor tag.
      *
      * ```js
      * const url = require('url');
@@ -214,7 +214,7 @@ declare module 'url' {
      * url.resolve('http://example.com/one', '/two'); // 'http://example.com/two'
      * ```
      *
-     * You can achieve the same result using the WHATWG URL API:
+     * To achieve the same result using the WHATWG URL API:
      *
      * ```js
      * function resolve(from, to) {
@@ -233,8 +233,8 @@ declare module 'url' {
      * ```
      * @since v0.1.25
      * @deprecated Legacy: Use the WHATWG URL API instead.
-     * @param from The Base URL being resolved against.
-     * @param to The HREF URL being resolved.
+     * @param from The base URL to use if `to` is a relative URL.
+     * @param to The target URL to resolve.
      */
     function resolve(from: string, to: string): string;
     /**
@@ -332,7 +332,7 @@ declare module 'url' {
      * const myURL = new URL('https://a:b@測試?abc#foo');
      *
      * console.log(urlToHttpOptions(myURL));
-     *
+     * /*
      * {
      *   protocol: 'https:',
      *   hostname: 'xn--g6w251d',
@@ -397,7 +397,8 @@ declare module 'url' {
          */
         static createObjectURL(blob: Blob): string;
         /**
-         * Removes the stored `Blob` identified by the given ID.
+         * Removes the stored `Blob` identified by the given ID. Attempting to revoke a
+         * ID that isn’t registered will silently fail.
          * @since v16.7.0
          * @experimental
          * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
@@ -859,7 +860,6 @@ declare module 'url' {
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
-
     import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
     global {
         interface URLSearchParams extends _URLSearchParams {}
@@ -873,21 +873,23 @@ declare module 'url' {
          * https://nodejs.org/api/url.html#the-whatwg-url-api
          * @since v10.0.0
          */
-        var URL:
-            // For compatibility with "dom" and "webworker" URL declarations
-            typeof globalThis extends { onmessage: any, URL: infer URL }
-                ? URL
-                : typeof _URL;
+        var URL: typeof globalThis extends {
+            onmessage: any;
+            URL: infer URL;
+        }
+            ? URL
+            : typeof _URL;
         /**
          * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`
          * https://nodejs.org/api/url.html#class-urlsearchparams
          * @since v10.0.0
          */
-        var URLSearchParams:
-            // For compatibility with "dom" and "webworker" URLSearchParams declarations
-            typeof globalThis extends { onmessage: any, URLSearchParams: infer URLSearchParams }
-                ? URLSearchParams
-                : typeof _URLSearchParams;
+        var URLSearchParams: typeof globalThis extends {
+            onmessage: any;
+            URLSearchParams: infer URLSearchParams;
+        }
+            ? URLSearchParams
+            : typeof _URLSearchParams;
     }
 }
 declare module 'node:url' {

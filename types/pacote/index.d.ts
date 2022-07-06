@@ -163,9 +163,6 @@ export interface Packument extends CommonMetadata {
         created: string;
         modified: string;
     };
-
-    // Non-standard properties may also appear when fullMetadata = true.
-    [key: string]: unknown;
 }
 
 export type AbbreviatedPackument = {
@@ -200,6 +197,17 @@ export interface ManifestResult {
      * The integrity value for the package artifact.
      */
     _integrity: string;
+    /**
+     * The canonical spec of this package version: name@version.
+     */
+    _id: string;
+}
+
+export interface PackumentResult {
+    /**
+     * The size of the packument.
+     */
+    _contentLength: number;
 }
 
 export interface PacoteOptions {
@@ -309,8 +317,8 @@ export function manifest(spec: string, opts?: Options): Promise<AbbreviatedManif
  * Fetch (or simulate) a package's packument (basically, the top-level package
  * document listing all the manifests that the registry returns).
  */
-export function packument(spec: string, opts: Options & { fullMetadata: true }): Promise<Packument>;
-export function packument(spec: string, opts?: Options): Promise<AbbreviatedPackument>;
+export function packument(spec: string, opts: Options & { fullMetadata: true }): Promise<Packument & PackumentResult>;
+export function packument(spec: string, opts?: Options): Promise<AbbreviatedPackument & PackumentResult>;
 
 /**
  * Get a package tarball data as a buffer in memory.

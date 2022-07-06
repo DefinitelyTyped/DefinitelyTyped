@@ -905,6 +905,9 @@ management.deleteCustomDomain({ id: 'cd_0000000000000001' }).then(() => console.
 management.deleteCustomDomain({ id: 'cd_0000000000000001' }, err => console.log('deleted'));
 
 // User enrollment
+management.getGuardianEnrollment({ id: 'cd_0000000000000001' }).then(enrollment => console.log(enrollment));
+management.getGuardianEnrollment({ id: 'cd_0000000000000001' }, (err, enrollment) => console.log(enrollment));
+
 management.getGuardianEnrollments({ id: 'cd_0000000000000001' }).then(enrollments => console.log(enrollments));
 management.getGuardianEnrollments({ id: 'cd_0000000000000001' }, (err, enrollments) => console.log(enrollments));
 
@@ -1029,6 +1032,8 @@ async () => {
     };
     signInUserData.realm = 'email';
     signInUserData.realm = 'sms';
+
+    signInUserData.scope = 'openid profile email';
     const emailUserData: auth0.RequestEmailCodeOrLinkOptions = {
         email: '{YOUR_EMAIL}',
         send: 'code',

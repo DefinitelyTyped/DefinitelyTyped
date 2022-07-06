@@ -26,4 +26,5 @@ const plugin2 = new Plugin({
 });
 
 // Handlers must return a boolean
-keymap.keydownHandler({ Enter: () => {} }); // $ExpectError
+// @ts-expect-error
+keymap.keydownHandler({ Enter: () => {} });

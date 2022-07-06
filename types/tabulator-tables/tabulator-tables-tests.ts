@@ -336,6 +336,13 @@ colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
     return '';
 };
 
+colDef.tooltip = (event: MouseEvent, cell: Tabulator.CellComponent, onRendered: (callback: () => void) => void) => {
+    onRendered(() => {
+      console.log('rendering occured');
+    });
+    return cell.getValue();
+  };
+
 // Cell Component
 
 let cell = <Tabulator.CellComponent>{};

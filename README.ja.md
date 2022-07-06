@@ -47,11 +47,11 @@ npm install --save-dev @types/node
 大抵は `package.json` の `"types"` フィールドや `"typings"`  フィールドに指定されています。
 もしくは、パッケージ内の各 ".d.ts" ファイルを確認し、 `/// <reference path="" />` を使って手動でインクルードしてください。
 
-#### 古いバージョンの TypeScript （3.y 以前）
+#### 古いバージョンの TypeScript （3.9 以前）
 
 Definitely Typed では、リリースから2年以内のバージョンの TypeScript 上でのみパッケージのテストを実施しています。
-現時点ではバージョン 3.8 以上でテストされています。
-TypeScript 2.0 ～ 3.7 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
+現時点ではバージョン 4.0 以上でテストされています。
+TypeScript 2.0 ～ 3.9 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
 ただし、正常に動作する保証もありません。
 サポート期間については下記のとおりです。
 
@@ -224,7 +224,7 @@ const result = twoslash("//")
 + // オプションの引数に対応
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // 引数が正しくないとき
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -232,13 +232,13 @@ const result = twoslash("//")
 
 レポジトリのルートで `npm test <テストしたいパッケージ名>` を実行すると、このコマンドはファイルが変更された状態でテストを実行するので、[変更を検証](#テストの実行)することができます。
 
-式が与えられた型であるか確認するには `$ExpectType` を、コンパイルエラーになるかを確認するには `$ExpectError` をそれぞれ使います。 例:
+式が与えられた型であるか確認するには `$ExpectType` を、コンパイルエラーになるかを確認するには `@ts-expect-error` をそれぞれ使います。 例:
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("one");
 ```
 
@@ -272,7 +272,8 @@ DefinitelyTyped 外のモジュールに依存しないパッケージについ�
 * フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier -- --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
   ```tsx
   // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  // @ts-expect-error
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
   ```
 * `function sum(nums: number[]): number`: 関数が引数に対して書き込まないときは `ReadonlyArray` を使用してください。
 * `interface Foo { new(): Foo; }`:
@@ -525,10 +526,6 @@ TypeScript ハンドブックには、[型定義を書くにあたっての一�
   }
 }
 ```
-
-#### GitHub のファイル履歴がおかしいです。
-
-GitHubは、名前が変更されたファイルの履歴には[対応していない](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames)ので、代わりに [`git log --follow`](https://www.git-scm.com/docs/git-log) を使用してください。
 
 ## ライセンス
 

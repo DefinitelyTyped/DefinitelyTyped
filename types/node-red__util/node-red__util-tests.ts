@@ -29,7 +29,7 @@ function logTests() {
 
     // $ExpectType boolean
     log.metric();
-    // $ExpectError
+    // @ts-expect-error
     log.log({});
     log.log({ level: log.INFO, msg: 'log' });
     log.info('log info');
@@ -69,7 +69,7 @@ function utilTests(someNode: Node) {
     const msgClone = util.cloneMessage(msg);
     // $ExpectType string
     const msgKey = msgClone.key;
-    // $ExpectError
+    // @ts-expect-error
     const msgWrongKey = msgClone.wrongKey;
 
     // $ExpectType boolean

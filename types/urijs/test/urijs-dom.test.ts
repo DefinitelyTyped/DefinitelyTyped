@@ -276,6 +276,6 @@ declare var $: (arg?: any) => JQuery;
     */
     const readonlyUri: URI.ReadonlyURI = uri;
     let mutableUri: URI = readonlyUri.clone();
-    // $ExpectError
+    // @ts-expect-error
     mutableUri = readonlyUri;
 }

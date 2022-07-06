@@ -5,6 +5,8 @@ write(createWriteStream('file'), 'hi'); // $ExpectType Promise<boolean>
 
 write(createWriteStream('file'), new Uint8Array()); // $ExpectType Promise<boolean>
 
-write(createReadStream('file'), new Uint8Array()); // $ExpectError
+// @ts-expect-error
+write(createReadStream('file'), new Uint8Array());
 
-write(createWriteStream('file')); // $ExpectError
+// @ts-expect-error
+write(createWriteStream('file'));

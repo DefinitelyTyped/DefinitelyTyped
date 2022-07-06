@@ -5,8 +5,8 @@ const onSaveTest = ({ name, value, previousValue }: onSaveProps) => {
     console.log(name + value + previousValue);
 };
 
-const onChangeTest = (value: string) => {
-    console.log(value);
+const onChangeTest = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.log(event.target.value);
 };
 
 const formatDisplayTextTest = (value: string) => {

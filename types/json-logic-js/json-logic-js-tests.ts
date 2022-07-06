@@ -34,7 +34,7 @@ jsonLogic.apply({ missing: ['a', 'b'] }, { a: 'apple', c: 'carrot' });
 // $ExpectType any
 jsonLogic.apply({ if: [{ missing: ['a', 'b'] }, 'Not enough fruit', 'OK to proceed'] }, { a: 'apple', b: 'banana' });
 jsonLogic.apply(
-    // $ExpectError
+    // @ts-expect-error
     { if: [{ missing: ['a', 'b'] }, 'Need three or more (odd total) elements for "if"'] },
     { a: 'apple', b: 'banana' },
 );
@@ -227,16 +227,16 @@ jsonLogic.apply({ log: 'apple' });
 
 // $ExpectType void
 jsonLogic.add_operation('op', () => true);
-// $ExpectError
+// @ts-expect-error
 jsonLogic.add_operation(1, (x: number, y: number) => x + y);
-// $ExpectError
+// @ts-expect-error
 jsonLogic.add_operation();
 
 // $ExpectType void
 jsonLogic.rm_operation('op');
-// $ExpectError
+// @ts-expect-error
 jsonLogic.rm_operation(1);
-// $ExpectError
+// @ts-expect-error
 jsonLogic.rm_operation();
 
 // Undocumented functions
@@ -265,7 +265,7 @@ const jsonExtendedLogic: JsonLogicWithAdditionalOperations = {
 };
 // $ExpectType any
 jsonLogic.apply(jsonExtendedLogic);
-// $ExpectError
+// @ts-expect-error
 const invalidExtendedLogic: JsonLogicWithAdditionalOperations = { invalidOperator: ['Springfield', 'Spring'] };
 
 // Test prevention of overriding reserved operations
@@ -273,5 +273,5 @@ const invalidExtendedLogic: JsonLogicWithAdditionalOperations = { invalidOperato
 interface OverrideReservedOp {
     and: [string, string];
 }
-// $ExpectError
+// @ts-expect-error
 type JsonLogicOverridden = jsonLogic.RulesLogic<OverrideReservedOp>;

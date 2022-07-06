@@ -1082,3 +1082,10 @@ function sample17() {
     height: 4,
   });
 }
+
+function sample18() {
+  const canvas = new fabric.Canvas('c');
+  canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+  canvas.freeDrawingBrush.width = 2;
+  canvas.freeDrawingBrush.decimate = 2;
+}

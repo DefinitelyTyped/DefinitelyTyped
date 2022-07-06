@@ -36,6 +36,7 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     onChange(event: React.ChangeEvent<HTMLInputElement>) {}
+    onInput(event: React.ChangeEvent<HTMLInputElement>) {}
     onBlur(event: React.FocusEvent<HTMLInputElement>) {}
     onFocus(event: React.FocusEvent<HTMLInputElement>) {}
     onClick(event: React.MouseEvent<HTMLButtonElement>) {}
@@ -61,7 +62,7 @@ export class App extends React.Component<AppProps, AppState> {
                 <SplitterContent>
                     <Page>
                         Test page
-                        <Input name='test' type='text' value='test' readOnly={true} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} />
+                        <Input name='test' type='text' value='test' readOnly={true} onChange={this.onChange} onInput={this.onInput} onBlur={this.onBlur} onFocus={this.onFocus} />
                         <Radio name='radioTest' defaultChecked={true} className='left' checked={true} disabled={true} inputId='radioId' onChange={this.onRadioChange} />
                         <Checkbox name='checkboxTest' checked={true} disabled={true} inputId='checkboxId' className='left' modifier='material' onChange={this.onCheckboxChange} />
                         <Select modifier='material' name='selectTest' className='left' onChange={this.onSelectChange}>

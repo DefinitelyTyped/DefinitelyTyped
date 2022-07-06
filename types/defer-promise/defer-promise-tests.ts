@@ -4,16 +4,16 @@ import defer = require('defer-promise');
 const a = defer<number>();
 // $ExpectType void
 a.resolve(5);
-// $ExpectError
+// @ts-expect-error
 a.resolve('foo');
-// $ExpectError
+// @ts-expect-error
 a.resolve();
 
 // $ExpectType Deferred<void>
 const b = defer<void>();
 // $ExpectType void
 b.resolve();
-// $ExpectError
+// @ts-expect-error
 b.resolve(5);
 
 const c: DeferPromise.Deferred<string> = defer();

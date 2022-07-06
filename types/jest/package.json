@@ -1,8 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "jest-matcher-utils": "^27.0.0",
-        "pretty-format": "^27.0.0"
+        "jest-matcher-utils": "^28.0.0",
+        "pretty-format": "^28.0.0"
     },
     "exports": {
         ".": {

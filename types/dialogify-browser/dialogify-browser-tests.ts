@@ -24,9 +24,9 @@ const dialogOptions: Dialogify.DialogOptions = {
     ajaxComplete: () => void 0,
 };
 
-// $ExpectError
+// @ts-expect-error
 new Dialogify();
-// $ExpectError
+// @ts-expect-error
 new Dialogify('', '');
 // $ExpectType Dialogify
 const dialog = new Dialogify('source', dialogOptions);
@@ -36,13 +36,13 @@ dialog.$content;
 // $ExpectType Record<string | number, ButtonImpl>
 dialog.$buttonList;
 
-// $ExpectError
+// @ts-expect-error
 dialog.title();
-// $ExpectError
+// @ts-expect-error
 dialog.title(0);
 // $ExpectType Dialogify
 dialog.title('');
-// $ExpectError
+// @ts-expect-error
 dialog.title('', '');
 
 // $ExpectAssignable
@@ -63,20 +63,20 @@ const options: Dialogify.ButtonOption = {
     position: '',
 };
 
-// $ExpectError
+// @ts-expect-error
 dialog.buttons();
-// $ExpectError
+// @ts-expect-error
 dialog.buttons('', '');
 // $ExpectType Dialogify
 dialog.buttons(buttons);
 // $ExpectType Dialogify
 dialog.buttons(buttons, options);
-// $ExpectError
+// @ts-expect-error
 dialog.buttons(buttons, options, '');
 
-// $ExpectError
+// @ts-expect-error
 dialog.on();
-// $ExpectError
+// @ts-expect-error
 dialog.on('', () => {});
 // $ExpectType Dialogify
 dialog.on('show', () => {});
@@ -84,27 +84,27 @@ dialog.on('show', () => {});
 dialog.on('close', () => {});
 // $ExpectType Dialogify
 dialog.on('cancel', () => {});
-// $ExpectError
+// @ts-expect-error
 dialog.on('', {});
 
 // $ExpectType void
 dialog.show();
-// $ExpectError
+// @ts-expect-error
 dialog.show(0);
 
 // $ExpectType void
 dialog.showModal();
-// $ExpectError
+// @ts-expect-error
 dialog.showModal(0);
 
 // $ExpectType void
 dialog.close();
-// $ExpectError
+// @ts-expect-error
 dialog.close(0);
 
 // $ExpectType boolean
 dialog.isOpen();
-// $ExpectError
+// @ts-expect-error
 dialog.isOpen(0);
 
 /** Static methods */
@@ -113,39 +113,39 @@ dialog.isOpen(0);
 const alertOptions: Dialogify.AlertDialogOptions = {};
 // $ExpectType void
 Dialogify.alert('', alertOptions);
-// $ExpectError
+// @ts-expect-error
 Dialogify.alert();
-// $ExpectError
+// @ts-expect-error
 Dialogify.alert(0);
-// $ExpectError
+// @ts-expect-error
 Dialogify.alert('', '');
-// $ExpectError
+// @ts-expect-error
 Dialogify.alert('', alertOptions, null);
 
 // $ExpectAssignable
 const confirmOptions: Dialogify.ConfirmDialogOptions = {};
 // $ExpectType void
 Dialogify.confirm('', confirmOptions);
-// $ExpectError
+// @ts-expect-error
 Dialogify.confirm();
-// $ExpectError
+// @ts-expect-error
 Dialogify.confirm(0);
-// $ExpectError
+// @ts-expect-error
 Dialogify.confirm('', '');
-// $ExpectError
+// @ts-expect-error
 Dialogify.confirm('', confirmOptions, null);
 
 // $ExpectAssignable
 const promptOptions: Dialogify.PromptDialogOptions = {};
 // $ExpectType void
 Dialogify.prompt('', promptOptions);
-// $ExpectError
+// @ts-expect-error
 Dialogify.prompt();
-// $ExpectError
+// @ts-expect-error
 Dialogify.prompt(0);
-// $ExpectError
+// @ts-expect-error
 Dialogify.prompt('', '');
-// $ExpectError
+// @ts-expect-error
 Dialogify.prompt('', promptOptions, null);
 
 // $ExpectType void
