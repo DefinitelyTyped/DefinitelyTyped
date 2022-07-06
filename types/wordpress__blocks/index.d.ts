@@ -259,7 +259,7 @@ export interface BlockDeprecation<
      * technically valid even once deprecated, and requires updates to its
      * attributes or inner blocks.
      */
-    isEligible?(attributes: O, innerBlocks: BlockInstance[]): boolean;
+    isEligible?(attributes: Record<string, any>, innerBlocks: BlockInstance[]): boolean;
     /**
      * A function which, given the old attributes and inner blocks is
      * expected to return either the new attributes or a tuple array of
