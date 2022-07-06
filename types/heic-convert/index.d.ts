@@ -14,6 +14,7 @@ interface ConversionOptions {
     format: 'JPEG' | 'PNG';
     /**
      * the JPEG compression quality, between 0 and 1
+     * @default 0.92
      */
     quality?: number;
 }
