@@ -1,4 +1,4 @@
-// Type definitions for ESTree AST specification 1.0
+// Type definitions for non-npm package 1.0
 // Project: https://github.com/estree/estree
 // Definitions by: RReverser <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
