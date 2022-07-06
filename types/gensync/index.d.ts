@@ -5,9 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-// tslint:disable-next-line void-return
-type Callback<R, E = unknown> = [R] extends [void] ? (err: E) => void : (err: E, result: R) => void;
-
 /**
  * Returns a function that can be "awaited" (with `yield*`) in another `gensync` generator
  * function, or executed via
@@ -33,6 +30,12 @@ declare namespace gensync {
      * when "yield*"'d in another `gensync` generator.
      */
     type Handled<T> = T extends Handler<infer U> ? U : never;
+
+    /**
+     * A callback function such that if the result is void, there is no result parameter.
+     */
+    // tslint:disable-next-line void-return
+    type Callback<R, E = unknown> = [R] extends [void] ? (err: E) => void : (err: E, result: R) => void;
 
     /**
      * A function that can be "awaited" (with `yield*`) in another `gensync` generator,
