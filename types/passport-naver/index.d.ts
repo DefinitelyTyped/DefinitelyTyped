@@ -24,7 +24,7 @@ export interface Profile extends passport.Profile {
 
 export interface StrategyOption {
     clientID: string;
-    clientSecret: string;
+    clientSecret?: string;
     callbackURL: string;
 
     svcType?: number | undefined;
