@@ -321,12 +321,6 @@ export function newPlot(
     layout?: Partial<Layout>,
     config?: Partial<Config>,
 ): Promise<PlotlyHTMLElement>;
-export function plot(
-    root: Root,
-    data: Data[],
-    layout?: Partial<Layout>,
-    config?: Partial<Config>,
-): Promise<PlotlyHTMLElement>;
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
 export function purge(root: Root): void;
