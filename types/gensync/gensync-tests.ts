@@ -58,7 +58,7 @@ readFileFromErrback.async;
 readFileFromErrback.errback;
 
 // $ExpectType Gensync<[], void, unknown>
-const noop = gensync(function* () {});
+const noop = gensync(function* () { });
 
 // $ExpectType () => void
 noop.sync;
@@ -70,7 +70,7 @@ noop.async;
 noop.errback;
 
 gensync({
-    sync: () => {},
+    sync: () => { },
     errback: callback => {
         callback(new Error());
     },
@@ -150,7 +150,7 @@ gensync(function* () {
 gensync({
     name: 'readFile',
     sync: readFileSync,
-    // $ExpectError
+    // @ts-expect-error
     async: readFileAsync,
     errback: readFileCallback,
 });
@@ -160,7 +160,7 @@ function* someOtherGenerator() {
     return 1234;
 }
 
-// $ExpectError
+// @ts-expect-error
 gensync(function* () {
     // This generator was not produced by gensync; error.
     // It"d be better to have an error on the next line rather than above,
@@ -169,30 +169,30 @@ gensync(function* () {
     yield* someOtherGenerator();
 });
 
-// $ExpectError
-gensync(() => {});
+// @ts-expect-error
+gensync(() => { });
 
-// $ExpectError
+// @ts-expect-error
 gensync({});
 
 gensync(function* () {
-    // $ExpectError
+    // @ts-expect-error
     yield* gensync.all(['not a generator']);
 
-    // $ExpectError
+    // @ts-expect-error
     yield* gensync.all([someOtherGenerator()]);
 
-    // $ExpectError
+    // @ts-expect-error
     yield* gensync.race(['not a generator']);
 
-    // $ExpectError
+    // @ts-expect-error
     yield* gensync.race([someOtherGenerator()]);
 });
 
 gensync({
-    sync: () => {},
+    sync: () => { },
     errback: callback => {
-        // $ExpectError
+        // @ts-expect-error
         callback(new Error(), 'some result');
     },
 });
