@@ -357,6 +357,10 @@ export interface FormatOptions {
      * (Only for: `table`, `dataTable` formatter.) Number of empty lines between data table rows.
      */
     rowSpacing?: number | undefined;
+    /**
+     * User defined values are supported.
+     */
+    [key: string]: any;
 }
 
 /**

@@ -241,3 +241,20 @@ console.log(htmlToText("<a href=\"https://github.com/DefinitelyTyped\">Link</a>"
         }
     ]
 }));
+
+console.log('Test with user defined options that should be in output');
+console.log(htmlToText("<h1>Starting foo test</h1><foo>bar</foo>", {
+    formatters: {
+        fooFormatter: (elem, walk, builder, options) => {
+            builder.addInline(`beginning ${options.foo} fooFormatter: `, { noWordTransform: false });
+            walk(elem.children, builder);
+        }
+    },
+    selectors: [
+        {
+            selector: "foo",
+            format: 'fooFormatter',
+            options: { foo: "show-me" },
+        },
+    ]
+}));
