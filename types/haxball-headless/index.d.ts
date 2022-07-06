@@ -1,4 +1,4 @@
-// Type definitions for non-npm package haxball-headless-browser
+// Type definitions for non-npm package haxball-headless-browser 0.1
 // Project: https://github.com/haxball/haxball-issues/wiki/Headless-Host
 // Definitions by: Jakub Juszko <https://github.com/jakjus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
