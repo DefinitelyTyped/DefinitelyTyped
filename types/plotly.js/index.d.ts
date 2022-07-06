@@ -2297,18 +2297,22 @@ export interface Pattern {
 }
 
 interface TraceModule {
+    moduleType: 'trace';
     name: string;
     categories: string[];
     meta: Record<string, unknown>;
+    [key: string]: unknown;
 }
 
 interface LocaleModule {
+    moduleType: 'locale';
     name: string;
     dictionary: Record<string, unknown>;
     format: Record<string, unknown>;
 }
 
 interface TransformModule {
+    moduleType: 'transform';
     name: string;
     transform: any;
     calcTransform: any;
@@ -2317,10 +2321,13 @@ interface TransformModule {
 }
 
 interface ComponentModule {
+    moduleType: 'component';
     name: string;
+    [key: string]: unknown;
 }
 
 interface ApiMethodModule {
+    moduleType: 'apiMethod';
     name: string;
     fn: any;
 }
