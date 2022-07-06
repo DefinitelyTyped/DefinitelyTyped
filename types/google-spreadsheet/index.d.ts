@@ -16,7 +16,16 @@ export type CellValueType = 'boolValue' | 'stringValue' | 'numberValue' | 'error
 
 export type NumberFormatType = 'TEXT' | 'NUMBER' | 'PERCENT' | 'CURRENCY' | 'DATE' | 'TIME' | 'SCIENTIFIC';
 
-export type CellErrorType = 'ERROR' | 'NULL_VALUE' | 'DIVIDE_BY_ZERO' | 'VALUE' | 'REF' | 'NAME' | 'NUM' | 'N_A' | 'LOADING';
+export type CellErrorType =
+    | 'ERROR'
+    | 'NULL_VALUE'
+    | 'DIVIDE_BY_ZERO'
+    | 'VALUE'
+    | 'REF'
+    | 'NAME'
+    | 'NUM'
+    | 'N_A'
+    | 'LOADING';
 
 export type HorizontalAlign = 'LEFT' | 'CENTER' | 'RIGHT';
 
@@ -291,14 +300,14 @@ export interface GetAccessTokenResponse {
 }
 
 export interface OAuth2Client {
-    getAccessToken: () => Promise<GetAccessTokenResponse> ;
+    getAccessToken: () => Promise<GetAccessTokenResponse>;
 }
 
 // #endregion
 
 // #region GOOGLE SPREADSHEET CELL
 export class GoogleSpreadsheetCell implements CellFormat {
-    constructor(parentSheet: GoogleSpreadsheetWorksheet, rowIndex: number, columnIndex: number, cellData: any)
+    constructor(parentSheet: GoogleSpreadsheetWorksheet, rowIndex: number, columnIndex: number, cellData: any);
 
     // #region IMPLEMENTED PROPERTIES
     // These properties should reflect the ones in the CellFormat interface
@@ -506,13 +515,13 @@ export class GoogleSpreadsheetCell implements CellFormat {
  * - each row will have a property getter/setter available for each cell corresponding to the column header
  */
 export class GoogleSpreadsheetRow {
-    constructor(parentSheet: GoogleSpreadsheetWorksheet, rowNumber: number, data: any)
+    constructor(parentSheet: GoogleSpreadsheetWorksheet, rowNumber: number, data: any);
 
     /**
      * @description
      * This represents the properties that get loaded using the header row
      */
-    [x: string]: any
+    [x: string]: any;
 
     /**
      * @description
@@ -619,7 +628,10 @@ export interface WorksheetBasicProperties {
 }
 
 export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
-    constructor(parentSpreadsheet: GoogleSpreadsheetWorksheet, { properties, data }: { properties: WorksheetBasicProperties, data?: any })
+    constructor(
+        parentSpreadsheet: GoogleSpreadsheetWorksheet,
+        { properties, data }: { properties: WorksheetBasicProperties; data?: any },
+    );
 
     // #region BASIC PROPERTIES
     // These properties should reflect the ones in the WorksheetBasicProperties interface
@@ -810,8 +822,8 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
     addRow(
         values:
             | {
-                [header: string]: string | number | boolean;
-            }
+                  [header: string]: string | number | boolean;
+              }
             | Array<string | number | boolean>,
         options?: { raw: boolean; insert: boolean },
     ): Promise<GoogleSpreadsheetRow>;
@@ -830,12 +842,12 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * - insert:?DESCRIPTION?
      */
     addRows(
-        rowValues: Array<(
+        rowValues: Array<
             | {
-                [header: string]: string | number | boolean;
-            }
+                  [header: string]: string | number | boolean;
+              }
             | Array<string | number | boolean>
-        )>,
+        >,
         options?: { raw: boolean; insert: boolean },
     ): Promise<GoogleSpreadsheetRow[]>;
 
@@ -888,7 +900,11 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      *
      * @param inheritFromBefore to inherit properties from the previous dimension
      */
-    insertDimension(columnsOrRows: WorksheetDimension, bounds: WorksheetDimensionBounds, inheritFromBefore?: boolean): Promise<void>;
+    insertDimension(
+        columnsOrRows: WorksheetDimension,
+        bounds: WorksheetDimensionBounds,
+        inheritFromBefore?: boolean,
+    ): Promise<void>;
 
     /**
      * @description
@@ -906,7 +922,7 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * - start: A1 style row number of first row to clear, defaults to first non-header row
      * - end: A1 style row number of last row to clear, defaults to last row
      */
-    clearRows(options?: {start: number, end: number}): Promise<void>;
+    clearRows(options?: { start: number; end: number }): Promise<void>;
 
     /**
      * @description
