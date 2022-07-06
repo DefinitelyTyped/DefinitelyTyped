@@ -21,7 +21,6 @@
 //                 Jeffrey van Gogh <https://github.com/jvgogh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as _d3 from 'd3';
 import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
 import { ViolinData } from './lib/traces/violin';
 import { OhclData } from './lib/traces/ohcl';
@@ -330,7 +329,6 @@ export function plot(
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
 export function purge(root: Root): void;
-export const d3: typeof _d3;
 export function restyle(root: Root, aobj: Data, traces?: number[] | number): Promise<PlotlyHTMLElement>;
 export function update(
     root: Root,
@@ -1061,7 +1059,6 @@ export type PlotType =
     | 'cone'
     | 'contour'
     | 'contourcarpet'
-    | 'contourgl'
     | 'densitymapbox'
     | 'funnel'
     | 'funnelarea'
