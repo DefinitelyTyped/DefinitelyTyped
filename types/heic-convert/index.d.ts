@@ -22,8 +22,10 @@ interface Convertible {
     convert(): Promise<ArrayBuffer>;
 }
 
+/** @async */
 declare function convert(image: ConversionOptions): Promise<ArrayBuffer>;
 declare namespace convert {
+    /** @async */
     function all(image: ConversionOptions): Promise<Convertible[]>;
 }
 
