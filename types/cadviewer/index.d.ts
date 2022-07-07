@@ -61,7 +61,7 @@ declare namespace cadviewer {
   function cvjs_currentHost(): string;
   function cvjs_setDefaultJSPath(path: string): void;
   function cvjs_setInformationModalType(mode: any): void;
-  function cvjs_displayInformationModal(f_div: string, textString: any, modalHeight: number,modal_left: number,modal_top: number): void;
+  function cvjs_displayInformationModal(f_div: string, textString: any, modalHeight: number, modal_left: number, modal_top: number): void;
   function cvjs_hideInformationModal(f_div: string): void;
   function cvjs_displayInformationModal_Mode(mode: any): void;
   function cvjs_version(): string;
@@ -84,8 +84,8 @@ declare namespace cadviewer {
   function cvjs_setServerSavePrintModeHandler(mode: number): void;
   function cvjs_setServerScreenToPDFController(controller: string): void;
   function cvjs_setServerScreenToPDFHandler(controller: string): void;
-  function cvjs_saveScreenAsImage_makeTumbnails(serverPath: string, image_fileName: string, sizeThumb1: number,thumb1_file: string, sizeThumb2: number,thumb2_file: string): void;
-  function cvjs_saveScreenAsImage_stickyNoteInfo_makeTumbnails(serverPath: string, image_fileName: string, sizeThumb1: number,thumb1_file: string, sizeThumb2: number,thumb2_file: string): void;
+  function cvjs_saveScreenAsImage_makeTumbnails(serverPath: string, image_fileName: string, sizeThumb1: number, thumb1_file: string, sizeThumb2: number, thumb2_file: string): void;
+  function cvjs_saveScreenAsImage_stickyNoteInfo_makeTumbnails(serverPath: string, image_fileName: string, sizeThumb1: number, thumb1_file: string, sizeThumb2: number, thumb2_file: string): void;
   function cvjs_saveScreenAsImage(serverPath: string, image_fileName: string): void;
   function cvjs_saveScreenAsPDF(pageOrientation: string, pageSize: string, pageResolution: string): void;
   function cvjs_batchConvertDrawingsToPDF_CustomReport(floorPlan: any, dFilesArr: any, pageOrint: any, pageSize: any, pageRes: any, batch_Ctrl: any, callbackMethod: any): void;
@@ -116,7 +116,7 @@ declare namespace cadviewer {
   function cvjs_windowResize_position(doResize: boolean, floorplan: string): void;
   function cvjs_resizeWindow_position(floorplan: string): void;
   function cvjs_resizeWindow_fixedSize(widthFloorplan: number, heightFloorplan: number, floorplan: string): void;
-  function cvjs_resizeWindow_fixedSize_location(widthFloorplan: number, heightFloorplan: number, floorplan: string, xPos: number,yPos: number): void;
+  function cvjs_resizeWindow_fixedSize_location(widthFloorplan: number, heightFloorplan: number, floorplan: string, xPos: number, yPos: number): void;
   function cvjs_windowResize_position_WidthHeight(doResize: any, widthFloorplan: any, heightFloorplan: any, floorplan: any): void;
   function cvjs_windowResize_fixedSize(doResize: boolean, widthFloorplan: number, heightFloorplan: number, floorplan: string): void;
   function cvjs_InitializeModals(floorplan_modal: any): void;
@@ -173,7 +173,7 @@ declare namespace cadviewer {
   function cvjs_Init_ConversionServer(rest_api_url: string, rest_api_php: string, username: string, password: string): void;
   function cvjs_setSVG_outputFormatInAXConversions(mode: boolean): void;
   function cvjs_conversion_clearAXconversionParameters(f_div: string): void;
-  function cvjs_conversion_addAXconversionParameter(name: string, value: string, f_div: string): void;
+  function cvjs_conversion_addAXconversionParameter(name: string, value: string): void;
   function cvjs_conversion_setContentType(contentType: string): void;
   function cvjs_conversion_setContentFormat(contentFormat: string): void;
   function cvjs_fileLoad_setContentFormat(contentFormat: any): void;
@@ -230,7 +230,7 @@ declare namespace cadviewer {
   function cvjs_LoadTopIconMenuXML(f_div: any, cvjsIconMenu: any): void;
   function cvjs_navigationMenuItemHighlight(f_div: any, placeholder: any, highlight_any_id: any, cvjs_language_popup: any, displayflag: any): void;
   function cvjs_allowFileLoadToServer(mode: boolean): void;
-  function cvjs_setCustomCallbackMethodOnLoadEnd(callbackMethodOnLoadEnd: boolean, myOnLoadEndMethod: Function): void;
+  function cvjs_setCustomCallbackMethodOnLoadEnd(callbackMethodOnLoadEnd: boolean, myOnLoadEndMethod: any): void;
   function cvjs_setLooperPosition(): void;
   function cvjs_zoomZeroWidth(): void;
   function cvjs_initZeroWidthHandling(f_div: string, scale_factor: number): void;
@@ -241,7 +241,7 @@ declare namespace cadviewer {
   function cvjs_interactiveSearchText_zoomLevel(zoomlevel: any): void;
   function cvjs_exitSearchTextModal(): void;
   function cvjs_searchText(textString: any, zoomFactor: number): void;
-  function cvjs_searchTextInstance(textString: any, zoomFactor: number,textInstance: number): boolean;
+  function cvjs_searchTextInstance(textString: any, zoomFactor: number, textInstance: number): boolean;
   function cvjs_calibrateMeasurement_RedlinePolyline(): void;
   function cvjs_Measurement_RedlinePolyline(): void;
   function cvjs_closeAreaMeasurement(): void;
@@ -270,12 +270,12 @@ declare namespace cadviewer {
   function cvjs_updateChangeSpaceObjects(): void;
   function cvjs_unlinkChangeSpaceObjects(): void;
   function cvjs_setCustomToolTip(customtooltip: boolean): void;
-  function cvjs_showToolTipLocation(tiptext: string, x: number,y: number): void;
+  function cvjs_showToolTipLocation(tiptext: string, x: number, y: number): void;
   function cvjs_hideToolTip(): void;
   function cvjs_displayCustomToolTip(id: string): any;
   function cvjs_setCustomToolTipValue(id: string, contentArr: any): void;
   function cvjs_searchReplaceText(textString: any, replaceString: string): void;
-  function cvjs_openHyperlinkInNewWindow(openLinkFlag: boolean, windowWidth: number,windowHeight: number): void;
+  function cvjs_openHyperlinkInNewWindow(openLinkFlag: boolean, windowWidth: number, windowHeight: number): void;
   function cvjs_getSpaceObjectIdList(): any;
   function cvjs_getSpaceObjectNamesList(): any;
   function cvjs_getSpaceObjectTypefromId(Id: string): string;
@@ -333,7 +333,7 @@ declare namespace cadviewer {
   function cvjs_ApplyRelativeRadialGradientStandard2ColorsOnSpaceObjectNode(layer: string, nodeId: string, startColor: string, endColor: string, fillOpacity: number): void;
   function cvjs_ApplyRelativeRadialGradientStandard3ColorsOnSpaceObjectId(layer: string, Id: string, startColor: string, middleColor: string, endColor: string, fillOpacity: number): void;
   function cvjs_ApplyRelativeRadialGradientStandard3ColorsOnSpaceObjectNode(layer: string, nodeId: string, startColor: string, middleColor: string, endColor: string, fillOpacity: number): void;
-  function cvjs_setCallbackForModalDisplay(callbackForModalDisplay: any, customModalPopUpBody: Function, populateMyCustomPopUpBody: any): void;
+  function cvjs_setCallbackForModalDisplay(callbackForModalDisplay: any, customModalPopUpBody: any, populateMyCustomPopUpBody: any): void;
   function cvjs_setCreationMode(cvjs_supressPopUp: boolean, cvjs_creationMode: boolean, excludeID: string): void;
   function cvjs_setNoModalMode(cvjs_modalMode: boolean): void;
   function cvjs_setCustomModalsContent(hbody: string, dual_body_flag: any, hbody2: string): void;
@@ -558,7 +558,7 @@ declare namespace cadviewer {
   function cvjs_custom_jsTreeSelection(data: any, datalength: any): void;
   function cvjs_update_done_edit_location_fields(rmid: any): void;
   function cvjs_draw_space_any_names_on_spaces(): void;
-  function cvjs_connectTextInstances(textString1: any, textInstance1: number,textString2: any, textInstance2: any, lengthfactor1: number,lengthfactor2: number): void;
+  function cvjs_connectTextInstances(textString1: any, textInstance1: number, textString2: any, textInstance2: any, lengthfactor1: number, lengthfactor2: number): void;
   function cvjs_floodfill(cvjs_ctx: any, canv_width: any, canv_height: any, widthHeightFactorSVG: any, widthHeightFactorSVGless1: any): void;
   function cvjs_floodfillWrapper(x: any, y: any, text: any, canv_width: any, canv_height: any, cvjs_ctx: any, sizeWidth: any, sizeHeight: any): void;
   function cvjs_pngForSVG(htmlPrintFile: any): void;
@@ -575,9 +575,9 @@ declare namespace cadviewer {
   function cvjs_loadSpaceObjects(f_div: string, custom_content: any): void;
   function cvjs_supressPopUpModalMode(modal_mode: boolean): void;
   function cvjs_supressSingleSpaceHighlight(modal_mode: boolean): void;
-  function cvjs_addSpaceObjectDirectXY(f_div: string, path: string, jsonObject: any, c_flag: number,txt: any, sf: number, col: any, txtst: any, scl: any, tcol: any, left: number): void;
-  function cvjs_addFixedSizeCustomSpaceObjectXY(f_div: string, image: string, jsonObject: any, c_flag: number,txt: any, scale: number, styles: any, tscale: any, col: any, left: number): void;
-  function cvjs_moveFixedSizeCustomSpaceObjectXY(f_div: string, spaceObjectId: string, xcor: number,ycor: number): void;
+  function cvjs_addSpaceObjectDirectXY(f_div: string, path: string, jsonObject: any, c_flag: number, txt: any, sf: number, col: any, txtst: any, scl: any, tcol: any, left: number): void;
+  function cvjs_addFixedSizeCustomSpaceObjectXY(f_div: string, image: string, jsonObject: any, c_flag: number, txt: any, scale: number, styles: any, tscale: any, col: any, left: number): void;
+  function cvjs_moveFixedSizeCustomSpaceObjectXY(f_div: string, spaceObjectId: string, xcor: number, ycor: number): void;
   function cvjs_addFixedSizeCustomSpaceObject(f_div: string, svgImagePath: string, spaceObjectId: string, spaceObjectName: string, spaceObjectType: string, spaceObjectLayer: any): void;
   function cvjs_drawSpaceObject_FixedSize(svgImagePath: any, spaceObjectId: any, spaceObjectName: any, spaceObjectType: any): void;
   function cvjs_deleteSpaceImageObject(f_div: string): void;
@@ -586,8 +586,8 @@ declare namespace cadviewer {
   function cvjs_resizeSpaceObject(f_div: string): void;
   function cvjs_resizeSpaceImageObject(f_div: string): void;
   function cvjs_resizeSpaceImageObject_core(f_div: any): void;
-  function cvjs_addFixedSizeImageSpaceObjectXY(f_div: string, xcor: number,ycor: number): void;
-  function cvjs_addFixedSizeImageSpaceObject_GlobalXY(f_div: string, xcor: number,ycor: number): void;
+  function cvjs_addFixedSizeImageSpaceObjectXY(f_div: string, xcor: number, ycor: number): void;
+  function cvjs_addFixedSizeImageSpaceObject_GlobalXY(f_div: string, xcor: number, ycor: number): void;
   function cvjs_addFixedSizeImageSpaceObject(f_div: string): void;
   function cvjs_addDragRectangleImageSpaceObject(f_div: string): void;
   function cvjs_initCADViewerPro_Section02(f_div: string): void;
@@ -677,7 +677,7 @@ declare namespace cadviewer {
   function cvjs_LayerTypeSpaceClick(id: any, mode: any): void;
   function cvjs_generateShareFileDrawingList(): void;
   function cvjs_buildShareFileDrawingSelector(): void;
-  function cvjs_setQRCodeInsertion(PercentXFromLowerLeft: number,PercentYFromLowerLeft: number,widthPercent: any): void;
+  function cvjs_setQRCodeInsertion(PercentXFromLowerLeft: number,PercentYFromLowerLeft: number, widthPercent: any): void;
   function cvjs_setLoadMultipleRedlinesStickyNotes(mode: boolean): void;
   function cvjs_idObjectClicked(): string;
   function cvjs_IdObjectClicked(): string;
@@ -709,7 +709,7 @@ declare namespace cadviewer {
   function cvjs_clearAllHighlightSpaceObjectDirect(f_div: string): void;
   function cvjs_modifySpaceObjectDirectXY(f_div: string, id: string, svgImagePath: string, texts: any, scale: number, styles: any, scaleText: any, colors: any, leftFactor: number): boolean;
   function cvjs_coreModifySpaceObjectDirectXY(xcor: any, ycor: any, this_Node_underbar: any, spaceObjectId: any): void;
-  function cvjs_moveSpaceObjectDirectXY(f_div: string, anyID: string, coordinate_flag: number,xpos: any, ypos: any): boolean;
+  function cvjs_moveSpaceObjectDirectXY(f_div: string, anyID: string, coordinate_flag: number, xpos: any, ypos: any): boolean;
   function cvjs_getSpaceObjectDirectXYCoord(f_div: string, anyID: string, coordinate_flag: number): any;
   function cvjs_deleteSpaceObjectDirectXY(f_div: string, anyID: string): boolean;
   function cvjs_allSpaceObjectsOn(f_div: string): void;
@@ -748,7 +748,7 @@ declare namespace cadviewer {
   function cvjs_returnIsSpaceMultipleSelected(rmid: string, spaceArray: any): boolean;
   function cvjs_addSelectedToOriginalStyles(rmid: string): void;
   function cvjs_returnSelectedOriginalStyles(rmid: string): any;
-  function cvjs_currentSpaceSettings(): Object;
+  function cvjs_currentSpaceSettings(): any;
   function cvjs_initMultiSelect(): void;
   function cvjs_exitMultiSelect(): void;
   function cvjs_getLengthOfSVGPath(path: any): number;
@@ -784,7 +784,7 @@ declare namespace cadviewer {
   function cvjs_setDisableClickDrag(flag: boolean): void;
   function cvjs_setInteractiveZoomWidthAdjustment(flag: boolean): void;
   function cvjs_adjustMinimumLineThickness_Value(minlinewidth: any): void;
-  function cvjs_setCallbackMethod(callbackMethodName: string, callbackMethod: Function): void;
+  function cvjs_setCallbackMethod(callbackMethodName: string, callbackMethod: any): void;
   function cvjs_AddTextOnSpaceObject(txtLayer: string, Id: string, leftScale: number, textStringArr: any, styleArr: any, scaleArr: any, colorArr: any, clip: boolean, centering: boolean): void;
   function cvjs_setHandlers_FrontEnd(handlerType: string, frontEndType: string, f_div: string, controllerPath: string): void;
   function cvjs_setHandleObjectProcessing(hlallProcessing: boolean): void;
