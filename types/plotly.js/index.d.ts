@@ -1506,7 +1506,8 @@ export interface Config {
     /** no interactivity, for export or image generation */
     staticPlot: boolean;
 
-    /**Determines whether math should be typeset or not,
+    /**
+     * Determines whether math should be typeset or not,
      * when MathJax (either v2 or v3) is present on the page.
      */
     typesetMath: boolean;
@@ -1634,25 +1635,25 @@ export interface Config {
     locale: string;
 
     /**
-        Localization definitions
-        Locales can be provided either here (specific to one chart) or globally
-        by registering them as modules.
-        Should be an object of objects {locale: {dictionary: {...}, format: {...}}}
-        {
-            da: {
-                dictionary: {'Reset axes': 'Nulstil aksler', ...},
-                format: {months: [...], shortMonths: [...]}
-            },
-            ...
-        }
-        All parts are optional. When looking for translation or format fields, we
-        look first for an exact match in a config locale, then in a registered
-        module. If those fail, we strip off any regionalization ('en-US' -> 'en')
-        and try each (config, registry) again. The final fallback for translation
-        is untranslated (which is US English) and for formats is the base English
-        (the only consequence being the last fallback date format %x is DD/MM/YYYY
-        instead of MM/DD/YYYY). Currently `grouping` and `currency` are ignored
-        for our automatic number formatting, but can be used in custom formats.
+     * Localization definitions
+     * Locales can be provided either here (specific to one chart) or globally
+     * by registering them as modules.
+     * Should be an object of objects {locale: {dictionary: {...}, format: {...}}}
+     * {
+     *     da: {
+     *         dictionary: {'Reset axes': 'Nulstil aksler', ...},
+     *         format: {months: [...], shortMonths: [...]}
+     *     },
+     *     ...
+     * }
+     * All parts are optional. When looking for translation or format fields, we
+     * look first for an exact match in a config locale, then in a registered
+     * module. If those fail, we strip off any regionalization ('en-US' -> 'en')
+     * and try each (config, registry) again. The final fallback for translation
+     * is untranslated (which is US English) and for formats is the base English
+     * (the only consequence being the last fallback date format %x is DD/MM/YYYY
+     * instead of MM/DD/YYYY). Currently `grouping` and `currency` are ignored
+     * for our automatic number formatting, but can be used in custom formats.
      */
     locales: any;
 
