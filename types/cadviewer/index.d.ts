@@ -1,5 +1,5 @@
 // Type definitions for cadviewer 7.0
-// Project: https://github.com/cadviewer
+// Project: https://github.com/CADViewer/cadviewer-testapp-react-01
 // Definitions by: Casper Harnung <https://github.com/cadviewer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.7
