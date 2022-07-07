@@ -168,7 +168,7 @@
   export function cvjs_setConverterCredentials(username: string, password: string): void;
   export function cvjs_Init_ConversionServer(rest_api_url: string, rest_api_php: string, username: string, password: string): void;
   export function cvjs_setSVG_outputFormatInAXConversions(mode: boolean): void;
-  export function cvjs_conversion_clearAXconversionParameters(f_div: string): void;
+  export function cvjs_conversion_clearAXconversionParameters(): void;
   export function cvjs_conversion_addAXconversionParameter(name: string, value: string): void;
   export function cvjs_conversion_setContentType(contentType: string): void;
   export function cvjs_conversion_setContentFormat(contentFormat: string): void;
