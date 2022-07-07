@@ -8915,8 +8915,6 @@ export namespace Animated {
 
     export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
 
-    export type LegacyRef<C> = { getNode(): C };
-
     type Nullable = undefined | null;
     type Primitive = string | number | boolean | symbol;
     type Builtin = Function | Date | Error | RegExp;
@@ -8938,13 +8936,9 @@ export namespace Animated {
 
     type NonAnimatedProps = 'key' | 'ref';
 
-    type TAugmentRef<T> = T extends React.Ref<infer R> ? React.Ref<R | LegacyRef<R>> : never;
-
     export type AnimatedProps<T> = {
         [key in keyof T]: key extends NonAnimatedProps
-            ? key extends 'ref'
-                ? TAugmentRef<T[key]>
-                : T[key]
+            ? T[key]
             : WithAnimatedValue<T[key]>;
     };
 
