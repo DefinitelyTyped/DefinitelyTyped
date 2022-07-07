@@ -1534,6 +1534,9 @@ export interface Config {
     /** double click interaction (false, 'reset', 'autosize' or 'reset+autosize') */
     doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false;
 
+    /** sets the delay for registering a double-click in ms */
+    doubleClickDelay: number;
+
     /** new users see some hints about interactivity */
     showTips: boolean;
 
