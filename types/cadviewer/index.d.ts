@@ -3,10 +3,6 @@
 // Definitions by: Casper Harnung <https://github.com/cadviewer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.7
-export as namespace cadviewer;
-export = cadviewer;
-
-declare namespace cadviewer {
   function cvjs_CADViewerPro(cadviewerpro: boolean): void;
   function cvjs_setHandlerSettings(handlerType: string, f_div: string, controllerPath: string): void;
   function cvjs_setAngular(mode: boolean): void;
@@ -677,7 +673,7 @@ declare namespace cadviewer {
   function cvjs_LayerTypeSpaceClick(id: any, mode: any): void;
   function cvjs_generateShareFileDrawingList(): void;
   function cvjs_buildShareFileDrawingSelector(): void;
-  function cvjs_setQRCodeInsertion(PercentXFromLowerLeft: number,PercentYFromLowerLeft: number, widthPercent: any): void;
+  function cvjs_setQRCodeInsertion(PercentXFromLowerLeft: number, PercentYFromLowerLeft: number, widthPercent: any): void;
   function cvjs_setLoadMultipleRedlinesStickyNotes(mode: boolean): void;
   function cvjs_idObjectClicked(): string;
   function cvjs_IdObjectClicked(): string;
@@ -852,4 +848,3 @@ declare namespace cadviewer {
   function cvjs_handleObjectsParceTextOnly(flag: boolean): void;
   function cvjs_processHandleObjects(): void;
   function cvjs_getTextOnId(id: string): string;
-}
