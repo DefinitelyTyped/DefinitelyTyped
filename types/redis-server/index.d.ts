@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = RedisServer;
-export as namespace RedisServer;
 
 declare namespace RedisServer {
     interface RedisServerOptions {
