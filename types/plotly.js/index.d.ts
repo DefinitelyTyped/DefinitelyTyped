@@ -1304,6 +1304,7 @@ export interface PlotData {
     locations: Datum[];
     reversescale: boolean;
     colorbar: Partial<ColorBar>;
+    offset: number;
 }
 
 /**
