@@ -81,7 +81,7 @@
   export function cvjs_setServerScreenToPDFController(controller: string): void;
   export function cvjs_setServerScreenToPDFHandler(controller: string): void;
   export function cvjs_saveScreenAsImage_makeTumbnails(serverPath: string, image_fileName: string, sizeThumb1: number, thumb1_file: string, sizeThumb2: number, thumb2_file: string): void;
-  export function cvjs_saveScreenAsImage_stickyNoteInfo_makeTumbnails(serverPath: string, image_fileName: string, sizeThumb1: number, thumb1_file: string, sizeThumb2: number, thumb2_file: string): void;
+  export function cvjs_saveScreenAsImage_stickyNoteInfo_makeTumbnails(serverPath: string, image_fileName: string, size1: number, t1: string, size2: number, t2: string): void;
   export function cvjs_saveScreenAsImage(serverPath: string, image_fileName: string): void;
   export function cvjs_saveScreenAsPDF(pageOrientation: string, pageSize: string, pageResolution: string): void;
   export function cvjs_batchConvertDrawingsToPDF_CustomReport(floorPlan: any, dFilesArr: any, pageOrint: any, pageSize: any, pageRes: any, batch_Ctrl: any, callbackMethod: any): void;
@@ -698,7 +698,7 @@
   export function cvjs_setGlobalSpaceImageObjectScaleFactor(factor: number): void;
   export function cvjs_setDgnWorkSpace(workspace: string, workspacepath: string): void;
   export function cvjs_setDgnWorkSpaceServerPath(workspacepath: string): void;
-  export function cvjs_addSingleSpaceObject(f_div: string, name: string, id: string, layer: string, group: string, atr: string, status: string, type: string, tags: string, occ: string, path: string): void;
+  export function cvjs_addSingleSpaceObject(f_div: any, name: any, id: any, layer: any, group: any, atr: any, status: any, type: any, tags: any, occ: any, path: any): void;
   export function cvjs_ObjectBoundingBox_ScreenCoord(rmid: number): any;
   export function cvjs_highlightSpaceObjectDirect(f_div: string, anyID: string, colorany: any): void;
   export function cvjs_clearHighlightSpaceObjectDirect(f_div: string, anyID: string): void;
@@ -802,7 +802,7 @@
   export function setllccktrace(flag: any): void;
   export function cvjs_spaceObjectClickHandlerControlID(onoff: boolean, spaceID: string): void;
   export function cvjs_spaceObjectClickHandlerControlAll(onoff: boolean): void;
-  export function cvjs_addSpaceObject(f_div: any, ID: any, loadSpaceImage_LocationOr64byteEncoded: any, scale: any, width: any, height: any, rotate: any, unit: any, jsonSpaceObject: any): void;
+  export function cvjs_addSpaceObject(f_div: any, ID: any, image_or64byte: any, scale: any, width: any, height: any, rotate: any, unit: any, jsonSpaceObject: any): void;
   export function cvjs_addLayeredSpaceObject(f_div: any, ID: any, LocationOr64byteEncodedArr: any, layerArr: any, scale: any, width: any, height: any, rotate: any, unit: any, jsonSpaceObject: any): void;
   export function cvjs_createNewJSonSpaceObject(): any;
   export function cvjsspace_createNewJSonSpaceObject(): any;
