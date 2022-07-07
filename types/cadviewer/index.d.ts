@@ -803,7 +803,7 @@
   export function cvjs_spaceObjectClickHandlerControlID(onoff: boolean, spaceID: string): void;
   export function cvjs_spaceObjectClickHandlerControlAll(onoff: boolean): void;
   export function cvjs_addSpaceObject(f_div: any, ID: any, image_or64byte: any, scale: any, width: any, height: any, rotate: any, unit: any, jsonSpaceObject: any): void;
-  export function cvjs_addLayeredSpaceObject(f_div: any, ID: any, LocationOr64byteEncodedArr: any, layerArr: any, scale: any, width: any, height: any, rotate: any, unit: any, jsonSpaceObject: any): void;
+  export function cvjs_addLayeredSpaceObject(f_div: any, ID: any, images_64byte: any, layerArr: any, scale: any, width: any, height: any, rotate: any, unit: any, jsonSpaceObject: any): void;
   export function cvjs_createNewJSonSpaceObject(): any;
   export function cvjsspace_createNewJSonSpaceObject(): any;
   export function cvjsspace_changeSpaceObjectDisplayMode(f_div: string, displayModal: boolean): void;
