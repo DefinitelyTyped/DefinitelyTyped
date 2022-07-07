@@ -1,8 +1,9 @@
 import { max, min } from "d3-array";
 import { axisLeft, axisTop } from "d3-axis";
-import { scaleBand, scaleTime } from "d3-scale";
+import { interpolateRgb } from "d3-interpolate";
+import { scaleBand, scaleSequential, scaleUtc } from "d3-scale";
 import { select } from "d3-selection";
-import { utcYear } from "d3-time";
+import { utcMonth, utcYear } from "d3-time";
 import { utcFormat } from "d3-time-format";
 import { JSDOM } from "jsdom";
 import serialize from "w3c-xmlserializer";
@@ -14,32 +15,36 @@ const margin = { top: 30, right: 0, bottom: 0, left: 0 };
 
 const formatDate = utcFormat("%Y-%m");
 
-const now = new Date();
-const supported = Object.entries(data)
-  .map(([version, value]) => {
-    const releaseDate = new Date(value);
-    const endDate = utcYear.offset(releaseDate, 2);
-    return { version, releaseDate, endDate };
-  })
-  .filter((d) => d.endDate >= now);
+const versions = Object.entries(data).map(([version, value]) => {
+  const releaseDate = new Date(value);
+  const endDate = utcYear.offset(releaseDate, 2);
+  return { version, releaseDate, endDate };
+});
+// Be deterministic: Show the supported versions relative to the latest release date vs. "now".
+// Add a half-release-cycle margin of error because versions aren't released on the exact same date.
+const latest = utcMonth.offset(
+  /** @type {never} */ (max(versions.map((d) => d.releaseDate))),
+  1.5
+);
+const supported = versions.filter((d) => d.endDate > latest);
 
-const x = scaleTime()
+const x = scaleUtc()
   .domain([
     /** @type {never} */ (
       min(
-        supported,
-        (d) =>
-          // Clip 1/4 of the earliest supported version. Cuts off the
-          // release date (unimportant?) but gives the visual impression
-          // of additional, unsupported versions?
-          new Date(
-            Number(d.releaseDate) +
-              // prettier-ignore
-              (/** @type {never} */ (d.endDate) - /** @type {never} */ (d.releaseDate)) / 4
-          )
+        supported.map(
+          (d) =>
+            // Clip 1/4 of the earliest supported version.
+            // Cuts off the release date (unimportant?) but gives the visual impression of additional, unsupported versions?
+            new Date(
+              Number(d.releaseDate) +
+                // prettier-ignore
+                (/** @type {never} */ (d.endDate) - /** @type {never} */ (d.releaseDate)) / 4
+            )
+        )
       )
     ),
-    /** @type {never} */ (max(supported, (d) => d.endDate)),
+    /** @type {never} */ (max(supported.map((d) => d.endDate))),
   ])
   .nice()
   .range([margin.left, width - margin.right]);
@@ -47,6 +52,9 @@ const y = scaleBand()
   .domain(supported.map((d) => d.version))
   .range([margin.top, height - margin.bottom])
   .padding(0.2);
+const color = scaleSequential()
+  .domain([0, supported.length - 1])
+  .interpolator(interpolateRgb("#235a97", "#3178c6"));
 
 // https://github.com/d3/d3/wiki#supported-environments
 const dom = new JSDOM();
@@ -86,7 +94,7 @@ svg
   .attr("y", (d) => /** @type {never} */ (y(d.version)))
   .attr("width", (d) => x(d.endDate) - x(d.releaseDate))
   .attr("height", y.bandwidth())
-  .attr("fill", (d, i) => (i % 2 === 0 ? "#3178c6" : "#235a97"));
+  .attr("fill", (d, i) => color(i));
 const texts = svg
   .append("g")
   .attr("fill", "#ffffff")
