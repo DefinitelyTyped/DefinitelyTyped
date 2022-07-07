@@ -1506,6 +1506,11 @@ export interface Config {
     /** no interactivity, for export or image generation */
     staticPlot: boolean;
 
+    /**Determines whether math should be typeset or not,
+     * when MathJax (either v2 or v3) is present on the page.
+     */
+    typesetMath: boolean;
+
     /**
      * When set it determines base URL for the 'Edit in Chart Studio' `showEditInChartStudio`/`showSendToCloud` mode bar button and the showLink/sendData on-graph link.
      * To enable sending your data to Chart Studio Cloud, you need to set both `plotlyServerURL` to 'https://chart-studio.plotly.com' and also set `showSendToCloud` to true.
