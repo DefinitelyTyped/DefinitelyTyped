@@ -1655,7 +1655,7 @@ export interface Config {
      * instead of MM/DD/YYYY). Currently `grouping` and `currency` are ignored
      * for our automatic number formatting, but can be used in custom formats.
      */
-    locales: any;
+    locales: {};
 
     /** Make the chart responsive to window size */
     responsive: boolean;
