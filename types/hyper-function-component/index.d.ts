@@ -5,7 +5,7 @@
 
 declare class HyperFunctionComponent {
     static tag: string;
-    static propNames: HfcObservedPropNames;
+    static propNames?: HfcObservedPropNames;
     constructor(container: HTMLElement, props: HfcProps);
     changed(props: HfcProps): void;
     disconnected(): void;
