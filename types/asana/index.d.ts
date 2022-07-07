@@ -2985,7 +2985,7 @@ declare namespace asana {
                 query?: string | undefined;
                 count?: number | undefined;
                 opt_pretty?: boolean | undefined;
-                opt_fields?: string[] | undefined;
+                opt_fields?: string | undefined;
             }
         }
 
