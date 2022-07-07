@@ -2324,7 +2324,7 @@ export interface Pattern {
      * Solidity of 0 shows only the background color without pattern
      * and solidty of 1 shows only the foreground color without pattern.
      */
-    solidarity?: number;
+    solidity?: number;
 }
 
 interface TraceModule {
