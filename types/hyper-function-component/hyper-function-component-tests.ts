@@ -1,5 +1,5 @@
 class Hfc implements HyperFunctionComponent {
-    static tag = 'div';
+    static tag = 'p';
     static propNames: HfcObservedPropNames = {
         attrs: [],
         events: [],
