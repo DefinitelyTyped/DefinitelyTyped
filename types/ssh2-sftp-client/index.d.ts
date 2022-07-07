@@ -75,6 +75,12 @@ declare class sftp {
     removeListener(event: string, callback: (...args: any[]) => void): void;
 
     posixRename(fromPath: string, toPath: string): Promise<string>;
+
+    rcopy(srcPath: string, dstPath: string): Promise<string>;
+
+    createReadStream(remotePath: string, options?: ssh2.ReadStreamOptions): ssh2.ReadStream;
+
+    createWriteStream(remotePath: string, options?: ssh2.WriteStreamOptions): ssh2.WriteStream;
 }
 
 declare namespace sftp {
