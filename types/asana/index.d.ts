@@ -3027,12 +3027,12 @@ declare namespace asana {
 
         interface AnonymousResource {
             gid: string;
-            resource_type?: string;
+            resource_type: string;
             resource_subtype?: string;
         }
 
         interface Resource extends AnonymousResource {
-            name?: string;
+            name: string;
         }
 
         interface PaginationParams extends Params {
