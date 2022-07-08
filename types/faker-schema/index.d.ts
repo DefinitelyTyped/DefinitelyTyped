@@ -3,7 +3,7 @@
 // Definitions by: Yury A Troynov <https://github.com/yutro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function withProbability<T>(value: (() => T) | T, probability?: number): <S>(schema: S) => (T extends () => void ? S : T) | null;
+export function withProbability<T extends Object>(value: (() => T) | T, probability?: number): <S>(schema: S) => (T extends () => void ? S : T) | null;
 
 export class Schema<T extends Object> {
     private seed?: number;
