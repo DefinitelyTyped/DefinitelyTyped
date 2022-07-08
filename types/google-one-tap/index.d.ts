@@ -60,6 +60,7 @@ export interface IdConfiguration {
     ux_mode?: 'popup' | 'redirect';
     allowed_parent_origin?: string | string[];
     intermediate_iframe_close_callback?: (() => void);
+    itp_support?: boolean;
 }
 
 export interface PromptMomentNotification {
