@@ -9594,6 +9594,48 @@ export namespace addons {
     export type TestModule = TestModuleStatic;
 }
 
+/**
+ * Below types are not properly typed in react-native
+ * https://github.com/facebook/react-native/blob/6c563a507fd8c41e04a1e62e2ba87993c6eb1e2f/Libraries/ReactNative/FabricUIManager.js#L21
+ * TODO: Update types according to proper implementation
+ **/
+type FabricNode = object;
+type FabricNodeSet = Array<FabricNode>;
+type FabricNodeProps = object;
+type FabricInstanceHandle = object;
+
+interface NativeFabricUIManagerSpec {
+    createNode: (
+        reactTag: number,
+        viewName: string,
+        rootTag: number,
+        props: FabricNodeProps,
+        instanceHandle: FabricInstanceHandle,
+    ) => FabricNode;
+    cloneNode: (node: FabricNode) => FabricNode;
+    cloneNodeWithNewChildren: (node: FabricNode) => FabricNode;
+    cloneNodeWithNewProps: (node: FabricNode, newProps: FabricNodeProps) => FabricNode;
+    cloneNodeWithNewChildrenAndProps: (node: FabricNode, newProps: FabricNodeProps) => FabricNode;
+    createChildSet: (rootTag: number) => FabricNodeSet;
+    appendChild: (parentNode: FabricNode, child: FabricNode) => FabricNode;
+    appendChildToSet: (childSet: FabricNodeSet, child: FabricNode) => void;
+    completeRoot: (rootTag: number, childSet: FabricNodeSet) => void;
+    measure: (node: FabricNode, callback: MeasureOnSuccessCallback) => void;
+    measureInWindow: (node: FabricNode, callback: MeasureInWindowOnSuccessCallback) => void;
+    measureLayout: (
+        node: FabricNode,
+        relativeNode: FabricNode,
+        onFail: () => void,
+        onSuccess: MeasureLayoutOnSuccessCallback,
+    ) => void;
+    configureNextLayoutAnimation: (
+        config: LayoutAnimationConfig,
+        callback: () => void,
+        errorCallback: (error: Object) => void,
+    ) => void;
+    sendAccessibilityEvent: (node: FabricNode, eventType: string) => void;
+}
+
 declare global {
     interface NodeRequire {
         (id: string): any;
@@ -9645,4 +9687,6 @@ declare global {
     const __DEV__: boolean;
 
     const HermesInternal: null | {};
+
+    const nativeFabricUIManager: NativeFabricUIManagerSpec | undefined;
 }
