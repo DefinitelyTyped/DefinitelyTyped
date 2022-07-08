@@ -34,8 +34,9 @@ import * as fs from 'fs';
 
     client.realPath('/remote/path').then(() => null);
 
-    client.get('/remote/path').then(() => null);
-    client.get('/remote/path', fs.createWriteStream('/local/path/copy.txt')).then(() => null);
+    client.get('/remote/path').then((responseBuffer: Buffer) => null);
+    client.get('/remote/path', 'local/path').then((responseString: string) => null);
+    client.get('/remote/path', fs.createWriteStream('/local/path/copy.txt')).then((responseStream: NodeJS.WritableStream) => null);
     client
         .get('/remote/path', fs.createWriteStream('/local/path/copy.txt'), {
             readStreamOptions: {

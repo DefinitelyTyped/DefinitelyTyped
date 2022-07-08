@@ -32,9 +32,21 @@ declare class sftp {
 
     get(
         path: string,
-        dst?: string | NodeJS.WritableStream,
+        dst: string,
         options?: sftp.TransferOptions,
-    ): Promise<string | NodeJS.WritableStream | Buffer>;
+    ): Promise<string>;
+
+    get(
+        path: string,
+        dst: NodeJS.WritableStream,
+        options?: sftp.TransferOptions,
+    ): Promise<NodeJS.WritableStream>;
+
+    get(
+        path: string,
+        dst?: undefined,
+        options?: sftp.TransferOptions,
+    ): Promise<Buffer>;
 
     fastGet(remoteFilePath: string, localPath: string, options?: sftp.FastGetTransferOptions): Promise<string>;
 
