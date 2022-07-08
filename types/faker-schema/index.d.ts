@@ -5,7 +5,7 @@
 
 export function withProbability<T>(value: (() => T) | T, probability?: number): <S>(schema: S) => (T extends () => void ? S : T) | null;
 
-export class Schema<T> {
+export class Schema<T extends Object> {
     private seed?: number;
     private blueprint: () => T;
     constructor(blueprint: () => T);
