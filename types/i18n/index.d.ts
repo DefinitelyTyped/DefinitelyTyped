@@ -388,7 +388,7 @@ declare namespace i18n {
 
     class I18n {
         constructor(options?: ConfigurationOptions);
-        
+
         configure(options: ConfigurationOptions): void;
 
         init(request: Express.Request, response: Express.Response, next?: () => void): void;
