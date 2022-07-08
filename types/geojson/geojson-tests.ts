@@ -169,6 +169,8 @@ const geometryCollectionWithGenerics: GeometryCollection<Point | LineString | Po
         // @ts-expect-error
         multiPolygon,
         // @ts-expect-error
+        geometryCollection,
+        // @ts-expect-error
         null,
     ],
 };
