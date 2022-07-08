@@ -34,7 +34,7 @@ client.useOauth({
 // https://github.com/Asana/node-asana#collections
 // Collections
 
-let tagId: number = null;
+let tagId = 123;
 client.tasks.findByTag(tagId, { limit: 5 }).then((collection: any) => {
   console.log(collection.data);
   // [ .. array of up to 5 task objects .. ]
@@ -444,9 +444,9 @@ client.workspaces.typeahead('baz', {type: 'task', query: 'foobar'}).then();
 
 // Workspaces have a boolean property "is_organization"
 // https://developers.asana.com/docs/workspace
-let workspaceShort: asana.resources.Workspaces.ShortType;
+let workspaceShort: asana.resources.Workspaces.ShortType = { gid: '123', name: 'My workspace', resource_type: 'workspace' };
 workspaceShort.is_organization = true;
-let workspace: asana.resources.Workspaces.Type;
+let workspace: asana.resources.Workspaces.Type = { is_organization: true, email_domains: [], gid: '123', name: 'My workspace', resource_type: 'workspace' };
 workspace.is_organization = true;
 
 // Tasks.FindAllParams should accept a project gid and/or a section gid, and the workspace gid should be optional
@@ -573,7 +573,7 @@ client.typeahead.typeaheadForWorkspace('123', {resource_type: 'tag', query: 'foo
 client.typeahead.typeaheadForWorkspace('123', {resource_type: 'task', query: 'foo'})
     .then((tasks: asana.resources.ResourceList<asana.resources.Tasks.Type>) => {
         const task = tasks.data[0];
-        // $ExpectType string
+        // $ExpectType string | null
         task.completed_at;
         // $ExpectError
         task.color;
