@@ -72,7 +72,25 @@ const context: lib.Context = {
         gitHead: 'f1eed296d2ffe184fb15f52b1c5ad778f5c87645',
         notes: 'New release',
     },
-    logger: console,
+    logger: {
+        await: (...message: string[]) => {},
+        complete: (...message: string[]) => {},
+        debug: (...message: string[]) => {},
+        error: (...message: string[]) => {},
+        fatal: (...message: string[]) => {},
+        fav: (...message: string[]) => {},
+        info: (...message: string[]) => {},
+        log: (...message: string[]) => {},
+        note: (...message: string[]) => {},
+        pause: (...message: string[]) => {},
+        pending: (...message: string[]) => {},
+        star: (...message: string[]) => {},
+        start: (...message: string[]) => {},
+        success: (...message: string[]) => {},
+        wait: (...message: string[]) => {},
+        warn: (...message: string[]) => {},
+        watch: (...message: string[]) => {},
+    },
     env: {
         AWS_ACCESS_KEY_ID: '12345',
         SHELL: '/bin/bash',
@@ -105,6 +123,9 @@ const context: lib.Context = {
             committerDate: '2019-10-22',
         },
     ],
+    branch: {
+        name: 'main',
+    },
 };
 
 analyzeCommits({}, context);
