@@ -70,14 +70,14 @@ declare module 'timers' {
             const __promisify__: typeof setTimeoutPromise;
         }
         function clearTimeout(timeoutId: NodeJS.Timeout | string | number | undefined): void;
-        function setInterval<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timer;
+        function setInterval<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timeout;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
-        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timer;
+        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }
-        function clearInterval(intervalId: NodeJS.Timer | string | number | undefined): void;
+        function clearInterval(intervalId: NodeJS.Timeout | string | number | undefined): void;
         function setImmediate<TArgs extends any[]>(callback: (...args: TArgs) => void, ...args: TArgs): NodeJS.Immediate;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
