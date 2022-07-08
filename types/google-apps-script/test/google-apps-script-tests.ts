@@ -669,3 +669,5 @@ const onItemSelected = () => {
     // $ExpectType CalendarEventActionResponseBuilder
     CardService.newCalendarEventActionResponseBuilder().addAttachments([attachment]);
 };
+
+SlidesApp.getActivePresentation().getSlides()[0].setSkipped(true);
