@@ -211,7 +211,7 @@ declare namespace SemanticRelease {
         plugins: ReadonlyArray<PluginSpec>;
     }
 
-    type BranchObject = {
+    interface BranchObject {
         /**
          * The name of git branch.
          *
@@ -287,7 +287,7 @@ declare namespace SemanticRelease {
          * Required for pre-release branches.
          */
         prerelease?: string | boolean | undefined;
-    };
+    }
 
     /**
      * Specifies a git branch holding commits to analyze and code to release.
