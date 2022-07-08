@@ -13,6 +13,8 @@ type RequestRedirect = NodeFetch.RequestRedirect;
 type ResponseInit = NodeFetch.ResponseInit;
 type ResponseType = NodeFetch.ResponseType;
 
+type SyncFetch = (url: SyncRequestInfo, init?: SyncRequestInit) => SyncResponse;
+
 type SyncRequestInfo = string | URLLike | SyncRequest;
 
 declare class SyncRequest extends SyncBody {
@@ -76,13 +78,11 @@ interface URLLike {
     href: string;
 }
 
-declare function syncFetch(url: SyncRequestInfo, init?: SyncRequestInit): SyncResponse;
-
-declare namespace syncFetch {
-    class FetchError extends NodeFetch.FetchError {}
-    class Headers extends NodeFetch.Headers {}
-    class Request extends SyncRequest {}
-    class Response extends SyncResponse {}
-}
+declare const syncFetch: SyncFetch & {
+    FetchError: typeof NodeFetch.FetchError;
+    Headers: typeof NodeFetch.Headers;
+    Request: typeof SyncRequest;
+    Response: typeof SyncResponse;
+};
 
 export = syncFetch;
