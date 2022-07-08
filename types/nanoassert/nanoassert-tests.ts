@@ -5,8 +5,8 @@ assert(false, "error");
 assert("yes");
 assert(0, "error");
 
-// $ExpectError
+// @ts-expect-error
 assert(true, 1);
 
-// $ExpectError
+// @ts-expect-error
 assert(true, false);

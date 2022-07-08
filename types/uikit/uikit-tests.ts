@@ -52,3 +52,12 @@ import Icons from 'uikit/dist/js/uikit-icons';
 
 // $ExpectType boolean
 Icons.installed;
+
+UIkit.icon.add('icon', '<svg>...</svg>');
+UIkit.icon.add({
+    icon1: '<svg>A</svg>',
+    icon2: '<svg>B</svg>',
+});
+UIkit.icon('#app', {
+    icon: 'home',
+});

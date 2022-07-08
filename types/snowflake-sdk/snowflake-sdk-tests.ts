@@ -65,7 +65,8 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
 
     conn.execute({
         sqlText: '',
-        fetchAsString: ['NaN'], // $ExpectError
+        // @ts-expect-error
+        fetchAsString: ['NaN'],
         binds: [
             [1, ''],
             [2, ''],
@@ -86,7 +87,7 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
     });
 };
 connection.connect(connectCallback);
-connection.connectAsync(connectCallback);
+connection.connectAsync(connectCallback).then(() => {});
 
 //  Key pair connections
 

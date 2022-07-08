@@ -1,7 +1,9 @@
 /**
  * The `vm` module enables compiling and running code within V8 Virtual
- * Machine contexts. **The `vm` module is not a security mechanism. Do**
- * **not use it to run untrusted code.**
+ * Machine contexts.
+ *
+ * **The `vm` module is not a security**
+ * **mechanism. Do not use it to run untrusted code.**
  *
  * JavaScript code can be compiled and run immediately or
  * compiled, saved, and run later.
@@ -32,7 +34,7 @@
  *
  * console.log(x); // 1; y is not defined.
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/vm.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/vm.js)
  */
 declare module 'vm' {
     interface Context extends NodeJS.Dict<any> {}

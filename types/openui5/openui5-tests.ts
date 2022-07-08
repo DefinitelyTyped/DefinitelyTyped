@@ -5,6 +5,7 @@ import XMLView from "sap/ui/core/mvc/XMLView";
 import Controller from "sap/ui/core/mvc/Controller";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import ODataModel from "sap/ui/model/odata/v2/ODataModel";
+import ODataV4Model from "sap/ui/model/odata/v4/ODataModel";
 import Text from "sap/m/Text";
 import Table from "sap/m/Table";
 import Toolbar from "sap/m/Toolbar";
@@ -149,5 +150,6 @@ messagePage.setTitleLevel(TitleLevel.H1);
 const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
 const context = odataV4ListBinding.getKeepAliveContext("x");
+(odataV4ListBinding.getModel() as ODataV4Model).delete("something");
 
 const showTimeZone = DateFormatTimezoneDisplay.Show;

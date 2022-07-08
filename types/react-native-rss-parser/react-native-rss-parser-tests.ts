@@ -8,11 +8,14 @@ fetch('http://rss-url.com')
     .then(response => response.text())
     .then(parse)
     .then(feed => {
-        feed.authors[0].name; // $ExpectError
+        // @ts-expect-error
+        feed.authors[0].name;
         feed.image.title.toUpperCase(); // $ExpectType string
-        feed.image.height.toUpperCase(); // $ExpectError
+        // @ts-expect-error
+        feed.image.height.toUpperCase();
 
         feed.items[0].id; // $ExpectType string
-        feed.items[0].authors.name; // $ExpectError
+        // @ts-expect-error
+        feed.items[0].authors.name;
     })
     .catch(console.error);

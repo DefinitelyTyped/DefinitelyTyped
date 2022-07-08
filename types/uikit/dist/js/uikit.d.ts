@@ -30,6 +30,7 @@ export namespace UIkit {
         targets?: string | undefined;
         toggle?: string | undefined;
         transition?: string | undefined;
+        offset?: number | undefined;
     }
 
     interface UIkitAccordionElement {
@@ -64,6 +65,7 @@ export namespace UIkit {
         mode?: string | undefined;
         'delay-show'?: number | undefined;
         'delay-hide'?: number | undefined;
+        display?: "dynamic" | "static" | undefined;
         boundary?: string | undefined;
         'boundary-align'?: boolean | undefined;
         flip?: boolean | string | undefined;
@@ -74,7 +76,7 @@ export namespace UIkit {
 
     interface UIkitDropElement {
         show(): void;
-        hide(): void;
+        hide(delay?: boolean): void;
     }
 
     type Drop = (element: UIkitElement, options?: UIkitDropOptions) => UIkitDropElement;
@@ -95,7 +97,7 @@ export namespace UIkit {
 
     interface UIkitDropdownElement {
         show(): void;
-        hide(): void;
+        hide(delay?: boolean): void;
     }
 
     type Dropdown = (element: UIkitElement, options?: UIkitDropdownOptions) => UIkitDropdownElement;
@@ -127,12 +129,13 @@ export namespace UIkit {
         ratio?: number | undefined;
     }
 
-    type Icon = (
-        element: UIkitElement,
-        options?: UIkitIconOptions,
-    ) => {
-        svg: Promise<any>;
-    };
+    interface Icon {
+        (element: UIkitElement, options?: UIkitIconOptions): {
+            svg: Promise<any>;
+        };
+        add(name: string, svg: string): void;
+        add(contents: { [key: string]: string }): void;
+    }
 
     interface UIkitImageOptions {
         dataSrc?: string | undefined;
@@ -200,8 +203,7 @@ export namespace UIkit {
     }
 
     interface UIkitNavElement {
-        index: string | number | UIkitNode;
-        animate: boolean;
+        toggle(index: string | number | UIkitNode, animate: boolean): void;
     }
 
     type Nav = (element: UIkitElement, options?: UIkitNavOptions) => UIkitNavElement;
@@ -238,7 +240,6 @@ export namespace UIkit {
     type Offcanvas = (element: UIkitElement, options?: UIkitOffcanvasOptions) => UIkitOffcanvasElement;
 
     interface UIkitScrollOptions {
-        duration?: number | undefined;
         offset?: number | undefined;
     }
 
@@ -269,9 +270,11 @@ export namespace UIkit {
     type ScrollspyNav = (element: UIkitElement, options?: UIkitScrollspyNavOptions) => void;
 
     interface UIkitStickyOptions {
-        top?: number | string | undefined;
-        bottom?: boolean | string | undefined;
+        position?: "top" | "bottom" | undefined;
+        start?: number | string | undefined;
+        end?: boolean | number | string | undefined;
         offset?: number | string | undefined;
+        'overflow-flip'?: boolean | undefined;
         animation?: string | boolean | undefined;
         'cls-active'?: string | undefined;
         'cls-inactive'?: string | undefined;
@@ -298,6 +301,7 @@ export namespace UIkit {
     interface UIkitSwitcherOptions {
         connect?: string | undefined;
         toggle?: string | undefined;
+        itemNav?: string | undefined;
         active?: number | undefined;
         animation?: string | undefined;
         duration?: number | undefined;
@@ -374,6 +378,8 @@ export namespace UIkit {
     interface UIkitFilterOptions {
         target?: string | undefined;
         selActive?: string | boolean | undefined;
+        animation?: "slide" | "fade" | "delayed-fade" | false | undefined;
+        duration?: number | undefined;
     }
 
     type Filter = (element: UIkitElement, options?: UIkitFilterOptions) => void;
@@ -390,6 +396,7 @@ export namespace UIkit {
         items?: object[] | undefined;
         template?: string | undefined;
         'delay-controls'?: number | undefined;
+        container?: string | undefined;
     }
 
     interface UIkitLightboxPanelElement {
@@ -439,7 +446,8 @@ export namespace UIkit {
     interface UIkitParallaxOptions {
         easing?: number | undefined;
         target?: string | undefined;
-        viewport?: number | undefined;
+        start?: number | string | undefined;
+        end?: number |string | undefined;
         media?: number | string | undefined;
     }
 
@@ -492,6 +500,7 @@ export namespace UIkit {
     interface UIkitSortableOptions {
         group?: string | undefined;
         animation?: number | undefined;
+        duration?: number | undefined;
         threshold?: number | undefined;
         'cls-item'?: string | undefined;
         'cls-placeholder'?: string | undefined;
@@ -514,6 +523,7 @@ export namespace UIkit {
         duration?: number | undefined;
         delay?: number | undefined;
         cls?: string | undefined;
+        container?: string | undefined;
     }
 
     interface UIkitTooltipElement {

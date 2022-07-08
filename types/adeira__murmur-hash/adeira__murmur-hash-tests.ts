@@ -6,6 +6,9 @@ murmurHash(
     }),
 );
 
-murmurHash(1); // $ExpectError
-murmurHash(new Date()); // $ExpectError
-murmurHash(false); // $ExpectError
+// @ts-expect-error
+murmurHash(1);
+// @ts-expect-error
+murmurHash(new Date());
+// @ts-expect-error
+murmurHash(false);

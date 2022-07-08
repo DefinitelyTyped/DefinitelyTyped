@@ -3,7 +3,6 @@ import * as express from 'express';
 
 export type HttpMethods = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export type SessionData = Record<string, any>;
 export type JsonBody = any;
 export type HtmlBody = string;

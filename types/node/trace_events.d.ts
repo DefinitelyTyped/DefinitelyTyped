@@ -66,6 +66,16 @@
  * node --trace-event-categories v8 --trace-event-file-pattern '${pid}-${rotation}.log' server.js
  * ```
  *
+ * To guarantee that the log file is properly generated after signal events like`SIGINT`, `SIGTERM`, or `SIGBREAK`, make sure to have the appropriate handlers
+ * in your code, such as:
+ *
+ * ```js
+ * process.on('SIGINT', function onSigint() {
+ *   console.info('Received SIGINT.');
+ *   process.exit(130);  // Or applicable exit code depending on OS and signal
+ * });
+ * ```
+ *
  * The tracing system uses the same time source
  * as the one used by `process.hrtime()`.
  * However the trace-event timestamps are expressed in microseconds,
@@ -73,7 +83,7 @@
  *
  * The features from this module are not available in `Worker` threads.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/trace_events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/trace_events.js)
  */
 declare module 'trace_events' {
     /**

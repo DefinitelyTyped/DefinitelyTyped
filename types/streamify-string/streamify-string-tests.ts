@@ -9,5 +9,5 @@ const streamOptions: Readable = streamifyString('data', { option: true });
 streamOptions.on('data', (d) => console.log('Data: ' + d));
 streamOptions.on('end', () => console.log('Done!'));
 
-// $ExpectError
+// @ts-expect-error
 streamifyString();

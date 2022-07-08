@@ -82,7 +82,7 @@ stmtWithBindTyped.run('alice', 20, BigInt(1234));
 // note the following is technically legal according to the docs, but we do not have a way to express both typed args
 // and variable tuples in typescript. If you want to group tuples, you must specify it that way in the prepare function
 // https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/api.md#binding-parameters
-// $ExpectError
+// @ts-expect-error
 stmtWithBindTyped.run(['alice', 20, BigInt(1234)]);
 interface NamedBindParameters {
     name: string;
@@ -106,7 +106,7 @@ trans.default(1);
 trans.deferred(1);
 trans.immediate(1);
 trans.exclusive(1);
-// $ExpectError
+// @ts-expect-error
 transTyped('name');
 
 const transReturn = db.transaction(() => 1);

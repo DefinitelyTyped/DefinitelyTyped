@@ -146,7 +146,7 @@ function shout(x: number): string {
 };
 () => {
     // Expected at least 1 arguments, but got 0
-    // $ExpectError
+    // @ts-expect-error
     const f0 = R.pipe();
     // $ExpectType (x: number, y: number) => number
     const f1 = R.pipe(Math.pow);

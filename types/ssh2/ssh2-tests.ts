@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import * as crypto from "crypto";
 import * as ssh2 from 'ssh2';
-import * as ssh2_streams from 'ssh2-streams';
 
 declare var inspect: any;
 
@@ -135,7 +134,7 @@ conn.on('ready', () => {
     console.log('Client :: ready');
     conn.sftp( (err: Error, sftp: ssh2.SFTPWrapper) => {
         if (err) throw err;
-        sftp.readdir('foo', (err: Error, list: ssh2_streams.FileEntry[]) => {
+        sftp.readdir('foo', (err: Error | undefined, list: ssh2.FileEntry[]) => {
             if (err) throw err;
             console.dir(list);
             conn.end();
@@ -191,14 +190,16 @@ conn2.on('ready', () => {
 
 // Host verification:
 new ssh2.Client().connect({
-    hostVerifier: (hash: string) => {
-        return hash === 'cool'
+    hostVerifier: (hash: Buffer) => {
+        const expected = Buffer.from('cool');
+        return expected.length === hash.length && crypto.timingSafeEqual(hash, Buffer.from('cool'));
     }
 });
 
 new ssh2.Client().connect({
     hostVerifier: (hash, callback) => {
-        callback(hash === 'cool');
+        const expected = Buffer.from('cool');
+        callback(expected.length === hash.length && crypto.timingSafeEqual(hash, Buffer.from('cool')));
     }
 });
 
@@ -327,7 +328,7 @@ var buffersEqual = require('buffer-equal-constant-time'),
     //ssh2 = require('ssh2'),
     utils = ssh2.utils;
 
-var pubKey = utils.parseKey(fs.readFileSync('user.pub')) as ssh2_streams.ParsedKey;
+var pubKey = utils.parseKey(fs.readFileSync('user.pub')) as ssh2.ParsedKey;
 var pubKeySSH = Buffer.from(pubKey.getPublicSSH());
 
 var flags = utils.sftp.OPEN_MODE.READ | utils.sftp.OPEN_MODE.WRITE;
@@ -347,7 +348,7 @@ new ssh2.Server({
         else if (ctx.method === 'publickey'
             && ctx.key.algo === pubKey.type
             && buffersEqual(ctx.key.data, pubKeySSH)) {
-            if (ctx.signature) {
+            if (ctx.signature && ctx.blob) {
                 if (pubKey.verify(ctx.blob, ctx.signature)) {
                     ctx.accept();
                 } else {
@@ -384,8 +385,8 @@ new ssh2.Server({
 // SFTP only server:
 
 //var ssh2 = require('ssh2');
-var OPEN_MODE = ssh2.SFTP_OPEN_MODE,
-    STATUS_CODE = ssh2.SFTP_STATUS_CODE;
+var OPEN_MODE = ssh2.utils.sftp.OPEN_MODE,
+    STATUS_CODE = ssh2.utils.sftp.STATUS_CODE;
 
 new ssh2.Server({
     hostKeys: [fs.readFileSync('host.key')]
@@ -454,11 +455,30 @@ new ssh2.Client().connect({
 
 new ssh2.Client().connect({
     agent: new (class extends ssh2.BaseAgent<string> {
-        getIdentities(callback: (err: Error | undefined, publicKeys?: string[]) => void): void {
+        getIdentities(callback: (err: Error | undefined, publicKeys: string[]) => void): void {
             callback(undefined, ['some key'])
         }
-        sign(publicKey: string, data: Buffer, options: ssh2.SigningRequestOptions, callback: (err: Error | undefined, signature?: Buffer) => void): void {
-            callback(undefined, Buffer.concat([Buffer.from(publicKey), data]));
+        sign(publicKey: string, data: Buffer, options: ssh2.SigningRequestOptions | ssh2.SignCallback, callback?: ssh2.SignCallback): void {
+            const cb = typeof options === 'function' ? options : callback;
+            cb && cb(undefined, Buffer.concat([Buffer.from(publicKey), data]));
         }
     })()
+});
+
+new ssh2.HTTPAgent({
+    host: '192.168.100.100',
+    port: 22,
+    username: 'frylock',
+    privateKey: require('fs').readFileSync('/here/is/my/key')
+}, {
+    srcIP: '127.0.0.1',
+});
+
+new ssh2.HTTPSAgent({
+    host: '192.168.100.100',
+    port: 22,
+    username: 'frylock',
+    privateKey: require('fs').readFileSync('/here/is/my/key')
+}, {
+    srcIP: '127.0.0.1',
 });

@@ -5,10 +5,10 @@ const totp = totpGenerator("key");
 
 const totpWithExplicitDefaultOptions = totpGenerator("key", {});
 
-// $ExpectError
+// @ts-expect-error
 const totpWithNumberKey = totpGenerator(0, {});
 
-// $ExpectError
+// @ts-expect-error
 const totpWithStringOptions = totpGenerator("key", "");
 
 const totpWithPeriodOption = totpGenerator("key", {

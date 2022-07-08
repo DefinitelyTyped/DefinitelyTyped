@@ -5,8 +5,8 @@ const onSaveTest = ({ name, value, previousValue }: onSaveProps) => {
     console.log(name + value + previousValue);
 };
 
-const onChangeTest = (value: string) => {
-    console.log(value);
+const onChangeTest = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.log(event.target.value);
 };
 
 const formatDisplayTextTest = (value: string) => {
@@ -19,6 +19,7 @@ const TestEditButton = <div>Edit</div>;
 <EditText id="firstName" />;
 <EditText name="firstName" />;
 <EditText className="firstName" />;
+<EditText inputClassName="firstName" />;
 <EditText value="firstName" />;
 <EditText defaultValue="firstName" />;
 <EditText value="firstName" onChange={onChangeTest} />;
@@ -39,6 +40,7 @@ const TestEditButton = <div>Edit</div>;
 <EditTextarea id="desc" />;
 <EditTextarea name="desc" />;
 <EditTextarea className="desc" />;
+<EditTextarea inputClassName="desc" />;
 <EditTextarea value="Description" />;
 <EditTextarea defaultValue="Description" />;
 <EditTextarea value="Description" onChange={onChangeTest} />;

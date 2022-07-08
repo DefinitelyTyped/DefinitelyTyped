@@ -6,7 +6,6 @@ import {
     TypeID,
 } from './Schema';
 import { Source } from 'graphql';
-import { TypeReferenceNode } from 'typescript';
 
 export type Metadata = { [key: string]: unknown } | undefined;
 

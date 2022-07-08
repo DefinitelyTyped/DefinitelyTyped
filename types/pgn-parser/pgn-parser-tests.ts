@@ -1,6 +1,6 @@
 import pgnParser = require('pgn-parser');
 
-// $ExpectError
+// @ts-expect-error
 pgnParser.parse(999);
 
 const pgnString = `

@@ -1023,9 +1023,9 @@ declare namespace sharp {
         /** Write a tiled tiff (optional, default false) */
         tile?: boolean | undefined;
         /** Horizontal tile size (optional, default 256) */
-        tileWidth?: boolean | undefined;
+        tileWidth?: number | undefined;
         /** Vertical tile size (optional, default 256) */
-        tileHeight?: boolean | undefined;
+        tileHeight?: number | undefined;
         /** Horizontal resolution in pixels/mm (optional, default 1.0) */
         xres?: number | undefined;
         /** Vertical resolution in pixels/mm (optional, default 1.0) */
@@ -1306,9 +1306,9 @@ declare namespace sharp {
         | 'overlay'
         | 'darken'
         | 'lighten'
+        | 'color-dodge'
         | 'colour-dodge'
-        | 'colour-dodge'
-        | 'colour-burn'
+        | 'color-burn'
         | 'colour-burn'
         | 'hard-light'
         | 'soft-light'

@@ -18,7 +18,7 @@ file.clone();
 
 // This test proofs, that when having `esModuleInterop` enabled,
 // importing `vinyl` using a `import * as File from "vinyl"` causes an error.
-// $ExpectError
+// @ts-expect-error
 interface TestStarFile extends StarFile {
     clone(opts?: { contents?: boolean | undefined, deep?: boolean | undefined } | boolean): this;
 }
