@@ -137,7 +137,7 @@ export interface MultiPolygon extends GeoJsonObject {
  * Geometry Collection
  * https://tools.ietf.org/html/rfc7946#section-3.1.8
  */
-export interface GeometryCollection<G extends Geometry | null = Geometry> extends GeoJsonObject {
+export interface GeometryCollection<G extends Geometry = Geometry> extends GeoJsonObject {
     type: 'GeometryCollection';
     geometries: G[];
 }
