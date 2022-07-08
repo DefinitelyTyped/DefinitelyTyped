@@ -243,3 +243,74 @@ const typeaheadForWorkspaceQuery: asana.resources.Typeahead.TypeaheadParams = {
     opt_fields: 'name,completed,parent,custom_fields.gid,custom_fields.number_value',
 };
 client.typeahead.typeaheadForWorkspace('workspace_gid', typeaheadForWorkspaceQuery);
+
+client.tasks.create({
+    workspace: '123',
+    name: 'my task',
+    memberships: [
+        {
+            project: '789',
+            section: '123',
+        },
+    ],
+});
+
+client.sections.findById('123').then((section) => {
+    const project: asana.resources.Projects.Type | undefined = section.project;
+    const name: string = section.name;
+    const createdAt: string = section.created_at;
+});
+
+client.userTaskLists.findByUser('123', {workspace: '456'});
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'custom_field', query: 'foo'})
+    .then((customFields) => {
+        const customField = customFields.data[0];
+        // $ExpectError
+        customField.completed_at;
+    });
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'project', query: 'foo'})
+    .then((projects) => {
+        const project = projects.data[0];
+        // $ExpectType string
+        project.color;
+        // $ExpectError
+        tag.completed_at;
+    });
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'portfolio', query: 'foo'})
+    .then((portfolios) => {
+        const portfolio = portfolios.data[0];
+        // $ExpectError
+        portfolio.completed_at;
+    });
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'tag', query: 'foo'})
+    .then((tags) => {
+        const tag = tags.data[0];
+        // $ExpectType string
+        tag.notes;
+        // $ExpectError
+        tag.completed_at;
+    });
+
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'task', query: 'foo'})
+    .then((tasks: asana.resources.ResourceList<asana.resources.Tasks.Type>) => {
+        const task = tasks.data[0];
+        // $ExpectType string
+        task.completed_at;
+        // $ExpectError
+        task.color;
+    });
+
+
+client.typeahead.typeaheadForWorkspace('123', {resource_type: 'user', query: 'foo'})
+    .then((users) => {
+        const user = users.data[0];
+        // $ExpectType Resource[]
+        user.workspaces;
+        // $ExpectError
+        user.completed_at;
+    });
