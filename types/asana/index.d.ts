@@ -1700,6 +1700,7 @@ declare namespace asana {
             }
 
             // https://developers.asana.com/docs/create-a-task
+            // https://forum.asana.com/t/add-task-to-a-section-upon-creation-via-api-request/51957/5
             interface CreateParams {
                 approval_status?: string | undefined;
                 assignee?: string | undefined;
@@ -1726,6 +1727,10 @@ declare namespace asana {
                 start_on?: string | null | undefined;
                 tags?: string[] | undefined; // create-only
                 workspace?: string | undefined;
+                memberships?: {
+                    project: string;
+                    section: string;
+                }[] | undefined;
             }
 
             // https://developers.asana.com/docs/update-a-task
@@ -2203,8 +2208,10 @@ declare namespace asana {
         }
 
         namespace Sections {
+            // https://developers.asana.com/docs/section
             interface Type extends Resource {
                 created_at: string;
+                project?: Projects.Type;
             }
 
             interface SectionsParams {
@@ -2808,7 +2815,7 @@ declare namespace asana {
              * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            findByUser(user: number | string, params?: Params, dispatchOptions?: any): Promise<UserTaskLists.Type>;
+            findByUser(user: number | string, params?: Params & { workspace?: string }, dispatchOptions?: any): Promise<UserTaskLists.Type>;
 
             /**
              * Returns the full record for a user task list.
@@ -3115,7 +3122,7 @@ declare namespace asana {
                 query?: string | undefined;
                 count?: number | undefined;
                 opt_pretty?: boolean | undefined;
-                opt_fields?: string[] | undefined;
+                opt_fields?: string | undefined;
             }
         }
 
@@ -3141,9 +3148,39 @@ declare namespace asana {
              */
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams,
+                params?: Typeahead.TypeaheadParams & { resource_type: 'custom_field' },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<CustomFields.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: 'project' },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Projects.Type>>;
+            // typeaheadForWorkspace(
+            //     workspaceGid: string,
+            //     params?: Typeahead.TypeaheadParams & { resource_type: 'portfolio' },
+            //     dispatchOptions?: any,
+            // ): Promise<ResourceList<Portfolios.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: 'tag' },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tags.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: 'task' },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tasks.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: 'user' },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Users.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Resource>>;
         }
     }
 
