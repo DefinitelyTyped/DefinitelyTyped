@@ -14,6 +14,8 @@ declare namespace SemanticRelease {
      */
     type ReleaseType = 'prerelease' | 'prepatch' | 'patch' | 'preminor' | 'minor' | 'premajor' | 'major';
 
+    type LoggerFunction = (...message: any[]) => void;
+
     /**
      * semantic-release options.
      *
@@ -423,8 +425,23 @@ declare namespace SemanticRelease {
          * The shared logger instance of semantic release.
          */
         logger: {
-            log: (message: string, ...vars: any[]) => void;
-            error: (message: string, ...vars: any[]) => void;
+            await: LoggerFunction;
+            complete: LoggerFunction;
+            debug: LoggerFunction;
+            error: LoggerFunction;
+            fatal: LoggerFunction;
+            fav: LoggerFunction;
+            info: LoggerFunction;
+            log: LoggerFunction;
+            note: LoggerFunction;
+            pause: LoggerFunction;
+            pending: LoggerFunction;
+            star: LoggerFunction;
+            start: LoggerFunction;
+            success: LoggerFunction;
+            wait: LoggerFunction;
+            warn: LoggerFunction;
+            watch: LoggerFunction;
         };
 
         /**
