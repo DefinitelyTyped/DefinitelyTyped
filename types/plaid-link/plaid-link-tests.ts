@@ -25,8 +25,8 @@ const newConfig: Plaid.CreateConfig = {
 };
 
 const mockLinkHandler: Plaid.LinkHandler = {
-    open: (institution_id) => {},
-    exit: (options) => {},
+    open: institution_id => {},
+    exit: options => {},
     destroy: () => {},
     institutions: [],
-}
+};
