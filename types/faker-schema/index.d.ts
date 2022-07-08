@@ -8,7 +8,7 @@ export function withProbability<T>(value: (() => T) | T, probability?: number): 
 export class Schema<T> {
     private seed?: number;
     private blueprint: () => T;
-    constructor(blueprint: () => T);
+    constructor(blueprint?: () => T);
     setSeed(seed?: number): void;
     makeOne(seed?: number): T;
     make(num?: number, seed?: number): T[];
