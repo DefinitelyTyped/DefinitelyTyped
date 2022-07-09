@@ -150,14 +150,14 @@ const geometryCollection: GeometryCollection = {
 // ref: https://datatracker.ietf.org/doc/html/rfc2119#section-3
 // "SHOULD" means "there may exist valid reasons in particular circumstances".
 const geometryCollectionWithGeometryCollection: GeometryCollection = {
-    type: 'GeometryCollection',
+    type: "GeometryCollection",
     geometries: [
         geometryCollection,
     ],
 };
 
 const geometryCollectionWithGenerics: GeometryCollection<Point | LineString | Polygon> = {
-    type: 'GeometryCollection',
+    type: "GeometryCollection",
     geometries: [
         point,
         lineString,
