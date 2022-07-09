@@ -15,7 +15,7 @@ interface HfcProps {
     attrs: { [k: string]: any };
     events: { [k: string]: (args?: { [k: string]: any }) => any };
     slots: {
-        [k: string]: (container: HTMLElement, args?: { [k: string]: any }) => void;
+        [k: string]: (container: HTMLElement, args?: { key?: string | number; [k: string]: any }) => void;
     };
     others: { [k: string]: any };
 }
