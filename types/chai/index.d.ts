@@ -1206,7 +1206,7 @@ declare namespace Chai {
          * @param ignored   Ignored parameter.
          * @param message   Message to display on error.
          */
-         throws(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
+        throws(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1216,7 +1216,12 @@ declare namespace Chai {
          * @param errMsgMatcher   Expected error message matcher.
          * @param message   Message to display on error.
          */
-        throws(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string): void;
+        throws(
+            fn: () => void,
+            errorLike?: ErrorConstructor | Error | null,
+            errMsgMatcher?: RegExp | string | null,
+            message?: string,
+        ): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1226,7 +1231,7 @@ declare namespace Chai {
          * @param ignored   Ignored parameter.
          * @param message   Message to display on error.
          */
-         throw(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
+        throw(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1236,7 +1241,12 @@ declare namespace Chai {
          * @param errMsgMatcher   Expected error message matcher.
          * @param message   Message to display on error.
          */
-        throw(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string): void;
+        throw(
+            fn: () => void,
+            errorLike?: ErrorConstructor | Error | null,
+            errMsgMatcher?: RegExp | string | null,
+            message?: string,
+        ): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1246,7 +1256,7 @@ declare namespace Chai {
          * @param ignored   Ignored parameter.
          * @param message   Message to display on error.
          */
-         Throw(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
+        Throw(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1256,7 +1266,12 @@ declare namespace Chai {
          * @param errMsgMatcher   Expected error message matcher.
          * @param message   Message to display on error.
          */
-        Throw(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string): void;
+        Throw(
+            fn: () => void,
+            errorLike?: ErrorConstructor | Error | null,
+            errMsgMatcher?: RegExp | string | null,
+            message?: string,
+        ): void;
 
         /**
          * Asserts that fn will not throw an error.
@@ -1266,7 +1281,7 @@ declare namespace Chai {
          * @param ignored   Ignored parameter.
          * @param message   Message to display on error.
          */
-         doesNotThrow(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
+        doesNotThrow(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
 
         /**
          * Asserts that fn will not throw an error.
@@ -1276,7 +1291,12 @@ declare namespace Chai {
          * @param errMsgMatcher   Expected error message matcher.
          * @param message   Message to display on error.
          */
-         doesNotThrow(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string): void;
+        doesNotThrow(
+            fn: () => void,
+            errorLike?: ErrorConstructor | Error | null,
+            errMsgMatcher?: RegExp | string | null,
+            message?: string,
+        ): void;
 
         /**
          * Compares two values using operator.

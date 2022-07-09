@@ -1791,7 +1791,9 @@ suite('assert', () => {
 
     test('throws', () => {
         const errorInstance = new ReferenceError('foo');
-        const fn = () => { throw errorInstance; };
+        const fn = () => {
+            throw errorInstance;
+        };
 
         assert.throws(fn);
         assert.throws(fn, 'foo');
@@ -1816,7 +1818,9 @@ suite('assert', () => {
 
     test('doesNotThrow', () => {
         const errorInstance = new ReferenceError('foo');
-        const fn = () => { throw new Error('bar'); };
+        const fn = () => {
+            throw new Error('bar');
+        };
 
         assert.doesNotThrow(() => {});
         assert.doesNotThrow(fn, 'foo');
