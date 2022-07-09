@@ -170,6 +170,7 @@ export interface BoxProps extends BoxPassthroughProps {
         | 'lightWash'
         | 'transparent'
         | 'transparentDarkGray'
+        | 'default'
         | 'infoBase'
         | 'infoWeak'
         | 'errorBase'
@@ -178,6 +179,8 @@ export interface BoxProps extends BoxPassthroughProps {
         | 'warningWeak'
         | 'successBase'
         | 'successWeak'
+        | 'recommendationBase'
+        | 'recommendationWeak'
         | 'shopping'
         | 'primary'
         | 'secondary'
@@ -187,6 +190,10 @@ export interface BoxProps extends BoxPassthroughProps {
         | 'brand'
         | 'education'
         | 'elevationAccent'
+        | 'elevationFloating'
+        | 'elevationRaised'
+        | 'dark'
+        | 'light'
         | undefined;
     column?: UnsignedUpTo12 | undefined;
     smColumn?: UnsignedUpTo12 | undefined;
