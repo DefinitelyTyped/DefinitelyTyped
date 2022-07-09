@@ -1,4 +1,4 @@
-// Type definitions for gestalt 58.4
+// Type definitions for gestalt 61.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -166,27 +166,10 @@ export interface BoxProps extends BoxPassthroughProps {
     bottom?: boolean | undefined;
     children?: React.ReactNode | undefined;
     color?:
-        | 'blue'
-        | 'darkGray'
         | 'darkWash'
-        | 'eggplant'
-        | 'gray'
-        | 'green'
-        | 'lightGray'
         | 'lightWash'
-        | 'maroon'
-        | 'midnight'
-        | 'navy'
-        | 'olive'
-        | 'orange'
-        | 'orchid'
-        | 'pine'
-        | 'purple'
-        | 'red'
         | 'transparent'
         | 'transparentDarkGray'
-        | 'watermelon'
-        | 'white'
         | 'infoBase'
         | 'infoWeak'
         | 'errorBase'
@@ -1025,12 +1008,12 @@ export interface MaskProps {
  */
 export interface MasonryProps<T = any> {
     comp: React.ComponentType<{ data: T; itemIdx?: number | undefined; isMeasuring?: boolean | undefined }>;
-    items: T[];
+    items: ReadonlyArray<T>;
     columnWidth?: number | undefined;
     flexible?: boolean | undefined;
     gutterWidth?: number | undefined;
-    layout?: 'MasonryDefaultLayout' | 'MasonryUniformRowLayout' | undefined;
-    loadItems?: (() => void) | undefined;
+    layout?: 'basic' | 'basicCentered' | 'flexible' | 'serverRenderedFlexible' | 'uniformRow' | undefined;
+    loadItems?: false | ((_arg?: { from: number }) => undefined | boolean | {}) | undefined;
     measurementStore?: any;
     minCols?: number | undefined;
     scrollContainer?: (() => HTMLElement) | undefined;
@@ -1457,6 +1440,7 @@ export interface SlimBannerProps {
         | 'infoBare'
         | 'warningBare'
         | 'successBare'
+        | 'recommendation'
         | undefined;
 }
 
