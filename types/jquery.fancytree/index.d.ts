@@ -153,6 +153,9 @@ declare namespace Fancytree {
         /**  [ext-edit] Check if any node in this tree in edit mode. */
         isEditing(): FancytreeNode;
 
+        /**  [ext-filter] Return true if a filter is currently applied. */
+        isFilterActive(): boolean;
+
         /** Make sure that a node with a given ID is loaded, by traversing - and loading - its parents. This method is ment for lazy hierarchies. A callback is executed for every node as we go.
          *
          * @param keyPathList one or more key paths  (e.g. '/3/2_1/7')
