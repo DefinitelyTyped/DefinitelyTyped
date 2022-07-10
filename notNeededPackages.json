@@ -3461,6 +3461,10 @@
             "libraryName": "parse-ms",
             "asOfVersion": "2.1.0"
         },
+        "parse5": {
+            "libraryName": "parse5",
+            "asOfVersion": "7.0.0"
+        },
         "pascal-case": {
             "libraryName": "pascal-case",
             "asOfVersion": "1.1.2"
