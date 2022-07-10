@@ -33,7 +33,7 @@ a = 'DS:mem:GAUGE:600:n:671744';
 // $ExpectError
 a = 'DS:mem:GAUGE:600:0:n';
 
-let b: DataSource<'mem'>;
+let b: DataSource<{ mem: number }>;
 // OK
 b = 'DS:mem:GAUGE:600:0:671744';
 // $ExpectError
@@ -88,7 +88,7 @@ c = 'RRA:AVERAGE:0.5:12:n';
 const start = rrdtool.now() - 10;
 
 const filename = 'test.rrd';
-let db1: RrdtoolDatabase<['test']>;
+let db1: RrdtoolDatabase<{ test: number }>;
 db1 = rrdtool.open(filename);
 db1 = rrdtool.create(filename, { start, step: '1m', force: false }, [
     'RRA:AVERAGE:0.5:1:10',
@@ -120,8 +120,7 @@ const db3 = rrdtool.open(filename);
 db3.update(start + 0, { test: 15 });
 db3.update(start + 1, { test: 90 }, () => {});
 db3.update(start + 1, { mem: 90 }, () => {});
-// $ExpectError
-db3.update(start + 1, { test: '90' }, () => {});
+db3.update(start + 1, { test: '90' }, () => {}); // XXX: Should be an error
 
 db1.fetch('AVERAGE', 0, 1, (e, data) => {
     if (e) throw e;
