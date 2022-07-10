@@ -164,7 +164,7 @@ declare namespace process {
     }
 
     const barrier: {
-        normsack: EnumValue;
+        normSack: EnumValue;
     };
 
     const cardinality: {
@@ -193,11 +193,6 @@ declare namespace process {
     const gryoVersion: {
         v1_0: EnumValue;
         v3_0: EnumValue;
-    };
-
-    const merge: {
-        onCreate: EnumValue;
-        onMatch: EnumValue;
     };
 
     interface Operator {

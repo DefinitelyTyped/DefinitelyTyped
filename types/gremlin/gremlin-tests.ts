@@ -31,7 +31,6 @@ const {
     direction,
     graphSONVersion,
     gryoVersion,
-    merge,
     operator,
     order,
     pick,
@@ -228,7 +227,7 @@ function functionTests() {
 }
 
 function predefinedEnumTests() {
-    barrier.normsack.toString() === 'normSack';
+    barrier.normSack.toString() === 'normSack';
     cardinality.list.toString() === 'list';
     cardinality.set.toString() === 'set';
     cardinality.single.toString() === 'single';
@@ -242,8 +241,6 @@ function predefinedEnumTests() {
     graphSONVersion['v3_0'].toString() === 'V3_0';
     gryoVersion['v1_0'].toString() === 'V1_0';
     gryoVersion['v3_0'].toString() === 'V3_0';
-    merge.onCreate.toString() === 'onCreate';
-    merge.onMatch.toString() === 'onMatch';
     operator.addAll.toString() === 'addAll';
     operator.and.toString() === 'and';
     operator.assign.toString() === 'assign';
