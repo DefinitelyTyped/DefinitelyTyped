@@ -26,7 +26,7 @@ $("#tree").fancytree(<Fancytree.FancytreeOptions>{
     dnd5: {
         dragDrag: (node, data) => { }
     },
-    click: (ev: JQueryEventObject, node: Fancytree.EventData) => {
+    click: (ev: JQuery.Event, node: Fancytree.EventData) => {
         return true;
     },
     checkbox: "radio",//boolean or "radio"

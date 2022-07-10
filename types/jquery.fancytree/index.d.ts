@@ -697,7 +697,7 @@ declare namespace Fancytree {
         /** Shortcut to tree.options */
         options: FancytreeOptions;
         /** The jQuery Event that initially triggered this call */
-        originalEvent: JQueryEventObject;
+        originalEvent: JQuery.Event;
         /** The node that this call applies to (`null` for tree events) */
         node: FancytreeNode;
         /** (output parameter) Event handlers can return values back to the
@@ -712,61 +712,61 @@ declare namespace Fancytree {
     /** The `this` context of any event function is set to tree's the HTMLDivElement  */
     interface FancytreeEvents {
         /** 'data.node' was deactivated. */
-        activate?(event: JQueryEventObject, data: EventData): void;
+        activate?(event: JQuery.Event, data: EventData): void;
         /** Return false to prevent default processing */
-        beforeActivate?(event: JQueryEventObject, data: EventData): boolean;
+        beforeActivate?(event: JQuery.Event, data: EventData): boolean;
         /** Return `false` to prevent default processing */
-        beforeExpand?(event: JQueryEventObject, data: EventData): boolean;
+        beforeExpand?(event: JQuery.Event, data: EventData): boolean;
         /** Return `false` to prevent default processing */
-        beforeSelect?(event: JQueryEventObject, data: EventData): boolean;
+        beforeSelect?(event: JQuery.Event, data: EventData): boolean;
         /** `data.node` lost keyboard focus */
-        blur?(event: JQueryEventObject, data: EventData): void;
+        blur?(event: JQuery.Event, data: EventData): void;
         /** `data.tree` lost keyboard focus */
-        blurTree?(event: JQueryEventObject, data: EventData): void;
+        blurTree?(event: JQuery.Event, data: EventData): void;
         /** `data.node` was clicked. `data.targetType` contains the region ("title", "expander", ...). Return `false` to prevent default processing, i.e. activating, etc. */
-        click?(event: JQueryEventObject, data: EventData): boolean;
+        click?(event: JQuery.Event, data: EventData): boolean;
         /** `data.node` was collapsed */
-        collapse?(event: JQueryEventObject, data: EventData): void;
+        collapse?(event: JQuery.Event, data: EventData): void;
         /** Widget was created (called only once, even if re-initialized). */
-        create?(event: JQueryEventObject, data: EventData): void;
+        create?(event: JQuery.Event, data: EventData): void;
         /** Allow tweaking and binding, after node was created for the first time (NOTE: this event is only available as callback, but not for bind()) */
-        createNode?(event: JQueryEventObject, data: EventData): void;
+        createNode?(event: JQuery.Event, data: EventData): void;
         /** `data.node` was double-clicked. `data.targetType` contains the region ("title", "expander", ...). Return `false` to prevent default processing, i.e. expanding, etc. */
-        dblclick?(event: JQueryEventObject, data: EventData): boolean;
+        dblclick?(event: JQuery.Event, data: EventData): boolean;
         /** `data.node` was deactivated */
-        deactivate?(event: JQueryEventObject, data: EventData): void;
+        deactivate?(event: JQuery.Event, data: EventData): void;
         /** `data.node` was expanded */
-        expand?(event: JQueryEventObject, data: EventData): void;
+        expand?(event: JQuery.Event, data: EventData): void;
         /** `data.node` received keyboard focus */
-        focus?(event: JQueryEventObject, data: EventData): void;
+        focus?(event: JQuery.Event, data: EventData): void;
         /**`data.tree` received keyboard focus */
-        focusTree?(event: JQueryEventObject, data: EventData): void;
+        focusTree?(event: JQuery.Event, data: EventData): void;
         /** Widget was (re-)initialized. */
-        init?(event: JQueryEventObject, data: EventData): void;
+        init?(event: JQuery.Event, data: EventData): void;
         /** `data.node` received key. `event.which` contains the key. Return `false` to prevent default processing, i.e. navigation. Call `data.result = "preventNav";` to prevent navigation but still allow default handling inside embedded input controls. */
-        keydown?(event: JQueryEventObject, data: EventData): boolean;
+        keydown?(event: JQuery.Event, data: EventData): boolean;
         /** (currently unused) */
-        keypress?(event: JQueryEventObject, data: EventData): void;
+        keypress?(event: JQuery.Event, data: EventData): void;
         /** `data.node` is a lazy node that is expanded for the first time. The new child data must be returned in the `data.result` property (see `source` option for available formats). */
-        lazyLoad?(event: JQueryEventObject, data: EventData): void;
+        lazyLoad?(event: JQuery.Event, data: EventData): void;
         /** Node data was loaded, i.e. `node.nodeLoadChildren()` finished */
-        loadChildren?(event: JQueryEventObject, data: EventData): void;
+        loadChildren?(event: JQuery.Event, data: EventData): void;
         /** A load error occured. Return `false` to prevent default processing. */
-        loadError?(event: JQueryEventObject, data: EventData): boolean;
+        loadError?(event: JQuery.Event, data: EventData): boolean;
         /** Allows to modify the ajax response. */
-        postProcess?(event: JQueryEventObject, data: EventData): void;
+        postProcess?(event: JQuery.Event, data: EventData): void;
         /** `data.node` was removed (NOTE: this event is only available as callback, but not for bind()) */
-        removeNode?(event: JQueryEventObject, data: EventData): void;
+        removeNode?(event: JQuery.Event, data: EventData): void;
         /** (used by table extension) */
-        renderColumns?(event: JQueryEventObject, data: EventData): void;
+        renderColumns?(event: JQuery.Event, data: EventData): void;
         /** Allow tweaking after node state was rendered (NOTE: this event is only available as callback, but not for bind()) */
-        renderNode?(event: JQueryEventObject, data: EventData): void;
+        renderNode?(event: JQuery.Event, data: EventData): void;
         /** Allow replacing the `<span class='fancytree-title'>` markup (NOTE: this event is only available as callback, but not for bind()) */
-        renderTitle?(event: JQueryEventObject, data: EventData): void;
+        renderTitle?(event: JQuery.Event, data: EventData): void;
         /** ext-persist has expanded, selected, and activated the previous state */
-        restore?(event: JQueryEventObject, data: EventData): void;
+        restore?(event: JQuery.Event, data: EventData): void;
         /** `data.node` was selected */
-        select?(event: JQueryEventObject, data: EventData): void;
+        select?(event: JQuery.Event, data: EventData): void;
         /** Enable RTL version, default is false */
         rtl?: boolean | undefined;
     }
@@ -798,7 +798,7 @@ declare namespace Fancytree {
         /** Scroll node into visible area, when focused by keyboard (default: false). */
         autoScroll?: boolean | undefined;
         /** Display checkboxes to allow selection (default: false) */
-        checkbox?: boolean | string | ((event: JQueryEventObject, data: EventData) => boolean) | undefined;
+        checkbox?: boolean | string | ((event: JQuery.Event, data: EventData) => boolean) | undefined;
         /** Defines what happens, when the user click a folder node. (default: activate_dblclick_expands) */
         clickFolderMode?: FancytreeClickFolderMode | undefined;
         /** 0..4 (null: use global setting $.ui.fancytree.debugInfo) */
@@ -851,11 +851,11 @@ declare namespace Fancytree {
         tooltip?: boolean | undefined;
 
         /** (dynamic Option)Prevent (de-)selection using mouse or keyboard. */
-        unselectable?: boolean | ((event: JQueryEventObject, data: Fancytree.EventData) => boolean | undefined) | undefined;
+        unselectable?: boolean | ((event: JQuery.Event, data: Fancytree.EventData) => boolean | undefined) | undefined;
         /** (dynamic Option)Ignore this node when calculating the partsel status of parent nodes in selectMode 3 propagation. */
-        unselectableIgnore?: boolean | ((event: JQueryEventObject, data: Fancytree.EventData) => boolean | undefined) | undefined;
+        unselectableIgnore?: boolean | ((event: JQuery.Event, data: Fancytree.EventData) => boolean | undefined) | undefined;
         /** (dynamic Option)Use this as constant selected value (overriding selectMode 3 propagation). */
-        unselectableStatus?: boolean | ((event: JQueryEventObject, data: Fancytree.EventData) => boolean | undefined) | undefined;
+        unselectableStatus?: boolean | ((event: JQuery.Event, data: Fancytree.EventData) => boolean | undefined) | undefined;
 
         ////////////////
         // EXTENSIONS //
