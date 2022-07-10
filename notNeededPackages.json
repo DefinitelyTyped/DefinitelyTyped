@@ -3473,6 +3473,10 @@
             "libraryName": "parse5-htmlparser2-tree-adapter",
             "asOfVersion": "7.0.0"
         },
+        "parse5-parser-stream": {
+            "libraryName": "parse5-parser-stream",
+            "asOfVersion": "7.0.0"
+        },
         "pascal-case": {
             "libraryName": "pascal-case",
             "asOfVersion": "1.1.2"
