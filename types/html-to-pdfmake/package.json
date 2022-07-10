@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "rollup": "^0.63.4",
         "@types/parse5": "6.x.x"
     }
 }

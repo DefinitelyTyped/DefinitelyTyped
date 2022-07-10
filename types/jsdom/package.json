@@ -5,5 +5,8 @@
         "<=4.0": {
             "*": ["ts4.0/*"]
         }
+    },
+    "dependencies": {
+        "@types/parse5": "6.x.x"
     }
 }
