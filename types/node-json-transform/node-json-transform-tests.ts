@@ -6,5 +6,5 @@ transform({
 }, {
     item: {
         message: "text"
-      }
+    }
 }); // Result: { message: "hello" }
