@@ -232,7 +232,7 @@ const badTypeaheadForWorkspaceQuery: asana.resources.Typeahead.TypeaheadParams =
     resource_type: 'task',
     query: 'my query',
     opt_pretty: true,
-    // $ExpectError
+    // @ts-expect-error
     opt_fields: ['name', 'completed', 'parent', 'custom_fields.gid', 'custom_fields.number_value'],
 };
 
@@ -266,7 +266,7 @@ client.userTaskLists.findByUser('123', {workspace: '456'});
 client.typeahead.typeaheadForWorkspace('123', {resource_type: 'custom_field', query: 'foo'})
     .then((customFields) => {
         const customField = customFields.data[0];
-        // $ExpectError
+        // @ts-expect-error
         customField.completed_at;
     });
 
@@ -275,14 +275,14 @@ client.typeahead.typeaheadForWorkspace('123', {resource_type: 'project', query: 
         const project = projects.data[0];
         // $ExpectType string
         project.color;
-        // $ExpectError
+        // @ts-expect-error
         tag.completed_at;
     });
 
 client.typeahead.typeaheadForWorkspace('123', {resource_type: 'portfolio', query: 'foo'})
     .then((portfolios) => {
         const portfolio = portfolios.data[0];
-        // $ExpectError
+        // @ts-expect-error
         portfolio.completed_at;
     });
 
@@ -291,7 +291,7 @@ client.typeahead.typeaheadForWorkspace('123', {resource_type: 'tag', query: 'foo
         const tag = tags.data[0];
         // $ExpectType string
         tag.notes;
-        // $ExpectError
+        // @ts-expect-error
         tag.completed_at;
     });
 
@@ -301,7 +301,7 @@ client.typeahead.typeaheadForWorkspace('123', {resource_type: 'task', query: 'fo
         const task = tasks.data[0];
         // $ExpectType string
         task.completed_at;
-        // $ExpectError
+        // @ts-expect-error
         task.color;
     });
 
@@ -311,6 +311,6 @@ client.typeahead.typeaheadForWorkspace('123', {resource_type: 'user', query: 'fo
         const user = users.data[0];
         // $ExpectType Resource[]
         user.workspaces;
-        // $ExpectError
+        // @ts-expect-error
         user.completed_at;
     });
