@@ -1,4 +1,4 @@
-// Type definitions for ember-data 4.0
+// Type definitions for ember-data 4.4
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
