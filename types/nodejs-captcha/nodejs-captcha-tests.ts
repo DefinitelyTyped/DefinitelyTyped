@@ -1,4 +1,4 @@
-import * as captcha from 'nodejs-captcha';
+import captcha from 'nodejs-captcha';
 
 const testConfig = {
 	length: 8,

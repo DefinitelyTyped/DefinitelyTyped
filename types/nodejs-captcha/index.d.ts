@@ -18,7 +18,8 @@ export interface captchaValue {
     height: number;
 	/**
 	 * The image data of the captcha
-	 * @type Base64 string
+	 *
+	 * **Base64 string** (contains `data:image/png;base64`)
 	 */
     image: string;
 }
@@ -28,36 +29,36 @@ export interface captchaOptions {
 	 * The character set to use for the captcha.
 	 * @default {'1234567890abcdefghijklmnoprstuvyz'.split('')}
 	 */
-	charset?: string[],
+	charset?: string[];
 	/**
 	 * The length of the captcha.
 	 * @default 6
 	 * @throws {Error} If the length is less than 1
 	 */
-	length?: number,
+	length?: number;
 	/**
 	 * The value of the text to display on the captcha.
 	 * @default 'Randomly generated using the charset'
 	 * @throws {Error} If the length of the value is different than the length
 	 */
-	value?: string,
+	value?: string;
 	/**
 	 * The width of the captcha.
 	 * @default 200
 	 * @throws {Error} If the width is less than 40
 	 */
-	width?: number,
+	width?: number;
 	/**
 	 * The height of the captcha.
 	 * @default 100
 	 * @throws {Error} If the height is less than 50
 	 */
-	height?: number,
+	height?: number;
 	/**
 	 * Number of noise circles to add to the captcha.
 	 * @default {10-25} Randomly generated
 	 */
-	numberOfCircles?: number,
+	numberOfCircles?: number;
 }
 
 /**
