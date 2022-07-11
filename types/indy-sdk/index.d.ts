@@ -129,7 +129,7 @@ export function abbreviateVerkey(did: Did, fullVerkey: Verkey): Promise<Verkey>;
 export function generateNonce(): Promise<string>;
 export function generateWalletKey(config?: GenerateWalletKeyConfig): Promise<string>;
 export function buildAttribRequest(
-    submittedDid: Did | null,
+    submitterDid: Did,
     targetDid: Did,
     hash: string | null,
     raw: string | null,
