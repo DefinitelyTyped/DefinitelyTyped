@@ -9,4 +9,5 @@ username('some/path'); // $ExpectType string | null
 username({ cwd: 'some/path' }); // $ExpectType string | null
 username({ strict: true }); // $ExpectType string | null
 username('some-path', { strict: true }); // $ExpectType string | null
-username('some-path', { cwd: 'some/path' }); // $ExpectError
+// @ts-expect-error
+username('some-path', { cwd: 'some/path' });

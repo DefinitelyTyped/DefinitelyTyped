@@ -15,13 +15,12 @@
         "node": ">=7.8.0"
     },
     "scripts": {
-        "compile-scripts": "tsc -p scripts",
-        "not-needed": "node scripts/not-needed.cjs",
-        "update-codeowners": "node scripts/update-codeowners.cjs",
-        "test-all": "node node_modules/@definitelytyped/dtslint-runner/dist/index.js --path .",
-        "clean": "node scripts/remove-empty.cjs",
-        "test": "dtslint types",
-        "lint": "dtslint types",
+        "not-needed": "node scripts/not-needed.js",
+        "update-codeowners": "node scripts/update-codeowners.js",
+        "test-all": "node --require source-map-support/register node_modules/@definitelytyped/dtslint-runner/ --path .",
+        "clean": "node scripts/remove-empty.js",
+        "test": "cross-env NODE_OPTIONS=\"--require source-map-support/register\" dtslint types",
+        "lint": "cross-env NODE_OPTIONS=\"--require source-map-support/register\" dtslint types",
         "prettier": "prettier"
     },
     "devDependencies": {
@@ -32,6 +31,7 @@
         "@definitelytyped/utils": "latest",
         "@octokit/core": "^3.5.1",
         "@octokit/rest": "^16.0.0",
+        "cross-env": "^7.0.3",
         "d3-array": "^3.0.2",
         "d3-axis": "^3.0.0",
         "d3-scale": "^4.0.0",
@@ -43,6 +43,7 @@
         "prettier": "^2.1.1",
         "remark-cli": "^9.0.0",
         "remark-validate-links": "^10.0.2",
+        "source-map-support": "^0.5.21",
         "typescript": "next",
         "w3c-xmlserializer": "^2.0.0",
         "yargs": "^17.1.1"

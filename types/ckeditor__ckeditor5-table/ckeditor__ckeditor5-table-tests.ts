@@ -1,5 +1,5 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import { Element } from '@ckeditor/ckeditor5-engine';
+import { DowncastWriter, EditingController, Element, Model, StylesProcessor } from '@ckeditor/ckeditor5-engine';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import InsertColumnCommand from '@ckeditor/ckeditor5-table/src/commands/insertcolumncommand';
 import InsertRowCommand from '@ckeditor/ckeditor5-table/src/commands/insertrowcommand';
@@ -15,10 +15,11 @@ import SetHeaderRowCommand from '@ckeditor/ckeditor5-table/src/commands/setheade
 import SplitCellCommand from '@ckeditor/ckeditor5-table/src/commands/splitcellcommand';
 import injectTableCaptionPostFixer from '@ckeditor/ckeditor5-table/src/converters/table-caption-post-fixer';
 import injectTableCellParagraphPostFixer from '@ckeditor/ckeditor5-table/src/converters/table-cell-paragraph-post-fixer';
-import injectTableCellRefreshPostFixer from '@ckeditor/ckeditor5-table/src/converters/table-cell-refresh-post-fixer';
-import injectTableHeadingRowsRefreshPostFixer from '@ckeditor/ckeditor5-table/src/converters/table-heading-rows-refresh-post-fixer';
 import injectTableLayoutPostFixer from '@ckeditor/ckeditor5-table/src/converters/table-layout-post-fixer';
-import { upcastStyleToAttribute } from '@ckeditor/ckeditor5-table/src/converters/tableproperties';
+import {
+    downcastTableAttribute,
+    upcastStyleToAttribute,
+} from '@ckeditor/ckeditor5-table/src/converters/tableproperties';
 import upcastTable from '@ckeditor/ckeditor5-table/src/converters/upcasttable';
 import TableCaptionEditing from '@ckeditor/ckeditor5-table/src/tablecaption/tablecaptionediting';
 import TableCaptionUI from '@ckeditor/ckeditor5-table/src/tablecaption/tablecaptionui';
@@ -45,7 +46,6 @@ import InsertTableView from '@ckeditor/ckeditor5-table/src/ui/inserttableview';
 import * as UtilsUiContextualBallon from '@ckeditor/ckeditor5-table/src/utils/ui/contextualballoon';
 import * as UtilsUITableProperties from '@ckeditor/ckeditor5-table/src/utils/ui/table-properties';
 import * as UtilsCommon from '@ckeditor/ckeditor5-table/src/utils/common';
-import * as UtilsSelection from '@ckeditor/ckeditor5-table/src/utils/selection';
 import * as UtilsStructure from '@ckeditor/ckeditor5-table/src/utils/structure';
 import * as UtilsTableProperties from '@ckeditor/ckeditor5-table/src/utils/table-properties';
 import TableCaption from '@ckeditor/ckeditor5-table/src/tablecaption';
@@ -75,7 +75,23 @@ import {
     TableUI,
     TableUtils,
 } from '@ckeditor/ckeditor5-table';
-import { downcastInsertTable } from '@ckeditor/ckeditor5-table/src/converters/downcast';
+import PlainTableOutput from '@ckeditor/ckeditor5-table/src/plaintableoutput';
+import tableHeadingsRefreshHandler from '@ckeditor/ckeditor5-table/src/converters/table-headings-refresh-handler';
+import tableCellRefreshHandler from '@ckeditor/ckeditor5-table/src/converters/table-cell-refresh-handler';
+import {
+    convertParagraphInTableCell,
+    downcastCell,
+    downcastRow,
+    downcastTable,
+    isSingleParagraphWithoutAttributes,
+} from '@ckeditor/ckeditor5-table/src/converters/downcast';
+import DowncastDispatcher, {
+    DowncastConversionApi,
+} from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
+import ModelConsumable from '@ckeditor/ckeditor5-engine/src/conversion/modelconsumable';
+import Mapper from '@ckeditor/ckeditor5-engine/src/conversion/mapper';
+import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
+import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -88,12 +104,16 @@ new TableUI(editor).init();
 new TableMouse(editor).init();
 TableMouse.requires.map(Plugin => new Plugin(editor).init());
 
+new PlainTableOutput(editor).init();
+
 new TableCaption(editor);
 TableCaption.requires.forEach(Plugin => new Plugin(editor));
 
 new TableUtils(editor).init();
-new TableUtils(editor).getCellLocation(Element.fromJSON({ name: 'div' })).row > 0;
-new TableUtils(editor).getCellLocation(Element.fromJSON({ name: 'div' })).column > 0;
+// $ExpectType number | undefined
+new TableUtils(editor).getCellLocation(Element.fromJSON({ name: 'div' }))?.row;
+// $ExpectType number | undefined
+new TableUtils(editor).getCellLocation(Element.fromJSON({ name: 'div' }))?.column;
 new TableUtils(editor)
     .createTable(new Writer(), { rows: 4, columns: 0, headingRows: 4, headingColumns: 4 })
     .getChildren();
@@ -192,6 +212,9 @@ editor.plugins.get('TableUI');
 // $ExpectType TableUtils
 editor.plugins.get('TableUtils');
 
+// $ExpectType PlainTableOutput
+editor.plugins.get('PlainTableOutput');
+
 // $ExpectType Element | null
 getSelectedTableWidget(new ViewDocumentSelection());
 // $ExpectType Element | null
@@ -215,18 +238,11 @@ getTableWidgetAncestor(new ViewSelection());
 
 new InsertColumnCommand(editor).execute();
 new InsertColumnCommand(editor, { order: 'left' }).execute();
-// $ExpectError
+// @ts-expect-error
 new InsertColumnCommand(editor, { order: '' }).execute();
 
 new InsertRowCommand(editor, { order: 'above' }).execute();
 (['up', 'down', 'left', 'right'] as const).forEach(direction => new MergeCellCommand(editor, { direction }));
-
-// $ExpectType (dispatcher: DowncastDispatcher<{}>) => void
-downcastInsertTable();
-// $ExpectType (dispatcher: DowncastDispatcher<{}>) => void
-downcastInsertTable();
-// $ExpectType (dispatcher: DowncastDispatcher<{}>) => void
-downcastInsertTable({ asWidget: true });
 
 [
     TableBackgroundColorCommand,
@@ -248,3 +264,21 @@ downcastInsertTable({ asWidget: true });
     TableCellVerticalAlignmentCommand,
     TableCellWidthCommand,
 ].forEach(Command => new Command(editor, '').execute());
+
+tableCellRefreshHandler(new Model(), new EditingController(new Model(), new StylesProcessor()));
+tableHeadingsRefreshHandler(new Model(), new EditingController(new Model(), new StylesProcessor()));
+
+const api: DowncastConversionApi = {
+    consumable: new ModelConsumable(),
+    dispatcher: new DowncastDispatcher({}),
+    mapper: new Mapper(),
+    schema: new Schema(),
+    writer: new DowncastWriter(new Document(new StylesProcessor())),
+};
+// $ExpectType ContainerElement | Element || Element | ContainerElement
+downcastTable(new TableUtils(editor), { asWidget: true })(new Element('div'), api);
+downcastRow()(new Element('div'), api);
+downcastCell()(new Element('div'), api);
+convertParagraphInTableCell()(new Element('div'), api);
+// $ExpectType boolean
+isSingleParagraphWithoutAttributes(new Element('div'));

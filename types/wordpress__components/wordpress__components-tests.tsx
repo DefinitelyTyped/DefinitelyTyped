@@ -1,7 +1,12 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { Value } from '@wordpress/rich-text';
-import { createRef, MouseEvent as ReactMouseEvent } from 'react';
+import {
+    createRef,
+    KeyboardEvent as ReactKeyboardEvent,
+    MouseEvent as ReactMouseEvent,
+    FocusEvent as ReactFocusEvent
+} from 'react';
 
 //
 // primitives
@@ -133,7 +138,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // Card renders a `div` by default:
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 // `div` doesn't support autoFocus:
-// $ExpectError
+// @ts-expect-error
 <C.Card autoFocus />;
 
 <C.CardBody isShady size="extraSmall">
@@ -149,9 +154,9 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 </C.CardFooter>;
 
 // Divider has no children or props except className
-// $ExpectError
+// @ts-expect-error
 <C.CardDivider>Hello world!</C.CardDivider>;
-// $ExpectError
+// @ts-expect-error
 <C.CardDivider isShady />;
 <C.CardDivider />;
 
@@ -321,6 +326,21 @@ const buttonGroupRef = createRef<HTMLDivElement>();
             onClick: () => console.log('left'),
         },
     ]}
+/>;
+<C.DropdownMenu
+    icon={<span>icon</span>}
+    label="Select a direction"
+    controls={[
+        {
+            title: 'Up',
+            icon: 'arrow-up-alt',
+            onClick: () => console.log('up'),
+        },
+    ]}
+    menuProps={{ orientation: 'vertical' }}
+    popoverProps={{ animate: true }}
+    toggleProps={{ variant: 'primary' }}
+    disableOpenOnArrowDown={true}
 />;
 
 //
@@ -518,7 +538,12 @@ const kbshortcuts = {
 //
 // modal
 //
-<C.Modal title="This is my modal" isDismissible={true} onRequestClose={() => console.log('closing modal')}>
+<C.Modal title="This is my modal"
+    isDismissible={true}
+    onRequestClose={
+        (event: ReactKeyboardEvent | ReactMouseEvent | ReactMouseEvent) => console.log(`The ${event.type} event told me to close myself!`)
+    }
+>
     <button onClick={() => console.log('clicked')}>My custom close button</button>
 </C.Modal>;
 

@@ -21,6 +21,7 @@ export interface TextLayerItemInternal {
     str: string;
     transform: number[];
     width: number;
+    height: number;
 }
 
 export interface TextItem {
@@ -114,7 +115,7 @@ export interface Props {
     /**
      * Function called when the page is successfully rendered on the screen.
      */
-    onRenderSuccess?: (() => void) | undefined;
+    onRenderSuccess?: ((page: PDFPageProxy) => void) | undefined;
 
     /**
      * Function called when annotations are successfully loaded.

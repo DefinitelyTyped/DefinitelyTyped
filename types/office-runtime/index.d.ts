@@ -255,7 +255,7 @@ declare namespace OfficeRuntime {
    *
    * @remarks
    *
-   * The methods in this interface are equivalent to those in the `Office.auth` interface.
+   * The methods in this interface are equivalent to those in the {@link https://docs.microsoft.com/javascript/api/office/office.auth | Office.auth interface}.
    * If new authentication types are added in the future, they will only be added to the `Office.auth` interface.
    * For simplicity, the code examples throughout the documentation use `Office.auth`.
    */
@@ -267,7 +267,7 @@ declare namespace OfficeRuntime {
      * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational
      * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
      *
-     * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+     * **Important**: In Outlook, this API isn't supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
      *
      * @remarks
      *

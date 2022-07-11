@@ -978,6 +978,21 @@ $('#example tbody').on('click', 'td.details-control', () => {
     }
 });
 
+dt.row(0).select();
+dt.row(0).deselect();
+
+dt.row().select();
+dt.row().deselect();
+dt.row().data();
+dt.row().select().data();
+dt.row().deselect().data();
+
+dt.rows().select();
+dt.rows().deselect();
+dt.rows().data();
+dt.rows().select().data();
+dt.rows().deselect().data();
+
 //#endregion "Methods-Row"
 
 //#region "Methods-Static"

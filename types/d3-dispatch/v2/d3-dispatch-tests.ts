@@ -42,7 +42,7 @@ function cbFn2(this: SVGElement, d: Datum, i: number) {
 }
 
 dispatch.on('foo', cbFn);
-// $ExpectError
+// @ts-expect-error
 dispatch.on('foo', cbFn2); // test fails as 'this' context type is mismatched between dispatch and callback function
 
 callback = dispatch.on('bar')!;
@@ -66,5 +66,5 @@ dispatch.on('bar', null);
 
 // Copy dispatch -----------------------------------------------
 const copy: d3Dispatch.Dispatch<HTMLElement> = dispatch.copy();
-// $ExpectError
+// @ts-expect-error
 const copy2: d3Dispatch.Dispatch<SVGElement> = dispatch.copy(); // test fails type mismatch of underlying event target

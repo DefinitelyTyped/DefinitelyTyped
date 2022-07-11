@@ -3,6 +3,8 @@
 // Definitions by: Timo Glastra <https://github.com/TimoGlastra>
 //                 Jakub Kočí <https://github.com/jakubkoci>
 //                 Karim Stekelenburg <https://github.com/karimStekelenburg>
+//                 James Ebert <https://github.com/JamesKebert>
+//                 Berend Sliedrecht <https://github.com/blu3beri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Buffer } from 'buffer/';
@@ -74,6 +76,12 @@ export function buildCredDefRequest(submitterDid: Did, credDef: CredDef): Promis
 export function buildGetCredDefRequest(submitterDid: Did | null, credDefId: CredDefId): Promise<LedgerRequest>;
 export function parseGetCredDefResponse(response: LedgerResponse): Promise<[CredDefId, CredDef]>;
 
+// Logging
+export function setLogger(
+    logFn: (level: number, target: string, message: string, modulePath: string, file: string, line: number) => void,
+): void;
+export function setDefaultLogger(pattern: 'trace' | 'info' | 'debug'): void;
+
 // Revocation Ledger methods
 export function buildRevocRegDefRequest(submitterDid: Did, data: RevocRegDef): Promise<LedgerRequest>;
 export function buildGetRevocRegDefRequest(submitterDid: Did | null, revRegId: RevRegId): Promise<LedgerRequest>;
@@ -119,7 +127,14 @@ export function appendTxnAuthorAgreementAcceptanceToRequest(
 ): Promise<LedgerRequest>;
 export function abbreviateVerkey(did: Did, fullVerkey: Verkey): Promise<Verkey>;
 export function generateNonce(): Promise<string>;
-
+export function generateWalletKey(config?: GenerateWalletKeyConfig): Promise<string>;
+export function buildAttribRequest(
+    submitterDid: Did,
+    targetDid: Did,
+    hash: string | null,
+    raw: string | null,
+    enc: string | null,
+): Promise<LedgerRequest>;
 export function buildGetAttribRequest(
     submitterDid: Did | null,
     targetDid: Did,
@@ -200,11 +215,12 @@ export function proverStoreCredential(
     credDef: CredDef,
     revRegDef: RevocRegDef | null,
 ): Promise<CredentialId>;
-// TODO: proverGetCredentials
+export function proverGetCredentials(wh: WalletHandle, filter: GetCredentialsFilter): Promise<IndyCredentialInfo[]>;
 export function proverGetCredential(wh: WalletHandle, credId: string): Promise<IndyCredentialInfo>;
 // TODO: proverSearchCredentials
 // TODO: proverFetchCredentials
 // TODO: proverCloseCredentialsSearch
+export function proverDeleteCredential(wh: WalletHandle, credId: string): Promise<void>;
 export function proverGetCredentialsForProofReq(wh: WalletHandle, proofRequest: IndyProofRequest): Promise<ProofCred>;
 export function proverSearchCredentialsForProofReq(
     wh: WalletHandle,
@@ -313,12 +329,17 @@ export interface WalletCredentials {
 }
 
 export interface OpenWalletCredentials extends WalletCredentials {
+    rekey?: string;
     rekey_derivation_method?: KeyDerivationMethod | undefined;
 }
 
 export interface WalletExportImportConfig {
     key: string;
     path: string;
+}
+
+export interface GenerateWalletKeyConfig {
+    seed?: string;
 }
 
 export interface DidConfig {
@@ -395,7 +416,11 @@ export interface LedgerWriteReplyResponse extends LedgerReplyResponse {
     };
 }
 
-export type LedgerResponse = LedgerRejectResponse | LedgerReqnackResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
+export type LedgerResponse =
+    | LedgerRejectResponse
+    | LedgerReqnackResponse
+    | LedgerReadReplyResponse
+    | LedgerWriteReplyResponse;
 
 export interface Schema {
     id: SchemaId;
@@ -442,6 +467,15 @@ export interface CredOffer {
     cred_def_id: CredDefId;
     nonce: string;
     key_correctness_proof: Record<string, unknown>;
+}
+
+export interface GetCredentialsFilter {
+    schema_id?: string;
+    schema_issuer_did?: string;
+    schema_name?: string;
+    schema_version?: string;
+    issuer_did?: string;
+    cred_def_id?: string;
 }
 
 export interface IndyCredentialInfo {

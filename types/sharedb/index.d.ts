@@ -97,14 +97,11 @@ declare class sharedb extends EventEmitter {
         fn: (context: sharedb.middleware.ActionContextMap[A], callback: (err?: any) => void) => void,
     ): void;
 
-    on(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
-    on(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
-    on(event: 'error', callback: (err: Error) => void): this;
-    on(event: 'send', callback: (agent: Agent, response: ShareDB.ServerResponseSuccess | ShareDB.ServerResponseError) => void): this;
+    on<E extends keyof sharedb.BackendEventListenerMap>(event: E, callback: sharedb.BackendEventListenerMap[E]): this;
+    on(eventName: string | symbol, listener: (...args: any[]) => void): this;
 
-    addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
-    addListener(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
-    addListener(event: 'error', callback: (err: Error) => void): this;
+    addListener<E extends keyof sharedb.BackendEventListenerMap>(event: E, callback: sharedb.BackendEventListenerMap[E]): this;
+    addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
 
     getOps(agent: Agent, index: string, id: string, from: number, to: number, options: GetOpsOptions, callback: (error: Error, ops: any[]) => any): void;
     getOpsBulk(agent: Agent, index: string, id: string, fromMap: Record<string, number>, toMap: Record<string, number>, options: GetOpsOptions, callback: (error: Error, ops: any[]) => any): void;
@@ -142,6 +139,13 @@ declare namespace sharedb {
 
     type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields, options: any, callback: DBQueryCallback) => void;
     type DBQueryCallback = (err: Error | null, snapshots: Snapshot[], extra?: any) => void;
+
+    interface BackendEventListenerMap {
+        error: (err: Error) => void;
+        send: (agent: Agent, response: ShareDB.ServerResponseSuccess | ShareDB.ServerResponseError) => void;
+        submitRequestEnd: (error: Error, request: SubmitRequest) => void;
+        timing: (type: string, time: number, request: any) => void;
+    }
 
     abstract class PubSub {
         private static shallowCopy(obj: any): any;

@@ -1,6 +1,6 @@
-import { WaveSurferParams } from "../types/params";
-import { PluginDefinition, WaveSurferPlugin } from "../types/plugin";
-import WaveSurfer from "./wavesurfer";
+import { WaveSurferParams } from '../types/params';
+import { PluginDefinition, WaveSurferPlugin } from '../types/plugin';
+import WaveSurfer from './wavesurfer';
 
 export default class Init {
     constructor(waveSurfer: WaveSurfer, params?: InitParams);

@@ -5,18 +5,21 @@ const onSaveTest = ({ name, value, previousValue }: onSaveProps) => {
     console.log(name + value + previousValue);
 };
 
-const onChangeTest = (value: string) => {
-    console.log(value);
+const onChangeTest = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.log(event.target.value);
 };
 
 const formatDisplayTextTest = (value: string) => {
     return '$' + value;
 };
 
+const TestEditButton = <div>Edit</div>;
+
 <EditText />;
 <EditText id="firstName" />;
 <EditText name="firstName" />;
 <EditText className="firstName" />;
+<EditText inputClassName="firstName" />;
 <EditText value="firstName" />;
 <EditText defaultValue="firstName" />;
 <EditText value="firstName" onChange={onChangeTest} />;
@@ -27,11 +30,17 @@ const formatDisplayTextTest = (value: string) => {
 <EditText style={{ margin: 0 }} />;
 <EditText readonly />;
 <EditText type="number" value="100" formatDisplayText={formatDisplayTextTest} />;
+<EditText showEditButton />;
+<EditText showEditButton editButtonContent="Edit" />;
+<EditText showEditButton editButtonContent={<i className="editIcon" />} />;
+<EditText showEditButton editButtonProps={{ style: { marginTop: 10, padding: 0 }, id: 'test', className: 'test' }} />;
+<EditText showEditButton editButtonContent={TestEditButton} editButtonProps={{ autoFocus: true }} />;
 
 <EditTextarea />;
 <EditTextarea id="desc" />;
 <EditTextarea name="desc" />;
 <EditTextarea className="desc" />;
+<EditTextarea inputClassName="desc" />;
 <EditTextarea value="Description" />;
 <EditTextarea defaultValue="Description" />;
 <EditTextarea value="Description" onChange={onChangeTest} />;

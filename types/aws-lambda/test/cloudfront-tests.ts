@@ -1,4 +1,4 @@
-import {
+import type {
     CloudFrontHeaders,
     CloudFrontRequestEvent,
     CloudFrontRequestHandler,
@@ -9,6 +9,7 @@ import {
     CloudFrontS3Origin,
     CloudFrontCustomOrigin,
     CloudFrontFunctionsEvent,
+    CloudFrontRequestEventRecord,
 } from 'aws-lambda';
 
 // TODO: Update test to read all event properties, and write all result
@@ -37,10 +38,10 @@ const requestHandler: CloudFrontRequestHandler = async (event, context, cb) => {
         request.origin.custom.domainName;
         request.origin.custom.domainName = 'example2.com';
 
-        // $ExpectError
+        // @ts-expect-error
         s3Origin = request.origin.s3;
 
-        // $ExpectError
+        // @ts-expect-error
         request.origin.s3.path = '/';
     }
 
@@ -63,10 +64,10 @@ const requestHandler: CloudFrontRequestHandler = async (event, context, cb) => {
         request.origin.s3.path;
         request.origin.s3.path = '/new_path';
 
-        // $ExpectError
+        // @ts-expect-error
         customOrigin = request.origin.custom;
 
-        // $ExpectError
+        // @ts-expect-error
         request.origin.custom.path = '/';
     }
 
@@ -77,7 +78,7 @@ const requestHandler: CloudFrontRequestHandler = async (event, context, cb) => {
     result = { clientIp: str, method: str, uri: str, querystring: str, headers: cloudFrontHeaders };
     result = { status: str };
     result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: 'text', body: str };
-    // $ExpectError
+    // @ts-expect-error
     result = {};
 
     cb(new Error());
@@ -91,11 +92,11 @@ const responseHandler: CloudFrontResponseHandler = async (event, context, callba
     result = undefined;
     result = null;
     result = { status: str };
-    // $ExpectError
+    // @ts-expect-error
     result = { clientIp: str, method: str, uri: str, querystring: str, headers: cloudFrontHeaders };
     result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: 'text', body: str };
     result = { status: str, bodyEncoding: 'base64', body: str };
-    // $ExpectError
+    // @ts-expect-error
     result = { status: str, bodyEncoding: 'invalid-encoding', body: str };
 
     callback(new Error());
@@ -342,6 +343,67 @@ const originRequestEvent: CloudFrontRequestEvent = {
             },
         },
     ],
+};
+
+const originRequestEventRecord: CloudFrontRequestEventRecord = {
+    cf: {
+        config: {
+            distributionDomainName: 'd111111abcdef8.cloudfront.net',
+            distributionId: 'EDFDVBD6EXAMPLE',
+            eventType: 'origin-request',
+            requestId: '4TyzHTaYWb1GX1qTfsHhEqV6HUDd_BzoBZnwfnvQc_1oF26ClkoUSEQ==',
+        },
+        request: {
+            clientIp: '203.0.113.178',
+            headers: {
+                'x-forwarded-for': [
+                    {
+                        key: 'X-Forwarded-For',
+                        value: '203.0.113.178',
+                    },
+                ],
+                'user-agent': [
+                    {
+                        key: 'User-Agent',
+                        value: 'Amazon CloudFront',
+                    },
+                ],
+                via: [
+                    {
+                        key: 'Via',
+                        value: '2.0 2afae0d44e2540f472c0635ab62c232b.cloudfront.net (CloudFront)',
+                    },
+                ],
+                host: [
+                    {
+                        key: 'Host',
+                        value: 'example.org',
+                    },
+                ],
+                'cache-control': [
+                    {
+                        key: 'Cache-Control',
+                        value: 'no-cache, cf-no-cache',
+                    },
+                ],
+            },
+            method: 'GET',
+            origin: {
+                custom: {
+                    customHeaders: {},
+                    domainName: 'example.org',
+                    keepaliveTimeout: 5,
+                    path: '',
+                    port: 443,
+                    protocol: 'https',
+                    readTimeout: 30,
+                    sslProtocols: ['TLSv1', 'TLSv1.1', 'TLSv1.2'],
+                },
+            },
+            querystring: '',
+            uri: '/',
+        },
+    },
 };
 
 const originResponseEvent: CloudFrontResponseEvent = {

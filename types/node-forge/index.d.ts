@@ -236,7 +236,7 @@ declare module "node-forge" {
                 dQ: jsbn.BigInteger;
                 qInv: jsbn.BigInteger;
                 decrypt(data: Bytes, scheme?: EncryptionScheme, schemeOptions?: any): Bytes;
-                sign(md: md.MessageDigest, scheme?: SignatureScheme): Bytes;
+                sign(md: md.MessageDigest | Bytes, scheme?: SignatureScheme): Bytes;
             }
 
             interface KeyPair {
@@ -844,12 +844,14 @@ declare module "node-forge" {
 
     namespace pkcs5 {
         function pbkdf2(password: string, salt: string, iterations: number, keySize: number): string;
-        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest: md.MessageDigest): string;
+        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest: md.MessageDigest | md.Algorithm): string;
         function pbkdf2(password: string, salt: string, iterations: number, keySize: number, callback: (err: Error | null, dk: string | null) => any): void;
-        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest?: md.MessageDigest, callback?: (err: Error | null, dk: string | null) => any): void;
+        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest?: md.MessageDigest | md.Algorithm, callback?: (err: Error | null, dk: string) => any): void;
     }
 
     namespace md {
+
+        type Algorithm = "md5" | "sha1" | "sha256" | "sha384" | "sha512";
 
         interface MessageDigest {
             update(msg: string, encoding?: Encoding): MessageDigest;

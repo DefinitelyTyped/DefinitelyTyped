@@ -1,9 +1,10 @@
-// Type definitions for mParticle/web-sdk SDK 2.15
+// Type definitions for mParticle/web-sdk SDK 2.16
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
+import { Batch } from '@mparticle/event-models';
 
 export as namespace mParticle;
 export {};
@@ -14,10 +15,12 @@ export interface MPConfiguration {
     dataPlan?: DataPlanConfig | undefined;
     appVersion?: string | undefined;
     appName?: string | undefined;
+    package?: string | undefined;
     logLevel?: 'verbose' | 'warning' | 'none' | undefined;
     logger?: Logger | undefined;
     sessionTimeout?: number | undefined;
     deviceId?: string | undefined;
+    onCreateBatch?: onCreateBatch | undefined;
     useCookieStorage?: boolean | undefined;
     maxCookieSize?: number | undefined;
     cookieDomain?: string | undefined;
@@ -42,12 +45,7 @@ export interface Logger {
     verbose?: ((error: string) => void) | undefined;
 }
 export interface SDKEventCustomFlags {
-    [key: string]:
-        | number
-        | string
-        | boolean
-        | unknown[]
-        | Record<string, unknown>;
+    [key: string]: number | string | boolean | unknown[] | Record<string, unknown>;
 }
 
 export interface SDKEventOptions {
@@ -98,21 +96,11 @@ interface LogEvent {
 }
 
 interface LogForm {
-    (
-        selector: string | HTMLElement,
-        eventName: string,
-        eventType?: EventType,
-        eventInfo?: SDKEventAttrs,
-    ): void;
+    (selector: string | HTMLElement, eventName: string, eventType?: EventType, eventInfo?: SDKEventAttrs): void;
 }
 
 interface LogLink {
-    (
-        selector: string | HTMLElement,
-        eventName: string,
-        eventType?: EventType,
-        eventInfo?: SDKEventAttrs,
-    ): void;
+    (selector: string | HTMLElement, eventName: string, eventType?: EventType, eventInfo?: SDKEventAttrs): void;
 }
 
 interface LogPageView {
@@ -213,7 +201,7 @@ interface Login {
     (identityApiData: IdentityApiData, callback?: IdentityCallback): void;
 }
 interface Logout {
-    (identityApiData: IdentityApiData, callback?: IdentityCallback): void;
+    (identityApiData?: IdentityApiData | {} | null, callback?: IdentityCallback): void;
 }
 interface Modify {
     (identityApiData: IdentityApiData, callback?: IdentityCallback): void;
@@ -236,12 +224,7 @@ interface CreateProduct {
     ): Product;
 }
 interface CreatePromotion {
-    (
-        id: string,
-        creative?: string,
-        name?: string,
-        position?: number,
-    ): Promotion;
+    (id: string, creative?: string, name?: string, position?: number): Promotion;
 }
 interface CreateTransactionAttributes {
     (
@@ -254,12 +237,7 @@ interface CreateTransactionAttributes {
     ): TransactionAttributes;
 }
 interface LogCheckout {
-    (
-        step: number,
-        options?: string,
-        attrs?: SDKEventAttrs,
-        customFlags?: SDKEventCustomFlags,
-    ): void;
+    (step: number, options?: string, attrs?: SDKEventAttrs, customFlags?: SDKEventCustomFlags): void;
 }
 interface LogImpression {
     (
@@ -377,10 +355,7 @@ export namespace Consent {
 export interface ConsentState {
     setGDPRConsentState: (gdprConsentState: GDPRConsentState) => ConsentState;
     setCCPAConsentState: (ccpaConsentState: CCPAConsentState) => ConsentState;
-    addGDPRConsentState: (
-        purpose: string,
-        gdprConsent: PrivacyConsentState,
-    ) => ConsentState;
+    addGDPRConsentState: (purpose: string, gdprConsent: PrivacyConsentState) => ConsentState;
     getGDPRConsentState: () => GDPRConsentState;
     getCCPAConsentState: () => CCPAConsentState;
     removeGDPRConsentState: (purpose: string) => ConsentState;
@@ -512,7 +487,7 @@ export interface IdentifyRequest {
 
 export type MPID = string;
 export interface User {
-    getUserIdentities: () => UserIdentities;
+    getUserIdentities: () => IdentityApiData;
     getMPID: () => MPID;
     setUserTag: (tag: string) => void;
     removeUserTag: (tag: string) => void;
@@ -535,10 +510,7 @@ export interface User {
     getFirstSeenTime: () => number;
 }
 export type UserAttributesValue = string | number | boolean | null;
-export type AllUserAttributes = Record<
-    string,
-    UserAttributesValue | UserAttributesValue[]
->;
+export type AllUserAttributes = Record<string, UserAttributesValue | UserAttributesValue[]>;
 export interface UserIdentities {
     customerid?: string | undefined;
     email?: string | undefined;
@@ -582,16 +554,16 @@ interface Cart {
 }
 
 export interface Product {
-    name: string;
-    sku: string;
-    price: number;
-    quantity?: number | undefined;
-    variant?: string | undefined;
-    category?: string | undefined;
-    brand?: string | undefined;
-    position?: number | undefined;
-    coupon?: string | undefined;
-    attributes?: Record<string, unknown> | undefined;
+    Name: string;
+    Sku: string;
+    Price: number;
+    Quantity?: number | undefined;
+    Variant?: string | undefined;
+    Category?: string | undefined;
+    Brand?: string | undefined;
+    Position?: number | undefined;
+    Coupon?: string | undefined;
+    Attributes?: Record<string, unknown> | undefined;
 }
 
 export interface TransactionAttributes {
@@ -604,15 +576,15 @@ export interface TransactionAttributes {
 }
 
 export interface Impression {
-    name: string;
-    product: Product;
+    Name: string;
+    Product: Product;
 }
 
 export interface Promotion {
-    id: string;
-    creative?: string | undefined;
-    name?: string | undefined;
-    position?: number | undefined;
+    Id: string;
+    Creative?: string | undefined;
+    Name?: string | undefined;
+    Position?: number | undefined;
 }
 
 export interface IdentityApiData {
@@ -656,6 +628,10 @@ export interface errorObject {
     name: string;
     message: string;
     stack: string;
+}
+
+export interface onCreateBatch {
+    (batch: Batch): Batch;
 }
 
 export interface IdentityCallback {

@@ -18,7 +18,7 @@ declare namespace InfiniteScroll {
          * Name of the element that the component should render as.
          * Defaults to 'div'.
          */
-        element?: string | undefined;
+        element?: React.ReactNode | string | undefined;
         /**
          * Whether there are more items to be loaded. Event listeners are removed if false.
          * Defaults to false.

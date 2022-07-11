@@ -39,6 +39,7 @@ export interface CleaveOptions {
     numeralPositiveOnly?: boolean | undefined;
     numeralThousandsGroupStyle?: NumeralThousandsGroupStyleType | undefined;
     stripLeadingZeroes?: boolean | undefined;
+    tailPrefix?: boolean | undefined;
 }
 
 // Extra Options

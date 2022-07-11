@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "exports": {
+    ".": {
+      "types": {
+        "default": "./index.d.ts"
+      }
+    },
+    "./client": {
+      "types": {
+        "default": "./client.d.ts"
+      }
+    },
+    "./next": {
+      "types": {
+        "default": "./next.d.ts"
+      }
+    },
+    "./server": {
+      "types": {
+        "default": "./server.d.ts"
+      }
+    },
+    "./experimental": {
+      "types": {
+        "default": "./experimental.d.ts"
+      }
+    },
+    "./test-utils": {
+      "types": {
+          "default": "./test-utils/index.d.ts"
+      }
+    }
+  }
+}

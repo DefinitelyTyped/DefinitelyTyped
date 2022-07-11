@@ -23,7 +23,6 @@ import {
     Appearance,
     BackHandler,
     Button,
-    ColorPropType,
     ColorValue,
     DataSourceAssetCallback,
     DatePickerAndroid,
@@ -107,7 +106,6 @@ import {
     UIManager,
     View,
     ViewPagerAndroid,
-    ViewPropTypes,
     ViewStyle,
     VirtualizedList,
     YellowBox,
@@ -273,13 +271,17 @@ const combinedStyle5: StyleProp<TextStyle> = StyleSheet.compose(
 const combinedStyle6: StyleProp<TextStyle | null> = StyleSheet.compose(null, null);
 
 // The following use of the compose method is invalid:
-const combinedStyle7 = StyleSheet.compose(composeImageStyle, composeTextStyle); // $ExpectError
+// @ts-expect-error
+const combinedStyle7 = StyleSheet.compose(composeImageStyle, composeTextStyle);
 
-const combinedStyle8: StyleProp<ImageStyle> = StyleSheet.compose(composeTextStyle, composeTextStyle); // $ExpectError
+// @ts-expect-error
+const combinedStyle8: StyleProp<ImageStyle> = StyleSheet.compose(composeTextStyle, composeTextStyle);
 
-const combinedStyle9: StyleProp<ImageStyle> = StyleSheet.compose([composeTextStyle], null); // $ExpectError
+// @ts-expect-error
+const combinedStyle9: StyleProp<ImageStyle> = StyleSheet.compose([composeTextStyle], null);
 
-const combinedStyle10: StyleProp<ImageStyle> = StyleSheet.compose(Math.random() < 0.5 ? composeTextStyle : null, null); // $ExpectError
+// @ts-expect-error
+const combinedStyle10: StyleProp<ImageStyle> = StyleSheet.compose(Math.random() < 0.5 ? composeTextStyle : null, null);
 
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
@@ -315,11 +317,6 @@ class CustomView extends React.Component {
 }
 
 class Welcome extends React.Component<ElementProps<View> & { color: string }> {
-    static propTypes = {
-        ...ViewPropTypes,
-        color: ColorPropType,
-    };
-
     // tslint:disable-next-line:no-object-literal-type-assertion
     refs = {} as {
         [key: string]: React.ReactInstance;
@@ -444,7 +441,7 @@ export class PressableTest extends React.Component<{}> {
     render() {
         return (
             <>
-                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
+                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }} unstable_pressDelay={100}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
@@ -1274,7 +1271,9 @@ export class ImageBackgroundProps extends React.Component {
                 <ImageBackground
                     source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
                     imageRef={this.setImageRef}
-                />
+                >
+                    <Text>Some text</Text>
+                </ImageBackground>
             </View>
         );
     }
@@ -1382,7 +1381,6 @@ const NativeBridgedComponent = requireNativeComponent<{ nativeProp: string }>('N
 class BridgedComponentTest extends React.Component {
     static propTypes = {
         jsProp: PropTypes.string.isRequired,
-        ...ViewPropTypes,
     };
 
     nativeComponentRef: React.ElementRef<typeof NativeBridgedComponent> | null;
@@ -1527,6 +1525,37 @@ const PermissionsAndroidTest = () => {
                 break;
         }
     });
+
+    PermissionsAndroid.requestMultiple([
+        'android.permission.BLUETOOTH_SCAN',
+        'android.permission.BLUETOOTH_CONNECT',
+        'android.permission.BLUETOOTH_ADVERTISE'
+    ]).then(results => {
+        switch (results['android.permission.BLUETOOTH_SCAN']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.BLUETOOTH_CONNECT']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.BLUETOOTH_ADVERTISE']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    });
 };
 
 // Platform
@@ -1580,7 +1609,7 @@ DynamicColorIOS({
 // Test you cannot set internals of ColorValue directly
 const OpaqueTest1 = () => (
     <View
-        // $ExpectError
+        // @ts-expect-error
         style={{
             backgroundColor: {
                 resource_paths: ['?attr/colorControlNormal'],
@@ -1591,7 +1620,7 @@ const OpaqueTest1 = () => (
 
 const OpaqueTest2 = () => (
     <View
-        // $ExpectError
+        // @ts-expect-error
         style={{
             backgroundColor: {
                 semantic: 'string',
@@ -1605,7 +1634,8 @@ const OpaqueTest2 = () => (
 );
 
 // Test you cannot amend opaque type
-PlatformColor('?attr/colorControlNormal').resource_paths.push('foo'); // $ExpectError
+// @ts-expect-error
+PlatformColor('?attr/colorControlNormal').resource_paths.push('foo');
 
 const someColorProp: ColorValue = PlatformColor('test');
 
@@ -1712,10 +1742,6 @@ const DarkMode = () => {
     const isDarkMode = Appearance.getColorScheme() === 'dark';
 
     const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-        console.log(colorScheme);
-    });
-
-    Appearance.removeChangeListener(({ colorScheme }) => {
         console.log(colorScheme);
     });
 

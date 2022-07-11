@@ -18,15 +18,15 @@ test('it can do things asynchronously', async () => {
     return;
 });
 
-// $ExpectError
+// @ts-expect-error
 test("you shouldn't return from a test function", () => {
     return 2 + 2;
 });
 
-// $ExpectError
+// @ts-expect-error
 test("you shouldn't take parameters in a test function", (people: number) => {});
 
-// $ExpectError
+// @ts-expect-error
 test("you shouldn't return from an async test function", async () => {
     return 'data from an API under test';
 });

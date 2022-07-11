@@ -4,7 +4,7 @@ export namespace AnimationUtils {
     function arraySlice(array: any, from: number, to: number): any;
     function convertArray(array: any, type: any, forceClone: boolean): any;
     function isTypedArray(object: any): boolean;
-    function getKeyFrameOrder(times: number[]): number[];
+    function getKeyframeOrder(times: number[]): number[];
     function sortedArray(values: any[], stride: number, order: number[]): any[];
     function flattenJSON(jsonKeys: string[], times: any[], values: any[], valuePropertyName: string): void;
 

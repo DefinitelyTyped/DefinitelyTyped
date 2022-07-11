@@ -464,6 +464,11 @@ declare module 'meteor/meteor' {
          * Access inside the publish function. The incoming connection for this subscription.
          */
         stop(): void;
+        /**
+         * Call inside the publish function. Allows subsequent methods or subscriptions for the client of this subscription
+         * to begin running without waiting for the publishing to become ready.
+         */
+        unblock(): void;
         /** Access inside the publish function. The id of the logged-in user, or `null` if no user is logged in. */
         userId: string | null;
     }

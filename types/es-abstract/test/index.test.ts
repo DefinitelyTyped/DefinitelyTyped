@@ -36,4 +36,5 @@ expectType<typeof ES2018>(ESAbstract.ES2018); // $ExpectType ES2018
 expectType<typeof ES2019>(ESAbstract.ES2019); // $ExpectType ES2019
 
 // Removed in ES2015:
-ESAbstract.CheckObjectCoercible; // $ExpectError
+// @ts-expect-error
+ESAbstract.CheckObjectCoercible;

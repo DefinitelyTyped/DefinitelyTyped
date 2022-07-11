@@ -42,6 +42,7 @@ const output = minify(code, {
         },
         passes: 2,
     },
+    module: true,
     nameCache: {},
 });
 if (output.warnings) {
@@ -62,11 +63,13 @@ const compressOptions: CompressOptions = {
     keep_fargs: true,
     loops: true,
     merge_vars: true,
+    module: true,
     negate_iife: true,
     side_effects: true,
     templates: false,
     unused: true,
     varify: true,
+    webkit: true,
 };
 minify(code, {
     compress: compressOptions,

@@ -9,7 +9,8 @@ Ember.A([1, 2]); // $ExpectType NativeArray<number>
 // addListener
 Ember.addListener({ a: 'foo' }, 'event', {}, () => {});
 Ember.addListener({ a: 'foo' }, 'event', {}, 'a');
-Ember.addListener({ a: 'foo' }, 'event', {}, 'b'); // $ExpectError
+// @ts-expect-error
+Ember.addListener({ a: 'foo' }, 'event', {}, 'b');
 Ember.addListener({ a: 'foo' }, 'event', null, () => {});
 // addObserver
 Ember.addObserver({ a: 'foo' }, 'a', null, () => {});
@@ -20,11 +21,13 @@ Ember.assert('2+2 should always be 4', 2 + 2 === 4);
 const o1 = Ember.assign({ a: 1 }, { b: 2 });
 o1.a; // $ExpectType number
 o1.b; // $ExpectType number
-o1.c; // $ExpectError
-// Ember.bind // $ExpectError
+// @ts-expect-error
+o1.c;
+// Ember.bind // @ts-expect-error
 // cacheFor
 Ember.cacheFor({ a: 123 }, 'a'); // $ExpectType number | undefined
-Ember.cacheFor({ a: 123 }, 'x'); // $ExpectError
+// @ts-expect-error
+Ember.cacheFor({ a: 123 }, 'x');
 // compare
 Ember.compare('31', '114'); // $ExpectType number
 // debug
@@ -36,7 +39,7 @@ Ember.deprecate("you shouldn't use this anymore", 3 === 3, {
 });
 // get
 Ember.get({ z: 23 }, 'z'); // $ExpectType number
-Ember.get({ z: 23 }, 'zz'); // $ExpectError
+Ember.get({ z: 23 }, 'zz'); // $ExpectType unknown
 // getEngineParent
 Ember.getEngineParent(new Ember.EngineInstance()); // $ExpectType EngineInstance
 // getOwner
@@ -44,9 +47,11 @@ Ember.getOwner(new Ember.Component());
 // getProperties
 Ember.getProperties({ z: 23 }, 'z').z; // $ExpectType number
 Ember.getProperties({ z: 23 }, 'z', 'z').z; // $ExpectType number
-Ember.getProperties({ z: 23 }, 'z', 'a').z; // $ExpectError
+// @ts-expect-error
+Ember.getProperties({ z: 23 }, 'z', 'a').z;
 Ember.getProperties({ z: 23 }, ['z', 'z']).z; // $ExpectType number
-Ember.getProperties({ z: 23 }, ['z', 'a']).z; // $ExpectError
+// @ts-expect-error
+Ember.getProperties({ z: 23 }, ['z', 'a']).z;
 
 // guidFor
 Ember.guidFor({}); // $ExpectType string
@@ -85,10 +90,12 @@ const o3 = Ember.Object.extend({
 // removeListener
 Ember.removeListener(o2, 'create', null, () => {});
 Ember.removeListener(o2, 'create', null, 'create');
-Ember.removeListener({}, 'create', null, 'blah'); // $ExpectError
+// @ts-expect-error
+Ember.removeListener({}, 'create', null, 'blah');
 // removeObserver
 Ember.removeObserver(o2, 'create', () => {});
-Ember.removeObserver({}, 'create', () => {}); // $ExpectError
+// @ts-expect-error
+Ember.removeObserver({}, 'create', () => {});
 // runInDebug
 Ember.runInDebug(() => {});
 // sendEvent
@@ -96,7 +103,8 @@ Ember.sendEvent(o2, 'clicked', [1, 2]); // $ExpectType boolean
 // set
 Ember.set(o2.create(), 'name', 'bar'); // $ExpectType string
 Ember.set(o2.create(), 'age', 4); // $ExpectType number
-Ember.set(o2.create(), 'nam', 'bar'); // $ExpectError
+// @ts-expect-error
+Ember.set(o2.create(), 'nam', 'bar');
 // setOwner
 Ember.setOwner(o2.create(), {});
 // setProperties
@@ -107,7 +115,8 @@ Ember.trySet(o2, 'nam', ''); // $ExpectType any
 Ember.typeOf(''); // $ExpectType "string"
 Ember.typeOf(Ember.A()); // $ExpectType "array"
 // warn
-Ember.warn('be caseful!'); // $ExpectError
+// @ts-expect-error
+Ember.warn('be caseful!');
 Ember.warn('be caseful!', { id: 'some-warning' });
 // VERSION
 Ember.VERSION; // $ExpectType string
@@ -115,7 +124,8 @@ Ember.VERSION; // $ExpectType string
 // onerror
 
 Ember.onerror = (err: Error) => console.error(err);
-Ember.onerror = (num: number, err: Error) => console.error(err); // $ExpectError
+// @ts-expect-error
+Ember.onerror = (num: number, err: Error) => console.error(err);
 Ember.onerror = undefined;
 
 // Classes
@@ -130,7 +140,8 @@ Ember.ApplicationInstance.create(); // $ExpectType ApplicationInstance
 // TODO: Ember.ApplicationInstance.BootOptions
 // Ember.Array
 const a1: Ember.Array<string> = [];
-const a2: Ember.Array<string> = {}; // $ExpectError
+// @ts-expect-error
+const a2: Ember.Array<string> = {};
 // Ember.ArrayProxy
 new Ember.ArrayProxy<number>([3, 3, 2]); // $ExpectType ArrayProxy<number>
 // Ember.Component
@@ -197,7 +208,8 @@ Ember.Object.extend(Ember.Mixin.create({ foo: 'bar' }), {
 // Ember.MutableArray
 const ma1: Ember.MutableArray<string> = ['money', 'in', 'the', 'bananna', 'stand'];
 ma1.addObject('!'); // $ExpectType string
-ma1.filterBy(''); // $ExpectError
+// @ts-expect-error
+ma1.filterBy('');
 ma1.firstObject; // $ExpectType string | undefined
 ma1.lastObject; // $ExpectType string | undefined
 const ma2: Ember.MutableArray<{ name: string }> = [{ name: 'chris' }, { name: 'dan' }, { name: 'james' }];
@@ -258,14 +270,25 @@ Ember.Test.checkWaiters(); // $ExpectType boolean
  * stay gone
  */
 
-Ember.bind; // $ExpectError
-Ember.deprecate('foo', 'bar'); // $ExpectError
-Ember.K; // $ExpectError
-Ember.Binding; // $ExpectError
-Ember.Transition; // $ExpectError
-Ember.create; // $ExpectError
-Ember.reset; // $ExpectError
-Ember.unsubscribe; // $ExpectError
-Ember.subscribe; // $ExpectError
-Ember.instrument; // $ExpectError
-Ember.Instrumentation; // $ExpectError
+// @ts-expect-error
+Ember.bind;
+// @ts-expect-error
+Ember.deprecate('foo', 'bar');
+// @ts-expect-error
+Ember.K;
+// @ts-expect-error
+Ember.Binding;
+// @ts-expect-error
+Ember.Transition;
+// @ts-expect-error
+Ember.create;
+// @ts-expect-error
+Ember.reset;
+// @ts-expect-error
+Ember.unsubscribe;
+// @ts-expect-error
+Ember.subscribe;
+// @ts-expect-error
+Ember.instrument;
+// @ts-expect-error
+Ember.Instrumentation;

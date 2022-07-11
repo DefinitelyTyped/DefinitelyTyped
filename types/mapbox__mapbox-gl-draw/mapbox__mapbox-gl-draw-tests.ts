@@ -22,7 +22,7 @@ draw.getSelectedIds();
 // $ExpectType MapboxDraw
 draw.changeMode('direct_select', { featureId: '1' });
 
-// $ExpectError
+// @ts-expect-error
 draw.changeMode('direct_select');
 
 // $ExpectType MapboxDraw

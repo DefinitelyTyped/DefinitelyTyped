@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 17.0
+// Type definitions for non-npm package Node.js 18.0
 // Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -40,6 +40,7 @@
 //                 NodeJS Contributors <https://github.com/NodeJS>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 wafuwafu13 <https://github.com/wafuwafu13>
+//                 Matteo Collina <https://github.com/mcollina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -113,6 +114,7 @@
 /// <reference path="stream/consumers.d.ts" />
 /// <reference path="stream/web.d.ts" />
 /// <reference path="string_decoder.d.ts" />
+/// <reference path="test.d.ts" />
 /// <reference path="timers.d.ts" />
 /// <reference path="timers/promises.d.ts" />
 /// <reference path="tls.d.ts" />

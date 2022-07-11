@@ -86,7 +86,7 @@ declare namespace Toast {
         delay: number;
     }
 
-    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'dispose') => void;
+    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'dispose') => JQuery;
 }
 
 export default Toast;

@@ -1,4 +1,4 @@
-// Type definitions for Kendo UI Professional v2022.1.301
+// Type definitions for Kendo UI Professional v2022.2.510
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2577,7 +2577,6 @@ declare namespace kendo.ui {
         iconClass?: string | undefined;
         imageUrl?: string | undefined;
         rounded?: string | undefined;
-        shape?: string | undefined;
         size?: string | undefined;
         spriteCssClass?: string | undefined;
         themeColor?: string | undefined;
@@ -11850,9 +11849,13 @@ declare namespace kendo.ui {
 
     interface TreeListEditable {
         mode?: string | undefined;
-        move?: boolean | undefined;
+        move?: boolean | TreeListEditableMove | undefined;
         template?: string|Function | undefined;
         window?: any;
+    }
+
+    interface TreeListEditableMove {
+        reorderable?: boolean | undefined;
     }
 
     interface TreeListExcel {
@@ -12101,11 +12104,16 @@ declare namespace kendo.ui {
     interface TreeListDragEvent extends TreeListEvent {
         source?: kendo.data.TreeListModel | undefined;
         target?: JQuery | undefined;
+        pageX?: number | undefined;
+        pageY?: number | undefined;
+        status?: string | undefined;
+        setStatus?: Function | undefined;
     }
 
     interface TreeListDragendEvent extends TreeListEvent {
         source?: kendo.data.TreeListModel | undefined;
         destination?: kendo.data.TreeListModel | undefined;
+        position?: string | undefined;
     }
 
     interface TreeListDropEvent extends TreeListEvent {
@@ -12303,6 +12311,7 @@ declare namespace kendo.ui {
         dataTextField?: string|any | undefined;
         dataUrlField?: string | undefined;
         dragAndDrop?: boolean | undefined;
+        loadCompleted?(e: TreeViewEvent): void;
         loadOnDemand?: boolean | undefined;
         messages?: TreeViewMessages | undefined;
         template?: string|Function | undefined;
