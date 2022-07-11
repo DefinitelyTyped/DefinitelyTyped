@@ -9,14 +9,14 @@ export default function validate() {
   // $ExpectType boolean
   validate.cardType('4111 1111 1111 1111', true);
   validate.cardType(4111111111111111, true);
-  // @ts-expect-error
+  // $ExpectError
   validate.cardType(4111111111111111);
 
   // $ExpectType boolean
   validate.expiry('12', '22');
   validate.expiry(12, 22);
   validate.expiry('12', 22);
-  // @ts-expect-error
+  // $ExpectError
   validate.expiry('12-22');
 
   // $ExpectType boolean
