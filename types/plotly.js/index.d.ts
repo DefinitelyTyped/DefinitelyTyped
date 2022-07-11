@@ -1304,6 +1304,7 @@ export interface PlotData {
     locations: Datum[];
     reversescale: boolean;
     colorbar: Partial<ColorBar>;
+    offset: number;
 }
 
 /**
@@ -1506,6 +1507,12 @@ export interface Config {
     staticPlot: boolean;
 
     /**
+     * Determines whether math should be typeset or not,
+     * when MathJax (either v2 or v3) is present on the page.
+     */
+    typesetMath: boolean;
+
+    /**
      * When set it determines base URL for the 'Edit in Chart Studio' `showEditInChartStudio`/`showSendToCloud` mode bar button and the showLink/sendData on-graph link.
      * To enable sending your data to Chart Studio Cloud, you need to set both `plotlyServerURL` to 'https://chart-studio.plotly.com' and also set `showSendToCloud` to true.
      * @default ''
@@ -1533,6 +1540,9 @@ export interface Config {
 
     /** double click interaction (false, 'reset', 'autosize' or 'reset+autosize') */
     doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false;
+
+    /** sets the delay for registering a double-click in ms */
+    doubleClickDelay: number;
 
     /** new users see some hints about interactivity */
     showTips: boolean;
@@ -1624,8 +1634,34 @@ export interface Config {
     /** Which localization should we use? Should be a string like 'en' or 'en-US' */
     locale: string;
 
+    /**
+     * Localization definitions
+     * Locales can be provided either here (specific to one chart) or globally
+     * by registering them as modules.
+     * Should be an object of objects {locale: {dictionary: {...}, format: {...}}}
+     * {
+     *     da: {
+     *         dictionary: {'Reset axes': 'Nulstil aksler', ...},
+     *         format: {months: [...], shortMonths: [...]}
+     *     },
+     *     ...
+     * }
+     * All parts are optional. When looking for translation or format fields, we
+     * look first for an exact match in a config locale, then in a registered
+     * module. If those fail, we strip off any regionalization ('en-US' -> 'en')
+     * and try each (config, registry) again. The final fallback for translation
+     * is untranslated (which is US English) and for formats is the base English
+     * (the only consequence being the last fallback date format %x is DD/MM/YYYY
+     * instead of MM/DD/YYYY). Currently `grouping` and `currency` are ignored
+     * for our automatic number formatting, but can be used in custom formats.
+     */
+    locales: {};
+
     /** Make the chart responsive to window size */
     responsive: boolean;
+
+    /** Watermark the images with the company's logo */
+    watermark: boolean;
 }
 
 // Components
@@ -2288,7 +2324,7 @@ export interface Pattern {
      * Solidity of 0 shows only the background color without pattern
      * and solidty of 1 shows only the foreground color without pattern.
      */
-    solidarity?: number;
+    solidity?: number;
 }
 
 interface TraceModule {
