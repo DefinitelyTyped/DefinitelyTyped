@@ -690,7 +690,7 @@ interface User {
     surname: string;
     email: string;
     avatarUrl: string;
-    metadata: unknown;
+    metadata: Metadata;
     properties: unknown;
 }
 
@@ -700,6 +700,8 @@ interface ConversationParticipant {
     unreadCount: number;
     lastRead: number;
 }
+
+type Metadata = Record<string, string | number | boolean>;
 
 type ContentType = 'text'
     | 'carousel'
@@ -742,7 +744,7 @@ interface Conversation {
     iconUrl: string;
     type: 'sdkGroup' | string;
     participants: ConversationParticipant[];
-    metadata: Record<string, unknown>;
+    metadata: Metadata;
     messages: Message[];
 }
 

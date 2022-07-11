@@ -69,6 +69,19 @@ if (conversation) {
     conversation.metadata === 12345;
 }
 
+const user = Smooch.getUser();
+// Metadata is an object and can hold anything
+user.metadata.hello === 'world';
+user.metadata.foobar === 12345;
+
+user.metadata === undefined;
+user.metadata === null;
+
+// @ts-expect-error
+user.metadata === "can't be a string";
+// @ts-expect-error
+user.metadata === 12345;
+
 const message = conversation?.messages.pop();
 if (message) {
     message.type === 'text';
