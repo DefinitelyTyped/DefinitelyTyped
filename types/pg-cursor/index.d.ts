@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import EventEmitter = require("events");
+import { EventEmitter } from "events";
 import { Connection, CustomTypesConfig, QueryResult } from "pg";
 
 declare namespace Cursor {
