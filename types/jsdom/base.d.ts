@@ -46,9 +46,7 @@ declare module "jsdom" {
          * Some advanced use cases, like pre-compiling a script and then running it multiple
          * times, benefit from using the `vm` module directly with a jsdom-created `Window`.
          *
-         * @throws {TypeError}
-         * Note that this method will throw an exception if the `JSDOM` instance was created
-         * without `runScripts` set, or if you are using JSDOM in a web browser.
+         * @throws {TypeError} If the `JSDOM` instance was created without `runScripts` set, or if you are using JSDOM in a web browser.
          */
         getInternalVMContext(): Context;
 
