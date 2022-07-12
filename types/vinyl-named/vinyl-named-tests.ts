@@ -13,7 +13,7 @@ fs.src('src/*.js')
   }));
 
 fs.src('src/*.js')
-  .pipe(named(function (file) {
-    file.customName = 'your name'
-    this.queue(file)
-  }))
+  .pipe(named(function(file) {
+    file.customName = 'your name';
+    this.queue(file);
+  }));
