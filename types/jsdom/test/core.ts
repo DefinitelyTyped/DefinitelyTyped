@@ -209,3 +209,24 @@ function test_custom_resource_loader() {
 function test_resource_loader_return_type(resourceLoader: ResourceLoader) {
     resourceLoader.fetch("https://example.com", {}); // $ExpectType AbortablePromise<Buffer> | null
 }
+
+function test_createElementDirectTypes() {
+    const dom = new JSDOM('');
+
+    const document = dom.window.document;
+
+    document.createElement('hr'); // $ExpectType HTMLHRElement
+    document.createElement('br'); // $ExpectType HTMLBRElement
+    document.createElement('body'); // $ExpectType HTMLBodyElement
+    document.createElement('head'); // $ExpectType HTMLHeadElement
+    document.createElement('meta'); // $ExpectType HTMLMetaElement
+    document.createElement('html'); // $ExpectType HTMLHtmlElement
+    document.createElement('ul'); // $ExpectType HTMLUListElement
+    document.createElement('ol'); // $ExpectType HTMLOListElement
+    document.createElement('li'); // $ExpectType HTMLLIElement
+    document.createElement('h1'); // $ExpectType HTMLHeadingElement
+    document.createElement('div'); // $ExpectType HTMLDivElement
+    document.createElement('p'); // $ExpectType HTMLParagraphElement
+    document.createElement('pre'); // $ExpectType HTMLPreElement
+    document.createElement('somethingcustom'); // $ExpectType HTMLElement
+}
