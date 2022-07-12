@@ -39,7 +39,7 @@ declare module "jsdom" {
          *
          * @throws {Error} If the JSDOM was not created with `includeNodeLocations`
          */
-        nodeLocation(node: Node): Token.ElementLocation | null;
+        nodeLocation(node: Node): Token.Location | null;
 
         /**
          * The built-in `vm` module of Node.js is what underpins JSDOM's script-running magic.
