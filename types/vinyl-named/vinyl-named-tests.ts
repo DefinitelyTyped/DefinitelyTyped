@@ -11,3 +11,9 @@ fs.src('src/*.js')
     file.named;
     return 'your own name';
   }));
+
+fs.src('src/*.js')
+  .pipe(named(function (file) {
+    file.customName = 'your name'
+    this.queue(file)
+  }))
