@@ -1,4 +1,4 @@
-// Type definitions for animated_gif 1.0.2
+// Type definitions for animated_gif 1.0
 // Project: https://github.com/sole/Animated_GIF#readme
 // Definitions by: yyzclyang <https://github.com/yyzclyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ declare namespace Animated_GIF {
         sampleInterval?: number;
         numWorkers?: number;
         dithering?: DitheringMethod;
-        palette?: Array<number>;
+        palette?: number[];
     }
 }
 
