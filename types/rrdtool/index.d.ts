@@ -114,29 +114,25 @@ export interface RrdtoolDatabase<D extends RrdtoolData = any> {
 
 export type RrdtoolArgument<D extends RrdtoolData> = DataSource<D> | RoundRobinArchive;
 
-declare namespace rrdtool {
-    /**
-     * Creates a new database.
-     */
-    function create<D extends RrdtoolData>(
-        file: string,
-        opts: {
-            step?: Duration;
-            start?: Timestamp;
-            force?: boolean;
-        },
-        args: ReadonlyArray<RrdtoolArgument<D>>,
-    ): RrdtoolDatabase<D>;
+/**
+ * Creates a new database.
+ */
+export function create<D extends RrdtoolData>(
+    file: string,
+    opts: {
+        step?: Duration;
+        start?: Timestamp;
+        force?: boolean;
+    },
+    args: ReadonlyArray<RrdtoolArgument<D>>,
+): RrdtoolDatabase<D>;
 
-    /**
-     * Loads an existing database.
-     */
-    function open(file: string): RrdtoolDatabase;
+/**
+ * Loads an existing database.
+ */
+export function open(file: string): RrdtoolDatabase;
 
-    /**
-     * Returns the current unix timestamp.
-     */
-    function now(): number;
-}
-
-export default rrdtool;
+/**
+ * Returns the current unix timestamp.
+ */
+export function now(): number;

@@ -1,4 +1,4 @@
-import rrdtool, { DataSource, RoundRobinArchive, RrdtoolDatabase } from 'rrdtool';
+import { create, open, now, DataSource, RoundRobinArchive, RrdtoolDatabase } from 'rrdtool';
 
 let a: DataSource;
 // Test different data source types
@@ -85,12 +85,12 @@ c = 'RRA:AVERAGE:0.5:n:24';
 c = 'RRA:AVERAGE:0.5:12:n';
 
 // $ExpectType number
-const start = rrdtool.now() - 10;
+const start = now() - 10;
 
 const filename = 'test.rrd';
 let db1: RrdtoolDatabase<{ test: number }>;
-db1 = rrdtool.open(filename);
-db1 = rrdtool.create(filename, { start, step: '1m', force: false }, [
+db1 = open(filename);
+db1 = create(filename, { start, step: '1m', force: false }, [
     'RRA:AVERAGE:0.5:1:10',
     'DS:mem:GAUGE:1:0:100', // $ExpectError
     'DS:var:GAUGE:1:0:100', // $ExpectError
@@ -106,7 +106,7 @@ db1.update(start + 1, { mem: 90 }, () => {});
 // $ExpectError
 db1.update(start + 1, { test: '90' }, () => {});
 
-const db2 = rrdtool.create(filename, { start, step: 1, force: false }, [
+const db2 = create(filename, { start, step: 1, force: false }, [
     'DS:test:GAUGE:1:0:100',
     'RRA:AVERAGE:0.5:1:10',
 ]);
@@ -116,7 +116,7 @@ db2.update(start + 1, { mem: 90 }, () => {});
 // $ExpectError
 db2.update(start + 1, { test: '90' }, () => {});
 
-const db3 = rrdtool.open(filename);
+const db3 = open(filename);
 db3.update(start + 0, { test: 15 });
 db3.update(start + 1, { test: 90 }, () => {});
 db3.update(start + 1, { mem: 90 }, () => {});
