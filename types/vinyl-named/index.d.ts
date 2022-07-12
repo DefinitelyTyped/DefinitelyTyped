@@ -3,8 +3,6 @@
 // Definitions by: Maiko Tan <https://github.com/MaikoTant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import File = require('vinyl');
 import Through = require('through');
 
