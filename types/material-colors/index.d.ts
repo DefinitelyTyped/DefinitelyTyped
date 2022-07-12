@@ -1,6 +1,6 @@
 // Type definitions for material-colors 1.2
 // Project: https://github.com/shuhei/material-colors
-// Definitions by: Noah Overcash <https://github.com/me>
+// Definitions by: Noah Overcash <https://github.com/ncovercash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace material;
