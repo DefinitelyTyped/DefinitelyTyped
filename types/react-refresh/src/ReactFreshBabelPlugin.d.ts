@@ -1,4 +1,4 @@
-import type Babel from '@babel/core';
+import * as Babel from '@babel/core';
 
 export interface BabelPluginOptions {
     skipEnvCheck?: boolean | undefined;
@@ -25,4 +25,4 @@ export interface BabelPluginReturn {
     };
 }
 
-export default function (babel: typeof Babel, opts?: BabelPluginOptions): BabelPluginReturn;
+export default function(babel: typeof Babel, opts?: BabelPluginOptions): BabelPluginReturn;

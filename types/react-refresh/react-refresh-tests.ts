@@ -1,6 +1,7 @@
 import ReactRefreshRuntime from 'react-refresh/runtime';
 import ReactRefreshBabelPlugin from 'react-refresh/babel';
-import babel from '@babel/core';
+
+import * as Babel from '@babel/core';
 
 const STRING = 'example string';
 const noop = () => {};
@@ -30,13 +31,13 @@ ReactRefreshRuntime.setSignature(noop, STRING, true, () => noop);
 ReactRefreshRuntime.setSignature(noop, STRING, false);
 ReactRefreshRuntime.setSignature(noop, STRING);
 
-ReactRefreshBabelPlugin(babel);
-ReactRefreshBabelPlugin(babel, {});
-ReactRefreshBabelPlugin(babel, { emitFullSignatures: true });
-ReactRefreshBabelPlugin(babel, { refreshReg: STRING });
-ReactRefreshBabelPlugin(babel, { refreshSig: STRING });
-ReactRefreshBabelPlugin(babel, { emitFullSignatures: true });
-ReactRefreshBabelPlugin(babel, {
+ReactRefreshBabelPlugin(Babel);
+ReactRefreshBabelPlugin(Babel, {});
+ReactRefreshBabelPlugin(Babel, { emitFullSignatures: true });
+ReactRefreshBabelPlugin(Babel, { refreshReg: STRING });
+ReactRefreshBabelPlugin(Babel, { refreshSig: STRING });
+ReactRefreshBabelPlugin(Babel, { emitFullSignatures: true });
+ReactRefreshBabelPlugin(Babel, {
     emitFullSignatures: true,
     refreshReg: STRING,
     refreshSig: STRING,
