@@ -143,7 +143,7 @@ declare module "jsdom" {
          * contentType affects the value read from document.contentType, and how the document is parsed: as HTML or as XML.
          * Values that are not "text/html" or an XML mime type will throw. It defaults to "text/html".
          */
-        contentType?: string | undefined;
+        contentType?: SupportedContentTypes | undefined;
 
         /**
          * The maximum size in code units for the separate storage areas used by localStorage and sessionStorage.
@@ -154,6 +154,8 @@ declare module "jsdom" {
          */
         storageQuota?: number | undefined;
     }
+
+    type SupportedContentTypes = 'text/html' | 'application/xhtml+xml' | 'application/xml' | 'text/xml' | 'image/svg+xml';
 
     interface VirtualConsoleSendToOptions {
         omitJSDOMErrors: boolean;

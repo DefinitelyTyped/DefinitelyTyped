@@ -230,3 +230,13 @@ function test_createElementDirectTypes() {
     document.createElement('pre'); // $ExpectType HTMLPreElement
     document.createElement('somethingcustom'); // $ExpectType HTMLElement
 }
+
+function test_supported_contenttypes() {
+    new JSDOM('', { contentType: 'application/xhtml+xml' });
+    new JSDOM('', { contentType: 'application/xml' });
+    new JSDOM('', { contentType: 'text/xml' });
+    new JSDOM('', { contentType: 'text/html' });
+    new JSDOM('', { contentType: 'image/svg+xml' });
+    // @ts-expect-error Only the supported types are possible
+    new JSDOM('', { contentType: 'somethingelse' });
+}
