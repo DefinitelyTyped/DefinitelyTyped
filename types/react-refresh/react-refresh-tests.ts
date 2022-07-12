@@ -1,29 +1,44 @@
-import runtime from 'react-refresh/runtime';
+import ReactRefreshRuntime from 'react-refresh/runtime';
+import ReactRefreshBabelPlugin from 'react-refresh/babel';
+import babel from '@babel/core';
 
 const STRING = 'example string';
 const noop = () => {};
 
-runtime.collectCustomHooksForSignature(STRING);
-runtime.collectCustomHooksForSignature(noop);
-runtime.createSignatureFunctionForTransform();
-runtime.findAffectedHostInstances([]);
-runtime.findAffectedHostInstances([{ current: noop }]);
+ReactRefreshRuntime.collectCustomHooksForSignature(STRING);
+ReactRefreshRuntime.collectCustomHooksForSignature(noop);
+ReactRefreshRuntime.createSignatureFunctionForTransform();
+ReactRefreshRuntime.findAffectedHostInstances([]);
+ReactRefreshRuntime.findAffectedHostInstances([{ current: noop }]);
 // $ExpectError
-runtime.getFamilyByID(1);
-runtime.getFamilyByID(STRING);
-runtime.getFamilyByType(STRING);
-runtime.getFamilyByType(noop);
+ReactRefreshRuntime.getFamilyByID(1);
+ReactRefreshRuntime.getFamilyByID(STRING);
+ReactRefreshRuntime.getFamilyByType(STRING);
+ReactRefreshRuntime.getFamilyByType(noop);
 // $ExpectType boolean
-const hasUnrecoverableErrors = runtime.hasUnrecoverableErrors();
+const hasUnrecoverableErrors = ReactRefreshRuntime.hasUnrecoverableErrors();
 // $ExpectType number
-const result = runtime._getMountedRootCount();
-runtime.injectIntoGlobalHook(window);
+const result = ReactRefreshRuntime._getMountedRootCount();
+ReactRefreshRuntime.injectIntoGlobalHook(window);
 // $ExpectError
-runtime.injectIntoGlobalHook(STRING);
-runtime.performReactRefresh();
-runtime.register('unknown type', STRING);
-runtime.register(noop, STRING);
-runtime.register({}, STRING);
-runtime.setSignature(noop, STRING, true, () => noop);
-runtime.setSignature(noop, STRING, false);
-runtime.setSignature(noop, STRING);
+ReactRefreshRuntime.injectIntoGlobalHook(STRING);
+ReactRefreshRuntime.performReactRefresh();
+ReactRefreshRuntime.register('unknown type', STRING);
+ReactRefreshRuntime.register(noop, STRING);
+ReactRefreshRuntime.register({}, STRING);
+ReactRefreshRuntime.setSignature(noop, STRING, true, () => noop);
+ReactRefreshRuntime.setSignature(noop, STRING, false);
+ReactRefreshRuntime.setSignature(noop, STRING);
+
+ReactRefreshBabelPlugin(babel);
+ReactRefreshBabelPlugin(babel, {});
+ReactRefreshBabelPlugin(babel, { emitFullSignatures: true });
+ReactRefreshBabelPlugin(babel, { refreshReg: STRING });
+ReactRefreshBabelPlugin(babel, { refreshSig: STRING });
+ReactRefreshBabelPlugin(babel, { emitFullSignatures: true });
+ReactRefreshBabelPlugin(babel, {
+    emitFullSignatures: true,
+    refreshReg: STRING,
+    refreshSig: STRING,
+    skipEnvCheck: true,
+});
