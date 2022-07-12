@@ -1,7 +1,6 @@
 declare namespace Runtime {
     type AnyFn = (...args: any[]) => any;
 
-    // TODO: discuss about types taken from another public package
     interface Family {
         current: unknown;
     }
@@ -26,7 +25,6 @@ declare namespace Runtime {
     function getFamilyByID(id: string): Family | void;
     function getFamilyByType(type: unknown): Family | void;
 
-    // TODO: consult
     type Instance = unknown;
     function findAffectedHostInstances(families: Family[]): Set<Instance>;
     function injectIntoGlobalHook(globalObject: Window): void;
