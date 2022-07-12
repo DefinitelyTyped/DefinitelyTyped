@@ -10,7 +10,7 @@ declare namespace Express {
     }
 }
 
-import express = require('express');
+const express = require('express');
 
 declare namespace e {
     export interface MethodOverrideOptions {
