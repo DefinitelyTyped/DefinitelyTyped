@@ -192,7 +192,7 @@ declare module "jsdom" {
         readonly ["NaN"]: number;
         readonly undefined: undefined;
 
-        eval(script: string): any;
+        eval(script: string): unknown;
         parseInt(s: string, radix?: number): number;
         parseFloat(string: string): number;
         isNaN(number: number): boolean;

@@ -49,7 +49,7 @@ function test_executing_scripts2() {
 function test_executing_scripts3() {
     const window = new JSDOM(``, { runScripts: "outside-only" }).window;
 
-    window.eval(`document.body.innerHTML = "<p>Hello, world!</p>";`);
+    window.eval(`document.body.innerHTML = "<p>Hello, world!</p>";`); // $ExpectType unknown
     window.document.body.children.length === 1;
 }
 
