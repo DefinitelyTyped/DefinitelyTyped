@@ -1,20 +1,20 @@
-import { flatMap, mapDefined } from "@definitelytyped/utils";
+import { mapDefined } from "@definitelytyped/utils";
 import fsExtra from "fs-extra";
 const { writeFileSync, readFileSync, readdirSync, existsSync } = fsExtra;
 import hp from "@definitelytyped/header-parser";
 import { Octokit } from "@octokit/core";
 
 /**
- * @param {string} indexPath
- * @param {hp.Header & { raw: string }} header
+ * @param {URL} indexPath
+ * @param {string} indexContent
+ * @param {hp.Header} header
  * @param {Set<string>} ghosts
  */
-function bust(indexPath, header, ghosts) {
+function bust(indexPath, indexContent, header, ghosts) {
     /** @param {hp.Author} c */
     const isGhost = c => c.githubUsername && ghosts.has(c.githubUsername.toLowerCase());
     if (header.contributors.some(isGhost)) {
         console.log(`Found one or more deleted accounts in ${indexPath}. Patching...`);
-        const indexContent = header.raw;
         let newContent = indexContent;
         if (header.contributors.length === 1) {
             const prevContent = newContent;
@@ -57,19 +57,19 @@ function recurse(dir, fn) {
 }
 
 function getAllHeaders() {
-    /** @type {Record<string, hp.Header & { raw: string }>} */
-    const headers = {};
+    /** @type {{ indexPath: URL, indexContent: string, header: hp.Header }[]} */
+    const headers = [];
     console.log("Reading headers...");
     recurse(new URL("../types/", import.meta.url), subpath => {
-        const index = new URL("index.d.ts", subpath);
-        if (existsSync(index)) {
-            const indexContent = readFileSync(index, "utf-8");
-            let parsed;
+        const indexPath = new URL("index.d.ts", subpath);
+        if (existsSync(indexPath)) {
+            const indexContent = readFileSync(indexPath, "utf-8");
+            let header;
             try {
-                parsed = hp.parseHeaderOrFail(indexContent);
+                header = hp.parseHeaderOrFail(indexContent);
             } catch (e) {}
-            if (parsed) {
-                headers[/** @type {never} */ (index)] = { ...parsed, raw: indexContent };
+            if (header) {
+                headers.push({ indexPath, indexContent, header });
             }
         }
     });
@@ -143,14 +143,16 @@ process.on("unhandledRejection", err => {
     }
 
     const headers = getAllHeaders();
-    const users = new Set(flatMap(Object.values(headers), h => mapDefined(h.contributors, c => c.githubUsername?.toLowerCase())));
+    const users = new Set(
+        headers.flatMap(({ header }) => mapDefined(header.contributors, c => c.githubUsername?.toLowerCase()))
+    );
     const ghosts = await fetchGhosts(users);
     if (!ghosts.size) {
         console.log("No ghosts found");
         return;
     }
 
-    for (const indexPath in headers) {
-        bust(indexPath, headers[indexPath], ghosts);
+    for (const { indexPath, indexContent, header } of headers) {
+        bust(indexPath, indexContent, header, ghosts);
     }
 })();
