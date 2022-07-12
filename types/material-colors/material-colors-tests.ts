@@ -1,4 +1,4 @@
-import * as colors from 'material-colors';
+import colors = require('material-colors');
 
 const accentTest: string = colors.red.a700;
 const noAccentTest: string = colors.brown['700'];
