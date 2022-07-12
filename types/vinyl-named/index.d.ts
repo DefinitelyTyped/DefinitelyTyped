@@ -4,19 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
 import File = require('vinyl');
 import Through = require('through');
-
-declare module "vinyl" {
-    interface File {
-        named?: string;
-    }
-}
 
 type Callback = (
     this: Through.ThroughStream,
     /** A vinyl file object */
-    file: File
+    file: File & { named: string }
 ) => string | null | undefined | void;
 
 /**

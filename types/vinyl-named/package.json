@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/through": "^0.0.30",
-        "@types/vinyl": "^2.0.6"
-    }
-}
