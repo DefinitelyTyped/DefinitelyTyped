@@ -1,5 +1,5 @@
-// Type definitions for material-colors 1.2
-// Project: https://github.com/shuhei/material-colors
+// Type definitions for materialColors 1.2
+// Project: https://github.com/shuhei/materialColors
 // Definitions by: Noah Overcash <https://github.com/ncovercash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -10,19 +10,19 @@ declare const colors: {
         | 'red'
         | 'pink'
         | 'purple'
-        | 'deep-purple'
+        | 'deepPurple'
         | 'indigo'
         | 'blue'
-        | 'light-blue'
+        | 'lightBlue'
         | 'cyan'
         | 'teal'
         | 'green'
-        | 'light-green'
+        | 'lightGreen'
         | 'lime'
         | 'yellow'
         | 'amber'
         | 'orange'
-        | 'deep-orange']: {
+        | 'deepOrange']: {
         [intensity in
             | '50'
             | '100'
@@ -40,15 +40,15 @@ declare const colors: {
             | 'a700']: string;
     };
 } & {
-    [colorName in 'brown' | 'grey' | 'blue-grey']: {
+    [colorName in 'brown' | 'grey' | 'blueGrey']: {
         [intensity in '50' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900']: string;
     };
 } & {
-    [textColorName in 'dark-text' | 'light-text']: {
+    [textColorName in 'darkText' | 'lightText']: {
         [intensity in 'primary' | 'secondary' | 'disabled' | 'dividers']: string;
     };
 } & {
-    [iconTypeName in 'dark-icons' | 'light-icons']: {
+    [iconTypeName in 'darkIcons' | 'lightIcons']: {
         [mode in 'active' | 'inactive']: string;
     };
 } & {
