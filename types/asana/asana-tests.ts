@@ -100,7 +100,10 @@ client.users.me()
 // Client should be a constructor and accept a dispatcher (e.g. for rate limiting)
 // see: https://github.com/Asana/node-asana/blob/e8400cb386710bf9d310b9a538e291ce908f1291/test/client_spec.js#L33-L37
 
-let dispatcher = new asana.Dispatcher({retryOnRateLimit: true});
+let dispatcher = new asana.Dispatcher({
+  retryOnRateLimit: true,
+  defaultHeaders: {'Asana-Enable': 'feature'}, // dispatcher options can include headers
+});
 client = new asana.Client(dispatcher);
 
 // GIDs should handle both strings and numbers

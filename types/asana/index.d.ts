@@ -34,15 +34,7 @@ declare namespace asana {
     }
 
     /** Options to configure the client */
-    interface ClientOptions extends DispatcherOptions {
-        clientId?: string | number | undefined;
-        clientSecret?: string | undefined;
-        redirectUri?: string | undefined;
-        asanaBaseUrl?: string | undefined;
-        defaultHeaders?: {
-            [key: string]: string;
-        } | undefined;
-    }
+    type ClientOptions = auth.AppOptions & DispatcherOptions;
 
     interface Client {
         /**
@@ -218,6 +210,9 @@ declare namespace asana {
         retryOnRateLimit?: boolean | undefined;
         handleUnauthorized?: (() => boolean | Promise<boolean>) | undefined;
         requestTimeout?: string | undefined;
+        defaultHeaders?: {
+            [key: string]: string;
+        } | undefined;
     }
 
     interface Dispatcher {
