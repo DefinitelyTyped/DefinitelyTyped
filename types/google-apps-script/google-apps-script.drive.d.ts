@@ -73,7 +73,7 @@ declare namespace GoogleAppsScript {
       createFolder(name: string): Folder;
       /** Creates a shortcut to the provided Drive item ID, and returns it. */
       createShortcut(targetId: string): File;
-      /** 
+      /**
        * Creates a shortcut to the provided Drive item ID and resource key, and
        * returns it. Resource keys are an additional parameter which need to be
        * passed to access the target file or folder that has been shared using a
