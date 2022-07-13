@@ -1,6 +1,4 @@
-import { BasePayload } from "./base-payload";
-import { BuildCompletedResource } from "./build-completed-resource";
+import { BasePayload } from './base-payload';
+import { BuildCompletedResource } from './build-completed-resource';
 
-export interface BuildCompletedPayload extends BasePayload<BuildCompletedResource> {
-
-}
+export interface BuildCompletedPayload extends BasePayload<BuildCompletedResource> {}

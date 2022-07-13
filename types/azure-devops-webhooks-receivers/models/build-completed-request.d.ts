@@ -1,4 +1,4 @@
-import { ResourceUser } from "./resource-user";
+import { ResourceUser } from './resource-user';
 
 export interface BuildCompletedRequest {
     id: number;

@@ -1,4 +1,4 @@
-import { GitLink } from "./git-link";
+import { GitLink } from './git-link';
 
 export interface GitPushLinks {
     self: GitLink;

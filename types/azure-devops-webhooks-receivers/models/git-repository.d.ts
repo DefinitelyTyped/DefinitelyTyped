@@ -1,4 +1,4 @@
-import { GitProject } from "./git-project";
+import { GitProject } from './git-project';
 
 export interface GitRepository {
     id: string;

@@ -1,5 +1,5 @@
-import { WorkItemLinks } from "./work-item-links";
-import { BaseResource } from "./base-resource";
+import { WorkItemLinks } from './work-item-links';
+import { BaseResource } from './base-resource';
 
 export interface BaseWorkItemResource<T> extends BaseResource {
     id: number;

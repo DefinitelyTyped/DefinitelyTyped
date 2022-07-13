@@ -1,6 +1,4 @@
-import { BasePayload } from "./base-payload";
-import { CodeCheckedInResource } from "./code-checked-in-resource";
+import { BasePayload } from './base-payload';
+import { CodeCheckedInResource } from './code-checked-in-resource';
 
-export interface CodeCheckedInPayload extends BasePayload<CodeCheckedInResource> {
-
-}
+export interface CodeCheckedInPayload extends BasePayload<CodeCheckedInResource> {}

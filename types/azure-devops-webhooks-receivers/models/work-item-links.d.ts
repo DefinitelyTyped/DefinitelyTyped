@@ -1,4 +1,4 @@
-import { WorkItemLink } from "./work-item-link";
+import { WorkItemLink } from './work-item-link';
 
 export interface WorkItemLinks {
     self: WorkItemLink;

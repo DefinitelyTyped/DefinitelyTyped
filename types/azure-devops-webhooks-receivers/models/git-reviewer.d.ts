@@ -1,4 +1,4 @@
-import { GitUser } from "./git-user";
+import { GitUser } from './git-user';
 
 export interface GitReviewer extends GitUser {
     reviewerUrl: string;

@@ -1,6 +1,4 @@
-import { BasePayload } from "./base-payload";
-import { GitPullRequestUpdatedResource } from "./git-pull-request-updated-resource";
+import { BasePayload } from './base-payload';
+import { GitPullRequestUpdatedResource } from './git-pull-request-updated-resource';
 
-export interface GitPullRequestUpdatedPayload extends BasePayload<GitPullRequestUpdatedResource> {
-
-}
+export interface GitPullRequestUpdatedPayload extends BasePayload<GitPullRequestUpdatedResource> {}

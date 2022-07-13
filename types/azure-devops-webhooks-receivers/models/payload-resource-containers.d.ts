@@ -1,4 +1,4 @@
-import { PayloadResourceContainer } from "./payload-resource-container";
+import { PayloadResourceContainer } from './payload-resource-container';
 
 export interface PayloadResourceContainers {
     collection: PayloadResourceContainer;

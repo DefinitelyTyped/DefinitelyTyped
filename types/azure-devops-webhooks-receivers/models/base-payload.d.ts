@@ -1,7 +1,8 @@
-import { PayloadMessage } from "./payload-message";
-import { PayloadResourceContainers } from "./payload-resource-containers";
+import { BaseResource } from './base-resource';
+import { PayloadMessage } from './payload-message';
+import { PayloadResourceContainers } from './payload-resource-containers';
 
-export interface BasePayload<T> {
+export interface BasePayload<T extends BaseResource> {
     subscriptionId: string;
     notificationId: number;
     id: string;

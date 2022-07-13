@@ -1,4 +1,4 @@
-import { GitUserInfo } from "./git-user-info";
+import { GitUserInfo } from './git-user-info';
 
 export interface GitCommit {
     commitId: string;

@@ -1,10 +1,10 @@
-import { GitRepository } from "./git-repository";
-import { GitUser } from "./git-user";
-import { GitMergeCommit } from "./git-merge-commit";
-import { GitReviewer } from "./git-reviewer";
-import { GitPullLinks } from "./git-pull-links";
-import { GitCommit } from "./git-commit";
-import { BaseResource } from "./base-resource";
+import { GitRepository } from './git-repository';
+import { GitUser } from './git-user';
+import { GitMergeCommit } from './git-merge-commit';
+import { GitReviewer } from './git-reviewer';
+import { GitPullLinks } from './git-pull-links';
+import { GitCommit } from './git-commit';
+import { BaseResource } from './base-resource';
 
 export interface GitPullRequestResource extends BaseResource {
     repository: GitRepository;

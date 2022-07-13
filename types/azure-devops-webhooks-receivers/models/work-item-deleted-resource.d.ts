@@ -1,6 +1,4 @@
-import { BaseWorkItemResource } from "./base-work-item-resource";
-import { WorkItemFields } from "./work-item-fields";
+import { BaseWorkItemResource } from './base-work-item-resource';
+import { WorkItemFields } from './work-item-fields';
 
-export interface WorkItemDeletedResource extends BaseWorkItemResource<WorkItemFields> {
-
-}
+export interface WorkItemDeletedResource extends BaseWorkItemResource<WorkItemFields> {}

@@ -1,6 +1,4 @@
-import { BasePayload } from "./base-payload";
-import { WorkItemRestoredResource } from "./work-item-restored-resource";
+import { BasePayload } from './base-payload';
+import { WorkItemRestoredResource } from './work-item-restored-resource';
 
-export interface WorkItemRestoredPayload extends BasePayload<WorkItemRestoredResource> {
-
-}
+export interface WorkItemRestoredPayload extends BasePayload<WorkItemRestoredResource> {}

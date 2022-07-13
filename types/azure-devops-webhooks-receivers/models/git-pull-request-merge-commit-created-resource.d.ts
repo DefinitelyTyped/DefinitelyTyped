@@ -1,5 +1,1 @@
-import { GitPullRequestUpdatedResource } from "./git-pull-request-updated-resource";
-
-export interface GitPullRequestMergeCommitCreatedResource extends GitPullRequestUpdatedResource {
-
-}
+export { GitPullRequestUpdatedResource as GitPullRequestMergeCommitCreatedResource } from './git-pull-request-updated-resource';

@@ -1,5 +1,5 @@
-import { ResourceUser } from "./resource-user";
-import { BaseResource } from "./base-resource";
+import { ResourceUser } from './resource-user';
+import { BaseResource } from './base-resource';
 
 export interface TeamRoomMessagePostedResource extends BaseResource {
     id: number;

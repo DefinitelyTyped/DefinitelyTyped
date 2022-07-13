@@ -1,4 +1,4 @@
-import { WorkItemFields } from "./work-item-fields";
+import { WorkItemFields } from './work-item-fields';
 
 export interface WorkItemUpdatedRevision {
     id: number;
