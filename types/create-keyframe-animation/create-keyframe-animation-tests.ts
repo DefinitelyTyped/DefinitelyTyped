@@ -1,4 +1,4 @@
-import animations from "create-keyframe-animation";
+import * as animations from "create-keyframe-animation";
 
 // $ExpectType boolean
 animations.hasAnimation('move');
