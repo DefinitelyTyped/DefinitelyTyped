@@ -19,8 +19,8 @@
         "update-codeowners": "node scripts/update-codeowners.js",
         "test-all": "node --require source-map-support/register node_modules/@definitelytyped/dtslint-runner/ --path .",
         "clean": "node scripts/remove-empty.js",
-        "test": "cross-env NODE_OPTIONS=\"--require source-map-support/register\" dtslint types",
-        "lint": "cross-env NODE_OPTIONS=\"--require source-map-support/register\" dtslint types",
+        "test": "node --require source-map-support/register node_modules/@definitelytyped/dtslint/ types",
+        "lint": "node --require source-map-support/register node_modules/@definitelytyped/dtslint/ types",
         "prettier": "prettier"
     },
     "devDependencies": {
@@ -31,7 +31,6 @@
         "@definitelytyped/utils": "latest",
         "@octokit/core": "^3.5.1",
         "@octokit/rest": "^16.0.0",
-        "cross-env": "^7.0.3",
         "d3-array": "^3.0.2",
         "d3-axis": "^3.0.0",
         "d3-scale": "^4.0.0",
