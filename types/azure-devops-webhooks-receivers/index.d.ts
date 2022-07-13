@@ -1,4 +1,4 @@
-// Type definitions for azure-devops-webhooks-receivers 0.0
+// Type definitions for non-npm package azure-devops-webhooks-receivers 4.0
 // Project: https://github.com/aspnet/AspNetWebHooks/tree/main/src/Microsoft.AspNet.WebHooks.Receivers.VSTS/Payloads
 // Definitions by: Jason Gravell <https://github.com/gravllift>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
