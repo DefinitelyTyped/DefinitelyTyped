@@ -22,6 +22,7 @@ import {
     Bluepages,
     ContentDesign,
     AiExplainability,
+    RedHatApplications
 } from "@carbon/pictograms-react";
 
 <Airplane />; // $ExpectType Element
@@ -47,3 +48,4 @@ import {
 <Bluepages />; // $ExpectType Element
 <ContentDesign />; // $ExpectType Element
 <AiExplainability />; // $ExpectType Element
+<RedHatApplications />; // $ExpectType Element
