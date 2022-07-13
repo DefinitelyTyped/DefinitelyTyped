@@ -24,6 +24,8 @@
     },
     "files": [
         "index.d.ts",
+        "runtime.d.ts",
+        "babel.d.ts",
         "react-refresh-tests.ts"
     ]
 }
