@@ -135,15 +135,55 @@ const multiPolygon: MultiPolygon = {
 const geometryCollection: GeometryCollection = {
     type: "GeometryCollection",
     geometries: [
-        {
-            type: "Point",
-            coordinates: [100.0, 0.0]
-        },
-        {
-            type: "LineString",
-            coordinates: [[101.0, 0.0], [102.0, 1.0]]
-        }
-    ]
+        point,
+        multiPoint,
+        lineString,
+        multiLineString,
+        polygon,
+        multiPolygon,
+    ],
+};
+
+// allow nested GeometryCollection.
+// ref: https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.8
+// "To maximize interoperability, implementations SHOULD avoid nested GeometryCollections."
+// ref: https://datatracker.ietf.org/doc/html/rfc2119#section-3
+// "SHOULD" means "there may exist valid reasons in particular circumstances".
+const geometryCollectionWithGeometryCollection: GeometryCollection = {
+    type: "GeometryCollection",
+    geometries: [
+        geometryCollection,
+    ],
+};
+
+const geometryCollectionWithGenerics: GeometryCollection<Point | LineString | Polygon> = {
+    type: "GeometryCollection",
+    geometries: [
+        point,
+        lineString,
+        polygon,
+        // @ts-expect-error
+        multiPoint,
+        // @ts-expect-error
+        multiLineString,
+        // @ts-expect-error
+        multiPolygon,
+        // @ts-expect-error
+        geometryCollection,
+        // @ts-expect-error
+        null,
+    ],
+};
+
+// @ts-expect-error
+declare const geometryCollectionWithNullInGenerics: GeometryCollection<null>;
+
+const geometryCollectionWithNullInGeometries: GeometryCollection = {
+    type: "GeometryCollection",
+    geometries: [
+        // @ts-expect-error
+        null,
+    ],
 };
 
 let feature: Feature<GeometryObject> = {
