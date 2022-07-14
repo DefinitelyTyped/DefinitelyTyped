@@ -6,7 +6,7 @@ import Prompt from './base';
 /**
  * The question for the {@link RawListPrompt `RawListPrompt<TQuestion>`}.
  */
-type Question = RawListQuestionOptions<Answers>;
+type Question = RawListQuestionOptions;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.

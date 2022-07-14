@@ -6,7 +6,7 @@ import Prompt from './base';
 /**
  * The question-options for the {@link EditorPrompt `EditorPrompt<TQuestion>`}.
  */
-type Question = EditorQuestionOptions<Answers>;
+type Question = EditorQuestionOptions;
 
 /**
  * Represents a prompt which provides a text-editor.

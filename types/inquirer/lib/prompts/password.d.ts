@@ -5,7 +5,7 @@ import Prompt from './base';
 /**
  * The question for the {@link PasswordPrompt `PasswordPrompt<TQuestion>`}.
  */
-type Question = PasswordQuestionOptions<Answers>;
+type Question = PasswordQuestionOptions;
 
 /**
  * Represents a prompt which allows the user to type a password.

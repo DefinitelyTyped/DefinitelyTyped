@@ -6,7 +6,7 @@ import Prompt from './base';
 /**
  * The question-options for the {@link CheckboxPrompt `CheckboxPrompt<TQuestion>`}.
  */
-type Question = CheckboxQuestionOptions<Answers>;
+type Question = CheckboxQuestionOptions;
 
 /**
  * Represents a prompt which provides a set of choices to check.

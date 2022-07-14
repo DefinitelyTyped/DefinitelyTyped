@@ -5,7 +5,7 @@ import Prompt from './base';
 /**
  * The question-options for the {@link InputPrompt `InputPrompt<TQuestion>`}.
  */
-type Question = InputQuestionOptions<Answers>;
+type Question = InputQuestionOptions;
 
 /**
  * Represents a prompt which allows the user to type an answer.

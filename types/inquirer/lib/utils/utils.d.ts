@@ -21,7 +21,9 @@ type QuestionProperty = KeyUnion<UnionToIntersection<DistinctQuestion>>;
  * @returns
  * The processed question.
  */
-export const fetchAsyncQuestionProperty: (
+export function fetchAsyncQuestionProperty(
     question: DistinctQuestion,
     prop: QuestionProperty,
-    answers: Answers) => Observable<DistinctQuestion>;
+    answers: Answers): Observable<DistinctQuestion>;
+
+export {};

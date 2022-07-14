@@ -6,7 +6,7 @@ import Prompt from './base';
 /**
  * The question-options for the {@link ExpandPrompt `ExpandPrompt<TQuestion>`}.
  */
-type Question = ExpandQuestionOptions<Answers>;
+type Question = ExpandQuestionOptions;
 
 /**
  * Represents a prompt which forces the user to make a choice by typing a specific key.
