@@ -1089,3 +1089,15 @@ function sample18() {
   canvas.freeDrawingBrush.width = 2;
   canvas.freeDrawingBrush.decimate = 2;
 }
+
+function testIntersection() {
+  const a1 = new fabric.Point(50, 400);
+  const a2 = new fabric.Point(250, 40);
+  const b1 = new fabric.Point(50, 94);
+  const b2 = new fabric.Point(250, 70);
+  const intersect = fabric.Intersection.intersectLineLine(a1, a2, b1, b2);
+  // $ExpectType string
+  intersect.status;
+  // $ExpectType Point[]
+  intersect.points;
+}
