@@ -29,22 +29,22 @@ import { Subject } from 'rxjs';
     new inquirer.ui.Prompt(inquirer.prompt.prompts);
 }
 {
-    const checkBoxQuestion: inquirer.CheckboxQuestion = {
+    const checkBoxQuestion: inquirer.DistinctQuestion = {
         type: 'checkbox',
         askAnswered: true,
     };
 
-    const listQuestion: inquirer.ListQuestion = {
+    const listQuestion: inquirer.DistinctQuestion = {
         type: 'list',
         askAnswered: true,
     };
 
-    const rawListQuestion: inquirer.RawListQuestion = {
+    const rawListQuestion: inquirer.DistinctQuestion = {
         type: 'rawlist',
         askAnswered: true,
     };
 
-    const expandQuestion: inquirer.ExpandQuestion = {
+    const expandQuestion: inquirer.DistinctQuestion = {
         type: 'expand',
         askAnswered: true,
     };
