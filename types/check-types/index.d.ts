@@ -1,6 +1,7 @@
 // Type definitions for check-types 7.3
 // Project: https://gitlab.com/philbooth/check-types.js
 // Definitions by: idchlife <https://github.com/idchlife>
+//                 shov <https://github.com/shov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
