@@ -25,6 +25,25 @@ import { Subject } from 'rxjs';
     ]);
 }
 {
+    inquirer.prompt(
+        {
+            this: {
+                // @ts-expect-error
+                name: 'test',
+                message: '1st question'
+            },
+            is: {
+                message: '2nd question'
+            },
+            a: {
+                message: '3rd question'
+            },
+            test: {
+                message: '4th question'
+            }
+        });
+}
+{
     new inquirer.ui.BottomBar();
     new inquirer.ui.Prompt(inquirer.prompt.prompts);
 }

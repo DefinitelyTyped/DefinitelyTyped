@@ -729,7 +729,8 @@ declare namespace inquirer {
     export type QuestionCollection<T extends Answers = Answers> =
         | DistinctQuestion<T>
         | ReadonlyArray<DistinctQuestion<T>>
-        | Observable<DistinctQuestion<T>>;
+        | Observable<DistinctQuestion<T>>
+        | Record<string, Omit<DistinctQuestion<T>, "name">>;
 
     /**
      * Provides an input and an output-stream.
