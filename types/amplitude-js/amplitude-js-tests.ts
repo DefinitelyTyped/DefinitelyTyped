@@ -257,7 +257,8 @@ amplitude.getInstance().init('API_KEY', 'USER_ID', defaults);
 
 // Checking for a Failed Library Initialization Case
 amplitude.getInstance().init('API_KEY', 'USER_ID', {
-    sessionId: Date.now().toString(), // $ExpectError
+    // @ts-expect-error
+    sessionId: Date.now().toString(),
 });
 
 // For versions starting from 8.9.0
