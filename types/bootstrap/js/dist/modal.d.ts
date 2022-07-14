@@ -119,7 +119,8 @@ declare namespace Modal {
 
         /**
          * Only present for `show.bs.modal` and `shown.bs.modal` events when
-         * the event is caused by a click. Otherwise, it's undefined.
+         * the event was triggered by a click. In that case, it's the element
+         * that was clicked. Otherwise, it's undefined.
          */
         relatedTarget?: HTMLElement;
     }
