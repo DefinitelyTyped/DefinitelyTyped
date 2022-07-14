@@ -4,7 +4,7 @@ import { Interface as ReadLineInterface } from 'readline';
 import Paginator = require('../utils/paginator');
 
 /**
- * The question-options for the `ChoicePrompt<T>`.
+ * The question-options for the `CheckboxPrompt<T>`.
  */
 type Question = inquirer.CheckboxQuestionOptions<inquirer.Answers>;
 

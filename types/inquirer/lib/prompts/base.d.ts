@@ -68,10 +68,10 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
     protected _run(callback: (callback: any) => void): void;
 
     /**
-     * Throws an error for a missing param.
+     * Throws an error for a missing parameter.
      *
      * @param name
-     * The name of the missing param.
+     * The name of the missing parameter.
      */
     protected throwParamError(name: string): void;
 

@@ -26,7 +26,7 @@ declare class ConfirmPrompt<TQuestion extends Question = Question> extends Promp
      * @param answers
      * The answer-object.
      */
-    constructor(questions: TQuestion, readLine: ReadlineInterface, answers: Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt.

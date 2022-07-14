@@ -770,7 +770,7 @@ declare namespace inquirer {
      */
     export namespace prompts {
         /**
-         * Provides a base for and prompt-options.
+         * Provides options for a prompt.
          *
          * @template T
          * The type of the answers.
@@ -921,7 +921,7 @@ declare namespace inquirer {
             protected render(): this;
         
             /**
-             * Clean the bottom bar.
+             * Cleans the bottom bar.
              */
             protected clean(): this;
         

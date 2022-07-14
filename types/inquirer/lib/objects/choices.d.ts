@@ -192,7 +192,7 @@ declare class Choices<T extends Answers = Answers> {
     ): Choice<T> | Separator;
 
     /**
-     * Appends new elements to an array, and returns the new length of the array.
+     * Appends new elements to the array, and returns the new length of the array.
      *
      * @param items
      * The elements to add to the array.

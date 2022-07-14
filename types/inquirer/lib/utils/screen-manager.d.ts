@@ -15,7 +15,7 @@ declare class ScreenManager {
     extraLinesUnderPrompt: number;
 
     /**
-     * Gets or sets an object for performing read from and write to the console.
+     * Gets or sets an object for reading from and writing to the console.
      */
     rl: ReadLineInterface;
 
@@ -23,7 +23,7 @@ declare class ScreenManager {
      * Initializes a new instance of the `ScreenManager` class.
      *
      * @param readLine
-     * An object for performing read from and write to the console.
+     * An object for reading from and writing to the console.
      */
     constructor(readLine: ReadLineInterface);
 
@@ -65,7 +65,7 @@ declare class ScreenManager {
     protected normalizedCliWidth(): number;
 
     /**
-     * Splits the `text` into multiple lines with the specified max `width`.
+     * Splits the `text` into multiple lines with the specified maximum `width`.
      *
      * @param text
      * The text to process.
@@ -76,13 +76,13 @@ declare class ScreenManager {
     protected breakLines(text: string, width: number): string[];
 
     /**
-     * Adds line-breaks to the specified `text` with the specified max `width`.
+     * Adds line-breaks to the specified `text` with the specified maximum `width`.
      *
      * @param text
      * The text to process.
      *
      * @param width
-     * The max width of each line.
+     * The maximum width of each line.
      */
     protected forceLineReturn(text: string, width: number): string;
 }
