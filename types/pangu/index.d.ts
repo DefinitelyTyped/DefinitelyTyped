@@ -1,4 +1,4 @@
-// Type definitions for pangu 4.0.7
+// Type definitions for pangu 4.0
 // Project: https://github.com/vinta/pangu.js
 // Definitions by: York Yao <https://github.com/plantain-00>, AH-dark <https://github.com/AH-dark>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
