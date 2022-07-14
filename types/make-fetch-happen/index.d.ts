@@ -3,7 +3,7 @@
 // Definitions by: Jesse Rosenberger <https://github.com/abernix>
 //                 Trevor Scheer <https://github.com/trevor-scheer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 4.0
 /// <reference lib="dom" />
 import { ClientRequestArgs, AgentOptions } from 'http';
 import { SecureContextOptions } from 'tls';
