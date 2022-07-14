@@ -121,47 +121,6 @@ declare namespace inquirer {
     export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
 
     /**
-     * Provides an input and an output-stream.
-     */
-    export interface StreamOptions {
-        /**
-         * A stream to read the input from.
-         */
-        input?: NodeJS.ReadStream | undefined;
-
-        /**
-         * A stream to write the output to.
-         */
-        output?: NodeJS.WriteStream | undefined;
-    }
-
-    /**
-     * Provides the functionality to prompt questions to the user.
-     */
-    export interface PromptModule extends PromptModuleBase {
-        /**
-         * The prompts of the prompt-module.
-         */
-        prompts: prompts.PromptCollection;
-
-        /**
-         * Prompts the questions to the user.
-         */
-        <T extends Answers = Answers>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>): Promise<T> & { ui: ui.Prompt<T> };
-
-        /**
-         * Registers a new prompt-type.
-         *
-         * @param name
-         * The name of the prompt.
-         *
-         * @param prompt
-         * The constructor of the prompt.
-         */
-        registerPrompt(name: string, prompt: prompts.PromptConstructor): this;
-    }
-
-    /**
      * A set of answers.
      */
     export interface Answers extends Record<string, any> {}
@@ -206,89 +165,6 @@ declare namespace inquirer {
         T | Promise<T>,
         TAnswers
     >;
-
-    /**
-     * Provides options for a question.
-     *
-     * @template T
-     * The type of the answers.
-     */
-    export interface Question<T extends Answers = Answers> {
-        /**
-         * The type of the question.
-         */
-        type?: string | undefined;
-
-        /**
-         * The key to save the answer to the answers-hash.
-         */
-        name?: KeyUnion<T> | undefined;
-
-        /**
-         * The message to show to the user.
-         */
-        message?: AsyncDynamicQuestionProperty<string, T> | undefined;
-
-        /**
-         * The default value of the question.
-         */
-        default?: AsyncDynamicQuestionProperty<any, T> | undefined;
-
-        /**
-         * The prefix of the `message`.
-         */
-        prefix?: string | undefined;
-
-        /**
-         * The suffix of the `message`.
-         */
-        suffix?: string | undefined;
-
-        /**
-         * Post-processes the answer.
-         *
-         * @param input
-         * The answer provided by the user.
-         *
-         * @param answers
-         * The answers provided by the user.
-         */
-        filter?(input: any, answers: T): any;
-
-        /**
-         * A value indicating whether the question should be prompted.
-         */
-        when?: AsyncDynamicQuestionProperty<boolean, T> | undefined;
-
-        /**
-         * Validates the integrity of the answer.
-         *
-         * @param input
-         * The answer provided by the user.
-         *
-         * @param answers
-         * The answers provided by the user.
-         *
-         * @returns
-         * Either a value indicating whether the answer is valid or a `string` which describes the error.
-         */
-        validate?(input: any, answers?: T): boolean | string | Promise<boolean | string>;
-
-        /**
-         * Force to prompt the question if the answer already exists.
-         */
-        askAnswered?: boolean;
-    }
-
-    /**
-     * Represents the possible answers of each question in the prompt
-     */
-    type QuestionAnswer<T extends Answers = Answers> = {
-        [K in keyof T]: {
-            name: K;
-            answer: T[K]
-        }
-    }[keyof T];
 
     /**
      * Represents a choice-item.
@@ -457,6 +333,89 @@ declare namespace inquirer {
      * The type of the answers.
      */
     export type ChoiceCollection<T extends Answers = Answers> = Array<DistinctChoice<AllChoiceMap<T>>>;
+
+    /**
+     * Provides options for a question.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    export interface Question<T extends Answers = Answers> {
+        /**
+         * The type of the question.
+         */
+        type?: string | undefined;
+
+        /**
+         * The key to save the answer to the answers-hash.
+         */
+        name?: KeyUnion<T> | undefined;
+
+        /**
+         * The message to show to the user.
+         */
+        message?: AsyncDynamicQuestionProperty<string, T> | undefined;
+
+        /**
+         * The default value of the question.
+         */
+        default?: AsyncDynamicQuestionProperty<any, T> | undefined;
+
+        /**
+         * The prefix of the `message`.
+         */
+        prefix?: string | undefined;
+
+        /**
+         * The suffix of the `message`.
+         */
+        suffix?: string | undefined;
+
+        /**
+         * Post-processes the answer.
+         *
+         * @param input
+         * The answer provided by the user.
+         *
+         * @param answers
+         * The answers provided by the user.
+         */
+        filter?(input: any, answers: T): any;
+
+        /**
+         * A value indicating whether the question should be prompted.
+         */
+        when?: AsyncDynamicQuestionProperty<boolean, T> | undefined;
+
+        /**
+         * Validates the integrity of the answer.
+         *
+         * @param input
+         * The answer provided by the user.
+         *
+         * @param answers
+         * The answers provided by the user.
+         *
+         * @returns
+         * Either a value indicating whether the answer is valid or a `string` which describes the error.
+         */
+        validate?(input: any, answers?: T): boolean | string | Promise<boolean | string>;
+
+        /**
+         * Force to prompt the question if the answer already exists.
+         */
+        askAnswered?: boolean;
+    }
+
+    /**
+     * Represents the possible answers of each question in the prompt
+     */
+    export type QuestionAnswer<T extends Answers = Answers> = {
+        [K in keyof T]: {
+            name: K;
+            answer: T[K]
+        }
+    }[keyof T];
 
     /**
      * Provides options for a question for the `InputPrompt`.
@@ -764,6 +723,47 @@ declare namespace inquirer {
         | DistinctQuestion<T>
         | ReadonlyArray<DistinctQuestion<T>>
         | Observable<DistinctQuestion<T>>;
+
+    /**
+     * Provides an input and an output-stream.
+     */
+    export interface StreamOptions {
+        /**
+         * A stream to read the input from.
+         */
+        input?: NodeJS.ReadStream | undefined;
+
+        /**
+         * A stream to write the output to.
+         */
+        output?: NodeJS.WriteStream | undefined;
+    }
+
+    /**
+     * Provides the functionality to prompt questions to the user.
+     */
+    export interface PromptModule extends PromptModuleBase {
+        /**
+         * The prompts of the prompt-module.
+         */
+        prompts: prompts.PromptCollection;
+
+        /**
+         * Prompts the questions to the user.
+         */
+        <T extends Answers = Answers>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>): Promise<T> & { ui: ui.Prompt<T> };
+
+        /**
+         * Registers a new prompt-type.
+         *
+         * @param name
+         * The name of the prompt.
+         *
+         * @param prompt
+         * The constructor of the prompt.
+         */
+        registerPrompt(name: string, prompt: prompts.PromptConstructor): this;
+    }
 
     /**
      * Provides components for the prompts.
