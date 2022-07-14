@@ -632,7 +632,14 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    export interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> {}
+    export interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> {
+        /**
+         * The postfix of the file being edited.
+         *
+         * Adding this will add color highlighting to the file content in most editors.
+         */
+        postfix?: string;
+    }
 
     /**
      * Provides options for a question for the {@link EditorPrompt `EditorPrompt<TQuestion>`}.
