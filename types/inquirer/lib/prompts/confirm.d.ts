@@ -1,6 +1,6 @@
-import Prompt = require('./base');
-import { Answers, ConfirmQuestionOptions } from '../..';
 import { Interface as ReadlineInterface } from 'readline';
+import { Answers, ConfirmQuestionOptions } from '../..';
+import Prompt from './base';
 
 /**
  * The question-options for the {@link ConfirmPrompt `ConfirmPrompt<TQuestion>`}.
@@ -50,4 +50,4 @@ declare class ConfirmPrompt<TQuestion extends Question = Question> extends Promp
     protected onKeypress(): void;
 }
 
-export = ConfirmPrompt;
+export default ConfirmPrompt;

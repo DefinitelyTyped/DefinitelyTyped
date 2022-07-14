@@ -1,7 +1,7 @@
-import inquirer = require('../..');
-import Prompt = require('./base');
-import Paginator = require('../utils/paginator');
 import { Interface as ReadlineInterface } from 'readline';
+import inquirer = require('../..');
+import Paginator = require('../utils/paginator');
+import Prompt = require('./base');
 
 /**
  * The question for the {@link RawListPrompt `RawListPrompt<TQuestion>`}.

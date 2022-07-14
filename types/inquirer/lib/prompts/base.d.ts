@@ -1,12 +1,7 @@
 import { Interface as ReadLineInterface } from 'readline';
 import { Observable } from 'rxjs';
-import inquirer = require('../..');
-import ScreenManager = require('../utils/screen-manager');
-
-/**
- * The question-options for the {@link Prompt `Prompt<TQuestion>`}.
- */
-type Question = inquirer.Question<inquirer.Answers>;
+import inquirer, { Answers, Question } from '../..';
+import ScreenManager from '../utils/screen-manager';
 
 /**
  * Represents a prompt.
@@ -23,7 +18,7 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
     /**
      * Gets or sets an object which contains the answers.
      */
-    protected answers: inquirer.Answers;
+    protected answers: Answers;
 
     /**
      * Gets or sets the options of the prompt.
@@ -50,9 +45,9 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
      * An object for performing read from and write to the console.
      *
      * @param answers
-     * The {@link inquirer.Answers `Answers`}-object.
+     * The {@link Answers `Answers`}-object.
      */
-    constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadLineInterface, answers: Answers);
 
     /**
      * @inheritdoc
@@ -97,4 +92,4 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
     protected getQuestion(): string;
 }
 
-export = Prompt;
+export default Prompt;

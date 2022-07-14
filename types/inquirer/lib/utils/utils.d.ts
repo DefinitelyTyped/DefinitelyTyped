@@ -1,5 +1,5 @@
-import { Answers, DistinctQuestion, KeyUnion, UnionToIntersection } from '../..';
 import { Observable } from 'rxjs';
+import { Answers, DistinctQuestion, KeyUnion, UnionToIntersection } from '../..';
 
 /**
  * Represents a property-name of any question-type.
@@ -21,10 +21,7 @@ type QuestionProperty = KeyUnion<UnionToIntersection<DistinctQuestion>>;
  * @returns
  * The processed question.
  */
-export function fetchAsyncQuestionProperty(
+export const fetchAsyncQuestionProperty: (
     question: DistinctQuestion,
     prop: QuestionProperty,
-    answers: Answers,
-): Observable<DistinctQuestion>;
-
-export {};
+    answers: Answers) => Observable<DistinctQuestion>;

@@ -1,6 +1,6 @@
-import Prompt = require('./base');
-import inquirer = require('../..');
 import { Interface as ReadlineInterface } from 'readline';
+import inquirer = require('../..');
+import Prompt = require('./base');
 
 /**
  * The question-options for the {@link InputPrompt `InputPrompt<TQuestion>`}.

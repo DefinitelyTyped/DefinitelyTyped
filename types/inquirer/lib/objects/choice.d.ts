@@ -62,4 +62,4 @@ declare class Choice<T extends Answers = Answers>
     constructor(value: any, answers: T);
 }
 
-export = Choice;
+export default Choice;

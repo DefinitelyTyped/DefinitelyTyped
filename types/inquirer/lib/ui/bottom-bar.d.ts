@@ -1,3 +1,3 @@
-import { ui } from '../..'
+import inquirer from '../..'
 
-export = ui.BottomBar;
+export default inquirer.ui.BottomBar;

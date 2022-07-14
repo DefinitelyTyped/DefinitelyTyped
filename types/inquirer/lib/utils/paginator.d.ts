@@ -1,4 +1,4 @@
-import ScreenManager = require('./screen-manager');
+import ScreenManager from './screen-manager';
 
 interface PaginatorOptions {
     /**
@@ -52,4 +52,4 @@ declare class Paginator {
     paginate(content: string, selectedIndex: number, pageSize?: number): string;
 }
 
-export = Paginator;
+export default Paginator;

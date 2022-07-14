@@ -1,6 +1,6 @@
 import { AllChoiceMap, Answers, KeyUnion, UnionToIntersection } from '../..';
-import Choice = require('./choice');
-import Separator = require('./separator');
+import Choice from './choice';
+import Separator from './separator';
 
 /**
  * Represents a valid choice for the {@link Choices `Choices<T>`} class.
@@ -203,4 +203,4 @@ declare class Choices<T extends Answers = Answers> {
     push(...items: Array<Choice<T> | Separator>): number;
 }
 
-export = Choices;
+export default Choices;

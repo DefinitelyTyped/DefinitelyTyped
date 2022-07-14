@@ -1,6 +1,6 @@
-import InputPrompt = require('./input');
-import { Answers, NumberQuestionOptions } from '../..';
 import { Interface as ReadlineInterface } from 'readline';
+import { Answers, NumberQuestionOptions } from '../..';
+import InputPrompt from './input';
 
 /**
  * The question for the {@link NumberPrompt `NumberPrompt<TQuestion>`}.
@@ -29,4 +29,4 @@ declare class NumberPrompt<TQuestion extends Question = Question> extends InputP
     constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 }
 
-export = NumberPrompt;
+export default NumberPrompt;

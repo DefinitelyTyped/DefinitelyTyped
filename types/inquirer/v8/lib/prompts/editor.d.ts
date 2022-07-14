@@ -1,7 +1,7 @@
-import Prompt = require('./base');
+import { Interface as ReadlineInterface } from 'readline';
 import { Subject, Subscription } from 'rxjs';
 import inquirer = require('../..');
-import { Interface as ReadlineInterface } from 'readline';
+import Prompt = require('./base');
 
 /**
  * The question-options for the {@link EditorPrompt `EditorPrompt<TQuestion>`}.

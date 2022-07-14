@@ -1,3 +1,3 @@
-import { ui } from '../..';
+import inquirer from '../..';
 
-export = ui.Prompt;
+export default inquirer.ui.Prompt;

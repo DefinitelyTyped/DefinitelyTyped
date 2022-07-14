@@ -1,5 +1,5 @@
 import { Interface as ReadlineInterface } from 'readline';
-import inquirer = require('../..');
+import inquirer, { StreamOptions } from '../..';
 
 /**
  * Represents a ui.
@@ -21,7 +21,7 @@ declare class UI {
      * @param options
      * The input- and output-stream of the ui.
      */
-    constructor(options?: inquirer.StreamOptions);
+    constructor(options?: StreamOptions);
 
     /**
      * Handles a forced exit of the application.
@@ -34,4 +34,4 @@ declare class UI {
     protected close(): void;
 }
 
-export = UI;
+export default UI;

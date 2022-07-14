@@ -1,14 +1,12 @@
 import { createInterface } from 'readline';
-import { DistinctQuestion, Separator } from 'inquirer';
-import inquirer = require('inquirer');
-import InputPrompt = require('inquirer/lib/prompts/input');
+import inquirer, { Answers, DistinctChoice, DistinctQuestion, InputQuestionOptions } from 'inquirer';
+import InputPrompt from 'inquirer/lib/prompts/input';
 import { fetchAsyncQuestionProperty } from 'inquirer/lib/utils/utils';
-import incrementListIndex = require('inquirer/lib/utils/incrementListIndex');
-import Choices = require('inquirer/lib/objects/choices');
-import Paginator = require('inquirer/lib/utils/paginator');
-import ScreenManager = require('inquirer/lib/utils/screen-manager');
+import incrementListIndex from 'inquirer/lib/utils/incrementListIndex';
+import Choices from 'inquirer/lib/objects/choices';
+import Paginator from 'inquirer/lib/utils/paginator';
+import ScreenManager from 'inquirer/lib/utils/screen-manager';
 import { Subject } from 'rxjs';
-
 {
     new inquirer.Separator('');
     const promptModule = inquirer.createPromptModule();
@@ -48,22 +46,22 @@ import { Subject } from 'rxjs';
     new inquirer.ui.Prompt(inquirer.prompt.prompts);
 }
 {
-    const checkBoxQuestion: inquirer.DistinctQuestion = {
+    const checkBoxQuestion: DistinctQuestion = {
         type: 'checkbox',
         askAnswered: true,
     };
 
-    const listQuestion: inquirer.DistinctQuestion = {
+    const listQuestion: DistinctQuestion = {
         type: 'list',
         askAnswered: true,
     };
 
-    const rawListQuestion: inquirer.DistinctQuestion = {
+    const rawListQuestion: DistinctQuestion = {
         type: 'rawlist',
         askAnswered: true,
     };
 
-    const expandQuestion: inquirer.DistinctQuestion = {
+    const expandQuestion: DistinctQuestion = {
         type: 'expand',
         askAnswered: true,
     };
@@ -90,24 +88,24 @@ import { Subject } from 'rxjs';
     ]);
 }
 {
-    let choice: inquirer.DistinctChoice;
+    let choice: DistinctChoice;
 
     choice = {
         type: 'separator',
         line: 'This is a test',
     };
 
-    if (choice.type === 'separator' && !(choice instanceof Separator)) {
+    if (choice.type === 'separator' && !(choice instanceof inquirer.Separator)) {
         // $ExpectType SeparatorOptions
         choice;
     }
 }
 
-interface ChalkQuestionOptions<T extends inquirer.Answers = inquirer.Answers> extends inquirer.InputQuestionOptions<T> {
+interface ChalkQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> {
     previewColors: boolean;
 }
 
-interface ChalkQuestion<T extends inquirer.Answers = inquirer.Answers> extends ChalkQuestionOptions<T> {
+interface ChalkQuestion<T extends Answers = Answers> extends ChalkQuestionOptions<T> {
     type: 'chalk';
 }
 

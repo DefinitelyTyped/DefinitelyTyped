@@ -1,7 +1,7 @@
-import Prompt = require('./base');
-import { Answers, ListQuestionOptions } from '../..';
-import Paginator = require('../utils/paginator');
 import { Interface as ReadlineInterface } from 'readline';
+import { Answers, ListQuestionOptions } from '../..';
+import Paginator from '../utils/paginator';
+import Prompt from './base';
 
 /**
  * The question-options for the {@link ListPrompt `ListPrompt<TQuestion>`}.
@@ -86,4 +86,4 @@ declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<T
     protected onSubmit(value: any): void;
 }
 
-export = ListPrompt;
+export default ListPrompt;

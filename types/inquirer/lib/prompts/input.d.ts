@@ -1,11 +1,11 @@
-import Prompt = require('./base');
-import inquirer = require('../..');
 import { Interface as ReadlineInterface } from 'readline';
+import inquirer, { Answers, InputQuestionOptions } from '../..';
+import Prompt from './base';
 
 /**
  * The question-options for the {@link InputPrompt `InputPrompt<TQuestion>`}.
  */
-type Question = inquirer.InputQuestionOptions<inquirer.Answers>;
+type Question = InputQuestionOptions<Answers>;
 
 /**
  * Represents a prompt which allows the user to type an answer.
@@ -36,7 +36,7 @@ declare class InputPrompt<TQuestion extends Question = Question> extends Prompt<
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt.
@@ -79,4 +79,4 @@ declare class InputPrompt<TQuestion extends Question = Question> extends Prompt<
     protected onKeypress(): void;
 }
 
-export = InputPrompt;
+export default InputPrompt;

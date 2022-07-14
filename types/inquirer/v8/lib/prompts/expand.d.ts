@@ -1,7 +1,7 @@
+import { Interface as ReadlineInterface } from 'readline';
+import inquirer = require('../..');
 import Paginator = require('../utils/paginator');
 import Prompt = require('./base');
-import inquirer = require('../..');
-import { Interface as ReadlineInterface } from 'readline';
 
 /**
  * The question-options for the {@link ExpandPrompt `ExpandPrompt<TQuestion>`}.

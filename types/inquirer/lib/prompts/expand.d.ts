@@ -1,12 +1,12 @@
-import Paginator = require('../utils/paginator');
-import Prompt = require('./base');
-import inquirer = require('../..');
 import { Interface as ReadlineInterface } from 'readline';
+import inquirer, { Answers, ExpandQuestionOptions } from '../..';
+import Paginator from '../utils/paginator';
+import Prompt from './base';
 
 /**
  * The question-options for the {@link ExpandPrompt `ExpandPrompt<TQuestion>`}.
  */
-type Question = inquirer.ExpandQuestionOptions<inquirer.Answers>;
+type Question = ExpandQuestionOptions<Answers>;
 
 /**
  * Represents a prompt which forces the user to make a choice by typing a specific key.
@@ -57,7 +57,7 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt to the screen.
@@ -146,4 +146,4 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
     protected renderChoices(choices: ExpandPrompt<TQuestion>['opt']['choices'], pointer: string): string;
 }
 
-export = ExpandPrompt;
+export default ExpandPrompt;

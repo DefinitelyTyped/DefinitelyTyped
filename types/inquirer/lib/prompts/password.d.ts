@@ -1,11 +1,11 @@
-import Prompt = require('./base');
-import inquirer = require('../..');
 import { Interface as ReadlineInterface } from 'readline';
+import inquirer, { Answers, PasswordQuestionOptions } from '../..';
+import Prompt from './base';
 
 /**
  * The question for the {@link PasswordPrompt `PasswordPrompt<TQuestion>`}.
  */
-type Question = inquirer.PasswordQuestionOptions<inquirer.Answers>;
+type Question = PasswordQuestionOptions<Answers>;
 
 /**
  * Represents a prompt which allows the user to type a password.
@@ -36,7 +36,7 @@ declare class PasswordPrompt<TQuestion extends Question = Question> extends Prom
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt.
@@ -79,4 +79,4 @@ declare class PasswordPrompt<TQuestion extends Question = Question> extends Prom
     protected onError(eventArgs: inquirer.prompts.FailedPromptStateData): void;
 }
 
-export = PasswordPrompt;
+export default PasswordPrompt;

@@ -9,7 +9,7 @@ import { Interface as ReadlineInterface } from 'readline';
  * @param count
  * The number of columns to move the cursor.
  */
-export function left(readLine: ReadlineInterface, count: number): void;
+export const left: (readLine: ReadlineInterface, count: number) => void;
 
 /**
  * Moves the cursor to the right.
@@ -20,7 +20,7 @@ export function left(readLine: ReadlineInterface, count: number): void;
  * @param count
  * The number of columns to move the cursor.
  */
-export function right(readLine: ReadlineInterface, count: number): void;
+export const right: (readLine: ReadlineInterface, count: number) => void;
 
 /**
  * Moves the cursor upwards.
@@ -31,7 +31,7 @@ export function right(readLine: ReadlineInterface, count: number): void;
  * @param count
  * The number of lines to move the cursor.
  */
-export function up(readLine: ReadlineInterface, count: number): void;
+export const up: (readLine: ReadlineInterface, count: number) => void;
 
 /**
  * Moves the cursor downwards.
@@ -42,7 +42,7 @@ export function up(readLine: ReadlineInterface, count: number): void;
  * @param count
  * The number of lines to move the cursor.
  */
-export function down(readLine: ReadlineInterface, count: number): void;
+export const down: (readLine: ReadlineInterface, count: number) => void;
 
 /**
  * Clears one or more lines.
@@ -53,4 +53,4 @@ export function down(readLine: ReadlineInterface, count: number): void;
  * @param count
  * The number of lines to clear.
  */
-export function clearLine(readLine: ReadlineInterface, count: number): void;
+export const clearLine: (readLine: ReadlineInterface, count: number) => void;

@@ -1,3 +1,3 @@
-import { Separator } from "../..";
+import inquirer from "../..";
 
-export = Separator;
+export default inquirer.Separator;

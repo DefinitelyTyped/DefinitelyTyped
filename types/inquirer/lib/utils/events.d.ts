@@ -67,6 +67,4 @@ interface Events {
  * @param readline
  * The readline-object to observe.
  */
-declare function observe(readline: ReadlineInterface): Events;
-
-export = observe;
+export default function(readline: ReadlineInterface): Events;

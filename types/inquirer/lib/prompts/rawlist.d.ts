@@ -1,12 +1,12 @@
-import inquirer = require('../..');
-import Prompt = require('./base');
-import Paginator = require('../utils/paginator');
 import { Interface as ReadlineInterface } from 'readline';
+import inquirer, { Answers, RawListQuestionOptions } from '../..';
+import Paginator from '../utils/paginator';
+import Prompt from './base';
 
 /**
  * The question for the {@link RawListPrompt `RawListPrompt<TQuestion>`}.
  */
-type Question = inquirer.RawListQuestionOptions<inquirer.Answers>;
+type Question = RawListQuestionOptions<Answers>;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.
@@ -47,7 +47,7 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt.
@@ -108,4 +108,4 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
     protected onError(): void;
 }
 
-export = RawListPrompt;
+export default RawListPrompt;

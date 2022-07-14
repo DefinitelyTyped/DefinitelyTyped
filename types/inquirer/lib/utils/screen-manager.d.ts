@@ -87,4 +87,4 @@ declare class ScreenManager {
     protected forceLineReturn(text: string, width: number): string;
 }
 
-export = ScreenManager;
+export default ScreenManager;
