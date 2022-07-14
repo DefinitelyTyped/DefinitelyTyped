@@ -9,7 +9,7 @@ pangu.spacingFile('/path/to/text.txt', (err, data) => {
 pangu.spacingFile('/path/to/text.txt').then(data => {
 });
 
-pangu.spacingNode(new HTMLElement);
+pangu.spacingNode(new HTMLElement());
 
 const data = pangu.spacingFileSync('/path/to/text.txt');
 
