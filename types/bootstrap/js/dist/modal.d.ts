@@ -111,6 +111,19 @@ declare namespace Modal {
         focus: boolean;
     }
 
+    interface Event extends CustomEvent {
+        /**
+         * The modal DOM element.
+         */
+        target: HTMLElement;
+
+        /**
+         * Only present for `show.bs.modal` and `shown.bs.modal` events when
+         * the event is caused by a click. Otherwise, it's undefined.
+         */
+        relatedTarget?: HTMLElement;
+    }
+
     type jQueryInterface = (
         config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'handleUpdate' | 'dispose',
     ) => JQuery;
