@@ -392,7 +392,6 @@ declare namespace googletag {
          * @returns The service object on which the method was called.
          */
         clearCategoryExclusions(): PubAdsService;
-        clearTagForChildDirectedTreatment(): PubAdsService;
         /**
          * Clears custom targeting parameters for a specific key or for all keys.
          *
@@ -732,19 +731,6 @@ declare namespace googletag {
          */
         setPublisherProvidedId(ppid: string): PubAdsService;
         /**
-         * Configures whether the page should request personalized or non-personalized ads. Personalized ads served by default.
-         *
-         * **Example**
-         * ```
-         * // Mark ad requests to request non-personalized ads.
-         * googletag.pubads().setRequestNonPersonalizedAds(1);
-         * ```
-         *
-         * @param nonPersonalizedAds `0` for personalized ads, `1` for non-personalized ads.
-         * @returns The service object on which the method was called.
-         */
-        setRequestNonPersonalizedAds(nonPersonalizedAds: number): PubAdsService;
-        /**
          * Sets the page-level preferences for SafeFrame configuration.
          * Any unrecognized keys in the config object will be ignored.
          * The entire config will be ignored if an invalid value is passed for a recognized key.
@@ -777,8 +763,6 @@ declare namespace googletag {
          * @returns The service object on which the method was called.
          */
         setSafeFrameConfig(config: SafeFrameConfig): PubAdsService;
-        setTagForChildDirectedTreatment(childDirectedTreatment: 0 | 1): PubAdsService;
-        setTagForUnderAgeOfConsent(underAgeOfConsent: 2 | 0 | 1): PubAdsService;
         /**
          * Sets custom targeting parameters for a given key that apply to all pubads service ad slots.
          * Calling this multiple times for the same key will overwrite old values.
