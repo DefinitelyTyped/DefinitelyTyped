@@ -70,6 +70,11 @@ interface PromptModuleBase {
 }
 
 /**
+ * Represents a function for registering a prompt.
+ */
+type RegisterFunction = PromptModuleBase['registerPrompt'];
+
+/**
  * Represents a function for restoring a prompt.
  */
 type RestoreFunction = PromptModuleBase['restoreDefaultPrompts'];
@@ -1141,7 +1146,7 @@ declare namespace inquirer {
      * @param prompt
      * The constructor of the prompt.
      */
-    export function registerPrompt(name: string, prompt: prompts.PromptConstructor): void;
+    export let registerPrompt: RegisterFunction;
 
     /**
      * Registers the default prompts.
