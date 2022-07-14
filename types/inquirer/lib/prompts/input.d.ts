@@ -61,7 +61,7 @@ declare class InputPrompt<TQuestion extends Question = Question> extends Prompt<
      * Handles the `success`-event of the prompt.
      *
      * @param eventArgs
-     * An object which contains eventr-data.
+     * An object which contains event-data.
      */
     protected onEnd(eventArgs: inquirer.prompts.SuccessfulPromptStateData): void;
 

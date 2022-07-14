@@ -875,7 +875,7 @@ declare namespace inquirer {
          */
         export interface PromptEventPipes<T = any> {
             /**
-             * A pypeline for succesful inputs.
+             * A pipeline for successful inputs.
              */
             success: Observable<SuccessfulPromptStateData<T>>;
 

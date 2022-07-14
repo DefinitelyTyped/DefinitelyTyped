@@ -11,7 +11,7 @@ interface KeyDescriptor {
     value: string;
 
     /**
-     * Thedescription of the key.
+     * The description of the key.
      */
     key: Key;
 }
