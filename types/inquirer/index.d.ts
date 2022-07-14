@@ -20,15 +20,15 @@ import Choice = require('./lib/objects/choice');
 import Choices = require('./lib/objects/choices');
 import './lib/objects/separator';
 import './lib/prompts/base';
-import './lib/prompts/checkbox';
-import './lib/prompts/confirm';
-import './lib/prompts/editor';
-import './lib/prompts/expand';
-import './lib/prompts/input';
-import './lib/prompts/list';
-import './lib/prompts/number';
-import './lib/prompts/password';
-import './lib/prompts/rawlist';
+import CheckboxPrompt = require('./lib/prompts/checkbox');
+import ConfirmPrompt = require('./lib/prompts/confirm');
+import EditorPrompt = require('./lib/prompts/editor');
+import ExpandPrompt = require('./lib/prompts/expand');
+import InputPrompt = require('./lib/prompts/input');
+import ListPrompt = require('./lib/prompts/list');
+import NumberPrompt = require('./lib/prompts/number');
+import PasswordPrompt = require('./lib/prompts/password');
+import RawListPrompt = require('./lib/prompts/rawlist');
 import UI = require('./lib/ui/baseUI');
 import './lib/ui/bottom-bar';
 import './lib/ui/prompt';
@@ -105,7 +105,7 @@ interface ListQuestionOptionsBase<T extends inquirer.Answers, TChoiceMap extends
  */
 declare namespace inquirer {
     /**
-     * Represents either a key of `T` or a `string`.
+     * Represents either a key of {@link T `T`} or a {@link String `string`}.
      *
      * @template T
      * The type of the keys to suggest.
@@ -113,7 +113,7 @@ declare namespace inquirer {
     export type KeyUnion<T> = LiteralUnion<Extract<keyof T, string>>;
 
     /**
-     * Converts the specified union-type `U` to an intersection-type.
+     * Converts the specified union-type {@link U `U`} to an intersection-type.
      *
      * @template U
      * The union to convert to an intersection.
@@ -177,7 +177,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a choice of the `ListPrompt`.
+     * Provides options for a choice of the {@link ListPrompt `ListPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -190,7 +190,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a choice of the `CheckboxPrompt`.
+     * Provides options for a choice of the {@link CheckboxPrompt `CheckboxPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -203,7 +203,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a choice of the `ExpandPrompt`.
+     * Provides options for a choice of the {@link ExpandPrompt `ExpandPrompt<TQuestion>`}.
      */
     export interface ExpandChoiceOptions extends ChoiceOptions {
         /**
@@ -271,7 +271,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides all valid choice-types for the `ListQuestion`.
+     * Provides all valid choice-types for the {@link ListQuestion `ListQuestion<T>`}.
      *
      * @template T
      * The type of the answers.
@@ -281,7 +281,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides all valid choice-types for the `CheckboxQuestion`.
+     * Provides all valid choice-types for the {@link CheckboxQuestion `CheckboxQuestion<T>`}.
      *
      * @template T
      * The type of the answers.
@@ -291,7 +291,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides all valid choice-types for the `ExpandQuestion`.
+     * Provides all valid choice-types for the {@link ExpandQuestion `ExpandQuestion<T>`}.
      *
      * @template T
      * The type of the answers.
@@ -314,7 +314,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides valid choices for the question of the `TChoiceMap`.
+     * Provides valid choices for the question of the {@link TChoiceMap `TChoiceMap`}.
      *
      * @template TAnswers
      * The type of the answers.
@@ -362,12 +362,12 @@ declare namespace inquirer {
         default?: AsyncDynamicQuestionProperty<any, T> | undefined;
 
         /**
-         * The prefix of the `message`.
+         * The prefix of the {@link message `message`}.
          */
         prefix?: string | undefined;
 
         /**
-         * The suffix of the `message`.
+         * The suffix of the {@link message `message`}.
          */
         suffix?: string | undefined;
 
@@ -397,7 +397,7 @@ declare namespace inquirer {
          * The answers provided by the user.
          *
          * @returns
-         * Either a value indicating whether the answer is valid or a `string` which describes the error.
+         * Either a value indicating whether the answer is valid or a {@link String `string`} which describes the error.
          */
         validate?(input: any, answers?: T): boolean | string | Promise<boolean | string>;
 
@@ -418,7 +418,7 @@ declare namespace inquirer {
     }[keyof T];
 
     /**
-     * Provides options for a question for the `InputPrompt`.
+     * Provides options for a question for the {@link InputPrompt `InputPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -443,7 +443,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `InputPrompt`.
+     * Provides options for a question for the {@link InputPrompt `InputPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -456,7 +456,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `NumberPrompt`.
+     * Provides options for a question for the {@link NumberPrompt `NumberPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -464,7 +464,7 @@ declare namespace inquirer {
     export interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> {}
 
     /**
-     * Provides options for a question for the `NumberPrompt`.
+     * Provides options for a question for the {@link NumberPrompt `NumberPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -477,7 +477,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `PasswordPrompt`.
+     * Provides options for a question for the {@link PasswordPrompt `PasswordPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -490,7 +490,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `PasswordPrompt`.
+     * Provides options for a question for the {@link PasswordPrompt `PasswordPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -519,7 +519,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `ListPrompt`.
+     * Provides options for a question for the {@link ListPrompt `ListPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -528,7 +528,7 @@ declare namespace inquirer {
         extends LoopableListQuestionOptionsBase<T, ListChoiceMap<T>> {}
 
     /**
-     * Provides options for a question for the `ListPrompt`.
+     * Provides options for a question for the {@link ListPrompt `ListPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -541,7 +541,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `RawListPrompt`.
+     * Provides options for a question for the {@link RawListPrompt `RawListPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -549,7 +549,7 @@ declare namespace inquirer {
     export interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> {}
 
     /**
-     * Provides options for a question for the `RawListPrompt`.
+     * Provides options for a question for the {@link RawListPrompt `RawListPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -562,7 +562,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `ExpandPrompt`.
+     * Provides options for a question for the {@link ExpandPrompt `ExpandPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -571,7 +571,7 @@ declare namespace inquirer {
         extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>> {}
 
     /**
-     * Provides options for a question for the `ExpandPrompt`.
+     * Provides options for a question for the {@link ExpandPrompt `ExpandPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -584,7 +584,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `CheckboxPrompt`.
+     * Provides options for a question for the {@link CheckboxPrompt `CheckboxPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -593,7 +593,7 @@ declare namespace inquirer {
         extends LoopableListQuestionOptionsBase<T, CheckboxChoiceMap<T>> {}
 
     /**
-     * Provides options for a question for the `CheckboxPrompt`.
+     * Provides options for a question for the {@link CheckboxPrompt `CheckboxPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -606,7 +606,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `ConfirmPrompt`.
+     * Provides options for a question for the {@link ConfirmPrompt `ConfirmPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -614,7 +614,7 @@ declare namespace inquirer {
     export interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> {}
 
     /**
-     * Provides options for a question for the `ConfirmPrompt`.
+     * Provides options for a question for the {@link ConfirmPrompt `ConfirmPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -627,7 +627,7 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `EditorPrompt`.
+     * Provides options for a question for the {@link EditorPrompt `EditorPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -635,7 +635,7 @@ declare namespace inquirer {
     export interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> {}
 
     /**
-     * Provides options for a question for the `EditorPrompt`.
+     * Provides options for a question for the {@link EditorPrompt `EditorPrompt<TQuestion>`}.
      *
      * @template T
      * The type of the answers.
@@ -655,47 +655,47 @@ declare namespace inquirer {
      */
     export interface QuestionMap<T extends Answers = Answers> {
         /**
-         * The `InputQuestion` type.
+         * The {@link InputQuestion `InputQuestion<T>`} type.
          */
         input: InputQuestion<T>;
 
         /**
-         * The `NumberQuestion` type.
+         * The {@link NumberQuestion `NumberQuestion<T>`} type.
          */
         number: NumberQuestion<T>;
 
         /**
-         * The `PasswordQuestion` type.
+         * The {@link PasswordQuestion `PasswordQuestion<T>`} type.
          */
         password: PasswordQuestion<T>;
 
         /**
-         * The `ListQuestion` type.
+         * The {@link ListQuestion `ListQuestion<T>`} type.
          */
         list: ListQuestion<T>;
 
         /**
-         * The `RawListQuestion` type.
+         * The {@link RawListQuestion `RawListQuestion<T>`} type.
          */
         rawList: RawListQuestion<T>;
 
         /**
-         * The `ExpandQuestion` type.
+         * The {@link ExpandQuestion `ExpandQuestion<T>`} type.
          */
         expand: ExpandQuestion<T>;
 
         /**
-         * The `CheckboxQuestion` type.
+         * The {@link CheckboxQuestion `CheckboxQuestion<T>`} type.
          */
         checkbox: CheckboxQuestion<T>;
 
         /**
-         * The `ConfirmQuestion` type.
+         * The {@link ConfirmQuestion `ConfirmQuestion<T>`} type.
          */
         confirm: ConfirmQuestion<T>;
 
         /**
-         * The `EditorQuestion` type.
+         * The {@link EditorQuestion `EditorQuestion<T>`} type.
          */
         editor: EditorQuestion<T>;
     }
@@ -834,7 +834,7 @@ declare namespace inquirer {
          */
         export interface PromptStateData {
             /**
-             * Either a string which describes the error of the prompt or a boolean indicating whether the prompt-value is valid.
+             * Either a {@link String `string`} which describes the error of the prompt or a {@link Boolean `boolean`} indicating whether the prompt-value is valid.
              */
             isValid: string | boolean;
         }
@@ -900,7 +900,7 @@ declare namespace inquirer {
             log: ThroughStream;
         
             /**
-             * Initializes a new instance of the `BottomBar` class.
+             * Initializes a new instance of the {@link BottomBar `BottomBar`} class.
              *
              * @param options
              * Provides options for the bottom-bar ui.
@@ -908,7 +908,7 @@ declare namespace inquirer {
             constructor(options?: inquirer.ui.BottomBarOptions);
         
             /**
-             * Renders the specified `text` to the bottom bar.
+             * Renders the specified {@link text `text`} to the bottom bar.
              *
              * @param text
              * The text to print to the bottom bar.
@@ -934,7 +934,7 @@ declare namespace inquirer {
             protected write(message: string): void;
         
             /**
-             * Writes the specified `data` to the log-zone.
+             * Writes the specified {@link data `data`} to the log-zone.
              *
              * @param data
              * The data to write to the log-zone.
@@ -942,7 +942,7 @@ declare namespace inquirer {
             protected writeLog(data: any): this;
         
             /**
-             * Fixes the new-line characters of the specified `text`.
+             * Fixes the new-line characters of the specified {@link text `text`}.
              *
              * @param text
              * The text to process.
@@ -970,7 +970,7 @@ declare namespace inquirer {
             process: Observable<inquirer.QuestionAnswer<T>>;
         
             /**
-             * Initializes a new instance of the `PromptUI` class.
+             * Initializes a new instance of the {@link Prompt `Prompt`} class.
              *
              * @param prompts
              * The prompts for the ui.
@@ -1118,7 +1118,7 @@ declare namespace inquirer {
         line: string;
     
         /**
-         * Initializes a new instance of the `Separator` class.
+         * Initializes a new instance of the {@link Separator `Separator`} class.
          *
          * @param line
          * The text of the separator.
@@ -1126,7 +1126,7 @@ declare namespace inquirer {
         constructor(line?: string);
     
         /**
-         * Checks whether the specified `item` is not a separator.
+         * Checks whether the specified {@link item `item`} is not a separator.
          *
          * @param item
          * The item to check.

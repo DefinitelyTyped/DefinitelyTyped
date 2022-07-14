@@ -4,7 +4,7 @@ import inquirer = require('../..');
 import { Interface as ReadlineInterface } from 'readline';
 
 /**
- * The question-options for the `EditorPrompt<T>`.
+ * The question-options for the {@link EditorPrompt `EditorPrompt<TQuestion>`}.
  */
 type Question = inquirer.EditorQuestionOptions<inquirer.Answers>;
 
@@ -36,7 +36,7 @@ declare class EditorPrompt<TQuestion extends Question = Question> extends Prompt
     protected currentText: string;
 
     /**
-     * Initializes a new instance of the `EditorPrompt<T>` class.
+     * Initializes a new instance of the {@link EditorPrompt `EditorPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.

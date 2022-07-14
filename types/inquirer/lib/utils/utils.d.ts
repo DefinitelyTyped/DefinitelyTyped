@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 type QuestionProperty = KeyUnion<UnionToIntersection<DistinctQuestion>>;
 
 /**
- * Fetches a property of the specified `question`.
+ * Fetches a property of the specified {@link question `question`}.
  *
  * @param question
  * The question to fetch the property from.

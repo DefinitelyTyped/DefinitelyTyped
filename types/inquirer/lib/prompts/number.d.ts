@@ -3,7 +3,7 @@ import { Answers, NumberQuestionOptions } from '../..';
 import { Interface as ReadlineInterface } from 'readline';
 
 /**
- * The question for the `NumberPrompt<T>`.
+ * The question for the {@link NumberPrompt `NumberPrompt<TQuestion>`}.
  */
 type Question = NumberQuestionOptions;
 
@@ -15,7 +15,7 @@ type Question = NumberQuestionOptions;
  */
 declare class NumberPrompt<TQuestion extends Question = Question> extends InputPrompt<TQuestion> {
     /**
-     * Initializes a new instance of the `NumberPrompt<T>` class.
+     * Initializes a new instance of the {@link NumberPrompt `NumberPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.

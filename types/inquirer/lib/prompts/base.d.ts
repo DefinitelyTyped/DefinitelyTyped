@@ -4,7 +4,7 @@ import inquirer = require('../..');
 import ScreenManager = require('../utils/screen-manager');
 
 /**
- * The question-options for the `Prompt<T>`.
+ * The question-options for the {@link Prompt `Prompt<TQuestion>`}.
  */
 type Question = inquirer.Question<inquirer.Answers>;
 
@@ -41,7 +41,7 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
     protected screen: ScreenManager;
 
     /**
-     * Initializes a new instance of the `Prompt<T>` class.
+     * Initializes a new instance of the {@link Prompt `Prompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -50,7 +50,7 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
      * An object for performing read from and write to the console.
      *
      * @param answers
-     * The answer-object.
+     * The {@link inquirer.Answers `Answers`}-object.
      */
     constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.Answers);
 

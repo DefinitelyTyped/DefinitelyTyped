@@ -4,7 +4,7 @@ import Paginator = require('../utils/paginator');
 import { Interface as ReadlineInterface } from 'readline';
 
 /**
- * The question-options for the `ListPrompt<T>`.
+ * The question-options for the {@link ListPrompt `ListPrompt<TQuestion>`}.
  */
 type Question = ListQuestionOptions;
 
@@ -36,7 +36,7 @@ declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<T
     protected paginator: Paginator;
 
     /**
-     * Initializes a new instance of the `ListPrompt<T>` class.
+     * Initializes a new instance of the {@link ListPrompt `ListPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.

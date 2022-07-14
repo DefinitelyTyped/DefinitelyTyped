@@ -3,7 +3,7 @@ import inquirer = require('../..');
 import { Interface as ReadlineInterface } from 'readline';
 
 /**
- * The question for the `PasswordPrompt<T>`.
+ * The question for the {@link PasswordPrompt `PasswordPrompt<TQuestion>`}.
  */
 type Question = inquirer.PasswordQuestionOptions<inquirer.Answers>;
 
@@ -25,7 +25,7 @@ declare class PasswordPrompt<TQuestion extends Question = Question> extends Prom
     protected answer: any;
 
     /**
-     * Initializes a new instance of the `PasswordPrompt<T>` class.
+     * Initializes a new instance of the {@link PasswordPrompt `PasswordPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -47,7 +47,7 @@ declare class PasswordPrompt<TQuestion extends Question = Question> extends Prom
     protected render(error?: string): void;
 
     /**
-     * Filters the specified `input`.
+     * Filters the specified {@link input `input`}.
      *
      * @param input
      * The input to filter.

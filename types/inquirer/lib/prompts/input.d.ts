@@ -3,7 +3,7 @@ import inquirer = require('../..');
 import { Interface as ReadlineInterface } from 'readline';
 
 /**
- * The question-options for the `InputPrompt<T>`.
+ * The question-options for the {@link InputPrompt `InputPrompt<TQuestion>`}.
  */
 type Question = inquirer.InputQuestionOptions<inquirer.Answers>;
 
@@ -25,7 +25,7 @@ declare class InputPrompt<TQuestion extends Question = Question> extends Prompt<
     protected answer: any;
 
     /**
-     * Initializes a new instance of the `InputPrompt<T>` class.
+     * Initializes a new instance of the {@link InputPrompt `InputPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -47,7 +47,7 @@ declare class InputPrompt<TQuestion extends Question = Question> extends Prompt<
     protected render(error?: string): void;
 
     /**
-     * Filters the specified `input`.
+     * Filters the specified {@link input `input`}.
      *
      * @param input
      * The input to filter.

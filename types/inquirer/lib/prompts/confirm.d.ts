@@ -3,7 +3,7 @@ import { Answers, ConfirmQuestionOptions } from '../..';
 import { Interface as ReadlineInterface } from 'readline';
 
 /**
- * The question-options for the `ConfirmPrompt<T>`.
+ * The question-options for the {@link ConfirmPrompt `ConfirmPrompt<TQuestion>`}.
  */
 type Question = ConfirmQuestionOptions;
 
@@ -15,7 +15,7 @@ type Question = ConfirmQuestionOptions;
  */
 declare class ConfirmPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**
-     * Initializes a new instance of the `ConfirmPrompt<T>` class.
+     * Initializes a new instance of the {@link ConfirmPrompt `ConfirmPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.

@@ -4,7 +4,7 @@ import Paginator = require('../utils/paginator');
 import { Interface as ReadlineInterface } from 'readline';
 
 /**
- * The question for the `RawListPrompt<T>`.
+ * The question for the {@link RawListPrompt `RawListPrompt<TQuestion>`}.
  */
 type Question = inquirer.RawListQuestionOptions<inquirer.Answers>;
 
@@ -36,7 +36,7 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
     protected paginator: Paginator;
 
     /**
-     * Initializes a new instance of the `RawListPrompt<T>` class.
+     * Initializes a new instance of the {@link RawListPrompt `RawListPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -58,13 +58,13 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
     protected render(error?: string): void;
 
     /**
-     * Gets the value of the specified `index`.
+     * Gets the value of the specified {@link index `index`}.
      *
      * @param index
      * The index to get the value for.
      *
      * @returns
-     * The value of the specified `index`.
+     * The value of the specified {@link index `index`}.
      */
     protected getCurrentValue(index: number): any;
 
