@@ -10,7 +10,7 @@ ReactRefreshRuntime.collectCustomHooksForSignature(noop);
 ReactRefreshRuntime.createSignatureFunctionForTransform();
 ReactRefreshRuntime.findAffectedHostInstances([]);
 ReactRefreshRuntime.findAffectedHostInstances([{ current: noop }]);
-// $ExpectError
+// @ts-expect-error
 ReactRefreshRuntime.getFamilyByID(1);
 ReactRefreshRuntime.getFamilyByID(STRING);
 ReactRefreshRuntime.getFamilyByType(STRING);
@@ -18,7 +18,7 @@ ReactRefreshRuntime.getFamilyByType(noop);
 // $ExpectType boolean
 const hasUnrecoverableErrors = ReactRefreshRuntime.hasUnrecoverableErrors();
 ReactRefreshRuntime.injectIntoGlobalHook(window);
-// $ExpectError
+// @ts-expect-error
 ReactRefreshRuntime.injectIntoGlobalHook(STRING);
 ReactRefreshRuntime.performReactRefresh();
 ReactRefreshRuntime.register('unknown type', STRING);
