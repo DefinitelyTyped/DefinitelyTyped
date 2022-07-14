@@ -73,10 +73,14 @@ fetcher('http://url', { proxy: new URL('http://secure-proxy') });
 // $ExpectType Promise<Response>
 fetcher('http://url', { proxy: new NodeURL('http://secure-proxy') });
 
-// Test the imported `tls` type `CommonConnectionOptions.rejectUnauthorized` remapped to `strictSSL`.
+// Test strictSSL options
 // $ExpectType Promise<Response>
 fetcher('https://url', { strictSSL: true });
+// $ExpectType Promise<Response>
+fetcher('https://url', { strictSSL: false });
 
+// Test the imported `tls` type `CommonConnectionOptions.rejectUnauthorized` matches the
+// type used in `strictSSL`.
 const options: CommonConnectionOptions = {
     rejectUnauthorized: true
 };
