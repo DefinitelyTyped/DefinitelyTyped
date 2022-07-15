@@ -1,5 +1,3 @@
-
-
 var view1 = { title: "Joe", calc: function () { return 2 + 4; } };
 var template1 = "{{title}} spends {{calc}}";
 var output = Mustache.render(template1, view1);

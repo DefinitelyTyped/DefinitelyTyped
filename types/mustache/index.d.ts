@@ -8,117 +8,29 @@
 // Minimum TypeScript Version: 3.7
 
 /**
- * Provides the functionality to render templates with `{{mustaches}}`.
+ * The name of the module.
  */
-interface MustacheStatic {
-    /**
-     * The name of the module.
-     */
-    readonly name: string;
+declare const name: string;
 
-    /**
-     * The version of the module.
-     */
-    readonly version: string;
+/**
+ * The version of the module.
+ */
+declare const version: string;
 
-    /**
-     * The default opening and closing tags used while parsing the templates.
-     *
-     * Different default tags can be overridden by setting this field. They will have effect on all subsequent
-     * calls to `.render()` or `.parse()`, unless custom tags are given as arguments to those functions.
-     *
-     * Default value is `[ "{{", "}}" ]`.
-     */
-    tags: OpeningAndClosingTags;
-
-    /**
-     * A simple string scanner that is used by the template parser to find tokens in template strings.
-     */
-    Scanner: typeof MustacheScanner;
-
-    /**
-     * Represents a rendering context by wrapping a view object and maintaining a reference to the parent context.
-     */
-    Context: typeof MustacheContext;
-
-    /**
-     * A Writer knows how to take a stream of tokens and render them to a `string`, given a context.
-     *
-     * It also maintains a cache of templates to avoid the need to parse the same template twice.
-     */
-    Writer: typeof MustacheWriter;
-
-    /**
-     * HTML escaping by default, can be overridden by setting Mustache.escape explicitly or providing the `options`
-     * argument with an `escape` function when invoking Mustache.render().
-     *
-     * Escaping can be avoided when needed by using `{{{ value }}}` or `{{& value }}` in templates.
-     *
-     * @param value
-     * The value to escape into a string.
-     */
-    escape: EscapeFunction;
-
-    /**
-     * Clears all cached templates in this writer.
-     */
-    clearCache(): void;
-
-    /**
-     * Customise the template caching behaviour by either:
-     *
-     * disable it completely by setting it to `undefined`
-     *
-     * -- or --
-     *
-     * provide a custom cache strategy that satisfies the `TemplateCache` interface
-     */
-    templateCache: TemplateCache | undefined;
-
-    /**
-     * Parses and caches the given template in the default writer and returns the array of tokens it contains.
-     *
-     * Doing this ahead of time avoids the need to parse templates on the fly as they are rendered.
-     *
-     * @param template
-     * The template to parse.
-     *
-     * @param tags
-     * The tags to use.
-     */
-    parse(template: string, tags?: OpeningAndClosingTags): TemplateSpans;
-
-    /**
-     * Renders the `template` with the given `view` and `partials` using the default writer.
-     *
-     * @param template
-     * The template to render.
-     *
-     * @param view
-     * The view to render the template with.
-     *
-     * @param partials
-     * Either an object that contains the names and templates of partials that are used in a template
-     *
-     * -- or --
-     *
-     * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
-     *
-     * @param tagsOrOptions
-     * The delimiter tags to use or options overriding global defaults.
-     */
-    render(
-        template: string,
-        view: any | MustacheContext,
-        partials?: PartialsOrLookupFn,
-        tagsOrOptions?: OpeningAndClosingTags | RenderOptions,
-    ): string;
-}
+/**
+ * The default opening and closing tags used while parsing the templates.
+ *
+ * Different default tags can be overridden by setting this field. They will have effect on all subsequent
+ * calls to `.render()` or `.parse()`, unless custom tags are given as arguments to those functions.
+ *
+ * Default value is `[ "{{", "}}" ]`.
+ */
+declare const tags: OpeningAndClosingTags;
 
 /**
  * A simple string scanner that is used by the template parser to find tokens in template strings.
  */
-declare class MustacheScanner {
+declare class Scanner {
     string: string;
     tail: string;
     pos: number;
@@ -159,14 +71,14 @@ declare class MustacheScanner {
 /**
  * Represents a rendering context by wrapping a view object and maintaining a reference to the parent context.
  */
-declare class MustacheContext {
+declare class Context {
     view: any;
-    parent: MustacheContext | undefined;
+    parent: Context | undefined;
 
     /**
-     * Initializes a new instance of the `MustacheContext` class.
+     * Initializes a new instance of the `Context` class.
      */
-    constructor(view: any, parentContext?: MustacheContext);
+    constructor(view: any, parentContext?: Context);
 
     /**
      * Creates a new context using the given view with this context as the parent.
@@ -174,7 +86,7 @@ declare class MustacheContext {
      * @param view
      * The view to create the new context with.
      */
-    push(view: any): MustacheContext;
+    push(view: any): Context;
 
     /**
      * Returns the value of the given name in this context, traversing up the context hierarchy if the value is absent in this context's view.
@@ -190,7 +102,7 @@ declare class MustacheContext {
  *
  * It also maintains a cache of templates to avoid the need to parse the same template twice.
  */
-declare class MustacheWriter {
+declare class Writer {
     /**
      * Initializes a new instance of the `MustacheWriter` class.
      */
@@ -233,7 +145,7 @@ declare class MustacheWriter {
      */
     render(
         template: string,
-        view: any | MustacheContext,
+        view: any | Context,
         partials?: PartialsOrLookupFn,
         config?: OpeningAndClosingTags | RenderOptions,
     ): string;
@@ -257,7 +169,7 @@ declare class MustacheWriter {
      */
     renderTokens(
         tokens: string[][],
-        context: MustacheContext,
+        context: Context,
         partials?: PartialsOrLookupFn,
         originalTemplate?: string,
         config?: RenderOptions,
@@ -280,7 +192,7 @@ declare class MustacheWriter {
      */
     renderSection(
         token: string[],
-        context: MustacheContext,
+        context: Context,
         partials?: PartialsOrLookupFn,
         originalTemplate?: string,
         config?: RenderOptions,
@@ -303,7 +215,7 @@ declare class MustacheWriter {
      */
     renderInverted(
         token: string[],
-        context: MustacheContext,
+        context: Context,
         partials?: PartialsOrLookupFn,
         originalTemplate?: string,
         config?: RenderOptions,
@@ -340,7 +252,7 @@ declare class MustacheWriter {
      */
     renderPartial(
         token: string[],
-        context: MustacheContext,
+        context: Context,
         partials?: PartialsOrLookupFn,
         config?: OpeningAndClosingTags | RenderOptions,
     ): string;
@@ -354,7 +266,7 @@ declare class MustacheWriter {
      * @param context
      * The context to use for rendering the token.
      */
-    unescapedValue(token: string[], context: MustacheContext): string;
+    unescapedValue(token: string[], context: Context): string;
 
     /**
      * Renders an escaped value.
@@ -367,7 +279,7 @@ declare class MustacheWriter {
      */
     escapedValue(
         token: string[],
-        context: MustacheContext,
+        context: Context,
         config?: RenderOptions,
     ): string;
 
@@ -379,6 +291,72 @@ declare class MustacheWriter {
      */
     rawValue(token: string[]): string;
 }
+
+/**
+ * HTML escaping by default, can be overridden by setting Mustache.escape explicitly or providing the `options`
+ * argument with an `escape` function when invoking Mustache.render().
+ *
+ * Escaping can be avoided when needed by using `{{{ value }}}` or `{{& value }}` in templates.
+ *
+ * @param value
+ * The value to escape into a string.
+ */
+export declare const escape: EscapeFunction;
+
+/**
+ * Clears all cached templates in this writer.
+ */
+declare function clearCache(): void;
+
+/**
+ * Customise the template caching behaviour by either:
+ *
+ * disable it completely by setting it to `undefined`
+ *
+ * -- or --
+ *
+ * provide a custom cache strategy that satisfies the `TemplateCache` interface
+ */
+declare let templateCache: TemplateCache | undefined;
+
+/**
+ * Parses and caches the given template in the default writer and returns the array of tokens it contains.
+ *
+ * Doing this ahead of time avoids the need to parse templates on the fly as they are rendered.
+ *
+ * @param template
+ * The template to parse.
+ *
+ * @param tags
+ * The tags to use.
+ */
+declare function parse(template: string, tags?: OpeningAndClosingTags): TemplateSpans;
+
+/**
+ * Renders the `template` with the given `view` and `partials` using the default writer.
+ *
+ * @param template
+ * The template to render.
+ *
+ * @param view
+ * The view to render the template with.
+ *
+ * @param partials
+ * Either an object that contains the names and templates of partials that are used in a template
+ *
+ * -- or --
+ *
+ * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
+ *
+ * @param tagsOrOptions
+ * The delimiter tags to use or options overriding global defaults.
+ */
+declare function render(
+    template: string,
+    view: any | Context,
+    partials ?: PartialsOrLookupFn,
+    tagsOrOptions ?: OpeningAndClosingTags | RenderOptions,
+): string;
 
 type RAW_VALUE = 'text';
 type ESCAPED_VALUE = 'name';
@@ -429,9 +407,4 @@ interface TemplateCache {
     clear(): void;
 }
 
-/**
- * Provides the functionality to render templates with `{{mustaches}}`.
- */
-declare var Mustache: MustacheStatic;
-export = Mustache;
 export as namespace Mustache;
