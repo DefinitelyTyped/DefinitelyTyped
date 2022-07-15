@@ -132,7 +132,7 @@ export function buildAttribRequest(
     submitterDid: Did,
     targetDid: Did,
     hash: string | null,
-    raw: string | null,
+    raw: Record<string, unknown> | null,
     enc: string | null,
 ): Promise<LedgerRequest>;
 export function buildGetAttribRequest(
