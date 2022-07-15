@@ -472,6 +472,8 @@ declare namespace jest {
         only: It;
         /**
          * Mark this test as expecting to fail.
+         *
+         * Only available in the default `jest-circus` runner.
          */
         failing: It;
         /**
