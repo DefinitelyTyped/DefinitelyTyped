@@ -34,7 +34,7 @@ client.useOauth({
 // https://github.com/Asana/node-asana#collections
 // Collections
 
-let tagId: number = null;
+let tagId = 123;
 client.tasks.findByTag(tagId, { limit: 5 }).then((collection: any) => {
   console.log(collection.data);
   // [ .. array of up to 5 task objects .. ]
@@ -106,6 +106,37 @@ let dispatcher = new asana.Dispatcher({
 });
 client = new asana.Client(dispatcher);
 
+// use low level http interface, which is defined on the top level objects
+client.attachments.dispatchGet('/foo');
+// client.batchAPI.dispatchGet('/foo');
+// client.customFieldSettings.dispatchGet('/foo');
+client.customFields.dispatchGet('/foo');
+client.events.dispatchGet('/foo');
+// client.jobs.dispatchGet('/foo');
+// client.organizationExports.dispatchGet('/foo');
+// client.portfolios.dispatchGet('/foo');
+// client.portfolioMemberships.dispatchGet('/foo');
+client.projects.dispatchGet('/foo');
+// client.projectMemberships.dispatchGet('/foo');
+// client.projectStatuses.dispatchGet('/foo');
+client.sections.dispatchGet('/foo');
+client.stories.dispatchGet('/foo');
+client.tags.dispatchGet('/foo');
+client.tasks.dispatchGet('/foo');
+client.teams.dispatchGet('/foo');
+client.typeahead.dispatchGet('/foo');
+client.users.dispatchGet('/foo');
+client.userTaskLists.dispatchGet('/foo');
+client.workspaces.dispatchGet('/foo');
+// client.workspaceMemberships.dispatchGet('/foo');
+client.webhooks.dispatchGet('/foo');
+
+// but not included in response objects
+client.tasks.getTask('123').then(task => {
+    // $ExpectError
+    task.dispatchGet('/foo');
+});
+
 // GIDs should handle both strings and numbers
 // https://github.com/Asana/node-asana/blob/master/test/resources/attachments_spec.js
 client.attachments.findById('foobar', {opt_fields: 'id,name'}).then();
@@ -127,19 +158,262 @@ client.tasks.update('task_gid', {
     custom_fields: { custom_field_gid_1: 123, custom_field_gid_2: 456 },
     due_at: 'some_date_and_time',
     due_on: 'some_date',
+    external: {
+        data: "A blob of information",
+        gid: "external_identifier",
+    },
     html_notes: '<b>some html</b>',
     liked: true,
     name: 'some task name',
     notes: 'some description',
     parent: 'some parent task gid',
+    start_at: 'some_time',
     start_on: 'some_date',
     workspace: 'some_workspace_gid',
 }).then((task) => console.log(task.name));
+
+// redacted response from client.tasks.getTask('gid here') with no options passed,
+// from a Premium-level account.
+//
+// note: will not currently typecheck, due to current soundness/convenience trade-offs in definitions.  See
+// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/60589
+//
+// Kept here for use in future potential tests.
+//
+// const _returnedTask: asana.resources.Tasks.Type = {
+//     gid: "123",
+//     assignee: {
+//         gid: "456",
+//         name: "person name",
+//         resource_type: "user"
+//     },
+//     assignee_status: "inbox",
+//     assignee_section: {
+//         gid: "789",
+//         name: "section name",
+//         resource_type: "section"
+//     },
+//     completed: false,
+//     completed_at: null,
+//     created_at: "2022-02-19T14:39:02.472Z",
+//     custom_fields: [
+//         {
+//             gid: "123",
+//             enabled: true,
+//             name: "upvotes",
+//             number_value: -293,
+//             precision: 0,
+//             created_by: {
+//                 gid: "456",
+//                 name: "person name",
+//                 resource_type: "user"
+//             },
+//             display_value: "-293",
+//             resource_subtype: "number",
+//             resource_type: "custom_field",
+//             type: "number"
+//         }
+//     ],
+//     due_at: null,
+//     due_on: null,
+//     followers: [
+//         {
+//             gid: "123",
+//             name: "person name",
+//             resource_type: "user"
+//         }
+//     ],
+//     hearted: false,
+//     hearts: [],
+//     liked: false,
+//     likes: [],
+//     memberships: [
+//         {
+//             project: {
+//                 gid: '456',
+//                 name: 'project name',
+//                 resource_type: 'project',
+//             },
+//             section: {
+//                 gid: '789',
+//                 name: 'section name',
+//                 resource_type: 'section',
+//             },
+//         },
+//     ],
+//     modified_at: '2022-05-29T23:33:19.232Z',
+//     name: 'name here',
+//     notes: 'notes here',
+//     num_hearts: 0,
+//     num_likes: 0,
+//     parent: null,
+//     permalink_url: 'https://app.asana.com/0/456/123',
+//     projects: [
+//         {
+//             gid: '123',
+//             name: 'project name',
+//             resource_type: 'project',
+//         },
+//     ],
+//     resource_type: 'task',
+//     start_at: null,
+//     start_on: null,
+//     tags: [],
+//     resource_subtype: 'default_task',
+//     workspace: {
+//         gid: '123',
+//         name: 'workspace name',
+//         resource_type: 'workspace',
+//     },
+// };
+//
+// redacted response from client.tasks.getTask('gid here', {opt_fields: ['gid']})
+// const _minimalReturnedTask: asana.resources.Tasks.Type = {
+//     gid: '123',
+// };
+// redacted response from client.tasks.getTask('gid here', {opt_fields: ['name']})
+// const _secondMinimalReturnedTask: asana.resources.Tasks.Type = {
+//     gid: '123',
+//     name: 'name here',
+// };
+
 client.projects.delete('foobar').then();
+// christmas tree create
+// https://developers.asana.com/docs/create-a-task
+client.tasks
+    .create({
+        approval_status: 'approved',
+        assignee: 'their_gid',
+        assignee_section: 'section_or_my_tasks_column_gid',
+        completed: true,
+        custom_fields: { custom_field_gid_1: 123, custom_field_gid_2: 456 },
+        due_at: 'some_date_and_time',
+        due_on: 'some_date',
+        external: {
+            data: 'A blob of information',
+            gid: 'external_identifier',
+        },
+        html_notes: '<b>some html</b>',
+        liked: true,
+        name: 'some task name',
+        notes: 'some description',
+        parent: 'some parent task gid',
+        start_on: 'some_date',
+        workspace: 'some_workspace_gid',
+    })
+    .then(task => console.log(task.name));
+
 // https://github.com/Asana/node-asana/blob/master/test/resources/stories_spec.js
 client.stories.findById('foobar', {opt_fields: 'id,name'}).then();
 client.stories.findByTask('foobar', {opt_fields: 'id,name'}).then();
 client.stories.createOnTask('foobar', { name: 'test' }).then();
+
+// redacted response from client.stories.getStoriesForTask('gid here');
+const _returnedAssignedStory: asana.resources.Stories.ShortType = {
+    gid: '123',
+    created_at: '2022-02-19T14:39:02.854Z',
+    created_by: {
+        gid: '456',
+        name: 'name here',
+        resource_type: 'user',
+    },
+    resource_subtype: 'assigned',
+    resource_type: 'story',
+    text: 'name here assigned to you',
+    type: 'system',
+};
+
+// redacted response from client.stories.getStoriesForTask('gid here');
+const _returnedCustomFieldChangedStory: asana.resources.Stories.ShortType = {
+    gid: '123',
+    created_at: '2022-05-30T00:44:35.756Z',
+    created_by: {
+        gid: '456',
+        name: 'name here',
+        resource_type: 'user',
+    },
+    resource_subtype: 'number_custom_field_changed',
+    resource_type: 'story',
+    text: 'text here',
+    type: 'system',
+};
+
+// redacted response from client.stories.getStory('gid here')
+//
+// note: will not currently typecheck, due to current soundness/convenience trade-offs in definitions.  See
+// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/60589
+//
+// Kept here for use in future potential tests.
+//
+// const _returnedLongerCustomFieldChangedStory: asana.resources.Stories.Type = {
+//     gid: '123',
+//     created_at: '2022-05-30T00:44:35.756Z',
+//     created_by: {
+//         gid: '456',
+//         name: 'name',
+//         resource_type: 'user',
+//     },
+//     previews: [],
+//     resource_subtype: 'number_custom_field_changed',
+//     resource_type: 'story',
+//     source: 'web',
+//     text: 'name changed upvotes from "-293" to "-296"',
+//     type: 'system',
+//     target: {
+//         gid: '789',
+//         name: 'name of task',
+//         resource_type: 'task',
+//     },
+// };
+//
+// redacted response from client.stories.getStory('gid here')
+// const _returnedLongerLikedCommentAddedStory: asana.resources.Stories.Type = {
+//     gid: '123',
+//     created_at: '2022-05-29T23:12:24.007Z',
+//     created_by: {
+//         gid: '456',
+//         name: 'name here',
+//         resource_type: 'user',
+//     },
+//     hearted: true,
+//     hearts: [
+//         {
+//             gid: '789',
+//             user: {
+//                 gid: '123',
+//                 name: 'name here',
+//                 resource_type: 'user',
+//             },
+//         },
+//     ],
+//     is_edited: false,
+//     is_pinned: false,
+//     liked: true,
+//     likes: [
+//         {
+//             gid: '456',
+//             user: {
+//                 gid: '789',
+//                 name: 'name here',
+//                 resource_type: 'user',
+//             },
+//         },
+//     ],
+//     num_hearts: 1,
+//     num_likes: 1,
+//     previews: [],
+//     resource_subtype: 'comment_added',
+//     resource_type: 'story',
+//     source: 'web',
+//     text: 'asdfasdf',
+//     type: 'comment',
+//     target: {
+//         gid: '123',
+//         name: 'some name',
+//         resource_type: 'task',
+//     },
+// };
+
 // https://github.com/Asana/node-asana/blob/master/test/resources/tasks_spec.js
 client.tasks.createInWorkspace('foobar', { name: 'Test' }).then();
 client.tasks.findById('foobar', {opt_fields: 'id,name'}).then();
@@ -173,9 +447,9 @@ client.workspaces.typeahead('baz', {type: 'task', query: 'foobar'}).then();
 
 // Workspaces have a boolean property "is_organization"
 // https://developers.asana.com/docs/workspace
-let workspaceShort: asana.resources.Workspaces.ShortType;
+let workspaceShort: asana.resources.Workspaces.ShortType = { gid: '123', name: 'My workspace', resource_type: 'workspace' };
 workspaceShort.is_organization = true;
-let workspace: asana.resources.Workspaces.Type;
+let workspace: asana.resources.Workspaces.Type = { is_organization: true, email_domains: [], gid: '123', name: 'My workspace', resource_type: 'workspace' };
 workspace.is_organization = true;
 
 // Tasks.FindAllParams should accept a project gid and/or a section gid, and the workspace gid should be optional
@@ -302,7 +576,7 @@ client.typeahead.typeaheadForWorkspace('123', {resource_type: 'tag', query: 'foo
 client.typeahead.typeaheadForWorkspace('123', {resource_type: 'task', query: 'foo'})
     .then((tasks: asana.resources.ResourceList<asana.resources.Tasks.Type>) => {
         const task = tasks.data[0];
-        // $ExpectType string
+        // $ExpectType string | null
         task.completed_at;
         // @ts-expect-error
         task.color;
