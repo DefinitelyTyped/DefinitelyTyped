@@ -219,7 +219,7 @@ const geometryCollectionWithGeometryCollection: GeometryCollection = {
     geometries: [geometryCollection],
 };
 
-const geometryCollectionWithGenerics: GeometryCollection<Point | LineString | Polygon> = {
+const geometryCollectionWithGenerics: GeometryCollection = {
     type: 'GeometryCollection',
     geometries: [
         point,
