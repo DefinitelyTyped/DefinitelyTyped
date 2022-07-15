@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
-import inquirer = require("inquirer");
+import inquirer, { Question } from "inquirer";
 
 type Inquirer = typeof inquirer;
-declare function askName(name: string | inquirer.Question, inquirer: Inquirer): Promise<{ [key: string]: string }>;
+declare function askName(name: string | Question, inquirer: Inquirer): Promise<{ [key: string]: string }>;
 export = askName;
