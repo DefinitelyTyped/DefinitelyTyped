@@ -1,7 +1,7 @@
 // Type definitions for node-imap 0.9
 // Project: https://www.npmjs.com/package/node-imap
 // Definitions by: Peter Snider <https://github.com/psnider>
-// 				   Alexander Rudolph <https://github.com/drblaui>
+//                 Alexander Rudolph <https://github.com/drblaui>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
