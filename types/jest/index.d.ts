@@ -471,6 +471,10 @@ declare namespace jest {
          */
         only: It;
         /**
+         * Mark this test as expecting to fail.
+         */
+        failing: It;
+        /**
          * Skips running this test in the current file.
          */
         skip: It;
