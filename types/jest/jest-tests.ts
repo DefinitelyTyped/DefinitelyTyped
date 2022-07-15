@@ -107,6 +107,14 @@ it.only('name', () => {}, 9001);
 it.only('name', async () => {}, 9001);
 it.only('name', (callback: jest.DoneCallback) => {}, 9001);
 
+it.failing('name', () => {});
+it.failing('name', async () => {});
+it.failing('name', () => {}, 9001);
+it.failing('name', async () => {}, 9001);
+it.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+it.only.failing('name', () => {});
+it.skip.failing('name', () => {});
+
 it.skip('name', () => {});
 it.skip('name', async () => {});
 it.skip('name', () => {}, 9001);
@@ -136,6 +144,14 @@ fit.only('name', async () => {});
 fit.only('name', () => {}, 9001);
 fit.only('name', async () => {}, 9001);
 fit.only('name', (callback: jest.DoneCallback) => {}, 9001);
+
+fit.failing('name', () => {});
+fit.failing('name', async () => {});
+fit.failing('name', () => {}, 9001);
+fit.failing('name', async () => {}, 9001);
+fit.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+fit.only.failing('name', () => {});
+fit.skip.failing('name', () => {});
 
 fit.skip('name', () => {});
 fit.skip('name', async () => {});
@@ -167,6 +183,14 @@ xit.only('name', () => {}, 9001);
 xit.only('name', async () => {}, 9001);
 xit.only('name', (callback: jest.DoneCallback) => {}, 9001);
 
+xit.failing('name', () => {});
+xit.failing('name', async () => {});
+xit.failing('name', () => {}, 9001);
+xit.failing('name', async () => {}, 9001);
+xit.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+xit.only.failing('name', () => {});
+xit.skip.failing('name', () => {});
+
 xit.skip('name', () => {});
 xit.skip('name', async () => {});
 xit.skip('name', () => {}, 9001);
@@ -197,6 +221,14 @@ test.only('name', () => {}, 9001);
 test.only('name', async () => {}, 9001);
 test.only('name', (callback: jest.DoneCallback) => {}, 9001);
 
+test.failing('name', () => {});
+test.failing('name', async () => {});
+test.failing('name', () => {}, 9001);
+test.failing('name', async () => {}, 9001);
+test.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+test.only.failing('name', () => {});
+test.skip.failing('name', () => {});
+
 test.skip('name', () => {});
 test.skip('name', async () => {});
 test.skip('name', () => {}, 9001);
@@ -226,6 +258,14 @@ xtest.only('name', async () => {});
 xtest.only('name', () => {}, 9001);
 xtest.only('name', async () => {}, 9001);
 xtest.only('name', (callback: jest.DoneCallback) => {}, 9001);
+
+xtest.failing('name', () => {});
+xtest.failing('name', async () => {});
+xtest.failing('name', () => {}, 9001);
+xtest.failing('name', async () => {}, 9001);
+xtest.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+xtest.only.failing('name', () => {});
+xtest.skip.failing('name', () => {});
 
 xtest.skip('name', () => {});
 xtest.skip('name', async () => {});
