@@ -10,7 +10,7 @@ const config: NeteaseCaptcha.Config = {
         console.log(error, data);
     },
     onClose: () => {},
-    enableClose: false,
+    enableClose: true,
 };
 
 const onLoad: NeteaseCaptcha.onLoad = (instance: NeteaseCaptcha.Instance) => {
