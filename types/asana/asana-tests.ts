@@ -100,7 +100,10 @@ client.users.me()
 // Client should be a constructor and accept a dispatcher (e.g. for rate limiting)
 // see: https://github.com/Asana/node-asana/blob/e8400cb386710bf9d310b9a538e291ce908f1291/test/client_spec.js#L33-L37
 
-let dispatcher = new asana.Dispatcher({retryOnRateLimit: true});
+let dispatcher = new asana.Dispatcher({
+    retryOnRateLimit: true,
+    defaultHeaders: {'Asana-Enable': 'feature'}, // dispatcher options can include headers
+});
 client = new asana.Client(dispatcher);
 
 // use low level http interface, which is defined on the top level objects
@@ -433,9 +436,9 @@ client.workspaces.typeahead('baz', {type: 'task', query: 'foobar'}).then();
 
 // Workspaces have a boolean property "is_organization"
 // https://developers.asana.com/docs/workspace
-let workspaceShort: asana.resources.Workspaces.ShortType = {gid: '123'};
+let workspaceShort: asana.resources.Workspaces.ShortType = { gid: '123', name: 'My workspace', resource_type: 'workspace' };
 workspaceShort.is_organization = true;
-let workspace: asana.resources.Workspaces.Type = {is_organization: true, email_domains: [], gid: '123'};
+let workspace: asana.resources.Workspaces.Type = { is_organization: true, email_domains: [], gid: '123', name: 'My workspace', resource_type: 'workspace' };
 workspace.is_organization = true;
 
 // Tasks.FindAllParams should accept a project gid and/or a section gid, and the workspace gid should be optional
@@ -517,7 +520,7 @@ const badTypeaheadForWorkspaceQuery: asana.resources.Typeahead.TypeaheadParams =
     resource_type: 'task',
     query: 'my query',
     opt_pretty: true,
-    // $ExpectError
+    // @ts-expect-error
     opt_fields: ['name', 'completed', 'parent', 'custom_fields.gid', 'custom_fields.number_value'],
 };
 
@@ -887,7 +890,7 @@ client.userTaskLists.findByUser('123', {workspace: '456'});
 client.typeahead.typeaheadForWorkspace('123', {resource_type: 'custom_field', query: 'foo'})
     .then((customFields) => {
         const customField = customFields.data[0];
-        // $ExpectError
+        // @ts-expect-error
         customField.completed_at;
     });
 
@@ -896,14 +899,14 @@ client.typeahead.typeaheadForWorkspace('123', {resource_type: 'project', query: 
         const project = projects.data[0];
         // $ExpectType string
         project.color;
-        // $ExpectError
+        // @ts-expect-error
         tag.completed_at;
     });
 
 client.typeahead.typeaheadForWorkspace('123', {resource_type: 'portfolio', query: 'foo'})
     .then((portfolios) => {
         const portfolio = portfolios.data[0];
-        // $ExpectError
+        // @ts-expect-error
         portfolio.completed_at;
     });
 
@@ -912,7 +915,7 @@ client.typeahead.typeaheadForWorkspace('123', {resource_type: 'tag', query: 'foo
         const tag = tags.data[0];
         // $ExpectType string
         tag.notes;
-        // $ExpectError
+        // @ts-expect-error
         tag.completed_at;
     });
 
@@ -922,7 +925,7 @@ client.typeahead.typeaheadForWorkspace('123', {resource_type: 'task', query: 'fo
         const task = tasks.data[0];
         // $ExpectError
         task.completed_at;
-        // $ExpectError
+        // @ts-expect-error
         task.color;
     });
 
@@ -932,6 +935,6 @@ client.typeahead.typeaheadForWorkspace('123', {resource_type: 'user', query: 'fo
         const user = users.data[0];
         // $ExpectType Resource[]
         user.workspaces;
-        // $ExpectError
+        // @ts-expect-error
         user.completed_at;
     });

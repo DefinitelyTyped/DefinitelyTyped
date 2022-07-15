@@ -698,7 +698,12 @@ export class Gradient {
      */
     static fromElement(el: SVGGradientElement, instance: Object): Gradient;
 }
+
 export class Intersection {
+    status?: string | undefined;
+
+    points?: Point[] | undefined;
+
     constructor(status?: string);
     /**
      * Appends a point to intersection

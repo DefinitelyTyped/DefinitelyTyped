@@ -284,6 +284,7 @@ indy.proverDeleteCredential(10, 'credId');
 indy.generateNonce();
 indy.generateWalletKey();
 indy.generateWalletKey({ seed: 'seed' });
+indy.buildAttribRequest('myDid', 'myDid', null, 'endpoint', null);
 indy.buildGetAttribRequest(null, 'did', 'endpoint', null, null);
 indy.proverGetCredentialsForProofReq(10, proofReq);
 indy.proverSearchCredentialsForProofReq(10, proofReq, {});

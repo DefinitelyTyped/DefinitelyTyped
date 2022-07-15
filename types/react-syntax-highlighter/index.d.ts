@@ -724,6 +724,8 @@ declare module 'react-syntax-highlighter/dist/esm/styles/prism' {
     export { default as materialOceanic } from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic';
     export { default as nord } from 'react-syntax-highlighter/dist/esm/styles/prism/nord';
     export { default as okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism/okaidia';
+    export { default as oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism/one-dark';
+    export { default as oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism/one-light';
     export { default as pojoaque } from 'react-syntax-highlighter/dist/esm/styles/prism/pojoaque';
     export { default as prism } from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
     export { default as shadesOfPurple } from 'react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple';
@@ -852,6 +854,16 @@ declare module 'react-syntax-highlighter/dist/esm/styles/prism/nord' {
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/okaidia' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/one-light' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/one-dark' {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }

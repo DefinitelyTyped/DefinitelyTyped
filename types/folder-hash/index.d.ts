@@ -2,6 +2,7 @@
 // Project: https://github.com/marc136/node-folder-hash#readme
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Marc Walter <https://github.com/marc136>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type PathGlobFunction = () => string[];
@@ -26,7 +27,7 @@ export interface HashElementOptions {
     // Defaults to 'sha1'.
     algo?: string | undefined;
     // Defaults to 'base64'
-    encoding?: "base64" | "hex" | "binary" | undefined;
+    encoding?: "base64" | "base64url" | "hex" | "binary" | undefined;
     files?: FolderAndFileOptions | undefined;
     folders?: FolderAndFileOptions | undefined;
     symbolicLinks?: SymbolicLinkOptions | undefined;

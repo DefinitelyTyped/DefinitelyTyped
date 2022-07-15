@@ -5,8 +5,7 @@ import PrismLightHighlighter from "react-syntax-highlighter/dist/cjs/prism-light
 import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
 import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { gruvboxDark, gruvboxLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { oneLight, oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import createElement from "react-syntax-highlighter/dist/esm/create-element";
 
 const codeString = `class CPP {
@@ -43,7 +42,7 @@ function hljsLightHighlighter(): JSX.Element {
 function prismHighlighter(): JSX.Element {
     PrismSyntaxHighlighter.supportedLanguages; // $ExpectType string[]
     return (
-        <PrismSyntaxHighlighter language="javascript" style={gruvboxDark}>
+        <PrismSyntaxHighlighter language="javascript" style={oneDark}>
             {codeString}
         </PrismSyntaxHighlighter>
     );
@@ -53,7 +52,7 @@ function primsLightHighlighter(): JSX.Element {
     PrismLightHighlighter.registerLanguage("jsx", jsx);
 
     return (
-        <PrismLightHighlighter language="jsx" style={gruvboxDark}>
+        <PrismLightHighlighter language="jsx" style={oneLight}>
             {codeString}
         </PrismLightHighlighter>
     );
@@ -117,6 +116,8 @@ const TestComponent: React.FC = () => <div>Hello world</div>;
 
 // Test `style`
 <PrismLightHighlighter style={docco}>{codeString}</PrismLightHighlighter>;
+<PrismLightHighlighter style={oneDark}>{codeString}</PrismLightHighlighter>;
+<PrismLightHighlighter style={oneLight}>{codeString}</PrismLightHighlighter>;
 <PrismLightHighlighter style={{ keyword: { color: "red" } }}>{codeString}</PrismLightHighlighter>;
 // @ts-expect-error
 <PrismLightHighlighter style={{ color: "red" }}>{codeString}</PrismLightHighlighter>;
