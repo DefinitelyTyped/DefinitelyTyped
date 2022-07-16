@@ -1,4 +1,4 @@
-// Type definitions for Mustache 4.1.0
+// Type definitions for Mustache 4.2
 // Project: https://github.com/janl/mustache.js
 // Definitions by: Mark Ashley Bell <https://github.com/markashleybell>,
 //                 Manuel Thalmann <https://github.com/manuth>,
