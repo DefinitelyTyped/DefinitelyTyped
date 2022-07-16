@@ -537,11 +537,12 @@ function reactNodeTests() {
 
 function elementTypeTests() {
     const ReturnVoid = () => {};
-    class RenderVoid extends React.Component {
-        // Undesired behavior that we can't change in 17 but was fixed in 18.
-        // Accepted because `ReactNode` includes `{}`
-        render() {}
-    }
+    // Test disabled since it fails in TypeScript 4.8 (intended) but not earlier.
+    // class RenderVoid extends React.Component {
+    //     // Undesired behavior that we can't change in 17 but was fixed in 18.
+    //     // Accepted because `ReactNode` includes `{}`
+    //     render() {}
+    // }
 
     const ReturnUndefined = () => undefined;
     class RenderUndefined extends React.Component {
@@ -605,12 +606,14 @@ function elementTypeTests() {
     }
 
     // Undesired behavior. Returning `void` should be rejected in all forms.
+    // Only TypeScript 4.8 rejects `<RenderVoid />`
     // @ts-expect-error
     <ReturnVoid />;
     // @ts-expect-error
     React.createElement(ReturnVoid);
-    <RenderVoid />;
-    React.createElement(RenderVoid);
+    // Test disabled since it fails in TypeScript 4.8 (intended) but not earlier.
+    // <RenderVoid />;
+    // React.createElement(RenderVoid);
 
     // Undesired behavior. Returning `undefined` should be rejected in all forms.
     // See RenderUndefined definition for more information.
