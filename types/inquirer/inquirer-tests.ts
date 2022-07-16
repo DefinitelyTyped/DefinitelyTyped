@@ -30,6 +30,7 @@ import { Subject } from 'rxjs';
         test: string;
     }
 
+    // Having a `name` in an already named question is counterproductive. Thus, it's considered an error.
     inquirer.prompt<AnswerHash>(
         // @ts-expect-error
         {
@@ -48,6 +49,7 @@ import { Subject } from 'rxjs';
             }
         });
 
+    // Take note that the properties of the answer-hash `this`, `is`, `a` and `test` are showing up in the auto completion
     inquirer.prompt<AnswerHash>(
         {
             this: {
