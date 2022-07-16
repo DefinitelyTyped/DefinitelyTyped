@@ -726,7 +726,7 @@ export type QuestionCollection<T extends Answers = Answers> =
     | DistinctQuestion<T>
     | ReadonlyArray<DistinctQuestion<T>>
     | Observable<DistinctQuestion<T>>
-    | Record<string, Omit<DistinctQuestion<T>, "name">>;
+    | { [P in KeyUnion<T>]?: (DistinctQuestion<T> & { name?: never }) };
 
 /**
  * Provides an input and an output-stream.
