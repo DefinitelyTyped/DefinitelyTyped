@@ -1,6 +1,7 @@
 {
     "files": [
         "index.d.ts",
+        "index.d.mts",
         "mustache-tests.ts",
         "test/commonjs.ts"
     ],
