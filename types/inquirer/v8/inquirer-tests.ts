@@ -25,11 +25,34 @@ import { Subject } from 'rxjs';
     ]);
 }
 {
-    inquirer.prompt(
+    interface AnswerHash {
+        this: string;
+        is: string;
+        a: string;
+        test: string;
+    }
+
+    inquirer.prompt<AnswerHash>(
         // @ts-expect-error
         {
             this: {
-                name: 'test',
+                name: 'override-this',
+                message: '1st question'
+            },
+            is: {
+                message: '2nd question'
+            },
+            a: {
+                message: '3rd question'
+            },
+            test: {
+                message: '4th question'
+            }
+        });
+
+    inquirer.prompt<AnswerHash>(
+        {
+            this: {
                 message: '1st question'
             },
             is: {
