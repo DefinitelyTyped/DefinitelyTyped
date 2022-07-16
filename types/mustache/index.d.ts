@@ -151,8 +151,8 @@ export class Writer {
      *
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
      *
-     * @param tags
-     * The tags to use.
+     * @param config
+     * The options for the rendering process.
      */
     render(
         template: string,
@@ -203,6 +203,9 @@ export class Writer {
      */
     renderSection(
         token: string[],
+     *
+     * @param config
+     * The options for the rendering process.
         context: Context,
         partials?: PartialsOrLookupFn,
         originalTemplate?: string,
@@ -223,6 +226,9 @@ export class Writer {
      *
      * @param originalTemplate
      * An object used to extract the portion of the original template that was contained in a higher-order section.
+     *
+     * @param config
+     * The options for the rendering process.
      */
     renderInverted(
         token: string[],
@@ -258,8 +264,8 @@ export class Writer {
      * @param partials
      * The partials to use for rendering the token.
      *
-     * @param tags
-     * The tags to use.
+     * @param config
+     * The options for the rendering process.
      */
     renderPartial(
         token: string[],
@@ -287,6 +293,9 @@ export class Writer {
      *
      * @param context
      * The context to use for rendering the token.
+     *
+     * @param config
+     * The options for the rendering process.
      */
     escapedValue(
         token: string[],

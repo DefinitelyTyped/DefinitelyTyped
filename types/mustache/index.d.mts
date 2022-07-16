@@ -193,8 +193,8 @@ declare namespace mustache {
          *
          * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
          *
-         * @param tags
-         * The tags to use.
+         * @param config
+         * The options for the rendering process.
          */
         render(
             template: string,
@@ -219,6 +219,9 @@ declare namespace mustache {
          * An object used to extract the portion of the original template that was contained in a higher-order section.
          *
          * If the template doesn't use higher-order sections, this argument may be omitted.
+         *
+         * @param config
+         * The options for the rendering process.
          */
         renderTokens(
             tokens: string[][],
@@ -242,6 +245,9 @@ declare namespace mustache {
          *
          * @param originalTemplate
          * An object used to extract the portion of the original template that was contained in a higher-order section.
+         *
+         * @param config
+         * The options for the rendering process.
          */
         renderSection(
             token: string[],
@@ -265,6 +271,9 @@ declare namespace mustache {
          *
          * @param originalTemplate
          * An object used to extract the portion of the original template that was contained in a higher-order section.
+         *
+         * @param config
+         * The options for the rendering process.
          */
         renderInverted(
             token: string[],
@@ -300,8 +309,8 @@ declare namespace mustache {
          * @param partials
          * The partials to use for rendering the token.
          *
-         * @param tags
-         * The tags to use.
+         * @param config
+         * The options for the rendering process.
          */
         renderPartial(
             token: string[],
@@ -329,6 +338,9 @@ declare namespace mustache {
          *
          * @param context
          * The context to use for rendering the token.
+         *
+         * @param config
+         * The options for the rendering process.
          */
         escapedValue(
             token: string[],
