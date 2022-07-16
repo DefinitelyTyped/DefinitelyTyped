@@ -1396,19 +1396,25 @@ export interface SideNaviationProps {
      */
     accessibilityLabel: string;
     /**
-     * The content shown in SideNavigation. See [subcomponents](https://gestalt.pinterest.systems/sidenavigation#Subcomponents).
+     * The content shown in SideNavigation.
+     * See [subcomponents](https://gestalt.pinterest.systems/sidenavigation#Subcomponents).
      */
     children: React.ReactNode;
     /**
-     * Content to display at the bottom of SideNavigation. Open slot available to display other functionality required in the page. See the [Footer variant](https://gestalt.pinterest.systems/sidenavigation#Header) to learn more.
+     * Content to display at the bottom of SideNavigation.
+     * Open slot available to display other functionality required in the page.
+     * See the [Footer variant](https://gestalt.pinterest.systems/sidenavigation#Header) to learn more.
      */
     footer?: React.ReactNode;
     /**
-     * Content to display at the top of SideNavigation. Open slot used for controlling the display of navigation items. See the [Header variant](https://gestalt.pinterest.systems/sidenavigation#Header) to learn more.
+     * Content to display at the top of SideNavigation.
+     * Open slot used for controlling the display of navigation items.
+     * See the [Header variant](https://gestalt.pinterest.systems/sidenavigation#Header) to learn more.
      */
     header?: React.ReactNode;
     /**
-     * Displays a border in SideNavigation. See the [Border](https://gestalt.pinterest.systems/sidenavigation#Border) variant for more info.
+     * Displays a border in SideNavigation.
+     * See the [Border](https://gestalt.pinterest.systems/sidenavigation#Border) variant for more info.
      */
     showBorder?: boolean;
 }
@@ -1426,11 +1432,14 @@ export interface SideNavigationSectionProps {
 
 export interface SideNavigationTopItemProps {
     /**
-     * When set to 'page' or 'section', it displays the item in "active" state. See the [Accessibility](https://gestalt.pinterest.systems/SideNavigation#Accessibility) guidelines to learn more.
+     * When set to 'page' or 'section', it displays the item in "active" state.
+     * See the [Accessibility](https://gestalt.pinterest.systems/SideNavigation#Accessibility) guidelines to learn more.
      */
     active?: 'page' | 'section' | undefined;
     /**
-     * When supplied, will display a [Badge](https://gestalt.pinterest.systems/badge) next to the item's label. See the [Badges](https://gestalt.pinterest.systems/SideNavigation#Badge) variant to learn more.
+     * When supplied, will display a
+     * [Badge](https://gestalt.pinterest.systems/badge) next to the item's label.
+     * See the [Badges](https://gestalt.pinterest.systems/SideNavigation#Badge) variant to learn more.
      */
     badge?:
         | {
@@ -1502,7 +1511,9 @@ export interface SideNavigationNestedItemProps {
 
 export interface SideNavigationNestedGroupProps {
     /**
-     * When supplied, will display a [Badge](https://gestalt.pinterest.systems/badge) next to the item's label. See the [Badges](https://gestalt.pinterest.systems/SideNavigation#Badge) variant to learn more.
+     * When supplied, will display a
+     * [Badge](https://gestalt.pinterest.systems/badge) next to the item's label.
+     * See the [Badges](https://gestalt.pinterest.systems/SideNavigation#Badge) variant to learn more.
      */
     badge?: typeof Badge | undefined;
     /**
