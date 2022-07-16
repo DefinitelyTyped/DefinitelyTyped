@@ -26,9 +26,9 @@ import { Subject } from 'rxjs';
 }
 {
     inquirer.prompt(
+        // @ts-expect-error
         {
             this: {
-                // @ts-expect-error
                 name: 'test',
                 message: '1st question'
             },
