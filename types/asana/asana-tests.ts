@@ -8,7 +8,7 @@ let version: string = asana.VERSION;
 // Usage
 
 var client = asana.Client.create().useAccessToken('my_access_token');
-client.users.me().then(function (me) {
+client.users.me().then(me => {
     console.log(me);
 });
 
