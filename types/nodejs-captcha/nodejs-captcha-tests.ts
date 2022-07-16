@@ -1,4 +1,4 @@
-import captcha from 'nodejs-captcha';
+import captcha = require('nodejs-captcha');
 
 const testConfig = {
 	length: 8,
