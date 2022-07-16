@@ -28,6 +28,17 @@ export const version: string;
 export let tags: OpeningAndClosingTags;
 
 /**
+ * Customise the template caching behaviour by either:
+ *
+ * disable it completely by setting it to `undefined`
+ *
+ * -- or --
+ *
+ * provide a custom cache strategy that satisfies the `TemplateCache` interface
+ */
+export let templateCache: TemplateCache | undefined;
+
+/**
  * A simple string scanner that is used by the template parser to find tokens in template strings.
  */
 export class Scanner {
@@ -307,17 +318,6 @@ export const escape: EscapeFunction;
  * Clears all cached templates in this writer.
  */
 export function clearCache(): void;
-
-/**
- * Customise the template caching behaviour by either:
- *
- * disable it completely by setting it to `undefined`
- *
- * -- or --
- *
- * provide a custom cache strategy that satisfies the `TemplateCache` interface
- */
-export let templateCache: TemplateCache | undefined;
 
 /**
  * Parses and caches the given template in the default writer and returns the array of tokens it contains.
