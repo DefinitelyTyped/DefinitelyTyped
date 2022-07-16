@@ -25,7 +25,7 @@ declare const version: string;
  *
  * Default value is `[ "{{", "}}" ]`.
  */
-declare const tags: OpeningAndClosingTags;
+declare let tags: OpeningAndClosingTags;
 
 /**
  * A simple string scanner that is used by the template parser to find tokens in template strings.
