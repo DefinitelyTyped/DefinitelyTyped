@@ -47,3 +47,5 @@ Mustache.templateCache = {
     },
     clear() { /* empty implementation */ }
 }
+
+Mustache.tags = ['<%', '%>'];
