@@ -1,4 +1,4 @@
-// Type definitions for ssdeep.js 0.0
+// Type definitions for nodejs-captcha 0.0
 // Project: https://github.com/ozgur-dogan/nodejs-captcha
 // Definitions by: JPBM135 <https://github.com/JPBM135>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,8 +7,8 @@
  * Returns a captcha object
  * @param p List of options, all of which are optional.
  */
-declare function captcha(p: captchaOptions): captchaValue;
-interface captchaValue {
+declare function captcha(p?: captchaOptions): captchaValue;
+interface CaptchaValue {
     /**
      * The text value encoded on the captcha
      */
@@ -28,7 +28,7 @@ interface captchaValue {
      */
     image: string;
 }
-interface captchaOptions {
+interface CaptchaOptions {
     /**
      * The character set to use for the captcha.
      * @default {'1234567890abcdefghijklmnoprstuvyz'.split('')}
