@@ -85,6 +85,7 @@ declare module 'perf_hooks' {
          * @since v16.0.0
          */
         readonly detail?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
+        toJSON(): any;
     }
     class PerformanceMark extends PerformanceEntry {
         readonly duration: 0;

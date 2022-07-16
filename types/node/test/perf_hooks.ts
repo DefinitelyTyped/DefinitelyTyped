@@ -39,6 +39,7 @@ performance.measure('test', {
 });
 
 const measure1: PerformanceMeasure = performance.measure('name', startMark.name, 'endMark');
+measure1.toJSON();
 performance.measure('name', startMark.name);
 performance.measure('name');
 
