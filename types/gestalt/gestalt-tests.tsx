@@ -288,6 +288,13 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <PageHeader title="Home" />;
+<PageHeader
+    title="Posts"
+    primaryAction={{
+        component: <Button color="red" size="lg" text="Create" />,
+        dropdownItems: [<Dropdown.Item onSelect={() => undefined} option={{ value: 'create', label: 'Create' }} />],
+    }}
+/>;
 <Pog />;
 <Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current} />;
 

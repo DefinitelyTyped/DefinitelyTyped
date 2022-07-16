@@ -1210,7 +1210,9 @@ export interface PageHeaderAction {
     component?:
         | React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip | typeof Text>
         | undefined;
-    dropdownItems?: ReadonlyArray<DropdownItemProps | DropdownLinkProps> | undefined;
+    dropdownItems?:
+        | ReadonlyArray<React.ReactElement<DropdownItemProps | DropdownLinkProps, typeof Dropdown>>
+        | undefined;
 }
 
 /**
