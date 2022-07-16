@@ -10,12 +10,12 @@
 /**
  * The name of the module.
  */
-declare const name: string;
+export const name: string;
 
 /**
  * The version of the module.
  */
-declare const version: string;
+export const version: string;
 
 /**
  * The default opening and closing tags used while parsing the templates.
@@ -25,12 +25,12 @@ declare const version: string;
  *
  * Default value is `[ "{{", "}}" ]`.
  */
-declare let tags: OpeningAndClosingTags;
+export let tags: OpeningAndClosingTags;
 
 /**
  * A simple string scanner that is used by the template parser to find tokens in template strings.
  */
-declare class Scanner {
+export class Scanner {
     string: string;
     tail: string;
     pos: number;
@@ -71,7 +71,7 @@ declare class Scanner {
 /**
  * Represents a rendering context by wrapping a view object and maintaining a reference to the parent context.
  */
-declare class Context {
+export class Context {
     view: any;
     parent: Context | undefined;
 
@@ -102,7 +102,7 @@ declare class Context {
  *
  * It also maintains a cache of templates to avoid the need to parse the same template twice.
  */
-declare class Writer {
+export class Writer {
     /**
      * Initializes a new instance of the `MustacheWriter` class.
      */
@@ -301,12 +301,12 @@ declare class Writer {
  * @param value
  * The value to escape into a string.
  */
-export declare const escape: EscapeFunction;
+export const escape: EscapeFunction;
 
 /**
  * Clears all cached templates in this writer.
  */
-declare function clearCache(): void;
+export function clearCache(): void;
 
 /**
  * Customise the template caching behaviour by either:
@@ -317,7 +317,7 @@ declare function clearCache(): void;
  *
  * provide a custom cache strategy that satisfies the `TemplateCache` interface
  */
-declare let templateCache: TemplateCache | undefined;
+export let templateCache: TemplateCache | undefined;
 
 /**
  * Parses and caches the given template in the default writer and returns the array of tokens it contains.
@@ -330,7 +330,7 @@ declare let templateCache: TemplateCache | undefined;
  * @param tags
  * The tags to use.
  */
-declare function parse(template: string, tags?: OpeningAndClosingTags): TemplateSpans;
+export function parse(template: string, tags?: OpeningAndClosingTags): TemplateSpans;
 
 /**
  * Renders the `template` with the given `view` and `partials` using the default writer.
@@ -351,25 +351,25 @@ declare function parse(template: string, tags?: OpeningAndClosingTags): Template
  * @param tagsOrOptions
  * The delimiter tags to use or options overriding global defaults.
  */
-declare function render(
+export function render(
     template: string,
     view: any | Context,
-    partials ?: PartialsOrLookupFn,
-    tagsOrOptions ?: OpeningAndClosingTags | RenderOptions,
+    partials?: PartialsOrLookupFn,
+    tagsOrOptions?: OpeningAndClosingTags | RenderOptions,
 ): string;
 
-type RAW_VALUE = 'text';
-type ESCAPED_VALUE = 'name';
-type UNESCAPED_VALUE = '&';
-type SECTION = '#';
-type INVERTED = '^';
-type COMMENT = '!';
-type PARTIAL = '>';
-type EQUAL = '=';
+export type RAW_VALUE = 'text';
+export type ESCAPED_VALUE = 'name';
+export type UNESCAPED_VALUE = '&';
+export type SECTION = '#';
+export type INVERTED = '^';
+export type COMMENT = '!';
+export type PARTIAL = '>';
+export type EQUAL = '=';
 
-type TemplateSpanType = RAW_VALUE | ESCAPED_VALUE | SECTION | UNESCAPED_VALUE | INVERTED | COMMENT | PARTIAL | EQUAL;
+export type TemplateSpanType = RAW_VALUE | ESCAPED_VALUE | SECTION | UNESCAPED_VALUE | INVERTED | COMMENT | PARTIAL | EQUAL;
 
-type TemplateSpans = Array<
+export type TemplateSpans = Array<
     | [TemplateSpanType, string, number, number]
     | [TemplateSpanType, string, number, number, TemplateSpans, number]
     | [TemplateSpanType, string, number, number, string, number, boolean]
@@ -379,12 +379,12 @@ type TemplateSpans = Array<
  * Function responsible for escaping values from the view into the rendered output when templates
  * has `{{ value }}` in them.
  */
-type EscapeFunction = (value: any) => string;
+export type EscapeFunction = (value: any) => string;
 
 /**
  * An array of two strings, representing the opening and closing tags respectively, to be used in the templates being rendered.
  */
-type OpeningAndClosingTags = [string, string];
+export type OpeningAndClosingTags = [string, string];
 
 /**
  * Whenever partials are provided, it can either be an object that contains the names and templates of partials that are used in templates
@@ -393,15 +393,15 @@ type OpeningAndClosingTags = [string, string];
  *
  * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
  */
-type PartialsOrLookupFn = Record<string, string> | PartialLookupFn;
-type PartialLookupFn = (partialName: string) => string | undefined;
+export type PartialsOrLookupFn = Record<string, string> | PartialLookupFn;
+export type PartialLookupFn = (partialName: string) => string | undefined;
 
-interface RenderOptions {
+export interface RenderOptions {
     escape?: EscapeFunction | undefined;
     tags?: OpeningAndClosingTags | undefined;
 }
 
-interface TemplateCache {
+export interface TemplateCache {
     set(cacheKey: string, value: string): void;
     get(cacheKey: string): string | undefined;
     clear(): void;
