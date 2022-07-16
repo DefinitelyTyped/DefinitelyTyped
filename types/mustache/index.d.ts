@@ -21,7 +21,7 @@ export const version: string;
  * The default opening and closing tags used while parsing the templates.
  *
  * Different default tags can be overridden by setting this field. They will have effect on all subsequent
- * calls to `.render()` or `.parse()`, unless custom tags are given as arguments to those functions.
+ * calls to {@link render `.render()`} or {@link parse `.parse()`}, unless custom tags are given as arguments to those functions.
  *
  * Default value is `[ "{{", "}}" ]`.
  */
@@ -34,7 +34,7 @@ export let tags: OpeningAndClosingTags;
  *
  * -- or --
  *
- * provide a custom cache strategy that satisfies the `TemplateCache` interface
+ * provide a custom cache strategy that satisfies the {@link TemplateCache `TemplateCache`} interface
  */
 export let templateCache: TemplateCache | undefined;
 
@@ -47,7 +47,7 @@ export class Scanner {
     pos: number;
 
     /**
-     * Initializes a new instance of the `MustacheScanner` class.
+     * Initializes a new instance of the {@link Scanner `Scanner`} class.
      */
     constructor(string: string);
 
@@ -87,7 +87,7 @@ export class Context {
     parent: Context | undefined;
 
     /**
-     * Initializes a new instance of the `Context` class.
+     * Initializes a new instance of the {@link Context `Context`} class.
      */
     constructor(view: any, parentContext?: Context);
 
@@ -109,13 +109,13 @@ export class Context {
 }
 
 /**
- * A Writer knows how to take a stream of tokens and render them to a `string`, given a context.
+ * A Writer knows how to take a stream of tokens and render them to a {@link String `string`}, given a context.
  *
  * It also maintains a cache of templates to avoid the need to parse the same template twice.
  */
 export class Writer {
     /**
-     * Initializes a new instance of the `MustacheWriter` class.
+     * Initializes a new instance of the {@link Writer `Writer`} class.
      */
     constructor();
 
@@ -125,7 +125,7 @@ export class Writer {
     clearCache(): void;
 
     /**
-     * Parses and caches the given `template` and returns the array of tokens that is generated from the parse.
+     * Parses and caches the given {@link template `template`} and returns the array of tokens that is generated from the parse.
      *
      * @param template
      * The template to parse.
@@ -136,7 +136,7 @@ export class Writer {
     parse(template: string, tags?: OpeningAndClosingTags): any;
 
     /**
-     * High-level method that is used to render the given `template` with the given `view`.
+     * High-level method that is used to render the given {@link template `template`} with the given {@link view `view`}.
      *
      * @param template
      * The template to render.
@@ -162,7 +162,7 @@ export class Writer {
     ): string;
 
     /**
-     * Low-level method that renders the given array of `tokens` using the given `context` and `partials`.
+     * Low-level method that renders the given array of {@link tokens `tokens`} using the given {@link context `context`} and {@link partials `partials`}.
      *
      * @param tokens
      * The tokens to render.
@@ -177,6 +177,9 @@ export class Writer {
      * An object used to extract the portion of the original template that was contained in a higher-order section.
      *
      * If the template doesn't use higher-order sections, this argument may be omitted.
+     *
+     * @param config
+     * The options for the rendering process.
      */
     renderTokens(
         tokens: string[][],
@@ -200,12 +203,12 @@ export class Writer {
      *
      * @param originalTemplate
      * An object used to extract the portion of the original template that was contained in a higher-order section.
-     */
-    renderSection(
-        token: string[],
      *
      * @param config
      * The options for the rendering process.
+     */
+    renderSection(
+        token: string[],
         context: Context,
         partials?: PartialsOrLookupFn,
         originalTemplate?: string,
@@ -314,7 +317,7 @@ export class Writer {
 
 /**
  * HTML escaping by default, can be overridden by setting Mustache.escape explicitly or providing the `options`
- * argument with an `escape` function when invoking Mustache.render().
+ * argument with an `escape` function when invoking {@link render `Mustache.render()`}.
  *
  * Escaping can be avoided when needed by using `{{{ value }}}` or `{{& value }}` in templates.
  *
@@ -342,7 +345,7 @@ export function clearCache(): void;
 export function parse(template: string, tags?: OpeningAndClosingTags): TemplateSpans;
 
 /**
- * Renders the `template` with the given `view` and `partials` using the default writer.
+ * Renders the {@link template `template`} with the given {@link view `view`} and {@link partials `partials`} using the default writer.
  *
  * @param template
  * The template to render.

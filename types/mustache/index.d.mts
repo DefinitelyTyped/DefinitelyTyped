@@ -63,7 +63,7 @@ declare namespace mustache {
      * The default opening and closing tags used while parsing the templates.
      *
      * Different default tags can be overridden by setting this field. They will have effect on all subsequent
-     * calls to `.render()` or `.parse()`, unless custom tags are given as arguments to those functions.
+     * calls to {@link render `.render()`} or {@link parse `.parse()`}, unless custom tags are given as arguments to those functions.
      *
      * Default value is `[ "{{", "}}" ]`.
      */
@@ -76,7 +76,7 @@ declare namespace mustache {
      *
      * -- or --
      *
-     * provide a custom cache strategy that satisfies the `TemplateCache` interface
+     * provide a custom cache strategy that satisfies the {@link TemplateCache `TemplateCache`} interface
      */
     let templateCache: TemplateCache | undefined;
 
@@ -89,7 +89,7 @@ declare namespace mustache {
         pos: number;
 
         /**
-         * Initializes a new instance of the `MustacheScanner` class.
+         * Initializes a new instance of the {@link Scanner `Scanner`} class.
          */
         constructor(string: string);
 
@@ -129,7 +129,7 @@ declare namespace mustache {
         parent: Context | undefined;
 
         /**
-         * Initializes a new instance of the `Context` class.
+         * Initializes a new instance of the {@link Context `Context`} class.
          */
         constructor(view: any, parentContext?: Context);
 
@@ -151,13 +151,13 @@ declare namespace mustache {
     }
 
     /**
-     * A Writer knows how to take a stream of tokens and render them to a `string`, given a context.
+     * A Writer knows how to take a stream of tokens and render them to a {@link String `string`}, given a context.
      *
      * It also maintains a cache of templates to avoid the need to parse the same template twice.
      */
     class Writer {
         /**
-         * Initializes a new instance of the `MustacheWriter` class.
+         * Initializes a new instance of the {@link Writer `Writer`} class.
          */
         constructor();
 
@@ -167,7 +167,7 @@ declare namespace mustache {
         clearCache(): void;
 
         /**
-         * Parses and caches the given `template` and returns the array of tokens that is generated from the parse.
+         * Parses and caches the given {@link template `template`} and returns the array of tokens that is generated from the parse.
          *
          * @param template
          * The template to parse.
@@ -178,7 +178,7 @@ declare namespace mustache {
         parse(template: string, tags?: OpeningAndClosingTags): any;
 
         /**
-         * High-level method that is used to render the given `template` with the given `view`.
+         * High-level method that is used to render the given {@link template `template`} with the given {@link view `view`}.
          *
          * @param template
          * The template to render.
@@ -204,7 +204,7 @@ declare namespace mustache {
         ): string;
 
         /**
-         * Low-level method that renders the given array of `tokens` using the given `context` and `partials`.
+         * Low-level method that renders the given array of {@link tokens `tokens`} using the given {@link context `context`} and {@link partials `partials`}.
          *
          * @param tokens
          * The tokens to render.
@@ -359,7 +359,7 @@ declare namespace mustache {
 
     /**
      * HTML escaping by default, can be overridden by setting Mustache.escape explicitly or providing the `options`
-     * argument with an `escape` function when invoking Mustache.render().
+     * argument with an `escape` function when invoking {@link render `Mustache.render()`}.
      *
      * Escaping can be avoided when needed by using `{{{ value }}}` or `{{& value }}` in templates.
      *
