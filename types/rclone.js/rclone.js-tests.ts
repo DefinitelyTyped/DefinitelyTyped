@@ -1,4 +1,5 @@
-import rclone, { promises as rclonePromise } from "rclone.js";
+import rclone = require("rclone.js");
+import { promises as rclonePromise } from "rclone.js";
 import { join } from "path";
 
 const rcloneRemoteName = "atifcppprogrammer-aws-s3";

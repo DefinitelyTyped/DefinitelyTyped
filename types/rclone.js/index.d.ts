@@ -1,9 +1,11 @@
 // Type definitions for rclone.js 0.6
-// Project: rclone.js
-// Definitions by: atifcppprogrammer <https://github.com/atifcppprogrammer>, sntran <https://github.com/sntran>
+// Project: https://github.com/sntran/rclone.js
+// Definitions by: atifcppprogrammer <https://github.com/atifcppprogrammer>,
+//                 sntran <https://github.com/sntran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
 import type { ChildProcess } from 'node:child_process';
 
 type Command = (
