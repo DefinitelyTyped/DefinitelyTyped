@@ -35,7 +35,7 @@ const lang: DataTables.LanguageSettings = {
 
 //#region "Column"
 
-const colCreatedCellFunc: DataTables.FunctionColumnCreatedCell = (cell, cellData, rowData, rowIndex, colIndex,cellls) => {};
+const colCreatedCellFunc: DataTables.FunctionColumnCreatedCell = (cell, cellData, rowData, rowIndex, colIndex,cells) => {};
 
 const colDataObject: DataTables.ObjectColumnData = {
     _: "phone",
