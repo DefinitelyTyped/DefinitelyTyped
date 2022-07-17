@@ -1036,14 +1036,16 @@ declare namespace RiotGamesAPI{
     }
 
     /**
-    * summoner-v1.4
+    * summoner-v4
     */
     namespace Summoner{
         interface SummonerDto{
-            id: number,
-            name: string,
+            accountId: string,
             profileIconId: number,
             revisionDate: number,
+            name: string,
+            id: number,
+            puuid: string,
             summonerLevel: number
         }
         interface MasteryPagesDto{
