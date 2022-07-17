@@ -126,7 +126,7 @@ function sample3() {
   });
 
   canvas.on('selection:cleared', (e) => {
-    const selectedObjs = e.selected
+    const selectedObjs = e.selected;
     fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = true; });
   });
 
@@ -738,7 +738,7 @@ function sample8() {
   }
 
   canvas.on('selection:cleared', e => {
-    const selectedObjs = e.selected
+    const selectedObjs = e.selected;
     for (let i = activeObjectButtons.length; i--; ) {
       activeObjectButtons[i];
     }
