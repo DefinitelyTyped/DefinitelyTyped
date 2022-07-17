@@ -9,3 +9,19 @@ pick({
     color: 'red',
     id: 'test',
 });
+
+interface ButtonProps {
+    id: string;
+    className?: string;
+}
+
+const buttonProps: ButtonProps = {
+    id: 'my-button',
+    className: 'test'
+};
+
+const { id, ...rest } = buttonProps;
+
+pick(buttonProps);
+
+omit(rest);
