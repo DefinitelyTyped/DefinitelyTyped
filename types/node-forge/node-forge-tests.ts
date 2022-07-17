@@ -20,6 +20,19 @@ let certPem = forge.pki.certificateToPem(cert);
 let csr = forge.pki.createCertificationRequest();
 csr.publicKey = keypair.publicKey;
 csr.sign(keypair.privateKey);
+csr.setAttributes([
+    {
+        name: 'extensionRequest',
+        extensions: [{
+            name: 'subjectAltName',
+            altNames: [{
+                // 2 is DNS type
+                type: 2,
+                value: 'test.com'
+            }]
+        }]
+    }
+])
 forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr));
 
 // From https://github.com/digitalbazaar/forge#rsakem
@@ -283,6 +296,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     ]);
 
     const attr: forge.pki.Attribute | undefined = csr.getAttribute({ name: "challengePassword" });
+    const extensionRequestAttr: forge.pki.Attribute | undefined = csr.getAttribute({name: "extensionRequest"});
 
 
     // self-sign certificate
