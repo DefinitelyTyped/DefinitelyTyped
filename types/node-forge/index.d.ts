@@ -425,6 +425,8 @@ declare module "node-forge" {
              * @return the attribute.
              */
             getAttribute(opts: string | GetAttributeOpts): Attribute | null;
+
+            setAttributes(attrs: any[]): void;
         }
 
         /**
