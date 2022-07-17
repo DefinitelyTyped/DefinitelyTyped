@@ -7,7 +7,7 @@
  * Returns a captcha object
  * @param p List of options, all of which are optional.
  */
-declare function captcha(p?: captchaOptions): captchaValue;
+declare function captcha(p?: CaptchaOptions): CaptchaValue;
 interface CaptchaValue {
     /**
      * The text value encoded on the captcha
