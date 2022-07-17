@@ -6,7 +6,7 @@
 export {};
 
 interface PropsMap {
-    [key: string]: unknown;
+    [key: string]: any;
 }
 
 export function omit(props: PropsMap): PropsMap;
