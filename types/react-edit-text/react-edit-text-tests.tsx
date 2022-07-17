@@ -17,11 +17,11 @@ const TestEditButton = <div>Edit</div>;
 
 const handleEditMode = () => {
     console.log("edit mode");
-}
+};
 
 const handleBlur = () => {
     console.log("blurred");
-}
+};
 
 <EditText />;
 <EditText id="firstName" />;
