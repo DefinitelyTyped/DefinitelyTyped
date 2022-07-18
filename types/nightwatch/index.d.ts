@@ -14,6 +14,7 @@
 //                 Luke Bickell <https://github.com/lukebickell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
+// Nightwatch Version: 2.1.0
 
 import { WebElement, WebElementPromise, By, RelativeBy } from 'selenium-webdriver';
 
@@ -27,9 +28,6 @@ export interface JSON_WEB_OBJECT {
 }
 
 export type definition = string | ElementProperties | Element | RelativeBy;
-
-// TODO: Remove after Selenium-Webdriver implements locateWith in their types
-// export function locateWith(args: By): any;
 
 export interface ChromePerfLoggingPrefs {
     /**
