@@ -43,7 +43,7 @@ declare namespace navigator {
         rerenderDelay?: number;
     }
 
-    interface NavigatorInstance {
+    interface Nav {
         /**
          * Remove the navigator and clean up.
          */
@@ -57,7 +57,7 @@ declare global {
             /*
              * Set up the navigator according to the given options.
              */
-            navigator: (options?: navigator.Options) => navigator.NavigatorInstance;
+            navigator: (options?: navigator.Options) => navigator.Nav;
         }
     }
 }
