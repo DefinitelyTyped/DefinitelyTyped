@@ -21,9 +21,6 @@ import Tab from './js/dist/tab';
 import Toast from './js/dist/toast';
 import Tooltip from './js/dist/tooltip';
 
-type A = `${Modal.Events}`;
-type B = Modal.Events;
-
 declare global {
     interface JQuery {
         alert: Alert.jQueryInterface;
@@ -42,13 +39,19 @@ declare global {
 
     interface Element {
         addEventListener(
-            type: Carousel.Events | `${Carousel.Events}`,
+            type: Carousel.Events | 'slide.bs.carousel' | 'slid.bs.carousel',
             listener: (this: Element, ev: Carousel.Event) => any,
             options?: boolean | AddEventListenerOptions,
         ): void;
 
         addEventListener(
-            type: Modal.Events | `${Modal.Events}`,
+            type:
+                | Modal.Events
+                | 'show.bs.modal'
+                | 'shown.bs.modal'
+                | 'hide.bs.modal'
+                | 'hidden.bs.modal'
+                | 'hidePrevented.bs.modal',
             listener: (this: Element, ev: Modal.Event) => any,
             options?: boolean | AddEventListenerOptions,
         ): void;
