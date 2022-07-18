@@ -3465,6 +3465,10 @@
             "libraryName": "parse5",
             "asOfVersion": "7.0.0"
         },
+        "parse5-sax-parser": {
+            "libraryName": "parse5-sax-parser",
+            "asOfVersion": "7.0.0"
+        },
         "pascal-case": {
             "libraryName": "pascal-case",
             "asOfVersion": "1.1.2"
