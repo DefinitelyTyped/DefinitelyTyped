@@ -384,6 +384,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     showMore={true}
     limit={8}
     showMoreLimit={99}
+    facetOrdering={true}
   />;
 };
 

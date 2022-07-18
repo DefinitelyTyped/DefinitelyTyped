@@ -1,9 +1,4 @@
 {
-    "files": [
-        "index.d.ts",
-        "mustache-tests.ts",
-        "test/commonjs.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -11,8 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -20,5 +15,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "rrdtool-tests.ts"
+    ]
 }
