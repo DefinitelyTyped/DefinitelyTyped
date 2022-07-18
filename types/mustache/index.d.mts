@@ -1,4 +1,4 @@
-import * as mustache from ".";
+import * as mustache from "./index.js";
 
 export {
     RAW_VALUE,
@@ -17,6 +17,6 @@ export {
     PartialsOrLookupFn,
     RenderOptions,
     TemplateCache
-} from ".";
+} from "./index.js";
 
 export default mustache;
