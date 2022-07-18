@@ -3477,6 +3477,10 @@
             "libraryName": "parse5-parser-stream",
             "asOfVersion": "7.0.0"
         },
+        "parse5-plain-text-conversion-stream": {
+            "libraryName": "parse5-plain-text-conversion-stream",
+            "asOfVersion": "7.0.0"
+        },
         "parse5-sax-parser": {
             "libraryName": "parse5-sax-parser",
             "asOfVersion": "7.0.0"
