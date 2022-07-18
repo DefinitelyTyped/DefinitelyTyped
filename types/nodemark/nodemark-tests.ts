@@ -1,4 +1,4 @@
-import benchmark from 'nodemark';
+import benchmark = require('nodemark');
 
 console.log('benchmark:', benchmark);
 
