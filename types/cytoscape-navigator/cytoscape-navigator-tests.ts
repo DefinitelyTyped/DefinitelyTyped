@@ -5,20 +5,19 @@ cytoscape.use(navigator);
 
 const cy = cytoscape({
     container: document.getElementById('cy'),
-    layout: { name: 'breadthfirst' },
     elements: [
         { data: { id: 'A' } },
         { data: { id: 'B' } },
-    ],
+    ]
 });
 
-cy.navigator().destroy();
-
-// $ExpectType NavigatorInstance
-cy.navigator({
+// $ExpectType Nav
+const nav = cy.navigator({
     container: "#navigator",
     viewLiveFramerate: 60,
     dblClickDelay: 400,
     removeCustomContainer: false,
     rerenderDelay: 1000
 });
+
+nav.destroy();
