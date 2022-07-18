@@ -187,5 +187,5 @@ export interface Annyang {
     trigger(command: string | string[]): void;
 }
 
-const annyang: Annyang;
+declare const annyang: Annyang;
 export = annyang;
