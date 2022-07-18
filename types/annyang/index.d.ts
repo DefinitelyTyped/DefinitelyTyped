@@ -7,7 +7,7 @@
 /**
  * Options for function `start`
  */
-export interface StartOptions {
+interface StartOptions {
     /**
      * Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
      */
@@ -21,7 +21,7 @@ export interface StartOptions {
 /**
  * A command option that supports custom regular expressions
  */
-export interface CommandOptionRegex {
+interface CommandOptionRegex {
     regexp: RegExp;
     callback(): void;
 }
@@ -35,7 +35,7 @@ export interface CommandOptionRegex {
  * {'hi': helloFunction};
  * ````
  */
-export interface CommandOption {
+interface CommandOption {
     [command: string]: CommandOptionRegex | (() => void);
 }
 
@@ -58,7 +58,7 @@ export interface CommandOption {
  * `resultNoMatch` - Fired when what the user said didn't match any of the registered commands.
  *     Callback functions registered to this event will include an array of possible phrases the user might've said as the first argument
  */
-export type Events =
+type Events =
     'start' |
     'soundstart' |
     'error' |
@@ -70,7 +70,7 @@ export type Events =
     'errorPermissionBlocked' |
     'errorPermissionDenied';
 
-export interface Annyang {
+interface Annyang {
     /**
      * Start listening.
      * It's a good idea to call this after adding some commands first, but not mandatory.
@@ -189,3 +189,11 @@ export interface Annyang {
 
 declare const annyang: Annyang;
 export = annyang;
+
+export {
+  StartOptions,
+  CommandOptionRegex,
+  CommandOption,
+  Events,
+  Annyang
+};
