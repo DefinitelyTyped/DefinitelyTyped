@@ -252,7 +252,7 @@ export interface TinySliderProps {
     onTouchStart?: ((info: TinySliderInfo) => void) | undefined;
     onTouchMove?: ((info: TinySliderInfo) => void) | undefined;
     onTouchEnd?: ((info: TinySliderInfo) => void) | undefined;
-    children?: JSX.Element;
+    children?: React.ReactNode;
 }
 
 declare class TinySlider extends React.Component<TinySliderProps> {}
