@@ -43,7 +43,7 @@ element.addEventListener(Carousel.Events.slid, event => {
 });
 
 // Ensure that using a string literal as the event type works the same as using
-// the `Modal.Events` enum.
+// the `Carousel.Events` enum.
 element.addEventListener('slid.bs.carousel', event => {
     event.direction; // $ExpectType Direction
     event.relatedTarget; // $ExpectType Element
