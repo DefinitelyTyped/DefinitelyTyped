@@ -187,7 +187,5 @@ export interface Annyang {
     trigger(command: string | string[]): void;
 }
 
-declare module 'annyang' {
-  const annyang: Annyang;
-  export default annyang;
-}
+const annyang: Annyang;
+export default annyang;
