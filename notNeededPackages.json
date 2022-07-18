@@ -3485,6 +3485,10 @@
             "libraryName": "parse5-sax-parser",
             "asOfVersion": "7.0.0"
         },
+        "parse5-serializer-stream": {
+            "libraryName": "parse5-serializer-stream",
+            "asOfVersion": "7.0.0"
+        },
         "pascal-case": {
             "libraryName": "pascal-case",
             "asOfVersion": "1.1.2"
