@@ -25,4 +25,8 @@ function handleIndexChanged(info: TinySliderInfo) {
   console.log(info.hasControls, info.slideCount);
 }
 
-const MyComponent = <TinySlider settings={settings} onIndexChanged={handleIndexChanged} />;
+const MyComponent = (
+  <TinySlider settings={settings} onIndexChanged={handleIndexChanged} >
+    {[1,2,3].map(el=> <div key={el}>(el)</div>)}
+  </TinySlider>
+);
