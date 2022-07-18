@@ -15,11 +15,11 @@ declare namespace cyCanvas {
         /**
          * The z-index of the canvas.
          */
-        zIndex: number;
+        zIndex?: number;
         /**
          * The pixel ratio of the canvas.
          */
-        pixelRatio: number;
+        pixelRatio?: number;
     }
 
     interface CanvasInstance {
