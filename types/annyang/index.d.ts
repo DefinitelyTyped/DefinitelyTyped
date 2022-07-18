@@ -188,4 +188,4 @@ export interface Annyang {
 }
 
 const annyang: Annyang;
-export default annyang;
+export = annyang;
