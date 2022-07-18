@@ -107,6 +107,7 @@ dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string
 dt.toISO(); // $ExpectType string
 dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string
+dt.toISO({ extendedZone: true, format: 'extended' }); // $ExpectType string
 dt.toISODate(); // $ExpectType string
 dt.toISODate({ format: 'basic' }); // $ExpectType string
 dt.toISOTime(); // $ExpectType string
