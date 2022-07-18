@@ -59,7 +59,7 @@ declare namespace Mark {
         ignoreGroups?: number | undefined;
         each?(element: Element): void;
         filter?(
-            textNode: Element,
+            textNode: Text,
             term: string,
             marksSoFar: number,
             marksTotal: number
