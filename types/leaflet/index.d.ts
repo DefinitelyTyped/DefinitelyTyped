@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.7
+// Type definitions for Leaflet.js 1.8
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
@@ -7,6 +7,7 @@
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Henry Thasler <https://github.com/henrythasler>
 //                 Colin Doig <https://github.com/captain-igloo>
+//                 Hugo Sales <https://github.com/someonewithpc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -24,6 +25,8 @@ export class Class {
 
     static addInitHook(initHookFn: () => void): any & typeof Class;
     static addInitHook(methodName: string, ...args: any[]): any & typeof Class;
+
+    static callInitHooks(): void;
 }
 
 export class Transformation {
@@ -87,6 +90,8 @@ export namespace DomUtil {
     function setTransform(el: HTMLElement, offset: Point, scale?: number): void;
     function setPosition(el: HTMLElement, position: Point): void;
     function getPosition(el: HTMLElement): Point;
+    function getScale(el: HTMLElement): { x: number, y: number, boundingClientRect: DOMRect};
+    function getSizedParentNode(el: HTMLElement): any;
     function disableTextSelection(): void;
     function enableTextSelection(): void;
     function disableImageDrag(): void;
@@ -209,6 +214,7 @@ export class Point {
     round(): Point;
     floor(): Point;
     ceil(): Point;
+    trunc(): Point;
     distanceTo(otherPoint: PointExpression): number;
     equals(otherPoint: PointExpression): boolean;
     contains(otherPoint: PointExpression): boolean;
@@ -350,7 +356,7 @@ export interface LeafletEventHandlerFnMap {
     tileerror?: TileErrorEventHandlerFn | undefined;
 
     // [name: string]: any;
-    // You are able add additional properties, but it makes this interface unchackable.
+    // You are able add additional properties, but it makes this interface uncheckable.
 }
 
 /**
@@ -470,7 +476,8 @@ export abstract class Evented extends Class {
     /**
      * Returns true if a particular event type has any listeners attached to it.
      */
-    listens(type: string): boolean;
+    listens(type: string, propagate?: boolean): boolean;
+    listens(type: string, fn: function, context?: object, propagate?: boolean): boolean;
 
     /**
      * Behaves as on(...), except the listener will only get fired once and then removed.
@@ -700,13 +707,21 @@ export abstract class Evented extends Class {
     hasEventListeners(type: string): boolean;
 }
 
+export interface DraggableOptions {
+    /**
+     * The max number of pixels a user can shift the mouse pointer during a click
+     * for it to be considered a valid click (as opposed to a mouse drag).
+     */
+    clickTolerance: number;
+}
+
 /**
  * A class for making DOM elements draggable (including touch support).
  * Used internally for map and marker dragging. Only works for elements
  * that were positioned with [`L.DomUtil.setPosition`](#domutil-setposition).
  */
 export class Draggable extends Evented {
-    constructor(element: HTMLElement, dragStartTarget?: HTMLElement, preventOutline?: boolean);
+    constructor(element: HTMLElement, dragStartTarget?: HTMLElement, preventOutline?: boolean, options?: DraggableOptions);
 
     enable(): void;
 
@@ -731,6 +746,9 @@ export class Layer extends Evented {
     remove(): this;
     removeFrom(map: Map): this;
     getPane(name?: string): HTMLElement | undefined;
+
+    addInteractiveTarget(targetEl: HTMLElement): this;
+    removeInteractiveTarget(targetEl: HTMLElement): this;
 
     // Popup methods
     bindPopup(content: ((layer: Layer) => Content) | Content | Popup, options?: PopupOptions): this;
@@ -908,9 +926,10 @@ export interface ImageOverlayOptions extends InteractiveLayerOptions {
     className?: string | undefined;
 }
 
+export type ImageOverlayStyleOptions = { opacity: number, [name: string]: any};
+
 export class ImageOverlay extends Layer {
     constructor(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
-    setOpacity(opacity: number): this;
     bringToFront(): this;
     bringToBack(): this;
     setUrl(url: string): this;
@@ -921,8 +940,17 @@ export class ImageOverlay extends Layer {
     /** Changes the zIndex of the image overlay */
     setZIndex(value: number): this;
 
+    /** Changes the opacity of the image element */
+    setOpacity(opacity: number): this;
+
+    /** Changes the style of the image element. As of 1.8, only the opacity is changed */
+    setStyle(styleOpts: { opacity: number, [name: string]: any}): this;
+
     /** Get the bounds that this ImageOverlay covers */
     getBounds(): LatLngBounds;
+
+    /** Get the center of the bounds this ImageOverlay covers */
+    getCenter(): Point;
 
     /** Get the img element that represents the ImageOverlay on the map */
     getElement(): HTMLImageElement | undefined;
@@ -932,9 +960,11 @@ export class ImageOverlay extends Layer {
 
 export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
 
+export type SVGOverlayStyleOptions = ImageOverlayStyleOptions;
+
 export class SVGOverlay extends Layer { /** SVGOverlay doesn't extend ImageOverlay because SVGOverlay.getElement returns SVGElement */
+
     constructor(svgImage: string | SVGElement, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
-    setOpacity(opacity: number): this;
     bringToFront(): this;
     bringToBack(): this;
     setUrl(url: string): this;
@@ -945,8 +975,17 @@ export class SVGOverlay extends Layer { /** SVGOverlay doesn't extend ImageOverl
     /** Changes the zIndex of the image overlay */
     setZIndex(value: number): this;
 
+    /** Changes the opacity of the image element */
+    setOpacity(opacity: number): this;
+
+    /** Changes the style of the image element. As of 1.8, only the opacity is changed */
+    setStyle(styleOpts: SVGOverlayStyleOptions): this;
+
     /** Get the bounds that this SVGOverlay covers */
     getBounds(): LatLngBounds;
+
+    /** Get the center of the bounds this ImageOverlay covers */
+    getCenter(): Point;
 
     /** Get the img element that represents the SVGOverlay on the map */
     getElement(): SVGElement | undefined;
@@ -972,7 +1011,6 @@ export interface VideoOverlayOptions extends ImageOverlayOptions {
 
 export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageOverlay because VideoOverlay.getElement returns HTMLImageElement */
     constructor(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions);
-    setOpacity(opacity: number): this;
     bringToFront(): this;
     bringToBack(): this;
     setUrl(url: string): this;
@@ -980,8 +1018,20 @@ export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageO
     /** Update the bounds that this VideoOverlay covers */
     setBounds(bounds: LatLngBounds): this;
 
+    /** Changes the zIndex of the image overlay */
+    setZIndex(value: number): this;
+
+    /** Changes the opacity of the image element */
+    setOpacity(opacity: number): this;
+
+    /** Changes the style of the image element. As of 1.8, only the opacity is changed */
+    setStyle(styleOpts: SVGOverlayStyleOptions): this;
+
     /** Get the bounds that this VideoOverlay covers */
     getBounds(): LatLngBounds;
+
+    /** Get the center of the bounds this ImageOverlay covers */
+    getCenter(): Point;
 
     /** Get the video element that represents the VideoOverlay on the map */
     getElement(): HTMLVideoElement | undefined;
@@ -1070,6 +1120,7 @@ export class CircleMarker<P = any> extends Path {
     getLatLng(): LatLng;
     setRadius(radius: number): this;
     getRadius(): number;
+    setStyle(options: CircleMarkerOptions): this;
 
     options: CircleMarkerOptions;
     feature?: geojson.Feature<geojson.Point, P> | undefined;
@@ -1077,10 +1128,18 @@ export class CircleMarker<P = any> extends Path {
 
 export function circleMarker(latlng: LatLngExpression, options?: CircleMarkerOptions): CircleMarker;
 
+export interface CircleOptions extends PathOptions {
+    radius: number | undefined;
+};
+
 export class Circle<P = any> extends CircleMarker<P> {
-    constructor(latlng: LatLngExpression, options?: CircleMarkerOptions);
-    constructor(latlng: LatLngExpression, radius: number, options?: CircleMarkerOptions); // deprecated!
+    constructor(latlng: LatLngExpression, options?: CircleOptions);
+    constructor(latlng: LatLngExpression, radius: number, options?: CircleOptions); // deprecated!
+    toGeoJSON(precision: any): any;
     getBounds(): LatLngBounds;
+    setRadius(radius: number): this;
+    getRadius(): number;
+    setStyle(style: PathOptions): this;
 }
 
 export function circle(latlng: LatLngExpression, options?: CircleMarkerOptions): Circle;
@@ -1119,6 +1178,8 @@ export function canvas(options?: RendererOptions): Canvas;
  */
 export class LayerGroup<P = any> extends Layer {
     constructor(layers?: Layer[], options?: LayerOptions);
+
+	toMultiPoint(precision?: number): geojson.Feature<geojson.MultiPoint, P>;
 
     /**
      * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
@@ -1190,6 +1251,16 @@ export function layerGroup(layers?: Layer[], options?: LayerOptions): LayerGroup
  * members of the group) and a shared bindPopup method.
  */
 export class FeatureGroup<P = any> extends LayerGroup<P> {
+    /**
+     * Adds the given layer to the group.
+     */
+    addLayer(layer: Layer): this;
+
+    /**
+     * Removes the layer with the given internal ID or the given layer from the group.
+     */
+    removeLayer(layer: number | Layer): this;
+
     /**
      * Sets the given path options to each layer of the group that has a setStyle method.
      */
@@ -1289,6 +1360,11 @@ export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
  * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
  */
 export class GeoJSON<P = any> extends FeatureGroup<P> {
+    /**
+     * Convert layer into GeoJSON feature
+     */
+    static getFeature<P = any>(layer: Layer, newGeometry: geojson.Feature<geojson.GeometryObject, P> | geojson.GeometryObject): geojson.Feature<geojson.GeometryObject, P>;
+
     /**
      * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
      * and/or coordsToLatLng functions if provided as options.
@@ -1537,6 +1613,9 @@ export abstract class DivOverlay extends Layer {
     isOpen(): boolean;
     bringToFront(): this;
     bringToBack(): this;
+    openOn(map: Map): this;
+    toggle(layer?: Layer): this;
+    close(): this;
 
     options: DivOverlayOptions;
 }
