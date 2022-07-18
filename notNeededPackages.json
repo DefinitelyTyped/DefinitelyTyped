@@ -3469,6 +3469,10 @@
             "libraryName": "parse5-html-rewriting-stream",
             "asOfVersion": "7.0.0"
         },
+        "parse5-htmlparser2-tree-adapter": {
+            "libraryName": "parse5-htmlparser2-tree-adapter",
+            "asOfVersion": "7.0.0"
+        },
         "parse5-sax-parser": {
             "libraryName": "parse5-sax-parser",
             "asOfVersion": "7.0.0"
