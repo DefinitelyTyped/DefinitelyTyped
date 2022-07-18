@@ -58,6 +58,14 @@ const testGeneral: NightwatchTests = {
             .end();
     },
 
+    'Demo Nightwatch API commands': () => {
+        browser.isChrome();
+        browser.isAndroid();
+        browser.isMobile();
+        const browserName = browser.browserName;
+        console.log(browserName);
+    },
+
     'step one: navigate to google': () => {
         browser
             .url('https://www.google.com')

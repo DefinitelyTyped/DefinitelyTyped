@@ -14,7 +14,7 @@
 //                 Luke Bickell <https://github.com/lukebickell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
-// Nightwatch Version: 2.1.0
+// Nightwatch Version: 2.1.8
 
 import { WebElement, WebElementPromise, By, RelativeBy } from 'selenium-webdriver';
 
@@ -1828,7 +1828,24 @@ export type NightwatchPage = {
     [name: string]: NightwatchPage;
 };
 
-export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, NightwatchCustomCommands {
+export interface NightwatchApiCommands {
+    get WEBDRIVER_ELEMENT_ID(): string;
+    get browserName(): string;
+    get platformName(): string;
+    __isBrowserName(browser: string, alternateName: string): boolean;
+    __isPlatformName(platform: string): boolean;
+    isIOS(): boolean;
+    isAndroid(): boolean;
+    isMobile(): boolean;
+    isSafari(): boolean;
+    isChrome(): boolean;
+    isFirefox(): boolean;
+    isEdge(): boolean;
+    isInternetExplorer(): boolean;
+    isOpera(): boolean;
+}
+
+export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, NightwatchCustomCommands, NightwatchApiCommands {
     baseURL: string;
     assert: NightwatchAssertions;
     expect: Expect;
