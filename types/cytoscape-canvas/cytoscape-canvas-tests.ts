@@ -15,8 +15,11 @@ const cy = cytoscape({
     ],
 });
 
+// $ExpectType CanvasInstance
 const layer = cy.cyCanvas();
+// $ExpectType HTMLCanvasElement
 const canvas = layer.getCanvas();
+// $ExpectType CanvasRenderingContext2D | null
 const ctx = canvas.getContext('2d');
 
 layer.resetTransform(ctx!);
