@@ -28,3 +28,7 @@ selfsigned.generate((err, pems) => {});
 // Generate Client Certificates
 // $ExpectType PEMS
 selfsigned.generate(null, { clientCertificate: true });
+
+// Generate Client Certificates
+// $ExpectType PEMS
+selfsigned.generate();

@@ -4,6 +4,7 @@
 //                 Guo Yunhe <https://github.com/guoyunhe>
 //                 Anirban Sengupta <https://github.com/anirban09>
 //                 Michael Yuen <https://github.com/michaelyuen>
+//                 Dokyun Kim <https://github.com/DoK6n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -715,12 +716,16 @@ declare module 'react-syntax-highlighter/dist/esm/styles/prism' {
     export { default as duotoneSpace } from 'react-syntax-highlighter/dist/esm/styles/prism/duotone-space';
     export { default as funky } from 'react-syntax-highlighter/dist/esm/styles/prism/funky';
     export { default as ghcolors } from 'react-syntax-highlighter/dist/esm/styles/prism/ghcolors';
+    export { default as gruvboxDark } from 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-dark';
+    export { default as gruvboxLight } from 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-light';
     export { default as hopscotch } from 'react-syntax-highlighter/dist/esm/styles/prism/hopscotch';
     export { default as materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism/material-dark';
     export { default as materialLight } from 'react-syntax-highlighter/dist/esm/styles/prism/material-light';
     export { default as materialOceanic } from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic';
     export { default as nord } from 'react-syntax-highlighter/dist/esm/styles/prism/nord';
     export { default as okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism/okaidia';
+    export { default as oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism/one-dark';
+    export { default as oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism/one-light';
     export { default as pojoaque } from 'react-syntax-highlighter/dist/esm/styles/prism/pojoaque';
     export { default as prism } from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
     export { default as shadesOfPurple } from 'react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple';
@@ -813,6 +818,16 @@ declare module 'react-syntax-highlighter/dist/esm/styles/prism/ghcolors' {
     export default style;
 }
 
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-dark' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-light' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/hopscotch' {
     const style: { [key: string]: React.CSSProperties };
     export default style;
@@ -839,6 +854,16 @@ declare module 'react-syntax-highlighter/dist/esm/styles/prism/nord' {
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/okaidia' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/one-light' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/one-dark' {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }

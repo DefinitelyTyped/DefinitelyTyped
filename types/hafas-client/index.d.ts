@@ -1,4 +1,4 @@
-// Type definitions for hafas-client 5.22
+// Type definitions for hafas-client 5.24
 // Project: https://github.com/public-transport/hafas-client
 // Definitions by: Jürgen Bergmann <https://github.com/bergmannjg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -348,6 +348,8 @@ declare namespace createClient {
         frames?: Frame[];
         polyline?: FeatureCollection;
         currentTripPosition?: Location;
+        origin?: Station | Stop | Location;
+        destination?: Station | Stop | Location;
     }
     /**
      * Leg of journey
@@ -426,10 +428,11 @@ declare namespace createClient {
         line?: Line;
         location?: Location;
         nextStopovers?: ReadonlyArray<StopOver>;
-        frames?: ReadonlyArray<Frame>;
+        frames?: Frame[];
         polyline?: FeatureCollection;
     }
     interface ServerInfo {
+        hciVersion?: string;
         timetableStart?: string;
         timetableEnd?: string;
         serverTime?: string | number;
@@ -438,6 +441,7 @@ declare namespace createClient {
     interface LoyaltyCard {
         type: string;
         discount?: number;
+        class?: number;
     }
     interface JourneysOptions {
         /**
@@ -546,6 +550,11 @@ declare namespace createClient {
          * @default false
          */
         firstClass?: boolean;
+        /**
+         * age
+         * @default none
+         */
+        age?: number;
         /**
          *  LoyaltyCard
          *  @default none
@@ -997,6 +1006,11 @@ declare namespace createClient {
         language?: string;
     }
     interface ServerOptions {
+        /**
+         * versionInfo
+         * @default true
+         */
+        versionInfo?: boolean;
         /**
          * Language of the results
          * @default en

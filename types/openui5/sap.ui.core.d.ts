@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.102.0
+// For Library Version: 1.104.0
 
 declare module "sap/base/assert" {
   /**
@@ -3831,7 +3831,7 @@ declare module "sap/ui/util/Storage" {
     /**
      * Retrieves data item for a specific key.
      *
-     * @returns keys value or null
+     * @returns key's value or `null`
      */
     get(
       /**
@@ -6437,7 +6437,7 @@ declare module "sap/ui/base/ManagedObject" {
      * Applications or frameworks must not use this method to generically read the content of an aggregation.
      * Use the concrete method getXYZ for aggregation 'XYZ' instead.
      *
-     * @returns Aggregation array in case of 0..n-aggregations or the managed object or null in case of 0..1-aggregations
+     * @returns Aggregation array in case of 0..n-aggregations or the managed object or `null` in case of 0..1-aggregations
      */
     getAggregation(
       /**
@@ -6446,7 +6446,7 @@ declare module "sap/ui/base/ManagedObject" {
       sAggregationName: string,
       /**
        * Object that is used in case the current aggregation is empty. If provided, it must be null for 0..1 aggregations
-       * or an empty array for 0..n aggregations. If not provided, null is used.
+       * or an empty array for 0..n aggregations. If not provided, `null` is used.
        *
        * **Note:** When an empty array is given and used because the aggregation was not set before, then this
        * array will be used for the aggregation from thereon. Sharing the same empty array between different calls
@@ -6622,14 +6622,16 @@ declare module "sap/ui/base/ManagedObject" {
      * information is not active by default and must be activated by configuration. Even then, it might not
      * be present for all properties and their values depending on where the value came form.
      *
-     * @returns a map of properties describing the origin of this property value or null
+     * If no origin info is available, `null` will be returned.
+     *
+     * @returns An object describing the origin of this property's value or `null`
      */
     getOriginInfo(
       /**
-       * the name of the property
+       * Name of the property
        */
       sPropertyName: string
-    ): object;
+    ): object | null;
     /**
      * @SINCE 1.88.0
      *
@@ -6887,7 +6889,7 @@ declare module "sap/ui/base/ManagedObject" {
      *
      * If the given object is found in the aggregation, it is removed, it's parent relationship is unset and
      * this ManagedObject is marked as changed. The removed object is returned as result of this method. If
-     * the object could not be found, `undefined` is returned.
+     * the object could not be found, `null` is returned.
      *
      * This method must only be called for aggregations of cardinality 0..n. The only way to remove objects
      * from a 0..1 aggregation is to set a `null` value for them.
@@ -6896,7 +6898,7 @@ declare module "sap/ui/base/ManagedObject" {
      * Applications or frameworks must not use this method to generically remove an object from an aggregation.
      * Use the concrete method removeXYZ for aggregation 'XYZ' instead.
      *
-     * @returns the removed object or null
+     * @returns the removed object or `null`
      */
     removeAggregation(
       /**
@@ -6913,7 +6915,7 @@ declare module "sap/ui/base/ManagedObject" {
        * if true, this ManagedObject is not marked as changed
        */
       bSuppressInvalidate?: boolean
-    ): ManagedObject;
+    ): ManagedObject | null;
     /**
      * Removes all objects from the 0..n-aggregation named `sAggregationName`.
      *
@@ -7943,14 +7945,14 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      * not part of the API. See the {@link #constructor Notes about Info objects} in the constructor documentation
      * of this class.
      *
-     * @returns aggregation info object or undefined
+     * @returns aggregation info object or `undefined`
      */
     getManagedAggregation(
       /**
        * name of the aggregation to be retrieved or empty
        */
       sAggregationName: string
-    ): object;
+    ): object | undefined;
     /**
      * Returns the info object for the named public or private association declared by the described class or
      * by any of its ancestors.
@@ -7959,14 +7961,14 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      * not part of the API. See the {@link #constructor Notes about Info objects} in the constructor documentation
      * of this class.
      *
-     * @returns association info object or undefined
+     * @returns association info object or `undefined`
      */
     getManagedAssociation(
       /**
        * name of the association to be retrieved
        */
       sName: string
-    ): object;
+    ): object | undefined;
     /**
      * Returns the info object for the named public or private property declared by the described class or by
      * any of its ancestors.
@@ -7978,14 +7980,14 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
      * not part of the API. See the {@link #constructor Notes about Info objects} in the constructor documentation
      * of this class.
      *
-     * @returns property info object or undefined
+     * @returns property info object or `undefined`
      */
     getManagedProperty(
       /**
        * name of the property to be retrieved or empty
        */
       sName: string
-    ): object;
+    ): object | undefined;
     /**
      * Returns a map of info objects for the public properties of the described class. Properties declared by
      * ancestor classes are not included.
@@ -12878,13 +12880,15 @@ declare module "sap/ui/core/Configuration" {
      * } `
      * See:
      * 	sap.ui.core.Configuration.FormatSettings#setCustomCurrencies
+     *
+     * @returns Returns `this` to allow method chaining
      */
     addCustomCurrencies(
       /**
        * adds to the currency map
        */
       mCurrencies: object
-    ): FormatSettings;
+    ): this;
     /**
      * Retrieves the custom currencies. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3} } `
      *
@@ -12917,20 +12921,51 @@ declare module "sap/ui/core/Configuration" {
     getLegacyDateCalendarCustomizing(): object[];
     /**
      * Returns the currently set legacy ABAP date format (its id) or undefined if none has been set.
+     *
+     * @returns ID of the ABAP date format, if not set or set to `""`, `undefined` will be returned
      */
-    getLegacyDateFormat(): void;
+    getLegacyDateFormat():
+      | "1"
+      | "2"
+      | "3"
+      | "4"
+      | "5"
+      | "6"
+      | "7"
+      | "8"
+      | "9"
+      | "A"
+      | "B"
+      | "C"
+      | undefined;
     /**
      * Returns the currently set legacy ABAP number format (its id) or undefined if none has been set.
+     *
+     * @returns ID of the ABAP number format, if not set or set to `""`, `undefined` will be returned
      */
-    getLegacyNumberFormat(): void;
+    getLegacyNumberFormat(): " " | "X" | "Y" | undefined;
     /**
      * Returns the currently set legacy ABAP time format (its id) or undefined if none has been set.
+     *
+     * @returns ID of the ABAP date format, if not set or set to `""`, `undefined` will be returned
      */
-    getLegacyTimeFormat(): void;
+    getLegacyTimeFormat(): "0" | "1" | "2" | "3" | "4" | undefined;
     /**
      * Returns the currently set number symbol of the given type or undefined if no symbol has been defined.
+     *
+     * @returns A non-numerical symbol used as part of a number for the given type, e.g. for locale de_DE:
+     *
+     * 	 - "group": "." (grouping separator)
+     * 	 - "decimal": "," (decimal separator)
+     * 	 - "plusSign": "+" (plus sign)
+     * 	 - "minusSign": "-" (minus sign)
      */
-    getNumberSymbol(): void;
+    getNumberSymbol(
+      /**
+       * the type of symbol
+       */
+      sType: "group" | "decimal" | "plusSign" | "minusSign"
+    ): string;
     /**
      * Returns the currently set time pattern or undefined if no pattern has been defined.
      */
@@ -12959,13 +12994,15 @@ declare module "sap/ui/core/Configuration" {
      * Note: To unset the custom currencies: call with `undefined` Custom currencies must not only consist of
      * digits but contain at least one non-digit character, e.g. "a", so that the measure part can be distinguished
      * from the number part.
+     *
+     * @returns Returns `this` to allow method chaining
      */
     setCustomCurrencies(
       /**
        * currency map which is set
        */
       mCurrencies: object
-    ): FormatSettings;
+    ): this;
     /**
      * Defines the preferred format pattern for the given date format style.
      *
@@ -13049,9 +13086,23 @@ declare module "sap/ui/core/Configuration" {
      */
     setLegacyDateFormat(
       /**
-       * id of the ABAP data format (one of '1','2','3','4','5','6','7','8','9','A','B','C')
+       * ID of the ABAP date format, `""` will reset the date patterns for 'short' and 'medium' style to the locale-specific
+       * ones.
        */
-      sFormatId: string
+      sFormatId?:
+        | ""
+        | "1"
+        | "2"
+        | "3"
+        | "4"
+        | "5"
+        | "6"
+        | "7"
+        | "8"
+        | "9"
+        | "A"
+        | "B"
+        | "C"
     ): this;
     /**
      * Allows to specify one of the legacy ABAP number format.
@@ -13066,9 +13117,10 @@ declare module "sap/ui/core/Configuration" {
      */
     setLegacyNumberFormat(
       /**
-       * id of the ABAP number format set (one of ' ','X','Y')
+       * ID of the ABAP number format set, `""` will reset the 'group' and 'decimal' symbols to the locale-specific
+       * ones.
        */
-      sFormatId: string
+      sFormatId?: "" | " " | "X" | "Y"
     ): this;
     /**
      * Allows to specify one of the legacy ABAP time formats.
@@ -13084,9 +13136,10 @@ declare module "sap/ui/core/Configuration" {
      */
     setLegacyTimeFormat(
       /**
-       * id of the ABAP time format (one of '0','1','2','3','4')
+       * ID of the ABAP time format, `""` will reset the time patterns for 'short' and 'medium' style and the
+       * day period texts to the locale-specific ones.
        */
-      sFormatId: string
+      sFormatId?: "" | "0" | "1" | "2" | "3" | "4"
     ): this;
     /**
      * Defines the string to be used for the given number symbol.
@@ -13105,9 +13158,9 @@ declare module "sap/ui/core/Configuration" {
      */
     setNumberSymbol(
       /**
-       * must be one of decimal, group, plusSign, minusSign.
+       * the type of symbol
        */
-      sType: string,
+      sType: "group" | "decimal" | "plusSign" | "minusSign",
       /**
        * will be used to represent the given symbol type
        */
@@ -17102,7 +17155,7 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
        * The key of the data
        */
       sKey: string
-    ): any;
+    ): any | undefined;
     /**
      * Returns the data that has been set via `setData` method.
      *
@@ -18331,14 +18384,14 @@ declare module "sap/ui/core/Element" {
      * dash) and the DOM node with that compound ID will be returned. This matches the UI5 naming convention
      * for named inner DOM nodes of a control.
      *
-     * @returns The Element's DOM Element sub DOM Element or null
+     * @returns The Element's DOM Element, sub DOM Element or `null`
      */
     getDomRef(
       /**
        * ID suffix to get the DOMRef for
        */
       sSuffix?: string
-    ): Element;
+    ): Element | null;
     /**
      * @SINCE 1.56
      *
@@ -18367,13 +18420,13 @@ declare module "sap/ui/core/Element" {
       sModelName?: string
     ): ContextBinding;
     /**
-     * Returns the DOM Element that should get the focus.
+     * Returns the DOM Element that should get the focus or `null` if there's no such element currently.
      *
      * To be overwritten by the specific control method.
      *
-     * @returns Returns the DOM Element that should get the focus
+     * @returns Returns the DOM Element that should get the focus or `null`
      */
-    getFocusDomRef(): Element;
+    getFocusDomRef(): Element | null;
     /**
      * Returns an object representing the serialized focus information.
      *
@@ -18420,20 +18473,20 @@ declare module "sap/ui/core/Element" {
      */
     getTooltip(): string | TooltipBase;
     /**
-     * Returns the tooltip for this element but only if it is a simple string. Otherwise an undefined value
-     * is returned.
+     * Returns the tooltip for this element but only if it is a simple string. Otherwise, `undefined` is returned.
      *
-     * @returns string tooltip or undefined
+     * @returns string tooltip or `undefined`
      */
-    getTooltip_AsString(): string;
+    getTooltip_AsString(): string | undefined;
     /**
-     * Returns the main text for the current tooltip or undefined if there is no such text. If the tooltip is
-     * an object derived from sap.ui.core.Tooltip, then the text property of that object is returned. Otherwise
-     * the object itself is returned (either a string or undefined or null).
+     * Returns the main text for the current tooltip or `undefined` if there is no such text.
      *
-     * @returns text of the current tooltip or undefined
+     * If the tooltip is an object derived from `sap.ui.core.TooltipBase`, then the text property of that object
+     * is returned. Otherwise the object itself is returned (either a string or `undefined` or `null`).
+     *
+     * @returns Text of the current tooltip or `undefined` or `null`
      */
-    getTooltip_Text(): string;
+    getTooltip_Text(): string | undefined;
     /**
      * Checks for the provided `sap.ui.core.CustomData` in the aggregation {@link #getCustomData customData}.
      * and returns its index if found or -1 otherwise.
@@ -18596,7 +18649,7 @@ declare module "sap/ui/core/Element" {
        * The customData to remove or its index or id
        */
       vCustomData: int | string | CustomData
-    ): CustomData;
+    ): CustomData | null;
     /**
      * @SINCE 1.19
      *
@@ -18609,7 +18662,7 @@ declare module "sap/ui/core/Element" {
        * The dependent to remove or its index or id
        */
       vDependent: int | string | UI5Element
-    ): UI5Element;
+    ): UI5Element | null;
     /**
      * @SINCE 1.56
      *
@@ -18622,7 +18675,7 @@ declare module "sap/ui/core/Element" {
        * The dragDropConfig to remove or its index or id
        */
       vDragDropConfig: int | string | DragDropBase
-    ): DragDropBase;
+    ): DragDropBase | null;
     /**
      * @SINCE 1.9.0
      *
@@ -20113,6 +20166,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         showScale?: boolean;
         /**
+         * whether the positions of grouping separators are validated. Space characters used as grouping separators
+         * are not validated.
+         */
+        strictGroupingValidation?: boolean;
+        /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
          * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
          * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
@@ -20154,12 +20212,135 @@ declare module "sap/ui/core/format/NumberFormat" {
      * ```
      *
      *
-     * # * @param {object} [oFormatOptions] The option object, which supports the following parameters. If no
-     * options are given, default values according to the type and locale settings are used.
-     *
      * @returns float instance of the NumberFormat
      */
     static getFloatInstance(
+      /**
+       * The option object, which supports the following parameters. If no options are given, default values according
+       * to the type and locale settings are used.
+       */
+      oFormatOptions?: {
+        /**
+         * defines the number of decimal digits
+         */
+        decimals?: int;
+        /**
+         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
+         * `groupingSeparator`.
+         */
+        decimalSeparator?: string;
+        /**
+         * @since 1.30.0 defines what an empty string is parsed as, and what is formatted as an empty string. The
+         * allowed values are "" (empty string), NaN, `null`, or 0. The 'format' and 'parse' functions are done
+         * in a symmetric way. For example, when this parameter is set to NaN, an empty string is parsed as NaN,
+         * and NaN is formatted as an empty string.
+         */
+        emptyString?: number;
+        /**
+         * defines the grouping base size in digits if it is different from the grouping size (e.g. Indian grouping)
+         */
+        groupingBaseSize?: int;
+        /**
+         * defines whether grouping is enabled (grouping separators are shown)
+         */
+        groupingEnabled?: boolean;
+        /**
+         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
+         * from `decimalSeparator`.
+         */
+        groupingSeparator?: string;
+        /**
+         * defines the grouping size in digits; the default is `3`. It must be a positive number.
+         */
+        groupingSize?: int;
+        /**
+         * defines the maximum number of decimal digits
+         */
+        maxFractionDigits?: int;
+        /**
+         * defines the maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?"
+         * characters are shown instead of digits.
+         */
+        maxIntegerDigits?: int;
+        /**
+         * defines the minimal number of decimal digits
+         */
+        minFractionDigits?: int;
+        /**
+         * defines the minimal number of non-decimal digits
+         */
+        minIntegerDigits?: int;
+        /**
+         * defines the used minus symbol
+         */
+        minusSign?: string;
+        /**
+         * @since 1.28.2 defines whether to output the string from the parse function in order to keep the precision
+         * for big numbers. Numbers in scientific notation are parsed back to standard notation. For example, "5e-3"
+         * is parsed to "0.005".
+         */
+        parseAsString?: boolean;
+        /**
+         * CLDR number pattern which is used to format the number
+         */
+        pattern?: string;
+        /**
+         * defines the used plus symbol
+         */
+        plusSign?: string;
+        /**
+         * defines the numerical precision; the number of decimals is calculated dependent on the integer digits
+         */
+        precision?: int;
+        /**
+         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
+         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
+         * is rounded to `maxFractionDigits`.
+         */
+        preserveDecimals?: boolean;
+        /**
+         * specifies the rounding behavior for discarding the digits after the maximum fraction digits defined by
+         * maxFractionDigits. Rounding will only be applied if the passed value is of type `number`. This can be
+         * assigned
+         * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
+         * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
+         * 			and the number of decimal digits that should be reserved.
+         */
+        roundingMode?: RoundingMode | keyof typeof RoundingMode;
+        /**
+         * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
+         * options is used
+         */
+        shortDecimals?: int;
+        /**
+         * only use short number formatting for values above this limit
+         */
+        shortLimit?: int;
+        /**
+         * @since 1.40 specifies a number from which the scale factor for 'short' or 'long' style format is generated.
+         * The generated scale factor is used for all numbers which are formatted with this format instance. This
+         * option has effect only when the option 'style' is set to 'short' or 'long'. This option is by default
+         * set with `undefined` which means the scale factor is selected automatically for each number being formatted.
+         */
+        shortRefNumber?: int;
+        /**
+         * @since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
+         * only when the 'style' options is set to either 'short' or 'long'.
+         */
+        showScale?: boolean;
+        /**
+         * whether the positions of grouping separators are validated. Space characters used as grouping separators
+         * are not validated.
+         */
+        strictGroupingValidation?: boolean;
+        /**
+         * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
+         * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
+         * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
+         * decimals, shortDecimals, or the 'precision' option itself.
+         */
+        style?: string;
+      },
       /**
        * Locale to get the formatter for
        */
@@ -20303,6 +20484,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          * only when the 'style' options is set to either 'short' or 'long'.
          */
         showScale?: boolean;
+        /**
+         * whether the positions of grouping separators are validated. Space characters used as grouping separators
+         * are not validated.
+         */
+        strictGroupingValidation?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
          * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
@@ -20451,6 +20637,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          * only when the 'style' options is set to either 'short' or 'long'.
          */
         showScale?: boolean;
+        /**
+         * whether the positions of grouping separators are validated. Space characters used as grouping separators
+         * are not validated.
+         */
+        strictGroupingValidation?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
          * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
@@ -20613,6 +20804,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          * only when the 'style' options is set to either 'short' or 'long'.
          */
         showScale?: boolean;
+        /**
+         * whether the positions of grouping separators are validated. Space characters used as grouping separators
+         * are not validated.
+         */
+        strictGroupingValidation?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
          * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
@@ -21191,14 +21387,14 @@ declare module "sap/ui/core/HTML" {
     getContent(): string;
     /**
      *
-     * @returns The element's DOM reference or null
+     * @returns The element's DOM reference or `null`
      */
     getDomRef(
       /**
        * Suffix of the Element to be retrieved or empty
        */
       sSuffix?: string
-    ): Element;
+    ): Element | null;
     /**
      * Gets current value of property {@link #getPreferDOM preferDOM}.
      *
@@ -23830,9 +24026,9 @@ declare module "sap/ui/core/Locale" {
      *
      * Use {@link #getExtensions} to get the individual extension tokens as an array.
      *
-     * @returns the extension
+     * @returns the extension or `null`
      */
-    getExtension(): string;
+    getExtension(): string | null;
     /**
      * Get the locale extensions as an array of tokens.
      *
@@ -23903,17 +24099,17 @@ declare module "sap/ui/core/Locale" {
      * Note that the case might differ from the original language tag (Upper case first letter and lower case
      * reminder enforced as recommended by BCP47/ISO15924)
      *
-     * @returns the script code or null
+     * @returns the script code or `null`
      */
-    getScript(): string;
+    getScript(): string | null;
     /**
      * Get the locale variants as a single string or `null`.
      *
      * Multiple variants are separated by a dash '-'.
      *
-     * @returns the variant or null
+     * @returns the variant or `null`
      */
-    getVariant(): string;
+    getVariant(): string | null;
     /**
      * Get the locale variants as an array of individual variants.
      *
@@ -25931,9 +26127,9 @@ declare module "sap/ui/core/message/MessageParser" {
     /**
      * Returns the registered processor on which the events for message handling can be fired
      *
-     * @returns The currently set MessageProcessor or null if none is set
+     * @returns The currently set MessageProcessor or `null` if none is set
      */
-    getProcessor(): MessageProcessor;
+    getProcessor(): MessageProcessor | null;
     /**
      * Abstract parse method must be implemented in the inheriting class.
      */
@@ -27884,7 +28080,7 @@ declare module "sap/ui/core/mvc/View" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Executes preprocessors for a type of source
      *
@@ -30353,6 +30549,9 @@ declare module "sap/ui/core/ResizeHandler" {
   /**
    * The resize handling API provides firing of resize events on all browsers by regularly checking the width
    * and height of registered DOM elements or controls and firing events accordingly.
+   *
+   * **Note**: The public usage of the constructor is deprecated since 1.103.0. Please use the static module
+   * export directly.
    */
   interface ResizeHandler {
     /**
@@ -30708,14 +30907,16 @@ declare module "sap/ui/core/routing/History" {
      * get Unknown because it might be backwards or forwards. For hash replacements, the history stack will
      * be replaced at this position for the history.
      *
-     * @returns or undefined, if no navigation has taken place yet.
+     * @returns Direction for the given hash or `undefined`, if no navigation has taken place yet.
      */
     getDirection(
       /**
        * optional, if this parameter is not passed the last hashChange is taken.
        */
       sNewHash?: string
-    ): routing.HistoryDirection | keyof typeof routing.HistoryDirection;
+    ):
+      | (routing.HistoryDirection | keyof typeof routing.HistoryDirection)
+      | undefined;
     /**
      * @SINCE 1.70
      *
@@ -30737,12 +30938,13 @@ declare module "sap/ui/core/routing/History" {
      */
     getHistoryStateOffset(): int | undefined;
     /**
-     * gets the previous hash in the history - if the last direction was Unknown or there was no navigation
-     * yet, undefined will be returned
+     * Gets the previous hash in the history.
      *
-     * @returns or undefined
+     * If the last direction was Unknown or there was no navigation yet, `undefined` will be returned.
+     *
+     * @returns Previous hash in the history or `undefined`
      */
-    getPreviousHash(): string;
+    getPreviousHash(): string | undefined;
   }
 }
 
@@ -33119,7 +33321,7 @@ declare module "sap/ui/core/routing/Targets" {
      * Returns a target by its name (if you pass myTarget: { view: "myView" }) in the config myTarget is the
      * name.
      *
-     * @returns The target with the coresponding name or undefined. If an array way passed as name this will
+     * @returns The target with the coresponding name or undefined. If an array was passed as name, this will
      * return an array with all found targets. Non existing targets will not be returned and an error is logged
      * when `bSuppressNotFoundError` param isn't set to `true`.
      */
@@ -34799,7 +35001,7 @@ declare module "sap/ui/core/tmpl/DOMElement" {
        * The attribute to remove or its index or id
        */
       vAttribute: int | string | DOMAttribute
-    ): DOMAttribute;
+    ): DOMAttribute | null;
     /**
      * Removes a element from the aggregation {@link #getElements elements}.
      *
@@ -34810,7 +35012,7 @@ declare module "sap/ui/core/tmpl/DOMElement" {
        * The element to remove or its index or id
        */
       vElement: int | string | DOMElement
-    ): DOMElement;
+    ): DOMElement | null;
     /**
      * Sets a new value for property {@link #getTag tag}.
      *
@@ -34986,8 +35188,8 @@ declare module "sap/ui/core/tmpl/Template" {
 
   /**
    * @SINCE 1.15
-   * @deprecated (since 1.56) - use an {@link sap.ui.core.mvc.XMLView XMLView} or {@link sap.ui.core.mvc.JSView
-   * JSView} instead.
+   * @deprecated (since 1.56) - use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0
+   * Typed View} instead.
    *
    * Base Class for Template.
    */
@@ -36424,7 +36626,7 @@ declare module "sap/ui/core/UIArea" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a dependent from the aggregation {@link #getDependents dependents}.
      *
@@ -36435,7 +36637,7 @@ declare module "sap/ui/core/UIArea" {
        * The dependent to remove or its index or id
        */
       vDependent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @deprecated (since 1.1) - use {@link #removeAllContent} and {@link #addContent} instead
      *
@@ -37185,7 +37387,7 @@ declare module "sap/ui/core/util/Export" {
        * The column to remove or its index or id
        */
       vColumn: int | string | ExportColumn
-    ): ExportColumn;
+    ): ExportColumn | null;
     /**
      * Removes a row from the aggregation {@link #getRows rows}.
      *
@@ -37196,7 +37398,7 @@ declare module "sap/ui/core/util/Export" {
        * The row to remove or its index or id
        */
       vRow: int | string | ExportRow
-    ): ExportRow;
+    ): ExportRow | null;
     /**
      * Generates the file content, triggers a download / save action and returns a Promise with the instance
      * as context (this).
@@ -37657,7 +37859,7 @@ declare module "sap/ui/core/util/ExportRow" {
        * The cell to remove or its index or id
        */
       vCell: int | string | ExportCell
-    ): ExportCell;
+    ): ExportCell | null;
   }
 
   export interface $ExportRowSettings extends $ManagedObjectSettings {
@@ -38997,7 +39199,7 @@ declare module "sap/ui/core/VariantLayoutData" {
        * The multipleLayoutData to remove or its index or id
        */
       vMultipleLayoutData: int | string | LayoutData
-    ): LayoutData;
+    ): LayoutData | null;
   }
 
   export interface $VariantLayoutDataSettings extends $LayoutDataSettings {
@@ -39888,7 +40090,9 @@ declare module "sap/ui/Device" {
      * If this flag is set to `true`, the mobile variant of the browser is used or a tablet or phone device
      * is detected.
      *
-     * **Note:** This information might not be available for all browsers.
+     * **Note:** This information might not be available for all browsers. **Note:** The flag is also set to
+     * `true` for any touch device, including laptops with touchscreen monitor. For more information, see the
+     * documentation for {@link sap.ui.Device.system.combi} devices.
      */
     export const mobile: boolean;
 
@@ -40458,7 +40662,9 @@ declare module "sap/ui/Device" {
      * If this flag is set to `true`, the used browser supports touch events.
      *
      * **Note:** This flag indicates whether the used browser supports touch events or not. This does not necessarily
-     * mean that the used device has a touchable screen.
+     * mean that the used device has a touchable screen. **Note:** This flag also affects other {@link sap.ui.Device}
+     * properties. For more information, see the documentation for {@link sap.ui.Device.browser.mobile} and
+     * {@link sap.ui.Device.system.combi} devices.
      */
     export const touch: boolean;
 
@@ -59023,6 +59229,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * It is thus unsafe to keep a reference to a context instance which is not explicitly kept alive. Once
      * a context is not kept alive anymore, the implicit lifecycle management again takes control and destroys
      * the context if it is no longer needed.
+     *
+     * Note: This is only supported if the model uses the `autoExpandSelect` parameter.
      * See:
      * 	#isKeepAlive
      */
@@ -59060,7 +59268,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * @returns A promise which is resolved without a result in case of success, or rejected with an instance
      * of `Error` in case of failure, for example if the annotation belongs to the read-only namespace "@$ui5.*".
      * With `bRetry` it is only rejected with an `Error` instance where `oError.canceled === true` when the
-     * property has been reset via the methods
+     * entity has been deleted while the request was pending or the property has been reset via the methods
+     *
      * 	 {@link sap.ui.model.odata.v4.ODataModel#resetChanges}  {@link sap.ui.model.odata.v4.ODataContextBinding#resetChanges}
      * or  {@link sap.ui.model.odata.v4.ODataListBinding#resetChanges}.
      */
@@ -61874,6 +62083,37 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       oContext?: Context1
     ): Context1;
     /**
+     * @SINCE 1.103.0
+     *
+     * Deletes the entity with the given canonical path on the server and in all bindings. Pending changes in
+     * contexts for this entity or in dependents thereof are canceled.
+     *
+     * Deleting in the bindings is only possible if the given path is a canonical path, and all paths follow
+     * these rules in addition to the OData 4.0 specification:
+     * 	 Key properties are ordered just as in the metadata,  for single key properties, the name of the
+     * key is omitted,  for collection-valued navigation properties, all keys are present,  the key-value
+     * pairs are encoded via encodeURIComponent.
+     *
+     * @returns A promise resolving when the delete succeeded, and rejecting with an instance of Error otherwise.
+     * In the latter case the HTTP status code of the response is given in the error's property `status`.
+     */
+    delete(
+      /**
+       * The canonical path of the entity to delete, starting with a '/'
+       */
+      sCanonicalPath: string,
+      /**
+       * The group ID that is used for the DELETE request; if not specified, the model's {@link #getUpdateGroupId
+       * update group ID} is used; the resulting group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}
+       */
+      sGroupId?: string,
+      /**
+       * If `true`, deletion fails if the entity does not exist (HTTP status code 404 or 412 due to the `If-Match:
+       * *` header); otherwise we assume that it has already been deleted by someone else and report success
+       */
+      bRejectIfNotFound?: boolean
+    ): Promise<any>;
+    /**
      * @SINCE 1.38.0
      *
      * Destroys this model, its requestor and its meta model.
@@ -64099,25 +64339,6 @@ declare module "sap/ui/model/TreeBindingAdapter" {
      * @returns Returns the number of entries in the tree
      */
     getLength(): number;
-    /**
-     * Gets an array of nodes for the requested part of the tree.
-     *
-     * @returns The requested tree nodes
-     */
-    getNodes(
-      /**
-       * The index of the first requested node
-       */
-      iStartIndex: number,
-      /**
-       * The maximum number of returned nodes; if not given the model's size limit is used; see {@link sap.ui.model.Model#setSizeLimit}
-       */
-      iLength: number,
-      /**
-       * The maximum number of nodes to read additionally as buffer
-       */
-      iThreshold?: number
-    ): object[];
   }
 }
 
@@ -65839,6 +66060,8 @@ declare module "sap/ui/test/actions/Drag" {
     $ActionSettings,
   } from "sap/ui/test/actions/Action";
 
+  import Control from "sap/ui/core/Control";
+
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
   /**
@@ -65899,6 +66122,17 @@ declare module "sap/ui/test/actions/Drag" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ManagedObjectMetadata;
+    /**
+     * Starts a drag event sequence for this control. To finish the drag, and drop the control on a specified
+     * target, trigger a {@link sap.ui.test.actions.Drop} action on the target. Logs an error if control is
+     * not visible (i.e. has no DOM representation)
+     */
+    executeOn(
+      /**
+       * the control on which the drag events are triggered
+       */
+      oControl: Control
+    ): void;
   }
 
   export interface $DragSettings extends $ActionSettings {}
@@ -65909,6 +66143,8 @@ declare module "sap/ui/test/actions/Drop" {
     default as Action,
     $ActionSettings,
   } from "sap/ui/test/actions/Action";
+
+  import Control from "sap/ui/core/Control";
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
@@ -65986,6 +66222,17 @@ declare module "sap/ui/test/actions/Drop" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ManagedObjectMetadata;
+    /**
+     * Starts a drop event sequence for this control, such that a predefined source will be dropped on the control.
+     * To start a drag sequence ad define the dragged source, trigger a {@link sap.ui.test.actions.Drag} action
+     * on the source. Logs an error if control is not visible (i.e. has no DOM representation)
+     */
+    executeOn(
+      /**
+       * the control on which the drop events are triggered
+       */
+      oControl: Control
+    ): void;
     /**
      * Gets current value of property {@link #getAfter after}.
      *
@@ -66140,6 +66387,18 @@ declare module "sap/ui/test/actions/EnterText" {
        */
       mSettings?: $EnterTextSettings
     );
+    /**
+     * @SINCE 1.70
+     *
+     * A map of ID suffixes for controls that require a special DOM reference for `EnterText` interaction.
+     *
+     * You can specify an ID suffix for specific controls in this map. The enter text action will be triggered
+     * on the DOM element with the specified suffix.
+     *
+     * Here is a sublist of supported controls and their `EnterText` control adapter:
+     * 	 - sap.m.StepInput - internal Input
+     */
+    static controlAdapters: Record<string, string | ((p1: Control) => string)>;
 
     /**
      * Creates a new subclass of class sap.ui.test.actions.EnterText with name `sClassName` and enriches it
@@ -66368,6 +66627,28 @@ declare module "sap/ui/test/actions/Press" {
        */
       mSettings?: $PressSettings
     );
+    /**
+     * @SINCE 1.63
+     *
+     * A map of ID suffixes for controls that require a special DOM reference for `Press` interaction.
+     *
+     * You can specify an ID suffix for specific controls in this map. The press action will be triggered on
+     * the DOM element with the specified suffix.
+     *
+     * Here is a sublist of supported controls and their `Press` control adapter:
+     * 	 - sap.m.ComboBox - Arrow button
+     * 	 - sap.m.SearchField - Search Button
+     * 	 - sap.m.Input - Value help
+     * 	 - sap.m.List - More Button
+     * 	 - sap.m.Table - More Button
+     * 	 - sap.m.ObjectIdentifier - Title
+     * 	 - sap.m.ObjectAttribute - Text
+     * 	 - sap.m.Page - Back Button
+     * 	 - sap.m.semantic.FullscreenPage - Back Button
+     * 	 - sap.m.semantic.DetailPage - Back Button
+     * 	 - sap.ui.comp.smartfilterbar.SmartFilterBar - Go Button
+     */
+    static controlAdapters: Record<string, string | ((p1: Control) => string)>;
 
     /**
      * Creates a new subclass of class sap.ui.test.actions.Press with name `sClassName` and enriches it with
@@ -69149,7 +69430,7 @@ declare module "sap/ui/test/Opa5" {
      *
      * @returns The QUnit utils
      */
-    static getUtils(): /* was: sap.ui.test.qunit */ any;
+    static getUtils(): object;
     /**
      * Returns the window object in the current context. If an iframe is launched, it will return the iframe's
      * window.
@@ -70556,8 +70837,8 @@ declare module "sap/ui/test/OpaBuilder" {
     /**
      * Creates a matcher function that returns an aggregation element of a control at a given index.
      *
-     * @returns the matcher function returns the item at a certain index in the aggregation or null if index
-     * not in range
+     * @returns the matcher function returns the item at a certain index in the aggregation or `undefined` if
+     * index not in range
      */
     aggregationAtIndex(
       /**
@@ -71035,7 +71316,7 @@ declare module "sap/ui/test/OpaPlugin" {
          */
         controlType?: string | Function;
       }
-    ): UI5Element | UI5Element[];
+    ): UI5Element | UI5Element[] | null;
     /**
      * Gets the constructor function of a certain controlType
      *
@@ -71157,14 +71438,14 @@ declare module "sap/ui/test/OpaPlugin" {
      * Returns the view with a specific name. The result should be a unique view. If there are multiple visible
      * views with that name, none will be returned.
      *
-     * @returns or undefined
+     * @returns Unique view or `undefined`
      */
     getView(
       /**
-       * the name of the view
+       * Name of the view
        */
       sViewName: string
-    ): View;
+    ): View | undefined;
   }
 }
 
@@ -73293,7 +73574,7 @@ declare namespace sap {
      * that {@link sap.ui.define} uses: module names are specified without the implicit extension '.js'. Relative
      * module names are not supported.
      *
-     * @returns A single module export value (sync probing variant) or undefined (async loading variant)
+     * @returns A single module export value (sync probing variant) or `undefined` (async loading variant)
      */
     function require(
       /**
@@ -74299,7 +74580,9 @@ declare namespace sap {
          * If this flag is set to `true`, the mobile variant of the browser is used or a tablet or phone device
          * is detected.
          *
-         * **Note:** This information might not be available for all browsers.
+         * **Note:** This information might not be available for all browsers. **Note:** The flag is also set to
+         * `true` for any touch device, including laptops with touchscreen monitor. For more information, see the
+         * documentation for {@link sap.ui.Device.system.combi} devices.
          */
         export const mobile: boolean;
 
@@ -74922,7 +75205,9 @@ declare namespace sap {
          * If this flag is set to `true`, the used browser supports touch events.
          *
          * **Note:** This flag indicates whether the used browser supports touch events or not. This does not necessarily
-         * mean that the used device has a touchable screen.
+         * mean that the used device has a touchable screen. **Note:** This flag also affects other {@link sap.ui.Device}
+         * properties. For more information, see the documentation for {@link sap.ui.Device.browser.mobile} and
+         * {@link sap.ui.Device.system.combi} devices.
          */
         export const touch: boolean;
 
@@ -75071,6 +75356,8 @@ declare namespace sap {
 
     "sap/base/util/extend": undefined;
 
+    "sap/base/util/fetch": undefined;
+
     "sap/base/util/includes": undefined;
 
     "sap/base/util/isEmptyObject": undefined;
@@ -75083,6 +75370,8 @@ declare namespace sap {
 
     "sap/base/util/merge": undefined;
 
+    "sap/base/util/mixedFetch": undefined;
+
     "sap/base/util/now": undefined;
 
     "sap/base/util/ObjectPath": undefined;
@@ -75090,6 +75379,8 @@ declare namespace sap {
     "sap/base/util/Properties": undefined;
 
     "sap/base/util/resolveReference": undefined;
+
+    "sap/base/util/syncFetch": undefined;
 
     "sap/base/util/uid": undefined;
 
@@ -75123,11 +75414,17 @@ declare namespace sap {
 
     "sap/ui/base/ObjectPool": undefined;
 
+    "sap/ui/base/SyncPromise": undefined;
+
     "sap/ui/core/AppCacheBuster": undefined;
 
     "sap/ui/core/BusyIndicator": undefined;
 
     "sap/ui/core/BusyIndicatorUtils": undefined;
+
+    "sap/ui/core/cache/CacheManager": undefined;
+
+    "sap/ui/core/cache/LRUPersistentCache": undefined;
 
     "sap/ui/core/CalendarType": undefined;
 

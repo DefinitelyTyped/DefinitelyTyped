@@ -10,8 +10,8 @@ import * as R from 'ramda';
 () => {
     // cannot add anything other than two numbers
 
-    // $ExpectError
+    // @ts-expect-error
     R.add('foo', 'bar');
-    // $ExpectError
+    // @ts-expect-error
     R.add('foo')('bar');
 };

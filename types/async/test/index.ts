@@ -12,6 +12,10 @@ declare var path: {
 function funcStringCbErrBoolean(v: string, cb: (err: Error, res: boolean) => void) {}
 function callback() { }
 
+let promiseString: Promise<string>;
+let promiseIterableString: Promise<Iterable<string>>;
+let promiseBoolean: Promise<boolean>;
+
 async.map(['file1', 'file2', 'file3'], fs.stat, (err: Error, results: fs.Stats[]) => { });
 async.mapSeries(['file1', 'file2', 'file3'], fs.stat, (err: Error, results: fs.Stats[]) => { });
 async.mapLimit(['file1', 'file2', 'file3'], 2, fs.stat, (err: Error, results: fs.Stats[]) => { });
@@ -84,17 +88,23 @@ async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, r
 async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean); // $ExpectType Promise<string>
 async.detectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err, result) => { });
 async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err, result) => { });
+promiseString = async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean);
 
 async.sortBy(['file1', 'file2', 'file3'], (file, callback) => {
     fs.stat(file, (err, stats) => { callback(err, stats ? stats.mtime : -1); });
 }, (err, results) => { });
+promiseIterableString = async.sortBy(['file1', 'file2', 'file3'], (file, callback) => {
+    fs.stat(file, (err, stats) => { callback(err, stats ? stats.mtime : -1); });
+});
 
 async.some(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 async.someLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 async.any(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 
 async.every(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
+promiseBoolean = async.every(['file1', 'file2', 'file3'], funcStringCbErrBoolean);
 async.everyLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err: Error, result: boolean) => { });
+promiseBoolean = async.everyLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean);
 async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: boolean) => { });
 
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { }); // $ExpectType void
@@ -102,6 +112,11 @@ async.concat<fs.PathLike, string>(['dir1', 'dir2', 'dir3'], fs.readdir); // $Exp
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, (err, files) => { });
 async.concatLimit(['dir1', 'dir2', 'dir3'], 2, fs.readdir, (err, files) => { });
 async.concatLimit<string, string>(['dir1', 'dir2', 'dir3'], 2, fs.readdir); // $ExpectType Promise<string[]>
+
+async.groupBy(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, result: Record<string, string[]>) => { });
+let groups: Promise<Record<string, string[]>> = async.groupBy(['file1', 'file2', 'file3'], funcStringCbErrBoolean);
+async.groupByLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean);
+groups = async.groupByLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean);
 
 // Control Flow //
 
@@ -162,10 +177,10 @@ function whileFn(callback: (err: any, ...rest: any[]) => void) {
 function whileTest(callback: (err: any, truth: boolean) => void) { callback(null, count < 5); }
 
 let count = 0;
-async.whilst(whileTest, whileFn, err => { });
-async.until(whileTest, whileFn, err => { });
-async.doWhilst(whileFn, whileTest, err => { });
-async.doUntil(whileFn, whileTest, err => { });
+async.whilst(whileTest, whileFn, (err: Error, res: number, res2: string) => { });
+async.until(whileTest, whileFn, (err: Error) => { });
+async.doWhilst(whileFn, whileTest, (err: Error) => { });
+async.doUntil(whileFn, whileTest, (err: Error) => { });
 
 async.during(testCallback => { testCallback(new Error(), false); }, callback => { callback(); }, error => { console.log(error); });
 async.doDuring(callback => { callback(); }, testCallback => { testCallback(new Error(), false); }, error => { console.log(error); });
@@ -378,8 +393,10 @@ async.auto<A>({
     (err, results) => { console.log('finished auto'); }
 );
 
-async.retry(); // $ExpectError
-async.retry(3); // $ExpectError
+// @ts-expect-error
+async.retry();
+// @ts-expect-error
+async.retry(3);
 
 async.retry(async () => 2); // $ExpectType Promise<number>
 async.retry<number>(async () => 2); // $ExpectType Promise<number>
@@ -438,6 +455,9 @@ call_order.push('one');
 
 const slow_fn = (name: string, callback: any) => { callback(null, 123); };
 const fn = async.memoize(slow_fn);
+
+async.tryEach([() => 'file1', () => 'file2'], (err: Error, result: string) => { });
+promiseString = async.tryEach([() => 'file1', () => 'file2']);
 
 fn('some name', () => { });
 async.unmemoize(fn);

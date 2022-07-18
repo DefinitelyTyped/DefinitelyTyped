@@ -1,5 +1,5 @@
 {
-    "private":true,
+    "private": true,
     "dependencies": {
         "form-data": "^3.0.1"
     }

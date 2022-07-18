@@ -2,6 +2,7 @@
 // Project: https://github.com/Delagen/typings-yandex-maps
 // Definitions by: Delagen <https://github.com/Delagen>
 //                 gastwork13 <https://github.com/gastwork13>
+//                 kaskar2008 <https://github.com/kaskar2008>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -3648,6 +3649,49 @@ declare namespace ymaps {
     }
 
     function ready(successCallback?: () => any | IReadyObject, errorCallback?: () => any, context?: object): Promise<void>;
+
+    function suggest(request: string, options?: ISuggestOptions): Promise<ISuggestResult[]>;
+
+    interface ISuggestResult {
+        /**
+         * Represents the toponym in a user-friendly way.
+         */
+        displayName: string;
+
+        /**
+         * Represents the value which should be inserted into the search field after the user selects the suggestion.
+         */
+        value: string;
+
+        /**
+         * Array of ranges for highlighting to show which part of the result matched the query.
+         * The range for highlighting is an array of two numbers: the indexes of the starting and ending symbols of the range.
+         */
+         hl: number[][];
+
+         type: string;
+    }
+
+    interface ISuggestProvider {
+        suggest(request: string, options?: Omit<ISuggestOptions, 'provider'>): Promise<ISuggestResult[]>;
+    }
+
+    interface ISuggestOptions {
+        /**
+         * A rectangular area on the map, where the object being searched for is presumably located. Must be set as an array, such as [[30, 40], [50, 50]].
+         */
+        boundedBy?: number[][];
+
+        /**
+         * Search suggestion provider. You can use the 'yandex#map' built-in search suggestion provider for map objects, or specify your own.
+         */
+        provider?: ISuggestProvider | string;
+
+        /**
+         * Maximum number of results to be returned.
+         */
+        results?: number;
+    }
 
     interface IReadyObject {
         require?: string[] | undefined;

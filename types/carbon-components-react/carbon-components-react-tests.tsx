@@ -119,7 +119,7 @@ const accordionItemTwo = (
         </AspectRatio>
     );
     const aspectRatioT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <AspectRatio onClick={evt => void evt.currentTarget} data-testid="test" unknownProp="error">
             Default
         </AspectRatio>
@@ -135,7 +135,7 @@ const accordionItemTwo = (
         </AspectRatio>
     );
     const aspectRatioCustomCompT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <AspectRatio as={AspectRatioCustomComp1} someRandomProp={3} unknownProp={5}>
             Component
         </AspectRatio>
@@ -169,7 +169,7 @@ const accordionItemTwo = (
     );
 
     const buttonDefaultT3 = (
-        // $ExpectError
+        // @ts-expect-error
         <Button unknownProp="error">Submit</Button>
     );
 
@@ -214,7 +214,7 @@ const accordionItemTwo = (
     );
 
     const buttonCustomRenderT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <Button as={ButtonCustomRenderComp1} kind="danger" someProp={5} anotherProp="test" unknownProp={1}>
             Custom Render
         </Button>
@@ -659,7 +659,7 @@ const uisHeaderContainerCompRenderNotMatchingOptionalProps = <HeaderContainer re
 
     const testRef = React.useRef<HTMLElement | null>();
     const uisHeaderRefT1 = (
-        // $ExpectError
+        // @ts-expect-error
         <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />} ref={testRef}>
             <div />
         </HeaderMenu>
@@ -857,7 +857,7 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
     const TextT1 = <Text dir="ltr">Text</Text>;
 
     const TextT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <Text dir="auto" unknownProp={3}>
             Text
         </Text>
@@ -876,7 +876,7 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
     );
 
     const TextCustomCompT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <Text as={TestComp2} dir="rtl" someProp={5} unknownProp={false}>
             Text
         </Text>
@@ -1026,7 +1026,7 @@ const multiSelectObjsBadCustomComp = (
             { id: 1, name: 'one' },
             { id: 2, name: 'two', someBoolProp: true },
         ]}
-        // $ExpectError
+        // @ts-expect-error
         itemToElement={TestComp2}
     />
 );
@@ -1084,7 +1084,7 @@ const multiSelectFilterableObj = (
     );
 
     const rowDefaultT3 = (
-        // $ExpectError
+        // @ts-expect-error
         <Row onClick={event => {}} data-testid="5" title="test-title" unknownProp={true}>
             Contents
         </Row>
@@ -1103,7 +1103,7 @@ const multiSelectFilterableObj = (
     );
 
     const rowCustomComp2 = (
-        // $ExpectError
+        // @ts-expect-error
         <Row as={TestComp1} someProp={5} unknownProp="test">
             Content
         </Row>
@@ -1175,7 +1175,7 @@ const dataTableSkeletonBasic = <DataTableSkeleton />;
     );
 
     const layoutDirectionDefaultT3 = (
-        // $ExpectError
+        // @ts-expect-error
         <LayoutDirection unknownProp="true">Contents</LayoutDirection>
     );
 
@@ -1192,7 +1192,7 @@ const dataTableSkeletonBasic = <DataTableSkeleton />;
     );
 
     const layoutDirectionCustomCompT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <LayoutDirection as={TestComp2} somethingElse={5}>
             Content
         </LayoutDirection>
@@ -1206,7 +1206,7 @@ const dataTableSkeletonBasic = <DataTableSkeleton />;
     const searchT1 = <Search labelText="Search..." renderIcon={<svg></svg>} />;
 
     const searchT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <Search labelText="Search..." renderIcon={TestComp2} />
     );
 }
@@ -1230,7 +1230,7 @@ const dataTableSkeletonBasic = <DataTableSkeleton />;
     );
 
     const dialogCustomCompT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <Dialog
             as={TestComp2}
             aria-labelledby="test"

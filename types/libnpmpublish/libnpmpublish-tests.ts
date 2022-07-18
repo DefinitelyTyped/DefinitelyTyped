@@ -27,12 +27,15 @@ async function test() {
     };
     const tarballData: Buffer = Buffer.from("thisisafillerforthebuffertowork");
     // test param requirements and return values
-    await libnpmpublish.publish(); // $ExpectError
-    await libnpmpublish.publish(manifest); // $ExpectError
+    // @ts-expect-error
+    await libnpmpublish.publish();
+    // @ts-expect-error
+    await libnpmpublish.publish(manifest);
     await libnpmpublish.publish(manifest, tarballData); // $ExpectType Response
     await libnpmpublish.publish(manifest, tarballData, options); // $ExpectType Response
 
-    await libnpmpublish.unpublish(); // $ExpectError
+    // @ts-expect-error
+    await libnpmpublish.unpublish();
     await libnpmpublish.unpublish("npmpackage"); // $ExpectType boolean
     await libnpmpublish.unpublish("npmpackage", options); // $ExpectType boolean
 }

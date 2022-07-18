@@ -11,7 +11,6 @@
 //                 Ruixuel <https://github.com/ruixuel>
 //                 trajnisz <https://github.com/trajnisz>
 //                 Godfery <https://github.com/hiyangguo>
-//                 Shunshun <https://github.com/Zhoushunshun541>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

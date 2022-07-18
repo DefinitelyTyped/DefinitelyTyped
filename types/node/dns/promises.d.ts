@@ -119,7 +119,7 @@ declare module 'dns/promises' {
      *
      * <omitted>
      *
-     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the DNS error codes.
+     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the `DNS error codes`.
      * @since v10.6.0
      * @param hostname Host name to resolve.
      * @param [rrtype='A'] Resource record type.
@@ -300,7 +300,7 @@ declare module 'dns/promises' {
      * Performs a reverse DNS query that resolves an IPv4 or IPv6 address to an
      * array of host names.
      *
-     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the DNS error codes.
+     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the `DNS error codes`.
      * @since v10.6.0
      */
     function reverse(ip: string): Promise<string[]>;

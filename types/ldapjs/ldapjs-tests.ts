@@ -173,3 +173,14 @@ server.listen(1389, '127.0.0.1', () => {
         // Server closed
     });
 });
+
+let attribute = new ldap.Attribute({
+    type: 'foo',
+    vals: [42, undefined, null, {key: 'value'}, 'string', Buffer.from('buffer')],
+});
+// $ExpectType string
+attribute.type;
+// $ExpectType string | string[]
+attribute.vals;
+attribute.vals = 'string'
+ldap.Attribute.isAttribute(attribute);

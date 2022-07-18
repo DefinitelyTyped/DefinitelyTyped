@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.103.0
 
 declare module "sap/tnt/library" {
   /**
@@ -640,7 +640,7 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Gets the currently selected `NavigationListItem`.
      *
-     * @returns The selected item or null if nothing is selected
+     * @returns The selected item or `null` if nothing is selected
      */
     getSelectedItem(): NavigationListItem | null;
     /**
@@ -742,7 +742,7 @@ declare module "sap/tnt/NavigationList" {
        * The item to remove or its index or id
        */
       vItem: int | string | NavigationListItem
-    ): NavigationListItem;
+    ): NavigationListItem | null;
     /**
      * Sets a new value for property {@link #getExpanded expanded}.
      *
@@ -1142,7 +1142,7 @@ declare module "sap/tnt/NavigationListItem" {
        * The item to remove or its index or id
        */
       vItem: int | string | NavigationListItem
-    ): NavigationListItem;
+    ): NavigationListItem | null;
     /**
      * Sets a new value for property {@link #getExpanded expanded}.
      *
@@ -2115,7 +2115,7 @@ declare module "sap/tnt/ToolPage" {
        * The mainContent to remove or its index or id
        */
       vMainContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getHeader header}.
      *

@@ -1,8 +1,8 @@
 import Parser = require('redis-parser');
 
-// $ExpectError
+// @ts-expect-error
 new Parser(); // TypeError: Options are mandatory.
-// $ExpectError
+// @ts-expect-error
 new Parser({}); // TypeError: The returnReply and returnError options have to be functions.
 
 const parser = new Parser({

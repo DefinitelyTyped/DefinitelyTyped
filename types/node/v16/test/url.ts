@@ -20,7 +20,7 @@ import * as url from 'node:url';
     url.format(myURL, { fragment: false, unicode: true, auth: false });
 
     // `format doesn't work with `path`: use `pathname` and `search` instead
-    // $ExpectError
+    // @ts-expect-error
     url.format({ path: '/foo' });
 }
 
@@ -148,7 +148,7 @@ import * as url from 'node:url';
 }
 
 {
-    // $ExpectError
+    // @ts-expect-error
     new url.URLSearchParams({ foobar: undefined });
 }
 

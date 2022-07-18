@@ -11,7 +11,7 @@ import flatpickr from "flatpickr";
 
 export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
-export interface DateTimePickerProps extends Omit<Partial<HTMLInputElement>, 'value'> {
+export interface DateTimePickerProps extends Omit<Partial<HTMLInputElement>, 'children' | 'value'> {
     defaultValue?: string | undefined;
     options?: flatpickr.Options.Options | undefined;
     onChange?: flatpickr.Options.Hook | undefined;
@@ -24,6 +24,7 @@ export interface DateTimePickerProps extends Omit<Partial<HTMLInputElement>, 'va
     onDayCreate?: flatpickr.Options.Hook | undefined;
     value?: string | Date | number | ReadonlyArray<string | Date | number> | undefined;
     className?: string | undefined;
+    children?: React.ReactNode | undefined;
     render?: ((props: Omit<DateTimePickerProps, 'options' | 'render'>, ref: (node: HTMLInputElement | null) => void) => ReactElement) | undefined;
 }
 

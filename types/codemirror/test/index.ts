@@ -17,7 +17,7 @@ const myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {
 
 const myCodeMirror2_1: CodeMirror.Editor = CodeMirror(document.body, {
     extraKeys: {
-        // $ExpectError
+        // @ts-expect-error
         'Shift-Enter': cm => {
             return 42;
         }, // not a valid return value
@@ -55,7 +55,7 @@ myCodeMirror.setCursor({ ch: 1, line: 0 });
 myCodeMirror.on('renderLine', (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => {});
 
 myCodeMirror.on('beforeChange', (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeCancellable) => {
-    // $ExpectError
+    // @ts-expect-error
     change.update();
     if (change.update != null) change.update();
 });

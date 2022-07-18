@@ -14,6 +14,6 @@ const json = {
         },
     ],
 } as any as Node;
-const html = '<div>this is div</div>';
+const html = '<div test="test">this is div</div>';
 html2json(html);
 json2html(json);

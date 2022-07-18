@@ -6,8 +6,8 @@ play("file.mp3");
 // $ExpectType Promise<{ stdout: string | Buffer; stdin: string | Buffer; }>
 play("file.mp3", 0.5);
 
-// $ExpectError
+// @ts-expect-error
 play(0.5, "file.mp3");
 
-// $ExpectError
+// @ts-expect-error
 play("file.mp3", "another string");

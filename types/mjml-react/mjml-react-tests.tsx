@@ -162,7 +162,8 @@ function renderOutTestEmail() {
 
     // children cannot be anything other than string
     // prettier-ignore
-    const childError: React.ReactNode = <MjmlPreview><p>""</p></MjmlPreview>; // $ExpectError
+    // @ts-expect-error
+    const childError: React.ReactNode = <MjmlPreview><p>""</p></MjmlPreview>;
 }
 // TestMjmlStyleTag
 {
@@ -171,7 +172,8 @@ function renderOutTestEmail() {
 
     // children cannot be anything other than string
     // prettier-ignore
-    const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>; // $ExpectError
+    // @ts-expect-error
+    const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>;
 }
 // TestMjmlTitleTag
 {
@@ -180,7 +182,8 @@ function renderOutTestEmail() {
 
     // children cannot be anything other than string
     // prettier-ignore
-    const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>; // $ExpectError
+    // @ts-expect-error
+    const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>;
 }
 // TestMjmlButtonTag
 {
@@ -192,7 +195,8 @@ function renderOutTestEmail() {
     const minProps: React.ReactNode = <MjmlColumn />;
     const maxProps: React.ReactNode = <MjmlColumn>child</MjmlColumn>;
     const innerBackgroundColor: React.ReactNode = <MjmlColumn innerBackgroundColor="#BADA55">child</MjmlColumn>;
-    const innerBackgroundColorError: React.ReactNode = <MjmlColumn innerBackgroundColor={1}>child</MjmlColumn>; // $ExpectError
+    // @ts-expect-error
+    const innerBackgroundColorError: React.ReactNode = <MjmlColumn innerBackgroundColor={1}>child</MjmlColumn>;
 }
 // TestMjmlDividerTag
 {

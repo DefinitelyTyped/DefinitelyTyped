@@ -130,9 +130,9 @@ const v1: Visitor = {
 
         path.scope.crawl();
 
-        // $ExpectError
+        // @ts-expect-error
         path.pushContainer('returnType', t.stringLiteral('hello'));
-        // $ExpectError
+        // @ts-expect-error
         path.unshiftContainer('returnType', t.stringLiteral('hello'));
     },
     ExportDefaultDeclaration(path) {
@@ -235,7 +235,7 @@ const BindingKindTest: Visitor = {
         kind === 'const';
         kind === 'let';
         kind === 'var';
-        // $ExpectError
+        // @ts-expect-error
         kind === 'anythingElse';
     },
 };
@@ -346,7 +346,7 @@ const visitorWithDenylist: Visitor = {
 };
 
 const visitorWithInvalidDenylist: Visitor = {
-    // $ExpectError
+    // @ts-expect-error
     denylist: ['SomeRandomType'],
 };
 
