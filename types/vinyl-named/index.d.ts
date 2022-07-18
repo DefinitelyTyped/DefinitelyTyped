@@ -1,6 +1,6 @@
 // Type definitions for vinyl-named 1.1
 // Project: https://github.com/shama/vinyl-named
-// Definitions by: Maiko Tan <https://github.com/MaikoTant>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import File = require('vinyl');
