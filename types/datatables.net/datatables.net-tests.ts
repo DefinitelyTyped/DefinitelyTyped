@@ -35,7 +35,7 @@ const lang: DataTables.LanguageSettings = {
 
 //#region "Column"
 
-const colCreatedCellFunc: DataTables.FunctionColumnCreatedCell = (cell, cellData, rowData, rowIndex, colIndex, cells) => {};
+const colCreatedCellFunc: DataTables.FunctionColumnCreatedCell = (cell, cellData, rowData, rowIndex, colIndex) => {};
 
 const colDataObject: DataTables.ObjectColumnData = {
     _: "phone",
@@ -179,7 +179,7 @@ colDef = {
 
 //#region "Callbacks"
 
-const createRowFunc: DataTables.FunctionCreateRow = (row, data, dataIndex) => { };
+const createRowFunc: DataTables.FunctionCreateRow = (row, data, dataIndex, cells) => { };
 const drawCallbackFunc: DataTables.FunctionDrawCallback = (settings) => { };
 const footerCallbackFunc: DataTables.FunctionFooterCallback = (tfoot, data, start, end, display) => { };
 const formatNumberFunc: DataTables.FunctionFormatNumber = (toForm) => { };
