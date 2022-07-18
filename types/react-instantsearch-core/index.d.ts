@@ -525,6 +525,16 @@ export interface RefinementListExposed {
    * the value of the searchState is an empty string.
    */
   defaultRefinement?: string[] | undefined;
+  /**
+     * Used to determine whether the facets should be ordered
+     * automatically or using the facet display definitions / pinned items.
+     *
+     * @see https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/facet-display/js/
+     *
+     * @type {boolean}
+     * @memberof RefinementListExposed
+     */
+   facetOrdering?: boolean | undefined;
   /** (...args: any[]) => any to modify the items being displayed, e.g. for filtering or sorting them. Takes an items as parameter and expects it back in return. */
   transformItems?: ((...args: any[]) => any) | undefined;
 }
