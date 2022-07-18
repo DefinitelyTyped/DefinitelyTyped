@@ -798,6 +798,14 @@ function testDevtools() {
     chrome.devtools.inspectedWindow.eval('1+1', undefined, result => {
         console.log(result);
     });
+
+    chrome.devtools.inspectedWindow.reload();
+    chrome.devtools.inspectedWindow.reload({});
+    chrome.devtools.inspectedWindow.reload({
+        userAgent: 'Best Browser',
+        ignoreCache: true,
+        injectedScript: 'console.log("Hello World!")',
+    });
 }
 
 function testAssistiveWindow() {
