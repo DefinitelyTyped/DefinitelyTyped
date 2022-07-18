@@ -5,12 +5,12 @@
 
 import cytoscape = require('cytoscape');
 
-declare const cytoscapeNavigator: cytoscape.Ext;
+declare const navigator: cytoscape.Ext;
 
-export = cytoscapeNavigator;
-export as namespace cytoscapeNavigator;
+export = navigator;
+export as namespace navigator;
 
-declare namespace cytoscapeNavigator {
+declare namespace navigator {
     interface Options {
         /**
          * Container element.
@@ -57,7 +57,7 @@ declare global {
             /*
              * Set up the navigator according to the given options.
              */
-            navigator: (options?: cytoscapeNavigator.Options) => cytoscapeNavigator.NavigatorInstance;
+            navigator: (options?: navigator.Options) => navigator.NavigatorInstance;
         }
     }
 }
