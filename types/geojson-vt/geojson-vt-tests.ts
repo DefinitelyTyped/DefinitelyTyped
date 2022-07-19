@@ -1,4 +1,4 @@
-import geojsonvt from 'geojson-vt';
+import * as geojsonvt from 'geojson-vt';
 import * as GJ from 'geojson';
 
 const GeoJSONData: GJ.FeatureCollection = {
