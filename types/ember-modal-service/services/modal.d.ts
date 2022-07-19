@@ -1,4 +1,6 @@
 import Service from '@ember/service';
+import type EmberArray from '@ember/array';
+import ModalModel from '../models/modal';
 
 /**
  * Service that opens and closes modals.
@@ -7,12 +9,12 @@ export default class EmberModalService extends Service {
     /**
      * Array model.
      */
-    content: null | unknown[];
+    content: EmberArray<ModalModel> & { removeObject: (model: ModalModel) => void; };
 
     /**
      * Creates new modal object and insert it in the array.
      */
-    open(name: string, options: object): Promise<unknown>;
+    open(name: string, options: Record<string, unknown>): Promise<unknown>;
 
     /**
      * Close all open modals by rejecting each promise.

@@ -1,4 +1,4 @@
-import * as ConfigStore from 'configstore';
+import ConfigStore from 'configstore';
 
 import type { Options as BoxenOptions } from 'boxen';
 
