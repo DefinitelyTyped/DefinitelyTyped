@@ -1,5 +1,7 @@
 import benchmark = require('nodemark');
 
+declare var console: any;
+
 console.log('benchmark:', benchmark);
 
 let x: number;
