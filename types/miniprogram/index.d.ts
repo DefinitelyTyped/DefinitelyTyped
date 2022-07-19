@@ -19,7 +19,13 @@ interface AsyncCallback<T = any> {
     complete?: (() => void) | undefined;
 }
 
-interface SetNavigationBarArgs extends AsyncCallback<void> {
+interface AsyncVoidCallback {
+    success?: () => void;
+    fail?: ((err: AsyncCallbackFailObject) => void) | undefined;
+    complete?: () => void;
+}
+
+interface SetNavigationBarArgs extends AsyncVoidCallback {
     /**
      * Navigation bar title.
      */
@@ -46,14 +52,14 @@ interface SetNavigationBarArgs extends AsyncCallback<void> {
     reset?: boolean | undefined;
 }
 
-interface HideTabBarArgs extends AsyncCallback<void> {
+interface HideTabBarArgs extends AsyncVoidCallback {
     /**
      * Need animation effect or not, none by default.
      */
     animation?: boolean | undefined;
 }
 
-interface SwitchTabArgs extends AsyncCallback<void> {
+interface SwitchTabArgs extends AsyncVoidCallback {
     /**
      * Path of the jumping tabBar page (page to be defined in the
      * tabBar field in the app.json). Note: The path cannot be
@@ -62,7 +68,7 @@ interface SwitchTabArgs extends AsyncCallback<void> {
     url: string;
 }
 
-interface NavigateToArgs extends AsyncCallback<void> {
+interface NavigateToArgs extends AsyncVoidCallback {
     /**
      * The application for thejumping does not include the destination
      * page path of the tabBar. The path can be followed by parameters.
@@ -74,7 +80,7 @@ interface NavigateToArgs extends AsyncCallback<void> {
     url: string;
 }
 
-interface NavigateBackArgs extends AsyncCallback<void> {
+interface NavigateBackArgs {
     /**
      * Number of pages to return. If delta is greater than the number
      * of open pages, it returns to the home page. Default value is 1
@@ -82,7 +88,7 @@ interface NavigateBackArgs extends AsyncCallback<void> {
     delta?: number | undefined;
 }
 
-interface RedirectToArgs extends AsyncCallback<void> {
+interface RedirectToArgs extends AsyncVoidCallback {
     /**
      * The application for the jumping does not include the destination
      * page path of the tabBar. The path can be followed by parameters.
@@ -94,7 +100,7 @@ interface RedirectToArgs extends AsyncCallback<void> {
     url: string;
 }
 
-interface ReLaunchArgs extends AsyncCallback<void> {
+interface ReLaunchArgs extends AsyncVoidCallback {
     /**
      * Page path If the page is not a tabbar page, the path can be
      * followed by parameters. Rules for the parameters: The path and
@@ -105,7 +111,7 @@ interface ReLaunchArgs extends AsyncCallback<void> {
     url: string;
 }
 
-interface AlertArgs extends AsyncCallback<void> {
+interface AlertArgs extends AsyncVoidCallback {
     /**
      * Title of the alert box.
      */
@@ -122,7 +128,13 @@ interface AlertArgs extends AsyncCallback<void> {
     buttonText?: string | undefined;
 }
 
-interface ConfirmArgs extends AsyncCallback<void> {
+interface ConfirmCallbackValue {
+    /**
+     * Click Confirm to return true; click Cancel to return false.
+     */
+    confirm: boolean;
+}
+interface ConfirmArgs extends AsyncCallback<ConfirmCallbackValue> {
     /**
      * Title of the confirm box.
      */
@@ -141,7 +153,18 @@ interface ConfirmArgs extends AsyncCallback<void> {
     cancelButtonText?: string | undefined;
 }
 
-interface PromptArgs extends AsyncCallback<void> {
+interface PromptCallbackValue {
+    /**
+     * Click OK to return true; click Cancel to return false.
+     */
+    ok: boolean;
+    /**
+     * When OK is true, return the user's entry.
+     */
+    inputValue: string;
+}
+
+interface PromptArgs extends AsyncCallback<PromptCallbackValue> {
     /**
      * Title of prompt box.
      */
@@ -211,11 +234,18 @@ interface ShowToastArgs extends AsyncCallback<void> {
     duration?: number | undefined;
 }
 
-type ChoosePhoneContactArgs = AsyncCallback<{
+interface ChoosePhoneContactCallbackValue {
+    /**
+     * Selected contact name.
+     */
     name: string;
+    /**
+     * Selected contact phone.
+     */
     mobile: string;
-}>;
+}
 
+type ChoosePhoneContactArgs = AsyncCallback<ChoosePhoneContactCallbackValue>;
 interface CreateAnimationArgs {
     /**
      * Animation duration, in ms, 400 by default.
@@ -803,7 +833,7 @@ interface CanvasContext {
     translate: (x: number, y: number) => void;
 }
 
-interface PageScrollToArgs extends AsyncCallback<void> {
+interface PageScrollToArgs extends AsyncVoidCallback {
     scrollTo?: number | undefined;
     duration?: number | undefined;
     selector?: string | undefined;
@@ -876,7 +906,7 @@ interface MultiLevelSelectArgs
     subList?: any[] | undefined;
 }
 
-interface SetBackgroundColorArgs extends AsyncCallback<void> {
+interface SetBackgroundColorArgs extends AsyncVoidCallback {
     /**
      * Window background color.
      */
@@ -902,24 +932,24 @@ interface ChooseImageArgs
     sourceType?: string[] | undefined;
 }
 
-interface PreviewImageArgs extends AsyncCallback<void> {
+interface PreviewImageArgs extends AsyncVoidCallback {
     urls: string[];
     current?: number | undefined;
 }
 
-interface SaveImageArgs extends AsyncCallback<void> {
+interface SaveImageArgs extends AsyncVoidCallback {
     url: string;
     showActionSheet?: boolean | undefined;
 }
 
-interface GetImageInfo
-    extends AsyncCallback<{
-        width: number;
-        height: number;
-        path: string;
-        orientation: string;
-        type: string;
-    }> {
+interface GetImageInfoCallbackValue {
+    width: number;
+    height: number;
+    path: string;
+    orientation: string;
+    type: string;
+}
+interface GetImageInfo extends AsyncCallback<GetImageInfoCallbackValue> {
     src: string;
 }
 
@@ -927,12 +957,12 @@ interface GetStorage extends AsyncCallback<{ data: any }> {
     key: string;
 }
 
-interface SetStorage extends AsyncCallback<void> {
+interface SetStorage extends AsyncVoidCallback {
     key: string;
     data: any;
 }
 
-interface RemoveStorageArgs extends AsyncCallback<void> {
+interface RemoveStorageArgs extends AsyncVoidCallback {
     key: string;
 }
 
@@ -964,15 +994,16 @@ interface RemoveSavedFileArgs extends AsyncCallback<void> {
     apFilePath: string;
 }
 
-interface GetLocationArgs
-    extends AsyncCallback<{
-        longitude: string;
-        latitude: string;
-        /**
-         * Accuracy, in m.
-         */
-        accuracy: string;
-    }> {
+interface GetLocationCallbackValue {
+    longitude: string;
+    latitude: string;
+    /**
+     * Accuracy, in m.
+     */
+    accuracy: string;
+}
+
+interface GetLocationArgs extends AsyncCallback<GetLocationCallbackValue> {
     /**
      * longitude and latitude location cache expiry time in seconds.
      * Default is 30s. Use of cache can speed up location process. Re-location is done upon cache expiry.
@@ -984,12 +1015,13 @@ interface GetLocationArgs
     type?: number | undefined;
 }
 
-interface RequestArgs
-    extends AsyncCallback<{
-        data: any;
-        status: number;
-        headers: any;
-    }> {
+interface RequestCallbackValue {
+    data: any;
+    status: number;
+    headers: any;
+}
+
+interface RequestArgs extends AsyncCallback<RequestCallbackValue> {
     url: string;
     /**
      * Set the request HTTP header, default {'content-type': 'application/json'}.
@@ -1008,12 +1040,14 @@ interface RequestArgs
     dataType?: string | undefined;
 }
 
+interface UploadFileCallbackValue {
+    data: string;
+    statusCode: string;
+    header: any;
+}
+
 interface UploadFileArgs
-    extends AsyncCallback<{
-        data: string;
-        statusCode: string;
-        header: any;
-    }> {
+    extends AsyncCallback<UploadFileCallbackValue> {
     url: string;
     filePath: string;
     fileName: string;
@@ -1027,73 +1061,77 @@ interface DownloadFileArgs extends AsyncCallback<{ apFilePath: string }> {
     header?: any;
 }
 
-type GetSystemInfoArgs = AsyncCallback<{
+interface GetSystemInfoCallbackValue {
     /**
      * Cellphone model.
      */
-    model: string;
+     model: string;
 
-    /**
-     * Device pixel ratio.
-     */
-    pixelRatio: number;
-    windowWidth: number;
-    windowHeight: number;
-    language: string;
-    /**
-     * App version number.
-     */
-    version: string;
-    /**
-     * Device disk capacity.
-     */
-    storage: string;
-    /**
-     * Current battery percentage.
-     */
-    currentBattery: string;
-    /**
-     * System version.
-     */
-    system: string;
-    /**
-     * System name: Android, iOS.
-     */
-    platform: string;
-    titleBarHeight: number;
-    statusBarHeight: number;
-    screenWidth: number;
-    screenHeight: number;
-    /**
-     * Cellphone brand.
-     */
-    brand: string;
-    fontSizeSetting: number;
-    /**
-     * Current running client. The app value can refer to the following table.
-     */
-    app: string;
-}>;
+     /**
+      * Device pixel ratio.
+      */
+     pixelRatio: number;
+     windowWidth: number;
+     windowHeight: number;
+     language: string;
+     /**
+      * App version number.
+      */
+     version: string;
+     /**
+      * Device disk capacity.
+      */
+     storage: string;
+     /**
+      * Current battery percentage.
+      */
+     currentBattery: string;
+     /**
+      * System version.
+      */
+     system: string;
+     /**
+      * System name: Android, iOS.
+      */
+     platform: string;
+     titleBarHeight: number;
+     statusBarHeight: number;
+     screenWidth: number;
+     screenHeight: number;
+     /**
+      * Cellphone brand.
+      */
+     brand: string;
+     fontSizeSetting: number;
+     /**
+      * Current running client. The app value can refer to the following table.
+      */
+     app: string;
+}
 
-type GetNetworkTypeArgs = AsyncCallback<{
+type GetSystemInfoArgs = AsyncCallback<GetSystemInfoCallbackValue>;
+
+interface GetNetworkTypeCallbackValue {
     networkAvailable: boolean;
     /**
      * Network type, UNKNOWN / NOTREACHABLE / WIFI / 3G / 2G / 4G / WWAN.
      */
     networkType: string;
-}>;
+}
+
+type GetNetworkTypeArgs = AsyncCallback<GetNetworkTypeCallbackValue>;
 
 type GetClipboardArgs = AsyncCallback<{ text: string }>;
 
-interface SetClipboardArgs extends AsyncCallback<void> {
+interface SetClipboardArgs extends AsyncVoidCallback {
     text: string;
 }
 
-interface SetKeepScreenOnArgs extends AsyncCallback<void> {
+interface SetKeepScreenOnArgs extends AsyncVoidCallback {
     keepScreenOn: boolean;
 }
 
-interface SetScreenBrightnessArgs extends AsyncCallback<void> {
+interface SetScreenBrightnessArgs extends AsyncVoidCallback {
     /**
      * Screen brightness for the setting, range 0-1.
      */
@@ -1150,12 +1188,13 @@ interface ShowAuthGuideArgs
     authType: string;
 }
 
-interface ScanArgs
-    extends AsyncCallback<{
-        code: string;
-        qrCode?: string | undefined;
-        barCode?: string | undefined;
-    }> {
+interface ScanCallbackValue {
+    code: string;
+    qrCode?: string | undefined;
+    barCode?: string | undefined;
+}
+
+interface ScanArgs extends AsyncCallback<ScanCallbackValue> {
     /**
      * Type for scanning (qr by default):
      * 1. qr: two-dimensional QR scanning frame.
@@ -1179,7 +1218,7 @@ interface WebViewContext {
     postMessage: (msg: any) => void;
 }
 
-interface NavigateToMiniProgramArgs extends AsyncCallback<void> {
+interface NavigateToMiniProgramArgs extends AsyncVoidCallback {
     appId: string;
     path?: string | undefined;
     /**
@@ -1189,7 +1228,7 @@ interface NavigateToMiniProgramArgs extends AsyncCallback<void> {
     extraData?: any;
 }
 
-interface NavigateBackMiniProgramArgs extends AsyncCallback<void> {
+interface NavigateBackMiniProgramArgs extends AsyncVoidCallback {
     /**
      * The extra data that needs to be returned to the target Mini Program,
      *  and the target Mini Program can get it in `App.onLaunch()` or `App.onShow()`.
@@ -1197,12 +1236,12 @@ interface NavigateBackMiniProgramArgs extends AsyncCallback<void> {
     extraData: any;
 }
 
-interface GetAuthCodeArgs
-    extends AsyncCallback<{
-        authCode: string;
-        authErrorScopes: any;
-        authSuccessScopes: string[];
-    }> {
+interface GetAuthCodeCallbackValue {
+    authCode: string;
+    authErrorScopes: any;
+    authSuccessScopes: string[];
+}
+interface GetAuthCodeArgs extends AsyncCallback<GetAuthCodeCallbackValue> {
     /**
      * The scope of auth, there are 12 types:
      * `USER_ID`,
@@ -1223,7 +1262,7 @@ type GetOpenUserInfoArgs = AsyncCallback<{
     response: string;
 }>;
 
-interface TradePayArgs extends AsyncCallback<string> {
+interface TradePayArgs extends AsyncCallback<{ resultCode: string }> {
     tradeNO?: string | undefined;
     orderStr?: string | undefined;
     paymentUrl?: string | undefined;
@@ -1312,6 +1351,10 @@ interface OpenLocationArgs extends AsyncCallback {
     name: string;
     address: string;
     scale?: number;
+}
+
+interface GetSiteInfoCallbackValue {
+    siteName: string;
 }
 
 interface MiniprogramApi {
@@ -1714,6 +1757,7 @@ interface MiniprogramApi {
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_system_getsysteminfo)
      */
     getSystemInfo: (args: GetSystemInfoArgs) => void;
+    getSystemInfoSync: () => GetSystemInfoCallbackValue;
 
     /**
      * Get the current network status.
@@ -1851,7 +1895,7 @@ interface MiniprogramApi {
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_alipay-connect_getsiteinfo)
      */
-    getSiteInfo: (args: AsyncCallback<{ siteName: string }>) => void;
+    getSiteInfo: (args: AsyncCallback<GetSiteInfoCallbackValue>) => void;
 
     /**
      * Jump to another Mini Program.

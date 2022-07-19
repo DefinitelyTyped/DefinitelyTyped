@@ -7,9 +7,11 @@ bidirectionalMap.size; // $ExpectType number
 bidirectionalMap.set("two", 2);
 bidirectionalMap.set("three", 3);
 bidirectionalMap.get("one"); // $ExpectType number
-bidirectionalMap.get(true); // $ExpectError
+// @ts-expect-error
+bidirectionalMap.get(true);
 bidirectionalMap.getKey(1); // $ExpectType string
-bidirectionalMap.getKey("one"); // $ExpectError
+// @ts-expect-error
+bidirectionalMap.getKey("one");
 bidirectionalMap.delete("two");
 bidirectionalMap.deleteValue(3);
 bidirectionalMap.entries(); // $ExpectType IterableIterator<[string, number]>

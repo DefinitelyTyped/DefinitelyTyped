@@ -176,7 +176,7 @@ function catBlock() {
     chrome.webRequest.onBeforeRequest.addListener(
         function (info) {
             console.log('Cat intercepted: ' + info.url);
-            // Redirect the lolcal request to a random loldog URL.
+            // Redirect the lolcat request to a random loldog URL.
             var i = Math.round(Math.random() * loldogs.length);
             return { redirectUrl: loldogs[i] };
         },
@@ -188,6 +188,11 @@ function catBlock() {
         // extraInfoSpec
         ['blocking'],
     );
+}
+
+function webRequestAddListenerMandatoryFilters() {
+    // @ts-expect-error
+    chrome.webRequest.onBeforeRequest.addListener(info => {})
 }
 
 // webNavigation.onBeforeNavigate.addListener example
@@ -304,12 +309,18 @@ function proxySettings() {
 }
 
 function testNotificationCreation() {
-    chrome.notifications.create("id", {}); // $ExpectError
-    chrome.notifications.create("id", { message: "", type: "", title: "", }); // $ExpectError
-    chrome.notifications.create("id", { iconUrl: "", type: "", title: "", }); // $ExpectError
-    chrome.notifications.create("id", { iconUrl: "", message: "", title: "", }); // $ExpectError
-    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", }); // $ExpectError
-    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", title: "", }); // $ExpectError
+    // @ts-expect-error
+    chrome.notifications.create("id", {});
+    // @ts-expect-error
+    chrome.notifications.create("id", { message: "", type: "", title: "", });
+    // @ts-expect-error
+    chrome.notifications.create("id", { iconUrl: "", type: "", title: "", });
+    // @ts-expect-error
+    chrome.notifications.create("id", { iconUrl: "", message: "", title: "", });
+    // @ts-expect-error
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", });
+    // @ts-expect-error
+    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", title: "", });
     chrome.notifications.create("id", { iconUrl: "", message: "", type: "basic", title: "", });
 }
 
@@ -454,6 +465,16 @@ async function testTabGroupInterface() {
         tabGroup.id; // $ExpectType number
         tabGroup.title; // $ExpectType string | undefined
         tabGroup.windowId; // $ExpectType number
+
+        tabGroup.color = 'grey';
+        tabGroup.color = 'blue';
+        tabGroup.color = 'red';
+        tabGroup.color = 'yellow';
+        tabGroup.color = 'green';
+        tabGroup.color = 'pink';
+        tabGroup.color = 'purple';
+        tabGroup.color = 'cyan';
+        tabGroup.color = 'orange';
     });
   }
 
@@ -485,7 +506,8 @@ function testGetManifest() {
     } else if (manifest.manifest_version === 3) {
         manifest.action; // $ExpectType ManifestAction | undefined
 
-        manifest.content_security_policy = "default-src 'self'"; // $ExpectError
+        // @ts-expect-error
+        manifest.content_security_policy = "default-src 'self'";
         manifest.content_security_policy = {
             extension_pages: "default-src 'self'",
             sandbox: "default-src 'self'",
@@ -496,7 +518,8 @@ function testGetManifest() {
         manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
 
         manifest.web_accessible_resources = [{ matches: ['https://*/*'], resources: ['resource.js'] }];
-        manifest.web_accessible_resources = ['script.js']; // $ExpectError
+        // @ts-expect-error
+        manifest.web_accessible_resources = ['script.js'];
     }
 
     const mv2: chrome.runtime.Manifest = {
@@ -557,9 +580,29 @@ async function testGetPlatformInfo() {
         platformInfo.nacl_arch; // $ExpectType PlatformNaclArch
         platformInfo.os; // $ExpectType PlatformOs
 
-        platformInfo.arch = 'invalid-arch'; // $ExpectError
-        platformInfo.nacl_arch = 'invalid-nacl_arch'; // $ExpectError
-        platformInfo.os = 'invalid-os'; // $ExpectError
+        // @ts-expect-error
+        platformInfo.arch = 'invalid-arch';
+        // @ts-expect-error
+        platformInfo.nacl_arch = 'invalid-nacl_arch';
+        // @ts-expect-error
+        platformInfo.os = 'invalid-os';
+    });
+}
+
+async function testGetPlatformForPromise() {
+    chrome.runtime.getPlatformInfo().then(platformInfo => {
+        platformInfo; // $ExpectType PlatformInfo
+
+        platformInfo.arch; // $ExpectType PlatformArch
+        platformInfo.nacl_arch; // $ExpectType PlatformNaclArch
+        platformInfo.os; // $ExpectType PlatformOs
+
+        // @ts-expect-error
+        platformInfo.arch = 'invalid-arch';
+        // @ts-expect-error
+        platformInfo.nacl_arch = 'invalid-nacl_arch';
+        // @ts-expect-error
+        platformInfo.os = 'invalid-os';
     });
 }
 
@@ -737,7 +780,8 @@ chrome.runtime.onInstalled.addListener((details) => {
     details.previousVersion; // $ExpectType string | undefined
     details.id; // $ExpectType string | undefined
 
-    details.reason = 'not-real-reason'; // $ExpectError
+    // @ts-expect-error
+    details.reason = 'not-real-reason';
 })
 
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
@@ -851,7 +895,7 @@ async function testDeclarativeNetRequest() {
         rule.action; // $ExpectType RuleAction
         rule.condition; // $ExpectType RuleCondition
         rule.id; // $ExpectType number
-        rule.priority; // $ExpectType number
+        rule.priority; // $ExpectType number | undefined
     })
 
     chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
@@ -875,8 +919,10 @@ function testSetBrowserBadgeText() {
     chrome.browserAction.setBadgeText({text: "test", tabId: 123});
     chrome.browserAction.setBadgeText({}, () => {});
 
-    chrome.browserAction.setBadgeText(); // $ExpectError
-    chrome.browserAction.setBadgeText(undefined); // $ExpectError
+    // @ts-expect-error
+    chrome.browserAction.setBadgeText();
+    // @ts-expect-error
+    chrome.browserAction.setBadgeText(undefined);
 }
 
 // https://developer.chrome.com/docs/extensions/reference/action/
@@ -965,19 +1011,40 @@ async function testManagementForPromise() {
 
 // https://developer.chrome.com/docs/extensions/reference/scripting
 async function testScriptingForPromise() {
-    await chrome.scripting.executeScript({ target: { tabId: 0 } }); // $ExpectError
+    // @ts-expect-error
+    await chrome.scripting.executeScript({ target: { tabId: 0 } });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: function() {} });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: function() {}, args: [] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [''] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {} }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => 0 }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => '' }); // $ExpectType InjectionResult<string>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => 0, args: ['', 0] }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => '', args: ['', 0] }); // $ExpectType InjectionResult<string>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => {} }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => 0 }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => '' }); // $ExpectType InjectionResult<string>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => {}, args: ['', 0] }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => 0, args: ['', 0] }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => '', args: ['', 0] }); // $ExpectType InjectionResult<string>[]
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'ISOLATED', func: () => {} });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'not-real-world', func: () => {} }); // $ExpectError
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: [0, ''] }); // $ExpectError
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [0] }); // $ExpectError
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [''] }); // $ExpectError
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (name: string) => {}, args: [] }); // $ExpectError
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: {} }); // $ExpectError
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] });
+    // @ts-expect-error
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'not-real-world', func: () => {} });
+    // @ts-expect-error
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: [0, ''] });
+    // @ts-expect-error
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [0] });
+    // @ts-expect-error
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [''] });
+    // @ts-expect-error
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (name: string) => {}, args: [] });
+    // @ts-expect-error
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] }); // $ExpectType InjectionResult<unknown>[]
 
     await chrome.scripting.insertCSS({ target: { tabId: 0 } });
 }
@@ -1012,7 +1079,7 @@ async function testTabsForPromise() {
     await chrome.tabs.get(0);
     await chrome.tabs.getAllInWindow();
     await chrome.tabs.getAllInWindow(0);
-    await chrome.tabs.getCurrent();
+    await chrome.tabs.getCurrent(); // $ExpectType Tab | undefined
     await chrome.tabs.getSelected();
     await chrome.tabs.getSelected(0);
     await chrome.tabs.create({});
@@ -1099,7 +1166,7 @@ async function testDynamicRules() {
           type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
         },
         condition: {
-            domains: ["www.example.com"],
+            initiatorDomains: ["www.example.com"],
             tabIds: [2, 3, 76],
         },
         id: 2,
@@ -1130,19 +1197,46 @@ function testStorageForPromise() {
 }
 
 function testRuntimeSendMessage() {
-    chrome.runtime.sendMessage("Hello World!");
+    const options = { includeTlsChannelId: true };
+
+    chrome.runtime.sendMessage("Hello World!").then(() => {});
     chrome.runtime.sendMessage("Hello World!", console.log);
     chrome.runtime.sendMessage<string>("Hello World!", console.log);
     chrome.runtime.sendMessage<string, number>("Hello World!", console.log);
-    chrome.runtime.sendMessage<number>("Hello World!", console.log); // $ExpectError
-    chrome.runtime.sendMessage<string, boolean>("Hello World!", (num: number) => alert(num+1)); // $ExpectError
+    // @ts-expect-error
+    chrome.runtime.sendMessage<number>("Hello World!", console.log);
+    // @ts-expect-error
+    chrome.runtime.sendMessage<string, boolean>("Hello World!", (num: number) => alert(num+1));
+    chrome.runtime.sendMessage("Hello World!", options).then(() => {});
+    chrome.runtime.sendMessage("Hello World!", options, console.log);
+    chrome.runtime.sendMessage<string>("Hello World!", options, console.log);
+    chrome.runtime.sendMessage<string, number>("Hello World!", options, console.log);
+    // @ts-expect-error
+    chrome.runtime.sendMessage<number>("Hello World!", options, console.log);
+    // @ts-expect-error
+    chrome.runtime.sendMessage<string, boolean>("Hello World!", options, (num: number) => alert(num+1));
 
-    chrome.runtime.sendMessage('extension-id', 'Hello World!');
+    chrome.runtime.sendMessage('extension-id', 'Hello World!').then(() => {});
     chrome.runtime.sendMessage('extension-id', 'Hello World!', console.log);
     chrome.runtime.sendMessage<string>('extension-id', 'Hello World!', console.log);
     chrome.runtime.sendMessage<string, number>('extension-id', 'Hello World!', console.log);
-    chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log); // $ExpectError
-    chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1)); // $ExpectError
+    // @ts-expect-error
+    chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log);
+    // @ts-expect-error
+    chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1));
+    chrome.runtime.sendMessage('extension-id', 'Hello World!', options).then(() => {});
+    chrome.runtime.sendMessage('extension-id', 'Hello World!', options, console.log);
+    chrome.runtime.sendMessage<string>('extension-id', 'Hello World!', options, console.log);
+    chrome.runtime.sendMessage<string, number>('extension-id', 'Hello World!', options, console.log);
+    // @ts-expect-error
+    chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log);
+    // @ts-expect-error
+    chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1));
+}
+
+function testRuntimeSendNativeMessage() {
+    chrome.runtime.sendNativeMessage('application', console.log).then(() => {});
+    chrome.runtime.sendNativeMessage('application', console.log, (num: number) => alert(num+1));
 }
 
 function testTabsSendMessage() {
@@ -1151,8 +1245,10 @@ function testTabsSendMessage() {
     chrome.tabs.sendMessage(3, "Hello World!", { }, console.log);
     chrome.tabs.sendMessage<string>(4, "Hello World!", console.log);
     chrome.tabs.sendMessage<string, number>(5, "Hello World!", console.log);
-    chrome.tabs.sendMessage<number>(6, "Hello World!", console.log); // $ExpectError
-    chrome.tabs.sendMessage<string, string>(7, "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+    // @ts-expect-error
+    chrome.tabs.sendMessage<number>(6, "Hello World!", console.log);
+    // @ts-expect-error
+    chrome.tabs.sendMessage<string, string>(7, "Hello World!", (num: number) => alert(num+1));
 }
 
 function testTabsSendRequest() {
@@ -1161,8 +1257,10 @@ function testTabsSendRequest() {
     chrome.tabs.sendRequest(3, "Hello World!", console.log);
     chrome.tabs.sendRequest<string>(4, "Hello World!", console.log);
     chrome.tabs.sendRequest<string, number>(5, "Hello World!", console.log);
-    chrome.tabs.sendRequest<number>(6, "Hello World!", console.log); // $ExpectError
-    chrome.tabs.sendRequest<string, string>(7, "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+    // @ts-expect-error
+    chrome.tabs.sendRequest<number>(6, "Hello World!", console.log);
+    // @ts-expect-error
+    chrome.tabs.sendRequest<string, string>(7, "Hello World!", (num: number) => alert(num+1));
 }
 
 function testExtensionSendRequest() {
@@ -1171,8 +1269,10 @@ function testExtensionSendRequest() {
     chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
     chrome.extension.sendRequest<string>("dummy-id", "Hello World!", console.log);
     chrome.extension.sendRequest<string, number>("dummy-id", "Hello World!", console.log);
-    chrome.extension.sendRequest<number>("dummy-id", "Hello World!", console.log); // $ExpectError
-    chrome.extension.sendRequest<string, string>("dummy-id", "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+    // @ts-expect-error
+    chrome.extension.sendRequest<number>("dummy-id", "Hello World!", console.log);
+    // @ts-expect-error
+    chrome.extension.sendRequest<string, string>("dummy-id", "Hello World!", (num: number) => alert(num+1));
 }
 
 function testContextMenusCreate() {
@@ -1192,31 +1292,37 @@ function testContextMenusCreate() {
     chrome.contextMenus.create(creationOptions, () => console.log('created')); // $ExpectType string | number
     chrome.contextMenus.create({ ...creationOptions, contexts: ['action', 'page_action'] }); // $ExpectType string | number
     chrome.contextMenus.create({ ...creationOptions, contexts: 'page_action' }); // $ExpectType string | number
-    chrome.contextMenus.create({ ...creationOptions, contexts: ['wrong'] }); // $ExpectError
+    // @ts-expect-error
+    chrome.contextMenus.create({ ...creationOptions, contexts: ['wrong'] });
 }
 
 function testContextMenusRemove() {
     chrome.contextMenus.remove(1);
     chrome.contextMenus.remove(1, () => console.log('removed'));
-    chrome.contextMenus.remove(1, (invalid: any) => console.log('removed')); // $ExpectError
+    // @ts-expect-error
+    chrome.contextMenus.remove(1, (invalid: any) => console.log('removed'));
     chrome.contextMenus.remove('dummy-id');
     chrome.contextMenus.remove('dummy-id', () => console.log('removed'));
-    chrome.contextMenus.remove('dummy-id', (invalid: any) => console.log('removed')); // $ExpectError
+    // @ts-expect-error
+    chrome.contextMenus.remove('dummy-id', (invalid: any) => console.log('removed'));
 }
 
 function testContextMenusRemoveAll() {
     chrome.contextMenus.removeAll();
     chrome.contextMenus.removeAll(() => console.log('removed all'));
-    chrome.contextMenus.removeAll((invalid: any) => console.log('removed')); // $ExpectError
+    // @ts-expect-error
+    chrome.contextMenus.removeAll((invalid: any) => console.log('removed'));
 }
 
 function testContextMenusUpdate() {
     chrome.contextMenus.update(1, {title: 'Hello World!'});
     chrome.contextMenus.update(1, {title: 'Hello World!'}, () => console.log('updated'));
-    chrome.contextMenus.update(1, {title: 'Hello World!'}, (invalid: any) => console.log('updated')); // $ExpectError
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {title: 'Hello World!'}, (invalid: any) => console.log('updated'));
     chrome.contextMenus.update('dummy-id', {title: 'Hello World!'});
     chrome.contextMenus.update('dummy-id', {title: 'Hello World!'}, () => console.log('updated'));
-    chrome.contextMenus.update('dummy-id', {title: 'Hello World!'}, (invalid: any) => console.log('updated')); // $ExpectError
+    // @ts-expect-error
+    chrome.contextMenus.update('dummy-id', {title: 'Hello World!'}, (invalid: any) => console.log('updated'));
 
     chrome.contextMenus.update(2, {
         documentUrlPatterns: ['https://*/*'],
@@ -1245,16 +1351,26 @@ function testContextMenusUpdate() {
         visible: true
     });
 
-    chrome.contextMenus.update(1, {documentUrlPatterns: false}); // $ExpectError
-    chrome.contextMenus.update(1, {checked: 'invalid'}); // $ExpectError
-    chrome.contextMenus.update(1, {title: 1}); // $ExpectError
-    chrome.contextMenus.update(1, {contexts: true}); // $ExpectError
-    chrome.contextMenus.update(1, {enabled: 'invalid'}); // $ExpectError
-    chrome.contextMenus.update(1, {targetUrlPatterns: false}); // $ExpectError
-    chrome.contextMenus.update(1, {onclick: false}); // $ExpectError
-    chrome.contextMenus.update(1, {parentId: false}); // $ExpectError
-    chrome.contextMenus.update(1, {type: false}); // $ExpectError
-    chrome.contextMenus.update(1, {visible: 1}); // $ExpectError
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {documentUrlPatterns: false});
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {checked: 'invalid'});
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {title: 1});
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {contexts: true});
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {enabled: 'invalid'});
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {targetUrlPatterns: false});
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {onclick: false});
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {parentId: false});
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {type: false});
+    // @ts-expect-error
+    chrome.contextMenus.update(1, {visible: 1});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
@@ -1268,7 +1384,8 @@ function testEnterpriseDeviceAttributes() {
 
 // https://developer.chrome.com/docs/extensions/reference/browsingData
 function testBrowsingData() {
-    chrome.browsingData.removeServiceWorkers(); // $ExpectError
+    // @ts-expect-error
+    chrome.browsingData.removeServiceWorkers();
     chrome.browsingData.removeServiceWorkers({});
     chrome.browsingData.removeServiceWorkers({}, () => {});
     chrome.browsingData.settings((result) => {})
@@ -1384,8 +1501,10 @@ async function testExtensionForPromise() {
 // https://developer.chrome.com/docs/extensions/reference/fontSettings
 function testFontSettings() {
     chrome.fontSettings.setDefaultFontSize({ pixelSize: 1 }, () => {})
-    chrome.fontSettings.getFont({}, (details) => {}) // $ExpectError
-    chrome.fontSettings.getFont({ genericFamily: '' }, (details) => {}) // $ExpectError
+    // @ts-expect-error
+    chrome.fontSettings.getFont({}, (details) => {})
+    // @ts-expect-error
+    chrome.fontSettings.getFont({ genericFamily: '' }, (details) => {})
     chrome.fontSettings.getFont({ genericFamily: 'cursive' }, (details) => {})
     chrome.fontSettings.getDefaultFontSize({}, (options) => {})
     chrome.fontSettings.getMinimumFontSize({}, (options) => {})
@@ -1419,11 +1538,14 @@ async function testFontSettingsForPromise() {
 
 // https://developer.chrome.com/docs/extensions/reference/history
 function testHistory() {
-    chrome.history.search({}, (results) => {}) // $ExpectError
+    // @ts-expect-error
+    chrome.history.search({}, (results) => {})
     chrome.history.search({ text: ''}, (results) => {})
-    chrome.history.addUrl({}, () => {}) // $ExpectError
+    // @ts-expect-error
+    chrome.history.addUrl({}, () => {})
     chrome.history.addUrl({ url: 'https://example.com'}, () => {})
-    chrome.history.deleteRange({}, () => {}) // $ExpectError
+    // @ts-expect-error
+    chrome.history.deleteRange({}, () => {})
     chrome.history.deleteRange({ startTime: 1646172000000, endTime: 1646258400000}, () => {})
     chrome.history.deleteAll(() => {})
     chrome.history.deleteUrl({ url: 'https://example.com'}, () => {})

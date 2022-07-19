@@ -1757,6 +1757,7 @@ declare namespace GoogleAppsScript {
       setRowGroupControlPosition(position: GroupControlTogglePosition): Sheet;
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
       setRowHeights(startRow: Integer, numRows: Integer, height: Integer): Sheet;
+      setRowHeightsForced(startRow: Integer, numRows: Integer, height: Integer): Sheet;
       setTabColor(color: string | null): Sheet;
       showColumns(columnIndex: Integer): void;
       showColumns(columnIndex: Integer, numColumns: Integer): void;
@@ -2056,6 +2057,7 @@ declare namespace GoogleAppsScript {
       getFontFamily(): string | null;
       getFontSize(): Integer | null;
       getForegroundColor(): string | null;
+      getForegroundColorObject(): Color | null;
       isBold(): boolean | null;
       isItalic(): boolean | null;
       isStrikethrough(): boolean | null;
@@ -2070,6 +2072,7 @@ declare namespace GoogleAppsScript {
       setFontFamily(fontFamily: string): TextStyleBuilder;
       setFontSize(fontSize: Integer): TextStyleBuilder;
       setForegroundColor(cssString: string): TextStyleBuilder;
+      setForegroundColorObject(color: Color): TextStyleBuilder;
       setItalic(italic: boolean): TextStyleBuilder;
       setStrikethrough(strikethrough: boolean): TextStyleBuilder;
       setUnderline(underline: boolean): TextStyleBuilder;

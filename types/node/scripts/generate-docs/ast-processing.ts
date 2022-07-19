@@ -150,17 +150,27 @@ class TagHelper {
         );
     }
 
+    private normalizeVersionString(ver: string): string {
+        if (!ver.startsWith('v')) {
+            ver = 'v' + ver;
+        }
+        if (ver.split('.').length < 3) {
+            ver + '.0';
+        }
+        return ver;
+    }
+
     /**
      * Generates common tags eg. `@deprecated` `@experimental` description etc.
      */
     extractCommonTags({ meta, stabilityText, stability }: MethodDocNode | ModuleDocNode | ClassDocNode | PropertyDocNode, moduleName: string): JSDocTag[] {
         const tags: JSDocTag[] = [];
         if (meta?.added) {
-            tags.push(this.createSinceTag(meta.added.join(', ')));
+            tags.push(this.createSinceTag(meta.added.map(a => this.normalizeVersionString(a)).join(', ')));
         }
         stabilityText = fixupLocalLinks(stabilityText ?? '', moduleName);
         if (meta?.deprecated) {
-            let str = `Since ${meta.deprecated.join()}`;
+            let str = `Since ${meta.deprecated.map(d => this.normalizeVersionString(d)).join()}`;
             if (stabilityText) {
                 str += ` - ${stabilityText.replace('Deprecated: ', '').replace('Deprecated. ', '')}`;
             }

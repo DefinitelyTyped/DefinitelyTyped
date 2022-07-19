@@ -43,6 +43,18 @@ Route.extend({
     },
 });
 
+class ActivateRoute extends Route {
+    activate(transition: Transition) {
+        this.transitionTo('someOtherRoute');
+    }
+}
+
+class DeactivateRoute extends Route {
+    deactivate(transition: Transition) {
+        this.transitionTo('someOtherRoute');
+    }
+}
+
 class RedirectRoute extends Route {
     redirect(model: {}, a: Transition) {
         if (!model) {
@@ -52,7 +64,7 @@ class RedirectRoute extends Route {
 }
 
 class InvalidRedirect extends Route {
-    // $ExpectError
+    // @ts-expect-error
     redirect(model: {}, a: Transition, anOddArg: unknown) {
         if (!model) {
             this.transitionTo('there');
@@ -75,11 +87,13 @@ class TransitionToExamples extends Route {
     }
 
     transitionToNonsense() {
-        this.transitionTo({ cannotDoModelHere: true }); // $ExpectError
+        // @ts-expect-error
+        this.transitionTo({ cannotDoModelHere: true });
     }
 
     transitionToBadQP() {
-        this.transitionTo({ queryParams: 12 }); // $ExpectError
+        // @ts-expect-error
+        this.transitionTo({ queryParams: 12 });
     }
 
     transitionToId() {
@@ -158,11 +172,13 @@ class WithNonReturningBeforeAndModelHooks extends Route {
 
 class WithBadReturningBeforeAndModelHooks extends Route {
     beforeModel(transition: Transition): void | Promise<unknown> {
-        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
+        // @ts-expect-error
+        return "returning anything else is nonsensical (if 'legal')";
     }
 
     afterModel(resolvedModel: unknown, transition: Transition): void {
-        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
+        // @ts-expect-error
+        return "returning anything else is nonsensical (if 'legal')";
     }
 }
 

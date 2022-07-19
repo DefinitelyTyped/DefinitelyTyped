@@ -14,6 +14,9 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "chart.js": ["./node_modules/chart.js"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

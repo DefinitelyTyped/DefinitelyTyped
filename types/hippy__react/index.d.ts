@@ -231,6 +231,7 @@ interface ViewStyle {
     borderLeftColor?: string | number;
     borderBottomColor?: string | number;
     borderRightColor?: string | number;
+    borderStyle?: 'solid' | 'dotted' | 'dashed';
     boxShadowOpacity?: number;
     boxShadowRadius?: number;
     boxShadowColor?: string;
@@ -255,7 +256,7 @@ interface ViewStyle {
         | 'stretch';
     alignItems?: 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'baseline';
     alignSelf?: 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'baseline';
-    overflow?: 'hidden' | 'scroll';
+    overflow?: 'hidden' | 'visible';
     flex?: any;
     flexGrow?: number;
     flexShrink?: number;
@@ -402,12 +403,12 @@ interface ImageProps extends LayoutableProps, ClickableProps, TouchableProps {
     onProgress?(evt: { nativeEvent: { loaded: number; total: number } }): void;
 }
 declare class Image extends React.Component<ImageProps> {
-    getSize: (
+    static getSize: (
         uri: string,
         success: (width: number, height: number) => void,
         failure?: (err: typeof Error) => void,
     ) => void;
-    prefetch: (url: string) => void;
+    static prefetch: (url: string) => void;
     static get resizeMode(): {
         contain: 'contain';
         cover: 'cover';
@@ -1177,7 +1178,7 @@ interface ViewPagerProps extends LayoutableProps {
      *
      * Default: 0
      */
-    initialPage: number;
+    initialPage?: number;
 
     /**
      * When `false`, the view cannot be scrolled via touch interaction.

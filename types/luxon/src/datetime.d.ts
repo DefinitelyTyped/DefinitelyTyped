@@ -282,6 +282,12 @@ export interface ToISOTimeOptions extends ToISOTimeDurationOptions {
      * @default true
      */
     includeOffset?: boolean | undefined;
+
+    /**
+     * add the time zone format extension
+     * @default false
+     */
+    extendedZone?: boolean | undefined;
 }
 
 /** @deprecated alias for backwards compatibility */
@@ -739,6 +745,8 @@ export class DateTime {
      * @param o
      */
     static isDateTime(o: unknown): o is DateTime;
+
+    private constructor(config: unknown);
 
     // INFO
 

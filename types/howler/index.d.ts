@@ -236,6 +236,24 @@ export class Howl {
         callback?: HowlCallback,
         id?: number,
     ): this;
+    // off() also supports passing id as second argument: internally it is type checked and treated as an id if it is a number
+    off(
+        event:
+            | 'load'
+            | 'loaderror'
+            | 'playerror'
+            | 'play'
+            | 'end'
+            | 'pause'
+            | 'stop'
+            | 'mute'
+            | 'volume'
+            | 'rate'
+            | 'seek'
+            | 'fade'
+            | 'unlock',
+        id: number,
+    ): this;
     off(event?: string, callback?: HowlCallback | HowlErrorCallback, id?: number): this;
 
     stereo(): number;

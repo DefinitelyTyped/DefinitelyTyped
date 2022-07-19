@@ -34,16 +34,16 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
          */
         sign(): void;
 
-        getEncodedHex(): string;
-
         /**
-         * get PEM formatted CRL string after signed
-         * @return PEM formatted string of certificate
+         * get PEM formatted CRL string after signed.
+         * @return PEM formatted string of CRL
+         * @description
+         * This method returns a string of PEM formatted CRL.
          * @example
-         * var cert = new KJUR.asn1.x509.CRL({'tbsobj': tbs, 'rsaprvkey': prvKey});
-         * cert.sign();
-         * var sPEM =  cert.getPEMString();
+         * crl = new KJUR.asn1.x509.CRL({...});
+         * crl.getPEM() →
+         * "-----BEGIN X509 CRL-----\r\n..."
          */
-        getPEMString(): string;
+        getPEM(): string;
     }
 }

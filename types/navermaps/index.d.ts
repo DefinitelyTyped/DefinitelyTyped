@@ -3,6 +3,7 @@
 // Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
 //                 DongKyuuuu <https://github.com/DongKyuuuu>
 //                 Minchul Joh <https://github.com/fclemonschool>
+//                 Suhwan Cha <https://github.com/suhwancha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace naver.maps {
     /**
@@ -132,11 +133,11 @@ declare namespace naver.maps {
         zoomOrigin?: any;
     }
     interface MarkerOptions {
-        animation?: any;
-        map?: Map | undefined;
-        position?: any;
-        icon?: any;
-        shape?: any;
+        animation?: Animation;
+        map: Map;
+        position: Coord | CoordLiteral;
+        icon?: string | ImageIcon | SymbolIcon | HtmlIcon;
+        shape?: MarkerShape;
         title?: string | undefined;
         cursor?: string | undefined;
         clickable?: boolean | undefined;
@@ -434,21 +435,22 @@ declare namespace naver.maps {
         zIndex?: number | undefined;
     }
     interface PanoramaOptions {
-        size: Size | SizeLiteral;
-        panoId: string;
-        position: LatLng | LatLngLiteral;
-        pov: PanoramaPov;
-        visible: boolean;
-        minScale: number;
-        maxScale: number;
-        minZoom: number;
-        maxZoom: number;
-        logoControl: boolean;
-        logoControlOptions: LogoControlOptions;
-        zoomControl: boolean;
-        zoomControlOptions: ZoomControlOptions;
-        aroundControl: boolean;
-        aroundControlOptions: AroundControlOptions;
+        size?: Size | SizeLiteral;
+        panoId?: string;
+        position?: LatLng | LatLngLiteral;
+        pov?: PanoramaPov;
+        visible?: boolean;
+        minScale?: number;
+        maxScale?: number;
+        minZoom?: number;
+        maxZoom?: number;
+        flightSpot?: boolean;
+        logoControl?: boolean;
+        logoControlOptions?: LogoControlOptions;
+        zoomControl?: boolean;
+        zoomControlOptions?: ZoomControlOptions;
+        aroundControl?: boolean;
+        aroundControlOptions?: AroundControlOptions;
     }
     interface PanoramaPov {
         pan: number;
@@ -1077,6 +1079,8 @@ declare namespace naver.maps {
     }
     class Panorama extends KVO {
         constructor(panoramaDiv: string | HTMLElement, panoramaOptions: PanoramaOptions);
+        aroundControl: AroundControl | null;
+        controls: KVOArray[];
         getLocation(): PanoramaLocation;
         getMaxScale(): number;
         getMaxZoom(): number;
@@ -1292,14 +1296,14 @@ declare namespace naver.maps {
                 longName: string;
                 shortName: string;
                 types:
-                    | 'SIDO'
-                    | 'SIGUGUN'
-                    | 'RI'
-                    | 'ROAD_NAME'
-                    | 'BUILDING_NUMBER'
-                    | 'BUILDING_NAME'
-                    | 'LAND_NUMBER'
-                    | 'POSTAL_CODE';
+                | 'SIDO'
+                | 'SIGUGUN'
+                | 'RI'
+                | 'ROAD_NAME'
+                | 'BUILDING_NUMBER'
+                | 'BUILDING_NAME'
+                | 'LAND_NUMBER'
+                | 'POSTAL_CODE';
             }>;
             x: string;
             y: string;

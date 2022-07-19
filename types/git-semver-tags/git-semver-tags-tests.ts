@@ -15,11 +15,11 @@ gitSemverTags({ tagPrefix: 'skip/', skipUnstable: true }, (err, tags) => {
 // $ExpectType void
 gitSemverTags(options, callback);
 
-// $ExpectError
+// @ts-expect-error
 gitSemverTags();
 
-// $ExpectError
+// @ts-expect-error
 gitSemverTags(options);
 
-// $ExpectError
+// @ts-expect-error
 gitSemverTags(callback, options);

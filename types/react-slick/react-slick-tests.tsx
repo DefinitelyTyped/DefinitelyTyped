@@ -68,6 +68,15 @@ const defaultSettings: Settings = {
 
 class SliderTest extends React.Component {
   private slider: Slider | null = null;
+
+  componentDidMount() {
+    const slides = this.slider?.innerSlider?.list?.querySelectorAll(".slick-slide");
+    slides?.forEach((slide, index) => {
+      const dataIndex = slide.getAttribute("data-test") || index.toString();
+      slide.setAttribute("data-test", dataIndex);
+    });
+  }
+
   render() {
     return <div>
       <Slider

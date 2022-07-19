@@ -194,6 +194,8 @@ declare namespace Terminal {
     getPalette(register: number, callback?: Callback<Palette>): void;
     setPalette(palette: string | Palette): void;
 
+    table(tableCells: ReadonlyArray<ReadonlyArray<string>>, options?: TextTableOptions): void;
+
     wrapColumn(options?: {
       width: null | number;
       x: number;
@@ -542,5 +544,38 @@ declare namespace Terminal {
     stop: () => void;
     resume: () => void;
     reset: () => void;
+  }
+
+  interface TextTableOptions {
+    width?: number;
+    cellContents?: ReadonlyArray<ReadonlyArray<string>>;
+    contentHasMarkup?: boolean | string;
+    textAttr?: object;
+    voidAttr?: object;
+    firstRowTextAttr?: object;
+    firstRowVoidAttr?: object;
+    evenRowTextAttr?: object;
+    evenRowVoidAttr?: object;
+    firstColumnTextAttr?: object;
+    firstColumnVoidAttr?: object;
+    evenColumnTextAttr?: object;
+    evenColumnVoidAttr?: object;
+    firstCellTextAttr?: object;
+    firstCellVoidAttr?: object;
+    evenCellTextAttr?: object;
+    evenCellVoidAttr?: object;
+    checkerEvenCellTextAttr?: object;
+    checkerEvenCellVoidAttr?: object;
+    expandToWidth?: boolean;
+    shrinkToWidth?: boolean;
+    expandToHeight?: boolean;
+    shrinkToHeight?: boolean;
+    lineWrap?: boolean;
+    wordWrap?: boolean;
+    fit?: boolean;
+    hasBorder?: boolean;
+    borderAttr?: object;
+    borderChars?: object | string;
+    textBoxKeyBindings?: object;
   }
 }

@@ -18,6 +18,7 @@ examples/jsm/exporters/ColladaExporter.d.ts
 examples/jsm/exporters/DRACOExporter.d.ts
 examples/jsm/exporters/EXRExporter.d.ts
 examples/jsm/exporters/GLTFExporter.d.ts
+examples/jsm/exporters/KTX2Exporter.d.ts
 examples/jsm/exporters/MMDExporter.d.ts
 examples/jsm/exporters/OBJExporter.d.ts
 examples/jsm/exporters/PLYExporter.d.ts
@@ -118,7 +119,6 @@ examples/jsm/postprocessing/OutlinePass.d.ts
 examples/jsm/postprocessing/RenderPass.d.ts
 examples/jsm/postprocessing/BloomPass.d.ts
 examples/jsm/postprocessing/SAOPass.d.ts
-examples/jsm/postprocessing/SavePass.d.ts
 examples/jsm/postprocessing/SMAAPass.d.ts
 examples/jsm/postprocessing/SSAARenderPass.d.ts
 examples/jsm/postprocessing/SSAOPass.d.ts

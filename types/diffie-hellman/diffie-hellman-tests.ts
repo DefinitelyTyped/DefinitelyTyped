@@ -1,7 +1,7 @@
 import * as dh from 'diffie-hellman';
 
 const dh1 = dh.getDiffieHellman('modp1');
-// $ExpectType DiffieHellman
+// $ExpectType DiffieHellmanGroup || Pick<DiffieHellman, "generateKeys" | "computeSecret" | "getPrime" | "getGenerator" | "getPublicKey" | "getPrivateKey" | "verifyError">
 dh1;
 // $ExpectType Buffer
 dh1.generateKeys();

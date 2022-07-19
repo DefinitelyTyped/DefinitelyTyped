@@ -20,9 +20,15 @@ migration.migrate((err, response) => {
 const step: MigrationStep = {
   id: '1-step',
   up: (db, cb) => {
-    db.collection('testcolleciton').insert({ name: 'initial-setup' }, cb);
+    // $ExpectType Db
+    db;
+    // $ExpectType (err?: Error | undefined) => void
+    cb;
   },
   down: (db, cb) => {
-    db.collection('testcollection').remove({ name: 'initial-setup' }, cb);
+    // $ExpectType Db
+    db;
+    // $ExpectType (err?: Error | undefined) => void
+    cb;
   }
 };

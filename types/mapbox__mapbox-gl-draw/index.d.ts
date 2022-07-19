@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Feature, GeoJSON, FeatureCollection, Geometry, Point, Position, BBox } from 'geojson';
-import { IControl, Map } from 'mapbox-gl';
+import { IControl, Map, MapMouseEvent, MapTouchEvent } from 'mapbox-gl';
 
 export = MapboxDraw;
 export as namespace MapboxDraw;
@@ -102,7 +102,7 @@ declare namespace MapboxDraw {
         type: 'draw.selectionchange';
     }
 
-    interface DrawModeChageEvent extends DrawEvent {
+    interface DrawModeChangeEvent extends DrawEvent {
         mode: DrawMode; // The next mode, i.e. the mode that Draw is changing to
         type: 'draw.modechange';
     }
@@ -159,39 +159,39 @@ declare namespace MapboxDraw {
     }
 
     interface DrawCustomMode<CustomModeState = any, CustomModeOptions = any> {
-        onSetup(this: DrawCustomModeThis, options: CustomModeOptions): CustomModeState;
+        onSetup?(this: DrawCustomModeThis, options: CustomModeOptions): CustomModeState;
 
-        onDrag(this: DrawCustomModeThis, state: CustomModeState, e: MouseEvent): void;
+        onDrag?(this: DrawCustomModeThis, state: CustomModeState, e: MapMouseEvent): void;
 
-        onClick(this: DrawCustomModeThis, state: CustomModeState, e: MouseEvent): void;
+        onClick?(this: DrawCustomModeThis, state: CustomModeState, e: MapMouseEvent): void;
 
-        onMouseMove(this: DrawCustomModeThis, state: CustomModeState, e: MouseEvent): void;
+        onMouseMove?(this: DrawCustomModeThis, state: CustomModeState, e: MapMouseEvent): void;
 
-        onMouseDown(this: DrawCustomModeThis, state: CustomModeState, e: MouseEvent): void;
+        onMouseDown?(this: DrawCustomModeThis, state: CustomModeState, e: MapMouseEvent): void;
 
-        onMouseUp(this: DrawCustomModeThis, state: CustomModeState, e: MouseEvent): void;
+        onMouseUp?(this: DrawCustomModeThis, state: CustomModeState, e: MapMouseEvent): void;
 
-        onMouseOut(this: DrawCustomModeThis, state: CustomModeState, e: MouseEvent): void;
+        onMouseOut?(this: DrawCustomModeThis, state: CustomModeState, e: MapMouseEvent): void;
 
-        onKeyUp(this: DrawCustomModeThis, state: CustomModeState, e: KeyboardEvent): void;
+        onKeyUp?(this: DrawCustomModeThis, state: CustomModeState, e: KeyboardEvent): void;
 
-        onKeyDown(this: DrawCustomModeThis, state: CustomModeState, e: KeyboardEvent): void;
+        onKeyDown?(this: DrawCustomModeThis, state: CustomModeState, e: KeyboardEvent): void;
 
-        onTouchStart(this: DrawCustomModeThis, state: CustomModeState, e: TouchEvent): void;
+        onTouchStart?(this: DrawCustomModeThis, state: CustomModeState, e: MapTouchEvent): void;
 
-        onTouchMove(this: DrawCustomModeThis, state: CustomModeState, e: TouchEvent): void;
+        onTouchMove?(this: DrawCustomModeThis, state: CustomModeState, e: MapTouchEvent): void;
 
-        onTouchEnd(this: DrawCustomModeThis, state: CustomModeState, e: TouchEvent): void;
+        onTouchEnd?(this: DrawCustomModeThis, state: CustomModeState, e: MapTouchEvent): void;
 
-        onTap(this: DrawCustomModeThis, state: CustomModeState, e: TouchEvent): void;
+        onTap?(this: DrawCustomModeThis, state: CustomModeState, e: MapTouchEvent): void;
 
-        onStop(this: DrawCustomModeThis, state: CustomModeState): void;
+        onStop?(this: DrawCustomModeThis, state: CustomModeState): void;
 
-        onTrash(this: DrawCustomModeThis, state: CustomModeState): void;
+        onTrash?(this: DrawCustomModeThis, state: CustomModeState): void;
 
-        onCombineFeature(this: DrawCustomModeThis, state: CustomModeState): void;
+        onCombineFeature?(this: DrawCustomModeThis, state: CustomModeState): void;
 
-        onUncombineFeature(this: DrawCustomModeThis, state: CustomModeState): void;
+        onUncombineFeature?(this: DrawCustomModeThis, state: CustomModeState): void;
 
         toDisplayFeatures(
             this: DrawCustomModeThis,

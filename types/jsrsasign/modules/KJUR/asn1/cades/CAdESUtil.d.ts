@@ -23,9 +23,7 @@ declare namespace jsrsasign.KJUR.asn1.cades {
          * info = KJUR.asn1.cades.CAdESUtil.parseSignedDataForAddingUnsigned(beshex);
          * sd = info.obj;
          */
-        function parseSignedDataForAddingUnsigned(
-            hex: string,
-        ): {
+        function parseSignedDataForAddingUnsigned(hex: string): {
             version: string;
             algs: string;
             certs: string;

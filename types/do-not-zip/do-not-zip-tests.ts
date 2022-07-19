@@ -14,7 +14,7 @@ const data = [
 // $ExpectType number[]
 doNotZip.toArray(data);
 
-// $ExpectType Buffer | Blob
+// $ExpectType Buffer | Blob || Blob | Buffer
 doNotZip.toAuto(data);
 
 // $ExpectType Blob
@@ -23,5 +23,5 @@ doNotZip.toBlob(data);
 // $ExpectType Buffer
 doNotZip.toBuffer(data);
 
-// $ExpectError
+// @ts-expect-error
 doNotZip.toBuffer(5);
