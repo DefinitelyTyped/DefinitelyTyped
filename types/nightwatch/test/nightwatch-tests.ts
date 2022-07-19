@@ -81,7 +81,86 @@ const testGeneral: NightwatchTests = {
     'test user defined globals': () => {
         browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
     },
+    'Demo test for built-in API commands for working with the Chrome Devtools Protocol': () => {
+        // setGeolocation
+        browser
+            // Set location of Tokyo, Japan
+            .setGeolocation({
+                latitude: 35.689487,
+                longitude: 139.691706,
+                accuracy: 100,
+            })
+            .captureNetworkRequests(requestParams => {
+                console.log('Request URL:', requestParams.request.url);
+                console.log('Request method:', requestParams.request.method);
+                console.log('Request headers:', requestParams.request.headers);
+            })
+            .navigateTo('https://www.gps-coordinates.net/my-location')
+            .end();
+
+        browser
+            .mockNetworkResponse(
+                'https://www.google.com/',
+                {
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'UTF-8',
+                    },
+                    body: 'Hello there!',
+                },
+                res => {
+                    console.log(res);
+                },
+            )
+            .setDeviceDimensions({
+                width: 400,
+                height: 600,
+                deviceScaleFactor: 50,
+                mobile: true,
+            })
+            .navigateTo('https://www.google.com')
+            .end();
+
+        browser
+            .enablePerformanceMetrics()
+            .navigateTo('https://www.google.com')
+            .getPerformanceMetrics(metrics => {
+                console.log(metrics);
+            });
+
+        browser.navigateTo('https://www.google.com').takeHeapSnapshot('./snap.heapsnapshot').end();
+
+        browser
+            .captureBrowserConsoleLogs(event => {
+                console.log(event.type, event.timestamp, event.args[0].value);
+            })
+            .navigateTo('https://www.google.com')
+            .executeScript(function () {
+                console.error('here');
+            }, []);
+    },
 };
+
+// TODO: uncomment after fixing async/await issue
+// describe('capture browser exceptions', function () {
+//     it('does', async function () {
+//         await browser.captureBrowserExceptions(event => {
+//             console.log('>>> Exception:', event);
+//         });
+
+//         await browser.navigateTo('https://duckduckgo.com/');
+//         const aboutLink = await browser.findElement('#logo_homepage_link');
+
+//         await browser.executeScript(
+//             function (aboutLink) {
+//                 aboutLink.setAttribute('onclick', 'throw new Error("Hello world!")');
+//             },
+//             [aboutLink],
+//         );
+
+//         await browser.click(aboutLink);
+//     });
+// });
 
 describe('Ecosia', () => {
     before(browser => browser.url('https://www.ecosia.org/'));
@@ -346,7 +425,7 @@ function localStorageValueCommand(this: NightwatchAPI, key: string, callback?: (
 
     this.execute(
         // tslint:disable-next-line:only-arrow-functions
-        function(key) {
+        function (key) {
             return window.localStorage.getItem(key);
         },
         [key], // arguments array to be passed
@@ -422,7 +501,7 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
 
     this.value = result => result;
 
-    this.command = function(callback) {
+    this.command = function (callback) {
         this.api.element('css selector', selector, elementResult => {
             if (elementResult.status) {
                 callback(null);
@@ -493,7 +572,7 @@ it('Chai demo test', () => {
 describe('sample with relative locators', () => {
     before(browser => browser.navigateTo('https://archive.org/account/login'));
 
-    it('locates password input',  () => {
+    it('locates password input', () => {
         const passwordElement = locateWith(By.tagName('input')).below(By.css('input[type=email]'));
 
         browser.waitForElementVisible(passwordElement).expect.element(passwordElement).to.be.an('input');
