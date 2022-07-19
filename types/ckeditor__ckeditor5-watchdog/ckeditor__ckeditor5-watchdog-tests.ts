@@ -38,5 +38,5 @@ contextWatchdog.add({
 
 let bool: boolean = areconnected([], []);
 areconnected({ foo: 4 }, { bar: 5 }) === bool;
-// $ExpectError
+// @ts-expect-error
 bool = areconnected([], { bar: 5 });

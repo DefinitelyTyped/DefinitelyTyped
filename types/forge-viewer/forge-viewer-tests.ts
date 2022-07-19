@@ -56,6 +56,8 @@ Autodesk.Viewing.Initializer(options, async () => {
     await streamLineTests(viewer);
     await stringExtractorTests(viewer);
     await visualClustersTests(viewer);
+    // shutdown the viewer
+    viewer.tearDown();
 });
 
 function globalTests(): void {
@@ -122,7 +124,7 @@ function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
 }
 
 async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+    const propResults = await new Promise<Autodesk.Viewing.PropertyResult[]>((resolve, reject) => {
         const instanceTree = model.getInstanceTree();
         const ids: number[] = [];
 
@@ -133,12 +135,17 @@ async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void>
         });
 
         model.getBulkProperties(ids, {
-            propFilter: [ "Name"] },
+            propFilter: ["Name"]
+        },
             (propResults) => {
-                resolve();
+                resolve(propResults);
             }
         );
     });
+    // $ExpectType string | null
+    propResults[0].properties[0].units;
+    // $ExpectType string | number
+    propResults[0].properties[0].displayValue;
 }
 
 async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {

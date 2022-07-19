@@ -83,6 +83,8 @@ function testCancel() {
         }
     };
 
+    cancel(undefined);
+
     const runNext = next(myContext, () => {
         // will not be executed
     });
@@ -90,7 +92,8 @@ function testCancel() {
     cancel(runNext);
 
     const anotherRunNext = next(myContext, 'method', "hello", 123);
-    const aBadRunNext = next(myContext, 'method', false, "goodbye"); // $ExpectError
+    // @ts-expect-error
+    const aBadRunNext = next(myContext, 'method', false, "goodbye");
 
     const aSimpleNext = next((name: string) => name.length, "hello");
 
@@ -110,7 +113,8 @@ function testCancel() {
         scheduleOnce('render', myContext, 'method', "hello", 123);
 
     const aBadScheduleOnce =
-        scheduleOnce('render', myContext, 'method', true, "boo"); // $ExpectError
+        // @ts-expect-error
+        scheduleOnce('render', myContext, 'method', true, "boo");
 
     const runOnce = once(myContext, () => {
         // will not be executed
@@ -126,8 +130,10 @@ function testCancel() {
 
     const aGoodThrottled = throttle(myContext, 'method', "hello", 123, 1_000);
     const anotherGoodThrottled = throttle(myContext, 'method', "hello", 123, 1_000, true);
-    const aBadThrottled = throttle(myContext, 'method', 1_000); // $ExpectError
-    const anotherBadThrottled = throttle(myContext, 'method', false, {}, 1_000); // $ExpectError
+    // @ts-expect-error
+    const aBadThrottled = throttle(myContext, 'method', 1_000);
+    // @ts-expect-error
+    const anotherBadThrottled = throttle(myContext, 'method', false, {}, 1_000);
 
     const debounced = debounce(myContext, () => {
         // will not be executed

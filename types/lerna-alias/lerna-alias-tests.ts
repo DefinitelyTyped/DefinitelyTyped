@@ -4,7 +4,8 @@ const opt1: Options = {};
 const opt2: Options = { directory: 'test1', mainFields: ['module', 'main'] };
 const opt3: Options = { sourceDirectory: 'lib' };
 const opt4: Options = { sourceDirectory: false };
-const opt5: Options = { sourceDirectory: true }; // $ExpectError
+// @ts-expect-error
+const opt5: Options = { sourceDirectory: true };
 
 const jestAliases1: Aliases = jest();
 const jestAliases2: Aliases = jest(opt2);

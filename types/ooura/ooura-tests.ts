@@ -36,20 +36,33 @@ oo.ifftInPlace(data.buffer); // $ExpectType void
 const oouraDefault = new Ooura(inputR.length); // $ExpectType Ooura
 
 // init with invalid arg
-const oouraInvalid1 = new Ooura(); // $ExpectError
-const oouraInvalid2 = new Ooura(8, {radix: 4}); // $ExpectError
-const oouraInvalid3 = new Ooura(8, {type: "real"}); // $ExpectError
-const oouraInvalid4 = new Ooura(8, {type: "real", radix: "4"}); // $ExpectError
-const oouraInvalid5 = new Ooura(8, {type: "invalid", radix: 4}); // $ExpectError
+// @ts-expect-error
+const oouraInvalid1 = new Ooura();
+// @ts-expect-error
+const oouraInvalid2 = new Ooura(8, {radix: 4});
+// @ts-expect-error
+const oouraInvalid3 = new Ooura(8, {type: "real"});
+// @ts-expect-error
+const oouraInvalid4 = new Ooura(8, {type: "real", radix: "4"});
+// @ts-expect-error
+const oouraInvalid5 = new Ooura(8, {type: "invalid", radix: 4});
 
 // invalid FFT call
-oouraReal.fft(); // $ExpectError
-oouraReal.fft(inputR.buffer); // $ExpectError
-oouraReal.fft(inputR.buffer, inputR.buffer); // $ExpectError
-oouraReal.fft(inputR.buffer, backReR.buffer, backImR.buffer, backImR.buffer, backImR.buffer); // $ExpectError
+// @ts-expect-error
+oouraReal.fft();
+// @ts-expect-error
+oouraReal.fft(inputR.buffer);
+// @ts-expect-error
+oouraReal.fft(inputR.buffer, inputR.buffer);
+// @ts-expect-error
+oouraReal.fft(inputR.buffer, backReR.buffer, backImR.buffer, backImR.buffer, backImR.buffer);
 
 // invalid inplace-fft call
-oo.fftInPlace(); // $ExpectError
-oo.fftInPlace(data.buffer, data.buffer); // $ExpectError
-oo.ifftInPlace(); // $ExpectError
-oo.ifftInPlace(data.buffer, data.buffer); // $ExpectError
+// @ts-expect-error
+oo.fftInPlace();
+// @ts-expect-error
+oo.fftInPlace(data.buffer, data.buffer);
+// @ts-expect-error
+oo.ifftInPlace();
+// @ts-expect-error
+oo.ifftInPlace(data.buffer, data.buffer);

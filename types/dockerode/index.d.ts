@@ -150,6 +150,10 @@ declare namespace Dockerode {
         remove(options: ImageRemoveOptions, callback: Callback<ImageRemoveInfo>): void;
         remove(callback: Callback<ImageRemoveInfo>): void;
         remove(options?: {}): Promise<any>;
+
+        distribution(options: ImageDistributionOptions, callback: Callback<ImageDistributionInfo>): void;
+        distribution(callback: Callback<ImageDistributionInfo>): void;
+        distribution(options?: ImageDistributionOptions): Promise<ImageDistributionInfo>;
     }
 
     class Volume {
@@ -454,6 +458,29 @@ declare namespace Dockerode {
     }
     /* tslint:enable:interface-name */
 
+    interface VolumeCreateOptions {
+        Name?: string | undefined;
+        Driver?: string | undefined;
+        DriverOpts?: { [key: string]: string } | undefined;
+        Labels?: { [label: string]: string } | undefined;
+    }
+
+    interface VolumeCreateResponse {
+        Name: string;
+        Driver: string;
+        Mountpoint: string;
+        CreatedAt?: string | undefined;
+        Status?: { [key: string]: string } | undefined;
+        Labels: { [label: string]: string };
+        Scope: string;
+        Options: { [key: string]: string };
+        // Field is sometimes present, and sometimes null
+        UsageData?: {
+            Size: number;
+            RefCount: number;
+        } | null | undefined;
+    }
+
     interface VolumeInspectInfo {
         Name: string;
         Driver: string;
@@ -609,26 +636,33 @@ declare namespace Dockerode {
             tx_dropped: number;
             tx_errors: number;
             tx_packets: number;
+            endpoint_id?: string;   // not used on linux
+            instance_id?: string;   // not used on linux
         };
+    }
+
+    interface CPUUsage {
+        percpu_usage: number[];
+        usage_in_usermode: number;
+        total_usage: number;
+        usage_in_kernelmode: number;
+    }
+
+    interface ThrottlingData {
+        periods: number;
+        throttled_periods: number;
+        throttled_time: number;
     }
 
     interface CPUStats {
-        cpu_usage: {
-            percpu_usage: number[];
-            usage_in_usermode: number;
-            total_usage: number;
-            usage_in_kernelmode: number;
-        };
+        cpu_usage: CPUUsage;
         system_cpu_usage: number;
         online_cpus: number;
-        throttling_data: {
-            periods: number;
-            throttled_periods: number;
-            throttled_time: number;
-        };
+        throttling_data: ThrottlingData;
     }
 
     interface MemoryStats {
+        // Linux Memory Stats
         stats: {
             total_pgmajfault: number;
             cache: number;
@@ -664,16 +698,52 @@ declare namespace Dockerode {
         usage: number;
         failcnt: number;
         limit: number;
+
+        // Windows Memory Stats
+        commitbytes?: number;
+        commitpeakbytes?: number;
+        privateworkingset?: number;
+    }
+
+    interface BlkioStatEntry {
+        major: number;
+        minor: number;
+        op: string;
+        value: number;
+    }
+
+    interface BlkioStats {
+        io_service_bytes_recursive: BlkioStatEntry[];
+        io_serviced_recursive: BlkioStatEntry[];
+        io_queue_recursive: BlkioStatEntry[];
+        io_service_time_recursive: BlkioStatEntry[];
+        io_wait_time_recursive: BlkioStatEntry[];
+        io_merged_recursive: BlkioStatEntry[];
+        io_time_recursive: BlkioStatEntry[];
+        sectors_recursive: BlkioStatEntry[];
+    }
+
+    interface StorageStats {
+        read_count_normalized?: number;
+        read_size_bytes?: number;
+        write_count_normalized?: number;
+        write_size_bytes?: number;
+    }
+
+    interface PidsStats {
+        current?: number;
+        limit?: number;
     }
 
     interface ContainerStats {
         read: string;
-        pid_stats: {
-            current: number;
-        };
+        preread: string;
+        pid_stats?: PidsStats;
+        blkio_stats?: BlkioStats;
+        num_procs: number;
+        storage_stats?: StorageStats;
         networks: NetworkStats;
         memory_stats: MemoryStats;
-        blkio_stats: {};
         cpu_stats: CPUStats;
         precpu_stats: CPUStats;
     }
@@ -696,7 +766,7 @@ declare namespace Dockerode {
         CapDrop?: any;
         Dns?: any[] | undefined;
         DnsOptions?: any[] | undefined;
-        DnsSearch?: any[] | undefined;
+        DnsSearch?: string[] | undefined;
         ExtraHosts?: any;
         GroupAdd?: string[] | undefined;
         IpcMode?: string | undefined;
@@ -744,6 +814,10 @@ declare namespace Dockerode {
         Init?: boolean | undefined;
         PidsLimit?: number | undefined;
         Ulimits?: any;
+        CpuCount?: number | undefined;
+        CpuPercent?: number | undefined;
+        CpuRealtimePeriod?: number | undefined;
+        CpuRealtimeRuntime?: number | undefined;
     }
 
     interface ImageInspectInfo {
@@ -845,6 +919,11 @@ declare namespace Dockerode {
         platform?: string | undefined;
         target?: string | undefined;
         outputs?: string | undefined;
+    }
+
+    interface ImageDistributionOptions {
+        authconfig?: AuthConfig | undefined;
+        abortSignal?: AbortSignal;
     }
 
     interface ImagePushOptions {
@@ -1037,6 +1116,7 @@ declare namespace Dockerode {
         ExposedPorts?: { [port: string]: {} } | undefined;
         StopSignal?: string | undefined;
         StopTimeout?: number | undefined;
+        Healthcheck?: HealthConfig | undefined;
         HostConfig?: HostConfig | undefined;
         NetworkingConfig?: {
             EndpointsConfig?: EndpointsConfig | undefined;
@@ -1603,6 +1683,25 @@ declare namespace Dockerode {
         digests?: boolean | undefined;
     }
 
+    interface ImageDistributionPlatformInfo {
+        architecture: string;
+        os: string;
+        'os.version': string;
+        'os.features': string[];
+        variant: string;
+    }
+
+    interface ImageDistributionDescriptorInfo {
+        mediaType: string;
+        digest: string;
+        size: number;
+    }
+
+    interface ImageDistributionInfo {
+        Descriptor: ImageDistributionDescriptorInfo;
+        Platforms: ImageDistributionPlatformInfo[];
+    }
+
     interface ImageRemoveInfo {
         Untagged: string;
         Deleted: string;
@@ -1807,8 +1906,9 @@ declare class Dockerode {
     createPlugin(options: {}, callback: Callback<any>): void;
     createPlugin(options: {}): Promise<any>;
 
-    createVolume(options: {}, callback: Callback<any>): void;
-    createVolume(options: {}): Promise<any>;
+    createVolume(options: Dockerode.VolumeCreateOptions, callback: Callback<Dockerode.Volume>): void;
+    createVolume(callback: Callback<Dockerode.Volume>): void;
+    createVolume(options?: Dockerode.VolumeCreateOptions): Promise<Dockerode.VolumeCreateResponse>;
 
     createService(options: Dockerode.CreateServiceOptions, callback: Callback<Dockerode.ServiceCreateResponse>): void;
     createService(options: Dockerode.CreateServiceOptions): Promise<Dockerode.ServiceCreateResponse>;

@@ -6,25 +6,25 @@ const doc = querySelectorDeep('document');
 // $ExpectType HTMLElement | null
 const doc2 = querySelectorDeep('div.test');
 
-// $ExpectError
+// @ts-expect-error
 querySelectorDeep(42);
-// $ExpectError
+// @ts-expect-error
 querySelectorDeep(true);
-// $ExpectError
+// @ts-expect-error
 querySelectorDeep({});
 
 // $ExpectType HTMLElement[]
 const docs = querySelectorAllDeep('document');
 
-// $ExpectError
+// @ts-expect-error
 querySelectorAllDeep(42);
-// $ExpectError
+// @ts-expect-error
 querySelectorAllDeep(true);
-// $ExpectError
+// @ts-expect-error
 querySelectorAllDeep({});
 
 // $Expect HTMLHtmlElement
 const whole1 = collectAllElementsDeep(null, document);
 
-// $ExpectError
+// @ts-expect-error
 const whole2 = collectAllElementsDeep();

@@ -7,14 +7,14 @@
 /// <reference types="activex-interop" />
 
 declare namespace Scripting {
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum CompareMethod {
         BinaryCompare = 0,
         DatabaseCompare = 2,
         TextCompare = 1,
     }
 
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum DriveTypeConst {
         CDRom = 4,
         Fixed = 2,
@@ -24,7 +24,7 @@ declare namespace Scripting {
         UnknownType = 0,
     }
 
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum FileAttribute {
         Alias = 1024,
         Archive = 32,
@@ -37,28 +37,28 @@ declare namespace Scripting {
         Volume = 8,
     }
 
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum IOMode {
         ForAppending = 8,
         ForReading = 1,
         ForWriting = 2,
     }
 
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum SpecialFolderConst {
         SystemFolder = 1,
         TemporaryFolder = 2,
         WindowsFolder = 0,
     }
 
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum StandardStreamTypes {
         StdErr = 2,
         StdIn = 0,
         StdOut = 1,
     }
 
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum Tristate {
         TristateFalse = 0,
         TristateMixed = -2,

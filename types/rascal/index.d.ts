@@ -21,12 +21,14 @@ export interface BindingConfig {
 }
 
 export interface QueueConfig {
+    name?: string | undefined;
     assert?: boolean | undefined;
     check?: boolean | undefined;
     options?: Options.AssertQueue | undefined;
 }
 
 export interface ExchangeConfig {
+    name?: string | undefined;
     assert?: boolean | undefined;
     check?: boolean | undefined;
     type?: 'direct' | 'fanout' | 'headers' | 'topic' | undefined;
@@ -46,16 +48,24 @@ export interface ConnectionAttributes {
     query?: string | undefined;
     url?: string | undefined;
     loggableUrl?: string | undefined;
-    options?: {
-        heartbeat?: number | undefined;
-        timeout?: number | undefined;
-        channelMax?: number | undefined;
-        connection_timeout?: number | undefined;
-        [key: string]: any;
-    } | undefined;
-    socketOptions?: {
-        timeout?: number | undefined;
-    } | undefined;
+    options?:
+        | {
+              heartbeat?: number | undefined;
+              timeout?: number | undefined;
+              channelMax?: number | undefined;
+              connection_timeout?: number | undefined;
+              [key: string]: any;
+          }
+        | undefined;
+    socketOptions?:
+        | {
+              timeout?: number | undefined;
+              clientProperties?: {
+                  connection_name?: string | undefined;
+                  [key: string]: string | undefined;
+              };
+          }
+        | undefined;
 }
 
 export interface RetryConfig {
@@ -84,10 +94,12 @@ export interface VhostConfig {
     check?: boolean | undefined;
     assert?: boolean | undefined;
     namespace?: string | boolean | undefined;
-    publicationChannelPools?: {
-        regularPool?: ChannelPoolConfig | undefined;
-        confirmPool?: ChannelPoolConfig | undefined;
-    } | undefined;
+    publicationChannelPools?:
+        | {
+              regularPool?: ChannelPoolConfig | undefined;
+              confirmPool?: ChannelPoolConfig | undefined;
+          }
+        | undefined;
     connection?: ConnectionConfig | undefined;
     connections?: ConnectionConfig[] | undefined;
     connectionStrategy?: 'random' | 'fixed' | undefined;
@@ -95,23 +107,30 @@ export interface VhostConfig {
         | {
               [key: string]: ExchangeConfig;
           }
-        | string[] | undefined;
+        | Array<string | ExchangeConfig>
+        | undefined;
     queues?:
         | {
               [key: string]: QueueConfig;
           }
-        | string[] | undefined;
+        | Array<string | QueueConfig>
+        | undefined;
     bindings?:
         | {
               [key: string]: BindingConfig;
           }
-        | string[] | undefined;
-    publications?: {
-        [key: string]: PublicationConfig;
-    } | undefined;
-    subscriptions?: {
-        [key: string]: SubscriptionConfig;
-    } | undefined;
+        | Array<string | BindingConfig>
+        | undefined;
+    publications?:
+        | {
+              [key: string]: PublicationConfig;
+          }
+        | undefined;
+    subscriptions?:
+        | {
+              [key: string]: SubscriptionConfig;
+          }
+        | undefined;
 }
 
 export interface PublicationConfig {
@@ -133,12 +152,14 @@ export interface Encryption {
 }
 
 export interface Redelivery {
-    counters?: {
-        [key: string]: {
-            type: 'stub' | 'inMemory' | 'inMemoryCluster';
-            size?: number | undefined;
-        };
-    } | undefined;
+    counters?:
+        | {
+              [key: string]: {
+                  type: 'stub' | 'inMemory' | 'inMemoryCluster';
+                  size?: number | undefined;
+              };
+          }
+        | undefined;
 }
 
 export interface Recovery {
@@ -165,31 +186,43 @@ export interface SubscriptionConfig {
     deferCloseChannel?: number | undefined;
     encryption?: string | undefined;
     autoCreated?: boolean | undefined;
-    redeliveries?: {
-        counter: string;
-        limit: number;
-        timeout?: number | undefined;
-    } | undefined;
+    redeliveries?:
+        | {
+              counter: string;
+              limit: number;
+              timeout?: number | undefined;
+          }
+        | undefined;
 }
 
 interface BrokerConfig {
-    vhosts?: {
-        [key: string]: VhostConfig;
-    } | undefined;
-    publications?: {
-        [key: string]: PublicationConfig;
-    } | undefined;
-    subscriptions?: {
-        [key: string]: SubscriptionConfig;
-    } | undefined;
+    vhosts?:
+        | {
+              [key: string]: VhostConfig;
+          }
+        | undefined;
+    publications?:
+        | {
+              [key: string]: PublicationConfig;
+          }
+        | undefined;
+    subscriptions?:
+        | {
+              [key: string]: SubscriptionConfig;
+          }
+        | undefined;
     redeliveries?: Redelivery | undefined;
-    recovery?: {
-        [key: string]: Recovery | Recovery[];
-    } | undefined;
+    recovery?:
+        | {
+              [key: string]: Recovery | Recovery[];
+          }
+        | undefined;
     defaults?: VhostConfig | undefined;
-    encryption?: {
-        [key: string]: Encryption;
-    } | undefined;
+    encryption?:
+        | {
+              [key: string]: Encryption;
+          }
+        | undefined;
 }
 
 declare const defaultConfig: {

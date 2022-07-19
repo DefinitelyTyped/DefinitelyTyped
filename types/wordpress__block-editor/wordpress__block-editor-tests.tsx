@@ -321,6 +321,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     value="Hello World"
     onChange={nextContent => console.log(nextContent.toUpperCase())}
     onReplace={blocks => blocks.forEach(b => console.log(b.clientId))}
+    allowedFormats={['core/bold', 'core/italic']}
 />;
 <be.RichText.Content value="foo" />;
 <be.RichText.Content tagName="p" style={{ color: 'blue' }} className="foo" value="Hello World" dir="rtl" />;
@@ -548,8 +549,8 @@ select('core/block-editor').getAdjacentBlockClientId('foo', 1);
 
 {
   const blockProps = be.useBlockProps({ ref: useRef("test") });
-  // $ExpectType RefCallback<unknown>
-  blockProps.ref;
+
+  blockProps.ref((current: unknown) => {});
 }
 
 // $ExpectType Record<string, unknown>

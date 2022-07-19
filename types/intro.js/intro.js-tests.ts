@@ -74,6 +74,12 @@ intro
     .exit(true)
     .exit(false)
     .refresh()
+    .onbeforeexit(() => {
+        return true;
+    })
+    .onbeforeexit(() => {
+        alert('Before Exit');
+    })
     .onbeforechange(function(element) {
         element.getAttribute('class');
     })

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Cloud Domains API v1beta1 1.0
+// Type definitions for non-npm package Cloud Domains API v1 1.0
 // Project: https://cloud.google.com/domains/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

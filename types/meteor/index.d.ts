@@ -1,4 +1,4 @@
-// Type definitions for Meteor 2.6
+// Type definitions for Meteor 2.7
 // Project: http://www.meteor.com/
 // Definitions by: Alex Borodach <https://github.com/barbatus>
 //                 Dave Allen <https://github.com/fullflavedave>
@@ -51,6 +51,7 @@
 /// <reference path="./random.d.ts" />
 /// <reference path="./globals/random.d.ts" />
 /// <reference path="./react-meteor-data.d.ts" />
+/// <reference path="./react-meteor-accounts.d.ts" />
 /// <reference path="./reactive-dict.d.ts" />
 /// <reference path="./globals/reactive-dict.d.ts" />
 /// <reference path="./reactive-var.d.ts" />

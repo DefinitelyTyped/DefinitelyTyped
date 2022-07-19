@@ -7,19 +7,19 @@ import {
  * Missing or invalid options
  */
 
-// $ExpectError
+// @ts-expect-error
 new BugsnagSourceMapUploaderPlugin();
 
-// $ExpectError
+// @ts-expect-error
 new BugsnagBuildReporterPlugin();
 
-// $ExpectError
+// @ts-expect-error
 new BugsnagSourceMapUploaderPlugin({});
 
-// $ExpectError
+// @ts-expect-error
 new BugsnagBuildReporterPlugin({});
 
-// $ExpectError
+// @ts-expect-error
 new BugsnagBuildReporterPlugin({
     apiKey: "123456789"
 });

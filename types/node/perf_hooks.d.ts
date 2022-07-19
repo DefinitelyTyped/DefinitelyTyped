@@ -26,7 +26,7 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/perf_hooks.js)
  */
 declare module 'perf_hooks' {
     import { AsyncResource } from 'node:async_hooks';
@@ -270,6 +270,9 @@ declare module 'perf_hooks' {
          *    *   }
          *    * ]
          *
+         *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
          *   observer.disconnect();
          * });
          * obs.observe({ type: 'mark' });
@@ -317,6 +320,9 @@ declare module 'perf_hooks' {
          *    * ]
          *
          *   console.log(perfObserverList.getEntriesByName('test', 'measure')); // []
+         *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
          *   observer.disconnect();
          * });
          * obs.observe({ entryTypes: ['mark', 'measure'] });
@@ -355,6 +361,8 @@ declare module 'perf_hooks' {
          *    *   }
          *    * ]
          *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
          *   observer.disconnect();
          * });
          * obs.observe({ type: 'mark' });
@@ -384,7 +392,7 @@ declare module 'perf_hooks' {
          * } = require('perf_hooks');
          *
          * const obs = new PerformanceObserver((list, observer) => {
-         *   // Called three times synchronously. `list` contains one item.
+         *   // Called once asynchronously. `list` contains three items.
          * });
          * obs.observe({ type: 'mark' });
          *
@@ -499,6 +507,12 @@ declare module 'perf_hooks' {
          * @since v15.9.0, v14.18.0
          */
         recordDelta(): void;
+        /**
+         * Adds the values from other to this histogram.
+         * @since v17.4.0, v16.14.0
+         * @param other Recordable Histogram to combine with
+         */
+         add(other: RecordableHistogram): void;
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._

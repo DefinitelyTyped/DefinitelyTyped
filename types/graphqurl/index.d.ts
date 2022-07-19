@@ -1,6 +1,6 @@
 // Type definitions for graphqurl 1.0
 // Project: https://github.com/hasura/graphqurl
-// Definitions by: Peter Boyer <https://github.com/ptboyer/>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function createClient(options: Options): Client;

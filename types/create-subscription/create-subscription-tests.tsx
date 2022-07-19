@@ -99,13 +99,13 @@ declare const loadingPromise: Promise<string>;
 
 declare const wrongPromise: Promise<number>;
 
-// $ExpectError
+// @ts-expect-error
 <PromiseSubscription source={wrongPromise}>
     {value => null}
 </PromiseSubscription>;
 
-// $ExpectError
+// @ts-expect-error
 const MismatchSubscription = createSubscription({ getCurrentValue: (a: number) => null, subscribe: (a: string, callback) => (() => undefined) });
 
-// $ExpectError
+// @ts-expect-error
 const NoUnsubscribe = createSubscription({ getCurrentValue: (a: number) => a, subscribe: (a: number, callback) => { /* oops, should've returned a callback here */ }});

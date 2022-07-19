@@ -1993,12 +1993,18 @@ declare module 'fs' {
      * @param [flags='r'] See `support of file system `flags``.
      * @param [mode=0o666]
      */
-    export function open(path: PathLike, flags: OpenMode, mode: Mode | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    export function open(path: PathLike, flags: OpenMode | undefined, mode: Mode | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    /**
+     * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
+     * @param [flags='r'] See `support of file system `flags``.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function open(path: PathLike, flags: OpenMode | undefined, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
     /**
      * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function open(path: PathLike, flags: OpenMode, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    export function open(path: PathLike, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
     export namespace open {
         /**
          * Asynchronous open(2) - open and possibly create a file.
@@ -3764,8 +3770,8 @@ declare module 'fs' {
      * @param src source path to copy.
      * @param dest destination path to copy to.
      */
-    export function cp(source: string, destination: string, callback: (err: NodeJS.ErrnoException | null) => void): void;
-    export function cp(source: string, destination: string, opts: CopyOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    export function cp(source: string | URL, destination: string | URL, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    export function cp(source: string | URL, destination: string | URL, opts: CopyOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
     /**
      * Synchronously copies the entire directory structure from `src` to `dest`,
      * including subdirectories and files.
@@ -3777,7 +3783,7 @@ declare module 'fs' {
      * @param src source path to copy.
      * @param dest destination path to copy to.
      */
-    export function cpSync(source: string, destination: string, opts?: CopyOptions): void;
+    export function cpSync(source: string | URL, destination: string | URL, opts?: CopyOptions): void;
 }
 declare module 'node:fs' {
     export * from 'fs';

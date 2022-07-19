@@ -66,6 +66,11 @@ b = val.lessThanOrEqual(n);
 b = val.lessThanOrEqual(s);
 
 val = Long.fromValue(10);
+val = Long.fromValue('10');
+val = Long.fromValue(10, true);
+val = Long.fromValue('10', true);
+val = Long.fromValue({ low: 1, high: 1, unsigned: true });
+val = Long.fromValue({ low: 1, high: 1, unsigned: true }, true);
 val = val.modulo(val);
 val = val.modulo(n);
 val = val.modulo(s);

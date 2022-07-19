@@ -43,7 +43,7 @@ declare class Server extends events.EventEmitter {
      * Used for proxying regular HTTP(S) requests
      * @param req - Client request.
      * @param res - Client response.
-     * @param options - Additionnal options.
+     * @param options - Additional options.
      */
     web(
         req: http.IncomingMessage,
@@ -187,38 +187,45 @@ declare namespace Server {
         buffer?: stream.Stream | undefined;
     }
 
-    type StartCallback = (req: http.IncomingMessage, res: http.ServerResponse, target: ProxyTargetUrl) => void;
-    type ProxyReqCallback = (
-        proxyReq: http.ClientRequest,
-        req: http.IncomingMessage,
-        res: http.ServerResponse,
-        options: ServerOptions,
+    type StartCallback<TIncomingMessage = http.IncomingMessage, TServerResponse = http.ServerResponse> = (
+        req: TIncomingMessage,
+        res: TServerResponse,
+        target: ProxyTargetUrl,
     ) => void;
-    type ProxyResCallback = (
-        proxyRes: http.IncomingMessage,
-        req: http.IncomingMessage,
-        res: http.ServerResponse,
+    type ProxyReqCallback<
+        TClientRequest = http.ClientRequest,
+        TIncomingMessage = http.IncomingMessage,
+        TServerResponse = http.ServerResponse,
+        > = (proxyReq: TClientRequest, req: TIncomingMessage, res: TServerResponse, options: ServerOptions) => void;
+    type ProxyResCallback<TIncomingMessage = http.IncomingMessage, TServerResponse = http.ServerResponse> = (
+        proxyRes: TIncomingMessage,
+        req: TIncomingMessage,
+        res: TServerResponse,
     ) => void;
-    type ProxyReqWsCallback = (
-        proxyReq: http.ClientRequest,
-        req: http.IncomingMessage,
+    type ProxyReqWsCallback<TClientRequest = http.ClientRequest, TIncomingMessage = http.IncomingMessage> = (
+        proxyReq: TClientRequest,
+        req: TIncomingMessage,
         socket: net.Socket,
         options: ServerOptions,
         head: any,
     ) => void;
-    type EconnresetCallback = (
-        err: Error,
-        req: http.IncomingMessage,
-        res: http.ServerResponse,
+    type EconnresetCallback<TError = Error, TIncomingMessage = http.IncomingMessage, TServerResponse = http.ServerResponse> = (
+        err: TError,
+        req: TIncomingMessage,
+        res: TServerResponse,
         target: ProxyTargetUrl,
     ) => void;
-    type EndCallback = (req: http.IncomingMessage, res: http.ServerResponse, proxyRes: http.IncomingMessage) => void;
+    type EndCallback<TIncomingMessage = http.IncomingMessage, TServerResponse = http.ServerResponse> = (
+        req: TIncomingMessage,
+        res: TServerResponse,
+        proxyRes: TIncomingMessage
+    ) => void;
     type OpenCallback = (proxySocket: net.Socket) => void;
-    type CloseCallback = (proxyRes: http.IncomingMessage, proxySocket: net.Socket, proxyHead: any) => void;
-    type ErrorCallback = (
-        err: Error,
-        req: http.IncomingMessage,
-        res: http.ServerResponse | net.Socket,
+    type CloseCallback<TIncomingMessage = http.IncomingMessage> = (proxyRes: TIncomingMessage, proxySocket: net.Socket, proxyHead: any) => void;
+    type ErrorCallback<TError = Error, TIncomingMessage = http.IncomingMessage, TServerResponse = http.ServerResponse> = (
+        err: TError,
+        req: TIncomingMessage,
+        res: TServerResponse | net.Socket,
         target?: ProxyTargetUrl,
     ) => void;
 }

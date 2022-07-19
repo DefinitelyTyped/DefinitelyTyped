@@ -1,8 +1,8 @@
-import { LoadingManager } from '../../../src/Three';
+import { Loader, LoadingManager } from '../../../src/Three';
 
 import { Volume } from '../misc/Volume';
 
-export class NRRDLoader {
+export class NRRDLoader extends Loader {
     constructor(manager?: LoadingManager);
     manager: LoadingManager;
     path: string;
