@@ -12,8 +12,8 @@ if (hasOwnProperty(arrayLikeOrIterable, 'length')) {
     arrayLikeOrIterable; // $ExpectType ArrayLike<any>
 }
 
-// $ExpectError
+// @ts-expect-error
 hasOwnProperty(undefined, '');
 
-// $ExpectError
+// @ts-expect-error
 hasOwnProperty(null, '');

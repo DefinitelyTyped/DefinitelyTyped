@@ -708,7 +708,7 @@ declare namespace YT
          * @param container   DOM element to insert the player's <iframe>.
          * @param options   Player options.
          */
-        constructor(elt: HTMLElement, options: PlayerOptions);
+        constructor(elt: HTMLElement, options?: PlayerOptions);
 
         /**
          * Initializes a new instance of the Player class.
@@ -716,7 +716,7 @@ declare namespace YT
          * @param id   ID of the DOM element to insert the player's <iframe>.
          * @param options   Player options.
          */
-        constructor(id: string, options: PlayerOptions);
+        constructor(id: string, options?: PlayerOptions);
 
         /**
          * Queues a video by ID.

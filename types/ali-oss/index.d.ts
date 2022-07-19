@@ -1030,6 +1030,7 @@ declare class OSS {
      * Copy an object from sourceName to name.
      */
     copy(name: string, sourceName: string, options?: OSS.CopyObjectOptions): Promise<OSS.CopyAndPutMetaResult>;
+    copy(name: string, sourceName: string, sourceBucket?: string, options?: OSS.CopyObjectOptions): Promise<OSS.CopyAndPutMetaResult>;
 
     /**
      * Set an exists object meta.

@@ -65,7 +65,8 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
 
     conn.execute({
         sqlText: '',
-        fetchAsString: ['NaN'], // $ExpectError
+        // @ts-expect-error
+        fetchAsString: ['NaN'],
         binds: [
             [1, ''],
             [2, ''],
@@ -74,9 +75,19 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
             //
         },
     });
+
+    // $ExpectType Statement
+    const statement = conn.execute({
+        sqlText: ''
+    });
+    // $ExpectType Readable
+    const stream = statement.streamRows();
+    stream.on('data', data => {
+        //
+    });
 };
 connection.connect(connectCallback);
-connection.connectAsync(connectCallback);
+connection.connectAsync(connectCallback).then(() => {});
 
 //  Key pair connections
 

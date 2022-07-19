@@ -119,7 +119,7 @@ const CheckUseReducedMotion = () => {
 <Box ref={React.createRef<HTMLDivElement>()} />;
 
 <Box aria-colspan={1} />;
-// $ExpectError
+// @ts-expect-error
 <Box aria-colspan="foo" />;
 
 <Box
@@ -130,7 +130,7 @@ const CheckUseReducedMotion = () => {
 
 <Box
     onDrag={event => {
-        // $ExpectError
+        // @ts-expect-error
         event.__nonExistentProperty__;
     }}
 />;

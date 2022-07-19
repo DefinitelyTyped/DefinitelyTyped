@@ -332,7 +332,7 @@ declare namespace Sinon {
         /**
          * Returns the nth call.
          * Accessing individual calls helps with more detailed behavior verification when the spy is called more than once.
-         * @param n Zero based index of the spy call.
+         * @param n Zero-based index of the spy call.
          */
         getCall(n: number): SinonSpyCall<TArgs, TReturnValue>;
         /**
@@ -569,7 +569,7 @@ declare namespace Sinon {
          * Defines the behavior of the stub on the @param n call. Useful for testing sequential interactions.
          * There are methods onFirstCall, onSecondCall,onThirdCall to make stub definitions read more naturally.
          * onCall can be combined with all of the behavior defining methods in this section. In particular, it can be used together with withArgs.
-         * @param n
+         * @param n Zero-based index of the spy call.
          */
         onCall(n: number): SinonStub<TArgs, TReturnValue>;
         /**

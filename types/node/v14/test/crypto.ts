@@ -1001,3 +1001,34 @@ import { promisify } from 'node:util';
 {
     crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
 }
+
+{
+    crypto.DiffieHellmanGroup('modp14');
+    new crypto.DiffieHellmanGroup('modp14');
+
+    const alice: crypto.DiffieHellmanGroup = crypto.getDiffieHellman('modp14');
+    const bob: crypto.DiffieHellmanGroup = crypto.createDiffieHellmanGroup('modp14');
+
+    // Check that DiffieHellman still has setPublicKey/setPrivateKey:
+    crypto.createDiffieHellman(2).setPublicKey('abcd', 'hex');
+    crypto.createDiffieHellman(2).setPrivateKey('abcd', 'hex');
+
+    // While DiffieHellmanGroup should not have them:
+    // @ts-expect-error
+    alice.setPublicKey('abcd', 'hex');
+    // @ts-expect-error
+    bob.setPrivateKey('abcd', 'hex');
+
+    // Those 2 methods aside, DiffieHellmanGroup should work the same as DiffieHellman
+    alice.generateKeys();
+    bob.generateKeys();
+    const aliceSecret = alice.computeSecret(bob.getPublicKey(), null, 'hex'); // $ExpectType string
+    const bobSecret = bob.computeSecret(alice.getPublicKey(), null, 'hex'); // $ExpectType string
+    aliceSecret === bobSecret;
+}
+
+{
+    crypto.setFips(false);
+    crypto.setEngine('dynamic');
+    crypto.setEngine('dynamic', crypto.constants.ENGINE_METHOD_RSA);
+}

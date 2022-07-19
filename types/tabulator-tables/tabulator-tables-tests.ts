@@ -336,6 +336,13 @@ colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
     return '';
 };
 
+colDef.tooltip = (event: MouseEvent, cell: Tabulator.CellComponent, onRendered: (callback: () => void) => void) => {
+    onRendered(() => {
+      console.log('rendering occured');
+    });
+    return cell.getValue();
+  };
+
 // Cell Component
 
 let cell = <Tabulator.CellComponent>{};
@@ -1003,6 +1010,9 @@ table = new Tabulator('#test', {
     },
     invalidOptionWarning: false,
     debugInvalidOptions: false,
+    debugInitialization: true,
+    debugEventsExternal: false,
+    debugEventsInternal: false,
 });
 
 const dataProcessedEvent = () => {};
@@ -1012,8 +1022,10 @@ table.on('dataLoaded', () => {});
 table.on('dataLoadError', () => {});
 table.on('dataProcessing', () => {});
 table.on('dataProcessed', () => {});
+table.on('rowMoving', () => {});
 table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
+table.off('rowMoving', () => {});
 table.on('cellClick', () => {});
 table = Tabulator.findTable('#example-table')[0];
 table = TabulatorFull.findTable('#example-table')[0];

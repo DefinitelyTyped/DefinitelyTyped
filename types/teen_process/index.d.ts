@@ -201,3 +201,12 @@ export class SubProcess extends EventEmitter {
     prependOnceListener(event: 'lines-stdout' | 'lines-stderr', listener: (lines: string[]) => void): this;
     prependOnceListener(event: 'stream-line', listener: (line: string) => void): this;
 }
+
+/**
+ * {@link exec} can reject with this error
+ */
+export interface ExecError extends Error {
+    code?: number;
+    stdout: string;
+    stderr: string;
+}

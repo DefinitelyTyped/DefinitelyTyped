@@ -380,6 +380,12 @@ readStream = imageMagick(src)
 const customGm = gm.subClass({ appPath: '' });
 readStream = customGm(src).stream();
 
+const stringTimeoutGm = gm.subClass({ timeout: "0" });
+readStream = stringTimeoutGm(src).stream();
+
+const numberTimeoutGm = gm.subClass({ timeout: 0 });
+readStream = numberTimeoutGm(src).stream();
+
 const passStream = imageMagick(readStream).stream();
 
 const buffers: Buffer[] = [];

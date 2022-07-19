@@ -6,7 +6,7 @@
  * The timer functions within Node.js implement a similar API as the timers API
  * provided by Web Browsers but use a different internal implementation that is
  * built around the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout).
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/timers.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/timers.js)
  */
 declare module 'timers' {
     import { Abortable } from 'node:events';
@@ -69,7 +69,7 @@ declare module 'timers' {
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
         }
-        function clearTimeout(timeoutId: NodeJS.Timeout | undefined): void;
+        function clearTimeout(timeoutId: NodeJS.Timeout | string | number | undefined): void;
         function setInterval<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timer;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
@@ -77,7 +77,7 @@ declare module 'timers' {
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }
-        function clearInterval(intervalId: NodeJS.Timeout | undefined): void;
+        function clearInterval(intervalId: NodeJS.Timeout | string | number | undefined): void;
         function setImmediate<TArgs extends any[]>(callback: (...args: TArgs) => void, ...args: TArgs): NodeJS.Immediate;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return

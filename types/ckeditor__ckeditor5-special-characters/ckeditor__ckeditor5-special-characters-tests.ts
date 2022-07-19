@@ -67,9 +67,9 @@ new CharacterGridView().on('tileHover', (ev, args) => {
 new CharacterInfoView().render();
 new CharacterInfoView().destroy();
 
-// $ExpectError
+// @ts-expect-error
 SpecialCharactersArrows.requires = null;
-// $ExpectError
+// @ts-expect-error
 SpecialCharactersEssentials.requires = null;
 
 // $ExpectType SpecialCharacters

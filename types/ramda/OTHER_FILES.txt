@@ -135,6 +135,7 @@ es/merge.d.ts
 es/mergeWith.d.ts
 es/mergeWithKey.d.ts
 es/minBy.d.ts
+es/modify.d.ts
 es/min.d.ts
 es/modulo.d.ts
 es/move.d.ts
@@ -395,6 +396,7 @@ src/merge.d.ts
 src/mergeWith.d.ts
 src/mergeWithKey.d.ts
 src/minBy.d.ts
+src/modify.d.ts
 src/min.d.ts
 src/modulo.d.ts
 src/move.d.ts

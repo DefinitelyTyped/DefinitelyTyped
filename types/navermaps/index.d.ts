@@ -133,11 +133,11 @@ declare namespace naver.maps {
         zoomOrigin?: any;
     }
     interface MarkerOptions {
-        animation?: any;
-        map?: Map | undefined;
-        position?: any;
-        icon?: any;
-        shape?: any;
+        animation?: Animation;
+        map: Map;
+        position: Coord | CoordLiteral;
+        icon?: string | ImageIcon | SymbolIcon | HtmlIcon;
+        shape?: MarkerShape;
         title?: string | undefined;
         cursor?: string | undefined;
         clickable?: boolean | undefined;

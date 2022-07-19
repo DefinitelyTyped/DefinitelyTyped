@@ -217,12 +217,17 @@ googletag.pubads().setPrivacySettings({
     childDirectedTreatment: null,
 });
 
+// Indicate requests represent organic traffic.
+googletag.pubads().setPrivacySettings({
+    trafficSource: googletag.enums.TrafficSource.ORGANIC,
+});
+// Indicate requests represent purchased traffic.
+googletag.pubads().setPrivacySettings({
+    trafficSource: googletag.enums.TrafficSource.PURCHASED,
+});
+
 // DEMO 29
 googletag.pubads().setPublisherProvidedId('AB123456789');
-
-// DEMO 30
-// Mark ad requests to request non-personalized ads.
-googletag.pubads().setRequestNonPersonalizedAds(1);
 
 // DEMO 31
 googletag.pubads().setForceSafeFrame(true);
@@ -590,7 +595,6 @@ googletag.pubads().addEventListener('slotVisibilityChanged', event => {
 
 // DEMO 61
 // Test for definitions not declared by GPT Reference
-googletag.pubads().clearTagForChildDirectedTreatment().setTagForChildDirectedTreatment(1).setTagForUnderAgeOfConsent(2);
 googletag.pubads().isSRA();
 let imaContent = {
     vid: 'imaContentId?',

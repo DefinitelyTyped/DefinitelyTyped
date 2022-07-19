@@ -182,7 +182,7 @@ let maxIndex: number = d3Array.maxIndex([3, 3, 1, 1]); // 0
 maxIndex = d3Array.maxIndex(["20", "3"]); // 1
 maxIndex = d3Array.maxIndex([{ name: "Alice", age: 23 }, { name: "Bob", age: 32 }], d => d.age); // 1
 
-// $ExpectError
+// @ts-expect-error
 numOrUndefined = d3Array.max(readonlyNumbersArray, (d, i, a) => { a.push(3); return 0; });
 
 // min() -----------------------------------------------------------------------
@@ -384,7 +384,7 @@ float64Array = d3Array.fcumsum(mixedObjectArray, accessorMixedObjectToNum);
 float64Array = d3Array.fcumsum(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 float64Array = d3Array.fcumsum(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
-// $ExpectError
+// @ts-expect-error
 float64Array = d3Array.fcumsum(['test']);
 
 // Adder() ---------------------------------------------------------------------
@@ -739,9 +739,9 @@ let mergedArray: MixedObject[];
 
 mergedArray = d3Array.merge(testArrays); // inferred type
 mergedArray = d3Array.merge<MixedObject>(testArrays); // explicit type
-// $ExpectError
+// @ts-expect-error
 mergedArray = d3Array.merge<MixedObject>([[10, 40, 30], [15, 30]]); // fails, type mismatch
-// $ExpectError
+// @ts-expect-error
 mergedArray = d3Array.merge([testArray1, [15, 30]]); // fails, type mismatch
 
 mergedArray = d3Array.merge(readonlyTestArrays); // inferred type
@@ -877,7 +877,7 @@ const testObject = {
 const p1: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name' as 'name', 'val' as 'val', 'when' as 'when', 'more' as 'more']);
 // $ExpectType: Array<Date | number[]>
 const p2 = d3Array.permute(testObject, ['when' as 'when', 'more' as 'more']);
-// $ExpectError
+// @ts-expect-error
 const p3 = d3Array.permute(testObject, ['when' as 'when', 'unknown' as 'unknown']);
 
 // range() ---------------------------------------------------------------------
@@ -891,7 +891,7 @@ numbersArray = d3Array.range(1, 10, 0.5);
 mergedArray = d3Array.shuffle(mergedArray);
 mergedArray = d3Array.shuffle(mergedArray, 1);
 mergedArray = d3Array.shuffle(mergedArray, 1, 3);
-// $ExpectError
+// @ts-expect-error
 mergedArray = d3Array.shuffle(readonlyMergedArray); // fails, shuffle mutates input array in-place
 
 // Test each TypedArray explicitly. Can't use ArrayLike in this case because shuffle is mutable and ArrayLike would include ReadonlyArray
@@ -912,7 +912,7 @@ random = d3Array.shuffler(() => 2);
 random = d3Array.shuffler(() => Number('123'));
 random = d3Array.shuffler(() => Math.random());
 // the following will actually work in code but is similar to isNan() typechecking
-// $ExpectError
+// @ts-expect-error
 random = d3Array.shuffler(() => '2');
 
 // ticks() ---------------------------------------------------------------------
@@ -1119,7 +1119,7 @@ domainFnDate = histoMixedObject_Date.domain();
 histoMixedObject_Date = histoMixedObject_Date.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
 histoMixedObject_Date = histoMixedObject_Date.domain([domain[0], domain[domain.length]]);
 histoMixedObject_Date = histoMixedObject_Date.domain((values) => [values[0], values[values.length]]);
-// $ExpectError
+// @ts-expect-error
 histoMixedObject_Date = histoMixedObject_Date.domain(timeScale.domain()); // fails, as scale domain is an array with possibly more than the two elements expected by histogram
 
 // MixedObject - Date | undefined
@@ -1174,7 +1174,7 @@ histoMixedObject_Date = histoMixedObject_Date.thresholds((values: ArrayLike<Date
     const thresholds: Date[] = [values[0], values[2], values[4]];
     return thresholds;
 });
-// $ExpectError
+// @ts-expect-error
 histoMixedObject_Date = histoMixedObject_Date.thresholds(d3Array.thresholdScott);
 
 // MixedObject - Date | undefined

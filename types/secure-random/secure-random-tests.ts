@@ -11,7 +11,7 @@ const secureRandomBuffer = secureRandom(byteCount, { type: 'Buffer' });
 // $ExpectType Uint8Array
 const secureRandomUint8Array = secureRandom(byteCount, { type: 'Uint8Array' });
 
-// $ExpectError
+// @ts-expect-error
 const error = secureRandom(byteCount, { type: 'unsupported type' });
 
 // $ExpectType number[]
