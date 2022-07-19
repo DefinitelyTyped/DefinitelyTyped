@@ -59,7 +59,7 @@ declare namespace contextMenus {
         selector: string;
         show?: boolean;
         submenu?: boolean;
-        coreAswell?: boolean;
+        coreAsWell?: boolean;
         onClickFunction?: any;
         hasTrailingDivider?: boolean;
     }
