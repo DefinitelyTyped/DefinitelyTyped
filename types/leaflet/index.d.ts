@@ -91,7 +91,7 @@ export namespace DomUtil {
     function setPosition(el: HTMLElement, position: Point): void;
     function getPosition(el: HTMLElement): Point;
     function getScale(el: HTMLElement): { x: number, y: number, boundingClientRect: DOMRect};
-    function getSizedParentNode(el: HTMLElement): any;
+    function getSizedParentNode(el: HTMLElement): HTMLElement;
     function disableTextSelection(): void;
     function enableTextSelection(): void;
     function disableImageDrag(): void;
@@ -476,8 +476,48 @@ export abstract class Evented extends Class {
     /**
      * Returns true if a particular event type has any listeners attached to it.
      */
-    listens(type: string, propagate?: boolean): boolean;
-    listens(type: string, fn: function, context?: object, propagate?: boolean): boolean;
+    // tslint:disable:unified-signatures
+    listens(type: 'baselayerchange' | 'overlayadd' | 'overlayremove' | 'layeradd' | 'layerremove' | 'zoomlevelschange' |
+        'unload' | 'viewreset' | 'load' | 'zoomstart' | 'movestart' | 'zoom' | 'move' | 'zoomend' |
+        'moveend' | 'autopanstart' | 'dragstart' | 'drag' | 'add' | 'remove' | 'loading' | 'error' |
+        'update' | 'down' | 'predrag' | 'resize' | 'popupopen' | 'tooltipopen' | 'tooltipclose' |
+        'locationerror' | 'locationfound' | 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mouseover' |
+        'mouseout' | 'mousemove' | 'contextmenu' | 'preclick' | 'keypress' | 'keydown' | 'keyup' |
+        'zoomanim' | 'dragend' | 'tileunload' | 'tileloadstart' | 'tileload' | 'tileerror', propagate?: boolean): boolean;
+
+    listens(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
+        fn: LayersControlEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'layeradd' | 'layerremove',
+        fn: LayerEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'zoomlevelschange' | 'unload' | 'viewreset' | 'load' | 'zoomstart' |
+        'movestart' | 'zoom' | 'move' | 'zoomend' | 'moveend' | 'autopanstart' |
+        'dragstart' | 'drag' | 'add' | 'remove' | 'loading' | 'error' | 'update' |
+        'down' | 'predrag',
+        fn: LeafletEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'resize',
+        fn: ResizeEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'popupopen' | 'popupclose',
+        fn: PopupEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'tooltipopen' | 'tooltipclose',
+        fn: TooltipEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'locationerror',
+        fn: ErrorEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'locationfound',
+        fn: LocationEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mouseover' |
+        'mouseout' | 'mousemove' | 'contextmenu' | 'preclick',
+        fn: LeafletMouseEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'keypress' | 'keydown' | 'keyup',
+        fn: LeafletKeyboardEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'zoomanim',
+        fn: ZoomAnimEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'dragend',
+        fn: DragEndEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'tileunload' | 'tileloadstart' | 'tileload',
+        fn: TileEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: 'tileerror',
+        fn: TileEventHandlerFn, context?: any, propagate?: boolean): boolean;
+    listens(type: string, fn: LeafletEventHandlerFn, context?: any, propagate?: boolean): boolean;
 
     /**
      * Behaves as on(...), except the listener will only get fired once and then removed.
@@ -926,7 +966,10 @@ export interface ImageOverlayOptions extends InteractiveLayerOptions {
     className?: string | undefined;
 }
 
-export type ImageOverlayStyleOptions = { opacity: number, [name: string]: any};
+export interface ImageOverlayStyleOptions {
+    opacity?: number;
+    [name: string]: any;
+}
 
 export class ImageOverlay extends Layer {
     constructor(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
@@ -944,7 +987,7 @@ export class ImageOverlay extends Layer {
     setOpacity(opacity: number): this;
 
     /** Changes the style of the image element. As of 1.8, only the opacity is changed */
-    setStyle(styleOpts: { opacity: number, [name: string]: any}): this;
+    setStyle(styleOpts: ImageOverlayStyleOptions): this;
 
     /** Get the bounds that this ImageOverlay covers */
     getBounds(): LatLngBounds;
@@ -1130,7 +1173,7 @@ export function circleMarker(latlng: LatLngExpression, options?: CircleMarkerOpt
 
 export interface CircleOptions extends PathOptions {
     radius: number | undefined;
-};
+}
 
 export class Circle<P = any> extends CircleMarker<P> {
     constructor(latlng: LatLngExpression, options?: CircleOptions);
@@ -1179,7 +1222,7 @@ export function canvas(options?: RendererOptions): Canvas;
 export class LayerGroup<P = any> extends Layer {
     constructor(layers?: Layer[], options?: LayerOptions);
 
-	toMultiPoint(precision?: number): geojson.Feature<geojson.MultiPoint, P>;
+    toMultiPoint(precision?: number): geojson.Feature<geojson.MultiPoint, P>;
 
     /**
      * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
