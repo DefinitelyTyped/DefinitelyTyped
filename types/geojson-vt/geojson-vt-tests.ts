@@ -1,4 +1,4 @@
-import geojsonvt, { GeoJSONVTOptions } from 'geojson-vt';
+import geojsonvt from 'geojson-vt';
 import * as GJ from 'geojson';
 
 const GeoJSONData: GJ.FeatureCollection = {
@@ -32,7 +32,7 @@ const GeoJSONData: GJ.FeatureCollection = {
     ],
 };
 
-const GeoJsonVTOptions: GeoJSONVTOptions = {
+const GeoJsonVTOptions: geojsonvt.Options = {
     maxZoom: 14, // max zoom to preserve detail on; can't be higher than 24
     tolerance: 3, // simplification tolerance (higher means simpler)
     extent: 4096, // tile extent (both width and height)
@@ -47,21 +47,17 @@ const GeoJsonVTOptions: GeoJSONVTOptions = {
 
 const gjv = geojsonvt(GeoJSONData, GeoJsonVTOptions);
 gjv; // $ExpectType GeoJSONVT
-const tiles = gjv.getTile(4, 3, 6); // $ExpectType GeoJSONTile
-tiles?.features; // $ExpectType Features
-tiles?.numPoints; // $ExpectType number
-tiles?.numSimplified; // $ExpectType number
-tiles?.numFeatures; // $ExpectType number
-tiles?.source; // $ExpectType Source
-tiles?.x; // $ExpectType number
-tiles?.y; // $ExpectType number
-tiles?.z; // $ExpectType number
-tiles?.transformed; // $ExpectType boolean
-tiles?.minX; // $ExpectType number
-tiles?.minY; // $ExpectType number
-tiles?.maxX; // $ExpectType number
-tiles?.maxY; // $ExpectType number
-
-const tilesNull = gjv.getTile(100, 100, 100); // $ExpectType null
-// @ts-expect-error: Known error
-tilesNull.x; // $ExpectType unknown
+const tiles = gjv.getTile(4, 3, 6); // $ExpectType Tile | null
+tiles?.features; // $ExpectType Features | undefined
+tiles?.numPoints; // $ExpectType number | undefined
+tiles?.numSimplified; // $ExpectType number | undefined
+tiles?.numFeatures; // $ExpectType number | undefined
+tiles?.source; // $ExpectType Source | null | undefined
+tiles?.x; // $ExpectType number | undefined
+tiles?.y; // $ExpectType number | undefined
+tiles?.z; // $ExpectType number | undefined
+tiles?.transformed; // $ExpectType boolean | undefined
+tiles?.minX; // $ExpectType number | undefined
+tiles?.minY; // $ExpectType number | undefined
+tiles?.maxX; // $ExpectType number | undefined
+tiles?.maxY; // $ExpectType number | undefined
