@@ -25,10 +25,9 @@ interface Foo {
 
 deepEqual({ bar: 1 }, { bar: '1' }, { comparator: (a: Foo, b: Foo) => String(a.bar) === String(b.bar) });
 
-// $ExpectError leftHandOperand should be a number as typed in the comparator function
 deepEqual(
     1,
-    // @ts-expect-error
+    // @ts-expect-error rightHandOperand should be a number as typed in the comparator function
     '2',
     { comparator: (a: number, b: number) => Math.floor(a) === Math.floor(b) },
 );
