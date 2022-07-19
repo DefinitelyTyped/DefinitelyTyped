@@ -12,7 +12,6 @@
 //                 Carson Full <https://github.com/carsonf>
 //                 Hugo Silva <https://github.com/hugofpsilva>
 //                 Martin Badin <https://github.com/martin-badin>
-//                 Corey Wilson <https://github.com/pusherman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export * from './src/luxon';
