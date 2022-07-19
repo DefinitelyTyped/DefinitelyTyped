@@ -19,7 +19,7 @@ const menuItem: contextMenus.MenuItem = {
     selector: 'node',
     show: true,
     submenu: false,
-    coreAswell: true,
+    coreAsWell: true,
     onClickFunction: () => {
         console.log('test');
     },
