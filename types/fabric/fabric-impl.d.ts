@@ -174,6 +174,7 @@ interface IEvent<E extends Event = Event> {
     e: E;
     target?: Object | undefined;
     subTargets?: Object[] | undefined;
+    selected?: Object[] | undefined;
     button?: number | undefined;
     isClick?: boolean | undefined;
     pointer?: Point | undefined;
