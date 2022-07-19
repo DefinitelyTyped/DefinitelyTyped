@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2022-07-12) 2.2
+// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2022-07-19) 2.2
 // Project: https://developers.google.com/publisher-tag/reference
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -174,9 +174,15 @@ declare namespace googletag {
      * **Example**
      * ```
      * // The calls to construct an ad and display contents.
-     * var slot1 = googletag.defineSlot('/1234567/sports', [728, 90], 'div-1');
-     * var slot2 = googletag.defineSlot('/1234567/news', [160, 600], 'div-2');
-     * var slot3 = googletag.defineSlot('/1234567/weather', [160, 600], 'div-3');
+     * var slot1 =
+     *     googletag.defineSlot('/1234567/sports', [728, 90], 'div-1');
+     * googletag.display('div-1');
+     * var slot2 =
+     *     googletag.defineSlot('/1234567/news', [160, 600], 'div-2');
+     * googletag.display('div-2');
+     * var slot3 =
+     *     googletag.defineSlot('/1234567/weather', [160, 600], 'div-3');
+     * googletag.display('div-3');
      * // This call to destroy only slot1.
      * googletag.destroySlots([slot1]);
      * // This call to destroy both slot1 and slot2.
@@ -741,7 +747,8 @@ declare namespace googletag {
          * // The following slot will have SafeFrame forced.
          * googletag.defineSlot('/1234567/news', [160, 600], 'div-2')
          *          .addService(googletag.pubads());
-         * googletag.display();
+         * googletag.display('div-1');
+         * googletag.display('div-2');
          * ```
          *
          * **See also**
@@ -804,7 +811,7 @@ declare namespace googletag {
          * **See also**
          * - [About publisher provided identifiers](https://support.google.com/admanager/answer/2880055)
          *
-         * @param ppid An alphanumeric ID provided by the publisher with a recommended maximum of 150 characters.
+         * @param ppid An alphanumeric ID provided by the publisher. Must be between 32 and 150 characters.
          * @returns The service object on which the method was called.
          */
         setPublisherProvidedId(ppid: string): PubAdsService;
@@ -833,7 +840,8 @@ declare namespace googletag {
          * // would allow for expansion by overlay.
          * googletag.defineSlot('/1234567/news', [160, 600], 'div-2')
          *          .addService(googletag.pubads());
-         * googletag.display();
+         * googletag.display('div-1');
+         * googletag.display('div-2');
          * ```
          *
          * **See also**
@@ -972,7 +980,7 @@ declare namespace googletag {
          * // a listener for an event for a specific slot only. You can, however,
          * // programmatically filter a listener to respond only to a certain ad
          * // slot, using this pattern:
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotOnload', function(event) {
          *   if (event.slot === targetSlot) {
          *     // Slot specific logic.
@@ -1437,7 +1445,8 @@ declare namespace googletag {
          * // The following slot will inherit page-level settings.
          * googletag.defineSlot('/1234567/news', [160, 600], 'div-2')
          *          .addService(googletag.pubads());
-         * googletag.display();
+         * googletag.display('div-1');
+         * googletag.display('div-2');
          * ```
          *
          * **See also**
@@ -1628,7 +1637,7 @@ declare namespace googletag {
          * **Example**
          * ```
          * // This listener is called when an impression becomes viewable.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('impressionViewable',
          *     function(event) {
          *       var slot = event.slot;
@@ -1654,7 +1663,7 @@ declare namespace googletag {
          * **Example**
          * ```
          * // This listener is called when the user closes a rewarded ad slot.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('rewardedSlotClosed',
          *     function(event) {
          *       var slot = event.slot;
@@ -1680,7 +1689,7 @@ declare namespace googletag {
          * **Example**
          * ```
          * // This listener is called whenever a reward is granted for a rewarded ad.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('rewardedSlotGranted',
          *     function(event) {
          *       var slot = event.slot;
@@ -1715,7 +1724,7 @@ declare namespace googletag {
          * ```
          * // This listener is called when a rewarded ad slot becomes ready to be
          * // displayed.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('rewardedSlotReady',
          *     function(event) {
          *       var slot = event.slot;
@@ -1748,7 +1757,7 @@ declare namespace googletag {
          * **Example**
          * ```
          * // This listener is called when a creative iframe load event fires.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotOnload', function(event) {
          *   var slot = event.slot;
          *   console.log('Creative iframe for slot', slot.getSlotElementId(),
@@ -1772,7 +1781,7 @@ declare namespace googletag {
          * **Example**
          * ```
          * // This listener is called when a slot has finished rendering.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotRenderEnded',
          *     function(event) {
          *       var slot = event.slot;
@@ -1845,7 +1854,7 @@ declare namespace googletag {
          * // request for a slot. Each slot will fire this event, even though they
          * // may be batched together in a single request if single request
          * // architecture (SRA) is enabled.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotRequested', function(event) {
          *   var slot = event.slot;
          *   console.log('Slot', slot.getSlotElementId(), 'has been requested.');
@@ -1867,7 +1876,7 @@ declare namespace googletag {
          * ```
          * // This listener is called when an ad response has been received
          * // for a slot.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotResponseReceived',
          *     function(event) {
          *       var slot = event.slot;
@@ -1892,7 +1901,7 @@ declare namespace googletag {
          * ```
          * // This listener is called whenever the on-screen percentage of an
          * // ad slot's area changes.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotVisibilityChanged',
          *     function(event) {
          *       var slot = event.slot;
