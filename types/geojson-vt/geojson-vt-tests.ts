@@ -47,17 +47,28 @@ const GeoJsonVTOptions: geojsonvt.Options = {
 
 const gjv = geojsonvt(GeoJSONData, GeoJsonVTOptions);
 gjv; // $ExpectType GeoJSONVT
-const tiles = gjv.getTile(4, 3, 6); // $ExpectType Tile | null
-tiles?.features; // $ExpectType Features | undefined
-tiles?.numPoints; // $ExpectType number | undefined
-tiles?.numSimplified; // $ExpectType number | undefined
-tiles?.numFeatures; // $ExpectType number | undefined
-tiles?.source; // $ExpectType Source | null | undefined
-tiles?.x; // $ExpectType number | undefined
-tiles?.y; // $ExpectType number | undefined
-tiles?.z; // $ExpectType number | undefined
-tiles?.transformed; // $ExpectType boolean | undefined
-tiles?.minX; // $ExpectType number | undefined
-tiles?.minY; // $ExpectType number | undefined
-tiles?.maxX; // $ExpectType number | undefined
-tiles?.maxY; // $ExpectType number | undefined
+gjv.options; // $ExpectType Options
+gjv.stats; // $ExpectType Record<`z${number}`, number>
+gjv.total; // $ExpectType number
+gjv.tiles; // $ExpectType Record<`${number}`, Tile>
+gjv.tileCoords; // $ExpectType TileCoords
+
+const tile = gjv.getTile(4, 3, 6); // $ExpectType Tile | null
+tile?.features; // $ExpectType Features | undefined
+tile?.numPoints; // $ExpectType number | undefined
+tile?.numSimplified; // $ExpectType number | undefined
+tile?.numFeatures; // $ExpectType number | undefined
+tile?.source; // $ExpectType Source | null | undefined
+tile?.x; // $ExpectType number | undefined
+tile?.y; // $ExpectType number | undefined
+tile?.z; // $ExpectType number | undefined
+tile?.transformed; // $ExpectType boolean | undefined
+tile?.minX; // $ExpectType number | undefined
+tile?.minY; // $ExpectType number | undefined
+tile?.maxX; // $ExpectType number | undefined
+tile?.maxY; // $ExpectType number | undefined
+
+gjv.splitTile(tile!, 0, 0, 0, 0, 0, 0); // $ExpectType void
+
+// @ts-expect-error: This class is not exported in the library, nor should it be exposed incorrectly in this .d.ts
+gjv.GeoJSONVT; // $ExpectType any

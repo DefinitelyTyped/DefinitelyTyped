@@ -87,7 +87,6 @@ declare namespace geojsonvt {
         maxX: number;
         maxY: number;
     }
-    type Tiles = Record<`${number}`, Tile>;
     interface TileCoord {
         x: number;
         y: number;
@@ -105,7 +104,7 @@ declare class GeoJSONVT {
      * Resulting tiles conform to the JSON equivalent of the vector tile specification.
      * https://github.com/mapbox/vector-tile-spec/
      */
-    tiles: geojsonvt.Tiles;
+    tiles: Record<`${number}`, geojsonvt.Tile>;
     tileCoords: geojsonvt.TileCoords;
     total: number;
     stats: Record<`z${number}`, number>;
