@@ -45,9 +45,21 @@ declare namespace contextMenus {
     }
 
     interface MenuItem {
+        /**
+         * ID of the menu item.
+         */
         id: string;
+        /**
+         * Tooltip text of the menu item.
+         */
         tooltipText?: string;
+        /**
+         * Whether the item be initially disabled.
+         */
         disabled?: boolean;
+        /**
+         * Menu icon.
+         */
         image?: {
             src: string;
             width: number;
@@ -55,12 +67,35 @@ declare namespace contextMenus {
             y: string;
             x: string;
         };
+        /**
+         * Display content of the menu item.
+         */
         content: string;
+        /**
+         * Filters the elements to have this menu item on the context menu event.
+         * If the selector is not truthy, no elements will have this menu item.
+         */
         selector: string;
+        /**
+         * Whether the item will be shown.
+         */
         show?: boolean;
+        /**
+         * Shows the listed menu items as a submenu for this item.
+         * An item must have either a submenu or onClickFunction or both.
+         */
         submenu?: boolean;
+        /**
+         * Whether the core instance will have this item on context menu event.
+         */
         coreAsWell?: boolean;
+        /**
+         * The function to be executed when the menu item is clicked.
+         */
         onClickFunction?: any;
+        /**
+         * Whether the menu item will have a trailing divider.
+         */
         hasTrailingDivider?: boolean;
     }
 
