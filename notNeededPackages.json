@@ -3461,6 +3461,30 @@
             "libraryName": "parse-ms",
             "asOfVersion": "2.1.0"
         },
+        "parse5": {
+            "libraryName": "parse5",
+            "asOfVersion": "7.0.0"
+        },
+        "parse5-html-rewriting-stream": {
+            "libraryName": "parse5-html-rewriting-stream",
+            "asOfVersion": "7.0.0"
+        },
+        "parse5-htmlparser2-tree-adapter": {
+            "libraryName": "parse5-htmlparser2-tree-adapter",
+            "asOfVersion": "7.0.0"
+        },
+        "parse5-parser-stream": {
+            "libraryName": "parse5-parser-stream",
+            "asOfVersion": "7.0.0"
+        },
+        "parse5-plain-text-conversion-stream": {
+            "libraryName": "parse5-plain-text-conversion-stream",
+            "asOfVersion": "7.0.0"
+        },
+        "parse5-sax-parser": {
+            "libraryName": "parse5-sax-parser",
+            "asOfVersion": "7.0.0"
+        },
         "pascal-case": {
             "libraryName": "pascal-case",
             "asOfVersion": "1.1.2"
