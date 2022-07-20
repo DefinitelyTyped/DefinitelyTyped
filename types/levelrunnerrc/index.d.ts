@@ -1,4 +1,4 @@
-// Type definitions for levelrunnerrc 0.99.3
+// Type definitions for levelrunnerrc 1.0
 // Project: https://github.com/Soldy/levelrunnerrc
 // Definitions by: Soldy <https://github.com/Soldy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
