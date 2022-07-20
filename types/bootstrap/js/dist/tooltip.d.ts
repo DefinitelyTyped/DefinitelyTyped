@@ -82,6 +82,11 @@ declare class Tooltip extends BaseComponent {
      * Updates the position of an element’s tooltip.
      */
     update(): void;
+
+    /**
+     * Gives a way to change the tooltip’s content after its initialization.
+     */
+    setContent(content?: any): void;
 }
 
 declare namespace Tooltip {
@@ -328,6 +333,7 @@ declare namespace Tooltip {
             | 'disable'
             | 'toggleEnabled'
             | 'update'
+            | 'setContent'
             | 'dispose',
     ) => JQuery;
 }
