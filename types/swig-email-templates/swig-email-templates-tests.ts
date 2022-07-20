@@ -8,9 +8,9 @@ templates.generateText('templatePath', {}, 'html', () => {});
 templates.generateSubject('templatePath', {}, () => {});
 templates.rewriteUrls(jQuery, () => {});
 templates.render('templatePath', {}, () => {});
-(async function () {
+(async () => {
   const { html, text, subject } = await templates.render('templatePath', {});
-}());
+})();
 
 withOptions.generateText('templatePath', {}, 'html', () => {});
 withOptions.generateSubject('templatePath', {}, () => { });
