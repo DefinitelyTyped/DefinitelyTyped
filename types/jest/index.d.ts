@@ -264,7 +264,7 @@ declare namespace jest {
      * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
      * This only works with jest-circus!
      */
-    function retryTimes(numRetries: number): typeof jest;
+    function retryTimes(numRetries: number, options?: { logErrorsBeforeRetry?: boolean }): typeof jest;
     /**
      * Exhausts tasks queued by setImmediate().
      * > Note: This function is only available when using modern fake timers
@@ -470,6 +470,12 @@ declare namespace jest {
          * Only runs this test in the current file.
          */
         only: It;
+        /**
+         * Mark this test as expecting to fail.
+         *
+         * Only available in the default `jest-circus` runner.
+         */
+        failing: It;
         /**
          * Skips running this test in the current file.
          */

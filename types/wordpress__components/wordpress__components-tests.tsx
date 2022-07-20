@@ -489,7 +489,7 @@ const IconFunctionComponent = (props: { foo: number; bar: number }) => (
 // keyboard-shortcuts
 //
 const kbshortcutActionOne = () => console.log('action 1');
-const kbshortcutActionTwo = () => console.log('action 1');
+const kbshortcutActionTwo = (event: KeyboardEvent) => console.log('action 1', event);
 const kbshortcuts = {
     'mod+a': kbshortcutActionOne,
     'ctrl+shift+j': kbshortcutActionTwo,

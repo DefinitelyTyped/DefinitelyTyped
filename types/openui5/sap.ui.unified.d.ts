@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.104.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -4416,6 +4416,17 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
+     * @SINCE 1.104.0
+     *
+     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the months are also displayed in this calendar type If not set, the months are only displayed
+     * in the primary calendar type
+     *
+     * @returns Value of property `secondaryCalendarType`
+     */
+    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
      * @SINCE 1.74
      *
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
@@ -4620,6 +4631,24 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
        */
       sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
+    /**
+     * @SINCE 1.104.0
+     *
+     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the months are also displayed in this calendar type If not set, the months are only displayed
+     * in the primary calendar type
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSecondaryCalendarType(
+      /**
+       * New value for property `secondaryCalendarType`
+       */
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
+    ): this;
   }
 
   export interface $MonthPickerSettings extends $ControlSettings {
@@ -4657,6 +4686,17 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * is used.
      */
     primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.104.0
+     *
+     * If set, the months are also displayed in this calendar type If not set, the months are only displayed
+     * in the primary calendar type
+     */
+    secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
       | PropertyBindingInfo
       | `{${string}}`;
@@ -6491,6 +6531,17 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
+     * @SINCE 1.104.0
+     *
+     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the years are also displayed in this calendar type If not set, the years are only displayed in
+     * the primary calendar type
+     *
+     * @returns Value of property `secondaryCalendarType`
+     */
+    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
      * @SINCE 1.74
      *
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
@@ -6647,6 +6698,24 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
+     * @SINCE 1.104.0
+     *
+     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the years are also displayed in this calendar type If not set, the years are only displayed in
+     * the primary calendar type
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSecondaryCalendarType(
+      /**
+       * New value for property `secondaryCalendarType`
+       */
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
+    ): this;
+    /**
      * @deprecated (since 1.34.0) - replaced by `date` property
      *
      * Sets a new value for property {@link #getYear year}.
@@ -6730,6 +6799,17 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      * is used.
      */
     primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.104.0
+     *
+     * If set, the years are also displayed in this calendar type If not set, the years are only displayed in
+     * the primary calendar type
+     */
+    secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
       | PropertyBindingInfo
       | `{${string}}`;

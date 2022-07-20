@@ -23,7 +23,6 @@ import {
     Hippy,
     Clipboard,
     ConsoleModule,
-    // ImageBackground,
     NetworkModule,
     PixelRatio,
     WebView,
@@ -50,15 +49,26 @@ function Comp() {
     }, []);
 
     return (
-        <View>
+        <View overflow="hidden" style={{ overflow: 'hidden', collapsable: true }}>
+            <View overflow="visible" style={{ overflow: 'visible', collapsable: false }} />
             <Text>
                 'test'
                 <Text>'nested'</Text>
             </Text>
             <TextInput ref={textInput} />
             <ListView numberOfRows={1} bounces={false} />;
-            <ViewPager keyboardDismissMode="none" horizontal />;
-            <ScrollView keyboardDismissMode="none" />;
+            <ScrollView keyboardDismissMode="none">
+                <View />
+            </ScrollView>
+            <RefreshWrapper>
+                <View />
+            </RefreshWrapper>
+            <Modal visible={true}>
+                <View />
+            </Modal>
+            <ViewPager keyboardDismissMode="none" horizontal>
+                {[<View />, <View />]}
+            </ViewPager>
         </View>
     );
 }
