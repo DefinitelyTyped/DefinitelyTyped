@@ -52,6 +52,11 @@ declare namespace Autodesk {
           FIRST_OBJECT,
           LAST_OBJECT,
         }
+        enum SelectionType {
+          MIXED = 1,
+          REGULAR = 2,
+          OVERLAYED = 3
+        }
 
         enum ProgressState {
           ROOT_LOADED,
@@ -1066,6 +1071,12 @@ declare namespace Autodesk {
           constructor(viewer: Viewer3D);
         }
 
+        interface SelectionDef {
+          model: Model;
+          ids: number[];
+          selectionType?: SelectionType
+        }
+
         class Viewer3D {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
@@ -1150,6 +1161,7 @@ declare namespace Autodesk {
             isNodeVisible(node: number, model?: Model): boolean;
             explode(scale: number): void;
             getExplodeScale(): number;
+            setAggregateSelection(selection: SelectionDef[]): void;
             setQualityLevel(useSAO: boolean, useFXAA: boolean): void;
             setGhosting(value: boolean): void;
             setGroundShadow(value: boolean): void;
