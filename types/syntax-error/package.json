@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/parse5": "^6.0.3"
+        "acorn": "^7.0.0"
     }
 }
