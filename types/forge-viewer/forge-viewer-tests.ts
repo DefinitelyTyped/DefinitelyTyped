@@ -564,3 +564,9 @@ function dockingPanelsTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
     if (!(scrollContainer instanceof HTMLDivElement))
         throw new Error("Scroll container is not HTMLDivElement!");
 }
+
+function matrixSetPositionTest(): void {
+    const matrix = new THREE.Matrix4();
+
+    matrix.setPosition(new THREE.Vector3(1, 1, 1)); // $ExpectType Matrix4
+}
