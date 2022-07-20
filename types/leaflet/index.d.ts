@@ -365,7 +365,8 @@ export interface LeafletEventHandlerFnMap {
  * with an object (e.g. the user clicks on the map, causing the map to fire
  * 'click' event).
  */
-export abstract class Evented extends Class {
+// tslint:disable:strict-export-declare-modifiers
+declare class Events {
     /**
      * Adds a listener function (fn) to a particular event type of the object.
      * You can optionally specify the context of the listener (object the this
@@ -374,37 +375,37 @@ export abstract class Evented extends Class {
      */
     // tslint:disable:unified-signatures
     on(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
-        fn: LayersControlEventHandlerFn, context?: any): this;
+       fn: LayersControlEventHandlerFn, context?: any): this;
     on(type: 'layeradd' | 'layerremove',
-        fn: LayerEventHandlerFn, context?: any): this;
+       fn: LayerEventHandlerFn, context?: any): this;
     on(type: 'zoomlevelschange' | 'unload' | 'viewreset' | 'load' | 'zoomstart' |
         'movestart' | 'zoom' | 'move' | 'zoomend' | 'moveend' | 'autopanstart' |
         'dragstart' | 'drag' | 'add' | 'remove' | 'loading' | 'error' | 'update' |
         'down' | 'predrag',
-        fn: LeafletEventHandlerFn, context?: any): this;
+       fn: LeafletEventHandlerFn, context?: any): this;
     on(type: 'resize',
-        fn: ResizeEventHandlerFn, context?: any): this;
+       fn: ResizeEventHandlerFn, context?: any): this;
     on(type: 'popupopen' | 'popupclose',
-        fn: PopupEventHandlerFn, context?: any): this;
+       fn: PopupEventHandlerFn, context?: any): this;
     on(type: 'tooltipopen' | 'tooltipclose',
-        fn: TooltipEventHandlerFn, context?: any): this;
+       fn: TooltipEventHandlerFn, context?: any): this;
     on(type: 'locationerror',
-        fn: ErrorEventHandlerFn, context?: any): this;
+       fn: ErrorEventHandlerFn, context?: any): this;
     on(type: 'locationfound',
-        fn: LocationEventHandlerFn, context?: any): this;
+       fn: LocationEventHandlerFn, context?: any): this;
     on(type: 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mouseover' |
         'mouseout' | 'mousemove' | 'contextmenu' | 'preclick',
-        fn: LeafletMouseEventHandlerFn, context?: any): this;
+       fn: LeafletMouseEventHandlerFn, context?: any): this;
     on(type: 'keypress' | 'keydown' | 'keyup',
-        fn: LeafletKeyboardEventHandlerFn, context?: any): this;
+       fn: LeafletKeyboardEventHandlerFn, context?: any): this;
     on(type: 'zoomanim',
-        fn: ZoomAnimEventHandlerFn, context?: any): this;
+       fn: ZoomAnimEventHandlerFn, context?: any): this;
     on(type: 'dragend',
-        fn: DragEndEventHandlerFn, context?: any): this;
+       fn: DragEndEventHandlerFn, context?: any): this;
     on(type: 'tileunload' | 'tileloadstart' | 'tileload',
-        fn: TileEventHandlerFn, context?: any): this;
+       fn: TileEventHandlerFn, context?: any): this;
     on(type: 'tileerror',
-        fn: TileErrorEventHandlerFn, context?: any): this;
+       fn: TileErrorEventHandlerFn, context?: any): this;
     on(type: string, fn: LeafletEventHandlerFn, context?: any): this;
 
     /**
@@ -486,37 +487,37 @@ export abstract class Evented extends Class {
         'zoomanim' | 'dragend' | 'tileunload' | 'tileloadstart' | 'tileload' | 'tileerror', propagate?: boolean): boolean;
 
     listens(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
-        fn: LayersControlEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: LayersControlEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'layeradd' | 'layerremove',
-        fn: LayerEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: LayerEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'zoomlevelschange' | 'unload' | 'viewreset' | 'load' | 'zoomstart' |
         'movestart' | 'zoom' | 'move' | 'zoomend' | 'moveend' | 'autopanstart' |
         'dragstart' | 'drag' | 'add' | 'remove' | 'loading' | 'error' | 'update' |
         'down' | 'predrag',
-        fn: LeafletEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: LeafletEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'resize',
-        fn: ResizeEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: ResizeEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'popupopen' | 'popupclose',
-        fn: PopupEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: PopupEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'tooltipopen' | 'tooltipclose',
-        fn: TooltipEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: TooltipEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'locationerror',
-        fn: ErrorEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: ErrorEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'locationfound',
-        fn: LocationEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: LocationEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mouseover' |
         'mouseout' | 'mousemove' | 'contextmenu' | 'preclick',
-        fn: LeafletMouseEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: LeafletMouseEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'keypress' | 'keydown' | 'keyup',
-        fn: LeafletKeyboardEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: LeafletKeyboardEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'zoomanim',
-        fn: ZoomAnimEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: ZoomAnimEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'dragend',
-        fn: DragEndEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: DragEndEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'tileunload' | 'tileloadstart' | 'tileload',
-        fn: TileEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: TileEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'tileerror',
-        fn: TileEventHandlerFn, context?: any, propagate?: boolean): boolean;
+            fn: TileEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: string, fn: LeafletEventHandlerFn, context?: any, propagate?: boolean): boolean;
 
     /**
@@ -524,37 +525,37 @@ export abstract class Evented extends Class {
      */
     // tslint:disable:unified-signatures
     once(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
-        fn: LayersControlEventHandlerFn, context?: any): this;
+         fn: LayersControlEventHandlerFn, context?: any): this;
     once(type: 'layeradd' | 'layerremove',
-        fn: LayerEventHandlerFn, context?: any): this;
+         fn: LayerEventHandlerFn, context?: any): this;
     once(type: 'zoomlevelschange' | 'unload' | 'viewreset' | 'load' | 'zoomstart' |
         'movestart' | 'zoom' | 'move' | 'zoomend' | 'moveend' | 'autopanstart' |
         'dragstart' | 'drag' | 'add' | 'remove' | 'loading' | 'error' | 'update' |
         'down' | 'predrag',
-        fn: LeafletEventHandlerFn, context?: any): this;
+         fn: LeafletEventHandlerFn, context?: any): this;
     once(type: 'resize',
-        fn: ResizeEventHandlerFn, context?: any): this;
+         fn: ResizeEventHandlerFn, context?: any): this;
     once(type: 'popupopen' | 'popupclose',
-        fn: PopupEventHandlerFn, context?: any): this;
+         fn: PopupEventHandlerFn, context?: any): this;
     once(type: 'tooltipopen' | 'tooltipclose',
-        fn: TooltipEventHandlerFn, context?: any): this;
+         fn: TooltipEventHandlerFn, context?: any): this;
     once(type: 'locationerror',
-        fn: ErrorEventHandlerFn, context?: any): this;
+         fn: ErrorEventHandlerFn, context?: any): this;
     once(type: 'locationfound',
-        fn: LocationEventHandlerFn, context?: any): this;
+         fn: LocationEventHandlerFn, context?: any): this;
     once(type: 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mouseover' |
         'mouseout' | 'mousemove' | 'contextmenu' | 'preclick',
-        fn: LeafletMouseEventHandlerFn, context?: any): this;
+         fn: LeafletMouseEventHandlerFn, context?: any): this;
     once(type: 'keypress' | 'keydown' | 'keyup',
-        fn: LeafletKeyboardEventHandlerFn, context?: any): this;
+         fn: LeafletKeyboardEventHandlerFn, context?: any): this;
     once(type: 'zoomanim',
-        fn: ZoomAnimEventHandlerFn, context?: any): this;
+         fn: ZoomAnimEventHandlerFn, context?: any): this;
     once(type: 'dragend',
-        fn: DragEndEventHandlerFn, context?: any): this;
+         fn: DragEndEventHandlerFn, context?: any): this;
     once(type: 'tileunload' | 'tileloadstart' | 'tileload',
-        fn: TileEventHandlerFn, context?: any): this;
+         fn: TileEventHandlerFn, context?: any): this;
     once(type: 'tileerror',
-        fn: TileEventHandlerFn, context?: any): this;
+         fn: TileEventHandlerFn, context?: any): this;
     once(type: string, fn: LeafletEventHandlerFn, context?: any): this;
 
     /**
@@ -583,37 +584,37 @@ export abstract class Evented extends Class {
      */
     // tslint:disable:unified-signatures
     addEventListener(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
-        fn: LayersControlEventHandlerFn, context?: any): this;
+                     fn: LayersControlEventHandlerFn, context?: any): this;
     addEventListener(type: 'layeradd' | 'layerremove',
-        fn: LayerEventHandlerFn, context?: any): this;
+                     fn: LayerEventHandlerFn, context?: any): this;
     addEventListener(type: 'zoomlevelschange' | 'unload' | 'viewreset' | 'load' | 'zoomstart' |
         'movestart' | 'zoom' | 'move' | 'zoomend' | 'moveend' | 'autopanstart' |
         'dragstart' | 'drag' | 'add' | 'remove' | 'loading' | 'error' | 'update' |
         'down' | 'predrag',
-        fn: LeafletEventHandlerFn, context?: any): this;
+                     fn: LeafletEventHandlerFn, context?: any): this;
     addEventListener(type: 'resize',
-        fn: ResizeEventHandlerFn, context?: any): this;
+                     fn: ResizeEventHandlerFn, context?: any): this;
     addEventListener(type: 'popupopen' | 'popupclose',
-        fn: PopupEventHandlerFn, context?: any): this;
+                     fn: PopupEventHandlerFn, context?: any): this;
     addEventListener(type: 'tooltipopen' | 'tooltipclose',
-        fn: TooltipEventHandlerFn, context?: any): this;
+                     fn: TooltipEventHandlerFn, context?: any): this;
     addEventListener(type: 'locationerror',
-        fn: ErrorEventHandlerFn, context?: any): this;
+                     fn: ErrorEventHandlerFn, context?: any): this;
     addEventListener(type: 'locationfound',
-        fn: LocationEventHandlerFn, context?: any): this;
+                     fn: LocationEventHandlerFn, context?: any): this;
     addEventListener(type: 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mouseover' |
         'mouseout' | 'mousemove' | 'contextmenu' | 'preclick',
-        fn: LeafletMouseEventHandlerFn, context?: any): this;
+                     fn: LeafletMouseEventHandlerFn, context?: any): this;
     addEventListener(type: 'keypress' | 'keydown' | 'keyup',
-        fn: LeafletKeyboardEventHandlerFn, context?: any): this;
+                     fn: LeafletKeyboardEventHandlerFn, context?: any): this;
     addEventListener(type: 'zoomanim',
-        fn: ZoomAnimEventHandlerFn, context?: any): this;
+                     fn: ZoomAnimEventHandlerFn, context?: any): this;
     addEventListener(type: 'dragend',
-        fn: DragEndEventHandlerFn, context?: any): this;
+                     fn: DragEndEventHandlerFn, context?: any): this;
     addEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload',
-        fn: TileEventHandlerFn, context?: any): this;
+                     fn: TileEventHandlerFn, context?: any): this;
     addEventListener(type: 'tileerror',
-        fn: TileErrorEventHandlerFn, context?: any): this;
+                     fn: TileErrorEventHandlerFn, context?: any): this;
     addEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
 
     /**
@@ -634,37 +635,37 @@ export abstract class Evented extends Class {
      */
     // tslint:disable:unified-signatures
     removeEventListener(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
-        fn?: LayersControlEventHandlerFn, context?: any): this;
+                        fn?: LayersControlEventHandlerFn, context?: any): this;
     removeEventListener(type: 'layeradd' | 'layerremove',
-        fn?: LayerEventHandlerFn, context?: any): this;
+                        fn?: LayerEventHandlerFn, context?: any): this;
     removeEventListener(type: 'zoomlevelschange' | 'unload' | 'viewreset' | 'load' | 'zoomstart' |
         'movestart' | 'zoom' | 'move' | 'zoomend' | 'moveend' | 'autopanstart' |
         'dragstart' | 'drag' | 'add' | 'remove' | 'loading' | 'error' | 'update' |
         'down' | 'predrag',
-        fn?: LeafletEventHandlerFn, context?: any): this;
+                        fn?: LeafletEventHandlerFn, context?: any): this;
     removeEventListener(type: 'resize',
-        fn?: ResizeEventHandlerFn, context?: any): this;
+                        fn?: ResizeEventHandlerFn, context?: any): this;
     removeEventListener(type: 'popupopen' | 'popupclose',
-        fn?: PopupEventHandlerFn, context?: any): this;
+                        fn?: PopupEventHandlerFn, context?: any): this;
     removeEventListener(type: 'tooltipopen' | 'tooltipclose',
-        fn?: TooltipEventHandlerFn, context?: any): this;
+                        fn?: TooltipEventHandlerFn, context?: any): this;
     removeEventListener(type: 'locationerror',
-        fn?: ErrorEventHandlerFn, context?: any): this;
+                        fn?: ErrorEventHandlerFn, context?: any): this;
     removeEventListener(type: 'locationfound',
-        fn?: LocationEventHandlerFn, context?: any): this;
+                        fn?: LocationEventHandlerFn, context?: any): this;
     removeEventListener(type: 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mouseover' |
         'mouseout' | 'mousemove' | 'contextmenu' | 'preclick',
-        fn?: LeafletMouseEventHandlerFn, context?: any): this;
+                        fn?: LeafletMouseEventHandlerFn, context?: any): this;
     removeEventListener(type: 'keypress' | 'keydown' | 'keyup',
-        fn?: LeafletKeyboardEventHandlerFn, context?: any): this;
+                        fn?: LeafletKeyboardEventHandlerFn, context?: any): this;
     removeEventListener(type: 'zoomanim',
-        fn?: ZoomAnimEventHandlerFn, context?: any): this;
+                        fn?: ZoomAnimEventHandlerFn, context?: any): this;
     removeEventListener(type: 'dragend',
-        fn?: DragEndEventHandlerFn, context?: any): this;
+                        fn?: DragEndEventHandlerFn, context?: any): this;
     removeEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload',
-        fn?: TileEventHandlerFn, context?: any): this;
+                        fn?: TileEventHandlerFn, context?: any): this;
     removeEventListener(type: 'tileerror',
-        fn?: TileErrorEventHandlerFn, context?: any): this;
+                        fn?: TileErrorEventHandlerFn, context?: any): this;
     removeEventListener(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
@@ -689,37 +690,37 @@ export abstract class Evented extends Class {
      */
     // tslint:disable:unified-signatures
     addOneTimeEventListener(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
-        fn: LayersControlEventHandlerFn, context?: any): this;
+                            fn: LayersControlEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'layeradd' | 'layerremove',
-        fn: LayerEventHandlerFn, context?: any): this;
+                            fn: LayerEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'zoomlevelschange' | 'unload' | 'viewreset' | 'load' | 'zoomstart' |
         'movestart' | 'zoom' | 'move' | 'zoomend' | 'moveend' | 'autopanstart' |
         'dragstart' | 'drag' | 'add' | 'remove' | 'loading' | 'error' | 'update' |
         'down' | 'predrag',
-        fn: LeafletEventHandlerFn, context?: any): this;
+                            fn: LeafletEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'resize',
-        fn: ResizeEventHandlerFn, context?: any): this;
+                            fn: ResizeEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'popupopen' | 'popupclose',
-        fn: PopupEventHandlerFn, context?: any): this;
+                            fn: PopupEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'tooltipopen' | 'tooltipclose',
-        fn: TooltipEventHandlerFn, context?: any): this;
+                            fn: TooltipEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'locationerror',
-        fn: ErrorEventHandlerFn, context?: any): this;
+                            fn: ErrorEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'locationfound',
-        fn: LocationEventHandlerFn, context?: any): this;
+                            fn: LocationEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mouseover' |
         'mouseout' | 'mousemove' | 'contextmenu' | 'preclick',
-        fn: LeafletMouseEventHandlerFn, context?: any): this;
+                            fn: LeafletMouseEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'keypress' | 'keydown' | 'keyup',
-        fn: LeafletKeyboardEventHandlerFn, context?: any): this;
+                            fn: LeafletKeyboardEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'zoomanim',
-        fn: ZoomAnimEventHandlerFn, context?: any): this;
+                            fn: ZoomAnimEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'dragend',
-        fn: DragEndEventHandlerFn, context?: any): this;
+                            fn: DragEndEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload',
-        fn: TileEventHandlerFn, context?: any): this;
+                            fn: TileEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'tileerror',
-        fn: TileErrorEventHandlerFn, context?: any): this;
+                            fn: TileErrorEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
 
     /**
@@ -746,6 +747,19 @@ export abstract class Evented extends Class {
      */
     hasEventListeners(type: string): boolean;
 }
+
+// tslint:disable:strict-export-declare-modifiers
+declare class MixinType {
+    Events: Events;
+}
+
+export const Mixin: MixinType;
+
+/**
+ * Base class of Leaflet classes supporting events
+ */
+export abstract class Evented extends Class implements Events {}
+export interface Evented extends Class, Events {}
 
 export interface DraggableOptions {
     /**
