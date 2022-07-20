@@ -57,8 +57,18 @@ function Comp() {
             </Text>
             <TextInput ref={textInput} />
             <ListView numberOfRows={1} bounces={false} />;
-            <ViewPager keyboardDismissMode="none" horizontal />;
-            <ScrollView keyboardDismissMode="none" />;
+            <ScrollView keyboardDismissMode="none">
+                <View />
+            </ScrollView>
+            <RefreshWrapper>
+                <View />
+            </RefreshWrapper>
+            <Modal visible={true}>
+                <View />
+            </Modal>
+            <ViewPager keyboardDismissMode="none" horizontal>
+                {[<View />, <View />]}
+            </ViewPager>
         </View>
     );
 }
