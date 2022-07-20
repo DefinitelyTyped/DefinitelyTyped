@@ -20,5 +20,7 @@ ES2018.PromiseResolve(FakePromise, any);
 ES2018.PromiseResolve(FakePromise, '');
 
 // Removed in ES2018:
-ES2018.EnumerableOwnProperties; // $ExpectError
-ES2018.IsPropertyDescriptor; // $ExpectError
+// @ts-expect-error
+ES2018.EnumerableOwnProperties;
+// @ts-expect-error
+ES2018.IsPropertyDescriptor;

@@ -125,7 +125,8 @@ function sample3() {
     }
   });
 
-  canvas.on('selection:cleared', () => {
+  canvas.on('selection:cleared', (e) => {
+    const selectedObjs = e.selected;
     fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = true; });
   });
 
@@ -737,6 +738,7 @@ function sample8() {
   }
 
   canvas.on('selection:cleared', e => {
+    const selectedObjs = e.selected;
     for (let i = activeObjectButtons.length; i--; ) {
       activeObjectButtons[i];
     }
@@ -1081,4 +1083,23 @@ function sample17() {
     width: 3,
     height: 4,
   });
+}
+
+function sample18() {
+  const canvas = new fabric.Canvas('c');
+  canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+  canvas.freeDrawingBrush.width = 2;
+  canvas.freeDrawingBrush.decimate = 2;
+}
+
+function testIntersection() {
+  const a1 = new fabric.Point(50, 400);
+  const a2 = new fabric.Point(250, 40);
+  const b1 = new fabric.Point(50, 94);
+  const b2 = new fabric.Point(250, 70);
+  const intersect = fabric.Intersection.intersectLineLine(a1, a2, b1, b2);
+  // $ExpectType string
+  intersect.status;
+  // $ExpectType Point[]
+  intersect.points;
 }

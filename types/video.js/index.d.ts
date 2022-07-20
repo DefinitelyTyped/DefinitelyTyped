@@ -1756,8 +1756,6 @@ declare namespace videojs {
          */
         options(obj: any): any;
 
-        played(): TimeRanges;
-
         /**
          * Return the {@link Player} that the `Component` has attached to.
          *
@@ -4261,6 +4259,8 @@ declare namespace videojs {
             plugin: string;
         }
     }
+
+    type Preload = 'auto' | 'metadata' | 'none';
 
     interface ProgressControl extends Component {
         /**
@@ -6804,7 +6804,7 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return A time range object that represents all the increments of time that have
      *         been played.
      */
-    played(): any;
+    played(): TimeRanges;
 
     /**
      * Set or unset the playsinline attribute.
@@ -7137,7 +7137,7 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     noUITitleAttributes?: boolean | undefined;
     plugins?: Partial<VideoJsPlayerPluginOptions> | undefined;
     poster?: string | undefined;
-    preload?: string | undefined;
+    preload?: videojs.Preload | undefined;
     responsive?: boolean | undefined;
     sourceOrder?: boolean | undefined;
     sources?: videojs.Tech.SourceObject[] | undefined;

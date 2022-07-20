@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.103.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -1957,7 +1957,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
        * The item to remove or its index or id
        */
       vItem: int | string | IAvatar
-    ): IAvatar;
+    ): IAvatar | null;
     /**
      * Sets the aggregated {@link #getOverflowButton overflowButton}.
      *
@@ -2536,7 +2536,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
        * The item to remove or its index or id
        */
       vItem: int | string | IBreadcrumbsItem
-    ): IBreadcrumbsItem;
+    ): IBreadcrumbsItem | null;
     /**
      * Sets a new value for property {@link #getDesign design}.
      *
@@ -3136,7 +3136,7 @@ declare module "sap/ui/webc/main/BusyIndicator" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getActive active}.
      *
@@ -4374,7 +4374,7 @@ declare module "sap/ui/webc/main/Calendar" {
        * The date to remove or its index or id
        */
       vDate: int | string | ICalendarDate
-    ): ICalendarDate;
+    ): ICalendarDate | null;
     /**
      * Sets a new value for property {@link #getFormatPattern formatPattern}.
      *
@@ -4991,7 +4991,7 @@ declare module "sap/ui/webc/main/Card" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
      *
@@ -5002,7 +5002,7 @@ declare module "sap/ui/webc/main/Card" {
        * The header to remove or its index or id
        */
       vHeader: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -5421,7 +5421,7 @@ declare module "sap/ui/webc/main/CardHeader" {
        * The action to remove or its index or id
        */
       vAction: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes all the controls from the aggregation {@link #getAction action}.
      *
@@ -5448,7 +5448,7 @@ declare module "sap/ui/webc/main/CardHeader" {
        * The avatar to remove or its index or id
        */
       vAvatar: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getInteractive interactive}.
      *
@@ -5918,7 +5918,7 @@ declare module "sap/ui/webc/main/Carousel" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getArrowsPlacement arrowsPlacement}.
      *
@@ -7040,7 +7040,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
        * The color to remove or its index or id
        */
       vColor: int | string | IColorPaletteItem
-    ): IColorPaletteItem;
+    ): IColorPaletteItem | null;
   }
 
   export interface $ColorPaletteSettings extends $WebComponentSettings {
@@ -7483,7 +7483,7 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
        * The color to remove or its index or id
        */
       vColor: int | string | IColorPaletteItem
-    ): IColorPaletteItem;
+    ): IColorPaletteItem | null;
     /**
      * Sets a new value for property {@link #getDefaultColor defaultColor}.
      *
@@ -8393,7 +8393,7 @@ declare module "sap/ui/webc/main/ComboBox" {
        * The item to remove or its index or id
        */
       vItem: int | string | IComboBoxItem
-    ): IComboBoxItem;
+    ): IComboBoxItem | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -9258,7 +9258,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -13133,7 +13133,7 @@ declare module "sap/ui/webc/main/Dialog" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a footer from the aggregation {@link #getFooter footer}.
      *
@@ -13144,7 +13144,7 @@ declare module "sap/ui/webc/main/Dialog" {
        * The footer to remove or its index or id
        */
       vFooter: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
      *
@@ -13155,7 +13155,7 @@ declare module "sap/ui/webc/main/Dialog" {
        * The header to remove or its index or id
        */
       vHeader: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -13824,7 +13824,7 @@ declare module "sap/ui/webc/main/FileUploader" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAccept accept}.
      *
@@ -15587,7 +15587,7 @@ declare module "sap/ui/webc/main/Input" {
        * The icon to remove or its index or id
        */
       vIcon: int | string | IIcon
-    ): IIcon;
+    ): IIcon | null;
     /**
      * Removes a suggestionItem from the aggregation {@link #getSuggestionItems suggestionItems}.
      *
@@ -15598,7 +15598,7 @@ declare module "sap/ui/webc/main/Input" {
        * The suggestionItem to remove or its index or id
        */
       vSuggestionItem: int | string | IInputSuggestionItem
-    ): IInputSuggestionItem;
+    ): IInputSuggestionItem | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -17846,7 +17846,7 @@ declare module "sap/ui/webc/main/List" {
        * The header to remove or its index or id
        */
       vHeader: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -17857,7 +17857,7 @@ declare module "sap/ui/webc/main/List" {
        * The item to remove or its index or id
        */
       vItem: int | string | IListItem
-    ): IListItem;
+    ): IListItem | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -18535,7 +18535,7 @@ declare module "sap/ui/webc/main/Menu" {
        * The item to remove or its index or id
        */
       vItem: int | string | IMenuItem
-    ): IMenuItem;
+    ): IMenuItem | null;
     /**
      * Sets a new value for property {@link #getHeaderText headerText}.
      *
@@ -18790,7 +18790,7 @@ declare module "sap/ui/webc/main/MenuItem" {
        * The item to remove or its index or id
        */
       vItem: int | string | IMenuItem
-    ): IMenuItem;
+    ): IMenuItem | null;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -19936,7 +19936,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
        * The item to remove or its index or id
        */
       vItem: int | string | IMultiComboBoxItem
-    ): IMultiComboBoxItem;
+    ): IMultiComboBoxItem | null;
     /**
      * Sets a new value for property {@link #getAllowCustomValues allowCustomValues}.
      *
@@ -21412,7 +21412,7 @@ declare module "sap/ui/webc/main/MultiInput" {
        * The icon to remove or its index or id
        */
       vIcon: int | string | IIcon
-    ): IIcon;
+    ): IIcon | null;
     /**
      * Removes a suggestionItem from the aggregation {@link #getSuggestionItems suggestionItems}.
      *
@@ -21423,7 +21423,7 @@ declare module "sap/ui/webc/main/MultiInput" {
        * The suggestionItem to remove or its index or id
        */
       vSuggestionItem: int | string | IInputSuggestionItem
-    ): IInputSuggestionItem;
+    ): IInputSuggestionItem | null;
     /**
      * Removes a token from the aggregation {@link #getTokens tokens}.
      *
@@ -21434,7 +21434,7 @@ declare module "sap/ui/webc/main/MultiInput" {
        * The token to remove or its index or id
        */
       vToken: int | string | IToken
-    ): IToken;
+    ): IToken | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -22592,7 +22592,7 @@ declare module "sap/ui/webc/main/Panel" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
      *
@@ -22603,7 +22603,7 @@ declare module "sap/ui/webc/main/Panel" {
        * The header to remove or its index or id
        */
       vHeader: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -23659,7 +23659,7 @@ declare module "sap/ui/webc/main/Popover" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a footer from the aggregation {@link #getFooter footer}.
      *
@@ -23670,7 +23670,7 @@ declare module "sap/ui/webc/main/Popover" {
        * The footer to remove or its index or id
        */
       vFooter: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
      *
@@ -23681,7 +23681,7 @@ declare module "sap/ui/webc/main/Popover" {
        * The header to remove or its index or id
        */
       vHeader: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -26868,7 +26868,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a footer from the aggregation {@link #getFooter footer}.
      *
@@ -26879,7 +26879,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
        * The footer to remove or its index or id
        */
       vFooter: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
      *
@@ -26890,7 +26890,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
        * The header to remove or its index or id
        */
       vHeader: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -27557,7 +27557,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
        * The item to remove or its index or id
        */
       vItem: int | string | ISegmentedButtonItem
-    ): ISegmentedButtonItem;
+    ): ISegmentedButtonItem | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -28585,7 +28585,7 @@ declare module "sap/ui/webc/main/Select" {
        * The option to remove or its index or id
        */
       vOption: int | string | ISelectOption
-    ): ISelectOption;
+    ): ISelectOption | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -32488,7 +32488,7 @@ declare module "sap/ui/webc/main/Tab" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a subTab from the aggregation {@link #getSubTabs subTabs}.
      *
@@ -32499,7 +32499,7 @@ declare module "sap/ui/webc/main/Tab" {
        * The subTab to remove or its index or id
        */
       vSubTab: int | string | ITab
-    ): ITab;
+    ): ITab | null;
     /**
      * Sets a new value for property {@link #getAdditionalText additionalText}.
      *
@@ -33070,7 +33070,7 @@ declare module "sap/ui/webc/main/TabContainer" {
        * The item to remove or its index or id
        */
       vItem: int | string | ITab
-    ): ITab;
+    ): ITab | null;
     /**
      * Sets a new value for property {@link #getCollapsed collapsed}.
      *
@@ -34111,7 +34111,7 @@ declare module "sap/ui/webc/main/Table" {
        * The column to remove or its index or id
        */
       vColumn: int | string | ITableColumn
-    ): ITableColumn;
+    ): ITableColumn | null;
     /**
      * Removes a row from the aggregation {@link #getRows rows}.
      *
@@ -34122,7 +34122,7 @@ declare module "sap/ui/webc/main/Table" {
        * The row to remove or its index or id
        */
       vRow: int | string | ITableRow
-    ): ITableRow;
+    ): ITableRow | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -34689,7 +34689,7 @@ declare module "sap/ui/webc/main/TableCell" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
   }
 
   export interface $TableCellSettings extends $WebComponentSettings {
@@ -34904,7 +34904,7 @@ declare module "sap/ui/webc/main/TableColumn" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getDemandPopin demandPopin}.
      *
@@ -35317,7 +35317,7 @@ declare module "sap/ui/webc/main/TableRow" {
        * The cell to remove or its index or id
        */
       vCell: int | string | ITableCell
-    ): ITableCell;
+    ): ITableCell | null;
     /**
      * Sets a new value for property {@link #getSelected selected}.
      *
@@ -39296,7 +39296,7 @@ declare module "sap/ui/webc/main/Tree" {
        * The header to remove or its index or id
        */
       vHeader: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -39307,7 +39307,7 @@ declare module "sap/ui/webc/main/Tree" {
        * The item to remove or its index or id
        */
       vItem: int | string | ITreeItem
-    ): ITreeItem;
+    ): ITreeItem | null;
     /**
      * Sets a new value for property {@link #getFooterText footerText}.
      *
@@ -39789,7 +39789,7 @@ declare module "sap/ui/webc/main/TreeItem" {
        * The item to remove or its index or id
        */
       vItem: int | string | ITreeItem
-    ): ITreeItem;
+    ): ITreeItem | null;
     /**
      * Sets a new value for property {@link #getAdditionalText additionalText}.
      *

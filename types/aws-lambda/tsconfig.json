@@ -22,6 +22,7 @@
         "test/alb-tests.ts",
         "test/api-gateway-tests.ts",
         "test/appsync-resolver-tests.ts",
+        "test/autoscaling-tests.ts",
         "test/cloudformation-tests.ts",
         "test/cdk-custom-resource-tests.ts",
         "test/cloudfront-tests.ts",

@@ -40,8 +40,14 @@ async function testTasks(onfleet: Onfleet) {
     task.eta;
     task.trackingViewed;
 
-    await onfleet.tasks.get({ from: 1455072025000 });
-    await onfleet.tasks.get({ from: 145507202500, lastId: 'fake_task_id' });
+    const result = await onfleet.tasks.get({ from: 1455072025000 });
+    for (const resultTask of result.tasks) {
+        resultTask.pickupTask;
+        resultTask.eta;
+    }
+    if (result.lastId) {
+        await onfleet.tasks.get({ from: 1455072025000, lastId: result.lastId });
+    }
     await onfleet.tasks.get('fake_task_id', 'shortId');
 
     // test tasks.create

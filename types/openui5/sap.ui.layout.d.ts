@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.103.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -129,11 +129,11 @@ declare module "sap/ui/layout/library" {
      */
     ShadeD = "ShadeD",
     /**
-     * Shade E - available only for Fiori 3 theme
+     * Shade E - available only for SAP Quartz and Horizon themes
      */
     ShadeE = "ShadeE",
     /**
-     * Shade F - available only for Fiori 3 theme
+     * Shade F - available only for SAP Quartz and Horizon themes
      */
     ShadeF = "ShadeF",
   }
@@ -511,10 +511,9 @@ declare module "sap/ui/layout/BlockLayout" {
    * 			are attached directly to the blocks of the layout.
    *
    * **Note:** With version 1.48 colors can be set for each individual {@link sap.ui.layout.BlockLayoutCell
-   * cell}. There are 11 pre-defined color sets, each with 4 different shades for the Belize theme and 6 different
-   * shades for the Fiori 3 theme. The main colors of the sets can be changed in Theme Designer. To change
-   * the background of a particular cell, set `backgroundColorSet` (main color) and `backgroundColorShade`
-   * (shade).
+   * cell}. There are 11 pre-defined color sets, each with 4 different shades for the SAP Belize theme and
+   * 6 different shades for the Quartz and Horizon themes. To change the background of a particular cell,
+   * set `backgroundColorSet` (main color) and `backgroundColorShade` (shade).
    *
    * **Note:** Usage of disabled, emphasized or subtle links as titles is not recommended. Dark background
    * designs, for example Accent, are not fully supported with regards to Accessibility when used with links
@@ -689,7 +688,7 @@ declare module "sap/ui/layout/BlockLayout" {
        * The content to remove or its index or id
        */
       vContent: int | string | BlockLayoutRow
-    ): BlockLayoutRow;
+    ): BlockLayoutRow | null;
     /**
      * @SINCE 1.42
      *
@@ -873,8 +872,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * Gets current value of property {@link #getBackgroundColorSet backgroundColorSet}.
      *
-     * The Background color set from which the background color will be selected. By using background colors
-     * from the predefined sets your colors could later be customized from the Theme Designer. **Note:** backgroundColorSet
+     * The Background color set from which the background color will be selected. **Note:** backgroundColorSet
      * should be used only in combination with backgroundColorShade.
      *
      * @returns Value of property `backgroundColorSet`
@@ -887,9 +885,8 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * Gets current value of property {@link #getBackgroundColorShade backgroundColorShade}.
      *
-     * The index of the background color in the color set from which the color will be selected. By using background
-     * colors from the predefined sets your colors could later be customized from the Theme Designer. **Note:**
-     * backgroundColorShade should be used only in combination with backgroundColorSet.
+     * The index of the background color in the color set from which the color will be selected. **Note:** backgroundColorShade
+     * should be used only in combination with backgroundColorSet.
      *
      * @returns Value of property `backgroundColorShade`
      */
@@ -1007,14 +1004,13 @@ declare module "sap/ui/layout/BlockLayoutCell" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.48
      *
      * Sets a new value for property {@link #getBackgroundColorSet backgroundColorSet}.
      *
-     * The Background color set from which the background color will be selected. By using background colors
-     * from the predefined sets your colors could later be customized from the Theme Designer. **Note:** backgroundColorSet
+     * The Background color set from which the background color will be selected. **Note:** backgroundColorSet
      * should be used only in combination with backgroundColorShade.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
@@ -1034,9 +1030,8 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * Sets a new value for property {@link #getBackgroundColorShade backgroundColorShade}.
      *
-     * The index of the background color in the color set from which the color will be selected. By using background
-     * colors from the predefined sets your colors could later be customized from the Theme Designer. **Note:**
-     * backgroundColorShade should be used only in combination with backgroundColorSet.
+     * The index of the background color in the color set from which the color will be selected. **Note:** backgroundColorShade
+     * should be used only in combination with backgroundColorSet.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1168,8 +1163,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
     /**
      * @SINCE 1.48
      *
-     * The Background color set from which the background color will be selected. By using background colors
-     * from the predefined sets your colors could later be customized from the Theme Designer. **Note:** backgroundColorSet
+     * The Background color set from which the background color will be selected. **Note:** backgroundColorSet
      * should be used only in combination with backgroundColorShade.
      */
     backgroundColorSet?:
@@ -1180,9 +1174,8 @@ declare module "sap/ui/layout/BlockLayoutCell" {
     /**
      * @SINCE 1.48
      *
-     * The index of the background color in the color set from which the color will be selected. By using background
-     * colors from the predefined sets your colors could later be customized from the Theme Designer. **Note:**
-     * backgroundColorShade should be used only in combination with backgroundColorSet.
+     * The index of the background color in the color set from which the color will be selected. **Note:** backgroundColorShade
+     * should be used only in combination with backgroundColorSet.
      */
     backgroundColorShade?:
       | (BlockLayoutCellColorShade | keyof typeof BlockLayoutCellColorShade)
@@ -1632,7 +1625,7 @@ declare module "sap/ui/layout/BlockLayoutRow" {
        * The content to remove or its index or id
        */
       vContent: int | string | BlockLayoutCell
-    ): BlockLayoutCell;
+    ): BlockLayoutCell | null;
     /**
      * @SINCE 1.42
      *
@@ -2052,7 +2045,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
        * The item to remove or its index or id
        */
       vItem: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getCustomLayout customLayout}.
      *
@@ -3296,10 +3289,9 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
       aElements: Control[] | HTMLElement[]
     ): void;
     /**
-     * Should return sap.ui.layout.cssgrid.GridSettings - The active GridSettings Must be implemented by child
-     * classes
+     * Should return the active GridSettings. Must be implemented by child classes.
      */
-    getActiveGridSettings(): void;
+    getActiveGridSettings(): GridSettings;
     /**
      *
      * @returns If the Grid Layout is responsive.
@@ -4874,7 +4866,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
        * The mainContent to remove or its index or id
        */
       vMainContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a sideContent from the aggregation {@link #getSideContent sideContent}.
      *
@@ -4885,7 +4877,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
        * The sideContent to remove or its index or id
        */
       vSideContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getContainerQuery containerQuery}.
      *
@@ -5309,7 +5301,7 @@ declare module "sap/ui/layout/FixFlex" {
        * The fixContent to remove or its index or id
        */
       vFixContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getFixContentSize fixContentSize}.
      *
@@ -6392,7 +6384,7 @@ declare module "sap/ui/layout/form/Form" {
        * The formContainer to remove or its index or id
        */
       vFormContainer: int | string | FormContainer
-    ): FormContainer;
+    ): FormContainer | null;
     /**
      * @SINCE 1.20.0
      *
@@ -6842,7 +6834,7 @@ declare module "sap/ui/layout/form/FormContainer" {
        * The formElement to remove or its index or id
        */
       vFormElement: int | string | FormElement
-    ): FormElement;
+    ): FormElement | null;
     /**
      * Sets a new value for property {@link #getExpandable expandable}.
      *
@@ -7204,7 +7196,7 @@ declare module "sap/ui/layout/form/FormElement" {
        * The field to remove or its index or id
        */
       vField: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getLabel label}.
      *
@@ -8892,7 +8884,7 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
        * The fieldLabel to remove or its index or id
        */
       vFieldLabel: int | string | Label
-    ): Label;
+    ): Label | null;
     /**
      * Sets a new value for property {@link #getDelimiter delimiter}.
      *
@@ -9575,7 +9567,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
        * The content to remove or its index or id
        */
       vContent: int | string | UI5Element
-    ): UI5Element;
+    ): UI5Element | null;
     /**
      * @SINCE 1.34.0
      *
@@ -10754,7 +10746,7 @@ declare module "sap/ui/layout/Grid" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getContainerQuery containerQuery}.
      *
@@ -12239,7 +12231,7 @@ declare module "sap/ui/layout/HorizontalLayout" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAllowWrapping allowWrapping}.
      *
@@ -13827,7 +13819,7 @@ declare module "sap/ui/layout/Splitter" {
        * The contentArea to remove or its index or id
        */
       vContentArea: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Resets the size (width or height) of each of the content areas.
      */
@@ -14292,7 +14284,7 @@ declare module "sap/ui/layout/VerticalLayout" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *

@@ -5,7 +5,7 @@ import { StepMap } from 'prosemirror-transform';
 const span = new Span(0, { test: 'test' });
 
 // $ExpectType number
-span.lenght;
+span.length;
 // $ExpectType any
 span.data;
 // $ExpectType Span

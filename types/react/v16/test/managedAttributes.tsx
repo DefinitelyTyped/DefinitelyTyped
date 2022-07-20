@@ -32,10 +32,10 @@ class AnnotatedPropTypesAndDefaultProps extends React.Component<Props> {
 }
 
 const annotatedPropTypesAndDefaultPropsTests = [
-    // $ExpectError
+    // @ts-expect-error
     <AnnotatedPropTypesAndDefaultProps />, // str and extraStr are required
     <AnnotatedPropTypesAndDefaultProps extraStr='abc' str='abc' />,
-    // $ExpectError
+    // @ts-expect-error
     <AnnotatedPropTypesAndDefaultProps num='abc' />, // num type mismatch
     <AnnotatedPropTypesAndDefaultProps
         bool={true}
@@ -56,10 +56,10 @@ class UnannotatedPropTypesAndDefaultProps extends React.Component {
 }
 
 const unannotatedPropTypesAndDefaultPropsTests = [
-    // $ExpectError
+    // @ts-expect-error
     <UnannotatedPropTypesAndDefaultProps />, // stra and extraStr are required
     <UnannotatedPropTypesAndDefaultProps extraStr='abc' str='abc' />,
-    // $ExpectError
+    // @ts-expect-error
     <UnannotatedPropTypesAndDefaultProps extraBool={0} />, // extraBool type mismatch
     <UnannotatedPropTypesAndDefaultProps
         bool={true}
@@ -79,12 +79,12 @@ class AnnotatedPropTypes extends React.Component<Props> {
 }
 
 const annotatedPropTypesTests = [
-    // $ExpectError
+    // @ts-expect-error
     <AnnotatedPropTypes />, // str, extraStr, reqNode and fnc are required
     <AnnotatedPropTypes fnc={() => {}} extraStr='abc' str='abc' reqNode={<span />} />,
-    // $ExpectError
+    // @ts-expect-error
     <AnnotatedPropTypes fnc={() => {}} extraStr='abc' str='abc' reqNode={<span />} extraBool={false} />, // extraBool doesn't exist
-    // $ExpectError
+    // @ts-expect-error
     <AnnotatedPropTypes fnc={() => {}} extraStr='abc' str='abc' reqNode={<span />} num='abc' />, // num type mismatch
     <AnnotatedPropTypes
         bool={false}
@@ -103,12 +103,12 @@ class UnannotatedPropTypes extends React.Component {
 }
 
 const unannotatedPropTypesTests = [
-    // $ExpectError
+    // @ts-expect-error
     <UnannotatedPropTypes />, // str, extraStr and fnc are required
     <UnannotatedPropTypes fnc={() => {}} extraStr='abc' str='abc' />,
-    // $ExpectError
+    // @ts-expect-error
     <UnannotatedPropTypes fnc={() => {}} extraStr='abc' str='abc' reqNode={<span />} />, // reqNode doesn't exist
-    // $ExpectError
+    // @ts-expect-error
     <UnannotatedPropTypes fnc={() => {}} extraStr='abc' str='abc' reqNode={<span />} num='abc' />, // num type mismatch
     <UnannotatedPropTypes
         bool={false}
@@ -126,11 +126,11 @@ class AnnotatedDefaultProps extends React.Component<Props> {
 }
 
 const annotatedDefaultPropsTests = [
-    // $ExpectError
+    // @ts-expect-error
     <AnnotatedDefaultProps />, // str is required
     <AnnotatedDefaultProps str='abc' />,
     <AnnotatedDefaultProps str='abc' reqNode={<span />} />,
-    // $ExpectError
+    // @ts-expect-error
     <AnnotatedDefaultProps str={() => { }} />, // str type mismatch
     <AnnotatedDefaultProps
         bool={true}
@@ -162,7 +162,7 @@ function FunctionalComponent(props: Props) { return <>{props.reqNode}</>; }
 FunctionalComponent.defaultProps = defaultProps;
 
 const functionalComponentTests = [
-    // $ExpectError
+    // @ts-expect-error
     <FunctionalComponent />,
     <FunctionalComponent str='' />
 ];
@@ -173,20 +173,16 @@ const LazyMemoFunctionalComponent = React.lazy(async () => ({ default: MemoFunct
 const LazyMemoAnnotatedDefaultProps = React.lazy(async () => ({ default: MemoAnnotatedDefaultProps }));
 
 const memoTests = [
-    // $ExpectError
+    // @ts-expect-error
     <MemoFunctionalComponent />,
-    // $ExpectError won't work as long as FunctionalComponent doesn't work either
     <MemoFunctionalComponent str='abc' />,
-    // $ExpectError
+    // @ts-expect-error
     <MemoAnnotatedDefaultProps />,
     <AnnotatedDefaultProps str='abc' />,
-    // $ExpectError this doesn't work despite JSX.LibraryManagedAttributes returning the correct type
     <MemoAnnotatedDefaultProps str='abc' />,
-    // $ExpectError won't work as long as FunctionalComponent doesn't work either
     <LazyMemoFunctionalComponent str='abc' />,
-    // $ExpectError
+    // @ts-expect-error
     <LazyMemoAnnotatedDefaultProps />,
-    // $ExpectError this doesn't work despite JSX.LibraryManagedAttributes returning the correct type
     <LazyMemoAnnotatedDefaultProps str='abc' />
 ];
 
@@ -196,7 +192,7 @@ const ForwardRef = React.forwardRef((props: Props, ref: React.Ref<ComponentWithN
 ForwardRef.defaultProps = defaultProps;
 
 const forwardRefTests = [
-    // $ExpectError
+    // @ts-expect-error
     <ForwardRef />,
     <ForwardRef
         fnc={() => {}}
@@ -204,7 +200,7 @@ const forwardRefTests = [
         str=''
     />,
     // same bug as MemoFunctionalComponent and React.SFC-typed things
-    // $ExpectError
+    // @ts-expect-error
     <ForwardRef str='abc' />
 ];
 
@@ -241,7 +237,7 @@ type weakComponentTest3 = JSX.LibraryManagedAttributes<{ propTypes: typeof weakC
     bar: boolean
 } ? true : false;
 
-// $ExpectError
+// @ts-expect-error
 const weakComponentOptionalityTest1: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps3> = { foo: '' };
 const weakComponentOptionalityTest2: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps3> = { bar: true };
 
@@ -253,7 +249,7 @@ interface WeakIndexedComponentProps {
 }
 
 const weakComponentIndexedTest1: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, IndexedComponentProps> = { };
-// $ExpectError
+// @ts-expect-error
 const weakComponentIndexedTest2: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, IndexedComponentProps> = { foo: '' };
 const weakComponentIndexedTest3: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakIndexedComponentProps> = { foo: '' };
 const weakComponentIndexedTest4: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakIndexedComponentProps> = { foo: 4 };

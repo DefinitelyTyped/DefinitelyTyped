@@ -7,11 +7,14 @@ new MiniPass({objectMode: true});
 const mp = new MiniPass({encoding: 'utf8'});
 
 mp.flowing; // $ExpectType boolean
-mp.flowing = true; // $ExpectError
+// @ts-expect-error
+mp.flowing = true;
 mp.bufferLength; // $ExpectType number
-mp.bufferLength = 1; // $ExpectError
+// @ts-expect-error
+mp.bufferLength = 1;
 mp.emittedEnd; // $ExpectType boolean
-mp.emittedEnd = true; // $ExpectError
+// @ts-expect-error
+mp.emittedEnd = true;
 mp.encoding = encoding;
 mp.readable; // $ExpectType boolean
 mp.writable; // $ExpectType boolean

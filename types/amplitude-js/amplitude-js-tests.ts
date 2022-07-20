@@ -115,10 +115,7 @@ import amplitude = require('amplitude-js');
         .add('karma', 1)
         .setOnce('sign_up_date', '2016-03-31');
     identify = new amplitude.Identify().add('karma', 1).add('friends', 1);
-    identify = new amplitude.Identify()
-        .set('karma', 10)
-        .add('karma', 1)
-        .unset('karma');
+    identify = new amplitude.Identify().set('karma', 10).add('karma', 1).unset('karma');
     identify = new amplitude.Identify().append('ab-tests', 'new-user-tests');
     identify.append('some_list', [1, 2, 3, 4, 'values']);
     identify = new amplitude.Identify().prepend('ab-tests', 'new-user-tests');
@@ -141,14 +138,8 @@ import amplitude = require('amplitude-js');
         .setProductId('productIdentifier')
         .setPrice(10.99)
         .setEventProperties({ city: 'San Francisco' });
-    revenue = new amplitude.Revenue()
-        .setProductId('productIdentifier')
-        .setPrice(10.99)
-        .setQuantity(5);
-    revenue = new amplitude.Revenue()
-        .setProductId('productIdentifier')
-        .setPrice(10.99)
-        .setRevenueType('purchase');
+    revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99).setQuantity(5);
+    revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99).setRevenueType('purchase');
 
     identify = new client.Identify();
     revenue = new client.Revenue();
@@ -220,7 +211,7 @@ const defaults: amplitude.Config = {
     saveParamsReferrerOncePerSession: true,
     secureCookie: false,
     sessionTimeout: 30 * 60 * 1000,
-    sessionId: 'sessionid',
+    sessionId: Date.now(),
     storage: 'cookies',
     trackingOptions: {
         city: true,
@@ -261,6 +252,15 @@ const defaults: amplitude.Config = {
     },
 };
 
+// Checking for a Successful Library Initialization Case
+amplitude.getInstance().init('API_KEY', 'USER_ID', defaults);
+
+// Checking for a Failed Library Initialization Case
+amplitude.getInstance().init('API_KEY', 'USER_ID', {
+    // @ts-expect-error
+    sessionId: Date.now().toString(),
+});
+
 // For versions starting from 8.9.0
 // No need to call setServerUrl for sending data to Amplitude's EU servers
 amplitude.getInstance().init('API_KEY', 'USER_ID', {
@@ -269,7 +269,7 @@ amplitude.getInstance().init('API_KEY', 'USER_ID', {
 });
 
 // set transport to 'beacon' when initializing an event
-amplitude.getInstance().init('API_KEY', 'USER_ID', {transport: 'beacon'});
+amplitude.getInstance().init('API_KEY', 'USER_ID', { transport: 'beacon' });
 
 // set transport to 'beacon' after initialization
 amplitude.getInstance().setTransport('beacon');

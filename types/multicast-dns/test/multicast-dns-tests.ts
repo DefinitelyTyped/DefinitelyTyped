@@ -38,8 +38,10 @@ mdns.query([{ name: "brunhilde.local", type: "A" }], { port: 1234 }, (error, byt
     error; // $ExpectType Error | null
     bytes; // $ExpectType number | undefined
 });
-mdns.query([{ name: "brunhilde.local", type: "A" }], "A", { port: 1234 }); // $ExpectError
-mdns.query([{ name: "brunhilde.local", type: "A" }], "A", { port: 1234 }, () => {}); // $ExpectError
+// @ts-expect-error
+mdns.query([{ name: "brunhilde.local", type: "A" }], "A", { port: 1234 });
+// @ts-expect-error
+mdns.query([{ name: "brunhilde.local", type: "A" }], "A", { port: 1234 }, () => {});
 mdns.query({
     questions: [{ name: "brunhilde.local", type: "A" }],
 });
@@ -68,7 +70,7 @@ mdns.query(
         bytes; // $ExpectType number | undefined
     },
 );
-// $ExpectError
+// @ts-expect-error
 mdns.query(
     {
         questions: [{ name: "brunhilde.local", type: "A" }],
@@ -77,7 +79,7 @@ mdns.query(
     { port: 1234 },
 );
 mdns.query(
-    // $ExpectError
+    // @ts-expect-error
     {
         questions: [{ name: "brunhilde.local", type: "A" }],
     },
@@ -301,7 +303,8 @@ mdns.removeAllListeners("query");
 mdns.removeAllListeners("message");
 mdns.removeAllListeners("error");
 mdns.removeAllListeners("warning");
-mdns.removeAllListeners("foo"); // $ExpectError
+// @ts-expect-error
+mdns.removeAllListeners("foo");
 
 mdns.emit("ready");
 mdns.emit("response", (null as any) as makeMdns.ResponsePacket, (null as any) as dgram.RemoteInfo);

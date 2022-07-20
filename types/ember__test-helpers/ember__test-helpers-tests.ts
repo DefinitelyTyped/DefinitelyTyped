@@ -16,6 +16,7 @@ import {
     typeIn,
     fillIn,
     render,
+    rerender,
     find,
     findAll,
     getRootElement,
@@ -76,7 +77,8 @@ module('proper module', function (hooks) {
     });
 
     test('without custom test context, it does not "work"', function (assert) {
-        this.something; // $ExpectError
+        // @ts-expect-error
+        this.something;
         assert.notOk(true);
     });
 
@@ -126,6 +128,8 @@ test('DOM interactions', async () => {
 
     const root = getRootElement();
     await click(root);
+
+    await rerender();
 });
 
 test('routing helpers', async (assert) => {

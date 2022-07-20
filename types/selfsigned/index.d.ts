@@ -47,4 +47,5 @@ export interface ShortAttribute {
 export function generate(attrs: Array<Attribute | ShortAttribute> | null | undefined, options: Options | undefined, callback: Callback): void;
 export function generate(attrs: Array<Attribute | ShortAttribute> | null | undefined, callback: Callback): void;
 export function generate(attrs: Array<Attribute | ShortAttribute> | null | undefined, options?: Options): PEMS;
+export function generate(attrs?: Array<Attribute | ShortAttribute>): PEMS;
 export function generate(callback: Callback): void;

@@ -177,16 +177,18 @@ export interface Block<T extends Record<string, any> = {}> {
     /**
      * Block transformations.
      */
-    readonly transforms?: {
-        /**
-         * Transforms from another block type to this block type.
-         */
-        readonly from?: ReadonlyArray<Transform<T>> | undefined;
-        /**
-         * Transforms from this block type to another block type.
-         */
-        readonly to?: readonly Transform[] | undefined;
-    } | undefined;
+    readonly transforms?:
+        | {
+              /**
+               * Transforms from another block type to this block type.
+               */
+              readonly from?: ReadonlyArray<Transform<T>> | undefined;
+              /**
+               * Transforms from this block type to another block type.
+               */
+              readonly to?: readonly Transform[] | undefined;
+          }
+        | undefined;
     /**
      * Array of the names of context values to inherit from an ancestor
      * provider.
@@ -244,8 +246,12 @@ export interface BlockInstance<T extends Record<string, any> = { [k: string]: an
     readonly originalContent?: string | undefined;
 }
 
-export interface BlockDeprecation<T extends Record<string, any>>
-    extends Pick<Block<T>, 'attributes' | 'save' | 'supports'> {
+export interface BlockDeprecation<
+    // The new block attribute types.
+    N extends Record<string, any>,
+    // The old block attribute types.
+    O extends Record<string, any> = Record<string, any>,
+> extends Pick<Block<O>, 'attributes' | 'save' | 'supports'> {
     /**
      * A function which, given the attributes and inner blocks of the
      * parsed block, returns true if the deprecation can handle the block
@@ -259,8 +265,7 @@ export interface BlockDeprecation<T extends Record<string, any>>
      * expected to return either the new attributes or a tuple array of
      * [attributes, innerBlocks] compatible with the block.
      */
-    migrate?(attributes: Record<string, any>): T;
-    migrate?(attributes: Record<string, any>, innerBlocks: BlockInstance[]): [T, BlockInstance[]];
+    migrate?(attributes: O, innerBlocks: BlockInstance[]): N | [N, BlockInstance[]];
 }
 
 //
@@ -354,7 +359,8 @@ export namespace AttributeSource {
         | {
               type: 'string';
               default?: string | undefined;
-          });
+          }
+    );
 
     interface Children {
         source: 'children';
@@ -394,29 +400,31 @@ export namespace AttributeSource {
         default?: string | undefined;
     }
 
-    type None = {
-        source?: never | undefined;
-    } & (
-        | {
-              type: 'array';
-              default?: any[] | undefined;
-          }
-        | {
-              type: 'object';
-              default?: object | undefined;
-          }
-        | {
-              type: 'boolean';
-              default?: boolean | undefined;
-          }
-        | {
-              type: 'number';
-              default?: number | undefined;
-          }
-        | {
-              type: 'string';
-              default?: string | undefined;
-          })
+    type None =
+        | ({
+              source?: never | undefined;
+          } & (
+              | {
+                    type: 'array';
+                    default?: any[] | undefined;
+                }
+              | {
+                    type: 'object';
+                    default?: object | undefined;
+                }
+              | {
+                    type: 'boolean';
+                    default?: boolean | undefined;
+                }
+              | {
+                    type: 'number';
+                    default?: number | undefined;
+                }
+              | {
+                    type: 'string';
+                    default?: string | undefined;
+                }
+          ))
         | 'array'
         | 'object'
         | 'boolean'

@@ -20,4 +20,5 @@ export interface MemUsedInfo {
 
 export interface MemInfo extends MemFreeInfo, MemUsedInfo {
     freeMemPercentage: number;
+    usedMemPercentage: number;
 }

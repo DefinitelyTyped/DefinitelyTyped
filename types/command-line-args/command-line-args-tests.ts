@@ -36,5 +36,6 @@ const optionsNoCaseInsensitiveFlag = commandLineArgs(optionDefinitions, {
 
 // case insensitive option must be boolean | undefined
 const parseOptionsIncorrectType: commandLineArgs.ParseOptions = {
-    caseInsensitive: "abc", // $ExpectError
+    // @ts-expect-error
+    caseInsensitive: "abc",
 };

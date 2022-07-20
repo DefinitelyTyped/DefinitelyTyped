@@ -8,7 +8,8 @@ gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate({ d: 'D' }, { imp
 gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate({ e: 'E' }, { interpolate: /w/ })));
 gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate({ f: 'F' }, { variable: 'some-var' })));
 
-gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate({ g: 'G' }, { badOption: 'some-var' }))); // $ExpectError
+// @ts-expect-error
+gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate({ g: 'G' }, { badOption: 'some-var' })));
 
 gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate.precompile({ sourceURL: 'https://www.example.com' })));
 gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate.precompile({ escape: /x/ })));
@@ -17,4 +18,5 @@ gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate.precompile({ impo
 gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate.precompile({ interpolate: /w/ })));
 gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate.precompile({ variable: 'some-var' })));
 
-gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate.precompile({ badOption: 'some-var' }))); // $ExpectError
+// @ts-expect-error
+gulp.task('replace', () => gulp.src('files').pipe(gulpTemplate.precompile({ badOption: 'some-var' })));

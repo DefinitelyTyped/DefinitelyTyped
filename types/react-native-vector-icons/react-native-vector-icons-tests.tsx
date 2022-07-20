@@ -144,3 +144,6 @@ class OpaqueColorTest extends React.Component {
     );
   }
 }
+
+// $ExpectType string
+MaterialIcon.getFontFamily();

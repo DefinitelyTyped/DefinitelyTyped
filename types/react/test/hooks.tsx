@@ -105,7 +105,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     React.useReducer(reducer, { age: 42, name: 'The Answer' });
 
     // Implicit any
-    // $ExpectError
+    // @ts-expect-error
     const anyCallback = React.useCallback(value => {
         // $ExpectType any
         return value;
@@ -119,7 +119,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType number
     typedCallback("1");
     // Argument of type '{}' is not assignable to parameter of type 'string'.
-    // $ExpectError
+    // @ts-expect-error
     typedCallback({});
 
     function useContextuallyTypedCallback(fn: (event: Event) => string) {}
@@ -155,7 +155,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType MutableRefObject<number | undefined>
     React.useRef<number>();
     // don't just accept a potential undefined if there is a generic argument
-    // $ExpectError
+    // @ts-expect-error
     React.useRef<number>(undefined);
     // make sure once again there's no |undefined if the initial value doesn't either
     // $ExpectType MutableRefObject<number>
@@ -173,7 +173,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     const id = React.useMemo(() => Math.random(), []);
     React.useImperativeHandle(ref, () => ({ id }), [id]);
     // was named like this in the first alpha, renamed before release
-    // $ExpectError
+    // @ts-expect-error
     React.useImperativeMethods(ref, () => ({}), [id]);
 
     // make sure again this is not going to the |null convenience overload
@@ -187,7 +187,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     }, []);
     React.useEffect(() => {
         dispatch({ type: 'getOlder' });
-        // $ExpectError
+        // @ts-expect-error
         dispatch();
 
         simpleDispatch();
@@ -198,17 +198,17 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     React.useEffect(() => () => {});
     // indistinguishable
     React.useEffect(() => () => undefined);
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(() => null);
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(() => Math.random() ? null : undefined);
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(() => () => null);
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(() => () => Math.random() ? null : undefined);
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(() => async () => {});
-    // $ExpectError
+    // @ts-expect-error
     React.useEffect(async () => () => {});
 
     React.useDebugValue(id, value => value.toFixed());
@@ -217,7 +217,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // allow passing an explicit undefined
     React.useMemo(() => {}, undefined);
     // but don't allow it to be missing
-    // $ExpectError
+    // @ts-expect-error
     React.useMemo(() => {});
 
     // useState convenience overload
@@ -232,7 +232,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType undefined
     React.useState(undefined)[0];
     // make sure the generic argument does reject actual potentially undefined inputs
-    // $ExpectError
+    // @ts-expect-error
     React.useState<number>(undefined)[0];
     // make sure useState does not widen
     const [toggle, setToggle] = React.useState(false);
@@ -299,11 +299,11 @@ function useExperimentalHooks() {
 
         // The function must be synchronous, even if it can start an asynchronous update
         // it's no different from an useEffect callback in this respect
-        // $ExpectError
+        // @ts-expect-error
         startTransition(async () => {});
 
         // Unlike Effect callbacks, though, there is no possible destructor to return
-        // $ExpectError
+        // @ts-expect-error
         startTransition(() => () => {});
     };
 
@@ -319,7 +319,7 @@ function startTransitionTest() {
         transitionToPage('/');
     });
 
-    // $ExpectError
+    // @ts-expect-error
     React.startTransition(async () => {});
 }
 
@@ -351,7 +351,7 @@ function useVersion(): number {
 function useStoreWrong() {
     useSyncExternalStore(
         // no unsubscribe returned
-        // $ExpectError
+        // @ts-expect-error
         () => {
             return null;
         },
@@ -359,7 +359,7 @@ function useStoreWrong() {
     );
 
     // `string` is not assignable to `number`
-    // $ExpectError
+    // @ts-expect-error
     const version: number = useSyncExternalStore(
         () => () => {},
         () => '1',

@@ -137,11 +137,11 @@ configuration = {
             callback(new Error('Boom!'));
 
             // A null error should include external parameters
-            // $ExpectError
+            // @ts-expect-error
             callback(null);
 
             // An error should include no other parameters
-            // $ExpectError
+            // @ts-expect-error
             callback('An error', 'externalName');
 
             // Continue without externalizing the import

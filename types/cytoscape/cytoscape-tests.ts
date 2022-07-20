@@ -772,7 +772,7 @@ cy.elements().tsc();
 // TODO: compound nodes (there aren't any in current test case)
 
 // Check eles.boundingBox return type: https://js.cytoscape.org/#eles.boundingBox
-const box1 = eles.boundingBox({});
+const box1 = eles.boundingBox();
 box1.x1;
 box1.x2;
 box1.y1;
@@ -780,7 +780,7 @@ box1.y2;
 box1.w;
 box1.h;
 // Check eles.renderedBoundingBox return type: https://js.cytoscape.org/#eles.renderedBoundingBox
-const box2 = eles.renderedBoundingBox({});
+const box2 = eles.renderedBoundingBox();
 box2.x1;
 box2.x2;
 box2.y1;
@@ -818,3 +818,7 @@ const myExt: cytoscape.Ext = (cy) => {
     // $ExpectType unknown
     cy("core", "prop");
 };
+
+// Test CollectionEvents
+collSel.emit('myEvt', ['string', 1, {a: 1, b: true}]);
+collSel.trigger('myEvt', ['string', 1, {a: 1, b: true}]);

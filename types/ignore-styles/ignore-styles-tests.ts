@@ -3,8 +3,10 @@ import register, { DEFAULT_EXTENSIONS, oldHandlers, noOp, restore } from 'ignore
 register(['.css'], (module, filename) => {}); // $ExpectType void
 register(['.css']); // $ExpectType void
 register(undefined, (module, filename) => {}); // $ExpectType void
-register([1], (module, filename) => {}); // $ExpectError
-register(['.css'], 1); // $ExpectError
+// @ts-expect-error
+register([1], (module, filename) => {});
+// @ts-expect-error
+register(['.css'], 1);
 
 DEFAULT_EXTENSIONS[0]; // $ExpectType string
 

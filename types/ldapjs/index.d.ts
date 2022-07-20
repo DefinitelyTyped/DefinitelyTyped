@@ -512,7 +512,11 @@ export interface AttributeJson {
 }
 
 export class Attribute {
-    private type: string;
+    constructor(options?: {
+        type?: string,
+        vals?: any;
+    })
+    readonly type: string;
     readonly buffers: Buffer[];
 
     /**
