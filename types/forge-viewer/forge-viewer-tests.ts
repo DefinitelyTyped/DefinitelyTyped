@@ -559,3 +559,9 @@ function checkMeshAllowsBufferGeometry() {
     if (!(boxMesh.geometry instanceof THREE.BufferGeometry))
         throw new Error("Mesh geometry is not a BufferGeometry!");
 }
+
+function matrixSetPositionTest(): void {
+    const matrix = new THREE.Matrix4();
+
+    matrix.setPosition(new THREE.Vector3(1, 1, 1)); // $ExpectType Matrix4
+}
