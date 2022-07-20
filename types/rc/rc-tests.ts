@@ -1,7 +1,8 @@
 import rc = require('rc');
 
 // without any arg
-rc(); // $ExpectError
+// @ts-expect-error
+rc();
 
 // with appname arg only
 rc('appname');

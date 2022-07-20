@@ -18,8 +18,8 @@ import * as R from 'ramda';
 
     number = R.findLast(R.is(Number), unknownArray);
     number = findLastNumber(unknownArray);
-    // $ExpectError
+    // @ts-expect-error
     string = R.findLast(R.is(Number), unknownArray);
-    // $ExpectError
+    // @ts-expect-error
     string = findLastNumber(unknownArray);
 };

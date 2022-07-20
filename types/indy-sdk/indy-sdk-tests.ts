@@ -1,6 +1,8 @@
 import indy from 'indy-sdk';
 import { Buffer } from 'buffer/';
 
+indy.setLogger((level, target, message, modulePath, file, line) => {});
+
 indy.openBlobStorageWriter('default', {
     base_dir: 'dir',
     uri_pattern: 'uri_pattern',
@@ -280,6 +282,9 @@ indy.proverGetCredentials(10, {
 });
 indy.proverDeleteCredential(10, 'credId');
 indy.generateNonce();
+indy.generateWalletKey();
+indy.generateWalletKey({ seed: 'seed' });
+indy.buildAttribRequest('myDid', 'myDid', null, { endpoint: 'value' }, null);
 indy.buildGetAttribRequest(null, 'did', 'endpoint', null, null);
 indy.proverGetCredentialsForProofReq(10, proofReq);
 indy.proverSearchCredentialsForProofReq(10, proofReq, {});
@@ -365,7 +370,6 @@ indy.createRevocationState(
 // indy.refreshPoolLedger(-1)
 // indy.deletePoolLedgerConfig(pool.name)
 // indy.closePoolLedger(poolH)
-// indy.setLogger(logFn)
 // indy.setRuntimeConfig({ crypto_thread_pool_size: 4 })
 // indy.setDefaultLogger('trace')
 // indy.setKeyMetadata(10, 'verkey', 'foobar')

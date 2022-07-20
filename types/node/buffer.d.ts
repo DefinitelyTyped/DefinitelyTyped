@@ -41,7 +41,7 @@
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/buffer.js)
  */
 declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
@@ -114,7 +114,6 @@ declare module 'buffer' {
      * A [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) encapsulates immutable, raw data that can be safely shared across
      * multiple worker threads.
      * @since v15.7.0, v14.18.0
-     * @experimental
      */
     export class Blob {
         /**
@@ -763,8 +762,6 @@ declare module 'buffer' {
              * Returns a new `Buffer` that references the same memory as the original, but
              * offset and cropped by the `start` and `end` indices.
              *
-             * This is the same behavior as `buf.subarray()`.
-             *
              * This method is not compatible with the `Uint8Array.prototype.slice()`,
              * which is a superclass of `Buffer`. To copy the slice, use`Uint8Array.prototype.slice()`.
              *
@@ -780,8 +777,17 @@ declare module 'buffer' {
              *
              * console.log(buf.toString());
              * // Prints: buffer
+             *
+             * // With buf.slice(), the original buffer is modified.
+             * const notReallyCopiedBuf = buf.slice();
+             * notReallyCopiedBuf[0]++;
+             * console.log(notReallyCopiedBuf.toString());
+             * // Prints: cuffer
+             * console.log(buf.toString());
+             * // Also prints: cuffer (!)
              * ```
              * @since v0.3.0
+             * @deprecated Use `subarray` instead.
              * @param [start=0] Where the new `Buffer` will start.
              * @param [end=buf.length] Where the new `Buffer` will end (not inclusive).
              */
@@ -1948,7 +1954,7 @@ declare module 'buffer' {
              *
              * * a string, `value` is interpreted according to the character encoding in`encoding`.
              * * a `Buffer` or [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array), `value` will be used in its entirety.
-             * To compare a partial `Buffer`, use `buf.slice()`.
+             * To compare a partial `Buffer`, use `buf.subarray`.
              * * a number, `value` will be interpreted as an unsigned 8-bit integer
              * value between `0` and `255`.
              *

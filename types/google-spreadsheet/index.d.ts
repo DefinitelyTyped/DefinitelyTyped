@@ -1,4 +1,4 @@
-// Type definitions for google-spreadsheet 3.2
+// Type definitions for google-spreadsheet 3.3
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
@@ -16,7 +16,16 @@ export type CellValueType = 'boolValue' | 'stringValue' | 'numberValue' | 'error
 
 export type NumberFormatType = 'TEXT' | 'NUMBER' | 'PERCENT' | 'CURRENCY' | 'DATE' | 'TIME' | 'SCIENTIFIC';
 
-export type CellErrorType = 'ERROR' | 'NULL_VALUE' | 'DIVIDE_BY_ZERO' | 'VALUE' | 'REF' | 'NAME' | 'NUM' | 'N_A' | 'LOADING';
+export type CellErrorType =
+    | 'ERROR'
+    | 'NULL_VALUE'
+    | 'DIVIDE_BY_ZERO'
+    | 'VALUE'
+    | 'REF'
+    | 'NAME'
+    | 'NUM'
+    | 'N_A'
+    | 'LOADING';
 
 export type HorizontalAlign = 'LEFT' | 'CENTER' | 'RIGHT';
 
@@ -291,14 +300,14 @@ export interface GetAccessTokenResponse {
 }
 
 export interface OAuth2Client {
-    getAccessToken: () => Promise<GetAccessTokenResponse> ;
+    getAccessToken: () => Promise<GetAccessTokenResponse>;
 }
 
 // #endregion
 
 // #region GOOGLE SPREADSHEET CELL
 export class GoogleSpreadsheetCell implements CellFormat {
-    constructor(parentSheet: GoogleSpreadsheetWorksheet, rowIndex: number, columnIndex: number, cellData: any)
+    constructor(parentSheet: GoogleSpreadsheetWorksheet, rowIndex: number, columnIndex: number, cellData: any);
 
     // #region IMPLEMENTED PROPERTIES
     // These properties should reflect the ones in the CellFormat interface
@@ -506,13 +515,13 @@ export class GoogleSpreadsheetCell implements CellFormat {
  * - each row will have a property getter/setter available for each cell corresponding to the column header
  */
 export class GoogleSpreadsheetRow {
-    constructor(parentSheet: GoogleSpreadsheetWorksheet, rowNumber: number, data: any)
+    constructor(parentSheet: GoogleSpreadsheetWorksheet, rowNumber: number, data: any);
 
     /**
      * @description
      * This represents the properties that get loaded using the header row
      */
-    [x: string]: any
+    [x: string]: any;
 
     /**
      * @description
@@ -544,6 +553,26 @@ export class GoogleSpreadsheetRow {
 // #endregion
 
 // #region GOOGLE SPREADSHEET WORKSHEET
+
+export interface DuplicateWorksheetBasicProperties {
+    /**
+     * @description
+     * name/title for new sheet, must be unique within the document
+     */
+    title?: string;
+
+    /**
+     * @description
+     * where to insert the new sheet (zero-indexed)
+     */
+    index?: number;
+
+    /**
+     * @description
+     * unique ID to use for new sheet
+     */
+    id?: string;
+}
 
 export interface WorksheetBasicProperties {
     // #region BASIC PROPERTIES
@@ -599,7 +628,10 @@ export interface WorksheetBasicProperties {
 }
 
 export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
-    constructor(parentSpreadsheet: GoogleSpreadsheetWorksheet, { properties, data }: { properties: WorksheetBasicProperties, data?: any })
+    constructor(
+        parentSpreadsheet: GoogleSpreadsheetWorksheet,
+        { properties, data }: { properties: WorksheetBasicProperties; data?: any },
+    );
 
     // #region BASIC PROPERTIES
     // These properties should reflect the ones in the WorksheetBasicProperties interface
@@ -790,8 +822,8 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
     addRow(
         values:
             | {
-                [header: string]: string | number | boolean;
-            }
+                  [header: string]: string | number | boolean;
+              }
             | Array<string | number | boolean>,
         options?: { raw: boolean; insert: boolean },
     ): Promise<GoogleSpreadsheetRow>;
@@ -810,12 +842,12 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * - insert:?DESCRIPTION?
      */
     addRows(
-        rowValues: Array<(
+        rowValues: Array<
             | {
-                [header: string]: string | number | boolean;
-            }
+                  [header: string]: string | number | boolean;
+              }
             | Array<string | number | boolean>
-        )>,
+        >,
         options?: { raw: boolean; insert: boolean },
     ): Promise<GoogleSpreadsheetRow[]>;
 
@@ -868,13 +900,29 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      *
      * @param inheritFromBefore to inherit properties from the previous dimension
      */
-    insertDimension(columnsOrRows: WorksheetDimension, bounds: WorksheetDimensionBounds, inheritFromBefore?: boolean): Promise<void>;
+    insertDimension(
+        columnsOrRows: WorksheetDimension,
+        bounds: WorksheetDimensionBounds,
+        inheritFromBefore?: boolean,
+    ): Promise<void>;
 
     /**
      * @description
-     * clear all data/cells in the worksheet
+     * defaults to clearing the entire sheet, or pass in a specific a1 range
+     *
+     * @param a1Range optional specific range within the sheet to clear
      */
-    clear(): Promise<void>;
+    clear(a1Range?: string): Promise<void>;
+
+    /**
+     * @description
+     * clear data/cells in a range of rows, defaulting to all rows after the header row(s)
+     *
+     * @param options options to control which rows to clear:
+     * - start: A1 style row number of first row to clear, defaults to first non-header row
+     * - end: A1 style row number of last row to clear, defaults to last row
+     */
+    clearRows(options?: { start: number; end: number }): Promise<void>;
 
     /**
      * @description
@@ -1189,6 +1237,14 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param properties basic Spreadsheet document properties to set
      */
     createNewSpreadsheetDocument(properties: SpreadsheetBasicProperties): Promise<void>;
+
+    /**
+     * @description
+     * duplicate this sheet within this document
+     *
+     * @param properties all worksheet properties to set
+     */
+    duplicate(properties?: DuplicateWorksheetBasicProperties): Promise<GoogleSpreadsheetWorksheet>;
 
     // #endregion
 }

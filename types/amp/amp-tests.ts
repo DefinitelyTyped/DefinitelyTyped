@@ -6,22 +6,22 @@ decode(new Buffer('something'));
 // $ExpectType Buffer
 encode([new Buffer('something'), new Buffer('something')]);
 
-// $ExpectError
+// @ts-expect-error
 decode('');
 
-// $ExpectError
+// @ts-expect-error
 decode(1);
 
-// $ExpectError
+// @ts-expect-error
 decode();
 
-// $ExpectError
+// @ts-expect-error
 encode('');
 
-// $ExpectError
+// @ts-expect-error
 encode(1);
 
-// $ExpectError
+// @ts-expect-error
 encode();
 
 // $ExpectType Stream
@@ -40,5 +40,5 @@ new Stream({
     }
 });
 
-// $ExpectError
+// @ts-expect-error
 new Stream({somethingNoneExisting: true});

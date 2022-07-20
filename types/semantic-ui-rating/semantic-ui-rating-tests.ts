@@ -52,8 +52,10 @@ function test_rating() {
     });
     $(selector).rating(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).rating('foo'); // $ExpectError
-    $(selector).rating({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).rating('foo');
+    // @ts-expect-error
+    $(selector).rating({ foo: 'bar' });
 }
 
 import rating = require('semantic-ui-rating');

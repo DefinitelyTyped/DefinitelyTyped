@@ -5602,6 +5602,7 @@ export function unary<T, R>(fn: (a: T, ...args: any[]) => R): (a: T) => R;
  * ```
  */
 export function uncurryN<T>(len: number, fn: (a: any) => any): (...args: unknown[]) => T;
+export function uncurryN<T>(len: number): (fn: (a: any) => any) => (...args: unknown[]) => T;
 
 /**
  * Builds a list from a seed value.
@@ -6100,5 +6101,27 @@ export function zipWith<T, U, TResult>(
 export function zipWith<T, U, TResult>(
     fn: (x: T, y: U) => TResult,
 ): (list1: readonly T[], list2: readonly U[]) => TResult[];
+
+/**
+ * Creates a copy of the passed object by applying an fn function to the given prop property.
+ * The function will not be invoked, and the object will not change if its corresponding property does not exist in the object.
+ * All non-primitive properties are copied to the new object by reference.
+ *
+ * @example
+ * ```typescript
+ * const person = {name: 'James', age: 20, pets: ['dog', 'cat']};
+ * R.modify('age', R.add(1), person); //=> {name: 'James', age: 21, pets: ['dog', 'cat']}
+ * R.modify('pets', R.append('turtle'), person); //=> {name: 'James', age: 20, pets: ['dog', 'cat', 'turtle']}
+ * ```
+ */
+export function modify<T extends object, K extends keyof T, P>(
+    prop: K,
+    fn: (a: T[K]) => P,
+    obj: T,
+): Omit<T, K> & Record<K, P>;
+export function modify<K extends string, A, P>(
+    prop: K,
+    fn: (a: A) => P,
+): <T extends Record<K, A>>(target: T) => Omit<T, K> & Record<K, P>;
 
 export as namespace R;

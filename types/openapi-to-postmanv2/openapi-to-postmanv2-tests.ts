@@ -11,7 +11,8 @@ const input: Input = {type: 'string', data: ''};
                 result.output[0].type; // $ExpectType "collection"
                 result.output[0].data; // $ExpectType CollectionDefinition
             } else {
-                result.output; // $ExpectError
+                // @ts-expect-error
+                result.output;
             }
         }
     );
@@ -21,7 +22,8 @@ const input: Input = {type: 'string', data: ''};
             result.output[0].type; // $ExpectType "collection"
             result.output[0].name; // $ExpectType string
         } else {
-            result.output; // $ExpectError
+            // @ts-expect-error
+            result.output;
         }
     });
 
@@ -31,8 +33,10 @@ const input: Input = {type: 'string', data: ''};
 
     schemaPack.mergeAndValidate((err, result) => {
         if (result.result) {
-            result.output; // $ExpectError
-            result.reason; // $ExpectError
+            // @ts-expect-error
+            result.output;
+            // @ts-expect-error
+            result.reason;
         } else {
             result.reason; // $ExpectType string
         }
@@ -41,8 +45,10 @@ const input: Input = {type: 'string', data: ''};
     {
         const result = schemaPack.validate();
         if (result.result) {
-            result.output; // $ExpectError
-            result.reason; // $ExpectError
+            // @ts-expect-error
+            result.output;
+            // @ts-expect-error
+            result.reason;
         } else {
             result.reason; // $ExpectType string
         }
@@ -55,7 +61,8 @@ convert(input,
             result.output[0].type; // $ExpectType "collection"
             result.output[0].data; // $ExpectType CollectionDefinition
         } else {
-            result.output; // $ExpectError
+            // @ts-expect-error
+            result.output;
         }
     }
 );
@@ -65,7 +72,8 @@ getMetaData(input, (err, result) => {
         result.output[0].type; // $ExpectType "collection"
         result.output[0].name; // $ExpectType string
     } else {
-        result.output; // $ExpectError
+        // @ts-expect-error
+        result.output;
     }
 });
 
@@ -75,8 +83,10 @@ getMetaData(input, (err, result) => {
 
 mergeAndValidate(input, (err, result) => {
     if (result.result) {
-        result.output; // $ExpectError
-        result.reason; // $ExpectError
+        // @ts-expect-error
+        result.output;
+        // @ts-expect-error
+        result.reason;
     } else {
         result.reason; // $ExpectType string
     }
@@ -85,8 +95,10 @@ mergeAndValidate(input, (err, result) => {
 {
     const result = validate(input);
     if (result.result) {
-        result.output; // $ExpectError
-        result.reason; // $ExpectError
+        // @ts-expect-error
+        result.output;
+        // @ts-expect-error
+        result.reason;
     } else {
         result.reason; // $ExpectType string
     }

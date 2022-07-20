@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.103.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -1827,7 +1827,7 @@ declare module "sap/ui/table/Column" {
        * The multiLabel to remove or its index or id
        */
       vMultiLabel: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.21.1
      *
@@ -3373,7 +3373,7 @@ declare module "sap/ui/table/Row" {
        * The cell to remove or its index or id
        */
       vCell: int | string | Control
-    ): Control;
+    ): Control | null;
   }
 
   export interface $RowSettings extends $ElementSettings {
@@ -3546,7 +3546,7 @@ declare module "sap/ui/table/RowAction" {
        * The item to remove or its index or id
        */
       vItem: int | string | RowActionItem
-    ): RowActionItem;
+    ): RowActionItem | null;
     /**
      * Sets a new value for property {@link #getVisible visible}.
      *
@@ -6099,7 +6099,7 @@ declare module "sap/ui/table/Table" {
      * For server-based models you should consider to only make this API call when the index is within the currently
      * visible scroll area.
      *
-     * @returns The context at this index or null
+     * @returns The context at this index or `null`
      */
     getContextByIndex(
       /**
@@ -6800,7 +6800,7 @@ declare module "sap/ui/table/Table" {
        * The column to remove or its index or id
        */
       vColumn: int | string | Column
-    ): Column;
+    ): Column | null;
     /**
      * Removes a extension from the aggregation {@link #getExtension extension}.
      *
@@ -6811,7 +6811,7 @@ declare module "sap/ui/table/Table" {
        * The extension to remove or its index or id
        */
       vExtension: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.64
      *
@@ -6824,7 +6824,7 @@ declare module "sap/ui/table/Table" {
        * The plugin to remove or its index or id
        */
       vPlugin: int | string | SelectionPlugin
-    ): SelectionPlugin;
+    ): SelectionPlugin | null;
     /**
      * Removes a row from the aggregation {@link #getRows rows}.
      *
@@ -6835,7 +6835,7 @@ declare module "sap/ui/table/Table" {
        * The row to remove or its index or id
        */
       vRow: int | string | Row
-    ): Row;
+    ): Row | null;
     /**
      * Removes the given selection interval from the selection. In case of single selection, only `iIndexTo`
      * is removed from the selection.

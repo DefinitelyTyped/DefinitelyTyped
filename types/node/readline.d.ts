@@ -17,7 +17,7 @@
  *
  * ```js
  * import * as readline from 'node:readline/promises';
- * import { stdin as input, stdout as output } from 'process';
+ * import { stdin as input, stdout as output } from 'node:process';
  *
  * const rl = readline.createInterface({ input, output });
  *
@@ -30,7 +30,7 @@
  *
  * Once this code is invoked, the Node.js application will not terminate until the`readline.Interface` is closed because the interface waits for data to be
  * received on the `input` stream.
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/readline.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/readline.js)
  */
 declare module 'readline' {
     import { Abortable, EventEmitter } from 'node:events';

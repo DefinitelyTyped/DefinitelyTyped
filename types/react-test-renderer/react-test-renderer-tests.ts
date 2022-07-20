@@ -78,9 +78,9 @@ shallowRenderer.getMountedInstance();
 
 // Only synchronous, void callbacks are acceptable for act()
 act(() => {});
-// $ExpectError
+// @ts-expect-error
 act(() => null);
-// $ExpectError
+// @ts-expect-error
 Promise.resolve(act(() => {}));
 
 // async act is now acceptable in React 16.9,
@@ -92,6 +92,6 @@ void (async () => {
 
     await act(async () => {});
     await act(async () => undefined);
-    // $ExpectError
+    // @ts-expect-error
     await act(async () => null);
 })();

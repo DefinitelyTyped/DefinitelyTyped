@@ -4150,7 +4150,7 @@ export interface WebDriverProtocolCommandContexts {
      * }
      */
     frame(
-        frameId?: WebElement | number | null,
+        frameId?: WebElement | string | number | null,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
 

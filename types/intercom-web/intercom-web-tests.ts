@@ -136,5 +136,5 @@ intercomSettings = {
     custom_domain: null,
 };
 
-// $ExpectError
+// @ts-expect-error
 Intercom('update', { some: { value: 'invalid properties' } });

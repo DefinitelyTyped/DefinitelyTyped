@@ -1,4 +1,4 @@
-// Type definitions for @ember/test-helpers 2.6
+// Type definitions for @ember/test-helpers 2.8
 // Project: https://github.com/emberjs/ember-test-helpers
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
@@ -57,7 +57,7 @@ export { visit, currentRouteName, currentURL } from '@ember/test-helpers/setup-a
 
 // Rendering Helpers
 
-export { render, clearRender } from '@ember/test-helpers/setup-rendering-context';
+export { render, rerender, clearRender } from '@ember/test-helpers/setup-rendering-context';
 
 // Wait Helpers
 

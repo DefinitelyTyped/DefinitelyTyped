@@ -40,27 +40,36 @@ function TestClassComponents() {
     C.propTypes.x;
     C.prototype.getA();
 
-    C.propTypes.n; // $ExpectError
-    C.defaultProps; // $ExpectError
-    C.prototype.getB(); // $ExpectError
+    // @ts-expect-error
+    C.propTypes.n;
+    // @ts-expect-error
+    C.defaultProps;
+    // @ts-expect-error
+    C.prototype.getB();
 
     <C x={1} />;
 
     const CWithType: hoistNonReactStatics.NonReactStatics<typeof B> = C;
 
-    CWithType.propTypes; // $ExpectError
-    CWithType.defaultProps; // $ExpectError
-    CWithType.prototype.getB(); // $ExpectError
+    // @ts-expect-error
+    CWithType.propTypes;
+    // @ts-expect-error
+    CWithType.defaultProps;
+    // @ts-expect-error
+    CWithType.prototype.getB();
 
     const D = hoistNonReactStatics(A, B, { a: true, b: true });
 
     D.a;
-    D.b; // $ExpectError
+    // @ts-expect-error
+    D.b;
 
     const DWithType: hoistNonReactStatics.NonReactStatics<typeof B, { a: true; b: true }> = D;
-    const DWithTypeError: hoistNonReactStatics.NonReactStatics<typeof B> = D; // $ExpectError
+    // @ts-expect-error
+    const DWithTypeError: hoistNonReactStatics.NonReactStatics<typeof B> = D;
 
-    DWithType.b; // $ExpectError
+    // @ts-expect-error
+    DWithType.b;
 }
 
 // NOTE: We use Object.assign() to assign statics to functional components as a
@@ -96,25 +105,32 @@ function TestFunctionalComponents() {
     C.a !== C.b;
 
     C.propTypes.x;
-    C.propTypes.n; // $ExpectError
-    C.defaultProps; // $ExpectError
+    // @ts-expect-error
+    C.propTypes.n;
+    // @ts-expect-error
+    C.defaultProps;
 
     <C x={1} />;
 
     const CWithType: hoistNonReactStatics.NonReactStatics<typeof BWithStatics> = C;
 
-    CWithType.propTypes; // $ExpectError
-    CWithType.defaultProps; // $ExpectError
+    // @ts-expect-error
+    CWithType.propTypes;
+    // @ts-expect-error
+    CWithType.defaultProps;
 
     const D = hoistNonReactStatics(AWithStatics, BWithStatics, { a: true, b: true });
 
     D.a;
-    D.b; // $ExpectError
+    // @ts-expect-error
+    D.b;
 
     const DWithType: hoistNonReactStatics.NonReactStatics<typeof BWithStatics, { a: true; b: true }> = D;
-    const DWithTypeError: hoistNonReactStatics.NonReactStatics<typeof BWithStatics> = D; // $ExpectError
+    // @ts-expect-error
+    const DWithTypeError: hoistNonReactStatics.NonReactStatics<typeof BWithStatics> = D;
 
-    DWithType.b; // $ExpectError
+    // @ts-expect-error
+    DWithType.b;
 }
 
 function TestMemoComponents() {
@@ -147,25 +163,32 @@ function TestMemoComponents() {
     C.a !== C.b;
 
     C.propTypes.x;
-    C.propTypes.n; // $ExpectError
-    C.defaultProps; // $ExpectError
+    // @ts-expect-error
+    C.propTypes.n;
+    // @ts-expect-error
+    C.defaultProps;
 
     <C x={1} />;
 
     const CWithType: hoistNonReactStatics.NonReactStatics<typeof BWithStatics> = C;
 
-    CWithType.propTypes; // $ExpectError
-    CWithType.defaultProps; // $ExpectError
+    // @ts-expect-error
+    CWithType.propTypes;
+    // @ts-expect-error
+    CWithType.defaultProps;
 
     const D = hoistNonReactStatics(AWithStatics, BWithStatics, { a: true, b: true });
 
     D.a;
-    D.b; // $ExpectError
+    // @ts-expect-error
+    D.b;
 
     const DWithType: hoistNonReactStatics.NonReactStatics<typeof BWithStatics, { a: true; b: true }> = D;
-    const DWithTypeError: hoistNonReactStatics.NonReactStatics<typeof BWithStatics> = D; // $ExpectError
+    // @ts-expect-error
+    const DWithTypeError: hoistNonReactStatics.NonReactStatics<typeof BWithStatics> = D;
 
-    DWithType.b; // $ExpectError
+    // @ts-expect-error
+    DWithType.b;
 }
 
 function TestForwardRefComponents() {
@@ -200,23 +223,30 @@ function TestForwardRefComponents() {
     C.a !== C.b;
 
     C.propTypes.x;
-    C.propTypes.n; // $ExpectError
-    C.defaultProps; // $ExpectError
+    // @ts-expect-error
+    C.propTypes.n;
+    // @ts-expect-error
+    C.defaultProps;
 
     <C x={1} />;
 
     const CWithType: hoistNonReactStatics.NonReactStatics<typeof BWithStatics> = C;
 
-    CWithType.propTypes; // $ExpectError
-    CWithType.defaultProps; // $ExpectError
+    // @ts-expect-error
+    CWithType.propTypes;
+    // @ts-expect-error
+    CWithType.defaultProps;
 
     const D = hoistNonReactStatics(AWithStatics, BWithStatics, { a: true, b: true });
 
     D.a;
-    D.b; // $ExpectError
+    // @ts-expect-error
+    D.b;
 
     const DWithType: hoistNonReactStatics.NonReactStatics<typeof BWithStatics, { a: true; b: true }> = D;
-    const DWithTypeError: hoistNonReactStatics.NonReactStatics<typeof BWithStatics> = D; // $ExpectError
+    // @ts-expect-error
+    const DWithTypeError: hoistNonReactStatics.NonReactStatics<typeof BWithStatics> = D;
 
-    DWithType.b; // $ExpectError
+    // @ts-expect-error
+    DWithType.b;
 }
