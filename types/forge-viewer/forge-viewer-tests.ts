@@ -574,3 +574,20 @@ function checkColorGetHexString() {
         throw new Error("Failed to get color hex string");
 }
 
+function checkColorAsMaterialCreationParameter() {
+    const color = new THREE.Color(5, 128, 57);
+
+    const materials = [
+        new THREE.MeshBasicMaterial({ color }),
+        new THREE.LineBasicMaterial({ color }),
+        new THREE.LineDashedMaterial({ color }),
+        new THREE.MeshLambertMaterial({ color }),
+        new THREE.MeshPhongMaterial({ color }),
+        new THREE.MeshStandardMaterial({ color })
+    ];
+
+    for (const material of materials) {
+        if (!material.color.equals(color))
+            throw new Error("Failed to instantiate material with color object");
+    }
+}
