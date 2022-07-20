@@ -565,3 +565,12 @@ function checkColorEquals() {
         throw new Error("Colors must not be equal");
 }
 
+function checkColorGetHexString() {
+    const color = new THREE.Color(255, 127, 39);
+
+    color.getHexString(); // $ExpectType string
+
+    if (color.getHexString() !== "805827")
+        throw new Error("Failed to get color hex string");
+}
+
