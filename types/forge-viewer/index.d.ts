@@ -1136,7 +1136,7 @@ declare namespace Autodesk {
             getSelectionCount(): number;
             setSelectionMode(mode: number): void;
             getSelection(): number[];
-            getAggregateSelection(callback?: (model: Model, dbId: number) => void): any[];
+            getAggregateSelection(callback?: (model: Model, dbId: number) => void): { model: Model, selection: number[] }[];
             getAggregateIsolation(): any[];
             getAggregateHiddenNodes(): any[];
             getAllModels(): Model[];
