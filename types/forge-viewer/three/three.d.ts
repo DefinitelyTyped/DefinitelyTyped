@@ -1127,7 +1127,7 @@ declare namespace THREE {
 
     class Mesh extends Object3D {
         drawMode: TrianglesDrawModes;
-        geometry: Geometry;
+        geometry: Geometry | BufferGeometry;
         material: Material;
 
         constructor(geometry?: Geometry | BufferGeometry, material?: Material);
