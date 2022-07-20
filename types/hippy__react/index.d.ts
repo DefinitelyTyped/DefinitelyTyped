@@ -1,4 +1,4 @@
-// Type definitions for @hippy/react 2.11
+// Type definitions for @hippy/react 2.13
 // Project: http://hippyjs.org
 // Definitions by: zeroyu <https://github.com/zerosrat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -187,7 +187,7 @@ interface Transform {
 }
 
 interface ViewStyle {
-    collapsable?: false;
+    collapsable?: boolean;
     backgroundColor?: string | number;
     backgroundImage?: string;
     backgroundSize?: string;

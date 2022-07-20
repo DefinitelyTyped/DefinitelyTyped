@@ -23,7 +23,6 @@ import {
     Hippy,
     Clipboard,
     ConsoleModule,
-    // ImageBackground,
     NetworkModule,
     PixelRatio,
     WebView,
@@ -50,7 +49,8 @@ function Comp() {
     }, []);
 
     return (
-        <View>
+        <View overflow="hidden" style={{ overflow: 'hidden', collapsable: true }}>
+            <View overflow="visible" style={{ overflow: 'visible', collapsable: false }} />
             <Text>
                 'test'
                 <Text>'nested'</Text>
