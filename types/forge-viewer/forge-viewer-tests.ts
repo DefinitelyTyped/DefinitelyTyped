@@ -550,3 +550,18 @@ function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {
         });
     });
 }
+
+function checkColorEquals() {
+    const color1 = new THREE.Color(255, 127, 39);
+    const color2 = new THREE.Color(255, 127, 39);
+    const color3 = new THREE.Color(128, 128, 255);
+
+    color1.equals(color2); // $ExpectType boolean
+
+    if (!color1.equals(color2))
+        throw new Error("Colors must be equal");
+
+    if (color1.equals(color3))
+        throw new Error("Colors must not be equal");
+}
+
