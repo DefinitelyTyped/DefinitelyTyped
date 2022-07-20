@@ -550,3 +550,17 @@ function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {
         });
     });
 }
+
+function dockingPanelsTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const panel = new Autodesk.Viewing.UI.DockingPanel(viewer.container, "test-panel", "Panel");
+
+    panel.container.style.width = "300px";
+    panel.container.style.height = "300px";
+    panel.container.style.left = "0px";
+    panel.container.style.top = "0px";
+
+    const scrollContainer = panel.createScrollContainer({ heightAdjustment: 70 });
+
+    if (!(scrollContainer instanceof HTMLDivElement))
+        throw new Error("Scroll container is not HTMLDivElement!");
+}
