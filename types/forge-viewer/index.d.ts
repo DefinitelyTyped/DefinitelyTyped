@@ -52,6 +52,7 @@ declare namespace Autodesk {
           FIRST_OBJECT,
           LAST_OBJECT,
         }
+
         enum SelectionType {
           MIXED = 1,
           REGULAR = 2,
