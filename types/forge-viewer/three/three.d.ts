@@ -439,6 +439,7 @@ declare namespace THREE {
         setRGB(r: number, g: number, b: number): Color;
         setStyle(style: string): Color;
         getHexString(): string;
+        equals(color: Color): boolean;
     }
 
     class CylinderBufferGeometry extends BufferGeometry {
