@@ -591,3 +591,9 @@ function checkColorAsMaterialCreationParameter() {
             throw new Error("Failed to instantiate material with color object");
     }
 }
+
+function matrixSetPositionTest(): void {
+    const matrix = new THREE.Matrix4();
+
+    matrix.setPosition(new THREE.Vector3(1, 1, 1)); // $ExpectType Matrix4
+}
