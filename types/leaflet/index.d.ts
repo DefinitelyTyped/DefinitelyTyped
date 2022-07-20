@@ -1490,7 +1490,7 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
  * map (you can alternatively add it later with addData method) and
  * an options object.
  */
-export function geoJSON<P = any>(geojson?: geojson.GeoJsonObject, options?: GeoJSONOptions<P>): GeoJSON<P>;
+export function geoJSON<P = any>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P>): GeoJSON<P>;
 
 export type Zoom = boolean | 'center';
 
