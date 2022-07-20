@@ -1232,6 +1232,7 @@ declare namespace Autodesk {
             worldToClient(pt: THREE.Vector3): THREE.Vector3;
             clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
             modelHasTopology(): boolean;
+            lockSelection(dbIds: number | number[], lock: boolean, model?: Model): void;
             setSelectionColor(col: THREE.Color, selectionType: number): void;
             set2dSelectionColor(col: THREE.Color, opacity: number): void;
             setTheme(name: string): void;
