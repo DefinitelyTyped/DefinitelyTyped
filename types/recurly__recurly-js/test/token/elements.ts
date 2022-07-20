@@ -11,12 +11,12 @@ export default function elementsToken() {
     } else {
       token.id;
       token.type;
-      // @ts-expect-error
+      // $ExpectError
       token.fake;
     }
   });
 
-  // @ts-expect-error
+  // $ExpectError
   window.recurly.token(form, elements, (err, token) => {
     if (err) {
       err.message;
