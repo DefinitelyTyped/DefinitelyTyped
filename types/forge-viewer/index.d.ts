@@ -2083,7 +2083,7 @@ declare namespace Autodesk {
             addVisibilityListener(callback: (state: boolean) => void): void;
             createCloseButton(): HTMLElement;
             createFooter(): HTMLElement;
-            createScrollContainer(options: ScrollContainerOptions): void;
+            createScrollContainer(options: ScrollContainerOptions): HTMLElement;
             createTitleBar(title: string): HTMLElement;
             getContainerBoundingRect(): ClientRect;
             getContentSize(): ContentSize;
