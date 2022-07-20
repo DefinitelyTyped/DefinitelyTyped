@@ -1129,6 +1129,7 @@ declare namespace THREE {
         drawMode: TrianglesDrawModes;
         geometry: Geometry | BufferGeometry;
         material: Material;
+        dbId?: number;
 
         constructor(geometry?: Geometry | BufferGeometry, material?: Material);
 
