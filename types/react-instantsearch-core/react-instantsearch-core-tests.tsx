@@ -511,7 +511,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
 
         getQuery = () => this.props.currentRefinement;
 
-        onSubmit = (e: React.SyntheticEvent<any>) => {
+        onSubmit(e: React.SyntheticEvent<any>) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -521,9 +521,9 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
                 onSubmit(e);
             }
             return false;
-        };
+        }
 
-        onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        onChange(event: React.ChangeEvent<HTMLInputElement>) {
             const { onChange } = this.props;
             const value = event.target.value;
 
@@ -532,9 +532,9 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
             if (onChange) {
                 onChange(event);
             }
-        };
+        }
 
-        onReset = (event: React.FormEvent<HTMLFormElement>) => {
+        onReset(event: React.FormEvent<HTMLFormElement>) {
             const { refine, onReset } = this.props;
 
             refine('');
@@ -544,7 +544,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
             if (onReset) {
                 onReset(event);
             }
-        };
+        }
 
         render() {
             const { className, translate, loadingIndicator, submit, reset } = this.props;
