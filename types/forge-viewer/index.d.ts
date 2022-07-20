@@ -1075,7 +1075,7 @@ declare namespace Autodesk {
         interface SelectionDef {
           model: Model;
           ids: number[];
-          selectionType?: SelectionType
+          selectionType?: SelectionType;
         }
 
         class Viewer3D {
@@ -1148,7 +1148,7 @@ declare namespace Autodesk {
             getSelectionCount(): number;
             setSelectionMode(mode: number): void;
             getSelection(): number[];
-            getAggregateSelection(callback?: (model: Model, dbId: number) => void): { model: Model, selection: number[] }[];
+            getAggregateSelection(callback?: (model: Model, dbId: number) => void): ReadonlyArray<{ model: Model, selection: number[] }>;
             getAggregateIsolation(): any[];
             getAggregateHiddenNodes(): any[];
             getAllModels(): Model[];
