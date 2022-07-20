@@ -20,6 +20,10 @@
             "libraryName": "acme-client",
             "asOfVersion": "3.3.0"
         },
+        "acorn": {
+            "libraryName": "acorn",
+            "asOfVersion": "6.0.0"
+        },
         "actions-on-google": {
             "libraryName": "actions-on-google",
             "asOfVersion": "2.0.0"
