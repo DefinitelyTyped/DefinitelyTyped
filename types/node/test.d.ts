@@ -32,7 +32,7 @@ declare module 'node:test' {
    * @param name The name of the test, which is displayed when reporting test results.
    *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
    * @param options Configuration options for the test
-   * @param fn The function under test. This first argument to this function is a
+   * @param fn The function under test. The first argument to this function is a
    *    {@link TestContext} object. If the test uses callbacks, the callback function is
    *    passed as the second argument. Default: A no-op function.
    * @returns A {@link Promise} resolved with `undefined` once the test completes.
@@ -42,13 +42,50 @@ declare module 'node:test' {
   function test(options?: TestOptions, fn?: TestFn): Promise<void>;
   function test(fn?: TestFn): Promise<void>;
 
+  /*
+   * @since v18.6.0
+   * @param name The name of the suite, which is displayed when reporting suite results.
+   *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
+   * @param options Configuration options for the suite
+   * @param fn The function under suite. Default: A no-op function.
+   */
+  function describe (name?: string, options?: TestOptions, fn?: SuiteFn): void
+  function describe (name?: string, fn?: SuiteFn): void
+  function describe (options?: TestOptions, fn?: SuiteFn): void
+  function describe (fn?: SuiteFn): void
+
+  /*
+   * @since v18.6.0
+   * @param name The name of the test, which is displayed when reporting test results.
+   *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
+   * @param options Configuration options for the test
+   * @param fn The function under test. If the test uses callbacks, the callback function is
+   *    passed as the second argument. Default: A no-op function.
+   */
+  function it (name?: string, options?: TestOptions, fn?: ItFn): void
+  function it (name?: string, fn?: ItFn): void
+  function it (options?: TestOptions, fn?: ItFn): void
+  function it (fn?: ItFn): void
+
   /**
-   * The type of a function under test. This first argument to this function is a
+   * The type of a function under test. The first argument to this function is a
    * {@link TestContext} object. If the test uses callbacks, the callback function is passed as
    * the second argument.
    */
   type TestFn = ((t: TestContext, done: (result?: any) => void) => any);
 
+  /**
+   * The type of a function under Suite.
+   * If the test uses callbacks, the callback function is passed as an argument
+   */
+  type SuiteFn = (done: (result?: any) => void) => void;
+  
+  /**
+   * The type of a function under test. 
+   * If the test uses callbacks, the callback function is passed as an argument
+   */
+  type ItFn = (done: (result?: any) => void) => any | Promise<any>
+  
   /**
    * An instance of `TestContext` is passed to each test function in order to interact with the
    * test runner. However, the `TestContext` constructor is not exposed as part of the API.
@@ -138,5 +175,7 @@ declare module 'node:test' {
   export {
     test as default,
     test,
+    describe,
+    it,
   };
 }

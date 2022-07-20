@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { describe, it } from 'node:test';
 
 test('foo', (t) => {
   // $ExpectType TestContext
@@ -63,3 +64,57 @@ test((t) => {
 
 // @ts-expect-error
 test(1, () => {});
+
+describe('foo', () => {
+  it('it', () => {})
+});
+  
+describe('blank options', {});
+it('blank options', {});
+
+describe('options with values', {
+  concurrency: 1,
+  only: true,
+  skip: 'reason for skip',
+  todo: 'reason for todo',
+});
+
+it('options with values', {
+  concurrency: 1,
+  only: true,
+  skip: 'reason for skip',
+  todo: 'reason for todo',
+});
+
+describe('options with booleans', {
+  skip: true,
+  todo: false,
+});
+it('options with booleans', {
+  skip: true,
+  todo: false,
+});
+
+// Test callback mode
+describe((cb) => {
+  // $ExpectType (result?: any) => void
+  cb;
+  // $ExpectType void
+  cb({ x: 'anything' });
+});
+
+// Test callback mode
+it((cb) => {
+  // $ExpectType (result?: any) => void
+  cb;
+  // $ExpectType void
+  cb({ x: 'anything' });
+});
+
+
+
+// @ts-expect-error
+describe(1, () => {});
+
+// @ts-expect-error
+it(1, () => {});
