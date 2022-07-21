@@ -650,6 +650,46 @@ declare namespace jsts {
             static Z: number;
             static M: number;
         }
+
+        export interface CoordinateSequenceFactory {
+            /**
+             * Returns a CoordinateSequence based on the given array.
+             * Whether the array is copied or simply referenced is implementation-dependent.
+             * This method must handle null arguments by creating an empty sequence.
+             *
+             * @param coordinates the coordinates
+             */
+            create(coordinates: Coordinate[]): CoordinateSequence;
+            /**
+             * Creates a CoordinateSequence which is a copy of the given CoordinateSequence.
+             * This method must handle null arguments by creating an empty sequence.
+             *
+             * @param coordSeq the coordinate sequence to copy
+             */
+            create(coordSeq: CoordinateSequence): CoordinateSequence;
+            /**
+             * Creates a CoordinateSequence of the specified size and dimension.
+             * For this to be useful, the CoordinateSequence implementation must be mutable.
+             * If the requested dimension is larger than the CoordinateSequence implementation can provide,
+             * then a sequence of maximum possible dimension should be created. An error should not be thrown.
+             *
+             * @param {int} size the number of coordinates in the sequence
+             * @param {int} dimension the dimension of the coordinates in the sequence (if user-specifiable, otherwise ignored)
+             */
+            create(size: number, dimension: number): CoordinateSequence;
+            /**
+             * Creates a CoordinateSequence of the specified size and dimension with measure support.
+             * For this to be useful, the CoordinateSequence implementation must be mutable.
+             * If the requested dimension or measures are larger than the CoordinateSequence implementation can provide,
+             * then a sequence of maximum possible dimension should be created. An error should not be thrown.
+             *
+             * @param {int} size the number of coordinates in the sequence
+             * @param {int} dimension the dimension of the coordinates in the sequence (if user-specifiable, otherwise ignored)
+             * @param {int} measures the number of measures of the coordinates in the sequence (if user-specifiable, otherwise ignored)
+             */
+            create(size: number, dimension: number, measures: number): CoordinateSequence;
+        }
+
         /**
          * Defines a rectangular region of the 2D coordinate plane. It is often used to
          * represent the bounding box of a {@link Geometry}, e.g. the minimum and
