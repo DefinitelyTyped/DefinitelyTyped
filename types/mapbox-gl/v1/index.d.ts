@@ -7,6 +7,7 @@
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Marko Klopets <https://github.com/mklopets>
 //                 André Fonseca <https://github.com/amxfonseca>
+//                 Olivier Pascal <https://github.com/pascaloliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -340,7 +341,7 @@ declare namespace mapboxgl {
 
         getFilter(layer: string): any[];
 
-        setPaintProperty(layer: string, name: string, value: any, klass?: string): this;
+        setPaintProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getPaintProperty(layer: string, name: string): any;
 
