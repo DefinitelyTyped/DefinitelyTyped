@@ -325,7 +325,7 @@ declare namespace Tooltip {
         popperConfig: Partial<Popper.Options> | PopperConfigFunction | null;
     }
 
-    type SetContentFunction = () => string | Element | (() => void) | null;
+    type SetContentFunction = () => string | Element | (() => string | Element | null) | null;
 
     type jQueryInterface = (
         config?:
