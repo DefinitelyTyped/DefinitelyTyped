@@ -16,6 +16,7 @@ var precisionModel = new jsts.geom.PrecisionModel();
 var factory = new jsts.geom.GeometryFactory(precisionModel);
 var wktWriter = new jsts.io.WKTWriter(factory);
 var multiPoly: jsts.geom.MultiPolygon = new jsts.geom.MultiPolygon([poly], factory);
+var multiPoint: jsts.geom.MultiPoint = new jsts.geom.MultiPoint([p], factory);
 var multiLs: jsts.geom.MultiLineString = new jsts.geom.MultiLineString([ls], factory);
 const o: jsts.algorithm.Orientation = new jsts.algorithm.Orientation();
 const bnr: jsts.algorithm.BoundaryNodeRule = new jsts.algorithm.BoundaryNodeRule();
@@ -170,6 +171,13 @@ bool = multiLs.isClosed();
 n = p.getX();
 n = p.getY();
 p = p.reverse();
+
+bool = multiPoint.equalsExact(g, n);
+g = multiPoint.getBoundary();
+n = multiPoint.getBoundaryDimension();
+n = multiPoint.getDimension();
+str = multiPoint.getGeometryType();
+bool = multiPoint.isValid();
 
 lr = poly.getExteriorRing();
 lr = poly.getInteriorRingN(n);

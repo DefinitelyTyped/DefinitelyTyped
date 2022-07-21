@@ -2344,6 +2344,43 @@ declare namespace jsts {
             reverse(): Point;
         }
 
+        export class MultiPoint extends GeometryCollection {
+            /**
+             * @constructor
+             */
+            constructor(points: Point[], factory: GeometryFactory);
+            /**
+             * @constructor
+             *
+             * @deprecated Use GeometryFactory instead
+             */
+            constructor(points: Point[], precisionModel: PrecisionModel, SRID: number);
+            /**
+             * Returns true if the two Geometrys are exactly equal, up to a specified distance tolerance.
+             */
+            equalsExact(other: Geometry, tolerance: number): boolean;
+            /**
+             * Gets the boundary of this geometry.
+             */
+            getBoundary(): Geometry;
+            /**
+             * Returns the dimension of this Geometrys inherent boundary.
+             */
+            getBoundaryDimension(): number;
+            /**
+             * Returns the dimension of this geometry.
+             */
+            getDimension(): number;
+            /**
+             * Returns the name of this Geometry's actual class.
+             */
+            getGeometryType(): string;
+            /**
+             * Tests whether this Geometry is topologically valid, according to the OGC SFS specification.
+             */
+            isValid(): boolean;
+        }
+
         /**
          * Represents a linear polygon, which may include holes. The shell and holes
          * of the polygon are represented by {@link LinearRing}s. In a valid polygon,
