@@ -1,4 +1,4 @@
-import MapboxDraw, { DrawMode, DrawUpdateEvent, DrawCustomMode, IMapboxDrawOptions } from '@mapbox/mapbox-gl-draw';
+import MapboxDraw, { DrawCustomMode, DrawMode, DrawUpdateEvent, IMapboxDrawOptions } from '@mapbox/mapbox-gl-draw';
 
 const draw = new MapboxDraw({});
 
@@ -49,11 +49,11 @@ function callback(event: DrawUpdateEvent) {
     event.type;
 }
 
-interface ICustomMode extends DrawCustomMode<{}, {}> {
+interface CustomMode extends DrawCustomMode<{}, {}> {
     customMethod(): number;
 }
 
-const CustomMode: ICustomMode = {
+const customMode: CustomMode = {
     onClick(state, e) {
         // $ExpectType LngLat
         e.lngLat;
@@ -73,12 +73,10 @@ const CustomMode: ICustomMode = {
 const CustomModeMissingDisplayFeatures: DrawCustomMode<{}, {}> = {};
 
 const options: IMapboxDrawOptions = {
-    modes: Object.assign(
-        {
-            custom_mode: CustomMode,
-        },
-        MapboxDraw.modes,
-    ),
+    modes: {
+        custom_mode: customMode,
+        ...MapboxDraw.modes,
+    },
 };
 
 const drawWithCustomMode = new MapboxDraw(options);
