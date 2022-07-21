@@ -20,9 +20,9 @@ declare module '@wordpress/data' {
     function select(key: 'core/blocks'): typeof import('./store/selectors');
 }
 
-export type AxialDirections = 'horizontal' | 'vertical';
+export type AxialDirection = 'horizontal' | 'vertical';
 
-export type CSSDirections = 'top' | 'right' | 'bottom' | 'left';
+export type CSSDirection = 'top' | 'right' | 'bottom' | 'left';
 
 export type BlockAlignment = 'left' | 'center' | 'right' | 'wide' | 'full';
 
@@ -92,19 +92,19 @@ export interface ColorProps {
 }
 
 export interface SpacingProps {
-    blockGap: boolean | AxialDirections[];
+    blockGap: boolean | AxialDirection[];
     /**
      * Enable margin control UI for all or specified element directions
      *
      * @defaultValue false
      */
-    margin: boolean | CSSDirections[];
+    margin: boolean | CSSDirection[];
     /**
      * Enable padding control UI for all or specified element directions
      *
      * @defaultValue false
      */
-    padding: boolean | CSSDirections[];
+    padding: boolean | CSSDirection[];
 }
 
 /**
