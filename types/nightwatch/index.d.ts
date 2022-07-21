@@ -5321,7 +5321,7 @@ export interface WebDriverProtocolElements {
     element(
         using: LocateStrategy,
         value: string,
-        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<{ ELEMENT: string }>) => void,
+        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string }>) => void,
     ): this;
 
     /**
@@ -5365,7 +5365,7 @@ export interface WebDriverProtocolElements {
     elements(
         using: LocateStrategy,
         value: string,
-        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ ELEMENT: string }>>) => void,
+        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ [ELEMENT_KEY]: string }>>) => void,
     ): this;
 
     /**
@@ -5392,7 +5392,7 @@ export interface WebDriverProtocolElements {
         id: string,
         using: LocateStrategy,
         value: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ ELEMENT: string }>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string }>) => void,
     ): this;
 
     /**
@@ -5416,7 +5416,7 @@ export interface WebDriverProtocolElements {
         id: string,
         using: LocateStrategy,
         value: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ ELEMENT: string }>>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ [ELEMENT_KEY]: string }>>) => void,
     ): this;
 
     /**
@@ -5473,7 +5473,7 @@ export interface WebDriverProtocolElements {
      * }
      */
     elementActive(
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ ELEMENT: string }>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string }>) => void,
     ): this;
 }
 

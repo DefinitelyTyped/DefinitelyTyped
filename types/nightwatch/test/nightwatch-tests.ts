@@ -13,6 +13,7 @@ import {
     xdescribe,
     test,
     PageObjectModel,
+    ELEMENT_KEY,
 } from 'nightwatch';
 
 //
@@ -507,7 +508,7 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
                 callback(null);
                 return;
             }
-            this.api.elementIdText(elementResult.value.ELEMENT, textResult => {
+            this.api.elementIdText(elementResult.value[ELEMENT_KEY], textResult => {
                 if (textResult.status) {
                     callback(null);
                     return;
