@@ -1,4 +1,4 @@
-// Type definitions for nightwatch 2.0
+// Type definitions for nightwatch 2.3
 // Project: http://nightwatchjs.org
 // Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
 //                 Connor Schlesiger <https://github.com/schlesiger>
@@ -15,7 +15,7 @@
 //                 Priyansh Garg <https://github.com/garg3133>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
-// Nightwatch Version: 2.2.3
+// Nightwatch Version: 2.3.0
 
 import { WebElement, WebElementPromise, By, RelativeBy } from 'selenium-webdriver';
 import { Protocol } from 'devtools-protocol';
@@ -26,7 +26,7 @@ export const ELEMENT_KEY = 'element-6066-11e4-a52e-4f735466cecf';
 
 export interface JSON_WEB_OBJECT {
     [ELEMENT_KEY]: string;
-    getID: () => string;
+    getId: () => string;
 }
 
 export type Definition = string | ElementProperties | Element | RelativeBy;
@@ -509,12 +509,12 @@ export interface NightwatchOptions {
                * On Mac OS X, this path should reference the actual Chrome executable,
                * not just the application binary (e.g. "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").
                */
-              chrome_binary?: "";
+              chrome_binary?: '';
 
               /**
                * Sets the path to Chrome's log file. This path should exist on the machine that will launch Chrome.
                */
-              chrome_log_file?: "";
+              chrome_log_file?: '';
 
               /**
                * Configures the ChromeDriver to launch Chrome on Android via adb.
@@ -524,23 +524,23 @@ export interface NightwatchOptions {
               /**
                * Sets the path to the Edge binary to use. This path should exist on the machine that will launch Edge.
                */
-              edge_binary?: "";
+              edge_binary?: '';
 
               /**
                * Sets the path to the Edge binary to use.
                */
-              edge_log_file?: "";
+              edge_log_file?: '';
 
               /**
                * Sets the binary to use. The binary may be specified as the path to a Firefox executable or a desired release Channel. This path should exist on the machine that will launch Firefox.
                */
-              firefox_binary?: "";
+              firefox_binary?: '';
 
               /**
                * Sets the path to an existing profile to use as a template for new browser sessions.
                * This profile will be copied for each new session - changes will not be applied to the profile itself.
                */
-              firefox_profile?: "";
+              firefox_profile?: '';
           }
         | undefined;
 
@@ -616,7 +616,7 @@ export interface NightwatchOptions {
     /**
      * Sets the initial window size: {height: number, width: number}
      */
-    window_size?: { height: number; width: number };
+    window_size?: WindowSize;
 }
 
 export interface NightwatchGlobals {
@@ -2254,11 +2254,19 @@ export interface Cookie {
 
 export interface SharedCommands extends ClientCommands, ElementCommands {}
 
-export type WindowPosition = { x: number; y: number };
+export interface WindowPosition { x: number; y: number; }
 
-export type WindowSize = { height: number; width: number };
+// tslint:disable-next-line
+export interface NightwatchPosition extends WindowPosition {}
+
+export interface WindowSize { height: number; width: number; }
+
+// tslint:disable-next-line
+export interface NightwatchSize extends WindowSize {}
 
 export type WindowSizeAndPosition = WindowPosition & WindowSize;
+
+export type NightwatchSizeAndPosition = WindowSizeAndPosition;
 
 export type WindowType = 'tab' | 'window';
 
@@ -2280,176 +2288,176 @@ export interface ChromiumClientCommands {
      *  };
      *
      */
-         setGeolocation(
-            coordinates: { latitude: number; longitude: number; accuracy: number },
-            callback?: (this: NightwatchAPI) => void,
-        ): this;
+    setGeolocation(
+        coordinates: { latitude: number; longitude: number; accuracy: number },
+        callback?: (this: NightwatchAPI) => void,
+    ): this;
 
-        /**
-         * Capture outgoing network calls from the browser.
-         *
-         * @example
-         *  this.demoTest = function (browser) {
-         *    this.requestCount = 1;
-         *    browser
-         *      .captureNetworkRequests((requestParams) => {
-         *        console.log('Request Number:', this.requestCount++);
-         *        console.log('Request URL:', requestParams.request.url);
-         *        console.log('Request method:', requestParams.request.method);
-         *        console.log('Request headers:', requestParams.request.headers);
-         *      })
-         *      .navigateTo('https://www.google.com');
-         *  };
-         *
-         */
-        captureNetworkRequests(
-            callback?: (this: NightwatchAPI, result: Protocol.Network.RequestWillBeSentEvent) => void,
-        ): this;
+    /**
+     * Capture outgoing network calls from the browser.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    this.requestCount = 1;
+     *    browser
+     *      .captureNetworkRequests((requestParams) => {
+     *        console.log('Request Number:', this.requestCount++);
+     *        console.log('Request URL:', requestParams.request.url);
+     *        console.log('Request method:', requestParams.request.method);
+     *        console.log('Request headers:', requestParams.request.headers);
+     *      })
+     *      .navigateTo('https://www.google.com');
+     *  };
+     *
+     */
+    captureNetworkRequests(
+        callback?: (this: NightwatchAPI, result: Protocol.Network.RequestWillBeSentEvent) => void,
+    ): this;
 
-        /**
-         * Mock the response of request made on a particular URL.
-         *
-         * @example
-         *  this.demoTest = function (browser) {
-         *    browser
-         *      .mockNetworkResponse('https://www.google.com/', {
-         *        status: 200,
-         *        headers: {
-         *          'Content-Type': 'UTF-8'
-         *        },
-         *        body: 'Hello there!'
-         *      })
-         *      .navigateTo('https://www.google.com/');
-         *  };
-         *
-         */
-        mockNetworkResponse(
-            urlToIntercept: string,
-            response: {
-                status: Protocol.Fetch.FulfillRequestRequest['responseCode'];
-                headers: { [name: string]: string };
-                body: Protocol.Fetch.FulfillRequestRequest['body'];
-            },
-            callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-        ): this;
+    /**
+     * Mock the response of request made on a particular URL.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser
+     *      .mockNetworkResponse('https://www.google.com/', {
+     *        status: 200,
+     *        headers: {
+     *          'Content-Type': 'UTF-8'
+     *        },
+     *        body: 'Hello there!'
+     *      })
+     *      .navigateTo('https://www.google.com/');
+     *  };
+     *
+     */
+    mockNetworkResponse(
+        urlToIntercept: string,
+        response: {
+            status: Protocol.Fetch.FulfillRequestRequest['responseCode'];
+            headers: { [name: string]: string };
+            body: Protocol.Fetch.FulfillRequestRequest['body'];
+        },
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
-        /**
-         * Override Device Mode (overrides device dimensions).
-         *
-         * @example
-         *  this.demoTest = function (browser) {
-         *    browser
-         *      .setDeviceDimensions({
-         *        width: 400,
-         *        height: 600,
-         *        deviceScaleFactor: 50,
-         *        mobile: true
-         *        })
-         *      .navigateTo('https://www.google.com');
-         *  };
-         *
-         */
-        setDeviceDimensions(
-            metrics: { width: number; height: number; deviceScaleFactor: number; mobile: boolean },
-            callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-        ): this;
+    /**
+     * Override Device Mode (overrides device dimensions).
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser
+     *      .setDeviceDimensions({
+     *        width: 400,
+     *        height: 600,
+     *        deviceScaleFactor: 50,
+     *        mobile: true
+     *        })
+     *      .navigateTo('https://www.google.com');
+     *  };
+     *
+     */
+    setDeviceDimensions(
+        metrics: { width: number; height: number; deviceScaleFactor: number; mobile: boolean },
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
-        /**
-         * Get the performance metrics from the browser.
-         *
-         * @example
-         *  this.demoTest = function (browser) {
-         *    browser
-         *      .enablePerformanceMetrics()
-         *      .navigateTo('https://www.google.com');
-         *      .getPerformanceMetrics((metrics) => {
-         *        console.log(metrics);
-         *       });
-         *  };
-         *
-         */
-        getPerformanceMetrics(
-            callback?: (
-                this: NightwatchAPI,
-                result: NightwatchCallbackResult<Protocol.Performance.GetMetricsResponse>,
-            ) => void,
-        ): this;
+    /**
+     * Get the performance metrics from the browser.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser
+     *      .enablePerformanceMetrics()
+     *      .navigateTo('https://www.google.com');
+     *      .getPerformanceMetrics((metrics) => {
+     *        console.log(metrics);
+     *       });
+     *  };
+     *
+     */
+    getPerformanceMetrics(
+        callback?: (
+            this: NightwatchAPI,
+            result: NightwatchCallbackResult<Protocol.Performance.GetMetricsResponse>,
+        ) => void,
+    ): this;
 
-        /**
-         * Enable the collection of performance metrics in the browser.
-         *
-         * @example
-         *  this.demoTest = function (browser) {
-         *    browser
-         *      .enablePerformanceMetrics()
-         *      .navigateTo('https://www.google.com');
-         *      .getPerformanceMetrics((metrics) => {
-         *        console.log(metrics);
-         *       });
-         *  };
-         *
-         */
-        enablePerformanceMetrics(
-            enable?: boolean,
-            callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-        ): this;
+    /**
+     * Enable the collection of performance metrics in the browser.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser
+     *      .enablePerformanceMetrics()
+     *      .navigateTo('https://www.google.com');
+     *      .getPerformanceMetrics((metrics) => {
+     *        console.log(metrics);
+     *       });
+     *  };
+     *
+     */
+    enablePerformanceMetrics(
+        enable?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+    ): this;
 
-        /**
-         * Takes a heap snapshot and saves it in string-serialized JSON format.
-         * Load the snapshot file into Chrome DevTools' Memory tab to inspect.
-         *
-         * @example
-         *  this.demoTest = function (browser) {
-         *    browser
-         *      .navigateTo('https://www.google.com')
-         *      .takeHeapSnapshot('./snap.heapsnapshot');
-         *  };
-         *
-         */
-        takeHeapSnapshot(
-            heapSnapshotLocation?: string,
-            callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
-        ): this;
+    /**
+     * Takes a heap snapshot and saves it in string-serialized JSON format.
+     * Load the snapshot file into Chrome DevTools' Memory tab to inspect.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser
+     *      .navigateTo('https://www.google.com')
+     *      .takeHeapSnapshot('./snap.heapsnapshot');
+     *  };
+     *
+     */
+    takeHeapSnapshot(
+        heapSnapshotLocation?: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): this;
 
-        /**
-         * Listen to the `console.log` events and register callbacks to process the event.
-         *
-         * @example
-         *  this.demoTest = function (browser) {
-         *    browser
-         *      .captureBrowserConsoleLogs((event) => {
-         *        console.log(event.type, event.timestamp, event.args[0].value);
-         *      })
-         *      .navigateTo('https://www.google.com')
-         *      .executeScript(function() {
-         *        console.error('here');
-         *      }, []);
-         *  };
-         *
-         */
-        captureBrowserConsoleLogs(
-            callback?: (this: NightwatchAPI, result: Protocol.Runtime.ConsoleAPICalledEvent) => void,
-        ): this;
+    /**
+     * Listen to the `console.log` events and register callbacks to process the event.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser
+     *      .captureBrowserConsoleLogs((event) => {
+     *        console.log(event.type, event.timestamp, event.args[0].value);
+     *      })
+     *      .navigateTo('https://www.google.com')
+     *      .executeScript(function() {
+     *        console.error('here');
+     *      }, []);
+     *  };
+     *
+     */
+    captureBrowserConsoleLogs(
+        callback?: (this: NightwatchAPI, result: Protocol.Runtime.ConsoleAPICalledEvent) => void,
+    ): this;
 
-        /**
-         * Listen to the `console.log` events and register callbacks to process the event.
-         *
-         * @example
-         *  this.demoTest = function (browser) {
-         *    browser
-         *      .captureBrowserConsoleLogs((event) => {
-         *        console.log(event.type, event.timestamp, event.args[0].value);
-         *      })
-         *      .navigateTo('https://www.google.com')
-         *      .executeScript(function() {
-         *        console.error('here');
-         *      }, []);
-         *  };
-         *
-         */
-        captureBrowserExceptions(
-            callback?: (this: NightwatchAPI, result: Protocol.Runtime.ExceptionThrownEvent) => void,
-        ): this;
+    /**
+     * Listen to the `console.log` events and register callbacks to process the event.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser
+     *      .captureBrowserConsoleLogs((event) => {
+     *        console.log(event.type, event.timestamp, event.args[0].value);
+     *      })
+     *      .navigateTo('https://www.google.com')
+     *      .executeScript(function() {
+     *        console.error('here');
+     *      }, []);
+     *  };
+     *
+     */
+    captureBrowserExceptions(
+        callback?: (this: NightwatchAPI, result: Protocol.Runtime.ExceptionThrownEvent) => void,
+    ): this;
 }
 
 export interface ClientCommands extends ChromiumClientCommands {
@@ -2801,6 +2809,34 @@ export interface ClientCommands extends ChromiumClientCommands {
     pause(ms?: number, callback?: (this: NightwatchAPI) => void): this;
 
     /**
+     * This command halts the test execution and provides users with a REPL interface where they can type
+     * any of the available Nightwatch commands and the command will be executed in the running browser
+     * in real-time.
+     *
+     * This can be used to debug why a certain command in not working as expected, find the correct
+     * locators for your assertions or just play around with the available Nightwatch commands.
+     *
+     * @example
+     * // async function is required while using the debug
+     * // command to get the correct result as output.
+     * this.demoTest = async function (browser) {
+     *   browser.debug();
+     *
+     *   // with no auto-complete
+     *   browser.debug({preview: false});
+     *
+     *   // with a timeout of 6000 ms (time for which the interface
+     *   // would wait for a result).
+     *   browser.debug({timeout: 6000})
+     * };
+     *
+     */
+    debug(
+        config?: { useGlobal?: boolean; preview?: boolean; timeout?: number },
+        callback?: (this: NightwatchAPI) => void,
+    ): this;
+
+    /**
      * A simple perform command which allows access to the Nightwatch API in a callback. Can be useful if you want to read variables set by other commands.
      *
      * The callback signature can have up to two parameters.
@@ -3132,7 +3168,7 @@ export interface ClientCommands extends ChromiumClientCommands {
      * @see windowRect
      */
     getWindowPosition(
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
     ): this;
 
     /**
@@ -3497,12 +3533,12 @@ export interface ElementCommands {
      */
     getLocationInView(
         selector: Definition,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
     ): this;
     getLocationInView(
         using: LocateStrategy,
         selector: Definition,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
     ): this;
 
     /**
@@ -4283,18 +4319,12 @@ export interface ElementCommands {
      */
     getElementRect(
         selector: Definition,
-        callback?: (
-            this: NightwatchAPI,
-            result: NightwatchCallbackResult<{ height: number; width: number; x: number; y: number }>,
-        ) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchSizeAndPosition>) => void,
     ): this;
     getElementRect(
         using: LocateStrategy,
         selector: Definition,
-        callback?: (
-            this: NightwatchAPI,
-            result: NightwatchCallbackResult<{ height: number; width: number; x: number; y: number }>,
-        ) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchSizeAndPosition>) => void,
     ): this;
 
     /**
@@ -4377,13 +4407,13 @@ export interface ElementCommands {
      */
     dragAndDrop(
         selector: Definition,
-        destination: NightwatchElement | { x: number; y: number },
+        destination: NightwatchElement | NightwatchPosition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
     dragAndDrop(
         using: LocateStrategy,
         selector: Definition,
-        destination: NightwatchElement | { x: number; y: number },
+        destination: NightwatchElement | NightwatchPosition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
 
@@ -4574,26 +4604,12 @@ export interface ElementCommands {
      */
     findElement(
         selector: Definition,
-        callback?: (
-            this: NightwatchAPI,
-            result: NightwatchCallbackResult<{
-                value: JSON_WEB_OBJECT;
-                status: number;
-                WebdriverElementId: WebElement;
-            }>,
-        ) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
     ): WebElementPromise;
     findElement(
         using: LocateStrategy,
         selector: Definition,
-        callback?: (
-            this: NightwatchAPI,
-            result: NightwatchCallbackResult<{
-                value: JSON_WEB_OBJECT;
-                status: number;
-                WebdriverElementId: WebElement;
-            }>,
-        ) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
     ): WebElementPromise;
 
     /**
@@ -4612,26 +4628,12 @@ export interface ElementCommands {
      */
     findElements(
         selector: Definition,
-        callback?: (
-            this: NightwatchAPI,
-            result: NightwatchCallbackResult<{
-                value: JSON_WEB_OBJECT[];
-                status: number;
-                WebdriverElementId: WebElement;
-            }>,
-        ) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT[]>) => void,
     ): JSON_WEB_OBJECT[];
     findElements(
         using: LocateStrategy,
         selector: Definition,
-        callback?: (
-            this: NightwatchAPI,
-            result: NightwatchCallbackResult<{
-                value: JSON_WEB_OBJECT[];
-                status: number;
-                WebdriverElementId: WebElement;
-            }>,
-        ) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT[]>) => void,
     ): JSON_WEB_OBJECT[];
 
     /**
@@ -5196,7 +5198,7 @@ export interface WebDriverProtocolCommandContexts {
     ): this;
     windowPosition(
         windowHandle: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
     ): this;
 
     /**
@@ -5617,7 +5619,7 @@ export interface WebDriverProtocolElementLocation {
      */
     elementIdLocation(
         id: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
     ): this;
 
     /**
@@ -5627,7 +5629,7 @@ export interface WebDriverProtocolElementLocation {
      */
     elementIdLocationInView(
         id: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
     ): this;
 }
 
