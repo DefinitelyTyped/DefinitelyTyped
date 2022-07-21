@@ -400,7 +400,8 @@ interface RaygunV2 {
     (key: "getRaygunInstance"): RaygunStatic;
     (
         key:
-            "endSession"
+            "boot"
+            | "endSession"
             | "detach"
             | "disableAutoBreadcrumbs"
             | "enableAutoBreadcrumbs"
