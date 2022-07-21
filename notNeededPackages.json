@@ -5347,6 +5347,10 @@
             "libraryName": "universal-router",
             "asOfVersion": "8.0.0"
         },
+        "unix-permissions": {
+            "libraryName": "unix-permissions",
+            "asOfVersion": "4.1.0"
+        },
         "unsplash-js": {
             "libraryName": "unsplash-js",
             "asOfVersion": "7.0.0"
