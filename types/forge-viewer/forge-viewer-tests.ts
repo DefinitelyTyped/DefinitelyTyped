@@ -550,3 +550,9 @@ function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {
         });
     });
 }
+
+function matrixSetPositionTest(): void {
+    const matrix = new THREE.Matrix4();
+
+    matrix.setPosition(new THREE.Vector3(1, 1, 1)); // $ExpectType Matrix4
+}
