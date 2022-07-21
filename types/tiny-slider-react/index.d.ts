@@ -242,7 +242,7 @@ export interface TinySliderInfo {
     visibleNavIndexesCached?: number | undefined;
 }
 
-export interface TinySliderProps {
+export type TinySliderProps = React.PropsWithChildren<{
     settings?: TinySliderSettings | undefined;
     onClick?: ((slideClicked: number, info: string, event: Event) => void) | undefined;
     startIndex?: number | undefined;
@@ -252,8 +252,7 @@ export interface TinySliderProps {
     onTouchStart?: ((info: TinySliderInfo) => void) | undefined;
     onTouchMove?: ((info: TinySliderInfo) => void) | undefined;
     onTouchEnd?: ((info: TinySliderInfo) => void) | undefined;
-    children?: React.ReactNode;
-}
+}>;
 
 declare class TinySlider extends React.Component<TinySliderProps> {}
 
