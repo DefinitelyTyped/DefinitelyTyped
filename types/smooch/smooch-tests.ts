@@ -53,3 +53,44 @@ Smooch.updateUser({ properties: { myCustomProperty: 21 } });
 // But updateUser should NOT allow custom data to be added outside of the metadata property
 // @ts-expect-error
 Smooch.updateUser({ anIncorrectProperty: 21 });
+
+const conversation = Smooch.getConversations().pop();
+if (conversation) {
+    // Metadata is an object and can hold anything
+    conversation.metadata.hello === 'world';
+    conversation.metadata.foobar === 12345;
+
+    conversation.metadata === undefined;
+    conversation.metadata === null;
+
+    // @ts-expect-error
+    conversation.metadata === "can't be a string";
+    // @ts-expect-error
+    conversation.metadata === 12345;
+}
+
+const user = Smooch.getUser();
+// Metadata is an object and can hold anything
+user.metadata.hello === 'world';
+user.metadata.foobar === 12345;
+
+user.metadata === undefined;
+user.metadata === null;
+
+// @ts-expect-error
+user.metadata === "can't be a string";
+// @ts-expect-error
+user.metadata === 12345;
+
+const message = conversation?.messages.pop();
+if (message) {
+    message.type === 'text';
+    message.type === 'carousel';
+    message.type === 'file';
+    message.type === 'form';
+    message.type === 'formResponse';
+    message.type === 'image';
+    message.type === 'list';
+    message.type === 'location';
+    message.type === 'template';
+}

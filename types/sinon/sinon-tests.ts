@@ -38,6 +38,7 @@ function testSandbox() {
     sb.useFakeTimers(new Date());
     sb.useFakeTimers({
         now: 1000,
+        shouldClearNativeTimers: true,
     });
 
     const xhr = sb.useFakeXMLHttpRequest();

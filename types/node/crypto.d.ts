@@ -1541,9 +1541,9 @@ declare module 'crypto' {
          * @param inputEncoding The `encoding` of an `otherPublicKey` string.
          * @param outputEncoding The `encoding` of the return value.
          */
-        computeSecret(otherPublicKey: NodeJS.ArrayBufferView): Buffer;
-        computeSecret(otherPublicKey: string, inputEncoding: BinaryToTextEncoding): Buffer;
-        computeSecret(otherPublicKey: NodeJS.ArrayBufferView, outputEncoding: BinaryToTextEncoding): string;
+        computeSecret(otherPublicKey: NodeJS.ArrayBufferView, inputEncoding?: null, outputEncoding?: null): Buffer;
+        computeSecret(otherPublicKey: string, inputEncoding: BinaryToTextEncoding, outputEncoding?: null): Buffer;
+        computeSecret(otherPublicKey: NodeJS.ArrayBufferView, inputEncoding: null, outputEncoding: BinaryToTextEncoding): string;
         computeSecret(otherPublicKey: string, inputEncoding: BinaryToTextEncoding, outputEncoding: BinaryToTextEncoding): string;
         /**
          * Returns the Diffie-Hellman prime in the specified `encoding`.
@@ -1614,6 +1614,36 @@ declare module 'crypto' {
         verifyError: number;
     }
     /**
+     * The `DiffieHellmanGroup` class takes a well-known modp group as its argument.
+     * It works the same as `DiffieHellman`, except that it does not allow changing its keys after creation.
+     * In other words, it does not implement `setPublicKey()` or `setPrivateKey()` methods.
+     *
+     * ```js
+     * const { createDiffieHellmanGroup } = await import('node:crypto');
+     * const dh = createDiffieHellmanGroup('modp1');
+     * ```
+     * The name (e.g. `'modp1'`) is taken from [RFC 2412](https://www.rfc-editor.org/rfc/rfc2412.txt) (modp1 and 2) and [RFC 3526](https://www.rfc-editor.org/rfc/rfc3526.txt):
+     * ```bash
+     * $ perl -ne 'print "$1\n" if /"(modp\d+)"/' src/node_crypto_groups.h
+     * modp1  #  768 bits
+     * modp2  # 1024 bits
+     * modp5  # 1536 bits
+     * modp14 # 2048 bits
+     * modp15 # etc.
+     * modp16
+     * modp17
+     * modp18
+     * ```
+     * @since v0.7.5
+     */
+    const DiffieHellmanGroup: DiffieHellmanGroupConstructor;
+    interface DiffieHellmanGroupConstructor {
+        new(name: string): DiffieHellmanGroup;
+        (name: string): DiffieHellmanGroup;
+        readonly prototype: DiffieHellmanGroup;
+    }
+    type DiffieHellmanGroup = Omit<DiffieHellman, 'setPublicKey' | 'setPrivateKey'>;
+    /**
      * Creates a predefined `DiffieHellmanGroup` key exchange object. The
      * supported groups are: `'modp1'`, `'modp2'`, `'modp5'` (defined in [RFC 2412](https://www.rfc-editor.org/rfc/rfc2412.txt), but see `Caveats`) and `'modp14'`, `'modp15'`,`'modp16'`, `'modp17'`,
      * `'modp18'` (defined in [RFC 3526](https://www.rfc-editor.org/rfc/rfc3526.txt)). The
@@ -1643,7 +1673,12 @@ declare module 'crypto' {
      * ```
      * @since v0.7.5
      */
-    function getDiffieHellman(groupName: string): DiffieHellman;
+    function getDiffieHellman(groupName: string): DiffieHellmanGroup;
+    /**
+     * An alias for {@link getDiffieHellman}
+     * @since v0.9.3
+     */
+    function createDiffieHellmanGroup(name: string): DiffieHellmanGroup;
     /**
      * Provides an asynchronous Password-Based Key Derivation Function 2 (PBKDF2)
      * implementation. A selected HMAC digest algorithm specified by `digest` is
@@ -2125,6 +2160,12 @@ declare module 'crypto' {
      * @return `1` if and only if a FIPS compliant crypto provider is currently in use, `0` otherwise. A future semver-major release may change the return type of this API to a {boolean}.
      */
     function getFips(): 1 | 0;
+    /**
+     * Enables the FIPS compliant crypto provider in a FIPS-enabled Node.js build. Throws an error if FIPS mode is not available.
+     * @since v10.0.0
+     * @param bool `true` to enable FIPS mode.
+     */
+    function setFips(bool: boolean): void;
     /**
      * ```js
      * const {
@@ -3401,8 +3442,521 @@ declare module 'crypto' {
      * @return `true` if the candidate is a prime with an error probability less than `0.25 ** options.checks`.
      */
     function checkPrimeSync(candidate: LargeNumberLike, options?: CheckPrimeOptions): boolean;
+    /**
+     * Load and set the `engine` for some or all OpenSSL functions (selected by flags).
+     *
+     * `engine` could be either an id or a path to the engine's shared library.
+     *
+     * The optional `flags` argument uses `ENGINE_METHOD_ALL` by default.
+     * The `flags` is a bit field taking one of or a mix of the following flags (defined in `crypto.constants`):
+     *
+     * - `crypto.constants.ENGINE_METHOD_RSA`
+     * - `crypto.constants.ENGINE_METHOD_DSA`
+     * - `crypto.constants.ENGINE_METHOD_DH`
+     * - `crypto.constants.ENGINE_METHOD_RAND`
+     * - `crypto.constants.ENGINE_METHOD_EC`
+     * - `crypto.constants.ENGINE_METHOD_CIPHERS`
+     * - `crypto.constants.ENGINE_METHOD_DIGESTS`
+     * - `crypto.constants.ENGINE_METHOD_PKEY_METHS`
+     * - `crypto.constants.ENGINE_METHOD_PKEY_ASN1_METHS`
+     * - `crypto.constants.ENGINE_METHOD_ALL`
+     * - `crypto.constants.ENGINE_METHOD_NONE`
+     *
+     * The flags below are deprecated in OpenSSL-1.1.0.
+     *
+     * - `crypto.constants.ENGINE_METHOD_ECDH`
+     * - `crypto.constants.ENGINE_METHOD_ECDSA`
+     * - `crypto.constants.ENGINE_METHOD_STORE`
+     * @since v0.11.11
+     * @param [flags=crypto.constants.ENGINE_METHOD_ALL]
+     */
+    function setEngine(engine: string, flags?: number): void;
+    /**
+     * A convenient alias for `crypto.webcrypto.getRandomValues()`.
+     * This implementation is not compliant with the Web Crypto spec,
+     * to write web-compatible code use `crypto.webcrypto.getRandomValues()` instead.
+     * @since v17.4.0
+     * @returns Returns `typedArray`.
+     */
+    function getRandomValues<T extends webcrypto.BufferSource>(typedArray: T): T;
+    /**
+     * A convenient alias for `crypto.webcrypto.subtle`.
+     * @since v17.4.0
+     */
+    const subtle: webcrypto.SubtleCrypto;
+    /**
+     * An implementation of the Web Crypto API standard.
+     *
+     * See the {@link https://nodejs.org/docs/latest/api/webcrypto.html Web Crypto API documentation} for details.
+     * @since v15.0.0
+     */
+    const webcrypto: webcrypto.Crypto;
     namespace webcrypto {
-        class CryptoKey {} // placeholder
+        type BufferSource = ArrayBufferView | ArrayBuffer;
+        type KeyFormat = 'jwk' | 'pkcs8' | 'raw' | 'spki';
+        type KeyType = 'private' | 'public' | 'secret';
+        type KeyUsage = 'decrypt' | 'deriveBits' | 'deriveKey' | 'encrypt' | 'sign' | 'unwrapKey' | 'verify' | 'wrapKey';
+        type AlgorithmIdentifier = Algorithm | string;
+        type HashAlgorithmIdentifier = AlgorithmIdentifier;
+        type NamedCurve = string;
+        type BigInteger = Uint8Array;
+        interface AesCbcParams extends Algorithm {
+            iv: BufferSource;
+        }
+        interface AesCtrParams extends Algorithm {
+            counter: BufferSource;
+            length: number;
+        }
+        interface AesDerivedKeyParams extends Algorithm {
+            length: number;
+        }
+        interface AesGcmParams extends Algorithm {
+            additionalData?: BufferSource;
+            iv: BufferSource;
+            tagLength?: number;
+        }
+        interface AesKeyAlgorithm extends KeyAlgorithm {
+            length: number;
+        }
+        interface AesKeyGenParams extends Algorithm {
+            length: number;
+        }
+        interface Algorithm {
+            name: string;
+        }
+        interface EcKeyAlgorithm extends KeyAlgorithm {
+            namedCurve: NamedCurve;
+        }
+        interface EcKeyGenParams extends Algorithm {
+            namedCurve: NamedCurve;
+        }
+        interface EcKeyImportParams extends Algorithm {
+            namedCurve: NamedCurve;
+        }
+        interface EcdhKeyDeriveParams extends Algorithm {
+            public: CryptoKey;
+        }
+        interface EcdsaParams extends Algorithm {
+            hash: HashAlgorithmIdentifier;
+        }
+        interface Ed448Params extends Algorithm {
+            context?: BufferSource;
+        }
+        interface HkdfParams extends Algorithm {
+            hash: HashAlgorithmIdentifier;
+            info: BufferSource;
+            salt: BufferSource;
+        }
+        interface HmacImportParams extends Algorithm {
+            hash: HashAlgorithmIdentifier;
+            length?: number;
+        }
+        interface HmacKeyAlgorithm extends KeyAlgorithm {
+            hash: KeyAlgorithm;
+            length: number;
+        }
+        interface HmacKeyGenParams extends Algorithm {
+            hash: HashAlgorithmIdentifier;
+            length?: number;
+        }
+        interface JsonWebKey {
+            alg?: string;
+            crv?: string;
+            d?: string;
+            dp?: string;
+            dq?: string;
+            e?: string;
+            ext?: boolean;
+            k?: string;
+            key_ops?: string[];
+            kty?: string;
+            n?: string;
+            oth?: RsaOtherPrimesInfo[];
+            p?: string;
+            q?: string;
+            qi?: string;
+            use?: string;
+            x?: string;
+            y?: string;
+        }
+        interface KeyAlgorithm {
+            name: string;
+        }
+        interface Pbkdf2Params extends Algorithm {
+            hash: HashAlgorithmIdentifier;
+            iterations: number;
+            salt: BufferSource;
+        }
+        interface RsaHashedImportParams extends Algorithm {
+            hash: HashAlgorithmIdentifier;
+        }
+        interface RsaHashedKeyAlgorithm extends RsaKeyAlgorithm {
+            hash: KeyAlgorithm;
+        }
+        interface RsaHashedKeyGenParams extends RsaKeyGenParams {
+            hash: HashAlgorithmIdentifier;
+        }
+        interface RsaKeyAlgorithm extends KeyAlgorithm {
+            modulusLength: number;
+            publicExponent: BigInteger;
+        }
+        interface RsaKeyGenParams extends Algorithm {
+            modulusLength: number;
+            publicExponent: BigInteger;
+        }
+        interface RsaOaepParams extends Algorithm {
+            label?: BufferSource;
+        }
+        interface RsaOtherPrimesInfo {
+            d?: string;
+            r?: string;
+            t?: string;
+        }
+        interface RsaPssParams extends Algorithm {
+            saltLength: number;
+        }
+        /**
+         * Calling `require('node:crypto').webcrypto` returns an instance of the `Crypto` class.
+         * `Crypto` is a singleton that provides access to the remainder of the crypto API.
+         * @since v15.0.0
+         */
+        interface Crypto {
+            /**
+             * Provides access to the `SubtleCrypto` API.
+             * @since v15.0.0
+             */
+            readonly subtle: SubtleCrypto;
+            /**
+             * Generates cryptographically strong random values.
+             * The given `typedArray` is filled with random values, and a reference to `typedArray` is returned.
+             *
+             * The given `typedArray` must be an integer-based instance of {@link NodeJS.TypedArray}, i.e. `Float32Array` and `Float64Array` are not accepted.
+             *
+             * An error will be thrown if the given `typedArray` is larger than 65,536 bytes.
+             * @since v15.0.0
+             */
+            getRandomValues<T extends Exclude<NodeJS.TypedArray, Float32Array | Float64Array>>(typedArray: T): T;
+            /**
+             * Generates a random {@link https://www.rfc-editor.org/rfc/rfc4122.txt RFC 4122} version 4 UUID.
+             * The UUID is generated using a cryptographic pseudorandom number generator.
+             * @since v16.7.0
+             */
+            randomUUID(): string;
+            CryptoKey: CryptoKeyConstructor;
+        }
+        // This constructor throws ILLEGAL_CONSTRUCTOR so it should not be newable.
+        interface CryptoKeyConstructor {
+            /** Illegal constructor */
+            (_: { readonly _: unique symbol }): never; // Allows instanceof to work but not be callable by the user.
+            readonly length: 0;
+            readonly name: 'CryptoKey';
+            readonly prototype: CryptoKey;
+        }
+        /**
+         * @since v15.0.0
+         */
+        interface CryptoKey {
+            /**
+             * An object detailing the algorithm for which the key can be used along with additional algorithm-specific parameters.
+             * @since v15.0.0
+             */
+            readonly algorithm: KeyAlgorithm;
+            /**
+             * When `true`, the {@link CryptoKey} can be extracted using either `subtleCrypto.exportKey()` or `subtleCrypto.wrapKey()`.
+             * @since v15.0.0
+             */
+            readonly extractable: boolean;
+            /**
+             * A string identifying whether the key is a symmetric (`'secret'`) or asymmetric (`'private'` or `'public'`) key.
+             * @since v15.0.0
+             */
+            readonly type: KeyType;
+            /**
+             * An array of strings identifying the operations for which the key may be used.
+             *
+             * The possible usages are:
+             * - `'encrypt'` - The key may be used to encrypt data.
+             * - `'decrypt'` - The key may be used to decrypt data.
+             * - `'sign'` - The key may be used to generate digital signatures.
+             * - `'verify'` - The key may be used to verify digital signatures.
+             * - `'deriveKey'` - The key may be used to derive a new key.
+             * - `'deriveBits'` - The key may be used to derive bits.
+             * - `'wrapKey'` - The key may be used to wrap another key.
+             * - `'unwrapKey'` - The key may be used to unwrap another key.
+             *
+             * Valid key usages depend on the key algorithm (identified by `cryptokey.algorithm.name`).
+             * @since v15.0.0
+             */
+            readonly usages: KeyUsage[];
+        }
+        /**
+         * The `CryptoKeyPair` is a simple dictionary object with `publicKey` and `privateKey` properties, representing an asymmetric key pair.
+         * @since v15.0.0
+         */
+        interface CryptoKeyPair {
+            /**
+             * A {@link CryptoKey} whose type will be `'private'`.
+             * @since v15.0.0
+             */
+            privateKey: CryptoKey;
+            /**
+             * A {@link CryptoKey} whose type will be `'public'`.
+             * @since v15.0.0
+             */
+            publicKey: CryptoKey;
+        }
+        /**
+         * @since v15.0.0
+         */
+        interface SubtleCrypto {
+            /**
+             * Using the method and parameters specified in `algorithm` and the keying material provided by `key`,
+             * `subtle.decrypt()` attempts to decipher the provided `data`. If successful,
+             * the returned promise will be resolved with an `<ArrayBuffer>` containing the plaintext result.
+             *
+             * The algorithms currently supported include:
+             *
+             * - `'RSA-OAEP'`
+             * - `'AES-CTR'`
+             * - `'AES-CBC'`
+             * - `'AES-GCM'`
+             * @since v15.0.0
+             */
+            decrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+            /**
+             * Using the method and parameters specified in `algorithm` and the keying material provided by `baseKey`,
+             * `subtle.deriveBits()` attempts to generate `length` bits.
+             * The Node.js implementation requires that `length` is a multiple of `8`.
+             * If successful, the returned promise will be resolved with an `<ArrayBuffer>` containing the generated data.
+             *
+             * The algorithms currently supported include:
+             *
+             * - `'ECDH'`
+             * - `'X25519'`
+             * - `'X448'`
+             * - `'HKDF'`
+             * - `'PBKDF2'`
+             * @since v15.0.0
+             */
+            deriveBits(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
+            /**
+             * Using the method and parameters specified in `algorithm`, and the keying material provided by `baseKey`,
+             * `subtle.deriveKey()` attempts to generate a new <CryptoKey>` based on the method and parameters in `derivedKeyAlgorithm`.
+             *
+             * Calling `subtle.deriveKey()` is equivalent to calling `subtle.deriveBits()` to generate raw keying material,
+             * then passing the result into the `subtle.importKey()` method using the `deriveKeyAlgorithm`, `extractable`, and `keyUsages` parameters as input.
+             *
+             * The algorithms currently supported include:
+             *
+             * - `'ECDH'`
+             * - `'X25519'`
+             * - `'X448'`
+             * - `'HKDF'`
+             * - `'PBKDF2'`
+             * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
+             * @since v15.0.0
+             */
+            deriveKey(
+                algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
+                baseKey: CryptoKey,
+                derivedKeyAlgorithm: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params,
+                extractable: boolean,
+                keyUsages: ReadonlyArray<KeyUsage>
+            ): Promise<CryptoKey>;
+            /**
+             * Using the method identified by `algorithm`, `subtle.digest()` attempts to generate a digest of `data`.
+             * If successful, the returned promise is resolved with an `<ArrayBuffer>` containing the computed digest.
+             *
+             * If `algorithm` is provided as a `<string>`, it must be one of:
+             *
+             * - `'SHA-1'`
+             * - `'SHA-256'`
+             * - `'SHA-384'`
+             * - `'SHA-512'`
+             *
+             * If `algorithm` is provided as an `<Object>`, it must have a `name` property whose value is one of the above.
+             * @since v15.0.0
+             */
+            digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
+            /**
+             * Using the method and parameters specified by `algorithm` and the keying material provided by `key`,
+             * `subtle.encrypt()` attempts to encipher `data`. If successful,
+             * the returned promise is resolved with an `<ArrayBuffer>` containing the encrypted result.
+             *
+             * The algorithms currently supported include:
+             *
+             * - `'RSA-OAEP'`
+             * - `'AES-CTR'`
+             * - `'AES-CBC'`
+             * - `'AES-GCM'`
+             * @since v15.0.0
+             */
+            encrypt(algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+            /**
+             * Exports the given key into the specified format, if supported.
+             *
+             * If the `<CryptoKey>` is not extractable, the returned promise will reject.
+             *
+             * When `format` is either `'pkcs8'` or `'spki'` and the export is successful,
+             * the returned promise will be resolved with an `<ArrayBuffer>` containing the exported key data.
+             *
+             * When `format` is `'jwk'` and the export is successful, the returned promise will be resolved with a
+             * JavaScript object conforming to the {@link https://tools.ietf.org/html/rfc7517 JSON Web Key} specification.
+             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, or `'jwk'`.
+             * @returns `<Promise>` containing `<ArrayBuffer>`.
+             * @since v15.0.0
+             */
+            exportKey(format: 'jwk', key: CryptoKey): Promise<JsonWebKey>;
+            exportKey(format: Exclude<KeyFormat, 'jwk'>, key: CryptoKey): Promise<ArrayBuffer>;
+            /**
+             * Using the method and parameters provided in `algorithm`,
+             * `subtle.generateKey()` attempts to generate new keying material.
+             * Depending the method used, the method may generate either a single `<CryptoKey>` or a `<CryptoKeyPair>`.
+             *
+             * The `<CryptoKeyPair>` (public and private key) generating algorithms supported include:
+             *
+             * - `'RSASSA-PKCS1-v1_5'`
+             * - `'RSA-PSS'`
+             * - `'RSA-OAEP'`
+             * - `'ECDSA'`
+             * - `'Ed25519'`
+             * - `'Ed448'`
+             * - `'ECDH'`
+             * - `'X25519'`
+             * - `'X448'`
+             * The `<CryptoKey>` (secret key) generating algorithms supported include:
+             *
+             * - `'HMAC'`
+             * - `'AES-CTR'`
+             * - `'AES-CBC'`
+             * - `'AES-GCM'`
+             * - `'AES-KW'`
+             * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
+             * @since v15.0.0
+             */
+            generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKeyPair>;
+            generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: ReadonlyArray<KeyUsage>): Promise<CryptoKey>;
+            generateKey(algorithm: AlgorithmIdentifier, extractable: boolean, keyUsages: KeyUsage[]): Promise<CryptoKeyPair | CryptoKey>;
+            /**
+             * The `subtle.importKey()` method attempts to interpret the provided `keyData` as the given `format`
+             * to create a `<CryptoKey>` instance using the provided `algorithm`, `extractable`, and `keyUsages` arguments.
+             * If the import is successful, the returned promise will be resolved with the created `<CryptoKey>`.
+             *
+             * If importing a `'PBKDF2'` key, `extractable` must be `false`.
+             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, or `'jwk'`.
+             * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
+             * @since v15.0.0
+             */
+            importKey(
+                format: 'jwk',
+                keyData: JsonWebKey,
+                algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm,
+                extractable: boolean,
+                keyUsages: ReadonlyArray<KeyUsage>
+            ): Promise<CryptoKey>;
+            importKey(
+                format: Exclude<KeyFormat, 'jwk'>,
+                keyData: BufferSource,
+                algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm,
+                extractable: boolean,
+                keyUsages: KeyUsage[]
+            ): Promise<CryptoKey>;
+            /**
+             * Using the method and parameters given by `algorithm` and the keying material provided by `key`,
+             * `subtle.sign()` attempts to generate a cryptographic signature of `data`. If successful,
+             * the returned promise is resolved with an `<ArrayBuffer>` containing the generated signature.
+             *
+             * The algorithms currently supported include:
+             *
+             * - `'RSASSA-PKCS1-v1_5'`
+             * - `'RSA-PSS'`
+             * - `'ECDSA'`
+             * - `'Ed25519'`
+             * - `'Ed448'`
+             * - `'HMAC'`
+             * @since v15.0.0
+             */
+            sign(algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | Ed448Params, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
+            /**
+             * In cryptography, "wrapping a key" refers to exporting and then encrypting the keying material.
+             * The `subtle.unwrapKey()` method attempts to decrypt a wrapped key and create a `<CryptoKey>` instance.
+             * It is equivalent to calling `subtle.decrypt()` first on the encrypted key data (using the `wrappedKey`, `unwrapAlgo`, and `unwrappingKey` arguments as input)
+             * then passing the results in to the `subtle.importKey()` method using the `unwrappedKeyAlgo`, `extractable`, and `keyUsages` arguments as inputs.
+             * If successful, the returned promise is resolved with a `<CryptoKey>` object.
+             *
+             * The wrapping algorithms currently supported include:
+             *
+             * - `'RSA-OAEP'`
+             * - `'AES-CTR'`
+             * - `'AES-CBC'`
+             * - `'AES-GCM'`
+             * - `'AES-KW'`
+             *
+             * The unwrapped key algorithms supported include:
+             *
+             * - `'RSASSA-PKCS1-v1_5'`
+             * - `'RSA-PSS'`
+             * - `'RSA-OAEP'`
+             * - `'ECDSA'`
+             * - `'Ed25519'`
+             * - `'Ed448'`
+             * - `'ECDH'`
+             * - `'X25519'`
+             * - `'X448'`
+             * - `'HMAC'`
+             * - `'AES-CTR'`
+             * - `'AES-CBC'`
+             * - `'AES-GCM'`
+             * - `'AES-KW'`
+             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, or `'jwk'`.
+             * @param keyUsages See {@link https://nodejs.org/docs/latest/api/webcrypto.html#cryptokeyusages Key usages}.
+             * @since v15.0.0
+             */
+            unwrapKey(
+                format: KeyFormat,
+                wrappedKey: BufferSource,
+                unwrappingKey: CryptoKey,
+                unwrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams,
+                unwrappedKeyAlgorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm,
+                extractable: boolean,
+                keyUsages: KeyUsage[]
+            ): Promise<CryptoKey>;
+            /**
+             * Using the method and parameters given in `algorithm` and the keying material provided by `key`,
+             * `subtle.verify()` attempts to verify that `signature` is a valid cryptographic signature of `data`.
+             * The returned promise is resolved with either `true` or `false`.
+             *
+             * The algorithms currently supported include:
+             *
+             * - `'RSASSA-PKCS1-v1_5'`
+             * - `'RSA-PSS'`
+             * - `'ECDSA'`
+             * - `'Ed25519'`
+             * - `'Ed448'`
+             * - `'HMAC'`
+             * @since v15.0.0
+             */
+            verify(algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams | Ed448Params, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
+            /**
+             * In cryptography, "wrapping a key" refers to exporting and then encrypting the keying material.
+             * The `subtle.wrapKey()` method exports the keying material into the format identified by `format`,
+             * then encrypts it using the method and parameters specified by `wrapAlgo` and the keying material provided by `wrappingKey`.
+             * It is the equivalent to calling `subtle.exportKey()` using `format` and `key` as the arguments,
+             * then passing the result to the `subtle.encrypt()` method using `wrappingKey` and `wrapAlgo` as inputs.
+             * If successful, the returned promise will be resolved with an `<ArrayBuffer>` containing the encrypted key data.
+             *
+             * The wrapping algorithms currently supported include:
+             *
+             * - `'RSA-OAEP'`
+             * - `'AES-CTR'`
+             * - `'AES-CBC'`
+             * - `'AES-GCM'`
+             * - `'AES-KW'`
+             * @param format Must be one of `'raw'`, `'pkcs8'`, `'spki'`, or `'jwk'`.
+             * @since v15.0.0
+             */
+            wrapKey(format: KeyFormat, key: CryptoKey, wrappingKey: CryptoKey, wrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams): Promise<ArrayBuffer>;
+        }
     }
 }
 declare module 'node:crypto' {
