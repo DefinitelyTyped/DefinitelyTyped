@@ -29,7 +29,7 @@ export interface JSON_WEB_OBJECT {
     getID: () => string;
 }
 
-export type definition = string | ElementProperties | Element | RelativeBy;
+export type Definition = string | ElementProperties | Element | RelativeBy;
 
 export interface ChromePerfLoggingPrefs {
     /**
@@ -246,7 +246,7 @@ export interface NightwatchTestRunner {
               auto_start_session?: boolean | undefined;
               parallel?: number | undefined;
               reporter?: string | undefined;
-              reporterOptions: { [key: string]: any };
+              reporterOptions?: { [key: string]: any };
           }
         | undefined;
 }
@@ -509,12 +509,12 @@ export interface NightwatchOptions {
                * On Mac OS X, this path should reference the actual Chrome executable,
                * not just the application binary (e.g. "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").
                */
-              chrome_binary?: '';
+              chrome_binary?: "";
 
               /**
                * Sets the path to Chrome's log file. This path should exist on the machine that will launch Chrome.
                */
-              chrome_log_file?: '';
+              chrome_log_file?: "";
 
               /**
                * Configures the ChromeDriver to launch Chrome on Android via adb.
@@ -522,25 +522,25 @@ export interface NightwatchOptions {
               android_chrome?: false;
 
               /**
-               * Sets the path to the Edge binary to use.
+               * Sets the path to the Edge binary to use. This path should exist on the machine that will launch Edge.
                */
-              edge_binary?: '';
+              edge_binary?: "";
 
               /**
                * Sets the path to the Edge binary to use.
                */
-              edge_log_file?: '';
+              edge_log_file?: "";
 
               /**
-               * Sets the binary to use. The binary may be specified as the path to a Firefox executable or a desired release Channel.
+               * Sets the binary to use. The binary may be specified as the path to a Firefox executable or a desired release Channel. This path should exist on the machine that will launch Firefox.
                */
-              firefox_binary?: '';
+              firefox_binary?: "";
 
               /**
                * Sets the path to an existing profile to use as a template for new browser sessions.
                * This profile will be copied for each new session - changes will not be applied to the profile itself.
                */
-              firefox_profile?: '';
+              firefox_profile?: "";
           }
         | undefined;
 
@@ -1186,7 +1186,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    attributeContains(selector: definition, attribute: string, expected: string, message?: string): NightwatchAPI;
+    attributeContains(selector: Definition, attribute: string, expected: string, message?: string): NightwatchAPI;
 
     /**
      * Checks if the given attribute of an element has the expected value.
@@ -1197,7 +1197,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    attributeEquals(selector: definition, attribute: string, expected: string, message?: string): NightwatchAPI;
+    attributeEquals(selector: Definition, attribute: string, expected: string, message?: string): NightwatchAPI;
 
     /**
      * Checks if the given element contains the specified text.
@@ -1208,7 +1208,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    containsText(selector: definition, expectedText: string, message?: string): NightwatchAPI;
+    containsText(selector: Definition, expectedText: string, message?: string): NightwatchAPI;
 
     /**
      * Checks if the given element has the specified CSS class.
@@ -1219,7 +1219,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    cssClassPresent(selector: definition, className: string, message?: string): NightwatchAPI;
+    cssClassPresent(selector: Definition, className: string, message?: string): NightwatchAPI;
 
     /**
      * Checks if the specified css property of a given element has the expected value.
@@ -1230,7 +1230,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    cssProperty(selector: definition, cssProperty: string, expected: string | number, msg?: string): NightwatchAPI;
+    cssProperty(selector: Definition, cssProperty: string, expected: string | number, msg?: string): NightwatchAPI;
 
     deepEqual(value: any, expected: any, message?: string): NightwatchAPI;
 
@@ -1247,7 +1247,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    elementPresent(selector: definition, msg?: string): NightwatchAPI;
+    elementPresent(selector: Definition, msg?: string): NightwatchAPI;
 
     equal(value: any, expected: any, message?: string): NightwatchAPI;
 
@@ -1333,7 +1333,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    value(selector: definition, expectedText: string, message?: string): NightwatchAPI;
+    value(selector: Definition, expectedText: string, message?: string): NightwatchAPI;
 
     /**
      * Checks if the given form element's value contains the expected value.
@@ -1344,7 +1344,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    valueContains(selector: definition, expectedText: string, message?: string): NightwatchAPI;
+    valueContains(selector: Definition, expectedText: string, message?: string): NightwatchAPI;
 
     /**
      * Checks if the given element is visible on the page.
@@ -1355,7 +1355,7 @@ export interface NightwatchCommonAssertions {
      *    };
      * ```
      */
-    visible(selector: definition, message?: string): NightwatchAPI;
+    visible(selector: Definition, message?: string): NightwatchAPI;
 
     /**
      * Checks if the given element is selected.
@@ -1367,7 +1367,7 @@ export interface NightwatchCommonAssertions {
      *  browser.assert.selected({selector: '.should_be_selected', suppressNotFoundErrors: true});
      * };
      */
-    selected(selector: definition, message?: string): NightwatchAPI;
+    selected(selector: Definition, message?: string): NightwatchAPI;
 
     /**
      * Checks if the given element is enabled (as indicated by the 'disabled' attribute).
@@ -1379,7 +1379,7 @@ export interface NightwatchCommonAssertions {
      *  browser.assert.enabled({selector: '.should_be_enabled', suppressNotFoundErrors: true});
      * };
      */
-    enabled(selector: definition, message?: string): NightwatchAPI;
+    enabled(selector: Definition, message?: string): NightwatchAPI;
 
     /**
      * Checks if the specified DOM property of a given element has the expected value.
@@ -1387,7 +1387,7 @@ export interface NightwatchCommonAssertions {
      * If the result value is JSON object or array, a deep equality comparison will be performed.
      */
     domPropertyEquals(
-        selector: definition,
+        selector: Definition,
         domProperty: string,
         expected: string | number,
         msg?: string,
@@ -1406,7 +1406,7 @@ export interface NightwatchCommonAssertions {
      *
      */
     attributeMatches(
-        selector: definition,
+        selector: Definition,
         attribute: string,
         regexExpression: string | RegExp,
         msg?: string,
@@ -1423,7 +1423,7 @@ export interface NightwatchCommonAssertions {
      * ```
      * @deprecated
      */
-    elementNotPresent(selector: definition, msg?: string): NightwatchAPI;
+    elementNotPresent(selector: Definition, msg?: string): NightwatchAPI;
 
     /**
      * Checks if the given element does not have the specified CSS class.
@@ -1435,7 +1435,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    cssClassNotPresent(selector: definition, className: string, msg?: string): NightwatchAPI;
+    cssClassNotPresent(selector: Definition, className: string, msg?: string): NightwatchAPI;
 
     /**
      * Checks if the number of elements specified by a selector is equal to a given value.
@@ -1448,7 +1448,7 @@ export interface NightwatchCommonAssertions {
      * }
      *
      */
-    elementsCount(selector: definition, count: number, msg?: string): NightwatchAPI;
+    elementsCount(selector: Definition, count: number, msg?: string): NightwatchAPI;
 
     /**
      * Checks if the given element contains the specified DOM attribute.
@@ -1464,7 +1464,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    hasAttribute(selector: definition, expectedAttribute: string, msg?: string): NightwatchAPI;
+    hasAttribute(selector: Definition, expectedAttribute: string, msg?: string): NightwatchAPI;
 
     /**
      * Checks if the given element has the specified CSS class.
@@ -1481,7 +1481,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    hasClass(selector: definition, className: string, msg?: string): NightwatchAPI;
+    hasClass(selector: Definition, className: string, msg?: string): NightwatchAPI;
 
     /**
      * Checks if the given element is not visible on the page.
@@ -1494,7 +1494,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    hidden(selector: definition, msg?: string): NightwatchAPI;
+    hidden(selector: Definition, msg?: string): NightwatchAPI;
 
     /**
      * Checks if the given element contains the specified text.
@@ -1507,7 +1507,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    textContains(selector: definition, expectedText: string, msg?: string): NightwatchAPI;
+    textContains(selector: Definition, expectedText: string, msg?: string): NightwatchAPI;
 
     /**
      * Check if an element's inner text equals the expected text.
@@ -1521,7 +1521,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    textEquals(selector: definition, expectedText: string, msg?: string): NightwatchAPI;
+    textEquals(selector: Definition, expectedText: string, msg?: string): NightwatchAPI;
 
     /**
      * Check if an elements inner text matches a regular expression.
@@ -1535,7 +1535,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    textMatches(selector: definition, regexExpression: string | RegExp, msg?: string): NightwatchAPI;
+    textMatches(selector: Definition, regexExpression: string | RegExp, msg?: string): NightwatchAPI;
 
     /**
      * Checks if the current title matches a regular expression.
@@ -1577,7 +1577,7 @@ export interface NightwatchCommonAssertions {
      * ```
      *
      */
-    valueEquals(selector: definition, expected: string, msg?: string): NightwatchAPI;
+    valueEquals(selector: Definition, expected: string, msg?: string): NightwatchAPI;
 
     /**
      * Checks if the specified DOM property of a given element has the expected value.
@@ -1585,7 +1585,7 @@ export interface NightwatchCommonAssertions {
      * Several properties can be specified (either as an array or command-separated list). Nightwatch will check each one for presence.
      */
     domPropertyContains(
-        selector: definition,
+        selector: Definition,
         domProperty: string,
         expected: string | number,
         msg?: string,
@@ -1948,28 +1948,28 @@ export class Element {
     getId: () => string;
     findElement: ElementCommands['findElement'];
     element: typeof globalElement;
-    find: (selector: definition | WebElement | By) => any;
-    get: (selector: definition | WebElement | By) => any;
+    find: (selector: Definition | WebElement | By) => any;
+    get: (selector: Definition | WebElement | By) => any;
     findElements: ElementCommands['findElements'];
-    findAll: (selector: definition) => any;
+    findAll: (selector: Definition) => any;
     click: ElementCommands['click'];
     sendKeys: ElementCommands['sendKeys'];
     getTagName: ElementCommands['getTagName'];
-    tagName: (selector: definition) => string;
+    tagName: (selector: Definition) => string;
     getCssValue: ElementCommands['getCssProperty'];
-    css: (selector: definition) => string;
+    css: (selector: Definition) => string;
     getAttribute: ElementCommands['getAttribute'];
-    attr: (selector: definition) => string;
-    attribute: (selector: definition) => string;
+    attr: (selector: Definition) => string;
+    attribute: (selector: Definition) => string;
     getProperty: ElementCommands['getElementProperty'];
-    property: (selector: definition) => any;
-    prop: (selector: definition) => any;
+    property: (selector: Definition) => any;
+    prop: (selector: Definition) => any;
     getText: ElementCommands['getText'];
-    text: (selector: definition) => string;
+    text: (selector: Definition) => string;
     getAriaRole: ElementCommands['getAriaRole'];
-    arialRole: (selector: definition) => string;
+    arialRole: (selector: Definition) => string;
     getAccessibleName: ElementCommands['getAccessibleName'];
-    accessibleName: (selector: definition) => string;
+    accessibleName: (selector: Definition) => string;
     getRect: ClientCommands['getWindowRect'];
     rect: () => { x: number; y: number; width: number; height: number };
     isEnabled: ElementCommands['isEnabled'];
@@ -1978,12 +1978,12 @@ export class Element {
     clear: ElementCommands['clearValue'];
     isDisplayed: WebDriverProtocolElementState['elementIdDisplayed'];
     takeScreenshot: ElementCommands['takeElementScreenshot'];
-    screenshot: (selector: definition) => 'string';
+    screenshot: (selector: Definition) => 'string';
     getWebElement: () => Promise<WebElement>;
     isComponent: () => boolean;
 }
 
-export function globalElement(locator: definition | By | WebElement, options?: any): Element;
+export function globalElement(locator: Definition | By | WebElement, options?: any): Element;
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
 
@@ -2254,11 +2254,205 @@ export interface Cookie {
 
 export interface SharedCommands extends ClientCommands, ElementCommands {}
 
-export type windowSizeAndPosition = { offsetX: number; offsetY: number } | { height: number; width: number };
+export type WindowPosition = { x: number; y: number };
 
-export type windowType = 'tab' | 'window';
+export type WindowSize = { height: number; width: number };
 
-export interface ClientCommands {
+export type WindowSizeAndPosition = WindowPosition & WindowSize;
+
+export type WindowType = 'tab' | 'window';
+
+export interface ChromiumClientCommands {
+    /**
+     * Mock the geolocation of the browser.
+     *
+     * @example
+     *  this.demoTest = function (browser) {
+     *    browser
+     *      // Set location of Tokyo, Japan
+     *      .setGeolocation({
+     *        latitude: 35.689487,
+     *        longitude: 139.691706,
+     *        accuracy: 100
+     *      })
+     *      .navigateTo('https://www.gps-coordinates.net/my-location')
+     *      .pause(3000);
+     *  };
+     *
+     */
+         setGeolocation(
+            coordinates: { latitude: number; longitude: number; accuracy: number },
+            callback?: (this: NightwatchAPI) => void,
+        ): this;
+
+        /**
+         * Capture outgoing network calls from the browser.
+         *
+         * @example
+         *  this.demoTest = function (browser) {
+         *    this.requestCount = 1;
+         *    browser
+         *      .captureNetworkRequests((requestParams) => {
+         *        console.log('Request Number:', this.requestCount++);
+         *        console.log('Request URL:', requestParams.request.url);
+         *        console.log('Request method:', requestParams.request.method);
+         *        console.log('Request headers:', requestParams.request.headers);
+         *      })
+         *      .navigateTo('https://www.google.com');
+         *  };
+         *
+         */
+        captureNetworkRequests(
+            callback?: (this: NightwatchAPI, result: Protocol.Network.RequestWillBeSentEvent) => void,
+        ): this;
+
+        /**
+         * Mock the response of request made on a particular URL.
+         *
+         * @example
+         *  this.demoTest = function (browser) {
+         *    browser
+         *      .mockNetworkResponse('https://www.google.com/', {
+         *        status: 200,
+         *        headers: {
+         *          'Content-Type': 'UTF-8'
+         *        },
+         *        body: 'Hello there!'
+         *      })
+         *      .navigateTo('https://www.google.com/');
+         *  };
+         *
+         */
+        mockNetworkResponse(
+            urlToIntercept: string,
+            response: {
+                status: Protocol.Fetch.FulfillRequestRequest['responseCode'];
+                headers: { [name: string]: string };
+                body: Protocol.Fetch.FulfillRequestRequest['body'];
+            },
+            callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        ): this;
+
+        /**
+         * Override Device Mode (overrides device dimensions).
+         *
+         * @example
+         *  this.demoTest = function (browser) {
+         *    browser
+         *      .setDeviceDimensions({
+         *        width: 400,
+         *        height: 600,
+         *        deviceScaleFactor: 50,
+         *        mobile: true
+         *        })
+         *      .navigateTo('https://www.google.com');
+         *  };
+         *
+         */
+        setDeviceDimensions(
+            metrics: { width: number; height: number; deviceScaleFactor: number; mobile: boolean },
+            callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        ): this;
+
+        /**
+         * Get the performance metrics from the browser.
+         *
+         * @example
+         *  this.demoTest = function (browser) {
+         *    browser
+         *      .enablePerformanceMetrics()
+         *      .navigateTo('https://www.google.com');
+         *      .getPerformanceMetrics((metrics) => {
+         *        console.log(metrics);
+         *       });
+         *  };
+         *
+         */
+        getPerformanceMetrics(
+            callback?: (
+                this: NightwatchAPI,
+                result: NightwatchCallbackResult<Protocol.Performance.GetMetricsResponse>,
+            ) => void,
+        ): this;
+
+        /**
+         * Enable the collection of performance metrics in the browser.
+         *
+         * @example
+         *  this.demoTest = function (browser) {
+         *    browser
+         *      .enablePerformanceMetrics()
+         *      .navigateTo('https://www.google.com');
+         *      .getPerformanceMetrics((metrics) => {
+         *        console.log(metrics);
+         *       });
+         *  };
+         *
+         */
+        enablePerformanceMetrics(
+            enable?: boolean,
+            callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        ): this;
+
+        /**
+         * Takes a heap snapshot and saves it in string-serialized JSON format.
+         * Load the snapshot file into Chrome DevTools' Memory tab to inspect.
+         *
+         * @example
+         *  this.demoTest = function (browser) {
+         *    browser
+         *      .navigateTo('https://www.google.com')
+         *      .takeHeapSnapshot('./snap.heapsnapshot');
+         *  };
+         *
+         */
+        takeHeapSnapshot(
+            heapSnapshotLocation?: string,
+            callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+        ): this;
+
+        /**
+         * Listen to the `console.log` events and register callbacks to process the event.
+         *
+         * @example
+         *  this.demoTest = function (browser) {
+         *    browser
+         *      .captureBrowserConsoleLogs((event) => {
+         *        console.log(event.type, event.timestamp, event.args[0].value);
+         *      })
+         *      .navigateTo('https://www.google.com')
+         *      .executeScript(function() {
+         *        console.error('here');
+         *      }, []);
+         *  };
+         *
+         */
+        captureBrowserConsoleLogs(
+            callback?: (this: NightwatchAPI, result: Protocol.Runtime.ConsoleAPICalledEvent) => void,
+        ): this;
+
+        /**
+         * Listen to the `console.log` events and register callbacks to process the event.
+         *
+         * @example
+         *  this.demoTest = function (browser) {
+         *    browser
+         *      .captureBrowserConsoleLogs((event) => {
+         *        console.log(event.type, event.timestamp, event.args[0].value);
+         *      })
+         *      .navigateTo('https://www.google.com')
+         *      .executeScript(function() {
+         *        console.error('here');
+         *      }, []);
+         *  };
+         *
+         */
+        captureBrowserExceptions(
+            callback?: (this: NightwatchAPI, result: Protocol.Runtime.ExceptionThrownEvent) => void,
+        ): this;
+}
+
+export interface ClientCommands extends ChromiumClientCommands {
     /**
      * Close the current window. This can be useful when you're working with multiple windows open (e.g. an OAuth login).
      * Uses `window` protocol command.
@@ -2339,7 +2533,7 @@ export interface ClientCommands {
      */
     openNewWindow(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
     openNewWindow(
-        type?: windowType,
+        type?: WindowType,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): this;
 
@@ -2796,7 +2990,7 @@ export interface ClientCommands {
      * @see windowRect
      */
     setWindowRect(
-        options: windowSizeAndPosition,
+        options: WindowSizeAndPosition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
 
@@ -2992,194 +3186,6 @@ export interface ClientCommands {
      * };
      */
     useXpath(callback?: (this: NightwatchAPI) => void): this;
-
-    /**
-     * Mock the geolocation of the browser.
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *    browser
-     *      // Set location of Tokyo, Japan
-     *      .setGeolocation({
-     *        latitude: 35.689487,
-     *        longitude: 139.691706,
-     *        accuracy: 100
-     *      })
-     *      .navigateTo('https://www.gps-coordinates.net/my-location')
-     *      .pause(3000);
-     *  };
-     *
-     */
-    setGeolocation(
-        coordinates: { latitude: number; longitude: number; accuracy: number },
-        callback?: (this: NightwatchAPI) => void,
-    ): this;
-
-    /**
-     * Capture outgoing network calls from the browser.
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *    this.requestCount = 1;
-     *    browser
-     *      .captureNetworkRequests((requestParams) => {
-     *        console.log('Request Number:', this.requestCount++);
-     *        console.log('Request URL:', requestParams.request.url);
-     *        console.log('Request method:', requestParams.request.method);
-     *        console.log('Request headers:', requestParams.request.headers);
-     *      })
-     *      .navigateTo('https://www.google.com');
-     *  };
-     *
-     */
-    captureNetworkRequests(
-        callback?: (this: NightwatchAPI, result: Protocol.Network.RequestWillBeSentEvent) => void,
-    ): this;
-
-    /**
-     * Mock the response of request made on a particular URL.
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *    browser
-     *      .mockNetworkResponse('https://www.google.com/', {
-     *        status: 200,
-     *        headers: {
-     *          'Content-Type': 'UTF-8'
-     *        },
-     *        body: 'Hello there!'
-     *      })
-     *      .navigateTo('https://www.google.com/');
-     *  };
-     *
-     */
-    mockNetworkResponse(
-        urlToIntercept: string,
-        response: {
-            status: Protocol.Fetch.FulfillRequestRequest['responseCode'];
-            headers: { [name: string]: string };
-            body: Protocol.Fetch.FulfillRequestRequest['body'];
-        },
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
-
-    /**
-     * Override Device Mode (overrides device dimensions).
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *    browser
-     *      .setDeviceDimensions({
-     *        width: 400,
-     *        height: 600,
-     *        deviceScaleFactor: 50,
-     *        mobile: true
-     *        })
-     *      .navigateTo('https://www.google.com');
-     *  };
-     *
-     */
-    setDeviceDimensions(
-        metrics: { width: number; height: number; deviceScaleFactor: number; mobile: boolean },
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
-
-    /**
-     * Get the performance metrics from the browser.
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *    browser
-     *      .enablePerformanceMetrics()
-     *      .navigateTo('https://www.google.com');
-     *      .getPerformanceMetrics((metrics) => {
-     *        console.log(metrics);
-     *       });
-     *  };
-     *
-     */
-    getPerformanceMetrics(
-        callback?: (
-            this: NightwatchAPI,
-            result: NightwatchCallbackResult<Protocol.Performance.GetMetricsResponse>,
-        ) => void,
-    ): this;
-
-    /**
-     * Enable the collection of performance metrics in the browser.
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *    browser
-     *      .enablePerformanceMetrics()
-     *      .navigateTo('https://www.google.com');
-     *      .getPerformanceMetrics((metrics) => {
-     *        console.log(metrics);
-     *       });
-     *  };
-     *
-     */
-    enablePerformanceMetrics(
-        enable?: boolean,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
-
-    /**
-     * Takes a heap snapshot and saves it in string-serialized JSON format.
-     * Load the snapshot file into Chrome DevTools' Memory tab to inspect.
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *    browser
-     *      .navigateTo('https://www.google.com')
-     *      .takeHeapSnapshot('./snap.heapsnapshot');
-     *  };
-     *
-     */
-    takeHeapSnapshot(
-        heapSnapshotLocation?: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
-    ): this;
-
-    /**
-     * Listen to the `console.log` events and register callbacks to process the event.
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *    browser
-     *      .captureBrowserConsoleLogs((event) => {
-     *        console.log(event.type, event.timestamp, event.args[0].value);
-     *      })
-     *      .navigateTo('https://www.google.com')
-     *      .executeScript(function() {
-     *        console.error('here');
-     *      }, []);
-     *  };
-     *
-     */
-    captureBrowserConsoleLogs(
-        callback?: (this: NightwatchAPI, result: Protocol.Runtime.ConsoleAPICalledEvent) => void,
-    ): this;
-
-    /**
-     * Listen to the `console.log` events and register callbacks to process the event.
-     *
-     * @example
-     *  this.demoTest = function (browser) {
-     *    browser
-     *      .captureBrowserConsoleLogs((event) => {
-     *        console.log(event.type, event.timestamp, event.args[0].value);
-     *      })
-     *      .navigateTo('https://www.google.com')
-     *      .executeScript(function() {
-     *        console.error('here');
-     *      }, []);
-     *  };
-     *
-     */
-    captureBrowserExceptions(
-        callback?: (this: NightwatchAPI, result: Protocol.Runtime.ExceptionThrownEvent) => void,
-    ): this;
 }
 
 export interface ElementCommands {
@@ -3219,12 +3225,12 @@ export interface ElementCommands {
      * @see elementIdClear
      */
     clearValue(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): this;
     clearValue(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): this;
 
@@ -3267,10 +3273,10 @@ export interface ElementCommands {
      *
      * @see elementIdClick
      */
-    click(selector: definition, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+    click(selector: Definition, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
     click(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): this;
 
@@ -3308,13 +3314,13 @@ export interface ElementCommands {
      * @see elementIdAttribute
      */
     getAttribute(
-        selector: definition,
+        selector: Definition,
         attribute: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void,
     ): this;
     getAttribute(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         attribute: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void,
     ): this;
@@ -3353,13 +3359,13 @@ export interface ElementCommands {
      * @see elementIdCssProperty
      */
     getCssProperty(
-        selector: definition,
+        selector: Definition,
         cssProperty: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
     getCssProperty(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         cssProperty: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
@@ -3403,7 +3409,7 @@ export interface ElementCommands {
      * @see elementIdSize
      */
     getElementSize(
-        selector: definition,
+        selector: Definition,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{ width: number; height: number; x: number; y: number }>,
@@ -3411,7 +3417,7 @@ export interface ElementCommands {
     ): this;
     getElementSize(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{ width: number; height: number; x: number; y: number }>,
@@ -3459,7 +3465,7 @@ export interface ElementCommands {
      * @see elementIdLocation
      */
     getLocation(
-        selector: definition,
+        selector: Definition,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{ x: number; y: number; width: number; height: number }>,
@@ -3467,7 +3473,7 @@ export interface ElementCommands {
     ): this;
     getLocation(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{ x: number; y: number; width: number; height: number }>,
@@ -3490,12 +3496,12 @@ export interface ElementCommands {
      * @see elementIdLocationInView
      */
     getLocationInView(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
     ): this;
     getLocationInView(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ x: number; y: number }>) => void,
     ): this;
 
@@ -3533,12 +3539,12 @@ export interface ElementCommands {
      * @see elementIdName
      */
     getTagName(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
     getTagName(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
 
@@ -3584,12 +3590,12 @@ export interface ElementCommands {
      * @see elementIdText
      */
     getText(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
     getText(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
 
@@ -3627,12 +3633,12 @@ export interface ElementCommands {
      * @see elementIdValue
      */
     getValue(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
     getValue(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
 
@@ -3673,12 +3679,12 @@ export interface ElementCommands {
      * @see elementIdDisplayed
      */
     isVisible(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
     ): this;
     isVisible(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
     ): this;
 
@@ -3717,12 +3723,12 @@ export interface ElementCommands {
      *
      */
     isPresent(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
     ): this;
     isPresent(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
     ): this;
 
@@ -3738,14 +3744,14 @@ export interface ElementCommands {
      * @see moveTo
      */
     moveToElement(
-        selector: definition,
+        selector: Definition,
         xoffset: number,
         yoffset: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
     moveToElement(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         xoffset: number,
         yoffset: number,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
@@ -3773,13 +3779,13 @@ export interface ElementCommands {
      * @see elementIdValue
      */
     setValue(
-        selector: definition,
+        selector: Definition,
         inputValue: string | string[],
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
     setValue(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         inputValue: string | string[],
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
@@ -3820,12 +3826,12 @@ export interface ElementCommands {
      * @see submit
      */
     submitForm(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
     submitForm(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
 
@@ -3903,7 +3909,7 @@ export interface ElementCommands {
      * @since v0.4.0
      */
     waitForElementNotPresent(
-        selector: definition,
+        selector: Definition,
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
@@ -3912,7 +3918,7 @@ export interface ElementCommands {
     ): this;
     waitForElementNotPresent(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
@@ -3994,7 +4000,7 @@ export interface ElementCommands {
      * @see waitForElementVisible
      */
     waitForElementNotVisible(
-        selector: definition,
+        selector: Definition,
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
@@ -4003,7 +4009,7 @@ export interface ElementCommands {
     ): this;
     waitForElementNotVisible(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
@@ -4081,7 +4087,7 @@ export interface ElementCommands {
      *
      */
     waitForElementPresent(
-        selector: definition,
+        selector: Definition,
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
@@ -4090,7 +4096,7 @@ export interface ElementCommands {
     ): this;
     waitForElementPresent(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
@@ -4123,7 +4129,7 @@ export interface ElementCommands {
      * };
      */
     waitForElementVisible(
-        selector: definition,
+        selector: Definition,
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
@@ -4133,7 +4139,7 @@ export interface ElementCommands {
 
     waitForElementVisible(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
@@ -4181,12 +4187,12 @@ export interface ElementCommands {
      *
      */
     getAccessibleName(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
     getAccessibleName(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
 
@@ -4230,12 +4236,12 @@ export interface ElementCommands {
      *
      */
     getAriaRole(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
     getAriaRole(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): this;
 
@@ -4276,7 +4282,7 @@ export interface ElementCommands {
      * }
      */
     getElementRect(
-        selector: definition,
+        selector: Definition,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{ height: number; width: number; x: number; y: number }>,
@@ -4284,7 +4290,7 @@ export interface ElementCommands {
     ): this;
     getElementRect(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{ height: number; width: number; x: number; y: number }>,
@@ -4305,13 +4311,13 @@ export interface ElementCommands {
      *
      */
     uploadFile(
-        selector: definition,
+        selector: Definition,
         filePath: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
     uploadFile(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         filePath: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
@@ -4341,13 +4347,13 @@ export interface ElementCommands {
      *
      */
     updateValue(
-        selector: definition,
+        selector: Definition,
         inputValue: string | string[],
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): this;
     updateValue(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         inputValue: string | string[],
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): this;
@@ -4370,13 +4376,13 @@ export interface ElementCommands {
      *
      */
     dragAndDrop(
-        selector: definition,
+        selector: Definition,
         destination: NightwatchElement | { x: number; y: number },
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
     dragAndDrop(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         destination: NightwatchElement | { x: number; y: number },
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
@@ -4396,12 +4402,12 @@ export interface ElementCommands {
      *
      */
     getFirstElementChild(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
     ): this;
     getFirstElementChild(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
     ): this;
 
@@ -4420,12 +4426,12 @@ export interface ElementCommands {
      *
      */
     getLastElementChild(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
     ): this;
     getLastElementChild(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
     ): this;
 
@@ -4444,12 +4450,12 @@ export interface ElementCommands {
      *
      */
     getNextSibling(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
     ): this;
     getNextSibling(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
     ): this;
 
@@ -4488,12 +4494,12 @@ export interface ElementCommands {
      *
      */
     getPreviousSibling(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
     ): this;
     getPreviousSibling(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<JSON_WEB_OBJECT>) => void,
     ): this;
 
@@ -4510,12 +4516,12 @@ export interface ElementCommands {
      *
      */
     hasDescendants(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
     ): this;
     hasDescendants(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
     ): this;
 
@@ -4543,12 +4549,12 @@ export interface ElementCommands {
      *
      */
     getShadowRoot(
-        selector: definition | WebElement | By,
+        selector: Definition | WebElement | By,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Element>) => void,
     ): this;
     getShadowRoot(
         using: LocateStrategy,
-        selector: definition | WebElement | By,
+        selector: Definition | WebElement | By,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Element>) => void,
     ): this;
 
@@ -4567,7 +4573,7 @@ export interface ElementCommands {
      *
      */
     findElement(
-        selector: definition,
+        selector: Definition,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{
@@ -4579,7 +4585,7 @@ export interface ElementCommands {
     ): WebElementPromise;
     findElement(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{
@@ -4605,7 +4611,7 @@ export interface ElementCommands {
      *
      */
     findElements(
-        selector: definition,
+        selector: Definition,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{
@@ -4617,7 +4623,7 @@ export interface ElementCommands {
     ): JSON_WEB_OBJECT[];
     findElements(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<{
@@ -4662,13 +4668,13 @@ export interface ElementCommands {
      *
      */
     getElementProperty(
-        selector: definition,
+        selector: Definition,
         property: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void,
     ): this;
     getElementProperty(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         property: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void,
     ): this;
@@ -4709,12 +4715,12 @@ export interface ElementCommands {
      * }
      */
     isEnabled(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
     ): this;
     isEnabled(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
     ): this;
 
@@ -4754,12 +4760,12 @@ export interface ElementCommands {
      * }
      */
     isSelected(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
     ): this;
     isSelected(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
     ): this;
 
@@ -4796,14 +4802,14 @@ export interface ElementCommands {
      * }
      */
     setAttribute(
-        selector: definition,
+        selector: Definition,
         attribute: string,
         value: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
     setAttribute(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         attribute: string,
         value: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
@@ -4832,13 +4838,13 @@ export interface ElementCommands {
      *
      */
     setPassword(
-        selector: definition,
+        selector: Definition,
         inputValue: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
     setPassword(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         inputValue: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
     ): this;
@@ -4882,12 +4888,12 @@ export interface ElementCommands {
      *
      */
     takeElementScreenshot(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => string,
     ): this;
     takeElementScreenshot(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => string,
     ): this;
 }
@@ -5950,12 +5956,12 @@ export interface WebDriverProtocolUserActions {
      *
      */
     rightClick(
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): this;
     rightClick(
         using: LocateStrategy,
-        selector: definition,
+        selector: Definition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): this;
 }
@@ -6086,7 +6092,7 @@ export interface WebDriverProtocolMobileRelated {
  * }
  */
 export interface PageElements {
-    [key: string]: definition;
+    [key: string]: Definition;
 }
 
 /**
