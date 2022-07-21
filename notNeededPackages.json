@@ -2609,6 +2609,10 @@
             "libraryName": "lodash-decorators",
             "asOfVersion": "4.0.0"
         },
+        "log-process-errors": {
+            "libraryName": "log-process-errors",
+            "asOfVersion": "9.1.0"
+        },
         "log-symbols": {
             "libraryName": "log-symbols",
             "asOfVersion": "3.0.0"
