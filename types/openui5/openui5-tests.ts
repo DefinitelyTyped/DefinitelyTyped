@@ -24,6 +24,7 @@ import { TitleLevel } from "sap/ui/core/library";
 import DateTimePicker from "sap/m/DateTimePicker";
 import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
 import RenderManager from "sap/ui/core/RenderManager";
+import NumberFormat from "sap/ui/core/format/NumberFormat";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -153,3 +154,7 @@ const context = odataV4ListBinding.getKeepAliveContext("x");
 (odataV4ListBinding.getModel() as ODataV4Model).delete("something");
 
 const showTimeZone = DateFormatTimezoneDisplay.Show;
+
+const integer = NumberFormat.getIntegerInstance({
+    strictGroupingValidation: true
+});

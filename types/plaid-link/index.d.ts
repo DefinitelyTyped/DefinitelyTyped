@@ -44,7 +44,7 @@ export namespace Plaid {
     type OnLoad = () => void;
 
     interface LinkHandler {
-        open: () => void;
+        open: (institution_id?: string) => void; // the connect flow skips the 'Select your bank' step if `institution_id` is provided
         exit: (options?: ExitOptions) => void;
         destroy: () => void;
         institutions: Institution[];

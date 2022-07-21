@@ -1765,7 +1765,7 @@ declare namespace DataTables {
 
     //#region "callback-functions"
 
-    type FunctionCreateRow = (row: Node, data: any[] | object, dataIndex: number) => void;
+    type FunctionCreateRow = (row: Node, data: any[] | object, dataIndex: number, cells: Node[]) => void;
 
     type FunctionDrawCallback = (settings: SettingsLegacy) => void;
 

@@ -18,23 +18,28 @@ Modal.VERSION;
 Modal.Default;
 
 element.addEventListener(Modal.Events.show, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.shown, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.hide, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.hidden, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.hidePrevented, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 // $ExpectType JQuery<HTMLElement>

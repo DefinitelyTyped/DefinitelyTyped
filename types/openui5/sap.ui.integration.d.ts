@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.104.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -987,14 +987,11 @@ declare module "sap/ui/integration/editor/Editor" {
 
 declare module "sap/ui/integration/editor/Extension" {
   import {
-    default as ManagedObject,
-    $ManagedObjectSettings,
-    PropertyBindingInfo,
-  } from "sap/ui/base/ManagedObject";
+    default as Extension1,
+    $ExtensionSettings as $ExtensionSettings1,
+  } from "sap/ui/integration/Extension";
 
   import { CardFacade } from "sap/ui/integration/widgets/Card";
-
-  import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
   /**
    * @SINCE 1.94
@@ -1002,13 +999,9 @@ declare module "sap/ui/integration/editor/Extension" {
    * Brings JavaScript capabilities for an {@link sap.ui.integration.editor.Editor} where custom logic can
    * be implemented.
    */
-  export default class Extension extends ManagedObject {
+  export default class Extension extends Extension1 {
     /**
      * Constructor for a new `Extension`.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
      */
     constructor(
       /**
@@ -1018,10 +1011,6 @@ declare module "sap/ui/integration/editor/Extension" {
     );
     /**
      * Constructor for a new `Extension`.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
      */
     constructor(
       /**
@@ -1035,64 +1024,18 @@ declare module "sap/ui/integration/editor/Extension" {
     );
 
     /**
-     * Creates a new subclass of class sap.ui.integration.editor.Extension with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Extension>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.integration.editor.Extension.
-     *
-     * @returns Metadata object describing this class
-     */
-    static getMetadata(): ManagedObjectMetadata;
-    /**
      * Returns an interface to the editor, which uses this extension.
      *
      * @returns An interface to the card.
      */
     getEditor(): CardFacade;
     /**
-     * @EXPERIMENTAL (since 1.94)
-     *
-     * Gets current value of property {@link #getFormatters formatters}.
-     *
-     * The formatters, which can be used in the manifest.
-     *
-     * @returns Value of property `formatters`
-     */
-    getFormatters(): object;
-    /**
      * Called when the editor is ready.
      */
     onEditorReady(): void;
   }
 
-  export interface $ExtensionSettings extends $ManagedObjectSettings {
-    /**
-     * @EXPERIMENTAL (since 1.94)
-     *
-     * The formatters, which can be used in the manifest.
-     */
-    formatters?: object | PropertyBindingInfo | `{${string}}`;
-  }
+  export interface $ExtensionSettings extends $ExtensionSettings1 {}
 }
 
 declare module "sap/ui/integration/Extension" {
@@ -1350,6 +1293,8 @@ declare module "sap/ui/integration/Host" {
   import Control from "sap/ui/core/Control";
 
   import { CardActionType, CardMenuAction } from "sap/ui/integration/library";
+
+  import Card from "sap/ui/integration/widgets/Card";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -1810,9 +1755,13 @@ declare module "sap/ui/integration/Host" {
      */
     getDestination(
       /**
-       * The name of the destination. Most often the name which is used in the SAP Cloud Platform.
+       * The name of the destination.
        */
-      sDestinationName: string
+      sDestinationName: string,
+      /**
+       * The card that depends on the destination. Most often the name which is used in the SAP Cloud Platform.
+       */
+      oCard: Card
     ): Promise<any>;
     /**
      * @SINCE 1.83
@@ -2584,6 +2533,16 @@ declare module "sap/ui/integration/widgets/Card" {
       sPath: string
     ): Object;
     /**
+     * Gets current value of property {@link #getReferenceId referenceId}.
+     *
+     * Optional property which can be used by the host to reference the card. Does not affect the card behavior.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `referenceId`
+     */
+    getReferenceId(): string;
+    /**
      * @EXPERIMENTAL (since 1.83)
      *
      * Gets translated text from the i18n properties files configured for this card.
@@ -2863,6 +2822,23 @@ declare module "sap/ui/integration/widgets/Card" {
        * New value for property `manifestChanges`
        */
       sManifestChanges: object[]
+    ): this;
+    /**
+     * Sets a new value for property {@link #getReferenceId referenceId}.
+     *
+     * Optional property which can be used by the host to reference the card. Does not affect the card behavior.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setReferenceId(
+      /**
+       * New value for property `referenceId`
+       */
+      sReferenceId?: string
     ): this;
     /**
      * Displays the loading placeholders on the whole card, or a particular area of the card. **Note:** Only
@@ -3227,6 +3203,11 @@ declare module "sap/ui/integration/widgets/Card" {
   }
 
   export interface $CardSettings extends $CardBaseSettings {
+    /**
+     * Optional property which can be used by the host to reference the card. Does not affect the card behavior.
+     */
+    referenceId?: string | PropertyBindingInfo;
+
     /**
      * The URL of the manifest or an object.
      */

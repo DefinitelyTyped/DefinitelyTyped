@@ -1,6 +1,6 @@
 // Type definitions for ansi 0.3
 // Project: https://github.com/tootallnate/ansi.js
-// Definitions by: Gustavo6046 <https://github.com/Gustavo6046>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
