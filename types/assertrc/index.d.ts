@@ -18,4 +18,5 @@ class assertBase {
     valueNotEqual(value: any, sample: string): boolean;
     valueNotEqualType(value: any, sample: string): boolean;
 }
+
 export const base: typeof assertBase;
