@@ -2,7 +2,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { ElementLocation } from "parse5";
+import { ElementLocation } from "parse5/dist/common/token";
 import { Context } from "vm";
 import * as tough from "tough-cookie";
 

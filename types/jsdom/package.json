@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@types/parse5": "^6.0.3"
+        "parse5": "^7.0.0"
     },
     "types": "index",
     "typesVersions": {
