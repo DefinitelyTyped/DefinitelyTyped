@@ -16,6 +16,7 @@ var precisionModel = new jsts.geom.PrecisionModel();
 var factory = new jsts.geom.GeometryFactory(precisionModel);
 var wktWriter = new jsts.io.WKTWriter(factory);
 var multiPoly: jsts.geom.MultiPolygon = new jsts.geom.MultiPolygon([poly], factory);
+var multiLs: jsts.geom.MultiLineString = new jsts.geom.MultiLineString([ls], factory);
 const o: jsts.algorithm.Orientation = new jsts.algorithm.Orientation();
 const bnr: jsts.algorithm.BoundaryNodeRule = new jsts.algorithm.BoundaryNodeRule();
 
@@ -158,6 +159,13 @@ n = ls.distance(p);
 n = ls.distance(ls);
 bool = ls.isClosed();
 bool = ls.isRing();
+
+bool = multiLs.equalsExact(g, n);
+g = multiLs.getBoundary();
+n = multiLs.getBoundaryDimension();
+n = multiLs.getDimension();
+str = multiLs.getGeometryType();
+bool = multiLs.isClosed();
 
 n = p.getX();
 n = p.getY();

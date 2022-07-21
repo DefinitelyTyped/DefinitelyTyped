@@ -2284,6 +2284,44 @@ declare namespace jsts {
             isRing(): boolean;
         }
 
+        export class MultiLineString extends GeometryCollection {
+            /**
+             * @construtor
+             */
+            constructor(lineStrings: LineString[], factory: GeometryFactory);
+            /**
+             * @constructor
+             *
+             * @deprecated Use GeometryFactory instead
+             */
+            constructor(lineStrings: LineString[], precisionModel: PrecisionModel, SRID: number);
+            /**
+             * Returns true if the two Geometrys are exactly equal, up to a specified distance tolerance.
+             */
+            equalsExact(other: Geometry, tolerance: number): boolean;
+            /**
+             * Gets the boundary of this geometry.
+             */
+            getBoundary(): Geometry;
+            /**
+             * Returns the dimension of this Geometrys inherent boundary.
+             */
+            getBoundaryDimension(): number;
+            /**
+             * Returns the dimension of this geometry.
+             */
+            getDimension(): number;
+            /**
+             * Returns the name of this Geometry's actual class.
+             */
+            getGeometryType(): string;
+            isClosed(): boolean;
+            /**
+             * @deprecated
+             */
+            reverse(): Geometry;
+        }
+
         export class Point extends Geometry {
             /**
              * @constructor
