@@ -583,10 +583,10 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
     searching: boolean;
     /** Flag that indicates if React InstantSearch has detected that searches are stalled. */
     isSearchStalled: any;
-    /** If the search failed, the error will be logged here. */
-    error: AlgoliaError;
     /** If there is a search in a list in progress. */
     searchingForFacetValues: any;
+    /** If the search failed, the error will be logged here. */
+    error?: AlgoliaError;
 }
 /**
  * The connectStateResults connector provides a way to access the `searchState` and the `searchResults` of InstantSearch.
