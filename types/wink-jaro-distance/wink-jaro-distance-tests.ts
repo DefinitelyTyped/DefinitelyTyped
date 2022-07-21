@@ -1,6 +1,6 @@
 import jaro from 'wink-jaro-distance';
 
-// Example function calls taken fromo fficial readme
+// Example function calls taken from official readme
 jaro('father','farther')
 // -> { distance: 0.04761904761904756, similarity: 0.9523809523809524 }
 
