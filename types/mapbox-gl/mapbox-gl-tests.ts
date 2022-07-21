@@ -937,6 +937,12 @@ map.getPadding();
 // $ExpectType Map
 map.setPadding({ top: 10, bottom: 20, left: 30, right: 40 }, { myData: 'MY DATA' });
 
+map.setPaintProperty('layerId', 'layerName', null, { validate: true });
+map.setPaintProperty('layerId', 'layerName', null, { validate: false });
+map.setPaintProperty('layerId', 'layerName', null, {});
+// @ts-expect-error
+map.setPaintProperty('layerId', 'layerName', null, { some_option: 'some_string' });
+
 // $ExpectType boolean
 map.showPadding;
 map.showPadding = false;
@@ -1380,7 +1386,7 @@ expectType<mapboxgl.Expression>([
 expectType<mapboxgl.Expression>([
     'number-format',
     ['get', 'quantity'],
-    { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }
+    { 'min-fraction-digits': 1, 'max-fraction-digits': 1 },
 ]);
 const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
 
