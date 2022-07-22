@@ -3,6 +3,7 @@
         "array-type": false,
         "trim-file": false,
         "no-padding": false,
+        "whitespace": false,
         "no-consecutive-blank-lines": false,
         "no-unnecessary-class": false
     }
