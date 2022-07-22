@@ -687,6 +687,11 @@ declare namespace ROSLIB {
          * Cancel all goals associated with this ActionClient.
          */
         cancel(): void;
+
+        /**
+         * Unsubscribe and unadvertise all topics associated with this ActionClient.
+         */
+        dispose(): void;
     }
 
     class Goal {

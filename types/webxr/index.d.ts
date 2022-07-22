@@ -1,4 +1,4 @@
-// Type definitions for non-npm package webxr 0.4
+// Type definitions for non-npm package webxr 0.5
 // Project: https://www.w3.org/TR/webxr/
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 //                 Raanan Weber <https://github.com/RaananW>
@@ -1084,3 +1084,45 @@ interface OCULUS_multiview extends OVR_multiview2 {
 }
 
 declare abstract class OCULUS_multiview implements OCULUS_multiview {}
+
+/**
+ * BEGIN: WebXR DOM Overlays Module
+ * https://immersive-web.github.io/dom-overlays/
+ */
+
+interface GlobalEventHandlersEventMap {
+    beforexrselect: XRSessionEvent;
+}
+
+interface GlobalEventHandlers {
+    /**
+     * An XRSessionEvent of type beforexrselect is dispatched on the DOM overlay
+     * element before generating a WebXR selectstart input event if the -Z axis
+     * of the input source's targetRaySpace intersects the DOM overlay element
+     * at the time the input device's primary action is triggered.
+     */
+    onbeforexrselect: ((this: GlobalEventHandlers, ev: XRSessionEvent) => any) | null;
+}
+
+interface XRDOMOverlayInit {
+    root: Element;
+}
+
+interface XRSessionInit {
+    domOverlay?: XRDOMOverlayInit | undefined;
+}
+
+type XRDOMOverlayType = 'screen' | 'floating' | 'head-locked';
+
+interface XRDOMOverlayState {
+    type: XRDOMOverlayType;
+}
+
+interface XRSession {
+    readonly domOverlayState?: XRDOMOverlayState | undefined;
+}
+
+/**
+ * END: WebXR DOM Overlays Module
+ * https://immersive-web.github.io/dom-overlays/
+ */
