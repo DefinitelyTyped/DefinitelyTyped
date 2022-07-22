@@ -3,10 +3,10 @@ import Jabber = require('jabber');
 // $ExpectType Jabber
 new Jabber();
 
-// $ExpectError
+// @ts-expect-error
 new Jabber('asd');
 
-// $ExpectError
+// @ts-expect-error
 new Jabber([], '1');
 
 // $ExpectType Jabber
@@ -18,13 +18,13 @@ const email = jabberInstance.createEmail('asd');
 // $ExpectType string
 const fullName = jabberInstance.createFullName(true);
 
-// $ExpectError
+// @ts-expect-error
 jabberInstance.createParagraph();
 
 // $ExpectType string
 const paragraph = jabberInstance.createParagraph(1);
 
-// $ExpectError
+// @ts-expect-error
 jabberInstance.createWord();
 
 const word = jabberInstance.createWord(1, true, true);

@@ -3935,7 +3935,7 @@ declare namespace sequelize {
          * @see    {Sequelize#query}
          */
         findAll<TCustomAttributes>(options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance[]>;
-        all<TCustomAttributes>(optionz?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance[]>;
+        all<TCustomAttributes>(options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance[]>;
 
         /**
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will

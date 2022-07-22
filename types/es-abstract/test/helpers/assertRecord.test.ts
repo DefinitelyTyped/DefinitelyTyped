@@ -6,5 +6,5 @@ declare const desc: ES5.PropertyDescriptor;
 // $ExpectType void
 assertRecord(ES5, 'Property Descriptor', 'desc', desc);
 
-// $ExpectError
+// @ts-expect-error
 assertRecord(ES5, 'Property Descriptor', 'desc', null);

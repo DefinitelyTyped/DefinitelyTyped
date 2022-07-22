@@ -28,9 +28,9 @@ const chart = new OrgChart<Person>()
         d.data;
         // $ExpectType string
         d.data.firstName;
-        // $ExpectError
+        // @ts-expect-error
         d.data.middleName;
-        // $ExpectError
+        // @ts-expect-error
         d.firstName;
         if (d.depth === 0) return 500;
         return 330;
@@ -84,7 +84,7 @@ chart.backgroundColor();
 
 chart
     .backgroundColor()
-    // $ExpectError
+    // @ts-expect-error
     .render();
 
 // $ExpectType OrgChart<Person>

@@ -174,6 +174,7 @@ interface IEvent<E extends Event = Event> {
     e: E;
     target?: Object | undefined;
     subTargets?: Object[] | undefined;
+    selected?: Object[] | undefined;
     button?: number | undefined;
     isClick?: boolean | undefined;
     pointer?: Point | undefined;
@@ -698,7 +699,12 @@ export class Gradient {
      */
     static fromElement(el: SVGGradientElement, instance: Object): Gradient;
 }
+
 export class Intersection {
+    status?: string | undefined;
+
+    points?: Point[] | undefined;
+
     constructor(status?: string);
     /**
      * Appends a point to intersection
@@ -5792,6 +5798,10 @@ export class BaseBrush {
      */
     width: number;
 
+    /**
+     * Discard points that are less than `decimate` pixel distant from each other
+     */
+    decimate: number;
     /**
      * Shadow object representing shadow of this shape.
      * <b>Backwards incompatibility note:</b> This property replaces "shadowColor" (String), "shadowOffsetX" (Number),

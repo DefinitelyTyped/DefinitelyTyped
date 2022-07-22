@@ -34,6 +34,7 @@ export interface StoreConfig extends CachingConfig {
     };
     max?: number;
     maxSize?: number;
+    sizeCalculation?: (value: any, key: any) => number;
 
     /**
      * You may pass in any other arguments these will be passed on to the `create` method of your store,

@@ -6,8 +6,8 @@ const stringLookup = lookup("10001");
 // $ExpectType string | null
 const numberLookup = lookup(10001);
 
-// $ExpectError
+// @ts-expect-error
 const noArg = lookup();
 
-// $ExpectError
+// @ts-expect-error
 const wrongType = lookup([]);

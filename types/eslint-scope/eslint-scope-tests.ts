@@ -39,3 +39,5 @@ const managerInterface = manager1; // $ExpectType ScopeManager
 const scopeInterface = scope; // $ExpectType Scope
 const variableInterface = variable; // $ExpectType Variable
 const referenceInterface = reference; // $ExpectType Reference
+
+scope.references[0].resolved?.scope; // $ExpectType Scope | undefined

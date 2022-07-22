@@ -127,7 +127,14 @@ export function appendTxnAuthorAgreementAcceptanceToRequest(
 ): Promise<LedgerRequest>;
 export function abbreviateVerkey(did: Did, fullVerkey: Verkey): Promise<Verkey>;
 export function generateNonce(): Promise<string>;
-
+export function generateWalletKey(config?: GenerateWalletKeyConfig): Promise<string>;
+export function buildAttribRequest(
+    submitterDid: Did,
+    targetDid: Did,
+    hash: string | null,
+    raw: Record<string, unknown> | null,
+    enc: string | null,
+): Promise<LedgerRequest>;
 export function buildGetAttribRequest(
     submitterDid: Did | null,
     targetDid: Did,
@@ -329,6 +336,10 @@ export interface OpenWalletCredentials extends WalletCredentials {
 export interface WalletExportImportConfig {
     key: string;
     path: string;
+}
+
+export interface GenerateWalletKeyConfig {
+    seed?: string;
 }
 
 export interface DidConfig {

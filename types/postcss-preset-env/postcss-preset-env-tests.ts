@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as postcss from 'postcss';
+import postcss from 'postcss';
 import * as postcssPresetEnv from 'postcss-preset-env';
 
 postcss([postcssPresetEnv({ autoprefixer: true })])

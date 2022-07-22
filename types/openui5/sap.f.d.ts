@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.104.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -8346,6 +8346,17 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Gets current value of property {@link #getFirstColumnBackArrowLabel firstColumnBackArrowLabel}.
+     *
+     * Text that describes the landmark of the back arrow of the first column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * @returns Value of property `firstColumnBackArrowLabel`
+     */
+    getFirstColumnBackArrowLabel(): string;
+    /**
      * Gets current value of property {@link #getFirstColumnLabel firstColumnLabel}.
      *
      * Text that describes the landmark of the first column of the corresponding `sap.f.FlexibleColumnLayout`
@@ -8356,6 +8367,17 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * @returns Value of property `firstColumnLabel`
      */
     getFirstColumnLabel(): string;
+    /**
+     * Gets current value of property {@link #getLastColumnForwardArrowLabel lastColumnForwardArrowLabel}.
+     *
+     * Text that describes the landmark of forward arrow of the last column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * @returns Value of property `lastColumnForwardArrowLabel`
+     */
+    getLastColumnForwardArrowLabel(): string;
     /**
      * Gets current value of property {@link #getLastColumnLabel lastColumnLabel}.
      *
@@ -8368,6 +8390,28 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      */
     getLastColumnLabel(): string;
     /**
+     * Gets current value of property {@link #getMiddleColumnBackArrowLabel middleColumnBackArrowLabel}.
+     *
+     * Text that describes the landmark of back arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * @returns Value of property `middleColumnBackArrowLabel`
+     */
+    getMiddleColumnBackArrowLabel(): string;
+    /**
+     * Gets current value of property {@link #getMiddleColumnForwardArrowLabel middleColumnForwardArrowLabel}.
+     *
+     * Text that describes the landmark of forward arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * @returns Value of property `middleColumnForwardArrowLabel`
+     */
+    getMiddleColumnForwardArrowLabel(): string;
+    /**
      * Gets current value of property {@link #getMiddleColumnLabel middleColumnLabel}.
      *
      * Text that describes the landmark of the middle column of the corresponding `sap.f.FlexibleColumnLayout`
@@ -8378,6 +8422,24 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * @returns Value of property `middleColumnLabel`
      */
     getMiddleColumnLabel(): string;
+    /**
+     * Sets a new value for property {@link #getFirstColumnBackArrowLabel firstColumnBackArrowLabel}.
+     *
+     * Text that describes the landmark of the back arrow of the first column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFirstColumnBackArrowLabel(
+      /**
+       * New value for property `firstColumnBackArrowLabel`
+       */
+      sFirstColumnBackArrowLabel?: string
+    ): this;
     /**
      * Sets a new value for property {@link #getFirstColumnLabel firstColumnLabel}.
      *
@@ -8397,6 +8459,24 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
       sFirstColumnLabel?: string
     ): this;
     /**
+     * Sets a new value for property {@link #getLastColumnForwardArrowLabel lastColumnForwardArrowLabel}.
+     *
+     * Text that describes the landmark of forward arrow of the last column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setLastColumnForwardArrowLabel(
+      /**
+       * New value for property `lastColumnForwardArrowLabel`
+       */
+      sLastColumnForwardArrowLabel?: string
+    ): this;
+    /**
      * Sets a new value for property {@link #getLastColumnLabel lastColumnLabel}.
      *
      * Text that describes the landmark of the last column of the corresponding `sap.f.FlexibleColumnLayout`
@@ -8413,6 +8493,42 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
        * New value for property `lastColumnLabel`
        */
       sLastColumnLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMiddleColumnBackArrowLabel middleColumnBackArrowLabel}.
+     *
+     * Text that describes the landmark of back arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMiddleColumnBackArrowLabel(
+      /**
+       * New value for property `middleColumnBackArrowLabel`
+       */
+      sMiddleColumnBackArrowLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMiddleColumnForwardArrowLabel middleColumnForwardArrowLabel}.
+     *
+     * Text that describes the landmark of forward arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMiddleColumnForwardArrowLabel(
+      /**
+       * New value for property `middleColumnForwardArrowLabel`
+       */
+      sMiddleColumnForwardArrowLabel?: string
     ): this;
     /**
      * Sets a new value for property {@link #getMiddleColumnLabel middleColumnLabel}.
@@ -8459,6 +8575,38 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * If not set, a predefined text is used.
      */
     lastColumnLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of the back arrow of the first column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    firstColumnBackArrowLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of forward arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    middleColumnForwardArrowLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of back arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    middleColumnBackArrowLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of forward arrow of the last column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    lastColumnForwardArrowLabel?: string | PropertyBindingInfo;
   }
 }
 

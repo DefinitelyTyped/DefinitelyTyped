@@ -4,7 +4,8 @@ import createTree = require('functional-red-black-tree');
 createTree();
 
 // Comparator must return a number:
-createTree(() => {}); // $ExpectError
+// @ts-expect-error
+createTree(() => {});
 
 const tree = createTree<number, string>(); // $ExpectType Tree<number, string>
 
@@ -23,16 +24,24 @@ tree.lt(1); // $ExpectType Iterator<number, string>
 tree.le(1); // $ExpectType Iterator<number, string>
 tree.find(1); // $ExpectType Iterator<number, string>
 
-tree.at(''); // $ExpectError
-tree.ge(''); // $ExpectError
-tree.gt(''); // $ExpectError
-tree.lt(''); // $ExpectError
-tree.le(''); // $ExpectError
-tree.find(''); // $ExpectError
+// @ts-expect-error
+tree.at('');
+// @ts-expect-error
+tree.ge('');
+// @ts-expect-error
+tree.gt('');
+// @ts-expect-error
+tree.lt('');
+// @ts-expect-error
+tree.le('');
+// @ts-expect-error
+tree.find('');
 
 // Check that only keys and values of the correct type are passed:
-tree.insert('foo', 1); // $ExpectError
-tree.remove('foo'); // $ExpectError
+// @ts-expect-error
+tree.insert('foo', 1);
+// @ts-expect-error
+tree.remove('foo');
 
 // Check that operations that modify the tree return a tree of the same type.
 tree.insert(1, 'foo'); // $ExpectType Tree<number, string>
@@ -40,8 +49,10 @@ tree.remove(1); // $ExpectType Tree<number, string>
 
 tree.forEach((key, value) => {
     // Check that ke/value types are correctly passed. Should be: (number, string).
-    key.trim(); // $ExpectError
-    value / 2; // $ExpectError
+    // @ts-expect-error
+    key.trim();
+    // @ts-expect-error
+    value / 2;
 });
 
 // forEach accepts:
@@ -53,18 +64,23 @@ tree.forEach(() => {}, 1); // $ExpectType void
 tree.forEach(() => {}, 1, 1); // $ExpectType void
 // It does NOT accept:
 // A visitor and upper bound, but no lower bound.
-tree.forEach(() => {}, undefined, 1); // $ExpectError
+// @ts-expect-error
+tree.forEach(() => {}, undefined, 1);
 // More than 3 parameters:
-tree.forEach(() => {}, 1, 1, 1); // $ExpectError
+// @ts-expect-error
+tree.forEach(() => {}, 1, 1, 1);
 // Bounds that are not the same type as the keys:
-tree.forEach(() => {}, 1, ''); // $ExpectError
+// @ts-expect-error
+tree.forEach(() => {}, 1, '');
 
 // tree.forEach should return void or the result of executing the callback on the last item of iteration.
 tree.forEach(() => {}); // $ExpectType void
 tree.forEach(() => new Date()); // $ExpectType Date
-tree.forEach(() => 'foo') / 2; // $ExpectError
+// @ts-expect-error
+tree.forEach(() => 'foo') / 2;
 
-tree.get(''); // $ExpectError
+// @ts-expect-error
+tree.get('');
 // Ensure that types reflect that tree.get() can return undefined.
 tree.get(1); // $ExpectType string | void
 

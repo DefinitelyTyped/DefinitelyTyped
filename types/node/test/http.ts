@@ -39,6 +39,8 @@ import * as dns from 'node:dns';
     const keepAliveTimeout: number = server.keepAliveTimeout;
     const requestTimeout: number = server.requestTimeout;
     server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    server.closeIdleConnections(); // $ExpectType void
+    server.closeAllConnections(); // $ExpectType void
 }
 
 // http IncomingMessage

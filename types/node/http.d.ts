@@ -249,6 +249,16 @@ declare module 'http' {
          * @since v14.11.0
          */
         requestTimeout: number;
+        /**
+         * Closes all connections connected to this server.
+         * @since v18.2.0
+         */
+        closeAllConnections(): void;
+        /**
+         * Closes all connections connected to this server which are not sending a request or waiting for a response.
+         * @since v18.2.0
+         */
+        closeIdleConnections(): void;
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: 'close', listener: () => void): this;
         addListener(event: 'connection', listener: (socket: Socket) => void): this;

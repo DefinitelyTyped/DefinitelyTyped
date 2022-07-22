@@ -4,12 +4,15 @@ const options: Options = {
     html: {
         removeAttributeQuotes: false,
         removeOptionalTags: false,
+        caseSensitive: true,
     },
     css: {
         compatibility: '*',
+        sourceMap: true,
     },
     js: {
         ecma: 5,
+        compress: true,
     },
     img: {
         maxSize: 4096,

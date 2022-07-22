@@ -7,7 +7,6 @@
 //                 Beeno Tung          <https://github.com/beenotung>
 //                 Joe Flateau         <https://github.com/joeflateau>
 //                 timhwang21          <https://github.com/timhwang21>
-//                 supaiku0            <https://github.com/supaiku0>
 //                 Anders Kaseorg      <https://github.com/andersk>
 //                 Sascha Zarhuber     <https://github.com/saschazar21>
 //                 Rogier Schouten     <https://github.com/rogierschouten>
@@ -844,12 +843,14 @@ declare module "node-forge" {
 
     namespace pkcs5 {
         function pbkdf2(password: string, salt: string, iterations: number, keySize: number): string;
-        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest: md.MessageDigest): string;
+        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest: md.MessageDigest | md.Algorithm): string;
         function pbkdf2(password: string, salt: string, iterations: number, keySize: number, callback: (err: Error | null, dk: string | null) => any): void;
-        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest?: md.MessageDigest, callback?: (err: Error | null, dk: string | null) => any): void;
+        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest?: md.MessageDigest | md.Algorithm, callback?: (err: Error | null, dk: string) => any): void;
     }
 
     namespace md {
+
+        type Algorithm = "md5" | "sha1" | "sha256" | "sha384" | "sha512";
 
         interface MessageDigest {
             update(msg: string, encoding?: Encoding): MessageDigest;

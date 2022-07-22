@@ -12,7 +12,7 @@ namespace Module {
     // $ExpectType Config<Commit<string | number | symbol>, Context>
     conventionalChangelogPresetLoader(config);
 
-    // $ExpectError
+    // @ts-expect-error
     conventionalChangelogPresetLoader();
 }
 
@@ -22,7 +22,7 @@ namespace Module.presetLoader {
     // $ExpectType typeof conventionalChangelogPresetLoader
     conventionalChangelogPresetLoader.presetLoader(require);
 
-    // $ExpectError
+    // @ts-expect-error
     conventionalChangelogPresetLoader.presetLoader();
 }
 

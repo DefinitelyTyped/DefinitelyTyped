@@ -38,10 +38,10 @@ const requestHandler: CloudFrontRequestHandler = async (event, context, cb) => {
         request.origin.custom.domainName;
         request.origin.custom.domainName = 'example2.com';
 
-        // $ExpectError
+        // @ts-expect-error
         s3Origin = request.origin.s3;
 
-        // $ExpectError
+        // @ts-expect-error
         request.origin.s3.path = '/';
     }
 
@@ -64,10 +64,10 @@ const requestHandler: CloudFrontRequestHandler = async (event, context, cb) => {
         request.origin.s3.path;
         request.origin.s3.path = '/new_path';
 
-        // $ExpectError
+        // @ts-expect-error
         customOrigin = request.origin.custom;
 
-        // $ExpectError
+        // @ts-expect-error
         request.origin.custom.path = '/';
     }
 
@@ -78,7 +78,7 @@ const requestHandler: CloudFrontRequestHandler = async (event, context, cb) => {
     result = { clientIp: str, method: str, uri: str, querystring: str, headers: cloudFrontHeaders };
     result = { status: str };
     result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: 'text', body: str };
-    // $ExpectError
+    // @ts-expect-error
     result = {};
 
     cb(new Error());
@@ -92,11 +92,11 @@ const responseHandler: CloudFrontResponseHandler = async (event, context, callba
     result = undefined;
     result = null;
     result = { status: str };
-    // $ExpectError
+    // @ts-expect-error
     result = { clientIp: str, method: str, uri: str, querystring: str, headers: cloudFrontHeaders };
     result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: 'text', body: str };
     result = { status: str, bodyEncoding: 'base64', body: str };
-    // $ExpectError
+    // @ts-expect-error
     result = { status: str, bodyEncoding: 'invalid-encoding', body: str };
 
     callback(new Error());

@@ -1,4 +1,4 @@
-// Type definitions for passport-naver 0.2
+// Type definitions for passport-naver 1.0
 // Project: https://github.com/naver/passport-naver
 // Definitions by: Park9eon <https://github.com/Park9eon>
 //                 ZeroCho <https://github.com/zerocho>
@@ -24,7 +24,7 @@ export interface Profile extends passport.Profile {
 
 export interface StrategyOption {
     clientID: string;
-    clientSecret: string;
+    clientSecret?: string;
     callbackURL: string;
 
     svcType?: number | undefined;
@@ -36,7 +36,7 @@ export interface StrategyOption {
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {
-    passReqToCallback: boolean;
+    passReqToCallback: true;
 }
 
 export type VerifyFunction = (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;

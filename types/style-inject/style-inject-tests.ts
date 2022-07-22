@@ -1,11 +1,11 @@
 import styleInject = require('style-inject');
 
-// $ExpectError
+// @ts-expect-error
 styleInject();
 
 styleInject('');
 styleInject('', {});
 styleInject('', { insertAt: 'top' });
 
-// $ExpectError
+// @ts-expect-error
 styleInject('', { insertAt: 'bottom' });

@@ -19,7 +19,7 @@ beforeAll(() => null);
 beforeAll(() => true);
 beforeAll((done: jest.DoneCallback) => {});
 beforeAll((done: jest.DoneCallback) => done.fail(), 9001);
-// $ExpectError
+// @ts-expect-error
 beforeAll((done: jest.DoneCallback) => Promise.resolve());
 
 beforeEach(() => {});
@@ -27,7 +27,7 @@ beforeEach(() => null);
 beforeEach(() => true);
 beforeEach((done: jest.DoneCallback) => {});
 beforeEach((done: jest.DoneCallback) => done.fail(), 9001);
-// $ExpectError
+// @ts-expect-error
 beforeEach((done: jest.DoneCallback) => Promise.resolve());
 
 afterAll(() => {});
@@ -35,7 +35,7 @@ afterAll(() => null);
 afterAll(() => true);
 afterAll((done: jest.DoneCallback) => {});
 afterAll((done: jest.DoneCallback) => done.fail(), 9001);
-// $ExpectError
+// @ts-expect-error
 afterAll((done: jest.DoneCallback) => Promise.resolve());
 
 afterEach(() => {});
@@ -43,7 +43,7 @@ afterEach(() => null, 9001);
 afterEach(() => true, 9001);
 afterEach((done: jest.DoneCallback) => {});
 afterEach((done: jest.DoneCallback) => done.fail(), 9001);
-// $ExpectError
+// @ts-expect-error
 afterEach((done: jest.DoneCallback) => Promise.resolve());
 
 /* describe */
@@ -107,6 +107,14 @@ it.only('name', () => {}, 9001);
 it.only('name', async () => {}, 9001);
 it.only('name', (callback: jest.DoneCallback) => {}, 9001);
 
+it.failing('name', () => {});
+it.failing('name', async () => {});
+it.failing('name', () => {}, 9001);
+it.failing('name', async () => {}, 9001);
+it.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+it.only.failing('name', () => {});
+it.skip.failing('name', () => {});
+
 it.skip('name', () => {});
 it.skip('name', async () => {});
 it.skip('name', () => {}, 9001);
@@ -136,6 +144,14 @@ fit.only('name', async () => {});
 fit.only('name', () => {}, 9001);
 fit.only('name', async () => {}, 9001);
 fit.only('name', (callback: jest.DoneCallback) => {}, 9001);
+
+fit.failing('name', () => {});
+fit.failing('name', async () => {});
+fit.failing('name', () => {}, 9001);
+fit.failing('name', async () => {}, 9001);
+fit.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+fit.only.failing('name', () => {});
+fit.skip.failing('name', () => {});
 
 fit.skip('name', () => {});
 fit.skip('name', async () => {});
@@ -167,6 +183,14 @@ xit.only('name', () => {}, 9001);
 xit.only('name', async () => {}, 9001);
 xit.only('name', (callback: jest.DoneCallback) => {}, 9001);
 
+xit.failing('name', () => {});
+xit.failing('name', async () => {});
+xit.failing('name', () => {}, 9001);
+xit.failing('name', async () => {}, 9001);
+xit.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+xit.only.failing('name', () => {});
+xit.skip.failing('name', () => {});
+
 xit.skip('name', () => {});
 xit.skip('name', async () => {});
 xit.skip('name', () => {}, 9001);
@@ -197,6 +221,14 @@ test.only('name', () => {}, 9001);
 test.only('name', async () => {}, 9001);
 test.only('name', (callback: jest.DoneCallback) => {}, 9001);
 
+test.failing('name', () => {});
+test.failing('name', async () => {});
+test.failing('name', () => {}, 9001);
+test.failing('name', async () => {}, 9001);
+test.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+test.only.failing('name', () => {});
+test.skip.failing('name', () => {});
+
 test.skip('name', () => {});
 test.skip('name', async () => {});
 test.skip('name', () => {}, 9001);
@@ -226,6 +258,14 @@ xtest.only('name', async () => {});
 xtest.only('name', () => {}, 9001);
 xtest.only('name', async () => {}, 9001);
 xtest.only('name', (callback: jest.DoneCallback) => {}, 9001);
+
+xtest.failing('name', () => {});
+xtest.failing('name', async () => {});
+xtest.failing('name', () => {}, 9001);
+xtest.failing('name', async () => {}, 9001);
+xtest.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+xtest.only.failing('name', () => {});
+xtest.skip.failing('name', () => {});
 
 xtest.skip('name', () => {});
 xtest.skip('name', async () => {});
@@ -276,7 +316,7 @@ jest.autoMockOff()
     .doMock('moduleName', jest.fn(), {})
     .doMock('moduleName', jest.fn(), { virtual: true })
     .doMock<{animal: string}>('moduleName', () => ({animal: 'cat'}))
-    // $ExpectError
+    // @ts-expect-error
     .doMock<{animal: string}>('moduleName', () => ({name: 'tom'}))
     .dontMock('moduleName')
     .enableAutomock()
@@ -285,11 +325,11 @@ jest.autoMockOff()
     .mock('moduleName', jest.fn(), {})
     .mock('moduleName', jest.fn(), { virtual: true })
     .mock<{animal: string}>('moduleName', () => ({animal: 'cat'}))
-    // $ExpectError
+    // @ts-expect-error
     .mock<{animal: string}>('moduleName', () => ({name: 'tom'}))
     .resetModules()
     .isolateModules(() => {})
-    .retryTimes(3)
+    .retryTimes(3, { logErrorsBeforeRetry: true })
     .runAllImmediates()
     .runAllTicks()
     .runAllTimers()
@@ -310,23 +350,23 @@ jest.advanceTimersToNextTimer(2);
 jest.useFakeTimers();
 jest.useFakeTimers({ legacyFakeTimers: false });
 jest.useFakeTimers({ timerLimit: 50 });
-// $ExpectError
+// @ts-expect-error
 jest.useFakeTimers('legacy');
-// $ExpectError
+// @ts-expect-error
 jest.useFakeTimers('modern');
-// $ExpectError
+// @ts-expect-error
 jest.useFakeTimers('foo');
 
 // https://jestjs.io/docs/en/jest-object#jestsetsystemtimenow-number--date
 jest.setSystemTime();
 jest.setSystemTime(0);
 jest.setSystemTime(new Date(0));
-// $ExpectError
+// @ts-expect-error
 jest.setSystemTime('foo');
 
 // https://jestjs.io/docs/en/jest-object#jestgetrealsystemtime
 const realSystemTime1: number = jest.getRealSystemTime();
-// $ExpectError
+// @ts-expect-error
 const realSystemTime2: number = jest.getRealSystemTime('foo');
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
@@ -398,9 +438,9 @@ const mock12 = jest.fn<ReturnType<TestApi['test']>, jest.ArgsType<TestApi['test'
 // $ExpectType number
 mock1('test');
 
-// $ExpectError
+// @ts-expect-error
 mock7('abc');
-// $ExpectError
+// @ts-expect-error
 mock7.mockImplementation((arg: string) => 1);
 
 // compiles because mock8 is declared as jest.Mock<{}, any>
@@ -466,9 +506,11 @@ class SpiedTargetClass {
 
 const spiedTarget2 = new SpiedTargetClass();
 
-// $ExpectError
+// @ts-expect-error
 jest.spyOn(spiedTarget, 'setValue', 'get');
-// $ExpectError
+// @ts-expect-error
+jest.spyOn(spiedTarget, 'setValue', undefined);
+// @ts-expect-error
 jest.spyOn(spiedTarget2, 'value');
 
 const spy1 = jest.spyOn(spiedTarget, 'returnsVoid');
@@ -483,7 +525,7 @@ spy1.mockReset();
 const spy3Mock = spy3
     .mockImplementation(() => '')
     .mockImplementation()
-    // $ExpectError
+    // @ts-expect-error
     .mockImplementation((arg: {}) => arg)
     .mockImplementation((...args: string[]) => args.join(''))
     .mockImplementationOnce(() => '')
@@ -514,21 +556,21 @@ let spy5: jest.SpiedFunction<typeof spiedTarget.setValue>;
 
 // $ExpectType SpyInstance<void, [string]> || SpyInstance<void, [value: string]>
 spy5 = jest.spyOn(spiedTarget, 'setValue');
-// $ExpectError
+// @ts-expect-error
 spy5 = jest.spyOn(spiedTarget, 'returnsString');
 
 // $ExpectType SpyInstance<number, []>
 const spy6 = jest.spyOn(spiedTarget2, 'value', 'get');
-// $ExpectError
+// @ts-expect-error
 spy6.mockReturnValue('5');
 
 // $ExpectType SpyInstance<void, [number]>
 jest.spyOn(spiedTarget2, 'value', 'set');
 
 let spyInterfaceImpl: SpyInterface = {};
-// $ExpectError
+// @ts-expect-error
 jest.spyOn(spyInterfaceImpl, 'method', 'get');
-// $ExpectError
+// @ts-expect-error
 jest.spyOn(spyInterfaceImpl, 'prop');
 // $ExpectType SpyInstance<number, []>
 jest.spyOn(spyInterfaceImpl, 'prop', 'get');
@@ -542,9 +584,33 @@ class SpyableClass {
 // $ExpectType SpyInstance<SpyableClass, [number, string]> || SpyInstance<SpyableClass, [a: number, b: string]>
 jest.spyOn({ SpyableClass }, "SpyableClass");
 
+interface SpyableWithIndexSignature {
+    [index: string]: {
+        [x: string]: any;
+    };
+    prop: { some: string };
+    methodOne: () => void;
+    methodTwo: (s: string, b: boolean) => { b: boolean; n: number };
+}
+let spyWithIndexSignatureImpl: SpyableWithIndexSignature = {
+    methodOne: () => {},
+    methodTwo: (s, b) => ({ b, n: Number(s) }),
+    prop: { some: 'thing' },
+};
+// $ExpectType SpyInstance<void, []>
+jest.spyOn(spyWithIndexSignatureImpl, "methodOne");
+// $ExpectType SpyInstance<{ b: boolean; n: number; }, [s: string, b: boolean]>
+jest.spyOn(spyWithIndexSignatureImpl, "methodTwo");
+// @ts-expect-error
+jest.spyOn(spyWithIndexSignatureImpl, "nonExistentMethod");
+// @ts-expect-error
+jest.spyOn(spyWithIndexSignatureImpl, "prop");
+// $ExpectType SpyInstance<{ some: string; }, []>
+jest.spyOn(spyWithIndexSignatureImpl, 'prop', 'get');
+
 // $ExpectType MockedObject<{}>
 jest.mocked({});
-// $ExpectError
+// @ts-expect-error
 jest.mocked();
 
 interface Type1 {
@@ -600,17 +666,17 @@ mocked.test3.mockResolvedValueOnce(Promise.resolve({ b: 1 }));
 mocked.test3.mockRejectedValue(new Error());
 mocked.test3.mockRejectedValueOnce(new Error());
 
-// $ExpectError
+// @ts-expect-error
 mocked.test4.mockResolvedValue({ a: 1 });
-// $ExpectError
+// @ts-expect-error
 mocked.test4.mockResolvedValueOnce({ a: 1 });
-// $ExpectError
+// @ts-expect-error
 mocked.test4.mockResolvedValue(Promise.resolve({ a: 1 }));
-// $ExpectError
+// @ts-expect-error
 mocked.test4.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
-// $ExpectError
+// @ts-expect-error
 mocked.test4.mockRejectedValue(new Error());
-// $ExpectError
+// @ts-expect-error
 mocked.test4.mockRejectedValueOnce(new Error());
 
 // $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
@@ -712,7 +778,7 @@ switch (mockResult.type) {
 }
 
 /* getState and setState */
-// $ExpectError
+// @ts-expect-error
 expect.setState(true);
 expect.setState({for: 'state'});
 const expectState = expect.getState();
@@ -830,7 +896,7 @@ expect.extend({
         };
     },
 });
-// $ExpectError
+// @ts-expect-error
 const customMatcherResultMessage: jest.CustomMatcherResult['message'] = 'msg';
 expect.extend({
     async foo(this: jest.MatcherContext, received: {}, ...actual: Array<{}>) {
@@ -904,9 +970,9 @@ expect.extend({
 describe('', () => {
     it('', () => {
         /* Corrections of previous typings */
-        // $ExpectError
+        // @ts-expect-error
         expect('').not.not;
-        // $ExpectError
+        // @ts-expect-error
         expect('').resolves.resolves;
         // $ExpectType void
         expect('').toEqual('');
@@ -938,9 +1004,9 @@ describe('', () => {
         expect(jest.fn()).toBeCalledWith('jest');
         expect(jest.fn()).toBeCalledWith({}, {});
 
-        // $ExpectError
+        // @ts-expect-error
         expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
-        // $ExpectError
+        // @ts-expect-error
         expect({}).toEqual<{ p1: string, p2: number }>({ p1: 'hello' });
 
         expect(0).toBeCloseTo(1);
@@ -1195,7 +1261,7 @@ describe('', () => {
         }
         // retains U from <U>(actual: U) => JestExtendedMatchers<T, U>; - BUT CANNOT DO THAT WITH CUSTOM...
         nonPromiseMatchers.toMatchInlineSnapshot({thing: extendedExpect.any(Boolean)});
-        // $ExpectError
+        // @ts-expect-error
         nonPromiseMatchers.toMatchInlineSnapshot({notthing: extendedExpect.any(Boolean)});
 
         let promiseMatchers: jest.PromiseMatchers<typeof matchers> = matchers.rejects;
@@ -1209,38 +1275,38 @@ describe('', () => {
         extendedExpect.not.arrayContaining;
 
         extendedExpect.customMatcher({prop: 'good'}, false).asymmetricMatch({}).valueOf();
-        // $ExpectError
+        // @ts-expect-error
         extendedExpect.customMatcher({prop: {not: 'good'}}, false);
 
         extendedExpect.not.customMatcher({prop: 'good'}, false).asymmetricMatch({}).valueOf();
-        // $ExpectError
+        // @ts-expect-error
         extendedExpect.not.customMatcher({prop: 'good'}, 'bad').asymmetricMatch({}).valueOf();
 
-        // $ExpectError
+        // @ts-expect-error
         const asynMatcherExcluded = extendedExpect.asyncMatcher;
 
         extendedExpect('').customMatcher({prop: 'good'}, true);
-        // $ExpectError
+        // @ts-expect-error
         extendedExpect('').customMatcher({prop: 'good'}, 'bad');
 
         extendedExpect('').not.customMatcher({prop: 'good'}, true);
-        // $ExpectError
+        // @ts-expect-error
         extendedExpect('').not.customMatcher({prop: 'good'}, 'bad');
 
         extendedExpect(Promise.resolve('')).resolves.customMatcher({prop: 'good'}, true).then(() => {});
-        // $ExpectError
+        // @ts-expect-error
         extendedExpect(Promise.resolve('')).resolves.customMatcher({prop: 'good'}, 'bad').then(() => {});
 
         extendedExpect(Promise.resolve('')).resolves.not.customMatcher({prop: 'good'}, true).then(() => {});
-        // $ExpectError
+        // @ts-expect-error
         extendedExpect(Promise.resolve('')).resolves.not.customMatcher({prop: 'good'}, 'bad').then(() => {});
 
         extendedExpect(Promise.reject('')).rejects.customMatcher({prop: 'good'}, true).then(() => {});
-        // $ExpectError
+        // @ts-expect-error
         extendedExpect(Promise.reject('')).rejects.customMatcher({prop: 'good'}, 'bad').then(() => {});
 
         extendedExpect(Promise.reject('')).rejects.not.customMatcher({prop: 'good'}, true).then(() => {});
-        // $ExpectError
+        // @ts-expect-error
         extendedExpect(Promise.reject('')).rejects.not.customMatcher({prop: 'good'}, 'bad').then(() => {});
     });
 });
@@ -1585,17 +1651,17 @@ test(`does nothing`, () => {
 
 /* Test function should not return non-promise */
 
-// $ExpectError
+// @ts-expect-error
 test(`returns a boolean`, () => {
     return true;
 });
 
-// $ExpectError
+// @ts-expect-error
 test(`returns a number`, () => {
     return 3;
 });
 
-// $ExpectError
+// @ts-expect-error
 test(`returns an object`, () => {
     return {
         isAnObject: true
@@ -1604,22 +1670,22 @@ test(`returns an object`, () => {
 
 /* Test function should not return promise and takes done callback function */
 
-// $ExpectError
+// @ts-expect-error
 test(`returns a Promise<boolean> and takes done`, (done) => {
     return Promise.resolve(true);
 });
 
-// $ExpectError
+// @ts-expect-error
 test(`returns a Promise<{ isAnObject: boolean }> and takes done`, (done) => {
     return Promise.resolve({ isAnObject: true });
 });
 
-// $ExpectError
+// @ts-expect-error
 test(`returns a Promise<any> and takes done`, (done) => {
     return Promise.resolve('any' as any);
 });
 
-// $ExpectError
+// @ts-expect-error
 test(`async function takes done`, async (done) => {
     done();
 });
