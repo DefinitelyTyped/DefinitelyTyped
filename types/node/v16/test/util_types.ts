@@ -164,7 +164,13 @@ if (types.isKeyObject(keyObj)) {
     keyObj; // $ExpectType KeyObject
 }
 
-const cryptoKeyObj: webcrypto.CryptoKey | number = new webcrypto.CryptoKey();
-if (types.isCryptoKey(cryptoKeyObj)) {
-    cryptoKeyObj; // $ExpectType CryptoKey
-}
+webcrypto.subtle.generateKey(
+    'Algorithm', false, []
+).then(cryptoKeyObj => {
+    if (types.isCryptoKey(cryptoKeyObj)) {
+        cryptoKeyObj; // $ExpectType CryptoKey
+    } else {
+        cryptoKeyObj.privateKey; // $ExpectType CryptoKey
+        cryptoKeyObj.publicKey; // $ExpectType CryptoKey
+    }
+});

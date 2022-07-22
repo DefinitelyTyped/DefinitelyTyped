@@ -69,7 +69,7 @@ function getAllHeaders() {
                 parsed = hp.parseHeaderOrFail(indexContent);
             } catch (e) {}
             if (parsed) {
-                headers[/** @type {never} */ (index)] = { ...parsed, raw: indexContent };
+                headers[index.pathname] = { ...parsed, raw: indexContent };
             }
         }
     });

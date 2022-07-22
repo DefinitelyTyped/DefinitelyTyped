@@ -43,6 +43,12 @@ declare global {
             listener: (this: Element, ev: Carousel.Event) => any,
             options?: boolean | AddEventListenerOptions,
         ): void;
+
+        addEventListener(
+            type: Modal.Events,
+            listener: (this: Element, ev: Modal.Event) => any,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
     }
 }
 
