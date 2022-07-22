@@ -255,10 +255,14 @@ if (pano.aroundControl) {
 }
 pano.controls[0].clear();
 
-
 // HeatMap Tests
 // https://navermaps.github.io/maps.js.ncp/docs/naver.maps.visualization.WeightedLocation.html#toc0
 // https://navermaps.github.io/maps.js.ncp/docs/naver.maps.visualization.HeatMap.html#setData
+
+const map5 = new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 10,
+});
 
 const heatmapData = [
     new naver.maps.visualization.WeightedLocation(37.5529258, 126.9730588, Math.random()),
@@ -270,7 +274,7 @@ const heatmapData = [
 ];
 
 const heatmap = new naver.maps.visualization.HeatMap({
-    map: map,
+    map: map5,
     data: heatmapData,
 });
 
