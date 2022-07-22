@@ -267,16 +267,16 @@ const heatmapData = [
     new naver.maps.visualization.WeightedLocation(37.5526791, 126.9736274, Math.random()),
     new naver.maps.visualization.WeightedLocation(37.5526877, 126.9733270, Math.random()),
     new naver.maps.visualization.WeightedLocation(37.5526877, 126.9730910, Math.random()),
-]
+];
 
 const heatmap = new naver.maps.visualization.HeatMap({
     map: map,
-    data: heatmapData
-})
+    data: heatmapData,
+});
 
-const getHeatmapData = heatmap.getData()
+const getHeatmapData = heatmap.getData();
 heatmap.setData([
     ...heatmapData,
-    new naver.maps.visualization.WeightedLocation(37.5525090, 126.9731125, Math.random())
-])
-heatmap.redraw()
+    new naver.maps.visualization.WeightedLocation(37.5525090, 126.9731125, Math.random()),
+]);
+heatmap.redraw();
