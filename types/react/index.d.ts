@@ -65,7 +65,7 @@ export as namespace React;
 declare namespace React {
     //
     // React Elements
-    // -----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
 
     type ElementType<P = any> =
         {
