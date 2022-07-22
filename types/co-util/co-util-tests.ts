@@ -1,2 +1,3 @@
-import * as util from 'co-util';
-const a = util.random(100,1000);
+import util = require('co-util');
+
+const a = util.md5("aaaaaa",32);
