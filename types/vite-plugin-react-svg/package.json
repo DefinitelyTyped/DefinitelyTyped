@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "vite": "^2.3.8"
-    }
-}

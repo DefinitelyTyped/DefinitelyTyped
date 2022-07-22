@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/express-rate-limit": "3",
-        "@types/redis": "^2.8.0"
-    }
-}

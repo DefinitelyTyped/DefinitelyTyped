@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/faker": "^5.5.9"
-    }
-}

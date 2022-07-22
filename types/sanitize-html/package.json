@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "htmlparser2": "^6.0.0"
-  }
-}

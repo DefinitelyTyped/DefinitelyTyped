@@ -1,1 +1,0 @@
-commangular-mock.d.ts

@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/expect": "^1.20.4"
-    }
-}

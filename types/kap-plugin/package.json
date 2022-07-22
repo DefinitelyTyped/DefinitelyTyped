@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "electron-store": ">=8.0.2"
-    }
-}

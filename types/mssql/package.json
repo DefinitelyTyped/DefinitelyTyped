@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "tarn": "^3.0.1"
-    }
-}

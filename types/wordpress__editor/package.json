@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@wordpress/element": "^4.0.0"
-    }
-}

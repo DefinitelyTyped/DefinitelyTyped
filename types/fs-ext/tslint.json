@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "comment-format": false,
-        "dt-header": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false
-    }
-}

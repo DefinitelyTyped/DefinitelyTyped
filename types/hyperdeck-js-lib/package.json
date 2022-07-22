@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "js-logger": "^1.6.1"
-    }
-}

@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "swagger-parser": "^7.0.1"
-  }
-}

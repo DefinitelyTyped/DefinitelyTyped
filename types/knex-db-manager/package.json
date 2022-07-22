@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/node": "16.0.0",
-        "knex": "2.1.0"
-    }
-}

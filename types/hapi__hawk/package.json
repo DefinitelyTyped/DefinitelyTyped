@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@hapi/boom": "^9.0.0"
-    }
-}
