@@ -191,7 +191,6 @@ declare namespace co_util {
         static using(...args: any[]): any;
 
         static version: string;
-
     }
 
     function Http(opts: any): any;
@@ -417,7 +416,6 @@ declare namespace co_util {
 
             // Native method; no parameter or return type inference available
             unshift(p0: any): any;
-
         }
 
         class CancellationError {
@@ -425,16 +423,13 @@ declare namespace co_util {
 
             // Native method; no parameter or return type inference available
             constructor$(p0: any): any;
-
         }
 
         class OperationalError {
             constructor(message: any);
 
             // Native method; no parameter or return type inference available
-            constructor$(p0: any): any;
-
-        }
+            constructor$(p0: any): any; }
 
         class PromiseInspection {
             constructor(promise: any);
@@ -453,43 +448,33 @@ declare namespace co_util {
 
             reason(): any;
 
-            value(): any;
-
-        }
+            value(): any; }
 
         class RangeError {
             constructor(p0: any);
 
             static captureStackTrace(p0: any, p1: any): any;
 
-            static stackTraceLimit: number;
-
-        }
+            static stackTraceLimit: number; }
 
         class RejectionError {
             constructor(message: any);
 
             // Native method; no parameter or return type inference available
-            constructor$(p0: any): any;
-
-        }
+            constructor$(p0: any): any; }
 
         class TimeoutError {
             constructor(message: any);
 
             // Native method; no parameter or return type inference available
-            constructor$(p0: any): any;
-
-        }
+            constructor$(p0: any): any; }
 
         class TypeError {
             constructor(p0: any);
 
             static captureStackTrace(p0: any, p1: any): any;
 
-            static stackTraceLimit: number;
-
-        }
+            static stackTraceLimit: number;}
 
     }
 
@@ -608,9 +593,7 @@ declare namespace co_util {
 
             function adapter(config: any): any;
 
-            function validateStatus(status: any): any;
-
-        }
+            function validateStatus(status: any): any; }
 
     }
 
