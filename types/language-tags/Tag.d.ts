@@ -63,22 +63,22 @@ declare class Tag {
     /**
      * Shortcut for `tag.find('language')`.
      */
-    language(): Subtag;
+    language(): ReturnType<Tag['find']>;
 
     /**
      * Shortcut for `tag.find('region')`.
      */
-    region(): Subtag;
+    region(): ReturnType<Tag['find']>;
 
     /**
      * Shortcut for `tag.find('script')`.
      */
-    script(): Subtag;
+    script(): ReturnType<Tag['find']>;
 
     /**
      * Find a subtag of the given type from those making up the tag.
      */
-    find(type: string): Subtag;
+    find(type: string): Subtag | undefined;
 
     /**
      * Returns `true` if the tag is valid, `false` otherwise.
