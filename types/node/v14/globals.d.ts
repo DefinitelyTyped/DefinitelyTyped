@@ -109,10 +109,10 @@ interface AbortSignal {
      */
     readonly aborted: boolean;
     onabort: ((this: AbortSignal, ev: Event) => any) | null;
-    addEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | NodeJS.AddEventListenerOptions): void;
+    addEventListener(type: string, listener: NodeJS.EventListenerOrEventListenerObject, options?: boolean | NodeJS.AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AbortSignalEventMap>(type: K, listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any, options?: boolean | NodeJS.EventListenerOptions): void;
+    removeEventListener(type: string, listener: NodeJS.EventListenerOrEventListenerObject, options?: boolean | NodeJS.EventListenerOptions): void;
 }
 
 declare var AbortController: {
@@ -751,5 +751,24 @@ declare namespace NodeJS {
 
     interface ReadOnlyDict<T> {
         readonly [key: string]: T | undefined;
+    }
+
+    interface EventListener {
+        (evt: Event): void;
+    }
+
+    interface EventListenerObject {
+        handleEvent(object: Event): void;
+    }
+
+    type EventListenerOrEventListenerObject = EventListener | EventListenerObject;
+
+    interface EventListenerOptions {
+        capture?: boolean;
+    }
+
+    interface AddEventListenerOptions extends EventListenerOptions {
+        once?: boolean;
+        passive?: boolean;
     }
 }

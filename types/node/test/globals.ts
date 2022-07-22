@@ -37,3 +37,16 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     const arrayBuffer = new ArrayBuffer(0);
     structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
 }
+
+// AbortController & AbortSignal
+{
+    const controller = new AbortController();
+    let bool: boolean;
+    bool = controller.signal.aborted;
+    const listener = (event: Event) => {};
+    controller.signal.addEventListener("abort", listener);
+    controller.signal.removeEventListener("abort", listener);
+    controller.signal.onabort = listener;
+    controller.signal.throwIfAborted();
+    controller.abort();
+}

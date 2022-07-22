@@ -26,3 +26,16 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
         gc();
     }
 }
+
+// AbortController & AbortSignal
+{
+    const controller = new AbortController();
+    let bool: boolean;
+    bool = controller.signal.aborted;
+    controller.signal.reason;
+    const listener = (event: Event) => {};
+    controller.signal.addEventListener("abort", listener);
+    controller.signal.removeEventListener("abort", listener);
+    controller.signal.onabort = listener;
+    controller.abort();
+}
