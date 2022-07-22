@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "zwjsbridge-tests.ts"
+        "test/index.test.ts"
     ]
 }

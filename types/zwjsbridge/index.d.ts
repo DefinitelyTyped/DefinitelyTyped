@@ -1,28 +1,9 @@
-// Type definitions for zwjsbridge v1.0.1
+// Type definitions for non-npm package JSBridge API - zwjsbridge.js 1.0.1
 // Project: https://assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.0.1/zwjsbridge.js
 // Definitions by: Yuxiang Ren <https://github.com/shlyren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * 浙里办 JSSDK 头文件
- * 
- * 1. 在 项目入口文件 引入
- * 
- * ```js
- *  <script type="text/javascript" src="//assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.0.1/zwjsbridge.js"></script>
- * ```
- * 
- * 
- * 2. 在项目中使用
- * 
- * ```js
- *  ZWJSBridge.onReady(() => {
- *    ZWJSBridge.showPreloader({
- *      text: 'Loading...'
- *    })
- *  })
- * ```
- */
+
 declare namespace ZWJSBridge {
 
     type IFunction<V = unknown, R = unknown> = (arg0: V) => R
@@ -30,7 +11,10 @@ declare namespace ZWJSBridge {
     type PromiseResult = Promise<{
       result: string
     }>
-    
+    /**
+	 * 初始化jsapi，初始化完成即onReady之后再调用jsapi。
+	 * @param callBack 
+	 */
     function onReady(callBack: IFunction): void
     
     /////// 缓存 //////
