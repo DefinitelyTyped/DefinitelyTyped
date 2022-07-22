@@ -1,5 +1,5 @@
 // Type definitions for wink-jaro-distance 2.0
-// Project: https://github.com/winkjs/wink-jaro-distance (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/winkjs/wink-jaro-distance
 // Definitions by: Warren Edwards <https://github.com/Wazbat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
