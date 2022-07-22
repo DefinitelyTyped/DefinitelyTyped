@@ -1,3 +1,2 @@
 import * as util from 'co-util';
-
-util.random(100,1000);
+const a = util.random(100,1000);

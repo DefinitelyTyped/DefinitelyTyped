@@ -2,7 +2,6 @@
 // Project: https://github.com/codeorg/co-util
 // Definitions by: codeorg <https://github.com/codeorg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = co_util;
 
 declare function co_util(...args: any[]): void;
