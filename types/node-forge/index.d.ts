@@ -7,7 +7,6 @@
 //                 Beeno Tung          <https://github.com/beenotung>
 //                 Joe Flateau         <https://github.com/joeflateau>
 //                 timhwang21          <https://github.com/timhwang21>
-//                 supaiku0            <https://github.com/supaiku0>
 //                 Anders Kaseorg      <https://github.com/andersk>
 //                 Sascha Zarhuber     <https://github.com/saschazar21>
 //                 Rogier Schouten     <https://github.com/rogierschouten>
