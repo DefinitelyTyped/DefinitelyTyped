@@ -1,4 +1,4 @@
-// Type definitions for co-util 1.1.17
+// Type definitions for co-util 1.1
 // Project: https://github.com/codeorg/co-util
 // Definitions by: codeorg <https://github.com/codeorg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -491,11 +491,6 @@ declare namespace co_util {
 
         }
 
-        namespace coroutine {
-            function addYieldHandler(fn: any): void;
-
-        }
-
     }
 
     namespace excel {
@@ -640,7 +635,6 @@ declare namespace co_util {
         function unzip(src: any, dist: any): any;
 
         function zip(src: any, dist: any, opts: any): any;
-
     }
 
 }
