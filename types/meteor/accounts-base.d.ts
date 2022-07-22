@@ -246,10 +246,10 @@ declare module 'meteor/accounts-base' {
          * A login handler is a login method which can return `undefined` to
          * indicate that the login request is not handled by this handler.
          *
-         * @param name {String} Optional.  The service name, used by default
+         * @param name Optional.  The service name, used by default
          * if a specific service name isn't returned in the result.
          *
-         * @param handler {Function} A function that receives an options object
+         * @param handler A function that receives an options object
          * (as passed as an argument to the `login` method) and returns one of:
          * - `undefined`, meaning don't handle;
          * - a login method result object
