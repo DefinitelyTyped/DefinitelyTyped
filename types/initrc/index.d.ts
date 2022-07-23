@@ -3,10 +3,11 @@
 // Definitions by: Soldy <https://github.com/Soldy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export class Init {
-    constructor();
     startAdd(fun: () => void, level: number, name: string): boolean;
+    /** @async */
     startRun(): Promise<void>;
     stopAdd(fun: () => void, level: number, name: string): boolean;
+    /** @async */
     stopRun(): Promise<void>;
     status(): number;
 }
