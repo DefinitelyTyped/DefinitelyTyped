@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2022-07-19) 2.2
+// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2022-07-22) 2.2
 // Project: https://developers.google.com/publisher-tag/reference
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1403,6 +1403,11 @@ declare namespace googletag {
          */
         setCollapseEmptyDiv(collapse: boolean, collapseBeforeAdFetch?: boolean): Slot;
         /**
+         * Sets general configuration options for this slot.
+         * @param slotConfig The configuration object.
+         */
+        setConfig(slotConfig: config.SlotSettingsConfig): void;
+        /**
          * Configures whether ads in this slot should be forced to be rendered using a SafeFrame container.
          *
          * Please keep the following things in mind while using this API:
@@ -1546,6 +1551,96 @@ declare namespace googletag {
             | 'adsense_url_color'
             | 'adsense_ui_features'
             | 'page_url';
+    }
+    /**
+     * This is the namespace that GPT uses for `config`.
+     */
+    namespace config {
+        /**
+         * An object representing a single component auction in a on-device ad auction.
+         *
+         * **Experimental**: This feature may be changed or removed in a future release.
+         *
+         * **See also**
+         * - [FLEDGE: Sellers Run On-Device Auctions](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#2-sellers-run-on-device-auctions)
+         */
+        interface ComponentAuctionConfig {
+            /**
+             * An auction configuration object for this component auction.
+             *
+             * If this value is set to `null`, any existing configuration for the specified `configKey` will be deleted.
+             *
+             * **Example**
+             * ```
+             * var componentAuctionConfig = {
+             *   seller: 'https://testSeller.com', // should be https and the same as
+             *                                     // decisionLogicUrl's origin
+             *   decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
+             *   interestGroupBuyers: [
+             *     'https://example-buyer.com',
+             *   ],
+             *   auctionSignals: {auction_signals: 'auction_signals'},
+             *   sellerSignals: {seller_signals: 'seller_signals'},
+             *   perBuyerSignals: {
+             *     // listed on interestGroupBuyers
+             *     'https://example-buyer.com': {
+             *       per_buyer_signals: 'per_buyer_signals',
+             *     },
+             *   },
+             * };
+             *
+             * var auctionSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+             *
+             * // To add configKey to the component auction:
+             * auctionSlot.setConfig({
+             *   componentAuction: [{
+             *      configKey: 'https://testSeller.com',
+             *      auctionConfig: componentAuctionConfig
+             *   }]
+             * });
+             *
+             * // To remove configKey from the component auction:
+             * auctionSlot.setConfig({
+             *   componentAuction: [{
+             *      configKey: 'https://testSeller.com',
+             *      auctionConfig: null
+             *   }]
+             * });
+             * ```
+             *
+             * **See also**
+             * - [FLEDGE: Initiating an On-Device Auction](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#21-initiating-an-on-device-auction)
+             */
+            auctionConfig: null | {
+                auctionSignals?: unknown;
+                decisionLogicUrl?: string;
+                interestGroupBuyers?: string[];
+                perBuyerExperimentGroupIds?: { [buyer: string]: number };
+                perBuyerGroupLimits?: { [buyer: string]: number };
+                perBuyerSignals?: { [buyer: string]: unknown };
+                perBuyerTimeouts?: { [buyer: string]: number };
+                seller?: string;
+                sellerExperimentGroupId?: number;
+                sellerSignals?: unknown;
+                sellerTimeout?: number;
+                trustedScoringSignalsUrl?: string;
+            };
+            /**
+             * The configuration key associated with this component auction.
+             *
+             * This value must be non-empty and should be unique.
+             * If two {@link ComponentAuctionConfig} objects share the same configKey value, the last to be set will overwrite prior configurations.
+             */
+            configKey: string;
+        }
+        interface SlotSettingsConfig {
+            /**
+             * An array of component auctions to be included in an on-device ad auction.
+             *
+             * **Experimental**: This feature may be changed or removed in a future release.
+             */
+            componentAuction: ComponentAuctionConfig[];
+        }
     }
     /**
      * This is the namespace that GPT uses for `enums`.
