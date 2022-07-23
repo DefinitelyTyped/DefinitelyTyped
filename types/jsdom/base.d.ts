@@ -2,7 +2,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { Location } from "parse5/dist/common/token";
+import { Token } from "parse5";
 import { Context } from "vm";
 import * as tough from "tough-cookie";
 
@@ -39,7 +39,7 @@ declare module "jsdom" {
          *
          * @throws {Error} If the JSDOM was not created with `includeNodeLocations`
          */
-        nodeLocation(node: Node): Location | null | undefined;
+        nodeLocation(node: Node): Token.Location | null | undefined;
 
         /**
          * The built-in `vm` module of Node.js is what underpins JSDOM's script-running magic.
