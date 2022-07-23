@@ -11,10 +11,16 @@ import * as dns from 'node:dns';
     let server: http.Server = new http.Server();
 
     class MyIncomingMessage extends http.IncomingMessage {
+        constructor(socket: net.Socket) {
+            super(socket);
+        }
         foo: number;
     }
 
     class MyServerResponse extends http.ServerResponse {
+        constructor(req: http.IncomingMessage) {
+            super(req);
+        }
         foo: string;
     }
 
