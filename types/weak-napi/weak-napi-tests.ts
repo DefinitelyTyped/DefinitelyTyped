@@ -24,7 +24,6 @@ if (weak.isWeakRef(anyVar)) {
 }
 
 if (weak.isDead(weakReference)) {
-    // Test disabled since it fails in TypeScript 4.8 (intended) but not earlier.
-    // const a = weakReference; // $ExpectType WeakRef<undefined>
-    // const value = weak.get(weakReference); // undefined only possible
+    const a = weakReference; // $ExpectType WeakRef<undefined> || WeakRef<{ a: number; }>
+    const value = weak.get(weakReference); // undefined only possible
 }

@@ -60,8 +60,7 @@ if (types.isMap(object)) {
     object; // $ExpectType Map<unknown, unknown>
 
     if (types.isMap(readonlyMapOrRecord)) {
-        // Test disabled since it fails in TypeScript 4.8 (intended) but not earlier.
-        // readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any>
+        readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any> || ReadonlyMap<any, any> | Map<unknown, unknown>
     }
 }
 if (types.isNativeError(object)) {
