@@ -471,6 +471,7 @@ declare module 'http' {
      * @since v0.1.17
      */
     class ServerResponse extends OutgoingMessage {
+        constructor(req: IncomingMessage);
         /**
          * When using implicit headers (not calling `response.writeHead()` explicitly),
          * this property controls the status code that will be sent to the client when
