@@ -77,7 +77,7 @@ declare class Mp4Frag extends Transform {
      *
      * @throws If options.hlsPlaylistBase contains characters other than letters(a-zA-Z) and underscores(_).
      */
-    constructor(options: Mp4FragOptions);
+    constructor(options?: Mp4FragOptions);
 
     /**
      * Returns the audio codec information as a <b>string</b>.
