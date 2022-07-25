@@ -473,16 +473,6 @@ const awsServerless: Aws.Serverless = {
                                     path2: true,
                                 },
                             },
-                            schema: {
-                                'application/json': {
-                                    type: 'object',
-                                    properties: {
-                                        productId: {
-                                            type: 'integer'
-                                        }
-                                    }
-                                }
-                            },
                             schemas: {
                                 'application/json': {
                                     type: 'object',
