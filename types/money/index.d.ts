@@ -8,10 +8,10 @@ declare namespace fx {
 
     type Rates = Record<string, number | string>;
 
-    type Options = {
-        from?: Currency | null;
-        to?: Currency | null;
-    } | null;
+    interface Options {
+        from?: Currency;
+        to?: Currency;
+    }
 
     type Value = string | number | string[] | number[];
 
@@ -32,56 +32,57 @@ declare namespace fx {
     }
 
     interface Wrapper<T_VAL extends Value> extends WrapperPrototype<T_VAL> {
-        readonly _v: number;
-        readonly _fx?: Currency;
+        _v: number;
+        _fx?: Currency;
     }
 
     interface WrapperConstructor<T_VAL extends Value> {
         readonly prototype: WrapperPrototype<T_VAL>;
         new (val: T_VAL): Wrapper<T_VAL>;
     }
-}
 
-interface FX {
-    /**
-     * If fx(val) is called as a function, it returns a wrapped object that can be used OO-style
-     */
-    <T_VAL extends fx.Value>(val: T_VAL): fx.Wrapper<T_VAL>;
-    new <T_VAL extends fx.Value>(val: T_VAL): fx.Wrapper<T_VAL>;
+    interface FX {
+        /**
+         * If fx(val) is called as a function, it returns a wrapped object that can be used OO-style
+         */
+        <T_VAL extends Value>(val: T_VAL): Wrapper<T_VAL>;
+        new <T_VAL extends Value>(val: T_VAL): Wrapper<T_VAL>;
 
-    /**
-     * Current version
-     */
-    version: string;
+        /**
+         * Current version
+         */
+        version: string;
 
-    /**
-     * Object containing exchange rates relative to the fx.base currency, eg { "GBP" : "0.64" }
-     */
-    rates: fx.Rates;
+        /**
+         * Object containing exchange rates relative to the fx.base currency, eg { "GBP" : "0.64" }
+         */
+        rates: Rates;
 
-    /**
-     * Default exchange rate base currency (eg "USD"), which all the exchange rates are relative to
-     */
-    base: fx.Currency;
+        /**
+         * Default exchange rate base currency (eg "USD"), which all the exchange rates are relative to
+         */
+        base: Currency;
 
-    /**
-     * Default from / to currencies for conversion via `convert()`
-     */
-    settings: {
-        from: fx.Currency;
-        to: fx.Currency;
-    };
+        /**
+         * Default from / to currencies for conversion via `convert()`
+         */
+        settings: {
+            from: Currency;
+            to: Currency;
+        };
 
-    /**
-     * Converts a value from one currency to another
-     */
-    convert: {
-        <T_VAL extends fx.Value>(val: T_VAL, opts?: fx.Options): fx.Result<T_VAL>;
-    };
+        /**
+         * Converts a value from one currency to another
+         */
+        convert: <T_VAL extends Value>(val: T_VAL, opts?: Options) => Result<T_VAL>;
+    }
 }
 
 /**
  * Library for realtime currency conversion and exchange rate calculation
  */
-declare const fx: FX;
+declare const fx: fx.FX;
+
+export as namespace fx;
+
 export = fx;
