@@ -1,5 +1,5 @@
 // Type definitions for tengitsui 4.4
-// Project: https://www.npmjs.com/package/tengitsui
+// Project: https://github.com/1026385513/tengitsui
 // Definitions by: stackman <1026385513@qq.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as React from 'react';
