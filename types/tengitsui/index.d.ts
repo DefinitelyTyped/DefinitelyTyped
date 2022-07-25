@@ -1,54 +1,53 @@
-// Type definitions for tengitsui 4.4.7
+// export type definitions for 4.4.7
 // Definitions by: stackman <1026385513@qq.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from 'react';
-type voidFunc = () => void;
+export type voidFunc = () => void;
 export type onChange = (value: any) => void;
 export interface BaseOpts {
     handleChange?: (value: any, onChange: onChange) => any;
     disabled?: boolean | ((fields: object) => boolean);
 }
-type optionCompute = (fields: object, options: Option[]) => Option[];
-type visibleFnc = (params: { fields: object }) => boolean;
-export type Option = {
+export type optionCompute = (fields: object, options: Option[]) => Option[];
+export type visibleFnc = (params: { fields: object }) => boolean;
+export interface Option {
     id: number | string;
     name: string;
     label?: React.ReactNode;
     disabled?: boolean;
     children?: Option[];
-    $exclusive?: boolean; //排他
-    $overall?: boolean; //全局
-    $mutable?: boolean; //可修改
-};
-export type BaseProps = {
+    $exclusive?: boolean; // 排他
+    $overall?: boolean; // 全局
+    $mutable?: boolean; // 可修改
+}
+export interface BaseProps {
     placeholder?: string;
     value?: number | string | string[] | number[] | any[];
     field: string;
     options: Option[];
     onChange: voidFunc;
     opts: BaseOpts;
-};
-export type Field = {
+}
+export interface Field {
     type: string;
     name: string;
     opts?: BaseOpts;
     options?: Option[];
     optionCompute?: optionCompute;
     visible?: visibleFnc;
-};
-export type Schema = {
+}
+export interface Schema {
     [key: string]: Field;
-};
+}
 
-//crud
-type actionGen = (record: object) => boolean;
-type clickFn = (record: object, params: object) => void;
-interface FunApi {
+// crud
+export type actionGen = (record: object) => boolean;
+export type clickFn = (record: object, params: object) => void;
+export interface FunApi {
     (record: object): Element;
     action: actionGen;
 }
-type Api =
+export type Api =
     | {
           url?: string;
           name: string;
@@ -60,24 +59,24 @@ type Api =
           reorganizeSchema?: (schema: AdvancedSchema) => AdvancedSchema;
       }
     | FunApi;
-type AdvancedApi = {
+export interface AdvancedApi {
     add?: string | Api;
     edit?: string | Api;
     list?: string;
     remove?: string | Api;
     [key: string]: string | Api | undefined;
-};
+}
 
-type AdvancedAuth = {
+export interface AdvancedAuth {
     add?: number | string;
     edit?: number | string;
     list?: number | string;
     remove?: number | string;
     [key: string]: number | string | undefined;
-};
-type ViewType = 'list' | 'form' | 'filter' | 'detail';
-type visibleFn = (record: { fields: any }) => true | false;
-type AdvancedField = {
+}
+export type ViewType = 'list' | 'form' | 'filter' | 'detail';
+export type visibleFn = (record: { fields: any }) => true | false;
+export interface AdvancedField {
     field: string;
     name: string;
     view: ViewType[];
@@ -91,86 +90,86 @@ type AdvancedField = {
     group?: string;
     useFirstOption?: boolean;
     visible?: boolean | visibleFn;
-    defaultValue?: any; //defaultValue 和visible互斥TODO 一起存在
+    defaultValue?: any; // defaultValue 和visible互斥TODO 一起存在
     fixed?: 'left' | 'right';
-};
-export type AdvancedSchema = {
+}
+export interface AdvancedSchema {
     [key: string]: AdvancedField;
-};
-export type AdvancedCrudProps = {
+}
+export interface AdvancedCrudProps {
     api: AdvancedApi;
     auth: AdvancedAuth;
     schema: AdvancedSchema;
-};
+}
 
-export type AdvancedFilterProps = {
-    defaultValue?: Object | undefined;
-    schema: Object;
+export interface AdvancedFilterProps {
+    defaultValue?: object | undefined;
+    schema: object;
     noCollpose?: boolean;
     noClearer?: boolean;
     onSearch?: voidFunc;
     onReset?: voidFunc;
     onFieldChange: voidFunc;
     onChange: onChange;
-};
+}
 
-export type AMapDistrictSearchProps = {
+export interface AMapDistrictSearchProps {
     level?: 'country' | 'province' | 'city' | 'district' | 'biz_area';
     subdistrict?: 0 | 1 | 2 | 3;
     name: string;
-};
-export const ArrayCtrl: (
+}
+export function ArrayCtrl(): (
     com: React.ComponentType<any>,
     plus?: React.ComponentType<any>,
     ctrl?: React.ComponentType<any>,
 ) => React.ComponentType<any>;
 
-type option = {
+export interface option {
     id: number | string;
     name: string;
-};
-interface AutoCompleteOpts {
+}
+export interface AutoCompleteOpts {
     dropdownMenuStyle?: React.CSSProperties;
     autoFocus?: boolean;
     backfill?: boolean;
     optionLabelProp?: string;
 }
-export type AutoCompleteProps = {
+export interface AutoCompleteProps {
     placeholder?: string;
     value?: string;
     field: string;
     options: option[];
     onChange: voidFunc;
     opts: AutoCompleteOpts;
-};
-export type ChartProps = {
+}
+export interface ChartProps {
     id: number | string;
     style?: string;
     className?: string;
     theme?: 'light' | 'dark';
     props: {};
-};
+}
 
-type selectFn = (itor: Iterable<Element>, slen: number, dlen: number) => Array<Element>;
-export type CombineProps = {
-    source: Array<Element>;
-    children: Array<Element>;
+export type selectFn = (itor: Iterable<Element>, slen: number, dlen: number) => Element[];
+export interface CombineProps {
+    source: Element[];
+    children: Element[];
     select: selectFn;
-};
-type Layout = (props: object) => Array<Element>;
-export type ComposeProps = {
+}
+export type Layout = (props: object) => Element[];
+export interface ComposeProps {
     schema: AdvancedSchema;
     Layout: Layout;
     name: string;
-};
+}
 
-type UrlObj = {
+export interface UrlObj {
     id?: number | string;
     name?: string;
     url: string;
     delFlag?: boolean | number;
-};
-type DrawableUploaderOpts = {
+}
+export interface DrawableUploaderOpts {
     // 上传地址
     action?: string;
     // 上传附加参数
@@ -181,62 +180,62 @@ type DrawableUploaderOpts = {
     customRequest: (file: any, onProgress: () => {}) => {};
     beforeUpload?: (file: any, fileList: []) => boolean;
     disabled?: boolean;
-};
-export type DrawableUploaderProps = {
+}
+export interface DrawableUploaderProps {
     value: string[] | UrlObj[];
     onChange: (value: UrlObj[]) => {};
     opts: DrawableUploaderOpts;
-};
-export type FilterProps = {
-    defaultValue: Object | undefined;
-    schema: Object;
+}
+export interface FilterProps {
+    defaultValue: object | undefined;
+    schema: object;
     noCollpose: boolean;
     noClearer: boolean;
     onSearch?: voidFunc;
     onReset?: voidFunc;
     onFieldChange: voidFunc;
-};
+}
 
-type Required = {
+export interface Required {
     required: boolean;
-};
-type Validator = {
+}
+export interface Validator {
     validator: (value: any) => boolean | string;
-};
-type ValidatorRule = Required | Validator;
+}
+export type ValidatorRule = Required | Validator;
 
-type FormField = {
+export interface FormField {
     field: string;
     name: string;
     type: string;
     rules?: ValidatorRule[];
     opts?: BaseOpts;
     options?: Option[];
-};
-type FormSchema = {
+}
+export interface FormSchema {
     [key: string]: FormField;
-};
-type Fields = {
+}
+export interface Fields {
     [key: string]: any;
-};
-type Errros = {
+}
+export interface Errros {
     [key: string]: boolean | string | undefined;
-};
-export type FormProps = {
+}
+export interface FormProps {
     fields: Fields;
     schema: FormSchema;
     onChange: (value: any) => void;
     errors: Errros;
     children?: any;
-};
-export type GridLayoutProps = {
+}
+export interface GridLayoutProps {
     layout: string;
     gap?: number;
     cellRatio?: 'auto' | number;
-    children: Array<Element>;
+    children: Element[];
     style?: object;
-};
-type Location = {
+}
+export interface Location {
     longitude?: number;
     latitude?: number;
     position?: string;
@@ -244,69 +243,69 @@ type Location = {
     city?: string;
     district?: string;
     loading?: boolean;
-};
-export type LocationSelectOpts = {
+}
+export interface LocationSelectOpts {
     disabled?: boolean;
     getValue?: (fields: object) => Location;
     cascDisabled?: boolean;
-};
-export type LocationSelectProps = {
+}
+export interface LocationSelectProps {
     fields: Location;
     onChange: onChange;
     opts: LocationSelectOpts;
-};
-export type MileageProps = {
+}
+export interface MileageProps {
     value: string | undefined;
     onChange: (value: string) => void;
     opts?: {};
-};
-export type MileageRangeProps = {
-    value: Array<string> | undefined;
-    onChange: (value: Array<string>) => void;
+}
+export interface MileageRangeProps {
+    value: string[] | undefined;
+    onChange: (value: string[]) => void;
     opts?: {};
-};
-export type ProgressProps = {
+}
+export interface ProgressProps {
     type?: 'line' | 'circle' | 'dashboard' | undefined;
     title?: string | undefined;
     showPrecent?: boolean | false;
     strokeColor?: string | undefined;
     callback?: () => void;
     opts?: {};
-};
+}
 
 export type RangePickerProps =
     | BaseProps
     | {
-          value: undefined | null | null[] | string[];
+          value: undefined | null | Array<null> | string[];
       };
 
-export type TableEditorRef = {
+export interface TableEditorRef {
     getValue: () => [];
     getErrors: () => [];
-};
-interface Rule {
+}
+export interface Rule {
     required?: boolean;
     validator: (value: any, fields: object) => any;
 }
-type Record = any;
-type VisibleFnc = (record: Record) => boolean;
-type OptionComputeFnc = (record: Record, options: Option[]) => Option[] | Promise<Option[]>;
-type ComputeFnc = (record: Record, field: string) => any;
-type RenderProps = {
+export type Record = any;
+export type VisibleFnc = (record: Record) => boolean;
+export type OptionComputeFnc = (record: Record, options: Option[]) => Option[] | Promise<Option[]>;
+export type ComputeFnc = (record: Record, field: string) => any;
+export interface RenderProps {
     value: any;
     record: Record;
-};
-type ColumnRender = (props: RenderProps) => any;
-type FeildMode = 'multiple';
-type TableEditorOpts = {
+}
+export type ColumnRender = (props: RenderProps) => any;
+export type FeildMode = 'multiple';
+export interface TableEditorOpts {
     allowClear?: boolean;
     mode?: FeildMode;
-};
-type ColumnFilter = {
+}
+export interface ColumnFilter {
     text: string;
     value: number | string;
-};
-export type TableField = {
+}
+export interface TableField {
     type?: string | Element;
     name: string;
     options?: Option[];
@@ -318,15 +317,15 @@ export type TableField = {
     nocopy?: boolean;
     noclean?: boolean;
     filters?: ColumnFilter[];
-    beforeOptionRender?: (items: string | Array<string>) => any;
+    beforeOptionRender?: (items: string | string[]) => any;
     rules?: Rule[];
-};
-export type ColumnSchema = {
+}
+export interface ColumnSchema {
     [key: string]: TableField;
-};
-export type TableEditorProps = {
+}
+export interface TableEditorProps {
     value: Record[];
     columns: ColumnSchema;
     addTool?: (columns: object) => object;
     editable?: boolean;
-};
+}
