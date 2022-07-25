@@ -1,4 +1,4 @@
-import EmailTemplates from 'swig-email-templates';
+import EmailTemplates = require('swig-email-templates');
 import jQuery = require('jquery');
 
 const templates = new EmailTemplates();
