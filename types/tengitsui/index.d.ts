@@ -1,4 +1,4 @@
-// export type definitions for 4.4.7
+// export type definitions for tengitsui 4.4.7
 // Definitions by: stackman <1026385513@qq.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as React from 'react';
