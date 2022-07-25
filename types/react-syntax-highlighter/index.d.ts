@@ -3661,6 +3661,8 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/prism' {
     export { default as atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism/atom-dark';
     export { default as base16AteliersulphurpoolLight } from 'react-syntax-highlighter/dist/cjs/styles/prism/base16-ateliersulphurpool.light';
     export { default as cb } from 'react-syntax-highlighter/dist/cjs/styles/prism/cb';
+    export { default as coldarkCold } from 'react-syntax-highlighter/dist/cjs/styles/prism/coldark-cold';
+    export { default as coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism/coldark-dark';
     export { default as coy } from 'react-syntax-highlighter/dist/cjs/styles/prism/coy';
     export { default as darcula } from 'react-syntax-highlighter/dist/cjs/styles/prism/darcula';
     export { default as dark } from 'react-syntax-highlighter/dist/cjs/styles/prism/dark';
@@ -3708,6 +3710,16 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/prism/base16-ateliersul
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/cb' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/cjs/styles/prism/coldark-cold' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/cjs/styles/prism/coldark-dark' {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }
