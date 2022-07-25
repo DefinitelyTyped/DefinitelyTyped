@@ -2,8 +2,6 @@
 // Project: https://github.com/rebassjs/grid
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 //                 Victor Orlov <https://github.com/vittorio>
-//                 Louis Hache <https://github.com/lhache>
-//                 Erin Noe-Payne <https://github.com/autoric>
 //                 akameco <https://github.com/akameco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
