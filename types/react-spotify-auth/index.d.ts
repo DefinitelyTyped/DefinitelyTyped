@@ -17,7 +17,7 @@ export interface SpotifyAuthProps {
     redirectUri: string;
     clientID: string;
     scopes: string[];
-    onAccessToken?: (arg0: string) => {};
+    onAccessToken?: (arg0: string) => void;
     logoClassName?: string;
     title?: string;
     noLogo?: boolean;
