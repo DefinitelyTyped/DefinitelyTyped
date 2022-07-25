@@ -4,6 +4,9 @@ import Mp4Frag = require('mp4frag');
 const m4f = new Mp4Frag({});
 
 // $ExpectType Mp4Frag
+new Mp4Frag();
+
+// $ExpectType Mp4Frag
 new Mp4Frag({
     hlsPlaylistBase: 'test',
     hlsPlaylistInit: true,
