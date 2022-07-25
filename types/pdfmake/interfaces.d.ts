@@ -1426,7 +1426,11 @@ export interface TableOfContent {
  * Additional properties of {@link Content} objects that are used as columns.
  */
 export interface ColumnProperties {
-    /** Column width. */
+    /**
+     * Column width.
+     *
+     * Defaults to `*`.
+     */
     width?: Size | undefined;
 }
 
