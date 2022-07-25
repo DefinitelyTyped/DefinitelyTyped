@@ -83,30 +83,30 @@ declare class Mp4Frag extends Transform {
      * Returns the audio codec information as a <b>string</b>.
      * Returns <b>null</b> if requested before [initialized event]{@link Mp4Frag#event:initialized}.
      */
-    get audioCodec(): string | undefined;
+    get audioCodec(): string | null;
 
     /**
      * Returns the video codec information as a <b>string</b>.
      * Returns <b>null</b> if requested before [initialized event]{@link Mp4Frag#event:initialized}.
      */
-    get videoCodec(): string | undefined;
+    get videoCodec(): string | null;
     /**
      * Returns the mime type information as a <b>string</b>.
      * Returns <b>null</b> if requested before [initialized event]{@link Mp4Frag#event:initialized}.
      */
-    get mime(): string | undefined;
+    get mime(): string | null;
 
     /**
      * Returns the Mp4 initialization fragment as a <b>Buffer</b>.
      * Returns <b>null</b> if requested before [initialized event]{@link Mp4Frag#event:initialized}.
      */
-    get initialization(): Buffer | undefined;
+    get initialization(): Buffer | null;
 
     /**
      * Returns the latest [SegmentObject]{@link SegmentObject} as a <b>Buffer</b>.
      * Returns <b>null</b> if requested before first [segment event]{@link Mp4Frag#event:segment}.
      */
-    get segment(): Buffer | undefined;
+    get segment(): Buffer | null;
 
     /**
      * Returns the latest [SegmentObject]{@link SegmentObject}.
@@ -137,13 +137,13 @@ declare class Mp4Frag extends Transform {
      * Returns the total byte length of the Mp4 initialization and all [SegmentObjects]{@link SegmentObject} as an <b>Integer</b>(<i>bytes</i>).
      * Returns <b>-1</b> if requested before [initialized event]{@link Mp4Frag#event:initialized}.
      */
-    get totalByteLength(): number | undefined;
+    get totalByteLength(): number | null;
 
     /**
      * Returns the fmp4 HLS m3u8 playlist as a <b>string</b>.
      * Returns <b>null</b> if requested before [initialized event]{@link Mp4Frag#event:initialized}.
      */
-    get m3u8(): string | undefined;
+    get m3u8(): string | null;
 
     /**
      * Returns the sequence of the latest [SegmentObject]{@link SegmentObject} as an <b>Integer</b>.
@@ -168,13 +168,13 @@ declare class Mp4Frag extends Transform {
      * Returns an array of [SegmentObject]{@link SegmentObject}
      * Returns <b>null</b> if requested before first [segment event]{@link Mp4Frag#event:segment}.
      */
-    get segmentObjects(): SegmentObject[] | undefined;
+    get segmentObjects(): SegmentObject[] | null;
 
     /**
      * - Returns the [SegmentObject]{@link SegmentObject} that corresponds to the sequence number.
      * - Returns <b>null</b> if there is no segment that corresponds to sequence number.
      */
-    getSegmentObject(sequence: number | string): SegmentObject | undefined;
+    getSegmentObject(sequence: number | string): SegmentObject | null;
 
     /**
      * Clear cached values

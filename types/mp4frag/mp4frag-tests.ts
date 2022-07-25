@@ -12,19 +12,19 @@ new Mp4Frag({
     segmentCount: 1,
 });
 
-// $ExpectType string | undefined
+// $ExpectType string | null
 m4f.audioCodec;
 
-// $ExpectType string | undefined
+// $ExpectType string | null
 m4f.videoCodec;
 
-// $ExpectType string | undefined
+// $ExpectType string | null
 m4f.mime;
 
-// $ExpectType Buffer | undefined
+// $ExpectType Buffer | null
 m4f.initialization;
 
-// $ExpectType Buffer | undefined
+// $ExpectType Buffer | null
 m4f.segment;
 
 // $ExpectType SegmentObject
@@ -39,10 +39,10 @@ m4f.duration;
 // $ExpectType number
 m4f.totalDuration;
 
-// $ExpectType number | undefined
+// $ExpectType number | null
 m4f.totalByteLength;
 
-// $ExpectType string | undefined
+// $ExpectType string | null
 m4f.m3u8;
 
 // $ExpectType number
@@ -54,12 +54,12 @@ m4f.keyframe;
 // $ExpectType boolean
 m4f.allKeyframes;
 
-// $ExpectType SegmentObject[] | undefined
+// $ExpectType SegmentObject[] | null
 m4f.segmentObjects;
 
-// $ExpectType SegmentObject | undefined
+// $ExpectType SegmentObject | null
 m4f.getSegmentObject(1);
-// $ExpectType SegmentObject | undefined
+// $ExpectType SegmentObject | null
 m4f.getSegmentObject('1');
 // @ts-expect-error
 m4f.getSegmentObject(null);
