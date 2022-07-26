@@ -20,7 +20,7 @@ const BLOCK: blocks.Block<{ foo: string }> = {
                 return { foo: attributes.bar };
             },
             save: () => null,
-        }
+        },
     ],
     edit: () => null,
     icon: {
@@ -422,7 +422,7 @@ blocks.registerBlockType({
             fontSize: true,
             lineHeight: false,
         },
-        lock:true
+        lock: true,
     },
     styles: [
         { name: 'default', label: 'Default', isDefault: true },
