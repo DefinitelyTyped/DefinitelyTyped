@@ -2173,6 +2173,6 @@ export class UsersManager<A = AppMetadata, U = UserMetadata> {
     impersonate(userId: string, settings: ImpersonateSettingOptions): Promise<any>;
     impersonate(userId: string, settings: ImpersonateSettingOptions, cb: (err: Error, data: any) => void): void;
 
-    getUserOrganizations(params: ObjectWithId): Promise<Organization[]>;
-    getUserOrganizations(params: ObjectWithId, cb: (err: Error, orgs: Organization[]) => void): void;
+    getUserOrganizations(data: ObjectWithId): Promise<Organization[]>;
+    getUserOrganizations(data: ObjectWithId, cb: (err: Error, orgs: Organization[]) => void): void;
 }
