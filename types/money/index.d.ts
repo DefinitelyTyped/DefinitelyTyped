@@ -17,28 +17,12 @@ declare namespace fx {
 
     type Result<T_VAL extends Value> = T_VAL extends string | number ? number : number[];
 
-    interface WrapperPrototype<T_VAL extends Value> {
-        convert: {
-            (opts?: Options): Result<T_VAL>;
-        };
+    interface Wrapper<T_VAL extends Value> {
+        convert: (opts?: Options) => Result<T_VAL>;
 
-        from: {
-            (currency: Currency): Wrapper<T_VAL>;
-        };
+        from: (currency: Currency) => Wrapper<T_VAL>;
 
-        to: {
-            (currency: Currency): Result<T_VAL>;
-        };
-    }
-
-    interface Wrapper<T_VAL extends Value> extends WrapperPrototype<T_VAL> {
-        _v: number;
-        _fx?: Currency;
-    }
-
-    interface WrapperConstructor<T_VAL extends Value> {
-        readonly prototype: WrapperPrototype<T_VAL>;
-        new (val: T_VAL): Wrapper<T_VAL>;
+        to: (currency: Currency) => Result<T_VAL>;
     }
 
     interface FX {
