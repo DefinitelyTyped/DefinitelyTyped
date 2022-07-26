@@ -3,109 +3,107 @@
 // Definitions by: Yuxiang Ren <https://github.com/shlyren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-declare namespace ZWJSBridge {
-
-    type IFunction<V = unknown, R = unknown> = (arg0: V) => R
-
-    type PromiseResult = Promise<{
-      result: string
-    }>
+declare const ZWJSBridge: {
     /**
 	 * 初始化jsapi，初始化完成即onReady之后再调用jsapi。
 	 * @param callBack 
 	 */
-    function onReady(callBack: IFunction): void
-    
-    /////// 缓存 //////
+	onReady(callBack: Function): void
+	/////// 缓存 //////
     /**
      * 存储数据缓存
      */
-    function setLocalStorage(options: {
-      	key: string
-      	value: string
-    }): PromiseResult
-    
-    /**
-     * 读取数据缓存
-     */
-    function getLocalStorage(options?: {
-      	key: string
-    }): Promise<Record<string, any>>
-    /**
-     * 读取数据缓存
-     */
-    function removeLocalStorage(options: {
-      	key: string
-    }): PromiseResult
-  
-    /////// Navigation窗口类 //////
-    /**
-     * 设置标题
-     */
-    function setTitle(options: {
-      	title?: string,
-    }): PromiseResult
-  
-    /**
-     * 设置菜单
-     */
-    function setMenu(options: {
-      	items?: Array<{
-			// 按钮ID。点击后客戶端返回这个ID标识
-			id?: string,
-			// 图标地址。
-			iconUrl?: string,
-			// 按钮的说明文字。
-			text?: string,
-			// icon缩放模式： 默认0
-			// 0表示 不保持纵横比缩放图片，使图片的宽高完全拉伸至填满image组件
-			// 1表示保持纵横比缩放图片，使图片的长边能完全显示出来。也就是说，可以完整地将图片显示出来。
-			type?: 0 | 1 
-      	}>
-    }): Promise<{
-      	id?: string
-    }>
-  
-    /**
-     * 新开窗口
-     */
-    function openLink(options: {
-      	url: string,
-    }): Promise<{}>
-  
-    /**
-     * 关闭当前页面
-     */
-    function close(): Promise<{}>
-  
-  
-    /////// 用户 //////
-    /**
-     * 获取用户类型
-     */
-	function getUserType(): Promise<{
+	setLocalStorage(options: {
+		key: string
+		value: string
+	}): Promise<{
+		result: string
+	}>
+	
+	/**
+	 * 读取数据缓存
+	 */
+	getLocalStorage(options?: {
+		key: string
+	}): Promise<Record<string, any>>
+	/**
+	 * 读取数据缓存
+	 */
+	removeLocalStorage(options: {
+		key: string
+	}): Promise<{
+		result: string
+	}>
+
+	/////// Navigation窗口类 //////
+	/**
+	 * 设置标题
+	 */
+	setTitle(options: {
+		title?: string,
+	}): Promise<{
+		result: string
+}>
+
+	/**
+	 * 设置菜单
+	 */
+	setMenu(options: {
+		items?: Array<{
+		// 按钮ID。点击后客戶端返回这个ID标识
+		id?: string,
+		// 图标地址。
+		iconUrl?: string,
+		// 按钮的说明文字。
+		text?: string,
+		// icon缩放模式： 默认0
+		// 0表示 不保持纵横比缩放图片，使图片的宽高完全拉伸至填满image组件
+		// 1表示保持纵横比缩放图片，使图片的长边能完全显示出来。也就是说，可以完整地将图片显示出来。
+		type?: 0 | 1 
+		}>
+	}): Promise<{
+		id?: string
+	}>
+
+	/**
+	 * 新开窗口
+	 */
+	openLink(options: {
+		url: string,
+	}): Promise<{}>
+
+	/**
+	 * 关闭当前页面
+	 */
+	close(): Promise<{}>
+
+
+	/////// 用户 //////
+	/**
+	 * 获取用户类型
+	 */
+	getUserType(): Promise<{
 		/**
 		 * 用户类型，取值: 0:公务员 1:除公务员以外的个人 2:法人 
 		 * 公务员属于特殊类型的个人用户，当应用服务需要同时支持个人和法人时，可通过getUserType接口获取APP当前登录用户类型，然后发起个人或法人的登录认证，0或1都属于个人用户，2为法人用户。
 		 */
 		userType: string
-    }>
-  
-    /**
-     * 支付宝扫脸认证
-     * 该接口涉及业务签约，一旦服务到期后，将改变相应接口的调用方式，请及时按照本文档进行进行适配。
-     * 
-     * 错误码
-     * 1001 支付宝认证失败
-     * 1003 姓名或身份证号错误
-     */
-	function zmAuthentication(parasm: {
+	}>
+
+	/**
+	 * 支付宝扫脸认证
+	 * 该接口涉及业务签约，一旦服务到期后，将改变相应接口的调用方式，请及时按照本文档进行进行适配。
+	 * 
+	 * 错误码
+	 * 1001 支付宝认证失败
+	 * 1003 姓名或身份证号错误
+	 */
+	zmAuthentication(parasm: {
 		/** 身份证号，默认值为当前登录账号所属身份证号码。 */
 		certNo?: string,
 		/** 姓名，默认值为当前登录账号所属名字 */
 		certName?: string
-    }): Promise<{
+	}): Promise<{
 		/**
 		 * success:成功, fail:失败, complete:完成。
 		 */
@@ -115,38 +113,38 @@ declare namespace ZWJSBridge {
 		pass: boolean,
 		/** 从后台返回的用户票据信息。 */
 		passId: string
-    }>
-  
-  
-  
-    /////// Device设备类 //////
-    /**
-     * 打电话
-     */
-	function phoneCall(options: {
+	}>
+
+
+
+	/////// Device设备类 //////
+	/**
+	 * 打电话
+	 */
+	phoneCall(options: {
 		/** 电话号码。 */
 		corpId: string
-    }): Promise<{}>
-  
-    /**
-     * 发短信
-     */
-    function sms(options?: {
+	}): Promise<{}>
+
+	/**
+	 * 发短信
+	 */
+	sms(options?: {
 		/** 电话号码。 */
 		phoneNumber?: string,
 		/** 短信内容 */
 		text?: string
-    }): Promise<{}>
-  
-  
-    /**
-     * 获取经纬度信息
-     * 
-     * 错误码
-     * 1001 未开启定位权限
-     * 1002 定位失败
-     */
-    function getLocation(): Promise<{
+	}): Promise<{}>
+
+
+	/**
+	 * 获取经纬度信息
+	 * 
+	 * 错误码
+	 * 1001 未开启定位权限
+	 * 1002 定位失败
+	 */
+	getLocation(): Promise<{
 		/** 经度 */
 		longitude: number
 		/** 纬度 */
@@ -159,44 +157,44 @@ declare namespace ZWJSBridge {
 		townCode: string
 		/** 详细地址 */
 		detailAddress: string
-    }>
-  
-    /**
-     * 获取设备唯一标识
-     */
-    function getUUID(): Promise<{
-      	uuid: string
-    }>
-  
-    /**
-     * 获取网络类型
-     */
-    function getNetworkType(): Promise<{
+	}>
+
+	/**
+	 * 获取设备唯一标识
+	 */
+	getUUID(): Promise<{
+		uuid: string
+	}>
+
+	/**
+	 * 获取网络类型
+	 */
+	getNetworkType(): Promise<{
 		/**
 		 * 网络类型，取值: wifi、2g、3g、4g、unknown、none表示离线
 		 */ 
 		result: string
-    }>
-  
-    /**
-     * 向剪贴板中复制数据。
-     */
-	function setClipboardData(parasm: {
-      	text: string
-    }): Promise<{}>
+	}>
 
-    /**
-     * 向剪贴板中获取数据。
-     * @deprecated 涉及用户隐私问题，已下线
-     */
-    function getClipboardData(): Promise<any>
-  
-  
-    /////// 业务类 //////
-    /**
-     * 埋点
-     */
-    function monitorTrace(options: {
+	/**
+	 * 向剪贴板中复制数据。
+	 */
+	setClipboardData(parasm: {
+		text: string
+	}): Promise<{}>
+
+	/**
+	 * 向剪贴板中获取数据。
+	 * @deprecated 涉及用户隐私问题，已下线
+	 */
+	getClipboardData(): Promise<any>
+
+
+	/////// 业务类 //////
+	/**
+	 * 埋点
+	 */
+	monitorTrace(options: {
 		/** 埋点类型: success:成功 fail:失败 count:计数 timeCost:时延 pageIn:进入页面 pageOut:离开页面 exposure:曝光 click:单击 */
 		monitorType: string
 		/** 模块。 */
@@ -217,83 +215,83 @@ declare namespace ZWJSBridge {
 		pageName?: string
 		/** 行动点 */
 		actionName?: string
-    }): Promise<any>
-  
-    /**
-     * 获取当前地区
-     */
-    function getCurrentLocationCity(): Promise<{
+	}): Promise<any>
+
+	/**
+	 * 获取当前地区
+	 */
+	getCurrentLocationCity(): Promise<{
 		/** 行政区划编码 */
 		cityId: string
 		/** 行政区划名 */
 		cityName: string
 		webId: string
 		orgCode: string
-    }>
-  
-    /**
-     * 选择图片
-     * 
-     * 错误码
-     * 1001 没有摄像头或摄像头不可用
-     * 1002 没有拍照权限
-     * 1003 没有图片库权限
-     * 1004 图片上传失败
-     */
-    function chooseImage(options: {
+	}>
+
+	/**
+	 * 选择图片
+	 * 
+	 * 错误码
+	 * 1001 没有摄像头或摄像头不可用
+	 * 1002 没有拍照权限
+	 * 1003 没有图片库权限
+	 * 1004 图片上传失败
+	 */
+	chooseImage(options: {
 		/**
 		 * 是否将选取的图片上传到服务器。
 		 * 默认值为false，图片不上传到服务器。
 		 * 值为true时，图片上传到服务器，上传成功后返回公网可访问的URL。
 		 */
 		upload?: boolean
-    }): Promise<{
+	}): Promise<{
 		/** Base64编码格式的图片数据数组。 */
 		picSrc: string[]
 		/** upload取值为true时，picPath为图片的网 络地址数组，支持下载。 */
 		picPath: string[]
-    }>
-  
-    /**
-     * 图片保存到本地
-     */
-    function saveImage(options: {
-      	url: string
-    }): Promise<any>
-  
-    /**
-     * 扫一扫
-     * 
-     * 错误码
-     * 1001 没有摄像头或摄像头不可用
-     * 1002 没有拍照权限
-     * 1003 没有图片库权限
-     * 5 未初始化
-     */
-    function scan(options: {
+	}>
+
+	/**
+	 * 图片保存到本地
+	 */
+	saveImage(options: {
+		url: string
+	}): Promise<any>
+
+	/**
+	 * 扫一扫
+	 * 
+	 * 错误码
+	 * 1001 没有摄像头或摄像头不可用
+	 * 1002 没有拍照权限
+	 * 1003 没有图片库权限
+	 * 5 未初始化
+	 */
+	scan(options: {
 		/**
 		 * type: "qrCode"
 		 */
 		type: 'qrCode'
-    }): Promise<{
-      	text: string
-    }>
-  
-  
-    /**
-     * 启用支付功能
-     * 实际支付结果以后端查询接口为准，成功回调仅表示支付宝支付调用成功，相关数据可能不会同步至后端。若回调失败，可通过返回数字获取失败信息。
-     * 
-     * error错误码
-     * 8000
-     * 支付正在处理中，支付结果未知，请查询商户订单列表中订单的支付状态。
-     * 40000 订单支付失败。
-     * 5000 重复请求。
-     * 6001 用户中途取消支付。
-     * 60002 网络连接出错。
-     * 60004 支付结果未知，请查询商户订单列表中订单的支付状态。
-     */
-    function pay(options: {
+	}): Promise<{
+			text: string
+	}>
+
+
+	/**
+	 * 启用支付功能
+	 * 实际支付结果以后端查询接口为准，成功回调仅表示支付宝支付调用成功，相关数据可能不会同步至后端。若回调失败，可通过返回数字获取失败信息。
+	 * 
+	 * error错误码
+	 * 8000
+	 * 支付正在处理中，支付结果未知，请查询商户订单列表中订单的支付状态。
+	 * 40000 订单支付失败。
+	 * 5000 重复请求。
+	 * 6001 用户中途取消支付。
+	 * 60002 网络连接出错。
+	 * 60004 支付结果未知，请查询商户订单列表中订单的支付状态。
+	 */
+	pay(options: {
 		/**
 		 * 支付平台，取值: 1:支付宝 2:微信，微信支付暂不支持 3:银联云闪付
 		 */
@@ -302,43 +300,43 @@ declare namespace ZWJSBridge {
 		credential: string
 		/** 是否为测试环境，缺省为False。支付宝只支持Android端。*/
 		inSandBox?: boolean
-    }): Promise<any>
-  
-  
-  
-    /////// UI界面类 //////
-    /**
-     * 确认框
-     */
-    function confirm(options: {
+	}): Promise<any>
+
+
+
+	/////// UI界面类 //////
+	/**
+	 * 确认框
+	 */
+	confirm(options: {
 		/** 确认框的标题 */
 		title?: string
 		/** 确认框中的实际消息内容 */
 		message?: string
 		/** 确认框中的可单击按钮 */
 		buttonLabels?: string[]
-    }): Promise<{
+	}): Promise<{
 		/** 确认框中可单击按钮的索引值，Number类型，从0开始。 */
 		buttonIndex: number
-    }>
-  
-    /**
-     * 提示框
-     */
-    function alert(options: {
+	}>
+
+	/**
+	 * 提示框
+	 */
+	alert(options: {
 		/** 标题 */
 		title?: string
 		/** 消息内容 */
 		message?: string
 		/** 按钮名称 */
 		buttonName?: string
-    }): Promise<any>
-  
-  
-    /**
-     * 弱提示
-     */
-    function toast(options: {
+	}): Promise<any>
+
+
+	/**
+	 * 弱提示
+	 */
+	toast(options: {
 		/** 
 		 * 根据toast类型展示相应图标，取值:
 		 * none，默认值 
@@ -351,13 +349,13 @@ declare namespace ZWJSBridge {
 		message?: string
 		/** 消息显示持续时间，单位毫秒，默认值为2000s。*/
 		duration?: number
-    }): Promise<any>
-  
-  
-    /**
-     * 文本输入框
-     */
-    function prompt(options: {
+	}): Promise<any>
+
+
+	/**
+	 * 文本输入框
+	 */
+	prompt(options: {
 		/** 
 		 * 取值:
 		 * text ，缺省值 
@@ -375,66 +373,66 @@ declare namespace ZWJSBridge {
 		cancelButton?: string
 		/** 按钮名称，默认为确定。*/
 		confirmButton?: string
-    }): Promise<{
+	}): Promise<{
 		/** 可单击按钮的索引值，从0开始。*/
 		buttonIndex: number
 		/** 输入的值 */
 		value: string
-    }>
-  
-  
-    /**
-     * 单选列表
-     */
-    function actionSheet(options: {
+	}>
+
+
+	/**
+	 * 单选列表
+	 */
+	actionSheet(options: {
 		/** 单选列表的标题。*/
 		title: string
 		/** 其他按钮列表。 */
 		otherButtons: string[]
 		/** 取消按钮文本 */
 		cancelButton?: string
-    }): Promise<{
+	}): Promise<{
 		/** 可单击按钮的索引值，从0开始。 */
 		buttonIndex: number
 		/** 输入的值 */
 		value: string
-    }>
-  
-    /**
-     * 等待蒙版显示
-     */
-    function showPreloader(options: {
+	}>
+
+	/**
+	 * 等待蒙版显示
+	 */
+	showPreloader(options: {
 		/** Loading显示的字符，空表示不显示文字。*/
 		text?: string
 		/** 设置是否显示 Icon，默认值为true，显示Icon。 */
 		showIcon?: boolean
 		/** 设置延迟显示的时长，单位为毫秒，默认值为0。如果在延迟显示时长之前调用hidePreloader则不会显示文字。 */
 		delay?: number
-    }): Promise<any>
-  
-    /**
-     * 等待蒙版隐藏
-     */
-    function hidePreloader(): Promise<any>
-  
-  
-    /**
-     * 选择城市
-     */
-    function selectCity(): Promise<{
+	}): Promise<any>
+
+	/**
+	 * 等待蒙版隐藏
+	 */
+	hidePreloader(): Promise<any>
+
+
+	/**
+	 * 选择城市
+	 */
+	selectCity(): Promise<{
 		/** 城市名称 */
 		cityName: string
 		cityId: string
 		webId: string
 		orgCode: string
-    }>
-  
-    /**
-     * 分享
-     * 1001 分享至不支持的平台
-     * 1002 分享失败
-     */
-    function share(options: {
+	}>
+
+	/**
+	 * 分享
+	 * 1001 分享至不支持的平台
+	 * 1002 分享失败
+	 */
+	share(options: {
 		/** 分享链接，不能为空。*/
 		url: string
 		/** 分享标题。*/
@@ -443,16 +441,16 @@ declare namespace ZWJSBridge {
 		content?: string
 		/** 分享图片的路径。*/
 		image?: string
-    }): Promise<any>
-  
-    /**
-     * 直接分享
-     * 1001 分享至不支持的平台
-     * 1002 分享失败
-     * -1 用户取消
-     * 5 未初始化
-     */
-    function directShare(options: {
+	}): Promise<any>
+
+	/**
+	 * 直接分享
+	 * 1001 分享至不支持的平台
+	 * 1002 分享失败
+	 * -1 用户取消
+	 * 5 未初始化
+	 */
+	directShare(options: {
 		/** 分享链接，不能为空。*/
 		url: string
 		/** 
@@ -470,27 +468,27 @@ declare namespace ZWJSBridge {
 		content?: string
 		/** 分享图片的路径。*/
 		image?: string
-    }): Promise<any>
-  
-  
-    /**
-     * 获取ui样式
-     */
-    function getUiStyle(): Promise<{
+	}): Promise<any>
+
+
+	/**
+	 * 获取ui样式
+	 */
+	getUiStyle(): Promise<{
 		/**
-			* normal: 常规版
-			* elder: 长辈版
-			*/
+			 * normal: 常规版
+			 * elder: 长辈版
+			 */
 		uiStyle: string
-    }>
-  
-    /////// 请求类 //////
-    /**
-     * 无线网关
-     * 
-     * @deprecated 使用 import Mgop from '@aligov/jssdk-mgop' 代替
-     */
-    function egop(options: {
+	}>
+
+	/////// 请求类 //////
+	/**
+	 * 无线网关
+	 * 
+	 * @deprecated 使用 import Mgop from '@aligov/jssdk-mgop' 代替
+	 */
+	egop(options: {
 		host?: string
 		/** 业务方mgop api名字。*/
 		api?: string
@@ -501,6 +499,5 @@ declare namespace ZWJSBridge {
 		/** 网络请求附加的参数。*/
 		param?: any,
 		appKey: string
-    }): Promise<any>
+	}): Promise<any>
 }
-
