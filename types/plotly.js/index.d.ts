@@ -1001,7 +1001,7 @@ export interface PlotNumber {
 }
 
 export interface Template {
-    data?: { [type in PlotType]?: Partial<PlotData> } | undefined;
+    data?: { [type in PlotType]?: Array<Partial<PlotData>> } | undefined;
     layout?: Partial<Layout> | undefined;
 }
 
