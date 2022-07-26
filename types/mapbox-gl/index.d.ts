@@ -565,7 +565,7 @@ declare namespace mapboxgl {
 
         once<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -574,7 +574,7 @@ declare namespace mapboxgl {
 
         off<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         off<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;

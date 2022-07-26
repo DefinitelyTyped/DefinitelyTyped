@@ -30,6 +30,39 @@ describe('mock-when test', () => {
         expect(result).toEqual('yay!');
     });
 
+    it('is not a jest MockInstance', () => {
+        const fn = jest.fn();
+
+        // @ts-expect-error
+        const mockInstance: jest.MockInstance<any, any> = when(fn);
+    });
+
+    it('is not a jest MockInstance when matchers provided', () => {
+        const fn = jest.fn();
+
+        // @ts-expect-error
+        const mockInstance: jest.MockInstance<any, any> = when(fn).calledWith();
+    });
+
+    it('should support resetWhenMocks', () => {
+        const fn = jest.fn();
+
+        when(fn).resetWhenMocks();
+    });
+
+    it('should not support resetWhenMocks when matchers provided', () => {
+        const fn = jest.fn();
+
+        // @ts-expect-error
+        when(fn).calledWith().resetWhenMocks();
+    });
+
+    it('should support resetWhenMocks when implementation mocked', () => {
+        const fn = jest.fn();
+
+        when(fn).mockImplementation(() => 1).resetWhenMocks();
+    });
+
     it('Supports compound declarations:', () => {
         const fn = jest.fn();
         when(fn).calledWith(1).mockReturnValueOnce('no').mockReturnValue('yes');
@@ -99,6 +132,18 @@ describe('mock-when test', () => {
         expect(testPassed).toBeTruthy();
     });
 
+    it('should not support all *Once functions without matchers', () => {
+        const fn = jest.fn();
+        // @ts-expect-error
+        when(fn).mockReturnValueOnce(() => 1);
+        // @ts-expect-error
+        when(fn).mockResolvedValueOnce(() => 1);
+        // @ts-expect-error
+        when(fn).mockRejectedValueOnce(() => 1);
+        // @ts-expect-error
+        when(fn).mockImplementationOnce(() => 1);
+    });
+
     it('should support for mockImplementation', () => {
         const fn = jest.fn();
         const expectValue = { a: 1, b: 2 };
@@ -131,6 +176,13 @@ describe('mock-when test', () => {
         resetAllWhenMocks();
 
         expect(fn(1)).toEqual('initial');
+    });
+
+    it('should not support resetAllWhenMocks when matchers provided', () => {
+        const fn = jest.fn();
+
+        // @ts-expect-error
+        when(fn).calledWith().resetAllWhenMocks();
     });
 
     it('should supper verifyAllWhenMocksCalled', () => {

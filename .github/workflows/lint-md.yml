@@ -3,6 +3,9 @@ on:
   pull_request:
     paths:
       - '**.md'
+permissions:
+  contents: read
+
 jobs:
   lint-md:
     runs-on: ubuntu-latest

@@ -61,10 +61,10 @@ const preSignUp: PreSignUpTriggerHandler = async (event, _, callback) => {
     triggerSource === 'PreSignUp_ExternalProvider';
     triggerSource === 'PreSignUp_AdminCreateUser';
 
-    // $ExpectError
+    // @ts-expect-error
     triggerSource === 'PostConfirmation_ConfirmSignUp';
 
-    // $ExpectError
+    // @ts-expect-error
     request.session[0].challengeName === 'CUSTOM_CHALLENGE';
 };
 
@@ -80,15 +80,15 @@ const postConfirmation: PostConfirmationTriggerHandler = async (event, _, callba
     triggerSource === 'PostConfirmation_ConfirmSignUp';
     triggerSource === 'PostConfirmation_ConfirmForgotPassword';
 
-    // $ExpectError
+    // @ts-expect-error
     triggerSource === 'PreSignUp_ExternalProvider';
-    // $ExpectError
+    // @ts-expect-error
     request.session[0].challengeName === 'CUSTOM_CHALLENGE';
-    // $ExpectError
+    // @ts-expect-error
     str = request.validationData['k1'];
-    // $ExpectError
+    // @ts-expect-error
     bool = response.autoVerifyEmail;
-    // $ExpectError
+    // @ts-expect-error
     bool = response.autoVerifyPhone;
 };
 
@@ -116,7 +116,7 @@ const defineAuthChallenge: DefineAuthChallengeTriggerHandler = async (event, _, 
 
     triggerSource === 'DefineAuthChallenge_Authentication';
 
-    // $ExpectError
+    // @ts-expect-error
     nullOrUndefined = request.userAttributes;
 };
 
@@ -140,7 +140,7 @@ const createAuthChallenge: CreateAuthChallengeTriggerHandler = async (event, _, 
 
     triggerSource === 'CreateAuthChallenge_Authentication';
 
-    // $ExpectError
+    // @ts-expect-error
     nullOrUndefined = request.userAttributes;
 };
 

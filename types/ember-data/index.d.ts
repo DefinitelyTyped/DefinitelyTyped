@@ -1,4 +1,4 @@
-// Type definitions for ember-data 4.0
+// Type definitions for ember-data 4.4
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
@@ -999,7 +999,7 @@ export namespace DS {
         /**
          * A hash of adapter options
          */
-        adapterOptions: {};
+        adapterOptions: Record<string, unknown>;
         /**
          * The name of the type of the underlying record for this snapshot, as a string.
          */

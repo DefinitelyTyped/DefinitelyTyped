@@ -40,6 +40,7 @@
 //                 Pedro Hernández <https://github.com/phvillegas>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Zihan Chen <https://github.com/ZihanChen-MSFT>
+//                 Lorenzo Sciandra <https://github.com/kelset>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -58,6 +59,7 @@
 /// <reference path="globals.d.ts" />
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
+/// <reference path="Codegen.d.ts" />
 /// <reference path="Devtools.d.ts" />
 /// <reference path="LaunchScreen.d.ts" />
 

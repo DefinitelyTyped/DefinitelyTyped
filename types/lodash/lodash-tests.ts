@@ -3586,7 +3586,8 @@ fp.now(); // $ExpectType number
     _.chain(fnWithRestParameters).negate(); // $ExpectType FunctionChain<(...args: number[]) => boolean>
     fp.negate(fnWithRestParameters); // $ExpectType (...args: number[]) => boolean
 
-    _.negate(() => 'foo'); // $ExpectError
+    // @ts-expect-error
+    _.negate(() => 'foo');
 
     _.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
     _((a1: number, a2: number): boolean => true).negate(); // $ExpectType Function<(a1: number, a2: number) => boolean>
@@ -6032,11 +6033,11 @@ fp.now(); // $ExpectType number
     _.values(list); // $ExpectType AbcObject[]
     _.values(abcObject); // $ExpectType (string | number | boolean)[]
 
-    // _(true).values(); // $ExpectError
+    // _(true).values(); // @ts-expect-error
     _("hi").values(); // $ExpectType Collection<string>
     _(dict).values(); // $ExpectType Collection<AbcObject>
 
-    // _.chain(true).values(); // $ExpectError
+    // _.chain(true).values(); // @ts-expect-error
     _.chain("hi").values(); // $ExpectType CollectionChain<string>
     _.chain(dict).values(); // $ExpectType CollectionChain<AbcObject>
 
