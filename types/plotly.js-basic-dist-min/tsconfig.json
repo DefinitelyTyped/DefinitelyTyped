@@ -7,18 +7,23 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "d3": [
+                "d3/v3"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "pangu-tests.ts"
+        "plotly.js-basic-dist-min-tests.ts"
     ]
 }

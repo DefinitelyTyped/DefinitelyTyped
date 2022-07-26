@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "ethereum-block-by-date-tests.ts"
+        "initrc-tests.ts"
     ]
 }
