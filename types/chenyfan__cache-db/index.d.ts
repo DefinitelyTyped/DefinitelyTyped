@@ -5,7 +5,7 @@
 
 declare namespace CacheDB {
     type Config = "json" | "arrayBuffer" | "blob" | "text" | string;
-    type ReadMethodData = any | ArrayBuffer | Blob | string | null;
+    type ReadMethodData = object | ArrayBuffer | Blob | string | null;
     type WriteValue =
         | ReadableStream
         | Blob
