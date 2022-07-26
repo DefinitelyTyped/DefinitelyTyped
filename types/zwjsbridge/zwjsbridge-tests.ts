@@ -1,7 +1,5 @@
-
 async () => {
     ZWJSBridge.onReady(() => {
-
         ZWJSBridge.setLocalStorage({
             key: 'key',
             value: 'test'
@@ -209,7 +207,5 @@ async () => {
         })
         .then(console.log)
         .catch(console.log)
-    
     })
-    
 }

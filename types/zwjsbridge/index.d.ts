@@ -8,9 +8,9 @@
 interface ZWJSBridge {
 	/**
 	 * 初始化jsapi，初始化完成即onReady之后再调用jsapi。
-	 * @param callBack 
+	 * @param callBack 初始化成功回调
 	 */
-	onReady(callBack: Function): void
+	onReady(callBack: () => void): void
 	/////// 缓存 //////
 	/**
 	 * 存储数据缓存
@@ -21,7 +21,6 @@ interface ZWJSBridge {
 	}): Promise<{
 		result: string
 	}>
-	
 	/**
 	 * 读取数据缓存
 	 */
@@ -52,16 +51,16 @@ interface ZWJSBridge {
 	 */
 	setMenu(options: {
 		items?: Array<{
-		// 按钮ID。点击后客戶端返回这个ID标识
-		id?: string,
-		// 图标地址。
-		iconUrl?: string,
-		// 按钮的说明文字。
-		text?: string,
-		// icon缩放模式： 默认0
-		// 0表示 不保持纵横比缩放图片，使图片的宽高完全拉伸至填满image组件
-		// 1表示保持纵横比缩放图片，使图片的长边能完全显示出来。也就是说，可以完整地将图片显示出来。
-		type?: 0 | 1 
+			// 按钮ID。点击后客戶端返回这个ID标识
+			id?: string,
+			// 图标地址。
+			iconUrl?: string,
+			// 按钮的说明文字。
+			text?: string,
+			// icon缩放模式： 默认0
+			// 0表示 不保持纵横比缩放图片，使图片的宽高完全拉伸至填满image组件
+			// 1表示保持纵横比缩放图片，使图片的长边能完全显示出来。也就是说，可以完整地将图片显示出来。
+			type?: 0 | 1 
 		}>
 	}): Promise<{
 		id?: string
@@ -504,4 +503,3 @@ interface ZWJSBridge {
 	}): Promise<any>
 }
 declare const ZWJSBridge: ZWJSBridge
-
