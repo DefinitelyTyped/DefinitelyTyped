@@ -2,7 +2,7 @@
 // Project: https://github.com/Soldy/assertrc
 // Definitions by: Soldy <https://github.com/Soldy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export class assertBase {
+export class base {
     constructor();
     check(value: any, rule: string, sample: any): boolean;
     tests(testIn: object): boolean;
@@ -18,5 +18,3 @@ export class assertBase {
     valueNotEqual(value: any, sample: string): boolean;
     valueNotEqualType(value: any, sample: string): boolean;
 }
-
-export const base: typeof assertBase;
