@@ -418,6 +418,11 @@ blocks.registerBlockType({
             blockGap: ['horizontal'],
             margin: ['top', 'left'],
         },
+        typography: {
+            fontSize: true,
+            lineHeight: false,
+        },
+        lock:true
     },
     styles: [
         { name: 'default', label: 'Default', isDefault: true },
