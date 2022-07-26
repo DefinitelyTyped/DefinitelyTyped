@@ -1,16 +1,16 @@
-// Type definitions for tengitsui 4.4
+// Type definitions for tengitsui 4.3
 // Project: https://github.com/1026385513/tengitsui
-// Definitions by: stackman <1026385513@qq.com>
+// Definitions by: 1026385513 <https://github.com/1026385513>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as React from 'react';
 export type voidFunc = () => void;
 export type onChange = (value: any) => void;
 export interface BaseOpts {
     handleChange?: (value: any, onChange: onChange) => any;
-    disabled?: boolean | ((fields: object) => boolean);
+    disabled?: boolean | ((fields: Fields) => boolean);
 }
-export type optionCompute = (fields: object, options: Option[]) => Option[];
-export type visibleFnc = (params: { fields: object }) => boolean;
+export type optionCompute = (fields: Fields, options: Option[]) => Option[];
+export type visibleFnc = (params: { fields: Fields }) => boolean;
 export interface Option {
     id: number | string;
     name: string;
@@ -76,7 +76,6 @@ export interface AdvancedAuth {
     [key: string]: number | string | undefined;
 }
 export type ViewType = 'list' | 'form' | 'filter' | 'detail';
-export type visibleFn = (record: { fields: any }) => true | false;
 export interface AdvancedField {
     field: string;
     name: string;
@@ -90,7 +89,7 @@ export interface AdvancedField {
     order?: number | string;
     group?: string;
     useFirstOption?: boolean;
-    visible?: boolean | visibleFn;
+    visible?: boolean | visibleFnc;
     defaultValue?: any; // defaultValue 和visible互斥TODO 一起存在
     fixed?: 'left' | 'right';
 }
@@ -247,7 +246,7 @@ export interface Location {
 }
 export interface LocationSelectOpts {
     disabled?: boolean;
-    getValue?: (fields: object) => Location;
+    getValue?: (fields: Fields) => Location;
     cascDisabled?: boolean;
 }
 export interface LocationSelectProps {
@@ -286,10 +285,12 @@ export interface TableEditorRef {
 }
 export interface Rule {
     required?: boolean;
-    validator: (value: any, fields: object) => any;
+    validator: (value: any, fields: Fields) => any;
 }
-export type Record = any;
-export type VisibleFnc = (record: Record) => boolean;
+export interface Record {
+    [key: string]: any;
+}
+export type editableFnc = (record: Record) => boolean;
 export type OptionComputeFnc = (record: Record, options: Option[]) => Option[] | Promise<Option[]>;
 export type ComputeFnc = (record: Record, field: string) => any;
 export interface RenderProps {
@@ -310,7 +311,7 @@ export interface TableField {
     type?: string | Element;
     name: string;
     options?: Option[];
-    editable?: boolean | VisibleFnc;
+    editable?: boolean | editableFnc;
     optionCompute?: OptionComputeFnc;
     compute?: ComputeFnc;
     render?: ColumnRender;
