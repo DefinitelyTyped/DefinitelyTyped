@@ -53,7 +53,7 @@ export default function elements() {
     element.on('submit', () => {});
   });
 
-  // @ts-expect-error
+  // $ExpectError
   cardElement.on('fake-event', () => {});
 
   elements.on('submit', () => {});
