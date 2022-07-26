@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace CacheDB {
-    export type Config = "json" | "arrayBuffer" | "blob" | "text" | string;
-    export type ReadMethodData = any | ArrayBuffer | Blob | string | null;
-    export type WriteValue =
+    type Config = "json" | "arrayBuffer" | "blob" | "text" | string;
+    type ReadMethodData = any | ArrayBuffer | Blob | string | null;
+    type WriteValue =
         | ReadableStream
         | Blob
         | ArrayBufferView
@@ -17,7 +17,7 @@ declare namespace CacheDB {
 }
 
 declare class CacheDB {
-    constructor (namespace?: string, prefix?: string);
+    constructor(namespace?: string, prefix?: string);
 
     namespace: string;
     prefix: string;
