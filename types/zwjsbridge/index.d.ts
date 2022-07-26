@@ -5,7 +5,6 @@
 // TypeScript Version: 4.2
 
 interface ZWJSBridge {
-	
 	/**
 	 * 初始化jsapi，初始化完成即onReady之后再调用jsapi。
 	 * @param callBack 初始化成功回调
