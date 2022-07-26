@@ -2,17 +2,19 @@
 // Project: https://assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.0.1/zwjsbridge.js
 // Definitions by: Yuxiang Ren <https://github.com/shlyren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.2
 
-declare const ZWJSBridge: {
-    /**
+
+interface ZWJSBridge {
+	/**
 	 * 初始化jsapi，初始化完成即onReady之后再调用jsapi。
 	 * @param callBack 
 	 */
 	onReady(callBack: Function): void
 	/////// 缓存 //////
-    /**
-     * 存储数据缓存
-     */
+	/**
+	 * 存储数据缓存
+	 */
 	setLocalStorage(options: {
 		key: string
 		value: string
@@ -501,3 +503,5 @@ declare const ZWJSBridge: {
 		appKey: string
 	}): Promise<any>
 }
+declare const ZWJSBridge: ZWJSBridge
+
