@@ -13,6 +13,7 @@ import {
     xdescribe,
     test,
     PageObjectModel,
+    ELEMENT_KEY,
 } from 'nightwatch';
 
 //
@@ -21,7 +22,7 @@ import {
 
 const testGeneral: NightwatchTests = {
     'Demo test Google 1': () => {
-        browser.url('https://google.com').pause(1000);
+        browser.registerBasicAuth('test-username', 'test-password').navigateTo('https://google.com').pause(1000);
 
         // expect element <body> to be present in 1000ms
         browser.expect.element('body').to.be.present.before(1000);
@@ -58,6 +59,14 @@ const testGeneral: NightwatchTests = {
             .end();
     },
 
+    'Demo Nightwatch API commands': () => {
+        browser.isChrome();
+        browser.isAndroid();
+        browser.isMobile();
+        const browserName = browser.browserName;
+        console.log(browserName);
+    },
+
     'step one: navigate to google': () => {
         browser
             .url('https://www.google.com')
@@ -73,12 +82,99 @@ const testGeneral: NightwatchTests = {
     'test user defined globals': () => {
         browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
     },
+    'Demo test for built-in API commands for working with the Chrome Devtools Protocol': () => {
+        // setGeolocation
+        browser
+            // Set location of Tokyo, Japan
+            .setGeolocation({
+                latitude: 35.689487,
+                longitude: 139.691706,
+                accuracy: 100,
+            })
+            .captureNetworkRequests(requestParams => {
+                console.log('Request URL:', requestParams.request.url);
+                console.log('Request method:', requestParams.request.method);
+                console.log('Request headers:', requestParams.request.headers);
+            })
+            .navigateTo('https://www.gps-coordinates.net/my-location')
+            .end();
+
+        browser
+            .mockNetworkResponse(
+                'https://www.google.com/',
+                {
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'UTF-8',
+                    },
+                    body: 'Hello there!',
+                },
+                res => {
+                    console.log(res);
+                },
+            )
+            .setDeviceDimensions({
+                width: 400,
+                height: 600,
+                deviceScaleFactor: 50,
+                mobile: true,
+            })
+            .navigateTo('https://www.google.com')
+            .end();
+
+        browser
+            .enablePerformanceMetrics()
+            .navigateTo('https://www.google.com')
+            .getPerformanceMetrics(metrics => {
+                console.log(metrics);
+            });
+
+        browser.navigateTo('https://www.google.com').takeHeapSnapshot('./snap.heapsnapshot').end();
+
+        browser
+            .captureBrowserConsoleLogs(event => {
+                console.log(event.type, event.timestamp, event.args[0].value);
+            })
+            .navigateTo('https://www.google.com')
+            .executeScript(() => {
+                console.error('here');
+            }, []);
+    },
 };
+
+// TODO: uncomment after fixing async/await issue
+// describe('capture browser exceptions', function () {
+//     it('does', async function () {
+//         await browser.captureBrowserExceptions(event => {
+//             console.log('>>> Exception:', event);
+//         });
+
+//         await browser.navigateTo('https://duckduckgo.com/');
+//         const aboutLink = await browser.findElement('#logo_homepage_link');
+
+//         await browser.executeScript(
+//             function (aboutLink) {
+//                 aboutLink.setAttribute('onclick', 'throw new Error("Hello world!")');
+//             },
+//             [aboutLink],
+//         );
+
+//         await browser.click(aboutLink);
+//     });
+// });
 
 describe('Ecosia', () => {
     before(browser => browser.url('https://www.ecosia.org/'));
 
     it('Demo test ecosia.org', () => {
+        // Setting network conditions before the actual test
+        browser.setNetworkConditions({
+            offline: false,
+            latency: 5, // Additional latency (ms).
+            download_throughput: 500 * 1024, // Maximal aggregated download throughput.
+            upload_throughput: 500 * 1024, // Maximal aggregated upload throughput.
+        });
+
         browser
             .waitForElementVisible('body')
             .assert.titleContains('Ecosia')
@@ -412,7 +508,7 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
                 callback(null);
                 return;
             }
-            this.api.elementIdText(elementResult.value.ELEMENT, textResult => {
+            this.api.elementIdText(elementResult.value[ELEMENT_KEY], textResult => {
                 if (textResult.status) {
                     callback(null);
                     return;
@@ -437,3 +533,51 @@ const testCustomAssertion = {
         browser.assert.text('#checkme', 'Exactly match text');
     },
 };
+
+// test global element
+
+describe('demo element() global', () => {
+    const signupEl = element(by.css('#signupSection'));
+    const loginEl = element('#weblogin');
+
+    test('element globals command', async () => {
+        // use elements created with element() to regular nightwatch assertions
+        browser.assert.visible(loginEl);
+
+        // use elements created with element() to expect assertions
+        browser.expect.element(loginEl).to.be.visible;
+
+        // retrieve the WebElement instance
+        const loginWebElement = await loginEl.getWebElement();
+    });
+});
+
+// Ensure test
+
+it('Ensure demo test', () => {
+    browser
+        .url('https://nightwatchjs.org')
+        .ensure.titleMatches(/Nightwatch.js/)
+        .ensure.elementIsVisible('#index-container');
+});
+
+// chai expect test
+
+it('Chai demo test', () => {
+    const infoElement = element('.info');
+    expect(infoElement.property('innerHTML')).to.be.a('string').and.to.include('validation code');
+});
+
+// Relative locator test
+
+describe('sample with relative locators', () => {
+    before(browser => browser.navigateTo('https://archive.org/account/login'));
+
+    it('locates password input', () => {
+        const passwordElement = locateWith(By.tagName('input')).below(By.css('input[type=email]'));
+
+        browser.waitForElementVisible(passwordElement).expect.element(passwordElement).to.be.an('input');
+
+        browser.expect.element(passwordElement).attribute('type').equal('password');
+    });
+});
