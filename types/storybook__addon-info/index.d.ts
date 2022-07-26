@@ -8,7 +8,7 @@
 
 import { ComponentType, ReactElement } from 'react';
 import { DecoratorFunction, StoryFn, Parameters, StoryApi } from '@storybook/addons';
-import { StoryContext } from '@storybook/csf';
+import { StoryContext } from '@storybook/csf/dist/story';
 
 export interface WrapStoryProps {
     storyFn?: StoryFn | undefined;
