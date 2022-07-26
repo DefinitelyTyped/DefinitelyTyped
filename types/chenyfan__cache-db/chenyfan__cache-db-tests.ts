@@ -1,4 +1,4 @@
-import CacheDB from "chenyfan__cache-db";
+import CacheDB = require("chenyfan__cache-db");
 
 const namespace = "test-ns";
 const prefix = "test-prefix";

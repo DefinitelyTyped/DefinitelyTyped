@@ -31,4 +31,4 @@ declare class CacheDB {
     delete(key: string): Promise<boolean>;
 }
 
-export default CacheDB;
+export = CacheDB;
