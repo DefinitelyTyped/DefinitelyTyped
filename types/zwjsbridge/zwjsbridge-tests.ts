@@ -47,8 +47,7 @@ async () => {
         .then(console.log)
         .catch(console.log)
     
-        ZWJSBridge
-        .getUserType()
+        ZWJSBridge.getUserType()
         .then(console.log)
         .catch(console.log)
     
@@ -124,9 +123,7 @@ async () => {
         })
         .then(console.log)
         .catch(console.log)
-    
-    
-    
+
         ZWJSBridge.confirm({
             title: 'title',
             message: 'message',
@@ -143,7 +140,7 @@ async () => {
         .then(console.log)
         .catch(console.log)
     
-    
+
         ZWJSBridge.toast({
             type: 'success',
             message: 'Loading Success',
@@ -151,7 +148,6 @@ async () => {
         })
         .then(console.log)
         .catch(console.log)
-    
     
         ZWJSBridge.prompt({
             title: 'title',

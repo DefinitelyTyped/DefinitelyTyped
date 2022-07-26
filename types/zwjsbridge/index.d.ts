@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ZWJSBridge API - zwjsbridge.js 1.0.1
+// Type definitions for non-npm package ZWJSBridge API - zwjsbridge.js 1.0
 // Project: https://assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.0.1/zwjsbridge.js
 // Definitions by: Yuxiang Ren <https://github.com/shlyren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -44,7 +44,7 @@ interface ZWJSBridge {
 		title?: string,
 	}): Promise<{
 		result: string
-}>
+	}>
 
 	/**
 	 * 设置菜单
@@ -502,4 +502,4 @@ interface ZWJSBridge {
 		appKey: string
 	}): Promise<any>
 }
-declare const ZWJSBridge: ZWJSBridge
+declare var ZWJSBridge: ZWJSBridge
