@@ -53,7 +53,6 @@ declare module 'react-native/Libraries/Types/CodegenTypes' {
     //
     // TODO: (rickhanlonii) T44881457 If a default is provided, it should always be optional
     //  but that is currently not supported in the codegen since we require a default
-    //
-    // eslint-disable-next-line no-unused-vars
+
     export type WithDefault<Type extends DefaultTypes, Value extends Type | string | undefined> = Type | undefined;
 }
