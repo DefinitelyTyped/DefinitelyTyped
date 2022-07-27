@@ -20,19 +20,11 @@ class StubDisposable {
 }
 
 const testComponentBuilder: azdata.ComponentBuilder<azdata.InputBoxComponent, azdata.InputBoxProperties> = {
-    component: function (): azdata.InputBoxComponent {
-        throw new Error('Function not implemented.');
-    },
-    withProperties: function (properties: azdata.InputBoxProperties): azdata.ComponentBuilder<azdata.InputBoxComponent, azdata.InputBoxProperties> {
-        throw new Error('Function not implemented.');
-    },
-    withProps: function (properties: azdata.InputBoxProperties): azdata.ComponentBuilder<azdata.InputBoxComponent, azdata.InputBoxProperties> {
-        throw new Error('Function not implemented.');
-    },
-    withValidation: function (validation: (component: azdata.InputBoxComponent) => boolean | Thenable<boolean>): azdata.ComponentBuilder<azdata.InputBoxComponent, azdata.InputBoxProperties> {
-        throw new Error('Function not implemented.');
-    }
-}
+    component: () => <any> {},
+    withProperties: (properties: azdata.InputBoxProperties): azdata.ComponentBuilder<azdata.InputBoxComponent, azdata.InputBoxProperties> => { throw new Error('Function not implemented.'); },
+    withProps: (properties: azdata.InputBoxProperties) => { throw new Error('Function not implemented.'); },
+    withValidation: (validation: (component: azdata.InputBoxComponent) => boolean | Thenable<boolean>) => { throw new Error('Function not implemented.'); }
+};
 testComponentBuilder.component();
 
 const testContainerBuilder: azdata.ContainerBuilder<azdata.DivContainer, any, any, azdata.DivContainerProperties> = {
