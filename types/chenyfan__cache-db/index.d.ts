@@ -32,3 +32,4 @@ declare class CacheDB {
 }
 
 export = CacheDB;
+export as namespace CacheDB;
