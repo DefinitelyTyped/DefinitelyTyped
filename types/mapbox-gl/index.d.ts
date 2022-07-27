@@ -366,11 +366,11 @@ declare namespace mapboxgl {
 
         getPaintProperty(layer: string, name: string): any;
 
-        setLayoutProperty(layer: string, name: string, value: any): this;
+        setLayoutProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getLayoutProperty(layer: string, name: string): any;
 
-        setLight(options: mapboxgl.Light, lightOptions?: any): this;
+        setLight(light: mapboxgl.Light, options?: FilterOptions): this;
 
         getLight(): mapboxgl.Light;
 
@@ -777,10 +777,18 @@ declare namespace mapboxgl {
          *
          * @default 'mercator'
          */
-         projection?: {
-            name: 'albers' | 'equalEarth' | 'equirectangular' | 'lambertConformalConic' | 'mercator' | 'naturalEarth' | 'winkelTripel' | 'globe',
-            center?: [number, number],
-            parallels?: [number, number]
+        projection?: {
+            name:
+                | 'albers'
+                | 'equalEarth'
+                | 'equirectangular'
+                | 'lambertConformalConic'
+                | 'mercator'
+                | 'naturalEarth'
+                | 'winkelTripel'
+                | 'globe';
+            center?: [number, number];
+            parallels?: [number, number];
         };
 
         /**
@@ -1610,10 +1618,10 @@ declare namespace mapboxgl {
         tileSize?: number;
         attribution?: string;
         bounds?: [number, number, number, number];
-        hasTile?: (tileID: { z: number, x: number, y: number }) => boolean;
-        loadTile: (tileID: { z: number, x: number, y: number }, options: { signal: AbortSignal }) => Promise<T>;
-        prepareTile?: (tileID: { z: number, x: number, y: number }) => T | undefined;
-        unloadTile?: (tileID: { z: number, x: number, y: number }) => void;
+        hasTile?: (tileID: { z: number; x: number; y: number }) => boolean;
+        loadTile: (tileID: { z: number; x: number; y: number }, options: { signal: AbortSignal }) => Promise<T>;
+        prepareTile?: (tileID: { z: number; x: number; y: number }) => T | undefined;
+        unloadTile?: (tileID: { z: number; x: number; y: number }) => void;
         onAdd?: (map: Map) => void;
         onRemove?: (map: Map) => void;
     }
