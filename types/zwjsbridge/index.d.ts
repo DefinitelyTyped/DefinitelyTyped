@@ -9,41 +9,33 @@ interface ZWJSBridge {
      * 初始化jsapi，初始化完成即onReady之后再调用jsapi。
      * @param callBack 初始化成功回调
      */
-    onReady(callBack: () => void): void
-    /////// 缓存 //////
+    onReady(callBack: () => void): void;
+
+    /***********    缓存     ***********/
     /**
      * 存储数据缓存
      */
-    setLocalStorage(options: {
-        key: string
-        value: string
-    }): Promise<{
-        result: string
-    }>
+    setLocalStorage(options: { key: string; value: string }): Promise<{
+        result: string;
+    }>;
     /**
      * 读取数据缓存
      */
-    getLocalStorage(options?: {
-        key: string
-    }): Promise<Record<string, any>>
+    getLocalStorage(options?: { key: string }): Promise<Record<string, any>>;
     /**
      * 读取数据缓存
      */
-    removeLocalStorage(options: {
-        key: string
-    }): Promise<{
-        result: string
-    }>
+    removeLocalStorage(options: { key: string }): Promise<{
+        result: string;
+    }>;
 
-    /////// Navigation窗口类 //////
+    /***********    Navigation窗口类     ***********/
     /**
      * 设置标题
      */
-    setTitle(options: {
-        title?: string,
-    }): Promise<{
-        result: string
-    }>
+    setTitle(options: { title?: string }): Promise<{
+        result: string;
+    }>;
 
     /**
      * 设置菜单
@@ -51,34 +43,31 @@ interface ZWJSBridge {
     setMenu(options: {
         items?: Array<{
             // 按钮ID。点击后客戶端返回这个ID标识
-            id?: string,
+            id?: string;
             // 图标地址。
-            iconUrl?: string,
+            iconUrl?: string;
             // 按钮的说明文字。
-            text?: string,
+            text?: string;
             // icon缩放模式： 默认0
             // 0表示 不保持纵横比缩放图片，使图片的宽高完全拉伸至填满image组件
             // 1表示保持纵横比缩放图片，使图片的长边能完全显示出来。也就是说，可以完整地将图片显示出来。
-            type?: 0 | 1
-        }>
+            type?: 0 | 1;
+        }>;
     }): Promise<{
-        id?: string
-    }>
+        id?: string;
+    }>;
 
     /**
      * 新开窗口
      */
-    openLink(options: {
-        url: string,
-    }): Promise<{}>
+    openLink(options: { url: string }): Promise<{}>;
 
     /**
      * 关闭当前页面
      */
-    close(): Promise<{}>
+    close(): Promise<{}>;
 
-
-    /////// 用户 //////
+    /***********    用户     ***********/
     /**
      * 获取用户类型
      */
@@ -87,8 +76,8 @@ interface ZWJSBridge {
          * 用户类型，取值: 0:公务员 1:除公务员以外的个人 2:法人
          * 公务员属于特殊类型的个人用户，当应用服务需要同时支持个人和法人时，可通过getUserType接口获取APP当前登录用户类型，然后发起个人或法人的登录认证，0或1都属于个人用户，2为法人用户。
          */
-        userType: string
-    }>
+        userType: string;
+    }>;
 
     /**
      * 支付宝扫脸认证
@@ -99,43 +88,40 @@ interface ZWJSBridge {
      * 1003 姓名或身份证号错误
      */
     zmAuthentication(parasm: {
-        /** 身份证号，默认值为当前登录账号所属身份证号码。 */
-        certNo?: string,
+        /** 身份证号，默认值为当前登录账号所属身份证号码 */
+        certNo?: string;
         /** 姓名，默认值为当前登录账号所属名字 */
-        certName?: string
+        certName?: string;
     }): Promise<{
         /**
          * success:成功, fail:失败, complete:完成。
          */
-        status: string
-        msg: string,
-        /** 成功回调时为true, 否则为false。 */
-        pass: boolean,
-        /** 从后台返回的用户票据信息。 */
-        passId: string
-    }>
+        status: string;
+        msg: string;
+        /** 成功回调时为true, 否则为false */
+        pass: boolean;
+        /** 从后台返回的用户票据信息 */
+        passId: string;
+    }>;
 
-
-
-    /////// Device设备类 //////
+    /***********    Device设备类     ***********/
     /**
      * 打电话
      */
     phoneCall(options: {
-        /** 电话号码。 */
-        corpId: string
-    }): Promise<{}>
+        /** 电话号码 */
+        corpId: string;
+    }): Promise<{}>;
 
     /**
      * 发短信
      */
     sms(options?: {
-        /** 电话号码。 */
-        phoneNumber?: string,
+        /** 电话号码 */
+        phoneNumber?: string;
         /** 短信内容 */
-        text?: string
-    }): Promise<{}>
-
+        text?: string;
+    }): Promise<{}>;
 
     /**
      * 获取经纬度信息
@@ -146,25 +132,25 @@ interface ZWJSBridge {
      */
     getLocation(): Promise<{
         /** 经度 */
-        longitude: number
+        longitude: number;
         /** 纬度 */
-        latitude: number
+        latitude: number;
         /** 城市名称 */
-        cityName: string
+        cityName: string;
         /** 区域名称 */
-        region: string
+        region: string;
         /** 地区编码 */
-        townCode: string
+        townCode: string;
         /** 详细地址 */
-        detailAddress: string
-    }>
+        detailAddress: string;
+    }>;
 
     /**
      * 获取设备唯一标识
      */
     getUUID(): Promise<{
-        uuid: string
-    }>
+        uuid: string;
+    }>;
 
     /**
      * 获取网络类型
@@ -173,61 +159,58 @@ interface ZWJSBridge {
         /**
          * 网络类型，取值: wifi、2g、3g、4g、unknown、none表示离线
          */
-        result: string
-    }>
+        result: string;
+    }>;
 
     /**
      * 向剪贴板中复制数据。
      */
-    setClipboardData(parasm: {
-        text: string
-    }): Promise<{}>
+    setClipboardData(parasm: { text: string }): Promise<{}>;
 
     /**
      * 向剪贴板中获取数据。
      * @deprecated 涉及用户隐私问题，已下线
      */
-    getClipboardData(): Promise<any>
+    getClipboardData(): Promise<any>;
 
-
-    /////// 业务类 //////
+    /***********    业务类     ***********/
     /**
      * 埋点
      */
     monitorTrace(options: {
         /** 埋点类型: success:成功 fail:失败 count:计数 timeCost:时延 pageIn:进入页面 pageOut:离开页面 exposure:曝光 click:单击 */
-        monitorType: string
-        /** 模块。 */
-        module?: string
-        /** 模块点。 */
-        modulePoint?: string
-        /** 业务参数。 */
-        bizInfo?: Record<string, any>
-        /** 错误码。 */
-        errorCode?: string
-        /** 错误信息。 */
-        errorMsg?: string
+        monitorType: string;
+        /** 模块 */
+        module?: string;
+        /** 模块点 */
+        modulePoint?: string;
+        /** 业务参数 */
+        bizInfo?: Record<string, any>;
+        /** 错误码 */
+        errorCode?: string;
+        /** 错误信息 */
+        errorMsg?: string;
         /** 计数 */
-        count?: number
+        count?: number;
         /** 时延 */
-        timeCost?: number
-        /** 页面。 */
-        pageName?: string
+        timeCost?: number;
+        /** 页面 */
+        pageName?: string;
         /** 行动点 */
-        actionName?: string
-    }): Promise<any>
+        actionName?: string;
+    }): Promise<any>;
 
     /**
      * 获取当前地区
      */
     getCurrentLocationCity(): Promise<{
         /** 行政区划编码 */
-        cityId: string
+        cityId: string;
         /** 行政区划名 */
-        cityName: string
-        webId: string
-        orgCode: string
-    }>
+        cityName: string;
+        webId: string;
+        orgCode: string;
+    }>;
 
     /**
      * 选择图片
@@ -244,20 +227,18 @@ interface ZWJSBridge {
          * 默认值为false，图片不上传到服务器。
          * 值为true时，图片上传到服务器，上传成功后返回公网可访问的URL。
          */
-        upload?: boolean
+        upload?: boolean;
     }): Promise<{
-        /** Base64编码格式的图片数据数组。 */
-        picSrc: string[]
-        /** upload取值为true时，picPath为图片的网 络地址数组，支持下载。 */
-        picPath: string[]
-    }>
+        /** Base64编码格式的图片数据数组 */
+        picSrc: string[];
+        /** upload取值为true时，picPath为图片的网 络地址数组，支持下载 */
+        picPath: string[];
+    }>;
 
     /**
      * 图片保存到本地
      */
-    saveImage(options: {
-        url: string
-    }): Promise<any>
+    saveImage(options: { url: string }): Promise<any>;
 
     /**
      * 扫一扫
@@ -272,11 +253,10 @@ interface ZWJSBridge {
         /**
          * type: "qrCode"
          */
-        type: 'qrCode'
+        type: 'qrCode';
     }): Promise<{
-            text: string
-    }>
-
+        text: string;
+    }>;
 
     /**
      * 启用支付功能
@@ -295,43 +275,45 @@ interface ZWJSBridge {
         /**
          * 支付平台，取值: 1:支付宝 2:微信，微信支付暂不支持 3:银联云闪付
          */
-        platform: 1 | 2 | 3
-        /** 等待支付的订单信息 */
-        credential: string
-        /** 是否为测试环境，缺省为False。支付宝只支持Android端。*/
-        inSandBox?: boolean
-    }): Promise<any>
+        platform: 1 | 2 | 3;
+        /**
+         * 等待支付的订单信息
+         */
+        credential: string;
+        /**
+         * 是否为测试环境，缺省为False。支付宝只支持Android端
+         *
+         */
+        inSandBox?: boolean;
+    }): Promise<any>;
 
-
-
-    /////// UI界面类 //////
+    /***********    UI界面类     ***********/
     /**
      * 确认框
      */
     confirm(options: {
         /** 确认框的标题 */
-        title?: string
+        title?: string;
         /** 确认框中的实际消息内容 */
-        message?: string
+        message?: string;
         /** 确认框中的可单击按钮 */
-        buttonLabels?: string[]
+        buttonLabels?: string[];
     }): Promise<{
-        /** 确认框中可单击按钮的索引值，Number类型，从0开始。 */
-        buttonIndex: number
-    }>
+        /** 确认框中可单击按钮的索引值，Number类型，从0开始 */
+        buttonIndex: number;
+    }>;
 
     /**
      * 提示框
      */
     alert(options: {
         /** 标题 */
-        title?: string
+        title?: string;
         /** 消息内容 */
-        message?: string
+        message?: string;
         /** 按钮名称 */
-        buttonName?: string
-    }): Promise<any>
-
+        buttonName?: string;
+    }): Promise<any>;
 
     /**
      * 弱提示
@@ -344,13 +326,12 @@ interface ZWJSBridge {
          * fail
          * exception，值为exception时，必须上传文字信息。
          */
-        type?: 'none' | 'success' | 'fail' | 'exception'
+        type?: 'none' | 'success' | 'fail' | 'exception';
         /** 消息内容 */
-        message?: string
-        /** 消息显示持续时间，单位毫秒，默认值为2000s。*/
-        duration?: number
-    }): Promise<any>
-
+        message?: string;
+        /** 消息显示持续时间，单位毫秒，默认值为2000s */
+        duration?: number;
+    }): Promise<any>;
 
     /**
      * 文本输入框
@@ -362,70 +343,68 @@ interface ZWJSBridge {
          * number
          * password
          */
-        inputType?: 'text' | 'number' | 'password'
-        /** 文本框中的实际消息内容。*/
-        message?: string
-        /** 文本框的标题。*/
-        title?: string
-        /** 占位符，缺省为空。*/
-        placeholder?: string
-        /** 按钮名称，默认为取消。*/
-        cancelButton?: string
-        /** 按钮名称，默认为确定。*/
-        confirmButton?: string
+        inputType?: 'text' | 'number' | 'password';
+        /** 文本框中的实际消息内容 */
+        message?: string;
+        /** 文本框的标题 */
+        title?: string;
+        /** 占位符，缺省为空 */
+        placeholder?: string;
+        /** 按钮名称，默认为取消 */
+        cancelButton?: string;
+        /** 按钮名称，默认为确定 */
+        confirmButton?: string;
     }): Promise<{
-        /** 可单击按钮的索引值，从0开始。*/
-        buttonIndex: number
+        /** 可单击按钮的索引值，从0开始 */
+        buttonIndex: number;
         /** 输入的值 */
-        value: string
-    }>
-
+        value: string;
+    }>;
 
     /**
      * 单选列表
      */
     actionSheet(options: {
-        /** 单选列表的标题。*/
-        title: string
-        /** 其他按钮列表。 */
-        otherButtons: string[]
+        /** 单选列表的标题 */
+        title: string;
+        /** 其他按钮列表 */
+        otherButtons: string[];
         /** 取消按钮文本 */
-        cancelButton?: string
+        cancelButton?: string;
     }): Promise<{
-        /** 可单击按钮的索引值，从0开始。 */
-        buttonIndex: number
+        /** 可单击按钮的索引值，从0开始 */
+        buttonIndex: number;
         /** 输入的值 */
-        value: string
-    }>
+        value: string;
+    }>;
 
     /**
      * 等待蒙版显示
      */
     showPreloader(options: {
-        /** Loading显示的字符，空表示不显示文字。*/
-        text?: string
-        /** 设置是否显示 Icon，默认值为true，显示Icon。 */
-        showIcon?: boolean
-        /** 设置延迟显示的时长，单位为毫秒，默认值为0。如果在延迟显示时长之前调用hidePreloader则不会显示文字。 */
-        delay?: number
-    }): Promise<any>
+        /** Loading显示的字符，空表示不显示文字 */
+        text?: string;
+        /** 设置是否显示 Icon，默认值为true，显示Icon */
+        showIcon?: boolean;
+        /** 设置延迟显示的时长，单位为毫秒，默认值为0。如果在延迟显示时长之前调用hidePreloader则不会显示文字 */
+        delay?: number;
+    }): Promise<any>;
 
     /**
      * 等待蒙版隐藏
      */
-    hidePreloader(): Promise<any>
-
+    hidePreloader(): Promise<any>;
 
     /**
      * 选择城市
      */
     selectCity(): Promise<{
         /** 城市名称 */
-        cityName: string
-        cityId: string
-        webId: string
-        orgCode: string
-    }>
+        cityName: string;
+        cityId: string;
+        webId: string;
+        orgCode: string;
+    }>;
 
     /**
      * 分享
@@ -433,15 +412,15 @@ interface ZWJSBridge {
      * 1002 分享失败
      */
     share(options: {
-        /** 分享链接，不能为空。*/
-        url: string
-        /** 分享标题。*/
-        title?: string
-        /** 分享内容。*/
-        content?: string
-        /** 分享图片的路径。*/
-        image?: string
-    }): Promise<any>
+        /** 分享链接，不能为空 */
+        url: string;
+        /** 分享标题 */
+        title?: string;
+        /** 分享内容 */
+        content?: string;
+        /** 分享图片的路径 */
+        image?: string;
+    }): Promise<any>;
 
     /**
      * 直接分享
@@ -451,8 +430,8 @@ interface ZWJSBridge {
      * 5 未初始化
      */
     directShare(options: {
-        /** 分享链接，不能为空。*/
-        url: string
+        /** 分享链接，不能为空 */
+        url: string;
         /**
          * 内容分享通道，不区分大小写。
          * 取值:
@@ -461,44 +440,43 @@ interface ZWJSBridge {
          * weibo，微博。
          * dingtlk，钉钉。
          */
-        channel?: 'wechat' | 'wechat_moments' | 'weibo' | 'dingtlk'
-        /** 分享标题。*/
-        title?: string
-        /** 分享内容。*/
-        content?: string
-        /** 分享图片的路径。*/
-        image?: string
-    }): Promise<any>
-
+        channel?: 'wechat' | 'wechat_moments' | 'weibo' | 'dingtlk';
+        /** 分享标题 */
+        title?: string;
+        /** 分享内容 */
+        content?: string;
+        /** 分享图片的路径 */
+        image?: string;
+    }): Promise<any>;
 
     /**
      * 获取ui样式
      */
     getUiStyle(): Promise<{
         /**
-             * normal: 常规版
-             * elder: 长辈版
-             */
-        uiStyle: string
-    }>
+         * normal: 常规版
+         * elder: 长辈版
+         */
+        uiStyle: string;
+    }>;
 
-    /////// 请求类 //////
+    /***********    请求类     ***********/
     /**
      * 无线网关
      *
      * @deprecated 使用 import Mgop from '@aligov/jssdk-mgop' 代替
      */
     egop(options: {
-        host?: string
-        /** 业务方mgop api名字。*/
-        api?: string
-        /** 网络请求类型，取值为POST 或 者GET。*/
-        method?: string
-        /** 网络请求需要附加的header。*/
-        header?: Record<string, string>
-        /** 网络请求附加的参数。*/
-        param?: any,
-        appKey: string
-    }): Promise<any>
+        host?: string;
+        /** 业务方mgop api名字 */
+        api?: string;
+        /** 网络请求类型，取值为POST 或 者GET */
+        method?: string;
+        /** 网络请求需要附加的header */
+        header?: Record<string, string>;
+        /** 网络请求附加的参数 */
+        param?: any;
+        appKey: string;
+    }): Promise<any>;
 }
-declare var ZWJSBridge: ZWJSBridge
+declare var ZWJSBridge: ZWJSBridge;
