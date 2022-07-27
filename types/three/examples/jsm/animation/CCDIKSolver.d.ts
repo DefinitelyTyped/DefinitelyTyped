@@ -7,7 +7,7 @@ export interface IKS {
     links: {
         enabled: boolean;
         index: number;
-    };
+    }[];
     maxAngle: number;
     target: number;
 }
@@ -21,5 +21,7 @@ export class CCDIKSolver {
 }
 
 export class CCDIKHelper extends Object3D {
+    mesh: SkinnedMesh;
+    iks: IKS[];
     constructor(mesh: SkinnedMesh, iks: IKS[]);
 }
