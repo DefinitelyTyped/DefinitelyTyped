@@ -81,10 +81,9 @@ const ClassicComponent: React.ClassicComponentClass<Props> = React.createClass<P
     },
 });
 
-class ModernComponent
-    extends React.Component<Props, State>
-    implements MyComponent, React.ChildContextProvider<ChildContext>
-{
+// prettier-ignore
+class ModernComponent extends React.Component<Props, State>
+    implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
         foo: React.PropTypes.number,
     };

@@ -127,10 +127,9 @@ declare const container: Element;
     }
 }
 
-class ModernComponent
-    extends React.Component<Props, State, Snapshot>
-    implements MyComponent, React.ChildContextProvider<ChildContext>
-{
+// prettier-ignore
+class ModernComponent extends React.Component<Props, State, Snapshot>
+    implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
         hello: PropTypes.string.isRequired,
         world: PropTypes.string,
