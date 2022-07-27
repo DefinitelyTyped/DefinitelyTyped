@@ -5,6 +5,7 @@
 //                 Dennis Snell <https://github.com/dmsnell>
 //                 Tomasz Tunik <https://github.com/tomasztunik>
 //                 Lucio Giannotta <https://github.com/sunyatasattva>
+//                 Bas Tolen <https://github.com/bastolen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -89,6 +90,32 @@ export interface ColorProps {
      * @defaultValue true
      */
     text: string;
+}
+
+export interface TypographyProps {
+    /**
+     * This value signals that a block supports the font-size
+     * CSS style property. When it does, the block editor will
+     * show an UI control for the user to set its value.
+     *
+     * The values shown in this control are the ones declared
+     * by the theme via the editor-font-sizes theme support,
+     * or the default ones if none are provided.
+     *
+     * @defaultValue false
+     * @see {@link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#block-font-sizes}
+     */
+    fontSize: boolean;
+    /**
+     * This value signals that a block supports the line-height
+     * CSS style property. When it does, the block editor will
+     * show an UI control for the user to set its value if the
+     * theme declares support.
+     *
+     * @defaultValue false
+     * @see {@link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#supporting-custom-line-heights}
+     */
+    lineHeight: boolean;
 }
 
 export interface SpacingProps {
@@ -414,6 +441,20 @@ export interface BlockSupports {
      * the attributes definition is extended to include the `style` attribute.
      */
     readonly spacing?: Partial<SpacingProps> | undefined;
+    /**
+     * A block may want to disable the ability to toggle the lock state.
+     * It can be locked/unlocked by a user from the block “Options”
+     * dropdown by default. To disable this behavior, set `lock` to `false`.
+     *
+     * @defaultValue true
+     */
+    readonly lock?: boolean | undefined;
+    /**
+     * A block may want to disable the ability to toggle the lock state.
+     * It can be locked/unlocked by a user from the block “Options”
+     * dropdown by default. To disable this behavior, set `lock` to `false`.
+     */
+    readonly typography?: Partial<TypographyProps> | undefined;
 }
 
 //
