@@ -4,10 +4,10 @@ import { Object3D, SkinnedMesh } from '../../../src/Three';
 export interface IKS {
     effector: number;
     iteration: number;
-    links: {
+    links: Array<{
         enabled: boolean;
         index: number;
-    }[];
+    }>;
     maxAngle: number;
     target: number;
 }
