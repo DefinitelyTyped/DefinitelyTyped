@@ -30,6 +30,7 @@ DateTime.utc(2018, 5, 31, 23, { numberingSystem: 'arabext' }); // $ExpectType Da
 // @ts-expect-error
 DateTime.utc(2019, { locale: 'en-GB' }, 5);
 DateTime.isDateTime(0 as unknown); // $ExpectType boolean
+DateTime.parseFormatForOpts(DateTime.DATETIME_FULL); // $ExpectType string | null
 // @ts-expect-error
 new DateTime();
 

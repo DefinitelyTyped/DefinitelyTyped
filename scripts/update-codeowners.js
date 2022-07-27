@@ -67,7 +67,7 @@ function getEntry(pkg, maxPathLen) {
         return undefined;
     }
 
-    const path = `${pkg.subDirectoryPath}/`.padEnd(maxPathLen);
+    const path = `${pkg.subDirectoryPath}/`.padEnd(maxPathLen + 1);
     return `/types/${path} ${users.map(u => `@${u}`).join(' ')}`;
 }
 

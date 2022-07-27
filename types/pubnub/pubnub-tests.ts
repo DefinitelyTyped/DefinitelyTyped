@@ -16,6 +16,18 @@ const config: Pubnub.PubnubConfig = {
     uuid: 'myUUID'
 };
 
+// userId should work
+const pnconfig: Pubnub.PubnubConfig = {
+    subscribeKey: '',
+    publishKey: '',
+    secretKey: '',
+    ssl: true,
+    authKey: '',
+    useRandomIVs: false,
+    subscribeRequestTimeout: 60,
+    userId: 'myUniqueUserId'
+};
+
 const pubnub = new Pubnub(config);
 
 pubnub.setAuthKey('myAuthenKey');
