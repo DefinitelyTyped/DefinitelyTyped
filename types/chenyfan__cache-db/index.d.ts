@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace CacheDB {
-    type Config = "json" | "arrayBuffer" | "blob" | "text" | string;
+    interface Config {
+        type: "json" | "arrayBuffer" | "blob" | "text" | string;
+    }
     type ReadMethodData = object | ArrayBuffer | Blob | string | null;
     type WriteValue =
         | ReadableStream
