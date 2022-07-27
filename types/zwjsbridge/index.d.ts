@@ -6,19 +6,17 @@
 
 /**
  * “浙里办”政务中台 JSBridge API
- * 
- * This API just for [浙里办](https://apps.apple.com/cn/app/zhe-jiang-zheng-wu-fu-wu/id910260096)
- * 
+ * This API just for [浙里办](https://apps.apple.com/us/app/zhe-jiang-zheng-wu-fu-wu/id910260096)
  * 1. ZWJSBridge接入方式
  *  ```js
- *  <script type="text/javascript" src="//assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.0.1/zwjsbridge.js"></script >
+ *      <script type="text/javascript" src="//assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.0.1/zwjsbridge.js"></script>
  *  ```
- * 2. 初始化: 通过 `ZWJSBridge.onReady(callback)` 初始化jsapi，初始化完成即onReady之后再调用jsapi。
- * ```js
- * ZWJSBridge.onReady(() => { 
- *  console.log('初始化完成后，执行bridge方法')
- * })
- * ```
+ * 2. 初始化: 通过 `ZWJSBridge.onReady(callback)` 初始化jsapi，初始化完成即onReady之后再调用jsapi
+ *  ```js
+ *      ZWJSBridge.onReady(() => {
+ *          console.log('初始化完成后，执行bridge方法')
+ *      })
+ *  ```
  */
 
 interface ZWJSBridge {
