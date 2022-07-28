@@ -374,7 +374,7 @@ export interface Parser<T = any> {
 }
 
 export interface Printer<T = any> {
-    print(path: AstPath<T>, options: ParserOptions<T>, print: (path: AstPath<T>) => Doc): Doc;
+    print(path: AstPath<T>, options: ParserOptions<T>, print: (path: AstPath<T>) => Doc, args?: unknown): Doc;
     embed?:
         | ((
               path: AstPath<T>,

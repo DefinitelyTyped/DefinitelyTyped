@@ -3,7 +3,8 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom"
+            "es2021.promise",
+            "es2022.error"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

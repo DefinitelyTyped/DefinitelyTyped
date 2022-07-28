@@ -26,3 +26,5 @@ domWindow.external; // $ExpectType External
 
 domWindow.FinalizationRegistry; // $ExpectType FinalizationRegistryConstructor
 domWindow.WeakRef; // $ExpectType WeakRefConstructor
+
+dom.nodeLocation(domWindow.document.createElement('br')); // $ExpectType Location | null | undefined

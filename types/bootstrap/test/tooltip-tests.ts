@@ -77,3 +77,4 @@ $('.alert').tooltip('enable'); // $ExpectType JQuery<HTMLElement>
 $('.alert').tooltip('disable'); // $ExpectType JQuery<HTMLElement>
 $('.alert').tooltip('toggleEnabled'); // $ExpectType JQuery<HTMLElement>
 $('.alert').tooltip('update'); // $ExpectType JQuery<HTMLElement>
+$('.alert').tooltip('setContent'); // $ExpectType JQuery<HTMLElement>
