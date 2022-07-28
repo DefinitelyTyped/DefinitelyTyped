@@ -1,6 +1,7 @@
-// Type definitions for non-npm package Alipay JSSDK - alipayjsapi.min.js 3.1
+// Type definitions for non-npm package Alipay JSSDK - alipayjsapi.js 3.1
 // Project: https://myjsapi.alipay.com/alipayjsapi/index.html
 // Definitions by: Yuxiang Ren <https://github.com/shlyren>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Alipay JSSDK 提供丰富的支付宝原生 API，可以方便调用支付宝提供的能力，达到媲美原生应用的体验，如页面跳转，支付功能等。
@@ -34,7 +35,7 @@
 declare namespace AlipayJSSDK {
     type IAnyObject = Record<string, any>;
     type IStringObject = Record<string, string>;
-    type IObjArray = Array<IAnyObject>;
+    type IObjArray = IAnyObject[];
 
     /** 接口调用结束的回调 */
     type CompleteCallBack = (obj: unknown) => void;
@@ -247,14 +248,14 @@ declare namespace AlipayJSSDK {
             /** 图片文件路径 */
             apFilePaths: string[];
             apFilePathsV2: string[];
-            tempFiles: {
+            tempFiles: Array<{
                 /** 创建时间 时间戳 */
                 creationDate: number;
                 /** 文件路径 */
                 path: string;
                 /** 文件大小 */
                 size: number;
-            }[];
+            }>;
         }>;
 
         /**
@@ -465,7 +466,7 @@ declare namespace AlipayJSSDK {
             type?: number;
             /** 定位超时失败回调时间，单位秒。默认10s */
             timeout?: number;
-            /**自定义业务类型  */
+            /** 自定义业务类型  */
             bizType?: string;
             complete?: CompleteCallBack;
         }): Promise<{
@@ -485,10 +486,10 @@ declare namespace AlipayJSSDK {
                 number: string;
             };
             // 定位点附近的 POI 信息
-            pois: {
+            pois: Array<{
                 name: string;
                 address: string;
-            }[];
+            }>;
         }>;
 
         /**
@@ -841,12 +842,12 @@ declare namespace AlipayJSSDK {
                 | string,
         ): Promise<{
             /** service 对象 */
-            services: {
-                /** 蓝牙设备服务的 uuid*/
+            services: Array<{
+                /** 蓝牙设备服务的uuid */
                 serviceId: string;
                 /** 该服务是否为主服务 */
                 isPrimary: boolean;
-            }[];
+            }>;
         }>;
 
         /**
@@ -870,8 +871,8 @@ declare namespace AlipayJSSDK {
                 | string,
         ): Promise<{
             /** 设备特征值列表 */
-            characteristics: {
-                /** 蓝牙设备特征值的 uuid*/
+            characteristics: Array<{
+                /** 蓝牙设备特征值的 uuid */
                 characteristicId: string;
                 /** 蓝牙设备特征值对应服务的 uuid */
                 serviceId: string;
@@ -879,16 +880,16 @@ declare namespace AlipayJSSDK {
                 value: string;
                 /** 该特征值支持的操作类型 */
                 properties: {
-                    /**该特征值是否支持 read 操作  */
+                    /** 该特征值是否支持 read 操作 */
                     read: boolean;
-                    /**该特征值是否支持 write 操作  */
+                    /** 该特征值是否支持 write 操作 */
                     write: boolean;
-                    /**该特征值是否支持 notify 操作  */
+                    /** 该特征值是否支持 notify 操作 */
                     notify: boolean;
-                    /**该特征值是否支持 indicate 操作  */
+                    /** 该特征值是否支持 indicate 操作 */
                     indicate: boolean;
                 };
-            }[];
+            }>;
         }>;
 
         /**
@@ -1367,7 +1368,7 @@ declare namespace AlipayJSSDK {
             /** 是否阻止默认的分享功能，指定 iconType 的情况下点击时，会弹分享面板，`preventDefault: true` 会阻止默认分享面板弹出 */
             preventDefault?: boolean;
             /** 按钮数组，数组中每个项是一个对象 */
-            items: {
+            items: Array<{
                 /** 按钮标题，与 type、icon 三选一。 */
                 title?: string;
                 /** 按钮标题文字颜色，与 type、icon 三选一。 */
@@ -1378,7 +1379,7 @@ declare namespace AlipayJSSDK {
                 icon?: string;
                 /** 按钮红色气泡，默认 -1。其中 0 表示小红点，-1 表示不显示，其他值展示出来 */
                 badge?: string | number;
-            }[];
+            }>;
             complete?: CompleteCallBack;
         }): Promise<unknown>;
         /**
@@ -1401,14 +1402,14 @@ declare namespace AlipayJSSDK {
          */
         showPopMenu(option: {
             items:
-                | {
-                      /** 菜单标题，可直接作为 items 数组元素。 */
-                      title?: string;
-                      /** 菜单图标，支持 base64 */
-                      icon?: string;
-                      /** 按钮红色气泡，默认 -1。其中 0 表示小红点，-1 表示不显示，其他值展示出来 */
-                      badge?: string | number;
-                  }[]
+                | Array<{
+                    /** 菜单标题，可直接作为 items 数组元素。 */
+                    title?: string;
+                    /** 菜单图标，支持 base64 */
+                    icon?: string;
+                    /** 按钮红色气泡，默认 -1。其中 0 表示小红点，-1 表示不显示，其他值展示出来 */
+                    badge?: string | number;
+                }>
                 | string[];
             complete?: CompleteCallBack;
         }): Promise<{
@@ -1488,7 +1489,7 @@ declare namespace AlipayJSSDK {
                 | number,
         ): Promise<{
             /** 选中的支付宝联系人数组 */
-            contacts: {
+            contacts: Array<{
                 /** 账号的真实姓名 */
                 realName: string;
                 /** 账号对应的手机号码 */
@@ -1499,7 +1500,7 @@ declare namespace AlipayJSSDK {
                 avatar: string;
                 /** 支付宝账号 userId */
                 userId: string;
-            }[];
+            }>;
         }>;
 
         /**
@@ -1513,23 +1514,23 @@ declare namespace AlipayJSSDK {
             /** 是否显示热门城市，默认 true */
             showHotCities?: boolean;
             /** 自定义城市列表，列表内对象字段见下表 */
-            cities?: {
+            cities?: Array<{
                 /** 城市名 */
                 city: string;
                 /** 行政区划代码 */
                 adCode: string;
                 /** 城市名对应拼音拼写，方便用户搜索 */
                 spell: string;
-            }[];
-            /**自定义热门城市列表，列表内对象字段见下表  */
-            hotCities?: {
+            }>;
+            /** 自定义热门城市列表，列表内对象字段见下表  */
+            hotCities?: Array<{
                 /** 城市名 */
                 city: string;
                 /** 行政区划代码 */
                 adCode: string;
                 /** 城市名对应拼音拼写，方便用户搜索 */
                 spell: string;
-            }[];
+            }>;
             complete?: CompleteCallBack;
         }): Promise<{
             /** 城市名 */

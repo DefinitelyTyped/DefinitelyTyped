@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "alipayjs-tests.ts"
+        "alipayjssdk-tests.ts"
     ]
 }
