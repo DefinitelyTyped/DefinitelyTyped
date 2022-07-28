@@ -8950,7 +8950,7 @@ export namespace Animated {
     };
 
     export interface AnimatedComponent<T extends React.ComponentType<any>>
-        extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
+        extends React.FC<React.PropsWithChildren<AnimatedProps<React.ComponentPropsWithRef<T>>>> {}
 
     export type AnimatedComponentOptions = {
         collapsable?: boolean;
