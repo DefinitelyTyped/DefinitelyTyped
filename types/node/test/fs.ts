@@ -3,7 +3,7 @@ import * as fs from 'node:fs';
 import * as util from 'node:util';
 import { URL } from 'node:url';
 import assert = require('node:assert');
-import { CopyOptions, cpSync, cp } from 'fs';
+import { CopyOptions, CopySyncOptions, cpSync, cp } from 'fs';
 
 {
     fs.writeFile("thebible.txt",
@@ -695,17 +695,24 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.rand
         dereference: false,
         errorOnExist: true,
         filter(src, dst) {
-            return src !== 'node_modules' && dst !== 'something';
+            return Promise.resolve(src !== 'node_modules' && dst !== 'something');
         },
         force: true,
         preserveTimestamps: true,
         recursive: false,
+        verbatimSymlinks: false,
+    };
+    const optsSync: CopySyncOptions = {
+        ...opts,
+        filter(src, dst) {
+            return src !== 'node_modules' && dst !== 'something';
+        }
     };
     cp('src', 'dest', (err: Error | null) => {});
     cp('src', 'dest', opts, (err: Error | null) => {});
     cp(new URL(`file://${__dirname}`), new URL(`file://${__dirname}`), (err: Error | null) => {});
     cpSync('src', 'dest');
-    cpSync('src', 'dest', opts);
+    cpSync('src', 'dest', optsSync);
     cpSync(new URL(`file://${__dirname}`), new URL(`file://${__dirname}`));
     cpAsync('src', 'dest'); // $ExpectType Promise<void>
     cpAsync('src', 'dest', opts); // $ExpectType Promise<void>
