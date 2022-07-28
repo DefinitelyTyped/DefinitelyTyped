@@ -111,7 +111,7 @@ declare namespace Bull {
      * Define a custom backoff strategy
      */
     backoffStrategies?: {
-      [key: string]: (attemptsMade: number, err: Error, options?: any) => number;
+      [key: string]: (attemptsMade: number, err: Error, strategyOptions?: any) => number;
     } | undefined;
 
     /**
@@ -335,7 +335,7 @@ declare namespace Bull {
     /**
      * Options for custom strategies
      */
-    options?: any;
+    strategyOptions?: any;
   }
 
   interface RepeatOptions {
