@@ -16,7 +16,8 @@ export * from './animation/tracks/BooleanKeyframeTrack';
 export * from './animation/PropertyMixer';
 export * from './animation/PropertyBinding';
 export * from './animation/KeyframeTrack';
-export * from './animation/AnimationUtils';
+import * as AnimationUtils from './animation/AnimationUtils';
+export { AnimationUtils };
 export * from './animation/AnimationObjectGroup';
 export * from './animation/AnimationMixer';
 export * from './animation/AnimationClip';
@@ -42,6 +43,7 @@ export * from './cameras/Camera';
  * Core
  */
 export * from './core/Uniform';
+export * from './core/UniformsGroup';
 export * from './core/InstancedBufferGeometry';
 export * from './core/BufferGeometry';
 export * from './core/InterleavedBufferAttribute';
@@ -207,6 +209,7 @@ export * from './renderers/webgl/WebGLShadowMap';
 export * from './renderers/webgl/WebGLState';
 export * from './renderers/webgl/WebGLTextures';
 export * from './renderers/webgl/WebGLUniforms';
+export * from './renderers/webgl/WebGLUniformsGroups';
 export * from './renderers/webxr/WebXRController';
 export * from './renderers/webxr/WebXRManager';
 export { WebGLUtils } from './renderers/webgl/WebGLUtils.js';
