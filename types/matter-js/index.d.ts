@@ -1360,19 +1360,6 @@ declare namespace Matter {
          */
         static remove(composite: Composite, object: Body | Composite | Constraint, deep?: boolean): Composite;
 
-
-
-        /**
-         * Sets the composite's `isModified` flag.
-         * If `updateParents` is true, all parents will be set (default: false).
-         * If `updateChildren` is true, all children will be set (default: false).
-         * @method setModified
-         * @param {composite} composite
-         * @param {boolean} isModified
-         * @param {boolean} [updateParents=false]
-         * @param {boolean} [updateChildren=false]
-         */
-        static setModified(composite: Composite, isModified: boolean, updateParents?: boolean, updateChildren?: boolean): void;
         /**
          * Translates all children in the composite by a given vector relative to their current positions,
          * without imparting any velocity.
@@ -1402,86 +1389,92 @@ declare namespace Matter {
          */
         static scale(composite: Composite, scaleX: number, scaleY: number, point: Vector, recursive?: boolean): void;
 
+        /**
+         * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
+         *
+         * @property id
+         * @type {number}
+         */
+        id: number;
+
+        /**
+         * A `String` denoting the type of object.
+         *
+         * @property type
+         * @type {string}
+         * @default "composite"
+         * @readOnly
+         */
+        readonly type: String;
+
+        /**
+         * An arbitrary `String` name to help the user identify and manage composites.
+         *
+         * @property label
+         * @type {string}
+         * @default "Composite"
+         */
+        label: string;
+
+        /**
+         * A flag that specifies whether the composite has been modified during the current step.
+         * This is automatically managed when bodies, constraints or composites are added or removed.
+         *
+         * @property isModified
+         * @type {boolean}
+         * @default false
+         */
+        isModified: boolean;
+
+        /**
+         * The `Composite` that is the parent of this composite. It is automatically managed by the `Matter.Composite` methods.
+         *
+         * @property parent
+         * @type {Composite|null}
+         * @default null
+         */
+        parent: Composite | null;
 
         /**
          * An array of `Body` that are _direct_ children of this composite.
          * To add or remove bodies you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allBodies` method.
          *
-        * @property bodies
-        * @type body[]
-        * @default []
-        */
+         * @property bodies
+         * @type {body[]}
+         * @default []
+         */
         bodies: Array<Body>;
-
-        /**
-         * An array of `Composite` that are _direct_ children of this composite.
-         * To add or remove composites you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
-         * If you wish to recursively find all descendants, you should use the `Composite.allComposites` method.
-         *
-        * @property composites
-        * @type composite[]
-        * @default []
-        */
-        composites: Array<Composite>;
 
         /**
          * An array of `Constraint` that are _direct_ children of this composite.
          * To add or remove constraints you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allConstraints` method.
          *
-        * @property constraints
-        * @type constraint[]
-        * @default []
-        */
+         * @property constraints
+         * @type {constraint[]}
+         * @default []
+         */
         constraints: Array<Constraint>;
 
         /**
-         * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
+         * An array of `Composite` that are _direct_ children of this composite.
+         * To add or remove composites you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
+         * If you wish to recursively find all descendants, you should use the `Composite.allComposites` method.
          *
-        * @property id
-        * @type number
-        */
-        id: number;
+         * @property composites
+         * @type {composite[]}
+         * @default []
+         */
+        composites: Array<Composite>;
 
         /**
-         * A flag that specifies whether the composite has been modified during the current step.
-        * Most `Matter.Composite` methods will automatically set this flag to `true` to inform the engine of changes to be handled.
-        * If you need to change it manually, you should use the `Composite.setModified` method.
-        *
-        * @property isModified
-        * @type boolean
-        * @default false
-        */
-        isModified: boolean;
-
-        /**
-         * An arbitrary `String` name to help the user identify and manage composites.
+         * An object reserved for storing plugin-specific properties.
          *
-        * @property label
-        * @type string
-        * @default "Composite"
-        */
-        label: string;
-
-        /**
-         * The `Composite` that is the parent of this composite. It is automatically managed by the `Matter.Composite` methods.
-         *
-        * @property parent
-        * @type composite
-        * @default null
-        */
-        parent: Composite;
-
-        /**
-         * A `String` denoting the type of object.
-         *
-        * @property type
-        * @type string
-        * @default "composite"
-        */
-        type: String;
-
+         * @property plugin
+         * @type {Plugin}
+         */
+        plugin: Plugin;
     }
 
     /**
@@ -2575,14 +2568,14 @@ declare namespace Matter {
          * @type boolean
          * @default false
          */
-         showVertexNumbers?: boolean | undefined;
+        showVertexNumbers?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body velocity debug overlay.
          * @type boolean
          * @default false
          */
-         showVelocity?: boolean | undefined;
+        showVelocity?: boolean | undefined;
 
         /**
          * A flag to enable or disable the engine stats info overlay.
@@ -2595,21 +2588,21 @@ declare namespace Matter {
          * @type boolean
          * @default false
          */
-         showStats?: boolean | undefined;
+        showStats?: boolean | undefined;
 
         /**
          * A flag to enable or disable the collision resolver separations debug overlay.
          * @type boolean
          * @default false
          */
-         showSeparations?: boolean | undefined;
+        showSeparations?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body positions debug overlay.
          * @type boolean
          * @default false
          */
-         showPositions?: boolean | undefined;
+        showPositions?: boolean | undefined;
 
         /**
          * A flag to enable or disable performance charts.
@@ -2624,28 +2617,28 @@ declare namespace Matter {
          * @type boolean
          * @default false
          */
-         showPerformance?: boolean | undefined;
+        showPerformance?: boolean | undefined;
 
         /**
          * A flag to enable or disable the mouse position debug overlay.
          * @type boolean
          * @default false
          */
-         showMousePosition?: boolean | undefined;
+        showMousePosition?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body internal edges debug overlay.
          * @type boolean
          * @default false
          */
-         showInternalEdges?: boolean | undefined;
+        showInternalEdges?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body and part ids debug overlay.
          * @type boolean
          * @default false
          */
-         showIds?: boolean | undefined;
+        showIds?: boolean | undefined;
 
         /**
          * A flag to enable or disable the debug information overlay.
@@ -2655,56 +2648,56 @@ declare namespace Matter {
          * @type boolean
          * @default false
          */
-         showDebug?: boolean | undefined;
+        showDebug?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body convex hulls debug overlay.
          * @type boolean
          * @default false
          */
-         showConvexHulls?: boolean | undefined;
+        showConvexHulls?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body collisions debug overlay.
          * @type boolean
          * @default false
          */
-         showCollisions?: boolean | undefined;
+        showCollisions?: boolean | undefined;
 
         /**
          * A flag to enable or disable the collision broadphase debug overlay.
          * @type boolean
          * @default false
          */
-         showBroadphase?: boolean | undefined;
+        showBroadphase?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body bounds debug overlay.
          * @type boolean
          * @default false
          */
-         showBounds?: boolean | undefined;
+        showBounds?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body axes debug overlay.
          * @type boolean
          * @default false
          */
-         showAxes?: boolean | undefined;
+        showAxes?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body angle debug overlay.
          * @type boolean
          * @default false
          */
-         showAngleIndicator?: boolean | undefined;
+        showAngleIndicator?: boolean | undefined;
 
         /**
          * The pixel ratio to use when rendering.
          * @type number
          * @default 1
          */
-         pixelRatio?: number | undefined;
+        pixelRatio?: number | undefined;
     }
 
     interface IRenderLookAtObject {
