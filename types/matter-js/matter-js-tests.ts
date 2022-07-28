@@ -5,6 +5,7 @@ var Engine = Matter.Engine,
     Bodies = Matter.Bodies,
     Composite = Matter.Composite,
     Composites = Matter.Composites,
+    Collision = Matter.Collision,
     Constraint = Matter.Constraint,
     Events = Matter.Events,
     Query = Matter.Query,
@@ -12,7 +13,8 @@ var Engine = Matter.Engine,
     Render = Matter.Render,
     SAT = Matter.SAT,
     Mouse = Matter.Mouse,
-    MouseConstraint = Matter.MouseConstraint;
+    MouseConstraint = Matter.MouseConstraint,
+    Pairs = Matter.Pairs;
 
 Matter.use('matter-attractors');
 Plugin.use(Matter, ['matter-wrap']);
@@ -43,8 +45,9 @@ var circle1 = Bodies.circle(100, 100, 50, {
         },
     },
 });
+const vector = Matter.Vector.create(10, 10);
 var radius = circle1.circleRadius;
-Body.setCentre(circle1, Matter.Vector.create(10, 10), true);
+Body.setCentre(circle1, vector, true);
 
 World.addBody(engine.world, box1);
 World.add(engine.world, [box2, circle1]);
@@ -85,7 +88,7 @@ var collisions = Query.ray([box1, box2, circle1], { x: 1, y: 2 }, { x: 3, y: 4 }
 collisions = Query.collides(box1, [box2, circle1]);
 
 // events
-Events.on(engine, 'beforeTick', (e: Matter.IEventTimestamped<Matter.Engine>) => {});
+Events.on(engine, 'beforeTick', (e: Matter.IEventTimestamped<Matter.Engine>) => { });
 
 Engine.run(engine);
 
@@ -104,9 +107,9 @@ var render = Render.create({
     },
     // Renderer options
     options: {
-      showAxes: true,
-      showCollisions: true,
-      showConvexHulls: true,
+        showAxes: true,
+        showCollisions: true,
+        showConvexHulls: true,
     },
 });
 
@@ -125,7 +128,7 @@ const mouseConstraint = MouseConstraint.create(engine, { mouse });
 
 render.mouse = mouse;
 
-Events.on(mouseConstraint, 'mousemove', (e: Matter.IMouseEvent<Matter.MouseConstraint>) => {});
+Events.on(mouseConstraint, 'mousemove', (e: Matter.IMouseEvent<Matter.MouseConstraint>) => { });
 
 // Composite
 // $ExpectType Composite
@@ -145,8 +148,36 @@ Composite.add(composite1, mouseConstraint);
 // $ExpectType Composite
 Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
 
+// Body
+// $ExpectType Body
+const body = Body.create({});
+
+// Pairs
+const pairs = Pairs.create({});
+
+// Collision
+// $ExpectType Collision
+let collision = Collision.create(body, body);
+// TODO: add collision.pair = pair-object
+collision.pair = null;
+collision.collided = true;
+collision.bodyA = body;
+collision.bodyB = body;
+collision.parentA = body;
+collision.parentB = body;
+// @ts-expect-error
+collision.depth = 2;
+collision.normal = vector;
+collision.tangent = vector;
+collision.penetration = vector;
+collision.supports = [vector];
+
+
+// $ExpectType Collision | null
+Collision.collides(body, body, pairs);
+
 // SAT
-// $ExpectType ICollision
-var collision = SAT.collides(box1, box2);
-// $ExpectType ICollision
+// $ExpectType Collision
+collision = SAT.collides(box1, box2);
+// $ExpectType Collision
 SAT.collides(box3, box4, collision);

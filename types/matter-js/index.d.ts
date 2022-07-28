@@ -2363,6 +2363,14 @@ declare namespace Matter {
     */
     export class Pairs {
         /**
+         * Creates a new pairs structure.
+         * @method create
+         * @param {object} options
+         * @return {Pairs} A new pairs structure
+         */
+        static create(options: object): Pairs;
+
+        /**
          * Clears the given pairs structure.
          * @method clear
          * @param {pairs} pairs
@@ -2371,7 +2379,7 @@ declare namespace Matter {
         static clear(pairs: any): any;
     }
 
-    export interface IPair {
+    export interface Pair {
         id: number;
         bodyA: Body;
         bodyB: Body;
@@ -2403,7 +2411,7 @@ declare namespace Matter {
         * @param {body[]} bodies
         * @return {object[]} Collisions
         */
-        static collides(body: Body, bodies: Array<Body>): Array<ICollision>;
+        static collides(body: Body, bodies: Array<Body>): Array<Collision>;
 
         /**
          * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
@@ -2414,7 +2422,7 @@ declare namespace Matter {
          * @param {number} [rayWidth]
          * @return {object[]} Collisions
          */
-        static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<ICollision>;
+        static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<Collision>;
 
         /**
          * Returns all bodies whose bounds are inside (or outside if set) the given set of bounds, from the given set of bodies.
@@ -3756,7 +3764,7 @@ declare namespace Matter {
         /**
          * The collision pair
          */
-        pairs: Array<IPair>;
+        pairs: Array<Pair>;
     }
 
     export interface IMouseEvent<T> extends IEvent<T> {
@@ -4152,20 +4160,130 @@ declare namespace Matter {
 
     }
 
-    export interface ICollision {
+    /**
+     * The `Matter.Collision` module contains methods for detecting collisions between a given pair of bodies.
+     *
+     * For efficient detection between a list of bodies, see `Matter.Detector` and `Matter.Query`.
+     *
+     * See `Matter.Engine` for collision events.
+     */
+    export class Collision {
+        /**
+         * Creates a new collision record.
+         * @method create
+         * @param {Body} bodyA The first body part represented by the collision record
+         * @param {Body} bodyB The second body part represented by the collision record
+         * @return {Collision} A new collision record
+         */
+        static create(bodyA: Body, bodyB: Body): Collision;
+
+        /**
+         * Detect collision between two bodies.
+         * @method collides
+         * @param {Body} bodyA
+         * @param {Body} bodyB
+         * @param {pairs} [Pairs] Optionally reuse collision records from existing pairs.
+         * @return {collision|null} A collision record if detected, otherwise null
+         */
+        static collides(bodyA: Body, bodyB: Body, pairs: Pairs): Collision | null;
+
+        /**
+         * A reference to the pair using this collision record, if there is one.
+         *
+         * @property pair
+         * @type {Pair|null}
+         * @default null
+         */
+        pair: Pair | null;
+
+        /**
+         * A flag that indicates if the bodies were colliding when the collision was last updated.
+         *
+         * @property collided
+         * @type {boolean}
+         * @default false
+         */
         collided: boolean;
-        axisNumber: Number;
-        axisBody: Body;
+
+
+        /**
+         * The first body part represented by the collision (see also `collision.parentA`).
+         *
+         * @property bodyA
+         * @type {Body}
+         */
         bodyA: Body;
+
+        /**
+         * The second body part represented by the collision (see also `collision.parentB`).
+         *
+         * @property bodyB
+         * @type {Body}
+         */
         bodyB: Body;
+
+        /**
+         * The first body represented by the collision (i.e. `collision.bodyA.parent`).
+         *
+         * @property parentA
+         * @type {Body}
+         */
         parentA: Body;
+
+        /**
+         * The second body represented by the collision (i.e. `collision.bodyB.parent`).
+         *
+         * @property parentB
+         * @type {Body}
+         */
         parentB: Body;
-        depth: Number;
+
+        /**
+         * A `Number` that represents the minimum separating distance between the bodies along the collision normal.
+         *
+         * @readOnly
+         * @property depth
+         * @type {number}
+         * @default 0
+         */
+        readonly depth: number;
+
+        /**
+         * A normalised `Vector` that represents the direction between the bodies that provides the minimum separating distance.
+         *
+         * @property normal
+         * @type {Vector}
+         * @default { x: 0, y: 0 }
+         */
         normal: Vector;
+
+        /**
+         * A normalised `Vector` that is the tangent direction to the collision normal.
+         *
+         * @property tangent
+         * @type {Vector}
+         * @default { x: 0, y: 0 }
+         */
         tangent: Vector;
+
+        /**
+         * A `Vector` that represents the direction and depth of the collision.
+         *
+         * @property penetration
+         * @type {Vector}
+         * @default { x: 0, y: 0 }
+         */
         penetration: Vector;
+
+        /**
+         * An array of body vertices that represent the support points in the collision.
+         * These are the deepest vertices (along the collision normal) of each body that are contained by the other body's vertices.
+         *
+         * @property supports
+         * @type {Vector[]}
+         * @default []
+         */
         supports: Array<Vector>;
-        reused?: boolean | undefined;
     }
 
     /**
@@ -4182,6 +4300,6 @@ declare namespace Matter {
          * @param {Collision} previousCollision
          * @return {Collision} collision
          */
-        static collides(bodyA: Body, bodyB: Body, previousCollision?: ICollision): ICollision;
+        static collides(bodyA: Body, bodyB: Body, previousCollision?: Collision): Collision;
     }
 }
