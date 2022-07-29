@@ -225,6 +225,7 @@ interface SrcSetParams {
     widthTolerance?: number;
     minWidth?: number;
     maxWidth?: number;
+    devicePixelRatios?: number[];
 }
 
 type ImgixHTMLAttributes =
