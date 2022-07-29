@@ -891,6 +891,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             fadingEdgeLength={200}
                             StickyHeaderComponent={this._stickyHeaderComponent}
                             stickyHeaderHiddenOnScroll={true}
+                            automaticallyAdjustKeyboardInsets
                         />
                     );
                 }}
