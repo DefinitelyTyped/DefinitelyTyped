@@ -3,6 +3,7 @@
 // Definitions by: Sherwin Heydarbeygi <https://github.com/sherwinski>
 //                 Luis Ball <https://github.com/luqven>
 //                 Frederick Fogerty <https://github.com/frederickfogerty>
+//                 Alice Lawrie <https://github.com/atlawrie/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
