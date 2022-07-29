@@ -72,7 +72,7 @@ declare namespace Matter {
          * @param {number} x
          * @param {number} y
          * @param {number} radius
-         * @param {object} [options]
+         * @param {any} [options]
          * @param {number} [maxSides]
          * @returns {Body} A new circle body
          */
@@ -87,7 +87,7 @@ declare namespace Matter {
          * @param {number} y
          * @param {number} sides
          * @param {number} radius
-         * @param {object} [options]
+         * @param {any} [options]
          * @returns {Body} A new regular polygon body
          */
         static polygon(x: number, y: number, sides: number, radius: number, options?: IChamferableBodyDefinition): Body;
@@ -101,7 +101,7 @@ declare namespace Matter {
          * @param {number} y
          * @param {number} width
          * @param {number} height
-         * @param {object} [options]
+         * @param {any} [options]
          * @returns {Body} A new rectangle body
          */
         static rectangle(
@@ -122,7 +122,7 @@ declare namespace Matter {
          * @param {number} width
          * @param {number} height
          * @param {number} slope
-         * @param {object} [options]
+         * @param {any} [options]
          * @returns {Body} A new trapezoid body
          */
         static trapezoid(
@@ -147,7 +147,7 @@ declare namespace Matter {
          * @param {number} x
          * @param {number} y
          * @param {Vertex[][]} vertexSets
-         * @param {object} [options]
+         * @param {any} [options]
          * @param {boolean} [flagInternal=false]
          * @param {number} [removeCollinear=0.01]
          * @param {number} [minimumArea=10]
@@ -979,7 +979,7 @@ declare namespace Matter {
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
          *
          * @property render
-         * @type {object}
+         * @type {any}
          */
         render: IBodyRenderOptions;
         /**
@@ -1291,7 +1291,7 @@ declare namespace Matter {
          * Triggers `beforeAdd` and `afterAdd` events on the `composite`.
          * @method add
          * @param {Composite} composite
-         * @param {} object
+         * @param {any} object
          * @returns {Composite} The original composite with the objects added
          */
         static add(
@@ -1353,7 +1353,7 @@ declare namespace Matter {
          * @param {Composite} composite
          * @param {number} id
          * @param {string} type
-         * @returns {object} The requested object, if found
+         * @returns {any} The requested object, if found
          */
         static get(composite: Composite, id: number, type: string): Body | Composite | Constraint;
 
@@ -1361,7 +1361,7 @@ declare namespace Matter {
          * Moves the given object(s) from compositeA to compositeB (equal to a remove followed by an add).
          * @method move
          * @param {compositeA} compositeA
-         * @param {object[]} objects
+         * @param {(Body | Composite | Constraint)[]} objects
          * @param {compositeB} compositeB
          * @returns {Composite} Returns compositeA
          */
@@ -1385,7 +1385,7 @@ declare namespace Matter {
          * Triggers `beforeRemove` and `afterRemove` events on the `composite`.
          * @method remove
          * @param {Composite} composite
-         * @param {} object
+         * @param {any} object
          * @param {boolean} [deep=false]
          * @returns {Composite} The original composite with the objects removed
          */
@@ -1538,7 +1538,7 @@ declare namespace Matter {
          * @param {number} yOffsetA
          * @param {number} xOffsetB
          * @param {number} yOffsetB
-         * @param {object} options
+         * @param {any} options
          * @returns {Composite} A new composite containing objects chained together with constraints
          */
         static chain(
@@ -1557,7 +1557,7 @@ declare namespace Matter {
          * @param {number} columns
          * @param {number} rows
          * @param {boolean} crossBrace
-         * @param {object} options
+         * @param {any} options
          * @returns {Composite} The composite containing objects meshed together with constraints
          */
         static mesh(composite: Composite, columns: number, rows: number, crossBrace: boolean, options: any): Composite;
@@ -1719,7 +1719,7 @@ declare namespace Matter {
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
          *
          * @property render
-         * @type {object}
+         * @type {any}
          */
         render?: IConstraintRenderDefinition | undefined;
 
@@ -1910,7 +1910,7 @@ declare namespace Matter {
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
          *
          * @property render
-         * @type {object}
+         * @type {any}
          */
         render: IConstraintRenderDefinition;
 
@@ -2338,7 +2338,7 @@ declare namespace Matter {
          * See `body.collisionFilter` for more information.
          *
          * @property collisionFilter
-         * @type {object}
+         * @type {any}
          */
         collisionFilter?: ICollisionFilter | undefined;
 
@@ -2405,7 +2405,7 @@ declare namespace Matter {
          * See `body.collisionFilter` for more information.
          *
          * @property collisionFilter
-         * @type {object}
+         * @type {any}
          */
         collisionFilter: ICollisionFilter;
 
@@ -2447,10 +2447,10 @@ declare namespace Matter {
         /**
          * Creates a new pairs structure.
          * @method create
-         * @param {object} options
+         * @param {any} options
          * @returns {Pairs} A new pairs structure
          */
-        static create(options: object): Pairs;
+        static create(options: any): Pairs;
 
         /**
          * Clears the given pairs structure.
@@ -2577,7 +2577,7 @@ declare namespace Matter {
          * @method collides
          * @param {Body} body
          * @param {Body[]} bodies
-         * @returns {object[]} Collisions
+         * @returns {Collision[]} Collisions
          */
         static collides(body: Body, bodies: Array<Body>): Array<Collision>;
 
@@ -2910,7 +2910,7 @@ declare namespace Matter {
          * All properties have default values, and many are pre-calculated automatically based on other properties.
          * See the properties section below for detailed information on what you can pass via the `options` object.
          * @method create
-         * @param {object} [options]
+         * @param {any} [options]
          * @returns {render} A new renderer
          */
         static create(options: IRenderDefinition): Render;
@@ -3693,59 +3693,59 @@ declare namespace Matter {
         /**
          * Extends the object in the first argument using the object in the second argument.
          * @method extend
-         * @param {} obj
+         * @param {any} obj
          * @param {boolean} deep
-         * @returns {} obj extended
+         * @returns {any} obj extended
          */
-        static extend(obj: object, deep: boolean): object;
+        static extend(obj: any, deep: boolean): any;
 
         /**
          * Creates a new clone of the object, if deep is true references will also be cloned.
          * @method clone
-         * @param {} obj
+         * @param {any} obj
          * @param {boolean} deep
-         * @returns {} obj cloned
+         * @returns {any} obj cloned
          */
-        static clone(obj: object, deep: boolean): object;
+        static clone(obj: any, deep: boolean): any;
 
         /**
          * Returns the list of keys for the given object.
          * @method keys
-         * @param {} obj
+         * @param {any} obj
          * @returns {string[]} keys
          */
-        static keys(obj: object): Array<string>;
+        static keys(obj: any): Array<string>;
 
         /**
          * Returns the list of values for the given object.
          * @method values
-         * @param {} obj
+         * @param {any} obj
          * @returns {array} Array of the objects property values
          */
-        static values(obj: object): Array<any>;
+        static values(obj: any): Array<any>;
 
         /**
          * Gets a value from `base` relative to the `path` string.
          * @method get
-         * @param {} obj The base object
+         * @param {any} obj The base object
          * @param {string} path The path relative to `base`, e.g. 'Foo.Bar.baz'
          * @param {number} [begin] Path slice begin
          * @param {number} [end] Path slice end
          * @returns {} The object at the given path
          */
-        static get(obj: object, path: string, begin: number, end: number): object;
+        static get(obj: any, path: string, begin: number, end: number): any;
 
         /**
          * Sets a value on `base` relative to the given `path` string.
          * @method set
-         * @param {} obj The base object
+         * @param {any} obj The base object
          * @param {string} path The path relative to `base`, e.g. 'Foo.Bar.baz'
          * @param {} val The value to set
          * @param {number} [begin] Path slice begin
          * @param {number} [end] Path slice end
          * @returns {} Pass through `val` for chaining
          */
-        static set(obj: object, path: string, val: object, begin: number, end: number): Object;
+        static set(obj: any, path: string, val: any, begin: number, end: number): any;
 
         /**
          * Shuffles the given array in-place.
@@ -3761,49 +3761,49 @@ declare namespace Matter {
          * The function uses a seeded random generator.
          * @method choose
          * @param {array} choices
-         * @returns {object} A random choice object from the array
+         * @returns {any} A random choice object from the array
          */
         static choose(choices: Array<any>): any;
 
         /**
          * Returns true if the object is a HTMLElement, otherwise false.
          * @method isElement
-         * @param {object} obj
+         * @param {any} obj
          * @returns {boolean} True if the object is a HTMLElement, otherwise false
          */
-        static isElement(obj: object): boolean;
+        static isElement(obj: any): boolean;
 
         /**
          * Returns true if the object is an array.
          * @method isArray
-         * @param {object} obj
+         * @param {any} obj
          * @returns {boolean} True if the object is an array, otherwise false
          */
-        static isArray(obj: object): boolean;
+        static isArray(obj: any): boolean;
 
         /**
          * Returns true if the object is a function.
          * @method isFunction
-         * @param {object} obj
+         * @param {any} obj
          * @returns {boolean} True if the object is a function, otherwise false
          */
-        static isFunction(obj: object): boolean;
+        static isFunction(obj: any): boolean;
 
         /**
          * Returns true if the object is a plain object.
          * @method isPlainObject
-         * @param {object} obj
+         * @param {any} obj
          * @returns {boolean} True if the object is a plain object, otherwise false
          */
-        static isPlainObject(obj: object): boolean;
+        static isPlainObject(obj: any): boolean;
 
         /**
          * Returns true if the object is a string.
          * @method isString
-         * @param {object} obj
+         * @param {any} obj
          * @returns {boolean} True if the object is a string, otherwise false
          */
-        static isString(obj: object): boolean;
+        static isString(obj: any): boolean;
 
         /**
          * Returns the given value clamped between a minimum and maximum value.
@@ -3884,10 +3884,10 @@ declare namespace Matter {
          * A cross browser compatible indexOf implementation.
          * @method indexOf
          * @param {array} haystack
-         * @param {object} needle
+         * @param {any} needle
          * @returns {number} The position of needle in haystack, otherwise -1.
          */
-        static indexOf(haystack: Array<any>, needle: object): number;
+        static indexOf(haystack: Array<any>, needle: any): number;
 
         /**
          * A cross browser compatible array map implementation.
@@ -3902,10 +3902,10 @@ declare namespace Matter {
          * Takes a directed graph and returns the partially ordered set of vertices in topological order.
          * Circular dependencies are allowed.
          * @method topologicalSort
-         * @param {object} graph
+         * @param {any} graph
          * @returns {array} Partially ordered set of vertices in topological order.
          */
-        static topologicalSort(graph: object): Array<any>;
+        static topologicalSort(graph: any): Array<any>;
 
         /**
          * Takes _n_ functions as arguments and returns a new function that calls them in order.
@@ -3929,7 +3929,7 @@ declare namespace Matter {
          * @param {function} func The function to chain before the original
          * @returns {function} The chained function that replaced the original
          */
-        static chainPathBefore(base: object, path: string, func: Function): Function;
+        static chainPathBefore(base: any, path: string, func: Function): Function;
 
         /**
          * Chains a function to excute after the original function on the given `path` relative to `base`.
@@ -3940,7 +3940,7 @@ declare namespace Matter {
          * @param {function} func The function to chain after the original
          * @returns {function} The chained function that replaced the original
          */
-        static chainPathAfter(base: object, path: string, func: Function): Function;
+        static chainPathAfter(base: any, path: string, func: Function): Function;
 
         /**
          * Used to require external libraries outside of the bundle.
@@ -3966,7 +3966,7 @@ declare namespace Matter {
          * The target function will be replaced with a new function that first shows the warning
          * and then calls the original function.
          * @method deprecated
-         * @param {object} obj The object or module
+         * @param {any} obj The object or module
          * @param {string} name The property name of the function on obj
          * @param {string} warning The one-time message to show if the function is called
          */
@@ -4282,7 +4282,7 @@ declare namespace Matter {
          * Registers a plugin object so it can be resolved later by name.
          * @method register
          * @param {} plugin The plugin to register.
-         * @returns {object} The plugin.
+         * @returns {any} The plugin.
          */
         static register(plugin: Plugin): Plugin;
 
@@ -4291,7 +4291,7 @@ declare namespace Matter {
          * The `dependency` may contain a version, but only the name matters when resolving.
          * @method resolve
          * @param {string} dependency The dependency.
-         * @returns {object} The plugin if resolved, otherwise `undefined`.
+         * @returns {any} The plugin if resolved, otherwise `undefined`.
          */
         static resolve(dependency: string): Plugin | undefined;
 
@@ -4302,7 +4302,7 @@ declare namespace Matter {
          * - `version`
          * - `install`
          * @method isPlugin
-         * @param {} obj The obj to test.
+         * @param {any} obj The obj to test.
          * @returns {boolean} `true` if the object can be considered a plugin otherwise `false`.
          */
         static isPlugin(obj: {}): boolean;
@@ -4351,7 +4351,7 @@ declare namespace Matter {
          * Recursively finds all of a module's dependencies and returns a flat dependency graph.
          * @method dependencies
          * @param {Dependency} module The module.
-         * @returns {object} A dependency graph.
+         * @returns {any} A dependency graph.
          */
         static dependencies(
             module: Dependency,
@@ -4365,7 +4365,7 @@ declare namespace Matter {
          * This function can also handle dependencies that are already resolved (e.g. a module object).
          * @method dependencyParse
          * @param {Dependency} dependency The dependency of the format `'module-name'` or `'module-name@version'`.
-         * @returns {object} The dependency parsed into its components.
+         * @returns {any} The dependency parsed into its components.
          */
         static dependencyParse(dependency: Dependency): { name: string; range: string };
 
@@ -4381,7 +4381,7 @@ declare namespace Matter {
          * - Any version `*`
          * @method versionParse
          * @param range {string} The version string.
-         * @returns {object} The version range parsed into its components.
+         * @returns {any} The version range parsed into its components.
          */
         static versionParse(range: string): {
             isRange: boolean;
