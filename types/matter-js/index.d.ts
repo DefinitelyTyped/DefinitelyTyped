@@ -30,7 +30,7 @@ declare namespace Matter {
         /**
          * Creates a new set of axes from the given vertices.
          * @method fromVertices
-         * @param {vertices} vertices
+         * @param {Vertices} vertices
          * @return {axes} A new axes from the given vertices
          */
         static fromVertices(vertices: Array<Vector>): Array<Vector>;
@@ -73,7 +73,7 @@ declare namespace Matter {
          * @param {number} radius
          * @param {object} [options]
          * @param {number} [maxSides]
-         * @return {body} A new circle body
+         * @return {Body} A new circle body
          */
         static circle(x: number, y: number, radius: number, options?: IBodyDefinition, maxSides?: number): Body;
 
@@ -87,7 +87,7 @@ declare namespace Matter {
          * @param {number} sides
          * @param {number} radius
          * @param {object} [options]
-         * @return {body} A new regular polygon body
+         * @return {Body} A new regular polygon body
          */
         static polygon(x: number, y: number, sides: number, radius: number, options?: IChamferableBodyDefinition): Body;
 
@@ -101,7 +101,7 @@ declare namespace Matter {
          * @param {number} width
          * @param {number} height
          * @param {object} [options]
-         * @return {body} A new rectangle body
+         * @return {Body} A new rectangle body
          */
         static rectangle(x: number, y: number, width: number, height: number, options?: IChamferableBodyDefinition): Body;
 
@@ -116,7 +116,7 @@ declare namespace Matter {
          * @param {number} height
          * @param {number} slope
          * @param {object} [options]
-         * @return {body} A new trapezoid body
+         * @return {Body} A new trapezoid body
          */
         static trapezoid(x: number, y: number, width: number, height: number, slope: number, options?: IChamferableBodyDefinition): Body;
         /**
@@ -134,11 +134,11 @@ declare namespace Matter {
         * @param {number} y
         * @param {Vertex[][]} vertexSets
         * @param {object} [options]
-        * @param {bool} [flagInternal=false]
+        * @param {boolean} [flagInternal=false]
         * @param {number} [removeCollinear=0.01]
         * @param {number} [minimumArea=10]
         * @param {number} [removeDuplicatePoints=0.01]
-        * @return {body}
+        * @return {Body}
         */
         static fromVertices(x: number, y: number, vertexSets: Array<Array<Vertex>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number, removeDuplicatePoints?: number): Body;
     }
@@ -148,7 +148,7 @@ declare namespace Matter {
          * A `Number` specifying the angle of the body, in radians.
          *
         * @property angle
-        * @type number
+        * @type {number | undefined}
         * @default 0
         */
         angle?: number | undefined;
@@ -157,7 +157,7 @@ declare namespace Matter {
          *
         * @readOnly
         * @property angularSpeed
-        * @type number
+        * @type {number | undefined}
         * @default 0
         */
         angularSpeed?: number | undefined;
@@ -167,7 +167,7 @@ declare namespace Matter {
          *
         * @readOnly
         * @property angularVelocity
-        * @type number
+        * @type {number | undefined}
         * @default 0
         */
         angularVelocity?: number | undefined;
@@ -175,7 +175,7 @@ declare namespace Matter {
          * A `Number` that _measures_ the area of the body's convex hull, calculated at creation by `Body.create`.
          *
         * @property area
-        * @type string
+        * @type {string | undefined}
         * @default
         */
         area?: number | undefined;
@@ -185,7 +185,7 @@ declare namespace Matter {
          * They are constantly updated by `Body.update` during the simulation.
          *
         * @property axes
-        * @type vector[]
+        * @type {Vector[] | undefined}
         */
         axes?: Array<Vector> | undefined;
         /**
@@ -193,7 +193,7 @@ declare namespace Matter {
          * It is automatically calculated from the given convex hull (`vertices` array) in `Body.create` and constantly updated by `Body.update` during simulation.
          *
         * @property bounds
-        * @type bounds
+        * @type {Bounds | undefined}
         */
         bounds?: Bounds | undefined;
         /**
@@ -202,7 +202,7 @@ declare namespace Matter {
          * This is generally preferable to simply setting mass and allows for more intuitive definition of materials (e.g. rock has a higher density than wood).
          *
         * @property density
-        * @type number
+        * @type {number | undefined}
         * @default 0.001
         */
         density?: number | undefined;
@@ -210,7 +210,7 @@ declare namespace Matter {
          * A `Vector` that specifies the force to apply in the current step. It is zeroed after every `Body.update`. See also `Body.applyForce`.
         *
         * @property force
-        * @type vector
+        * @type {Vector | undefined}
         * @default { x: 0, y: 0 }
         */
         force?: Vector | undefined;
@@ -227,7 +227,7 @@ declare namespace Matter {
         *     Math.min(bodyA.friction, bodyB.friction)
         *
         * @property friction
-        * @type number
+        * @type {number | undefined}
         * @default 0.1
         */
         friction?: number | undefined;
@@ -238,7 +238,7 @@ declare namespace Matter {
          * The effects of the value are non-linear.
          *
         * @property frictionAir
-        * @type number
+        * @type {number | undefined}
         * @default 0.01
         */
         frictionAir?: number | undefined;
@@ -246,7 +246,7 @@ declare namespace Matter {
          * An integer `Number` uniquely identifying number generated in `Body.create` by `Common.nextId`.
          *
         * @property id
-        * @type number
+        * @type {number | undefined}
         */
         id?: number | undefined;
         /**
@@ -255,7 +255,7 @@ declare namespace Matter {
          * If you modify this value, you must also modify the `body.inverseInertia` property (`1 / inertia`).
          *
         * @property inertia
-        * @type number
+        * @type {number | undefined}
         */
         inertia?: number | undefined;
         /**
@@ -263,7 +263,7 @@ declare namespace Matter {
          * If you modify this value, you must also modify the `body.inertia` property.
          *
         * @property inverseInertia
-        * @type number
+        * @type {number | undefined}
         */
         inverseInertia?: number | undefined;
         /**
@@ -271,14 +271,14 @@ declare namespace Matter {
          * If you modify this value, you must also modify the `body.mass` property.
          *
         * @property inverseMass
-        * @type number
+        * @type {number | undefined}
         */
         inverseMass?: number | undefined;
         /**
          * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
          *
          * @property isSensor
-         * @type boolean
+         * @type {boolean | undefined}
          * @default false
          */
         isSensor?: boolean | undefined;
@@ -287,7 +287,7 @@ declare namespace Matter {
          * If you need to set a body as sleeping, you should use `Sleeping.set` as this requires more than just setting this flag.
          *
         * @property isSleeping
-        * @type boolean
+        * @type {boolean | undefined}
         * @default false
         */
         isSleeping?: boolean | undefined;
@@ -296,7 +296,7 @@ declare namespace Matter {
          * If you need to set a body as static after its creation, you should use `Body.setStatic` as this requires more than just setting this flag.
          *
         * @property isStatic
-        * @type boolean
+        * @type {boolean | undefined}
         * @default false
         */
         isStatic?: boolean | undefined;
@@ -304,7 +304,7 @@ declare namespace Matter {
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
         * @property label
-        * @type string
+        * @type {string | undefined}
         * @default "Body"
         */
 
@@ -314,7 +314,7 @@ declare namespace Matter {
          * If you modify this value, you must also modify the `body.inverseMass` property (`1 / mass`).
          *
         * @property mass
-        * @type number
+        * @type {number | undefined}
         */
         mass?: number | undefined;
         /**
@@ -323,7 +323,7 @@ declare namespace Matter {
         *
         * @readOnly
         * @property motion
-        * @type number
+        * @type {number | undefined}
         * @default 0
         */
         motion?: number | undefined;
@@ -331,21 +331,22 @@ declare namespace Matter {
          * An object reserved for storing plugin-specific properties.
          *
          * @property plugin
-         * @type {}
+         * @type {{}}
          */
         plugin?: any;
         /**
          * A `Vector` that specifies the current world-space position of the body.
          *
         * @property position
-        * @type vector
-        * @default { x: 0, y:      */
+        * @type {Vector | undefined}
+        * @default { x: 0, y: 0 }
+        */
         position?: Vector | undefined;
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
         *
         * @property render
-        * @type object
+        * @type {IBodyRenderOptions | undefined}
         */
         render?: IBodyRenderOptions | undefined;
         /**
@@ -357,7 +358,7 @@ declare namespace Matter {
         *     Math.max(bodyA.restitution, bodyB.restitution)
         *
         * @property restitution
-        * @type number
+        * @type {number | undefined}
         * @default 0
         */
         restitution?: number | undefined;
@@ -365,7 +366,7 @@ declare namespace Matter {
          * A `Number` that defines the number of updates in which this body must have near-zero velocity before it is set as sleeping by the `Matter.Sleeping` module (if sleeping is enabled by the engine).
          *
         * @property sleepThreshold
-        * @type number
+        * @type {number | undefined}
         * @default 60
         */
         sleepThreshold?: number | undefined;
@@ -375,7 +376,7 @@ declare namespace Matter {
          * The default should generally suffice, although very large bodies may require larger values for stable stacking.
          *
         * @property slop
-        * @type number
+        * @type {number | undefined}
         * @default 0.05
         */
         slop?: number | undefined;
@@ -384,7 +385,7 @@ declare namespace Matter {
          *
         * @readOnly
         * @property speed
-        * @type number
+        * @type {number | undefined}
         * @default 0
         */
         speed?: number | undefined;
@@ -392,7 +393,7 @@ declare namespace Matter {
          * A `Number` that allows per-body time scaling, e.g. a force-field where bodies inside are in slow-motion, while others are at full speed.
         *
         * @property timeScale
-        * @type number
+        * @type {number | undefined}
         * @default 1
         */
         timeScale?: number | undefined;
@@ -400,7 +401,7 @@ declare namespace Matter {
          * A `Number` that specifies the torque (turning force) to apply in the current step. It is zeroed after every `Body.update`.
         *
         * @property torque
-        * @type number
+        * @type {number | undefined}
         * @default 0
         */
         torque?: number | undefined;
@@ -408,7 +409,7 @@ declare namespace Matter {
          * A `String` denoting the type of object.
         *
         * @property type
-        * @type string
+        * @type {string | undefined}
         * @default "body"
         */
         type?: string | undefined;
@@ -435,7 +436,7 @@ declare namespace Matter {
         * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
         *
         * @property vertices
-        * @type vector[]
+        * @type {Vector[] | undefined}
         */
         vertices?: Array<Vector> | undefined;
         /**
@@ -447,7 +448,7 @@ declare namespace Matter {
          * Use `Body.setParts` when setting parts to ensure correct updates of all properties.
          *
         * @property parts
-        * @type body[]
+        * @type {Body[] | undefined}
         */
         parts?: Array<Body> | undefined;
         /**
@@ -456,7 +457,7 @@ declare namespace Matter {
          * See `body.parts`.
          *
         * @property parent
-        * @type body
+        * @type {Body | undefined}
         */
         parent?: Body | undefined;
         /**
@@ -466,7 +467,7 @@ declare namespace Matter {
          * This value is multiplied with the `friction` property to make it easier to change `friction` and maintain an appropriate amount of static friction.
          *
         * @property frictionStatic
-        * @type number
+        * @type {number | undefined}
         * @default 0.5
         */
         frictionStatic?: number | undefined;
@@ -493,7 +494,7 @@ declare namespace Matter {
         * are both true.
         *
         * @property collisionFilter
-        * @type object
+        * @type {ICollisionFilter | undefined}
         */
         collisionFilter?: ICollisionFilter | undefined;
 
@@ -505,7 +506,7 @@ declare namespace Matter {
          * A flag that indicates if the body should be rendered.
          *
         * @property render.visible
-        * @type boolean
+        * @type {boolean | undefined}
         * @default true
         */
         visible?: boolean | undefined;
@@ -514,7 +515,7 @@ declare namespace Matter {
          * An `Object` that defines the sprite properties to use when rendering, if any.
          *
         * @property render.sprite
-        * @type object
+        * @type {IBodyRenderOptionsSprite | undefined}
         */
         sprite?: IBodyRenderOptionsSprite | undefined;
 
@@ -548,7 +549,7 @@ declare namespace Matter {
          * An `String` that defines the path to the image to use as the sprite texture, if any.
          *
         * @property render.sprite.texture
-        * @type string
+        * @type {string}
         */
         texture: string;
 
@@ -556,7 +557,7 @@ declare namespace Matter {
          * A `Number` that defines the scaling in the x-axis for the sprite, if any.
          *
         * @property render.sprite.xScale
-        * @type number
+        * @type {number}
         * @default 1
         */
         xScale: number;
@@ -565,7 +566,7 @@ declare namespace Matter {
          * A `Number` that defines the scaling in the y-axis for the sprite, if any.
          *
         * @property render.sprite.yScale
-        * @type number
+        * @type {number}
         * @default 1
         */
         yScale: number;
@@ -584,9 +585,9 @@ declare namespace Matter {
         /**
          * Applies a force to a body from a given world-space position, including resulting torque.
          * @method applyForce
-         * @param {body} body
-         * @param {vector} position
-         * @param {vector} force
+         * @param {Body} body
+         * @param {Vector} position
+         * @param {Vector} force
          */
         static applyForce(body: Body, position: Vector, force: Vector): void;
 
@@ -596,13 +597,13 @@ declare namespace Matter {
          * See the properties section below for detailed information on what you can pass via the `options` object.
          * @method create
          * @param {} options
-         * @return {body} body
+         * @return {Body} body
          */
         static create(options: IBodyDefinition): Body;
         /**
          * Rotates a body by a given angle relative to its current angle, without imparting any angular velocity.
          * @method rotate
-         * @param {body} body
+         * @param {Body} body
          * @param {number} rotation
          */
         static rotate(body: Body, rotation: number): void;
@@ -611,7 +612,7 @@ declare namespace Matter {
          * If `isNonColliding` is `true`, returns the next unique group index for which bodies will _not_ collide.
          * See `body.collisionFilter` for more information.
          * @method nextGroup
-         * @param {bool} [isNonColliding=false]
+         * @param {boolean} [isNonColliding=false]
          * @return {Number} Unique group index
          */
         static nextGroup(isNonColliding: boolean): number;
@@ -626,7 +627,7 @@ declare namespace Matter {
          * Given a property and a value (or map of), sets the property(s) on the body, using the appropriate setter functions if they exist.
          * Prefer to use the actual setter functions in performance critical situations.
          * @method set
-         * @param {body} body
+         * @param {Body} body
          * @param {} settings A property name (or map of properties and values) to set on the body.
          * @param {} value The value to set if `settings` is a single property name.
          */
@@ -634,14 +635,14 @@ declare namespace Matter {
         /**
          * Sets the mass of the body. Inverse mass and density are automatically updated to reflect the change.
          * @method setMass
-         * @param {body} body
+         * @param {Body} body
          * @param {number} mass
          */
         static setMass(body: Body, mass: number): void;
         /**
          * Sets the density of the body. Mass is automatically updated to reflect the change.
          * @method setDensity
-         * @param {body} body
+         * @param {Body} body
          * @param {number} density
          */
         static setDensity(body: Body, density: number): void;
@@ -649,7 +650,7 @@ declare namespace Matter {
          * Sets the moment of inertia (i.e. second moment of area) of the body of the body.
          * Inverse inertia is automatically updated to reflect the change. Mass is not changed.
          * @method setInertia
-         * @param {body} body
+         * @param {Body} body
          * @param {number} inertia
          */
         static setInertia(body: Body, interna: number): void;
@@ -662,7 +663,7 @@ declare namespace Matter {
         * Vertices must form a convex hull, concave hulls are not supported.
         *
         * @method setVertices
-        * @param {body} body
+        * @param {Body} body
         * @param {vector[]} vertices
         */
         static setVertices(body: Body, vertices: Array<Vector>): void;
@@ -672,9 +673,9 @@ declare namespace Matter {
          * By default the convex hull will be automatically computed and set on `body`, unless `autoHull` is set to `false.`
          * Note that this method will ensure that the first part in `body.parts` will always be the `body`.
          * @method setParts
-         * @param {body} body
+         * @param {Body} body
          * @param [body] parts
-         * @param {bool} [autoHull=true]
+         * @param {boolean} [autoHull=true]
          */
         static setParts(body: Body, parts: Body[], autoHull?: boolean): void;
         /**
@@ -692,28 +693,28 @@ declare namespace Matter {
         /**
          * Sets the position of the body instantly. Velocity, angle, force etc. are unchanged.
          * @method setPosition
-         * @param {body} body
-         * @param {vector} position
+         * @param {Body} body
+         * @param {Vector} position
          */
         static setPosition(body: Body, position: Vector): void;
         /**
          * Sets the angle of the body instantly. Angular velocity, position, force etc. are unchanged.
          * @method setAngle
-         * @param {body} body
+         * @param {Body} body
          * @param {number} angle
          */
         static setAngle(body: Body, angle: number): void;
         /**
          * Sets the linear velocity of the body instantly. Position, angle, force etc. are unchanged. See also `Body.applyForce`.
          * @method setVelocity
-         * @param {body} body
-         * @param {vector} velocity
+         * @param {Body} body
+         * @param {Vector} velocity
          */
         static setVelocity(body: Body, velocity: Vector): void;
         /**
          * Sets the angular velocity of the body instantly. Position, angle, force etc. are unchanged. See also `Body.applyForce`.
          * @method setAngularVelocity
-         * @param {body} body
+         * @param {Body} body
          * @param {number} velocity
          */
         static setAngularVelocity(body: Body, velocity: number): void;
@@ -723,33 +724,33 @@ declare namespace Matter {
         /**
          * Sets the body as static, including isStatic flag and setting mass and inertia to Infinity.
          * @method setStatic
-         * @param {body} body
-         * @param {bool} isStatic
+         * @param {Body} body
+         * @param {boolean} isStatic
          */
         static setStatic(body: Body, isStatic: boolean): void;
 
         /**
          * Scales the body, including updating physical properties (mass, area, axes, inertia), from a world-space point (default is body centre).
          * @method scale
-         * @param {body} body
+         * @param {Body} body
          * @param {number} scaleX
          * @param {number} scaleY
-         * @param {vector} [point]
+         * @param {Vector} [point]
          */
         static scale(body: Body, scaleX: number, scaleY: number, point?: Vector): void;
 
         /**
          * Moves a body by a given vector relative to its current position, without imparting any velocity.
          * @method translate
-         * @param {body} body
-         * @param {vector} translation
+         * @param {Body} body
+         * @param {Vector} translation
          */
         static translate(body: Body, translation: Vector): void;
 
         /**
          * Performs a simulation step for the given `body`, including updating position and angle using Verlet integration.
          * @method update
-         * @param {body} body
+         * @param {Body} body
          * @param {number} deltaTime
          * @param {number} timeScale
          * @param {number} correction
@@ -760,7 +761,7 @@ declare namespace Matter {
          * A `Number` specifying the angle of the body, in radians.
          *
         * @property angle
-        * @type number
+        * @type {number}
         * @default 0
         */
         angle: number;
@@ -769,7 +770,7 @@ declare namespace Matter {
          *
         * @readOnly
         * @property angularSpeed
-        * @type number
+        * @type {number}
         * @default 0
         */
         angularSpeed: number;
@@ -779,7 +780,7 @@ declare namespace Matter {
          *
         * @readOnly
         * @property angularVelocity
-        * @type number
+        * @type {number}
         * @default 0
         */
         angularVelocity: number;
@@ -787,7 +788,7 @@ declare namespace Matter {
          * A `Number` that _measures_ the area of the body's convex hull, calculated at creation by `Body.create`.
          *
         * @property area
-        * @type string
+        * @type {number}
         * @default
         */
         area: number;
@@ -797,7 +798,7 @@ declare namespace Matter {
          * They are constantly updated by `Body.update` during the simulation.
          *
         * @property axes
-        * @type vector[]
+        * @type {Vector[]}
         */
         axes: Array<Vector>;
         /**
@@ -805,7 +806,7 @@ declare namespace Matter {
          * It is automatically calculated from the given convex hull (`vertices` array) in `Body.create` and constantly updated by `Body.update` during simulation.
          *
         * @property bounds
-        * @type bounds
+        * @type {Bounds}
         */
         bounds: Bounds;
         /**
@@ -813,6 +814,7 @@ declare namespace Matter {
          * May have a value of `null` if the body is no longer a circle (i.e. was scaled with a scaleX != scaleY).
          *
          * @property circleRadius
+         * @type {number  | undefined}
          * @default 0
          */
         circleRadius?: number | undefined;
@@ -822,7 +824,7 @@ declare namespace Matter {
          * This is generally preferable to simply setting mass and allows for more intuitive definition of materials (e.g. rock has a higher density than wood).
          *
         * @property density
-        * @type number
+        * @type {number}
         * @default 0.001
         */
         density: number;
@@ -830,7 +832,7 @@ declare namespace Matter {
          * A `Vector` that specifies the force to apply in the current step. It is zeroed after every `Body.update`. See also `Body.applyForce`.
         *
         * @property force
-        * @type vector
+        * @type {Vector}
         * @default { x: 0, y: 0 }
         */
         force: Vector;
@@ -847,7 +849,7 @@ declare namespace Matter {
         *     Math.min(bodyA.friction, bodyB.friction)
         *
         * @property friction
-        * @type number
+        * @type {number}
         * @default 0.1
         */
         friction: number;
@@ -858,7 +860,7 @@ declare namespace Matter {
          * The effects of the value are non-linear.
          *
         * @property frictionAir
-        * @type number
+        * @type {number}
         * @default 0.01
         */
         frictionAir: number;
@@ -866,7 +868,7 @@ declare namespace Matter {
          * An integer `Number` uniquely identifying number generated in `Body.create` by `Common.nextId`.
          *
         * @property id
-        * @type number
+        * @type {number}
         */
         id: number;
         /**
@@ -875,7 +877,7 @@ declare namespace Matter {
          * If you modify this value, you must also modify the `body.inverseInertia` property (`1 / inertia`).
          *
         * @property inertia
-        * @type number
+        * @type {number}
         */
         inertia: number;
         /**
@@ -883,7 +885,7 @@ declare namespace Matter {
          * If you modify this value, you must also modify the `body.inertia` property.
          *
         * @property inverseInertia
-        * @type number
+        * @type {number}
         */
         inverseInertia: number;
         /**
@@ -891,7 +893,7 @@ declare namespace Matter {
          * If you modify this value, you must also modify the `body.mass` property.
          *
         * @property inverseMass
-        * @type number
+        * @type {number}
         */
         inverseMass: number;
         /**
@@ -899,7 +901,7 @@ declare namespace Matter {
          * If you need to set a body as sleeping, you should use `Sleeping.set` as this requires more than just setting this flag.
          *
         * @property isSleeping
-        * @type boolean
+        * @type {boolean}
         * @default false
         */
         isSleeping: boolean;
@@ -908,7 +910,7 @@ declare namespace Matter {
          * If you need to set a body as static after its creation, you should use `Body.setStatic` as this requires more than just setting this flag.
          *
         * @property isStatic
-        * @type boolean
+        * @type {boolean}
         * @default false
         */
         isStatic: boolean;
@@ -916,7 +918,7 @@ declare namespace Matter {
          * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
          *
         * @property isSensor
-        * @type boolean
+        * @type {boolean}
         * @default false
         */
         isSensor: boolean;
@@ -924,35 +926,36 @@ declare namespace Matter {
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
         * @property label
-        * @type string
+        * @type {string}
         * @default "Body"
         */
 
         label: string;
         /**
-         * A `Number` that defines the mass of the body, although it may be more appropriate to specify the `density` property instead.
-         * If you modify this value, you must also modify the `body.inverseMass` property (`1 / mass`).
-         *
+        * A `Number` that defines the mass of the body, although it may be more appropriate to specify the `density` property instead.
+        * If you modify this value, you must also modify the `body.inverseMass` property (`1 / mass`).
+        *
         * @property mass
-        * @type number
+        * @type {number}
         */
         mass: number;
         /**
-         * A `Number` that _measures_ the amount of movement a body currently has (a combination of `speed` and `angularSpeed`). It is read-only and always positive.
+        * A `Number` that _measures_ the amount of movement a body currently has (a combination of `speed` and `angularSpeed`). It is read-only and always positive.
         * It is used and updated by the `Matter.Sleeping` module during simulation to decide if a body has come to rest.
         *
         * @readOnly
         * @property motion
-        * @type number
+        * @type {number}
         * @default 0
         */
         motion: number;
         /**
-         * A `Vector` that specifies the current world-space position of the body.
-         *
+        * A `Vector` that specifies the current world-space position of the body.
+        *
         * @property position
-        * @type vector
-        * @default { x: 0, y:      */
+        * @type {Vector}
+        * @default { x: 0, y: 0 }
+        */
         position: Vector;
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
@@ -962,15 +965,15 @@ declare namespace Matter {
         */
         render: IBodyRenderOptions;
         /**
-         * A `Number` that defines the restitution (elasticity) of the body. The value is always positive and is in the range `(0, 1)`.
-         * A value of `0` means collisions may be perfectly inelastic and no bouncing may occur.
-         * A value of `0.8` means the body may bounce back with approximately 80% of its kinetic energy.
-         * Note that collision response is based on _pairs_ of bodies, and that `restitution` values are _combined_ with the following formula:
-         *
+        * A `Number` that defines the restitution (elasticity) of the body. The value is always positive and is in the range `(0, 1)`.
+        * A value of `0` means collisions may be perfectly inelastic and no bouncing may occur.
+        * A value of `0.8` means the body may bounce back with approximately 80% of its kinetic energy.
+        * Note that collision response is based on _pairs_ of bodies, and that `restitution` values are _combined_ with the following formula:
+        *
         *     Math.max(bodyA.restitution, bodyB.restitution)
         *
         * @property restitution
-        * @type number
+        * @type {number}
         * @default 0
         */
         restitution: number;
@@ -978,7 +981,7 @@ declare namespace Matter {
          * A `Number` that defines the number of updates in which this body must have near-zero velocity before it is set as sleeping by the `Matter.Sleeping` module (if sleeping is enabled by the engine).
          *
         * @property sleepThreshold
-        * @type number
+        * @type {number}
         * @default 60
         */
         sleepThreshold: number;
@@ -988,7 +991,7 @@ declare namespace Matter {
          * The default should generally suffice, although very large bodies may require larger values for stable stacking.
          *
         * @property slop
-        * @type number
+        * @type {number}
         * @default 0.05
         */
         slop: number;
@@ -997,7 +1000,7 @@ declare namespace Matter {
          *
         * @readOnly
         * @property speed
-        * @type number
+        * @type {number}
         * @default 0
         */
         speed: number;
@@ -1005,7 +1008,7 @@ declare namespace Matter {
          * A `Number` that allows per-body time scaling, e.g. a force-field where bodies inside are in slow-motion, while others are at full speed.
         *
         * @property timeScale
-        * @type number
+        * @type {number}
         * @default 1
         */
         timeScale: number;
@@ -1013,7 +1016,7 @@ declare namespace Matter {
          * A `Number` that specifies the torque (turning force) to apply in the current step. It is zeroed after every `Body.update`.
         *
         * @property torque
-        * @type number
+        * @type {number}
         * @default 0
         */
         torque: number;
@@ -1021,7 +1024,7 @@ declare namespace Matter {
          * A `String` denoting the type of object.
         *
         * @property type
-        * @type string
+        * @type {string}
         * @default "body"
         */
         type: string;
@@ -1031,7 +1034,7 @@ declare namespace Matter {
          *
         * @readOnly
         * @property velocity
-        * @type vector
+        * @type {Vector}
         * @default { x: 0, y: 0 }
         */
         velocity: Vector;
@@ -1048,7 +1051,7 @@ declare namespace Matter {
         * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
         *
         * @property vertices
-        * @type vector[]
+        * @type {Vector[]}
         */
         vertices: Array<Vector>;
         /**
@@ -1060,7 +1063,7 @@ declare namespace Matter {
          * Use `Body.setParts` when setting parts to ensure correct updates of all properties.
          *
         * @property parts
-        * @type body[]
+        * @type {Body[]}
         */
         parts: Array<Body>;
         /**
@@ -1069,7 +1072,7 @@ declare namespace Matter {
          * See `body.parts`.
          *
         * @property parent
-        * @type body
+        * @type {Body}
         */
         parent: Body;
         /**
@@ -1085,7 +1088,7 @@ declare namespace Matter {
          * This value is multiplied with the `friction` property to make it easier to change `friction` and maintain an appropriate amount of static friction.
          *
         * @property frictionStatic
-        * @type number
+        * @type {number}
         * @default 0.5
         */
         frictionStatic: number;
@@ -1112,7 +1115,7 @@ declare namespace Matter {
         * are both true.
         *
         * @property collisionFilter
-        * @type object
+        * @type {ICollisionFilter}
         */
         collisionFilter: ICollisionFilter;
 
@@ -1131,46 +1134,46 @@ declare namespace Matter {
         /**
          * Creates a new axis-aligned bounding box (AABB) for the given vertices.
          * @method create
-         * @param {vertices} vertices
-         * @return {bounds} A new bounds object
+         * @param {Vertices} vertices
+         * @return {Bounds} A new bounds object
          */
         static create(vertices: Vertices): Bounds;
         /**
          * Updates bounds using the given vertices and extends the bounds given a velocity.
          * @method update
-         * @param {bounds} bounds
-         * @param {vertices} vertices
-         * @param {vector} velocity
+         * @param {Bounds} bounds
+         * @param {Vertices} vertices
+         * @param {Vector} velocity
          */
         static update(bounds: Bounds, vertices: Vertices, velocity: Vector): void;
         /**
          * Returns true if the bounds contains the given point.
          * @method contains
-         * @param {bounds} bounds
-         * @param {vector} point
+         * @param {Bounds} bounds
+         * @param {Vector} point
          * @return {boolean} True if the bounds contain the point, otherwise false
          */
         static contains(bounds: Bounds, point: Vector): boolean;
         /**
          * Returns true if the two bounds intersect.
          * @method overlaps
-         * @param {bounds} boundsA
-         * @param {bounds} boundsB
+         * @param {Bounds} boundsA
+         * @param {Bounds} boundsB
          * @return {boolean} True if the bounds overlap, otherwise false
          */
         static overlaps(boundsA: Bounds, boundsB: Bounds): boolean;
         /**
         * Translates the bounds by the given vector.
         * @method translate
-        * @param {bounds} bounds
-        * @param {vector} vector
+        * @param {Bounds} bounds
+        * @param {Vector} vector
         */
         static translate(bounds: Bounds, vector: Vector): void;
         /**
          * Shifts the bounds to the given position.
          * @method shift
-         * @param {bounds} bounds
-         * @param {vector} position
+         * @param {Bounds} bounds
+         * @param {Vector} position
          */
         static shift(bounds: Bounds, position: Vector): void;
     }
@@ -1213,7 +1216,7 @@ declare namespace Matter {
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
          *
         * @property id
-        * @type number
+        * @type {number}
         */
         id?: number | undefined;
 
@@ -1223,7 +1226,7 @@ declare namespace Matter {
          * If you need to change it manually, you should use the `Composite.setModified` method.
          *
         * @property isModified
-        * @type boolean
+        * @type {boolean}
         * @default false
         */
         isModified?: boolean | undefined;
@@ -1232,7 +1235,7 @@ declare namespace Matter {
          * An arbitrary `String` name to help the user identify and manage composites.
          *
         * @property label
-        * @type string
+        * @type {string}
         * @default "Composite"
         */
         label?: string | undefined;
@@ -1250,7 +1253,7 @@ declare namespace Matter {
          * A `String` denoting the type of object.
          *
         * @property type
-        * @type string
+        * @type {string}
         * @default "composite"
         */
         type?: String | undefined;
@@ -1365,8 +1368,8 @@ declare namespace Matter {
          * without imparting any velocity.
          * @method translate
          * @param {composite} composite
-         * @param {vector} translation
-         * @param {bool} [recursive=true]
+         * @param {Vector} translation
+         * @param {boolean} [recursive=true]
          */
         static translate(composite: Composite, translation: Vector, recursive?: boolean): void;
         /**
@@ -1374,8 +1377,8 @@ declare namespace Matter {
          * @method rotate
          * @param {composite} composite
          * @param {number} rotation
-         * @param {vector} point
-         * @param {bool} [recursive=true]
+         * @param {Vector} point
+         * @param {boolean} [recursive=true]
          */
         static rotate(composite: Composite, rotation: number, point: Vector, recursive?: boolean): void;
         /**
@@ -1384,8 +1387,8 @@ declare namespace Matter {
          * @param {composite} composite
          * @param {number} scaleX
          * @param {number} scaleY
-         * @param {vector} point
-         * @param {bool} [recursive=true]
+         * @param {Vector} point
+         * @param {boolean} [recursive=true]
          */
         static scale(composite: Composite, scaleX: number, scaleY: number, point: Vector, recursive?: boolean): void;
 
@@ -1610,7 +1613,7 @@ declare namespace Matter {
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
          *
         * @property id
-        * @type number
+        * @type {number}
         */
         id?: number | undefined;
 
@@ -1618,7 +1621,7 @@ declare namespace Matter {
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
         * @property label
-        * @type string
+        * @type {string}
         * @default "Constraint"
         */
         label?: string | undefined;
@@ -1628,7 +1631,7 @@ declare namespace Matter {
          * It is calculated automatically in `Constraint.create` from initial positions of the `constraint.bodyA` and `constraint.bodyB`.
          *
         * @property length
-        * @type number
+        * @type {number}
         */
         length?: number | undefined;
 
@@ -1664,7 +1667,7 @@ declare namespace Matter {
          * A value of `0.2` means the constraint acts like a soft spring.
          *
         * @property stiffness
-        * @type number
+        * @type {number}
         * @default 1
         */
         stiffness?: number | undefined;
@@ -1677,7 +1680,7 @@ declare namespace Matter {
          * A value of `0` means the constraint will apply no damping.
          *
          * @property damping
-         * @type number
+         * @type {number}
          * @default 0
          */
         damping?: number | undefined;
@@ -1686,7 +1689,7 @@ declare namespace Matter {
          * A `String` denoting the type of object.
          *
         * @property type
-        * @type string
+        * @type {string}
         * @default "constraint"
         */
         type?: string | undefined;
@@ -1698,7 +1701,7 @@ declare namespace Matter {
          * A value of `0` means no outline will be rendered.
          *
         * @property render.lineWidth
-        * @type number
+        * @type {number}
         * @default 2
         */
         lineWidth?: number | undefined;
@@ -1708,7 +1711,7 @@ declare namespace Matter {
          * It is the same as when using a canvas, so it accepts CSS style property values.
          *
         * @property render.strokeStyle
-        * @type string
+        * @type {string}
         * @default a random colour
         */
         strokeStyle?: string | undefined;
@@ -1717,7 +1720,7 @@ declare namespace Matter {
          * A flag that indicates if the constraint should be rendered.
          *
         * @property render.visible
-        * @type boolean
+        * @type {boolean}
         * @default true
         */
         visible?: boolean | undefined;
@@ -1726,7 +1729,7 @@ declare namespace Matter {
          * A `Boolean` that defines if the constraint's anchor points should be rendered.
          *
         * @property render.anchors
-        * @type boolean
+        * @type {boolean}
         * @default true
         */
         anchors?: boolean | undefined;
@@ -1737,7 +1740,7 @@ declare namespace Matter {
          * chosen unless one is given in options.
          *
         * @property render.type
-        * @type string
+        * @type {string}
         * @default 'line'
         */
         type?: 'line' | 'pin' | 'spring' | undefined;
@@ -1769,7 +1772,7 @@ declare namespace Matter {
          * Returns the world-space position of `constraint.pointA`, accounting for `constraint.bodyA`.
          * @method pointAWorld
          * @param {constraint} constraint
-         * @returns {vector} the world-space position
+         * @returns {Vector} the world-space position
          */
         static pointAWorld(constraint: Constraint): Vector;
 
@@ -1777,7 +1780,7 @@ declare namespace Matter {
          * Returns the world-space position of `constraint.pointB`, accounting for `constraint.bodyB`.
          * @method pointBWorld
          * @param {constraint} constraint
-         * @returns {vector} the world-space position
+         * @returns {Vector} the world-space position
          */
         static pointBWorld(constraint: Constraint): Vector;
 
@@ -1804,7 +1807,7 @@ declare namespace Matter {
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
          *
         * @property id
-        * @type number
+        * @type {number}
         */
         id: number;
 
@@ -1812,7 +1815,7 @@ declare namespace Matter {
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
         * @property label
-        * @type string
+        * @type {string}
         * @default "Constraint"
         */
         label: string;
@@ -1822,7 +1825,7 @@ declare namespace Matter {
          * It is calculated automatically in `Constraint.create` from initial positions of the `constraint.bodyA` and `constraint.bodyB`.
          *
         * @property length
-        * @type number
+        * @type {number}
         */
         length: number;
 
@@ -1858,7 +1861,7 @@ declare namespace Matter {
          * A value of `0.2` means the constraint acts like a soft spring.
          *
         * @property stiffness
-        * @type number
+        * @type {number}
         * @default 1
         */
         stiffness: number;
@@ -1871,7 +1874,7 @@ declare namespace Matter {
          * A value of `0` means the constraint will apply no damping.
          *
          * @property damping
-         * @type number
+         * @type {number}
          * @default 0
          */
         damping: number;
@@ -1880,7 +1883,7 @@ declare namespace Matter {
          * A `String` denoting the type of object.
          *
         * @property type
-        * @type string
+        * @type {string}
         * @default "constraint"
         */
         type: string;
@@ -1894,7 +1897,7 @@ declare namespace Matter {
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
         * @property positionIterations
-        * @type number
+        * @type {number}
         * @default 6
         */
         positionIterations?: number | undefined;
@@ -1903,7 +1906,7 @@ declare namespace Matter {
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
         * @property velocityIterations
-        * @type number
+        * @type {number}
         * @default 4
         */
         velocityIterations?: number | undefined;
@@ -1913,7 +1916,7 @@ declare namespace Matter {
          * The default value of `2` is usually very adequate.
          *
         * @property constraintIterations
-        * @type number
+        * @type {number}
         * @default 2
         */
         constraintIterations?: number | undefined;
@@ -1923,7 +1926,7 @@ declare namespace Matter {
          * Sleeping can improve stability and performance, but often at the expense of accuracy.
          *
         * @property enableSleeping
-        * @type boolean
+        * @type {boolean}
         * @default false
         */
         enableSleeping?: boolean | undefined;
@@ -1968,7 +1971,7 @@ declare namespace Matter {
          * A value of `1.2` gives a speed-up effect.
          *
          * @property timing.timeScale
-         * @type number
+         * @type {number}
          * @default 1
          */
         timeScale: number;
@@ -1978,7 +1981,7 @@ declare namespace Matter {
          * It is incremented on every `Engine.update` by the given `delta` argument.
          *
          * @property timing.timestamp
-         * @type number
+         * @type {number}
          * @default 0
          */
         timestamp: number;
@@ -1990,7 +1993,7 @@ declare namespace Matter {
          * This value will also include the total execution time of all event handlers directly or indirectly triggered by the engine update.
          *
          * @property timing.lastElapsed
-         * @type number
+         * @type {number}
          * @default 0
          */
         lastElapsed: number;
@@ -1999,7 +2002,7 @@ declare namespace Matter {
          * A `Number` that represents the `delta` value used in the last engine update.
          *
          * @property timing.lastDelta
-         * @type number
+         * @type {number}
          * @default 0
          */
         lastDelta: number;
@@ -2093,7 +2096,7 @@ declare namespace Matter {
          * The default value of `2` is usually very adequate.
          *
         * @property constraintIterations
-        * @type number
+        * @type {number}
         * @default 2
         */
         constraintIterations: number;
@@ -2108,7 +2111,7 @@ declare namespace Matter {
          * Sleeping can improve stability and performance, but often at the expense of accuracy.
          *
         * @property enableSleeping
-        * @type boolean
+        * @type {boolean}
         * @default false
         */
         enableSleeping: boolean;
@@ -2141,7 +2144,7 @@ declare namespace Matter {
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
         * @property positionIterations
-        * @type number
+        * @type {number}
         * @default 6
         */
         positionIterations: number;
@@ -2172,7 +2175,7 @@ declare namespace Matter {
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
         * @property velocityIterations
-        * @type number
+        * @type {number}
         * @default 4
         */
         velocityIterations: number;
@@ -2228,7 +2231,7 @@ declare namespace Matter {
          * The width of a single grid bucket.
          *
         * @property type
-        * @type number
+        * @type {number}
         */
         bucketWidth: number;
 
@@ -2236,7 +2239,7 @@ declare namespace Matter {
          * The height of a single grid bucket.
          *
         * @property type
-        * @type number
+        * @type {number}
         */
         bucketHeight: number;
     }
@@ -2282,7 +2285,7 @@ declare namespace Matter {
          * A `String` denoting the type of object.
          *
         * @property type
-        * @type string
+        * @type {string}
         * @default "constraint"
         */
 
@@ -2349,7 +2352,7 @@ declare namespace Matter {
          * A `String` denoting the type of object.
          *
         * @property type
-        * @type string
+        * @type {string}
         * @default "constraint"
         */
 
@@ -2434,7 +2437,7 @@ declare namespace Matter {
         /**
         * Finds a list of collisions between body and bodies.
         * @method collides
-        * @param {body} body
+        * @param {Body} body
         * @param {body[]} bodies
         * @return {object[]} Collisions
         */
@@ -2444,8 +2447,8 @@ declare namespace Matter {
          * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
          * @method ray
          * @param {body[]} bodies
-         * @param {vector} startPoint
-         * @param {vector} endPoint
+         * @param {Vector} startPoint
+         * @param {Vector} endPoint
          * @param {number} [rayWidth]
          * @return {object[]} Collisions
          */
@@ -2455,8 +2458,8 @@ declare namespace Matter {
          * Returns all bodies whose bounds are inside (or outside if set) the given set of bounds, from the given set of bodies.
          * @method region
          * @param {body[]} bodies
-         * @param {bounds} bounds
-         * @param {bool} [outside=false]
+         * @param {Bounds} bounds
+         * @param {boolean} [outside=false]
          * @return {body[]} The bodies matching the query
          */
         static region(bodies: Array<Body>, bounds: Bounds, outside?: boolean): Array<Body>;
@@ -2465,7 +2468,7 @@ declare namespace Matter {
          * Returns all bodies whose vertices contain the given point, from the given set of bodies.
          * @method point
          * @param {body[]} bodies
-         * @param {vector} point
+         * @param {Vector} point
          * @return {body[]} The bodies matching the query
          */
         static point(bodies: Array<Body>, point: Vector): Array<Body>;
@@ -2547,7 +2550,7 @@ declare namespace Matter {
          * The target width in pixels of the `render.canvas` to be created.
          *
         * @property options.width
-        * @type number
+        * @type {number}
         * @default 800
         */
         width?: number | undefined;
@@ -2556,7 +2559,7 @@ declare namespace Matter {
          * The target height in pixels of the `render.canvas` to be created.
          *
         * @property options.height
-        * @type number
+        * @type {number}
         * @default 600
         */
         height?: number | undefined;
@@ -2565,49 +2568,49 @@ declare namespace Matter {
          * A flag that specifies if `render.bounds` should be used when rendering.
          *
         * @property options.hasBounds
-        * @type boolean
+        * @type {boolean}
         * @default false
         */
         hasBounds?: boolean | undefined;
 
         /**
          * Render wireframes only
-         * @type boolean
+         * @type {boolean}
          * @default true
          */
         wireframes?: boolean | undefined;
 
         /**
          * Sets scene background
-         * @type string
+         * @type {string}
          * default undefined
          */
         background?: string | undefined
 
         /**
          * Sets wireframe background if `render.options.wireframes` is enabled
-         * @type string
+         * @type {string}
          * default undefined
          */
         wireframeBackground?: string | undefined
 
         /**
          * Sets opacity of sleeping body if `render.options.showSleeping` is enabled
-         * @type boolean
+         * @type {boolean}
          * default true
          */
         showSleeping?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body vertex numbers debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showVertexNumbers?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body velocity debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showVelocity?: boolean | undefined;
@@ -2620,21 +2623,21 @@ declare namespace Matter {
          * - constraints total
          * - composites total
          * - collision pairs total
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showStats?: boolean | undefined;
 
         /**
          * A flag to enable or disable the collision resolver separations debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showSeparations?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body positions debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showPositions?: boolean | undefined;
@@ -2649,28 +2652,28 @@ declare namespace Matter {
          * - average effective play speed (e.g. '1.00x' is 'real-time')
          * Each value is recorded over a fixed sample of past frames (60 frames).
          * A chart shown below each value indicates the variance from the average over the sample. The more stable or fixed the value is the flatter the chart will appear.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showPerformance?: boolean | undefined;
 
         /**
          * A flag to enable or disable the mouse position debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showMousePosition?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body internal edges debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showInternalEdges?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body and part ids debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showIds?: boolean | undefined;
@@ -2680,56 +2683,56 @@ declare namespace Matter {
          * This includes and has priority over the values of:
          * - render.options.showStats
          * - render.options.showPerformance
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showDebug?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body convex hulls debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showConvexHulls?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body collisions debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showCollisions?: boolean | undefined;
 
         /**
          * A flag to enable or disable the collision broadphase debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showBroadphase?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body bounds debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showBounds?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body axes debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showAxes?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body angle debug overlay.
-         * @type boolean
+         * @type {boolean}
          * @default false
          */
         showAngleIndicator?: boolean | undefined;
 
         /**
          * The pixel ratio to use when rendering.
-         * @type number
+         * @type {number}
          * @default 1
          */
         pixelRatio?: number | undefined;
@@ -2883,7 +2886,7 @@ declare namespace Matter {
          * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
          *
         * @property isFixed
-        * @type boolean
+        * @type {boolean}
         * @default false
         */
         isFixed?: boolean | undefined;
@@ -2894,7 +2897,7 @@ declare namespace Matter {
          * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
          *
         * @property delta
-        * @type number
+        * @type {number}
         * @default 1000 / 60
         */
         delta?: number | undefined;
@@ -2902,7 +2905,7 @@ declare namespace Matter {
         /**
          * A flag that specifies whether the runner is running or not.
          * @property enabled
-         * @type boolean
+         * @type {boolean}
          * @default true
          */
         enabled?: boolean | undefined;
@@ -2969,7 +2972,7 @@ declare namespace Matter {
          * A flag that specifies whether the runner is running or not.
          *
         * @property enabled
-        * @type boolean
+        * @type {boolean}
         * @default true
         */
         enabled: boolean;
@@ -2980,7 +2983,7 @@ declare namespace Matter {
          * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
          *
         * @property isFixed
-        * @type boolean
+        * @type {boolean}
         * @default false
         */
         isFixed: boolean;
@@ -2991,7 +2994,7 @@ declare namespace Matter {
          * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
          *
         * @property delta
-        * @type number
+        * @type {number}
         * @default 1000 / 60
         */
         delta: number;
@@ -3046,15 +3049,15 @@ declare namespace Matter {
          * @method create
          * @param {number} x
          * @param {number} y
-         * @return {vector} A new vector
+         * @return {Vector} A new vector
          */
         static create(x?: number, y?: number): Vector;
 
         /**
          * Returns a new vector with `x` and `y` copied from the given `vector`.
          * @method clone
-         * @param {vector} vector
-         * @return {vector} A new cloned vector
+         * @param {Vector} vector
+         * @return {Vector} A new cloned vector
          */
         static clone(vector: Vector): Vector;
 
@@ -3062,9 +3065,9 @@ declare namespace Matter {
         /**
          * Returns the cross-product of three vectors.
          * @method cross3
-         * @param {vector} vectorA
-         * @param {vector} vectorB
-         * @param {vector} vectorC
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
+         * @param {Vector} vectorC
          * @return {number} The cross product of the three vectors
          */
         static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector): number;
@@ -3072,18 +3075,18 @@ declare namespace Matter {
         /**
          * Adds the two vectors.
          * @method add
-         * @param {vector} vectorA
-         * @param {vector} vectorB
-         * @param {vector} [output]
-         * @return {vector} A new vector of vectorA and vectorB added
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
+         * @param {Vector} [output]
+         * @return {Vector} A new vector of vectorA and vectorB added
          */
         static add(vectorA: Vector, vectorB: Vector, output?: Vector): Vector;
 
         /**
          * Returns the angle in radians between the two vectors relative to the x-axis.
          * @method angle
-         * @param {vector} vectorA
-         * @param {vector} vectorB
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
          * @return {number} The angle in radians
          */
         static angle(vectorA: Vector, vectorB: Vector): number;
@@ -3091,8 +3094,8 @@ declare namespace Matter {
         /**
          * Returns the cross-product of two vectors.
          * @method cross
-         * @param {vector} vectorA
-         * @param {vector} vectorB
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
          * @return {number} The cross product of the two vectors
          */
         static cross(vectorA: Vector, vectorB: Vector): number;
@@ -3100,17 +3103,17 @@ declare namespace Matter {
         /**
          * Divides a vector and a scalar.
          * @method div
-         * @param {vector} vector
+         * @param {Vector} vector
          * @param {number} scalar
-         * @return {vector} A new vector divided by scalar
+         * @return {Vector} A new vector divided by scalar
          */
         static div(vector: Vector, scalar: number): Vector;
 
         /**
          * Returns the dot-product of two vectors.
          * @method dot
-         * @param {vector} vectorA
-         * @param {vector} vectorB
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
          * @return {number} The dot product of the two vectors
          */
         static dot(vectorA: Vector, vectorB: Vector): number;
@@ -3118,7 +3121,7 @@ declare namespace Matter {
         /**
          * Returns the magnitude (length) of a vector.
          * @method magnitude
-         * @param {vector} vector
+         * @param {Vector} vector
          * @return {number} The magnitude of the vector
          */
         static magnitude(vector: Vector): number;
@@ -3126,7 +3129,7 @@ declare namespace Matter {
         /**
          * Returns the magnitude (length) of a vector (therefore saving a `sqrt` operation).
          * @method magnitudeSquared
-         * @param {vector} vector
+         * @param {Vector} vector
          * @return {number} The squared magnitude of the vector
          */
         static magnitudeSquared(vector: Vector): number;
@@ -3134,64 +3137,64 @@ declare namespace Matter {
         /**
          * Multiplies a vector and a scalar.
          * @method mult
-         * @param {vector} vector
+         * @param {Vector} vector
          * @param {number} scalar
-         * @return {vector} A new vector multiplied by scalar
+         * @return {Vector} A new vector multiplied by scalar
          */
         static mult(vector: Vector, scalar: number): Vector;
 
         /**
          * Negates both components of a vector such that it points in the opposite direction.
          * @method neg
-         * @param {vector} vector
-         * @return {vector} The negated vector
+         * @param {Vector} vector
+         * @return {Vector} The negated vector
          */
         static neg(vector: Vector): Vector;
 
         /**
          * Normalises a vector (such that its magnitude is `1`).
          * @method normalise
-         * @param {vector} vector
-         * @return {vector} A new vector normalised
+         * @param {Vector} vector
+         * @return {Vector} A new vector normalised
          */
         static normalise(vector: Vector): Vector;
 
         /**
          * Returns the perpendicular vector. Set `negate` to true for the perpendicular in the opposite direction.
          * @method perp
-         * @param {vector} vector
-         * @param {bool} [negate=false]
-         * @return {vector} The perpendicular vector
+         * @param {Vector} vector
+         * @param {boolean} [negate=false]
+         * @return {Vector} The perpendicular vector
          */
         static perp(vector: Vector, negate?: boolean): Vector;
 
         /**
          * Rotates the vector about (0, 0) by specified angle.
          * @method rotate
-         * @param {vector} vector
+         * @param {Vector} vector
          * @param {number} angle
-         * @return {vector} A new vector rotated about (0, 0)
+         * @return {Vector} A new vector rotated about (0, 0)
          */
         static rotate(vector: Vector, angle: number): Vector;
 
         /**
          * Rotates the vector about a specified point by specified angle.
          * @method rotateAbout
-         * @param {vector} vector
+         * @param {Vector} vector
          * @param {number} angle
-         * @param {vector} point
-         * @param {vector} [output]
-         * @return {vector} A new vector rotated about the point
+         * @param {Vector} point
+         * @param {Vector} [output]
+         * @return {Vector} A new vector rotated about the point
          */
         static rotateAbout(vector: Vector, angle: number, point: Vector, output?: Vector): Vector;
 
         /**
          * Subtracts the two vectors.
          * @method sub
-         * @param {vector} vectorA
-         * @param {vector} vectorB
-         * @param {vector} [output]
-         * @return {vector} A new vector of vectorA and vectorB subtracted
+         * @param {Vector} vectorA
+         * @param {Vector} vectorB
+         * @param {Vector} [output]
+         * @return {Vector} A new vector of vectorA and vectorB subtracted
          */
         static sub(vectorA: Vector, vectorB: Vector, optional?: Vector): Vector;
     }
@@ -3209,31 +3212,31 @@ declare namespace Matter {
         /**
          * Returns the average (mean) of the set of vertices.
          * @method mean
-         * @param {vertices} vertices
-         * @return {vector} The average point
+         * @param {Vertices} vertices
+         * @return {Vector} The average point
          */
         static mean(vertices: Array<Vector>): Vector;
 
         /**
          * Sorts the input vertices into clockwise order in place.
          * @method clockwiseSort
-         * @param {vertices} vertices
-         * @return {vertices} vertices
+         * @param {Vertices} vertices
+         * @return {Vertices} vertices
          */
         static clockwiseSort(vertices: Array<Vector>): Array<Vector>;
 
         /**
          * Returns true if the vertices form a convex shape (vertices must be in clockwise order).
          * @method isConvex
-         * @param {vertices} vertices
-         * @return {bool} `true` if the `vertices` are convex, `false` if not (or `null` if not computable).
+         * @param {Vertices} vertices
+         * @return {boolean} `true` if the `vertices` are convex, `false` if not (or `null` if not computable).
          */
         static isConvex(vertices: Array<Vector>): boolean;
 
         /**
          * Returns the convex hull of the input vertices as a new array of points.
          * @method hull
-         * @param {vertices} vertices
+         * @param {Vertices} vertices
          * @return {Array<Vertex>} vertices
          */
         static hull(vertices: Array<Vertex>): Array<Vertex>;
@@ -3241,8 +3244,8 @@ declare namespace Matter {
         /**
          * Returns the area of the set of vertices.
          * @method area
-         * @param {vertices} vertices
-         * @param {bool} signed
+         * @param {Vertices} vertices
+         * @param {boolean} signed
          * @return {number} The area
          */
         static area(vertices: Array<Vector>, signed: boolean): number;
@@ -3250,8 +3253,8 @@ declare namespace Matter {
         /**
          * Returns the centre (centroid) of the set of vertices.
          * @method centre
-         * @param {vertices} vertices
-         * @return {vector} The centre point
+         * @param {Vertices} vertices
+         * @return {Vector} The centre point
          */
         static centre(vertices: Array<Vector>): Vector;
 
@@ -3259,12 +3262,12 @@ declare namespace Matter {
          * Chamfers a set of vertices by giving them rounded corners, returns a new set of vertices.
          * The radius parameter is a single number or an array to specify the radius for each vertex.
          * @method chamfer
-         * @param {vertices} vertices
+         * @param {Vertices} vertices
          * @param {number[]} radius
          * @param {number} quality
          * @param {number} qualityMin
          * @param {number} qualityMax
-         * @return {vertices} vertices
+         * @return {Vertices} vertices
          */
         static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): Array<Vector>;
 
@@ -3272,8 +3275,8 @@ declare namespace Matter {
         /**
          * Returns `true` if the `point` is inside the set of `vertices`.
          * @method contains
-         * @param {vertices} vertices
-         * @param {vector} point
+         * @param {Vertices} vertices
+         * @param {Vector} point
          * @return {boolean} True if the vertices contains point, otherwise false
          */
         static contains(vertices: Array<Vector>, point: Vector): boolean;
@@ -3291,8 +3294,8 @@ declare namespace Matter {
         *
         * @method create
         * @param {vector[]} points
-        * @param {body} body
-        * @return {vertices} vertices
+        * @param {Body} body
+        * @return {Vertices} vertices
         */
         static create(points: Array<Vector>, body: Body): Array<Vector>;
 
@@ -3302,15 +3305,15 @@ declare namespace Matter {
          * For parsing SVG paths, see `Svg.pathToVertices`.
          * @method fromPath
          * @param {string} path
-         * @param {body} body
-         * @return {vertices} vertices
+         * @param {Body} body
+         * @return {Vertices} vertices
          */
         static fromPath(path: string, body: Body): Array<Vector>;
 
         /**
          * Returns the moment of inertia (second moment of area) of the set of vertices given the total mass.
          * @method inertia
-         * @param {vertices} vertices
+         * @param {Vertices} vertices
          * @param {number} mass
          * @return {number} The polygon's moment of inertia
          */
@@ -3319,31 +3322,31 @@ declare namespace Matter {
         /**
          * Rotates the set of vertices in-place.
          * @method rotate
-         * @param {vertices} vertices
+         * @param {Vertices} vertices
          * @param {number} angle
-         * @param {vector} point
-         * @return {vertices} vertices
+         * @param {Vector} point
+         * @return {Vertices} vertices
          */
         static rotate(vertices: Array<Vector>, angle: number, point: Vector): Array<Vector>;
 
         /**
          * Scales the vertices from a point (default is centre) in-place.
          * @method scale
-         * @param {vertices} vertices
+         * @param {Vertices} vertices
          * @param {number} scaleX
          * @param {number} scaleY
-         * @param {vector} point
-         * @return {vertices} vertices
+         * @param {Vector} point
+         * @return {Vertices} vertices
          */
         static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): Array<Vector>;
 
         /**
          * Translates the set of vertices in-place.
          * @method translate
-         * @param {vertices} vertices
-         * @param {vector} vector
+         * @param {Vertices} vertices
+         * @param {Vector} vector
          * @param {number} scalar
-         * @return {vertices} vertices
+         * @return {Vertices} vertices
          */
         static translate(vertices: Array<Vector>, vector: Vector, scalar: number): Array<Vector>;
     }
@@ -3382,7 +3385,7 @@ declare namespace Matter {
          * An alias for Composite.addBody since World is also a Composite
          * @method addBody
          * @param {world} world
-         * @param {body} body
+         * @param {Body} body
          * @return {world} The original world with the body added
          */
         static addBody(world: World, body: Body): World;
@@ -3476,7 +3479,7 @@ declare namespace Matter {
          * Creates a new clone of the object, if deep is true references will also be cloned.
          * @method clone
          * @param {} obj
-         * @param {bool} deep
+         * @param {boolean} deep
          * @return {} obj cloned
          */
         static clone(obj: object, deep: boolean): object
@@ -3804,7 +3807,7 @@ declare namespace Matter {
         * Fired when a body starts sleeping (where `this` is the body).
         *
         * @event sleepStart
-        * @this {body} The body that has started sleeping
+        * @this {Body} The body that has started sleeping
         * @param {} event An event object
         * @param {} event.source The source object of the event
         * @param {} event.name The name of the event
@@ -3814,7 +3817,7 @@ declare namespace Matter {
          * Fired when a body ends sleeping (where `this` is the body).
          *
         * @event sleepEnd
-        * @this {body} The body that has ended sleeping
+        * @this {Body} The body that has ended sleeping
         * @param {} event An event object
         * @param {} event.source The source object of the event
         * @param {} event.name The name of the event
@@ -4062,7 +4065,7 @@ declare namespace Matter {
         /**
          * Registers a plugin object so it can be resolved later by name.
          * @method register
-         * @param plugin {} The plugin to register.
+         * @param {} plugin The plugin to register.
          * @return {object} The plugin.
          */
         static register(plugin: Plugin): Plugin;
@@ -4071,7 +4074,7 @@ declare namespace Matter {
          * Resolves a dependency to a plugin object from the registry if it exists.
          * The `dependency` may contain a version, but only the name matters when resolving.
          * @method resolve
-         * @param dependency {string} The dependency.
+         * @param {string} dependency The dependency.
          * @return {object} The plugin if resolved, otherwise `undefined`.
          */
         static resolve(dependency: string): Plugin | undefined;
@@ -4083,7 +4086,7 @@ declare namespace Matter {
          * - `version`
          * - `install`
          * @method isPlugin
-         * @param obj {} The obj to test.
+         * @param {} obj The obj to test.
          * @return {boolean} `true` if the object can be considered a plugin otherwise `false`.
          */
         static isPlugin(obj: {}): boolean;
@@ -4091,7 +4094,7 @@ declare namespace Matter {
         /**
          * Returns a pretty printed plugin name and version.
          * @method toString
-         * @param plugin {} The plugin.
+         * @param {} plugin The plugin.
          * @return {string} Pretty printed plugin name and version.
          */
         static toString(plugin: string | Plugin): string;
@@ -4101,8 +4104,8 @@ declare namespace Matter {
          * If `plugin.for` is not specified then it is assumed to be applicable.
          * The value of `plugin.for` is a string of the format `'module-name'` or `'module-name@version'`.
          * @method isFor
-         * @param plugin {} The plugin.
-         * @param module {} The module.
+         * @param {} plugin The plugin.
+         * @param {} module The module.
          * @return {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
         static isFor(plugin: Plugin, module: { name?: string | undefined, [_: string]: any }): boolean;
@@ -4120,7 +4123,7 @@ declare namespace Matter {
          * - A red cross ❌ indicates a dependency could not be resolved.
          * Avoid calling this function multiple times on the same module unless you intend to manually control installation order.
          * @method use
-         * @param module {} The module install plugins on.
+         * @param  {} The module install plugins on.
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
@@ -4131,7 +4134,7 @@ declare namespace Matter {
         /**
          * Recursively finds all of a module's dependencies and returns a flat dependency graph.
          * @method dependencies
-         * @param module {} The module.
+         * @param {Dependency} module The module.
          * @return {object} A dependency graph.
          */
         static dependencies(
@@ -4145,7 +4148,7 @@ declare namespace Matter {
          * See documentation for `Plugin.versionParse` for a description of the format.
          * This function can also handle dependencies that are already resolved (e.g. a module object).
          * @method dependencyParse
-         * @param dependency {string} The dependency of the format `'module-name'` or `'module-name@version'`.
+         * @param {Dependency} dependency The dependency of the format `'module-name'` or `'module-name@version'`.
          * @return {object} The dependency parsed into its components.
          */
         static dependencyParse(dependency: Dependency): { name: string, range: string };
@@ -4179,8 +4182,8 @@ declare namespace Matter {
          * See documentation for `Plugin.versionParse` for a description of the format.
          * If a version or range is not specified, then any version (`*`) is assumed to satisfy.
          * @method versionSatisfies
-         * @param version {string} The version string.
-         * @param range {string} The range string.
+         * @param {string} version The version string.
+         * @param {string} range The range string.
          * @return {boolean} `true` if `version` satisfies `range`, otherwise `false`.
          */
         static versionSatisfies(version: string, range: string): boolean;
