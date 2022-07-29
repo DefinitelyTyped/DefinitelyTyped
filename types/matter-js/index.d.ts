@@ -773,7 +773,7 @@ declare namespace Matter {
         * @type {number}
         * @default 0
         */
-        angularSpeed: number;
+        readonly angularSpeed: number;
         /**
          * A `Number` that _measures_ the current angular velocity of the body after the last `Body.update`. It is read-only.
          * If you need to modify a body's angular velocity directly, you should apply a torque or simply change the body's `angle` (as the engine uses position-Verlet integration).
@@ -783,7 +783,7 @@ declare namespace Matter {
         * @type {number}
         * @default 0
         */
-        angularVelocity: number;
+        readonly angularVelocity: number;
         /**
          * A `Number` that _measures_ the area of the body's convex hull, calculated at creation by `Body.create`.
          *
@@ -948,7 +948,7 @@ declare namespace Matter {
         * @type {number}
         * @default 0
         */
-        motion: number;
+        readonly motion: number;
         /**
         * A `Vector` that specifies the current world-space position of the body.
         *
@@ -1003,7 +1003,7 @@ declare namespace Matter {
         * @type {number}
         * @default 0
         */
-        speed: number;
+        readonly speed: number;
         /**
          * A `Number` that allows per-body time scaling, e.g. a force-field where bodies inside are in slow-motion, while others are at full speed.
         *
@@ -1037,7 +1037,7 @@ declare namespace Matter {
         * @type {Vector}
         * @default { x: 0, y: 0 }
         */
-        velocity: Vector;
+        readonly velocity: Vector;
         /**
          * An array of `Vector` objects that specify the convex hull of the rigid body.
          * These should be provided about the origin `(0, 0)`. E.g.
