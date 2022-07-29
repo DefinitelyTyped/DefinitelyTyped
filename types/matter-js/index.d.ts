@@ -31,7 +31,7 @@ declare namespace Matter {
          * Creates a new set of axes from the given vertices.
          * @method fromVertices
          * @param {Vertices} vertices
-         * @return {axes} A new axes from the given vertices
+         * @returns {axes} A new axes from the given vertices
          */
         static fromVertices(vertices: Array<Vector>): Array<Vector>;
         /**
@@ -73,7 +73,7 @@ declare namespace Matter {
          * @param {number} radius
          * @param {object} [options]
          * @param {number} [maxSides]
-         * @return {Body} A new circle body
+         * @returns {Body} A new circle body
          */
         static circle(x: number, y: number, radius: number, options?: IBodyDefinition, maxSides?: number): Body;
 
@@ -87,7 +87,7 @@ declare namespace Matter {
          * @param {number} sides
          * @param {number} radius
          * @param {object} [options]
-         * @return {Body} A new regular polygon body
+         * @returns {Body} A new regular polygon body
          */
         static polygon(x: number, y: number, sides: number, radius: number, options?: IChamferableBodyDefinition): Body;
 
@@ -101,7 +101,7 @@ declare namespace Matter {
          * @param {number} width
          * @param {number} height
          * @param {object} [options]
-         * @return {Body} A new rectangle body
+         * @returns {Body} A new rectangle body
          */
         static rectangle(x: number, y: number, width: number, height: number, options?: IChamferableBodyDefinition): Body;
 
@@ -116,7 +116,7 @@ declare namespace Matter {
          * @param {number} height
          * @param {number} slope
          * @param {object} [options]
-         * @return {Body} A new trapezoid body
+         * @returns {Body} A new trapezoid body
          */
         static trapezoid(x: number, y: number, width: number, height: number, slope: number, options?: IChamferableBodyDefinition): Body;
         /**
@@ -138,7 +138,7 @@ declare namespace Matter {
         * @param {number} [removeCollinear=0.01]
         * @param {number} [minimumArea=10]
         * @param {number} [removeDuplicatePoints=0.01]
-        * @return {Body}
+        * @returns {Body}
         */
         static fromVertices(x: number, y: number, vertexSets: Array<Array<Vertex>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number, removeDuplicatePoints?: number): Body;
     }
@@ -597,7 +597,7 @@ declare namespace Matter {
          * See the properties section below for detailed information on what you can pass via the `options` object.
          * @method create
          * @param {} options
-         * @return {Body} body
+         * @returns {Body} body
          */
         static create(options: IBodyDefinition): Body;
         /**
@@ -613,14 +613,14 @@ declare namespace Matter {
          * See `body.collisionFilter` for more information.
          * @method nextGroup
          * @param {boolean} [isNonColliding=false]
-         * @return {Number} Unique group index
+         * @returns {Number} Unique group index
          */
         static nextGroup(isNonColliding: boolean): number;
         /**
          * Returns the next unique category bitfield (starting after the initial default category `0x0001`).
          * There are 32 available. See `body.collisionFilter` for more information.
          * @method nextCategory
-         * @return {Number} Unique category bitfield
+         * @returns {Number} Unique category bitfield
          */
         static nextCategory(): number;
         /**
@@ -1135,7 +1135,7 @@ declare namespace Matter {
          * Creates a new axis-aligned bounding box (AABB) for the given vertices.
          * @method create
          * @param {Vertices} vertices
-         * @return {Bounds} A new bounds object
+         * @returns {Bounds} A new bounds object
          */
         static create(vertices: Vertices): Bounds;
         /**
@@ -1151,7 +1151,7 @@ declare namespace Matter {
          * @method contains
          * @param {Bounds} bounds
          * @param {Vector} point
-         * @return {boolean} True if the bounds contain the point, otherwise false
+         * @returns {boolean} True if the bounds contain the point, otherwise false
          */
         static contains(bounds: Bounds, point: Vector): boolean;
         /**
@@ -1159,7 +1159,7 @@ declare namespace Matter {
          * @method overlaps
          * @param {Bounds} boundsA
          * @param {Bounds} boundsB
-         * @return {boolean} True if the bounds overlap, otherwise false
+         * @returns {boolean} True if the bounds overlap, otherwise false
          */
         static overlaps(boundsA: Bounds, boundsB: Bounds): boolean;
         /**
@@ -1276,7 +1276,7 @@ declare namespace Matter {
          * @method add
          * @param {Composite} composite
          * @param {} object
-         * @return {Composite} The original composite with the objects added
+         * @returns {Composite} The original composite with the objects added
          */
         static add(composite: Composite, object: Body | Composite | Constraint | MouseConstraint | Array<Body | Composite | Constraint | MouseConstraint>): Composite;
 
@@ -1284,7 +1284,7 @@ declare namespace Matter {
          * Returns all bodies in the given composite, including all bodies in its children, recursively.
          * @method allBodies
          * @param {Composite} composite
-         * @return {Body[]} All the bodies
+         * @returns {Body[]} All the bodies
          */
         static allBodies(composite: Composite): Array<Body>;
 
@@ -1292,7 +1292,7 @@ declare namespace Matter {
          * Returns all composites in the given composite, including all composites in its children, recursively.
          * @method allComposites
          * @param {Composite} composite
-         * @return {Composite[]} All the composites
+         * @returns {Composite[]} All the composites
          */
         static allComposites(composite: Composite): Array<Composite>;
 
@@ -1300,7 +1300,7 @@ declare namespace Matter {
          * Returns all constraints in the given composite, including all constraints in its children, recursively.
          * @method allConstraints
          * @param {Composite} composite
-         * @return {Constraint[]} All the constraints
+         * @returns {Constraint[]} All the constraints
          */
         static allConstraints(composite: Composite): Array<Constraint>;
 
@@ -1319,7 +1319,7 @@ declare namespace Matter {
         * See the properites section below for detailed information on what you can pass via the `options` object.
         * @method create
         * @param {} [options]
-        * @return {Composite} A new composite
+        * @returns {Composite} A new composite
         */
         static create(options?: ICompositeDefinition): Composite;
 
@@ -1329,7 +1329,7 @@ declare namespace Matter {
          * @param {Composite} composite
          * @param {number} id
          * @param {string} type
-         * @return {object} The requested object, if found
+         * @returns {object} The requested object, if found
          */
         static get(composite: Composite, id: number, type: string): Body | Composite | Constraint;
 
@@ -1339,7 +1339,7 @@ declare namespace Matter {
          * @param {compositeA} compositeA
          * @param {object[]} objects
          * @param {compositeB} compositeB
-         * @return {Composite} Returns compositeA
+         * @returns {Composite} Returns compositeA
          */
         static move(compositeA: Composite, objects: Array<Body | Composite | Constraint>, compositeB: Composite): Composite;
 
@@ -1347,7 +1347,7 @@ declare namespace Matter {
          * Assigns new ids for all objects in the composite, recursively.
          * @method rebase
          * @param {Composite} composite
-         * @return {Composite} Returns composite
+         * @returns {Composite} Returns composite
          */
         static rebase(composite: Composite): Composite;
 
@@ -1359,7 +1359,7 @@ declare namespace Matter {
          * @param {Composite} composite
          * @param {} object
          * @param {boolean} [deep=false]
-         * @return {Composite} The original composite with the objects removed
+         * @returns {Composite} The original composite with the objects removed
          */
         static remove(composite: Composite, object: Body | Composite | Constraint, deep?: boolean): Composite;
 
@@ -1498,7 +1498,7 @@ declare namespace Matter {
          * @param {number} width
          * @param {number} height
          * @param {number} wheelSize
-         * @return {Composite} A new composite car body
+         * @returns {Composite} A new composite car body
          */
         static car(xx: number, yy: number, width: number, height: number, wheelSize: number): Composite;
 
@@ -1511,7 +1511,7 @@ declare namespace Matter {
          * @param {number} xOffsetB
          * @param {number} yOffsetB
          * @param {object} options
-         * @return {Composite} A new composite containing objects chained together with constraints
+         * @returns {Composite} A new composite containing objects chained together with constraints
          */
         static chain(composite: Composite, xOffsetA: number, yOffsetA: number, xOffsetB: number, yOffsetB: number, options: any): Composite;
 
@@ -1523,7 +1523,7 @@ declare namespace Matter {
          * @param {number} rows
          * @param {boolean} crossBrace
          * @param {object} options
-         * @return {Composite} The composite containing objects meshed together with constraints
+         * @returns {Composite} The composite containing objects meshed together with constraints
          */
         static mesh(composite: Composite, columns: number, rows: number, crossBrace: boolean, options: any): Composite;
 
@@ -1536,7 +1536,7 @@ declare namespace Matter {
          * @param {number} number
          * @param {number} size
          * @param {number} length
-         * @return {Composite} A new composite newtonsCradle body
+         * @returns {Composite} A new composite newtonsCradle body
          */
         static newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
 
@@ -1551,7 +1551,7 @@ declare namespace Matter {
         * @param {number} columnGap
         * @param {number} rowGap
         * @param {function} callback
-        * @return {Composite} A new composite containing objects created in the callback
+        * @returns {Composite} A new composite containing objects created in the callback
         */
         static pyramid(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, callback: Function): Composite;
 
@@ -1570,7 +1570,7 @@ declare namespace Matter {
          * @param {number} particleRadius
          * @param {} particleOptions
          * @param {} constraintOptions
-         * @return {Composite} A new composite softBody
+         * @returns {Composite} A new composite softBody
          */
         static softBody(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, crossBrace: boolean, particleRadius: number, particleOptions: any, constraintOptions: any): Composite;
 
@@ -1585,7 +1585,7 @@ declare namespace Matter {
          * @param {number} columnGap
          * @param {number} rowGap
          * @param {function} callback
-         * @return {Composite} A new composite containing objects created in the callback
+         * @returns {Composite} A new composite containing objects created in the callback
          */
         static stack(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, callback: Function): Composite;
     }
@@ -1763,7 +1763,7 @@ declare namespace Matter {
          * See the properties section below for detailed information on what you can pass via the `options` object.
          * @method create
          * @param {} options
-         * @return {constraint} constraint
+         * @returns {constraint} constraint
          */
         static create(options: IConstraintDefinition): Constraint;
 
@@ -2045,7 +2045,7 @@ declare namespace Matter {
          * See the properties section below for detailed information on what you can pass via the `options` object.
          * @method create
          * @param {IEngineDefinition} [options]
-         * @return {Engine} engine
+         * @returns {Engine} engine
          */
         static create(options?: IEngineDefinition): Engine;
 
@@ -2230,7 +2230,7 @@ declare namespace Matter {
          * @deprecated replaced by Matter.Detector
          * @method create
          * @param {} options
-         * @return {grid} A new grid
+         * @returns {grid} A new grid
          */
         static create(options?: IGridDefinition): Grid;
 
@@ -2335,7 +2335,7 @@ declare namespace Matter {
          * @method create
          * @param {engine} engine
          * @param {} options
-         * @return {MouseConstraint} A new MouseConstraint
+         * @returns {MouseConstraint} A new MouseConstraint
          */
         static create(engine: Engine, options?: IMouseConstraintDefinition): MouseConstraint;
 
@@ -2396,7 +2396,7 @@ declare namespace Matter {
          * Creates a new pairs structure.
          * @method create
          * @param {object} options
-         * @return {Pairs} A new pairs structure
+         * @returns {Pairs} A new pairs structure
          */
         static create(options: object): Pairs;
 
@@ -2404,7 +2404,7 @@ declare namespace Matter {
          * Clears the given pairs structure.
          * @method clear
          * @param {Pairs} pairs
-         * @return {Pairs} pairs
+         * @returns {Pairs} pairs
          */
         static clear(pairs: Pairs): Pairs;
 
@@ -2436,7 +2436,7 @@ declare namespace Matter {
          * Creates a new contact.
          * @method create
          * @param {Vertex} vertex
-         * @return {contact} A new contact
+         * @returns {contact} A new contact
          */
         static create(vertex: Vertex): Contact;
 
@@ -2456,7 +2456,7 @@ declare namespace Matter {
          * @method create
          * @param {Collision} collision
          * @param {number} timestamp
-         * @return {Pair} A new pair
+         * @returns {Pair} A new pair
          */
         static create(collision: Collision, timestamp: number): Pair;
 
@@ -2483,7 +2483,7 @@ declare namespace Matter {
          * @method id
          * @param {Body} bodyA
          * @param {Body} bodyB
-         * @return {string} Unique pairId
+         * @returns {string} Unique pairId
          */
         static id(bodyA: Body, bodyB: Body): string
 
@@ -2525,7 +2525,7 @@ declare namespace Matter {
         * @method collides
         * @param {Body} body
         * @param {Body[]} bodies
-        * @return {object[]} Collisions
+        * @returns {object[]} Collisions
         */
         static collides(body: Body, bodies: Array<Body>): Array<Collision>;
 
@@ -2536,7 +2536,7 @@ declare namespace Matter {
          * @param {Vector} startPoint
          * @param {Vector} endPoint
          * @param {number} [rayWidth]
-         * @return {Collision[]} Collisions
+         * @returns {Collision[]} Collisions
          */
         static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<Collision>;
 
@@ -2546,7 +2546,7 @@ declare namespace Matter {
          * @param {Body[]} bodies
          * @param {Bounds} bounds
          * @param {boolean} [outside=false]
-         * @return {Body[]} The bodies matching the query
+         * @returns {Body[]} The bodies matching the query
          */
         static region(bodies: Array<Body>, bounds: Bounds, outside?: boolean): Array<Body>;
 
@@ -2555,7 +2555,7 @@ declare namespace Matter {
          * @method point
          * @param {Body[]} bodies
          * @param {Vector} point
-         * @return {Body[]} The bodies matching the query
+         * @returns {Body[]} The bodies matching the query
          */
         static point(bodies: Array<Body>, point: Vector): Array<Body>;
     }
@@ -2854,7 +2854,7 @@ declare namespace Matter {
          * See the properties section below for detailed information on what you can pass via the `options` object.
          * @method create
          * @param {object} [options]
-         * @return {render} A new renderer
+         * @returns {render} A new renderer
          */
         static create(options: IRenderDefinition): Render;
         /**
@@ -3153,7 +3153,7 @@ declare namespace Matter {
          * @method pathToVertices
          * @param {SVGPathElement} path
          * @param {Number} [sampleLength=15]
-         * @return {Vector[]} points
+         * @returns {Vector[]} points
          */
         static pathToVertices(path: SVGPathElement, sampleLength: number): Array<Vector>;
     }
@@ -3177,7 +3177,7 @@ declare namespace Matter {
          * @method create
          * @param {number} x
          * @param {number} y
-         * @return {Vector} A new vector
+         * @returns {Vector} A new vector
          */
         static create(x?: number, y?: number): Vector;
 
@@ -3185,7 +3185,7 @@ declare namespace Matter {
          * Returns a new vector with `x` and `y` copied from the given `vector`.
          * @method clone
          * @param {Vector} vector
-         * @return {Vector} A new cloned vector
+         * @returns {Vector} A new cloned vector
          */
         static clone(vector: Vector): Vector;
 
@@ -3196,7 +3196,7 @@ declare namespace Matter {
          * @param {Vector} vectorA
          * @param {Vector} vectorB
          * @param {Vector} vectorC
-         * @return {number} The cross product of the three vectors
+         * @returns {number} The cross product of the three vectors
          */
         static cross3(vectorA: Vector, vectorB: Vector, vectorC: Vector): number;
 
@@ -3206,7 +3206,7 @@ declare namespace Matter {
          * @param {Vector} vectorA
          * @param {Vector} vectorB
          * @param {Vector} [output]
-         * @return {Vector} A new vector of vectorA and vectorB added
+         * @returns {Vector} A new vector of vectorA and vectorB added
          */
         static add(vectorA: Vector, vectorB: Vector, output?: Vector): Vector;
 
@@ -3215,7 +3215,7 @@ declare namespace Matter {
          * @method angle
          * @param {Vector} vectorA
          * @param {Vector} vectorB
-         * @return {number} The angle in radians
+         * @returns {number} The angle in radians
          */
         static angle(vectorA: Vector, vectorB: Vector): number;
 
@@ -3224,7 +3224,7 @@ declare namespace Matter {
          * @method cross
          * @param {Vector} vectorA
          * @param {Vector} vectorB
-         * @return {number} The cross product of the two vectors
+         * @returns {number} The cross product of the two vectors
          */
         static cross(vectorA: Vector, vectorB: Vector): number;
 
@@ -3233,7 +3233,7 @@ declare namespace Matter {
          * @method div
          * @param {Vector} vector
          * @param {number} scalar
-         * @return {Vector} A new vector divided by scalar
+         * @returns {Vector} A new vector divided by scalar
          */
         static div(vector: Vector, scalar: number): Vector;
 
@@ -3242,7 +3242,7 @@ declare namespace Matter {
          * @method dot
          * @param {Vector} vectorA
          * @param {Vector} vectorB
-         * @return {number} The dot product of the two vectors
+         * @returns {number} The dot product of the two vectors
          */
         static dot(vectorA: Vector, vectorB: Vector): number;
 
@@ -3250,7 +3250,7 @@ declare namespace Matter {
          * Returns the magnitude (length) of a vector.
          * @method magnitude
          * @param {Vector} vector
-         * @return {number} The magnitude of the vector
+         * @returns {number} The magnitude of the vector
          */
         static magnitude(vector: Vector): number;
 
@@ -3258,7 +3258,7 @@ declare namespace Matter {
          * Returns the magnitude (length) of a vector (therefore saving a `sqrt` operation).
          * @method magnitudeSquared
          * @param {Vector} vector
-         * @return {number} The squared magnitude of the vector
+         * @returns {number} The squared magnitude of the vector
          */
         static magnitudeSquared(vector: Vector): number;
 
@@ -3267,7 +3267,7 @@ declare namespace Matter {
          * @method mult
          * @param {Vector} vector
          * @param {number} scalar
-         * @return {Vector} A new vector multiplied by scalar
+         * @returns {Vector} A new vector multiplied by scalar
          */
         static mult(vector: Vector, scalar: number): Vector;
 
@@ -3275,7 +3275,7 @@ declare namespace Matter {
          * Negates both components of a vector such that it points in the opposite direction.
          * @method neg
          * @param {Vector} vector
-         * @return {Vector} The negated vector
+         * @returns {Vector} The negated vector
          */
         static neg(vector: Vector): Vector;
 
@@ -3283,7 +3283,7 @@ declare namespace Matter {
          * Normalises a vector (such that its magnitude is `1`).
          * @method normalise
          * @param {Vector} vector
-         * @return {Vector} A new vector normalised
+         * @returns {Vector} A new vector normalised
          */
         static normalise(vector: Vector): Vector;
 
@@ -3292,7 +3292,7 @@ declare namespace Matter {
          * @method perp
          * @param {Vector} vector
          * @param {boolean} [negate=false]
-         * @return {Vector} The perpendicular vector
+         * @returns {Vector} The perpendicular vector
          */
         static perp(vector: Vector, negate?: boolean): Vector;
 
@@ -3301,7 +3301,7 @@ declare namespace Matter {
          * @method rotate
          * @param {Vector} vector
          * @param {number} angle
-         * @return {Vector} A new vector rotated about (0, 0)
+         * @returns {Vector} A new vector rotated about (0, 0)
          */
         static rotate(vector: Vector, angle: number): Vector;
 
@@ -3312,7 +3312,7 @@ declare namespace Matter {
          * @param {number} angle
          * @param {Vector} point
          * @param {Vector} [output]
-         * @return {Vector} A new vector rotated about the point
+         * @returns {Vector} A new vector rotated about the point
          */
         static rotateAbout(vector: Vector, angle: number, point: Vector, output?: Vector): Vector;
 
@@ -3322,7 +3322,7 @@ declare namespace Matter {
          * @param {Vector} vectorA
          * @param {Vector} vectorB
          * @param {Vector} [output]
-         * @return {Vector} A new vector of vectorA and vectorB subtracted
+         * @returns {Vector} A new vector of vectorA and vectorB subtracted
          */
         static sub(vectorA: Vector, vectorB: Vector, optional?: Vector): Vector;
     }
@@ -3341,7 +3341,7 @@ declare namespace Matter {
          * Returns the average (mean) of the set of vertices.
          * @method mean
          * @param {Vertices} vertices
-         * @return {Vector} The average point
+         * @returns {Vector} The average point
          */
         static mean(vertices: Array<Vector>): Vector;
 
@@ -3349,7 +3349,7 @@ declare namespace Matter {
          * Sorts the input vertices into clockwise order in place.
          * @method clockwiseSort
          * @param {Vertices} vertices
-         * @return {Vertices} vertices
+         * @returns {Vertices} vertices
          */
         static clockwiseSort(vertices: Array<Vector>): Array<Vector>;
 
@@ -3357,7 +3357,7 @@ declare namespace Matter {
          * Returns true if the vertices form a convex shape (vertices must be in clockwise order).
          * @method isConvex
          * @param {Vertices} vertices
-         * @return {boolean} `true` if the `vertices` are convex, `false` if not (or `null` if not computable).
+         * @returns {boolean} `true` if the `vertices` are convex, `false` if not (or `null` if not computable).
          */
         static isConvex(vertices: Array<Vector>): boolean;
 
@@ -3365,7 +3365,7 @@ declare namespace Matter {
          * Returns the convex hull of the input vertices as a new array of points.
          * @method hull
          * @param {Vertices} vertices
-         * @return {Array<Vertex>} vertices
+         * @returns {Array<Vertex>} vertices
          */
         static hull(vertices: Array<Vertex>): Array<Vertex>;
 
@@ -3374,7 +3374,7 @@ declare namespace Matter {
          * @method area
          * @param {Vertices} vertices
          * @param {boolean} signed
-         * @return {number} The area
+         * @returns {number} The area
          */
         static area(vertices: Array<Vector>, signed: boolean): number;
 
@@ -3382,7 +3382,7 @@ declare namespace Matter {
          * Returns the centre (centroid) of the set of vertices.
          * @method centre
          * @param {Vertices} vertices
-         * @return {Vector} The centre point
+         * @returns {Vector} The centre point
          */
         static centre(vertices: Array<Vector>): Vector;
 
@@ -3395,7 +3395,7 @@ declare namespace Matter {
          * @param {number} quality
          * @param {number} qualityMin
          * @param {number} qualityMax
-         * @return {Vertices} vertices
+         * @returns {Vertices} vertices
          */
         static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): Array<Vector>;
 
@@ -3405,7 +3405,7 @@ declare namespace Matter {
          * @method contains
          * @param {Vertices} vertices
          * @param {Vector} point
-         * @return {boolean} True if the vertices contains point, otherwise false
+         * @returns {boolean} True if the vertices contains point, otherwise false
          */
         static contains(vertices: Array<Vector>, point: Vector): boolean;
 
@@ -3423,7 +3423,7 @@ declare namespace Matter {
         * @method create
         * @param {Vector[]} points
         * @param {Body} body
-        * @return {Vertices} vertices
+        * @returns {Vertices} vertices
         */
         static create(points: Array<Vector>, body: Body): Array<Vector>;
 
@@ -3434,7 +3434,7 @@ declare namespace Matter {
          * @method fromPath
          * @param {string} path
          * @param {Body} body
-         * @return {Vertices} vertices
+         * @returns {Vertices} vertices
          */
         static fromPath(path: string, body: Body): Array<Vector>;
 
@@ -3443,7 +3443,7 @@ declare namespace Matter {
          * @method inertia
          * @param {Vertices} vertices
          * @param {number} mass
-         * @return {number} The polygon's moment of inertia
+         * @returns {number} The polygon's moment of inertia
          */
         static inertia(vertices: Array<Vector>, mass: number): number;
 
@@ -3453,7 +3453,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @param {number} angle
          * @param {Vector} point
-         * @return {Vertices} vertices
+         * @returns {Vertices} vertices
          */
         static rotate(vertices: Array<Vector>, angle: number, point: Vector): Array<Vector>;
 
@@ -3464,7 +3464,7 @@ declare namespace Matter {
          * @param {number} scaleX
          * @param {number} scaleY
          * @param {Vector} point
-         * @return {Vertices} vertices
+         * @returns {Vertices} vertices
          */
         static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): Array<Vector>;
 
@@ -3474,7 +3474,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @param {Vector} vector
          * @param {number} scalar
-         * @return {Vertices} vertices
+         * @returns {Vertices} vertices
          */
         static translate(vertices: Array<Vector>, vector: Vector, scalar: number): Array<Vector>;
     }
@@ -3539,7 +3539,7 @@ declare namespace Matter {
          * @method addBody
          * @param {world} world
          * @param {Body} body
-         * @return {world} The original world with the body added
+         * @returns {world} The original world with the body added
          */
         static addBody(world: World, body: Body): World;
 
@@ -3548,7 +3548,7 @@ declare namespace Matter {
          * @method addComposite
          * @param {world} world
          * @param {Composite} composite
-         * @return {world} The original world with the objects from composite added
+         * @returns {world} The original world with the objects from composite added
          */
         static addComposite(world: World, composite: Composite): World;
 
@@ -3557,7 +3557,7 @@ declare namespace Matter {
          * @method addConstraint
          * @param {world} world
          * @param {constraint} constraint
-         * @return {world} The original world with the constraint added
+         * @returns {world} The original world with the constraint added
          */
         static addConstraint(world: World, constraint: Constraint): World;
 
@@ -3575,7 +3575,7 @@ declare namespace Matter {
          * @method create
          * @constructor
          * @param {} options
-         * @return {world} A new world
+         * @returns {world} A new world
          */
         static create(options: IWorldDefinition): World;
 
@@ -3624,7 +3624,7 @@ declare namespace Matter {
          * @method extend
          * @param {} obj
          * @param {boolean} deep
-         * @return {} obj extended
+         * @returns {} obj extended
          */
         static extend(obj: object, deep: boolean): object
 
@@ -3633,7 +3633,7 @@ declare namespace Matter {
          * @method clone
          * @param {} obj
          * @param {boolean} deep
-         * @return {} obj cloned
+         * @returns {} obj cloned
          */
         static clone(obj: object, deep: boolean): object
 
@@ -3641,7 +3641,7 @@ declare namespace Matter {
          * Returns the list of keys for the given object.
          * @method keys
          * @param {} obj
-         * @return {string[]} keys
+         * @returns {string[]} keys
          */
         static keys(obj: object): Array<string>
 
@@ -3649,7 +3649,7 @@ declare namespace Matter {
          * Returns the list of values for the given object.
          * @method values
          * @param {} obj
-         * @return {array} Array of the objects property values
+         * @returns {array} Array of the objects property values
          */
         static values(obj: object): Array<any>
 
@@ -3660,7 +3660,7 @@ declare namespace Matter {
          * @param {string} path The path relative to `base`, e.g. 'Foo.Bar.baz'
          * @param {number} [begin] Path slice begin
          * @param {number} [end] Path slice end
-         * @return {} The object at the given path
+         * @returns {} The object at the given path
          */
         static get(obj: object, path: string, begin: number, end: number): object
 
@@ -3672,7 +3672,7 @@ declare namespace Matter {
          * @param {} val The value to set
          * @param {number} [begin] Path slice begin
          * @param {number} [end] Path slice end
-         * @return {} Pass through `val` for chaining
+         * @returns {} Pass through `val` for chaining
          */
         static set(obj: object, path: string, val: object, begin: number, end: number): Object
 
@@ -3681,7 +3681,7 @@ declare namespace Matter {
          * The function uses a seeded random generator.
          * @method shuffle
          * @param {array} array
-         * @return {array} array shuffled randomly
+         * @returns {array} array shuffled randomly
          */
         static shuffle(array: Array<any>): Array<any>
 
@@ -3690,7 +3690,7 @@ declare namespace Matter {
          * The function uses a seeded random generator.
          * @method choose
          * @param {array} choices
-         * @return {object} A random choice object from the array
+         * @returns {object} A random choice object from the array
          */
         static choose(choices: Array<any>): any
 
@@ -3698,7 +3698,7 @@ declare namespace Matter {
          * Returns true if the object is a HTMLElement, otherwise false.
          * @method isElement
          * @param {object} obj
-         * @return {boolean} True if the object is a HTMLElement, otherwise false
+         * @returns {boolean} True if the object is a HTMLElement, otherwise false
          */
         static isElement(obj: object): boolean
 
@@ -3706,7 +3706,7 @@ declare namespace Matter {
          * Returns true if the object is an array.
          * @method isArray
          * @param {object} obj
-         * @return {boolean} True if the object is an array, otherwise false
+         * @returns {boolean} True if the object is an array, otherwise false
          */
         static isArray(obj: object): boolean
 
@@ -3714,7 +3714,7 @@ declare namespace Matter {
          * Returns true if the object is a function.
          * @method isFunction
          * @param {object} obj
-         * @return {boolean} True if the object is a function, otherwise false
+         * @returns {boolean} True if the object is a function, otherwise false
          */
         static isFunction(obj: object): boolean
 
@@ -3722,7 +3722,7 @@ declare namespace Matter {
          * Returns true if the object is a plain object.
          * @method isPlainObject
          * @param {object} obj
-         * @return {boolean} True if the object is a plain object, otherwise false
+         * @returns {boolean} True if the object is a plain object, otherwise false
          */
         static isPlainObject(obj: object): boolean
 
@@ -3730,7 +3730,7 @@ declare namespace Matter {
          * Returns true if the object is a string.
          * @method isString
          * @param {object} obj
-         * @return {boolean} True if the object is a string, otherwise false
+         * @returns {boolean} True if the object is a string, otherwise false
          */
         static isString(obj: object): boolean
 
@@ -3740,7 +3740,7 @@ declare namespace Matter {
          * @param {number} value
          * @param {number} min
          * @param {number} max
-         * @return {number} The value clamped between min and max inclusive
+         * @returns {number} The value clamped between min and max inclusive
          */
         static clamp(value: number, min: number, max: number): number
 
@@ -3748,7 +3748,7 @@ declare namespace Matter {
          * Returns the sign of the given value.
          * @method sign
          * @param {number} value
-         * @return {number} -1 if negative, +1 if 0 or positive
+         * @returns {number} -1 if negative, +1 if 0 or positive
          */
         static sign(value: number): number
 
@@ -3756,7 +3756,7 @@ declare namespace Matter {
          * Returns the current timestamp since the time origin (e.g. from page load).
          * The result will be high-resolution including decimal places if available.
          * @method now
-         * @return {number} the current timestamp
+         * @returns {number} the current timestamp
          */
         static now(): number
 
@@ -3766,7 +3766,7 @@ declare namespace Matter {
          * @method random
          * @param {number} min
          * @param {number} max
-         * @return {number} A random number between min and max inclusive
+         * @returns {number} A random number between min and max inclusive
          */
         static random(min?: number, max?: number): number
 
@@ -3774,7 +3774,7 @@ declare namespace Matter {
          * Converts a CSS hex colour string into an integer.
          * @method colorToNumber
          * @param {string} colorString
-         * @return {number} An integer representing the CSS hex string
+         * @returns {number} An integer representing the CSS hex string
          */
         static colorToNumber(colorString: string): number
 
@@ -3805,7 +3805,7 @@ declare namespace Matter {
         /**
          * Returns the next unique sequential ID.
          * @method nextId
-         * @return {number} Unique sequential ID
+         * @returns {number} Unique sequential ID
          */
         static nextId(): number
 
@@ -3814,7 +3814,7 @@ declare namespace Matter {
          * @method indexOf
          * @param {array} haystack
          * @param {object} needle
-         * @return {number} The position of needle in haystack, otherwise -1.
+         * @returns {number} The position of needle in haystack, otherwise -1.
          */
         static indexOf(haystack: Array<any>, needle: object): number
 
@@ -3823,7 +3823,7 @@ declare namespace Matter {
          * @method map
          * @param {array} list
          * @param {function} func
-         * @return {array} Values from list transformed by func.
+         * @returns {array} Values from list transformed by func.
          */
         static map(list: Array<any>, funct: Function): Array<any>
 
@@ -3832,7 +3832,7 @@ declare namespace Matter {
          * Circular dependencies are allowed.
          * @method topologicalSort
          * @param {object} graph
-         * @return {array} Partially ordered set of vertices in topological order.
+         * @returns {array} Partially ordered set of vertices in topological order.
          */
         static topologicalSort(graph: object): Array<any>
 
@@ -3845,7 +3845,7 @@ declare namespace Matter {
          * If any of the passed functions are a chain, then the chain will be flattened.
          * @method chain
          * @param ...funcs {function} The functions to chain.
-         * @return {function} A new function that calls the passed functions in order.
+         * @returns {function} A new function that calls the passed functions in order.
          */
         static chain(): Function
 
@@ -3856,7 +3856,7 @@ declare namespace Matter {
          * @param {} base The base object
          * @param {string} path The path relative to `base`
          * @param {function} func The function to chain before the original
-         * @return {function} The chained function that replaced the original
+         * @returns {function} The chained function that replaced the original
          */
         static chainPathBefore(base: object, path: string, func: Function): Function
 
@@ -3867,7 +3867,7 @@ declare namespace Matter {
          * @param {} base The base object
          * @param {string} path The path relative to `base`
          * @param {function} func The function to chain after the original
-         * @return {function} The chained function that replaced the original
+         * @returns {function} The chained function that replaced the original
          */
         static chainPathAfter(base: object, path: string, func: Function): Function
 
@@ -3879,7 +3879,7 @@ declare namespace Matter {
          * @method _requireGlobal
          * @param {string} globalName The global module name
          * @param {string} moduleName The fallback CommonJS module name
-         * @return {} The loaded module
+         * @returns {} The loaded module
          */
         static _requireGlobal(globalName: string, moduleName: string): any
 
@@ -3913,7 +3913,7 @@ declare namespace Matter {
          * Returns the [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module provided through `Common.setDecomp`,
          * otherwise returns the global `decomp` if set.
          * @method getDecomp
-         * @return {} The [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module if provided.
+         * @returns {} The [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module if provided.
          */
         static getDecomp(): any
     }
@@ -4219,7 +4219,7 @@ declare namespace Matter {
          * Registers a plugin object so it can be resolved later by name.
          * @method register
          * @param {} plugin The plugin to register.
-         * @return {object} The plugin.
+         * @returns {object} The plugin.
          */
         static register(plugin: Plugin): Plugin;
 
@@ -4228,7 +4228,7 @@ declare namespace Matter {
          * The `dependency` may contain a version, but only the name matters when resolving.
          * @method resolve
          * @param {string} dependency The dependency.
-         * @return {object} The plugin if resolved, otherwise `undefined`.
+         * @returns {object} The plugin if resolved, otherwise `undefined`.
          */
         static resolve(dependency: string): Plugin | undefined;
 
@@ -4240,7 +4240,7 @@ declare namespace Matter {
          * - `install`
          * @method isPlugin
          * @param {} obj The obj to test.
-         * @return {boolean} `true` if the object can be considered a plugin otherwise `false`.
+         * @returns {boolean} `true` if the object can be considered a plugin otherwise `false`.
          */
         static isPlugin(obj: {}): boolean;
 
@@ -4248,7 +4248,7 @@ declare namespace Matter {
          * Returns a pretty printed plugin name and version.
          * @method toString
          * @param {} plugin The plugin.
-         * @return {string} Pretty printed plugin name and version.
+         * @returns {string} Pretty printed plugin name and version.
          */
         static toString(plugin: string | Plugin): string;
 
@@ -4259,7 +4259,7 @@ declare namespace Matter {
          * @method isFor
          * @param {} plugin The plugin.
          * @param {} module The module.
-         * @return {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
+         * @returns {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
         static isFor(plugin: Plugin, module: { name?: string | undefined, [_: string]: any }): boolean;
 
@@ -4288,7 +4288,7 @@ declare namespace Matter {
          * Recursively finds all of a module's dependencies and returns a flat dependency graph.
          * @method dependencies
          * @param {Dependency} module The module.
-         * @return {object} A dependency graph.
+         * @returns {object} A dependency graph.
          */
         static dependencies(
             module: Dependency,
@@ -4302,7 +4302,7 @@ declare namespace Matter {
          * This function can also handle dependencies that are already resolved (e.g. a module object).
          * @method dependencyParse
          * @param {Dependency} dependency The dependency of the format `'module-name'` or `'module-name@version'`.
-         * @return {object} The dependency parsed into its components.
+         * @returns {object} The dependency parsed into its components.
          */
         static dependencyParse(dependency: Dependency): { name: string, range: string };
 
@@ -4318,7 +4318,7 @@ declare namespace Matter {
          * - Any version `*`
          * @method versionParse
          * @param range {string} The version string.
-         * @return {object} The version range parsed into its components.
+         * @returns {object} The version range parsed into its components.
          */
         static versionParse(range: string): {
             isRange: boolean,
@@ -4337,7 +4337,7 @@ declare namespace Matter {
          * @method versionSatisfies
          * @param {string} version The version string.
          * @param {string} range The range string.
-         * @return {boolean} `true` if `version` satisfies `range`, otherwise `false`.
+         * @returns {boolean} `true` if `version` satisfies `range`, otherwise `false`.
          */
         static versionSatisfies(version: string, range: string): boolean;
 
@@ -4356,7 +4356,7 @@ declare namespace Matter {
          * @method create
          * @param {Body} bodyA The first body part represented by the collision record
          * @param {Body} bodyB The second body part represented by the collision record
-         * @return {Collision} A new collision record
+         * @returns {Collision} A new collision record
          */
         static create(bodyA: Body, bodyB: Body): Collision;
 
@@ -4366,7 +4366,7 @@ declare namespace Matter {
          * @param {Body} bodyA
          * @param {Body} bodyB
          * @param {pairs} [Pairs] Optionally reuse collision records from existing pairs.
-         * @return {collision|null} A collision record if detected, otherwise null
+         * @returns {collision|null} A collision record if detected, otherwise null
          */
         static collides(bodyA: Body, bodyB: Body, pairs: Pairs): Collision | null;
 
@@ -4498,7 +4498,7 @@ declare namespace Matter {
          * Creates a new collision detector.
          * @method create
          * @param {IDetectorOptions | undefined} options
-         * @return {Detector} A new collision detector
+         * @returns {Detector} A new collision detector
          */
         static create(options?: IDetectorOptions): Detector;
 
@@ -4508,7 +4508,7 @@ declare namespace Matter {
          * @method canCollide
          * @param ICollisionFilter filterA
          * @param ICollisionFilter filterB
-         * @return {boolean} `true` if collision can occur
+         * @returns {boolean} `true` if collision can occur
          */
         static canCollide(filterA: ICollisionFilter, filterB: ICollisionFilter): boolean;
 
@@ -4526,7 +4526,7 @@ declare namespace Matter {
          * If a specific ordering is required then apply a sort to the resulting array.
          * @method collisions
          * @param {Detector} detector
-         * @return {Collision[]} collisions
+         * @returns {Collision[]} collisions
          */
         static collisions(detector: Detector): Array<Collision>;
 
@@ -4576,7 +4576,7 @@ declare namespace Matter {
          * @param {Body} bodyA
          * @param {Body} bodyB
          * @param {Collision} previousCollision
-         * @return {Collision} collision
+         * @returns {Collision} collision
          */
         static collides(bodyA: Body, bodyB: Body, previousCollision?: Collision): Collision;
     }
