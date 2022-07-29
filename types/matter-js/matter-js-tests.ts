@@ -65,7 +65,7 @@ const vertex: Matter.Vertex = {
     index: 1,
     body: body,
     isInternal: false,
-}
+};
 // $ExpectType Body
 Bodies.fromVertices(1, 2, [[vertex]]);
 
@@ -78,7 +78,7 @@ World.add(engine.world, [box2, circle1]);
 
 const filter1: Matter.ICollisionFilter = {
     category: 1,
-}
+};
 
 const emptyFilter: Matter.ICollisionFilter = {};
 
@@ -118,7 +118,7 @@ var collisions = Query.ray([box1, box2, circle1], { x: 1, y: 2 }, { x: 3, y: 4 }
 collisions = Query.collides(box1, [box2, circle1]);
 
 // events
-Events.on(engine, 'beforeTick', (e: Matter.IEventTimestamped<Matter.Engine>) => { });
+Events.on(engine, 'beforeTick', (e: Matter.IEventTimestamped<Matter.Engine>) => {});
 
 Engine.run(engine);
 
@@ -158,7 +158,7 @@ const mouseConstraint = MouseConstraint.create(engine, { mouse });
 
 render.mouse = mouse;
 
-Events.on(mouseConstraint, 'mousemove', (e: Matter.IMouseEvent<Matter.MouseConstraint>) => { });
+Events.on(mouseConstraint, 'mousemove', (e: Matter.IMouseEvent<Matter.MouseConstraint>) => {});
 
 // Composite
 // $ExpectType Composite
