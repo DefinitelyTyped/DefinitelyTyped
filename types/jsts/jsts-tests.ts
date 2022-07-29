@@ -89,6 +89,8 @@ str = e.toString();
 e.translate(n, n);
 
 g.apply({filter: Geometry => {}});
+g = g.buffer(n);
+g = g.buffer(n, n);
 g = g.buffer(n, n, n);
 if (g instanceof jsts.geom.Polygon) {
   poly = g;
