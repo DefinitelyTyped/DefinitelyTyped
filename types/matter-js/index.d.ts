@@ -1408,7 +1408,7 @@ declare namespace Matter {
          * @default "composite"
          * @readOnly
          */
-        readonly type: String;
+        readonly type: string;
 
         /**
          * An arbitrary `String` name to help the user identify and manage composites.
@@ -2450,7 +2450,7 @@ declare namespace Matter {
          * @param {Vector} startPoint
          * @param {Vector} endPoint
          * @param {number} [rayWidth]
-         * @return {object[]} Collisions
+         * @return {Collision[]} Collisions
          */
         static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<Collision>;
 

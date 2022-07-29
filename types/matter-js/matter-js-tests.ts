@@ -99,8 +99,9 @@ var constraint1 = Constraint.create({
 World.addConstraint(engine.world, constraint1);
 
 // Query
+// $ExpectType Collision[]
 var collisions = Query.ray([box1, box2, circle1], { x: 1, y: 2 }, { x: 3, y: 4 });
-
+// $ExpectType Collision[]
 collisions = Query.collides(box1, [box2, circle1]);
 
 // events
@@ -153,6 +154,17 @@ var composite1 = Composite.create();
 var composite2 = Composite.create();
 // $ExpectType Composite
 var composite3 = Composite.create();
+composite3.id = 1;
+composite3.bodies = [body];
+composite3.composites = [composite1];
+composite3.constraints = [constraint1];
+composite3.isModified = false;
+composite3.label = 'test';
+composite3.parent = composite2;
+composite3.plugin = Plugin.resolve('test')!;
+// @ts-expect-error
+composite3.type = 'test';
+
 // $ExpectType Composite
 Composite.add(composite1, box1);
 // $ExpectType Composite
@@ -167,10 +179,27 @@ Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
 // Pairs
 const pairs = Pairs.create({});
 
+const pair: Matter.Pair = {
+    id: 1,
+    bodyA: body,
+    bodyB: body,
+    contacts: {},
+    activeContacts: {},
+    separation: 1,
+    isActive: true,
+    timeCreated: 2,
+    timeUpdated: 3,
+    inverseMass: 4,
+    friction: 5,
+    frictionStatic: 6,
+    restitution: 7,
+    slop: 8,
+};
+
 // Collision
 // $ExpectType Collision
 let collision = Collision.create(body, body);
-// TODO: add collision.pair = pair-object
+collision.pair = pair;
 collision.pair = null;
 collision.collided = true;
 collision.bodyA = body;
