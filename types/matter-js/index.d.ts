@@ -664,7 +664,7 @@ declare namespace Matter {
         *
         * @method setVertices
         * @param {Body} body
-        * @param {vector[]} vertices
+        * @param {Vector[]} vertices
         */
         static setVertices(body: Body, vertices: Array<Vector>): void;
         /**
@@ -1274,33 +1274,33 @@ declare namespace Matter {
          * Generic add function. Adds one or many body(s), constraint(s) or a composite(s) to the given composite.
          * Triggers `beforeAdd` and `afterAdd` events on the `composite`.
          * @method add
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {} object
-         * @return {composite} The original composite with the objects added
+         * @return {Composite} The original composite with the objects added
          */
         static add(composite: Composite, object: Body | Composite | Constraint | MouseConstraint | Array<Body | Composite | Constraint | MouseConstraint>): Composite;
 
         /**
          * Returns all bodies in the given composite, including all bodies in its children, recursively.
          * @method allBodies
-         * @param {composite} composite
-         * @return {body[]} All the bodies
+         * @param {Composite} composite
+         * @return {Body[]} All the bodies
          */
         static allBodies(composite: Composite): Array<Body>;
 
         /**
          * Returns all composites in the given composite, including all composites in its children, recursively.
          * @method allComposites
-         * @param {composite} composite
-         * @return {composite[]} All the composites
+         * @param {Composite} composite
+         * @return {Composite[]} All the composites
          */
         static allComposites(composite: Composite): Array<Composite>;
 
         /**
          * Returns all constraints in the given composite, including all constraints in its children, recursively.
          * @method allConstraints
-         * @param {composite} composite
-         * @return {constraint[]} All the constraints
+         * @param {Composite} composite
+         * @return {Constraint[]} All the constraints
          */
         static allConstraints(composite: Composite): Array<Constraint>;
 
@@ -1308,7 +1308,7 @@ declare namespace Matter {
          * Removes all bodies, constraints and composites from the given composite.
          * Optionally clearing its children recursively.
          * @method clear
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {boolean} keepStatic
          * @param {boolean} [deep=false]
          */
@@ -1319,14 +1319,14 @@ declare namespace Matter {
         * See the properites section below for detailed information on what you can pass via the `options` object.
         * @method create
         * @param {} [options]
-        * @return {composite} A new composite
+        * @return {Composite} A new composite
         */
         static create(options?: ICompositeDefinition): Composite;
 
         /**
          * Searches the composite recursively for an object matching the type and id supplied, null if not found.
          * @method get
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {number} id
          * @param {string} type
          * @return {object} The requested object, if found
@@ -1339,15 +1339,15 @@ declare namespace Matter {
          * @param {compositeA} compositeA
          * @param {object[]} objects
          * @param {compositeB} compositeB
-         * @return {composite} Returns compositeA
+         * @return {Composite} Returns compositeA
          */
         static move(compositeA: Composite, objects: Array<Body | Composite | Constraint>, compositeB: Composite): Composite;
 
         /**
          * Assigns new ids for all objects in the composite, recursively.
          * @method rebase
-         * @param {composite} composite
-         * @return {composite} Returns composite
+         * @param {Composite} composite
+         * @return {Composite} Returns composite
          */
         static rebase(composite: Composite): Composite;
 
@@ -1356,10 +1356,10 @@ declare namespace Matter {
          * Optionally searching its children recursively.
          * Triggers `beforeRemove` and `afterRemove` events on the `composite`.
          * @method remove
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {} object
          * @param {boolean} [deep=false]
-         * @return {composite} The original composite with the objects removed
+         * @return {Composite} The original composite with the objects removed
          */
         static remove(composite: Composite, object: Body | Composite | Constraint, deep?: boolean): Composite;
 
@@ -1367,7 +1367,7 @@ declare namespace Matter {
          * Translates all children in the composite by a given vector relative to their current positions,
          * without imparting any velocity.
          * @method translate
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {Vector} translation
          * @param {boolean} [recursive=true]
          */
@@ -1375,7 +1375,7 @@ declare namespace Matter {
         /**
          * Rotates all children in the composite by a given angle about the given point, without imparting any angular velocity.
          * @method rotate
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {number} rotation
          * @param {Vector} point
          * @param {boolean} [recursive=true]
@@ -1384,7 +1384,7 @@ declare namespace Matter {
         /**
          * Scales all children in the composite, including updating physical properties (mass, area, axes, inertia), from a world-space point.
          * @method scale
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {number} scaleX
          * @param {number} scaleY
          * @param {Vector} point
@@ -1444,7 +1444,7 @@ declare namespace Matter {
          * If you wish to recursively find all descendants, you should use the `Composite.allBodies` method.
          *
          * @property bodies
-         * @type {body[]}
+         * @type {Body[]}
          * @default []
          */
         bodies: Array<Body>;
@@ -1455,7 +1455,7 @@ declare namespace Matter {
          * If you wish to recursively find all descendants, you should use the `Composite.allConstraints` method.
          *
          * @property constraints
-         * @type {constraint[]}
+         * @type {Constraint[]}
          * @default []
          */
         constraints: Array<Constraint>;
@@ -1466,7 +1466,7 @@ declare namespace Matter {
          * If you wish to recursively find all descendants, you should use the `Composite.allComposites` method.
          *
          * @property composites
-         * @type {composite[]}
+         * @type {Composite[]}
          * @default []
          */
         composites: Array<Composite>;
@@ -1498,32 +1498,32 @@ declare namespace Matter {
          * @param {number} width
          * @param {number} height
          * @param {number} wheelSize
-         * @return {composite} A new composite car body
+         * @return {Composite} A new composite car body
          */
         static car(xx: number, yy: number, width: number, height: number, wheelSize: number): Composite;
 
         /**
          * Chains all bodies in the given composite together using constraints.
          * @method chain
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {number} xOffsetA
          * @param {number} yOffsetA
          * @param {number} xOffsetB
          * @param {number} yOffsetB
          * @param {object} options
-         * @return {composite} A new composite containing objects chained together with constraints
+         * @return {Composite} A new composite containing objects chained together with constraints
          */
         static chain(composite: Composite, xOffsetA: number, yOffsetA: number, xOffsetB: number, yOffsetB: number, options: any): Composite;
 
         /**
          * Connects bodies in the composite with constraints in a grid pattern, with optional cross braces.
          * @method mesh
-         * @param {composite} composite
+         * @param {Composite} composite
          * @param {number} columns
          * @param {number} rows
          * @param {boolean} crossBrace
          * @param {object} options
-         * @return {composite} The composite containing objects meshed together with constraints
+         * @return {Composite} The composite containing objects meshed together with constraints
          */
         static mesh(composite: Composite, columns: number, rows: number, crossBrace: boolean, options: any): Composite;
 
@@ -1536,7 +1536,7 @@ declare namespace Matter {
          * @param {number} number
          * @param {number} size
          * @param {number} length
-         * @return {composite} A new composite newtonsCradle body
+         * @return {Composite} A new composite newtonsCradle body
          */
         static newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
 
@@ -1551,7 +1551,7 @@ declare namespace Matter {
         * @param {number} columnGap
         * @param {number} rowGap
         * @param {function} callback
-        * @return {composite} A new composite containing objects created in the callback
+        * @return {Composite} A new composite containing objects created in the callback
         */
         static pyramid(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, callback: Function): Composite;
 
@@ -1570,7 +1570,7 @@ declare namespace Matter {
          * @param {number} particleRadius
          * @param {} particleOptions
          * @param {} constraintOptions
-         * @return {composite} A new composite softBody
+         * @return {Composite} A new composite softBody
          */
         static softBody(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, crossBrace: boolean, particleRadius: number, particleOptions: any, constraintOptions: any): Composite;
 
@@ -1585,7 +1585,7 @@ declare namespace Matter {
          * @param {number} columnGap
          * @param {number} rowGap
          * @param {function} callback
-         * @return {composite} A new composite containing objects created in the callback
+         * @return {Composite} A new composite containing objects created in the callback
          */
         static stack(xx: number, yy: number, columns: number, rows: number, columnGap: number, rowGap: number, callback: Function): Composite;
     }
@@ -2213,7 +2213,7 @@ declare namespace Matter {
          * Updates the grid.
          * @method update
          * @param {grid} grid
-         * @param {body[]} bodies
+         * @param {Body[]} bodies
          * @param {engine} engine
          * @param {boolean} forceUpdate
          */
@@ -2438,7 +2438,7 @@ declare namespace Matter {
         * Finds a list of collisions between body and bodies.
         * @method collides
         * @param {Body} body
-        * @param {body[]} bodies
+        * @param {Body[]} bodies
         * @return {object[]} Collisions
         */
         static collides(body: Body, bodies: Array<Body>): Array<Collision>;
@@ -2446,7 +2446,7 @@ declare namespace Matter {
         /**
          * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
          * @method ray
-         * @param {body[]} bodies
+         * @param {Body[]} bodies
          * @param {Vector} startPoint
          * @param {Vector} endPoint
          * @param {number} [rayWidth]
@@ -2457,19 +2457,19 @@ declare namespace Matter {
         /**
          * Returns all bodies whose bounds are inside (or outside if set) the given set of bounds, from the given set of bodies.
          * @method region
-         * @param {body[]} bodies
+         * @param {Body[]} bodies
          * @param {Bounds} bounds
          * @param {boolean} [outside=false]
-         * @return {body[]} The bodies matching the query
+         * @return {Body[]} The bodies matching the query
          */
         static region(bodies: Array<Body>, bounds: Bounds, outside?: boolean): Array<Body>;
 
         /**
          * Returns all bodies whose vertices contain the given point, from the given set of bodies.
          * @method point
-         * @param {body[]} bodies
+         * @param {Body[]} bodies
          * @param {Vector} point
-         * @return {body[]} The bodies matching the query
+         * @return {Body[]} The bodies matching the query
          */
         static point(bodies: Array<Body>, point: Vector): Array<Body>;
     }
@@ -3293,7 +3293,7 @@ declare namespace Matter {
         * Note that the `body` argument is not optional, a `Matter.Body` reference must be provided.
         *
         * @method create
-        * @param {vector[]} points
+        * @param {Vector[]} points
         * @param {Body} body
         * @return {Vertices} vertices
         */
@@ -3394,7 +3394,7 @@ declare namespace Matter {
          * An alias for Composite.add since World is also a Composite
          * @method addComposite
          * @param {world} world
-         * @param {composite} composite
+         * @param {Composite} composite
          * @return {world} The original world with the objects from composite added
          */
         static addComposite(world: World, composite: Composite): World;
