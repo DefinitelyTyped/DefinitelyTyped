@@ -961,7 +961,7 @@ declare namespace Matter {
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
         *
         * @property render
-        * @type object
+        * @type {object}
         */
         render: IBodyRenderOptions;
         /**
@@ -1657,7 +1657,7 @@ declare namespace Matter {
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
          *
         * @property render
-        * @type object
+        * @type {object}
         */
         render?: IConstraintRenderDefinition | undefined;
 
@@ -1851,7 +1851,7 @@ declare namespace Matter {
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
          *
         * @property render
-        * @type object
+        * @type {object}
         */
         render: IConstraintRenderDefinition;
 
@@ -1897,70 +1897,91 @@ declare namespace Matter {
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
         * @property positionIterations
-        * @type {number}
+        * @type {number | undefined}
         * @default 6
         */
-        positionIterations?: number | undefined;
+        positionIterations?: number;
         /**
          * An integer `Number` that specifies the number of velocity iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
         * @property velocityIterations
-        * @type {number}
+        * @type {number | undefined}
         * @default 4
         */
-        velocityIterations?: number | undefined;
+        velocityIterations?: number;
         /**
          * An integer `Number` that specifies the number of constraint iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          * The default value of `2` is usually very adequate.
          *
         * @property constraintIterations
-        * @type {number}
+        * @type {number | undefined}
         * @default 2
         */
-        constraintIterations?: number | undefined;
+        constraintIterations?: number;
 
         /**
          * A flag that specifies whether the engine should allow sleeping via the `Matter.Sleeping` module.
          * Sleeping can improve stability and performance, but often at the expense of accuracy.
          *
         * @property enableSleeping
-        * @type {boolean}
+        * @type {boolean | undefined}
         * @default false
         */
-        enableSleeping?: boolean | undefined;
-        /**
-         * The gravity to apply on all bodies in `engine.world`.
-         *
-         * @property gravity
-         * @type object
-         */
-        gravity: Partial<Gravity>;
+        enableSleeping?: boolean;
+
         /**
          * An `Object` containing properties regarding the timing systems of the engine.
         *
         * @property timing
-        * @type object
+        * @type {IEngineTimingOptions | undefined}
         */
-        timing?: IEngineTimingOptions | undefined;
+        timing?: IEngineTimingOptions;
+
         /**
-         * An instance of a broadphase controller. The default value is a `Matter.Grid` instance created by `Engine.create`.
+         * A `Matter.Detector` instance.
          *
-        * @property broadphase
-        * @type grid
-        * @default a Matter.Grid instance
-        */
-        grid?: Grid | undefined;
+         * @property detector
+         * @type {Detector | undefined}
+         * @default {Matter.Detector} instance
+         */
+        detector?: Detector;
+
+        /**
+         * A `Matter.Grid` instance.
+         *
+         * @deprecated replaced by `engine.detector`
+         * @property grid
+         * @type {Grid | undefined}
+         * @default a Matter.Grid instance
+         */
+        grid?: Grid;
+
         /**
          * A `World` composite object that will contain all simulated bodies and constraints.
          *
         * @property world
         * @type world
-        * @default a Matter.World instance
+        * @default {Matter.World} instance
         */
-        world?: World | undefined;
+        world?: World;
 
+        /**
+         * An object reserved for storing plugin-specific properties.
+         *
+         * @property plugin
+         * @type {{}}
+         */
+        plugin?: {};
+
+        /**
+         * The gravity to apply on all bodies in `engine.world`.
+         *
+         * @property gravity
+         * @type {Partial<Gravity> | undefined}
+         */
+        gravity?: Partial<Gravity>;
     }
 
     export interface IEngineTimingOptions {
@@ -2019,33 +2040,21 @@ declare namespace Matter {
     */
     export class Engine {
         /**
-         * Clears the engine including the world, pairs and broadphase.
+         * Creates a new engine. The options parameter is an object that specifies any properties you wish to override the defaults.
+         * All properties have default values, and many are pre-calculated automatically based on other properties.
+         * See the properties section below for detailed information on what you can pass via the `options` object.
+         * @method create
+         * @param {IEngineDefinition} [options]
+         * @return {Engine} engine
+         */
+        static create(options?: IEngineDefinition): Engine;
+
+        /**
+         * Clears the engine pairs and detector.
          * @method clear
          * @param {engine} engine
          */
         static clear(engine: Engine): void;
-
-        /**
-         * Creates a new engine. The options parameter is an object that specifies any properties you wish to override the defaults.
-         * All properties have default values, and many are pre-calculated automatically based on other properties.
-         * See the properties section below for detailed information on what you can pass via the `options` object.
-         * @method create
-         * @param {HTMLElement} element
-         * @param {object} [options]
-         * @return {engine} engine
-         */
-        static create(element?: HTMLElement | IEngineDefinition, options?: IEngineDefinition): Engine;
-
-        /**
-         * Creates a new engine. The options parameter is an object that specifies any properties you wish to override the defaults.
-         * All properties have default values, and many are pre-calculated automatically based on other properties.
-         * See the properties section below for detailed information on what you can pass via the `options` object.
-         * @method create
-         * @param {object} [options]
-         * @return {engine} engine
-         * @deprecated
-         */
-        static create(options?: IEngineDefinition): Engine;
 
         /**
          * Merges two engines by keeping the configuration of `engineA` but replacing the world with the one from `engineB`.
@@ -2054,7 +2063,6 @@ declare namespace Matter {
          * @param {engine} engineB
          */
         static merge(engineA: Engine, engineB: Engine): void;
-
 
         /**
          * Moves the simulation forward in time by `delta` ms.
@@ -2117,20 +2125,10 @@ declare namespace Matter {
         enableSleeping: boolean;
 
         /**
-         * A `Matter.Grid` instance.
-         *
-         * @property grid
-         * @type grid
-         * @default a Matter.Grid instance
-         */
-        grid: Grid;
-
-
-        /**
          * The gravity to apply on all bodies in `engine.world`.
          *
          * @property gravity
-         * @type object
+         * @type {Gravity}
          */
         gravity: Gravity;
 
@@ -2166,9 +2164,29 @@ declare namespace Matter {
          * An `Object` containing properties regarding the timing systems of the engine.
          *
         * @property timing
-        * @type object
+        * @type {IEngineTimingOptions}
         */
         timing: IEngineTimingOptions;
+
+        /**
+         * A `Matter.Detector` instance.
+         *
+         * @property detector
+         * @type {Detector}
+         * @default {Matter.Detector} instance
+         */
+        detector: Detector;
+
+        /**
+         * A `Matter.Grid` instance.
+         *
+         * @deprecated replaced by `engine.detector`
+         * @property grid
+         * @type grid
+         * @default a Matter.Grid instance
+         */
+        grid: Grid;
+
 
         /**
          * An integer `Number` that specifies the number of velocity iterations to perform each update.
@@ -2268,7 +2286,7 @@ declare namespace Matter {
         * See `body.collisionFilter` for more information.
         *
         * @property collisionFilter
-        * @type object
+        * @type {object}
         */
         collisionFilter?: ICollisionFilter | undefined;
 
@@ -2335,7 +2353,7 @@ declare namespace Matter {
         * See `body.collisionFilter` for more information.
         *
         * @property collisionFilter
-        * @type object
+        * @type {object}
         */
         collisionFilter: ICollisionFilter;
 
@@ -3466,7 +3484,32 @@ declare namespace Matter {
         bounds?: Bounds | undefined;
     }
 
-    interface Gravity extends Vector {
+    interface Gravity {
+        /**
+         * The gravity x component.
+         *
+         * @property x
+         * @type {number}
+         * @default 0
+         */
+        x: number;
+
+        /**
+         * The gravity y component.
+         *
+         * @property y
+         * @type {number}
+         * @default 1
+         */
+        y: number;
+
+        /**
+         * The gravity scale factor.
+         *
+         * @property scale
+         * @type {number}
+         * @default 0.001
+         */
         scale: number;
     }
 
@@ -4426,6 +4469,26 @@ declare namespace Matter {
         supports: Array<Vector>;
     }
 
+    interface IDetectorOptions {
+        /**
+         * The array of `Matter.Body` between which the detector finds collisions.
+         *
+         * _Note:_ The order of bodies in this array _is not fixed_ and will be continually managed by the detector.
+         * @property bodies
+         * @type {Body[] | undefined}
+         * @default []
+         */
+        bodies?: Array<Body>;
+
+        /**
+        * Optional. A `Matter.Pairs` object from which previous collision objects may be reused. Intended for internal `Matter.Engine` usage.
+        * @property pairs
+        * @type {Pairs | null | undefined}
+        * @default null
+        */
+        pairs?: Pairs | null;
+    }
+
     /**
      * The `Matter.Detector` module contains methods for efficiently detecting collisions between a list of bodies using a broadphase algorithm.
      */
@@ -4434,10 +4497,10 @@ declare namespace Matter {
          * Finds all collisions given a list of pairs.
          * Creates a new collision detector.
          * @method create
-         * @param {} options
+         * @param {IDetectorOptions | undefined} options
          * @return {Detector} A new collision detector
          */
-        static create(options: any): Detector;
+        static create(options?: IDetectorOptions): Detector;
 
         /**
          * Returns `true` if both supplied collision filters will allow a collision to occur.

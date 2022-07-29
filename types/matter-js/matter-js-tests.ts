@@ -24,7 +24,12 @@ var Engine = Matter.Engine,
 Matter.use('matter-attractors');
 Plugin.use(Matter, ['matter-wrap']);
 
-var engine = Engine.create();
+// $ExpectType Engine
+var engine = Engine.create({
+    detector: Detector.create(),
+});
+// $ExpectType Detector
+engine.detector;
 
 // Body
 // $ExpectType Body
