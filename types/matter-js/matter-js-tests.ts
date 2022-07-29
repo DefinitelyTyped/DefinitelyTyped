@@ -18,7 +18,8 @@ var Engine = Matter.Engine,
     Pairs = Matter.Pairs,
     Contact = Matter.Contact,
     Vertices = Matter.Vertices,
-    Detector = Matter.Detector;
+    Detector = Matter.Detector,
+    Resolver = Matter.Resolver;
 
 Matter.use('matter-attractors');
 Plugin.use(Matter, ['matter-wrap']);
@@ -184,7 +185,12 @@ Composite.add(composite1, mouseConstraint);
 Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
 
 // Pairs
+// $ExpectType Pairs
 const pairs = Pairs.create({});
+// $ExpectType Pairs
+Pairs.clear(pairs);
+// $ExpectType void
+Pairs.update(pairs, [], 1);
 
 // Collision
 // $ExpectType Collision
@@ -243,3 +249,15 @@ Detector.setBodies(detector, [body]);
 collision = SAT.collides(box1, box2);
 // $ExpectType Collision
 SAT.collides(box3, box4, collision);
+
+// Resolver
+// $ExpectType void
+Resolver.postSolvePosition([body]);
+// $ExpectType void
+Resolver.preSolvePosition([pair]);
+// $ExpectType void
+Resolver.preSolveVelocity([pair]);
+// $ExpectType void
+Resolver.solvePosition([pair], 1);
+// $ExpectType void
+Resolver.solveVelocity([pair], 2);

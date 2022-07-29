@@ -2385,10 +2385,19 @@ declare namespace Matter {
         /**
          * Clears the given pairs structure.
          * @method clear
-         * @param {pairs} pairs
-         * @return {pairs} pairs
+         * @param {Pairs} pairs
+         * @return {Pairs} pairs
          */
-        static clear(pairs: any): any;
+        static clear(pairs: Pairs): Pairs;
+
+        /**
+         * Updates pairs given a list of collisions.
+         * @method update
+         * @param {Pairs} pairs
+         * @param {Collision[]} collisions
+         * @param {number} timestamp
+         */
+        static update(pairs: Pairs, collisions: Array<Collision>, timestamp: number): void;
     }
 
     export interface Vertex {
@@ -2936,7 +2945,49 @@ declare namespace Matter {
         mouse: Mouse;
     }
 
+    /**
+    * The `Matter.Resolver` module contains methods for resolving collision pairs.
+    *
+    * @class Resolver
+    */
+    export class Resolver {
+        /**
+         * Apply position resolution.
+         * @method postSolvePosition
+         * @param {Body[]} bodies
+         */
+        static postSolvePosition(bodies: Array<Body>): void;
 
+        /**
+         * Prepare pairs for position solving.
+         * @method preSolvePosition
+         * @param {Pair[]} pairs
+         */
+        static preSolvePosition(pairs: Array<Pair>): void;
+
+        /**
+         * Prepare pairs for velocity solving.
+         * @method preSolveVelocity
+         * @param {Pair[]} pairs
+         */
+        static preSolveVelocity(pairs: Array<Pair>): void;
+
+        /**
+         * Find a solution for pair positions.
+         * @method solvePosition
+         * @param {Pair[]} pairs
+         * @param {number} timeScale
+         */
+        static solvePosition(pairs: Array<Pair>, timeScale: number): void;
+
+        /**
+         * Find a solution for pair velocities.
+         * @method solveVelocity
+         * @param {Pair[]} pairs
+         * @param {number} timeScale
+         */
+        static solveVelocity(pairs: Array<Pair>, timeScale: number): void;
+    }
 
     export interface IRunnerOptions {
         /**
