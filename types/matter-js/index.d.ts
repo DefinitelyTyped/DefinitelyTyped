@@ -2418,16 +2418,66 @@ declare namespace Matter {
         tangentImpulse: number;
     }
 
-    export interface Pair {
-        id: number;
+    /**
+    * The `Matter.Pair` module contains methods for creating and manipulating collision pairs.
+    *
+    * @class Pair
+    */
+    export class Pair {
+        /**
+         * Creates a pair.
+         * @method create
+         * @param {Collision} collision
+         * @param {number} timestamp
+         * @return {Pair} A new pair
+         */
+        static create(collision: Collision, timestamp: number): Pair;
+
+        /**
+         * Updates a pair given a collision.
+         * @method update
+         * @param {Pair} pair
+         * @param {Collision} collision
+         * @param {number} timestamp
+         */
+        static update(pair: Pair, collision: Collision, timestamp: number): void;
+
+        /**
+         * Set a pair as active or inactive.
+         * @method setActive
+         * @param {Pair} pair
+         * @param {boolean} isActive
+         * @param {number} timestamp
+         */
+        static setActive(pair: Pair, isActive: boolean, timestamp: number): void;
+
+        /**
+         * Get the id for the given pair.
+         * @method id
+         * @param {Body} bodyA
+         * @param {Body} bodyB
+         * @return {string} Unique pairId
+         */
+        static id(bodyA: Body, bodyB: Body): string
+
+        id: string;
         bodyA: Body;
         bodyB: Body;
-        contacts: any;
-        activeContacts: any;
+        collision: Collision;
+        /**
+         * @default {[]}
+         */
+        contacts: Contact[];
+        /**
+         * @default {[]}
+         */
+        activeContacts: Contact[];
         separation: number;
         isActive: boolean;
+        confirmedActive: boolean;
+        isSensor: boolean;
         timeCreated: number;
-        timeUpdated: number,
+        timeUpdated: number;
         inverseMass: number;
         friction: number;
         frictionStatic: number;

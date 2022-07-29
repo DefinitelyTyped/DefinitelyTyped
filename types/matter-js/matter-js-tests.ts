@@ -14,6 +14,7 @@ var Engine = Matter.Engine,
     SAT = Matter.SAT,
     Mouse = Matter.Mouse,
     MouseConstraint = Matter.MouseConstraint,
+    Pair = Matter.Pair,
     Pairs = Matter.Pairs,
     Contact = Matter.Contact,
     Vertices = Matter.Vertices,
@@ -185,27 +186,9 @@ Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
 // Pairs
 const pairs = Pairs.create({});
 
-const pair: Matter.Pair = {
-    id: 1,
-    bodyA: body,
-    bodyB: body,
-    contacts: {},
-    activeContacts: {},
-    separation: 1,
-    isActive: true,
-    timeCreated: 2,
-    timeUpdated: 3,
-    inverseMass: 4,
-    friction: 5,
-    frictionStatic: 6,
-    restitution: 7,
-    slop: 8,
-};
-
 // Collision
 // $ExpectType Collision
 let collision = Collision.create(body, body);
-collision.pair = pair;
 collision.pair = null;
 collision.collided = true;
 collision.bodyA = body;
@@ -218,6 +201,17 @@ collision.normal = vector;
 collision.tangent = vector;
 collision.penetration = vector;
 collision.supports = [vector];
+
+// Pair
+// $ExpectType Pair
+const pair = Pair.create(collision, 1);
+// $ExpectType void
+Pair.update(pair, collision, 2);
+// $ExpectType void
+Pair.setActive(pair, true, 3);
+
+// Collision with Pair
+collision.pair = pair;
 
 // Contact
 // $ExpectType Contact
