@@ -270,6 +270,8 @@ declare namespace run {
         urlValidatorSettings?: URLValidatorSettings | undefined;
         /** Here you can define custom meta tags you want to scrape. */
         customMetaTags?: CustomMetaTag[] | undefined;
+        /** Maximum size of the content downloaded from the server, in bytes */
+        downloadLimit?: number | undefined;
     }
 }
 
