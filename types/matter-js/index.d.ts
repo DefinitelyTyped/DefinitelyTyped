@@ -4495,13 +4495,20 @@ declare namespace Matter {
     }
 
     /**
+    * This module has now been replaced by `Matter.Collision`.
+    *
+    * All usage should be migrated to `Matter.Collision`.
+    * For back-compatibility purposes this module will remain for a short term and then later removed in a future release.
+    *
     * The `Matter.SAT` module contains methods for detecting collisions using the Separating Axis Theorem.
     *
     * @class SAT
+    * @deprecated
     */
     export class SAT {
         /**
          * Detect collision between two bodies using the Separating Axis Theorem.
+         * @deprecated replaced by Collision.collides
          * @method collides
          * @param {Body} bodyA
          * @param {Body} bodyB
