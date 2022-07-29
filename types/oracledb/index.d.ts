@@ -698,7 +698,8 @@ declare namespace OracleDB {
          * The action attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
          */
-        action?: string | undefined;
+        get action(): null;
+        set action(value: string);
         /**
          * Sets the maximum number of milliseconds that each underlying round-trip between node-oracledb and Oracle Database may take.
          * Each node-oracledb method or operation may make zero or more round-trips.
@@ -710,8 +711,8 @@ declare namespace OracleDB {
          * The client identifier for end-to-end application tracing, use with mid-tier authentication, and with Virtual Private Databases.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
          */
-        clientId?: string | undefined;
-
+        get clientId(): null;
+        set clientId(value: string);
         /**
          * The client information for end-to-end application tracing.
          * This is a write-only property. Displaying connection.clientInfo will show a value of null.
@@ -719,7 +720,8 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#endtoend
          * @since 4.1
          */
-        clientInfo?: string | undefined;
+        get clientInfo(): null;
+        set clientInfo(value: string);
         /**
          * After setting currentSchema, SQL statements using unqualified references to schema objects will resolve to objects in the specified schema.
          * This setting does not change the session user or the current user, nor does it give the session user any additional system or object privileges for the session.
@@ -736,13 +738,14 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#endtoend
          * @since 4.1
          */
-        dbOp?: string | undefined;
-
+        get dbOp(): null;
+        set dbOp(value: string);
         /**
          * The module attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
          */
-        module?: string | undefined;
+        get module(): null;
+        set module(value: string);
         /**
          * This readonly property gives a numeric representation of the Oracle database version which is useful in comparisons.
          * For version a.b.c.d.e, this property gives the number: (100000000 * a) + (1000000 * b) + (10000 * c) + (100 * d) + e.
