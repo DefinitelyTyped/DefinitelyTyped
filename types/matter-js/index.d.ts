@@ -2790,6 +2790,7 @@ declare namespace Matter {
 
         /**
          * A flag to enable or disable the collision broadphase debug overlay.
+         * @deprecated no longer implemented
          * @type {boolean}
          * @default false
          */
