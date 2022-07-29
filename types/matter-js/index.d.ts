@@ -1,10 +1,10 @@
 // Type definitions for Matter.js - 0.18.0
 // Project: https://github.com/liabru/matter-js
-// Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
-//                 David Asmuth <https://github.com/piranha771>,
-//                 Piotr Pietrzak <https://github.com/hasparus>,
-//                 Dale Whinham <https://github.com/dwhinham>,
-//                 slikts <https://github.com/slikts>,
+// Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
+//                 David Asmuth <https://github.com/piranha771>
+//                 Piotr Pietrzak <https://github.com/hasparus>
+//                 Dale Whinham <https://github.com/dwhinham>
+//                 slikts <https://github.com/slikts>
 //                 Steven Snoeijen <https://github.com/stevensnoeijen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -2264,7 +2264,7 @@ declare namespace Matter {
         world: World;
     }
 
-    export interface IGridDefinition {}
+    export interface IGridDefinition { }
 
     /**
      * This module has now been replaced by `Matter.Detector`.
@@ -2878,23 +2878,23 @@ declare namespace Matter {
     interface IRenderLookAtObject {
         bounds?: Bounds | undefined;
         position?:
-            | {
-                  x: number;
-                  y: number;
-              }
-            | undefined;
+        | {
+            x: number;
+            y: number;
+        }
+        | undefined;
         min?:
-            | {
-                  x: number;
-                  y: number;
-              }
-            | undefined;
+        | {
+            x: number;
+            y: number;
+        }
+        | undefined;
         max?:
-            | {
-                  x: number;
-                  y: number;
-              }
-            | undefined;
+        | {
+            x: number;
+            y: number;
+        }
+        | undefined;
     }
 
     /**
@@ -4324,7 +4324,7 @@ declare namespace Matter {
          * @param {} module The module.
          * @returns {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
-        static isFor(plugin: Plugin, module: { name?: string | undefined; [_: string]: any }): boolean;
+        static isFor(plugin: Plugin, module: { name?: string | undefined;[_: string]: any }): boolean;
 
         /**
          * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
@@ -4343,7 +4343,7 @@ declare namespace Matter {
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
-            module: { uses?: (Plugin | string)[] | undefined; [_: string]: any },
+            module: { uses?: (Plugin | string)[] | undefined;[_: string]: any },
             plugins: (Plugin | string)[],
         ): void;
 
