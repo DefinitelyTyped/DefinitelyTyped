@@ -2196,13 +2196,20 @@ declare namespace Matter {
     }
 
     /**
+    * This module has now been replaced by `Matter.Detector`.
+    *
+    * All usage should be migrated to `Matter.Detector` or another alternative.
+    * For back-compatibility purposes this module will remain for a short term and then later removed in a future release.
+    *
     * The `Matter.Grid` module contains methods for creating and manipulating collision broadphase grid structures.
     *
     * @class Grid
+    * @deprecated
     */
     export class Grid {
         /**
          * Creates a new grid.
+         * @deprecated replaced by Matter.Detector
          * @method create
          * @param {} options
          * @return {grid} A new grid
@@ -2212,6 +2219,7 @@ declare namespace Matter {
         /**
          * Updates the grid.
          * @method update
+         * @deprecated replaced by Matter.Detector
          * @param {grid} grid
          * @param {Body[]} bodies
          * @param {engine} engine
@@ -2221,6 +2229,7 @@ declare namespace Matter {
 
         /**
          * Clears the grid.
+         * @deprecated replaced by Matter.Detector
          * @method clear
          * @param {grid} grid
          */
@@ -2228,16 +2237,16 @@ declare namespace Matter {
 
 
         /**
-         * The width of a single grid bucket.
-         *
+        * The width of a single grid bucket.
+        * @deprecated replaced by Matter.Detector
         * @property type
         * @type {number}
         */
         bucketWidth: number;
 
         /**
-         * The height of a single grid bucket.
-         *
+        * The height of a single grid bucket.
+        * @deprecated replaced by Matter.Detector
         * @property type
         * @type {number}
         */
