@@ -14,12 +14,18 @@ var Engine = Matter.Engine,
     SAT = Matter.SAT,
     Mouse = Matter.Mouse,
     MouseConstraint = Matter.MouseConstraint,
-    Pairs = Matter.Pairs;
+    Pairs = Matter.Pairs,
+    Contact = Matter.Contact,
+    Vertices = Matter.Vertices;
 
 Matter.use('matter-attractors');
 Plugin.use(Matter, ['matter-wrap']);
 
 var engine = Engine.create();
+
+// Body
+// $ExpectType Body
+const body = Body.create({});
 
 //Bodies
 var box1 = Bodies.rectangle(400, 200, 80, 80);
@@ -45,6 +51,16 @@ var circle1 = Bodies.circle(100, 100, 50, {
         },
     },
 });
+const vertex: Matter.Vertex = {
+    x: 1,
+    y: 2,
+    index: 1,
+    body: body,
+    isInternal: false,
+}
+// $ExpectType Body
+Bodies.fromVertices(1, 2, [[vertex]]);
+
 const vector = Matter.Vector.create(10, 10);
 var radius = circle1.circleRadius;
 Body.setCentre(circle1, vector, true);
@@ -148,10 +164,6 @@ Composite.add(composite1, mouseConstraint);
 // $ExpectType Composite
 Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
 
-// Body
-// $ExpectType Body
-const body = Body.create({});
-
 // Pairs
 const pairs = Pairs.create({});
 
@@ -172,6 +184,13 @@ collision.tangent = vector;
 collision.penetration = vector;
 collision.supports = [vector];
 
+// Contact
+// $ExpectType Contact
+Contact.create(vertex);
+
+// Vertices
+// $ExpectType Vertex[]
+Vertices.hull([vertex]);
 
 // $ExpectType Collision | null
 Collision.collides(body, body, pairs);

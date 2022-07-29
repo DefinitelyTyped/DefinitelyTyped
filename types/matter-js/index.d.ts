@@ -132,7 +132,7 @@ declare namespace Matter {
         * @method fromVertices
         * @param {number} x
         * @param {number} y
-        * @param [[vector]] vertexSets
+        * @param {Vertex[][]} vertexSets
         * @param {object} [options]
         * @param {bool} [flagInternal=false]
         * @param {number} [removeCollinear=0.01]
@@ -140,7 +140,7 @@ declare namespace Matter {
         * @param {number} [removeDuplicatePoints=0.01]
         * @return {body}
         */
-        static fromVertices(x: number, y: number, vertexSets: Array<Array<Vector>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number, removeDuplicatePoints?: number): Body;
+        static fromVertices(x: number, y: number, vertexSets: Array<Array<Vertex>>, options?: IBodyDefinition, flagInternal?: boolean, removeCollinear?: number, minimumArea?: number, removeDuplicatePoints?: number): Body;
     }
 
     export interface IBodyDefinition {
@@ -2379,6 +2379,33 @@ declare namespace Matter {
         static clear(pairs: any): any;
     }
 
+    export interface Vertex {
+        x: number;
+        y: number;
+        index: number;
+        body: Body;
+        isInternal: boolean;
+    }
+
+    /**
+    * The `Matter.Contact` module contains methods for creating and manipulating collision contacts.
+    *
+    * @class Contact
+    */
+    export class Contact {
+        /**
+         * Creates a new contact.
+         * @method create
+         * @param {Vertex} vertex
+         * @return {contact} A new contact
+         */
+        static create(vertex: Vertex): Contact;
+
+        vertex: Vertex;
+        normalImpulse: number;
+        tangentImpulse: number;
+    }
+
     export interface Pair {
         id: number;
         bodyA: Body;
@@ -3207,9 +3234,9 @@ declare namespace Matter {
          * Returns the convex hull of the input vertices as a new array of points.
          * @method hull
          * @param {vertices} vertices
-         * @return [vertex] vertices
+         * @return {Array<Vertex>} vertices
          */
-        static hull(vertices: Array<Vector>): Array<Vector>;
+        static hull(vertices: Array<Vertex>): Array<Vertex>;
 
         /**
          * Returns the area of the set of vertices.
