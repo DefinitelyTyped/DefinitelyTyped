@@ -1,4 +1,4 @@
-// Type definitions for react-imgix 9.4
+// Type definitions for react-imgix 9.5
 // Project: https://github.com/imgix/react-imgix
 // Definitions by: Sherwin Heydarbeygi <https://github.com/sherwinski>
 //                 Luis Ball <https://github.com/luqven>
@@ -221,10 +221,10 @@ interface AttributeConfig {
 }
 
 interface SrcSetParams {
-    widths: number[];
-    widthTolerance: number;
-    minWidth: number;
-    maxWidth: number;
+    widths?: number[];
+    widthTolerance?: number;
+    minWidth?: number;
+    maxWidth?: number;
 }
 
 type ImgixHTMLAttributes =
