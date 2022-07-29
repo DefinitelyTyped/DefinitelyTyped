@@ -16,7 +16,8 @@ var Engine = Matter.Engine,
     MouseConstraint = Matter.MouseConstraint,
     Pairs = Matter.Pairs,
     Contact = Matter.Contact,
-    Vertices = Matter.Vertices;
+    Vertices = Matter.Vertices,
+    Detector = Matter.Detector;
 
 Matter.use('matter-attractors');
 Plugin.use(Matter, ['matter-wrap']);
@@ -68,15 +69,20 @@ Body.setCentre(circle1, vector, true);
 World.addBody(engine.world, box1);
 World.add(engine.world, [box2, circle1]);
 
+const filter1: Matter.ICollisionFilter = {
+    category: 1,
+}
+
+const emptyFilter: Matter.ICollisionFilter = {};
+
 // Body - collision filter
 var box3 = Bodies.rectangle(400, 200, 80, 80, {
-    collisionFilter: {
-        category: 1, // Allows only one option to be defined
-    },
+    // Allows only one option to be defined
+    collisionFilter: filter1,
 });
 
 var box4 = Bodies.rectangle(400, 200, 80, 80, {
-    collisionFilter: {}, // Or none
+    collisionFilter: emptyFilter, // Or none
 });
 
 // Composites
@@ -223,6 +229,20 @@ Vertices.hull([vertex]);
 
 // $ExpectType Collision | null
 Collision.collides(body, body, pairs);
+
+// Detector
+// $ExpectType Detector
+const detector = Detector.create({});
+detector.bodies = [body];
+detector.pairs = [pair];
+detector.pairs = null;
+
+// $ExpectType boolean
+Detector.canCollide(filter1, emptyFilter);
+Detector.clear(detector);
+// $ExpectType Collision[]
+Detector.collisions(detector);
+Detector.setBodies(detector, [body]);
 
 // SAT
 // $ExpectType Collision

@@ -4317,6 +4317,74 @@ declare namespace Matter {
     }
 
     /**
+     * The `Matter.Detector` module contains methods for efficiently detecting collisions between a list of bodies using a broadphase algorithm.
+     */
+    export class Detector {
+        /**
+         * Finds all collisions given a list of pairs.
+         * Creates a new collision detector.
+         * @method create
+         * @param {} options
+         * @return {Detector} A new collision detector
+         */
+        static create(options: any): Detector;
+
+        /**
+         * Returns `true` if both supplied collision filters will allow a collision to occur.
+         * See `body.collisionFilter` for more information.
+         * @method canCollide
+         * @param ICollisionFilter filterA
+         * @param ICollisionFilter filterB
+         * @return {boolean} `true` if collision can occur
+         */
+        static canCollide(filterA: ICollisionFilter, filterB: ICollisionFilter): boolean;
+
+        /**
+         * Clears the detector including its list of bodies.
+         * @method clear
+         * @param {Detector} detector
+         */
+        static clear(detector: Detector): void;
+
+        /**
+         * Efficiently finds all collisions among all the bodies in `detector.bodies` using a broadphase algorithm.
+         *
+         * _Note:_ The specific ordering of collisions returned is not guaranteed between releases and may change for performance reasons.
+         * If a specific ordering is required then apply a sort to the resulting array.
+         * @method collisions
+         * @param {Detector} detector
+         * @return {Collision[]} collisions
+         */
+        static collisions(detector: Detector): Array<Collision>;
+
+        /**
+         * Sets the list of bodies in the detector.
+         * @method setBodies
+         * @param {Detector} detector
+         * @param {Body[]} bodies
+         */
+        static setBodies(detector: Detector, bodies: Body[]): void;
+
+        /**
+         * The array of `Matter.Body` between which the detector finds collisions.
+         *
+         * _Note:_ The order of bodies in this array _is not fixed_ and will be continually managed by the detector.
+         * @property bodies
+         * @type {Body[]}
+         * @default []
+         */
+        bodies: Array<Body>;
+
+        /**
+         * Optional. A `Matter.Pairs` object from which previous collision objects may be reused. Intended for internal `Matter.Engine` usage.
+         * @property pairs
+         * @type {Pairs | null}
+         * @default null
+         */
+        pairs: Pairs | null;
+    }
+
+    /**
     * The `Matter.SAT` module contains methods for detecting collisions using the Separating Axis Theorem.
     *
     * @class SAT
