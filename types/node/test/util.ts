@@ -200,3 +200,33 @@ access('file/that/does/not/exist', (err) => {
 {
     util.stripVTControlCharacters('\u001B[4mvalue\u001B[0m'); // $ExpectType string
 }
+
+{
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    const config = {
+        allowPositionals: true,
+        options: {
+            foo: { type: 'string' },
+            bar: { type: 'boolean', multiple: true },
+        },
+    } as const;
+
+    // $ExpectType { values: { foo: string | undefined; bar: boolean[] | undefined; }; positionals: string[]; }
+    util.parseArgs(config);
+}
+
+{
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    const config = {
+        tokens: true,
+        allowPositionals: true,
+        options: {
+            foo: { type: 'string' },
+            bar: { type: 'boolean' },
+        },
+    } as const;
+
+    // tslint:disable-next-line:max-line-length
+    // $ExpectType { kind: "positional"; index: number; value: string; } | { kind: "option-terminator"; index: number; } | { kind: "option"; index: number; name: "foo"; rawName: string; value: string; inlineValue: boolean; } | { kind: "option"; index: number; name: "bar"; rawName: string; value: undefined; inlineValue: undefined; }
+    util.parseArgs(config).tokens[0];
+}

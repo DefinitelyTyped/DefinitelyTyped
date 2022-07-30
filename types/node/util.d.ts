@@ -1197,7 +1197,7 @@ declare module 'util' {
 
     type ParsedValues<T extends ParseArgsConfig> = (T['options'] extends ParseArgsOptionsConfig
         ? {
-              [LongOption in keyof T['options']]: IfDefaultsFalse<
+              -readonly [LongOption in keyof T['options']]: IfDefaultsFalse<
                   T['options'][LongOption]['multiple'],
                   undefined | Array<ExtractOptionValue<T, T['options'][LongOption]>>,
                   undefined | ExtractOptionValue<T, T['options'][LongOption]>
