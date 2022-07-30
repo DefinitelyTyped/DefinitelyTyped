@@ -689,7 +689,7 @@ declare namespace google {
             theme?: string;
             trendlines?: { [key: number]: ChartTrendlineOptions; };
             title?: string;
-            titlePosition?: string;
+            titlePosition?: 'in' | 'out' | 'none';
             titleTextStyle?: ChartTextStyle;
             tooltip?: ChartTooltip;
             vAxis?: ChartAxis;
@@ -728,7 +728,7 @@ declare namespace google {
             series?: any;
             theme?: string;
             title?: string;
-            titlePosition?: string;
+            titlePosition?: 'in' | 'out' | 'none';
             titleTextStyle?: ChartTextStyle;
             tooltip?: ChartTooltip;
             vAxes?: any;
@@ -804,7 +804,7 @@ declare namespace google {
             interval?: any;
             theme?: string;
             title?: string;
-            titlePosition?: string;
+            titlePosition?: 'in' | 'out' | 'none';
             titleTextStyle?: ChartTextStyle;
             tooltip?: ChartTooltip;
             vAxes?: any;
@@ -839,7 +839,7 @@ declare namespace google {
             series?: any;
             theme?: string;
             title?: string;
-            titlePosition?: string;
+            titlePosition?: 'in' | 'out' | 'none';
             titleTextStyle?: ChartTextStyle;
             tooltip?: ChartTooltip;
             vAxes?: any;
@@ -884,7 +884,7 @@ declare namespace google {
             series?: any;
             theme?: string;
             title?: string;
-            titlePosition?: string;
+            titlePosition?: 'in' | 'out' | 'none';
             titleTextStyle?: ChartTextStyle;
             tooltip?: ChartTooltip;
             vAxes?: any;
@@ -936,7 +936,7 @@ declare namespace google {
             series?: any;
             theme?: string;
             title?: string;
-            titlePosition?: string;
+            titlePosition?: 'in' | 'out' | 'none';
             titleTextStyle?: ChartTextStyle;
             tooltip?: ChartTooltip;
             vAxes?: any;
@@ -1017,7 +1017,7 @@ declare namespace google {
             series?: any;
             theme?: string;
             title?: string;
-            titlePosition?: string;
+            titlePosition?: 'in' | 'out' | 'none';
             titleTextStyle?: ChartTextStyle;
             tooltip?: ChartTooltip;
             vAxes?: any;
@@ -1090,7 +1090,7 @@ declare namespace google {
             sortBubblesBySize?: boolean;
             theme?: string;
             title?: string;
-            titlePosition?: string;
+            titlePosition?: 'in' | 'out' | 'none';
             titleTextStyle?: ChartTextStyle;
             tooltip?: ChartTooltip;
             vAxis?: ChartAxis;
@@ -1270,7 +1270,7 @@ declare namespace google {
             series?: any;
             theme?: string;
             title?: string;
-            titlePosition?: string;
+            titlePosition?: 'in' | 'out' | 'none';
             titleTextStyle?: ChartTextStyle;
             tooltip?: ChartTooltip;
             vAxes?: any;
@@ -1323,7 +1323,7 @@ declare namespace google {
             seriesType?: string;
             theme?: string;
             title?: string;
-            titlePosition?: string;
+            titlePosition?: 'in' | 'out' | 'none';
             titleTextStyle?: ChartTextStyle;
             tooltip?: ChartTooltip;
             vAxes?: any;
