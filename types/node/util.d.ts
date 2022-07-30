@@ -1144,7 +1144,7 @@ declare module 'util' {
      *   - `tokens` Detailed parse information (only if `tokens` was specified).
      *
      */
-    export function parseArgs<T extends Exact<ParseArgsConfig, T>>(config: T): ParsedResults<T>;
+    export function parseArgs<T extends ParseArgsConfig>(config: T): ParsedResults<T>;
 
     interface ParseArgsOptionConfig {
         type: 'string' | 'boolean';
@@ -1296,20 +1296,6 @@ declare module 'util' {
               tokens?: Token[];
           }
         : PreciseParsedResults<T>;
-
-    type ParseArgs<T extends Exact<ParseArgsConfig, T>> = ParsedResults<T>;
-
-    type Primitive = null | undefined | string | number | boolean | symbol | bigint;
-
-    type KeysOfUnion<T> = T extends T ? keyof T : never;
-
-    // https://github.com/sindresorhus/type-fest/blob/dfaba0eb253a2d291d45924905643b013b6409aa/source/exact.d.ts#L34
-    type Exact<ParameterType, InputType extends ParameterType> = ParameterType extends Primitive
-        ? ParameterType
-        : { [Key in keyof ParameterType]: Exact<ParameterType[Key], InputType[Key]> } & Record<
-              Exclude<keyof InputType, KeysOfUnion<ParameterType>>,
-              never
-          >;
 }
 declare module 'util/types' {
     export * from 'util/types';

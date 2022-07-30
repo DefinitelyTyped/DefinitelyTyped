@@ -249,13 +249,11 @@ access('file/that/does/not/exist', (err) => {
 
 {
     // util.parseArgs: strict: false
-    // tslint:disable-next-line:no-object-literal-type-assertion
-    const config = {
-        strict: false,
-    } as const;
 
     // $ExpectType { values: { [longOption: string]: string | boolean | undefined; }; positionals: string[]; }
-    const result = util.parseArgs(config);
+    const result = util.parseArgs({
+        strict: false,
+    });
 }
 
 {
