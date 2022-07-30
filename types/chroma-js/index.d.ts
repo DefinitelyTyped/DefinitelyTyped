@@ -1,6 +1,6 @@
 // Type definitions for Chroma.js 2.1
 // Project: https://github.com/gka/chroma.js
-// Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
+// Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>, Charlie Zhuo <https://github.com/CharlieZhuo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -20,7 +20,7 @@ declare namespace chroma {
         gl: [number, number, number, number];
     }
 
-    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl" | "lrgb";
+    type InterpolationMode = 'rgb' | 'hsl' | 'hsv' | 'hsi' | 'lab' | 'lch' | 'hcl' | 'lrgb';
 
     interface ChromaStatic {
         /**
@@ -71,6 +71,11 @@ declare namespace chroma {
 
         lch(l: number, c: number, h: number): Color;
 
+        /**
+         * Same meaning as lch(), but in different order.
+         */
+        hcl(h: number, c: number, l: number): Color;
+
         rgb(r: number, g: number, b: number): Color;
 
         /**
@@ -108,8 +113,11 @@ declare namespace chroma {
         /**
          * Blends two colors using RGB channel-wise blend functions.
          */
-        blend(color1: string | Color, color2: string | Color,
-              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge'): Color;
+        blend(
+            color1: string | Color,
+            color2: string | Color,
+            blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge',
+        ): Color;
 
         /**
          * Returns a random color.
@@ -199,7 +207,7 @@ declare namespace chroma {
          * colors in Lab space. The input range of the function is [0..1].
          * You can convert it to a scale instance by calling <code>chroma.bezier(...).scale()</code>
          */
-        bezier(colors: string[]): { (t: number): Color, scale(): Scale};
+        bezier(colors: string[]): { (t: number): Color; scale(): Scale };
 
         scale(name: string | Color): Scale;
 
@@ -408,6 +416,26 @@ declare namespace chroma {
          * chroma('33cc00').gl() === [0.2,0.8,0,1]
          */
         gl: () => ColorSpaces['gl'];
+
+        /**
+         * Test if a color has been clipped or not.
+         * Colors generated from CIELab color space may have their RGB
+         * channels clipped to the range of [0..255].
+         * Colors outside that range may exist in nature but are not
+         * displayable on RGB monitors (such as ultraviolet).
+         *
+         * @example
+         * chroma.hcl(50, 40, 20).clipped() === true
+         */
+        clipped: () => boolean;
+
+        /**
+         * The unclipped RGB components.
+         *
+         * @example
+         * chroma.hcl(50, 40, 100)._rgb._unclipped === [322.65,235.24,196.7,1]
+         */
+        _rgb: { _unclipped: ColorSpaces['rgb'] };
     }
 
     interface Scale<OutType = Color> {
@@ -431,7 +459,10 @@ declare namespace chroma {
          * You can call scale.colors(n) to quickly grab `c` equi-distant colors from a color scale. If called with no
          * arguments, scale.colors returns the original array of colors used to create the scale.
          */
-        colors(c: number | undefined, format: undefined | null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
+        colors(
+            c: number | undefined,
+            format: undefined | null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate',
+        ): Color[];
         colors(c: number | undefined, format: 'luminance' | 'temperature'): number[];
         colors<K extends keyof ColorSpaces>(c: number | undefined, format: K): Array<ColorSpaces[K]>;
         colors(c: number | undefined, format?: 'hex' | 'name'): string[];

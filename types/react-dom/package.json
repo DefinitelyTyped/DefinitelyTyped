@@ -25,6 +25,11 @@
       "types": {
         "default": "./experimental.d.ts"
       }
+    },
+    "./test-utils": {
+      "types": {
+          "default": "./test-utils/index.d.ts"
+      }
     }
   }
 }

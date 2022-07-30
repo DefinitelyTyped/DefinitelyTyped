@@ -850,6 +850,10 @@ export type MUIDataTableOptions = Partial<{
      * @default true
      */
     viewColumns: ToolbarButton;
+    /**
+     * Local storage key used to store the table state.
+     */
+    storageKey: string;
 }>;
 
 export type MUIDataTableColumnDef = string | MUIDataTableColumn;

@@ -1,4 +1,4 @@
-// Type definitions for intro.js 3.0
+// Type definitions for intro.js 5.1
 // Project: https://github.com/usablica/intro.js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen>
 //                 Leon Montealegre <https://github.com/LeonMontealegre>
@@ -82,6 +82,7 @@ declare namespace introJs {
         setOptions(options: Options): IntroJs;
 
         onexit(callback: Function): IntroJs;
+        onbeforeexit(callback: () => boolean | void): IntroJs;
         onbeforechange(callback: (element: HTMLElement) => any): IntroJs;
         onafterchange(callback: (element: HTMLElement) => any): IntroJs;
         onchange(callback: (element: HTMLElement) => any): IntroJs;

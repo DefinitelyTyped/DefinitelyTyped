@@ -91,7 +91,7 @@ export interface DRMSettings {
   contentId?: string | undefined;
   certificateUrl?: string | undefined;
   base64Certificate?: boolean | undefined;
-  getLicense?(): Promise<string>;
+  getLicense?(spcString: string): Promise<string>;
 }
 
 export const TextTrackType: {

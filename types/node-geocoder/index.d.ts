@@ -8,8 +8,8 @@
 declare namespace node_geocoder {
     type Providers =
         'freegeoip' | 'datasciencetoolkit' |
-        'locationiq' | 'mapquest' | 'openmapquest' |
-        'tomtom' | 'nominatimmapquest' |
+        'locationiq' | 'mapquest' | 'mapbox' |
+        'openmapquest' | 'tomtom' | 'nominatimmapquest' |
         'opencage' | 'geocodio' |
         'yandex' | 'teleport' | 'pickpoint';
 

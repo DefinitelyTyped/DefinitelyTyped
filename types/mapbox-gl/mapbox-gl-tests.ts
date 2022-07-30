@@ -947,7 +947,7 @@ expectType<mapboxgl.Map>(map.setFilter('layerId', false));
 map.setFilter('layerId', true, { validate: true });
 map.setFilter('layerId', true, { validate: null });
 map.setFilter('layerId', true, {});
-// $ExpectError
+// @ts-expect-error
 map.setFilter('layerId', true, { some_option: 'some_string' });
 
 // $ExpectType Map
@@ -1366,6 +1366,100 @@ expectType<mapboxgl.Map>(
     }),
 );
 
+expectType<mapboxgl.Map>(
+    map.once('click', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('dblclick', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mousedown', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mouseup', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mousemove', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mouseenter', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mouseleave', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mouseover', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mouseout', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('contextmenu', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+
+expectType<mapboxgl.Map>(
+    map.once('touchstart', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerTouchEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('touchend', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerTouchEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('touchcancel', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerTouchEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+
+expectType<mapboxgl.Map>(map.off('click', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('dblclick', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mousedown', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mouseup', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mousemove', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mouseenter', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mouseleave', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mouseover', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mouseout', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('contextmenu', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('touchstart', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('touchend', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('touchcancel', eitherType('text', ['text1', 'text2']), () => {}));
+
 /*
  * Expression
  */
@@ -1380,7 +1474,7 @@ expectType<mapboxgl.Expression>([
 expectType<mapboxgl.Expression>([
     'number-format',
     ['get', 'quantity'],
-    { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }
+    { 'min-fraction-digits': 1, 'max-fraction-digits': 1 },
 ]);
 const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
 
@@ -1799,15 +1893,15 @@ expectType<mapboxgl.AnyPaint>(
  */
 
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'background-opacity': 1 } });
-// $ExpectError
+// @ts-expect-error
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'line-opacity': 1 } });
 
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'fill-opacity': 1 } });
-// $ExpectError
+// @ts-expect-error
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'line-opacity': 1 } });
 
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'line-opacity': 1 } });
-// $ExpectError
+// @ts-expect-error
 expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'fill-opacity': 1 } });
 
 /**

@@ -11,19 +11,26 @@ import {
 
 import { assertType } from './lib/assert';
 
-enableDestroyableTracking(true); // $ExpectError
-enableDestroyableTracking({}); // $ExpectError
-enableDestroyableTracking('foo'); // $ExpectError
-enableDestroyableTracking(1); // $ExpectError
+// @ts-expect-error
+enableDestroyableTracking(true);
+// @ts-expect-error
+enableDestroyableTracking({});
+// @ts-expect-error
+enableDestroyableTracking('foo');
+// @ts-expect-error
+enableDestroyableTracking(1);
 enableDestroyableTracking();
 
 class Child {
     state: boolean;
     constructor() {
         this.state = true;
-        registerDestructor(); // $ExpectError
-        registerDestructor(this); // $ExpectError
-        registerDestructor(this.stateDestructor); // $ExpectError
+        // @ts-expect-error
+        registerDestructor();
+        // @ts-expect-error
+        registerDestructor(this);
+        // @ts-expect-error
+        registerDestructor(this.stateDestructor);
         registerDestructor(this, this.stateDestructor);
     }
 
@@ -32,9 +39,12 @@ class Child {
     }
 
     keepForever() {
-        unregisterDestructor(); // $ExpectError
-        unregisterDestructor(this); // $ExpectError
-        unregisterDestructor(this.stateDestructor); // $ExpectError
+        // @ts-expect-error
+        unregisterDestructor();
+        // @ts-expect-error
+        unregisterDestructor(this);
+        // @ts-expect-error
+        unregisterDestructor(this.stateDestructor);
         unregisterDestructor(this, this.stateDestructor);
     }
 }
@@ -43,9 +53,12 @@ class Parent {
     child: object;
 
     constructor(child: object) {
-        this.child = associateDestroyableChild(); // $ExpectError
-        this.child = associateDestroyableChild(this); // $ExpectError
-        this.child = associateDestroyableChild(child); // $ExpectError
+        // @ts-expect-error
+        this.child = associateDestroyableChild();
+        // @ts-expect-error
+        this.child = associateDestroyableChild(this);
+        // @ts-expect-error
+        this.child = associateDestroyableChild(child);
         this.child = associateDestroyableChild(this, child);
     }
 }
@@ -53,7 +66,8 @@ class Parent {
 const c = new Child();
 const p = new Parent(c);
 
-destroy(); // $ExpectError
+// @ts-expect-error
+destroy();
 
 assertType<boolean>(isDestroyed(c));
 assertType<boolean>(isDestroyed(p));
@@ -66,8 +80,12 @@ assertType<boolean>(isDestroying(p));
 assertType<boolean>(isDestroyed(c));
 assertType<boolean>(isDestroyed(p));
 
-assertDestroyablesDestroyed(true); // $ExpectError
-assertDestroyablesDestroyed({}); // $ExpectError
-assertDestroyablesDestroyed('foo'); // $ExpectError
-assertDestroyablesDestroyed(1); // $ExpectError
+// @ts-expect-error
+assertDestroyablesDestroyed(true);
+// @ts-expect-error
+assertDestroyablesDestroyed({});
+// @ts-expect-error
+assertDestroyablesDestroyed('foo');
+// @ts-expect-error
+assertDestroyablesDestroyed(1);
 assertDestroyablesDestroyed();

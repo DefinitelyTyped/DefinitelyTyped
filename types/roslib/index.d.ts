@@ -680,13 +680,21 @@ declare namespace ROSLIB {
          *   * serverName - the action server name, like /fibonacci
          *   * actionName - the action message name, like 'actionlib_tutorials/FibonacciAction'
          *   * timeout - the timeout length when connecting to the action server
+         *   * omitFeedback - the boolean flag to indicate whether to omit the feedback channel or not
+         *   * omitStatus - the boolean flag to indicate whether to omit the status channel or not
+         *   * omitResult - the boolean flag to indicate whether to omit the result channel or not
          */
-        constructor(options: { ros: Ros; serverName: string; actionName: string; timeout: number });
+        constructor(options: { ros: Ros; serverName: string; actionName: string; timeout?: number; omitFeedback?: boolean; omitStatus?: boolean; omitResult?: boolean });
 
         /**
          * Cancel all goals associated with this ActionClient.
          */
         cancel(): void;
+
+        /**
+         * Unsubscribe and unadvertise all topics associated with this ActionClient.
+         */
+        dispose(): void;
     }
 
     class Goal {

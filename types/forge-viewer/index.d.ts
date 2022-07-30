@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.61
+// Type definitions for non-npm package Forge Viewer 7.69
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/overview/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -263,6 +263,8 @@ declare namespace Autodesk {
           loadOptions?: object | undefined;
           sharedPropertyDbPath?: string | undefined;
           ids?: string | undefined;
+          applyScaling?: string | { from: string, to: string };
+          modelNameOverride?: string;
           [key: string]: any;
         }
 
@@ -316,6 +318,7 @@ declare namespace Autodesk {
         const AGGREGATE_SELECTION_CHANGED_EVENT = 'aggregateSelection';
         const ANIM_ENDED = 'animEnded';
         const ANIMATION_READY_EVENT = 'animationReady';
+        const BEFORE_MODEL_UNLOAD_EVENT = 'beforeModelUnload';
         const CAMERA_CHANGE_EVENT = 'cameraChanged';
         const CAMERA_TRANSITION_COMPLETED = 'cameraTransitionCompleted';
         const CUTPLANES_CHANGE_EVENT = 'cutplanesChanged';
@@ -549,6 +552,9 @@ declare namespace Autodesk {
             accessToken?: string | undefined;
             useADP?: boolean | undefined;
             useConsolidation?: boolean | undefined;
+            optOutTrackingByDefault?: boolean;
+            shouldInitializeAuth?: boolean;
+            useCredentials?: boolean;
             [key: string]: any;
         }
 
@@ -603,6 +609,7 @@ declare namespace Autodesk {
         }
 
         class Extension {
+            container: HTMLDivElement;
             viewer: GuiViewer3D;
             options: any;
             constructor(viewer: GuiViewer3D, options: any);
@@ -613,12 +620,12 @@ declare namespace Autodesk {
             getCache(): object;
             getName(): string;
             getModes(): string[];
-            getState(viewerState: object): void;
+            getState(viewerState: Private.ViewerStateOptions): void;
             isActive(mode: string): boolean;
             load(): boolean | Promise<boolean>;
             unload(): boolean;
             onToolbarCreated(toolbar?: UI.ToolBar): void;
-            restoreState(viewerState: object, immediate: boolean): boolean;
+            restoreState(viewerState: Private.ViewerStateOptions, immediate: boolean): boolean;
             setActive(enable: boolean, mode: string): void;
         }
 
@@ -845,10 +852,11 @@ declare namespace Autodesk {
             attributeName: string;
             displayCategory: string;
             displayName: string;
-            displayValue: string;
+            displayValue: string | number;
             hidden: boolean;
             type: number;
-            units: string;
+            units: string | null;
+            precision?: number;
         }
 
         class PropertySet {
@@ -1083,7 +1091,7 @@ declare namespace Autodesk {
             createControls(): void;
             initialize(): any;
             setUp(config: any): void;
-            tearDown(): void;
+            tearDown(isUnloadModelsWanted?: boolean): void;
             run(): void;
             localize(): void;
             uninitialize(): void;
@@ -1607,7 +1615,9 @@ declare namespace Autodesk {
             function fadeValue(startValue: number, endValue: number, duration: number, setParam: (value: number) => void, onFinished?: () => void): any;
             function formatValueWithUnits(value: number, units: string, type: number, precision: number,
               options?: { noMixedArea?: boolean | undefined; noMixedVolume?: boolean | undefined, preferLetters?: boolean | undefined; }): string;
+            function getAndroidVersion(ua: any): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
+            function getIOSVersion(ua: any): string;
             function lerp(x: number, y: number, t: number): number;
 
             interface FragmentList {
@@ -1836,6 +1846,61 @@ declare namespace Autodesk {
               getSeedUrn(): string;
               getState(filter?: object): object;
               restoreState(viewerState: object, filter?: object, immediate?: boolean): boolean;
+            }
+
+            interface ViewerStateOptions {
+              guid?: string;
+              seedURN?: string;
+              overrides?: [];
+              objectSet?: ObjectSetItem[];
+
+              cutplanes?: number[][];
+
+              viewport?: {
+                name: string;
+                eye: [number, number, number];
+                target: [number, number, number];
+                up: [number, number, number];
+                worldUpVector: [number, number, number];
+                pivotPoint: [number, number, number];
+                distanceToOrbit: number;
+                aspectRatio: number;
+                projection: 'perspective' | 'orthographic';
+                isOrthographic: boolean;
+                fieldOfView?: number;
+                orthographicHeight?: number;
+              };
+
+              renderOptions?: {
+                environment: string;
+                ambientOcclusion: {
+                  enabled: boolean;
+                  radius: number;
+                  intensity: number;
+                };
+                toneMap: {
+                  method: number;
+                  exposure: number;
+                  lightMultiplier: number;
+                };
+                appearance: {
+                  ghostHidden: boolean;
+                  ambientShadow: boolean;
+                  antiAliasing: boolean;
+                  progressiveDisplay: boolean;
+                  swapBlackAndWhite: boolean;
+                  displayLines: boolean;
+                  displayPoints: boolean;
+                };
+              };
+            }
+
+            interface ObjectSetItem {
+              id: number[];
+              isolated: number[];
+              hidden: number[];
+              explodeScale: number;
+              seedUrn: string;
             }
 
             interface HitTestResult {

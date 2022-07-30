@@ -1,7 +1,9 @@
 import stdin = require('stdin');
 
-stdin(); // $ExpectError
-stdin((num: number) => {}); // $ExpectError
+// @ts-expect-error
+stdin();
+// @ts-expect-error
+stdin((num: number) => {});
 
 stdin(() => {}); // $ExpectType void
 stdin(str => {}); // $ExpectType void

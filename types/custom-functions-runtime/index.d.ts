@@ -27,17 +27,23 @@ declare namespace CustomFunctions {
 
     /**
      * Use this class to handle errors and write custom error messages.
+     *
+     * @remarks
      * [Api set: CustomFunctionsRuntime 1.2]
      */
     class Error {
         constructor(code: ErrorCode, message?: string);
          /**
           * The error code returned by your custom function.
+          *
+          * @remarks
           * [Api set: CustomFunctionsRuntime 1.2]
           */
         code: ErrorCode;
          /**
           * Your custom error message, such as "This stock price is unavailable". Custom messages are only available with certain error codes.
+          *
+          * @remarks
           * [Api set: CustomFunctionsRuntime 1.2]
           */
         message?: string;
@@ -49,6 +55,8 @@ declare namespace CustomFunctions {
     interface Invocation {
         /**
          * The name of this function.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.1]
          */
         functionName?: string;
@@ -59,6 +67,8 @@ declare namespace CustomFunctions {
          * `{ "requiresAddress": true }`
          *
          * If the metadata JSON file is being generated from JSDoc comments, include the tag `@requiresAddress`.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.1]
          */
         address?: string;
@@ -69,6 +79,8 @@ declare namespace CustomFunctions {
          * `{ "requiresParameterAddresses": true }`
          *
          * If the metadata JSON file is being generated from JSDoc comments, include the tag `@requiresParameterAddresses`.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         parameterAddresses?: string[];
@@ -86,7 +98,11 @@ declare namespace CustomFunctions {
     interface CancelableInvocation extends Invocation {
         /**
          * Event handler called when the custom function is canceled.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.1]
+         *
+         * @eventproperty
          */
         onCanceled: () => void;
     }
@@ -101,6 +117,8 @@ declare namespace CustomFunctions {
     interface StreamingInvocation<ResultType> extends CancelableInvocation {
         /**
          * Set the result for the custom function. May be called more than once.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.1]
          */
         setResult: (value: ResultType | Error) => void;
@@ -117,6 +135,8 @@ declare namespace CustomFunctions {
          *
          * This error code indicates that a value in the function is of the wrong data type.
          * A custom error message can be used in addition to the error code, if desired.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         invalidValue = "#VALUE!",
@@ -124,6 +144,8 @@ declare namespace CustomFunctions {
          *
          * This error code indicates that the function or service isn't available.
          * A custom error message can be used in addition to the error code, if desired.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         notAvailable = "#N/A",
@@ -131,6 +153,8 @@ declare namespace CustomFunctions {
          *
          * This error code indicates that the function used is dividing by zero or empty cells.
          * A custom error message can't be used.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         divisionByZero = "#DIV/0!",
@@ -138,6 +162,8 @@ declare namespace CustomFunctions {
          *
          * This error code indicates that there is a problem with a number in the function.
          * A custom error message can't be used.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         invalidNumber = "#NUM!",
@@ -145,6 +171,8 @@ declare namespace CustomFunctions {
          *
          * This error code indicates that the ranges in the function don't intersect.
          * A custom error message can't be used.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         nullReference = "#NULL!",
@@ -153,6 +181,8 @@ declare namespace CustomFunctions {
          * This error code indicates that there is a typo in the function name.
          * Note that this error code is supported as a custom function input error, but not as a custom function output error.
          * A custom error message can't be used.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         invalidName = "#NAME?",
@@ -161,6 +191,8 @@ declare namespace CustomFunctions {
          * This error code indicates that the function refers to an invalid cell.
          * Note that this error code is supported as a custom function input error, but not as a custom function output error.
          * A custom error message can't be used.
+         *
+         * @remarks
          * [Api set: CustomFunctionsRuntime 1.3]
          */
         invalidReference = "#REF!"

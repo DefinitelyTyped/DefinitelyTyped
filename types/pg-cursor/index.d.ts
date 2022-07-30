@@ -1,4 +1,4 @@
-// Type definitions for pg-cursor 2.5
+// Type definitions for pg-cursor 2.7
 // Project: https://github.com/brianc/node-postgres#readme
 // Definitions by: Tiogshi Laj <https://github.com/Tiogshi>, Elias Fauser <https://github.com/elias-fauser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,9 +25,9 @@ declare namespace Cursor {
 declare class Cursor<Row = any> extends EventEmitter {
     constructor(query: string, values?: any[], config?: Cursor.CursorQueryConfig);
     submit: (connection: Connection) => void;
-    read(maxRows: number): Promise<void>;
+    read(maxRows: number): Promise<Row[]>;
     read(maxRows: number, callback: Cursor.ResultCallback<Row>): undefined;
-    read(maxRows: number, callback?: Cursor.ResultCallback<Row>): Promise<void> | undefined;
+    read(maxRows: number, callback?: Cursor.ResultCallback<Row>): Promise<Row[]> | undefined;
     close(): Promise<void>;
     close(callback: (err: Error) => void): undefined;
     close(callback?: (err: Error) => void): Promise<void> | undefined;

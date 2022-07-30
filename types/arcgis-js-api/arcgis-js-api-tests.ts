@@ -27,6 +27,5 @@ class MapController {
   }
 }
 
-import esriId = require("esri/identity/IdentityManager");
-esriId.enablePostMessageAuth();
-esriId.disablePostMessageAuth();
+import esriRequest = require("esri/request");
+esriRequest("https://js.arcigs.com/");

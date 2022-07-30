@@ -25,7 +25,7 @@ ws.options({
 });
 
 ws.options({
-    // $ExpectError
+    // @ts-expect-error
     uriValidation: 'wrong',
 })
 
@@ -48,7 +48,7 @@ ws.subscribe('system.monitor.update', (args: DataArgs) =>
     });
 
 ws.subscribe('system.monitor.update', (args: DataArgs) => {}, { match: 'prefix' })
-// $ExpectError
+// @ts-expect-error
 ws.subscribe('system.monitor.update', (args: DataArgs) => {}, { match: 'wrong' })
 
 let f1 = () => console.log('Subscribe processing!');

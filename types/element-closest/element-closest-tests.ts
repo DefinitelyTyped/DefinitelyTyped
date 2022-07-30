@@ -1,24 +1,24 @@
 import elementClosest from 'element-closest';
 
-// $ExpectError
+// @ts-expect-error
 elementClosest(null);
 
-// $ExpectError
+// @ts-expect-error
 elementClosest(undefined);
 
-// $ExpectError
+// @ts-expect-error
 elementClosest(100);
 
-// $ExpectError
+// @ts-expect-error
 elementClosest('test');
 
-// $ExpectError
+// @ts-expect-error
 elementClosest(false);
 
-// $ExpectError
+// @ts-expect-error
 elementClosest(true);
 
-// $ExpectError
+// @ts-expect-error
 elementClosest({});
 
 // $ExpectType void

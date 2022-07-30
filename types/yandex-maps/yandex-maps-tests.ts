@@ -167,3 +167,11 @@ ymaps.modules.define('test.module1', [
 
     provide(layoutClass);
 });
+
+ymaps.suggest('Mos', {
+    results: 5,
+    boundedBy: [[30, 40], [50, 50]],
+    provider: 'yandex#map',
+}).then(items => {
+    return items.filter(el => el.value.toLowerCase() === 'moscow');
+}).then(console.log);

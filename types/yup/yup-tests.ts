@@ -34,10 +34,10 @@ const schema2 = yup.object().shape({
 
 let ref: yup.Ref = yup.ref('foo.bar');
 
-// $ExpectError
+// @ts-expect-error
 ref = {};
 
-// $ExpectError
+// @ts-expect-error
 ref = { __isYupRef: true };
 
 // cast function
@@ -140,7 +140,7 @@ mixed.default({ number: 5 }); // $ExpectType MixedSchema<{} | null, object>
 mixed.default(() => ({ number: 5 })); // $ExpectType MixedSchema<{} | null, object>
 mixed.default(null); // $ExpectType MixedSchema<{} | null, object>
 mixed.default(undefined); // $ExpectType MixedSchema<{} | null | undefined, object>
-// $ExpectError
+// @ts-expect-error
 mixed.defined().default(undefined);
 mixed.default();
 mixed.nullable(true);
@@ -158,7 +158,7 @@ mixed.typeError(() => 'type error');
 mixed.oneOf(['hello', 'world'], 'message');
 mixed.oneOf(['hello', 'world'], () => 'message');
 mixed.oneOf(['hello', 'world'], ({ values }) => `one of ${values}`);
-// $ExpectError
+// @ts-expect-error
 mixed.oneOf(['hello', 'world'], ({ random }) => `one of ${random}`);
 mixed.oneOf(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined, object> || MixedSchema<1 | "hello" | undefined, object>
 mixed.equals(["hello", 1] as const); // $ExpectType MixedSchema<"hello" | 1 | undefined, object> || MixedSchema<1 | "hello" | undefined, object>
@@ -211,7 +211,7 @@ mixed.test({
     test: (value): value is Set<any> => value instanceof Set,
 });
 // Name is required for exclusive tests:
-// $ExpectError
+// @ts-expect-error
 mixed.test({
     exclusive: true,
     // tslint:disable-next-line:no-invalid-template-strings
@@ -338,17 +338,17 @@ function strSchemaTests(strSchema: yup.StringSchema) {
     strSchema.length(5, 'message');
     strSchema.length(5, () => 'message');
     strSchema.length(5, ({ length }) => `must be ${length}`);
-    // $ExpectError
+    // @ts-expect-error
     strSchema.length(5, ({ min }) => `must be ${min}`);
     strSchema.min(5, 'message');
     strSchema.min(5, () => 'message');
     strSchema.min(5, ({ min }) => `more than ${min}`);
-    // $ExpectError
+    // @ts-expect-error
     strSchema.min(5, ({ max }) => `more than ${max}`);
     strSchema.max(5, 'message');
     strSchema.max(5, () => 'message');
     strSchema.max(5, ({ max }) => `less than ${max}`);
-    // $ExpectError
+    // @ts-expect-error
     strSchema.max(5, ({ min }) => `less than ${min}`);
     strSchema.matches(/(hi|bye)/);
     strSchema.matches(/(hi|bye)/, 'invalid');
@@ -379,7 +379,7 @@ function strSchemaTests(strSchema: yup.StringSchema) {
     strSchema.default('hello'); // $ExpectType StringSchema<string, object>
     strSchema.default(() => 'hello'); // $ExpectType StringSchema<string, object>
     strSchema.default(undefined); // $ExpectType StringSchema<string | undefined, object>
-    // $ExpectError
+    // @ts-expect-error
     strSchema.defined().default(undefined);
     strSchema.default();
 }
@@ -389,7 +389,7 @@ strSchema.oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello
 strSchema.required().oneOf(["hello", "world"] as const); // $ExpectType StringSchema<"hello" | "world", object> || StringSchema<"world" | "hello", object>
 strSchemaTests(strSchema);
 
-// $ExpectError
+// @ts-expect-error
 yup.string<123>();
 
 // Number schema
@@ -400,13 +400,13 @@ numSchema.min(5);
 numSchema.min(5, 'message');
 numSchema.min(5, () => 'message');
 numSchema.min(5, ({ min }) => `more than ${min}`);
-// $ExpectError
+// @ts-expect-error
 numSchema.min(5, ({ max }) => `more than ${max}`);
 numSchema.max(5);
 numSchema.max(5, 'message');
 numSchema.max(5, () => 'message');
 numSchema.max(5, ({ max }) => `less than ${max}`);
-// $ExpectError
+// @ts-expect-error
 numSchema.max(5, ({ min }) => `more than ${min}`);
 numSchema.positive();
 numSchema.positive('pos');
@@ -437,7 +437,7 @@ numSchema.default(5); // $ExpectType NumberSchema<number, object>
 numSchema.default(() => 5); // $ExpectType NumberSchema<number, object>
 numSchema.default(undefined); // $ExpectType NumberSchema<number | undefined, object>
 numSchema.default();
-// $ExpectError
+// @ts-expect-error
 numSchema.defined().default(undefined);
 
 // Boolean Schema
@@ -453,13 +453,13 @@ boolSchema.default(() => false); // $ExpectType BooleanSchema<boolean, object>
 boolSchema.default(undefined); // $ExpectType BooleanSchema<boolean | undefined, object>
 boolSchema.default(() => undefined); // $ExpectType BooleanSchema<boolean | undefined, object>
 boolSchema.nullable().default(null); // $ExpectType BooleanSchema<boolean | null, object>
-// $ExpectError
+// @ts-expect-error
 boolSchema.default(5);
-// $ExpectError
+// @ts-expect-error
 boolSchema.default(() => 5);
-// $ExpectError
+// @ts-expect-error
 boolSchema.default(null).nullable();
-// $ExpectError
+// @ts-expect-error
 boolSchema.defined().default(undefined);
 boolSchema.default();
 
@@ -484,11 +484,11 @@ dateSchema.required().oneOf([new Date()] as const); // $ExpectType DateSchema<Da
 dateSchema.default(new Date()); // $ExpectType DateSchema<Date, object>
 dateSchema.default(() => new Date()); // $ExpectType DateSchema<Date, object>
 dateSchema.default(undefined); // $ExpectType DateSchema<Date | undefined, object>
-// $ExpectError
+// @ts-expect-error
 dateSchema.default('2017-11-12');
-// $ExpectError
+// @ts-expect-error
 dateSchema.default(() => '2017-11-12');
-// $ExpectError
+// @ts-expect-error
 dateSchema.defined().default(undefined);
 dateSchema.default();
 
@@ -577,7 +577,7 @@ const validObject = { name: 'Abraham Lincoln', age: 24, email: 'abe@logcabin.com
 objSchema.default(validObject);
 objSchema.default(() => validObject);
 objSchema.default(undefined);
-// $ExpectError
+// @ts-expect-error
 objSchema.defined().default(undefined);
 objSchema.default();
 
@@ -733,7 +733,7 @@ yup.setLocale({
 
 yup.setLocale({
     string: {
-        // $ExpectError
+        // @ts-expect-error
         nullable: 'message',
     },
 });
@@ -806,7 +806,7 @@ const definitionBC: yup.ObjectSchemaDefinition<BC> = {
 };
 const combinedSchema = yup.object(definitionAB).defined().shape(definitionBC); // $ExpectType ObjectSchema<{ a: string; b: string; } & BC, object>
 
-// $ExpectError
+// @ts-expect-error
 yup.object<MyInterface>({
     stringField: yup.string().required(),
     subFields: yup
@@ -817,7 +817,7 @@ yup.object<MyInterface>({
     arrayField: yup.array(yup.string().defined()).required(),
 });
 
-// $ExpectError
+// @ts-expect-error
 yup.object<MyInterface>({ stringField: yup.number().required(),
     numberField: yup.number().required(),
     subFields: yup
@@ -828,14 +828,14 @@ yup.object<MyInterface>({ stringField: yup.number().required(),
     arrayField: yup.array(yup.string().defined()).required(),
 });
 
-// $ExpectError
+// @ts-expect-error
 yup.object<MyInterface>({
     stringField: yup.string().required(),
     numberField: yup.number().required(),
     arrayField: yup.array(yup.string().defined()).required(),
 });
 
-// $ExpectError
+// @ts-expect-error
 yup.object<MyInterface>({ subFields: yup
         .object({
             testField: yup.number().required(),
@@ -959,36 +959,36 @@ person.children = ['1', '2', '3'];
 person.children = undefined;
 person.friends = new Set(["Amy", "Beth"]);
 
-// $ExpectError
+// @ts-expect-error
 person.address = {};
-// $ExpectError
+// @ts-expect-error
 person.address = { area: {}, line1: '' };
-// $ExpectError
+// @ts-expect-error
 person.addressBook = {};
-// $ExpectError
+// @ts-expect-error
 person.addressBook = { phoneNumbers: null };
-// $ExpectError
+// @ts-expect-error
 person.gender = 1;
-// $ExpectError
+// @ts-expect-error
 person.firstName = null;
-// $ExpectError
+// @ts-expect-error
 person.firstName = undefined;
-// $ExpectError
+// @ts-expect-error
 person.mustBeAString = null;
-// $ExpectError
+// @ts-expect-error
 person.mustBeAString = undefined;
-// $ExpectError
+// @ts-expect-error
 person.friends = new Set([1, 2, 3]);
-// $ExpectError
+// @ts-expect-error
 person.friends = ["Amy", "Beth"];
-// $ExpectError
+// @ts-expect-error
 person.birthDate = '2017-11-12';
 
 const castPerson = personSchema.cast({});
 castPerson.firstName = '';
-// $ExpectError
+// @ts-expect-error
 castPerson.firstName = null;
-// $ExpectError
+// @ts-expect-error
 castPerson.firstName = undefined;
 castPerson.email = 'some@email.com';
 castPerson.email = null;
@@ -1025,26 +1025,26 @@ const stringDate: StringDate = {
 };
 
 stringDate.stringyDateRequired = "2020-01-01";
-// $ExpectError
+// @ts-expect-error
 stringDate.stringyDateRequired = new Date();
-// $ExpectError
+// @ts-expect-error
 stringDate.stringyDateRequired = null;
 
 stringDate.stringyDateOptional = "2020-01-01";
 stringDate.stringyDateOptional = undefined;
 stringDate.stringyDateOptional = null;
-// $ExpectError
+// @ts-expect-error
 stringDate.stringyDateOptional = new Date();
 
 stringDate.flexibleDate = new Date();
 stringDate.flexibleDate = "2020-01-01";
-// $ExpectError
+// @ts-expect-error
 stringDate.flexibleDate = null;
-// $ExpectError
+// @ts-expect-error
 stringDate.flexibleDate = undefined;
 
 stringDate.realDate = new Date();
-// $ExpectError
+// @ts-expect-error
 stringDate.realDate = "2020-01-01";
 
 const loginSchema = yup.object({
@@ -1142,33 +1142,33 @@ yup.object({
         return true;
     }),
     colors: yup.string().required().oneOf(['blue', 'red']).test('', '', (value) => {
-        // $ExpectError
+        // @ts-expect-error
         return value === 'yellow';
     }),
     age: yup.number().required().test('', '', (value) => {
         if (typeof value === 'string') {
-            // $ExpectError
+            // @ts-expect-error
             return value.toLowerCase();
         }
         return true;
     }),
     dateOfBirth: yup.date().required().test('', '', (value) => {
-        // $ExpectError
+        // @ts-expect-error
         const x = Number.parseFloat(value);
         return false;
     }),
     resident: yup.boolean().required().test('', '', (value) => {
-        // $ExpectError
+        // @ts-expect-error
         return value === 'true';
     }),
     log: yup.object({
         date: yup.date().required(),
         place: yup.string().nullable(),
     }).required().test('', '', (values) => {
-        // $ExpectError
+        // @ts-expect-error
         const mstime =  values.date.getTime();
         if (values !== null && values !== undefined) {
-            // $ExpectError
+            // @ts-expect-error
             if (values.place === 1) {}
             return mstime > 1000;
         } else {
@@ -1181,11 +1181,11 @@ yup.object({
         name: yup.string().required()
     }).required()).required().test('', '', (values) => {
         return Array.isArray(values) && values.some((value) => {
-            // $ExpectError
+            // @ts-expect-error
             const test1 = value.code === '1';
-            // $ExpectError
+            // @ts-expect-error
             const test2 = value.price === new Date();
-            // $ExpectError
+            // @ts-expect-error
             const test3 = value.name * 1;
             return false;
         });
@@ -1203,19 +1203,19 @@ const schemaWithMyContext = yup.mixed<any, MyContext>().test({
     },
 });
 schemaWithMyContext.validateSync('test value', { context: { a: 'context value' }});
-// $ExpectError
+// @ts-expect-error
 schemaWithMyContext.validateSync('test value', { context: { x: 1 }});
 
 const schemaWithDifferentContext = yup.mixed<any, { abc: number }>();
 
 const arraySchemaWithMyContext = yup.array<any, MyContext>();
 arraySchemaWithMyContext.of(schemaWithMyContext);
-// $ExpectError
+// @ts-expect-error
 arraySchemaWithMyContext.of(schemaWithDifferentContext);
 
 const objectSchemaWithMyContext = yup.object<any, MyContext>();
 objectSchemaWithMyContext.shape({
     prop1: schemaWithMyContext,
-    // $ExpectError
+    // @ts-expect-error
     prop2: schemaWithDifferentContext,
 });

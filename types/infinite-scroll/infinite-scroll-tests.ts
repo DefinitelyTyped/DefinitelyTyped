@@ -1,6 +1,6 @@
-// $ExpectError
+// @ts-expect-error
 new InfiniteScroll('.abc');
-// $ExpectError
+// @ts-expect-error
 new InfiniteScroll(document.querySelector('.abc')!);
 new InfiniteScroll('.abc', {});
 new InfiniteScroll(document.querySelector('.abc')!, {});
@@ -11,9 +11,9 @@ const infScrollJQuery = $('.abc').infiniteScroll;
 infScroll.loadNextPage();
 infScrollJQuery('loadNextPage');
 
-// $ExpectError
+// @ts-expect-error
 infScroll.appendItems();
-// $ExpectError
+// @ts-expect-error
 infScrollJQuery('appendItems');
 infScroll.appendItems(document.querySelectorAll('.abc'));
 infScrollJQuery('appendItems', document.querySelectorAll('.abc'));

@@ -11,6 +11,26 @@ import { A, M, O, T } from 'ts-toolbelt';
 // - Types need proper descriptions, so that we know what they do
 
 /**
+ * A type that any constructor is assignable to.
+ * Use as a generic constraint (`T extends AnyConstructor`)
+ * and for function parameters (`a: AnyConstructor`).
+ * Use `new (...args: unknown[]) => unknown` instead for function return types.
+ *
+ * <created by @somebody1234>
+ */
+export type AnyConstructor = new (...args: any[]) => unknown;
+
+/**
+ * A type that any function is assignable to.
+ * Use as a generic constraint (`T extends AnyFunction`)
+ * and for function parameters (`a: AnyFunction`).
+ * Use `(...args: unknown[]) => unknown` instead for function return types.
+ *
+ * <created by @somebody1234>
+ */
+export type AnyFunction = (...args: any[]) => unknown;
+
+/**
  * A function taking 0 arguments.
  * @deprecated Use `() => unknown` instead
  */
@@ -142,7 +162,7 @@ type EvolveValue<V, E> = E extends (value: V) => any
  * the seventh being `document.all`. However `NaN` is not a valid literal type,
  * and `document.all` is an object so it's probably not a good idea to add it either.
  */
-export type Falsy = undefined | null | 0 | "" | false;
+export type Falsy = undefined | null | 0 | '' | false;
 
 /**
  * The type of `R.find` and `R.findLast`
@@ -266,7 +286,7 @@ type Intersection<T1, T2> = Intersectable<T1, T2> extends true
 export type mergeArrWithLeft<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> = readonly [
     ...{
         readonly [Index in keyof T1]: Index extends keyof T2 ? Intersection<T1[Index], T2[Index]> : T1[Index];
-    }
+    },
 ];
 
 /**
@@ -300,7 +320,7 @@ type MergeArrays<T1 extends ReadonlyArray<any>, T2 extends ReadonlyArray<any>> =
  */
 export type LargestArgumentsList<T extends ReadonlyArray<any>> = T extends readonly [
     (...args: infer Args) => any,
-    ...infer Rest
+    ...infer Rest,
 ]
     ? MergeArrays<LargestArgumentsList<Rest>, Args>
     : readonly [];
@@ -431,7 +451,7 @@ export type ObjectHavingSome<Key extends string> = A.Clean<
 /**
  * <needs description>
  */
-export type Path = Array<number | string>;
+export type Path = ReadonlyArray<number | string>;
 
 /**
  * A placeholder used to skip parameters, instead adding a parameter to the returned function.

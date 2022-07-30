@@ -1,12 +1,16 @@
-// Type definitions for throttle-debounce 4.0
+// Type definitions for throttle-debounce 5.0
 // Project: https://github.com/niksy/throttle-debounce
 // Definitions by: Marek Buchar <https://github.com/czbuchi>, Frank Li <https://github.com/franklixuefei>, Thomas Oddsund <https://github.com/oddsund>, Seiya <https://github.com/seiyab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export {};
 
+interface CancelOptions {
+    upcomingOnly?: boolean;
+}
+
 interface Cancel {
-    cancel: () => void;
+    cancel: (options?: CancelOptions) => void;
 }
 
 interface NoReturn<T extends (...args: any[]) => any> {
@@ -14,12 +18,16 @@ interface NoReturn<T extends (...args: any[]) => any> {
 }
 
 export type throttle<T extends (...args: any[]) => any> = NoReturn<T> & Cancel;
-export type debounce<T extends (...args: any[]) => any> = throttle<T>;
+export type debounce<T extends (...args: any[]) => any> = NoReturn<T> & Cancel;
 
 interface ThrottleOptions {
     noTrailing?: boolean;
     noLeading?: boolean;
     debounceMode?: boolean;
+}
+
+interface DebounceOptions {
+    atBegin?: boolean;
 }
 
 /**
@@ -73,38 +81,26 @@ export function throttle<T extends (...args: any[]) => any>(
  * A zero-or-greater delay in milliseconds. For event callbacks, values around
  * 100 or 250 (or even higher) are most useful.
  *
- * @param atBegin
+ * @param callback
+ * A function to be executed after delay milliseconds. The `this` context and
+ * all arguments are passed through, as-is, to `callback` when the
+ * debounced-function is executed.
+ *
+ * @param options
+ * An object to configure options.
+ *
+ * @param options.atBegin
  * If atBegin is false or unspecified, callback will only be executed `delay`
  * milliseconds after the last debounced-function call. If atBegin is true,
  * callback will be executed only at the first debounced-function call. (After
  * the throttled-function has not been called for `delay` milliseconds, the
  * internal counter is reset).
  *
- * @param callback
- * A function to be executed after delay milliseconds. The `this` context and
- * all arguments are passed through, as-is, to `callback` when the
- * debounced-function is executed.
- *
  * @return
  * A new, debounced function.
  */
-export function debounce<T extends (...args: any[]) => any>(delay: number, atBegin: boolean, callback: T): debounce<T>;
-
-/**
- * Debounce execution of a function. Debouncing, unlike throttling,
- * guarantees that a function is only executed a single time, either at the
- * very beginning of a series of calls, or at the very end.
- *
- * @param delay
- * A zero-or-greater delay in milliseconds. For event callbacks, values around
- * 100 or 250 (or even higher) are most useful.
- *
- * @param callback
- * A function to be executed after delay milliseconds. The `this` context and
- * all arguments are passed through, as-is, to `callback` when the
- * debounced-function is executed.
- *
- * @return
- * A new, debounced function.
- */
-export function debounce<T extends (...args: any[]) => any>(delay: number, callback: T): debounce<T>;
+export function debounce<T extends (...args: any[]) => any>(
+    delay: number,
+    callback: T,
+    options?: DebounceOptions,
+): debounce<T>;

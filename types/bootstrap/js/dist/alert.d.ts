@@ -39,7 +39,7 @@ declare namespace Alert {
         closed = 'closed.bs.alert',
     }
 
-    type jQueryInterface = (config?: 'close' | 'dispose') => void;
+    type jQueryInterface = (config?: 'close' | 'dispose') => JQuery;
 }
 
 export default Alert;
