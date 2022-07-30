@@ -38,7 +38,7 @@ export interface ModernDatepickerProps {
     };
 }
 
-export default function (props: ModernDatepickerProps): JSX.Element;
+export default function(props: ModernDatepickerProps): JSX.Element;
 export function getToday(): string;
 export function getMonthName(month: number): string;
 export function getFormatedDate(date?: Date, format?: string): string;
