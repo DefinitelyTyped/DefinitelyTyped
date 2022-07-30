@@ -3,7 +3,7 @@
 // Definitions by: Ankan002 <https://github.com/Ankan002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { CSSProperties } from "react";
+import { CSSProperties } from 'react';
 
 export interface ModernDatepickerProps {
     onSelectedChange?: (dateString: string) => void;
@@ -16,7 +16,7 @@ export interface ModernDatepickerProps {
     selectorEndingYear?: number;
     disableDateChange?: boolean;
     isGregorian?: boolean;
-    mode?: "datepicker" | "calender" | "monthYear" | "time";
+    mode?: 'datepicker' | 'calender' | 'monthYear' | 'time';
     minuteInterval?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
     style?: CSSProperties;
     current?: string;
@@ -35,14 +35,12 @@ export interface ModernDatepickerProps {
         textHeaderFontSize?: number;
         headerAnimationDistance?: number;
         daysAnimationDistance?: number;
-    }
+    };
 }
 
-declare module "react-native-modern-datepicker" {
-    export default function(props: ModernDatepickerProps): JSX.Element;
-    export function getToday(): string;
-    export function getMonthName(month: number): string;
-    export function getFormatedDate(date?: Date, format?: string): string;
-    export function toPersianNumber(value: string): string;
-    export function toEnglish(value: string): string;
-}
+export default function (props: ModernDatepickerProps): JSX.Element;
+export function getToday(): string;
+export function getMonthName(month: number): string;
+export function getFormatedDate(date?: Date, format?: string): string;
+export function toPersianNumber(value: string): string;
+export function toEnglish(value: string): string;
