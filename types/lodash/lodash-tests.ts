@@ -4214,13 +4214,13 @@ fp.now(); // $ExpectType number
     const value: number | (() => void) = anything;
 
     if (_.isFunction(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
 
     if (fp.isFunction(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
@@ -4317,13 +4317,13 @@ fp.now(); // $ExpectType number
     const value: number | (() => void) = anything;
 
     if (_.isNative(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
 
     if (fp.isNative(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }

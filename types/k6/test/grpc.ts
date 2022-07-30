@@ -17,7 +17,7 @@ const req = {
     longitude: -747127767,
 };
 const params = {
-    headers: { 'x-my-header': 'k6test' },
+    metadata: { 'x-my-header': 'k6test' },
     tags: { k6test: 'yes' },
     timeout: 30,
 };
@@ -29,7 +29,7 @@ response.status;
 response.trailers;
 
 const params_with_string_timeout = {
-    headers: { 'x-my-header': 'k6test' },
+    metadata: { 'x-my-header': 'k6test' },
     tags: { k6test: 'yes' },
     timeout: '30',
 };

@@ -45,6 +45,7 @@
         "test/loaders/loaders-voxloader.ts",
         "test/loaders/loaders-obj-mtl.ts",
         "test/modifiers/modifiers-tessellation.ts",
+        "test/objects/ground-projected-env.ts",
         "test/objects/instanced-mesh.ts",
         "test/objects/objects-reflector.ts",
         "test/materials/materials-envmaps-hdr.ts",

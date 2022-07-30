@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2022-07-12) 2.2
+// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2022-07-22) 2.2
 // Project: https://developers.google.com/publisher-tag/reference
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -174,9 +174,15 @@ declare namespace googletag {
      * **Example**
      * ```
      * // The calls to construct an ad and display contents.
-     * var slot1 = googletag.defineSlot('/1234567/sports', [728, 90], 'div-1');
-     * var slot2 = googletag.defineSlot('/1234567/news', [160, 600], 'div-2');
-     * var slot3 = googletag.defineSlot('/1234567/weather', [160, 600], 'div-3');
+     * var slot1 =
+     *     googletag.defineSlot('/1234567/sports', [728, 90], 'div-1');
+     * googletag.display('div-1');
+     * var slot2 =
+     *     googletag.defineSlot('/1234567/news', [160, 600], 'div-2');
+     * googletag.display('div-2');
+     * var slot3 =
+     *     googletag.defineSlot('/1234567/weather', [160, 600], 'div-3');
+     * googletag.display('div-3');
      * // This call to destroy only slot1.
      * googletag.destroySlots([slot1]);
      * // This call to destroy both slot1 and slot2.
@@ -741,7 +747,8 @@ declare namespace googletag {
          * // The following slot will have SafeFrame forced.
          * googletag.defineSlot('/1234567/news', [160, 600], 'div-2')
          *          .addService(googletag.pubads());
-         * googletag.display();
+         * googletag.display('div-1');
+         * googletag.display('div-2');
          * ```
          *
          * **See also**
@@ -804,7 +811,7 @@ declare namespace googletag {
          * **See also**
          * - [About publisher provided identifiers](https://support.google.com/admanager/answer/2880055)
          *
-         * @param ppid An alphanumeric ID provided by the publisher with a recommended maximum of 150 characters.
+         * @param ppid An alphanumeric ID provided by the publisher. Must be between 32 and 150 characters.
          * @returns The service object on which the method was called.
          */
         setPublisherProvidedId(ppid: string): PubAdsService;
@@ -833,7 +840,8 @@ declare namespace googletag {
          * // would allow for expansion by overlay.
          * googletag.defineSlot('/1234567/news', [160, 600], 'div-2')
          *          .addService(googletag.pubads());
-         * googletag.display();
+         * googletag.display('div-1');
+         * googletag.display('div-2');
          * ```
          *
          * **See also**
@@ -972,7 +980,7 @@ declare namespace googletag {
          * // a listener for an event for a specific slot only. You can, however,
          * // programmatically filter a listener to respond only to a certain ad
          * // slot, using this pattern:
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotOnload', function(event) {
          *   if (event.slot === targetSlot) {
          *     // Slot specific logic.
@@ -1395,6 +1403,11 @@ declare namespace googletag {
          */
         setCollapseEmptyDiv(collapse: boolean, collapseBeforeAdFetch?: boolean): Slot;
         /**
+         * Sets general configuration options for this slot.
+         * @param slotConfig The configuration object.
+         */
+        setConfig(slotConfig: config.SlotSettingsConfig): void;
+        /**
          * Configures whether ads in this slot should be forced to be rendered using a SafeFrame container.
          *
          * Please keep the following things in mind while using this API:
@@ -1437,7 +1450,8 @@ declare namespace googletag {
          * // The following slot will inherit page-level settings.
          * googletag.defineSlot('/1234567/news', [160, 600], 'div-2')
          *          .addService(googletag.pubads());
-         * googletag.display();
+         * googletag.display('div-1');
+         * googletag.display('div-2');
          * ```
          *
          * **See also**
@@ -1539,6 +1553,96 @@ declare namespace googletag {
             | 'page_url';
     }
     /**
+     * This is the namespace that GPT uses for `config`.
+     */
+    namespace config {
+        /**
+         * An object representing a single component auction in a on-device ad auction.
+         *
+         * **Experimental**: This feature may be changed or removed in a future release.
+         *
+         * **See also**
+         * - [FLEDGE: Sellers Run On-Device Auctions](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#2-sellers-run-on-device-auctions)
+         */
+        interface ComponentAuctionConfig {
+            /**
+             * An auction configuration object for this component auction.
+             *
+             * If this value is set to `null`, any existing configuration for the specified `configKey` will be deleted.
+             *
+             * **Example**
+             * ```
+             * var componentAuctionConfig = {
+             *   seller: 'https://testSeller.com', // should be https and the same as
+             *                                     // decisionLogicUrl's origin
+             *   decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
+             *   interestGroupBuyers: [
+             *     'https://example-buyer.com',
+             *   ],
+             *   auctionSignals: {auction_signals: 'auction_signals'},
+             *   sellerSignals: {seller_signals: 'seller_signals'},
+             *   perBuyerSignals: {
+             *     // listed on interestGroupBuyers
+             *     'https://example-buyer.com': {
+             *       per_buyer_signals: 'per_buyer_signals',
+             *     },
+             *   },
+             * };
+             *
+             * var auctionSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+             *
+             * // To add configKey to the component auction:
+             * auctionSlot.setConfig({
+             *   componentAuction: [{
+             *      configKey: 'https://testSeller.com',
+             *      auctionConfig: componentAuctionConfig
+             *   }]
+             * });
+             *
+             * // To remove configKey from the component auction:
+             * auctionSlot.setConfig({
+             *   componentAuction: [{
+             *      configKey: 'https://testSeller.com',
+             *      auctionConfig: null
+             *   }]
+             * });
+             * ```
+             *
+             * **See also**
+             * - [FLEDGE: Initiating an On-Device Auction](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#21-initiating-an-on-device-auction)
+             */
+            auctionConfig: null | {
+                auctionSignals?: unknown;
+                decisionLogicUrl?: string;
+                interestGroupBuyers?: string[];
+                perBuyerExperimentGroupIds?: { [buyer: string]: number };
+                perBuyerGroupLimits?: { [buyer: string]: number };
+                perBuyerSignals?: { [buyer: string]: unknown };
+                perBuyerTimeouts?: { [buyer: string]: number };
+                seller?: string;
+                sellerExperimentGroupId?: number;
+                sellerSignals?: unknown;
+                sellerTimeout?: number;
+                trustedScoringSignalsUrl?: string;
+            };
+            /**
+             * The configuration key associated with this component auction.
+             *
+             * This value must be non-empty and should be unique.
+             * If two {@link ComponentAuctionConfig} objects share the same configKey value, the last to be set will overwrite prior configurations.
+             */
+            configKey: string;
+        }
+        interface SlotSettingsConfig {
+            /**
+             * An array of component auctions to be included in an on-device ad auction.
+             *
+             * **Experimental**: This feature may be changed or removed in a future release.
+             */
+            componentAuction: ComponentAuctionConfig[];
+        }
+    }
+    /**
      * This is the namespace that GPT uses for `enums`.
      */
     namespace enums {
@@ -1628,7 +1732,7 @@ declare namespace googletag {
          * **Example**
          * ```
          * // This listener is called when an impression becomes viewable.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('impressionViewable',
          *     function(event) {
          *       var slot = event.slot;
@@ -1654,7 +1758,7 @@ declare namespace googletag {
          * **Example**
          * ```
          * // This listener is called when the user closes a rewarded ad slot.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('rewardedSlotClosed',
          *     function(event) {
          *       var slot = event.slot;
@@ -1680,7 +1784,7 @@ declare namespace googletag {
          * **Example**
          * ```
          * // This listener is called whenever a reward is granted for a rewarded ad.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('rewardedSlotGranted',
          *     function(event) {
          *       var slot = event.slot;
@@ -1715,7 +1819,7 @@ declare namespace googletag {
          * ```
          * // This listener is called when a rewarded ad slot becomes ready to be
          * // displayed.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('rewardedSlotReady',
          *     function(event) {
          *       var slot = event.slot;
@@ -1748,7 +1852,7 @@ declare namespace googletag {
          * **Example**
          * ```
          * // This listener is called when a creative iframe load event fires.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotOnload', function(event) {
          *   var slot = event.slot;
          *   console.log('Creative iframe for slot', slot.getSlotElementId(),
@@ -1772,7 +1876,7 @@ declare namespace googletag {
          * **Example**
          * ```
          * // This listener is called when a slot has finished rendering.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotRenderEnded',
          *     function(event) {
          *       var slot = event.slot;
@@ -1845,7 +1949,7 @@ declare namespace googletag {
          * // request for a slot. Each slot will fire this event, even though they
          * // may be batched together in a single request if single request
          * // architecture (SRA) is enabled.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotRequested', function(event) {
          *   var slot = event.slot;
          *   console.log('Slot', slot.getSlotElementId(), 'has been requested.');
@@ -1867,7 +1971,7 @@ declare namespace googletag {
          * ```
          * // This listener is called when an ad response has been received
          * // for a slot.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotResponseReceived',
          *     function(event) {
          *       var slot = event.slot;
@@ -1892,7 +1996,7 @@ declare namespace googletag {
          * ```
          * // This listener is called whenever the on-screen percentage of an
          * // ad slot's area changes.
-         * var targetSlot = ...;
+         * var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          * googletag.pubads().addEventListener('slotVisibilityChanged',
          *     function(event) {
          *       var slot = event.slot;

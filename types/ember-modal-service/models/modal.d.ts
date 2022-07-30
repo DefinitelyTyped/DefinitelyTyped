@@ -1,6 +1,7 @@
 import type { defer, Promise } from 'rsvp';
 
-export default class ModalModel<T = Record<string, never>> {
+// using any since complicated interfaces fail the type check with error "is not assignable to type 'never'"
+export default class ModalModel<T = Record<string, any>> {
     declare name: string;
     declare fullname: string;
     declare options: T;
