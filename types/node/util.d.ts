@@ -1212,10 +1212,6 @@ declare module 'util' {
         IfDefaultsTrue<T['allowPositionals'], string[], []>
     >;
 
-    type RawNameForOption<LongName extends string, O extends ParseArgsOptionConfig> =
-        | `--${LongName}`
-        | (O['short'] extends string ? `-${O['short']}` : never);
-
     type PreciseTokenForOptions<
         T extends ParseArgsConfig,
         K extends keyof T['options'] & string,
@@ -1225,7 +1221,7 @@ declare module 'util' {
               kind: 'option';
               index: number;
               name: K;
-              rawName: RawNameForOption<K, O>;
+              rawName: string;
               value: string;
               inlineValue: boolean;
           }
@@ -1234,11 +1230,11 @@ declare module 'util' {
               kind: 'option';
               index: number;
               name: K;
-              rawName: RawNameForOption<K, O>;
+              rawName: string;
               value: undefined;
               inlineValue: undefined;
           }
-        : OptionToken & { name: K; rawName: RawNameForOption<K, O> };
+        : OptionToken & { name: K };
 
     type TokenForOptions<
         T extends ParseArgsConfig,
@@ -1275,12 +1271,12 @@ declare module 'util' {
     >;
 
     type OptionToken =
-        | { kind: 'option'; index: number; name: string; rawName: `-${string}`; value: string; inlineValue: boolean }
+        | { kind: 'option'; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
         | {
               kind: 'option';
               index: number;
               name: string;
-              rawName: `-${string}`;
+              rawName: string;
               value: undefined;
               inlineValue: undefined;
           };
