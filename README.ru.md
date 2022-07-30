@@ -49,10 +49,10 @@ npm install --save-dev @types/node
 Если вы все еще не можете найти его, проверьте [включает](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) ли пакет собственную типизацию.
 Обычно это отражается в поле `"types"` или `"typings"` файла `package.json`, или просто ищите любые файлы «.d.ts» в пакете и вручную включайте их с помощью `/// <reference path="" />`.
 
-#### TypeScript 3.7 и старее
+#### TypeScript 3.9 и старее
 
 Начиная с ноября 2019 года, Definitely Typed тестирует пакеты только на версиях Typescript, которым меньше двух лет.
-Если вы используете Typescript от 2.0 до 3.7, вы все равно можете попробовать установить пакеты `@types` - большинство пакетов не используют новые функции Typescript.
+Если вы используете Typescript от 2.0 до 3.9, вы все равно можете попробовать установить пакеты `@types` - большинство пакетов не используют новые функции Typescript.
 Но нет гарантии, что они будут работать.
 
 График обновлений:
@@ -220,7 +220,7 @@ const result = twoslash("//")
 + // Handle options param
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // When the param is incorrect
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -228,13 +228,13 @@ If you're wondering where to start with test code, the examples in the README of
 
 You can [validate your changes](#проверка) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
 
-Чтобы проверить, что выражение имеет заданный тип, используйте `$ExpectType`. Чтобы проверить, что выражение вызывает ошибку компиляции, используйте `$ExpectError`.
+Чтобы проверить, что выражение имеет заданный тип, используйте `$ExpectType`. Чтобы проверить, что выражение вызывает ошибку компиляции, используйте `@ts-expect-error`.
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f('one');
 ```
 
@@ -404,10 +404,6 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
     }
 }
 ```
-
-#### История файлов в GitHub выглядит неполной.
-
-GitHub не [поддерживает](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) историю файлов для переименованных файлов. Вместо этого используйте [`git log --follow`](https://www.git-scm.com/docs/git-log).
 
 #### Должен ли я добавить пустой namespace в пакет, который не экспортирует модуль для использования импорта в стиле ES6?
 

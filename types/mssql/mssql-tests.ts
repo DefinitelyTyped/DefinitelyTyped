@@ -5,6 +5,10 @@ interface Entity {
     value: number;
 }
 
+interface AnotherEntity {
+    property: string;
+}
+
 var config: sql.config = {
     user: 'user',
     password: 'password',
@@ -15,6 +19,13 @@ var config: sql.config = {
         encrypt: true
     },
     pool: {},
+    authentication: {
+        type: "default",
+        options: {
+            userName: "user",
+            password: "password"
+        }
+    },
     beforeConnect: (conn) => {
         conn.on('debug', message => console.info(message));
         conn.on('error', err => console.error(err));
@@ -91,6 +102,17 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
             }
         });
 
+        requestStoredProcedure.execute<[Entity, AnotherEntity]>('StoredProcedureName', function (err, recordsets, returnValue) {
+            if (err != null) {
+                console.error(`Error happened calling Query: ${err.name} ${err.message}`);
+            }
+            else {
+                console.info(returnValue);
+                recordsets.recordsets[0] // $ExpectType IRecordSet<Entity>
+                recordsets.recordsets[1] // $ExpectType IRecordSet<AnotherEntity>
+            }
+        });
+
         var requestStoredProcedureWithOutput = new sql.Request(connection);
         var testId: number = 0;
         var testString: string = 'test';
@@ -146,6 +168,10 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
         });
     }
 });
+
+function test_connection_string_parser() {
+    var parsedConfig: sql.config = sql.ConnectionPool.parseConnectionString(connectionString);
+}
 
 function test_table() {
     var table = new sql.Table('#temp_table');

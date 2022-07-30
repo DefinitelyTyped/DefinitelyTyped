@@ -51,11 +51,11 @@ npm 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 이 경우 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
-#### 이전 버전 TypeScript (3.7 또는 그 이전)
+#### 이전 버전 TypeScript (3.9 또는 그 이전)
 
 Definitely Typed는 2년이 지나지 않은 TypeScript 버전만을 대상으로 패키지를 테스트합니다.
-현재 버전 3.8 및 그 이상만을 테스트하고 있습니다.
-TypeScript 2.0에서 3.7 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
+현재 버전 4.0 및 그 이상만을 테스트하고 있습니다.
+TypeScript 2.0에서 3.9 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
 그러나 작동 여부를 보장하지는 못합니다.
 지원 기간은 다음과 같습니다:
 
@@ -225,7 +225,7 @@ const result = twoslash("//")
 + // Handle options param
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // When the param is incorrect
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -233,13 +233,13 @@ If you're wondering where to start with test code, the examples in the README of
 
 You can [validate your changes](#검증하기) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
 
-어떤 표현식(Expression)이 특정한 형(Type)을 가진다고 단언(Assert)하고 싶을 때에는 `$ExpectType` 를 사용하시면 됩니다. 어떤 표현식(Expression)이 컴파일에 실패해야하는 경우에는 `$ExpectError` 를 하시면 됩니다.
+어떤 표현식(Expression)이 특정한 형(Type)을 가진다고 단언(Assert)하고 싶을 때에는 `$ExpectType` 를 사용하시면 됩니다. 어떤 표현식(Expression)이 컴파일에 실패해야하는 경우에는 `@ts-expect-error` 를 하시면 됩니다.
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("one");
 ```
 
@@ -412,11 +412,6 @@ npm 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
     }
 }
 ```
-
-
-#### 깃헙(GitHub)이 보여주는 파일 히스토리(History)가 불완전해요.
-
-깃헙은 이름이 바뀐 파일의 히스토리(History)를 [지원하지 않습니다](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames). 대신 [`git log --follow`](https://www.git-scm.com/docs/git-log) 명령을 사용하세요.
 
 #### ES6 에서 사용하는 임포트(Import)를 사용하기 위해 모듈을 익스포트(Export)하지 않는 패키지들에 빈 이름공간을 추가해야 하나요?
 

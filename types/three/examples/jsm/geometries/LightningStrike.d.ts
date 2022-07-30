@@ -1,4 +1,4 @@
-import { Vector3 } from '../../../src/Three';
+import { BufferGeometry, Vector3 } from '../../../src/Three';
 
 export interface RandomGenerator {
     random(): number;
@@ -87,7 +87,7 @@ export interface RayParameters {
     ) => void;
 }
 
-export class LightningStrike {
+export class LightningStrike extends BufferGeometry {
     constructor(rayParameters?: RayParameters);
     copyParameters(dest?: RayParameters, source?: RayParameters): RayParameters;
 
@@ -103,6 +103,6 @@ export class LightningStrike {
 
     update(time: number): void;
 
-    copy(source: LightningStrike): LightningStrike;
+    copy(source: LightningStrike): this;
     clone(): this;
 }

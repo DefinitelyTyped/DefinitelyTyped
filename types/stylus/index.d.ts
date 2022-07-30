@@ -1,6 +1,7 @@
 // Type definitions for stylus 0.48
 // Project: https://github.com/stylus/stylus
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
+//                 Daniel Moore <https://github.com/STRd6>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -13,7 +14,7 @@ import Renderer = require('./lib/renderer');
 declare var stylus: Stylus.Static;
 export = stylus;
 
-declare namespace stylus  {
+declare namespace stylus {
     interface RenderOptions {
         globals?: Stylus.Dictionary<any> | undefined;
         functions?: Stylus.Dictionary<any> | undefined;
@@ -71,7 +72,10 @@ declare namespace Stylus {
 
         /**
          * Render the given `str` with `options` and callback `fn(err, css)`.
+         * Returns the rendered string if no callback is given.
          */
+        render(str: string): string;
+        render(str: string, options: stylus.RenderOptions): string;
         render(str: string, callback: stylus.RenderCallback): void;
         render(str: string, options: stylus.RenderOptions, callback: stylus.RenderCallback): void;
 

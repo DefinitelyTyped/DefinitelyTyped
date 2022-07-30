@@ -1031,7 +1031,9 @@ function atackPower(creep: Creep) {
 
 // Id
 {
-    const roomId = "" as Id<Room>; // $ExpectError
+    // @ts-expect-error
+    const roomId = "" as Id<Room>;
     const creep = Game.getObjectById("" as Id<Creep>);
-    const foo = Game.getObjectById<StructureTower>("" as Id<Creep>); // $ExpectError
+    // @ts-expect-error
+    const foo = Game.getObjectById<StructureTower>("" as Id<Creep>);
 }

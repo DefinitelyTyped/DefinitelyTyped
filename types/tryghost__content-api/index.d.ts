@@ -212,9 +212,9 @@ export interface GhostContentAPIOptions {
     /**
      * Version of GhostContentAPI
      *
-     * Supported Versions: 'v2', 'v3', 'v4', 'canary'
+     * Supported Versions: 'v2', 'v3', 'v4', 'v5.0', 'canary'
      */
-    version: 'v2' | 'v3' | 'v4' | 'canary';
+    version: 'v2' | 'v3' | 'v4' | 'v5.0' | 'canary';
     key: string;
     /** @deprecated since version v2 */
     host?: string | undefined;

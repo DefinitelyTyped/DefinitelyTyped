@@ -38,37 +38,69 @@ Apptimize.trackValue('eventName', 1); // $ExpectType void
 Apptimize.updateApptimizeMetadataOnce(); // $ExpectType void
 
 // Apptimize methods called without required properties should error
-Apptimize.getBool(); // $ExpectError
-Apptimize.getBoolArray(); // $ExpectError
-Apptimize.getBoolDictionary (); // $ExpectError
-Apptimize.getDouble(); // $ExpectError
-Apptimize.getDoubleArray(); // $ExpectError
-Apptimize.getDoubleDictionary (); // $ExpectError
-Apptimize.getInt(); // $ExpectError
-Apptimize.getIntArray(); // $ExpectError
-Apptimize.getIntDictionary (); // $ExpectError
-Apptimize.getString(); // $ExpectError
-Apptimize.getStringArray(); // $ExpectError
-Apptimize.getStringDictionary(); // $ExpectError
-Apptimize.isFeatureFlagEnabled(); // $ExpectError
-Apptimize.runCodeBlock(); // $ExpectError
-Apptimize.setAppName(); // $ExpectError
-Apptimize.setAppVersion(); // $ExpectError
-Apptimize.setCustomAttributes(); // $ExpectError
-Apptimize.setCustomerUserId(); // $ExpectError
-Apptimize.setOnApptimizeInitializedCallback(); // $ExpectError
-Apptimize.setOnEnrolledInExperimentCallback(); // $ExpectError
-Apptimize.setOnMetadataUpdatedCallback(); // $ExpectError
-Apptimize.setOnParticipatedInExperimentCallback(); // $ExpectError
-Apptimize.setOnUnenrolledInExperimentCallback(); // $ExpectError
-Apptimize.setPilotTargetingId(); // $ExpectError
-Apptimize.setup(); // $ExpectError
-Apptimize.track(); // $ExpectError
-Apptimize.trackValue(); // $ExpectError
+// @ts-expect-error
+Apptimize.getBool();
+// @ts-expect-error
+Apptimize.getBoolArray();
+// @ts-expect-error
+Apptimize.getBoolDictionary ();
+// @ts-expect-error
+Apptimize.getDouble();
+// @ts-expect-error
+Apptimize.getDoubleArray();
+// @ts-expect-error
+Apptimize.getDoubleDictionary ();
+// @ts-expect-error
+Apptimize.getInt();
+// @ts-expect-error
+Apptimize.getIntArray();
+// @ts-expect-error
+Apptimize.getIntDictionary ();
+// @ts-expect-error
+Apptimize.getString();
+// @ts-expect-error
+Apptimize.getStringArray();
+// @ts-expect-error
+Apptimize.getStringDictionary();
+// @ts-expect-error
+Apptimize.isFeatureFlagEnabled();
+// @ts-expect-error
+Apptimize.runCodeBlock();
+// @ts-expect-error
+Apptimize.setAppName();
+// @ts-expect-error
+Apptimize.setAppVersion();
+// @ts-expect-error
+Apptimize.setCustomAttributes();
+// @ts-expect-error
+Apptimize.setCustomerUserId();
+// @ts-expect-error
+Apptimize.setOnApptimizeInitializedCallback();
+// @ts-expect-error
+Apptimize.setOnEnrolledInExperimentCallback();
+// @ts-expect-error
+Apptimize.setOnMetadataUpdatedCallback();
+// @ts-expect-error
+Apptimize.setOnParticipatedInExperimentCallback();
+// @ts-expect-error
+Apptimize.setOnUnenrolledInExperimentCallback();
+// @ts-expect-error
+Apptimize.setPilotTargetingId();
+// @ts-expect-error
+Apptimize.setup();
+// @ts-expect-error
+Apptimize.track();
+// @ts-expect-error
+Apptimize.trackValue();
 
 // Verify malformed ConfigAttributes cannot be passed to setup
-Apptimize.setup('appKey', 'string'); // $ExpectError
-Apptimize.setup('appKey', {log_level: 2}); // $ExpectError
-Apptimize.setup('appKey', {log_level: 'Non-Supported Option'}); // $ExpectError
-Apptimize.setup('appKey', {result_post_delay_ms: '60000'}); // $ExpectError
-Apptimize.setup('appKey', {nonSupportedProperty: ''}); // $ExpectError
+// @ts-expect-error
+Apptimize.setup('appKey', 'string');
+// @ts-expect-error
+Apptimize.setup('appKey', {log_level: 2});
+// @ts-expect-error
+Apptimize.setup('appKey', {log_level: 'Non-Supported Option'});
+// @ts-expect-error
+Apptimize.setup('appKey', {result_post_delay_ms: '60000'});
+// @ts-expect-error
+Apptimize.setup('appKey', {nonSupportedProperty: ''});

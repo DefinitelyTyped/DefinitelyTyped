@@ -1,12 +1,10 @@
-// Type definitions for configstore 5.0
+// Type definitions for configstore 6.0
 // Project: https://github.com/yeoman/configstore
 // Definitions by: ArcticLight <https://github.com/ArcticLight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = Configstore;
-
-declare class Configstore {
-    constructor(packageName: string, defaults?: any, options?: Configstore.ConfigstoreOptions);
+export default class Configstore {
+    constructor(packageName: string, defaults?: any, options?: ConfigstoreOptions);
 
     /**
      * Get the path to the config file. Can be used to show the user
@@ -64,9 +62,7 @@ declare class Configstore {
     clear(): void;
 }
 
-declare namespace Configstore {
-    interface ConfigstoreOptions {
-        globalConfigPath?: boolean | undefined;
-        configPath?: string | undefined;
-    }
+export interface ConfigstoreOptions {
+    globalConfigPath?: boolean | undefined;
+    configPath?: string | undefined;
 }

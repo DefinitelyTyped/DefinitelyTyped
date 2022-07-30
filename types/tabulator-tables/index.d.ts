@@ -29,7 +29,14 @@ declare namespace Tabulator {
 
     interface OptionsDebug {
         invalidOptionWarning?: boolean;
+        /** Enabled by default this will provide a console warning if you are trying to set an option on the table that does not exist. With the new optional modular structure this is particularly valueable as it will prompt you if you are trying to use an option for a module that has not been installed */
         debugInvalidOptions?: boolean;
+        /** Enabled by default this will provide a console warning if you try and call a function on the table before it has been initialized. */
+        debugInitialization?: boolean;
+        /** The debugEventsExternal option will create a console log for every external event that is fired so you can gain an understanding of which events you should be binding to. */
+        debugEventsExternal?: boolean;
+        /** he debugEventsInternal option will create a console log for every internal event that is fired so you can gain an understanding of which events you should be subscribing to in your modules. */
+        debugEventsInternal?: boolean;
     }
 
     interface OptionsCells extends CellCallbacks {
@@ -1501,7 +1508,7 @@ declare namespace Tabulator {
 
     type TextDirection = 'auto' | 'ltr' | 'rtl';
 
-    type GlobalTooltipOption = boolean | ((cell: CellComponent) => string);
+    type GlobalTooltipOption = boolean | ((event: MouseEvent, cell: CellComponent, onRender: (() => void)) => string);
 
     type CustomMutator = (
         value: any,
@@ -2170,6 +2177,7 @@ interface EventCallBackMethods {
     scrollVertical: (top: number) => void;
     rowAdded: (row: Tabulator.RowComponent) => void;
     rowDeleted: (row: Tabulator.RowComponent) => void;
+    rowMoving: (row: Tabulator.RowComponent) => void;
     rowMoved: (row: Tabulator.RowComponent) => void;
     rowUpdated: (row: Tabulator.RowComponent) => void;
     rowSelectionChanged: () => void;
@@ -2831,6 +2839,7 @@ declare class ResponsiveLayoutModule { }
 declare class SelectRowModule { }
 declare class SortModule { }
 declare class TabulatorFull extends Tabulator { }
+declare class TooltipModule {}
 declare class ValidateModule { }
 
 export {
@@ -2870,5 +2879,6 @@ export {
     SortModule,
     Tabulator,
     TabulatorFull,
+    TooltipModule,
     ValidateModule,
 };

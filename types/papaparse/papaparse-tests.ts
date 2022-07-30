@@ -1,5 +1,5 @@
 import Papa = require('papaparse');
-import { Readable } from 'stream';
+import { Duplex, Readable } from 'stream';
 
 /**
  * Change global config
@@ -128,23 +128,23 @@ Papa.parse('/resources/files/normal.csv', {
 });
 
 // Callback must provided for async parser
-// $ExpectError
+// @ts-expect-error
 Papa.parse('/resources/files/normal.csv', {
     download: true,
 });
-// $ExpectError
+// @ts-expect-error
 Papa.parse('1,2,3', {
     worker: true,
 });
-// $ExpectError
+// @ts-expect-error
 Papa.parse(file);
-// $ExpectError
+// @ts-expect-error
 Papa.parse(file, {});
 
-// $ExpectType ReadWriteStream
+// $ExpectType Duplex
 Papa.parse(Papa.NODE_STREAM_INPUT, {});
 
-// $ExpectType ReadWriteStream
+// $ExpectType Duplex
 Papa.parse(Papa.NODE_STREAM_INPUT);
 
 const readable = new Readable();
@@ -154,7 +154,7 @@ rows.forEach(r => {
     readable.push(r);
 });
 
-const papaStream: NodeJS.ReadWriteStream = Papa.parse(Papa.NODE_STREAM_INPUT);
+const papaStream: Duplex = Papa.parse(Papa.NODE_STREAM_INPUT);
 
 readable.pipe(papaStream);
 
@@ -166,7 +166,7 @@ Papa.parse<string>('a,b,c', {
 });
 
 // `chunk` Works only with local and remote files
-// $ExpectError
+// @ts-expect-error
 Papa.parse<string>('a,b,c', {
     chunk(a) {
         a.data[0];

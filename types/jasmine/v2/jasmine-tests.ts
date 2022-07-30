@@ -781,7 +781,7 @@ describe("jasmine.objectContaining", () => {
         }));
 
         // this causes an error as `b` defined as number in fooType
-        // $ExpectError
+        // @ts-expect-error
         expect(foo).not.toEqual(jasmine.objectContaining({
             a: 37,
             b: '123',
@@ -793,7 +793,8 @@ describe("jasmine.objectContaining", () => {
         // as misspelled properties are detected as well
         expect(foo).not.toEqual(jasmine.objectContaining<fooType>({
             bar: '',
-            foo: 1, // $ExpectError
+            // @ts-expect-error
+            foo: 1,
         }));
     });
 

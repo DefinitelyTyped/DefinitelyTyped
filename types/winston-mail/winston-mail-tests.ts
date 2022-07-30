@@ -6,7 +6,7 @@ let mail: winstonMail.Mail = new winstonMail.Mail({ to: "test" });
 
 winston.add(mail);
 
-// $ExpectError
+// @ts-expect-error
 mail = new winstonMail.Mail({});
 
 let mailOptions: winstonMail.MailTransportOptions = {
@@ -44,7 +44,8 @@ mailOptions = {
 mail = new winstonMail.Mail(mailOptions);
 
 mailOptions = {
-    test: "test" // $ExpectError
+    // @ts-expect-error
+    test: "test"
 };
 
 let transport: winston.TransportInstance = new winstonMail.Mail({ to: "test" });

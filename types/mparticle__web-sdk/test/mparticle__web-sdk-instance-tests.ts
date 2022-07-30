@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import mParticle = require('@mparticle/web-sdk');
+import { Batch } from '@mparticle/event-models';
 
 const instance = mParticle.getInstance('default');
 
@@ -99,13 +98,19 @@ const logger: mParticle.Logger = {
     },
 };
 
+const onCreateBatch: mParticle.onCreateBatch = (batch: Batch) => {
+    return batch;
+};
+
 const config: mParticle.MPConfiguration = {
     isDevelopmentMode: true,
     identifyRequest,
     identityCallback,
+    onCreateBatch,
     dataPlan,
     appVersion: '1.0.0',
     appName: 'testAppName',
+    package: 'com.mparticle.example',
     logLevel: 'warning',
     logger,
     sessionTimeout: 500,

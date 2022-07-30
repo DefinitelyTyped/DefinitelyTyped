@@ -12,7 +12,6 @@ import {
     ViewPropsIOS,
     ViewPropsAndroid,
     ViewPagerAndroidProps,
-    SegmentedControlIOSProps,
     ScrollViewProps,
     ScrollViewPropsIOS,
     ScrollViewPropsAndroid,
@@ -103,9 +102,6 @@ declare module 'react-native' {
 
     /** @deprecated Use ViewPagerAndroidProps */
     export type ViewPagerAndroidProperties = ViewPagerAndroidProps;
-
-    /** @deprecated Use SegmentedControlIOSProps */
-    export type SegmentedControlIOSProperties = SegmentedControlIOSProps;
 
     /** @deprecated Use ScrollViewProps */
     export type ScrollViewProperties = ScrollViewProps;

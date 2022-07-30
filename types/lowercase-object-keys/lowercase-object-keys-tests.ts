@@ -6,8 +6,8 @@ const niceObj = lowercaseObjectKeys({});
 // $ExpectType string
 const name = lowercaseObjectKeys({ NAME: 'Bob '}).name;
 
-// $ExpectError
+// @ts-expect-error
 lowercaseObjectKeys();
 
-// $ExpectError
+// @ts-expect-error
 lowercaseObjectKeys<number>({ a: 1, b: 2, c: 3 });

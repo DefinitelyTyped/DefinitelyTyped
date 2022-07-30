@@ -122,7 +122,7 @@ Component.extend({
     },
 });
 
-// $ExpectError
+// @ts-expect-error
 Component.reopen({
     attributeBindings: ['metadata:data-my-metadata'],
     metadata: '',

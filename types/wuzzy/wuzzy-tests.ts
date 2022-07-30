@@ -9,46 +9,46 @@ jarowinkler(aString, bString, 0.5);
 jarowinkler(aString, bStringArr);
 jarowinkler(aStringArr, bString, 0.5);
 jarowinkler(aStringArr, bStringArr);
-// $ExpectError
+// @ts-expect-error
 jarowinkler();
-// $ExpectError
+// @ts-expect-error
 jarowinkler([1, 2, 3], bStringArr);
 
 levenshtein(aString, bString, { d: 1, i: 0.5, s: 1 });
 levenshtein(aString, bStringArr);
 levenshtein(aStringArr, bString, { d: 1, i: 0.5, s: 1 });
 levenshtein(aStringArr, bStringArr);
-// $ExpectError
+// @ts-expect-error
 levenshtein();
-// $ExpectError
+// @ts-expect-error
 levenshtein(aString, bString, { d: 1, i: 0.5 });
-// $ExpectError
+// @ts-expect-error
 levenshtein([1, 2, 3], bStringArr);
 
 ngram(aString, bString, 0.5);
 ngram(aString, bStringArr);
 ngram(aStringArr, bString, 0.5);
 ngram(aStringArr, bStringArr);
-// $ExpectError
+// @ts-expect-error
 ngram();
-// $ExpectError
+// @ts-expect-error
 ngram([1, 2, 3], bStringArr);
 
 pearson({ a: 2.5, b: 1 }, { o: 3.5, e: 6.0 });
-// $ExpectError
+// @ts-expect-error
 pearson();
-// $ExpectError
+// @ts-expect-error
 pearson({ a: '2.5', b: '1' }, { o: '3.5', e: '6.0' });
-// $ExpectError
+// @ts-expect-error
 pearson(aString, bString);
-// $ExpectError
+// @ts-expect-error
 pearson(aStringArr, bStringArr);
 
 jaccard(aString, bString);
 jaccard(aString, bStringArr);
 jaccard(aStringArr, bString);
 jaccard(aStringArr, bStringArr);
-// $ExpectError
+// @ts-expect-error
 jaccard();
-// $ExpectError
+// @ts-expect-error
 jaccard([1, 2, 3], bStringArr);

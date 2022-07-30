@@ -45,7 +45,7 @@ function test(videojs: typeof videojsnovtt | typeof videojscore) {
 
         const autoplay: boolean | string = this.autoplay();
         this.autoplay(true);
-        this.autoplay("muted");
+        this.autoplay('muted');
 
         const controls: boolean = this.controls();
         this.controls(true);
