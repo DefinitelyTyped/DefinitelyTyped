@@ -1291,7 +1291,7 @@ declare module 'util' {
     // So we can't rely on the `"not definitely present" implies "definitely not present"` assumption mentioned above.
     type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T
         ? {
-              values: { [longOption: string]: undefined | string | boolean | string[] | boolean[] };
+              values: { [longOption: string]: undefined | string | boolean | Array<string | boolean> };
               positionals: string[];
               tokens?: Token[];
           }

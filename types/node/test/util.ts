@@ -202,6 +202,7 @@ access('file/that/does/not/exist', (err) => {
 }
 
 {
+    // util.parseArgs: happy path
     // tslint:disable-next-line:no-object-literal-type-assertion
     const config = {
         allowPositionals: true,
@@ -216,6 +217,21 @@ access('file/that/does/not/exist', (err) => {
 }
 
 {
+    // util.parseArgs: positionals not enabled
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    const config = {
+        options: {
+            foo: { type: 'string' },
+            bar: { type: 'boolean', multiple: true },
+        },
+    } as const;
+
+    // @ts-expect-error
+    util.parseArgs(config).positionals[0];
+}
+
+{
+    // util.parseArgs: tokens
     // tslint:disable-next-line:no-object-literal-type-assertion
     const config = {
         tokens: true,
@@ -229,4 +245,23 @@ access('file/that/does/not/exist', (err) => {
     // tslint:disable-next-line:max-line-length
     // $ExpectType { kind: "positional"; index: number; value: string; } | { kind: "option-terminator"; index: number; } | { kind: "option"; index: number; name: "foo"; rawName: string; value: string; inlineValue: boolean; } | { kind: "option"; index: number; name: "bar"; rawName: string; value: undefined; inlineValue: undefined; }
     util.parseArgs(config).tokens[0];
+}
+
+{
+    // util.parseArgs: strict: false
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    const config = {
+        strict: false,
+    } as const;
+
+    // $ExpectType { values: { [longOption: string]: string | boolean | undefined; }; positionals: string[]; }
+    const result = util.parseArgs(config);
+}
+
+{
+    // util.parseArgs: config not inferred precisely
+    const config = {};
+
+    // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[] | undefined; }
+    const result = util.parseArgs(config);
 }
