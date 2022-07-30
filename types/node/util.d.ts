@@ -1161,6 +1161,7 @@ declare module 'util' {
         allowPositionals?: boolean;
         tokens?: boolean;
         options?: ParseArgsOptionsConfig;
+        args?: string[];
     }
 
     /*
