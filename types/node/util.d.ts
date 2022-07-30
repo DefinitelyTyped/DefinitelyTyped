@@ -1246,7 +1246,7 @@ declare module 'util' {
             : OptionToken
         : never;
 
-    type ParsedOptionsToken<T extends ParseArgsConfig> = IfDefaultsTrue<T['strict'], TokenForOptions<T>, OptionToken>;
+    type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T['strict'], TokenForOptions<T>, OptionToken>;
 
     type ParsedPositionalToken<T extends ParseArgsConfig> = IfDefaultsTrue<
         T['strict'],
@@ -1255,7 +1255,7 @@ declare module 'util' {
     >;
 
     type ParsedTokens<T extends ParseArgsConfig> = Array<
-        ParsedOptionsToken<T> | ParsedPositionalToken<T> | { kind: 'option-terminator'; index: number }
+        ParsedOptionToken<T> | ParsedPositionalToken<T> | { kind: 'option-terminator'; index: number }
     >;
 
     type PreciseParsedResults<T extends ParseArgsConfig> = IfDefaultsFalse<
