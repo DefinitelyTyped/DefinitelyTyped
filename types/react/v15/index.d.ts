@@ -2848,6 +2848,7 @@ declare namespace React {
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
+        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
