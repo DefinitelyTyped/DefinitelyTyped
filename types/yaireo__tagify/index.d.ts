@@ -707,7 +707,7 @@ declare namespace Tagify {
         addTagOnBlur?: boolean | undefined;
 
         /**
-         * If  `true`, the native way of input's `onChange` event is kept,
+         * If `true`, the native way of input's `onChange` event is kept,
          * and it only fires when the field is blurred.
          * @default true
          */
