@@ -2,13 +2,13 @@ import { callback } from './core';
 import { Client } from './client';
 
 // See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaylineitemtype
-export type ApplePayLineItemType = "final" | "pending";
+export type ApplePayLineItemType = 'final' | 'pending';
 
 // See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymenttiming
-export type ApplePayPaymentTiming = "immediate" | "recurring" | "deferred" | "automaticReload";
+export type ApplePayPaymentTiming = 'immediate' | 'recurring' | 'deferred' | 'automaticReload';
 
 // See https://developer.apple.com/documentation/apple_pay_on_the_web/applepayrecurringpaymentdateunit
-export type ApplePayRecurringPaymentDateUnit = "year" | "month" | "day" | "hour" | "minute";
+export type ApplePayRecurringPaymentDateUnit = 'year' | 'month' | 'day' | 'hour' | 'minute';
 
 // See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaylineitem
 export interface ApplePayLineItem {
@@ -22,7 +22,7 @@ export interface ApplePayLineItem {
     recurringPaymentEndDate?: Date;
     deferredPaymentDate?: Date;
     automaticReloadPaymentThresholdAmount?: string;
-};
+}
 
 // more info https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types/paymentrequest
 
