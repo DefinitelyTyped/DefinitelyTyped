@@ -17,7 +17,7 @@ export interface ApplePayLineItem {
     amount: string;
     paymentTiming?: ApplePayPaymentTiming;
     recurringPaymentStartDate?: Date;
-    recurringPaymentIntervalUnit?:  ApplePayRecurringPaymentDateUnit;
+    recurringPaymentIntervalUnit?: ApplePayRecurringPaymentDateUnit;
     recurringPaymentIntervalCount?: number;
     recurringPaymentEndDate?: Date;
     deferredPaymentDate?: Date;
