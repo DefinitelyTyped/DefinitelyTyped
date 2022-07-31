@@ -884,13 +884,6 @@ export interface ContentStack extends ContentBase, ForbidOtherElementProperties<
      * For simple stacks without properties, a content array can be used instead.
      */
     stack: Content[];
-
-    /**
-     * Controls whether the contents of the stack should be kept together on the same page.
-     *
-     * Defaults to `false`.
-     */
-    unbreakable?: boolean | undefined;
 }
 
 /**
@@ -1339,6 +1332,13 @@ export interface ContentBase extends Style {
      * can use it to automatically insert page breaks before elements with certain headline levels.
      */
     headlineLevel?: number | undefined;
+
+    /**
+     * Controls whether the element should be kept together on the same page.
+     *
+     * Defaults to `false`.
+     */
+    unbreakable?: boolean | undefined;
 }
 
 /**
@@ -1426,7 +1426,11 @@ export interface TableOfContent {
  * Additional properties of {@link Content} objects that are used as columns.
  */
 export interface ColumnProperties {
-    /** Column width. */
+    /**
+     * Column width.
+     *
+     * Defaults to `*`.
+     */
     width?: Size | undefined;
 }
 
