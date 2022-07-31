@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.12
+// Type definitions for @yaireo/tagify 4.15
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -328,6 +328,11 @@ declare namespace Tagify {
         dropdownItemActive: string;
 
         /**
+         * @default 'tagify__dropdown__item--hidden'
+         */
+        dropdownItemHidden: string;
+
+        /**
          * Initial class for the dropdown menu.
          *
          * Note: This is __not a typo__, this is the name as used by the tagify
@@ -401,10 +406,11 @@ declare namespace Tagify {
         tag?:
         /**
          * @param tagData Data of the tag to render.
+         * @param tagify Tagify instance to access, e.g., settings.
          * @returns HTML string with the rendered tag. Defaults to a `TAG` DOM
          * element.
          */
-        ((this: Tagify<T>, tagData: T) => string) | undefined;
+        ((this: Tagify<T>, tagData: T, tagify: Tagify<T>) => string) | undefined;
 
         /**
          * This callback is called when the dropdown menu is about to be shown.
@@ -701,6 +707,13 @@ declare namespace Tagify {
         addTagOnBlur?: boolean | undefined;
 
         /**
+         * If  `true`, the native way of input's `onChange` event is kept,
+         * and it only fires when the field is blurred.
+         * @default true
+         */
+        onChangeAfterBlur?: boolean | undefined;
+
+        /**
          * Automatically converts pasted text into tags.
          * @default true
          */
@@ -772,6 +785,13 @@ declare namespace Tagify {
          * @default false
          */
         keepInvalidTags?: boolean | undefined;
+
+        /**
+         * If `true`, create invalid tags. Otherwise, keep the editable input
+         * and do not create tags from it.
+         * @default true
+         */
+        createInvalidTags?: boolean | undefined;
 
         /**
          * If `true`, do not add invalid, temporary tags before automatically
@@ -1304,7 +1324,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     /**
      * The current settings of this tagify instance.
      */
-    settings: Tagify.TagifySettings<T>;
+    settings: Required<Tagify.TagifySettings<T>>;
 
     /**
      * List with the currently available options for the dropdown.
@@ -1541,6 +1561,23 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * @return This tagify instance for chaining methods.
      */
     editTag(tagElm?: HTMLElement): this;
+
+    /**
+     * Get the HTML element which has the actual tag's content
+     * (by default those with the `tagify__tag-text` class).
+     * @param tagElm A tag HTML element (by default those with the `tagify__tag`
+     * class).
+     * @return The node which has the actual tag's content.
+     */
+    getTagTextNode(tagElm: HTMLElement): HTMLElement;
+
+    /**
+     * Set the text of a tag (DOM only, does not affect the actual data).
+     * @param tagElm A tag HTML element (by default those with the `tagify__tag`
+     * class).
+     * @param html New text/html string.
+     */
+    setTagTextNode(tagElm: HTMLElement, html: string): void;
 
     /**
      * Replaces an existing tag with a new one. Used for updating a tag's data.

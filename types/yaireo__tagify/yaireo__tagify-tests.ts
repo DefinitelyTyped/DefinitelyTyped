@@ -1,11 +1,11 @@
 import Tagify = require('@yaireo/tagify');
 import { BaseTagData, TagData, TagifyConstructorSettings, TagifySettings } from '@yaireo/tagify';
 
-export function tagTemplate(this: Tagify, tagData: TagData): string {
+export function tagTemplate(this: Tagify, tagData: TagData, { settings }: Tagify): string {
     return `
-    <tag title="${tagData.title || tagData.value}" contenteditable="false" spellcheck="false" tabIndex="-1" class="tagify__tag ${tagData.class ? tagData.class : ''}" ${this.getAttributes(tagData)}>
-        <x class="tagify__tag__removeBtn" role="button" aria-label="remove-tag"></x>
-        <div><span class="tagify__tag-text">${tagData.value}</span></div>
+    <tag title="${tagData.title || tagData.value}" contenteditable="false" spellcheck="false" tabIndex="-1" class="${settings.classNames.tag} ${tagData.class || ''}" ${this.getAttributes(tagData)}>
+        <x class="${settings.classNames.tagX}" role="button" aria-label="remove-tag"></x>
+        <div><span class="${settings.classNames.tagText}">${tagData.value}</span></div>
     </tag>`;
 }
 
@@ -29,6 +29,7 @@ const settings: TagifyConstructorSettings = {
     whitelist: ['good-word'],
     blacklist: ['bad-word'],
     addTagOnBlur: false,
+    onChangeAfterBlur: true,
     pasteAsTags: false,
     callbacks: {
         add: (event) => {
@@ -271,6 +272,7 @@ const settings: TagifyConstructorSettings = {
     validate: (tagData) => /^starts-with/.test(tagData.value),
     transformTag: (tagData) => { tagData.active = true; },
     keepInvalidTags: false,
+    createInvalidTags: true,
     skipInvalid: true,
     backspace: 'edit',
     originalInputValueFormat: (data) => JSON.stringify(data),
@@ -299,6 +301,7 @@ const settings: TagifyConstructorSettings = {
         dropdownFooter: 'tagify__dropdown__footer',
         dropdownItem: 'tagify__dropdown__item',
         dropdownItemActive: 'tagify__dropdown__item--active',
+        dropdownItemHidden: 'tagify__dropdown__item--hidden',
         dropdownInital: 'tagify__dropdown--initial',
         scopeLoading: 'tagify--loading',
         tagLoading: 'tagify__tag--loading',
@@ -873,6 +876,9 @@ if (tagElement !== undefined) {
     tagify.editTag();
     // $ExpectType Tagify<TagData>
     tagify.editTag(tagElement);
+    // $ExpectType HTMLElement
+    tagify.getTagTextNode(tagElement);
+    tagify.setTagTextNode(tagElement, '<i>New text</i>');
     tagify.replaceTag(tagElement, { value: 'bar' });
     // $ExpectType Tagify<TagData>
     tagify.tagLoading(tagElement, true);
@@ -913,7 +919,7 @@ tagify.toggleClass('active', true);
 
 tagify.updateValueByDOMTags();
 tagify.parseTemplate('wrapper', [inputElement, settings]);
-tagify.parseTemplate('tag', [tags[0]]);
+tagify.parseTemplate('tag', [tags[0], tagify]);
 tagify.parseTemplate('dropdownItem', [tags[0]]);
 tagify.parseTemplate('dropdown', [settings]);
 tagify.parseTemplate('dropdownItemNoMatch', [{ value: "" }]);
