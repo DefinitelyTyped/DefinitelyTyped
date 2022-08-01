@@ -92,7 +92,7 @@ export class App extends React.Component<AppProps, AppState> {
                         />
                         <Tabbar
                             position='bottom'
-                            index={0}
+                            activeIndex={0}
                             renderTabs={(activeIndex, tabbar) => [
                                 {
                                     content: <div>Tab 2 {activeIndex === 0 ? "(Active)" : null} </div>,
