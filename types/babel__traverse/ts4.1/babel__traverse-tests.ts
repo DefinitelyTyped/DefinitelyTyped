@@ -350,13 +350,21 @@ const visitorWithInvalidDenylist: Visitor = {
     denylist: ['SomeRandomType'],
 };
 
-const nullPath: NodePath<t.Identifier | undefined> = new NodePath<t.Identifier | undefined>(
-    null as any,
-    {} as any,
-);
+const nullPath: NodePath<t.Identifier | undefined> = new NodePath<t.Identifier | undefined>(null as any, {} as any);
 
 nullPath.type; // $ExpectType "Identifier" | undefined
 
 if (nullPath.hasNode()) {
     nullPath.type; // $ExpectType "Identifier"
 }
+
+const file: t.File = {} as any;
+const newPath = NodePath.get({
+    hub: {} as any,
+    parentPath: null,
+    parent: file,
+    container: file,
+    key: 'program',
+}).setContext();
+
+newPath; // $ExpectType NodePath<Program>

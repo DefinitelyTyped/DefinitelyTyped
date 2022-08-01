@@ -478,7 +478,7 @@ export class NodePath<T = Node> {
 
     setScope(): void;
 
-    setContext(context: TraversalContext): NodePath<T>;
+    setContext(context?: TraversalContext): this;
 
     popContext(): void;
 
