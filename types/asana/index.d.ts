@@ -101,7 +101,7 @@ declare namespace asana {
          * An instance of the CustomFields resource.
          * @type {CustomFields}
          */
-         customFields: resources.CustomFields;
+        customFields: resources.CustomFields;
         /**
          * An instance of the Events resource.
          * @type {Events}
@@ -211,9 +211,11 @@ declare namespace asana {
         retryOnRateLimit?: boolean | undefined;
         handleUnauthorized?: (() => boolean | Promise<boolean>) | undefined;
         requestTimeout?: string | undefined;
-        defaultHeaders?: {
-            [key: string]: string;
-        } | undefined;
+        defaultHeaders?:
+            | {
+                  [key: string]: string;
+              }
+            | undefined;
     }
 
     interface Dispatcher {
@@ -1048,7 +1050,7 @@ declare namespace asana {
              */
             create(
                 data: Projects.CreateParams & { workspace: string | number },
-                dispatchOptions?: any
+                dispatchOptions?: any,
             ): Promise<Projects.Type>;
 
             /**
@@ -1084,7 +1086,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            createInTeam(team: string | number, data: Projects.CreateParams, dispatchOptions?: any): Promise<Projects.Type>;
+            createInTeam(
+                team: string | number,
+                data: Projects.CreateParams,
+                dispatchOptions?: any,
+            ): Promise<Projects.Type>;
 
             /**
              * * Returns the complete project record for a single project.
@@ -1354,10 +1360,11 @@ declare namespace asana {
                     color: string;
                     enabled: boolean;
                 };
-                new_multi_enum_values: Resource & {
-                    color: string;
-                    enabled: boolean;
-                }[];
+                new_multi_enum_values: Resource &
+                    {
+                        color: string;
+                        enabled: boolean;
+                    }[];
                 new_name: string;
                 new_number_value: number;
                 new_resource_subtype: string;
@@ -1373,12 +1380,13 @@ declare namespace asana {
                 };
                 old_enum_value: Resource & {
                     color: string;
-                    enabled: boolean
+                    enabled: boolean;
                 };
-                old_multi_enum_values: Resource & {
-                    color: string;
-                    enabled: boolean
-                }[];
+                old_multi_enum_values: Resource &
+                    {
+                        color: string;
+                        enabled: boolean;
+                    }[];
                 old_name: string;
                 old_number_value: number;
                 old_resource_subtype: string;
@@ -1668,10 +1676,13 @@ declare namespace asana {
                 assignee_status: string; // deprecated
                 assignee: Assignee | null;
                 assignee_section: Resource;
-                external: { // opt-in
-                    data: string | undefined;
-                    gid: string | undefined;
-                } | undefined;
+                external:
+                    | {
+                          // opt-in
+                          data: string | undefined;
+                          gid: string | undefined;
+                      }
+                    | undefined;
                 html_notes: string | undefined; // opt in
                 is_rendered_as_separator: boolean | undefined; // opt in
                 notes: string;
@@ -1684,7 +1695,7 @@ declare namespace asana {
                 num_subtasks: number; // opt in
                 liked: boolean;
                 likes: {
-                    gid: string
+                    gid: string;
                     user: Resource;
                 }[];
                 tags: Resource[];
@@ -1707,10 +1718,12 @@ declare namespace asana {
                 custom_fields?: { [index: string]: number | string } | undefined;
                 due_at?: string | undefined;
                 due_on?: string | null | undefined;
-                external?: {
-                    data?: string | undefined;
-                    gid?: string | undefined;
-                } | undefined;
+                external?:
+                    | {
+                          data?: string | undefined;
+                          gid?: string | undefined;
+                      }
+                    | undefined;
                 followers?: string[] | undefined; // create-only
                 html_notes?: string | undefined;
                 liked?: boolean | undefined;
@@ -1723,10 +1736,12 @@ declare namespace asana {
                 start_on?: string | null | undefined;
                 tags?: string[] | undefined; // create-only
                 workspace?: string | undefined;
-                memberships?: {
-                    project: string;
-                    section: string;
-                }[] | undefined;
+                memberships?:
+                    | {
+                          project: string;
+                          section: string;
+                      }[]
+                    | undefined;
             }
 
             // https://developers.asana.com/docs/update-a-task
@@ -1738,10 +1753,12 @@ declare namespace asana {
                 custom_fields?: { [index: string]: number | string } | undefined;
                 due_at?: string | undefined;
                 due_on?: string | null | undefined;
-                external?: {
-                    data?: string | undefined;
-                    gid?: string | undefined;
-                } | undefined;
+                external?:
+                    | {
+                          data?: string | undefined;
+                          gid?: string | undefined;
+                      }
+                    | undefined;
                 html_notes?: string | undefined;
                 liked?: boolean | undefined;
                 name?: string | undefined;
@@ -1939,7 +1956,7 @@ declare namespace asana {
             findByTag(
                 tag: string | number,
                 params?: PaginationParams,
-                dispatchOptions?: any
+                dispatchOptions?: any,
             ): Promise<ResourceList<Tasks.Type>>;
 
             /**
@@ -2687,7 +2704,7 @@ declare namespace asana {
             update(
                 workspace: string | number,
                 data: { name?: string | undefined },
-                dispatchOptions?: any
+                dispatchOptions?: any,
             ): Promise<Workspaces.Type>;
 
             /**
@@ -2811,7 +2828,11 @@ declare namespace asana {
              * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            findByUser(user: number | string, params?: Params & { workspace?: string }, dispatchOptions?: any): Promise<UserTaskLists.Type>;
+            findByUser(
+                user: number | string,
+                params?: Params & { workspace?: string },
+                dispatchOptions?: any,
+            ): Promise<UserTaskLists.Type>;
 
             /**
              * Returns the full record for a user task list.
