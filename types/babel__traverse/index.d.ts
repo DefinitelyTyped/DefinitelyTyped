@@ -1,4 +1,4 @@
-// Type definitions for @babel/traverse 7.17
+// Type definitions for @babel/traverse 7.18
 // Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
