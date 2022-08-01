@@ -143,6 +143,7 @@ export const DndProvider: FC<{
     context?: any;
     debugMode?: boolean | undefined;
     options: Backends;
+    children?: ReactNode;
 }>;
 
 /**

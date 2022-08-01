@@ -42,6 +42,7 @@ const playerOptions: VideoJsPlayerOptions = {
     nativeControlsForTouch: true,
     notSupportedMessage: 'Oh no! :(',
     playbackRates: [0.5, 1],
+    noUITitleAttributes: true,
     plugins: {
         myPlugin: {
             myOption: true,
@@ -108,6 +109,11 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
         { type: 'video/ogg', src: 'http://www.example.com/path/to/video.ogv' },
     ]);
 
+    // the option passed when initializing player is a string
+    const preload: videojs.Preload | undefined = this.options_.preload;
+    // but the option when setting preload later is boolean
+    this.preload(false);
+
     const liveTracker = this.liveTracker;
     liveTracker.on('seekableendchange', () => {});
     liveTracker.on('liveedgechange', () => {});
@@ -123,6 +129,7 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     liveTracker.seekToLiveEdge();
     liveTracker.startTracking();
     liveTracker.stopTracking();
+    liveTracker.nextSeekedFromUser();
     const isTracking: boolean = liveTracker.isTracking();
 
     const whereYouAt: number = this.currentTime();
@@ -145,6 +152,9 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     const howMuchIsDownloaded: number = this.bufferedPercent();
 
+    // $ExpectType TimeRanges
+    const timeRanges = this.played();
+
     const howLoudIsIt: number = this.volume();
 
     this.volume(0.5); // Set volume to half
@@ -159,12 +169,24 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     const readyState: videojs.ReadyState = this.readyState();
 
+    // $ExpectType string
+    const currentBreakPoint = this.currentBreakpoint();
+
+    // $ExpectType string
+    const currentBreakpointClass: string = this.currentBreakpointClass();
+
     this.requestFullscreen();
 
     this.requestPictureInPicture().then(pipWindow => {
         // $ExpectType PictureInPictureWindow
         pipWindow;
     });
+
+    // $ExpectType string | undefined
+    this.requestNamedAnimationFrame('animationFrameName', () => {});
+
+    // $ExpectType void
+    this.cancelNamedAnimationFrame('animationFrameName');
 
     // $ExpectType Promise<void>
     this.exitPictureInPicture();
@@ -193,6 +215,10 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     this.canPlayType('video/mp4');
 
     testTracks(this);
+
+    testVideoElement(this);
+
+    testControlBarElements(this);
 });
 
 function testEvents(player: videojs.Player) {
@@ -232,7 +258,7 @@ function testComponents(player: videojs.Player) {
     myWindow.isDisposed(); // $ExpectType boolean
     myWindow.dispose(); // $ExpectType void
 
-	const MyOtherWindow = videojs.extend(videojs.getComponent("ModalDialog"), {
+    const MyOtherWindow = videojs.extend(videojs.getComponent('ModalDialog'), {
         myFunction() {
             this.player().play();
         },
@@ -243,11 +269,16 @@ function testComponents(player: videojs.Player) {
     });
 
     const myOtherWindow = new MyOtherWindow(player, {});
-    myOtherWindow.controlText("My text");
+    myOtherWindow.controlText('My text');
     myOtherWindow.open();
     myOtherWindow.close();
     myOtherWindow.myFunction(); // $ExpectType void
-    myOtherWindow.myOtherFunction("test"); // $ExpectType string
+    myOtherWindow.myOtherFunction('test'); // $ExpectType string
+
+    const MyClickableComponent = videojs.extend(videojs.getComponent('clickablecomponent'));
+    const myClickable = new MyClickableComponent(player, {
+        clickHandler: () => {},
+    });
 }
 
 function testPlugin(player: videojs.Player, options: {}) {
@@ -339,6 +370,21 @@ function testTracks(player: VideoJsPlayer) {
 
     // $ExpectType TextTrackList
     player.textTracks();
+}
+
+function testVideoElement(player: VideoJsPlayer) {
+    // $ExpectType HTMLVideoElement | HTMLAudioElement
+    player.tech(true).el();
+}
+
+function testControlBarElements(player: VideoJsPlayer) {
+    // $ExpectType PlaybackRateMenuButton | undefined
+    const child = player.controlBar.getChild('playbackRateMenuButton');
+
+    if (child) {
+        // $ExpectType HTMLDivElement
+        child.el();
+    }
 }
 
 function testGetDescendants(player: VideoJsPlayer) {

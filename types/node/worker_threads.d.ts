@@ -39,7 +39,7 @@
  * }
  * ```
  *
- * The above example spawns a Worker thread for each `parse()` call. In actual
+ * The above example spawns a Worker thread for each `parseJSAsync()` call. In
  * practice, use a pool of Workers for these kinds of tasks. Otherwise, the
  * overhead of creating Workers would likely exceed their benefit.
  *
@@ -49,7 +49,7 @@
  *
  * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
  * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/worker_threads.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/worker_threads.js)
  */
 declare module 'worker_threads' {
     import { Blob } from 'node:buffer';
@@ -507,7 +507,6 @@ declare module 'worker_threads' {
      * }
      * ```
      * @since v15.4.0
-     * @experimental
      */
     class BroadcastChannel {
         readonly name: string;
@@ -630,14 +629,12 @@ declare module 'worker_threads' {
      * }
      * ```
      * @since v15.12.0, v14.18.0
-     * @experimental
      * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
      */
     function getEnvironmentData(key: Serializable): Serializable;
     /**
      * The `worker.setEnvironmentData()` API sets the content of`worker.getEnvironmentData()` in the current thread and all new `Worker`instances spawned from the current context.
      * @since v15.12.0, v14.18.0
-     * @experimental
      * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
      * @param value Any arbitrary, cloneable JavaScript value that will be cloned and passed automatically to all new `Worker` instances. If `value` is passed as `undefined`, any previously set value
      * for the `key` will be deleted.

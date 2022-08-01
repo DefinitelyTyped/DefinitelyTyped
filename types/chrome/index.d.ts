@@ -2,7 +2,6 @@
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>
 //                 otiai10 <https://github.com/otiai10>
-//                 RReverser <https://github.com/rreverser>
 //                 sreimer15 <https://github.com/sreimer15>
 //                 MatCarlson <https://github.com/MatCarlson>
 //                 ekinsol <https://github.com/ekinsol>
@@ -3421,15 +3420,8 @@ declare namespace chrome.events {
         originAndPathMatches?: string | undefined;
     }
 
-    /** An object which allows the addition and removal of listeners for a Chrome event. */
-    export interface Event<T extends Function> {
-        /**
-         * Registers an event listener callback to an event.
-         * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
-         * The callback parameter should be a function that looks like this:
-         * function() {...};
-         */
-        addListener(callback: T): void;
+    export interface BaseEvent<T extends Function> {
+        addListener(callback: T, filter?: webRequest.RequestFilter): void;
         /**
          * Returns currently registered rules.
          * @param callback Called with registered rules.
@@ -3483,6 +3475,20 @@ declare namespace chrome.events {
          */
         removeListener(callback: T): void;
         hasListeners(): boolean;
+    }
+
+    /** An object which allows the addition and removal of listeners for a Chrome event. */
+    interface Event<T extends Function> extends BaseEvent<T> {
+        /**
+         * Registers an event listener callback to an event.
+         * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
+         * The callback parameter should be a function that looks like this:
+         * function() {...};
+         */
+        addListener(callback: T): void;
+    }
+    export interface EventWithRequiredFilterInAddListener<T extends Function> extends BaseEvent<T> {
+        addListener(callback: T, filter: webRequest.RequestFilter): void;
     }
 
     /** Description of a declarative rule for handling events. */
@@ -7208,8 +7214,9 @@ declare namespace chrome.runtime {
             type?: string | undefined;
             id?: string | undefined;
             description?: string | undefined;
-            language?: string | undefined;
+            language?: string[] | string | undefined;
             layouts?: string[] | undefined;
+            indicator?: string | undefined;
         }[] | undefined;
         key?: string | undefined;
         minimum_chrome_version?: string | undefined;
@@ -7356,6 +7363,12 @@ declare namespace chrome.runtime {
      */
     export function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
     /**
+     * Returns information about the current platform.
+     * @since Chrome 29.
+     * @return The `getPlatformInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getPlatformInfo(): Promise<PlatformInfo>;
+    /**
      * Converts a relative path within an app/extension install directory to a fully-qualified URL.
      * @param path A path to a resource within an app/extension expressed relative to its install directory.
      */
@@ -7394,55 +7407,89 @@ declare namespace chrome.runtime {
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 26.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage<M = any, R = any>(message: M, responseCallback?: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendMessage<M = any, R = any>(
         message: M,
         options: MessageOptions,
-        responseCallback?: (response: R) => void,
+        responseCallback: (response: R) => void,
     ): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 26.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage<M = any, R = any>(extensionId: string, message: M, responseCallback?: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(extensionId: string, message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
-     * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendMessage<Message = any, Response = any>(
         extensionId: string,
         message: Message,
         options: MessageOptions,
-        responseCallback?: (response: Response) => void,
+        responseCallback: (response: Response) => void,
+    ): void;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 26.
+     */
+    export function sendMessage<M = any, R = any>(message: M): Promise<R>;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 32.
+     */
+    export function sendMessage<M = any, R = any>(
+        message: M,
+        options: MessageOptions,
+    ): Promise<R>;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 26.
+     * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+     */
+    export function sendMessage<M = any, R = any>(extensionId: string, message: M): Promise<R>;
+    /**
+     * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+     * @since Chrome 32.
+     * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+     */
+    export function sendMessage<Message = any, Response = any>(
+        extensionId: string,
+        message: Message,
+        options: MessageOptions,
+    ): Promise<Response>;
+    /**
+     * Send a single message to a native application.
+     * @since Chrome 28.
+     * @param application The of the native messaging host.
+     * @param message The message that will be passed to the native messaging host.
+     * Parameter response: The response message sent by the native messaging host. If an error occurs while connecting to the native messaging host, the callback will be called with no arguments and runtime.lastError will be set to the error message.
+     */
+    export function sendNativeMessage(
+        application: string,
+        message: Object,
+        responseCallback: (response: any) => void,
     ): void;
     /**
      * Send a single message to a native application.
      * @since Chrome 28.
      * @param application The of the native messaging host.
      * @param message The message that will be passed to the native messaging host.
-     * @param responseCallback Optional.
-     * Parameter response: The response message sent by the native messaging host. If an error occurs while connecting to the native messaging host, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendNativeMessage(
         application: string,
         message: Object,
-        responseCallback?: (response: any) => void,
-    ): void;
+    ): Promise<any>;
     /**
      * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
      * @since Chrome 41.
@@ -7523,11 +7570,11 @@ declare namespace chrome.scripting {
     /* The JavaScript world for a script to execute within. */
     export type ExecutionWorld = 'ISOLATED' | 'MAIN';
 
-    export interface InjectionResult {
+    export interface InjectionResult<T> {
         /* The frame associated with the injection. */
         frameId: number;
         /* The result of the script execution. */
-        result?: any;
+        result: T;
     }
 
     export interface InjectionTarget {
@@ -7550,7 +7597,7 @@ declare namespace chrome.scripting {
         target: InjectionTarget;
     }
 
-    export type ScriptInjection<Args extends any[] = []> = {
+    export type ScriptInjection<Args extends any[], Result> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
         /* The JavaScript world for a script to execute within. */
@@ -7560,14 +7607,15 @@ declare namespace chrome.scripting {
         files: string[];
     } | ({
         /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        func: ((...args: Args) => void);
-    } & (Args extends [] ? {
-        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
-        args?: Args;
-    } : {
+        func: () => Result;
+    }  | {
+        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
+        func: (...args: Args) => Result;
         /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
         args: Args;
-    })))
+    }))
+
+    type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7575,7 +7623,7 @@ declare namespace chrome.scripting {
      * The details of the script which to inject.
      * @return The `executeScript` method provides its result via callback or returned as a `Promise` (MV3 only). The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript<Args extends any[]>(injection: ScriptInjection<Args>): Promise<InjectionResult[]>;
+    export function executeScript<Args extends any[], Result>(injection: ScriptInjection<Args, Result>): Promise<InjectionResult<Awaited<Result>>[]>;
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7584,7 +7632,7 @@ declare namespace chrome.scripting {
      * @param callback
      * Invoked upon completion of the injection. The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript<Args extends any[]>(injection: ScriptInjection<Args>, callback?: (results: InjectionResult[]) => void): void;
+    export function executeScript<Args extends any[], Result>(injection: ScriptInjection<Args, Result>, callback?: (results: InjectionResult<Awaited<Result>>[]) => void): void;
 
     /**
      * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
@@ -7842,7 +7890,12 @@ declare namespace chrome.storage {
         MAX_WRITE_OPERATIONS_PER_MINUTE: number;
     }
 
-    type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed'>;
+    export interface SessionStorageArea extends StorageArea {
+        /** The maximum amount (in bytes) of data that can be stored in memory, as measured by estimating the dynamically allocated memory usage of every value and key. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
+        QUOTA_BYTES: number;
+    }
+
+    type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed' | 'session'>;
     export interface StorageChangedEvent
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void> { }
 
@@ -7856,6 +7909,12 @@ declare namespace chrome.storage {
      * @since Chrome 33.
      */
     export var managed: StorageArea;
+
+    /**
+     * Items in the session storage area are stored in-memory and will not be persisted to disk.
+     * @since Chrome 102.
+     */
+    export var session: SessionStorageArea;
 
     /** Fired when one or more items change. */
     export var onChanged: StorageChangedEvent;
@@ -9292,7 +9351,7 @@ declare namespace chrome.tabs {
      * Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view).
      * @return The `getCurrent` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function getCurrent(): Promise<Tab>;
+    export function getCurrent(): Promise<Tab | undefined>;
     /**
      * Gets the tab that is selected in the specified window.
      * @deprecated since Chrome 33. Please use tabs.query {active: true}.
@@ -9889,7 +9948,7 @@ declare namespace chrome.tabs {
     /** An ID that represents the absence of a group. */
     export var TAB_GROUP_ID_NONE: -1;
 
-    export type ColorEnum = 'grey' | 'blue' | 'red' | 'yellow' | 'green' | 'pink' | 'purple' | 'cyan';
+    export type ColorEnum = 'grey' | 'blue' | 'red' | 'yellow' | 'green' | 'pink' | 'purple' | 'cyan' | 'orange';
 
     export interface TabGroup {
         /** Whether the group is collapsed. A collapsed group is one whose tabs are hidden. */
@@ -10797,41 +10856,42 @@ declare namespace chrome.webRequest {
     }
 
     export interface WebRequestBodyEvent
-        extends chrome.events.Event<(details: WebRequestBodyDetails) => BlockingResponse | void> {
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestBodyDetails) => BlockingResponse | void> {
         addListener(
             callback: (details: WebRequestBodyDetails) => BlockingResponse | void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
 
     export interface WebRequestHeadersSynchronousEvent
-        extends chrome.events.Event<(details: WebRequestHeadersDetails) => BlockingResponse | void> {
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestHeadersDetails) => BlockingResponse | void> {
         addListener(
             callback: (details: WebRequestHeadersDetails) => BlockingResponse | void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
 
-    export interface WebRequestHeadersEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => void> {
+    export interface WebRequestHeadersEvent
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestHeadersDetails) => void> {
         addListener(
             callback: (details: WebRequestHeadersDetails) => void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
 
     export interface _WebResponseHeadersEvent<T extends WebResponseHeadersDetails>
-        extends chrome.events.Event<(details: T) => void> {
-        addListener(callback: (details: T) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: T) => void> {
+        addListener(callback: (details: T) => void, filter: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
     export interface WebResponseHeadersEvent
-        extends chrome.events.Event<(details: WebResponseHeadersDetails) => BlockingResponse | void> {
+        extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebResponseHeadersDetails) => BlockingResponse | void> {
         addListener(
             callback: (details: WebResponseHeadersDetails) => BlockingResponse | void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
@@ -10841,7 +10901,7 @@ declare namespace chrome.webRequest {
     export interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> { }
 
     export interface WebAuthenticationChallengeEvent
-        extends chrome.events.Event<
+        extends chrome.events.EventWithRequiredFilterInAddListener<
         (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void
         > {
         addListener(
@@ -10849,7 +10909,7 @@ declare namespace chrome.webRequest {
                 details: WebAuthenticationChallengeDetails,
                 callback?: (response: BlockingResponse) => void,
             ) => void,
-            filter?: RequestFilter,
+            filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;
     }
@@ -11472,7 +11532,7 @@ declare namespace chrome.declarativeNetRequest {
          * Defaults to 1.
          * When specified, should be >= 1.
          */
-        priority: number;
+        priority?: number | undefined;
     }
 
     export interface RuleAction {
@@ -11503,6 +11563,8 @@ declare namespace chrome.declarativeNetRequest {
         domainType?: DomainType | undefined;
 
         /**
+         * @deprecated since Chrome 101. Use initiatorDomains instead.
+
          * The rule will only match network requests originating from the list of domains.
          * If the list is omitted, the rule is applied to requests from all domains.
          * An empty list is not allowed.
@@ -11516,6 +11578,8 @@ declare namespace chrome.declarativeNetRequest {
         domains?: string[] | undefined;
 
         /**
+         * @deprecated since Chrome 101. Use excludedInitiatorDomains instead
+         *
          * The rule will not match network requests originating from the list of excludedDomains.
          * If the list is empty or omitted, no domains are excluded.
          * This takes precedence over domains.
@@ -11527,6 +11591,56 @@ declare namespace chrome.declarativeNetRequest {
          * This matches against the request initiator and not the request url.
          */
         excludedDomains?: string[] | undefined;
+
+        /**
+         * The rule will only match network requests originating from the list of initiatorDomains.
+         * If the list is omitted, the rule is applied to requests from all domains.
+         * An empty list is not allowed.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         * This matches against the request initiator and not the request url.
+         */
+        initiatorDomains?: string[] | undefined;
+
+        /**
+         * The rule will not match network requests originating from the list of excludedInitiatorDomains.
+         * If the list is empty or omitted, no domains are excluded.
+         * This takes precedence over initiatorDomains.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         * This matches against the request initiator and not the request url.
+         */
+        excludedInitiatorDomains?: string[] | undefined;
+
+        /**
+         * The rule will only match network requests when the domain matches one from the list of requestDomains.
+         * If the list is omitted, the rule is applied to requests from all domains.
+         * An empty list is not allowed.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         */
+        requestDomains?: string[] | undefined;
+
+        /**
+         * The rule will not match network requests when the domains matches one from the list of excludedRequestDomains.
+         * If the list is empty or omitted, no domains are excluded.
+         * This takes precedence over requestDomains.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         */
+        excludedRequestDomains?: string[] | undefined;
 
         /**
          * List of request methods which the rule won't match.

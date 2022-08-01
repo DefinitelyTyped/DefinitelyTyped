@@ -987,7 +987,7 @@ export interface Local<T> {
      * @param node A node element.
      * @param value Value to store locally
      */
-    set(node: Element, value: T): Element;
+    set(node: Element, value: T): T;
     /**
      * Obtain a string with the internally assigned property name for the local
      * which is used to store the value on a node

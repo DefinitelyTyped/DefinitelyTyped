@@ -43,9 +43,9 @@ element.addEventListener(Offcanvas.Events.shown, event => {
     // do something…
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').offcanvas();
 
-$('.alert').offcanvas('toggle'); // $ExpectType void
-$('.alert').offcanvas('show'); // $ExpectType void
-$('.alert').offcanvas('hide'); // $ExpectType void
+$('.alert').offcanvas('toggle'); // $ExpectType JQuery<HTMLElement>
+$('.alert').offcanvas('show'); // $ExpectType JQuery<HTMLElement>
+$('.alert').offcanvas('hide'); // $ExpectType JQuery<HTMLElement>

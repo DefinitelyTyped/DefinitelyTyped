@@ -217,6 +217,9 @@ declare namespace React {
      * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
      */
     type ReactText = string | number;
+    /**
+     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
     type ReactChild = ReactElement | string | number;
 
     /**
@@ -224,7 +227,7 @@ declare namespace React {
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
     type ReactFragment = Iterable<ReactNode>;
-    type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+    type ReactNode = ReactElement | string | number | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
     // Top Level API
@@ -793,7 +796,7 @@ declare namespace React {
                 : P
             : P;
 
-    type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
+    type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
 
     /**
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
@@ -1114,7 +1117,7 @@ declare namespace React {
     }
 
     /**
-     * Returns a deferred version of the value that may “lag behind” it for at most `timeoutMs`.
+     * Returns a deferred version of the value that may “lag behind” it.
      *
      * This is commonly used to keep the interface responsive when you have something that renders immediately
      * based on user input and something that needs to wait for a data fetch.
@@ -1138,9 +1141,7 @@ declare namespace React {
      * The first is a boolean, React’s way of informing us whether we’re waiting for the transition to finish.
      * The second is a function that takes a callback. We can use it to tell React which state we want to defer.
      *
-     * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
-     *
-     * @param config An optional object with `timeoutMs`
+     * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**`
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
@@ -1271,6 +1272,7 @@ declare namespace React {
         shiftKey: boolean;
         /** @deprecated */
         which: number;
+        target: EventTarget & T;
     }
 
     interface MouseEvent<T = Element, E = NativeMouseEvent> extends UIEvent<T, E> {
@@ -2114,6 +2116,8 @@ declare namespace React {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        onCancel?: ReactEventHandler<T> |  undefined;
+        onClose?: ReactEventHandler<T> |  undefined;
         open?: boolean | undefined;
     }
 
@@ -2277,6 +2281,7 @@ declare namespace React {
         integrity?: string | undefined;
         media?: string | undefined;
         imageSrcSet?: string | undefined;
+        imageSizes?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         rel?: string | undefined;
         sizes?: string | undefined;
@@ -2422,8 +2427,13 @@ declare namespace React {
     }
 
     interface TableHTMLAttributes<T> extends HTMLAttributes<T> {
+        align?: "left" | "center" | "right" | undefined;
+        bgcolor?: string | undefined;
+        border?: number | undefined;
         cellPadding?: number | string | undefined;
         cellSpacing?: number | string | undefined;
+        frame?: boolean | undefined;
+        rules?: "none" | "groups" | "rows" | "columns" | "all" | undefined;
         summary?: string | undefined;
         width?: number | string | undefined;
     }

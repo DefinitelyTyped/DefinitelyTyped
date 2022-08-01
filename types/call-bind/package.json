@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "types": "index",
-    "typesVersions": {
-        "<=3.9": { "*": ["ts3.9/*"] }
-    }
-}

@@ -100,9 +100,12 @@ const CommonWrapperHelper = {
         wrapper.invoke('singleArg'); // $ExpectType (arg: any) => void
         wrapper.invoke('multipleArg'); // $ExpectType (arg1: number, arg2: string, arg3: boolean) => void
         wrapper.invoke('multipleReturn'); // $ExpectType () => string | number | boolean | void | null | undefined || () => string | number | boolean | void | null
-        wrapper.invoke(undefined); // $ExpectError
-        wrapper.invoke(null); // $ExpectError
-        wrapper.invoke('nonFun'); // $ExpectError
+        // @ts-expect-error
+        wrapper.invoke(undefined);
+        // @ts-expect-error
+        wrapper.invoke(null);
+        // @ts-expect-error
+        wrapper.invoke('nonFun');
     },
 };
 
@@ -149,15 +152,15 @@ function ShallowWrapperTest() {
             handleEcho // $ExpectType (value: string) => string
         } = wrapper.instance();
 
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setState({stateProperty: 123});
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setState({statePropertyzasd: 'hello'});
         wrapper.setState({stateProperty: 'hello'});
 
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setProps({numberProp: '123'});
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setProps({numberPropzasd: 'hello'});
         wrapper.setProps({numberProp: 123});
     }
@@ -451,7 +454,7 @@ function ShallowWrapperTest() {
 
         const wrapperPropsOnly = shallow<MyComponentProps>(<MyComponent stringProp="value" numberProp={1}/>);
         wrapperPropsOnly.setProps({stringProp: 'new value'});
-        // $ExpectError
+        // @ts-expect-error
         wrapperPropsOnly.instance().handleEcho;
     }
 
@@ -590,15 +593,15 @@ function ReactWrapperTest() {
             handleEcho // $ExpectType (value: string) => string
         } = wrapper.instance();
 
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setState({stateProperty: 123});
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setState({statePropertyzasd: 'hello'});
         wrapper.setState({stateProperty: 'hello'});
 
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setProps({numberProp: '123'});
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setProps({numberPropzasd: 'hello'});
         wrapper.setProps({numberProp: 123});
     }
@@ -885,7 +888,7 @@ function ReactWrapperTest() {
 
         const wrapperPropsOnly = mount<MyComponentProps>(<MyComponent stringProp="value" numberProp={1}/>);
         wrapperPropsOnly.setProps({stringProp: 'new value'});
-        // $ExpectError
+        // @ts-expect-error
         wrapperPropsOnly.instance().handleEcho;
 
         const wrapper = mount<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);

@@ -36,4 +36,5 @@ matcher.closest("html", document.head, element => {
 });
 
 // UMD global:
-NW; // $ExpectError
+// @ts-expect-error
+NW;

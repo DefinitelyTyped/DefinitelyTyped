@@ -16,7 +16,7 @@ const service: KapShareService<Config> = {
             required: true,
             default: 'Bilbo',
         },
-        // $ExpectError
+        // @ts-expect-error
         greeting: { type: 'string', default: true },
     },
     action: async context => {

@@ -22,12 +22,23 @@ const chartConfig: zc.graphset[] = [
         sequence: 2,
         speed: 275,
       },
+      preview: {},
       'selected-state': {
         'line-color': 'red',
       },
+      rules: [{
+        rule: '%x > 10',
+        tooltip: {
+          htmlMode: false,
+        },
+      }],
       tooltip: {
         htmlMode: true,
         text: 'Hello world',
+        rules: [{
+          rule: '%x > 10',
+          text: 'tooltip text',
+        }],
       },
       'value-box': {
         text: 'Hello World',
@@ -38,6 +49,7 @@ const chartConfig: zc.graphset[] = [
       },
     },
     'scale-x': {
+      itemsOverlap: false,
       label: {
         text: 'Days'
       },
@@ -60,6 +72,7 @@ const chartConfig: zc.graphset[] = [
         }],
       },
     },
+    values: [1, 2, 3],
     zoom: {
       shared: true,
     },

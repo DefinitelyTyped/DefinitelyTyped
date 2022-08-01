@@ -56,6 +56,8 @@ import * as stream from 'node:stream';
     tlsSocket.disableRenegotiation();
     tlsSocket.enableTrace();
 
+    tlsSocket.encrypted; // $ExpectType true
+
     const ciphers: string[] = getCiphers();
     const curve: string = DEFAULT_ECDH_CURVE;
     const maxVersion: string = DEFAULT_MAX_VERSION;

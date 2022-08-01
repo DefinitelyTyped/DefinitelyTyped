@@ -39,7 +39,7 @@ export interface Shoebox {
 
 export default class FastBoot extends Service {
   /** Allows you to check if you are running within FastBoot. */
-  isFastboot: boolean;
+  isFastBoot: boolean;
 
   /**
    * A request object which exposes details about the current request being

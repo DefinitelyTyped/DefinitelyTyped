@@ -32,7 +32,8 @@ type TestNodesUnion =
     | 'hard_break';
 type TestMarksUnion = 'a' | 'link' | 'em' | 'strong' | 'code';
 
-type Args = Array<string | prosemirrorTestBuilder.TaggedProsemirrorNode | prosemirrorTestBuilder.TaggedFlatObject>;
+type Args = Array<string | prosemirrorTestBuilder.TaggedProsemirrorNode | prosemirrorTestBuilder.TaggedFlatObject |
+    object>;
 
 type NodeBuilderMethod<S extends Schema = any> = (...args: Args) => prosemirrorTestBuilder.TaggedProsemirrorNode<S>;
 

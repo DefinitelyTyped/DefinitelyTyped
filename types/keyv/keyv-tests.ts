@@ -14,7 +14,8 @@ new Keyv({ adapter: 'sqlite' });
 new Keyv({ adapter: 'postgres' });
 new Keyv({ adapter: 'postgresql' });
 new Keyv({ adapter: 'mysql' });
-new Keyv({ adapter: 'foo' }); // $ExpectError
+// @ts-expect-error
+new Keyv({ adapter: 'foo' });
 new Keyv<boolean>({
   serialize: (d) => {
     d.value; // $ExpectType boolean
@@ -23,7 +24,8 @@ new Keyv<boolean>({
   }
 });
 new Keyv<boolean>({ deserialize: JSON.parse });
-new Keyv<boolean>({ deserialize: (d: string) => d }); // $ExpectError
+// @ts-expect-error
+new Keyv<boolean>({ deserialize: (d: string) => d });
 new Keyv<boolean>({
   deserialize: (d) => {
     d; // $ExpectType string

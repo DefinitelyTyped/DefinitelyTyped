@@ -82,7 +82,7 @@ export interface PlotParams {
     onDeselect?: (() => void) | undefined;
     onDoubleClick?: (() => void) | undefined;
     onFramework?: (() => void) | undefined;
-    onHover?: ((event: Readonly<Plotly.PlotMouseEvent>) => void) | undefined;
+    onHover?: ((event: Readonly<Plotly.PlotHoverEvent>) => void) | undefined;
     onLegendClick?: ((event: Readonly<Plotly.LegendClickEvent>) => boolean) | undefined;
     onLegendDoubleClick?: ((event: Readonly<Plotly.LegendClickEvent>) => boolean) | undefined;
     onRelayout?: ((event: Readonly<Plotly.PlotRelayoutEvent>) => void) | undefined;

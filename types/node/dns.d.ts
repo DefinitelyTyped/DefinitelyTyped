@@ -42,7 +42,7 @@
  * ```
  *
  * See the `Implementation considerations section` for more information.
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/dns.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/dns.js)
  */
 declare module 'dns' {
     import * as dnsPromises from 'node:dns/promises';
@@ -244,7 +244,7 @@ declare module 'dns' {
      *
      * <omitted>
      *
-     * On error, `err` is an `Error` object, where `err.code` is one of theDNS error codes.
+     * On error, `err` is an `Error` object, where `err.code` is one of the `DNS error codes`.
      * @since v0.1.27
      * @param hostname Host name to resolve.
      * @param [rrtype='A'] Resource record type.

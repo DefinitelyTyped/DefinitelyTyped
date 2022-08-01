@@ -9,6 +9,19 @@ const BLOCK: blocks.Block<{ foo: string }> = {
         },
     },
     category: 'common',
+    deprecated: [
+        {
+            attributes: {
+                bar: {
+                    type: 'string',
+                },
+            },
+            migrate(attributes) {
+                return { foo: attributes.bar };
+            },
+            save: () => null,
+        },
+    ],
     edit: () => null,
     icon: {
         src: 'block-default',
@@ -85,16 +98,17 @@ blocks.findTransform(
             type: 'block',
             blocks: [],
             priority: 1,
-            transform(atts) {
+            transform() {
                 return blocks.createBlock('my/foo');
             },
         },
     ],
-    transform => transform.type === 'block'
+    transform => transform.type === 'block',
 );
 
 declare const RAW_TRANSFORM_ARRAY: Array<blocks.TransformRaw<any>>;
-blocks.findTransform(RAW_TRANSFORM_ARRAY, ({ isMatch }) => true);
+blocks.findTransform(RAW_TRANSFORM_ARRAY, ({}) => true);
+blocks.findTransform(RAW_TRANSFORM_ARRAY, ({ isMatch }) => isMatch?.(new Node()) ?? true);
 
 // $ExpectType string
 blocks.getBlockTransforms('to', 'my/foo')[0].blockName;
@@ -261,7 +275,7 @@ blocks.getBlockSupport('core/paragraph', 'inserter', 1234);
 // $ExpectType { foo: string; }
 blocks.getBlockSupport('core/paragraph', 'inserter', { foo: 'bar' });
 
-// $ExpectType Block<any> | undefined
+// $ExpectType Block<Record<string, any>> | undefined
 blocks.getBlockType('core/paragraph');
 
 // $ExpectType Block<any>[]
@@ -343,7 +357,7 @@ blocks.registerBlockType<{ foo: string }>('my/foo', {
 blocks.registerBlockType<{ foo: object }>('my/foo', {
     attributes: {
         foo: {
-            type: 'object'
+            type: 'object',
         },
     },
     icon: {
@@ -395,6 +409,20 @@ blocks.registerBlockType({
     usesContext: ['groupId'],
     supports: {
         align: true,
+        color: {
+            background: true,
+            gradients: false,
+            link: true,
+        },
+        spacing: {
+            blockGap: ['horizontal'],
+            margin: ['top', 'left'],
+        },
+        typography: {
+            fontSize: true,
+            lineHeight: false,
+        },
+        lock: true,
     },
     styles: [
         { name: 'default', label: 'Default', isDefault: true },
@@ -486,7 +514,7 @@ blocks.registerBlockType(
         editorStyle: 'file:./build/index.css',
         style: 'file:./build/style.css',
     },
-    { edit: () => null, save: () => null }
+    { edit: () => null, save: () => null },
 );
 
 // $ExpectType void
@@ -507,6 +535,18 @@ blocks.unregisterBlockStyle('my/foo', 'foo__bar');
 // $ExpectType Block<any> | undefined
 blocks.unregisterBlockType('my/foo');
 
+// $ExpectType BlockVariation<BlockAttributes>[] | undefined || BlockVariation<Record<string, any>>[] | undefined
+blocks.getBlockVariations('core/columns');
+
+// $ExpectType void
+blocks.registerBlockVariation('core/columns', {
+    name: 'core/columns/variation',
+    title: 'Core Column Variation',
+});
+
+// $ExpectType void
+blocks.unregisterBlockVariation('core/columns', 'core/columns/variation');
+
 //
 // serializer
 // ----------------------------------------------------------------------------
@@ -526,11 +566,17 @@ blocks.getSaveContent('my/foo', { foo: 'bar' });
 // $ExpectType string
 blocks.getSaveContent(BLOCK, { foo: 'bar' }, []);
 
+// @ts-expect-error
+blocks.getSavecontent(BLOCK, false, []);
+
 // $ExpectType ReactChild
 blocks.getSaveElement('my/foo', { foo: 'bar' });
 
 // $ExpectType ReactChild
 blocks.getSaveElement(BLOCK, { foo: 'bar' });
+
+// @ts-expect-error
+blocks.getSaveElement(BLOCK, false, []);
 
 // $ExpectType string
 blocks.serialize([BLOCK_INSTANCE, BLOCK_INSTANCE]);
@@ -548,7 +594,7 @@ blocks.doBlocksMatchTemplate([BLOCK_INSTANCE]);
 // $ExpectType boolean
 blocks.doBlocksMatchTemplate(
     [BLOCK_INSTANCE, BLOCK_INSTANCE],
-    [['core/test-block'], ['core/test-block-2', {}, [['core/test-block']]], ['core/test-block-2']]
+    [['core/test-block'], ['core/test-block-2', {}, [['core/test-block']]], ['core/test-block-2']],
 );
 
 // $ExpectType BlockInstance<{ [k: string]: any; }>[]
@@ -560,11 +606,17 @@ blocks.synchronizeBlocksWithTemplate([BLOCK_INSTANCE, BLOCK_INSTANCE]);
 // $ExpectType BlockInstance<{ [k: string]: any; }>[]
 blocks.synchronizeBlocksWithTemplate(
     [BLOCK_INSTANCE, BLOCK_INSTANCE],
-    [['my/foo', { foo: 'bar' }], ['my/foo', { foo: 'bar' }]]
+    [
+        ['my/foo', { foo: 'bar' }],
+        ['my/foo', { foo: 'bar' }],
+    ],
 );
 
 // $ExpectType BlockInstance<{ [k: string]: any; }>[]
-blocks.synchronizeBlocksWithTemplate(undefined, [['my/foo', { foo: 'bar' }], ['my/foo', { foo: 'bar' }]]);
+blocks.synchronizeBlocksWithTemplate(undefined, [
+    ['my/foo', { foo: 'bar' }],
+    ['my/foo', { foo: 'bar' }],
+]);
 
 //
 // utils
@@ -600,6 +652,9 @@ blocks.isValidBlockContent('my/foo', { foo: 'bar' }, 'Foobar');
 
 // $ExpectType boolean
 blocks.isValidBlockContent(BLOCK, { foo: 'bar' }, 'Foobar');
+
+// @ts-expect-error
+blocks.isValidBlockContent(BLOCK, false, true);
 
 //
 // stores

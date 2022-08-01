@@ -13,7 +13,7 @@ declare module 'path/win32' {
  * ```js
  * const path = require('path');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/path.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/path.js)
  */
 declare module 'path' {
     namespace path {
@@ -69,18 +69,19 @@ declare module 'path' {
              * Normalize a string path, reducing '..' and '.' parts.
              * When multiple slashes are found, they're replaced by a single one; when the path contains a trailing slash, it is preserved. On Windows backslashes are used.
              *
-             * @param p string path to normalize.
+             * @param path string path to normalize.
+             * @throws {TypeError} if `path` is not a string.
              */
-            normalize(p: string): string;
+            normalize(path: string): string;
             /**
              * Join all arguments together and normalize the resulting path.
-             * Arguments must be strings. In v0.8, non-string arguments were silently ignored. In v0.10 and up, an exception is thrown.
              *
              * @param paths paths to join.
+             * @throws {TypeError} if any of the path segments is not a string.
              */
             join(...paths: string[]): string;
             /**
-             * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
+             * The right-most parameter is considered {to}. Other parameters are considered an array of {from}.
              *
              * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
              *
@@ -89,41 +90,50 @@ declare module 'path' {
              * the current working directory is used as well. The resulting path is normalized,
              * and trailing slashes are removed unless the path gets resolved to the root directory.
              *
-             * @param pathSegments string paths to join.  Non-string arguments are ignored.
+             * @param paths A sequence of paths or path segments.
+             * @throws {TypeError} if any of the arguments is not a string.
              */
-            resolve(...pathSegments: string[]): string;
+            resolve(...paths: string[]): string;
             /**
              * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
              *
+             * If the given {path} is a zero-length string, `false` will be returned.
+             *
              * @param path path to test.
+             * @throws {TypeError} if `path` is not a string.
              */
-            isAbsolute(p: string): boolean;
+            isAbsolute(path: string): boolean;
             /**
-             * Solve the relative path from {from} to {to}.
+             * Solve the relative path from {from} to {to} based on the current working directory.
              * At times we have two absolute paths, and we need to derive the relative path from one to the other. This is actually the reverse transform of path.resolve.
+             *
+             * @throws {TypeError} if either `from` or `to` is not a string.
              */
             relative(from: string, to: string): string;
             /**
              * Return the directory name of a path. Similar to the Unix dirname command.
              *
-             * @param p the path to evaluate.
+             * @param path the path to evaluate.
+             * @throws {TypeError} if `path` is not a string.
              */
-            dirname(p: string): string;
+            dirname(path: string): string;
             /**
              * Return the last portion of a path. Similar to the Unix basename command.
              * Often used to extract the file name from a fully qualified path.
              *
-             * @param p the path to evaluate.
+             * @param path the path to evaluate.
              * @param ext optionally, an extension to remove from the result.
+             * @throws {TypeError} if `path` is not a string or if `ext` is given and is not a string.
              */
-            basename(p: string, ext?: string): string;
+            basename(path: string, ext?: string): string;
             /**
              * Return the extension of the path, from the last '.' to end of string in the last portion of the path.
-             * If there is no '.' in the last portion of the path or the first character of it is '.', then it returns an empty string
+             * If there is no '.' in the last portion of the path or the first character of it is '.', then it returns an empty string.
              *
-             * @param p the path to evaluate.
+             * @param path the path to evaluate.
+             * @throws {TypeError} if `path` is not a string.
              */
-            extname(p: string): string;
+            extname(path: string): string;
             /**
              * The platform-specific file separator. '\\' or '/'.
              */
@@ -135,15 +145,16 @@ declare module 'path' {
             /**
              * Returns an object from a path string - the opposite of format().
              *
-             * @param pathString path to evaluate.
+             * @param path path to evaluate.
+             * @throws {TypeError} if `path` is not a string.
              */
-            parse(p: string): ParsedPath;
+            parse(path: string): ParsedPath;
             /**
              * Returns a path string from an object - the opposite of parse().
              *
-             * @param pathString path to evaluate.
+             * @param pathObject path to evaluate.
              */
-            format(pP: FormatInputPathObject): string;
+            format(pathObject: FormatInputPathObject): string;
             /**
              * On Windows systems only, returns an equivalent namespace-prefixed path for the given path.
              * If path is not a string, path will be returned without modifications.
