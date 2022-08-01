@@ -63,17 +63,17 @@ declare class Tag {
     /**
      * Shortcut for `tag.find('language')`.
      */
-    language(): ReturnType<Tag['find']>;
+    language(): Subtag | undefined;
 
     /**
      * Shortcut for `tag.find('region')`.
      */
-    region(): ReturnType<Tag['find']>;
+    region(): Subtag | undefined;
 
     /**
      * Shortcut for `tag.find('script')`.
      */
-    script(): ReturnType<Tag['find']>;
+    script(): Subtag | undefined;
 
     /**
      * Find a subtag of the given type from those making up the tag.
