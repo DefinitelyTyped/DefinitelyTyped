@@ -1,5 +1,5 @@
 import Tagify = require('@yaireo/tagify');
-import { BaseTagData, TagData, TagifyConstructorSettings, TagifySettings } from '@yaireo/tagify';
+import { BaseTagData, TagData, TagifyConstructorSettings, TagifyRuntimeSettings, TagifySettings } from '@yaireo/tagify';
 
 export function tagTemplate(this: Tagify, tagData: TagData, { settings }: Tagify): string {
     return `
@@ -9,7 +9,7 @@ export function tagTemplate(this: Tagify, tagData: TagData, { settings }: Tagify
     </tag>`;
 }
 
-const settings: TagifyConstructorSettings = {
+const settings: TagifySettings = {
     tagTextProp: 'value',
     placeholder: 'Start typing...',
     delimiters: ',| ',
@@ -382,10 +382,25 @@ const typedSettings: TagifyConstructorSettings<MyTagData> = {
     },
 };
 
-const instanceSettings: TagifySettings = {
-    ...settings,
-    readonly: true,
-    required: false,
+const partialSettings: TagifySettings = {
+    mode: 'mix',
+    autoComplete: {
+        rightKey: false,
+    },
+    editTags: {
+        keepInvalid: true,
+    },
+    a11y: {},
+    dropdown: {
+        caseSensitive: true,
+    },
+    mixMode: {},
+    classNames: {
+        tagInvalid: 'tag-invalid',
+    },
+    hooks: {
+        beforeRemoveTag: () => Promise.resolve(),
+    },
 };
 
 settings.delimiters = /,|"/;
@@ -423,7 +438,7 @@ new Tagify(inputElement, { pattern: null });
 // @ts-expect-error
 new Tagify(inputElement, { required: false });
 // @ts-expect-error
-new Tagify(inputElement, { readonly: false });
+new Tagify(inputElement, { disabled: false });
 // @ts-expect-error
 new Tagify(inputElement, { mixTagsInterpolator: ["", "", ""] });
 // @ts-expect-error
@@ -433,6 +448,13 @@ new Tagify<TagData>(inputElement, { tagTextProp: "foobar" });
 new Tagify<MyTagData>(inputElement, { tagTextProp: "active" });
 // @ts-expect-error
 new Tagify<MyTagData>(inputElement, { tagTextProp: "foobar" });
+
+const instanceSettings: TagifyRuntimeSettings = {
+    ...tagify.settings,
+    readonly: true,
+    required: false,
+    disabled: false,
+};
 
 const tagArray: TagData[] = tagify.value;
 const scopeEl: HTMLElement = tagify.DOM.scope;
@@ -918,10 +940,10 @@ tagify.toggleClass('active');
 tagify.toggleClass('active', true);
 
 tagify.updateValueByDOMTags();
-tagify.parseTemplate('wrapper', [inputElement, settings]);
+tagify.parseTemplate('wrapper', [inputElement, instanceSettings]);
 tagify.parseTemplate('tag', [tags[0], tagify]);
 tagify.parseTemplate('dropdownItem', [tags[0]]);
-tagify.parseTemplate('dropdown', [settings]);
+tagify.parseTemplate('dropdown', [instanceSettings]);
 tagify.parseTemplate('dropdownItemNoMatch', [{ value: "" }]);
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
 // @ts-expect-error
