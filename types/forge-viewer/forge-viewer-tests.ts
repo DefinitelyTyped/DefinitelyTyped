@@ -42,6 +42,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     preferencesTests(viewer);
     showHideTests(viewer);
     worldUpTests(viewer);
+    selectionTests(viewer);
     await bulkPropertiesTests(model);
     await compGeomTests(viewer);
     await dataVizTests(viewer);
@@ -555,4 +556,25 @@ function matrixSetPositionTest(): void {
     const matrix = new THREE.Matrix4();
 
     matrix.setPosition(new THREE.Vector3(1, 1, 1)); // $ExpectType Matrix4
+}
+
+function selectionTests(viewer: Autodesk.Viewing.GuiViewer3D) {
+    const rootId = viewer.model.getRootId();
+
+    viewer.select(rootId);
+
+    const aggregateSelection = viewer.getAggregateSelection();
+
+    if (aggregateSelection.length !== 1)
+        throw new Error("Should return exactly one object");
+
+    const selection = aggregateSelection[0];
+
+    if (selection.model !== viewer.model)
+        throw new Error("Selection model differs from viewer model");
+
+    if (selection.selection.length !== 1 || selection.selection[0] !== rootId)
+        throw new Error("Something is wron with aggregate selection!");
+
+    viewer.select([]);
 }
