@@ -8,10 +8,6 @@ const registry = '';
 const readonly = true;
 const cidr_whitelist: string[] = [];
 
-async function getOTPFromSomewhere(): Promise<string> {
-    return 'fake-otp';
-}
-
 (async () => {
     try {
         // $ExpectType ProfileAuthToken
@@ -22,7 +18,7 @@ async function getOTPFromSomewhere(): Promise<string> {
 
         // $ExpectType ProfileAuthToken
         const addUserResult = await profile.adduser(async (url) => { },
-            async (creds: profile.ProfileAuthCredentials) => { return creds; }, { registry });
+            async (creds: profile.ProfileAuthCredentials) => creds, { registry });
 
         // $ExpectType ProfileAuthToken
         const addUserWebResult = await profile.adduserWeb(async (url) => { }, { registry });

@@ -3,7 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
-import fetch = require('npm-registry-fetch');
+import * as fetch from 'npm-registry-fetch';
 
 /**
  * Fetch profile information for the authenticated user.
@@ -41,7 +41,8 @@ export function createToken(
 ): Promise<Token>;
 
 /**
- * Creates a new user on the server along with a fresh bearer token for future authentication as this user. This is what you see as an authToken in an .npmrc.
+ * Creates a new user on the server along with a fresh bearer token for future authentication as this user.
+ * This is what you see as an authToken in an .npmrc.
  * @async
  */
 export function adduser(opener: (url: string) => Promise<void>, prompter: (creds: ProfileAuthCredentials) => Promise<ProfileAuthCredentials>, opts: Options | {}): Promise<ProfileAuthToken>;
@@ -53,19 +54,23 @@ export function adduser(opener: (url: string) => Promise<void>, prompter: (creds
 export function login(opener: (url: string) => Promise<void>, prompter: (creds: ProfileAuthCredentials) => Promise<ProfileAuthCredentials>, opts: Options | {}): Promise<ProfileAuthToken>;
 
 /**
- * Tries to create a user new web based login, if that fails it falls back to using the legacy CouchDB APIs.
+ * Tries to create a user new web based login,
+ * if that fails it falls back to using the legacy CouchDB APIs.
  * @async
  */
 export function adduserWeb(opener: (url: string) => Promise<void>, opts: Options | {}): Promise<ProfileAuthToken>;
 
 /**
- * Creates a new user on the server along with a fresh bearer token for future authentication as this user. This is what you see as an authToken in an .npmrc.
+ * Creates a new user on the server along with a fresh bearer token for future authentication as this user.
+ * This is what you see as an authToken in an .npmrc.
  * @async
  */
 export function adduserCouch(username: string, email: string, password: string, opts?: Options | {}): Promise<ProfileAuthToken>;
 
 /**
- * Logs you into an existing user. Does not create the user if they do not already exist. Logging in means generating a new bearer token for use in future authentication. This is what you use as an authToken in an .npmrc.
+ * Logs you into an existing user. Does not create the user if they do not already exist.
+ * Logging in means generating a new bearer token for use in future authentication.
+ * This is what you use as an authToken in an .npmrc.
  * @async
  */
 export function loginCouch(username: string, email: string, password: string, opts?: Options | {}): Promise<ProfileAuthToken>;
@@ -102,12 +107,12 @@ export interface ProfileAuthCredentials extends ProfileCredentials {
 
 export interface ProfileAuthToken {
     /**
-    * String, to be used to authenticate further API calls.
-    */
+     * String, to be used to authenticate further API calls.
+     */
     token: string;
     /**
-    * String, the username the user authenticated as.
-    */
+     * String, the username the user authenticated as.
+     */
     username: string;
 }
 
