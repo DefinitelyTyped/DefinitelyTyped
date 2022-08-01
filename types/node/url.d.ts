@@ -8,7 +8,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/url.js)
  */
 declare module 'url' {
-    import { Blob } from 'node:buffer';
+    import { Blob as NodeBlob } from 'node:buffer';
     import { ClientRequestArgs } from 'node:http';
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
     // Input to `url.format`
@@ -395,7 +395,7 @@ declare module 'url' {
          * @since v16.7.0
          * @experimental
          */
-        static createObjectURL(blob: Blob): string;
+        static createObjectURL(blob: NodeBlob): string;
         /**
          * Removes the stored `Blob` identified by the given ID. Attempting to revoke a
          * ID that isn’t registered will silently fail.

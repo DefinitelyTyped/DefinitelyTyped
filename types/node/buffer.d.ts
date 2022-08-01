@@ -2232,6 +2232,18 @@ declare module 'buffer' {
          * @param data An ASCII (Latin1) string.
          */
         function btoa(data: string): string;
+
+        /**
+         * `Blob` class is a global reference for `require('node:buffer').Blob`
+         * https://nodejs.org/api/buffer.html#class-blob
+         * @since v18.0.0
+         */
+        var Blob: typeof globalThis extends {
+            onmessage: any;
+            Blob: infer Blob;
+        }
+            ? Blob
+            : typeof import('node:buffer').Blob;
     }
 }
 declare module 'node:buffer' {

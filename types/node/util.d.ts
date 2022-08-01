@@ -1105,6 +1105,15 @@ declare module 'util' {
          */
         encodeInto(src: string, dest: Uint8Array): EncodeIntoResult;
     }
+
+    global {
+        /**
+         * `TextEncoder` class is a global reference for `require('util').TextEncoder`
+         * https://nodejs.org/api/globals.html#textencoder
+         * @since v11.0.0
+         */
+         const TextEncoder: typeof import('util').TextEncoder;
+    }
 }
 declare module 'util/types' {
     export * from 'util/types';

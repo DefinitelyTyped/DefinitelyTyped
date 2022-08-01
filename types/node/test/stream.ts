@@ -12,10 +12,6 @@ import { setInterval as every } from 'node:timers/promises';
 import { MessageChannel } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
 
-// Ensure there is no global Blob type
-// $ExpectError
-type ShouldFail = Blob;
-
 // Simplified constructors
 function simplified_stream_ctor_test() {
     new Readable({
