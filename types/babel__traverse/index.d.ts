@@ -193,6 +193,17 @@ export class Binding {
     referencePaths: NodePath[];
     constant: boolean;
     constantViolations: NodePath[];
+    hasDeoptedValue?: boolean;
+    hasValue?: boolean;
+    value?: any;
+
+    deopValue(): void;
+    setValue(value: any): void;
+    clearValue(): void;
+
+    reassign(path: NodePath): void;
+    reference(path: NodePath): void;
+    dereference(): void;
 }
 
 export type Visitor<S = {}> = VisitNodeObject<S, Node> & {

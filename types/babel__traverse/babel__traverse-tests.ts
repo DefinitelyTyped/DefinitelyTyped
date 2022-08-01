@@ -393,4 +393,12 @@ const binding = new Binding({
     kind: 'unknown',
 });
 
+binding.setValue('value');
+binding.deopValue();
+binding.clearValue();
+
+binding.reassign(newPath.get('body')[0]);
+binding.reference(newPath.get('body')[0]);
+binding.dereference();
+
 newPath.scope.checkBlockScopedCollisions(binding, 'local', 'name', {});
