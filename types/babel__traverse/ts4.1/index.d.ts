@@ -548,9 +548,17 @@ export class NodePath<T = Node> {
         : never;
     get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
-    getBindingIdentifiers(duplicates?: boolean): Node[];
+    getBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
+    getBindingIdentifiers(duplicates?: false): Record<string, t.Identifier>;
 
-    getOuterBindingIdentifiers(duplicates?: boolean): Node[];
+    getOuterBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
+    getOuterBindingIdentifiers(duplicates?: false): Record<string, t.Identifier>;
+
+    getBindingIdentifierPaths(duplicates: true, outerOnly?: boolean): Record<string, Array<NodePath<t.Identifier>>>;
+    getBindingIdentifierPaths(duplicates?: false, outerOnly?: boolean): Record<string, NodePath<t.Identifier>>;
+
+    getOuterBindingIdentifierPaths(duplicates: true): Record<string, Array<NodePath<t.Identifier>>>;
+    getOuterBindingIdentifierPaths(duplicates?: false): Record<string, NodePath<t.Identifier>>;
     //#endregion
 
     //#region ------------------------- comments -------------------------

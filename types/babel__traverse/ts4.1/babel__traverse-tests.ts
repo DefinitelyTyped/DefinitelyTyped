@@ -385,3 +385,21 @@ binding.reference(newPath.get('body')[0]);
 binding.dereference();
 
 newPath.scope.checkBlockScopedCollisions(binding, 'local', 'name', {});
+
+const identifier = newPath.getBindingIdentifiers();
+identifier; // $ExpectType Record<string, Identifier>
+const identifiers = newPath.getBindingIdentifiers(true);
+identifiers; // $ExpectType Record<string, Identifier[]>
+const outerIdentifier = newPath.getOuterBindingIdentifiers();
+outerIdentifier; // $ExpectType Record<string, Identifier>
+const outerIdentifiers = newPath.getOuterBindingIdentifiers(true);
+outerIdentifiers; // $ExpectType Record<string, Identifier[]>
+
+const identifierPath = newPath.getBindingIdentifierPaths();
+identifierPath; // $ExpectType Record<string, NodePath<Identifier>>
+const identifierPaths = newPath.getBindingIdentifierPaths(true);
+identifierPaths; // $ExpectType Record<string, NodePath<Identifier>[]>
+const outerIdentifierPath = newPath.getOuterBindingIdentifierPaths();
+outerIdentifierPath; // $ExpectType Record<string, NodePath<Identifier>>
+const outerIdentifierPaths = newPath.getOuterBindingIdentifierPaths(true);
+outerIdentifierPaths; // $ExpectType Record<string, NodePath<Identifier>[]>
