@@ -6257,6 +6257,12 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
+     * Controls whether the ScrollView should automatically adjust its contentInset and
+     * scrollViewInsets when the Keyboard changes its size. The default value is false.
+     */
+    automaticallyAdjustKeyboardInsets?: boolean | undefined;
+
+    /**
      * Controls whether iOS should automatically adjust the scroll indicator
      * insets. The default value is true. Available on iOS 13 and later.
      */
