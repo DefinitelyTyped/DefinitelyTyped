@@ -552,6 +552,15 @@ function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {
     });
 }
 
+function checkMeshAllowsBufferGeometry() {
+    const boxGeometry = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(10, 10, 10));
+    const boxMaterial = new THREE.MeshPhongMaterial({ color: "#ff0000" });
+    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+
+    if (!(boxMesh.geometry instanceof THREE.BufferGeometry))
+        throw new Error("Mesh geometry is not a BufferGeometry!");
+}
+
 function matrixSetPositionTest(): void {
     const matrix = new THREE.Matrix4();
 
