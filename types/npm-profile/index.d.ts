@@ -3,7 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
-import * as fetch from 'npm-registry-fetch';
+import fetch = require('npm-registry-fetch');
 
 /**
  * Fetch profile information for the authenticated user.
