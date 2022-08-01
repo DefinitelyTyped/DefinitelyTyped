@@ -7,68 +7,68 @@
 import { Transform } from 'stream';
 import 'node/buffer';
 
-export = Mp4Frag;
-
-/**
- * An SegmentObject.
- *
- * An object with values
- * <code>
- * {
- *     segment: null,
- *     sequence: -1,
- *     duration: -1;
- *     timestamp: -1,
- *     keyframe: true
- * }
- * </code
- * is returned in erroneous conditions (before a segment has been generated, etc. Refer to individual function docs.
- */
-interface SegmentObject {
-    segment?: Buffer;
-    sequence: number;
-    duration: number;
-    timestamp: number;
-    keyframe: boolean;
-}
-
-interface Mp4FragOptions {
+declare namespace Mp4Frag {
     /**
-     * Base name of files in m3u8 playlist. Affects the generated m3u8 playlist by naming file fragments.
+     * A SegmentObject.
      *
-     * Must be set to generate m3u8 playlist. e.g. 'front_door'
+     * An object with values
+     * <code>
+     * {
+     *     segment: null,
+     *     sequence: -1,
+     *     duration: -1;
+     *     timestamp: -1,
+     *     keyframe: true
+     * }
+     * </code
+     * is returned in erroneous conditions (before a segment has been generated, etc. Refer to individual function docs.
      */
-    hlsPlaylistBase?: string;
+    interface SegmentObject {
+        segment?: Buffer;
+        sequence: number;
+        duration: number;
+        timestamp: number;
+        keyframe: boolean;
+    }
 
-    /**
-     * Number of segments to use in m3u8 playlist. Must be an integer ranging from 2 to 20.
-     *
-     * Defaults to 4.
-     */
-    hlsPlaylistSize?: number;
+    interface Mp4FragOptions {
+        /**
+         * Base name of files in m3u8 playlist. Affects the generated m3u8 playlist by naming file fragments.
+         *
+         * Must be set to generate m3u8 playlist. e.g. 'front_door'
+         */
+        hlsPlaylistBase?: string;
 
-    /**
-     * Number of extra segments to keep in memory. Must be an integer ranging from 0 to 10.
-     *
-     * Defaults to 0.
-     */
-    hlsPlaylistExtra?: number;
+        /**
+         * Number of segments to use in m3u8 playlist. Must be an integer ranging from 2 to 20.
+         *
+         * Defaults to 4.
+         */
+        hlsPlaylistSize?: number;
 
-    /**
-     * Indicates that m3u8 playlist should be generated after [initialization]{@link Mp4Frag#initialization}
-     * is created and before media segments are created.
-     *
-     * Defaults to true.
-     */
-    hlsPlaylistInit?: boolean;
+        /**
+         * Number of extra segments to keep in memory. Must be an integer ranging from 0 to 10.
+         *
+         * Defaults to 0.
+         */
+        hlsPlaylistExtra?: number;
 
-    /**
-     * Number of segments to keep in memory. Has no effect if using options.hlsPlaylistBase.
-     * Must be an integer ranging from 2 to 30.
-     *
-     * Defaults to 2.
-     */
-    segmentCount?: number;
+        /**
+         * Indicates that m3u8 playlist should be generated after [initialization]{@link Mp4Frag#initialization}
+         * is created and before media segments are created.
+         *
+         * Defaults to true.
+         */
+        hlsPlaylistInit?: boolean;
+
+        /**
+         * Number of segments to keep in memory. Has no effect if using options.hlsPlaylistBase.
+         * Must be an integer ranging from 2 to 30.
+         *
+         * Defaults to 2.
+         */
+        segmentCount?: number;
+    }
 }
 
 declare class Mp4Frag extends Transform {
@@ -77,7 +77,7 @@ declare class Mp4Frag extends Transform {
      *
      * @throws If options.hlsPlaylistBase contains characters other than letters(a-zA-Z) and underscores(_).
      */
-    constructor(options?: Mp4FragOptions);
+    constructor(options?: Mp4Frag.Mp4FragOptions);
 
     /**
      * Returns the audio codec information as a <b>string</b>.
@@ -113,7 +113,7 @@ declare class Mp4Frag extends Transform {
      * Returns <b>{segment: null, sequence: -1, duration: -1; timestamp: -1, keyframe: true}</b> if requested before
      * first [segment event]{@link Mp4Frag#event:segment}.
      */
-    get segmentObject(): SegmentObject;
+    get segmentObject(): Mp4Frag.SegmentObject;
 
     /**
      * Returns the timestamp of the latest [SegmentObject]{@link SegmentObject} as an <b>Integer</b>(<i>milliseconds</i>).
@@ -168,16 +168,18 @@ declare class Mp4Frag extends Transform {
      * Returns an array of [SegmentObject]{@link SegmentObject}
      * Returns <b>null</b> if requested before first [segment event]{@link Mp4Frag#event:segment}.
      */
-    get segmentObjects(): SegmentObject[] | null;
+    get segmentObjects(): Mp4Frag.SegmentObject[] | null;
 
     /**
      * - Returns the [SegmentObject]{@link SegmentObject} that corresponds to the sequence number.
      * - Returns <b>null</b> if there is no segment that corresponds to sequence number.
      */
-    getSegmentObject(sequence: number | string): SegmentObject | null;
+    getSegmentObject(sequence: number | string): Mp4Frag.SegmentObject | null;
 
     /**
      * Clear cached values
      */
     resetCache(): void;
 }
+
+export = Mp4Frag;
