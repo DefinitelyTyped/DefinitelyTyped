@@ -9,9 +9,14 @@ pangu.spacingFile('/path/to/text.txt', (err, data) => {
 pangu.spacingFile('/path/to/text.txt').then(data => {
 });
 
+pangu.spacingNode(new HTMLElement());
+
 const data = pangu.spacingFileSync('/path/to/text.txt');
 
 pangu.spacingPage();
+pangu.spacingPageTitle();
+pangu.spacingPageBody();
+pangu.autoSpacingPage();
 pangu.spacingElementById('main');
 pangu.spacingElementByClassName('comment');
 pangu.spacingElementByTagName('p');

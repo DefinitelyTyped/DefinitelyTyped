@@ -219,7 +219,8 @@ export interface Channel extends Duplex {
      */
     setWindow(rows: string, cols: string, height: string, width: string): void;
     signal(signalName: string): void;
-    exit(statusOrSignal: string, coreDumped: string, msg: string): void;
+    exit(status: number): void;
+    exit(signalName: string, coreDumped?: boolean, msg?: string): void;
 
     /**
      * Emitted once the channel is completely closed on both the client and the server.

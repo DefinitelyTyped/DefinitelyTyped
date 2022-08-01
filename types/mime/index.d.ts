@@ -1,4 +1,4 @@
-// Type definitions for mime 2.0
+// Type definitions for mime 3.0
 // Project: https://github.com/broofa/node-mime
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 //                 Daniel Hritzkiv <https://github.com/dhritzkiv>
