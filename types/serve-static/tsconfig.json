@@ -13,10 +13,6 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "mime": ["mime/v1"],
-            "mime/*": ["mime/v1/*"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
