@@ -1,4 +1,4 @@
-import traverse, { Hub, NodePath, Visitor, visitors } from '@babel/traverse';
+import traverse, { Binding, Hub, NodePath, Visitor, visitors } from '@babel/traverse';
 import * as t from '@babel/types';
 
 // Examples from: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
@@ -368,3 +368,10 @@ const newPath = NodePath.get({
 }).setContext();
 
 newPath; // $ExpectType NodePath<Program>
+
+new Binding({
+    identifier: {} as any,
+    scope: {} as any,
+    path: {} as any,
+    kind: 'unknown',
+});

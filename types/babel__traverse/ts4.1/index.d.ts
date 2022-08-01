@@ -163,18 +163,14 @@ export class Scope {
     removeBinding(name: string): void;
 }
 
+export type BindingKind = 'var' | 'let' | 'const' | 'module' | 'hoisted' | 'param' | 'local' | 'unknown';
+
 export class Binding {
-    constructor(opts: {
-        existing: Binding;
-        identifier: t.Identifier;
-        scope: Scope;
-        path: NodePath;
-        kind: 'var' | 'let' | 'const';
-    });
+    constructor(opts: { identifier: t.Identifier; scope: Scope; path: NodePath; kind: BindingKind });
     identifier: t.Identifier;
     scope: Scope;
     path: NodePath;
-    kind: 'var' | 'let' | 'const' | 'module';
+    kind: BindingKind;
     referenced: boolean;
     references: number;
     referencePaths: NodePath[];
