@@ -386,9 +386,11 @@ const newPath = NodePath.get({
 
 newPath; // $ExpectType NodePath<Program>
 
-new Binding({
+const binding = new Binding({
     identifier: {} as any,
     scope: {} as any,
     path: {} as any,
     kind: 'unknown',
 });
+
+newPath.scope.checkBlockScopedCollisions(binding, 'local', 'name', {});

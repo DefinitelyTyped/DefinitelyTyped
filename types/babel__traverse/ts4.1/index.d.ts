@@ -94,7 +94,7 @@ export class Scope {
     /** Possibly generate a memoised identifier if it is not static and has consequences. */
     maybeGenerateMemoised(node: Node, dontPush?: boolean): t.Identifier;
 
-    checkBlockScopedCollisions(local: Node, kind: string, name: string, id: object): void;
+    checkBlockScopedCollisions(local: Binding, kind: BindingKind, name: string, id: object): void;
 
     rename(oldName: string, newName?: string, block?: Node): void;
 
