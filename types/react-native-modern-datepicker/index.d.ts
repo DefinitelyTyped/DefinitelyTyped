@@ -40,7 +40,4 @@ export interface ModernDatepickerProps {
 
 export default function(props: ModernDatepickerProps): JSX.Element;
 export function getToday(): string;
-export function getMonthName(month: number): string;
 export function getFormatedDate(date?: Date, format?: string): string;
-export function toPersianNumber(value: string): string;
-export function toEnglish(value: string): string;
