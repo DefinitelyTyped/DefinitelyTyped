@@ -54,6 +54,12 @@ export function adduser(opener: (url: string) => Promise<void>, prompter: (creds
 export function login(opener: (url: string) => Promise<void>, prompter: (creds: ProfileAuthCredentials) => Promise<ProfileAuthCredentials>, opts: Options | {}): Promise<ProfileAuthToken>;
 
 /**
+ * Tries to login using new web based login, if that fails it falls back to using the legacy CouchDB APIs.
+ * @async
+ */
+ export function loginWeb(opener: (url: string) => Promise<void>, opts: Options | {}): Promise<ProfileAuthToken>;
+
+/**
  * Tries to create a user new web based login,
  * if that fails it falls back to using the legacy CouchDB APIs.
  * @async

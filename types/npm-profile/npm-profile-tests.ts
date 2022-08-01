@@ -11,6 +11,13 @@ const cidr_whitelist: string[] = [];
 (async () => {
     try {
         // $ExpectType ProfileAuthToken
+        const loginResult = await profile.login(async (url) => { },
+            async (creds: profile.ProfileAuthCredentials) => creds, { registry });
+
+        // $ExpectType ProfileAuthToken
+        const loginWebResult = await profile.loginWeb(async (url) => { }, { registry });
+
+        // $ExpectType ProfileAuthToken
         const loginCouchResult = await profile.loginCouch(username, email, password, { registry });
 
         // $ExpectType ProfileAuthToken
