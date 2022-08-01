@@ -3,14 +3,14 @@
 import { EventEmitter } from 'events';
 import * as stream from 'stream';
 
-import { Transport, TransportOptions } from '..';
-import * as shared from './shared';
+import { Transport, TransportOptions } from '../..';
+import * as shared from '../shared';
 
-import Mail = require('./mailer');
-import MailMessage = require('./mailer/mail-message');
-import MimeNode = require('./mime-node');
-import SMTPConnection = require('./smtp-connection');
-import XOAuth2 = require('./xoauth2');
+import Mail = require('../mailer');
+import MailMessage = require('../mailer/mail-message');
+import MimeNode = require('../mime-node');
+import SMTPConnection = require('../smtp-connection');
+import XOAuth2 = require('../xoauth2');
 
 declare namespace SMTPTransport {
     interface AuthenticationTypeCustom extends SMTPConnection.Credentials {

@@ -2,8 +2,8 @@
 
 import { URL } from 'url';
 
-import Mail = require('./mailer');
-import MimeNode = require('./mime-node');
+import Mail = require('../mailer');
+import MimeNode = require('../mime-node');
 
 /** Creates the object for composing a MimeNode instance out from the mail options */
 declare class MailComposer {
