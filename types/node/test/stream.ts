@@ -9,7 +9,7 @@ import { pipeline as pipelinePromise } from 'node:stream/promises';
 import { stdout } from 'node:process';
 import { ReadableStream, WritableStream, TransformStream } from 'node:stream/web';
 import { setInterval as every } from 'node:timers/promises';
-import { MessageChannel } from 'node:worker_threads';
+import { MessageChannel as NodeMC } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
 
 // Simplified constructors
@@ -626,7 +626,14 @@ async function testTransformStream() {
 // https://nodejs.org/dist/latest-v16.x/docs/api/webstreams.html#transferring-with-postmessage_2
 async function testTransferringStreamWithPostMessage() {
     const stream = new TransformStream();
-    const {port1, port2} = new MessageChannel();
+    {
+        // Global constructor
+        const {port1, port2} = new MessageChannel();
+    }
+    {
+        // Constructor from module
+        const {port1, port2} = new NodeMC();
+    }
 
     // error: TypeError: port1.postMessage is not a function
     // port1.onmessage = ({data}) => {

@@ -1,5 +1,5 @@
 import {
-    performance,
+    performance as NodePerf,
     monitorEventLoopDelay,
     PerformanceObserverCallback,
     PerformanceObserver,
@@ -13,7 +13,8 @@ import {
     NodeGCPerformanceDetail,
 } from 'node:perf_hooks';
 
-performance.mark('start');
+// Test module import once, the rest use global
+NodePerf.mark('start');
 (() => {})();
 performance.mark('end');
 

@@ -165,6 +165,8 @@ declare module 'buffer' {
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
+
+    import { Blob as _Blob } from 'buffer';
     global {
         // Buffer class
         type BufferEncoding = 'ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex';
@@ -2243,7 +2245,7 @@ declare module 'buffer' {
             Blob: infer Blob;
         }
             ? Blob
-            : typeof import('node:buffer').Blob;
+            : typeof _Blob;
     }
 }
 declare module 'node:buffer' {
