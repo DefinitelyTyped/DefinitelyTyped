@@ -14,12 +14,13 @@
  *
  * The `stream` module is useful for creating new types of stream instances. It is
  * usually not necessary to use the `stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
     import * as streamPromises from 'node:stream/promises';
     import * as streamConsumers from 'node:stream/consumers';
+    import * as streamWeb from 'node:stream/web';
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
@@ -53,10 +54,22 @@ declare module 'stream' {
              */
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
             /**
+             * A utility method for creating a `Readable` from a web `ReadableStream`.
+             * @since v17.0.0
+             * @experimental
+             */
+            static fromWeb(readableStream: streamWeb.ReadableStream, options?: Pick<ReadableOptions, 'encoding' | 'highWaterMark' | 'objectMode' | 'signal'>): Readable;
+            /**
              * Returns whether the stream has been read from or cancelled.
              * @since v16.8.0
              */
             static isDisturbed(stream: Readable | NodeJS.ReadableStream): boolean;
+            /**
+             * A utility method for creating a web `ReadableStream` from a `Readable`.
+             * @since v17.0.0
+             * @experimental
+             */
+            static toWeb(streamReadable: Readable): streamWeb.ReadableStream;
             /**
              * Returns whether the stream was destroyed or errored before emitting `'end'`.
              * @since v16.8.0
@@ -110,16 +123,26 @@ declare module 'stream' {
             readonly readableObjectMode: boolean;
             /**
              * Is `true` after `readable.destroy()` has been called.
-             * @since v8.0.0
+             * @since v18.0.0
              */
             destroyed: boolean;
+            /**
+             * Is true after 'close' has been emitted.
+             * @since v8.0.0
+             */
+            readonly closed: boolean;
+            /**
+             * Returns error if the stream has been destroyed with an error.
+             * @since v18.0.0
+             */
+            readonly errored: Error | null;
             constructor(opts?: ReadableOptions);
             _construct?(callback: (error?: Error | null) => void): void;
             _read(size: number): void;
             /**
-             * The `readable.read()` method pulls some data out of the internal buffer and
-             * returns it. If no data available to be read, `null` is returned. By default,
-             * the data will be returned as a `Buffer` object unless an encoding has been
+             * The `readable.read()` method reads data out of the internal buffer and
+             * returns it. If no data is available to be read, `null` is returned. By default,
+             * the data is returned as a `Buffer` object unless an encoding has been
              * specified using the `readable.setEncoding()` method or the stream is operating
              * in object mode.
              *
@@ -334,7 +357,7 @@ declare module 'stream' {
              *     let chunk;
              *     while (null !== (chunk = stream.read())) {
              *       const str = decoder.write(chunk);
-             *       if (str.match(/\n\n/)) {
+             *       if (str.includes('\n\n')) {
              *         // Found the header boundary.
              *         const split = str.split(/\n\n/);
              *         header += split.shift();
@@ -347,10 +370,10 @@ declare module 'stream' {
              *           stream.unshift(buf);
              *         // Now the body of the message can be read from the stream.
              *         callback(null, header, stream);
-             *       } else {
-             *         // Still reading the header.
-             *         header += str;
+             *         return;
              *       }
+             *       // Still reading the header.
+             *       header += str;
              *     }
              *   }
              * }
@@ -497,6 +520,18 @@ declare module 'stream' {
          */
         class Writable extends Stream implements NodeJS.WritableStream {
             /**
+             * A utility method for creating a `Writable` from a web `WritableStream`.
+             * @since v17.0.0
+             * @experimental
+             */
+            static fromWeb(writableStream: streamWeb.WritableStream, options?: Pick<WritableOptions, 'decodeStrings' | 'highWaterMark' | 'objectMode' | 'signal'>): Writable;
+            /**
+             * A utility method for creating a web `WritableStream` from a `Writable`.
+             * @since v17.0.0
+             * @experimental
+             */
+            static toWeb(streamWritable: Writable): streamWeb.WritableStream;
+            /**
              * Is `true` if it is safe to call `writable.write()`, which means
              * the stream has not been destroyed, errored or ended.
              * @since v11.4.0
@@ -541,6 +576,21 @@ declare module 'stream' {
              * @since v8.0.0
              */
             destroyed: boolean;
+            /**
+             * Is true after 'close' has been emitted.
+             * @since v8.0.0
+             */
+            readonly closed: boolean;
+            /**
+             * Returns error if the stream has been destroyed with an error.
+             * @since v18.0.0
+             */
+            readonly errored: Error | null;
+            /**
+             * Is `true` if the stream's buffer has been full and stream will emit 'drain'.
+             * @since v15.2.0, v14.17.0
+             */
+            readonly writableNeedDrain: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(
@@ -567,7 +617,7 @@ declare module 'stream' {
              * While a stream is not draining, calls to `write()` will buffer `chunk`, and
              * return false. Once all currently buffered chunks are drained (accepted for
              * delivery by the operating system), the `'drain'` event will be emitted.
-             * It is recommended that once `write()` returns false, no more chunks be written
+             * Once `write()` returns false, do not write more chunks
              * until the `'drain'` event is emitted. While calling `write()` on a stream that
              * is not draining is allowed, Node.js will buffer all written chunks until
              * maximum memory usage occurs, at which point it will abort unconditionally.
@@ -661,8 +711,8 @@ declare module 'stream' {
              * The `writable.uncork()` method flushes all data buffered since {@link cork} was called.
              *
              * When using `writable.cork()` and `writable.uncork()` to manage the buffering
-             * of writes to a stream, it is recommended that calls to `writable.uncork()` be
-             * deferred using `process.nextTick()`. Doing so allows batching of all`writable.write()` calls that occur within a given Node.js event loop phase.
+             * of writes to a stream, defer calls to `writable.uncork()` using`process.nextTick()`. Doing so allows batching of all`writable.write()` calls that occur within a given Node.js event
+             * loop phase.
              *
              * ```js
              * stream.cork();
@@ -807,6 +857,9 @@ declare module 'stream' {
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
             readonly writableCorked: number;
+            readonly writableNeedDrain: boolean;
+            readonly closed: boolean;
+            readonly errored: Error | null;
             /**
              * If `false` then the stream will automatically end the writable side when the
              * readable side ends. Set initially by the `allowHalfOpen` constructor option,
@@ -1106,7 +1159,7 @@ declare module 'stream' {
          * async function run() {
          *   await pipeline(
          *     fs.createReadStream('lowercase.txt'),
-         *     async function* (source, signal) {
+         *     async function* (source, { signal }) {
          *       source.setEncoding('utf8');  // Work with strings rather than `Buffer`s.
          *       for await (const chunk of source) {
          *         yield await processChunk(chunk, { signal });
@@ -1130,7 +1183,7 @@ declare module 'stream' {
          *
          * async function run() {
          *   await pipeline(
-         *     async function * (signal) {
+         *     async function* ({ signal }) {
          *       await someLongRunningfn({ signal });
          *       yield 'asd';
          *     },
@@ -1149,7 +1202,31 @@ declare module 'stream' {
          *
          * `stream.pipeline()` leaves dangling event listeners on the streams
          * after the `callback` has been invoked. In the case of reuse of streams after
-         * failure, this can cause event listener leaks and swallowed errors.
+         * failure, this can cause event listener leaks and swallowed errors. If the last
+         * stream is readable, dangling event listeners will be removed so that the last
+         * stream can be consumed later.
+         *
+         * `stream.pipeline()` closes all the streams when an error is raised.
+         * The `IncomingRequest` usage with `pipeline` could lead to an unexpected behavior
+         * once it would destroy the socket without sending the expected response.
+         * See the example below:
+         *
+         * ```js
+         * const fs = require('fs');
+         * const http = require('http');
+         * const { pipeline } = require('stream');
+         *
+         * const server = http.createServer((req, res) => {
+         *   const fileStream = fs.createReadStream('./fileNotExist.txt');
+         *   pipeline(fileStream, res, (err) => {
+         *     if (err) {
+         *       console.log(err); // No such file
+         *       // this message can't be sent once `pipeline` already destroyed the socket
+         *       return res.end('error!!!');
+         *     }
+         *   });
+         * });
+         * ```
          * @since v10.0.0
          * @param callback Called when the pipeline is fully done.
          */
@@ -1238,6 +1315,19 @@ declare module 'stream' {
             ref(): void;
             unref(): void;
         }
+
+        /**
+         * Returns whether the stream has encountered an error.
+         * @since v17.3.0
+         */
+        function isErrored(stream: Readable | Writable | NodeJS.ReadableStream | NodeJS.WritableStream): boolean;
+
+        /**
+         * Returns whether the stream is readable.
+         * @since v17.4.0
+         */
+        function isReadable(stream: Readable | NodeJS.ReadableStream): boolean;
+
         const promises: typeof streamPromises;
         const consumers: typeof streamConsumers;
     }

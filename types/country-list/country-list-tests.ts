@@ -14,4 +14,6 @@ Countries.getNameList();
 
 Countries.getNames();
 
-Countries.overwrite([{ code: 'TW', name: 'Taiwan' }]);
+const overwrittenCountry: Countries.Country = { code: 'TW', name: 'Taiwan' };
+
+Countries.overwrite([overwrittenCountry]);

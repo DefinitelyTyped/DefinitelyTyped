@@ -70,8 +70,10 @@ function test_shape() {
     });
     $(selector).shape(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).shape('foo'); // $ExpectError
-    $(selector).shape({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).shape('foo');
+    // @ts-expect-error
+    $(selector).shape({ foo: 'bar' });
 }
 
 import shape = require('semantic-ui-shape');

@@ -3,10 +3,13 @@ on:
   pull_request:
     paths:
       - '**.md'
+permissions:
+  contents: read
+
 jobs:
   lint-md:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: npm install
       - run: npx remark --use validate-links --frail . .github

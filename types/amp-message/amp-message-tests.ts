@@ -26,32 +26,32 @@ message.shift();
 // $ExpectType number
 message.unshift(new Buffer('ddd'));
 
-// $ExpectError
+// @ts-expect-error
 new Message();
 
-// $ExpectError
+// @ts-expect-error
 new Message(1);
 
-// $ExpectError
+// @ts-expect-error
 new Message({});
 
-// $ExpectError
+// @ts-expect-error
 new Message('aaa');
 
-// $ExpectError
+// @ts-expect-error
 message.push(1);
 
-// $ExpectError
+// @ts-expect-error
 message.push({});
 
-// $ExpectError
+// @ts-expect-error
 message.push('aaa');
 
-// $ExpectError
+// @ts-expect-error
 message.unshift(1);
 
-// $ExpectError
+// @ts-expect-error
 message.unshift({});
 
-// $ExpectError
+// @ts-expect-error
 message.unshift('aaa');

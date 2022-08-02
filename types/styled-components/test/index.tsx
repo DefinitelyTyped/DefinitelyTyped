@@ -341,7 +341,7 @@ const SomeButton: React.FC = () => <Button type="submit">I am a button</Button>;
  * shouldForwardProp
  */
 
-// $ExpectError
+// @ts-expect-error
 const WithConfig = styled('div').withConfig()`
     color: red;
 `;
@@ -385,12 +385,15 @@ styled('div').withConfig({
 `;
 
 styled('div').withConfig<{ test: boolean }>({
-    // $ExpectError
+    // @ts-expect-error
     shouldForwardProp: (prop, defaultValidatorFn) => prop === 'invalidProp' && true,
 })`
     color: red;
     ${p => p.test && css``}
-    ${p => p.invalidProp && css``} // $ExpectError
+    ${
+        // @ts-expect-error
+        p => p.invalidProp && css``
+    }
 `;
 
 /**
@@ -620,13 +623,13 @@ const test = () => [
 
 const WithComponentRequired = styled((props: { to: string }) => <a href={props.to} />)``;
 // These tests pass in tsservice, but they fail in dtslint. I do not know why.
-// <WithComponentRequired href=''/>; // $ExpectError
+// <WithComponentRequired href=''/>; // @ts-expect-error
 // <WithComponentRequired to=''/>;
 
 const WithComponentRequired2 = WithComponentRequired.withComponent('a');
 // These tests pass in tsservice, but they fail in dtslint. I do not know why.
 // <WithComponentRequired2 href=''/>;
-// <WithComponentRequired2 to=''/>; // $ExpectError
+// <WithComponentRequired2 to=''/>; // @ts-expect-error
 
 // 4.0 With Component
 
@@ -635,7 +638,8 @@ const asTest = (
         <WithComponentH1 as="h2" />
         <WithComponentH1 as={WithComponentH2} />
         <WithComponentH1 as="a" href="" />
-        <WithComponentH1 as="div" href="" /> { // $ExpectError
+        {/* @ts-expect-error */}
+        <WithComponentH1 as="div" href="" /> {
         }
     </>
 );
@@ -647,7 +651,8 @@ const forwardedAsTest = (
         <ForwardedAsComponent forwardedAs="h2" />
         <ForwardedAsComponent forwardedAs={WithComponentH2} />
         <ForwardedAsComponent forwardedAs="a" href="" />
-        <ForwardedAsComponent forwardedAs="div" href="" /> { // $ExpectError
+        {/* @ts-expect-error */}
+        <ForwardedAsComponent forwardedAs="div" href="" /> {
         }
     </>
 );
@@ -658,8 +663,10 @@ interface ExternalAsComponentProps {
 }
 const ExternalAsComponent: React.FC<ExternalAsComponentProps> = () => null;
 const WrappedExternalAsComponent = styled(ExternalAsComponent)``;
-const testRequiredProp = <WrappedExternalAsComponent />; // $ExpectError
-const testRequiredPropWhenForwardedAs = <WrappedExternalAsComponent forwardedAs="h2" />; // $ExpectError
+// @ts-expect-error
+const testRequiredProp = <WrappedExternalAsComponent />;
+// @ts-expect-error
+const testRequiredPropWhenForwardedAs = <WrappedExternalAsComponent forwardedAs="h2" />;
 const ForwardedAsWithWrappedExternalTest = (
     <>
         <WrappedExternalAsComponent forwardedAs="h2" type="primitive" />
@@ -683,7 +690,8 @@ const HasAttributesOfAsOrForwardedAsComponent = (
         <WrappedExternalAsComponent as="a" type="primitive" href="/" />
         <WrappedExternalAsComponent forwardedAs="a" type="complex" href="/" />
         <WrappedExternalAsComponent as={OtherExternalComponent} requiredProp="test" />
-        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" /> { // $ExpectError
+        {/* @ts-expect-error */}
+        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" /> {
         }
         <WrappedExternalAsComponent forwardedAs={OtherExternalComponent} type="complex" requiredProp="test" />
     </>
@@ -711,7 +719,8 @@ class Test2Container extends React.Component<Test2ContainerProps> {
 }
 
 const containerTest = <StyledTestContainer as={Test2Container} type="foo" />;
-const containerTestFailed = <StyledTestContainer as={Test2Container} type="foo" size="big" />; // $ExpectError
+// @ts-expect-error
+const containerTestFailed = <StyledTestContainer as={Test2Container} type="foo" size="big" />;
 const containerTestTwo = <StyledTestContainer forwardedAs={Test2Container} type="foo" size="big" />;
 
 interface GenericComponentProps<T> {
@@ -721,26 +730,32 @@ const GenericComponent = <T, >(props: GenericComponentProps<T>): React.ReactElem
 const StyledGenericComponent = styled(GenericComponent)``;
 const TestStyledGenericComponent = (
     <>
-        <StyledGenericComponent /> { // $ExpectError
+        {/* @ts-expect-error */}
+        <StyledGenericComponent /> {
         }
         <StyledGenericComponent someProp="someString" />
         <StyledGenericComponent someProp={42} />
         <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp="someString" />
-        <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp={42} /> { // $ExpectError
+        {/* @ts-expect-error */}
+        <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp={42} /> {
         }
         <StyledGenericComponent as="h1" />
-        <StyledGenericComponent as="h1" someProp="someString" /> { // $ExpectError
+        {/* @ts-expect-error */}
+        <StyledGenericComponent as="h1" someProp="someString" /> {
         }
 
-        <WithComponentH1 as={GenericComponent} /> { // $ExpectError
+        {/* @ts-expect-error */}
+        <WithComponentH1 as={GenericComponent} /> {
         }
         <WithComponentH1 as={GenericComponent} someProp="someString" />
         <WithComponentH1 as={GenericComponent} someProp={42} />
-        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} /> { // $ExpectError
+        {/* @ts-expect-error */}
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} /> {
         }
         <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp="someString" />
         <WithComponentH1<React.FC<GenericComponentProps<number>>> as={GenericComponent} someProp={42} />
-        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp={42} /> { // $ExpectError
+        {/* @ts-expect-error */}
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp={42} /> {
         }
     </>
 );
@@ -755,16 +770,18 @@ const divRef = React.createRef<HTMLDivElement>();
 const StyledDiv = styled.div``;
 <StyledDiv ref={divRef} />;
 <StyledDiv ref={divFnRef} />;
-<StyledDiv ref="string" />; // $ExpectError
+// @ts-expect-error
+<StyledDiv ref="string" />;
 
 const StyledStyledDiv = styled(StyledDiv)``;
 <StyledStyledDiv ref={divRef} />;
 <StyledStyledDiv ref={divFnRef} />;
-<StyledStyledDiv ref="string" />; // $ExpectError
+// @ts-expect-error
+<StyledStyledDiv ref="string" />;
 
 const StyledA = StyledDiv.withComponent('a');
 // No longer generating a type error as of Feb. 6th, 2019
-// <StyledA ref={divRef} />; // $ExpectError
+// <StyledA ref={divRef} />; // @ts-expect-error
 <StyledA
     ref={ref => {
         // $ExpectType HTMLAnchorElement | null
@@ -822,7 +839,7 @@ async function typedThemes() {
         }};
     `;
     //  can't use a FlattenInterpolation as the first argument, would make broken css
-    // $ExpectError
+    // @ts-expect-error
     const ThemedDiv4 = styled.div(themedCss);
 
     const themedCssWithNesting = css(props => ({
@@ -906,7 +923,8 @@ async function themeAugmentation() {
         >
             <>
                 <extra.ThemeProvider
-                    theme={base => base} // $ExpectError
+                    // @ts-expect-error
+                    theme={base => base}
                 >
                     <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
                 </extra.ThemeProvider>
@@ -1030,13 +1048,13 @@ function validateArgumentsAndReturns() {
 
     // if the first argument is array-like it's always treated as a string[], this breaks things
     css(
-        // $ExpectError
+        // @ts-expect-error
         css`
             ${{ color: 'blue' }}
         `,
     );
     // _technically_ valid as styled-components doesn't look at .raw but best not to support it
-    // $ExpectError
+    // @ts-expect-error
     css([]);
 
     styled.div({ color: 'blue' });
@@ -1046,12 +1064,12 @@ function validateArgumentsAndReturns() {
     `;
     // These don't work for the same reason css doesn't work
     styled.div(
-        // $ExpectError
+        // @ts-expect-error
         css`
             ${{ color: 'blue' }}
         `,
     );
-    // $ExpectError
+    // @ts-expect-error
     styled.div([]);
 
     createGlobalStyle({
@@ -1070,13 +1088,13 @@ function validateArgumentsAndReturns() {
         },
     }));
     // these are invalid for the same reason as in styled.div
-    // $ExpectError
+    // @ts-expect-error
     createGlobalStyle(css`
         :root {
             color: ${() => 'blue'};
         }
     `);
-    // $ExpectError
+    // @ts-expect-error
     createGlobalStyle([]);
 }
 
@@ -1113,7 +1131,8 @@ function validateDefaultProps() {
     <StyledComponent requiredProp />;
 
     // still respects the type of optionalProp
-    <StyledComponent requiredProp optionalProp={1} />; // $ExpectError
+    // @ts-expect-error
+    <StyledComponent requiredProp optionalProp={1} />;
 
     // example of a simple helper that sets defaultProps and update the type
     type WithDefaultProps<C, D> = C & { defaultProps: D };
@@ -1131,7 +1150,8 @@ function validateDefaultProps() {
 
     <OtherStyledComponent />;
 
-    <OtherStyledComponent requiredProp="1" />; // $ExpectError
+    // @ts-expect-error
+    <OtherStyledComponent requiredProp="1" />;
 }
 
 interface WrapperProps {
@@ -1143,7 +1163,8 @@ export class WrapperClass extends React.Component<WrapperProps> {
     }
 }
 const StyledWrapperClass = styled(WrapperClass)``;
-const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>; // $ExpectError
+// @ts-expect-error
+const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>;
 
 export class WrapperClassFuncChild extends React.Component<WrapperProps & { children: () => any }> {
     render() {
@@ -1152,7 +1173,8 @@ export class WrapperClassFuncChild extends React.Component<WrapperProps & { chil
 }
 const StyledWrapperClassFuncChild = styled(WrapperClassFuncChild)``;
 const wrapperClassNoChildrenGood = <StyledWrapperClassFuncChild>{() => 'text'}</StyledWrapperClassFuncChild>;
-const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperClassFuncChild>; // $ExpectError
+// @ts-expect-error
+const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperClassFuncChild>;
 
 const WrapperFunction: React.FunctionComponent<WrapperProps> = () => <div />;
 const StyledWrapperFunction = styled(WrapperFunction)``;
@@ -1161,7 +1183,8 @@ const wrapperFunction = <StyledWrapperFunction />;
 const WrapperFunc = (props: WrapperProps) => <div />;
 const StyledWrapperFunc = styled(WrapperFunc)``;
 // No `children` in props, so this should generate an error
-const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
+// @ts-expect-error
+const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>;
 
 // Test if static properties added to the underlying component is passed through.
 function staticPropertyPassthrough() {
@@ -1189,13 +1212,18 @@ function staticPropertyPassthrough() {
     C.F = () => {};
     const StyledB = styled(B)``;
     const StyledC = styled(C)``;
-    <StyledB.A />; // $ExpectError
-    <StyledB.A a="a" />; // $ExpectError
+    // @ts-expect-error
+    <StyledB.A />;
+    // @ts-expect-error
+    <StyledB.A a="a" />;
     <StyledB.A a={0} />;
-    StyledB.PUBLIC; // $ExpectError
-    StyledB.componentDidMount(); // $ExpectError
+    // @ts-expect-error
+    StyledB.PUBLIC;
+    // @ts-expect-error
+    StyledB.componentDidMount();
     StyledB.F({ b: 'b' }, { b: 'b' });
-    StyledB.getDerivedStateFromProps({ b: 'b' }, { b: 'b' }); // $ExpectError
+    // @ts-expect-error
+    StyledB.getDerivedStateFromProps({ b: 'b' }, { b: 'b' });
     <StyledC.A a={0} />;
     StyledC.F();
 }
@@ -1226,7 +1254,8 @@ function unionTest() {
     `;
 
     <StyledReadable kind="book" author="Hejlsberg" />;
-    <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
+    // @ts-expect-error
+    <StyledReadable kind="magazine" author="Hejlsberg" />;
 }
 
 function unionTest2() {
@@ -1245,8 +1274,10 @@ function unionTest2() {
 
     <C foo={123} />;
     <C bar="foobar" />;
-    <C />; // $ExpectError
-    <C foo={123} bar="foobar" />; // $ExpectError
+    // @ts-expect-error
+    <C />;
+    // @ts-expect-error
+    <C foo={123} bar="foobar" />;
 }
 
 function unionPerformanceTest() {
@@ -1266,9 +1297,11 @@ function unionPerformanceTest() {
 
     <Styled signal1="green" greenTime1={100} />;
     <Styled signal1="red" redTime1={200} />;
-    <Styled signal1="red" greenTime1={100} />; // $ExpectError
+    // @ts-expect-error
+    <Styled signal1="red" greenTime1={100} />;
     <Styled signal1="green" greenTime1={100} signal2="green" greenTime2={100} />;
-    <Styled signal1="green" greenTime1={100} signal2="red" greenTime2={100} />; // $ExpectError
+    // @ts-expect-error
+    <Styled signal1="green" greenTime1={100} signal2="red" greenTime2={100} />;
 }
 
 const SomeStyledComponent = styled.div``;

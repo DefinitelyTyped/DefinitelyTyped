@@ -36,7 +36,6 @@
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
-//                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>

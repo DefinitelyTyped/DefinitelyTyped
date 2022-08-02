@@ -99,3 +99,33 @@ histogram = createHistogram();
 histogram.record(123);
 histogram.record(123n);
 histogram.recordDelta();
+
+// intelligence is working
+declare let histo1: RecordableHistogram;
+declare let histo2: RecordableHistogram;
+declare let histo3: RecordableHistogram;
+
+histo1.add(histo2);
+histo1.add(histo3);
+
+histo1 = createHistogram();
+histo2 = createHistogram();
+histo3 = createHistogram();
+
+histo1.record(456);
+histo1.record(547);
+histo1.record(789);
+histo1.record(123);
+
+histo2.record(456);
+histo2.record(547);
+histo2.record(789);
+histo2.record(123);
+
+histo3.record(456);
+histo3.record(547);
+histo3.record(789);
+histo3.record(123);
+
+histo1.add(histo2);
+histo1.add(histo3);

@@ -48,6 +48,7 @@ import {
     SegmentedControl,
     SelectList,
     Sheet,
+    SlimBanner,
     Spinner,
     Stack,
     Status,
@@ -118,7 +119,7 @@ const CheckUseReducedMotion = () => {
 <Box ref={React.createRef<HTMLDivElement>()} />;
 
 <Box aria-colspan={1} />;
-// $ExpectError
+// @ts-expect-error
 <Box aria-colspan="foo" />;
 
 <Box
@@ -129,7 +130,7 @@ const CheckUseReducedMotion = () => {
 
 <Box
     onDrag={event => {
-        // $ExpectError
+        // @ts-expect-error
         event.__nonExistentProperty__;
     }}
 />;
@@ -155,6 +156,21 @@ const CheckUseReducedMotion = () => {
     label="combobox"
     noResultText="combobox"
     options={[{ label: 'combobox', value: 'combobox' }]}
+    onChange={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: Event = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+    onBlur={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: FocusEvent | Event = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+    onFocus={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: FocusEvent = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
 />;
 <Callout
     type="info"
@@ -199,6 +215,7 @@ const CheckUseReducedMotion = () => {
     </Flex.Item>
 </Flex>;
 <Heading />;
+<Heading color="inverse" />;
 <Icon accessibilityLabel="icon" />;
 <IconButton
     accessibilityLabel="icon"
@@ -214,6 +231,7 @@ const CheckUseReducedMotion = () => {
 </Layer>;
 <Letterbox contentAspectRatio={1} height={1} width={1} />;
 <Link href="#" />;
+<Link href="#" externalLinkIcon={{ color: 'light', size: 'md' }} />;
 <Mask />;
 <Masonry comp={MasonryComponent} items={[{}]} />;
 <Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
@@ -227,12 +245,35 @@ const CheckUseReducedMotion = () => {
             title: 'Title',
             summary: ['summary1', 'summary2', 'summary3'],
             children: <Text size="md">Children1</Text>,
+            iconButton: <IconButton accessibilityLabel="test" />,
         },
     ]}
     expandedIndex={1}
     onExpandedChange={index => {}}
 ></Module.Expandable>;
-<NumberField id="number" onChange={({ value }) => value} step={1} />;
+<NumberField
+    id="number"
+    step={1}
+    onChange={args => {
+        const nativeEvent: Event = args.event.nativeEvent;
+        const value: number | undefined = args.value;
+    }}
+    onBlur={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: FocusEvent = args.event.nativeEvent;
+        const value: number | undefined = args.value;
+    }}
+    onFocus={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: FocusEvent = args.event.nativeEvent;
+        const value: number | undefined = args.value;
+    }}
+    onKeyDown={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: KeyboardEvent = args.event.nativeEvent;
+        const value: number | undefined = args.value;
+    }}
+/>;
 <OnLinkNavigationProvider
     onNavigation={() => {
         return undefined;
@@ -240,20 +281,27 @@ const CheckUseReducedMotion = () => {
 />;
 <PageHeader title="Home" />;
 <Pog />;
-<Popover
-    onDismiss={() => {}}
-    anchor={React.useRef<HTMLAnchorElement>().current!}
-    onKeyDown={({ event }) => {
-        event.preventDefault();
-    }}
-/>;
+<Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current} />;
 
 <Pulsar />;
 <RadioButton id="id" onChange={() => {}} />;
 <Row gap={1}>
     <div />
 </Row>;
-<SearchField accessibilityLabel="Demo Search Field" id="searchField" onChange={({ value }) => value} />;
+<SearchField
+    accessibilityLabel="Demo Search Field"
+    id="searchField"
+    onChange={args => {
+        const currentTarget: HTMLInputElement = args.syntheticEvent.currentTarget;
+        const nativeEvent: Event = args.syntheticEvent.nativeEvent;
+        const value: string = args.value;
+    }}
+    onKeyDown={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: KeyboardEvent = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+/>;
 <SegmentedControl items={[]} selectedItemIndex={1} onChange={() => {}} />;
 <SelectList id="city" onChange={({ value }) => value} options={[]} />;
 <Sheet
@@ -268,6 +316,18 @@ const CheckUseReducedMotion = () => {
         </Heading>
     )}
 </Sheet>;
+<SlimBanner
+    type="errorBare"
+    iconAccessibilityLabel="Info"
+    message="There are issues with your account."
+    helperLink={{
+        text: 'Go to account',
+        accessibilityLabel: 'Go to your account',
+        href: 'http://www.pinterest.com',
+        onClick: () => {},
+        target: 'blank',
+    }}
+/>;
 <Spinner show={true} accessibilityLabel="Example spinner" />;
 <Stack alignItems="center" gap={2}>
     <div />
@@ -363,8 +423,54 @@ const CheckUseReducedMotion = () => {
 />;
 <Tag disabled text="New" />;
 <Text />;
-<TextArea id="id" onChange={() => {}} />;
-<TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
+<Text color="inverse" />;
+<TextArea
+    id="id"
+    onChange={args => {
+        const currentTarget: HTMLTextAreaElement = args.event.currentTarget;
+        const nativeEvent: Event = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+    onBlur={args => {
+        const currentTarget: HTMLTextAreaElement = args.event.currentTarget;
+        const nativeEvent: FocusEvent = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+    onFocus={args => {
+        const currentTarget: HTMLTextAreaElement = args.event.currentTarget;
+        const nativeEvent: FocusEvent = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+    onKeyDown={args => {
+        const currentTarget: HTMLTextAreaElement = args.event.currentTarget;
+        const nativeEvent: KeyboardEvent = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+/>;
+<TextField
+    id="email"
+    tags={[<Tag text="Foo" />, <Tag text="Bar" />]}
+    onChange={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: Event = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+    onBlur={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: FocusEvent = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+    onFocus={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: FocusEvent = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+    onKeyDown={args => {
+        const currentTarget: HTMLInputElement = args.event.currentTarget;
+        const nativeEvent: KeyboardEvent = args.event.nativeEvent;
+        const value: string = args.value;
+    }}
+/>;
 
 <Toast variant="error" text={<>Oops! Something went wrong. Please try again later.</>} />;
 <Tooltip text="tooltip">
@@ -373,7 +479,7 @@ const CheckUseReducedMotion = () => {
 <Upsell
     message="Hello world"
     imageData={{
-        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
+        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="dark" size={32} />,
     }}
 />;
 <Upsell
@@ -384,7 +490,7 @@ const CheckUseReducedMotion = () => {
         onDismiss: () => {},
     }}
     imageData={{
-        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
+        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="dark" size={32} />,
     }}
 >
     <Upsell.Form

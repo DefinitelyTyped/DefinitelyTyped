@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@npm/types": "*"
+  },
+  "private": true
+}

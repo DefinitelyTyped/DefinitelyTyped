@@ -7,12 +7,14 @@ jsesc.version; // $ExpectType string
 jsesc("", { quotes: "single" }); // $ExpectType string
 jsesc("", { quotes: "double" }); // $ExpectType string
 jsesc("", { quotes: "backtick" }); // $ExpectType string
-jsesc("", { quotes: "foo" }); // $ExpectError
+// @ts-expect-error
+jsesc("", { quotes: "foo" });
 jsesc("", { numbers: "binary" }); // $ExpectType string
 jsesc("", { numbers: "octal" }); // $ExpectType string
 jsesc("", { numbers: "decimal" }); // $ExpectType string
 jsesc("", { numbers: "hexadecimal" }); // $ExpectType string
-jsesc("", { numbers: "foo" }); // $ExpectError
+// @ts-expect-error
+jsesc("", { numbers: "foo" });
 jsesc("", { wrap: true }); // $ExpectType string
 jsesc("", { es6: true }); // $ExpectType string
 jsesc("", { escapeEverything: true }); // $ExpectType string

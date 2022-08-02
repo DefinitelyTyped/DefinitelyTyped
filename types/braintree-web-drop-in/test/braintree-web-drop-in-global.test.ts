@@ -3,6 +3,7 @@ import {
     PaymentMethodRequestablePayload,
     PaymentOptionSelectedPayload,
     cardPaymentMethodPayload,
+    ChangeActiveViewPayload,
 } from 'braintree-web-drop-in';
 
 braintree.dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
@@ -94,13 +95,20 @@ braintree.dropin.create({ authorization: '', container: 'my-div' }, (error, myDr
         const myPaymentOption: 'card' | 'paypal' | 'paypalCredit' = paymentOption;
     }
 
+    function onChangeActiveView({ previousViewId, newViewId }: ChangeActiveViewPayload) {
+        const myPreviousView: 'card' | 'paypal' | 'paypalCredit' | 'venmo' | 'googlePay' | 'applePay' | 'methods' | 'options' | 'delete-confirmation' = previousViewId;
+        const myNewView: 'card' | 'paypal' | 'paypalCredit' | 'venmo' | 'googlePay' | 'applePay' | 'methods' | 'options' | 'delete-confirmation' = newViewId;
+    }
+
     myDropin.on('noPaymentMethodRequestable', onNoPaymentMethodRequestable);
     myDropin.on('paymentMethodRequestable', onPaymentMethodRequestable);
     myDropin.on('paymentOptionSelected', onPaymentOptionSelected);
+    myDropin.on('changeActiveView', onChangeActiveView);
 
     myDropin.off('noPaymentMethodRequestable', onNoPaymentMethodRequestable);
     myDropin.off('paymentMethodRequestable', onPaymentMethodRequestable);
     myDropin.off('paymentOptionSelected', onPaymentOptionSelected);
+    myDropin.off('changeActiveView', onChangeActiveView);
 
     myDropin.requestPaymentMethod((error, payload) => {
         if (error) {

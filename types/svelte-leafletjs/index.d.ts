@@ -41,6 +41,11 @@ export type MarkerEvents = CreateSvelteEventMap<ReactLeaflet.MarkerEvents>;
 export type TileLayerEvents = CreateSvelteEventMap<ReactLeaflet.TileLayerEvents>;
 export type PathEvents = CreateSvelteEventMap<ReactLeaflet.PathEvents>;
 
+type MapEventKeys = Array<keyof MapEvents>;
+type MarkerEventKeys = Array<keyof MarkerEvents>;
+type TileLayerEventKeys = Array<keyof TileLayerEvents>;
+type PathEventKeys = Array<keyof PathEvents>;
+
 export namespace LeafletContext {
     interface Map {
         getMap(): L.Map;
@@ -79,6 +84,8 @@ export namespace LeafletContext {
 export class LeafletMap extends SvelteComponentTyped<
     {
         options?: L.MapOptions;
+        events?: MapEventKeys;
+        getMap?(): L.Map;
     },
     MapEvents,
     never
@@ -93,6 +100,8 @@ export class TileLayer extends SvelteComponentTyped<
         opacity?: number;
         zIndex?: number;
         options?: L.TileLayerOptions;
+        events?: TileLayerEventKeys;
+        getTileLayer?(): L.TileLayer;
     },
     TileLayerEvents,
     never
@@ -105,6 +114,8 @@ export class Circle extends SvelteComponentTyped<
         latLng: L.LatLngExpression;
         radius?: number;
         options?: L.CircleMarkerOptions;
+        events?: PathEventKeys;
+        getCircle?(): L.Circle;
     },
     PathEvents,
     never
@@ -117,6 +128,8 @@ export class CircleMarker extends SvelteComponentTyped<
         latLng: L.LatLngExpression;
         radius?: number;
         options?: L.CircleMarkerOptions;
+        events?: MarkerEventKeys;
+        getCircleMarker?(): L.CircleMarker;
     },
     MarkerEvents,
     never
@@ -128,6 +141,8 @@ export class Rectangle extends SvelteComponentTyped<
     L.PathOptions & {
         latLngBounds: L.LatLngBoundsExpression;
         options?: L.PolylineOptions;
+        events?: PathEventKeys;
+        getRectangle?(): L.Rectangle;
     },
     PathEvents,
     never
@@ -139,6 +154,8 @@ export class GeoJSON extends SvelteComponentTyped<
     {
         url: string;
         options?: L.GeoJSONOptions;
+        events?: PathEventKeys;
+        getGeoJSON?(): L.GeoJSON;
     },
     PathEvents,
     never
@@ -149,6 +166,7 @@ export class GeoJSON extends SvelteComponentTyped<
 export class Icon extends SvelteComponentTyped<
     {
         options?: L.IconOptions;
+        getIcon?(): L.Icon;
     },
     never,
     never
@@ -160,9 +178,11 @@ export class ImageOverlay extends SvelteComponentTyped<
     {
         imageUrl: string;
         bounds: L.LatLngBoundsExpression;
-        options?: L.ImageOverlayOptions;
         opacity?: number;
         zIndex?: number;
+        options?: L.ImageOverlayOptions;
+        events?: PathEventKeys;
+        getImageOverlay?(): L.ImageOverlay;
     },
     PathEvents,
     never
@@ -177,6 +197,8 @@ export class Marker extends SvelteComponentTyped<
         icon?: L.Icon;
         opacity?: number;
         options?: L.MarkerOptions;
+        events?: MarkerEventKeys;
+        getMarker?(): L.Marker;
     },
     MarkerEvents,
     never
@@ -188,6 +210,8 @@ export class Polygon extends SvelteComponentTyped<
     L.PathOptions & {
         latLngs: L.LatLngExpression[] | L.LatLngExpression[][] | L.LatLngExpression[][][];
         options?: L.PolylineOptions;
+        events?: PathEventKeys;
+        getPolygon?(): L.Polygon;
     },
     PathEvents,
     never
@@ -199,6 +223,8 @@ export class Polyline extends SvelteComponentTyped<
     L.PathOptions & {
         latLngs: L.LatLngExpression[] | L.LatLngExpression[][];
         options?: L.PolylineOptions;
+        events?: PathEventKeys;
+        getPolyline?(): L.Polyline;
     },
     PathEvents,
     never
@@ -209,6 +235,8 @@ export class Polyline extends SvelteComponentTyped<
 export class Popup extends SvelteComponentTyped<
     {
         options?: L.PopupOptions;
+        events?: PathEventKeys;
+        getPopup?(): L.Popup;
     },
     PathEvents,
     never
@@ -220,6 +248,7 @@ export class ScaleControl extends SvelteComponentTyped<
     {
         position?: L.ControlPosition;
         options?: L.Control.ScaleOptions;
+        getScaleControl?(): L.Control.Scale;
     },
     never,
     never
@@ -230,6 +259,8 @@ export class ScaleControl extends SvelteComponentTyped<
 export class Tooltip extends SvelteComponentTyped<
     {
         options?: L.TooltipOptions;
+        events?: PathEventKeys;
+        getTooltip?(): L.Tooltip;
     },
     PathEvents,
     never

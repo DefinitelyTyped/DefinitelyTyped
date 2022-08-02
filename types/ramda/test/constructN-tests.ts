@@ -11,7 +11,7 @@ import * as R from 'ramda';
         return Math.PI * Math.pow(this.r, 2);
     };
 
-    // $ExpectType Curry<(a_0: number, a_1: string | undefined) => { r: number; metaInfo?: string | undefined; area: () => number; }>
+    // $ExpectType Curry<(args_0: number, args_1: string | undefined) => { r: number; metaInfo?: string | undefined; area: () => number; }>
     const circleN = R.constructN(2, Circle);
 
     // $ExpectType { r: number; metaInfo?: string | undefined; area: () => number; }
@@ -30,7 +30,7 @@ import * as R from 'ramda';
         }
     }
 
-    // $ExpectType Curry<(a_0: number, a_1: string | undefined) => Circle>
+    // $ExpectType Curry<(args_0: number, args_1: string | undefined) => Circle>
     const circleN = R.constructN(2, Circle);
 
     // $ExpectType Circle

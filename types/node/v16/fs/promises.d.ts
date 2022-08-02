@@ -487,7 +487,7 @@ declare module 'fs/promises' {
      * @param [mode=0o666] Sets the file mode (permission and sticky bits) if the file is created.
      * @return Fulfills with a {FileHandle} object.
      */
-    function open(path: PathLike, flags: string | number, mode?: Mode): Promise<FileHandle>;
+    function open(path: PathLike, flags?: string | number, mode?: Mode): Promise<FileHandle>;
     /**
      * Renames `oldPath` to `newPath`.
      * @since v10.0.0
@@ -1084,7 +1084,7 @@ declare module 'fs/promises' {
      * @param dest destination path to copy to.
      * @return Fulfills with `undefined` upon success.
      */
-    function cp(source: string, destination: string, opts?: CopyOptions): Promise<void>;
+    function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
 }
 declare module 'node:fs/promises' {
     export * from 'fs/promises';

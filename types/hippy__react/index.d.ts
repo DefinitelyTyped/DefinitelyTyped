@@ -1,4 +1,4 @@
-// Type definitions for @hippy/react 2.11
+// Type definitions for @hippy/react 2.13
 // Project: http://hippyjs.org
 // Definitions by: zeroyu <https://github.com/zerosrat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -187,7 +187,7 @@ interface Transform {
 }
 
 interface ViewStyle {
-    collapsable?: false;
+    collapsable?: boolean;
     backgroundColor?: string | number;
     backgroundImage?: string;
     backgroundSize?: string;
@@ -231,6 +231,7 @@ interface ViewStyle {
     borderLeftColor?: string | number;
     borderBottomColor?: string | number;
     borderRightColor?: string | number;
+    borderStyle?: 'solid' | 'dotted' | 'dashed';
     boxShadowOpacity?: number;
     boxShadowRadius?: number;
     boxShadowColor?: string;
@@ -255,7 +256,7 @@ interface ViewStyle {
         | 'stretch';
     alignItems?: 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'baseline';
     alignSelf?: 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'baseline';
-    overflow?: 'hidden' | 'scroll';
+    overflow?: 'hidden' | 'visible';
     flex?: any;
     flexGrow?: number;
     flexShrink?: number;
@@ -402,12 +403,12 @@ interface ImageProps extends LayoutableProps, ClickableProps, TouchableProps {
     onProgress?(evt: { nativeEvent: { loaded: number; total: number } }): void;
 }
 declare class Image extends React.Component<ImageProps> {
-    getSize: (
+    static getSize: (
         uri: string,
         success: (width: number, height: number) => void,
         failure?: (err: typeof Error) => void,
     ) => void;
-    prefetch: (url: string) => void;
+    static prefetch: (url: string) => void;
     static get resizeMode(): {
         contain: 'contain';
         cover: 'cover';
@@ -688,6 +689,8 @@ interface ModalProps extends LayoutableProps, ClickableProps, TouchableProps {
      */
     supportedOrientations?: ModalOrientation[];
 
+    children?: React.ReactNode;
+
     style?: ViewStyleProp;
 
     /**
@@ -779,6 +782,7 @@ interface RefreshWrapperProps extends LayoutableProps, ClickableProps, Touchable
     onRefresh?: () => void;
     getRefresh?: () => React.ReactElement;
     bounceTime?: number;
+    children?: React.ReactNode;
     style?: ViewStyleProp;
 }
 declare class RefreshWrapper extends React.Component<RefreshWrapperProps> {
@@ -899,6 +903,7 @@ interface ScrollViewProps extends LayoutableProps, ClickableProps, TouchableProp
      * Called when the user stops dragging the scroll view and it either stops or begins to glide.
      */
     onScrollEndDrag?(): void;
+    children?: React.ReactNode;
     style?: ViewStyleProp;
 }
 declare class ScrollView extends React.Component<ScrollViewProps> {
@@ -1177,7 +1182,7 @@ interface ViewPagerProps extends LayoutableProps {
      *
      * Default: 0
      */
-    initialPage: number;
+    initialPage?: number;
 
     /**
      * When `false`, the view cannot be scrolled via touch interaction.
@@ -1224,6 +1229,7 @@ interface ViewPagerProps extends LayoutableProps {
      * * settling
      */
     onPageScrollStateChanged?(evt: PageScrollState): void;
+    children?: React.ReactNode[];
     style?: ViewStyleProp;
 }
 declare class ViewPager extends React.Component<ViewPagerProps> {

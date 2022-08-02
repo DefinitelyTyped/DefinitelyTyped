@@ -1,12 +1,10 @@
-// Type definitions for bootstrap 5.1
+// Type definitions for bootstrap 5.2
 // Project: https://getbootstrap.com/
 // Definitions by: denisname <https://github.com/denisname>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
-
-/// <reference types="jquery" />
 
 export as namespace bootstrap;
 
@@ -43,6 +41,12 @@ declare global {
         addEventListener(
             type: Carousel.Events,
             listener: (this: Element, ev: Carousel.Event) => any,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+
+        addEventListener(
+            type: Modal.Events,
+            listener: (this: Element, ev: Modal.Event) => any,
             options?: boolean | AddEventListenerOptions,
         ): void;
     }

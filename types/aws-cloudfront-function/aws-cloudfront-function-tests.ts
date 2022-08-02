@@ -51,7 +51,7 @@ const cloudFrontFunctionViewer: AWSCloudFrontFunction.Viewer = {
 
 const cloudFrontFunctionContext: AWSCloudFrontFunction.Context = {
     distributionDomainName: 'd111111abcdef8.cloudfront.net',
-    distributionID: 'EDFDVBD6EXAMPLE',
+    distributionId: 'EDFDVBD6EXAMPLE',
     eventType: 'viewer-response',
     requestId: 'EXAMPLEntjQpEXAMPLE_SG5Z-EXAMPLEPmPfEXAMPLEu3EqEXAMPLE==',
 };

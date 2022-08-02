@@ -139,9 +139,9 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
 
 setDefaultResultOrder('ipv4first');
 setDefaultResultOrder('verbatim');
-// $ExpectError
+// @ts-expect-error
 setDefaultResultOrder('wrong');
 promises.setDefaultResultOrder('ipv4first');
 promises.setDefaultResultOrder('verbatim');
-// $ExpectError
+// @ts-expect-error
 promises.setDefaultResultOrder('wrong');

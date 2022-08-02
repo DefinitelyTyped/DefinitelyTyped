@@ -20,5 +20,4 @@ declare class DBTracker {
 }
 declare namespace DBTracker {
     function finishAbandoned(opt_database?: any): number;
-    function isCapable(opt_database?: any): boolean;
 }

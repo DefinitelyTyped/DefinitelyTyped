@@ -600,7 +600,7 @@ declare module '@uswds/uswds/fonts/roboto-mono/*' {
     export = value;
 }
 
-declare module '@uswds/uswds/fonts/rsource-sans-pro/*' {
+declare module '@uswds/uswds/fonts/source-sans-pro/*' {
     const value: any;
     export = value;
 }

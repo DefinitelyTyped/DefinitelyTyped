@@ -1,10 +1,11 @@
-// Type definitions for @wordpress/components 19.3
+// Type definitions for @wordpress/components 19.10
 // Project: https://github.com/WordPress/gutenberg/tree/trunk/packages/components
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
 //                 Philip Jackson <https://github.com/p-jackson>
 //                 Sara Marcondes <https://github.com/sarayourfriend>
 //                 Michael Thomas <https://github.com/michaelhthomas>
+//                 Manzoor Wani <https://github.com/manzoorwanijk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 

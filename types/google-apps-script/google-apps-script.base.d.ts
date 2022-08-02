@@ -6,6 +6,19 @@
 
 /// <reference path="google-apps-script.types.d.ts" />
 
+interface Console {
+  error(): void;
+  error(formatOrObject: object | string, ...values: any[]): void;
+  info(): void;
+  info(formatOrObject: object | string, ...values: any[]): void;
+  log(): void;
+  log(formatOrObject: object | string, ...values: any[]): void;
+  time(label: string): void;
+  timeEnd(label: string): void;
+  warn(): void;
+  warn(formatOrObject: object | string, ...values: any[]): void;
+}
+
 declare namespace GoogleAppsScript {
   namespace Base {
     /**
@@ -306,18 +319,7 @@ declare namespace GoogleAppsScript {
      *       console.timeEnd(label);      // Stops the timer, logs execution duration.
      *     }
      */
-    interface console {
-      error(): void;
-      error(formatOrObject: object | string, ...values: any[]): void;
-      info(): void;
-      info(formatOrObject: object | string, ...values: any[]): void;
-      log(): void;
-      log(formatOrObject: object | string, ...values: any[]): void;
-      time(label: string): void;
-      timeEnd(label: string): void;
-      warn(): void;
-      warn(formatOrObject: object | string, ...values: any[]): void;
-    }
+
     /**
      * Apps Script has a non-standard Date Class
      *
@@ -509,7 +511,7 @@ declare var Logger: GoogleAppsScript.Base.Logger;
 // conflicts with MimeType in lib.d.ts
 // declare var MimeType: GoogleAppsScript.Base.MimeType;
 declare var Session: GoogleAppsScript.Base.Session;
-declare var console: GoogleAppsScript.Base.console;
+declare var console: Console;
 
 // The name `Date` conflicts with lib.es5.d.ts.
 // - We cannot include lib.es5.d.ts with Apps Script though because Apps Script is ES3

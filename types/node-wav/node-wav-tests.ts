@@ -13,5 +13,5 @@ wav.encode(wavFileInfo.channelData, {
 });
 // $ExpectType Buffer
 wav.encode(wavFileInfo.channelData, {});
-// $ExpectError
+// @ts-expect-error
 wav.encode(wavFileInfo.channelData);
