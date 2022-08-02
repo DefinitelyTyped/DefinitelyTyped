@@ -26,6 +26,9 @@ export interface StrategyOptions {
     getGoogleCerts?: (kid: string, callback: (err: any, cert: string) => void) => void;
 }
 
+/**
+ * The decoded token from google that includes basic user information
+ */
 export interface ParsedToken {
     payload: {
         family_name: string;
