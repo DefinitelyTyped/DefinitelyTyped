@@ -9,7 +9,7 @@ declare class GoogleTokenStrategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);
 }
 
-export interface StrategyOptions {
+interface StrategyOptions {
     /**
      * Google client id
      */
@@ -29,19 +29,19 @@ export interface StrategyOptions {
 /**
  * The decoded token from google that includes basic user information
  */
-export interface ParsedToken {
+interface ParsedToken {
     payload: {
         family_name: string;
         given_name: string;
     };
 }
 
-export interface VerifyCallback {
+interface VerifyCallback {
     (parsedToken: ParsedToken, googleId: string, done: VerifiedCallback): void;
 }
 
-export interface VerifiedCallback {
+interface VerifiedCallback {
     (error: any, user?: any, info?: any): void;
 }
 
-export default GoogleTokenStrategy;
+export = GoogleTokenStrategy;
