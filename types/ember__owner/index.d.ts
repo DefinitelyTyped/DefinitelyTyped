@@ -65,10 +65,6 @@ export interface RegisterOptions {
     singleton?: boolean | undefined;
 }
 
-type InitialValues<T> = Partial<{
-    [K in keyof T]: T[K];
-}>;
-
 /**
  * Registered factories are instantiated by having create called on them.
  * Additionally they are singletons by default, so each time they are looked up
@@ -79,7 +75,7 @@ type InitialValues<T> = Partial<{
  */
 export interface Factory<T, C extends object = object> {
     class: C;
-    create(initialValues?: InitialValues<T>): T;
+    create(initialValues?: Partial<T>): T;
 }
 
 /**
@@ -103,7 +99,7 @@ export class FactoryManager<T, C extends object = object> {
      *
      * @param initialValues Any values to set on an instance of the class
      */
-    create(initialValues?: InitialValues<T>): T;
+    create(initialValues?: Partial<T>): T;
 }
 
 // Don't export things unless we *intend* to.
