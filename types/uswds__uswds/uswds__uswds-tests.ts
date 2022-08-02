@@ -17,7 +17,7 @@ import {
     timePicker,
     tooltip,
     validator,
-} from '@uswds/uswds';
+} from '@uswds/uswds/js';
 
 const element = document.createElement('div');
 const button = document.createElement('button');
