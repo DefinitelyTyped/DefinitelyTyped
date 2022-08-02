@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "strategy.d.ts", "passport-totp-tests.ts"]
+    "files": ["index.d.ts", "passport-totp-tests.ts"]
 }
