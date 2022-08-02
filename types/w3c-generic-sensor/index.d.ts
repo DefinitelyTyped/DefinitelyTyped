@@ -25,8 +25,12 @@ declare class Sensor extends EventTarget {
     onactivate: (this: this, ev: Event) => any;
     onerror: (this: this, ev: SensorErrorEvent) => any;
 
-    addEventListener(type: "reading" | "activate", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "error", listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
+    addEventListener(
+        type: 'reading' | 'activate',
+        listener: (this: this, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
+    addEventListener(type: 'error', listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
 }
 
 interface SensorOptions {
@@ -34,16 +38,16 @@ interface SensorOptions {
 }
 
 interface MotionSensorOptions extends SensorOptions {
-    referenceFrame?: "device" | "screen" | undefined;
+    referenceFrame?: 'device' | 'screen' | undefined;
 }
 
 // Accelerometer: https://www.w3.org/TR/accelerometer/
 
 declare class Accelerometer extends Sensor {
-  constructor(options?: MotionSensorOptions);
-  readonly x?: number | undefined;
-  readonly y?: number | undefined;
-  readonly z?: number | undefined;
+    constructor(options?: MotionSensorOptions);
+    readonly x?: number | undefined;
+    readonly y?: number | undefined;
+    readonly z?: number | undefined;
 }
 
 declare class LinearAccelerationSensor extends Accelerometer {
@@ -97,4 +101,11 @@ declare class AbsoluteOrientationSensor extends OrientationSensor {
 
 declare class RelativeOrientationSensor extends OrientationSensor {
     constructor(options?: MotionSensorOptions);
+}
+
+// Ambient Light Sensor: https://www.w3.org/TR/ambient-light/
+
+declare class AmbientLightSensor extends Sensor {
+    constructor(options?: SensorOptions);
+    readonly illuminance?: number | undefined;
 }
