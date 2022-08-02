@@ -84,7 +84,7 @@ declare namespace BetterSqlite3 {
     }
 
     interface DatabaseConstructor {
-        new (filename: string, options?: Database.Options): Database;
+        new (filename: string | Buffer, options?: Database.Options): Database;
         (filename: string, options?: Database.Options): Database;
         prototype: Database;
 
