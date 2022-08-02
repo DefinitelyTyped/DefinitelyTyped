@@ -16,6 +16,7 @@ export interface Selection {
 export interface InputState {
   value: string;
   selection: Selection | null;
+  enteredString?: string;
 }
 
 export interface BeforeMaskedStateChangeStates {
