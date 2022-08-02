@@ -62,6 +62,7 @@ owner.lookup();
 owner.lookup('type:name'); // $ExpectType unknown
 // @ts-expect-error
 owner.lookup('non-namespace-string');
+owner.lookup('namespace@type:name'); // $ExpectType unknown
 
 owner.register('type:name', aFactory); // $ExpectType void
 owner.register('type:name', aFactory, {}); // $ExpectType void
@@ -75,6 +76,7 @@ owner.register('type:name', aFactory, { instantiate: false, singleton: true }); 
 owner.register('type:name', aFactory, { instantiate: false, singleton: false }); // $ExpectType void
 // @ts-expect-error
 owner.register('non-namespace-string', aFactory);
+owner.register('namespace@type:name', aFactory); // $ExpectType void
 
 owner.factoryFor('type:name'); // $ExpectType FactoryManager<unknown, object> | undefined
 owner.factoryFor('type:name')?.class; // $ExpectType Factory<unknown, object> | undefined
@@ -83,6 +85,7 @@ owner.factoryFor('type:name')?.create({}); // $ExpectType unknown
 owner.factoryFor('type:name')?.create({ anythingGoes: true }); // $ExpectType unknown
 // @ts-expect-error
 owner.factoryFor('non-namespace-string');
+owner.factoryFor('namespace@type:name'); // $ExpectType FactoryManager<unknown, object> | undefined
 
 // Tests deal with the fact that string literals are a special case! `let`
 // bindings will accordingly not "just work" as a result. The separate
