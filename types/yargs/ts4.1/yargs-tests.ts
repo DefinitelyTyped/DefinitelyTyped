@@ -126,7 +126,7 @@ async function Argv$parsing() {
     const argv4 = await yargs(['-x', '1', '-y', '2']).parseAsync();
     console.log(argv1.x, argv2.x, argv3.x, argv4.x);
 
-    // $ExpectType Argv<T>
+    // $ExpectType Argv<{}>
     yargs()
 
     // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; } | Promise<{ [x: string]: unknown; _: (string | number)[]; $0: string; }>
