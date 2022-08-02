@@ -3,8 +3,13 @@ import * as passport from 'passport';
 
 interface ParsedToken {
     payload: {
-        family_name: string;
+        email: string;
+        email_verified: string;
+        name: string;
+        picture: string;
         given_name: string;
+        family_name: string;
+        locale: string;
     };
 }
 
