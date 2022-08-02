@@ -1,4 +1,4 @@
-// Type definitions for passport-google-id-token 0.4.7
+// Type definitions for passport-google-id-token 0.4
 // Project: https://github.com/jmreyes/passport-google-id-token
 // Definitions by: Duy Nguyen <https://github.com/Wyfy0107>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,8 +20,8 @@ interface StrategyOptions {
      * A custom function can be used instead when passed as an option in the Strategy
      * constructor. It can be interesting e.g. if caching is needed.
      *
-     * @param {String} kid The key id specified in the token
-     * @param {Function} callback
+     * @param kid The key id specified in the token
+     * @param callback
      */
     getGoogleCerts?: (kid: string, callback: (err: any, cert: string) => void) => void;
 }
