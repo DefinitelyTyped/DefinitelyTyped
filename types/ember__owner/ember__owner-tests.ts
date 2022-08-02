@@ -30,8 +30,10 @@ aFactory.create({
 });
 
 // These should be rejected by way of EPC
-aFactory.create({ unrelatedNonsense: 'yep yep yep' }); // $ExpectError
-aFactory.create({ hasProps: true, unrelatedNonsense: 'yep yep yep' }); // $ExpectError
+// @ts-expect-error
+aFactory.create({ unrelatedNonsense: 'yep yep yep' });
+// @ts-expect-error
+aFactory.create({ hasProps: true, unrelatedNonsense: 'yep yep yep' });
 
 // But this should be legal.
 const goodPojo = { hasProps: true, unrelatedNonsense: 'also true' };
@@ -39,7 +41,8 @@ aFactory.create(goodPojo);
 
 // while this should be rejected for *type error* reasons, not EPC
 const badPojo = { hasProps: 'huzzah', unrelatedNonsense: 'also true' };
-aFactory.create(badPojo); // $ExpectError
+// @ts-expect-error
+aFactory.create(badPojo);
 
 // ----- FactoryManager ----- //
 declare let aFactoryManager: FactoryManager<ConstructThis, typeof ConstructThis>;
@@ -47,18 +50,23 @@ aFactoryManager.class; // $ExpectType Factory<ConstructThis, typeof ConstructThi
 aFactoryManager.create({}); // $ExpectType ConstructThis
 aFactoryManager.create({ hasProps: true }); // $ExpectType ConstructThis
 aFactoryManager.create({ hasProps: false }); // $ExpectType ConstructThis
-aFactoryManager.create({ otherStuff: 'nope' }); // $ExpectError
-aFactoryManager.create({ hasProps: true, otherStuff: 'nope' }); // $ExpectError
+// @ts-expect-error
+aFactoryManager.create({ otherStuff: 'nope' });
+// @ts-expect-error
+aFactoryManager.create({ hasProps: true, otherStuff: 'nope' });
 aFactoryManager.create(goodPojo); // $ExpectType ConstructThis
-aFactoryManager.create(badPojo); // $ExpectError
+// @ts-expect-error
+aFactoryManager.create(badPojo);
 
 // This one is last so it can reuse the bits from above!
 // ----- Owner ----- //
 declare let owner: Owner;
 
-owner.lookup(); // $ExpectError
+// @ts-expect-error
+owner.lookup();
 owner.lookup('type:name'); // $ExpectType unknown
-owner.lookup('non-namespace-string'); // $ExpectError
+// @ts-expect-error
+owner.lookup('non-namespace-string');
 
 owner.register('type:name', aFactory); // $ExpectType void
 owner.register('type:name', aFactory, {}); // $ExpectType void
@@ -70,11 +78,13 @@ owner.register('type:name', aFactory, { instantiate: true, singleton: true }); /
 owner.register('type:name', aFactory, { instantiate: true, singleton: false }); // $ExpectType void
 owner.register('type:name', aFactory, { instantiate: false, singleton: true }); // $ExpectType void
 owner.register('type:name', aFactory, { instantiate: false, singleton: false }); // $ExpectType void
-owner.register('non-namespace-string', aFactory); // $ExpectError
+// @ts-expect-error
+owner.register('non-namespace-string', aFactory);
 
 owner.factoryFor('type:name'); // $ExpectType FactoryManager<unknown, object> | undefined
 owner.factoryFor('type:name')?.class; // $ExpectType Factory<unknown, object> | undefined
 owner.factoryFor('type:name')?.create(); // $ExpectType unknown
 owner.factoryFor('type:name')?.create({}); // $ExpectType unknown
 owner.factoryFor('type:name')?.create({ anythingGoes: true }); // $ExpectType unknown
-owner.factoryFor('non-namespace-string'); // $ExpectError
+// @ts-expect-error
+owner.factoryFor('non-namespace-string');
