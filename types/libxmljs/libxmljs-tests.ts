@@ -102,7 +102,7 @@ const element = libxmljs.parseXmlString('<root><child>Hello <name>user1</name></
 const node = element?.childNodes()?.at(0);
 if (node) {
   console.log(node.text()); // prints "Hello"
-  
+
   node.text('Welcome');
   console.log(node.text()); // prints "Welcome"
 }
