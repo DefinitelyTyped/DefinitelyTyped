@@ -3,37 +3,31 @@
 // Definitions by: Duy Nguyen <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
+declare module 'passport-google-id-token' {
+    class GoogleTokenStrategy {
+        constructor(opt: StrategyOptions, verify: VerifyCallback);
+    }
 
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
+    export interface StrategyOptions {
+        /**
+         * Google client id
+         */
+        clientID: string;
+        /**
+         * Return the Google certificate that will be used for signature validation.
+         *
+         * A custom function can be used instead when passed as an option in the Strategy
+         * constructor. It can be interesting e.g. if caching is needed.
+         *
+         * @param {String} kid The key id specified in the token
+         * @param {Function} callback
+         */
+        getGoogleCerts: (kid: string, callback: (err: any, cert: string) => void) => void;
+    }
 
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
-}
+    interface ParsedToken {}
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    function foo(): void;
+    export interface VerifyCallback {
+        (parsedToken: ParsedToken, googleId: string, done: (err: any, data: any) => void): void;
+    }
 }
