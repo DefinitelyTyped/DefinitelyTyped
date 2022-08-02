@@ -1,25 +1,26 @@
-// Type definitions for sync-storage library for React Native
+// Type definitions for sync-storage 0.4
 // Project: https://github.com/raphaelpor/sync-storage
+// Definitions by: Dannomac <https://github.com/Dannomac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare module "sync-storage" {
-    /*
-    *  Init prepares the SyncStorage to work synchronously, by getting all values for all keys previously saved on RN AsyncStorage.
-    */
-    export function init(): any;
-    /*
-    *  Returns value of key
-    */
-    export function get(key: string): any;
-    /*
-    *  Saves value in memory and AsyncStorage. Also returns a promise for verification.
-    */
-    export function set(key: string, value: any): Promise<void>;
-    /*
-    *  Removes value from memory and AsyncStorage. Also returns a promise.
-    */
-    export function remove(key: string): Promise<void>;
-    /*
-    *  Returns all stored keys in an array.
-    */
-    export function getAllKeys(): any[];
-}
+/*
+*  Init prepares the SyncStorage to work synchronously, by getting all values for all keys previously saved on RN AsyncStorage.
+*/
+export function init(): any;
+/*
+*  Returns value of key
+*/
+export function get(key: string): any;
+/*
+*  Saves value in memory and AsyncStorage. Also returns a promise for verification.
+*/
+export function set(key: string, value: any): Promise<void>;
+/*
+*  Removes value from memory and AsyncStorage. Also returns a promise.
+*/
+export function remove(key: string): Promise<void>;
+/*
+*  Returns all stored keys in an array.
+*/
+export function getAllKeys(): any[];
+
+export as namespace SyncStorage;
