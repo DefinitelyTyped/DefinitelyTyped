@@ -45,33 +45,33 @@ export function createToken(
  * This is what you see as an authToken in an .npmrc.
  * @async
  */
-export function adduser(opener: (url: string) => Promise<void>, prompter: (creds: ProfileAuthCredentials) => Promise<ProfileAuthCredentials>, opts: Options | {}): Promise<ProfileAuthToken>;
+export function adduser(opener: (url: string) => Promise<void>, prompter: (creds: ProfileAuthCredentials) => Promise<ProfileAuthCredentials>, opts?: Options): Promise<ProfileAuthToken>;
 
 /**
  * Tries to login using new web based login, if that fails it falls back to using the legacy CouchDB APIs.
  * @async
  */
-export function login(opener: (url: string) => Promise<void>, prompter: (creds: ProfileAuthCredentials) => Promise<ProfileAuthCredentials>, opts: Options | {}): Promise<ProfileAuthToken>;
+export function login(opener: (url: string) => Promise<void>, prompter: (creds: ProfileAuthCredentials) => Promise<ProfileAuthCredentials>, opts?: Options): Promise<ProfileAuthToken>;
 
 /**
  * Tries to login using new web based login, if that fails it falls back to using the legacy CouchDB APIs.
  * @async
  */
- export function loginWeb(opener: (url: string) => Promise<void>, opts: Options | {}): Promise<ProfileAuthToken>;
+export function loginWeb(opener: (url: string) => Promise<void>, opts?: Options): Promise<ProfileAuthToken>;
 
 /**
  * Tries to create a user new web based login,
  * if that fails it falls back to using the legacy CouchDB APIs.
  * @async
  */
-export function adduserWeb(opener: (url: string) => Promise<void>, opts: Options | {}): Promise<ProfileAuthToken>;
+export function adduserWeb(opener: (url: string) => Promise<void>, opts?: Options): Promise<ProfileAuthToken>;
 
 /**
  * Creates a new user on the server along with a fresh bearer token for future authentication as this user.
  * This is what you see as an authToken in an .npmrc.
  * @async
  */
-export function adduserCouch(username: string, email: string, password: string, opts?: Options | {}): Promise<ProfileAuthToken>;
+export function adduserCouch(username: string, email: string, password: string, opts?: Options): Promise<ProfileAuthToken>;
 
 /**
  * Logs you into an existing user. Does not create the user if they do not already exist.
@@ -79,7 +79,7 @@ export function adduserCouch(username: string, email: string, password: string, 
  * This is what you use as an authToken in an .npmrc.
  * @async
  */
-export function loginCouch(username: string, email: string, password: string, opts?: Options | {}): Promise<ProfileAuthToken>;
+export function loginCouch(username: string, email: string, password: string, opts?: Options): Promise<ProfileAuthToken>;
 
 export type Options = fetch.Options & ProfileFetchOptions;
 
