@@ -569,15 +569,25 @@ export class NodePath<T = Node> {
 
     getBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
     getBindingIdentifiers(duplicates?: false): Record<string, t.Identifier>;
+    getBindingIdentifiers(duplicates?: boolean): Record<string, t.Identifier | t.Identifier[]>;
 
     getOuterBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
     getOuterBindingIdentifiers(duplicates?: false): Record<string, t.Identifier>;
+    getOuterBindingIdentifiers(duplicates?: boolean): Record<string, t.Identifier | t.Identifier[]>;
 
     getBindingIdentifierPaths(duplicates: true, outerOnly?: boolean): Record<string, Array<NodePath<t.Identifier>>>;
     getBindingIdentifierPaths(duplicates?: false, outerOnly?: boolean): Record<string, NodePath<t.Identifier>>;
+    getBindingIdentifierPaths(
+        duplicates?: boolean,
+        outerOnly?: boolean,
+    ): Record<string, NodePath<t.Identifier> | Array<NodePath<t.Identifier>>>;
 
     getOuterBindingIdentifierPaths(duplicates: true): Record<string, Array<NodePath<t.Identifier>>>;
     getOuterBindingIdentifierPaths(duplicates?: false): Record<string, NodePath<t.Identifier>>;
+    getOuterBindingIdentifierPaths(
+        duplicates?: boolean,
+        outerOnly?: boolean,
+    ): Record<string, NodePath<t.Identifier> | Array<NodePath<t.Identifier>>>;
     //#endregion
 
     //#region ------------------------- comments -------------------------

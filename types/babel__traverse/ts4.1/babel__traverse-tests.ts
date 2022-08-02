@@ -386,20 +386,39 @@ binding.dereference();
 
 newPath.scope.checkBlockScopedCollisions(binding, 'local', 'name', {});
 
+const booleanVar: boolean = true as boolean;
 const identifier = newPath.getBindingIdentifiers();
 identifier; // $ExpectType Record<string, Identifier>
-const identifiers = newPath.getBindingIdentifiers(true);
-identifiers; // $ExpectType Record<string, Identifier[]>
+const identifierFalse = newPath.getBindingIdentifiers(false);
+identifierFalse; // $ExpectType Record<string, Identifier>
+const identifierTrue = newPath.getBindingIdentifiers(true);
+identifierTrue; // $ExpectType Record<string, Identifier[]>
+const identifierBoolean = newPath.getBindingIdentifiers(booleanVar);
+identifierBoolean; // $ExpectType Record<string, Identifier | Identifier[]>
+
 const outerIdentifier = newPath.getOuterBindingIdentifiers();
 outerIdentifier; // $ExpectType Record<string, Identifier>
-const outerIdentifiers = newPath.getOuterBindingIdentifiers(true);
-outerIdentifiers; // $ExpectType Record<string, Identifier[]>
+const outerIdentifierFalse = newPath.getOuterBindingIdentifiers(false);
+outerIdentifierFalse; // $ExpectType Record<string, Identifier>
+const outerIdentifierTrue = newPath.getOuterBindingIdentifiers(true);
+outerIdentifierTrue; // $ExpectType Record<string, Identifier[]>
+const outerIdentifierBoolean = newPath.getOuterBindingIdentifiers(booleanVar);
+outerIdentifierBoolean; // $ExpectType Record<string, Identifier | Identifier[]>
 
 const identifierPath = newPath.getBindingIdentifierPaths();
 identifierPath; // $ExpectType Record<string, NodePath<Identifier>>
-const identifierPaths = newPath.getBindingIdentifierPaths(true);
-identifierPaths; // $ExpectType Record<string, NodePath<Identifier>[]>
+const identifierPathFalse = newPath.getBindingIdentifierPaths(false);
+identifierPathFalse; // $ExpectType Record<string, NodePath<Identifier>>
+const identifierPathTrue = newPath.getBindingIdentifierPaths(true);
+identifierPathTrue; // $ExpectType Record<string, NodePath<Identifier>[]>
+const identifierPathBoolean = newPath.getBindingIdentifierPaths(booleanVar);
+identifierPathBoolean; // $ExpectType Record<string, NodePath<Identifier> | NodePath<Identifier>[]>
+
 const outerIdentifierPath = newPath.getOuterBindingIdentifierPaths();
 outerIdentifierPath; // $ExpectType Record<string, NodePath<Identifier>>
-const outerIdentifierPaths = newPath.getOuterBindingIdentifierPaths(true);
-outerIdentifierPaths; // $ExpectType Record<string, NodePath<Identifier>[]>
+const outerIdentifierPathFalse = newPath.getOuterBindingIdentifierPaths(false);
+outerIdentifierPathFalse; // $ExpectType Record<string, NodePath<Identifier>>
+const outerIdentifierPathTrue = newPath.getOuterBindingIdentifierPaths(true);
+outerIdentifierPathTrue; // $ExpectType Record<string, NodePath<Identifier>[]>
+const outerIdentifierPathBoolean = newPath.getOuterBindingIdentifierPaths(booleanVar);
+outerIdentifierPathBoolean; // $ExpectType Record<string, NodePath<Identifier> | NodePath<Identifier>[]>
