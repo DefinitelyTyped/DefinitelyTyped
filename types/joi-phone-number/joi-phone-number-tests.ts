@@ -19,3 +19,7 @@ Joi.string()
 
 // all options
 Joi.string().phoneNumber({ defaultCountry: 'US', format: 'e164', strict: true }).validate('+123456789');
+
+// Reference for defaultCountry
+Joi.string().phoneNumber({ defaultCountry: Joi.ref('$country'), format: 'e164', strict: true }).validate('+123456789', { context: { country: 'US' } });
+Joi.string().phoneNumber({ defaultCountry: Joi.ref('$country'), format: 'e164', strict: true }).validate('+123456789', { context: { country: ['US', 'UK'] } });
