@@ -74,6 +74,12 @@ export interface RegisterOptions {
  * options to the {@linkcode Owner.register} method.
  */
 export interface Factory<T> {
+    /**
+     * A function that will create an instance of the class with any
+     * dependencies injected.
+     *
+     * @param initialValues Any values to set on an instance of the class
+     */
     create(initialValues?: Partial<T>): T;
 }
 
@@ -89,16 +95,9 @@ export interface Factory<T> {
  * @note `FactoryManager` is *not* user-constructible; the only legal way to get
  *   a `FactoryManager` is via {@linkcode Owner.factoryFor}.
  */
-export class FactoryManager<T> {
+export interface FactoryManager<T> extends Factory<T> {
     /** The registered or resolved class. */
     readonly class: Factory<T>;
-    /**
-     * A function that will create an instance of the class with any
-     * dependencies injected.
-     *
-     * @param initialValues Any values to set on an instance of the class
-     */
-    create(initialValues?: Partial<T>): T;
 }
 
 // Don't export things unless we *intend* to.
