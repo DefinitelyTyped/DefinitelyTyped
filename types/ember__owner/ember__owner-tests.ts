@@ -1,4 +1,4 @@
-import Owner, { Factory, FactoryManager, RegisterOptions } from '@ember/owner';
+import Owner, { Factory, FactoryManager, FullName, RegisterOptions } from '@ember/owner';
 
 // Just a class we can construct in the Factory and FactoryManager tests
 declare class ConstructThis {
@@ -88,3 +88,24 @@ owner.factoryFor('type:name')?.create({}); // $ExpectType unknown
 owner.factoryFor('type:name')?.create({ anythingGoes: true }); // $ExpectType unknown
 // @ts-expect-error
 owner.factoryFor('non-namespace-string');
+
+// Tests deal with the fact that string literals are a special case! `let`
+// bindings will accordingly not "just work" as a result.
+let aName = 'type:name';
+// @ts-expect-error
+owner.lookup(aName);
+
+let aTypedName: FullName = 'type:name';
+owner.lookup(aTypedName); // $ExpectType unknown
+
+// Nor will callbacks work "out of the box". But they can work if they have the
+// correct type.
+declare let justStrings: Array<string>;
+// @ts-expect-error
+justStrings.map(aString => owner.lookup(aString));
+declare let typedStrings: Array<FullName>;
+typedStrings.map(aString => owner.lookup(aString));
+
+// Also make sure it keeps working with const bindings
+const aConstName = 'type:name';
+owner.lookup(aConstName); // $ExpectType unknown

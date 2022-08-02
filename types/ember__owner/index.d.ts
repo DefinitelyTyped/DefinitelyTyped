@@ -10,7 +10,7 @@
  * The name for a factory consists of a namespace and the name of a specific
  * type within that namespace, like `'service:session'`.
  */
-type FullName = `${string}:${string}`;
+export type FullName = `${string}:${string}`;
 
 // TODO: when migrating into Ember proper, evaluate whether we should introduce
 // a registry which users can provide to resolve known types, so e.g.
