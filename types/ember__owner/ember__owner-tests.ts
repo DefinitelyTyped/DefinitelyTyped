@@ -12,9 +12,8 @@ regOptionsA.singleton; // $ExpectType boolean | undefined
 
 // ----- Factory ----- //
 // This gives us coverage for the cases where you are *casting*.
-declare let aFactory: Factory<ConstructThis, typeof ConstructThis>;
-aFactory.class; // $ExpectType typeof ConstructThis
-new aFactory.class(); // $ExpectType ConstructThis
+declare let aFactory: Factory<ConstructThis>;
+
 aFactory.create();
 aFactory.create({});
 aFactory.create({
@@ -40,8 +39,8 @@ const badPojo = { hasProps: 'huzzah', unrelatedNonsense: 'also true' };
 aFactory.create(badPojo);
 
 // ----- FactoryManager ----- //
-declare let aFactoryManager: FactoryManager<ConstructThis, typeof ConstructThis>;
-aFactoryManager.class; // $ExpectType Factory<ConstructThis, typeof ConstructThis>
+declare let aFactoryManager: FactoryManager<ConstructThis>;
+aFactoryManager.class; // $ExpectType Factory<ConstructThis>
 aFactoryManager.create({}); // $ExpectType ConstructThis
 aFactoryManager.create({ hasProps: true }); // $ExpectType ConstructThis
 aFactoryManager.create({ hasProps: false }); // $ExpectType ConstructThis
@@ -78,14 +77,14 @@ owner.register('type:name', aFactory, { instantiate: false, singleton: false });
 owner.register('non-namespace-string', aFactory);
 owner.register('namespace@type:name', aFactory); // $ExpectType void
 
-owner.factoryFor('type:name'); // $ExpectType FactoryManager<unknown, object> | undefined
-owner.factoryFor('type:name')?.class; // $ExpectType Factory<unknown, object> | undefined
+owner.factoryFor('type:name'); // $ExpectType FactoryManager<unknown> | undefined
+owner.factoryFor('type:name')?.class; // $ExpectType Factory<unknown> | undefined
 owner.factoryFor('type:name')?.create(); // $ExpectType unknown
 owner.factoryFor('type:name')?.create({}); // $ExpectType unknown
 owner.factoryFor('type:name')?.create({ anythingGoes: true }); // $ExpectType unknown
 // @ts-expect-error
 owner.factoryFor('non-namespace-string');
-owner.factoryFor('namespace@type:name'); // $ExpectType FactoryManager<unknown, object> | undefined
+owner.factoryFor('namespace@type:name'); // $ExpectType FactoryManager<unknown> | undefined
 
 // Tests deal with the fact that string literals are a special case! `let`
 // bindings will accordingly not "just work" as a result. The separate
@@ -118,9 +117,8 @@ const Creatable = {
 };
 
 const pojoFactory: Factory<typeof Creatable> = {
-    class: Creatable,
     create(initialValues?) {
-        const instance = this.class as typeof Creatable;
+        const instance = Creatable;
         if (initialValues) {
             if (initialValues.hasProps) {
                 Object.defineProperty(instance, 'hasProps', {

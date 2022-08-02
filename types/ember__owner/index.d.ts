@@ -73,8 +73,7 @@ export interface RegisterOptions {
  * However, that behavior can be modified with the `instantiate` and `singleton`
  * options to the {@linkcode Owner.register} method.
  */
-export interface Factory<T, C extends object = object> {
-    class: C;
+export interface Factory<T> {
     create(initialValues?: Partial<T>): T;
 }
 
@@ -90,9 +89,9 @@ export interface Factory<T, C extends object = object> {
  * @note `FactoryManager` is *not* user-constructible; the only legal way to get
  *   a `FactoryManager` is via {@linkcode Owner.factoryFor}.
  */
-export class FactoryManager<T, C extends object = object> {
+export class FactoryManager<T> {
     /** The registered or resolved class. */
-    readonly class: Factory<T, C>;
+    readonly class: Factory<T>;
     /**
      * A function that will create an instance of the class with any
      * dependencies injected.
