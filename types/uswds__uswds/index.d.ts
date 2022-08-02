@@ -186,13 +186,13 @@ declare namespace __USWDS {
         updateCalendarIfVisible(el: HTMLElement): void;
     };
 
-    export const dateRangePicker: {
+    const dateRangePicker: {
         init(root: HTMLElement | Document): void;
         on(el: HTMLElement): void;
         off(el: HTMLElement): void;
     };
 
-    export const fileInput: {
+    const fileInput: {
         init(root: HTMLElement | Document): void;
         on(el: HTMLElement): void;
         off(el: HTMLElement): void;
@@ -310,45 +310,87 @@ declare namespace __USWDS {
 
 // All components
 declare module '@uswds/uswds/js' {
-    export import accordion = __USWDS.accordion;
-    export import banner = __USWDS.banner;
-    export import characterCount = __USWDS.characterCount;
-    export import comboBox = __USWDS.comboBox;
-    export import datePicker = __USWDS.datePicker;
-    export import dateRangePicker = __USWDS.dateRangePicker;
-    export import fileInput = __USWDS.fileInput;
-    export import footer = __USWDS.footer;
-    export import inputPrefixSuffix = __USWDS.inputPrefixSuffix;
-    export import modal = __USWDS.modal;
-    export import navigation = __USWDS.navigation;
-    export import password = __USWDS.password;
-    export import search = __USWDS.search;
-    export import skipnav = __USWDS.skipnav;
-    export import table = __USWDS.table;
-    export import timePicker = __USWDS.timePicker;
-    export import tooltip = __USWDS.tooltip;
-    export import validator = __USWDS.validator;
+    import accordion = __USWDS.accordion;
+    import banner = __USWDS.banner;
+    import characterCount = __USWDS.characterCount;
+    import comboBox = __USWDS.comboBox;
+    import datePicker = __USWDS.datePicker;
+    import dateRangePicker = __USWDS.dateRangePicker;
+    import fileInput = __USWDS.fileInput;
+    import footer = __USWDS.footer;
+    import inputPrefixSuffix = __USWDS.inputPrefixSuffix;
+    import modal = __USWDS.modal;
+    import navigation = __USWDS.navigation;
+    import password = __USWDS.password;
+    import search = __USWDS.search;
+    import skipnav = __USWDS.skipnav;
+    import table = __USWDS.table;
+    import timePicker = __USWDS.timePicker;
+    import tooltip = __USWDS.tooltip;
+    import validator = __USWDS.validator;
+
+    export {
+        accordion,
+        banner,
+        characterCount,
+        comboBox,
+        datePicker,
+        dateRangePicker,
+        fileInput,
+        footer,
+        inputPrefixSuffix,
+        modal,
+        navigation,
+        password,
+        search,
+        skipnav,
+        table,
+        timePicker,
+        tooltip,
+        validator,
+    };
 }
 
 declare module '@uswds/uswds/src/js/components' {
-    export import accordion = __USWDS.accordion;
-    export import banner = __USWDS.banner;
-    export import characterCount = __USWDS.characterCount;
-    export import comboBox = __USWDS.comboBox;
-    export import datePicker = __USWDS.datePicker;
-    export import dateRangePicker = __USWDS.dateRangePicker;
-    export import fileInput = __USWDS.fileInput;
-    export import footer = __USWDS.footer;
-    export import inputPrefixSuffix = __USWDS.inputPrefixSuffix;
-    export import modal = __USWDS.modal;
-    export import navigation = __USWDS.navigation;
-    export import password = __USWDS.password;
-    export import search = __USWDS.search;
-    export import skipnav = __USWDS.skipnav;
-    export import table = __USWDS.table;
-    export import timePicker = __USWDS.timePicker;
-    export import tooltip = __USWDS.tooltip;
-    export import validator = __USWDS.validator;
+    import accordion = __USWDS.accordion;
+    import banner = __USWDS.banner;
+    import characterCount = __USWDS.characterCount;
+    import comboBox = __USWDS.comboBox;
+    import datePicker = __USWDS.datePicker;
+    import dateRangePicker = __USWDS.dateRangePicker;
+    import fileInput = __USWDS.fileInput;
+    import footer = __USWDS.footer;
+    import inputPrefixSuffix = __USWDS.inputPrefixSuffix;
+    import modal = __USWDS.modal;
+    import navigation = __USWDS.navigation;
+    import password = __USWDS.password;
+    import search = __USWDS.search;
+    import skipnav = __USWDS.skipnav;
+    import table = __USWDS.table;
+    import timePicker = __USWDS.timePicker;
+    import tooltip = __USWDS.tooltip;
+    import validator = __USWDS.validator;
+
+    export {
+        accordion,
+        banner,
+        characterCount,
+        comboBox,
+        datePicker,
+        dateRangePicker,
+        fileInput,
+        footer,
+        inputPrefixSuffix,
+        modal,
+        navigation,
+        password,
+        search,
+        skipnav,
+        table,
+        timePicker,
+        tooltip,
+        validator,
+    };
 }
 
 // Individual components
