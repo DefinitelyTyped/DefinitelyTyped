@@ -1,6 +1,6 @@
-// Type definitions for passport-google-id-token x.x
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: Duy Nguyen <https://github.com/me>
+// Type definitions for passport-google-id-token 0.4.7
+// Project: https://github.com/jmreyes/passport-google-id-token
+// Definitions by: Duy Nguyen https://github.com/Wyfy0107
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Strategy as PassportStrategy } from 'passport';
