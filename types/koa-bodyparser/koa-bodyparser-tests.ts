@@ -7,9 +7,9 @@ app.use(bodyParser({ strict: false }));
 app.use(bodyParser({ xmlLimit: '2mb' }));
 
 app.use((ctx) => {
-    console.log(ctx.request.body);
-    console.log(ctx.request.body.ok);
-    console.log(ctx.request.rawBody);
+    console.log(ctx.request?.body);
+    console.log(ctx.request?.body?.ok);
+    console.log(ctx.request?.rawBody);
 });
 
 app.listen(80);
