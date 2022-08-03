@@ -302,7 +302,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * Returns true if and only if the first (non-null) selected element has the specified classes.
      * This is generally useful only if you know the selection contains exactly one element.
      *
-     * @param name A string of space-separated class names.
+     * @param names A string of space-separated class names.
      */
     classed(names: string): boolean;
     /**
