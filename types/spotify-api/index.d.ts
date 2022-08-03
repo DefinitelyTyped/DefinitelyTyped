@@ -1024,18 +1024,17 @@ declare namespace SpotifyApi {
             rhythmstring: string,
             rhythm_version: number
         },
-        bars: {
+        bars: Array<{
             start: number,
             duration: number,
             confidence: number
-        }[],
-        beats:
-        {
-            start: number
-            duration: number
-            confidence: number
-        }[],
-        sections: {
+        }>,
+        beats: Array<{
+                start: number
+                duration: number
+                confidence: number
+        }>,
+        sections: Array<{
             start: number
             duration: number,
             confidence: number
@@ -1048,8 +1047,8 @@ declare namespace SpotifyApi {
             mode_confidence: number,
             time_signature: number
             time_signature_confidence: number
-        }[],
-        segments: {
+        }>,
+        segments: Array<{
             start: number
             duration: number
             confidence: number
@@ -1059,12 +1058,12 @@ declare namespace SpotifyApi {
             loudness_end: number
             pitches: number[],
             timbre: number[]
-        }[],
-        tatums: {
+        }>,
+        tatums: Array<{
             start: number,
             duration: number,
             confidence: number
-        }[]
+        }>
     }
 
     /**
