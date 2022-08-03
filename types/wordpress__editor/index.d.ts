@@ -15,3 +15,4 @@ declare module '@wordpress/data' {
 
 export * from './components';
 export * from './utils';
+export * from './store';
