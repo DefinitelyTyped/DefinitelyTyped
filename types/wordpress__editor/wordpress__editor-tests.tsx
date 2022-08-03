@@ -324,7 +324,7 @@ declare const BLOCK_INSTANCE: import('@wordpress/blocks').BlockInstance;
 // Store
 // ============================================================================
 
-// $ExpectType StoreDescriptor
+// $ExpectType EditorStoreDescriptor
 e.store;
 
 // $ExpectType IterableIterator<void>
