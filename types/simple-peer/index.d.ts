@@ -241,6 +241,8 @@ declare namespace SimplePeer {
         removeListener(event: "data", listener: (chunk: any) => void): this;
         removeListener(event: "error", listener: (err: Error) => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        
+        streams: MediaStream[];
     }
 }
 
