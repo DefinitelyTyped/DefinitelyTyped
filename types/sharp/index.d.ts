@@ -776,7 +776,6 @@ declare namespace sharp {
          * By default halt processing and raise an error when loading invalid images.
          * Set this flag to false if you'd rather apply a "best effort" to decode images,
          * even if the data is corrupt or invalid. (optional, default true)
-         * (optional, default true)
          *
          * @deprecated Use `failOn` instead
          */
