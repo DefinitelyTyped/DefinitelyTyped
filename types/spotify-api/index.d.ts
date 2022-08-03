@@ -264,10 +264,10 @@ declare namespace SpotifyApi {
     }
 
     /**
-     * Get Audio Analysis for a Track
+     * Get audio analysis for a track
      * 
      * GET /v1/audio-analysis/{id}
-     * https://developer.spotify.com/web-api/get-audio-analysis/
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis
      */
     interface AudioAnalysisResponse extends AudioAnalysisObject { }
 
