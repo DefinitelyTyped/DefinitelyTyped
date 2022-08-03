@@ -167,6 +167,8 @@ declare namespace SimplePeer {
 
         readonly bufferSize: number;
         readonly connected: boolean;
+        readonly streams: MediaStream[];
+
         address():
             | { port: undefined; family: undefined; address: undefined }
             | { port: number; family: "IPv6" | "IPv4"; address: string };
@@ -241,8 +243,6 @@ declare namespace SimplePeer {
         removeListener(event: "data", listener: (chunk: any) => void): this;
         removeListener(event: "error", listener: (err: Error) => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        
-        streams: MediaStream[];
     }
 }
 
