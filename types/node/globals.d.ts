@@ -57,13 +57,7 @@ interface AbortController {
 }
 
 /** A signal object that allows you to communicate with a DOM request (such as a Fetch) and abort it if required via an AbortController object. */
-interface AbortSignal {
-// interface AbortSignal extends EventTarget {
-    // TODO: see comment in `events.d.ts` -- when EventTarget is exposed globally,
-    // use the line above instead, since AbortSignal is an EventTarget.
-    // (Importing the type from `node:dom-events` would require making this file
-    // non-ambient, which is a hassle if we're just going to change it back later.)
-
+interface AbortSignal extends EventTarget {
     /**
      * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
      */

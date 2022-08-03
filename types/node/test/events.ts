@@ -115,8 +115,6 @@ async function test() {
     captureRejectionSymbol2 = events.captureRejectionSymbol;
 }
 
-// TODO: remove once global Event works (see events.d.ts)
-import { EventTarget } from "node:dom-events";
 {
     events.EventEmitter.setMaxListeners();
     events.EventEmitter.setMaxListeners(42);

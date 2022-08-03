@@ -646,8 +646,9 @@ declare module 'node:events' {
 // Please read that link to understand important implementation differences.
 
 // For now, these Events are contained in a temporary module to avoid conflicts
-// with their DOM versions in projects that include both `lib.dom.d.ts` and `@types/node`
-declare module 'node:dom-events' {
+// with their DOM versions in projects that include both `lib.dom.d.ts` and `@types/node`.
+// Library consumers should *not* import from this fictional module!
+declare module '__dom-events' {
     /** An event which takes place in the DOM. */
     interface Event {
         /** This is not used in Node.js and is provided purely for completeness. */
@@ -659,13 +660,13 @@ declare module 'node:dom-events' {
         /** This is not used in Node.js and is provided purely for completeness. */
         readonly composed: boolean;
         /** Returns an array containing the current EventTarget as the only entry or empty if the event is not being dispatched. This is not used in Node.js and is provided purely for completeness. */
-        composedPath(): [EventTarget?];
+        composedPath(): EventTarget[]; // should be [EventTarget?]
         /** Alias for event.target. */
-        readonly currentTarget: EventTarget;
+        readonly currentTarget: EventTarget | null;
         /** Is true if cancelable is true and event.preventDefault() has been called. */
         readonly defaultPrevented: boolean;
         /** This is not used in Node.js and is provided purely for completeness. */
-        readonly eventPhase: 0 | 2;
+        readonly eventPhase: number; // should be 0 | 2
         /** The `AbortSignal` "abort" event is emitted with `isTrusted` set to `true`. The value is `false` in all other cases. */
         readonly isTrusted: boolean;
         /** Sets the `defaultPrevented` property to `true` if `cancelable` is `true`. */
@@ -685,10 +686,6 @@ declare module 'node:dom-events' {
         /** Returns the type of event, e.g. "click", "hashchange", or "submit". */
         readonly type: string;
     }
-    const Event: {
-        prototype: Event;
-        new (type: string, eventInitDict?: EventInit): Event;
-    };
 
     /** EventTarget is a DOM interface implemented by objects that can receive events and may have listeners for them. */
     interface EventTarget {
@@ -715,10 +712,6 @@ declare module 'node:dom-events' {
             options?: EventListenerOptions | boolean,
         ): void;
     }
-    const EventTarget: {
-        prototype: EventTarget;
-        new (): EventTarget;
-    };
 
     /** The NodeEventTarget is a Node.js-specific extension to EventTarget that emulates a subset of the EventEmitter API. */
     interface NodeEventTarget extends EventTarget {
@@ -776,26 +769,22 @@ declare module 'node:dom-events' {
         handleEvent(object: Event): void;
     }
 
-    // TODO: Event should be a top-level type, but it will conflict with the
-    // Event in lib.dom.d.ts without the conditional declaration below.  It
-    // works in TS < 4.7, but breaks in the latest release.  This can go back
-    // in once we figure out why.
+    import { Event as _Event, EventTarget as _EventTarget } from '__dom-events';
+    global {
+        interface Event extends _Event {}
+        var Event: typeof globalThis extends { onmessage: any, Event: infer Event }
+            ? Event
+            : {
+                prototype: Event;
+                new (type: string, eventInitDict?: EventInit): Event;
+            };
 
-    // import { Event as _Event, EventTarget as _EventTarget } from 'node:dom-events';
-    // global {
-    //     interface Event extends _Event {}
-    //     interface EventTarget extends _EventTarget {}
-
-    //     // For compatibility with "dom" and "webworker" Event / EventTarget declarations
-
-    //     var Event:
-    //     typeof globalThis extends { onmessage: any, Event: infer Event }
-    //         ? Event
-    //         : typeof _Event;
-
-    //     var EventTarget:
-    //     typeof globalThis extends { onmessage: any, EventTarget: infer EventTarget }
-    //         ? EventTarget
-    //         : typeof _EventTarget;
-    // }
+        interface EventTarget extends _EventTarget {}
+        var EventTarget: typeof globalThis extends { onmessage: any, EventTarget: infer EventTarget }
+            ? EventTarget
+            : {
+                prototype: EventTarget;
+                new (): EventTarget;
+            };
+    }
 }
