@@ -79,6 +79,7 @@ declare namespace sharp {
         installed: string[];
     };
 
+    /** An Object containing the available interpolators and their proper values */
     const interpolators: Interpolators;
 
     /** An EventEmitter that emits a change event when a task is either queued, waiting for libuv to provide a worker thread, complete */
@@ -777,7 +778,7 @@ declare namespace sharp {
          * even if the data is corrupt or invalid. (optional, default true)
          * (optional, default true)
          *
-         * @deprecated
+         * @deprecated Use `failOn` instead
          */
         failOnError?: boolean | undefined;
         /**
