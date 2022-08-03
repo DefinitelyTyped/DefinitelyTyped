@@ -5,13 +5,6 @@ import {
     NightwatchAPI,
     NightwatchAssertion,
     NightwatchTests,
-    describe,
-    it,
-    before,
-    after,
-    xit,
-    xdescribe,
-    test,
     PageObjectModel,
     ELEMENT_KEY,
 } from 'nightwatch';
@@ -185,7 +178,7 @@ describe('Ecosia', () => {
             .click('button[type=submit]');
     });
 
-    xit('this test will be skipped', () => {
+    xit('this test will be skipped', (browser) => {
         browser.waitForElementVisible('body');
     });
 
@@ -199,10 +192,14 @@ xdescribe('whole describle block will be skipped', () => {
 });
 
 describe('Async Ecosia', () => {
-    before(browser => browser.url('https://www.ecosia.org/'));
+    before(function(browser, done) {
+        browser.url('https://www.ecosia.org/');
+        this.bodySelector = 'body';
+        done();
+    });
 
-    it('Demo test ecosia.org', async () => {
-        browser.waitForElementVisible('body');
+    it('Demo test ecosia.org', async function(browser) {
+        browser.waitForElementVisible(this.bodySelector);
     });
 
     after(browser => browser.end());
