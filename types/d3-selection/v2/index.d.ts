@@ -6,6 +6,7 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="trusted-types"/>
 // TypeScript Version: 2.3
 
 // Last module patch version validated against: 2.0.0
@@ -589,7 +590,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param value String representation of inner HTML.
      */
-    html(value: string): this;
+    html(value: string | TrustedHTML): this;
     /**
      * Sets the inner HTML to the specified value on all selected elements, replacing any existing child elements.
      * The inner HTML is determined for each individual element using a value function.

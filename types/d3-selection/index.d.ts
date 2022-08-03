@@ -6,6 +6,7 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="trusted-types"/>
 
 // Last module patch version validated against: 3.0.0
 
@@ -530,7 +531,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * The function’s return value is then used to set each element’s inner HTML.
      * A null value will clear the content.
      */
-    html(value: null | string | ValueFn<GElement, Datum, string | null>): this;
+    html(value: null | string | TrustedHTML | ValueFn<GElement, Datum, string | null>): this;
 
     /**
      * Appends a new element of this type (tag name) as the last child of each selected element,
