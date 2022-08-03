@@ -687,23 +687,25 @@ declare module 'node:events' {
 // Library consumers should *not* import from this fictional module!
 declare module '__dom-events' {
     /** An event which takes place in the DOM. */
-    interface Event {
+    type __Event = typeof globalThis extends { onmessage: any, Event: infer T }
+    ? T
+    : {
         /** This is not used in Node.js and is provided purely for completeness. */
         readonly bubbles: boolean;
         /** Alias for event.stopPropagation(). This is not used in Node.js and is provided purely for completeness. */
-        cancelBubble: unknown;  // Should be () => void but would conflict with DOM
+        cancelBubble: () => void;
         /** True if the event was created with the cancelable option */
         readonly cancelable: boolean;
         /** This is not used in Node.js and is provided purely for completeness. */
         readonly composed: boolean;
         /** Returns an array containing the current EventTarget as the only entry or empty if the event is not being dispatched. This is not used in Node.js and is provided purely for completeness. */
-        composedPath(): EventTarget[]; // should be [EventTarget?]
+        composedPath(): [EventTarget?]
         /** Alias for event.target. */
         readonly currentTarget: EventTarget | null;
         /** Is true if cancelable is true and event.preventDefault() has been called. */
         readonly defaultPrevented: boolean;
         /** This is not used in Node.js and is provided purely for completeness. */
-        readonly eventPhase: number; // should be 0 | 2
+        readonly eventPhase: 0 | 2;
         /** The `AbortSignal` "abort" event is emitted with `isTrusted` set to `true`. The value is `false` in all other cases. */
         readonly isTrusted: boolean;
         /** Sets the `defaultPrevented` property to `true` if `cancelable` is `true`. */
@@ -722,10 +724,12 @@ declare module '__dom-events' {
         readonly timeStamp: number;
         /** Returns the type of event, e.g. "click", "hashchange", or "submit". */
         readonly type: string;
-    }
+    };
 
     /** EventTarget is a DOM interface implemented by objects that can receive events and may have listeners for them. */
-    interface EventTarget {
+    type __EventTarget = typeof globalThis extends { onmessage: any, EventTarget: infer T }
+    ? T
+    : {
         /**
          * Adds a new handler for the `type` event. Any given `listener` is added only once per `type` and per `capture` option value.
          *
@@ -748,7 +752,7 @@ declare module '__dom-events' {
             listener: EventListener | EventListenerObject,
             options?: EventListenerOptions | boolean,
         ): void;
-    }
+    };
 
     interface EventInit {
         bubbles?: boolean;
@@ -776,22 +780,21 @@ declare module '__dom-events' {
         handleEvent(object: Event): void;
     }
 
-    import { Event as _Event, EventTarget as _EventTarget } from '__dom-events';
     global {
-        interface Event extends _Event {}
-        var Event: typeof globalThis extends { onmessage: any, Event: infer Event }
-            ? Event
+        interface Event extends __Event {}
+        var Event: typeof globalThis extends { onmessage: any, Event: infer T }
+            ? T
             : {
-                prototype: Event;
-                new (type: string, eventInitDict?: EventInit): Event;
+                prototype: __Event;
+                new (type: string, eventInitDict?: EventInit): __Event;
             };
 
-        interface EventTarget extends _EventTarget {}
-        var EventTarget: typeof globalThis extends { onmessage: any, EventTarget: infer EventTarget }
-            ? EventTarget
+        interface EventTarget extends __EventTarget {}
+        var EventTarget: typeof globalThis extends { onmessage: any, EventTarget: infer T }
+            ? T
             : {
-                prototype: EventTarget;
-                new (): EventTarget;
+                prototype: __EventTarget;
+                new (): __EventTarget;
             };
     }
 }
