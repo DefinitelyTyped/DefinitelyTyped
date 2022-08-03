@@ -470,7 +470,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * datum (d), the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
      * The function’s return value is then used to set each element’s inner HTML. A null value will clear the content.
      */
-    html(value: ValueFn<GElement, Datum, string | null>): this;
+    html(value: ValueFn<GElement, Datum, string | TrustedHTML | null>): this;
 
     /**
      * Appends a new element of this type (tag name) as the last child of each selected element,

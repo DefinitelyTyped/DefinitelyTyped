@@ -519,6 +519,10 @@ body = body
 body = body
     .html('<div> 42 </div>');
 
+function setHTML(html: TrustedHTML) {
+    body.html(html);
+}
+
 body = body
     .html(function(d, i, g) {
         const that: HTMLBodyElement = this;

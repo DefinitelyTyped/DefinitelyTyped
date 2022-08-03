@@ -531,7 +531,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * The function’s return value is then used to set each element’s inner HTML.
      * A null value will clear the content.
      */
-    html(value: null | string | TrustedHTML | ValueFn<GElement, Datum, string | null>): this;
+    html(value: null | string | TrustedHTML | ValueFn<GElement, Datum, string | TrustedHTML | null>): this;
 
     /**
      * Appends a new element of this type (tag name) as the last child of each selected element,
