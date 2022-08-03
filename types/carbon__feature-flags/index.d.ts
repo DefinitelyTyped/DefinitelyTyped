@@ -1,13 +1,14 @@
-// Type definitions for @carbon/elements 0.3
+// Type definitions for @carbon/elements 0.8
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/feature-flags
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
 export type FeatureFlagName =
-    | "enable-css-custom-properties"
-    | "enable-use-controlled-state-with-value"
-    | "enable-2021-release";
+    | 'enable-css-custom-properties'
+    | 'enable-use-controlled-state-with-value'
+    | 'enable-css-grid'
+    | 'enable-v11-release';
 
 export type FeatureFlags = Partial<Record<FeatureFlagName, boolean>> | Record<string, boolean>;
 
@@ -15,12 +16,12 @@ export class FeatureFlagScope {
     flags: Map<FeatureFlagName, boolean>;
     constructor(flags?: FeatureFlags);
     checkForFlag(name: string): void;
-    add(name: string, enabled: boolean): void;
-    enable(name: string): void;
-    disable(name: string): void;
-    merge(flags: FeatureFlags): void;
+    add: typeof add;
+    enable: typeof enable;
+    disable: typeof disable;
+    merge: typeof merge;
     mergeWithScope(scope: this): void;
-    enabled(name: string): boolean;
+    enabled: typeof enabled;
 }
 
 export function add(name: string, enabled: boolean): void;
