@@ -1,4 +1,4 @@
-// https://api.emberjs.com/ember/3.6/classes/RouteInfo
+// https://api.emberjs.com/ember/4.0/classes/RouteInfo
 /**
  * A `RouteInfo` is an object that contains metadata about a specific route within a `Transition`.
  * It is read-only and internally immutable.
@@ -51,4 +51,22 @@ export default interface RouteInfo {
      * @param callback the callback to execute.
      */
     find(callback: (item: RouteInfo) => boolean): RouteInfo | undefined;
+}
+
+// https://api.emberjs.com/ember/4.0/classes/RouteInfoWithAttributes
+/**
+ * A `RouteInfoWithAttributes` is an object that contains
+ * metadata, including the resolved value from the routes
+ * `model` hook. Like `RouteInfo`, a `RouteInfoWithAttributes`
+ * represents a specific route within a Transition.
+ * It is read-only and internally immutable. It is also not
+ * observable, because a Transition instance is never
+ * changed after creation.
+ */
+export interface RouteInfoWithAttributes extends RouteInfo {
+    /**
+     * This is the resolved return value from the
+     * route's model hook.
+     */
+    readonly attributes: unknown;
 }

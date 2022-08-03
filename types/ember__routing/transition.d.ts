@@ -1,6 +1,15 @@
-import RouteInfo from './route-info';
-import RouteInfoWithAttributes from './route-info-with-attributes';
+import RouteInfo, { RouteInfoWithAttributes } from './route-info';
 
+/**
+ * A Transition is a thennable (a promise-like object) that represents an
+ * attempt to transition to another route. It can be aborted, either explicitly
+ * via `abort` or by attempting another transition while a previous one is still
+ * underway. An aborted transition can also be `retry()`d later.
+ *
+ * @note This is a non-user-constructible type. The only legal way to get a
+ *   transition is using one of the public API methods on routes, controllers,
+ *   the router service, etc.
+ */
 export default interface Transition<T = unknown> extends Partial<Promise<T>> {
     /**
      * Custom state can be stored on a Transition's `data` object.

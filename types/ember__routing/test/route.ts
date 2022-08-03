@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import Array from '@ember/array';
 import EmberObject from '@ember/object';
 import Controller from '@ember/controller';
-import Transition from '@ember/routing/-private/transition';
+import Transition from '@ember/routing/transition';
 
 class Post extends EmberObject {}
 
