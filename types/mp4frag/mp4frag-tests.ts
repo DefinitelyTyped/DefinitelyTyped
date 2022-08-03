@@ -69,3 +69,21 @@ m4f.getSegmentObject(null);
 
 // $ExpectType void
 m4f.resetCache();
+
+// $ExpectType SegmentObject
+const segmentObject = {
+    segment: Buffer.of(1, 2, 3),
+    sequence: -1,
+    duration: -1,
+    timestamp: -1,
+    keyframe: true,
+} as unknown as Mp4Frag.SegmentObject;
+
+// $ExpectType Mp4FragOptions
+const mp4FragOptions = {
+    hlsPlaylistBase: 'abc',
+    hlsPlaylistSize: 1,
+    hlsPlaylistExtra: 1,
+    hlsPlaylistInit: true,
+    segmentCount: 1,
+} as unknown as Mp4Frag.Mp4FragOptions;
