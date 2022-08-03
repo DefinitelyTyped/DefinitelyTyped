@@ -5,7 +5,7 @@
 /*
 *  Init prepares the SyncStorage to work synchronously, by getting all values for all keys previously saved on RN AsyncStorage.
 */
-export function init(): any;
+export function init(): void;
 /*
 *  Returns value of key
 */
