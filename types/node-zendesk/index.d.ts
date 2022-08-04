@@ -1,6 +1,7 @@
 // Type definitions for node-zendesk 2.0
 // Project: https://github.com/blakmatrix/node-zendesk
 // Definitions by: jgeth <https://github.com/jgeth>
+//                 dannyhostetler <https://github.com/dannyhostetler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
@@ -25,7 +26,7 @@ export interface Client {
     forums: unknown;
     forumsubscriptions: unknown;
     groupmemberships: unknown;
-    groups: unknown;
+    groups: Groups.Methods;
     helpers: unknown;
     imports: unknown;
     installations: unknown;
@@ -847,6 +848,79 @@ export namespace Tickets {
 }
 
 /**
+ * @see {@link https://developer.zendesk.com/rest_api/docs/support/groups|Zendesk Groups}
+ */
+export namespace Groups {
+    interface Methods {
+        /** Listing Groups */
+        list(): Promise<ListPayload>;
+        list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+
+        /** Viewing Groups */
+        assignable(): Promise<ListPayload>;
+        assignable(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        show(groupId: GroupID): Promise<ListPayload>;
+        show(groupId: GroupID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+
+        /** Creating Groups */
+        create(group: CreatePayload): Promise<ResponsePayload>;
+        create(group: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+
+        /** Updating Groups */
+        update(groupID: GroupID, group: UpdatePayload): Promise<ResponsePayload>;
+        update(groupID: GroupID, group: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+
+        /** Deleting Groups */
+        delete(groupID: GroupID): Promise<unknown>;
+        delete(groupID: GroupID, cb: ZendeskCallback<unknown, unknown>): unknown;
+    }
+
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/groups#create-group|Zendesk Groups Create}
+     */
+    interface CreateModel {
+        name: string | null | undefined;
+        default?: boolean;
+        description?: string | null | undefined;
+    }
+
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/groups#update-group|Zendesk Groups Update}
+     */
+    interface UpdateModel {
+        name?: string;
+        description?: string | null | undefined;
+    }
+
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/groups/#json-format|Zendesk Groups JSON Format}
+     */
+    interface ResponseModel extends AuditableModel {
+        readonly default: boolean;
+        readonly deleted: boolean;
+        readonly description: string;
+        readonly name: string | null;
+        readonly url: string | null;
+    }
+
+    interface CreatePayload {
+        readonly group: CreateModel;
+    }
+
+    interface UpdatePayload {
+        readonly group: UpdateModel;
+    }
+
+    interface ResponsePayload {
+        readonly group: ResponseModel;
+    }
+
+    interface ListPayload extends PaginablePayload {
+        readonly groups: ReadonlyArray<ResponseModel>;
+    }
+}
+
+/**
  * @see {@link https://developer.zendesk.com/rest_api/docs/support/users|Zendesk Users}
  */
 export namespace Users {
@@ -1207,3 +1281,5 @@ export interface AuditableModel extends TemporalModel {
 }
 
 export type ZendeskID = number;
+
+export type GroupID = number;
