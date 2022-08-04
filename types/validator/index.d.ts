@@ -950,7 +950,7 @@ declare namespace validator {
          * @default false
          */
         no_symbols?: boolean | undefined;
-        locale?: AlphaLocale;
+        locale?: AlphaLocale | undefined;
     }
 
     /**
