@@ -1056,9 +1056,7 @@ declare namespace Tagify {
      * Event data for events related to the dropdown feature.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface DropDownEventData<T extends BaseTagData = TagData> extends EventData<T> {
-        dropdown: HTMLElement;
-    }
+    interface DropDownEventData<T extends BaseTagData = TagData> extends HTMLDivElement, EventData<T> { }
 
     /**
      * A tag has been added.
@@ -1125,7 +1123,11 @@ declare namespace Tagify {
      * Suggestions dropdown item selected (by mouse / keyboard/ touch).
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface DropDownSelectEventData<T extends BaseTagData = TagData> extends SingleEventData<T, string> { }
+    interface DropDownSelectEventData<T extends BaseTagData = TagData> extends EventData<T> {
+        data: T;
+        elm: DomReference['dropdown'];
+        event: MouseEvent | {};
+    }
 
     /**
      * Tells the percentage scrolled. (`event.detail.percentage`).
