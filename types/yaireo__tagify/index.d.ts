@@ -599,7 +599,7 @@ declare namespace Tagify {
         ((event: MouseEvent | KeyboardEvent, data: SuggestionClickData<T>) => Promise<void>);
 
         /**
-         * Hook invoked when the user pastes a string into Tagify. It can be used to changed
+         * Hook invoked when the user pastes a string into Tagify. It can be used to change
          * the pasted string before it gets added to Tagify.
          * @param event Clipboard event
          * @param data Data object with pasted text and clipboard data.
@@ -751,7 +751,7 @@ declare namespace Tagify {
          * occurs.
          */
         callbacks?: {
-            [K in keyof EventDataMap]?: (event: CustomEvent<EventDataMap[K]>) => void;
+            [K in keyof EventDataMap]?: (event: CustomEvent<EventDataMap<T>[K]>) => void;
         } | undefined;
 
         /**
@@ -1472,12 +1472,12 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * Creates a new tagify editor on the given input element.
      * @param inputElement Input or textarea element to convert into a tagify
      * editor.
-     * @param settings Optional settings to configure the customize the tagify
+     * @param settings Optional settings to configure the tagify
      * editor.
      */
     constructor(
         inputElement: HTMLInputElement | HTMLTextAreaElement,
-        settings?: Tagify.TagifyConstructorSettings<T>
+        settings?: Tagify.TagifySettings<T>
     );
 
     /**
@@ -1770,7 +1770,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * Update `value` (array of tag data) by traversing all valid tags.
      *
      * Iterates all tag DOM nodes and rebuilds the `value` array. Call this if
-     * tags get sorted manually)
+     * tags get sorted manually.
      */
     updateValueByDOMTags(): void;
 
@@ -1783,7 +1783,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      */
     parseTemplate<K extends keyof Tagify.TemplatesRuntime>(
         template: K,
-        data: Parameters<Exclude<Tagify.TemplatesRuntime[K], null>>
+        data: Parameters<Exclude<Tagify.TemplatesRuntime<T>[K], null>>
     ): HTMLElement;
 
     /**
@@ -1841,7 +1841,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      */
     off<K extends keyof Tagify.EventDataMap>(
         event: K,
-        callback: (event: CustomEvent<Tagify.EventDataMap[K]>) => void
+        callback: (event: CustomEvent<Tagify.EventDataMap<T>[K]>) => void
     ): this;
 
     /**
@@ -1853,7 +1853,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      */
     on<K extends keyof Tagify.EventDataMap>(
         event: K,
-        callback: (event: CustomEvent<Tagify.EventDataMap[K]>) => void
+        callback: (event: CustomEvent<Tagify.EventDataMap<T>[K]>) => void
     ): this;
 }
 

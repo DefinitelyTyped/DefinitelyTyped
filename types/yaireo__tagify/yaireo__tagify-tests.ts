@@ -380,6 +380,12 @@ const typedSettings: TagifyConstructorSettings<MyTagData> = {
     hooks: {
         beforeRemoveTag: async tags => { tags.map(t => t.name.substring(0)); },
     },
+    callbacks: {
+        "edit:start": event => {
+            // $ExpectType MyTagData
+            event.detail.data;
+        }
+    }
 };
 
 const partialSettings: TagifySettings = {
@@ -828,6 +834,13 @@ tagify.off('dropdown:select', (event) => {
     event.detail.value;
 });
 
+typedTagify.on('edit:start', (event) => {
+    // $ExpectType Tagify<MyTagData>
+    event.detail.tagify;
+    // $ExpectType MyTagData
+    event.detail.data;
+});
+
 const tags: TagData[] = [
     { value: 'banana', color: 'yellow' },
     { value: 'apple', color: 'red' },
@@ -948,6 +961,9 @@ tagify.parseTemplate('dropdownItemNoMatch', [{ value: "" }]);
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
 // @ts-expect-error
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags]);
+// @ts-expect-error
+typedTagify.parseTemplate('tag', [tags[0], typedTagify]);
+typedTagify.parseTemplate('tag', [{ value: 'bar', title: "", name: "", active: false }, typedTagify]);
 tagify.setReadonly(false);
 tagify.setDisabled(false);
 tagify.setDisabled(true);
