@@ -554,6 +554,43 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    // create and read PKCS#7 SignedData
+    let p7 = forge.pkcs7.createSignedData();
+    p7.content = 'Hello World';
+    p7.addCertificate(cert);
+    p7.addSigner({
+        key: keypair.privateKey,
+        certificate: cert,
+        digestAlgorithm: forge.pki.oids.sha256,
+        authenticatedAttributes: [
+            {
+                type: forge.pki.oids.contentType,
+                value: forge.pki.oids.data,
+            },
+            {
+                type: forge.pki.oids.messageDigest,
+                // autopopulated at signing time
+            },
+            {
+                type: forge.pki.oids.signingTime,
+                // autopopulated at signing time
+            },
+        ],
+    });
+    p7.sign({ detached: false });
+
+    // to / from PEM
+    let pemData = forge.pkcs7.messageToPem(p7);
+    let fromPem = forge.pkcs7.messageFromPem(pemData);
+    console.log(fromPem.content);
+
+    // to / from ASN.1
+    let asnData = p7.toAsn1();
+    let fromAsn = forge.pkcs7.messageFromAsn1(asnData);
+    console.log(fromAsn.content);
+}
+
+{
     let key = null;
     let cert = forge.pki.createCertificate();
     let password = null;

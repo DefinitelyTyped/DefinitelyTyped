@@ -417,7 +417,7 @@ declare module "node-forge" {
             /**
              * Gets an issuer or subject attribute from its name, type, or short name.
              *
-             * @param options a short name string or an object with:
+             * @param opts a short name string or an object with:
              *          shortName the short name for the attribute.
              *          name the name for the attribute.
              *          type the type for the attribute.
@@ -836,9 +836,38 @@ declare module "node-forge" {
 
         function createEnvelopedData(): PkcsEnvelopedData;
 
+        /** When a PKCS#7 object has been created by reading from a message, the raw captured object is joined */
+        type Captured<T> = T & {
+            rawCapture: any;
+        };
+
+        /**
+         * Converts a PKCS#7 message to PEM format.
+         *
+         * @param msg The PKCS#7 message object
+         * @param maxline The maximum characters per line, defaults to 64.
+         *
+         * @return The PEM-formatted PKCS#7 message.
+         */
         function messageToPem(msg: PkcsSignedData, maxline?: number): string;
 
-        function messageFromPem(pem: pki.PEM): PkcsEnvelopedData | PkcsSignedData;
+        /**
+         * Converts a PKCS#7 message from PEM format.
+         *
+         * @param pem the PEM-formatted PKCS#7 message.
+         *
+         * @return the PKCS#7 message.
+         */
+        function messageFromPem(pem: pki.PEM): Captured<PkcsEnvelopedData | PkcsSignedData>;
+
+        /**
+         * Converts a PKCS#7 message from an ASN.1 object.
+         *
+         * @param asn the ASN.1 representation of a ContentInfo.
+         *
+         * @return the PKCS#7 message.
+         */
+        function messageFromAsn1(asn: asn1.Asn1): Captured<PkcsEnvelopedData | PkcsSignedData>;
     }
 
     namespace pkcs5 {
