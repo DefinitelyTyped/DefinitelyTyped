@@ -2,6 +2,7 @@
 // Project: https://github.com/4Catalyzer/graphql-validation-complexity (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
 // Definitions by: Krunal G <https://github.com/krunalg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.1
 
 import type { ASTNode, GraphQLError, ValidationContext } from 'graphql';
 
