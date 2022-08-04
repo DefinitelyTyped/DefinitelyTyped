@@ -12,12 +12,13 @@
         "typeRoots": [
             "../"
         ],
-        "types": [],
+        "types": [
+        ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "minipass-tests.ts"
+        "alipayjssdk-tests.ts"
     ]
 }

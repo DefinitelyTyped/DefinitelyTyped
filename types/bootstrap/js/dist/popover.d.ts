@@ -83,6 +83,11 @@ declare class Popover extends BaseComponent {
      * Updates the position of an element’s popover.
      */
     update(): void;
+
+    /**
+     * Gives a way to change the popover’s content after its initialization.
+     */
+    setContent(content?: Record<string, string | Element | Tooltip.SetContentFunction | null>): void;
 }
 
 declare namespace Popover {
@@ -155,6 +160,7 @@ declare namespace Popover {
             | 'disable'
             | 'toggleEnabled'
             | 'update'
+            | 'setContent'
             | 'dispose',
     ) => JQuery;
 }

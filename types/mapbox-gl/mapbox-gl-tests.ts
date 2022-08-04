@@ -937,6 +937,24 @@ map.getPadding();
 // $ExpectType Map
 map.setPadding({ top: 10, bottom: 20, left: 30, right: 40 }, { myData: 'MY DATA' });
 
+map.setPaintProperty('layerId', 'layerName', null, { validate: true });
+map.setPaintProperty('layerId', 'layerName', null, { validate: false });
+map.setPaintProperty('layerId', 'layerName', null, {});
+// @ts-expect-error
+map.setPaintProperty('layerId', 'layerName', null, { some_option: 'some_string' });
+
+map.setLayoutProperty('layerId', 'layerName', null, { validate: true });
+map.setLayoutProperty('layerId', 'layerName', null, { validate: false });
+map.setLayoutProperty('layerId', 'layerName', null, {});
+// @ts-expect-error
+map.setLayoutProperty('layerId', 'layerName', null, { some_option: 'some_string' });
+
+map.setLight({ anchor: 'viewport', color: 'blue', intensity: 0.5 }, { validate: true });
+map.setLight({ anchor: 'viewport', color: 'blue', intensity: 0.5 }, { validate: false });
+map.setLight({ anchor: 'viewport', color: 'blue', intensity: 0.5 }, {});
+// @ts-expect-error
+map.setLight({ anchor: 'viewport', color: 'blue', intensity: 0.5 }, { some_option: 'some_string' });
+
 // $ExpectType boolean
 map.showPadding;
 map.showPadding = false;

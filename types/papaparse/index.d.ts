@@ -14,6 +14,8 @@
 
 /// <reference types="node" />
 
+import { Duplex } from "stream";
+
 export as namespace Papa;
 
 /**
@@ -69,11 +71,11 @@ export function parse<T>(
  * Parse in a node streaming style
  * @param stream `NODE_STREAM_INPUT`
  * @param config a config object.
- * @returns a node stream.
+ * @returns a node duplex stream.
  *
  * @see https://github.com/mholt/PapaParse#papa-parse-for-node
  */
-export function parse(stream: typeof NODE_STREAM_INPUT, config?: ParseConfig): NodeJS.ReadWriteStream;
+export function parse(stream: typeof NODE_STREAM_INPUT, config?: ParseConfig): Duplex;
 
 /**
  * Unparses javascript data objects and returns a csv string
