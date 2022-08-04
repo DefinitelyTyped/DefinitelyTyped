@@ -26,3 +26,12 @@ export interface KinesisStreamRecord {
 export interface KinesisStreamEvent {
     Records: KinesisStreamRecord[];
 }
+
+// https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html
+export KinesisStreamBatchResponse {
+    batchItemFailures: KinesisStreamBatchItemFailure[]
+}
+
+export KinesisStreamBatchItemFailure {
+    itemIdentifier: string;
+}
