@@ -13,6 +13,13 @@ interface ErrorConstructor {
     stackTraceLimit: number;
 }
 
+interface Error {
+  /**
+   * @see https://nodejs.org/dist/latest/docs/api/errors.html#nodejs-error-codes
+   */
+  code?: string;
+}
+
 /*-----------------------------------------------*
  *                                               *
  *                   GLOBAL                      *
