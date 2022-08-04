@@ -1,2 +1,2 @@
-// Placeholder sanity check.
+// Placeholder test file.
 googletag.cmd;
