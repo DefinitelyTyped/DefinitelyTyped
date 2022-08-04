@@ -17,7 +17,7 @@ interface Error {
   /**
    * @see https://nodejs.org/dist/latest/docs/api/errors.html#nodejs-error-codes
    */
-  code?: string;
+  code?: string | number;
 }
 
 /*-----------------------------------------------*
