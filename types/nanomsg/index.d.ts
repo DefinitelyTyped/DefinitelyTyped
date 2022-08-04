@@ -9,23 +9,23 @@
 import { EventEmitter } from "events";
 
 export interface Options {
-    raw?: boolean;
-    tcpnodelay?: boolean;
-    maxttl?: number;
-    linger?: number;
-    sndbuf?: number;
-    rcvbuf?: number;
-    sndtimeo?: number;
-    rcvtimeo?: number;
-    reconn?: number;
-    maxreconn?: number;
-    sndprio?: number;
-    rcvprio?: number;
-    ipv6?: boolean;
-    rcvmaxsize?: number;
-    chan?: string[];
-    wsopt?: 'text' | 'binary';
-    dontwait?: boolean;
+    raw?: boolean | undefined;
+    tcpnodelay?: boolean | undefined;
+    maxttl?: number | undefined;
+    linger?: number | undefined;
+    sndbuf?: number | undefined;
+    rcvbuf?: number | undefined;
+    sndtimeo?: number | undefined;
+    rcvtimeo?: number | undefined;
+    reconn?: number | undefined;
+    maxreconn?: number | undefined;
+    sndprio?: number | undefined;
+    rcvprio?: number | undefined;
+    ipv6?: boolean | undefined;
+    rcvmaxsize?: number | undefined;
+    chan?: string[] | undefined;
+    wsopt?: 'text' | 'binary' | undefined;
+    dontwait?: boolean | undefined;
 }
 
 export type SocketType =
