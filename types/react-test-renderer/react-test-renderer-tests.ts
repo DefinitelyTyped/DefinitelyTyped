@@ -80,8 +80,8 @@ shallowRenderer.getMountedInstance();
 act(() => {});
 // @ts-expect-error
 act(() => null);
-// @ts-expect-error
-Promise.resolve(act(() => {}));
+// TODO: @ts-expect-error is broken on Typescript 4.8 because Promise.resolve type is simpler.
+// Promise.resolve(act(() => {}));
 
 // async act is now acceptable in React 16.9,
 // but the result must be void or undefined
