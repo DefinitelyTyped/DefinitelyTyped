@@ -6219,7 +6219,7 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return A Promise is returned when setting the state, and a boolean when getting
      *         the present state
      */
-    audioOnlyMode(value: boolean): void;
+    audioOnlyMode(value: boolean): Promise<void>;
 
     audioOnlyMode(): Promise<void> | boolean;
 
