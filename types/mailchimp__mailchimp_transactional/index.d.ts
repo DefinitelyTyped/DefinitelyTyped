@@ -608,7 +608,7 @@ declare namespace Mailchimp {
          *
          * Send a new transactional message through the Transactional API using a template.
          */
-        sendTemplate(body: MessagesSendTemplateRequest): Promise<MessagesSendResponse | AxiosError>;
+        sendTemplate(body: MessagesSendTemplateRequest): Promise<MessagesSendResponse[] | AxiosError>;
     }
 
     interface MessagesCancelScheduledRequest extends BaseRequest {
