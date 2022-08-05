@@ -120,7 +120,7 @@ export default class Application extends Engine {
  * objects is the responsibility of an "owner", which handled its
  * instantiation and manages its lifetime.
  */
-export function getOwner(object: unknown): Owner;
+export function getOwner(object: unknown): Owner | undefined;
 /**
  * `setOwner` forces a new owner on a given object instance. This is primarily
  * useful in some testing cases.
