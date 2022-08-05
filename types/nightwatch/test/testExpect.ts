@@ -1,7 +1,5 @@
 // Expect test for language chains
 
-import { describe, it } from 'nightwatch';
-
 it('expect.equal(value)/.contain(value)/.match(regex)', () => {
     browser.expect.element('#main').text.to.equal('The Night Watch');
     browser.expect.element('#main').text.to.contain('The Night Watch');

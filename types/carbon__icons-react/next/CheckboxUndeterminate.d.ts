@@ -1,1 +1,0 @@
-export { CheckboxUndeterminate as default } from "./";
