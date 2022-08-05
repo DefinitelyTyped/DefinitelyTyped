@@ -89,10 +89,10 @@ useOnce(() => null);
 // @ts-expect-error
 useOnce(() => {});
 
-// $ExpectType ReactNode
+// $ExpectType ReactElement<any, any> | null
 Subscription({ model: useVirtual(), children: <>Abc</> });
 
-// $ExpectType ReactNode
+// $ExpectType ReactElement<any, any> | null
 Subscription({ model: useVirtual(), events: [EventType.EVT_FROM], children: <>Abc</> });
 
 // @ts-expect-error

@@ -1,0 +1,24 @@
+import { List } from 'af-utils__react-virtual-list';
+import { useVirtualModel } from '@af-utils/react-virtual-headless';
+import * as React from 'react';
+
+const model = useVirtualModel();
+const itemData = [{ name: 'item1' }, { name: 'item2' }, { name: 'item3' }];
+
+const renderList = () => {
+    return (
+        <List
+            model={model}
+            itemData={itemData}
+            className="list"
+            component={'span'}
+            getKey={i => i + 1}
+            tabIndex={2}
+            countOffset
+        >
+            {({ data }) => {
+                return <div>{data.name}</div>;
+            }}
+        </List>
+    );
+};

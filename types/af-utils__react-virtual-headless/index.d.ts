@@ -10,7 +10,7 @@ import * as React from 'react';
  * Currently only List is implemented (or even mentioned).
  * Rather than basing all functions on List, I'll base them on Model to make it easier if more models are added.
  */
-interface Model extends React.ComponentClass {
+export interface Model extends React.ComponentClass {
     readonly from: number;
     readonly to: number;
     readonly scrollSize: number;
@@ -70,13 +70,12 @@ export function useOnce<T extends React.ReactNode>(callback: () => T): T;
 interface SubscriptionProps {
     model: Model;
     events?: EventType[];
-    children: React.ReactNode;
 }
 
 /**
  * Subscription is a component that wraps the useComponentSubscription hook.
  */
-export function Subscription(props: SubscriptionProps): React.ReactNode;
+export const Subscription: React.FC<React.PropsWithChildren<SubscriptionProps>>;
 
 /**
  * mapVisibleRange is a helper function for rendering the visible elements in a model.
