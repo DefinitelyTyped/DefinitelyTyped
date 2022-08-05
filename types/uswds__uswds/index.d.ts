@@ -3,4 +3,4 @@
 // Definitions by: Morgan Spencer <https://github.com/morganmspencer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export { };
+export {};
