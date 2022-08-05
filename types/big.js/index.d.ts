@@ -234,7 +234,7 @@ export interface Big {
      */
     mul(n: BigSource): Big;
     /**
-     * Return a new Big whose value is the value of this Big times the value of Big y.
+     * Return a new Big whose value is the value of this Big negated.
      */
     neg(): Big;
     /**
