@@ -116,7 +116,7 @@ checkType<MessagesSendResponse[]>(
         },
     }),
 );
-checkType<MessagesSendResponse>(
+checkType<MessagesSendResponse[]>(
     mailchimp.messages.sendTemplate({
         template_name: 'my-template-slug',
         template_content: [],
