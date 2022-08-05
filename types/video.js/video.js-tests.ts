@@ -92,7 +92,6 @@ const playerOptions: VideoJsPlayerOptions = {
     suppressNotSupportedError: false,
     techCanOverridePoster: false,
     "vtt.js": 'https://example.com/vtt.js',
-    playsinline: true,
     disablePictureInPicture: false,
     enableSourceset: true,
     retryOnError: true
