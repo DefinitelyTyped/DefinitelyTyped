@@ -3,7 +3,7 @@
 import * as http from 'http';
 import { Readable, Stream } from 'stream';
 
-import * as shared from './shared';
+import * as shared from '../shared';
 
 type ms = number;
 type s = number;

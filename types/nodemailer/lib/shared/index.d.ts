@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import SMTPConnection = require('./smtp-connection');
+import SMTPConnection = require('../smtp-connection');
 
 import * as stream from 'stream';
 
