@@ -6232,9 +6232,8 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return A Promise is returned when setting the state, and a boolean when getting
      *         the present state
      */
-    audioPosterMode(value: boolean): void;
-
-    audioPosterMode(): Promise<void> | boolean;
+    audioPosterMode(value: boolean): Promise<void>
+    audioPosterMode(): boolean;
 
     /**
      * Get or set the autoplay option. When this is a boolean it will
