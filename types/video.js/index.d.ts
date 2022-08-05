@@ -6221,7 +6221,7 @@ export interface VideoJsPlayer extends videojs.Component {
      */
     audioOnlyMode(value: boolean): Promise<void>;
 
-    audioOnlyMode(): Promise<void> | boolean;
+    audioOnlyMode(): boolean;
 
     /**
      * Get the current audioPosterMode state or set audioPosterMode to true or false
