@@ -7288,7 +7288,6 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     suppressNotSupportedError?: boolean | undefined;
     techCanOverridePoster?: boolean | undefined;
     'vtt.js'?: string | undefined;
-    playsinline?: boolean | undefined;
     disablePictureInPicture?: boolean | undefined;
     enableSourceset?: boolean | undefined;
     retryOnError?: boolean | undefined;
