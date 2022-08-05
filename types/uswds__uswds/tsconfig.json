@@ -22,8 +22,9 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
+    "include": [
         "index.d.ts",
+        "**/*.d.ts",
         "uswds__uswds-tests.ts"
     ]
 }
