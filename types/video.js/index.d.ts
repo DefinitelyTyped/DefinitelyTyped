@@ -7236,7 +7236,7 @@ export interface VideoJsPlayer extends videojs.Component {
     width(value: number): void;
 
     width(): number;
-  }
+}
 
 export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     aspectRatio?: string | undefined;
