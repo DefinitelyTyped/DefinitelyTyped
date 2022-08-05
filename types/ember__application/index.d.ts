@@ -15,6 +15,8 @@ import Registry from '@ember/application/-private/registry';
 import Resolver from 'ember-resolver';
 import { AnyFn } from 'ember/-private/type-utils';
 import Owner from '@ember/owner';
+import type GlimmerComponent from '@glimmer/component';
+import EmberObject from '@ember/object';
 
 /**
  * An instance of Ember.Application is the starting point for every Ember application. It helps to
@@ -114,12 +116,21 @@ export default class Application extends Engine {
     buildInstance(options?: object): ApplicationInstance;
 }
 
+// Known framework objects, so that `getOwner` can always, accurately, return
+// `Owner` when working with one of these classes, which the framework *does*
+// guarantee will always have an `Owner`. NOTE: this must be kept up to date
+// whenever we add new base classes to the framework. For example, if we
+// introduce a standalone `Service` or `Route` base class which *does not*
+// extend from `EmberObject`, it will need to be added here.
+type FrameworkObject = EmberObject | GlimmerComponent;
+
 /**
  * Framework objects in an Ember application (components, services, routes, etc.)
  * are created via a factory and dependency injection system. Each of these
  * objects is the responsibility of an "owner", which handled its
  * instantiation and manages its lifetime.
  */
+export function getOwner(object: FrameworkObject): Owner;
 export function getOwner(object: unknown): Owner | undefined;
 /**
  * `setOwner` forces a new owner on a given object instance. This is primarily

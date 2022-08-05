@@ -43,7 +43,7 @@ Ember.get({ z: 23 }, 'zz'); // $ExpectType unknown
 // getEngineParent
 Ember.getEngineParent(new Ember.EngineInstance()); // $ExpectType EngineInstance
 // getOwner
-Ember.getOwner(new Ember.Component());
+Ember.getOwner(new Ember.Component()); // $ExpectType Owner
 // getProperties
 Ember.getProperties({ z: 23 }, 'z').z; // $ExpectType number
 Ember.getProperties({ z: 23 }, 'z', 'z').z; // $ExpectType number
