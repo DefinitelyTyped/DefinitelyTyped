@@ -20,7 +20,7 @@ export class ContentState extends Draft.ContentState {}
 export class ContentBlock extends Draft.ContentBlock {}
 export class SelectionState extends Draft.SelectionState {}
 
-export interface EditorProps {
+export interface EditorProps extends Draft.EditorProps {
     webDriverTestID?: string | undefined;
     onChange?(contentState: RawDraftContentState): void;
     onEditorStateChange?(editorState: EditorState): void;
