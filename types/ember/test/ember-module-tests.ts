@@ -106,7 +106,8 @@ Ember.set(o2.create(), 'age', 4); // $ExpectType number
 // @ts-expect-error
 Ember.set(o2.create(), 'nam', 'bar');
 // setOwner
-Ember.setOwner(o2.create(), {});
+declare let app: Ember.ApplicationInstance;
+Ember.setOwner(o2.create(), app);
 // setProperties
 Ember.setProperties(o2.create(), { name: 'bar' }).name; // $ExpectType string
 // trySet
