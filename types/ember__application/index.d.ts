@@ -14,6 +14,7 @@ import { Router } from '@ember/routing';
 import Registry from '@ember/application/-private/registry';
 import Resolver from 'ember-resolver';
 import { AnyFn } from 'ember/-private/type-utils';
+import Owner from '@ember/owner';
 
 /**
  * An instance of Ember.Application is the starting point for every Ember application. It helps to
@@ -119,12 +120,12 @@ export default class Application extends Engine {
  * objects is the responsibility of an "owner", which handled its
  * instantiation and manages its lifetime.
  */
-export function getOwner(object: unknown): unknown;
+export function getOwner(object: unknown): Owner;
 /**
  * `setOwner` forces a new owner on a given object instance. This is primarily
  * useful in some testing cases.
  */
-export function setOwner(object: unknown, owner: unknown): void;
+export function setOwner(object: unknown, owner: Owner): void;
 
 /**
  * Detects when a specific package of Ember (e.g. 'Ember.Application')
