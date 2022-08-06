@@ -6443,7 +6443,7 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return - The current crossOrigin value of the `Player` when getting.
      *         - undefined when setting
      */
-    crossOrigin(value: string): void;
+    crossOrigin(value: 'anonymous' | 'use-credentials'): void;
 
     crossOrigin(): string;
 
