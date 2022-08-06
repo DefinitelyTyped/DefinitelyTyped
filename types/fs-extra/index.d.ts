@@ -68,23 +68,23 @@ export function outputFile(
 ): void;
 export function outputFileSync(file: string, data: any, options?: WriteFileOptions | BufferEncoding | string): void;
 
-export function readJson(file: string, options?: ReadOptions | BufferEncoding | string): Promise<any>;
-export function readJson(file: string, callback: (err: Error, jsonObject: any) => void): void;
-export function readJson(
+export function readJson<T = any>(file: string, options?: ReadOptions | BufferEncoding | string): Promise<T>;
+export function readJson<T = any>(file: string, callback: (err: Error, jsonObject: T) => void): void;
+export function readJson<T = any>(
     file: string,
     options: ReadOptions | BufferEncoding | string,
-    callback: (err: Error, jsonObject: any) => void,
+    callback: (err: Error, jsonObject: T) => void,
 ): void;
-export function readJSON(file: string, options?: ReadOptions | BufferEncoding | string): Promise<any>;
-export function readJSON(file: string, callback: (err: Error, jsonObject: any) => void): void;
-export function readJSON(
+export function readJSON<T = any>(file: string, options?: ReadOptions | BufferEncoding | string): Promise<T>;
+export function readJSON<T = any>(file: string, callback: (err: Error, jsonObject: T) => void): void;
+export function readJSON<T = any>(
     file: string,
     options: ReadOptions | BufferEncoding | string,
-    callback: (err: Error, jsonObject: any) => void,
+    callback: (err: Error, jsonObject: T) => void,
 ): void;
 
-export function readJsonSync(file: string, options?: ReadOptions | BufferEncoding | string): any;
-export function readJSONSync(file: string, options?: ReadOptions | BufferEncoding | string): any;
+export function readJsonSync<T = any>(file: string, options?: ReadOptions | BufferEncoding | string): T;
+export function readJSONSync<T = any>(file: string, options?: ReadOptions | BufferEncoding | string): T;
 
 export function remove(dir: string, callback: (err: Error) => void): void;
 export function remove(dir: string, callback?: (err: Error) => void): Promise<void>;

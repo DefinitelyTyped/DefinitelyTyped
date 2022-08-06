@@ -187,10 +187,18 @@ fs.readJson(file, (error: Error, jsonObject: any) => {});
 fs.readJson(file, readOptions, (error: Error, jsonObject: any) => {});
 fs.readJson(file, 'utf-8', (error: Error, jsonObject: any) => {});
 fs.readJson(file, { encoding: 'utf-8' }, (error: Error, jsonObject: any) => {});
+fs.readJson<{ foo: string }>(file).then(res => {
+    // stub
+});
+fs.readJson<{ foo: string }>(file, (error: Error, jsonObject) => {});
 fs.readJSON(file, (error: Error, jsonObject: any) => {});
 fs.readJSON(file, readOptions, (error: Error, jsonObject: any) => {});
 fs.readJSON(file, 'utf-8', (error: Error, jsonObject: any) => {});
 fs.readJSON(file, { encoding: 'utf-8' }, (error: Error, jsonObject: any) => {});
+fs.readJSON<{ foo: string }>(file).then(res => {
+    // stub
+});
+fs.readJSON<{ foo: string }>(file, (error: Error, jsonObject) => {});
 
 fs.readJsonSync(file, readOptions);
 fs.readJSONSync(file, readOptions);
