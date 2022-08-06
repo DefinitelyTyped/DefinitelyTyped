@@ -51,14 +51,14 @@ export interface ComponentMap {
     CellForEmptyRow?: (props: Record<string, unknown>) => React.ReactNode;
 
     HeaderCells?: ({columns, components}: {
-        columns: TableColumn[];
+        columns: ColumnModel[];
         components: ComponentMap;
     }) => React.ReactNode;
     // Same as above.
     HeaderCell?: (props: Record<string, unknown>) => React.ReactNode;
 
     FooterCells?: ({columns, components}: {
-        columns: TableColumn[];
+        columns: ColumnModel[];
         components: ComponentMap;
     }) => React.ReactNode;
     FooterCell?: (props: Record<string, unknown>) => React.ReactNode;
@@ -71,6 +71,8 @@ export interface ComponentMap {
         data: RowProps;
     }) => React.ReactNode;
 }
+
+export const DefaultTableComponents: ComponentMap;
 
 export interface TableColumnProps {
     key: string;
@@ -88,11 +90,11 @@ export interface TableColumnProps {
 }
 
 /**
- * TableColumn is a class for rendering column information.
+ * ColumnModel is a class for rendering column information.
  * Keys is declared as a static property of the class, which is used internally to map column props to instance variables.
  * TableColumnProps validates the types of these keys, but I thought the static property declaration should be included since it is exported.
  */
-export class TableColumn  {
+export class ColumnModel  {
     static readonly KEYS: [
         "key",
         "align",
@@ -123,7 +125,7 @@ export class TableColumn  {
 // The user could provide any DOM element (with varying results on their end lol) as the base table element.
 export interface TableProps extends React.HTMLAttributes<HTMLElement> {
     model: Headless.Model;
-    columns: TableColumn[];
+    columns: ColumnModel[];
 
     // getRowData is hard to confine to a single set of types
     // since you can overwrite the default Row component, you could then call getRowData with whatever you want.
@@ -141,7 +143,7 @@ export interface TableProps extends React.HTMLAttributes<HTMLElement> {
     className?: string;
 
     // Defaults to base TableColumn, can be extended
-    ColumnModel?: typeof TableColumn;
+    ColumnModel?: typeof ColumnModel;
 
     tabIndex?: number;
 }

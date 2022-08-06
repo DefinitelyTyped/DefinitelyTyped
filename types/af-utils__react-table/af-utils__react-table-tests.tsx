@@ -37,7 +37,7 @@ const overrideAllExceptComponents = () => {
             headless={true}
             footer={true}
             className="test"
-            ColumnModel={Table.TableColumn}
+            ColumnModel={Table.ColumnModel}
             tabIndex={5}
             id="extra-prop-test"
         />
@@ -103,7 +103,7 @@ const components: Table.ComponentMap = {
         return <div className="cell">{props.data as string}</div>;
     },
 
-    HeaderCells: ({ columns, components }: { columns: Table.TableColumn[]; components: Table.ComponentMap }) => {
+    HeaderCells: ({ columns, components }: { columns: Table.ColumnModel[]; components: Table.ComponentMap }) => {
         return columns.map((col, i) => {
             return col.key;
         });
