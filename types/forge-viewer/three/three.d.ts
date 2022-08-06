@@ -1121,14 +1121,15 @@ declare namespace THREE {
             n21: number, n22: number, n23: number, n24: number,
             n31: number, n32: number, n33: number, n34: number,
             n41: number, n42: number, n43: number, n44: number): Matrix4;
-        setPosition(v: Vector3): Vector3;
+        setPosition(v: Vector3): Matrix4;
         transpose(): Matrix4;
     }
 
     class Mesh extends Object3D {
         drawMode: TrianglesDrawModes;
-        geometry: Geometry;
+        geometry: Geometry | BufferGeometry;
         material: Material;
+        dbId?: number;
 
         constructor(geometry?: Geometry | BufferGeometry, material?: Material);
 

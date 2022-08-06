@@ -133,7 +133,7 @@ client.webhooks.dispatchGet('/foo');
 
 // but not included in response objects
 client.tasks.getTask('123').then(task => {
-    // $ExpectError
+    // @ts-expect-error
     task.dispatchGet('/foo');
 });
 

@@ -1,9 +1,9 @@
-import inquirer = require('inquirer');
+import inquirer, { Answers, QuestionCollection } from 'inquirer';
 
 /**
  * When example
  */
-const questions: inquirer.QuestionCollection = [
+const questions: QuestionCollection = [
     {
         type: 'confirm',
         name: 'bacon',
@@ -34,7 +34,7 @@ const questions: inquirer.QuestionCollection = [
 ];
 
 function likesFood(aFood: string) {
-    return (answers: inquirer.Answers) => {
+    return (answers: Answers) => {
         return answers[aFood];
     };
 }

@@ -1,4 +1,4 @@
-import inquirer = require("inquirer");
+import inquirer from "inquirer";
 import askName = require("inquirer-npm-name");
 
 // $ExpectType Promise<{ [key: string]: string; }>

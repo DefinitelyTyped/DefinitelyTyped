@@ -53,6 +53,12 @@ declare namespace Autodesk {
           LAST_OBJECT,
         }
 
+        enum SelectionType {
+          MIXED = 1,
+          REGULAR = 2,
+          OVERLAYED = 3
+        }
+
         enum ProgressState {
           ROOT_LOADED,
           LOADING,
@@ -1066,6 +1072,12 @@ declare namespace Autodesk {
           constructor(viewer: Viewer3D);
         }
 
+        interface SelectionDef {
+          model: Model;
+          ids: number[];
+          selectionType?: SelectionType;
+        }
+
         class Viewer3D {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
@@ -1136,7 +1148,7 @@ declare namespace Autodesk {
             getSelectionCount(): number;
             setSelectionMode(mode: number): void;
             getSelection(): number[];
-            getAggregateSelection(callback?: (model: Model, dbId: number) => void): any[];
+            getAggregateSelection(callback?: (model: Model, dbId: number) => void): ReadonlyArray<{ model: Model, selection: number[] }>;
             getAggregateIsolation(): any[];
             getAggregateHiddenNodes(): any[];
             getAllModels(): Model[];
@@ -1150,6 +1162,7 @@ declare namespace Autodesk {
             isNodeVisible(node: number, model?: Model): boolean;
             explode(scale: number): void;
             getExplodeScale(): number;
+            setAggregateSelection(selection: SelectionDef[]): void;
             setQualityLevel(useSAO: boolean, useFXAA: boolean): void;
             setGhosting(value: boolean): void;
             setGroundShadow(value: boolean): void;
@@ -1220,6 +1233,7 @@ declare namespace Autodesk {
             worldToClient(pt: THREE.Vector3): THREE.Vector3;
             clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
             modelHasTopology(): boolean;
+            lockSelection(dbIds: number | number[], lock: boolean, model?: Model): void;
             setSelectionColor(col: THREE.Color, selectionType: number): void;
             set2dSelectionColor(col: THREE.Color, opacity: number): void;
             setTheme(name: string): void;

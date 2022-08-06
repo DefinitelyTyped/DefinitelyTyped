@@ -51,7 +51,7 @@ declare class Choice<T extends Answers = Answers>
     extra?: any;
 
     /**
-     * Initializes a new instance of the `Choice` class.
+     * Initializes a new instance of the {@link Choice `Choice<T>`} class.
      *
      * @param value
      * The value of the choice.
@@ -62,4 +62,4 @@ declare class Choice<T extends Answers = Answers>
     constructor(value: any, answers: T);
 }
 
-export = Choice;
+export default Choice;

@@ -42,6 +42,7 @@ const playerOptions: VideoJsPlayerOptions = {
     nativeControlsForTouch: true,
     notSupportedMessage: 'Oh no! :(',
     playbackRates: [0.5, 1],
+    playsinline: false,
     noUITitleAttributes: true,
     plugins: {
         myPlugin: {

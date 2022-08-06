@@ -266,6 +266,8 @@ export interface PlayerProps {
      * Seek the Video at A Specific Time On Load
      */
     startTime?: number;
+
+    children?: React.ReactNode;
 }
 
 export interface ShortcutItem {
@@ -330,6 +332,10 @@ export interface ControlBarProps {
      * Do not render the control bar if set it to true, default: `false`
      */
     disableCompletely?: boolean;
+
+    className?: string;
+
+    children?: React.ReactNode;
 }
 
 export interface ReplayControlProps {
@@ -344,6 +350,7 @@ export interface BigPlayButtonProps {
      * Determines the position of the big play button.
      */
     position?: 'center' | 'left' | 'left-top' | 'left-bottom' | 'right' | 'right-top' | 'right-bottom';
+    className?: string;
 }
 
 export interface ForwardControlProps {
@@ -484,6 +491,12 @@ export function ForwardControl(props: ForwardControlProps): JSX.Element;
  */
 export function VolumeMenuButton(props: VolumeMenuButtonProps): JSX.Element;
 
+export interface ClosedCaptionButtonProps extends ControlBarControlProps {
+    actions?: any;
+    offMenuText?: string;
+    showOffMenu?: boolean;
+    kinds?: string[];
+}
 /**
  * ### Component - ClosedCaptionButton
  *
@@ -494,7 +507,7 @@ export function VolumeMenuButton(props: VolumeMenuButtonProps): JSX.Element;
  *
  * https://video-react.js.org/components/closed-caption-button
  */
-export function ClosedCaptionButton(): JSX.Element;
+export function ClosedCaptionButton(props: ClosedCaptionButtonProps): JSX.Element;
 
 /**
  * ### Component - PlaybackRateMenuButton
@@ -506,3 +519,33 @@ export function ClosedCaptionButton(): JSX.Element;
  * https://video-react.js.org/components/playback-rate-menu-button
  */
 export function PlaybackRateMenuButton(props: PlaybackRateMenuButtonProps): JSX.Element;
+
+/**
+ * CurrentTimeDisplay, TimeDivider, DurationDisplay, ProgressControl
+ *
+ * Components that can be optionally included in the ControlBar to customize it.
+ *
+ * Reference: https://video-react.js.org/customize/enable-disable-components/
+ */
+
+export interface ControlBarControlProps {
+    order?: number;
+    className?: string;
+    player?: typeof Player;
+}
+
+export function CurrentTimeDisplay(props: ControlBarControlProps): JSX.Element;
+
+export function DurationDisplay(props: ControlBarControlProps): JSX.Element;
+
+export function ProgressControl(props: ControlBarControlProps): JSX.Element;
+
+export interface TimeDividerProps extends ControlBarControlProps {
+    separator?: string;
+}
+export function TimeDivider(props: TimeDividerProps): JSX.Element;
+
+export interface FullScreenToggleProps extends ControlBarControlProps {
+    actions: any;
+}
+export function FullscreenToggle(props: FullScreenToggleProps): JSX.Element;

@@ -3687,7 +3687,7 @@ declare module 'crypto' {
              * Valid key usages depend on the key algorithm (identified by `cryptokey.algorithm.name`).
              * @since v15.0.0
              */
-            readonly usages: KeyUsage;
+            readonly usages: KeyUsage[];
         }
         /**
          * The `CryptoKeyPair` is a simple dictionary object with `publicKey` and `privateKey` properties, representing an asymmetric key pair.

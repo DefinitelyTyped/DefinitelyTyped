@@ -1370,6 +1370,7 @@ import { promisify } from 'node:util';
     crypto.webcrypto.subtle.generateKey({ name: 'HMAC', hash: 'SHA-1' }, true, ['sign', 'decrypt', 'deriveBits']).then((out) => {
         out.algorithm; // $ExpectType KeyAlgorithm
         out.extractable; // $ExpectType boolean
+        out.usages; // $ExpectType KeyUsage[]
     });
 }
 

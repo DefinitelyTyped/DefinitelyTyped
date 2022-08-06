@@ -584,3 +584,140 @@ function reactNodeTests() {
     </div>;
     <div>{createChildren()}</div>;
 }
+
+function elementTypeTests() {
+    const ReturnVoid = () => {};
+    class RenderVoid extends React.Component {
+        // @ts-expect-error
+        render() {}
+    }
+
+    const ReturnUndefined = () => undefined;
+    class RenderUndefined extends React.Component {
+        render() {
+          return undefined;
+        }
+    }
+
+    const ReturnNull = () => null;
+    class RenderNull extends React.Component {
+        render() {
+          return null;
+        }
+    }
+
+    const ReturnNumber = () => 0xeac1;
+    class RenderNumber extends React.Component {
+        render() {
+          return 0xeac1;
+        }
+    }
+
+    const ReturnString = () => 'Hello, Dave!';
+    class RenderString extends React.Component {
+        render() {
+          return 'Hello, Dave!';
+        }
+    }
+
+    const ReturnSymbol = () => Symbol.for('react');
+    class RenderSymbol extends React.Component {
+        // @ts-expect-error
+        render() {
+          return Symbol.for('react');
+        }
+    }
+
+    const ReturnArray = () => [<div key="one" />];
+    class RenderArray extends React.Component {
+        render() {
+          return [<div key="one" />];
+        }
+    }
+
+    const ReturnElement = () => <div />;
+    class RenderElement extends React.Component {
+        render() {
+          return <div />;
+        }
+    }
+
+    const ReturnReactNode = ({children}: {children?: React.ReactNode}) => children;
+    class RenderReactNode extends React.Component<{children?: React.ReactNode}> {
+        render() {
+          return this.props.children;
+        }
+    }
+
+    // Desired behavior.
+    // @ts-expect-error
+    <ReturnVoid />;
+    // @ts-expect-error
+    React.createElement(ReturnVoid);
+    // @ts-expect-error
+    <RenderVoid />;
+    // @ts-expect-error
+    React.createElement(RenderVoid);
+
+    // Undesired behavior. Returning `undefined` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnUndefined />;
+    // @ts-expect-error
+    React.createElement(ReturnUndefined);
+    <RenderUndefined />;
+    React.createElement(RenderUndefined);
+
+    // Desired behavior.
+    <ReturnNull />;
+    React.createElement(ReturnNull);
+    <RenderNull />;
+    React.createElement(RenderNull);
+
+    // Undesired behavior. Returning `number` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnNumber />;
+    // @ts-expect-error
+    React.createElement(ReturnNumber);
+    <RenderNumber />;
+    React.createElement(RenderNumber);
+
+    // Undesired behavior. Returning `string` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnString />;
+    // @ts-expect-error
+    React.createElement(ReturnString);
+    <RenderString />;
+    React.createElement(RenderString);
+
+    // Desired behavior.
+    // @ts-expect-error
+    <ReturnSymbol />;
+    // @ts-expect-error
+    React.createElement(ReturnSymbol);
+    // @ts-expect-error
+    <RenderSymbol />;
+    // @ts-expect-error
+    React.createElement(RenderSymbol);
+
+    // Undesired behavior. Returning `Array` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnArray />;
+    // @ts-expect-error
+    React.createElement(ReturnArray);
+    <RenderArray />;
+    React.createElement(RenderArray);
+
+    // Desired behavior.
+    <ReturnElement />;
+    React.createElement(ReturnElement);
+    <RenderElement />;
+    React.createElement(RenderElement);
+
+    // Undesired behavior. Returning `ReactNode` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnReactNode />;
+    // @ts-expect-error
+    React.createElement(ReturnReactNode);
+    <RenderReactNode />;
+    React.createElement(RenderReactNode);
+}
