@@ -3,6 +3,8 @@
 // Definitions by: Woo Yong Seok <https://github.com/woo-yong0405>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 import { Readable } from "stream";
 
-export default function toReadableStream(input: string | Buffer | Uint8Array): Readable;
+export default function toReadableStream(input: string | Uint8Array): Readable;
