@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Table from 'af-utils__react-table';
+import * as Table from '@af-utils/react-table';
 import { useVirtualModel, Model } from '@af-utils/react-virtual-headless';
 
 const basicTable = () => {
