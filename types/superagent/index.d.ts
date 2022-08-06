@@ -20,7 +20,7 @@ import * as fs from 'fs';
 import * as http from 'http';
 import * as stream from 'stream';
 import * as cookiejar from 'cookiejar';
-import { Blob } from 'buffer';
+import { Buffer } from 'buffer';
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
@@ -32,7 +32,7 @@ type NodeParser = (res: request.Response, callback: (err: Error | null, body: an
 
 type Parser = BrowserParser | NodeParser;
 
-type MultipartValueSingle = Blob | Buffer | fs.ReadStream | string | boolean | number;
+type MultipartValueSingle = Buffer | fs.ReadStream | string | boolean | number;
 
 type MultipartValue = MultipartValueSingle | MultipartValueSingle[];
 

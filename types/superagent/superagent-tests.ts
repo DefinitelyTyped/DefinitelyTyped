@@ -3,7 +3,7 @@ import request = require('superagent');
 import assert = require('assert');
 import * as fs from 'fs';
 import { Agent } from 'https';
-import { Blob } from 'buffer';
+import { Buffer } from 'buffer';
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md
@@ -233,7 +233,7 @@ request.get('http://example.com/search').retry(2, callback).end(callback);
 })();
 
 // Attaching files
-const blob = new Blob([]);
+const blob = new Buffer([]);
 request
     .post('/upload')
     .attach('avatar', 'path/to/tobi.png', 'user.png')
