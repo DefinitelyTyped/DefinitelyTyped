@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
-import * as Headless from 'af-utils__react-virtual-headless';
+import * as Headless from '@af-utils/react-virtual-headless';
 
 export type RowProps = Record<string, unknown> & {
     ref: React.Ref<HTMLElement>;
