@@ -252,7 +252,7 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     const crossOrigin: string = this.crossOrigin();
 
-    this.crossOrigin('*');
+    this.crossOrigin('anonymous');
 
     this.debug(true);
 
