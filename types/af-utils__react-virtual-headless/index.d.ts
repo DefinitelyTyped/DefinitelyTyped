@@ -87,4 +87,6 @@ export function mapVisibleRange(
     countOffset?: boolean,
 ): void;
 
+export * from '@af-utils/react-virtual-headless';
+
 export {};
