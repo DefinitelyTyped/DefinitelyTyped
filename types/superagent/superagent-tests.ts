@@ -8,7 +8,6 @@ import { Blob } from 'buffer';
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md
 
-
 class User {
     name: string;
     pet: string;
