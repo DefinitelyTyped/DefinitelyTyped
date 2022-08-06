@@ -7,7 +7,7 @@ import {
     useOnce,
     Subscription,
     mapVisibleRange,
-} from 'af-utils__react-virtual-headless';
+} from '@af-utils/react-virtual-headless';
 
 import * as React from 'react';
 
