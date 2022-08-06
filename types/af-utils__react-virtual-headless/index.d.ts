@@ -44,12 +44,12 @@ export const useVirtual: VirtualModelFunction;
 /**
  * EventType's are used to describe events that will trigger a callback.
  */
-export enum EventType {
-    EVT_FROM = 0,
-    EVT_TO = 1,
-    EVT_SCROLL_SIZE = 2,
-    EVT_SIZES = 3,
-}
+export const EVT_FROM = 0;
+export const EVT_TO = 1;
+export const EVT_SCROLL_SIZE = 2;
+export const EVT_SIZES = 3;
+export type EventType = 0 | 1 | 2 | 3;
+export const EVT_ALL: EventType[];
 
 /**
  * useSubscription is a hook that subscribes to a model and calls a callback when one of the passed events is triggered.

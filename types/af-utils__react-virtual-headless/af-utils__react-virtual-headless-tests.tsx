@@ -2,7 +2,7 @@ import {
     useVirtual,
     useVirtualModel,
     useSubscription,
-    EventType,
+    EVT_FROM,
     useComponentSubscription,
     useOnce,
     Subscription,
@@ -52,25 +52,25 @@ useVirtual({ overscanCount: 'abc' });
 useVirtual({ horizontal: 'abc' });
 
 // $ExpectType void
-useSubscription(useVirtual(), [EventType.EVT_FROM], () => {});
+useSubscription(useVirtual(), [EVT_FROM], () => {});
 
 // @ts-expect-error
-useSubscription(useVirtual(), EventType.EVT_FROM, () => {});
+useSubscription(useVirtual(), EVT_FROM, () => {});
 
 // @ts-expect-error
-useSubscription(undefined, [EventType.EVT_FROM], () => {});
+useSubscription(undefined, [EVT_FROM], () => {});
 
 // $ExpectType void
-useComponentSubscription(useVirtual(), [EventType.EVT_FROM]);
+useComponentSubscription(useVirtual(), [EVT_FROM]);
 
 // $ExpectType void
 useComponentSubscription(useVirtual());
 
 // @ts-expect-error
-useComponentSubscription(useVirtual(), EventType.EVT_FROM);
+useComponentSubscription(useVirtual(), EVT_FROM);
 
 // @ts-expect-error
-useComponentSubscription(undefined, [EventType.EVT_FROM]);
+useComponentSubscription(undefined, [EVT_FROM]);
 
 // $ExpectType Element
 useOnce(() => <>Abc</>);
@@ -93,10 +93,10 @@ useOnce(() => {});
 Subscription({ model: useVirtual(), children: <>Abc</> });
 
 // $ExpectType ReactElement<any, any> | null
-Subscription({ model: useVirtual(), events: [EventType.EVT_FROM], children: <>Abc</> });
+Subscription({ model: useVirtual(), events: [EVT_FROM], children: <>Abc</> });
 
 // @ts-expect-error
-Subscription({ model: useVirtual(), events: EventType.EVT_FROM, children: <>Abc</> });
+Subscription({ model: useVirtual(), events: EVT_FROM, children: <>Abc</> });
 
 // @ts-expect-error
 Subscription({ model: useVirtual(), children: { abc: 1 } });
