@@ -230,6 +230,8 @@ declare namespace request {
 
         send(data?: string | object): this;
 
+        send<T>(data?: T): this;
+
         serialize(serializer: Serializer): this;
 
         set(field: object): this;

@@ -8,11 +8,22 @@ import { Blob } from 'buffer';
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md
 
+
+class User {
+    name: string;
+    pet: string;
+}
+
+class Pet {
+    name: string;
+    species: string;
+}
+
 const httpsAgent: Agent = new Agent();
 
 request
     .post('/api/pet')
-    .send({ name: 'Manny', species: 'cat' })
+    .send<Pet>({ name: 'Manny', species: 'cat' })
     .set('X-API-Key', 'foobar')
     .set('Accept', 'application/json')
     .agent(httpsAgent)
@@ -85,6 +96,8 @@ request.head('/users').query({ email: 'joe@smith.com' }).end(callback);
 request.post('/user').set('Content-Type', 'application/json').send('{"name":"tj","pet":"tobi"}').end(callback);
 
 request.post('/user').send({ name: 'tj', pet: 'tobi' }).end(callback);
+
+request.post('/user').send<User>({ name: 'tj', pet: 'tobi' }).end(callback);
 
 request.post('/user').send({ name: 'tj' }).send({ pet: 'tobi' }).end(callback);
 
