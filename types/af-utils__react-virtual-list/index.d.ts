@@ -6,7 +6,7 @@
 import * as Headless from '@af-utils/react-virtual-headless';
 import * as React from 'react';
 
-interface ChildProps {
+export interface ChildProps {
     key: string;
     i: number;
     data: any;
@@ -14,12 +14,15 @@ interface ChildProps {
     model: Headless.Model;
 }
 
-interface ListProps {
+// Since component can be essentially any DOM element, HTMLElement is as specific as possible (I think).
+// Also have to omit children, since the List expects specific children.
+// This could probably be improved, but it's a start.
+export interface ListProps extends Omit<React.HTMLAttributes<HTMLElement>, 'children'> {
     model: Headless.Model;
     children: React.ComponentType<ChildProps>;
     className?: string;
     itemData: any;
-    component?: React.ReactNode;
+    component?: string | React.ComponentType<any>;
     getKey?: (i: number, itemData?: any) => any;
     tabIndex?: number;
     countOffset?: boolean;

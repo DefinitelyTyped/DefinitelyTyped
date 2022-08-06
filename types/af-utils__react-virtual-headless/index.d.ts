@@ -20,9 +20,10 @@ export interface Model extends React.ComponentClass {
     readonly visibleFrom: number;
     scrollTo: (index: number, smooth: boolean) => void;
     setOuterNode: (node: HTMLElement) => void;
+    el: (index: number, node: React.ReactNode) => void;
 }
 
-interface useVirtualModelProps {
+export interface useVirtualModelProps {
     itemCount?: number;
     // getEstimatedItemSize is not marked explicitly optional in useVirtualModel, but model implmentation gives it a default, thus making it optional.
     getEstimatedItemSize?: (itemSizes: number, scrollSize: number, newItemCount?: number) => number;
@@ -67,7 +68,7 @@ export function useComponentSubscription(model: Model, events?: EventType[]): vo
  */
 export function useOnce<T extends React.ReactNode>(callback: () => T): T;
 
-interface SubscriptionProps {
+export interface SubscriptionProps {
     model: Model;
     events?: EventType[];
 }

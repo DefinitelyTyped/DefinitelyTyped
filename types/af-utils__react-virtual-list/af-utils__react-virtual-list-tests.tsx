@@ -15,6 +15,7 @@ const renderList = () => {
             getKey={i => i + 1}
             tabIndex={2}
             countOffset
+            id={'extraProp'}
         >
             {({ data }) => {
                 return <div>{data.name}</div>;
