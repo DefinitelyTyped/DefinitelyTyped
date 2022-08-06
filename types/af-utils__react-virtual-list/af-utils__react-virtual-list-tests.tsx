@@ -1,4 +1,4 @@
-import { List } from 'af-utils__react-virtual-list';
+import { List } from '@af-utils/react-virtual-list';
 import { useVirtualModel } from '@af-utils/react-virtual-headless';
 import * as React from 'react';
 
