@@ -2009,6 +2009,7 @@ export class DescribeInstance {
     retries(n: any): void;
     suiteRetries(n: any): void;
     define(name: any, value: any): any;
+    [key: string]: any;
 }
 
 interface SuiteFunction {
@@ -2022,42 +2023,49 @@ interface ExclusiveSuiteFunction {
 }
 
 interface PendingSuiteFunction {
-    (title: string, fn: (this: DescribeInstance) => void): this | void;
+    (title: string, fn?: (this: DescribeInstance) => void): this | void;
 }
 
 interface ExclusiveTestFunction {
     (fn: NormalFunc | AsyncFunc): this;
-    (title: string, fn?: NormalFunc | AsyncFunc): this;
+    (title: string, fn: NormalFunc | AsyncFunc): this;
 }
 
 interface PendingTestFunction {
     (fn: NormalFunc | AsyncFunc): this;
-    (title: string, fn?: NormalFunc | AsyncFunc): this;
+    (title: string, fn: NormalFunc | AsyncFunc): this;
 }
 
-type NormalFunc = (this: DescribeInstance) => any;
-type AsyncFunc = (this: DescribeInstance) => PromiseLike<any>;
+type NormalFunc = (this: DescribeInstance, browser: NightwatchBrowser) => void;
+type AsyncFunc = (this: DescribeInstance, browser: NightwatchBrowser) => PromiseLike<any>;
 interface TestFunction {
     (fn: NormalFunc | AsyncFunc): this;
-    (title: string, fn?: NormalFunc | AsyncFunc): this;
+    (title: string, fn: NormalFunc | AsyncFunc): this;
     only: ExclusiveTestFunction;
     skip: PendingTestFunction;
     retries(n: number): void;
 }
 
-export const describe: SuiteFunction;
-export const xdescribe: PendingSuiteFunction;
-export const context: SuiteFunction;
-export const xcontext: PendingSuiteFunction;
-export const test: TestFunction;
-export const it: TestFunction;
-export const xit: PendingTestFunction;
-export const specify: TestFunction;
-export const xspecify: PendingTestFunction;
-export const before: GlobalNightwatchTestHook;
-export const after: GlobalNightwatchTestHook;
-export const beforeEach: GlobalNightwatchTestHookEach;
-export const afterEach: GlobalNightwatchTestHookEach;
+type NightwatchBddTestHookCallback = (this: DescribeInstance, browser: NightwatchBrowser, done: (err?: any) => void) => void;
+
+type NightwatchBddTestHook = (callback: NightwatchBddTestHookCallback) => void;
+
+declare global {
+    const describe: SuiteFunction;
+    const xdescribe: PendingSuiteFunction;
+    const context: SuiteFunction;
+    const xcontext: PendingSuiteFunction;
+    const test: TestFunction;
+    const it: TestFunction;
+    const xit: PendingTestFunction;
+    const specify: TestFunction;
+    const xspecify: PendingTestFunction;
+    const before: NightwatchBddTestHook;
+    const after: NightwatchBddTestHook;
+    const beforeEach: NightwatchBddTestHook;
+    const afterEach: NightwatchBddTestHook;
+}
+
 /**
  * Performs an assertion
  *

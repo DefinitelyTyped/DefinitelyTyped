@@ -13,7 +13,8 @@ const idConfiguration: google.IdConfiguration = {
     state_cookie_domain: '',
     allowed_parent_origin: ['test1', 'test2'],
     intermediate_iframe_close_callback: () => {},
-    ux_mode: 'popup'
+    ux_mode: 'popup',
+    log_level: 'debug'
 };
 
 google.accounts.id.initialize(idConfiguration);

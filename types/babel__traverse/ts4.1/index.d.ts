@@ -94,7 +94,7 @@ export class Scope {
     /** Possibly generate a memoised identifier if it is not static and has consequences. */
     maybeGenerateMemoised(node: Node, dontPush?: boolean): t.Identifier;
 
-    checkBlockScopedCollisions(local: Node, kind: string, name: string, id: object): void;
+    checkBlockScopedCollisions(local: Binding, kind: BindingKind, name: string, id: object): void;
 
     rename(oldName: string, newName?: string, block?: Node): void;
 
@@ -163,23 +163,30 @@ export class Scope {
     removeBinding(name: string): void;
 }
 
+export type BindingKind = 'var' | 'let' | 'const' | 'module' | 'hoisted' | 'param' | 'local' | 'unknown';
+
 export class Binding {
-    constructor(opts: {
-        existing: Binding;
-        identifier: t.Identifier;
-        scope: Scope;
-        path: NodePath;
-        kind: 'var' | 'let' | 'const';
-    });
+    constructor(opts: { identifier: t.Identifier; scope: Scope; path: NodePath; kind: BindingKind });
     identifier: t.Identifier;
     scope: Scope;
     path: NodePath;
-    kind: 'var' | 'let' | 'const' | 'module';
+    kind: BindingKind;
     referenced: boolean;
     references: number;
     referencePaths: NodePath[];
     constant: boolean;
     constantViolations: NodePath[];
+    hasDeoptedValue: boolean;
+    hasValue: boolean;
+    value: any;
+
+    deopValue(): void;
+    setValue(value: any): void;
+    clearValue(): void;
+
+    reassign(path: any): void;
+    reference(path: any): void;
+    dereference(): void;
 }
 
 export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
@@ -478,7 +485,7 @@ export class NodePath<T = Node> {
 
     setScope(): void;
 
-    setContext(context: TraversalContext): NodePath<T>;
+    setContext(context?: TraversalContext): this;
 
     popContext(): void;
 
@@ -541,9 +548,27 @@ export class NodePath<T = Node> {
         : never;
     get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
-    getBindingIdentifiers(duplicates?: boolean): Node[];
+    getBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
+    getBindingIdentifiers(duplicates?: false): Record<string, t.Identifier>;
+    getBindingIdentifiers(duplicates?: boolean): Record<string, t.Identifier | t.Identifier[]>;
 
-    getOuterBindingIdentifiers(duplicates?: boolean): Node[];
+    getOuterBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
+    getOuterBindingIdentifiers(duplicates?: false): Record<string, t.Identifier>;
+    getOuterBindingIdentifiers(duplicates?: boolean): Record<string, t.Identifier | t.Identifier[]>;
+
+    getBindingIdentifierPaths(duplicates: true, outerOnly?: boolean): Record<string, Array<NodePath<t.Identifier>>>;
+    getBindingIdentifierPaths(duplicates?: false, outerOnly?: boolean): Record<string, NodePath<t.Identifier>>;
+    getBindingIdentifierPaths(
+        duplicates?: boolean,
+        outerOnly?: boolean,
+    ): Record<string, NodePath<t.Identifier> | Array<NodePath<t.Identifier>>>;
+
+    getOuterBindingIdentifierPaths(duplicates: true): Record<string, Array<NodePath<t.Identifier>>>;
+    getOuterBindingIdentifierPaths(duplicates?: false): Record<string, NodePath<t.Identifier>>;
+    getOuterBindingIdentifierPaths(
+        duplicates?: boolean,
+        outerOnly?: boolean,
+    ): Record<string, NodePath<t.Identifier> | Array<NodePath<t.Identifier>>>;
     //#endregion
 
     //#region ------------------------- comments -------------------------

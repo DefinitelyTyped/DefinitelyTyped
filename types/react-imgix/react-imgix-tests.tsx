@@ -23,6 +23,7 @@ const ImgixTest = () => (
             minWidth: 100,
             maxWidth: 2000,
             widthTolerance: 0.2,
+            devicePixelRatios: [1, 1.5, 2],
         }}
         className="lazyload"
         htmlAttributes={{
