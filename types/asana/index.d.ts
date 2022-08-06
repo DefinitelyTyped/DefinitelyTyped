@@ -101,7 +101,7 @@ declare namespace asana {
          * An instance of the CustomFields resource.
          * @type {CustomFields}
          */
-         customFields: resources.CustomFields;
+        customFields: resources.CustomFields;
         /**
          * An instance of the Events resource.
          * @type {Events}
@@ -211,9 +211,11 @@ declare namespace asana {
         retryOnRateLimit?: boolean | undefined;
         handleUnauthorized?: (() => boolean | Promise<boolean>) | undefined;
         requestTimeout?: string | undefined;
-        defaultHeaders?: {
-            [key: string]: string;
-        } | undefined;
+        defaultHeaders?:
+            | {
+                  [key: string]: string;
+              }
+            | undefined;
     }
 
     interface Dispatcher {
@@ -1048,7 +1050,7 @@ declare namespace asana {
              */
             create(
                 data: Projects.CreateParams & { workspace: string | number },
-                dispatchOptions?: any
+                dispatchOptions?: any,
             ): Promise<Projects.Type>;
 
             /**
@@ -1084,7 +1086,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            createInTeam(team: string | number, data: Projects.CreateParams, dispatchOptions?: any): Promise<Projects.Type>;
+            createInTeam(
+                team: string | number,
+                data: Projects.CreateParams,
+                dispatchOptions?: any,
+            ): Promise<Projects.Type>;
 
             /**
              * * Returns the complete project record for a single project.
@@ -1360,10 +1366,11 @@ declare namespace asana {
                     color: string;
                     enabled: boolean;
                 };
-                new_multi_enum_values?: Resource & {
-                    color: string;
-                    enabled: boolean;
-                }[];
+                new_multi_enum_values?: Resource &
+                    {
+                        color: string;
+                        enabled: boolean;
+                    }[];
                 new_name?: string;
                 new_number_value?: number;
                 new_resource_subtype?: string;
@@ -1379,12 +1386,13 @@ declare namespace asana {
                 };
                 old_enum_value?: Resource & {
                     color: string;
-                    enabled: boolean
+                    enabled: boolean;
                 };
-                old_multi_enum_values?: Resource & {
-                    color: string;
-                    enabled: boolean
-                }[];
+                old_multi_enum_values?: Resource &
+                    {
+                        color: string;
+                        enabled: boolean;
+                    }[];
                 old_name?: string;
                 old_number_value?: number;
                 old_resource_subtype?: string;
@@ -1686,7 +1694,7 @@ declare namespace asana {
                 num_likes?: number;
                 liked?: boolean;
                 likes?: {
-                    gid: string
+                    gid: string;
                     user: Resource;
                 }[];
                 tags?: Resource[];
@@ -1702,16 +1710,21 @@ declare namespace asana {
                 approval_status?: string; // conditional
                 dependencies?: Resource[]; // opt in
                 dependents?: Resource[]; // opt in
-                external?: { // opt-in
-                    data?: string | undefined;
-                    gid?: string | undefined;
-                } | undefined;
+                external?:
+                    | {
+                          // opt-in
+                          data?: string | undefined;
+                          gid?: string | undefined;
+                      }
+                    | undefined;
                 html_notes?: string | undefined; // opt in
                 is_rendered_as_separator?: boolean | undefined; // opt in
                 num_subtasks?: number; // opt in
             }
 
-            type DefaultFieldsType = { [Property in keyof DefaultFieldsOptionalType]-?: DefaultFieldsOptionalType[Property] };
+            type DefaultFieldsType = {
+                [Property in keyof DefaultFieldsOptionalType]-?: DefaultFieldsOptionalType[Property];
+            };
 
             // https://developers.asana.com/docs/task-compact
             type CompactType = Required<Resource>;
@@ -1728,10 +1741,12 @@ declare namespace asana {
                 custom_fields?: { [index: string]: number | string } | undefined;
                 due_at?: string | undefined;
                 due_on?: string | null | undefined;
-                external?: {
-                    data?: string | undefined;
-                    gid?: string | undefined;
-                } | undefined;
+                external?:
+                    | {
+                          data?: string | undefined;
+                          gid?: string | undefined;
+                      }
+                    | undefined;
                 followers?: string[] | undefined; // create-only
                 html_notes?: string | undefined;
                 liked?: boolean | undefined;
@@ -1744,10 +1759,12 @@ declare namespace asana {
                 start_on?: string | null | undefined;
                 tags?: string[] | undefined; // create-only
                 workspace?: string | undefined;
-                memberships?: {
-                    project: string;
-                    section: string;
-                }[] | undefined;
+                memberships?:
+                    | {
+                          project: string;
+                          section: string;
+                      }[]
+                    | undefined;
             }
 
             // https://developers.asana.com/docs/update-a-task
@@ -1759,10 +1776,12 @@ declare namespace asana {
                 custom_fields?: { [index: string]: number | string } | undefined;
                 due_at?: string | undefined;
                 due_on?: string | null | undefined;
-                external?: {
-                    data?: string | undefined;
-                    gid?: string | undefined;
-                } | undefined;
+                external?:
+                    | {
+                          data?: string | undefined;
+                          gid?: string | undefined;
+                      }
+                    | undefined;
                 html_notes?: string | undefined;
                 liked?: boolean | undefined;
                 name?: string | undefined;
@@ -1836,7 +1855,10 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            create(data: Tasks.CreateParams & { workspace: string }, dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
+            create(
+                data: Tasks.CreateParams & { workspace: string },
+                dispatchOptions?: any,
+            ): Promise<Tasks.DefaultFieldsType>;
 
             /**
              * * Creating a new task is as easy as POSTing to the `/tasks` endpoint
@@ -1872,9 +1894,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findById(task: string | number,
-                     params?: PaginationParams & { opt_fields?: never },
-                     dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
+            findById(
+                task: string | number,
+                params?: PaginationParams & { opt_fields?: never },
+                dispatchOptions?: any,
+            ): Promise<Tasks.DefaultFieldsType>;
             findById(task: string | number, params?: Params, dispatchOptions?: any): Promise<Tasks.OptFieldsType>;
 
             // https://developers.asana.com/docs/search-tasks-in-a-workspace
@@ -1922,7 +1946,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            update(task: string | number, data: Tasks.UpdateParams, dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
+            update(
+                task: string | number,
+                data: Tasks.UpdateParams,
+                dispatchOptions?: any,
+            ): Promise<Tasks.DefaultFieldsType>;
 
             /**
              * * A specific, existing task can be deleted by making a DELETE request on the
@@ -1983,7 +2011,7 @@ declare namespace asana {
             findByTag(
                 tag: string | number,
                 params: PaginationParams,
-                dispatchOptions?: any
+                dispatchOptions?: any,
             ): Promise<ResourceList<Tasks.OptFieldsType>>;
 
             // https://developers.asana.com/docs/get-multiple-tasks
@@ -2002,7 +2030,10 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findAll(params?: Tasks.FindAllParams & { opt_fields?: never }, dispatchOptions?: any): Promise<ResourceList<Tasks.CompactType>>;
+            findAll(
+                params?: Tasks.FindAllParams & { opt_fields?: never },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.CompactType>>;
             findAll(params: Tasks.FindAllParams, dispatchOptions?: any): Promise<ResourceList<Tasks.OptFieldsType>>;
 
             // https://developers.asana.com/docs/add-followers-to-a-task
@@ -2185,7 +2216,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addSubtask(task: string | number, data: Tasks.CreateParams, dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
+            addSubtask(
+                task: string | number,
+                data: Tasks.CreateParams,
+                dispatchOptions?: any,
+            ): Promise<Tasks.DefaultFieldsType>;
 
             /**
              * * Returns a compact representation of all of the stories on the task.
@@ -2235,9 +2270,11 @@ declare namespace asana {
              * @param {Object} [dispatchOptions]: Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            getTask(taskGid: string,
-                    params?: { opt_fields?: never },
-                    dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
+            getTask(
+                taskGid: string,
+                params?: { opt_fields?: never },
+                dispatchOptions?: any,
+            ): Promise<Tasks.DefaultFieldsType>;
             getTask(taskGid: string, params: any, dispatchOptions?: any): Promise<Tasks.OptFieldsType>;
 
             // https://developers.asana.com/docs/update-a-task
@@ -2249,7 +2286,11 @@ declare namespace asana {
              * @param {Object} [dispatchOptions]: Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            updateTask(taskGid: string, data?: Tasks.UpdateParams, dispatchOptions?: any): Promise<Tasks.DefaultFieldsType>;
+            updateTask(
+                taskGid: string,
+                data?: Tasks.UpdateParams,
+                dispatchOptions?: any,
+            ): Promise<Tasks.DefaultFieldsType>;
         }
 
         interface SectionsStatic {
@@ -2743,7 +2784,7 @@ declare namespace asana {
             update(
                 workspace: string | number,
                 data: { name?: string | undefined },
-                dispatchOptions?: any
+                dispatchOptions?: any,
             ): Promise<Workspaces.Type>;
 
             /**
@@ -2867,7 +2908,11 @@ declare namespace asana {
              * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            findByUser(user: number | string, params?: Params & { workspace?: string }, dispatchOptions?: any): Promise<UserTaskLists.Type>;
+            findByUser(
+                user: number | string,
+                params?: Params & { workspace?: string },
+                dispatchOptions?: any,
+            ): Promise<UserTaskLists.Type>;
 
             /**
              * Returns the full record for a user task list.
@@ -3225,7 +3270,7 @@ declare namespace asana {
             ): Promise<ResourceList<Tasks.CompactType>>;
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params: Typeahead.TypeaheadParams & { resource_type: 'task' } ,
+                params: Typeahead.TypeaheadParams & { resource_type: 'task' },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tasks.OptFieldsType>>;
             typeaheadForWorkspace(
