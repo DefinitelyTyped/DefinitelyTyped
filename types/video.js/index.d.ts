@@ -6346,7 +6346,7 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return An object mapping breakpoint names to maximum width values.
      */
-    breakpoints(breakpoints: Partial<videojs.Breakpoint>): void;
+    breakpoints(breakpoints: true | Partial<videojs.Breakpoint>): void;
 
     breakpoints(): videojs.Breakpoint;
 
