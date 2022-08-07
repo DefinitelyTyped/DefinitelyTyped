@@ -755,7 +755,13 @@ function testStorage() {
     chrome.storage.sync.clear();
     chrome.storage.sync.clear(doneCallback);
 
-    chrome.storage.onChanged.addListener(function (changes) {
+    chrome.storage.sync.onChanged.addListener(function (changes) {
+        var myNewValue: { x: number } = changes['myKey'].newValue;
+        var myOldValue: { x: number } = changes['myKey'].oldValue;
+    });
+
+    chrome.storage.onChanged.addListener(function (changes, areaName) {
+        var area: string = areaName;
         var myNewValue: { x: number } = changes['myKey'].newValue;
         var myOldValue: { x: number } = changes['myKey'].oldValue;
     });

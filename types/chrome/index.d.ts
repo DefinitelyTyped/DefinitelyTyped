@@ -7854,6 +7854,14 @@ declare namespace chrome.storage {
          * Parameter items: Object with items in their key-value mappings.
          */
         get(keys: string | string[] | { [key: string]: any } | null, callback: (items: { [key: string]: any }) => void): void;
+        /**
+         * Fired when one or more items change within this storage area.
+         * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
+         * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
+         * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
+         * Parameter items: Object with items in their key-value mappings.
+         */
+        onChanged: StorageAreaChangedEvent;
     }
 
     export interface StorageChange {
@@ -7894,6 +7902,9 @@ declare namespace chrome.storage {
         /** The maximum amount (in bytes) of data that can be stored in memory, as measured by estimating the dynamically allocated memory usage of every value and key. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
         QUOTA_BYTES: number;
     }
+
+    export interface StorageAreaChangedEvent
+    extends chrome.events.Event<(changes: { [key: string]: StorageChange }) => void> { }
 
     type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed' | 'session'>;
     export interface StorageChangedEvent
