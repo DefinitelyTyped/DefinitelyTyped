@@ -10,16 +10,14 @@
 //                 Aaron Reisman <https://github.com/lifeiscontent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// This is needed to make other libs happy when TS is importing this file
-// while testing others.
-/// <reference lib="dom" />
-
 // forward declarations
 declare global {
     namespace NodeJS {
         // tslint:disable-next-line:no-empty-interface
         interface ReadableStream {}
     }
+    // tslint:disable-next-line:no-empty-interface
+    interface ShadowRoot {}
 }
 
 import * as CSS from 'csstype';
