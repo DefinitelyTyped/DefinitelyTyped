@@ -590,7 +590,7 @@ declare module 'process' {
                  *
                  * The reason this is problematic is because writes to `process.stdout` in Node.js
                  * are sometimes _asynchronous_ and may occur over multiple ticks of the Node.js
-                 * event loop. Calling `process.exit()`, however, forces the process to exit_before_ those additional writes to `stdout` can be performed.
+                 * event loop. Calling `process.exit()`, however, forces the process to exit _before_ those additional writes to `stdout` can be performed.
                  *
                  * Rather than calling `process.exit()` directly, the code _should_ set the`process.exitCode` and allow the process to exit naturally by avoiding
                  * scheduling any additional work for the event loop:
