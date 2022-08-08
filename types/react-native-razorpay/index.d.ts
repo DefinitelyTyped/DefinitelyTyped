@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/react-native-razorpay
 // Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.4
 
 export interface SuccessResponse {
     status_code: number;
@@ -50,7 +51,7 @@ export interface CheckoutOptions {
         escape?: boolean;
         handleback?: boolean;
         confirm_close?: boolean;
-        ondismiss?: Function;
+        ondismiss?: () => void;
         animation?: boolean;
     };
     subscription_id?: string;
