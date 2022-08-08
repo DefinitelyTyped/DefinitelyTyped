@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 5.1
+// Type definitions for tabulator-tables 5.2
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1508,7 +1508,7 @@ declare namespace Tabulator {
 
     type TextDirection = 'auto' | 'ltr' | 'rtl';
 
-    type GlobalTooltipOption = boolean | ((cell: CellComponent) => string);
+    type GlobalTooltipOption = boolean | ((event: MouseEvent, cell: CellComponent, onRender: (() => void)) => string);
 
     type CustomMutator = (
         value: any,
@@ -1597,6 +1597,7 @@ declare namespace Tabulator {
         | 'star'
         | 'select'
         | 'autocomplete'
+        | 'list'
         | ((
             cell: CellComponent,
             onRendered: EmptyCallback,

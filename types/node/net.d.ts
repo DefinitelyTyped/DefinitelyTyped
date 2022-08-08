@@ -205,7 +205,7 @@ declare module 'net' {
          */
         unref(): this;
         /**
-         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed socket will_not_ let the program exit if it's the only socket left (the default behavior).
+         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed socket will _not_ let the program exit if it's the only socket left (the default behavior).
          * If the socket is `ref`ed calling `ref` again will have no effect.
          * @since v0.9.1
          * @return The socket itself.
@@ -504,7 +504,7 @@ declare module 'net' {
          */
         getConnections(cb: (error: Error | null, count: number) => void): void;
         /**
-         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will_not_ let the program exit if it's the only server left (the default behavior).
+         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will _not_ let the program exit if it's the only server left (the default behavior).
          * If the server is `ref`ed calling `ref()` again will have no effect.
          * @since v0.9.1
          */

@@ -68,8 +68,10 @@ function test_accordion() {
     });
     $(selector).accordion(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).accordion('foo'); // $ExpectError
-    $(selector).accordion({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).accordion('foo');
+    // @ts-expect-error
+    $(selector).accordion({ foo: 'bar' });
 }
 
 import accordion = require('semantic-ui-accordion');

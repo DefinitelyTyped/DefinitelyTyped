@@ -17,15 +17,15 @@ omit('password')(bob);
 omit('password')(bob).name;
 // $ExpectType string
 omit('password')(bob).email;
-// $ExpectError
+// @ts-expect-error
 omit('password')(bob).password;
 
 // Multiple keys
 // $ExpectType string
 omit(['password', 'email'] as const)(bob).name;
-// $ExpectError
+// @ts-expect-error
 omit(['password', 'email'] as const)(bob).email;
-// $ExpectError
+// @ts-expect-error
 omit(['password', 'email'] as const)(bob).password;
 
 // Maps array
@@ -34,7 +34,7 @@ const [result0] = omit('password')([bob]);
 result0.email;
 // $ExpectType string
 result0.name;
-// $ExpectError
+// @ts-expect-error
 result0.password;
 
 // Calls itself if given 2nd parameter
@@ -43,7 +43,7 @@ const result1 = omit('password', bob);
 result1.email;
 // $ExpectType string
 result1.name;
-// $ExpectError
+// @ts-expect-error
 result1.password;
 
 // Rule function

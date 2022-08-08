@@ -1,4 +1,4 @@
-// Type definitions for mvdan-sh 0.5
+// Type definitions for mvdan-sh 0.10
 // Project: https://github.com/mvdan/sh/tree/master/_js
 // Definitions by: JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,7 @@ export enum LangVariant {
     LangBash = 0,
     LangPOSIX = 1,
     LangMirBSDKorn = 2,
+    LangBats = 3,
 }
 
 export interface Pos {

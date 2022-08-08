@@ -3723,7 +3723,7 @@ declare module 'fs' {
     export interface StatSyncOptions extends StatOptions {
         throwIfNoEntry?: boolean | undefined;
     }
-    export interface CopyOptions {
+    interface CopyOptionsBase {
         /**
          * Dereference symlinks
          * @default false
@@ -3735,11 +3735,6 @@ declare module 'fs' {
          * @default false
          */
         errorOnExist?: boolean;
-        /**
-         * Function to filter copied files/directories. Return
-         * `true` to copy the item, `false` to ignore it.
-         */
-        filter?(source: string, destination: string): boolean;
         /**
          * Overwrite existing file or directory. _The copy
          * operation will ignore errors if you set this to false and the destination
@@ -3759,6 +3754,20 @@ declare module 'fs' {
          */
         recursive?: boolean;
     }
+    export interface CopyOptions extends CopyOptionsBase {
+        /**
+         * Function to filter copied files/directories. Return
+         * `true` to copy the item, `false` to ignore it.
+         */
+        filter?(source: string, destination: string): boolean | Promise<boolean>;
+    }
+    export interface CopySyncOptions extends CopyOptionsBase {
+        /**
+         * Function to filter copied files/directories. Return
+         * `true` to copy the item, `false` to ignore it.
+         */
+        filter?(source: string, destination: string): boolean;
+    }
     /**
      * Asynchronously copies the entire directory structure from `src` to `dest`,
      * including subdirectories and files.
@@ -3770,8 +3779,8 @@ declare module 'fs' {
      * @param src source path to copy.
      * @param dest destination path to copy to.
      */
-    export function cp(source: string, destination: string, callback: (err: NodeJS.ErrnoException | null) => void): void;
-    export function cp(source: string, destination: string, opts: CopyOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    export function cp(source: string | URL, destination: string | URL, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    export function cp(source: string | URL, destination: string | URL, opts: CopyOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
     /**
      * Synchronously copies the entire directory structure from `src` to `dest`,
      * including subdirectories and files.
@@ -3783,7 +3792,7 @@ declare module 'fs' {
      * @param src source path to copy.
      * @param dest destination path to copy to.
      */
-    export function cpSync(source: string, destination: string, opts?: CopyOptions): void;
+    export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 }
 declare module 'node:fs' {
     export * from 'fs';

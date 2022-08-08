@@ -100,10 +100,14 @@ const linkTest5 = (
         duration={500}
         delay={1000}
         isDynamic={true}
-        onSetActive={to => {
+        onSetActive={(to, element) => {
             console.log(to);
+            console.log(element);
         }}
-        onSetInactive={() => {}}
+        onSetInactive={(to, element) => {
+            console.log(to);
+            console.log(element);
+        }}
         ignoreCancelEvents={false}
     >
         Your name

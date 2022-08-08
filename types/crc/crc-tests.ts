@@ -7,7 +7,8 @@ import 'crc/crc17kermit';
 import 'crc/crc17modbus';
 import 'crc/crc17xmodem';
 
-crc.default.default; // $ExpectError
+// @ts-expect-error
+crc.default.default;
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,

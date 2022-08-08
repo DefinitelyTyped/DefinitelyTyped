@@ -139,7 +139,7 @@ Page({
     q
     // $ExpectType number
     this.data.a
-    // $ExpectError
+    // @ts-expect-error
     this.a
   },
   jump() {
@@ -203,7 +203,7 @@ Page<DataType, CustomOption>({
     // $ExpectType string[]
     logs
     this.setData({ logs })
-    // $ExpectError
+    // @ts-expect-error
     this.logs
     // $ExpectType string[]
     this.data.logs
@@ -217,7 +217,7 @@ Page({
     channel
     channel.emit('test', {})
     channel.on('xxx', () => {})
-    // $ExpectError
+    // @ts-expect-error
     channel.emit(1, 2)
   },
 })

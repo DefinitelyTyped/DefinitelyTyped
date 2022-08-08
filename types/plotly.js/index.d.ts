@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.54
+// Type definitions for plotly.js 2.12
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -321,16 +321,9 @@ export function newPlot(
     layout?: Partial<Layout>,
     config?: Partial<Config>,
 ): Promise<PlotlyHTMLElement>;
-export function plot(
-    root: Root,
-    data: Data[],
-    layout?: Partial<Layout>,
-    config?: Partial<Config>,
-): Promise<PlotlyHTMLElement>;
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
 export function purge(root: Root): void;
-export const d3: typeof _d3;
 export function restyle(root: Root, aobj: Data, traces?: number[] | number): Promise<PlotlyHTMLElement>;
 export function update(
     root: Root,
@@ -370,6 +363,7 @@ export function react(
 ): Promise<PlotlyHTMLElement>;
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
+export function register(modules: PlotlyModule | PlotlyModule[]): void;
 
 // Layout
 export interface Layout {
@@ -816,6 +810,7 @@ export interface LayoutAxis extends Axis {
     automargin: boolean;
     autotick: boolean;
     angle: any;
+    griddash: Dash;
 }
 
 export interface SceneAxis extends Axis {
@@ -1006,7 +1001,7 @@ export interface PlotNumber {
 }
 
 export interface Template {
-    data?: { [type in PlotType]?: Partial<PlotData> } | undefined;
+    data?: { [type in PlotType]?: Array<Partial<PlotData>> } | undefined;
     layout?: Partial<Layout> | undefined;
 }
 
@@ -1059,7 +1054,6 @@ export type PlotType =
     | 'cone'
     | 'contour'
     | 'contourcarpet'
-    | 'contourgl'
     | 'densitymapbox'
     | 'funnel'
     | 'funnelarea'
@@ -1249,6 +1243,7 @@ export interface PlotData {
     textfont: Partial<Font>;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
+    fillpattern: Partial<Pattern>;
     showlegend: boolean;
     legendgroup: string;
     parents: string[];
@@ -1309,6 +1304,7 @@ export interface PlotData {
     locations: Datum[];
     reversescale: boolean;
     colorbar: Partial<ColorBar>;
+    offset: number;
 }
 
 /**
@@ -1435,6 +1431,7 @@ export interface PlotMarker {
               colorsrc: any;
           }
         | undefined;
+    pattern?: Partial<Pattern>;
 }
 
 export type ScatterMarker = PlotMarker;
@@ -1510,6 +1507,12 @@ export interface Config {
     staticPlot: boolean;
 
     /**
+     * Determines whether math should be typeset or not,
+     * when MathJax (either v2 or v3) is present on the page.
+     */
+    typesetMath: boolean;
+
+    /**
      * When set it determines base URL for the 'Edit in Chart Studio' `showEditInChartStudio`/`showSendToCloud` mode bar button and the showLink/sendData on-graph link.
      * To enable sending your data to Chart Studio Cloud, you need to set both `plotlyServerURL` to 'https://chart-studio.plotly.com' and also set `showSendToCloud` to true.
      * @default ''
@@ -1537,6 +1540,9 @@ export interface Config {
 
     /** double click interaction (false, 'reset', 'autosize' or 'reset+autosize') */
     doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false;
+
+    /** sets the delay for registering a double-click in ms */
+    doubleClickDelay: number;
 
     /** new users see some hints about interactivity */
     showTips: boolean;
@@ -1628,8 +1634,34 @@ export interface Config {
     /** Which localization should we use? Should be a string like 'en' or 'en-US' */
     locale: string;
 
+    /**
+     * Localization definitions
+     * Locales can be provided either here (specific to one chart) or globally
+     * by registering them as modules.
+     * Should be an object of objects {locale: {dictionary: {...}, format: {...}}}
+     * {
+     *     da: {
+     *         dictionary: {'Reset axes': 'Nulstil aksler', ...},
+     *         format: {months: [...], shortMonths: [...]}
+     *     },
+     *     ...
+     * }
+     * All parts are optional. When looking for translation or format fields, we
+     * look first for an exact match in a config locale, then in a registered
+     * module. If those fail, we strip off any regionalization ('en-US' -> 'en')
+     * and try each (config, registry) again. The final fallback for translation
+     * is untranslated (which is US English) and for formats is the base English
+     * (the only consequence being the last fallback date format %x is DD/MM/YYYY
+     * instead of MM/DD/YYYY). Currently `grouping` and `currency` are ignored
+     * for our automatic number formatting, but can be used in custom formats.
+     */
+    locales: {};
+
     /** Make the chart responsive to window size */
     responsive: boolean;
+
+    /** Watermark the images with the company's logo */
+    watermark: boolean;
 }
 
 // Components
@@ -2247,3 +2279,88 @@ export interface CurrentValue {
      */
     font: Partial<Font>;
 }
+
+/**
+ * 'Sets the pattern within the marker.
+ */
+export interface Pattern {
+    /**
+     * Sets the shape of the pattern fill.
+     * By default, no pattern is used for filling the area.
+     */
+    shape?: '' | '/' | '\\' | 'x' | '-' | '|' | '+' | '.';
+    /**
+     * Determines whether `marker.color` should be used
+     * as a default to `bgcolor` or a `fgcolor`.
+     */
+    fillmode?: 'replace' | 'overlay';
+    /**
+     * When there is no colorscale sets the color of background pattern fill.
+     * Defaults to a `marker.color` background when `fillmode` is *overlay*.
+     * Otherwise, defaults to a transparent background.
+     */
+    bgcolor?: string;
+    /**
+     * When there is no colorscale sets the color of foreground pattern fill.
+     * Defaults to a `marker.color` background when `fillmode` is *replace*.
+     * Otherwise, defaults to dark grey or white
+     * to increase contrast with the `bgcolor`.
+     */
+    fgcolor?: string;
+    /**
+     * Sets the opacity of the foreground pattern fill.
+     * Defaults to a 0.5 when `fillmode` is *overlay*.
+     * Otherwise, defaults to 1.
+     */
+    fgopacity?: string;
+    /**
+     * Sets the size of unit squares of the pattern fill in pixels,
+     * which corresponds to the interval of repetition of the pattern.
+     */
+    size?: number;
+    /**
+     * Sets the solidity of the pattern fill.
+     * Solidity is roughly the fraction of the area filled by the pattern.
+     * Solidity of 0 shows only the background color without pattern
+     * and solidty of 1 shows only the foreground color without pattern.
+     */
+    solidity?: number;
+}
+
+interface TraceModule {
+    moduleType: 'trace';
+    name: string;
+    categories: string[];
+    meta: Record<string, unknown>;
+    [key: string]: unknown;
+}
+
+interface LocaleModule {
+    moduleType: 'locale';
+    name: string;
+    dictionary: Record<string, unknown>;
+    format: Record<string, unknown>;
+}
+
+interface TransformModule {
+    moduleType: 'transform';
+    name: string;
+    transform: any;
+    calcTransform: any;
+    attributes: Record<string, unknown>;
+    supplyDefaults: any;
+}
+
+interface ComponentModule {
+    moduleType: 'component';
+    name: string;
+    [key: string]: unknown;
+}
+
+interface ApiMethodModule {
+    moduleType: 'apiMethod';
+    name: string;
+    fn: any;
+}
+
+type PlotlyModule = TraceModule | LocaleModule | TransformModule | ComponentModule | ApiMethodModule;

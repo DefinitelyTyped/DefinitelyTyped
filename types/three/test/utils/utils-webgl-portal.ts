@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { CameraUtils } from 'three/examples/jsm/utils/CameraUtils';
+import * as CameraUtils from 'three/examples/jsm/utils/CameraUtils';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { MeshBasicMaterial } from 'three/src/Three';
 

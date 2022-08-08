@@ -245,7 +245,7 @@ const Story = (() => {
     function requiresTheCorrectFragmentRef() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
         const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
-        // $ExpectError
+        // @ts-expect-error
         <StoryRefetchContainer story={feed} onLike={onLike} />;
     }
 
@@ -253,32 +253,32 @@ const Story = (() => {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
         const story: _FragmentRefs<'Story_story'> = {} as any;
         const relayProp: RelayRefetchProp = {} as any;
-        // $ExpectError
+        // @ts-expect-error
         <StoryRefetchContainer story={story} onLike={onLike} relay={relayProp} />;
     }
 
     function requiresTheRelayPropInPropsInterface() {
         // FIXME: This should throw a type error, but doesn't
         // const FunctionComponent: React.FC<{}> = () => null;
-        // // $ExpectError
+        // // @ts-expect-error
         // createRefetchContainer(FunctionComponent, { story: graphql`` }, graphql``);
 
         class ClassComponent extends React.Component<{}> {}
-        // $ExpectError
+        // @ts-expect-error
         createRefetchContainer(ClassComponent, { story: graphql`` }, graphql``);
     }
 
     function requiresTheCorrectRelayPropTypeInPropsInterface() {
         class ClassComponent1 extends React.Component<{ relay: RelayProp }> {}
-        // $ExpectError
+        // @ts-expect-error
         createRefetchContainer(ClassComponent1, { story: graphql`` }, graphql``);
 
         class ClassComponent2 extends React.Component<{ relay: RelayPaginationProp }> {}
-        // $ExpectError
+        // @ts-expect-error
         createRefetchContainer(ClassComponent2, { story: graphql`` }, graphql``);
 
         class ClassComponent3 extends React.Component<{ relay: undefined }> {}
-        // $ExpectError
+        // @ts-expect-error
         createRefetchContainer(ClassComponent3, { story: graphql`` }, graphql``);
     }
 
@@ -369,7 +369,7 @@ const Feed = (() => {
     function requiresTheCorrectFragmentRef() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
         const story: _FragmentRefs<'Story_story'> = {} as any;
-        // $ExpectError
+        // @ts-expect-error
         <FeedFragmentContainer feed={story} onStoryLike={onStoryLike} />;
     }
 
@@ -377,7 +377,7 @@ const Feed = (() => {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
         const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
         const relayProp: RelayProp = {} as any;
-        // $ExpectError
+        // @ts-expect-error
         <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} relay={relayProp} />;
     }
 
@@ -391,11 +391,11 @@ const Feed = (() => {
 
     function requiresTheCorrectRelayPropTypeInPropsInterface() {
         class ClassComponent1 extends React.Component<{ relay: RelayRefetchProp }> {}
-        // $ExpectError
+        // @ts-expect-error
         createFragmentContainer(ClassComponent1, {});
 
         class ClassComponent2 extends React.Component<{ relay: RelayPaginationProp }> {}
-        // $ExpectError
+        // @ts-expect-error
         createFragmentContainer(ClassComponent2, {});
     }
 
@@ -518,39 +518,39 @@ type UserFeed_user = {
 
     function requiresTheCorrectFragmentRef() {
         const story: _FragmentRefs<'Story_story'> = {} as any;
-        // $ExpectError
+        // @ts-expect-error
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={story} />;
     }
 
     function doesNotRequireRelayPropToBeProvidedByParent() {
         const user: _FragmentRefs<'UserFeed_user'> = {} as any;
         const relayProp: RelayPaginationProp = {} as any;
-        // $ExpectError
+        // @ts-expect-error
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} relay={relayProp} />;
     }
 
     function requiresTheRelayPropInPropsInterface() {
         // FIXME: This should throw a type error, but doesn't
         // const FunctionComponent: React.FC<{}> = () => null;
-        // // $ExpectError
+        // // @ts-expect-error
         // createPaginationContainer(FunctionComponent, {}, {} as any);
 
         class ClassComponent extends React.Component<{}> {}
-        // $ExpectError
+        // @ts-expect-error
         createPaginationContainer(ClassComponent, {}, {} as any);
     }
 
     function requiresTheCorrectRelayPropTypeInPropsInterface() {
         class ClassComponent1 extends React.Component<{ relay: RelayProp }> {}
-        // $ExpectError
+        // @ts-expect-error
         createPaginationContainer(ClassComponent1, {}, {} as any);
 
         class ClassComponent2 extends React.Component<{ relay: RelayRefetchProp }> {}
-        // $ExpectError
+        // @ts-expect-error
         createPaginationContainer(ClassComponent2, {}, {} as any);
 
         class ClassComponent3 extends React.Component<{ relay: undefined }> {}
-        // $ExpectError
+        // @ts-expect-error
         createPaginationContainer(ClassComponent3, {}, {} as any);
     }
 

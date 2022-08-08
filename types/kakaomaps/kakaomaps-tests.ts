@@ -28,4 +28,5 @@ const hole = [
 
 polygon.setPath(path); // $ExpectType void
 polygon.setPath([path, hole]); // $ExpectType void
-polygon.setPath(path, hole); // $ExpectError
+// @ts-expect-error
+polygon.setPath(path, hole);

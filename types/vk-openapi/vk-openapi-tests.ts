@@ -1,20 +1,21 @@
 // ----------------------------------------------------------------------------
 // init
 
-// $ExpectError
+// @ts-expect-error
 VK.init();
 
-// $ExpectError
+// @ts-expect-error
 VK.init({});
 
-// $ExpectError
+// @ts-expect-error
 VK.init({ apiId: '123' });
 
 VK.init({ apiId: 123 });
 
 VK.init({
     apiId: 123,
-    onlyWidgets: '123', // $ExpectError
+    // @ts-expect-error
+    onlyWidgets: '123',
 });
 
 VK.init({ apiId: 123, onlyWidgets: true });
@@ -22,7 +23,8 @@ VK.init({ apiId: 123, onlyWidgets: true });
 VK.init({
     apiId: 123,
     onlyWidgets: true,
-    status: '', // $ExpectError
+    // @ts-expect-error
+    status: '',
 });
 
 VK.init({ apiId: 123, onlyWidgets: true, status: false });
@@ -30,13 +32,13 @@ VK.init({ apiId: 123, onlyWidgets: true, status: false });
 // ----------------------------------------------------------------------------
 // Auth
 
-// $ExpectError
+// @ts-expect-error
 VK.Auth();
 
-// $ExpectError
+// @ts-expect-error
 VK.Auth.login();
 
-// $ExpectError
+// @ts-expect-error
 VK.Auth.login(() => {});
 
 VK.Auth.login(status => {
@@ -70,14 +72,14 @@ VK.Auth.login(status => {
     status.session.user.nickname;
 }, 100);
 
-// $ExpectError
+// @ts-expect-error
 VK.Auth.logout();
 
 VK.Auth.logout(() => {});
 
 VK.Auth.logout(
     () => {},
-    // $ExpectError
+    // @ts-expect-error
     100,
 );
 
@@ -92,14 +94,14 @@ VK.Auth.logout(status => {
     status.settings;
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Auth.revokeGrants();
 
 VK.Auth.revokeGrants(() => {});
 
 VK.Auth.revokeGrants(
     () => {},
-    // $ExpectError
+    // @ts-expect-error
     100,
 );
 
@@ -114,14 +116,14 @@ VK.Auth.revokeGrants(status => {
     status.settings;
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Auth.getLoginStatus();
 
 VK.Auth.getLoginStatus(() => {});
 
 VK.Auth.getLoginStatus(
     () => {},
-    // $ExpectError
+    // @ts-expect-error
     100,
 );
 
@@ -130,14 +132,14 @@ VK.Auth.getLoginStatus(status => {
     status;
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Auth.getSession();
 
 VK.Auth.getSession(() => {});
 
 VK.Auth.getSession(
     () => {},
-    // $ExpectError
+    // @ts-expect-error
     100,
 );
 
@@ -171,21 +173,22 @@ VK.Auth.getSession(session => {
 // ----------------------------------------------------------------------------
 // Api
 
-// $ExpectError
+// @ts-expect-error
 VK.Api();
 
-// $ExpectError
+// @ts-expect-error
 VK.Api.call();
 
-// $ExpectError
+// @ts-expect-error
 VK.Api.call('method');
 
-// $ExpectError
+// @ts-expect-error
 VK.Api.call('method', {});
 
 VK.Api.call(
     'method',
-    {}, // $ExpectError
+    // @ts-expect-error
+    {},
 
     (data: any) => {},
 );
@@ -195,19 +198,19 @@ VK.Api.call('method', { v: '5' }, (data: any) => {});
 // ----------------------------------------------------------------------------
 // Widgets
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets();
 
 // ----------------------------------------------------------------------------
 // Widgets.ContactUs
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.ContactUs();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.ContactUs('test');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.ContactUs('test', undefined);
 
 VK.Widgets.ContactUs('test', undefined, 10);
@@ -216,14 +219,14 @@ VK.Widgets.ContactUs('test', {}, 10);
 
 VK.Widgets.ContactUs(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     { height: 100 },
     10,
 );
 
 VK.Widgets.ContactUs(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     { text: 123 },
     10,
 );
@@ -240,19 +243,19 @@ VK.Widgets.ContactUs(
 // ----------------------------------------------------------------------------
 // Widgets.Comments
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Comments();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Comments(123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Comments(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Comments(() => 'test');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Comments({});
 
 VK.Widgets.Comments('test');
@@ -262,24 +265,26 @@ VK.Widgets.Comments('test', undefined);
 VK.Widgets.Comments(
     'test',
     undefined,
-    10, // $ExpectError
+    // @ts-expect-error
+    10,
 );
 
 VK.Widgets.Comments(
     'test',
     {},
-    10, // $ExpectError
+    // @ts-expect-error
+    10,
 );
 
 VK.Widgets.Comments(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     { width: '111', height: '222', limit: 'no', attach: 111, autoPublish: 3, norealtime: 'zzz', pageUrl: () => void 0 },
 );
 
 VK.Widgets.Comments(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     { width: null, height: {}, limit: () => 1, attach: {}, autoPublish: 'zzz', norealtime: 200, pageUrl: 1234 },
 );
 
@@ -296,40 +301,40 @@ VK.Widgets.Comments('test', {
 // ----------------------------------------------------------------------------
 // Widgets.Post
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post(true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post(123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post('test');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post({});
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post(() => '111');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post('test', 100);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post('test', '100');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post('test', true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Post('test', false);
 
 VK.Widgets.Post('test', 100, 20, 'hash');
@@ -339,7 +344,7 @@ VK.Widgets.Post(
     100,
     20,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: 'test' },
 );
 
@@ -348,7 +353,7 @@ VK.Widgets.Post(
     100,
     20,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: true },
 );
 
@@ -357,7 +362,7 @@ VK.Widgets.Post(
     100,
     20,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: false },
 );
 
@@ -366,7 +371,7 @@ VK.Widgets.Post(
     100,
     20,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: {} },
 );
 
@@ -375,7 +380,7 @@ VK.Widgets.Post(
     100,
     20,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: () => 100 },
 );
 
@@ -384,26 +389,26 @@ VK.Widgets.Post('test', 100, 20, 'hash', { width: 100 });
 // ----------------------------------------------------------------------------
 // Widgets.Group
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Group();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Group('test');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Group('test', undefined);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Group('test', undefined, '100');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Group('test', undefined, {});
 
 VK.Widgets.Group('test', undefined, 100);
 
 VK.Widgets.Group(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     { width: 'test', no_cover: 'false', wide: 'wat', color1: 111, color2: 222, color3: 333, mode: 1, height: 333 },
     100,
 );
@@ -426,19 +431,19 @@ VK.Widgets.Group(
 // ----------------------------------------------------------------------------
 // Widgets.Like
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Like();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Like(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Like(true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Like(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Like(111);
 
 VK.Widgets.Like('test');
@@ -447,13 +452,13 @@ VK.Widgets.Like('test', {});
 
 VK.Widgets.Like(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     { height: 100, verb: 3, pageTitle: 123, pageUrl: true, pageImage: null },
 );
 
 VK.Widgets.Like(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     { height: '30', verb: 'test', pageTitle: false, pageUrl: {}, pageImage: () => void 0 },
 );
 
@@ -468,32 +473,32 @@ VK.Widgets.Like('test', {
 // ----------------------------------------------------------------------------
 // Widgets.Recommended
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended(123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended(undefined);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended({});
 
 VK.Widgets.Recommended('element');
 
 VK.Widgets.Recommended(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { limit: 'test', max: 'no', period: 'never' },
 );
 
 VK.Widgets.Recommended(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { limit: false, max: true, period: 10 },
 );
 
@@ -503,54 +508,54 @@ VK.Widgets.Recommended('element', {
     period: 'day',
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, '');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, null);
 
 VK.Widgets.Recommended('element', {}, 0);
 
 VK.Widgets.Recommended('element', {}, 1);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 0, 'wat');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 0, 1);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 0, true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 0, {});
 
 VK.Widgets.Recommended('element', {}, 0, 'likes');
 
 VK.Widgets.Recommended('element', {}, 0, 'friend_likes');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 0, 'likes', '/dev/null');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 0, 'likes', 100);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 0, 'likes', true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 0, 'likes', {});
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 0, 'likes', {});
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Recommended('element', {}, 0, 'likes', null);
 
 VK.Widgets.Recommended('element', {}, 0, 'likes', 'blank');
@@ -562,61 +567,64 @@ VK.Widgets.Recommended('element', {}, 0, 'likes', 'top');
 // ----------------------------------------------------------------------------
 // Widgets.Poll
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Poll();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Poll('test');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Poll(123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Poll(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Poll({});
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Poll(null);
 
 VK.Widgets.Poll(
     'blackHole',
     {},
-    100, // $ExpectError
+    // @ts-expect-error
+    100,
 );
 
 VK.Widgets.Poll(
     'darling',
     {},
-    {}, // $ExpectError
+    // @ts-expect-error
+    {},
 );
 
 VK.Widgets.Poll(
     'blackHole',
     {},
-    false, // $ExpectError
+    // @ts-expect-error
+    false,
 );
 
 VK.Widgets.Poll('wiredLife', {}, 'poll');
 
 VK.Widgets.Poll(
     'wiredLife',
-    // $ExpectError
+    // @ts-expect-error
     { pageUrl: 123, width: '123' },
     'poll',
 );
 
 VK.Widgets.Poll(
     'wiredLife',
-    // $ExpectError
+    // @ts-expect-error
     { pageUrl: false, width: () => 123 },
     'poll',
 );
 
 VK.Widgets.Poll(
     'wiredLife',
-    // $ExpectError
+    // @ts-expect-error
     { pageUrl: false, width: null },
     'poll',
 );
@@ -633,23 +641,23 @@ VK.Widgets.Poll(
 // ----------------------------------------------------------------------------
 // Widgets.Auth
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Auth();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Auth(123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Auth(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Auth(true);
 
 VK.Widgets.Auth('auth');
 
 VK.Widgets.Auth(
     'auth',
-    // $ExpectError
+    // @ts-expect-error
     { authUrl: 123, onAuth: () => void 0, width: 'some' },
 );
 
@@ -681,73 +689,77 @@ VK.Widgets.Auth('auth', {
 // ----------------------------------------------------------------------------
 // Widgets.Subscribe
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Subscribe();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Subscribe(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Subscribe(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Subscribe(123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Subscribe('subber');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Subscribe('element', 123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Subscribe('element', false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Subscribe('element', 'zsh');
 
 VK.Widgets.Subscribe(
     'element',
     {},
-    null, // $ExpectError
+    // @ts-expect-error
+    null,
 );
 
 VK.Widgets.Subscribe(
     'element',
     {},
-    'user', // $ExpectError
+    // @ts-expect-error
+    'user',
 );
 
 VK.Widgets.Subscribe(
     'element',
     {},
-    false, // $ExpectError
+    // @ts-expect-error
+    false,
 );
 
 VK.Widgets.Subscribe(
     'element',
     {},
-    () => 123, // $ExpectError
+    // @ts-expect-error
+    () => 123,
 );
 
 VK.Widgets.Subscribe('element', {}, 123);
 
 VK.Widgets.Subscribe(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { mode: 3, soft: 'test' },
     123,
 );
 
 VK.Widgets.Subscribe(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { mode: null, soft: {} },
     123,
 );
 
 VK.Widgets.Subscribe(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { mode: () => 1, soft: false },
     123,
 );
@@ -764,54 +776,54 @@ VK.Widgets.Subscribe(
 // ----------------------------------------------------------------------------
 // Widgets.CommunityMessages
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.CommunityMessages();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.CommunityMessages(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.CommunityMessages(1);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.CommunityMessages(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.CommunityMessages(true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.CommunityMessages({});
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.CommunityMessages('test');
 
 VK.Widgets.CommunityMessages(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     {},
 );
 
 VK.Widgets.CommunityMessages(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     null,
 );
 
 VK.Widgets.CommunityMessages(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     true,
 );
 
 VK.Widgets.CommunityMessages(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     false,
 );
 
 VK.Widgets.CommunityMessages(
     'test',
-    // $ExpectError
+    // @ts-expect-error
     'zxc',
 );
 
@@ -843,27 +855,27 @@ VK.Widgets.CommunityMessages(
     'test',
     123,
     // prettier-ignore
-    // $ExpectError
+    // @ts-expect-error
     { expanded: 0, disableButtonTooltip: 0, disableNewMessagesSound: 0, disableExpandChatSound: 0, disableTitleChange: 0 },
 );
 
 // ----------------------------------------------------------------------------
 // Widgets.Playlist
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Playlist();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Playlist('element');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Playlist('element', 1);
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Playlist('element', 1, 10);
 
 VK.Widgets.Playlist(
-    // $ExpectError
+    // @ts-expect-error
     null,
     1,
     10,
@@ -871,7 +883,7 @@ VK.Widgets.Playlist(
 );
 
 VK.Widgets.Playlist(
-    // $ExpectError
+    // @ts-expect-error
     true,
     1,
     10,
@@ -879,7 +891,7 @@ VK.Widgets.Playlist(
 );
 
 VK.Widgets.Playlist(
-    // $ExpectError
+    // @ts-expect-error
     false,
     1,
     10,
@@ -887,7 +899,7 @@ VK.Widgets.Playlist(
 );
 
 VK.Widgets.Playlist(
-    // $ExpectError
+    // @ts-expect-error
     123,
     1,
     10,
@@ -895,7 +907,7 @@ VK.Widgets.Playlist(
 );
 
 VK.Widgets.Playlist(
-    // $ExpectError
+    // @ts-expect-error
     {},
     1,
     10,
@@ -903,7 +915,7 @@ VK.Widgets.Playlist(
 );
 
 VK.Widgets.Playlist(
-    // $ExpectError
+    // @ts-expect-error
     () => void 0,
     1,
     10,
@@ -912,7 +924,7 @@ VK.Widgets.Playlist(
 
 VK.Widgets.Playlist(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     null,
     10,
     'hash',
@@ -920,7 +932,7 @@ VK.Widgets.Playlist(
 
 VK.Widgets.Playlist(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     true,
     10,
     'hash',
@@ -928,7 +940,7 @@ VK.Widgets.Playlist(
 
 VK.Widgets.Playlist(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     false,
     10,
     'hash',
@@ -936,7 +948,7 @@ VK.Widgets.Playlist(
 
 VK.Widgets.Playlist(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     'true',
     10,
     'hash',
@@ -944,7 +956,7 @@ VK.Widgets.Playlist(
 
 VK.Widgets.Playlist(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     () => void 0,
     10,
     'hash',
@@ -952,7 +964,7 @@ VK.Widgets.Playlist(
 
 VK.Widgets.Playlist(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     {},
     10,
     'hash',
@@ -961,7 +973,7 @@ VK.Widgets.Playlist(
 VK.Widgets.Playlist(
     'element',
     1,
-    // $ExpectError
+    // @ts-expect-error
     null,
     'hash',
 );
@@ -969,7 +981,7 @@ VK.Widgets.Playlist(
 VK.Widgets.Playlist(
     'element',
     1,
-    // $ExpectError
+    // @ts-expect-error
     true,
     'hash',
 );
@@ -977,7 +989,7 @@ VK.Widgets.Playlist(
 VK.Widgets.Playlist(
     'element',
     1,
-    // $ExpectError
+    // @ts-expect-error
     false,
     'hash',
 );
@@ -985,7 +997,7 @@ VK.Widgets.Playlist(
 VK.Widgets.Playlist(
     'element',
     1,
-    // $ExpectError
+    // @ts-expect-error
     {},
     'hash',
 );
@@ -993,7 +1005,7 @@ VK.Widgets.Playlist(
 VK.Widgets.Playlist(
     'element',
     1,
-    // $ExpectError
+    // @ts-expect-error
     '',
     'hash',
 );
@@ -1001,7 +1013,7 @@ VK.Widgets.Playlist(
 VK.Widgets.Playlist(
     'element',
     1,
-    // $ExpectError
+    // @ts-expect-error
     () => 123,
     'hash',
 );
@@ -1010,7 +1022,7 @@ VK.Widgets.Playlist(
     'element',
     1,
     10,
-    // $ExpectError
+    // @ts-expect-error
     null,
 );
 
@@ -1018,7 +1030,7 @@ VK.Widgets.Playlist(
     'element',
     1,
     10,
-    // $ExpectError
+    // @ts-expect-error
     true,
 );
 
@@ -1026,7 +1038,7 @@ VK.Widgets.Playlist(
     'element',
     1,
     10,
-    // $ExpectError
+    // @ts-expect-error
     false,
 );
 
@@ -1034,7 +1046,7 @@ VK.Widgets.Playlist(
     'element',
     1,
     10,
-    // $ExpectError
+    // @ts-expect-error
     123,
 );
 
@@ -1042,7 +1054,7 @@ VK.Widgets.Playlist(
     'element',
     1,
     10,
-    // $ExpectError
+    // @ts-expect-error
     {},
 );
 
@@ -1050,7 +1062,7 @@ VK.Widgets.Playlist(
     'element',
     1,
     10,
-    // $ExpectError
+    // @ts-expect-error
     () => '',
 );
 
@@ -1063,7 +1075,7 @@ VK.Widgets.Playlist(
     1,
     10,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: null },
 );
 
@@ -1072,7 +1084,7 @@ VK.Widgets.Playlist(
     1,
     10,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: true },
 );
 
@@ -1081,7 +1093,7 @@ VK.Widgets.Playlist(
     1,
     10,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: false },
 );
 
@@ -1090,7 +1102,7 @@ VK.Widgets.Playlist(
     1,
     10,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: '123' },
 );
 
@@ -1099,7 +1111,7 @@ VK.Widgets.Playlist(
     1,
     10,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: {} },
 );
 
@@ -1108,7 +1120,7 @@ VK.Widgets.Playlist(
     1,
     10,
     'hash',
-    // $ExpectError
+    // @ts-expect-error
     { width: () => 213 },
 );
 
@@ -1117,13 +1129,13 @@ VK.Widgets.Playlist('element', 1, 10, 'hash', { width: 100 });
 // ----------------------------------------------------------------------------
 // Widgets.AllowMessagesFromCommunity
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.AllowMessagesFromCommunity();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.AllowMessagesFromCommunity('element');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.AllowMessagesFromCommunity('element', {});
 
 VK.Widgets.AllowMessagesFromCommunity('element', null, 1);
@@ -1133,42 +1145,42 @@ VK.Widgets.AllowMessagesFromCommunity('element', undefined, 1);
 VK.Widgets.AllowMessagesFromCommunity('element', {}, 1);
 
 VK.Widgets.AllowMessagesFromCommunity(
-    // $ExpectError
+    // @ts-expect-error
     null,
     {},
     1,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
-    // $ExpectError
+    // @ts-expect-error
     true,
     {},
     1,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
-    // $ExpectError
+    // @ts-expect-error
     false,
     {},
     1,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
-    // $ExpectError
+    // @ts-expect-error
     123,
     {},
     1,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
-    // $ExpectError
+    // @ts-expect-error
     {},
     {},
     1,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
-    // $ExpectError
+    // @ts-expect-error
     () => '',
     {},
     1,
@@ -1176,35 +1188,35 @@ VK.Widgets.AllowMessagesFromCommunity(
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     '',
     1,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     true,
     1,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     false,
     1,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     1,
     1,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     () => {},
     1,
 );
@@ -1212,83 +1224,83 @@ VK.Widgets.AllowMessagesFromCommunity(
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
     {},
-    // $ExpectError
+    // @ts-expect-error
     null,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
     {},
-    // $ExpectError
+    // @ts-expect-error
     true,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
     {},
-    // $ExpectError
+    // @ts-expect-error
     false,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
     {},
-    // $ExpectError
+    // @ts-expect-error
     '',
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
     {},
-    // $ExpectError
+    // @ts-expect-error
     {},
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
     {},
-    // $ExpectError
+    // @ts-expect-error
     () => 123,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: null },
     100,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: true },
     100,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: false },
     100,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: 100 },
     100,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: {} },
     100,
 );
 
 VK.Widgets.AllowMessagesFromCommunity(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: {} },
     100,
 );
@@ -1302,83 +1314,83 @@ VK.Widgets.AllowMessagesFromCommunity('element', { height: 30 }, 100);
 // ----------------------------------------------------------------------------
 // Widgets.App
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.App();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.App('element');
 
 VK.Widgets.App('element', 100);
 
 VK.Widgets.App(
-    // $ExpectError
+    // @ts-expect-error
     null,
     100,
 );
 
 VK.Widgets.App(
-    // $ExpectError
+    // @ts-expect-error
     true,
     100,
 );
 
 VK.Widgets.App(
-    // $ExpectError
+    // @ts-expect-error
     false,
     100,
 );
 
 VK.Widgets.App(
-    // $ExpectError
+    // @ts-expect-error
     123,
     100,
 );
 
 VK.Widgets.App(
-    // $ExpectError
+    // @ts-expect-error
     {},
     100,
 );
 
 VK.Widgets.App(
-    // $ExpectError
+    // @ts-expect-error
     () => '',
     100,
 );
 
 VK.Widgets.App(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     null,
 );
 
 VK.Widgets.App(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     true,
 );
 
 VK.Widgets.App(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     false,
 );
 
 VK.Widgets.App(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     '',
 );
 
 VK.Widgets.App(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     {},
 );
 
 VK.Widgets.App(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     () => 123,
 );
 
@@ -1387,84 +1399,84 @@ VK.Widgets.App('element', 100, {});
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { height: null },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { height: true },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { height: false },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { height: '' },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { height: {} },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { height: () => 123 },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { mode: null },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { mode: true },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { mode: false },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { mode: {} },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { mode: '' },
 );
 
 VK.Widgets.App(
     'element',
     100,
-    // $ExpectError
+    // @ts-expect-error
     { mode: () => 1 },
 );
 
@@ -1483,121 +1495,121 @@ VK.Widgets.App('element', 100, { height: 100, mode: 3 });
 // ----------------------------------------------------------------------------
 // Widgets.Article
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Article();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Article('element');
 
 VK.Widgets.Article('element', 'article');
 
 VK.Widgets.Article(
-    // $ExpectError
+    // @ts-expect-error
     null,
     'article',
 );
 
 VK.Widgets.Article(
-    // $ExpectError
+    // @ts-expect-error
     true,
     'article',
 );
 
 VK.Widgets.Article(
-    // $ExpectError
+    // @ts-expect-error
     false,
     'article',
 );
 
 VK.Widgets.Article(
-    // $ExpectError
+    // @ts-expect-error
     100,
     'article',
 );
 
 VK.Widgets.Article(
-    // $ExpectError
+    // @ts-expect-error
     {},
     'article',
 );
 
 VK.Widgets.Article(
-    // $ExpectError
+    // @ts-expect-error
     () => '',
     'article',
 );
 
 VK.Widgets.Article(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     null,
 );
 
 VK.Widgets.Article(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     true,
 );
 
 VK.Widgets.Article(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     false,
 );
 
 VK.Widgets.Article(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     100,
 );
 
 VK.Widgets.Article(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     {},
 );
 
 VK.Widgets.Article(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     () => '',
 );
 
 // ----------------------------------------------------------------------------
 // Widgets.Bookmarks
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Bookmarks();
 
 VK.Widgets.Bookmarks('element');
 
 VK.Widgets.Bookmarks(
-    // $ExpectError
+    // @ts-expect-error
     null,
 );
 
 VK.Widgets.Bookmarks(
-    // $ExpectError
+    // @ts-expect-error
     true,
 );
 
 VK.Widgets.Bookmarks(
-    // $ExpectError
+    // @ts-expect-error
     false,
 );
 
 VK.Widgets.Bookmarks(
-    // $ExpectError
+    // @ts-expect-error
     100,
 );
 
 VK.Widgets.Bookmarks(
-    // $ExpectError
+    // @ts-expect-error
     {},
 );
 
 VK.Widgets.Bookmarks(
-    // $ExpectError
+    // @ts-expect-error
     () => '',
 );
 
@@ -1605,43 +1617,43 @@ VK.Widgets.Bookmarks('element', {});
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: 100 },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: null },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: false },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: true },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: '' },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: {} },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { height: () => 18 },
 );
 
@@ -1657,37 +1669,37 @@ VK.Widgets.Bookmarks('element', { height: 30 });
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { url: null },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { url: true },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { url: false },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { url: 100 },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { url: {} },
 );
 
 VK.Widgets.Bookmarks(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     { url: () => '' },
 );
 
@@ -1696,54 +1708,54 @@ VK.Widgets.Bookmarks('element', { url: '/doggo' });
 // ----------------------------------------------------------------------------
 // Widgets.Podcast
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Podcast();
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Podcast('element');
 
-// $ExpectError
+// @ts-expect-error
 VK.Widgets.Podcast('element', 'episode');
 
 VK.Widgets.Podcast('element', 'episode', 'hash');
 
 VK.Widgets.Podcast(
-    // $ExpectError
+    // @ts-expect-error
     null,
     'episode',
     'hash',
 );
 
 VK.Widgets.Podcast(
-    // $ExpectError
+    // @ts-expect-error
     true,
     'episode',
     'hash',
 );
 
 VK.Widgets.Podcast(
-    // $ExpectError
+    // @ts-expect-error
     false,
     'episode',
     'hash',
 );
 
 VK.Widgets.Podcast(
-    // $ExpectError
+    // @ts-expect-error
     100,
     'episode',
     'hash',
 );
 
 VK.Widgets.Podcast(
-    // $ExpectError
+    // @ts-expect-error
     {},
     'episode',
     'hash',
 );
 
 VK.Widgets.Podcast(
-    // $ExpectError
+    // @ts-expect-error
     () => '',
     'episode',
     'hash',
@@ -1751,42 +1763,42 @@ VK.Widgets.Podcast(
 
 VK.Widgets.Podcast(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     null,
     'hash',
 );
 
 VK.Widgets.Podcast(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     true,
     'hash',
 );
 
 VK.Widgets.Podcast(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     false,
     'hash',
 );
 
 VK.Widgets.Podcast(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     100,
     'hash',
 );
 
 VK.Widgets.Podcast(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     {},
     'hash',
 );
 
 VK.Widgets.Podcast(
     'element',
-    // $ExpectError
+    // @ts-expect-error
     () => '',
     'hash',
 );
@@ -1794,85 +1806,85 @@ VK.Widgets.Podcast(
 VK.Widgets.Podcast(
     'element',
     'episode',
-    // $ExpectError
+    // @ts-expect-error
     null,
 );
 
 VK.Widgets.Podcast(
     'element',
     'episode',
-    // $ExpectError
+    // @ts-expect-error
     true,
 );
 
 VK.Widgets.Podcast(
     'element',
     'episode',
-    // $ExpectError
+    // @ts-expect-error
     false,
 );
 
 VK.Widgets.Podcast(
     'element',
     'episode',
-    // $ExpectError
+    // @ts-expect-error
     100,
 );
 
 VK.Widgets.Podcast(
     'element',
     'episode',
-    // $ExpectError
+    // @ts-expect-error
     {},
 );
 
 VK.Widgets.Podcast(
     'element',
     'episode',
-    // $ExpectError
+    // @ts-expect-error
     () => '',
 );
 
 // ----------------------------------------------------------------------------
 // Observer
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer();
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe();
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.unsubscribe();
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.unsubscribe();
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe('event.not.found');
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe('event.not.found', () => void 0);
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.unsubscribe('404');
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe('auth.login', data => {
     data;
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe('auth.logout', data => {
     data;
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe('auth.statusChange', data => {
     data;
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe('auth.sessionChange', data => {
     data;
 });
@@ -1899,12 +1911,12 @@ VK.Observer.subscribe('widgets.comments.delete_comment', (num, lc, date, sign) =
     sign;
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe('widgets.groups.joined', data => {
     data;
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe('widgets.groups.leaved', data => {
     data;
 });
@@ -1926,12 +1938,12 @@ VK.Observer.subscribe('widgets.like.unshared', shares => {
     shares;
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe('widgets.subscribed', data => {
     data;
 });
 
-// $ExpectError
+// @ts-expect-error
 VK.Observer.subscribe('widgets.unsubscribed', data => {
     data;
 });
@@ -1984,28 +1996,28 @@ VK.Observer.unsubscribe('widgets.allowMessagesFromCommunity.denied', handler);
 // ----------------------------------------------------------------------------
 // Retargeting
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting();
 
 // ----------------------------------------------------------------------------
 // Retargeting.Init
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Init();
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Init(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Init(123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Init(true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Init(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Init({});
 
 VK.Retargeting.Init('some code');
@@ -2015,49 +2027,49 @@ VK.Retargeting.Init('some code');
 
 VK.Retargeting.Hit();
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Hit(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Hit(123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Hit(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Hit(true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Hit('test');
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Hit({});
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Hit(() => void 0);
 
 // ----------------------------------------------------------------------------
 // Retargeting.Event
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Event();
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Event(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Event(true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Event(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Event(123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Event({});
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Event(() => 'test');
 
 VK.Retargeting.Event('test');
@@ -2065,25 +2077,25 @@ VK.Retargeting.Event('test');
 // ----------------------------------------------------------------------------
 // Retargeting.Add
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Add();
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Add(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Add(true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Add(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Add('test');
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Add({});
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.Add(() => 123);
 
 VK.Retargeting.Add(123);
@@ -2091,53 +2103,58 @@ VK.Retargeting.Add(123);
 // ----------------------------------------------------------------------------
 // Retargeting.ProductEvent
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.ProductEvent();
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.ProductEvent(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.ProductEvent(true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.ProductEvent(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.ProductEvent('test');
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.ProductEvent({});
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.ProductEvent(() => 123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Retargeting.ProductEvent(123);
 
 VK.Retargeting.ProductEvent(
     123,
-    null, // $ExpectError
+    // @ts-expect-error
+    null,
 );
 
 VK.Retargeting.ProductEvent(
     123,
-    true, // $ExpectError
+    // @ts-expect-error
+    true,
 );
 
 VK.Retargeting.ProductEvent(
     123,
-    false, // $ExpectError
+    // @ts-expect-error
+    false,
 );
 
 VK.Retargeting.ProductEvent(
     123,
-    () => 'test', // $ExpectError
+    // @ts-expect-error
+    () => 'test',
 );
 
 VK.Retargeting.ProductEvent(
     123,
-    'event_not_found', // $ExpectError
+    // @ts-expect-error
+    'event_not_found',
 );
 
 VK.Retargeting.ProductEvent(123, 'view_home');
@@ -2154,36 +2171,36 @@ VK.Retargeting.ProductEvent(123, 'add_payment_info');
 VK.Retargeting.ProductEvent(123, 'purchase');
 
 const product: vk.OpenAPI.Retargeting.Product = {
-    // $ExpectError
+    // @ts-expect-error
     id: null,
-    // $ExpectError
+    // @ts-expect-error
     group_id: null,
-    // $ExpectError
+    // @ts-expect-error
     recommended_ids: null,
-    // $ExpectError
+    // @ts-expect-error
     price: null,
-    // $ExpectError
+    // @ts-expect-error
     price_old: null,
-    // $ExpectError
+    // @ts-expect-error
     price_from: null,
 };
 
 const product2: vk.OpenAPI.Retargeting.Product = {
-    // $ExpectError
+    // @ts-expect-error
     id: 1,
-    // $ExpectError
+    // @ts-expect-error
     group_id: 10,
-    // $ExpectError
+    // @ts-expect-error
     recommended_ids: 100,
-    // $ExpectError
+    // @ts-expect-error
     price: '1000',
-    // $ExpectError
+    // @ts-expect-error
     price_old: '10000',
-    // $ExpectError
+    // @ts-expect-error
     price_from: true,
 };
 
-// $ExpectError
+// @ts-expect-error
 const product3: vk.OpenAPI.Retargeting.Product = {};
 
 const product4: vk.OpenAPI.Retargeting.Product = {
@@ -2205,36 +2222,36 @@ const product5: vk.OpenAPI.Retargeting.Product = {
 };
 
 const params: vk.OpenAPI.Retargeting.ProductEventParams = {
-    // $ExpectError
+    // @ts-expect-error
     products: null,
-    // $ExpectError
+    // @ts-expect-error
     products_recommended_ids: null,
-    // $ExpectError
+    // @ts-expect-error
     category_ids: null,
-    // $ExpectError
+    // @ts-expect-error
     business_value: null,
-    // $ExpectError
+    // @ts-expect-error
     currency_code: null,
-    // $ExpectError
+    // @ts-expect-error
     total_price: null,
-    // $ExpectError
+    // @ts-expect-error
     search_string: null,
 };
 
 const params2: vk.OpenAPI.Retargeting.ProductEventParams = {
-    // $ExpectError
+    // @ts-expect-error
     products: {},
-    // $ExpectError
+    // @ts-expect-error
     products_recommended_ids: 123,
-    // $ExpectError
+    // @ts-expect-error
     category_ids: 100,
-    // $ExpectError
+    // @ts-expect-error
     business_value: '100',
-    // $ExpectError
+    // @ts-expect-error
     currency_code: 007,
-    // $ExpectError
+    // @ts-expect-error
     total_price: '666',
-    // $ExpectError
+    // @ts-expect-error
     search_string: 777,
 };
 
@@ -2257,25 +2274,25 @@ VK.Retargeting.ProductEvent(123, 'purchase', params4);
 // ----------------------------------------------------------------------------
 // Goal
 
-// $ExpectError
+// @ts-expect-error
 VK.Goal();
 
-// $ExpectError
+// @ts-expect-error
 VK.Goal(null);
 
-// $ExpectError
+// @ts-expect-error
 VK.Goal(true);
 
-// $ExpectError
+// @ts-expect-error
 VK.Goal(false);
 
-// $ExpectError
+// @ts-expect-error
 VK.Goal(123);
 
-// $ExpectError
+// @ts-expect-error
 VK.Goal(() => 'test');
 
-// $ExpectError
+// @ts-expect-error
 VK.Goal('goal_not_found');
 
 VK.Goal('add_to_cart');
@@ -2302,37 +2319,37 @@ VK.Goal('donate', {});
 
 VK.Goal(
     'donate',
-    // $ExpectError
+    // @ts-expect-error
     { someAnotherValue: 123 },
 );
 
 VK.Goal(
     'donate',
-    // $ExpectError
+    // @ts-expect-error
     { value: null },
 );
 
 VK.Goal(
     'donate',
-    // $ExpectError
+    // @ts-expect-error
     { value: true },
 );
 
 VK.Goal(
     'donate',
-    // $ExpectError
+    // @ts-expect-error
     { value: false },
 );
 
 VK.Goal(
     'donate',
-    // $ExpectError
+    // @ts-expect-error
     { value: 'test' },
 );
 
 VK.Goal(
     'donate',
-    // $ExpectError
+    // @ts-expect-error
     { value: () => 123 },
 );
 

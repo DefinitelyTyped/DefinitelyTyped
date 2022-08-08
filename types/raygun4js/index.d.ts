@@ -2,7 +2,6 @@
 // Project: https://github.com/MindscapeHQ/raygun4js
 // Definitions by: Krishna Kapadia <https://github.com/krishnakapadia>,
 //                 Benjamin Harding <https://github.com/BenjaminHarding>,
-//                 Taylor Lodge <https://github.com/UberMouse>,
 //                 Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -400,7 +399,8 @@ interface RaygunV2 {
     (key: "getRaygunInstance"): RaygunStatic;
     (
         key:
-            "endSession"
+            "boot"
+            | "endSession"
             | "detach"
             | "disableAutoBreadcrumbs"
             | "enableAutoBreadcrumbs"

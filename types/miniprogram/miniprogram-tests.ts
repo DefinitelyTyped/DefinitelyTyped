@@ -574,6 +574,7 @@ my.getOpenUserInfo({
 my.tradePay({
     tradeNO: '201711152100110410533667792', // get the tradeNo from the server first
     success: res => {
+        res.resultCode;
         my.alert({
             content: JSON.stringify(res),
         });

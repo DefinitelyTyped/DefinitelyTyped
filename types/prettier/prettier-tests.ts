@@ -48,7 +48,7 @@ prettier.getFileInfo('./tsconfig.json').then(result => {
     }
 });
 
-// $ExpectError
+// @ts-expect-error
 prettier.resolveConfig();
 
 const options = prettier.resolveConfig.sync('path/to/somewhere');
@@ -75,9 +75,9 @@ prettier.clearConfigCache();
 const currentSupportInfo = prettier.getSupportInfo();
 
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel' });
-// $ExpectError
+// @ts-expect-error
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', rangeStart: 2 });
-// $ExpectError
+// @ts-expect-error
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', rangeEnd: 2 });
 
 prettierStandalone.format(' 1', { parser: 'babel' });
@@ -117,6 +117,13 @@ interface PluginAST {
 }
 
 const plugin: prettier.Plugin<PluginAST> = {
+    languages: [
+        {
+            name: 'Shell',
+            parsers: ['sh'],
+            interpreters: ['bash', 'zsh']
+        }
+    ],
     parsers: {
         lines: {
             parse(text, parsers, options) {
@@ -253,7 +260,7 @@ prettier.format('pluginSearchDir is false', {
 });
 
 prettier.format('pluginSearchDir can not be true', {
-    // $ExpectError
+    // @ts-expect-error
     pluginSearchDirs: true,
 });
 
@@ -398,15 +405,22 @@ function print(
         'list1',
     );
 
-    path.call(print, 'list2'); // $ExpectError
-    path.call(print, 'list4'); // $ExpectError
-    path.call(print, 'item2', 'list3'); // $ExpectError
+    // @ts-expect-error
+    path.call(print, 'list2');
+    // @ts-expect-error
+    path.call(print, 'list4');
+    // @ts-expect-error
+    path.call(print, 'item2', 'list3');
 
-    path.each(print, 'item2'); // $ExpectError
-    path.each(print, 'item2', 'item3'); // $ExpectError
+    // @ts-expect-error
+    path.each(print, 'item2');
+    // @ts-expect-error
+    path.each(print, 'item2', 'item3');
 
-    path.map(print, 'item2'); // $ExpectError
-    path.map(print, 'item2', 'item3'); // $ExpectError
+    // @ts-expect-error
+    path.map(print, 'item2');
+    // @ts-expect-error
+    path.map(print, 'item2', 'item3');
 
     return '';
 }

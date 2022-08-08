@@ -52,6 +52,7 @@ declare namespace Shippo {
         servicelevel: {
             token: string;
         };
+        estimated_days?: number;
     }
 
     interface CreateCustomsItemRequest {

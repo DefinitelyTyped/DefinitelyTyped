@@ -1,10 +1,10 @@
-import inquirer = require('inquirer');
+import inquirer, { QuestionCollection } from 'inquirer';
 import chalkPipe = require('chalk-pipe');
 
 /**
  * Input prompt example
  */
-const questions: inquirer.QuestionCollection = [
+const questions: QuestionCollection = [
     {
         type: 'input',
         name: 'first_name',

@@ -1107,7 +1107,7 @@ declare module 'fs/promises' {
      * @param dest destination path to copy to.
      * @return Fulfills with `undefined` upon success.
      */
-    function cp(source: string, destination: string, opts?: CopyOptions): Promise<void>;
+    function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
 }
 declare module 'node:fs/promises' {
     export * from 'fs/promises';

@@ -996,6 +996,7 @@ export interface SignInOptions {
     otp: string;
     realm?: 'email' | 'sms';
     audience?: string | undefined;
+    scope?: string | undefined;
     /**
      * @deprecated
      */
@@ -1706,6 +1707,7 @@ export class OrganizationsManager {
 
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     organizations: OrganizationsManager;
+    users: UsersManager;
 
     constructor(options: ManagementClientOptions);
 
@@ -2054,6 +2056,9 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     deleteCustomDomain(params: ObjectWithId, cb: (err: Error) => void): void;
 
     // User enrollment
+    getGuardianEnrollment(params: ObjectWithId): Promise<Enrollment>;
+    getGuardianEnrollment(params: ObjectWithId, cb: (err: Error, response: Enrollment) => void): void;
+
     getGuardianEnrollments(params: ObjectWithId): Promise<Enrollment[]>;
     getGuardianEnrollments(params: ObjectWithId, cb: (err: Error, response: Enrollment[]) => void): void;
 
@@ -2167,4 +2172,7 @@ export class UsersManager<A = AppMetadata, U = UserMetadata> {
 
     impersonate(userId: string, settings: ImpersonateSettingOptions): Promise<any>;
     impersonate(userId: string, settings: ImpersonateSettingOptions, cb: (err: Error, data: any) => void): void;
+
+    getUserOrganizations(data: ObjectWithId): Promise<Organization[]>;
+    getUserOrganizations(data: ObjectWithId, cb: (err: Error, orgs: Organization[]) => void): void;
 }

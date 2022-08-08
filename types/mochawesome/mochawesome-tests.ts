@@ -12,10 +12,10 @@ import * as addContext2 from 'mochawesome/addContext';
 // $ExpectType any
 import * as addContext4 from 'mochawesome';
 
-// $ExpectError
+// @ts-expect-error
 import { addContext as addContext3 } from 'mochawesome/addContext';
 
-// $ExpectError
+// @ts-expect-error
 import { addContext as addContext5 } from 'mochawesome';
 
 // $ExpectType void
@@ -36,16 +36,16 @@ addContext(new Mocha.Context(), { title: 'Test 3', value: undefined });
 // $ExpectType void
 addContext(new Mocha.Context(), { title: 'Test 4', value: [] });
 
-// $ExpectError
+// @ts-expect-error
 addContext('');
 
-// $ExpectError
+// @ts-expect-error
 addContext(new Mocha.Context(), { noTitle: 'sorry', noValue: 'yep' });
 
-// $ExpectError
+// @ts-expect-error
 addContext(new Mocha.Context(), { title: 'Title' });
 
-// $ExpectError
+// @ts-expect-error
 addContext(new Mocha.Context(), { value: '' });
 
 import Mochawesome = require('mochawesome');
@@ -53,13 +53,13 @@ import Mochawesome = require('mochawesome');
 // $ExpectType Mochawesome
 new Mochawesome(new Mocha.Runner(new Mocha.Suite(''), false), {});
 
-// $ExpectError
+// @ts-expect-error
 new Mochawesome();
 
-// $ExpectError
+// @ts-expect-error
 new Mochawesome({}, {});
 
-// $ExpectError
+// @ts-expect-error
 Mochawesome(new Mocha.Runner(new Mocha.Suite(''), false), {
     inlineDiffs: true,
     reporterOptions: {},

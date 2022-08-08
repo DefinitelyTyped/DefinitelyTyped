@@ -126,6 +126,16 @@ declare module 'stream' {
              * @since v18.0.0
              */
             destroyed: boolean;
+            /**
+             * Is true after 'close' has been emitted.
+             * @since v8.0.0
+             */
+            readonly closed: boolean;
+            /**
+             * Returns error if the stream has been destroyed with an error.
+             * @since v18.0.0
+             */
+            readonly errored: Error | null;
             constructor(opts?: ReadableOptions);
             _construct?(callback: (error?: Error | null) => void): void;
             _read(size: number): void;
@@ -510,6 +520,18 @@ declare module 'stream' {
          */
         class Writable extends Stream implements NodeJS.WritableStream {
             /**
+             * A utility method for creating a `Writable` from a web `WritableStream`.
+             * @since v17.0.0
+             * @experimental
+             */
+            static fromWeb(writableStream: streamWeb.WritableStream, options?: Pick<WritableOptions, 'decodeStrings' | 'highWaterMark' | 'objectMode' | 'signal'>): Writable;
+            /**
+             * A utility method for creating a web `WritableStream` from a `Writable`.
+             * @since v17.0.0
+             * @experimental
+             */
+            static toWeb(streamWritable: Writable): streamWeb.WritableStream;
+            /**
              * Is `true` if it is safe to call `writable.write()`, which means
              * the stream has not been destroyed, errored or ended.
              * @since v11.4.0
@@ -554,6 +576,21 @@ declare module 'stream' {
              * @since v8.0.0
              */
             destroyed: boolean;
+            /**
+             * Is true after 'close' has been emitted.
+             * @since v8.0.0
+             */
+            readonly closed: boolean;
+            /**
+             * Returns error if the stream has been destroyed with an error.
+             * @since v18.0.0
+             */
+            readonly errored: Error | null;
+            /**
+             * Is `true` if the stream's buffer has been full and stream will emit 'drain'.
+             * @since v15.2.0, v14.17.0
+             */
+            readonly writableNeedDrain: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(
@@ -820,6 +857,9 @@ declare module 'stream' {
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
             readonly writableCorked: number;
+            readonly writableNeedDrain: boolean;
+            readonly closed: boolean;
+            readonly errored: Error | null;
             /**
              * If `false` then the stream will automatically end the writable side when the
              * readable side ends. Set initially by the `allowHalfOpen` constructor option,

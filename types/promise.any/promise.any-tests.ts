@@ -5,7 +5,8 @@ const resolved = Promise.resolve(42);
 const rejected = Promise.reject(-1);
 const alsoRejected = Promise.reject(Infinity);
 
-any(); // $ExpectError
+// @ts-expect-error
+any();
 
 any([]); // $ExpectType Promise<never>
 
