@@ -1,5 +1,5 @@
-import {Button} from "react-native";
-import ReactNativeRazorpay, {ErrorResponse} from "react-native-razorpay";
+import { Button } from "react-native";
+import ReactNativeRazorpay, { ErrorResponse } from "react-native-razorpay";
 
 const Test = () => {
     <>

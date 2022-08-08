@@ -20,7 +20,7 @@ export interface ErrorResponse {
     metadata: {
         payment_id?: string;
         order_id: string;
-    }
+    };
 }
 
 export interface CheckoutOptions {
@@ -85,5 +85,5 @@ export interface CheckoutOptions {
 
 export default class {
     static open(options: CheckoutOptions, successCallback?: (data: SuccessResponse) => void, errorCallback?: (data: ErrorResponse) => void): Promise<SuccessResponse>;
-    static onExternalWalletSelection(externalWalletCallback: Function): void;
+    static onExternalWalletSelection(externalWalletCallback: (data: unknown) => void): void;
 }
