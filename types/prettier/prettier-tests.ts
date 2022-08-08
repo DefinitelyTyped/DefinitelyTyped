@@ -117,6 +117,13 @@ interface PluginAST {
 }
 
 const plugin: prettier.Plugin<PluginAST> = {
+    languages: [
+        {
+            name: 'Shell',
+            parsers: ['sh'],
+            interpreters: ['bash', 'zsh']
+        }
+    ],
     parsers: {
         lines: {
             parse(text, parsers, options) {

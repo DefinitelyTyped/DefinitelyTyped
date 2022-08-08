@@ -1,1 +1,0 @@
-export { BackToTop as default } from "./";

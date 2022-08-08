@@ -480,7 +480,7 @@ declare module 'buffer' {
              * if `size` is 0.
              *
              * The underlying memory for `Buffer` instances created in this way is _not_
-             * _initialized_. The contents of the newly created `Buffer` are unknown and_may contain sensitive data_. Use `buf.fill(0)` to initialize
+             * _initialized_. The contents of the newly created `Buffer` are unknown and _may contain sensitive data_. Use `buf.fill(0)` to initialize
              * such `Buffer` instances with zeroes.
              *
              * When using `Buffer.allocUnsafe()` to allocate new `Buffer` instances,

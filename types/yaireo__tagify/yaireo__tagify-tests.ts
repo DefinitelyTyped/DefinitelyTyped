@@ -119,8 +119,8 @@ const settings: TagifySettings = {
             event.detail.tagify;
         },
         "dropdown:hide": event => {
-            // $ExpectType HTMLElement
-            event.detail.dropdown;
+            // $ExpectType HTMLElement | null
+            event.detail.parentElement;
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
         },
@@ -139,18 +139,20 @@ const settings: TagifySettings = {
         "dropdown:select": event => {
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
-            // $ExpectType string
-            event.detail.value;
+            // $ExpectType TagData
+            event.detail.data;
+            // $ExpectType HTMLDivElement
+            event.detail.elm;
         },
         "dropdown:show": event => {
-            // $ExpectType HTMLElement
-            event.detail.dropdown;
+            // $ExpectType HTMLElement | null
+            event.detail.parentElement;
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
         },
         "dropdown:updated": event => {
-            // $ExpectType HTMLElement
-            event.detail.dropdown;
+            // $ExpectType HTMLElement | null
+            event.detail.parentElement;
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
         },
@@ -380,6 +382,12 @@ const typedSettings: TagifyConstructorSettings<MyTagData> = {
     hooks: {
         beforeRemoveTag: async tags => { tags.map(t => t.name.substring(0)); },
     },
+    callbacks: {
+        "edit:start": event => {
+            // $ExpectType MyTagData
+            event.detail.data;
+        }
+    }
 };
 
 const partialSettings: TagifySettings = {
@@ -625,20 +633,20 @@ tagify.on('edit:input', (event) => {
     event.detail.originalEvent;
 });
 tagify.on('dropdown:show', (event) => {
-    // $ExpectType HTMLElement
-    event.detail.dropdown;
+    // $ExpectType HTMLElement | null
+    event.detail.parentElement;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
 });
 tagify.on('dropdown:hide', (event) => {
-    // $ExpectType HTMLElement
-    event.detail.dropdown;
+    // $ExpectType HTMLElement | null
+    event.detail.parentElement;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
 });
 tagify.on('dropdown:updated', (event) => {
-    // $ExpectType HTMLElement
-    event.detail.dropdown;
+    // $ExpectType HTMLElement | null
+    event.detail.parentElement;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
 });
@@ -651,8 +659,10 @@ tagify.on('dropdown:scroll', (event) => {
 tagify.on('dropdown:select', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType string
-    event.detail.value;
+    // $ExpectType TagData
+    event.detail.data;
+    // $ExpectType HTMLDivElement
+    event.detail.elm;
 });
 
 tagify.off('change', (event) => {
@@ -798,20 +808,20 @@ tagify.off('edit:input', (event) => {
     event.detail.originalEvent;
 });
 tagify.off('dropdown:show', (event) => {
-    // $ExpectType HTMLElement
-    event.detail.dropdown;
+    // $ExpectType HTMLElement | null
+    event.detail.parentElement;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
 });
 tagify.off('dropdown:hide', (event) => {
-    // $ExpectType HTMLElement
-    event.detail.dropdown;
+    // $ExpectType HTMLElement | null
+    event.detail.parentElement;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
 });
 tagify.off('dropdown:updated', (event) => {
-    // $ExpectType HTMLElement
-    event.detail.dropdown;
+    // $ExpectType HTMLElement | null
+    event.detail.parentElement;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
 });
@@ -824,8 +834,29 @@ tagify.off('dropdown:scroll', (event) => {
 tagify.off('dropdown:select', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType string
-    event.detail.value;
+    // $ExpectType TagData
+    event.detail.data;
+    // $ExpectType HTMLDivElement
+    event.detail.elm;
+});
+
+typedTagify.on('click', (event) => {
+    // $ExpectType MyTagData
+    event.detail.data;
+});
+typedTagify.on('edit:start', (event) => {
+    // $ExpectType Tagify<MyTagData>
+    event.detail.tagify;
+    // $ExpectType MyTagData
+    event.detail.data;
+});
+typedTagify.on('dropdown:select', (event) => {
+    // $ExpectType Tagify<MyTagData>
+    event.detail.tagify;
+    // $ExpectType MyTagData
+    event.detail.data;
+    // $ExpectType HTMLDivElement
+    event.detail.elm;
 });
 
 const tags: TagData[] = [
@@ -948,6 +979,9 @@ tagify.parseTemplate('dropdownItemNoMatch', [{ value: "" }]);
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
 // @ts-expect-error
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags]);
+// @ts-expect-error
+typedTagify.parseTemplate('tag', [tags[0], typedTagify]);
+typedTagify.parseTemplate('tag', [{ value: 'bar', title: "", name: "", active: false }, typedTagify]);
 tagify.setReadonly(false);
 tagify.setDisabled(false);
 tagify.setDisabled(true);
