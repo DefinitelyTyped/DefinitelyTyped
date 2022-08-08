@@ -507,6 +507,12 @@ declare module 'perf_hooks' {
          * @since v15.9.0, v14.18.0
          */
         recordDelta(): void;
+        /**
+         * Adds the values from other to this histogram.
+         * @since v17.4.0, v16.14.0
+         * @param other Recordable Histogram to combine with
+         */
+         add(other: RecordableHistogram): void;
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._

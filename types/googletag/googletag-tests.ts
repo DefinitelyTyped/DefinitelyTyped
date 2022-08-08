@@ -229,10 +229,6 @@ googletag.pubads().setPrivacySettings({
 // DEMO 29
 googletag.pubads().setPublisherProvidedId('AB123456789');
 
-// DEMO 30
-// Mark ad requests to request non-personalized ads.
-googletag.pubads().setRequestNonPersonalizedAds(1);
-
 // DEMO 31
 googletag.pubads().setForceSafeFrame(true);
 
@@ -599,7 +595,6 @@ googletag.pubads().addEventListener('slotVisibilityChanged', event => {
 
 // DEMO 61
 // Test for definitions not declared by GPT Reference
-googletag.pubads().clearTagForChildDirectedTreatment().setTagForChildDirectedTreatment(1).setTagForUnderAgeOfConsent(2);
 googletag.pubads().isSRA();
 let imaContent = {
     vid: 'imaContentId?',
@@ -727,4 +722,39 @@ types.forEach(type => {
     googletag.pubads().addEventListener(type, event => {
         console.log(event);
     });
+});
+
+// Configuration for the component auction.
+const componentAuctionConfig = {
+    seller: 'https://testSeller.com', // should be https and the same as
+    // decisionLogicUrl's origin
+    decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
+    interestGroupBuyers: ['https://example-buyer.com'],
+    auctionSignals: { auction_signals: 'auction_signals' },
+    sellerSignals: { seller_signals: 'seller_signals' },
+    perBuyerSignals: {
+        // listed on interestGroupBuyers
+        'https://example-buyer.com': {
+            per_buyer_signals: 'per_buyer_signals',
+        },
+    },
+};
+const auctionSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+// To add configKey to the component auction:
+auctionSlot.setConfig({
+    componentAuction: [
+        {
+            configKey: 'https://testSeller.com',
+            auctionConfig: componentAuctionConfig,
+        },
+    ],
+});
+// To remove configKey from the component auction:
+auctionSlot.setConfig({
+    componentAuction: [
+        {
+            configKey: 'https://testSeller.com',
+            auctionConfig: null,
+        },
+    ],
 });

@@ -5,8 +5,8 @@ const onSaveTest = ({ name, value, previousValue }: onSaveProps) => {
     console.log(name + value + previousValue);
 };
 
-const onChangeTest = (value: string) => {
-    console.log(value);
+const onChangeTest = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.log(event.target.value);
 };
 
 const formatDisplayTextTest = (value: string) => {
@@ -14,6 +14,14 @@ const formatDisplayTextTest = (value: string) => {
 };
 
 const TestEditButton = <div>Edit</div>;
+
+const handleEditMode = () => {
+    console.log("edit mode");
+};
+
+const handleBlur = () => {
+    console.log("blurred");
+};
 
 <EditText />;
 <EditText id="firstName" />;
@@ -35,6 +43,8 @@ const TestEditButton = <div>Edit</div>;
 <EditText showEditButton editButtonContent={<i className="editIcon" />} />;
 <EditText showEditButton editButtonProps={{ style: { marginTop: 10, padding: 0 }, id: 'test', className: 'test' }} />;
 <EditText showEditButton editButtonContent={TestEditButton} editButtonProps={{ autoFocus: true }} />;
+<EditText onEditMode={handleEditMode} />;
+<EditText onBlur={handleBlur} />;
 
 <EditTextarea />;
 <EditTextarea id="desc" />;
@@ -50,3 +60,5 @@ const TestEditButton = <div>Edit</div>;
 <EditTextarea style={{ padding: 0 }} />;
 <EditTextarea readonly />;
 <EditTextarea value="100" formatDisplayText={formatDisplayTextTest} />;
+<EditTextarea onEditMode={handleEditMode} />;
+<EditTextarea onBlur={handleBlur} />;

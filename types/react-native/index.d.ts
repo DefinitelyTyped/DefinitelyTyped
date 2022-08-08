@@ -40,6 +40,8 @@
 //                 Pedro Hernández <https://github.com/phvillegas>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Zihan Chen <https://github.com/ZihanChen-MSFT>
+//                 Lorenzo Sciandra <https://github.com/kelset>
+//                 Mateusz Wit <https://github.com/MateWW>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -58,6 +60,7 @@
 /// <reference path="globals.d.ts" />
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
+/// <reference path="Codegen.d.ts" />
 /// <reference path="Devtools.d.ts" />
 /// <reference path="LaunchScreen.d.ts" />
 
@@ -6252,6 +6255,12 @@ export interface ScrollViewPropsIOS {
      * The default value is true.
      */
     automaticallyAdjustContentInsets?: boolean | undefined; // true
+
+    /**
+     * Controls whether the ScrollView should automatically adjust its contentInset and
+     * scrollViewInsets when the Keyboard changes its size. The default value is false.
+     */
+    automaticallyAdjustKeyboardInsets?: boolean | undefined;
 
     /**
      * Controls whether iOS should automatically adjust the scroll indicator

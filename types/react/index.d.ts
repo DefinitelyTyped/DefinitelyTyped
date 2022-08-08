@@ -1272,6 +1272,7 @@ declare namespace React {
         shiftKey: boolean;
         /** @deprecated */
         which: number;
+        target: EventTarget & T;
     }
 
     interface MouseEvent<T = Element, E = NativeMouseEvent> extends UIEvent<T, E> {
@@ -2142,6 +2143,7 @@ declare namespace React {
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
+        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {

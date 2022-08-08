@@ -77,13 +77,13 @@ dialog.buttons(buttons, options, '');
 // @ts-expect-error
 dialog.on();
 // @ts-expect-error
-dialog.on('', () => {});
+dialog.on('', event => event.target.$content);
 // $ExpectType Dialogify
-dialog.on('show', () => {});
+dialog.on('show', event => event.target.$content);
 // $ExpectType Dialogify
-dialog.on('close', () => {});
+dialog.on('close', event => event.target.$content);
 // $ExpectType Dialogify
-dialog.on('cancel', () => {});
+dialog.on('cancel', event => event.target.$content);
 // @ts-expect-error
 dialog.on('', {});
 

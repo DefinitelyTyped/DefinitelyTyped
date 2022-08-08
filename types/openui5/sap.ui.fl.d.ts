@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.104.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -624,13 +624,11 @@ declare module "sap/ui/fl/variants/VariantManagement" {
 
   import { IOverflowToolbarContent } from "sap/m/library";
 
-  import { ID } from "sap/ui/core/library";
+  import { ID, TitleLevel } from "sap/ui/core/library";
 
   import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import Title from "sap/m/Title";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -1073,7 +1071,25 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: {
+        /**
+         * List of changed variants. Each entry contains a 'key' - the variant key and a 'name' - the new title
+         * of the variant
+         */
+        renamed?: object[];
+        /**
+         * List of deleted variant keys
+         */
+        deleted?: string[];
+        /**
+         * List of variant keys and the associated Execute on Selection indicator
+         */
+        exe?: object[];
+        /**
+         * The default variant key
+         */
+        def?: string;
+      }
     ): this;
     /**
      * Fires event {@link #event:save save} to attached listeners.
@@ -1102,9 +1118,19 @@ declare module "sap/ui/fl/variants/VariantManagement" {
          */
         execute?: boolean;
         /**
+         * Indicates the check box state for 'Public'.
+         */
+        public?: boolean;
+        /**
          * The default variant indicator
          */
         def?: boolean;
+        /**
+         * Indicates the check box state for 'Create Tile'.
+         * Note:
+         * This event parameter is used only internally.
+         */
+        tile?: boolean;
       }
     ): this;
     /**
@@ -1130,8 +1156,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getCurrentVariantKey(): string;
     /**
-     * @SINCE 1.85
-     *
      * Gets current value of property {@link #getDisplayTextForExecuteOnSelectionForStandardVariant displayTextForExecuteOnSelectionForStandardVariant}.
      *
      * Defines the Apply Automatically text for the standard variant in the Manage Views dialog if the application
@@ -1148,8 +1172,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * Gets current value of property {@link #getEditable editable}.
      *
-     * Indicates that the control is in edit state. If set to `false`, the footer of the Views list will
-     * be hidden.
+     * Indicated if the buttons on the 'My Views' are visible.
      *
      * Default value is `true`.
      *
@@ -1157,8 +1180,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getEditable(): boolean;
     /**
-     * @SINCE 1.80
-     *
      * Gets current value of property {@link #getExecuteOnSelectionForStandardDefault executeOnSelectionForStandardDefault}.
      *
      * Determines the behavior for Apply Automatically if the standard variant is marked as the default variant.
@@ -1173,6 +1194,18 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * for}.
      */
     getFor(): ID[];
+    /**
+     * @SINCE 1.104
+     *
+     * Gets current value of property {@link #getHeaderLevel headerLevel}.
+     *
+     * Semantic level of the header. For more information, see {@link sap.m.Title#setLevel}.
+     *
+     * Default value is `Auto`.
+     *
+     * @returns Value of property `headerLevel`
+     */
+    getHeaderLevel(): TitleLevel | keyof typeof TitleLevel;
     /**
      * Gets current value of property {@link #getInErrorState inErrorState}.
      *
@@ -1198,18 +1231,13 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * Gets current value of property {@link #getModelName modelName}.
      *
-     * Determines the name of the model. The binding context will be defined by the current ID.  **Note:**
-     * In a UI adaptation scenario, this property is not used at all, because the model name is `$FlexVariants`.
+     * The name of the model containing the data.
+     *
+     * Default value is `empty string`.
      *
      * @returns Value of property `modelName`
      */
     getModelName(): string;
-    /**
-     * Determines if the current variant is modified.
-     *
-     * @returns If the current variant is modified `true`, otherwise `false`
-     */
-    getModified(): boolean;
     /**
      * Required by the {@link sap.m.IOverflowToolbarContent} interface. Registers invalidations event which
      * is fired when width of the control is changed.
@@ -1231,19 +1259,13 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * Gets current value of property {@link #getShowSetAsDefault showSetAsDefault}.
      *
-     * Indicates that Set as Default is visible in the Save View and the Manage Views dialogs.
+     * Indicated if the defaulting functionality is enabled.
      *
      * Default value is `true`.
      *
      * @returns Value of property `showSetAsDefault`
      */
     getShowSetAsDefault(): boolean;
-    /**
-     * Returns the title control of the `VariantManagement`. This is used in the key user scenario.
-     *
-     * @returns Title part of the `VariantManagement` control.
-     */
-    getTitle(): Title;
     /**
      * Gets current value of property {@link #getUpdateVariantInURL updateVariantInURL}.
      *
@@ -1280,18 +1302,14 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     ): ID;
     /**
      * Sets the new selected variant.
-     *
-     * @returns Current instance of {@link sap.ui.fl.variants.VariantManagement}.
      */
     setCurrentVariantKey(
       /**
        * Key of the variant that should be selected.
        */
       sKey: string
-    ): this;
+    ): void;
     /**
-     * @SINCE 1.85
-     *
      * Sets a new value for property {@link #getDisplayTextForExecuteOnSelectionForStandardVariant displayTextForExecuteOnSelectionForStandardVariant}.
      *
      * Defines the Apply Automatically text for the standard variant in the Manage Views dialog if the application
@@ -1315,8 +1333,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * Sets a new value for property {@link #getEditable editable}.
      *
-     * Indicates that the control is in edit state. If set to `false`, the footer of the Views list will
-     * be hidden.
+     * Indicated if the buttons on the 'My Views' are visible.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1331,8 +1348,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       bEditable?: boolean
     ): this;
     /**
-     * @SINCE 1.80
-     *
      * Sets a new value for property {@link #getExecuteOnSelectionForStandardDefault executeOnSelectionForStandardDefault}.
      *
      * Determines the behavior for Apply Automatically if the standard variant is marked as the default variant.
@@ -1348,6 +1363,25 @@ declare module "sap/ui/fl/variants/VariantManagement" {
        * New value for property `executeOnSelectionForStandardDefault`
        */
       bExecuteOnSelectionForStandardDefault?: boolean
+    ): this;
+    /**
+     * @SINCE 1.104
+     *
+     * Sets a new value for property {@link #getHeaderLevel headerLevel}.
+     *
+     * Semantic level of the header. For more information, see {@link sap.m.Title#setLevel}.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Auto`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeaderLevel(
+      /**
+       * New value for property `headerLevel`
+       */
+      sHeaderLevel?: TitleLevel | keyof typeof TitleLevel
     ): this;
     /**
      * Sets a new value for property {@link #getInErrorState inErrorState}.
@@ -1388,10 +1422,11 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * Sets a new value for property {@link #getModelName modelName}.
      *
-     * Determines the name of the model. The binding context will be defined by the current ID.  **Note:**
-     * In a UI adaptation scenario, this property is not used at all, because the model name is `$FlexVariants`.
+     * The name of the model containing the data.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1422,7 +1457,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * Sets a new value for property {@link #getShowSetAsDefault showSetAsDefault}.
      *
-     * Indicates that Set as Default is visible in the Save View and the Manage Views dialogs.
+     * Indicated if the defaulting functionality is enabled.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1458,7 +1493,29 @@ declare module "sap/ui/fl/variants/VariantManagement" {
 
   export interface $VariantManagementSettings extends $ControlSettings {
     /**
-     * Indicates that Set as Default is visible in the Save View and the Manage Views dialogs.
+     * Determines the intention of setting the current variant based on passed information.  **Note:** The
+     * `VariantManagement` control does not react in any way to this property.
+     */
+    updateVariantInURL?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * When set to false, doesn't reset the `VariantManagement` control to the default variant, when its binding
+     * context is changed.
+     */
+    resetOnContextChange?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The name of the model containing the data.
+     */
+    modelName?: string | PropertyBindingInfo;
+
+    /**
+     * Indicated if the buttons on the 'My Views' are visible.
+     */
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Indicated if the defaulting functionality is enabled.
      */
     showSetAsDefault?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -1475,32 +1532,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     inErrorState?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Indicates that the control is in edit state. If set to `false`, the footer of the Views list will
-     * be hidden.
-     */
-    editable?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Determines the name of the model. The binding context will be defined by the current ID.  **Note:**
-     * In a UI adaptation scenario, this property is not used at all, because the model name is `$FlexVariants`.
-     */
-    modelName?: string | PropertyBindingInfo;
-
-    /**
-     * Determines the intention of setting the current variant based on passed information.  **Note:** The
-     * `VariantManagement` control does not react in any way to this property.
-     */
-    updateVariantInURL?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * When set to false, doesn't reset the `VariantManagement` control to the default variant, when its binding
-     * context is changed.
-     */
-    resetOnContextChange?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * @SINCE 1.80
-     *
      * Determines the behavior for Apply Automatically if the standard variant is marked as the default variant.
      */
     executeOnSelectionForStandardDefault?:
@@ -1509,8 +1540,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.85
-     *
      * Defines the Apply Automatically text for the standard variant in the Manage Views dialog if the application
      * controls this behavior.
      *
@@ -1522,9 +1551,24 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.104
+     *
+     * Semantic level of the header. For more information, see {@link sap.m.Title#setLevel}.
+     */
+    headerLevel?:
+      | (TitleLevel | keyof typeof TitleLevel)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * Contains the controls for which the variant management is responsible.
      */
     for?: Array<Control | string>;
+
+    /**
+     * This event is fired when the model and context are set.
+     */
+    initialized?: (oEvent: Event) => void;
 
     /**
      * This event is fired when the Save View dialog or the Save As dialog is closed with the
@@ -1541,11 +1585,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * This event is fired when users apply changes to variants in the Manage Views dialog.
      */
     manage?: (oEvent: Event) => void;
-
-    /**
-     * This event is fired when the model and context are set.
-     */
-    initialized?: (oEvent: Event) => void;
 
     /**
      * This event is fired when a new variant is selected.

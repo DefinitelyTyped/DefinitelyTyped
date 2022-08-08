@@ -1,5 +1,5 @@
 import Papa = require('papaparse');
-import { Readable } from 'stream';
+import { Duplex, Readable } from 'stream';
 
 /**
  * Change global config
@@ -141,10 +141,10 @@ Papa.parse(file);
 // @ts-expect-error
 Papa.parse(file, {});
 
-// $ExpectType ReadWriteStream
+// $ExpectType Duplex
 Papa.parse(Papa.NODE_STREAM_INPUT, {});
 
-// $ExpectType ReadWriteStream
+// $ExpectType Duplex
 Papa.parse(Papa.NODE_STREAM_INPUT);
 
 const readable = new Readable();
@@ -154,7 +154,7 @@ rows.forEach(r => {
     readable.push(r);
 });
 
-const papaStream: NodeJS.ReadWriteStream = Papa.parse(Papa.NODE_STREAM_INPUT);
+const papaStream: Duplex = Papa.parse(Papa.NODE_STREAM_INPUT);
 
 readable.pipe(papaStream);
 

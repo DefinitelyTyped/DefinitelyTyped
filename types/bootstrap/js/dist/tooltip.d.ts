@@ -38,6 +38,8 @@ declare class Tooltip extends BaseComponent {
     static DefaultType: Record<keyof Tooltip.Options, string>;
     constructor(element: string | Element, options?: Partial<Tooltip.Options>);
 
+    static SetContentFunction: Tooltip.SetContentFunction;
+
     /**
      * Reveals an element’s tooltip. Returns to the caller before the
      * tooltip has actually been shown (i.e. before the shown.bs.tooltip
@@ -82,6 +84,11 @@ declare class Tooltip extends BaseComponent {
      * Updates the position of an element’s tooltip.
      */
     update(): void;
+
+    /**
+     * Gives a way to change the tooltip’s content after its initialization.
+     */
+    setContent(content?: Record<string, string | Element | Tooltip.SetContentFunction | null>): void;
 }
 
 declare namespace Tooltip {
@@ -318,6 +325,8 @@ declare namespace Tooltip {
         popperConfig: Partial<Popper.Options> | PopperConfigFunction | null;
     }
 
+    type SetContentFunction = () => string | Element | (() => string | Element | null) | null;
+
     type jQueryInterface = (
         config?:
             | Partial<Options>
@@ -328,6 +337,7 @@ declare namespace Tooltip {
             | 'disable'
             | 'toggleEnabled'
             | 'update'
+            | 'setContent'
             | 'dispose',
     ) => JQuery;
 }

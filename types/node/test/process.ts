@@ -131,43 +131,43 @@ process.env.TZ = 'test';
 }
 
 {
-    // $ExpectError
+    // @ts-expect-error
     process.getgid();
     // $ExpectType number | undefined
     process.getgid?.();
-    // $ExpectError
+    // @ts-expect-error
     process.setgid(1);
     // $ExpectType void | undefined
     process.setgid?.(1);
-    // $ExpectError
+    // @ts-expect-error
     process.getuid();
     // $ExpectType number | undefined
     process.getuid?.();
-    // $ExpectError
+    // @ts-expect-error
     process.setuid(1);
     // $ExpectType void | undefined
     process.setuid?.(1);
-    // $ExpectError
+    // @ts-expect-error
     process.geteuid();
     // $ExpectType number | undefined
     process.geteuid?.();
-    // $ExpectError
+    // @ts-expect-error
     process.seteuid(1);
     // $ExpectType void | undefined
     process.seteuid?.(1);
-    // $ExpectError
+    // @ts-expect-error
     process.getegid();
     // $ExpectType number | undefined
     process.getegid?.();
-    // $ExpectError
+    // @ts-expect-error
     process.setegid(1);
     // $ExpectType void | undefined
     process.setegid?.(1);
-    // $ExpectError
+    // @ts-expect-error
     process.getgroups();
     // $ExpectType number[] | undefined
     process.getgroups?.();
-    // $ExpectError
+    // @ts-expect-error
     process.setgroups([1]);
     // $ExpectType void | undefined
     process.setgroups?.([1]);

@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.103.0
+// For Library Version: 1.104.0
 
 declare module "sap/base/assert" {
   /**
@@ -12880,13 +12880,15 @@ declare module "sap/ui/core/Configuration" {
      * } `
      * See:
      * 	sap.ui.core.Configuration.FormatSettings#setCustomCurrencies
+     *
+     * @returns Returns `this` to allow method chaining
      */
     addCustomCurrencies(
       /**
        * adds to the currency map
        */
       mCurrencies: object
-    ): FormatSettings;
+    ): this;
     /**
      * Retrieves the custom currencies. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3} } `
      *
@@ -12919,20 +12921,51 @@ declare module "sap/ui/core/Configuration" {
     getLegacyDateCalendarCustomizing(): object[];
     /**
      * Returns the currently set legacy ABAP date format (its id) or undefined if none has been set.
+     *
+     * @returns ID of the ABAP date format, if not set or set to `""`, `undefined` will be returned
      */
-    getLegacyDateFormat(): void;
+    getLegacyDateFormat():
+      | "1"
+      | "2"
+      | "3"
+      | "4"
+      | "5"
+      | "6"
+      | "7"
+      | "8"
+      | "9"
+      | "A"
+      | "B"
+      | "C"
+      | undefined;
     /**
      * Returns the currently set legacy ABAP number format (its id) or undefined if none has been set.
+     *
+     * @returns ID of the ABAP number format, if not set or set to `""`, `undefined` will be returned
      */
-    getLegacyNumberFormat(): void;
+    getLegacyNumberFormat(): " " | "X" | "Y" | undefined;
     /**
      * Returns the currently set legacy ABAP time format (its id) or undefined if none has been set.
+     *
+     * @returns ID of the ABAP date format, if not set or set to `""`, `undefined` will be returned
      */
-    getLegacyTimeFormat(): void;
+    getLegacyTimeFormat(): "0" | "1" | "2" | "3" | "4" | undefined;
     /**
      * Returns the currently set number symbol of the given type or undefined if no symbol has been defined.
+     *
+     * @returns A non-numerical symbol used as part of a number for the given type, e.g. for locale de_DE:
+     *
+     * 	 - "group": "." (grouping separator)
+     * 	 - "decimal": "," (decimal separator)
+     * 	 - "plusSign": "+" (plus sign)
+     * 	 - "minusSign": "-" (minus sign)
      */
-    getNumberSymbol(): void;
+    getNumberSymbol(
+      /**
+       * the type of symbol
+       */
+      sType: "group" | "decimal" | "plusSign" | "minusSign"
+    ): string;
     /**
      * Returns the currently set time pattern or undefined if no pattern has been defined.
      */
@@ -12961,13 +12994,15 @@ declare module "sap/ui/core/Configuration" {
      * Note: To unset the custom currencies: call with `undefined` Custom currencies must not only consist of
      * digits but contain at least one non-digit character, e.g. "a", so that the measure part can be distinguished
      * from the number part.
+     *
+     * @returns Returns `this` to allow method chaining
      */
     setCustomCurrencies(
       /**
        * currency map which is set
        */
       mCurrencies: object
-    ): FormatSettings;
+    ): this;
     /**
      * Defines the preferred format pattern for the given date format style.
      *
@@ -13051,9 +13086,23 @@ declare module "sap/ui/core/Configuration" {
      */
     setLegacyDateFormat(
       /**
-       * id of the ABAP data format (one of '1','2','3','4','5','6','7','8','9','A','B','C')
+       * ID of the ABAP date format, `""` will reset the date patterns for 'short' and 'medium' style to the locale-specific
+       * ones.
        */
-      sFormatId: string
+      sFormatId?:
+        | ""
+        | "1"
+        | "2"
+        | "3"
+        | "4"
+        | "5"
+        | "6"
+        | "7"
+        | "8"
+        | "9"
+        | "A"
+        | "B"
+        | "C"
     ): this;
     /**
      * Allows to specify one of the legacy ABAP number format.
@@ -13068,9 +13117,10 @@ declare module "sap/ui/core/Configuration" {
      */
     setLegacyNumberFormat(
       /**
-       * id of the ABAP number format set (one of ' ','X','Y')
+       * ID of the ABAP number format set, `""` will reset the 'group' and 'decimal' symbols to the locale-specific
+       * ones.
        */
-      sFormatId: string
+      sFormatId?: "" | " " | "X" | "Y"
     ): this;
     /**
      * Allows to specify one of the legacy ABAP time formats.
@@ -13086,9 +13136,10 @@ declare module "sap/ui/core/Configuration" {
      */
     setLegacyTimeFormat(
       /**
-       * id of the ABAP time format (one of '0','1','2','3','4')
+       * ID of the ABAP time format, `""` will reset the time patterns for 'short' and 'medium' style and the
+       * day period texts to the locale-specific ones.
        */
-      sFormatId: string
+      sFormatId?: "" | "0" | "1" | "2" | "3" | "4"
     ): this;
     /**
      * Defines the string to be used for the given number symbol.
@@ -13107,9 +13158,9 @@ declare module "sap/ui/core/Configuration" {
      */
     setNumberSymbol(
       /**
-       * must be one of decimal, group, plusSign, minusSign.
+       * the type of symbol
        */
-      sType: string,
+      sType: "group" | "decimal" | "plusSign" | "minusSign",
       /**
        * will be used to represent the given symbol type
        */
@@ -20115,6 +20166,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         showScale?: boolean;
         /**
+         * whether the positions of grouping separators are validated. Space characters used as grouping separators
+         * are not validated.
+         */
+        strictGroupingValidation?: boolean;
+        /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
          * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
          * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
@@ -20273,6 +20329,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         showScale?: boolean;
         /**
+         * whether the positions of grouping separators are validated. Space characters used as grouping separators
+         * are not validated.
+         */
+        strictGroupingValidation?: boolean;
+        /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
          * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
          * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
@@ -20424,6 +20485,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         showScale?: boolean;
         /**
+         * whether the positions of grouping separators are validated. Space characters used as grouping separators
+         * are not validated.
+         */
+        strictGroupingValidation?: boolean;
+        /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
          * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
          * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
@@ -20571,6 +20637,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          * only when the 'style' options is set to either 'short' or 'long'.
          */
         showScale?: boolean;
+        /**
+         * whether the positions of grouping separators are validated. Space characters used as grouping separators
+         * are not validated.
+         */
+        strictGroupingValidation?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
          * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
@@ -20733,6 +20804,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          * only when the 'style' options is set to either 'short' or 'long'.
          */
         showScale?: boolean;
+        /**
+         * whether the positions of grouping separators are validated. Space characters used as grouping separators
+         * are not validated.
+         */
+        strictGroupingValidation?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
          * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
@@ -30473,6 +30549,9 @@ declare module "sap/ui/core/ResizeHandler" {
   /**
    * The resize handling API provides firing of resize events on all browsers by regularly checking the width
    * and height of registered DOM elements or controls and firing events accordingly.
+   *
+   * **Note**: The public usage of the constructor is deprecated since 1.103.0. Please use the static module
+   * export directly.
    */
   interface ResizeHandler {
     /**
@@ -35109,8 +35188,8 @@ declare module "sap/ui/core/tmpl/Template" {
 
   /**
    * @SINCE 1.15
-   * @deprecated (since 1.56) - use an {@link sap.ui.core.mvc.XMLView XMLView} or {@link sap.ui.core.mvc.JSView
-   * JSView} instead.
+   * @deprecated (since 1.56) - use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0
+   * Typed View} instead.
    *
    * Base Class for Template.
    */
@@ -59150,6 +59229,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * It is thus unsafe to keep a reference to a context instance which is not explicitly kept alive. Once
      * a context is not kept alive anymore, the implicit lifecycle management again takes control and destroys
      * the context if it is no longer needed.
+     *
+     * Note: This is only supported if the model uses the `autoExpandSelect` parameter.
      * See:
      * 	#isKeepAlive
      */
@@ -69349,7 +69430,7 @@ declare module "sap/ui/test/Opa5" {
      *
      * @returns The QUnit utils
      */
-    static getUtils(): /* was: sap.ui.test.qunit */ any;
+    static getUtils(): object;
     /**
      * Returns the window object in the current context. If an iframe is launched, it will return the iframe's
      * window.
@@ -75275,6 +75356,8 @@ declare namespace sap {
 
     "sap/base/util/extend": undefined;
 
+    "sap/base/util/fetch": undefined;
+
     "sap/base/util/includes": undefined;
 
     "sap/base/util/isEmptyObject": undefined;
@@ -75287,6 +75370,8 @@ declare namespace sap {
 
     "sap/base/util/merge": undefined;
 
+    "sap/base/util/mixedFetch": undefined;
+
     "sap/base/util/now": undefined;
 
     "sap/base/util/ObjectPath": undefined;
@@ -75294,6 +75379,8 @@ declare namespace sap {
     "sap/base/util/Properties": undefined;
 
     "sap/base/util/resolveReference": undefined;
+
+    "sap/base/util/syncFetch": undefined;
 
     "sap/base/util/uid": undefined;
 
@@ -75334,6 +75421,10 @@ declare namespace sap {
     "sap/ui/core/BusyIndicator": undefined;
 
     "sap/ui/core/BusyIndicatorUtils": undefined;
+
+    "sap/ui/core/cache/CacheManager": undefined;
+
+    "sap/ui/core/cache/LRUPersistentCache": undefined;
 
     "sap/ui/core/CalendarType": undefined;
 
