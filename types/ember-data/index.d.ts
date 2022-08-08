@@ -791,7 +791,7 @@ export namespace DS {
          * loaded. If the relationship is already loaded this method does not
          * trigger a new load.
          */
-        load(): RSVP.Promise<any>;
+        load(options?: Record<string, any>): RSVP.Promise<any>;
         /**
          * Triggers a reload of the value in this relationship. If the
          * remoteType is `"link"` Ember Data will use the relationship link to
