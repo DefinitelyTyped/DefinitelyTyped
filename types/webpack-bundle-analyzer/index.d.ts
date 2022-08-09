@@ -10,7 +10,8 @@
 
 /// <reference types="node" />
 
-import { WebpackPluginInstance, Compiler } from 'webpack';
+import { Server } from 'http';
+import { WebpackPluginInstance, Compiler, StatsOptions, Stats } from 'webpack';
 
 export namespace BundleAnalyzerPlugin {
     // Copied from @types/webpack@4 as webpack@5 only has `any` defined at the moment.
@@ -25,80 +26,7 @@ export namespace BundleAnalyzerPlugin {
             | 'normal'
             | 'verbose';
 
-        interface ToJsonOptionsObject {
-            /** fallback value for stats options when an option is not defined (has precedence over local webpack defaults) */
-            all?: boolean | undefined;
-            /** Add asset Information */
-            assets?: boolean | undefined;
-            /** Sort assets by a field */
-            assetsSort?: string | undefined;
-            /** Add built at time information */
-            builtAt?: boolean | undefined;
-            /** Add information about cached (not built) modules */
-            cached?: boolean | undefined;
-            /** Show cached assets (setting this to `false` only shows emitted files) */
-            cachedAssets?: boolean | undefined;
-            /** Add children information */
-            children?: boolean | undefined;
-            /** Add information about the `namedChunkGroups` */
-            chunkGroups?: boolean | undefined;
-            /** Add built modules information to chunk information */
-            chunkModules?: boolean | undefined;
-            /** Add the origins of chunks and chunk merging info */
-            chunkOrigins?: boolean | undefined;
-            /** Add chunk information (setting this to `false` allows for a less verbose output) */
-            chunks?: boolean | undefined;
-            /** Sort the chunks by a field */
-            chunksSort?: string | undefined;
-            /** Context directory for request shortening */
-            context?: string | undefined;
-            /** Display the distance from the entry point for each module */
-            depth?: boolean | undefined;
-            /** Display the entry points with the corresponding bundles */
-            entrypoints?: boolean | undefined;
-            /** Add --env information */
-            env?: boolean | undefined;
-            /** Add errors */
-            errors?: boolean | undefined;
-            /** Add details to errors (like resolving log) */
-            errorDetails?: boolean | undefined;
-            /** Exclude assets from being displayed in stats */
-            excludeAssets?: StatsExcludeFilter | undefined;
-            /** Exclude modules from being displayed in stats */
-            excludeModules?: StatsExcludeFilter | undefined;
-            /** See excludeModules */
-            exclude?: StatsExcludeFilter | undefined;
-            /** Add the hash of the compilation */
-            hash?: boolean | undefined;
-            /** Set the maximum number of modules to be shown */
-            maxModules?: number | undefined;
-            /** Add built modules information */
-            modules?: boolean | undefined;
-            /** Sort the modules by a field */
-            modulesSort?: string | undefined;
-            /** Show dependencies and origin of warnings/errors */
-            moduleTrace?: boolean | undefined;
-            /** Add public path information */
-            publicPath?: boolean | undefined;
-            /** Add information about the reasons why modules are included */
-            reasons?: boolean | undefined;
-            /** Add the source code of modules */
-            source?: boolean | undefined;
-            /** Add timing information */
-            timings?: boolean | undefined;
-            /** Add webpack version information */
-            version?: boolean | undefined;
-            /** Add warnings */
-            warnings?: boolean | undefined;
-            /** Show which exports of a module are used */
-            usedExports?: boolean | undefined;
-            /** Filter warnings to be shown */
-            warningsFilter?: string | RegExp | Array<string | RegExp> | ((warning: string) => boolean) | undefined;
-            /** Show performance hint when file size exceeds `performance.maxAssetSize` */
-            performance?: boolean | undefined;
-            /** Show the exports of the modules */
-            providedExports?: boolean | undefined;
-        }
+        type ToJsonOptionsObject = StatsOptions;
 
         type ToJsonOptions = Preset | ToJsonOptionsObject;
 
@@ -216,7 +144,16 @@ export namespace BundleAnalyzerPlugin {
 }
 
 export class BundleAnalyzerPlugin implements WebpackPluginInstance {
+    opts: BundleAnalyzerPlugin.Options;
+    compiler?: Compiler;
+    server: null | Server;
+
     constructor(options?: BundleAnalyzerPlugin.Options);
 
     apply(compiler: Compiler): void;
+    startAnalyzerServer: (stats: Stats) => Promise<void>;
+    generateJSONReport: (stats: Stats) => Promise<void>;
+    generateStatsFile: (stats: Stats) => Promise<void>;
+    generateStaticReport: (stats: Stats) => Promise<void>;
+    getBundleDirFromCompiler: () => null | string;
 }
