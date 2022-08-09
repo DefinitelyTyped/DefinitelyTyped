@@ -3,7 +3,7 @@
 /**
  * Display a Map
  */
-const map = new woosmap.map.Map(document.getElementById('mapContainer') as HTMLElement, {
+const mapOptions = expectType({
     center: new woosmap.map.LatLng(43.3, 3.883),
     zoom: 13,
     defaultStyle: 'streets',
@@ -19,12 +19,8 @@ const map = new woosmap.map.Map(document.getElementById('mapContainer') as HTMLE
             ],
         },
     ],
-});
-
-expectType<woosmap.map.MapOptions>({
-    center: new woosmap.map.LatLng(43.3, 3.883),
-    zoom: 13,
-});
+}) as woosmap.map.MapOptions;
+const map = new woosmap.map.Map(document.getElementById('mapContainer') as HTMLElement, mapOptions);
 
 // $ExpectType LatLngBounds | null
 const bounds = map.getBounds({left: 100});
@@ -48,7 +44,7 @@ map.setZoom(12);
 /**
  * Marker
  */
-const marker = new woosmap.map.Marker({
+const simpleMarkerOptions =  expectType({
     position: map.getCenter(),
     anchorPoint: new woosmap.map.Point(12, 12),
     clickable: true,
@@ -63,13 +59,8 @@ const marker = new woosmap.map.Marker({
             width: 46,
         },
     },
-});
-
-expectType<woosmap.map.MarkerOptions>({
-    position: map.getCenter(),
-    anchorPoint: new woosmap.map.Point(12, 12),
-    visible: true,
-});
+}) as woosmap.map.MarkerOptions;
+const marker = new woosmap.map.Marker(simpleMarkerOptions);
 
 marker.setMap(map);
 // $ExpectType number
@@ -116,7 +107,7 @@ marker.addListener('click', () => {
 /**
  * Marker Label
  */
-const markerLabel = new woosmap.map.Marker({
+const labelMarkerOptions = expectType({
     position: {lat: 43.3, lng: 3.883},
     icon: {
         labelOrigin: new woosmap.map.Point(12, 12),
@@ -131,17 +122,8 @@ const markerLabel = new woosmap.map.Marker({
         fontFamily: 'Helvetica',
     },
     map,
-});
-
-expectType<woosmap.map.MarkerOptions>({
-    position: {lat: 43.3, lng: 3.883},
-    icon: {
-        url: 'https://images.woosmap.com/marker-red.svg',
-    },
-    label: {
-        text: 'some label',
-    }
-});
+}) as woosmap.map.MarkerOptions;
+const markerLabel = new woosmap.map.Marker(labelMarkerOptions);
 
 /**
  * Map Event Handler
@@ -176,7 +158,7 @@ clickListener.remove();
 /**
  * StoresOverlay
  */
-const style = {
+const style = expectType({
     breakPoint: 14,
     default: {
         color: '#008a2f',
@@ -209,10 +191,9 @@ const style = {
             },
         },
     ],
-};
-expectType<woosmap.map.Style>(style);
-expectType<woosmap.map.TypedStyleRule>(style.rules[0]);
-expectType<woosmap.map.StyleRule>(style.default);
+}) as woosmap.map.Style;
+const rules = expectType(style.rules[0]) as woosmap.map.TypedStyleRule;
+const defaultStyle = expectType(style.default) as woosmap.map.StyleRule;
 
 const storesOverlay = new woosmap.map.StoresOverlay(style);
 storesOverlay.setQuery('type:"click_and_collect"');
@@ -235,19 +216,16 @@ const innerShape = [
     {lat: 30.16, lng: -98.81},
     {lat: 29.07, lng: -98.81},
 ];
-const polygon = new woosmap.map.Polygon({
+const polygonOption = expectType({
     paths: [outerShape, innerShape],
     strokeColor: '#b71c1c',
     strokeOpacity: 0.8,
     strokeWeight: 2,
     fillColor: '#b71c1c',
     fillOpacity: 0.5,
-});
+}) as woosmap.map.PolygonOptions;
+const polygon = new woosmap.map.Polygon(polygonOption);
 polygon.setMap(map);
-
-expectType<woosmap.map.PolygonOptions>({
-    paths: [outerShape, innerShape]
-});
 
 const polylinePath = [
     {lng: -0.12638568878173828, lat: 51.50099581189912},
@@ -255,21 +233,18 @@ const polylinePath = [
     {lng: -0.11891841888427736, lat: 51.50078877137083},
     {lng: -0.11869311332702637, lat: 51.500832183172456},
 ];
-const polyline = new woosmap.map.Polyline({
+const polyLineOptions = expectType({
     path: polylinePath,
     strokeColor: '#b71c1c',
     strokeOpacity: 0.8,
     strokeWeight: 4,
-});
+}) as woosmap.map.PolylineOptions;
+const polyline = new woosmap.map.Polyline(polyLineOptions);
 polyline.setMap(map);
-
-expectType<woosmap.map.PolylineOptions>({
-    path: polylinePath
-});
 
 const latlng = {lat: 43.34, lng: -24.76};
 const radius50km = 50000;
-const cityCircle = new woosmap.map.Circle({
+const circleOptions = expectType({
     strokeColor: '#b71c1c',
     strokeOpacity: 0.8,
     strokeWeight: 2,
@@ -278,25 +253,15 @@ const cityCircle = new woosmap.map.Circle({
     map,
     center: latlng,
     radius: radius50km,
-});
+}) as woosmap.map.CircleOptions;
 
-expectType<woosmap.map.CircleOptions>({
-    map,
-    center: latlng,
-    radius: radius50km,
-});
+const cityCircle = new woosmap.map.Circle(circleOptions);
 
-const feature = {
+const feature = expectType({
     geometry: new woosmap.map.Data.Point(new woosmap.map.LatLng(43.34, -24.76)),
     id: 'ID_1234',
     properties: {some_properties: 'some_value'},
-};
-
-expectType<woosmap.map.FeatureData>({
-    geometry: new woosmap.map.Data.Point(new woosmap.map.LatLng(43.34, -24.76)),
-    id: 'ID_1234',
-    properties: {some_properties: 'some_value'},
-});
+}) as woosmap.map.FeatureData;
 
 map.data.add(feature);
 map.data.loadGeoJson('https://demo.woosmap.com/misc/data/europe.geojson.json');
@@ -322,7 +287,7 @@ map.data.addListener('click', (event: any) => {
 /**
  * Directions
  */
-const directionsRequest = {
+const directionsRequest = expectType({
     origin: {lat: 48.86288, lng: 2.34946},
     destination: {lat: 52.52457, lng: 13.42347},
     provideRouteAlternatives: false,
@@ -333,14 +298,11 @@ const directionsRequest = {
     }, {
         location: new woosmap.map.LatLng(52.37342, 4.84631)
     }]
-};
-expectType<woosmap.map.DirectionRequest>(directionsRequest);
+}) as woosmap.map.DirectionRequest;
 
 let directionsService;
 directionsService = new woosmap.map.DirectionsService();
 directionsService.route(directionsRequest, (result, status) => {
-    expectType<woosmap.map.DirectionResult>(result);
-    expectType<woosmap.map.DirectionStatus>(status);
 });
 
 /**
@@ -356,6 +318,6 @@ infoWindow.close();
 /**
  * helper functions for testing purpose
  */
-function expectType<T>(value: T) {
+function expectType(value: any) {
     return value;
 }
