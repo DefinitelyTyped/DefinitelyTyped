@@ -5,6 +5,7 @@
 //                 Moritz Gunz <https://github.com/NeoLegends>
 //                 Daniel Almaguer <https://github.com/deini>
 //                 Hanna Becker <https://github.com/hanna-becker>
+//                 Antonia Elsen <https://github.com/aelsenr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -14,15 +15,14 @@ interface Window {
 }
 
 declare namespace Spotify {
-    interface Album {
-        uri: string;
+    interface Entity {
         name: string;
-        images: Image[];
+        uri: string;
+        url: string;
     }
 
-    interface Artist {
-        name: string;
-        uri: string;
+    interface Album extends Entity {
+        images: Image[];
     }
 
     interface Error {
@@ -34,11 +34,32 @@ declare namespace Spotify {
     interface Image {
         height?: number | null | undefined;
         url: string;
+        size?: number | null | undefined;
         width?: number | null | undefined;
     }
 
+    interface PlaybackContextTrack extends Entity {
+        artists: Entity[];
+        content_type: string;
+        estimated_duration: number;
+        group: Entity;
+        images: Image[];
+        uid: string;
+    }
+
+    interface PlaybackContextMetadata extends Entity {
+        current_item: PlaybackContextTrack;
+        next_items: PlaybackContextTrack[];
+        previous_items: PlaybackContextTrack[];
+        restrictions: PlaybackRestrictions;
+        options: {
+            repeat_mode: string;
+            shuffled: boolean;
+        };
+    }
+
     interface PlaybackContext {
-        metadata: any;
+        metadata: PlaybackContextMetadata | null;
         uri: string | null;
     }
 
@@ -138,7 +159,7 @@ declare namespace Spotify {
         name: string;
         is_playable: boolean;
         album: Album;
-        artists: Artist[];
+        artists: Entity[];
     }
 
     interface WebPlaybackInstance {

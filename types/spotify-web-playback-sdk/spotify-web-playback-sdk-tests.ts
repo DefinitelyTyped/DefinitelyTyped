@@ -102,12 +102,13 @@ player.on("autoplay_failed", () => {
 });
 
 player.on("player_state_changed", (playbackState: Spotify.PlaybackState) => {
-    const { position, duration } = playbackState;
+    const { context, position, duration } = playbackState;
     const { current_track } = playbackState.track_window;
 
     console.log("Currently Playing", current_track);
     console.log("Position in Song", position);
     console.log("Duration of Song", duration);
+    console.log("Playback context", context);
 });
 
 player.addListener('initialization_error', (e: Spotify.Error) => {
