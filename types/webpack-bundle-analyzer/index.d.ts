@@ -11,7 +11,7 @@
 /// <reference types="node" />
 
 import { Server } from 'http';
-import { WebpackPluginInstance, Compiler, StatsOptions, Stats } from 'webpack';
+import { WebpackPluginInstance, Compiler, StatsOptions, Stats as WebpackStats } from 'webpack';
 
 export namespace BundleAnalyzerPlugin {
     // Copied from @types/webpack@4 as webpack@5 only has `any` defined at the moment.
@@ -103,7 +103,7 @@ export namespace BundleAnalyzerPlugin {
          * For example you can exclude sources of your modules from stats file with "source: false" option.
          * @default null
          */
-        statsOptions?: null | Stats.ToJsonOptionsObject | undefined;
+        statsOptions?: null | Stats.ToJsonOptions | undefined;
 
         /**
          * Patterns that will be used to match against asset names to exclude them from the report.
@@ -151,9 +151,9 @@ export class BundleAnalyzerPlugin implements WebpackPluginInstance {
     constructor(options?: BundleAnalyzerPlugin.Options);
 
     apply(compiler: Compiler): void;
-    startAnalyzerServer: (stats: Stats) => Promise<void>;
-    generateJSONReport: (stats: Stats) => Promise<void>;
-    generateStatsFile: (stats: Stats) => Promise<void>;
-    generateStaticReport: (stats: Stats) => Promise<void>;
+    startAnalyzerServer: (stats: WebpackStats) => Promise<void>;
+    generateJSONReport: (stats: WebpackStats) => Promise<void>;
+    generateStatsFile: (stats: WebpackStats) => Promise<void>;
+    generateStaticReport: (stats: WebpackStats) => Promise<void>;
     getBundleDirFromCompiler: () => null | string;
 }
