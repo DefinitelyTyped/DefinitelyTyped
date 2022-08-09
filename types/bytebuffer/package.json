@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@types/long": "^4.0.0"
+        "@types/long": "^3.0.0"
     },
     "exports": {
         ".": {
