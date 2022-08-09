@@ -44,7 +44,7 @@ map.setZoom(12);
 /**
  * Marker
  */
-const simpleMarkerOptions =  expectType({
+const simpleMarkerOptions = expectType({
     position: map.getCenter(),
     anchorPoint: new woosmap.map.Point(12, 12),
     clickable: true,
@@ -314,6 +314,19 @@ infoWindow.setContent("<div>Some Content</div>");
 infoWindow = new woosmap.map.InfoWindow({content: "<div>Some Content</div>"});
 infoWindow.open(map, marker);
 infoWindow.close();
+
+/**
+ * woosmap.map.event
+ */
+const listener = woosmap.map.event.addListener(map, 'click', () => {}); // $ExpectType MapEventListener
+woosmap.map.event.addListenerOnce(map, 'click', () => {}); // $ExpectType MapEventListener
+woosmap.map.event.removeListener(listener);  // $ExpectType void
+listener.remove();  // $ExpectType void
+
+/**
+ * woosmap.map.geometry
+ */
+const isContained = woosmap.map.geometry.containsLocation({lat: 43.3, lng: 3.3}, polygon); // $ExpectType boolean
 
 /**
  * helper functions for testing purpose

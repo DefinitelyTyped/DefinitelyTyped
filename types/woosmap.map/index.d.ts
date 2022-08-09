@@ -1624,3 +1624,53 @@ declare namespace woosmap.map {
         OK = 'OK'
     }
 }
+
+declare namespace woosmap.map.event {
+    /**
+     * Adds the given listener function to the given event name for the given object instance.
+     * Returns an identifier for this listener that can be used with `removeListener()`.
+     */
+    function addListener(instance: Object, eventName: string, handler: Function): woosmap.map.MapEventListener;
+
+    /**
+     * Like addListener, but the handler removes itself after handling the first event.
+     */
+    function addListenerOnce(instance: Object, eventName: string, handler: Function): woosmap.map.MapEventListener;
+
+    function addDomListener(element: Element, eventName: string, handler: Function): void;
+
+    /**
+     * Removes the given listener, which should have been returned by addListener above.
+     * Equivalent to calling `listener.remove()`.
+     */
+    function removeListener(listener: woosmap.map.MapEventListener): void;
+
+    /**
+     * Removes all listeners for all events for the given instance.
+     */
+    function clearInstanceListeners(instance: Object): void;
+
+    /**
+     * Removes all listeners for the given event for the given instance.
+     */
+    function clearListeners(instance: Object, eventName: string): void;
+
+    /**
+     * Triggers the given event. All arguments after eventName are passed as arguments to the listeners.
+     */
+    function trigger(instance: Object, eventName: string, eventArgs?: (any[] | null)): void;
+}
+declare namespace woosmap.map.geometry {
+    /**
+     * Computes whether the given point lies inside the specified polygon.
+     */
+    function containsLocation(point: woosmap.map.LatLng | woosmap.map.LatLngLiteral, polygon: woosmap.map.Polygon): boolean;
+
+    /**
+     * Computes whether the given point lies on or near to a polyline, or the edge of a polygon,
+     * within a specified tolerance.
+     * Returns true when the difference between the latitude and longitude of the supplied point,
+     * and the closest point on the edge, is less than the tolerance. The tolerance defaults to 10-9 degrees.
+     */
+    function isLocationOnEdge(point: woosmap.map.LatLng | woosmap.map.LatLngLiteral, poly: woosmap.map.Polygon, tolerance?: number): boolean;
+}
