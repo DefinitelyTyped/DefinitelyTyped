@@ -190,3 +190,9 @@ objectKeysTestSchema.objectKeys();
 // Prefix passed
 // $ExpectType any[]
 objectKeysTestSchema.objectKeys("_prefix");
+
+// $ExpectType SchemaDefinition
+StringSchema.schema();
+
+// $ExpectType SchemaDefinition
+StringSchema.schema('basicString');
