@@ -187,8 +187,7 @@ export class SimpleSchema {
   omit(...fields: string[]): SimpleSchema;
   static oneOf(...types: Array<(RegExp | SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor | IntegerSchema)>): SimpleSchema;
   clean(doc: any, options?: CleanOption): any;
-  schema(key: string): SchemaDefinition;
-  schema(): SchemaDefinition[];
+  schema(key?: string): SchemaDefinition;
   getDefinition(key: string, propList?: any, functionContext?: any): any;
   get(key: string, prop: string): any;
   keyIsInBlackBox(key: string): boolean;
