@@ -20,6 +20,10 @@ const Test = () => {
                             name: 'Razorpay Software',
                         },
                         theme: { color: '#F37254' },
+                        notes: {
+                            name: "Ankan",
+                            3: "Points"
+                        },
                     })
                         .then(data => {
                             console.log(data);

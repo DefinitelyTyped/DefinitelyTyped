@@ -2,7 +2,6 @@
 // Project: https://www.npmjs.com/package/react-native-razorpay
 // Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
 
 export interface SuccessResponse {
     status_code: number;
@@ -38,9 +37,7 @@ export interface CheckoutOptions {
         contact?: string;
         method?: "card" | "netbanking" | "wallet" | "emi" | "upi";
     };
-    notes?: {
-        [key: string | number]: string | number;
-    };
+    notes?: Record<string | number, string>;
     theme?: {
         hide_topbar?: boolean;
         color?: string;
