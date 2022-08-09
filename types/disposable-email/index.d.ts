@@ -1,4 +1,4 @@
-// Type definitions for disposable-email 0.2.3
+// Type definitions for disposable-email 0.2
 // Project: https://github.com/disposable/disposable#readme
 // Definitions by: Zeeshan Ahmad <https://github.com/ziishaned>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
