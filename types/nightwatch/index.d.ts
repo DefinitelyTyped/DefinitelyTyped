@@ -1831,9 +1831,9 @@ export type NightwatchPage = {
 };
 
 export interface NightwatchApiCommands {
-    get WEBDRIVER_ELEMENT_ID(): string;
-    get browserName(): string;
-    get platformName(): string;
+    readonly WEBDRIVER_ELEMENT_ID: string;
+    readonly browserName: string;
+    readonly platformName: string;
     __isBrowserName(browser: string, alternateName: string): boolean;
     __isPlatformName(platform: string): boolean;
     isIOS(): boolean;
