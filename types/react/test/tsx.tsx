@@ -347,6 +347,27 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 // @ts-expect-error
 <React.Suspense fallback={null} unstable_avoidThisFallback />;
 
+// Unsupported `revealOrder` triggers a runtime warning
+// @ts-expect-error
+<React.SuspenseList revealOrder="something">
+    <React.Suspense fallback="Loading">Content</React.Suspense>
+</React.SuspenseList>;
+
+<React.SuspenseList revealOrder="backwards">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.SuspenseList>;
+
+<React.SuspenseList revealOrder="forwards">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.SuspenseList>;
+
+<React.SuspenseList revealOrder="together">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.SuspenseList>;
+
 class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
 
