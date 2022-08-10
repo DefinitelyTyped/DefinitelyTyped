@@ -175,3 +175,15 @@ ymaps.suggest('Mos', {
 }).then(items => {
     return items.filter(el => el.value.toLowerCase() === 'moscow');
 }).then(console.log);
+
+const geocodeProvider: ymaps.IGeocodeProvider = {
+    suggest: (_request, _options) => {
+        throw new Error('Function not implemented.');
+    },
+    geocode: (_request, _options) => {
+        throw new Error('Function not implemented.');
+    }
+};
+
+geocodeProvider.geocode('Moscow'); // $ExpectType Promise<object>
+geocodeProvider.geocode([55.751244, 37.618423]); // $ExpectType Promise<object>

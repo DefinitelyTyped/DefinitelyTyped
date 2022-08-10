@@ -3982,9 +3982,24 @@ declare namespace ymaps {
     }
 
     interface IGeocodeProvider {
-        geocode(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, skip?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
+        geocode(
+            request: string | ReadonlyArray<number>,
+            options?: {
+                boundedBy?: number[][] | undefined;
+                results?: number | undefined;
+                skip?: number | undefined;
+                strictBounds?: boolean | undefined;
+            }
+        ): Promise<object>;
 
-        suggest(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
+        suggest(
+            request: string,
+            options?: {
+                boundedBy?: number[][] | undefined;
+                results?: number | undefined;
+                strictBounds?: boolean | undefined;
+            }
+        ): Promise<object>;
     }
 
     interface IGeometry extends IBaseGeometry, ICustomizable {
