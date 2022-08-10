@@ -3,12 +3,17 @@ const element: HTMLDivElement = document.createElement("div");
 
 const zoomControl = new ymaps.control.ZoomControl({
     options: {
+        adjustMapMargin: false,
         position: {
             top: 108,
             right: 10,
             bottom: 'auto',
             left: 'auto',
         },
+        size: 'small',
+        visible: true,
+        zoomDuration: 200,
+        zoomStep: 1
     },
 });
 zoomControl.clear();
