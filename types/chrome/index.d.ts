@@ -9565,7 +9565,7 @@ declare namespace chrome.tabs {
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 20.
      */
-    export function sendMessage<M = any, R = any>(tabId: number, message: M, responseCallback?: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(tabId: number, message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 41.
@@ -9576,8 +9576,22 @@ declare namespace chrome.tabs {
         tabId: number,
         message: M,
         options: MessageSendOptions,
-        responseCallback?: (response: R) => void,
+        responseCallback: (response: R) => void,
     ): void;
+    /**
+     * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
+     * @since Chrome 99
+     */
+    export function sendMessage<M = any, R = any>(tabId: number, message: M): Promise<R>;
+    /**
+     * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
+     * @since Chrome 99
+     */
+    export function sendMessage<M = any, R = any>(
+        tabId: number,
+        message: M,
+        options: MessageSendOptions
+    ): Promise<R>;
     /**
      * Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The extension.onRequest event is fired in each content script running in the specified tab for the current extension.
      * @deprecated since Chrome 33. Please use runtime.sendMessage.
