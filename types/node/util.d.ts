@@ -1179,7 +1179,7 @@ declare module 'util' {
         ? IfFalse
         : IfTrue;
 
-    // we put the `extends false` condition first here because `undefined` comparse like `any` when `strictNullChecks: false`
+    // we put the `extends false` condition first here because `undefined` compares like `any` when `strictNullChecks: false`
     type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false
         ? IfFalse
         : T extends true
