@@ -1172,22 +1172,18 @@ declare module 'util' {
     So this helper treats "not definitely present" (i.e., not `extends boolean`) as being "definitely not present", i.e. it should have its default value.
     This is technically incorrect but is a much nicer UX for the common case.
     The IfDefaultsTrue version is for things which default to true; the IfDefaultsFalse version is for things which default to false.
-    They differ only in the final item of the if-else chain.
     */
     type IfDefaultsTrue<T, IfTrue, IfFalse> = T extends true
         ? IfTrue
         : T extends false
         ? IfFalse
-        : T extends boolean
-        ? IfTrue | IfFalse
         : IfTrue;
 
-    type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends true
-        ? IfTrue
-        : T extends false
+    // we put the `extends false` condition first here because `undefined` comparse like `any` when `strictNullChecks: false`
+    type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false
         ? IfFalse
-        : T extends boolean
-        ? IfTrue | IfFalse
+        : T extends true
+        ? IfTrue
         : IfFalse;
 
     type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionConfig> = IfDefaultsTrue<
@@ -1196,16 +1192,17 @@ declare module 'util' {
         string | boolean
     >;
 
-    type ParsedValues<T extends ParseArgsConfig> = (T['options'] extends ParseArgsOptionsConfig
-        ? {
-              -readonly [LongOption in keyof T['options']]: IfDefaultsFalse<
-                  T['options'][LongOption]['multiple'],
-                  undefined | Array<ExtractOptionValue<T, T['options'][LongOption]>>,
-                  undefined | ExtractOptionValue<T, T['options'][LongOption]>
-              >;
-          }
-        : {}) &
-        IfDefaultsTrue<T['strict'], unknown, { [longOption: string]: undefined | string | boolean }>;
+    type ParsedValues<T extends ParseArgsConfig> =
+        & IfDefaultsTrue<T['strict'], unknown, { [longOption: string]: undefined | string | boolean }>
+        & (T['options'] extends ParseArgsOptionsConfig
+            ? {
+                -readonly [LongOption in keyof T['options']]: IfDefaultsFalse<
+                    T['options'][LongOption]['multiple'],
+                    undefined | Array<ExtractOptionValue<T, T['options'][LongOption]>>,
+                    undefined | ExtractOptionValue<T, T['options'][LongOption]>
+                >;
+            }
+            : {});
 
     type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
         T['strict'],
@@ -1214,8 +1211,7 @@ declare module 'util' {
     >;
 
     type PreciseTokenForOptions<
-        T extends ParseArgsConfig,
-        K extends keyof T['options'] & string,
+        K extends string,
         O extends ParseArgsOptionConfig,
     > = O['type'] extends 'string'
         ? {
@@ -1242,7 +1238,7 @@ declare module 'util' {
         K extends keyof T['options'] = keyof T['options'],
     > = K extends unknown
         ? T['options'] extends ParseArgsOptionsConfig
-            ? PreciseTokenForOptions<T, K & string, T['options'][K]>
+            ? PreciseTokenForOptions<K & string, T['options'][K]>
             : OptionToken
         : never;
 

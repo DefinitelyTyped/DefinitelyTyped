@@ -257,6 +257,21 @@ access('file/that/does/not/exist', (err) => {
 }
 
 {
+    // util.parseArgs: strict: false
+
+    const result = util.parseArgs({
+        strict: false,
+        options: {
+            x: { type: 'string', multiple: true },
+        },
+    });
+    // $ExpectType (string | boolean)[] | undefined
+    result.values.x;
+    // $ExpectType string | boolean | undefined
+    result.values.y;
+}
+
+{
     // util.parseArgs: config not inferred precisely
     const config = {};
 
