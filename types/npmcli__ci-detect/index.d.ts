@@ -1,6 +1,6 @@
 // Type definitions for @npmcli/ci-detect 2.0
 // Project: https://github.com/npm/ci-detect
-// Definitions by: Amin Yahyaabadi <aminyahyaabadi@gmail.com>
+// Definitions by: Amin Yahyaabadi <https://github.com/aminya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
