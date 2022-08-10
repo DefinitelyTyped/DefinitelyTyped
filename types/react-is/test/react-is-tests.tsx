@@ -96,3 +96,7 @@ ReactIs.typeOf(MemoComponent) === ReactIs.Memo; // true
 // Suspense
 ReactIs.isForwardRef(<React.Suspense fallback={<FunctionComponent />} />); // true
 ReactIs.typeOf(<React.Suspense fallback={<FunctionComponent />} />) === ReactIs.Suspense; // true
+
+// SuspenseList
+ReactIs.isSuspenseList(<React.SuspenseList children={<div />} />); // true
+ReactIs.typeOf(<React.SuspenseList children={<div />} />) === ReactIs.SuspenseList; // true
