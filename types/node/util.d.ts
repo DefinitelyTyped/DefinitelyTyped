@@ -1156,7 +1156,7 @@ declare module 'util' {
         [longOption: string]: ParseArgsOptionConfig;
     }
 
-    interface ParseArgsConfig {
+    export interface ParseArgsConfig {
         strict?: boolean;
         allowPositionals?: boolean;
         tokens?: boolean;
