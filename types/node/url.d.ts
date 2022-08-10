@@ -875,9 +875,9 @@ declare module 'url' {
          */
         var URL: typeof globalThis extends {
             onmessage: any;
-            URL: infer URL;
+            URL: infer T;
         }
-            ? URL
+            ? T
             : typeof _URL;
         /**
          * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`
@@ -886,9 +886,9 @@ declare module 'url' {
          */
         var URLSearchParams: typeof globalThis extends {
             onmessage: any;
-            URLSearchParams: infer URLSearchParams;
+            URLSearchParams: infer T;
         }
-            ? URLSearchParams
+            ? T
             : typeof _URLSearchParams;
     }
 }

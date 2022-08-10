@@ -654,9 +654,9 @@ declare module 'worker_threads' {
          */
         var BroadcastChannel: typeof globalThis extends {
             onmessage: any;
-            BroadcastChannel: infer BroadcastChannel;
+            BroadcastChannel: infer T;
         }
-            ? BroadcastChannel
+            ? T
             : typeof _BroadcastChannel;
 
         /**
@@ -666,9 +666,9 @@ declare module 'worker_threads' {
          */
         var MessageChannel: typeof globalThis extends {
             onmessage: any;
-            MessageChannel: infer MessageChannel;
+            MessageChannel: infer T;
         }
-            ? MessageChannel
+            ? T
             : typeof _MessageChannel;
 
         /**
@@ -678,9 +678,9 @@ declare module 'worker_threads' {
          */
          var MessagePort: typeof globalThis extends {
             onmessage: any;
-            MessagePort: infer MessagePort;
+            MessagePort: infer T;
         }
-            ? MessagePort
+            ? T
             : typeof _MessagePort;
     }
 }

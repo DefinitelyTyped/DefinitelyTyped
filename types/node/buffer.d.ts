@@ -2242,9 +2242,9 @@ declare module 'buffer' {
          */
         var Blob: typeof globalThis extends {
             onmessage: any;
-            Blob: infer Blob;
+            Blob: infer T;
         }
-            ? Blob
+            ? T
             : typeof _Blob;
     }
 }

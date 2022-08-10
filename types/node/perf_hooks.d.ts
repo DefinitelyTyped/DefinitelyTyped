@@ -575,9 +575,9 @@ declare module 'perf_hooks' {
          */
         var performance: typeof globalThis extends {
             onmessage: any;
-            performance: infer performance;
+            performance: infer T;
         }
-            ? performance
+            ? T
             : typeof _performance;
     }
 }
