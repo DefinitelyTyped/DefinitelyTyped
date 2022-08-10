@@ -2,7 +2,6 @@
 // Project: https://github.com/pillarjs/finalhandler
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 //                 Mark Veronda <https://github.com/hbomark>
-//                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
