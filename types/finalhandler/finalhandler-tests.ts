@@ -14,6 +14,6 @@ result = finalhandler(req, res);
 result = finalhandler(req, res, options);
 
 // serve-static-like request handler
-declare function requestHandler (request: IncomingMessage, response: ServerResponse, next: () => void): any
+declare function requestHandler(request: IncomingMessage, response: ServerResponse, next: () => void): any;
 
 requestHandler(req, res, result);
