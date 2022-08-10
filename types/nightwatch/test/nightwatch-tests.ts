@@ -56,8 +56,14 @@ const testGeneral: NightwatchTests = {
         browser.isChrome();
         browser.isAndroid();
         browser.isMobile();
+        const element_id = browser.WEBDRIVER_ELEMENT_ID;
+        console.log(element_id);
         const browserName = browser.browserName;
         console.log(browserName);
+        // @ts-expect-errors
+        browser.WEBDRIVER_ELEMENT_ID = 'some-element-id';
+        // @ts-expect-errors
+        browser.browserName = 'firefox';
     },
 
     'step one: navigate to google': () => {
