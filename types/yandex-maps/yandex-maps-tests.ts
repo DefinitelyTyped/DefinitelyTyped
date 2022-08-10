@@ -177,25 +177,12 @@ ymaps.suggest('Mos', {
 }).then(console.log);
 
 const geocodeProvider: ymaps.IGeocodeProvider = {
-    suggest: (
-        _request: string,
-        _options?:
-            | { boundedBy?: number[][] | undefined; results?: number | undefined; strictBounds?: boolean | undefined },
-    ): Promise<object> => {
+    suggest: (_request, _options) => {
         throw new Error('Function not implemented.');
     },
-    geocode: (
-        _request: string | ReadonlyArray<number>,
-        _options?:
-            | {
-                  boundedBy?: number[][] | undefined;
-                  results?: number | undefined;
-                  skip?: number | undefined;
-                  strictBounds?: boolean | undefined;
-              },
-    ): Promise<object> => {
+    geocode: (_request, _options) => {
         throw new Error('Function not implemented.');
-    },
+    }
 };
 
 geocodeProvider.geocode('Moscow'); // $ExpectType Promise<object>
