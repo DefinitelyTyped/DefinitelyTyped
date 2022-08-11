@@ -33,6 +33,7 @@ declare module 'fs/promises' {
         WatchEventType,
         CopyOptions,
         ReadStream,
+        TimeLike,
         WriteStream,
     } from 'node:fs';
     interface FileChangeInfo<T extends string | Buffer> {
@@ -329,7 +330,7 @@ declare module 'fs/promises' {
          * Change the file system timestamps of the object referenced by the `FileHandle` then resolves the promise with no arguments upon success.
          * @since v10.0.0
          */
-        utimes(atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+        utimes(atime: TimeLike, mtime: TimeLike): Promise<void>;
         /**
          * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, an
          * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface) or
@@ -762,7 +763,7 @@ declare module 'fs/promises' {
      * @since v14.5.0, v12.19.0
      * @return Fulfills with `undefined` upon success.
      */
-    function lutimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+    function lutimes(path: PathLike, atime: TimeLike, mtime: TimeLike): Promise<void>;
     /**
      * Changes the ownership of a file.
      * @since v10.0.0
@@ -780,7 +781,7 @@ declare module 'fs/promises' {
      * @since v10.0.0
      * @return Fulfills with `undefined` upon success.
      */
-    function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+    function utimes(path: PathLike, atime: TimeLike, mtime: TimeLike): Promise<void>;
     /**
      * Determines the actual location of `path` using the same semantics as the`fs.realpath.native()` function.
      *

@@ -2645,6 +2645,10 @@
             "libraryName": "loglevel",
             "asOfVersion": "1.6.2"
         },
+        "long": {
+            "libraryName": "long",
+            "asOfVersion": "5.0.0"
+        },
         "looks-same": {
             "libraryName": "looks-same",
             "asOfVersion": "4.1.0"
