@@ -755,12 +755,17 @@ declare namespace ymaps {
 
         interface IZoomControlParameters {
             options?: {
+                adjustMapMargin?: boolean | undefined,
                 position?: {
                     top?: number | string | 'auto' | undefined;
                     right?: number | string | 'auto' | undefined;
                     bottom?: number | string | 'auto' | undefined;
                     left?: number | string | 'auto' | undefined;
-                } | undefined
+                } | undefined,
+                size?: 'small' | 'large' | 'auto' | undefined,
+                visible?: boolean | undefined,
+                zoomDuration?: number | undefined,
+                zoomStep?: number | undefined
             } | undefined;
         }
 
@@ -3982,9 +3987,24 @@ declare namespace ymaps {
     }
 
     interface IGeocodeProvider {
-        geocode(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, skip?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
+        geocode(
+            request: string | ReadonlyArray<number>,
+            options?: {
+                boundedBy?: number[][] | undefined;
+                results?: number | undefined;
+                skip?: number | undefined;
+                strictBounds?: boolean | undefined;
+            }
+        ): Promise<object>;
 
-        suggest(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
+        suggest(
+            request: string,
+            options?: {
+                boundedBy?: number[][] | undefined;
+                results?: number | undefined;
+                strictBounds?: boolean | undefined;
+            }
+        ): Promise<object>;
     }
 
     interface IGeometry extends IBaseGeometry, ICustomizable {

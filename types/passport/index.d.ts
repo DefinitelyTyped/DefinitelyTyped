@@ -58,6 +58,7 @@ declare namespace passport {
         failureMessage?: boolean | string | undefined;
         failureRedirect?: string | undefined;
         failWithError?: boolean | undefined;
+        keepSessionInfo?: boolean | undefined;
         session?: boolean | undefined;
         scope?: string | string[] | undefined;
         successFlash?: string | boolean | undefined;
