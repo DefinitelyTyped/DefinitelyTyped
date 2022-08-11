@@ -1,5 +1,5 @@
 import { Button } from 'react-native';
-import ReactNativeRazorpay, { ErrorResponse } from 'react-native-razorpay';
+import RazorpayCheckout, { ErrorResponse } from 'react-native-razorpay';
 
 const Test = () => {
     return (
@@ -7,7 +7,7 @@ const Test = () => {
             <Button
                 title="Pay"
                 onPress={() => {
-                    ReactNativeRazorpay.open({
+                    RazorpayCheckout.open({
                         key: '',
                         amount: 500,
                         currency: 'INR',

@@ -81,9 +81,9 @@ export interface CheckoutOptions {
     };
 }
 
-declare const ReactNativeRazorpay: {
-    open: (options: CheckoutOptions, successCallback?: (data: SuccessResponse) => void, errorCallback?: (data: ErrorResponse) => void) => Promise<SuccessResponse>,
-    onExternalWalletSelection: (externalWalletCallback: (data: unknown) => void) => void
-};
+declare class RazorpayCheckout {
+    static open(options: CheckoutOptions, successCallback?: (data: SuccessResponse) => void, errorCallback?: (data: ErrorResponse) => void): Promise<SuccessResponse>;
+    static onExternalWalletSelection(externalWalletCallback: (data: unknown) => void): void;
+}
 
-export default ReactNativeRazorpay;
+export default RazorpayCheckout;
