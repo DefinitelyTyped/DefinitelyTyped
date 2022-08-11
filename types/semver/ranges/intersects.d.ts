@@ -7,7 +7,7 @@ import semver = require('../index');
 declare function intersects(
     range1: string | Range,
     range2: string | Range,
-    optionsOrLoose?: boolean | semver.Options,
+    optionsOrLoose?: boolean | semver.RangeOptions,
 ): boolean;
 
 export = intersects;
