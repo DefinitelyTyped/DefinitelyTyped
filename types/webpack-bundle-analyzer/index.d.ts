@@ -17,20 +17,19 @@ export namespace BundleAnalyzerPlugin {
     // Copied from @types/webpack@4 as webpack@5 only has `any` defined at the moment.
     // See https://github.com/webpack/webpack/issues/11630
     namespace Stats {
-        type Preset
-            = boolean
-            | 'errors-only'
-            | 'errors-warnings'
-            | 'minimal'
-            | 'none'
-            | 'normal'
-            | 'verbose';
+        type Preset = boolean | 'errors-only' | 'errors-warnings' | 'minimal' | 'none' | 'normal' | 'verbose';
 
         type ToJsonOptionsObject = StatsOptions;
 
         type ToJsonOptions = Preset | ToJsonOptionsObject;
 
-        type StatsExcludeFilter = string | string[] | RegExp | RegExp[] | ((assetName: string) => boolean) | Array<(assetName: string) => boolean>;
+        type StatsExcludeFilter =
+            | string
+            | string[]
+            | RegExp
+            | RegExp[]
+            | ((assetName: string) => boolean)
+            | Array<(assetName: string) => boolean>;
     }
 
     type ExcludeAssetsPatternFn = (assetName: string) => boolean;
