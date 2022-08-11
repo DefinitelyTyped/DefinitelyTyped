@@ -697,15 +697,12 @@ declare namespace YT
       yaw?: number | undefined;
     }
 
-    export class get extends Player {
-      /**
-       * Get the instance of the Player class attached to an iframe.
-       *
-       * @param iframeId   Id of the iframe.
-       * @param options   Player options.
-       */
-      constructor(iframeId: string);
-    }
+    /**
+    * Get the instance of the Player class attached to an iframe.
+    *
+    * @param iframeId   Id of the iframe.
+    */
+    export function get(iframeId: string): Player | undefined;
 
     /**
      * Creates and controls a YouTube player in an <iframe>.
