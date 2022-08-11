@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "long-tests.ts"
+        "disposable-email-tests.ts"
     ]
 }
