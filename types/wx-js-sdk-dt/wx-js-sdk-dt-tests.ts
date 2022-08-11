@@ -130,7 +130,6 @@ wx.stopRecord({
     }
 });
 
-
 wx.onVoiceRecordEnd({
     complete: (res) => {
         res.localId;
