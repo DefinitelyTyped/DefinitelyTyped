@@ -698,10 +698,10 @@ declare namespace YT
     }
 
     /**
-    * Get the instance of the Player class attached to an iframe.
-    *
-    * @param iframeId   Id of the iframe.
-    */
+     * Get the instance of the Player class attached to an iframe.
+     *
+     * @param iframeId   Id of the iframe.
+     */
     export function get(iframeId: string): Player | undefined;
 
     /**
