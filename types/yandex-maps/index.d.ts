@@ -3988,7 +3988,7 @@ declare namespace ymaps {
 
     interface IGeocodeProvider {
         geocode(
-            request: string | ReadonlyArray<number>,
+            request: string,
             options?: {
                 boundedBy?: number[][] | undefined;
                 results?: number | undefined;

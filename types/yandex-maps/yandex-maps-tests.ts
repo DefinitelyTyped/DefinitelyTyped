@@ -191,4 +191,6 @@ const geocodeProvider: ymaps.IGeocodeProvider = {
 };
 
 geocodeProvider.geocode('Moscow'); // $ExpectType Promise<object>
-geocodeProvider.geocode([55.751244, 37.618423]); // $ExpectType Promise<object>
+
+// @ts-expect-error
+geocodeProvider.geocode([55.751244, 37.618423]); 
