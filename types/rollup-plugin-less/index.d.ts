@@ -2,11 +2,10 @@
 // Project: https://github.com/xiaofuzi/rollup-plugin-less##readme
 // Definitions by: Tristan <https://github.com/LeoDog896>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
 
 /// <reference types="node" />
-/// <reference types="jsdom" />
 /// <reference types="less" />
+
 import { Plugin } from 'rollup';
 
 declare namespace less {

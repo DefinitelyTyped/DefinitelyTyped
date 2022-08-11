@@ -1,9 +1,9 @@
-import inquirer = require('inquirer');
+import inquirer, { QuestionCollection } from 'inquirer';
 
 /**
  * Editor prompt example
  */
-const questions: inquirer.QuestionCollection = [
+const questions: QuestionCollection = [
     {
         type: 'editor',
         name: 'bio',

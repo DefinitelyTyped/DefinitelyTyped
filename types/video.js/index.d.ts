@@ -4262,6 +4262,18 @@ declare namespace videojs {
 
     type Preload = 'auto' | 'metadata' | 'none';
 
+    type Autoplay =  boolean | 'muted' | 'play' | 'any';
+
+    interface Breakpoint {
+        tiny: number;
+        xsmall: number;
+        small: number;
+        medium: number;
+        large: number;
+        xlarge: number;
+        huge: number;
+    }
+
     interface ProgressControl extends Component {
         /**
          * Create the `Component`'s DOM element
@@ -6196,6 +6208,34 @@ export interface VideoJsPlayer extends videojs.Component {
     aspectRatio(): string;
 
     /**
+     * Get the current audioOnlyMode state or set audioOnlyMode to true or false.
+     *
+     * Setting this to `true` will hide all player components except the control bar,
+     * as well as control bar components needed only for video.
+     *
+     * @param [value]
+     *         The value to set audioOnlyMode to.
+     *
+     * @return A Promise is returned when setting the state, and a boolean when getting
+     *         the present state
+     */
+    audioOnlyMode(value: boolean): Promise<void>;
+
+    audioOnlyMode(): boolean;
+
+    /**
+     * Get the current audioPosterMode state or set audioPosterMode to true or false
+     *
+     * @param [value]
+     *         The value to set audioPosterMode to.
+     *
+     * @return A Promise is returned when setting the state, and a boolean when getting
+     *         the present state
+     */
+    audioPosterMode(value: boolean): Promise<void>;
+    audioPosterMode(): boolean;
+
+    /**
      * Get or set the autoplay option. When this is a boolean it will
      * modify the attribute on the tech. When this is a string the attribute on
      * the tech will be removed and `Player` will handle autoplay on loadstarts.
@@ -6210,9 +6250,9 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return The current value of autoplay when getting
      */
-    autoplay(value: boolean | string): void;
+    autoplay(value: videojs.Autoplay): void;
 
-    autoplay(): boolean | string;
+    autoplay(): videojs.Autoplay;
 
     /**
      * Get the remote {@link TextTrackList}
@@ -6270,6 +6310,45 @@ export interface VideoJsPlayer extends videojs.Component {
      *         if there is no tech
      */
     addTextTrack(kind?: string, label?: string, language?: string): void;
+
+    /**
+     * Get or set breakpoints on the player.
+     *
+     * Calling this method with an object or `true` will remove any previous
+     * custom breakpoints and start from the defaults again.
+     *
+     * @param  [breakpoints]
+     *         If an object is given, it can be used to provide custom
+     *         breakpoints. If `true` is given, will set default breakpoints.
+     *         If this argument is not given, will simply return the current
+     *         breakpoints.
+     *
+     * @param  [breakpoints.tiny]
+     *         The maximum width for the "vjs-layout-tiny" class.
+     *
+     * @param  [breakpoints.xsmall]
+     *         The maximum width for the "vjs-layout-x-small" class.
+     *
+     * @param  [breakpoints.small]
+     *         The maximum width for the "vjs-layout-small" class.
+     *
+     * @param  [breakpoints.medium]
+     *         The maximum width for the "vjs-layout-medium" class.
+     *
+     * @param  [breakpoints.large]
+     *         The maximum width for the "vjs-layout-large" class.
+     *
+     * @param  [breakpoints.xlarge]
+     *         The maximum width for the "vjs-layout-x-large" class.
+     *
+     * @param  [breakpoints.huge]
+     *         The maximum width for the "vjs-layout-huge" class.
+     *
+     * @return An object mapping breakpoint names to maximum width values.
+     */
+    breakpoints(breakpoints: true | Partial<videojs.Breakpoint>): void;
+
+    breakpoints(): videojs.Breakpoint;
 
     /**
      * Get a TimeRange object with an array of the times of the video
@@ -6353,6 +6432,22 @@ export interface VideoJsPlayer extends videojs.Component {
     createModal(content: string | (() => any) | Element | any[], options: any): videojs.ModalDialog;
 
     /**
+     * Get or set the `Player`'s crossOrigin option. For the HTML5 player, this
+     * sets the `crossOrigin` property on the `<video>` tag to control the CORS
+     * behavior.
+     *
+     * @param [value]
+     *        The value to set the `Player`'s crossOrigin to. If an argument is
+     *        given, must be one of `anonymous` or `use-credentials`.
+     *
+     * @return - The current crossOrigin value of the `Player` when getting.
+     *         - undefined when setting
+     */
+    crossOrigin(value: 'anonymous' | 'use-credentials'): void;
+
+    crossOrigin(): string;
+
+    /**
      * Get current breakpoint name, if any.
      *
      * @return If there is currently a breakpoint set, returns a the key from the
@@ -6411,6 +6506,13 @@ export interface VideoJsPlayer extends videojs.Component {
      * @return The source MIME type
      */
     currentType(): string;
+
+    /**
+     * Set debug mode to enable/disable logs at info level.
+     *
+     * @param enabled
+     */
+    debug(enabled: boolean): void;
 
     /**
      * Get the current defaultMuted state, or turn defaultMuted on or off. defaultMuted
@@ -6475,6 +6577,15 @@ export interface VideoJsPlayer extends videojs.Component {
     dimension(dimension: 'width' | 'height', value: number): void;
 
     dimension(dimension: 'width' | 'height'): number;
+
+    /**
+     * Disable Picture-in-Picture mode.
+     *
+     * @param value
+     *        - true will disable Picture-in-Picture mode
+     *        - false will enable Picture-in-Picture mode
+     */
+    disablePictureInPicture(value: boolean): void;
 
     /**
      * An instance of the `Player` class is created when any of the Video.js setup methods
@@ -6686,6 +6797,20 @@ export interface VideoJsPlayer extends videojs.Component {
     isFullscreen(isFS: boolean): void;
 
     isFullscreen(): boolean;
+
+    /**
+     * Check if the player is in Picture-in-Picture mode or tell the player that it
+     * is or is not in Picture-in-Picture mode.
+     *
+     * @param  [isPiP]
+     *         Set the players current Picture-in-Picture state
+     *
+     * @return - true if Picture-in-Picture is on and getting
+     *         - false if Picture-in-Picture is off and getting
+     */
+    isInPictureInPicture(isPiP: boolean): void;
+
+    isInPictureInPicture(): boolean;
 
     /**
      * The player's language code
@@ -7115,7 +7240,7 @@ export interface VideoJsPlayer extends videojs.Component {
 
 export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     aspectRatio?: string | undefined;
-    autoplay?: boolean | string | undefined;
+    autoplay?: videojs.Autoplay | undefined;
     bigPlayButton?: boolean | undefined;
     controlBar?: videojs.ControlBarOptions | false | undefined;
     textTrackSettings?: videojs.TextTrackSettingsOptions | undefined;
@@ -7134,6 +7259,7 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     nativeControlsForTouch?: boolean | undefined;
     notSupportedMessage?: string | undefined;
     playbackRates?: number[] | undefined;
+    playsinline?: boolean | undefined;
     noUITitleAttributes?: boolean | undefined;
     plugins?: Partial<VideoJsPlayerPluginOptions> | undefined;
     poster?: string | undefined;
@@ -7146,6 +7272,26 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     tracks?: videojs.TextTrackOptions[] | undefined;
     userActions?: videojs.UserActions | undefined;
     width?: number | undefined;
+
+    audioOnlyMode?: boolean | undefined;
+    audioPosterMode?: boolean | undefined;
+    autoSetup?: boolean | undefined;
+    breakpoints?: Partial<videojs.Breakpoint> | undefined;
+    fullscreen?: { options: { navigationUI: 'hide' } } | undefined;
+    id?: string | undefined;
+    liveTracker?: {
+      trackingThreshold?: number | undefined;
+      liveTolerance?: number | undefined;
+    } | undefined;
+    normalizeAutoplay?: boolean | undefined;
+    preferFullWindow?: boolean | undefined;
+    restoreEl?: boolean | Element | undefined;
+    suppressNotSupportedError?: boolean | undefined;
+    techCanOverridePoster?: boolean | undefined;
+    'vtt.js'?: string | undefined;
+    disablePictureInPicture?: boolean | undefined;
+    enableSourceset?: boolean | undefined;
+    retryOnError?: boolean | undefined;
 }
 
 export interface VideoJsPlayerPluginOptions {
