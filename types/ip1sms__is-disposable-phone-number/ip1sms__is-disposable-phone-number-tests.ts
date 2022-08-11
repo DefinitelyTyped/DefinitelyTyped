@@ -1,3 +1,3 @@
-import * as disposable from '@ip1sms/is-disposable-phone-number';
+import disposable = require('@ip1sms/is-disposable-phone-number');
 
 disposable('');
