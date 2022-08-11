@@ -8,7 +8,7 @@ askName("moduleName", inquirer);
 askName(
     {
         name: "moduleName",
-        message: "Whar's the name of your module?"
+        message: "What's the name of your module?"
     },
     inquirer);
 
