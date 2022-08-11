@@ -21,7 +21,9 @@ declare namespace Spotify {
         url: string;
     }
 
-    interface Album extends Entity {
+    interface Album {
+        name: string;
+        uri: string;
         images: Image[];
     }
 
@@ -34,7 +36,7 @@ declare namespace Spotify {
     interface Image {
         height?: number | null | undefined;
         url: string;
-        size?: number | null | undefined;
+        size?: string | null | undefined;
         width?: number | null | undefined;
     }
 
@@ -47,11 +49,24 @@ declare namespace Spotify {
         uid: string;
     }
 
+    interface PlaybackContextRestrictions {
+        pause: string[];
+        resume: string[];
+        seek: string[];
+        skip_next: string[];
+        skip_prev: string[];
+        toggle_repeat_context: string[];
+        toggle_repeat_track: string[];
+        toggle_shuffle: string[];
+        peek_next: string[];
+        peek_prev: string[];
+    }
+
     interface PlaybackContextMetadata extends Entity {
         current_item: PlaybackContextTrack;
         next_items: PlaybackContextTrack[];
         previous_items: PlaybackContextTrack[];
-        restrictions: PlaybackRestrictions;
+        restrictions: PlaybackContextRestrictions;
         options: {
             repeat_mode: string;
             shuffled: boolean;
@@ -64,23 +79,29 @@ declare namespace Spotify {
     }
 
     interface PlaybackDisallows {
-        pausing: boolean;
-        peeking_next: boolean;
-        peeking_prev: boolean;
-        resuming: boolean;
-        seeking: boolean;
-        skipping_next: boolean;
-        skipping_prev: boolean;
+        pausing?: boolean;
+        peeking_next?: boolean;
+        peeking_prev?: boolean;
+        resuming?: boolean;
+        seeking?: boolean;
+        skipping_next?: boolean;
+        skipping_prev?: boolean;
+        toggling_repeat_context?: boolean;
+        toggling_repeat_track?: boolean;
+        toggling_shuffle?: boolean;
     }
 
     interface PlaybackRestrictions {
-        disallow_pausing_reasons: string[];
-        disallow_peeking_next_reasons: string[];
-        disallow_peeking_prev_reasons: string[];
-        disallow_resuming_reasons: string[];
-        disallow_seeking_reasons: string[];
-        disallow_skipping_next_reasons: string[];
-        disallow_skipping_prev_reasons: string[];
+        disallow_pausing_reasons?: string[];
+        disallow_peeking_next_reasons?: string[];
+        disallow_peeking_prev_reasons?: string[];
+        disallow_resuming_reasons?: string[];
+        disallow_seeking_reasons?: string[];
+        disallow_skipping_next_reasons?: string[];
+        disallow_skipping_prev_reasons?: string[];
+        disallow_toggling_repeat_context_reasons?: string[];
+        disallow_toggling_repeat_track_reasons?: string[];
+        disallow_toggling_shuffle_reasons?: string[];
     }
 
     interface PlaybackState {
@@ -90,6 +111,7 @@ declare namespace Spotify {
         paused: boolean;
         position: number;
         loading: boolean;
+        timestamp: number;
         /**
          * 0: NO_REPEAT
          * 1: ONCE_REPEAT
@@ -99,6 +121,11 @@ declare namespace Spotify {
         shuffle: boolean;
         restrictions: PlaybackRestrictions;
         track_window: PlaybackTrackWindow;
+        playback_id: string;
+        playback_quality: string;
+        playback_features: {
+            hifi_status: string;
+        };
     }
 
     interface PlaybackTrackWindow {
@@ -152,14 +179,21 @@ declare namespace Spotify {
     }
 
     interface Track {
-        uri: string;
-        id: string | null;
-        type: 'track' | 'episode' | 'ad';
-        media_type: 'audio' | 'video';
-        name: string;
-        is_playable: boolean;
         album: Album;
         artists: Entity[];
+        duration_ms: number;
+        id: string | null;
+        is_playable: boolean;
+        name: string;
+        uid: string;
+        uri: string;
+        media_type: 'audio' | 'video';
+        type: 'track' | 'episode' | 'ad';
+        track_type: 'audio' | 'video';
+        linked_from: {
+            uri: string | null;
+            id: string | null;
+        };
     }
 
     interface WebPlaybackInstance {
