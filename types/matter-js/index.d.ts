@@ -157,7 +157,7 @@ declare namespace Matter {
         static fromVertices(
             x: number,
             y: number,
-            vertexSets: Array<Array<{ x: number, y: number }>>,
+            vertexSets: Array<Array<Vector>>,
             options?: IBodyDefinition,
             flagInternal?: boolean,
             removeCollinear?: number,
@@ -2470,12 +2470,10 @@ declare namespace Matter {
         static update(pairs: Pairs, collisions: Array<Collision>, timestamp: number): void;
     }
 
-    export interface Vertex {
-        x: number;
-        y: number;
-        index?: number;
-        body?: Body;
-        isInternal?: boolean;
+    export interface Vertex extends Vector {
+        index: number;
+        body: Body;
+        isInternal: boolean;
     }
 
     /**
