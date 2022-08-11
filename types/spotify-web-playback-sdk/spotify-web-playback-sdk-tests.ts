@@ -102,13 +102,26 @@ player.on("autoplay_failed", () => {
 });
 
 player.on("player_state_changed", (playbackState: Spotify.PlaybackState) => {
-    const { context, position, duration } = playbackState;
-    const { current_track } = playbackState.track_window;
+    const { context, position, duration, track_window } = playbackState;
+    const { current_track } = track_window;
 
     console.log("Currently Playing", current_track);
     console.log("Position in Song", position);
     console.log("Duration of Song", duration);
     console.log("Playback context", context);
+
+    if (context) {
+        const { metadata, uri } = context;
+
+        if (!metadata) return;
+        const { current_item, next_items, previous_items, options } = metadata;
+        console.log("Playback context's URI", uri);
+        console.log("Playback context's current track", current_item);
+        console.log("Playback context's previous tracks", previous_items);
+        console.log("Playback context's next tracks", next_items);
+        console.log("Playback context's shuffle state", options.shuffled);
+        console.log("Playback context's repeat mode", options.repeat_mode);
+    }
 });
 
 player.addListener('initialization_error', (e: Spotify.Error) => {
