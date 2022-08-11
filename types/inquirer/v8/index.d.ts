@@ -48,10 +48,17 @@ import './lib/utils/screen-manager';
  */
 type LiteralUnion<T extends F, F = string> = T | (F & {});
 
+export interface PromptFunction {
+    /**
+     * Prompts the questions to the user.
+     */
+    <T extends Answers = Answers>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>): Promise<T>;
+}
+
 /**
  * Provides prompts for answering questions.
  */
-interface PromptModuleBase {
+export interface PromptModuleBase extends PromptFunction {
     /**
      * Registers a new prompt-type.
      *
