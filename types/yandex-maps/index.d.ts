@@ -3288,6 +3288,28 @@ declare namespace ymaps {
         getMap(): Map;
     }
 
+    class GeocodeResult implements IGeoObject {
+        events: IEventManager;
+        geometry: IGeometry | null;
+        options: IOptionManager;
+        properties: IDataManager;
+        state: IDataManager;
+
+        getAddressLine(): string;
+        getAdministrativeAreas(): ReadonlyArray<string>;
+        getCountry(): string | null;
+        getCountryCode(): string | null;
+        getLocalities(): ReadonlyArray<string>;
+        getMap(): Map;
+        getOverlay(): Promise<IOverlay | null>;
+        getOverlaySync(): IOverlay | null;
+        getParent(): object | null;
+        getPremise(): string | null;
+        getPremiseNumber(): string | null;
+        getThoroughfare(): string | null;
+        setParent(parent: object | null): this;
+    }
+
     interface IGeoObjectFeature {
         geometry?: IGeometry | IGeometryJson | undefined;
         properties?: IDataManager | object | undefined;

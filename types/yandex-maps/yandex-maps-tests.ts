@@ -191,7 +191,8 @@ ymaps.geocode([55.751244, 37.618423], {
     searchCoordOrder: 'latlong',
     skip: 0,
     strictBounds: false
-}).then(result => result.geoObjects.get(0));
+}).then(result => result.geoObjects.get(0) as ymaps.GeocodeResult)
+.then(result => result.getAddressLine() === 'Moscow');
 
 const geocodeProvider: ymaps.IGeocodeProvider = {
     suggest: (_request, _options) => {
