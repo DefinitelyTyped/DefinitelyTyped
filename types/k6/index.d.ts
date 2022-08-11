@@ -39,6 +39,7 @@ import './html';
 import './http';
 import './metrics';
 import './options';
+import './experimental/redis';
 import './ws';
 import './net/grpc';
 
