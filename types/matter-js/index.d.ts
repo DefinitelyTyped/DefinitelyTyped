@@ -2473,9 +2473,9 @@ declare namespace Matter {
     export interface Vertex {
         x: number;
         y: number;
-        index: number;
-        body: Body;
-        isInternal: boolean;
+        index?: number;
+        body?: Body;
+        isInternal?: boolean;
     }
 
     /**
