@@ -1267,7 +1267,7 @@ declare module 'util' {
         }
     >;
 
-    type OptionToken =
+    export type OptionToken =
         | { kind: 'option'; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
         | {
               kind: 'option';
@@ -1278,10 +1278,11 @@ declare module 'util' {
               inlineValue: undefined;
           };
 
-    type Token =
-        | OptionToken
-        | { kind: 'positional'; index: number; value: string }
-        | { kind: 'option-terminator'; index: number };
+    export interface PositionalToken { kind: 'positional'; index: number; value: string; }
+
+    export interface OptionTerminatorToken { kind: 'option-terminator'; index: number; }
+
+    export type Token = OptionToken | PositionalToken | OptionTerminatorToken;
 
     // If ParseArgsConfig extends T, then the user passed config constructed elsewhere.
     // So we can't rely on the `"not definitely present" implies "definitely not present"` assumption mentioned above.
