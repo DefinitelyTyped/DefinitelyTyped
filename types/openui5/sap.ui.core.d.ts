@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.104.0
+// For Library Version: 1.105.0
 
 declare module "sap/base/assert" {
   /**
@@ -9164,6 +9164,39 @@ declare module "sap/ui/core/library" {
     Right = "Right",
   }
   /**
+   * @SINCE 1.104
+   * @EXPERIMENTAL (since 1.104)
+   *
+   * Implementing this interface allows a control to be accessible via access keys.
+   */
+  export interface IAccessKeySupport {
+    __implements__sap_ui_core_IAccessKeySupport: boolean;
+
+    /**
+     * @SINCE 1.104
+     * @EXPERIMENTAL (since 1.104)
+     *
+     * Returns a refence to DOM element to be focused during Access key navigation. If not implemented getFocusDomRef()
+     * method is used.
+     */
+    getAccessKeysFocusTarget?(): void;
+    /**
+     * @SINCE 1.104
+     * @EXPERIMENTAL (since 1.104)
+     *
+     * If implemented called when access keys feature is enabled and highlighting is over
+     */
+    onAccKeysHighlightEnd?(): void;
+    /**
+     * @SINCE 1.104
+     * @EXPERIMENTAL (since 1.104)
+     *
+     * If implemented called when access keys feature is enabled and highlighting is ongoing
+     */
+    onAccKeysHighlightStart?(): void;
+  }
+
+  /**
    * @SINCE 1.89.0
    *
    * Marker interface for subclasses of `sap.ui.core.UIComponent`.
@@ -12612,7 +12645,10 @@ declare module "sap/ui/core/Configuration" {
     /**
      * @SINCE 1.99.0
      *
-     * Retrieves the configured IANA timezone ID
+     * **Note: Due to compatibility considerations, this function will always return the timezone of the browser/host
+     * system in this release**
+     *
+     * Retrieves the configured IANA timezone ID.
      *
      * @returns The configured IANA timezone ID, e.g. "America/New_York"
      */
@@ -12793,6 +12829,9 @@ declare module "sap/ui/core/Configuration" {
     ): void;
     /**
      * @SINCE 1.99.0
+     *
+     * **Note: Due to compatibility considerations, this function has no effect in this release. The timezone
+     * configuration will always reflect the timezone of the browser/host system.**
      *
      * Sets the timezone such that all date and time based calculations use this timezone.
      *
@@ -16054,7 +16093,7 @@ declare module "sap/ui/core/delegate/ItemNavigation" {
       /**
        * Root DOM reference
        */
-      oDomRef: object
+      oDomRef: Element
     ): this;
     /**
      * Sets the selected index if the used control supports selection.
@@ -19342,6 +19381,16 @@ declare module "sap/ui/core/format/DateFormat" {
        */
       oFormatOptions?: {
         /**
+         * @since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
+         * the value taken from the locale is used
+         */
+        firstDayOfWeek?: int;
+        /**
+         * @since 1.105.0 minimal days at the beginning of the year which define the first calendar week; if not
+         * defined, the value taken from the locale is used
+         */
+        minimalDaysInFirstWeek?: int;
+        /**
          * @since 1.34.0 contains pattern symbols (e.g. "yMMMd" or "Hms") which will be converted into the pattern
          * in the used locale, which matches the wanted symbols best. The symbols must be in canonical order, that
          * is: Era (G), Year (y/Y), Quarter (q/Q), Month (M/L), Week (w), Day-Of-Week (E/e/c), Day (d), Hour (h/H/k/K/j/J),
@@ -19419,6 +19468,16 @@ declare module "sap/ui/core/format/DateFormat" {
        * Object which defines the format options
        */
       oFormatOptions?: {
+        /**
+         * @since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
+         * the value taken from the locale is used
+         */
+        firstDayOfWeek?: int;
+        /**
+         * @since 1.105.0 minimal days at the beginning of the year which define the first calendar week; if not
+         * defined, the value taken from the locale is used
+         */
+        minimalDaysInFirstWeek?: int;
         /**
          * @since 1.34.0 contains pattern symbols (e.g. "yMMMd" or "Hms") which will be converted into the pattern
          * in the used locale, which matches the wanted symbols best. The symbols must be in canonical order, that
@@ -19502,6 +19561,16 @@ declare module "sap/ui/core/format/DateFormat" {
        */
       oFormatOptions?: {
         /**
+         * @since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
+         * the value taken from the locale is used
+         */
+        firstDayOfWeek?: int;
+        /**
+         * @since 1.105.0 minimal days at the beginning of the year which define the first calendar week; if not
+         * defined, the value taken from the locale is used
+         */
+        minimalDaysInFirstWeek?: int;
+        /**
          * A string containing pattern symbols (e.g. "yMMMd" or "Hms") which will be converted into a pattern for
          * the used locale that matches the wanted symbols best. The symbols must be in canonical order, that is:
          * Era (G), Year (y/Y), Quarter (q/Q), Month (M/L), Week (w), Day-Of-Week (E/e/c), Day (d), Hour (h/H/k/K/j/J),
@@ -19580,6 +19649,16 @@ declare module "sap/ui/core/format/DateFormat" {
        * Object which defines the format options
        */
       oFormatOptions?: {
+        /**
+         * @since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
+         * the value taken from the locale is used
+         */
+        firstDayOfWeek?: int;
+        /**
+         * @since 1.105.0 minimal days at the beginning of the year which define the first calendar week; if not
+         * defined, the value taken from the locale is used
+         */
+        minimalDaysInFirstWeek?: int;
         /**
          * @since 1.34.0 contains pattern symbols (e.g. "yMMMd" or "Hms") which will be converted into the pattern
          * in the used locale, which matches the wanted symbols best. The symbols must be in canonical order, that
@@ -26318,6 +26397,8 @@ declare module "sap/ui/core/mvc/Controller" {
 
   import View from "sap/ui/core/mvc/View";
 
+  import Control from "sap/ui/core/Control";
+
   /**
    * A generic controller implementation for the UI5 Model-View-Controller concept.
    *
@@ -26459,7 +26540,7 @@ declare module "sap/ui/core/mvc/Controller" {
      * or after the lifecycle functions of the original controller. The event handler functions, such as `onButtonClick`,
      * are replacing the original controller's function.
      *
-     * When using an async extension provider you need to ensure that the view is loaded in async mode.
+     * When using an async extension provider, you need to ensure that the view is loaded in async mode.
      *
      * In both cases, return `undefined` if no controller extension shall be applied.
      */
@@ -26477,7 +26558,7 @@ declare module "sap/ui/core/mvc/Controller" {
      * Views automatically prepend their own ID as a prefix to created Elements to make the IDs unique even
      * in the case of multiple view instances. This method helps to find an element by its local ID only.
      *
-     * If no view is connected or if the view doesn't contain an element with the given local ID, undefined
+     * If no view is connected or if the view doesn't contain an element with the given local ID, `undefined`
      * is returned.
      *
      * @returns Element by its (view local) ID
@@ -26487,11 +26568,11 @@ declare module "sap/ui/core/mvc/Controller" {
        * View-local ID
        */
       sId: string
-    ): UI5Element;
+    ): UI5Element | undefined;
     /**
      * Converts a view local ID to a globally unique one by prepending the view ID.
      *
-     * If no view is connected, undefined is returned.
+     * If no view is connected, `undefined` is returned.
      *
      * @returns Prefixed ID
      */
@@ -26500,24 +26581,24 @@ declare module "sap/ui/core/mvc/Controller" {
        * View-local ID
        */
       sId: string
-    ): string;
+    ): string | undefined;
     /**
      * @SINCE 1.23.0
      *
      * Gets the component of the controller's view
      *
-     * If there is no Component connected to the view or the view is not connected to the controller, undefined
+     * If there is no Component connected to the view or the view is not connected to the controller, `undefined`
      * is returned.
      *
      * @returns Component instance
      */
-    getOwnerComponent(): Component;
+    getOwnerComponent(): Component | undefined;
     /**
-     * Returns the view associated with this controller or undefined.
+     * Returns the view associated with this controller or `undefined`.
      *
      * @returns View connected to this controller.
      */
-    getView(): View;
+    getView(): View | undefined;
     /**
      * @SINCE 1.93
      *
@@ -26559,11 +26640,11 @@ declare module "sap/ui/core/mvc/Controller" {
         /**
          * Whether the fragment content should be added to the `dependents` aggregation of the view
          */
-        addToDependents?: object;
+        addToDependents?: boolean;
         /**
          * Whether the IDs of the fragment content will be prefixed by the view ID
          */
-        autoPrefixId?: object;
+        autoPrefixId?: boolean;
         /**
          * the ID of the Fragment
          */
@@ -26573,7 +26654,7 @@ declare module "sap/ui/core/mvc/Controller" {
          */
         type?: string;
       }
-    ): Promise<any>;
+    ): Promise<Control | Control[]>;
     /**
      * This method is called every time the View is rendered, after the HTML is placed in the DOM-Tree. It can
      * be used to apply additional changes to the DOM after the Renderer has finished. (Even though this method
@@ -27739,7 +27820,7 @@ declare module "sap/ui/core/mvc/View" {
        * View local ID of the element
        */
       sId: string
-    ): UI5Element;
+    ): UI5Element | undefined;
     /**
      * Creates a clone of this view.
      *
@@ -27972,7 +28053,7 @@ declare module "sap/ui/core/mvc/View" {
        * Prefixed ID
        */
       sId: string
-    ): string;
+    ): string | null;
     /**
      * Returns the info object which is also passed to the preprocessors
      * See:
@@ -27987,7 +28068,7 @@ declare module "sap/ui/core/mvc/View" {
       bSync: boolean
     ): object;
     /**
-     * Returns user specific data object
+     * Returns user specific data object.
      *
      * @returns viewData
      */
@@ -28653,7 +28734,7 @@ declare module "sap/ui/core/Popup" {
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
-  import { OpenState, Collision } from "sap/ui/core/library";
+  import { OpenState, Collision, CSSSize } from "sap/ui/core/library";
 
   /**
    * Popup Class is a helper class for controls that want themselves or parts of themselves or even other
@@ -29340,7 +29421,13 @@ declare module "sap/ui/core/Popup" {
       /**
        * specifies the point of the reference element to which the given Content should be aligned
        */
-      at: Dock | Object,
+      at:
+        | Dock
+        | {
+            left: CSSSize;
+
+            top: CSSSize;
+          },
       /**
        * specifies the reference element to which the given content should be aligned as specified in the other
        * parameters
@@ -32107,7 +32194,7 @@ declare module "sap/ui/core/routing/Router" {
        * Name of the route
        */
       sName: string
-    ): Route;
+    ): Route | undefined;
     /**
      * @SINCE 1.75
      *
@@ -33954,7 +34041,7 @@ declare module "sap/ui/core/search/OpenSearchProvider" {
       /**
        * The callback function which is called when the suggestions are available.
        */
-      fCallback: Function
+      fCallback: (p1: string, p2: string[]) => void
     ): void;
   }
 
@@ -34081,7 +34168,7 @@ declare module "sap/ui/core/search/SearchProvider" {
       /**
        * The callback function which is called when the suggestions are available.
        */
-      fnCallback: Function
+      fnCallback: (p1: string, p2: string[]) => void
     ): void;
   }
 
@@ -39873,6 +39960,10 @@ declare module "sap/ui/core/XMLComposite" {
      * ```
      *
      *
+     * **Note:** {@link topic:b11d853a8e784db6b2d210ef57b0f7d7 Requiring modules in XML} will result in side
+     * effects that might cause the XMLComposite to not work properly. We suggest you require the needed modules
+     * inside the JavaScript coding of the class extending the XMLComposite.
+     *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
@@ -40208,7 +40299,15 @@ declare module "sap/ui/Device" {
        * `oListener` instance (if present) or on the `window` instance. A map with information about the entered
        * range set is provided as a single argument to the handler (see details above).
        */
-      fnFunction: Function,
+      fnFunction: (p1: {
+        from: number;
+
+        to: number;
+
+        unit: string;
+
+        name: string | undefined;
+      }) => void,
       /**
        * The object that wants to be notified when the event occurs (`this` context within the handler function).
        * If it is not specified, the handler function is called in the context of the `window`.
@@ -40259,7 +40358,15 @@ declare module "sap/ui/Device" {
        * size will be used.
        */
       iWidth?: int
-    ): object;
+    ): {
+      from: number;
+
+      to: number;
+
+      unit: string;
+
+      name: string | undefined;
+    };
     /**
      * Returns `true` if a range set with the given name is already initialized.
      *
@@ -57166,7 +57273,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     ): any;
     /**
      * Returns the changed properties of all changed entities in a map which are still pending. The key is the
-     * string name of the entity and the value is an object which contains the changed properties.
+     * string name of the entity, and the value is an object which contains the changed properties. The tree
+     * hierarchy changes for removed nodes are represented via an empty object.
      *
      * In contrast to the two related functions {@link #hasPendingChanges} and {@link #resetChanges}, only client
      * data changes are supported.
@@ -57238,11 +57346,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     /**
      * Checks if there exist pending changes in the model.
      *
-     * By default, only client data changes triggered through: {@link #createEntry} {@link #setProperty} are
-     * taken into account.
+     * By default, only client data changes triggered through {@link #createEntry} or {@link #setProperty},
+     * and tree hierarchy changes are taken into account.
      *
-     * If `bAll` is set to `true`, also deferred requests triggered through: {@link #create} {@link #update}
-     * {@link #remove} are taken into account.
+     * If `bAll` is set to `true`, also deferred requests triggered through {@link #create}, {@link #update},
+     * and {@link #remove} are taken into account.
      *
      * @returns `true` if there are pending changes, `false` otherwise.
      */
@@ -57550,6 +57658,9 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * By default, only changes triggered through {@link #createEntry} or {@link #setProperty} are taken into
      * account. If `bAll` is set, also deferred requests triggered through {@link #create}, {@link #update}
      * or {@link #remove} are taken into account.
+     *
+     * With a given `aPath` only specified entities are reset. Note that tree hierarchy changes are only affected
+     * if a given path is equal to the tree binding's resolved binding path.
      *
      * If `bDeleteCreatedEntities` is set, the entity is completely removed, provided it has been created
      *
@@ -58820,26 +58931,44 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * @SINCE 1.41.0
      *
-     * Deletes the OData entity this context points to.
+     * Deletes the OData entity this context points to. The context is removed from the binding immediately,
+     * even if {@link sap.ui.model.odata.v4.SubmitMode.API} is used, and the request is only sent later when
+     * {@link sap.ui.model.odata.v4.ODataModel#submitBatch} is called. As long as the context is deleted on
+     * the client, but not yet on the server, {@link #isDeleted} returns `true`.
+     *
+     * Since 1.105 such a pending deletion is a pending change. It causes `hasPendingChanges` to return `true`
+     * for the context, the binding containing it, and the model. `resetChanges` in binding or model cancels
+     * the deletion and restores the context.
+     *
+     * The usage of a group ID with {@link sap.ui.model.odata.v4.SubmitMode.API} is possible since 1.105 - this
+     * is an experimental API.
      *
      * The context must not be used anymore after successful deletion.
+     * See:
+     * 	{#hasPendingChanges}
+     * 	{sap.ui.model.odata.v4.ODataContextBinding#hasPendingChanges}
+     * 	{sap.ui.model.odata.v4.ODataListBinding#hasPendingChanges}
+     * 	{sap.ui.model.odata.v4.ODataModel#hasPendingChanges}
+     * 	{sap.ui.model.odata.v4.ODataContextBinding#resetChanges}
+     * 	{sap.ui.model.odata.v4.ODataListBinding#resetChanges}
+     * 	{sap.ui.model.odata.v4.ODataModel#resetChanges}
      *
      * @returns A promise which is resolved without a result in case of success, or rejected with an instance
-     * of `Error` in case of failure, e.g. if the given context does not point to an entity, if it is not part
-     * of a list binding, if there are pending changes for the context's binding, if the resulting group ID
-     * has SubmitMode.API, or if the deletion on the server fails.  The error instance is flagged with `isConcurrentModification`
-     * in case a concurrent modification (e.g. by another user) of the entity between loading and deletion has
-     * been detected; this should be shown to the user who needs to decide whether to try deletion again. If
-     * the entity does not exist, we assume it has already been deleted by someone else and report success.
+     * of `Error` in case of failure, for example if:
+     * 	 the given context does not point to an entity,  the deletion on the server fails,  the deletion
+     * is canceled via `resetChanges` (in this case the error instance has the property `canceled` with value
+     * `true`).  The error instance has the property `isConcurrentModification` with value `true` in case
+     * a concurrent modification (e.g. by another user) of the entity between loading and deletion has been
+     * detected; this should be shown to the user who needs to decide whether to try deletion again. If the
+     * entity does not exist, we assume it has already been deleted by someone else and report success.
      */
     delete(
       /**
        * The group ID to be used for the DELETE request; if not specified, the update group ID for the context's
-       * binding is used, see {@link #getUpdateGroupId}; the resulting group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
-       * Since 1.81, if this context is transient (see {@link #isTransient}), no group ID needs to be specified.
-       * Since 1.98.0, you can use `null` to prevent the DELETE request in case of a kept-alive context that is
-       * not in the collection and of which you know that it does not exist on the server anymore (for example,
-       * a draft after activation).
+       * binding is used, see {@link #getUpdateGroupId}. Since 1.81, if this context is transient (see {@link
+       * #isTransient}), no group ID needs to be specified. Since 1.98.0, you can use `null` to prevent the DELETE
+       * request in case of a kept-alive context that is not in the collection and of which you know that it does
+       * not exist on the server anymore (for example, a draft after activation).
        */
       sGroupId?: string,
       /**
@@ -58977,6 +59106,17 @@ declare module "sap/ui/model/odata/v4/Context" {
      * @returns Whether there are pending changes
      */
     hasPendingChanges(): boolean;
+    /**
+     * @SINCE 1.105
+     *
+     * Returns whether this context is deleted on the client, but not on the server yet. The result of this
+     * function can also be accessed via the "@$ui5.context.isDeleted" instance annotation at the entity.
+     * See:
+     * 	#delete
+     *
+     * @returns `true` if this context is deleted
+     */
+    isDeleted(): boolean;
     /**
      * @SINCE 1.77.0
      *
@@ -60605,6 +60745,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * of grand totals like in 1.84.0, using aggregates of aggregates and thus allowing to filter by aggregated
        * properties while grand totals are needed. Beware that methods like "average" or "countdistinct" are not
        * compatible with this approach, and it cannot be combined with group levels.
+       *  Since 1.105.0, either a recursive hierarchy or pure data aggregation is supported, but no mix; `hierarchyQualifier`
+       * is the leading property that decides between those two use cases - this is an **experimental API** and
+       * is only supported if the model uses the `autoExpandSelect` parameter!
        */
       oAggregation?: {
         /**
@@ -60622,6 +60765,11 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * situation"). (SQL suggestion: `CASE WHEN MIN(Unit) = MAX(Unit) THEN MIN(Unit) END`)
          */
         aggregate?: object;
+        /**
+         * The number of initially expanded levels as a positive integer (@experimental as of version 1.105.0),
+         * supported only if a `hierarchyQualifier` is given.
+         */
+        expandTo?: number;
         /**
          * Tells whether the grand totals for aggregatable properties are displayed at the bottom only (since 1.86.0);
          * `true` for bottom only, `false` for top and bottom, the default is top only
@@ -60641,6 +60789,12 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * (since 1.93.0) with "$search".
          */
         groupLevels?: string[];
+        /**
+         * The qualifier for the pair of "Org.OData.Aggregation.V1.RecursiveHierarchy" and "com.sap.vocabularies.Hierarchy.v1.RecursiveHierarchy"
+         * annotations at this binding's entity type (@experimental as of version 1.105.0). If present, a recursive
+         * hierarchy without data aggregation is defined, and the only other supported property is `expandTo`.
+         */
+        hierarchyQualifier?: string;
         /**
          * Like the
          * "5.1.7 System Query Option $search", but applied before data aggregation (since 1.93.0). Note that
@@ -65706,9 +65860,9 @@ declare module "sap/ui/model/xml/XMLModel" {
      */
     constructor(
       /**
-       * either the URL where to load the XML from or an XML
+       * Either the URL where to load the XML from or an XML document
        */
-      oData: object
+      oData: XMLDocument | string
     );
 
     /**
@@ -74735,7 +74889,15 @@ declare namespace sap {
            * `oListener` instance (if present) or on the `window` instance. A map with information about the entered
            * range set is provided as a single argument to the handler (see details above).
            */
-          fnFunction: Function,
+          fnFunction: (p1: {
+            from: number;
+
+            to: number;
+
+            unit: string;
+
+            name: string | undefined;
+          }) => void,
           /**
            * The object that wants to be notified when the event occurs (`this` context within the handler function).
            * If it is not specified, the handler function is called in the context of the `window`.
@@ -74786,7 +74948,15 @@ declare namespace sap {
            * size will be used.
            */
           iWidth?: int
-        ): object;
+        ): {
+          from: number;
+
+          to: number;
+
+          unit: string;
+
+          name: string | undefined;
+        };
         /**
          * Returns `true` if a range set with the given name is already initialized.
          *

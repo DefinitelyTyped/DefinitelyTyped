@@ -1,4 +1,4 @@
-// For Library Version: 1.104.0
+// For Library Version: 1.105.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -11759,7 +11759,13 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * @returns Containing current RGB values
      */
-    getRGB(): object;
+    getRGB(): {
+      r: int;
+
+      g: int;
+
+      b: int;
+    };
     /**
      * @SINCE 1.48.0
      *
@@ -12271,8 +12277,8 @@ declare module "sap/ui/unified/ColorPickerPopover" {
        * When this control is displayed on tablet or desktop, the `ColorPickerPopover` is positioned relative
        * to this control
        */
-      openBy: Object
-    ): Object;
+      openBy: Control | HTMLElement
+    ): /* was: sap.m.Popover */ any | /* was: sap.m.Dialog */ any;
     /**
      * @SINCE 1.60.0
      *
@@ -14692,6 +14698,18 @@ declare module "sap/ui/unified/FileUploader" {
      */
     getButtonText(): string;
     /**
+     * @SINCE 1.105.0
+     *
+     * Gets current value of property {@link #getDirectory directory}.
+     *
+     * Allows users to upload all files from a given directory and its corresponding subdirectories.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `directory`
+     */
+    getDirectory(): boolean;
+    /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
      * Disabled controls have different colors, depending on customer settings.
@@ -15213,6 +15231,25 @@ declare module "sap/ui/unified/FileUploader" {
        * New value for property `buttonText`
        */
       sButtonText?: string
+    ): this;
+    /**
+     * @SINCE 1.105.0
+     *
+     * Sets a new value for property {@link #getDirectory directory}.
+     *
+     * Allows users to upload all files from a given directory and its corresponding subdirectories.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDirectory(
+      /**
+       * New value for property `directory`
+       */
+      bDirectory?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
@@ -15908,6 +15945,13 @@ declare module "sap/ui/unified/FileUploader" {
      * If set to true, the button is displayed without any text.
      */
     iconOnly?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.105.0
+     *
+     * Allows users to upload all files from a given directory and its corresponding subdirectories.
+     */
+    directory?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @SINCE 1.12.2
