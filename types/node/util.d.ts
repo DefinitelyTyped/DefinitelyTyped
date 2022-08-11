@@ -1231,7 +1231,7 @@ declare module 'util' {
               value: undefined;
               inlineValue: undefined;
           }
-        : OptionToken & { name: K };
+        : ParseArgsOptionToken & { name: K };
 
     type TokenForOptions<
         T extends ParseArgsConfig,
@@ -1239,10 +1239,10 @@ declare module 'util' {
     > = K extends unknown
         ? T['options'] extends ParseArgsOptionsConfig
             ? PreciseTokenForOptions<K & string, T['options'][K]>
-            : OptionToken
+            : ParseArgsOptionToken
         : never;
 
-    type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T['strict'], TokenForOptions<T>, OptionToken>;
+    type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T['strict'], TokenForOptions<T>, ParseArgsOptionToken>;
 
     type ParsedPositionalToken<T extends ParseArgsConfig> = IfDefaultsTrue<
         T['strict'],
@@ -1267,7 +1267,7 @@ declare module 'util' {
         }
     >;
 
-    export type OptionToken =
+    export type ParseArgsOptionToken =
         | { kind: 'option'; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
         | {
               kind: 'option';
@@ -1278,11 +1278,11 @@ declare module 'util' {
               inlineValue: undefined;
           };
 
-    export interface PositionalToken { kind: 'positional'; index: number; value: string; }
+    export interface ParseArgsPositionalToken { kind: 'positional'; index: number; value: string; }
 
-    export interface OptionTerminatorToken { kind: 'option-terminator'; index: number; }
+    export interface ParseArgsOptionTerminatorToken { kind: 'option-terminator'; index: number; }
 
-    export type Token = OptionToken | PositionalToken | OptionTerminatorToken;
+    export type ParseArgsToken = ParseArgsOptionToken | ParseArgsPositionalToken | ParseArgsOptionTerminatorToken;
 
     // If ParseArgsConfig extends T, then the user passed config constructed elsewhere.
     // So we can't rely on the `"not definitely present" implies "definitely not present"` assumption mentioned above.
@@ -1290,7 +1290,7 @@ declare module 'util' {
         ? {
               values: { [longOption: string]: undefined | string | boolean | Array<string | boolean> };
               positionals: string[];
-              tokens?: Token[];
+              tokens?: ParseArgsToken[];
           }
         : PreciseParsedResults<T>;
 }

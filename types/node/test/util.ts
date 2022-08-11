@@ -275,6 +275,6 @@ access('file/that/does/not/exist', (err) => {
     // util.parseArgs: config not inferred precisely
     const config = {};
 
-    // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[] | undefined; }
+    // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: ParseArgsToken[] | undefined; }
     const result = util.parseArgs(config);
 }
