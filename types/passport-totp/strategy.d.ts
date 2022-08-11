@@ -5,8 +5,8 @@ type DoneCallback = (...args: any[]) => void;
 type SetupCallback = (user: any, done: DoneCallback) => void;
 
 interface StrategyOptions {
-    codeField: string;
-    window: number;
+    codeField?: string;
+    window?: number;
 }
 
 declare function Strategy(setup: SetupCallback): void;
