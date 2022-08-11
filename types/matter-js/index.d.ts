@@ -157,7 +157,7 @@ declare namespace Matter {
         static fromVertices(
             x: number,
             y: number,
-            vertexSets: Array<Array<Vertex>>,
+            vertexSets: Array<Array<{ x: number, y: number }>>,
             options?: IBodyDefinition,
             flagInternal?: boolean,
             removeCollinear?: number,
