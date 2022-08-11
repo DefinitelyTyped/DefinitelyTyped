@@ -234,13 +234,29 @@ diff = semver.diff(v1, v2, loose);
 
 // Ranges
 strn = semver.validRange(str, loose);
+strn = semver.validRange(str, { loose: false });
+strn = semver.validRange(str, { includePrerelease: false });
 bool = semver.satisfies(version, str, loose);
+bool = semver.satisfies(version, str, { loose: false });
+bool = semver.satisfies(version, str, { includePrerelease: false });
 strn = semver.maxSatisfying(versions, str, loose);
+strn = semver.maxSatisfying(versions, str, { loose: false });
+strn = semver.maxSatisfying(versions, str, { includePrerelease: false });
 strn = semver.minSatisfying(versions, str, loose);
+strn = semver.minSatisfying(versions, str, { loose: false });
+strn = semver.minSatisfying(versions, str, { includePrerelease: false });
 bool = semver.gtr(version, str, loose);
+bool = semver.gtr(version, str, { loose: false });
+bool = semver.gtr(version, str, { includePrerelease: false });
 bool = semver.ltr(version, str, loose);
+bool = semver.ltr(version, str, { loose: false });
+bool = semver.ltr(version, str, { includePrerelease: false });
 bool = semver.outside(version, str, '<', loose);
+bool = semver.outside(version, str, '<', { loose: false });
+bool = semver.outside(version, str, '<', { includePrerelease: false });
 bool = semver.intersects(str, str, loose);
+bool = semver.intersects(str, str, { loose: false });
+bool = semver.intersects(str, str, { includePrerelease: false });
 sem = semver.minVersion(str, loose);
 semver.simplifyRange(versions, '1.x'); // $ExpectType string | Range
 semver.simplifyRange(versions, '1.0.0 || 1.0.1 || 1.0.2 || 1.0.3 || 1.0.4'); // $ExpectType string | Range
