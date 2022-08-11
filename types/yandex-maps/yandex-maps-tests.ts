@@ -181,6 +181,18 @@ ymaps.suggest('Mos', {
     return items.filter(el => el.value.toLowerCase() === 'moscow');
 }).then(console.log);
 
+ymaps.geocode('Moscow'); // $ExpectType Promise<IGeocodeResult>
+ymaps.geocode([55.751244, 37.618423], {
+    boundedBy: [[30, 40], [50, 50]],
+    json: false,
+    kind: 'district',
+    provider: 'yandex#map',
+    results: 5,
+    searchCoordOrder: 'latlong',
+    skip: 0,
+    strictBounds: false
+}).then(result => result.geoObjects.get(0));
+
 const geocodeProvider: ymaps.IGeocodeProvider = {
     suggest: (_request, _options) => {
         throw new Error('Function not implemented.');
@@ -193,4 +205,4 @@ const geocodeProvider: ymaps.IGeocodeProvider = {
 geocodeProvider.geocode('Moscow'); // $ExpectType Promise<object>
 
 // @ts-expect-error
-geocodeProvider.geocode([55.751244, 37.618423]); 
+geocodeProvider.geocode([55.751244, 37.618423]);
