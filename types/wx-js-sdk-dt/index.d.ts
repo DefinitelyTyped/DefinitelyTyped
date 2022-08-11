@@ -283,7 +283,7 @@ declare namespace wx {
         /**
          * 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
          */
-        success(res: { localIds: string[]}): void;
+        success(res: { localIds: string[] }): void;
     }
 
     /**
@@ -357,7 +357,7 @@ declare namespace wx {
         /**
          * 成功后的回调, localData是图片的base64数据，可以用img标签显示
          */
-        success(res: { localData: string}): void;
+        success(res: { localData: string }): void;
     }
 
     /**
@@ -370,15 +370,23 @@ declare namespace wx {
      */
     function startRecord(): void;
 
+    interface StopRecordConfig extends WxBaseRequestConfig {
+        success(res: { localId: string }): void;
+    }
+
     /**
      * 停止录音
      */
-    function stopRecord(success: (res: {localId: string}) => void): void;
+    function stopRecord(config: StopRecordConfig): void;
+
+    interface VoiceRecordEndConfig extends WxBaseRequestConfig {
+        complete(res: { localId: string }): void;
+    }
 
     /**
      * 录音时间超过一分钟没有停止的时候会执行回调
      */
-    function onVoiceRecordEnd(complete: (res: { localId: string }) => void): void;
+    function onVoiceRecordEnd(config: VoiceRecordEndConfig): void;
 
     /**
      * 播放音频
@@ -395,15 +403,19 @@ declare namespace wx {
      */
     function stopVoice(localId: string): void;
 
+    interface VoicePlayEndConfig extends WxBaseRequestConfig {
+        success(res: { localId: string }): void;
+    }
+
     /**
      * 停止播放后的回调
      */
-    function onVoicePlayEnd(success: (res: { localId: string }) => void): void;
+    function onVoicePlayEnd(config: VoicePlayEndConfig): void;
 
     interface UploadVoiceConfig extends WxBaseRequestConfig {
-         localId: string;
-         isShowProgressTips?: number | undefined;
-         success(res: any): void;
+        localId: string;
+        isShowProgressTips?: number | undefined;
+        success(res: any): void;
     }
 
     /**
@@ -426,7 +438,7 @@ declare namespace wx {
          * 下载成功回调
          */
         success(res: any): void;
-     }
+    }
 
     function downloadVoice(config: DownloadVoiceConfig): void;
 
@@ -435,10 +447,14 @@ declare namespace wx {
      */
     function translateVoice(config: UploadVoiceConfig): void;
 
+    interface GetNetworkTypeConfig extends WxBaseRequestConfig {
+        success(res: { networkType: string }): void;
+    }
+
     /**
      * 获取网络状态, var networkType = res.networkType; 返回网络类型 2g，3g，4g，wifi
      */
-    function getNetworkType(success: (res: { networkType: string }) => void): void;
+    function getNetworkType(config: GetNetworkTypeConfig): void;
 
     interface OpenLocationConfig extends WxBaseRequestConfig {
         latitude?: number | undefined;
