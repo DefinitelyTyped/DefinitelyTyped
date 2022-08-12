@@ -413,6 +413,7 @@ blocks.registerBlockType({
             background: true,
             gradients: false,
             link: true,
+            text: true,
         },
         spacing: {
             blockGap: ['horizontal'],
