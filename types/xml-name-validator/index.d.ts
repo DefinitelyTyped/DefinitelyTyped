@@ -4,16 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
- * Validate a string against the Name production
+ * Checks whether a string matches the [`Name`](http://www.w3.org/TR/xml/#NT-Name) production in from
+ * XML Namespaces specification.
  */
- export function name(name: string): boolean;
+export function name(name: string): boolean;
 
- /**
-  * Validate a string againt the QName production
-  */
- export function qname(qname: string): boolean;
-
- /**
-  * Tells you whether or not a string matches the Name or QName productions in the XML Namespaces specification.
-  */
- export as namespace XmlNameValidator;
+/**
+ * Checks whether a string matches the [`QName`](http://www.w3.org/TR/xml-names/#NT-QName) production
+ * from the XML Namespaces specification.
+ */
+export function qname(qname: string): boolean;
