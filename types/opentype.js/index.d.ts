@@ -167,23 +167,27 @@ export interface Field {
 
 export class Glyph {
     index: number;
-    private xMin;
-    private xMax;
-    private yMin;
-    private yMax;
-    private points;
-
-    name: string;
-    path: Path | (() => Path);
-    unicode: number;
+    name: string | null;
+    unicode?: number | undefined;
     unicodes: number[];
-    advanceWidth: number;
+    xMin?: number | undefined;
+    xMax?: number | undefined;
+    yMin?: number | undefined;
+    yMax?: number | undefined;
+    advanceWidth?: number | undefined;
+    leftSideBearing?: number | undefined;
+    path: Path;
 
+    private bindConstructorValues(options: GlyphOptions): void;
     constructor(options: GlyphOptions);
 
     addUnicode(unicode: number): void;
-    bindConstructorValues(options: GlyphOptions): void;
+    getBoundingBox(): BoundingBox;
+    getPath(x?: number, y?: number, fontSize?: number, options?: RenderOptions, font?: Font): Path;
+    getContours(): Contour;
+    getMetrics(): Metrics;
     draw(ctx: CanvasRenderingContext2D, x?: number, y?: number, fontSize?: number, options?: RenderOptions): void;
+    drawPoints(ctx: CanvasRenderingContext2D, x?: number, y?: number, fontSize?: number, options?: RenderOptions): void;
     drawMetrics(
         ctx: CanvasRenderingContext2D,
         x?: number,
@@ -191,24 +195,20 @@ export class Glyph {
         fontSize?: number,
         options?: RenderOptions,
     ): void;
-    drawPoints(ctx: CanvasRenderingContext2D, x?: number, y?: number, fontSize?: number, options?: RenderOptions): void;
-    getBoundingBox(): BoundingBox;
-    getContours(): Contour;
-    getMetrics(): Metrics;
-    getPath(x?: number, y?: number, fontSize?: number, options?: RenderOptions, font?: Font): Path;
 }
+
 export interface GlyphOptions {
-    advanceWidth?: number | undefined;
     index?: number | undefined;
-    font?: Font | undefined;
     name?: string | undefined;
-    path?: Path | undefined;
     unicode?: number | undefined;
     unicodes?: number[] | undefined;
-    xMax?: number | undefined;
     xMin?: number | undefined;
-    yMax?: number | undefined;
     yMin?: number | undefined;
+    xMax?: number | undefined;
+    yMax?: number | undefined;
+    advanceWidth?: number | undefined;
+    leftSideBearing?: number | undefined;
+    path?: Path | (() => Path) | undefined;
 }
 
 export class GlyphNames {

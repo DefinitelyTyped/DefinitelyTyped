@@ -87,7 +87,6 @@ const ab: ArrayBuffer = font.toArrayBuffer();
 font.download();
 font.download('fileName.ttf');
 
-aGlyph.bindConstructorValues({ advanceWidth: 1 });
 aGlyph.addUnicode(42);
 const glyphBBox: opentype.BoundingBox = aGlyph.getBoundingBox();
 const glyphPathBasic: opentype.Path = aGlyph.getPath();
@@ -126,3 +125,20 @@ async function make() {
     const path = font.getPath('Hello, World!', 0, 150, 72);
     console.log(path);
 }
+
+const defaultGlyph = new Glyph({});
+// @ts-expect-error
+defaultGlyph.name = undefined;
+let num: number = defaultGlyph.index + Math.min(...defaultGlyph.unicodes);
+// @ts-expect-error
+num =
+    defaultGlyph.unicode ??
+    defaultGlyph.xMin ??
+    defaultGlyph.xMax ??
+    defaultGlyph.yMin ??
+    defaultGlyph.yMax ??
+    defaultGlyph.advanceWidth ??
+    defaultGlyph.leftSideBearing;
+const path: Path = defaultGlyph.path;
+// @ts-expect-error
+Glyph.bindConstructorValues({});
