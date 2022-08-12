@@ -4,6 +4,7 @@ import fetch, {
     Request,
     RequestInit,
     Response,
+    AbortError,
     FetchError,
 } from "node-fetch";
 import { URL } from "url";
@@ -176,6 +177,11 @@ function test_headers() {
 function test_isRedirect() {
     fetch.isRedirect(301);
     fetch.isRedirect(201);
+}
+
+function test_AbortError() {
+    new AbortError("message");
+    new AbortError("message", "type");
 }
 
 function test_FetchError() {
