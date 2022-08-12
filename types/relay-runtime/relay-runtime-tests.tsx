@@ -523,7 +523,7 @@ function multiActors() {
 // Relay Resolvers
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
-const {readFragment, RESOLVER_FRAGMENT_MISSING_DATA_SENTINEL, withResolverContext} = __internal.RelayResolverFragments;
+const {readFragment} = __internal.ResolverFragments;
 
 // Regular fragment.
 interface UserComponent_user {
