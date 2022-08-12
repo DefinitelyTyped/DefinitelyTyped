@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "rollup": ">=1.0.0",
+        "type-fest": "^2.0.0"
+    }
+}
