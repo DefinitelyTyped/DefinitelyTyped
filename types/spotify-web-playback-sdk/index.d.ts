@@ -134,7 +134,7 @@ declare namespace Spotify {
         setName(name: string): Promise<void>;
         setVolume(volume: number): Promise<void>;
         togglePlay(): Promise<void>;
-        
+
         activateElement(): Promise<void>;
     }
 
