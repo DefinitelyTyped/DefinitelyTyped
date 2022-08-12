@@ -54,6 +54,7 @@ transporter = nodemailer.createTransport({
 var mailOptions: nodemailer.SendMailOptions = {
     from: 'Fred Foo ✔ <foo@blurdybloop.com>', // sender address
     to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
+    replyTo: ['john@blurdybloop.com', 'jane@blurdybloop.com'],
     subject: 'Hello ✔', // Subject line
     text: 'Hello world ✔', // plaintext body
     html: '<b>Hello world ✔</b>' // html body
