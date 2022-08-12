@@ -1,13 +1,13 @@
-// Type definitions for prepper 1.2.1
+// Type definitions for prepper 1.2
 // Project: https://github.com/guidesmiths/prepper
 // Definitions by: Teun Mooij <https://github.com/teunmooij>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
 
 export interface LogFn {
   (message: string, error: Error, context?: any): void;
-  (message: string, context?: any): void;
-  (error: Error, context?: any): void;
+  (message_or_error: string | Error, context?: any): void;
   (context: any): void;
 }
 
