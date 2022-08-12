@@ -3,6 +3,11 @@
 // Definitions by: Zeeshan Ahmad <https://github.com/ziishaned>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/**
+ * Determine whether a phone number is disposable.
+ *
+ * @param phoneNumber
+ */
 declare function isDisposablePhoneNumber(phoneNumber: string): boolean;
 
 export = isDisposablePhoneNumber;
