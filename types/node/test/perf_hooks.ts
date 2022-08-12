@@ -129,3 +129,16 @@ histo3.record(123);
 
 histo1.add(histo2);
 histo1.add(histo3);
+
+performance.clearMarks();
+performance.clearMarks("test");
+
+performance.clearMeasures();
+performance.clearMeasures("test");
+
+performance.getEntries(); // $ExpectType PerformanceEntry[]
+
+performance.getEntriesByName("test"); // $ExpectType PerformanceEntry[]
+performance.getEntriesByName("test", "mark"); // $ExpectType PerformanceEntry[]
+
+performance.getEntriesByType("mark"); // $ExpectType PerformanceEntry[]
