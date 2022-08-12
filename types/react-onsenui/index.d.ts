@@ -737,7 +737,7 @@ export class Card extends Component<CardProps, any> { }
  */
 
 /** Pull-to-refresh hook. */
-export interface PullHookProps {
+export interface PullHookProps extends PropsWithChildren {
     /**
      * @deprecated use onChangeState instead
      */
