@@ -87,6 +87,10 @@ player.nextTrack().then(() => {
     console.log("Skipped to next track!");
 });
 
+player.activateElement().then(() => {
+    console.log("Web app played music automatically.");
+});
+
 player.on("ready", (data: Spotify.WebPlaybackInstance) => {
     const { device_id } = data;
     console.log("Connected with Device ID", device_id);

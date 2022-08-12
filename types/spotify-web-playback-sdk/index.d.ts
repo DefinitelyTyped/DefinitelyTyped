@@ -50,6 +50,9 @@ declare namespace Spotify {
         seeking: boolean;
         skipping_next: boolean;
         skipping_prev: boolean;
+        toggling_repeat_context: boolean;
+        toggling_repeat_track: boolean;
+        toggling_shuffle: boolean;
     }
 
     interface PlaybackRestrictions {
@@ -60,6 +63,9 @@ declare namespace Spotify {
         disallow_seeking_reasons: string[];
         disallow_skipping_next_reasons: string[];
         disallow_skipping_prev_reasons: string[];
+        disallow_toggling_shuffle_reasons: string[];
+        disallow_toggling_repeat_track_reasons: string[];
+        disallow_toggling_repeat_context_reasons: string[];
     }
 
     interface PlaybackState {
@@ -128,6 +134,8 @@ declare namespace Spotify {
         setName(name: string): Promise<void>;
         setVolume(volume: number): Promise<void>;
         togglePlay(): Promise<void>;
+        
+        activateElement(): Promise<void>;
     }
 
     interface Track {
