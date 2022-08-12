@@ -196,3 +196,6 @@ StringSchema.schema();
 
 // $ExpectType SchemaDefinition
 StringSchema.schema('basicString');
+
+// $ExpectType typeof SimpleSchema | undefined
+StringSchema.getObjectSchema('basicString');

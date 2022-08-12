@@ -237,6 +237,7 @@ export class SimpleSchema {
       KEY_NOT_IN_SCHEMA: string;
   };
   static setDefaultMessages(messages: {messages: SimpleSchemaMessagesDict}): void;
+  getObjectSchema(key: string): typeof SimpleSchema | undefined;
 }
 
 interface ValidationOption {
