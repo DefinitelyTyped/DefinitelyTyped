@@ -216,7 +216,7 @@ interface Internal {
     fetchQueryDeduped: typeof fetchQueryInternal.fetchQueryDeduped;
     getPromiseForActiveRequest: typeof fetchQueryInternal.getPromiseForActiveRequest;
     getObservableForActiveRequest: typeof fetchQueryInternal.getObservableForActiveRequest;
-    RelayResolverFragments: typeof RelayResolverFragments;
+    ResolverFragments: typeof RelayResolverFragments;
 }
 
 export const __internal: Internal;
