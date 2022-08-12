@@ -48,6 +48,9 @@ import './lib/utils/screen-manager';
  */
 type LiteralUnion<T extends F, F = string> = T | (F & {});
 
+/**
+ * Represents a function for prompting questions to the user.
+ */
 export interface PromptFunction {
     /**
      * Prompts the questions to the user.
