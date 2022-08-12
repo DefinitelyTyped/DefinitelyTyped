@@ -3,20 +3,18 @@
 // Definitions by: Alex Mendes <https://github.com/alexandermendes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module '@semantic-release/error' {
-  class SemanticReleaseError extends Error {
-    public name: 'SemanticReleaseError';
+declare class SemanticReleaseError extends Error {
+  name: 'SemanticReleaseError';
 
-    public message: string;
+  message: string;
 
-    public code: string;
+  code: string;
 
-    public details?: string;
+  details?: string;
 
-    public semanticRelease: true;
+  semanticRelease: true;
 
-    constructor (message: string, code: string, details?: string)
-  }
-
-  export = SemanticReleaseError;
+  constructor(message: string, code: string, details?: string)
 }
+
+export = SemanticReleaseError;
