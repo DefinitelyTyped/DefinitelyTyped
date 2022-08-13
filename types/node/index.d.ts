@@ -108,6 +108,7 @@
 /// <reference path="punycode.d.ts" />
 /// <reference path="querystring.d.ts" />
 /// <reference path="readline.d.ts" />
+/// <reference path="readline/promises.d.ts" />
 /// <reference path="repl.d.ts" />
 /// <reference path="stream.d.ts" />
 /// <reference path="stream/promises.d.ts" />
