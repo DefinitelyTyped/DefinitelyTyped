@@ -112,6 +112,10 @@
             "libraryName": "angular-touchspin",
             "asOfVersion": "1.8.2"
         },
+        "angular-ui-router": {
+            "libraryName": "angular-ui-router",
+            "asOfVersion": "1.0.0"
+        },
         "angular-ui-router-default": {
             "libraryName": "angular-ui-router-default",
             "asOfVersion": "0.0.5"

@@ -26,7 +26,22 @@ jobs:
       - run: npm install
 
       # Run tests
-      - run: npm run test-all
+      - uses: actions/checkout@v2
+        with:
+          repository: microsoft/DefinitelyTyped-tools
+          ref: refs/pull/448/merge
+          path: DefinitelyTyped-tools
+      - run: yarn install
+        working-directory: DefinitelyTyped-tools
+      - run: yarn build
+        working-directory: DefinitelyTyped-tools
+      - run: npm link
+        working-directory: DefinitelyTyped-tools/packages/dtslint
+      - run: npm link @definitelytyped/dtslint
+      - run: echo @types/angular-ui-router >> DefinitelyTyped-tools/packages/definitions-parser/allowedPackageJsonDependencies.txt
+      - run: node DefinitelyTyped-tools/packages/dtslint-runner/dist/index.js --path .
+        env:
+          NODE_ENV: test
 
       - name: "Run Danger"
         env:
