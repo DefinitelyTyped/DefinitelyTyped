@@ -543,27 +543,21 @@ declare namespace jest {
 
     type EqualityTester = (a: any, b: any) => boolean | undefined;
 
-    interface MatcherUtils {
-        readonly isNot: boolean;
-        readonly dontThrow: () => void;
-        readonly promise: string;
-        readonly assertionCalls: number;
-        readonly expectedAssertionsNumber: number | null;
-        readonly isExpectingAssertions: boolean;
-        readonly suppressedErrors: any[];
-        readonly expand: boolean;
-        readonly testPath: string;
-        readonly currentTestName: string;
-        utils: typeof import('jest-matcher-utils') & {
-            iterableEquality: EqualityTester;
-            subsetEquality: EqualityTester;
-        };
-        /**
-         *  This is a deep-equality function that will return true if two objects have the same values (recursively).
-         */
-        equals(a: any, b: any, customTesters?: EqualityTester[], strictCheck?: boolean): boolean;
-        [other: string]: any;
-    }
+    type MatcherUtils = Pick<
+        import('expect').MatcherState,
+        | 'isNot'
+        | 'dontThrow'
+        | 'promise'
+        | 'assertionCalls'
+        | 'expectedAssertionsNumber'
+        | 'isExpectingAssertions'
+        | 'suppressedErrors'
+        | 'expand'
+        | 'testPath'
+        | 'currentTestName'
+        | 'utils'
+        | 'equals'
+    > & { [other: string]: any; };
 
     interface ExpectExtendMap {
         [key: string]: CustomMatcher;
@@ -619,15 +613,16 @@ declare namespace jest {
          */
         stringContaining(str: string): any;
     }
-    interface MatcherState {
-        assertionCalls: number;
-        currentTestName: string;
-        expand: boolean;
-        expectedAssertionsNumber: number;
-        isExpectingAssertions?: boolean | undefined;
-        suppressedErrors: Error[];
-        testPath: string;
-    }
+    type MatcherState = Pick<
+        import('expect').MatcherState,
+        | 'assertionCalls'
+        | 'currentTestName'
+        | 'expand'
+        | 'expectedAssertionsNumber'
+        | 'isExpectingAssertions'
+        | 'suppressedErrors'
+        | 'testPath'
+    >;
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.
