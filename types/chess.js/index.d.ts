@@ -3,8 +3,9 @@
 // Definitions by: Jacob Fischer <https://github.com/JacobFischer>
 //                 Zachary Svoboda <https://github.com/zacnomore>
 //                 Lars Kecker <https://github.com/CapOfCave>
+//                 Vicary Archangel <https://github.com/vicary>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
+// Minimum TypeScript Version: 4.2
 
 /**
  * One of the possible squares on a chess board in san format,
