@@ -1,6 +1,6 @@
 // Type definitions for debounce-promise 3.1
 // Project: https://github.com/bjoerge/debounce-promise
-// Definitions by: Wu Haotian <https://github.com/whtsky>
+// Definitions by: Wu Haotian <https://github.com/whtsky>, Trevor Robinson <https://github.com/tprobinson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace debounce {
@@ -9,6 +9,18 @@ declare namespace debounce {
         accumulate?: boolean | undefined;
     }
 }
+
+// func is called with an array of array of parameters if accumulate is true
+// Use Array<[arg0, arg1, ..., argN]> as func's first parameter type for correct hints
+declare function debounce<T extends (...args: any[]) => any>(
+    func: T,
+    wait?: number,
+    options?: debounce.DebounceOptions & { accumulate: true }
+): (
+    ...args: Parameters<T>[0][0]
+) => ReturnType<T> extends Promise<any>
+    ? ReturnType<T>
+    : Promise<ReturnType<T>>;
 
 declare function debounce<T extends (...args: any[]) => any>(
     func: T,
