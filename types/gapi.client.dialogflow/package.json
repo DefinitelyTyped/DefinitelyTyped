@@ -1,6 +1,5 @@
 {
   "private": true,
-  "license": "DEPRECATED, use @types/gapi.client.dialogflow-v3 instead; see https://github.com/Maxim-Mazurok/google-api-typings-generator/issues/652 for details",
   "dependencies": {
     "@maxim_mazurok/gapi.client.dialogflow-v3": "latest"
   }
