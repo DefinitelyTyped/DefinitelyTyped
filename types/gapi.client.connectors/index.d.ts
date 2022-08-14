@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Connectors API v2 2.0
+// Type definitions for non-npm package Connectors API v1 0.0
 // Project: https://cloud.google.com/apigee/docs/api-platform/connectors/about-connectors
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
@@ -6,6 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-// DEPRECATED, use @types/gapi.client.connectors-v2 instead; see https://github.com/Maxim-Mazurok/google-api-typings-generator/issues/652 for details
+// DEPRECATED, use @types/gapi.client.connectors-v1 instead; see https://github.com/Maxim-Mazurok/google-api-typings-generator/issues/652 for details
 
-/// <reference types="@maxim_mazurok/gapi.client.connectors-v2" />
+/// <reference types="@maxim_mazurok/gapi.client.connectors-v1" />
