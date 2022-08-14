@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Connectors API v1 0.0
+// Type definitions for non-npm package Connectors API v1 1.0
 // Project: https://cloud.google.com/apigee/docs/api-platform/connectors/about-connectors
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
