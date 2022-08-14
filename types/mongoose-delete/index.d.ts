@@ -105,6 +105,7 @@ interface Options {
     deletedBy: boolean;
     indexFields: boolean | 'all' | Array<keyof MongooseDelete.SoftDeleteInterface>;
     validateBeforeDelete: boolean;
+    use$neOperator: boolean;
 
     /**
      * DeleteBy Schema type, equal to
