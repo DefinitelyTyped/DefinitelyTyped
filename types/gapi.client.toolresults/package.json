@@ -1,6 +1,7 @@
 {
   "private": true,
+  "license": "DEPRECATED, use @types/gapi.client.toolresults-v1beta3 instead; see https://github.com/Maxim-Mazurok/google-api-typings-generator/issues/652 for details",
   "dependencies": {
-      "@maxim_mazurok/gapi.client.toolresults": "latest"
+    "@maxim_mazurok/gapi.client.toolresults-v1beta3": "latest"
   }
 }

@@ -1,6 +1,7 @@
 {
   "private": true,
+  "license": "DEPRECATED, use @types/gapi.client.adsense-v2 instead; see https://github.com/Maxim-Mazurok/google-api-typings-generator/issues/652 for details",
   "dependencies": {
-      "@maxim_mazurok/gapi.client.adsense": "latest"
+    "@maxim_mazurok/gapi.client.adsense-v2": "latest"
   }
 }

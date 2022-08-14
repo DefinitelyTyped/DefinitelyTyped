@@ -1,6 +1,7 @@
 {
   "private": true,
+  "license": "DEPRECATED, use @types/gapi.client.androidenterprise-v1 instead; see https://github.com/Maxim-Mazurok/google-api-typings-generator/issues/652 for details",
   "dependencies": {
-      "@maxim_mazurok/gapi.client.androidenterprise": "latest"
+    "@maxim_mazurok/gapi.client.androidenterprise-v1": "latest"
   }
 }

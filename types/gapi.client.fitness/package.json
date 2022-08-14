@@ -1,6 +1,7 @@
 {
   "private": true,
+  "license": "DEPRECATED, use @types/gapi.client.fitness-v1 instead; see https://github.com/Maxim-Mazurok/google-api-typings-generator/issues/652 for details",
   "dependencies": {
-      "@maxim_mazurok/gapi.client.fitness": "latest"
+    "@maxim_mazurok/gapi.client.fitness-v1": "latest"
   }
 }

@@ -1,6 +1,7 @@
 {
   "private": true,
+  "license": "DEPRECATED, use @types/gapi.client.playcustomapp-v1 instead; see https://github.com/Maxim-Mazurok/google-api-typings-generator/issues/652 for details",
   "dependencies": {
-      "@maxim_mazurok/gapi.client.playcustomapp": "latest"
+    "@maxim_mazurok/gapi.client.playcustomapp-v1": "latest"
   }
 }
