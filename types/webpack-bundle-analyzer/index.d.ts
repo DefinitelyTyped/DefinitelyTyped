@@ -150,9 +150,12 @@ export class BundleAnalyzerPlugin implements WebpackPluginInstance {
     constructor(options?: BundleAnalyzerPlugin.Options);
 
     apply(compiler: Compiler): void;
+    /** @async */
     startAnalyzerServer: (stats: WebpackStats) => Promise<void>;
+    /** @async */
     generateJSONReport: (stats: WebpackStats) => Promise<void>;
     generateStatsFile: (stats: WebpackStats) => Promise<void>;
+    /** @async */
     generateStaticReport: (stats: WebpackStats) => Promise<void>;
     getBundleDirFromCompiler: () => null | string;
 }
