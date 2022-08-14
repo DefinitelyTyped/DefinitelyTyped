@@ -300,7 +300,7 @@ declare module '../../index' {
          *   @param v2 the second p5.Vector
          *   @return the cross product
          */
-        static cross(v1: Vector, v2: Vector): number;
+        static cross(v1: Vector, v2: Vector): Vector;
 
         /**
          *   Calculates the Euclidean distance between two
