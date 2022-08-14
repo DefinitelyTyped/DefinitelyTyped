@@ -16,9 +16,6 @@
             "webpack": [
                 "./node_modules/webpack"
             ],
-            "buffer": [
-                "./node_modules/@types/node/buffer"
-            ],
             "tapable": [
                 "./node_modules/tapable"
             ]
