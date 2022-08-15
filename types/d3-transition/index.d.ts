@@ -56,7 +56,7 @@ declare module 'd3-selection' {
          *
          * @param transition A transition instance.
          */
-        transition(transition: Transition<GElement, any, any, any>): Transition<GElement, Datum, PElement, PDatum>;
+        transition(transition: Transition<BaseType, any, any, any>): Transition<GElement, Datum, PElement, PDatum>;
     }
 }
 
