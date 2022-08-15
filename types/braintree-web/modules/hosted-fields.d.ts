@@ -266,7 +266,7 @@ export interface HostedFields {
     on<EventType extends HostedFieldEventType>(event: EventType, handler: (event: HostedFieldsEventTypeMap[EventType]) => void): void;
     off<EventType extends HostedFieldEventType>(event: EventType, handler: (event: HostedFieldsEventTypeMap[EventType]) => void): void;
 
-    teardown(callback?: callback): void;
+    teardown(callback: callback): void;
     teardown(): Promise<void>;
 
     /**
