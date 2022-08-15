@@ -623,21 +623,23 @@ export type SelectionOrTransition<GElement extends BaseType, Datum, PElement ext
  * Returns a new transition with the specified name. If a name is not specified, null is used.
  * The new transition is only exclusive with other transitions of the same name.
  *
- * The generic "OldDatum" refers to the type of a previously-set datum of the selected HTML element in the Transition.
+ * The generic "GElement" refers to the type of the selected element(s) in the transition.
+ * The generic "OldDatum" refers to the type of a previously-set datum of the selected element in the Transition.
  *
  * @param name Name of the transition.
  */
 // tslint:disable-next-line:no-unnecessary-generics
-export function transition<OldDatum>(name?: string): Transition<HTMLElement, OldDatum, null, undefined>;
+export function transition<GElement extends BaseType, OldDatum>(name?: string): Transition<GElement, OldDatum, null, undefined>;
 
 /**
  * Returns a new transition from an existing transition.
  *
  * When using a transition instance, the returned transition has the same id and name as the specified transition.
  *
- * The generic "OldDatum" refers to the type of a previously-set datum of the selected HTML element in the Transition.
+ * The generic "GElement" refers to the type of the selected element(s) in the transition.
+ * The generic "OldDatum" refers to the type of a previously-set datum of the selected element in the Transition.
  *
  * @param transition A transition instance.
  */
 // tslint:disable-next-line:no-unnecessary-generics
-export function transition<OldDatum>(transition: Transition<BaseType, any, BaseType, any>): Transition<HTMLElement, OldDatum, null, undefined>;
+export function transition<GElement extends BaseType, OldDatum>(transition: Transition<BaseType, any, BaseType, any>): Transition<GElement, OldDatum, null, undefined>;
