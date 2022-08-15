@@ -1322,6 +1322,16 @@ import { promisify } from 'node:util';
     crypto.createDiffieHellman(2).setPublicKey('abcd', 'hex');
     crypto.createDiffieHellman(2).setPrivateKey('abcd', 'hex');
 
+    // Check permutations of `create` arguments
+    crypto.createDiffieHellman(new ArrayBuffer(8));
+    crypto.createDiffieHellman(new ArrayBuffer(8), 123);
+    crypto.createDiffieHellman(new ArrayBuffer(8), new ArrayBuffer(8));
+    crypto.createDiffieHellman(new ArrayBuffer(8), 'abcd', 'hex');
+    crypto.createDiffieHellman('abcd', 'hex');
+    crypto.createDiffieHellman('abcd', 'hex', 123);
+    crypto.createDiffieHellman('abcd', 'hex', new ArrayBuffer(8));
+    crypto.createDiffieHellman('abcd', 'hex', 'abcd', 'hex');
+
     // While DiffieHellmanGroup should not have them:
     // @ts-expect-error
     alice.setPublicKey('abcd', 'hex');
