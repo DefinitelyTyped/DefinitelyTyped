@@ -1047,13 +1047,13 @@ export interface Expect {
     /**
      * Expect assertions operating on a single element, specified by its CSS/Xpath selector.
      */
-    element(property: string | Element | RelativeBy): ExpectElement;
+    element(property: Definition): ExpectElement;
 
     /**
      * Expect assertions operating on a collection of elements, specified by a CSS/Xpath selector.
      * So far only .count is available.
      */
-    elements(property: string | Element | RelativeBy): ExpectElements;
+    elements(property: Definition): ExpectElements;
 
     /**
      * Retrieves the page title value in order to be used for performing equal, match or contains assertions on it.
