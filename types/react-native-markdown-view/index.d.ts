@@ -3,8 +3,8 @@
 // Definitions by: Fabio Nettis <https://github.com/fabio-nettis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { Component } from '@types/react';
-import type { ViewStyle, ImageStyle, TextStyle } from '@types/react-native';
+import type { Component } from 'react';
+import type { ViewStyle, ImageStyle, TextStyle } from 'react-native';
 
 export type ParseState = any;
 export type NodeKey = string;
