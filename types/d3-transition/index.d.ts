@@ -56,7 +56,7 @@ declare module 'd3-selection' {
          *
          * @param transition A transition instance.
          */
-        transition(transition: Transition<BaseType, any, any, any>): Transition<GElement, Datum, PElement, PDatum>;
+        transition(transition: Transition<GElement, any, any, any>): Transition<GElement, Datum, PElement, PDatum>;
     }
 }
 
@@ -629,7 +629,7 @@ export type SelectionOrTransition<GElement extends BaseType, Datum, PElement ext
  * @param name Name of the transition.
  */
 // tslint:disable-next-line:no-unnecessary-generics
-export function transition<GElement extends BaseType, OldDatum>(name?: string): Transition<GElement, OldDatum, null, undefined>;
+export function transition<GElement extends BaseType, OldDatum = any>(name?: string): Transition<GElement, OldDatum, null, undefined>;
 
 /**
  * Returns a new transition from an existing transition.
@@ -642,4 +642,4 @@ export function transition<GElement extends BaseType, OldDatum>(name?: string): 
  * @param transition A transition instance.
  */
 // tslint:disable-next-line:no-unnecessary-generics
-export function transition<GElement extends BaseType, OldDatum>(transition: Transition<BaseType, any, BaseType, any>): Transition<GElement, OldDatum, null, undefined>;
+export function transition<GElement extends BaseType, OldDatum = any>(transition: Transition<BaseType, any, BaseType, any>): Transition<GElement, OldDatum, null, undefined>;
