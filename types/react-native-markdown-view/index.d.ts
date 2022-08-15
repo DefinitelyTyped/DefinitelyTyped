@@ -80,7 +80,19 @@ export interface MarkdownRules {
 
 export interface MarkdownViewProps {
     /**
+     * An object overriding or providing additional rules for parsing and rendering Markdown. Keys
+     * are rule names (you can define your own, or override existing rules), and values are an
+     * object. You can find additional information [here](https://github.com/Benjamin-Dobell/react-native-markdown-view#rules).
      *
+     * #### Example
+     *
+     * ```typescript
+     * {
+     *   match: (x: string, state: RenderState, list: string[]) => RegExp | undefined | null,
+     *   parse: (components: RegexComponents, parse: NestedParseFunction, state: ParseState) => any,
+     *   render: (node: Node, output: OutputFunction, state: RenderState, style: RenderStyle) => any
+     * }
+     * ```
      */
     rules?: MarkdownRules;
 
@@ -92,6 +104,10 @@ export interface MarkdownViewProps {
      */
     styles?: MarkdownStyles;
 
+    /**
+     * The style that is applied to the root view. This is the outermost view that wraps the
+     * rendered Markdown.
+     */
     style?: ViewStyle | TextStyle | ImageStyle;
 
     /**
