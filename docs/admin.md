@@ -115,7 +115,7 @@ The process of handling PRs:
 - [DT projects](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) — an automated board saying where open PRs live
 - [dt-merge-bot](https://github.com/DefinitelyTyped/dt-mergebot/) — the bot which sets the labels on PRs, and update's project status
 - [focus-dt](https://github.com/DefinitelyTyped/focus-dt) — a tool which controls chrome to load up the next PR to review, so you can focus
-- [dtslint](https://github.com/microsoft/dtslint) — the CLI tool used to validate PRs on Definitely Typed
+- [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) — the CLI tool used to validate PRs on Definitely Typed
 
 The process of deploying changes:
 

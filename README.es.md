@@ -160,7 +160,7 @@ Si un paquete nunca estuvo en Definitely Typed, no será necesario añadirlo a `
 #### Running tests
 
 Realiza una prueba ejecutando `npm test <package to test>` donde `<package to test>` es el nombre de tu paquete.
-Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
+Este script utiliza [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint).
 
 #### Naming
 
@@ -217,7 +217,7 @@ f(1);
 f("one");
 ```
 
-Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+Para más detalles, vea el [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
 #### Linter: `tslint.json`
 
