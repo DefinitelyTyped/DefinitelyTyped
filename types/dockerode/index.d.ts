@@ -932,12 +932,18 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
-    interface AuthConfig {
+    interface UserPasswordAuthConfig {
         username: string;
         password: string;
         serveraddress: string;
         email?: string | undefined;
     }
+    
+    interface KeyAuthConfig {
+        key: string;
+    }
+
+    type AuthConfig = UserPasswordAuthConfig | KeyAuthConfig;
 
     interface RegistryConfig {
         [registryAddress: string]: {
