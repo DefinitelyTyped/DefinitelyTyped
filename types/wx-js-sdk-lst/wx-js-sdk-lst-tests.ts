@@ -67,9 +67,9 @@ wx.chooseWXPay({
     nonceStr: '',
     package: '',
     paySign: '',
-    success: () => {},
-    cancel: () => {},
-    fail: () => {}
+    success: () => { },
+    cancel: () => { },
+    fail: () => { }
 });
 
 wx.getLocation({
@@ -83,9 +83,11 @@ wx.getLocation({
     }
 });
 
-wx.getNetworkType((res) => {
-    if (res) {
-        res.networkType;
+wx.getNetworkType({
+    success: (res) => {
+        if (res) {
+            res.networkType;
+        }
     }
 });
 
@@ -122,12 +124,16 @@ wx.chooseCard({
     signType: ''
 });
 
-wx.onVoiceRecordEnd((res) => {
-    res.localId;
+wx.onVoiceRecordEnd({
+    complete: (res) => {
+        res.localId;
+    }
 });
 
-wx.onVoicePlayEnd((res) => {
-    res.localId;
+wx.onVoicePlayEnd({
+    success: (res) => {
+        res.localId;
+    }
 });
 
 wx.openProductSpecificView({

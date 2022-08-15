@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "wx-js-sdk-dt-tests.ts"
+        "wx-js-sdk-lst-tests.ts"
     ]
 }
