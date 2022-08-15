@@ -1,7 +1,6 @@
 // Type definitions for non-npm package wx-js-sdk 1.6
 // Project: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115
-// Definitions by: Bian Zhongjie <https://github.com/agasbzj>
-//                 Ming Huang <https://github.com/forzoom>
+// Definitions by: Xu Anhai <https://github.com/adndyxu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace wx {

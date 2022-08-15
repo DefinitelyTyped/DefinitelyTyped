@@ -1,4 +1,4 @@
-// No npm package for wx-js-sdk, source location is: https://res.wx.qq.com/open/js/jweixin-1.2.0.js
+// No npm package for wx-js-sdk, source location is: https://res.wx.qq.com/open/js/jweixin-1.6.0.js
 
 wx.config({
     appId: '',
