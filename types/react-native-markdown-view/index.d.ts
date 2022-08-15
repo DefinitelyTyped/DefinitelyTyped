@@ -3,8 +3,8 @@
 // Definitions by: Fabio Nettis <https://github.com/fabio-nettis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import type { ViewStyle, ImageStyle, TextStyle } from 'react-native';
+import type { Component } from '@types/react';
+import type { ViewStyle, ImageStyle, TextStyle } from '@types/react-native';
 
 export type ParseState = any;
 export type NodeKey = string;
@@ -12,7 +12,7 @@ export type RenderStyle = object;
 export type RegexComponents = string[];
 export type OutputFunction = (node: Node, s: any) => any;
 export type NestedParseFunction = (x: string, s: any) => any;
-export class MarkdownView extends React.Component<MarkdownViewProps> {}
+export class MarkdownView extends Component<MarkdownViewProps> {}
 
 export interface MarkdownStyles {
     blockQuote?: TextStyle;
