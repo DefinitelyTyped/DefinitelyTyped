@@ -1,4 +1,4 @@
-// Type definitions for @primer/octicons 17.0
+// Type definitions for @primer/octicons 17.3
 // Project: https://github.com/primer/octicons
 // Definitions by: Oscar Lee-Vermeren <https://github.com/xiBread>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,7 +30,7 @@ declare namespace octicons {
         toSVG(options?: SVGOptions): string;
     }
 
-    type IconSize = 12 | 16 | 24;
+    type IconSize = 12 | 16 | 24 | 48 | 96;
 
     type IconHeights = { readonly [K in IconSize]?: IconHeight<K> };
 
@@ -144,6 +144,9 @@ declare namespace octicons {
         | 'comment-discussion'
         | 'commit'
         | 'container'
+        | 'copilot'
+        | 'copilot-error'
+        | 'copilot-warning'
         | 'copy'
         | 'cpu'
         | 'credit-card'
@@ -181,6 +184,7 @@ declare namespace octicons {
         | 'feed-tag'
         | 'feed-trophy'
         | 'file'
+        | 'file-added'
         | 'file-badge'
         | 'file-binary'
         | 'file-code'
@@ -189,6 +193,8 @@ declare namespace octicons {
         | 'file-directory-fill'
         | 'file-directory-open-fill'
         | 'file-media'
+        | 'file-moved'
+        | 'file-removed'
         | 'file-submodule'
         | 'file-symlink-file'
         | 'file-zip'
@@ -310,6 +316,7 @@ declare namespace octicons {
         | 'sign-out'
         | 'single-select'
         | 'skip'
+        | 'sliders'
         | 'smiley'
         | 'sort-asc'
         | 'sort-desc'
