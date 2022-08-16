@@ -286,6 +286,3 @@ getScriptCode({});
 
 // $ExpectType boolean
 isAddress('0x02fadds834n31g8e');
-
-// @ts-expect-error
-isAddress(1);

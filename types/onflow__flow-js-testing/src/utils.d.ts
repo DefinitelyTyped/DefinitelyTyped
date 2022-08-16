@@ -1,1 +1,1 @@
-export function isAddress(address: string): boolean;
+export function isAddress(address: any): boolean;
