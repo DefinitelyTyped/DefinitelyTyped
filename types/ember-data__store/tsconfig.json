@@ -22,7 +22,6 @@
     },
     "files": [
         "index.d.ts",
-        "ember-data__store-tests.ts",
-        "-private.d.ts"
+        "ember-data__store-tests.ts"
     ]
 }
