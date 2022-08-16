@@ -73,6 +73,8 @@ declare namespace execution {
          * exec.test.abort('this is the reason');
          */
         abort(input?: string): void;
+
+        options: { [key: string]: any };
     };
 
     /**

@@ -27,3 +27,6 @@ execution.test.abort(); // $ExpectType void
 execution.test.abort('this is the reason'); // $ExpectType void
 // @ts-expect-error
 execution.test.abort(2);
+execution.test.options; // $ExpectType { [key: string]: any; }
+execution.test.options.vu;
+execution.test.options.giraffe; // We're not checking the type of the object.
