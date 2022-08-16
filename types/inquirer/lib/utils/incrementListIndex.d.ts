@@ -1,4 +1,4 @@
-import Choices from '../objects/choices';
+import Choices from '../objects/choices.js';
 
 type Direction = 'up' | 'down';
 interface Options {

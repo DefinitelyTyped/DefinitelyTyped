@@ -1,4 +1,4 @@
-import ScreenManager from './screen-manager';
+import ScreenManager from './screen-manager.js';
 
 interface PaginatorOptions {
     /**

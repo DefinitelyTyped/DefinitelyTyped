@@ -3,6 +3,7 @@ import {
     CacheConfig,
     ConcreteRequest,
     DisposeFn,
+    FetchPolicy,
     GraphQLResponse,
     IEnvironment,
     Observable,
@@ -31,7 +32,7 @@ export type PreloadOptions = Readonly<{
 }>;
 
 export type LoadQueryOptions = Readonly<{
-    fetchPolicy?: PreloadFetchPolicy | null | undefined;
+    fetchPolicy?: FetchPolicy | null | undefined;
     networkCacheConfig?: CacheConfig | null | undefined;
     onQueryAstLoadTimeout?: (() => void) | null | undefined;
 }>;

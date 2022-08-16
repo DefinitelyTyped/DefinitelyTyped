@@ -11,9 +11,11 @@ import {
     RecordableHistogram,
     createHistogram,
     NodeGCPerformanceDetail,
+    PerformanceMeasure,
+    PerformanceMark,
 } from 'node:perf_hooks';
 
-performance.mark('start');
+const startMark: PerformanceMark = performance.mark('start');
 (() => {})();
 performance.mark('end');
 
@@ -25,7 +27,7 @@ performance.mark('test', {
 performance.measure('test', {
     detail: 'something',
     duration: 123,
-    start: 'startMark',
+    start: startMark.name,
     end: 'endMark',
 });
 
@@ -36,8 +38,9 @@ performance.measure('test', {
     end: 456,
 });
 
-performance.measure('name', 'startMark', 'endMark');
-performance.measure('name', 'startMark');
+const measure1: PerformanceMeasure = performance.measure('name', startMark.name, 'endMark');
+measure1.toJSON();
+performance.measure('name', startMark.name);
 performance.measure('name');
 
 const timeOrigin: number = performance.timeOrigin;

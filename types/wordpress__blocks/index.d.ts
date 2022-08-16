@@ -633,7 +633,7 @@ export type Transform<T extends Record<string, any> = Record<string, any>> =
 
 export type BlockAttributes = Record<string, any>;
 
-export type InnerBlockTemplate = [string, BlockAttributes | undefined, InnerBlockTemplate[] | undefined];
+export type InnerBlockTemplate = [string, BlockAttributes?, InnerBlockTemplate[]?];
 
 export type BlockVariationScope = 'block' | 'inserter' | 'transform';
 
