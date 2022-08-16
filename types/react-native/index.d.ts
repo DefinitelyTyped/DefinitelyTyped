@@ -1431,6 +1431,14 @@ export interface TextInputAndroidProps {
     returnKeyLabel?: string | undefined;
 
     /**
+     * String to be read by screenreaders to indicate an error state. The acceptable parameters
+     * of accessibilityErrorMessage is a string. Setting accessibilityInvalid to true activates
+     * the error message. Setting accessibilityInvalid to false removes the error message.
+     */
+    accessibilityErrorMessage?: string | undefined;
+    accessibilityInvalid?: boolean | undefined;
+
+    /**
      * Set text break strategy on Android API Level 23+, possible values are simple, highQuality, balanced
      * The default value is simple.
      */

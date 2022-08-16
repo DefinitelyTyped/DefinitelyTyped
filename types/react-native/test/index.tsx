@@ -1138,6 +1138,17 @@ class TextInputTest extends React.Component<{}, { username: string }> {
                 <TextInput contextMenuHidden={true} textAlignVertical="top" />
 
                 <TextInput textAlign="center" />
+
+                <TextInput
+                    accessibilityErrorMessage="this is the accessibility error message"
+                    accessibilityInvalid={true}
+                />
+
+                {/* @ts-expect-error */}
+                <TextInput
+                    accessibilityErrorMessage={true}
+                    accessibilityInvalid={1}
+                />
             </View>
         );
     }
