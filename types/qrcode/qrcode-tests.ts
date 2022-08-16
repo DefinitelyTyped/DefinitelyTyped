@@ -27,6 +27,24 @@ QRCode.toDataURL([{ data: new Uint8ClampedArray([253, 254, 255]), mode: 'byte' }
     console.log(url);
 });
 
+QRCode.toCanvas(canvas, 'sample text', { maskPattern: 0 }, error => {
+    if (error) console.error(error);
+    console.log('success!');
+});
+
+QRCode.toDataURL('I am a pony!', { maskPattern: 1 }, (err, url) => {
+    console.log(url);
+});
+
+QRCode.toString('some text', { errorCorrectionLevel: 'H', maskPattern: '2' }, (err, str) => {
+    console.log(str);
+});
+
+QRCode.toBuffer('some text', { errorCorrectionLevel: 'H', maskPattern: 3} , (err, buffer) => {
+    if (err) throw err;
+    console.log(buffer);
+});
+
 QRCode.toDataURL(
     [
         { data: 'ABCDEFG', mode: 'alphanumeric' },
