@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import DS from 'ember-data';
-import { Snapshot } from '@ember-data/store/-private';
 import { assertType } from './lib/assert';
 import { Comment } from './relationships';
 
@@ -218,5 +217,3 @@ store.unloadAll();
 store.unloadAll('user');
 
 assertType<Ember.Service>(store);
-
-assertType<DS.Snapshot>(Snapshot);
