@@ -19,25 +19,29 @@ function testIsNoneType() {
 function testIsBlank() {
     Ember.isBlank(); // $ExpectType boolean
     Ember.isBlank(''); // $ExpectType boolean
-    Ember.isBlank('', ''); // $ExpectError
+    // @ts-expect-error
+    Ember.isBlank('', '');
 }
 
 function testIsEmpty() {
     Ember.isEmpty(); // $ExpectType boolean
     Ember.isEmpty(''); // $ExpectType boolean
-    Ember.isEmpty('', ''); // $ExpectError
+    // @ts-expect-error
+    Ember.isEmpty('', '');
 }
 
 function testIsPresent() {
     Ember.isPresent(); // $ExpectType boolean
     Ember.isPresent(''); // $ExpectType boolean
-    Ember.isPresent('', ''); // $ExpectError
+    // @ts-expect-error
+    Ember.isPresent('', '');
 }
 
 function testIsNone() {
     Ember.isNone(); // $ExpectType boolean
     Ember.isNone(''); // $ExpectType boolean
-    Ember.isNone('', ''); // $ExpectError
+    // @ts-expect-error
+    Ember.isNone('', '');
 }
 
 function testMerge() {
@@ -163,11 +167,13 @@ function testTryInvoke() {
     Ember.assign({}, { a: 'b' }).a; // $ExpectType string
     Ember.assign({ a: 6 }, { a: 'b' }).a; // $ExpectType string
     Ember.assign({ a: 6 }, {}).a; // $ExpectType number
-    Ember.assign({ b: 6 }, {}).a; // $ExpectError
+    // @ts-expect-error
+    Ember.assign({ b: 6 }, {}).a;
     Ember.assign({}, { b: 6 }, {}).b; // $ExpectType number
     Ember.assign({ a: 'hello' }, { b: 6 }, {}).a; // $ExpectType string
     Ember.assign({ a: 'hello' }, { b: 6 }, { a: true }).a; // $ExpectType boolean
-    Ember.assign({ a: 'hello' }, '', { a: true }).a; // $ExpectError
+    // @ts-expect-error
+    Ember.assign({ a: 'hello' }, '', { a: true }).a;
     Ember.assign({ d: ['gobias industries'] }, { a: 'hello' }, { b: 6 }, { a: true }).d; // $ExpectType string[]
 })();
 
@@ -177,5 +183,6 @@ function testTryInvoke() {
     Ember.merge({}, { a: 'b' }).a; // $ExpectType string
     Ember.merge({ a: 6 }, { a: 'b' }).a; // $ExpectType string
     Ember.merge({ a: 6 }, {}).a; // $ExpectType number
-    Ember.merge({ b: 6 }, {}).a; // $ExpectError
+    // @ts-expect-error
+    Ember.merge({ b: 6 }, {}).a;
 })();

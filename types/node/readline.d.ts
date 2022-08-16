@@ -17,7 +17,7 @@
  *
  * ```js
  * import * as readline from 'node:readline/promises';
- * import { stdin as input, stdout as output } from 'process';
+ * import { stdin as input, stdout as output } from 'node:process';
  *
  * const rl = readline.createInterface({ input, output });
  *
@@ -30,11 +30,14 @@
  *
  * Once this code is invoked, the Node.js application will not terminate until the`readline.Interface` is closed because the interface waits for data to be
  * received on the `input` stream.
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/readline.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/readline.js)
  */
 declare module 'readline' {
     import { Abortable, EventEmitter } from 'node:events';
-    interface Key {
+    import * as promises from 'node:readline/promises';
+
+    export { promises };
+    export interface Key {
         sequence?: string | undefined;
         name?: string | undefined;
         ctrl?: boolean | undefined;
@@ -48,7 +51,7 @@ declare module 'readline' {
      * and is read from, the `input` stream.
      * @since v0.1.104
      */
-    class Interface extends EventEmitter {
+    export class Interface extends EventEmitter {
         readonly terminal: boolean;
         /**
          * The current input data being processed by node.
@@ -315,11 +318,11 @@ declare module 'readline' {
         prependOnceListener(event: 'history', listener: (history: string[]) => void): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string>;
     }
-    type ReadLine = Interface; // type forwarded for backwards compatibility
-    type Completer = (line: string) => CompleterResult;
-    type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => void;
-    type CompleterResult = [string[], string];
-    interface ReadLineOptions {
+    export type ReadLine = Interface; // type forwarded for backwards compatibility
+    export type Completer = (line: string) => CompleterResult;
+    export type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => void;
+    export type CompleterResult = [string[], string];
+    export interface ReadLineOptions {
         input: NodeJS.ReadableStream;
         output?: NodeJS.WritableStream | undefined;
         completer?: Completer | AsyncCompleter | undefined;
@@ -380,8 +383,8 @@ declare module 'readline' {
      * ```
      * @since v0.1.98
      */
-    function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
-    function createInterface(options: ReadLineOptions): Interface;
+    export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
+    export function createInterface(options: ReadLineOptions): Interface;
     /**
      * The `readline.emitKeypressEvents()` method causes the given `Readable` stream to begin emitting `'keypress'` events corresponding to received input.
      *
@@ -503,9 +506,9 @@ declare module 'readline' {
      * ```
      * @since v0.7.7
      */
-    function emitKeypressEvents(stream: NodeJS.ReadableStream, readlineInterface?: Interface): void;
-    type Direction = -1 | 0 | 1;
-    interface CursorPos {
+    export function emitKeypressEvents(stream: NodeJS.ReadableStream, readlineInterface?: Interface): void;
+    export type Direction = -1 | 0 | 1;
+    export interface CursorPos {
         rows: number;
         cols: number;
     }
@@ -516,7 +519,7 @@ declare module 'readline' {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    function clearLine(stream: NodeJS.WritableStream, dir: Direction, callback?: () => void): boolean;
+    export function clearLine(stream: NodeJS.WritableStream, dir: Direction, callback?: () => void): boolean;
     /**
      * The `readline.clearScreenDown()` method clears the given `TTY` stream from
      * the current position of the cursor down.
@@ -524,7 +527,7 @@ declare module 'readline' {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    function clearScreenDown(stream: NodeJS.WritableStream, callback?: () => void): boolean;
+    export function clearScreenDown(stream: NodeJS.WritableStream, callback?: () => void): boolean;
     /**
      * The `readline.cursorTo()` method moves cursor to the specified position in a
      * given `TTY` `stream`.
@@ -532,7 +535,7 @@ declare module 'readline' {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
+    export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
     /**
      * The `readline.moveCursor()` method moves the cursor _relative_ to its current
      * position in a given `TTY` `stream`.
@@ -643,7 +646,7 @@ declare module 'readline' {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
+    export function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
 }
 declare module 'node:readline' {
     export * from 'readline';

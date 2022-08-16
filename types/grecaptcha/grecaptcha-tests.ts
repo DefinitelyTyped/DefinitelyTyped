@@ -54,9 +54,9 @@ grecaptcha.enterprise.execute(id1);
 grecaptcha.execute('foo', { action: 'bar' }).then((token: string) => {});
 grecaptcha.enterprise.execute('foo', { action: 'bar' }).then((token: string) => {});
 
-// $ExpectError
+// @ts-expect-error
 grecaptcha.execute('foo', { action: 'bar' }).catch(() => {});
-// $ExpectError
+// @ts-expect-error
 grecaptcha.enterprise.execute('foo', { action: 'bar' }).catch(() => {});
 
 grecaptcha.ready(() => {});

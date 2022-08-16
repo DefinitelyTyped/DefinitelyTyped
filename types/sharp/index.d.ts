@@ -79,6 +79,9 @@ declare namespace sharp {
         installed: string[];
     };
 
+    /** An Object containing the available interpolators and their proper values */
+    const interpolators: Interpolators;
+
     /** An EventEmitter that emits a change event when a task is either queued, waiting for libuv to provide a worker thread, complete */
     const queue: NodeJS.EventEmitter;
 
@@ -332,6 +335,40 @@ declare namespace sharp {
         flop(flop?: boolean): Sharp;
 
         /**
+         * Perform an affine transform on an image. This operation will always occur after resizing, extraction and rotation, if any.
+         * You must provide an array of length 4 or a 2x2 affine transformation matrix.
+         * By default, new pixels are filled with a black background. You can provide a background color with the `background` option.
+         * A particular interpolator may also be specified. Set the `interpolator` option to an attribute of the `sharp.interpolator` Object e.g. `sharp.interpolator.nohalo`.
+         *
+         * In the case of a 2x2 matrix, the transform is:
+         * X = matrix[0, 0] * (x + idx) + matrix[0, 1] * (y + idy) + odx
+         * Y = matrix[1, 0] * (x + idx) + matrix[1, 1] * (y + idy) + ody
+         *
+         * where:
+         *
+         * x and y are the coordinates in input image.
+         * X and Y are the coordinates in output image.
+         * (0,0) is the upper left corner.
+         *
+         * @param matrix Affine transformation matrix, may either by a array of length four or a 2x2 matrix array
+         * @param options if present, is an Object with optional attributes.
+         *
+         * @returns A sharp instance that can be used to chain operations
+         */
+        affine(matrix: [number, number, number, number] | Matrix2x2, options?: AffineOptions): Sharp;
+
+        /**
+         * Sharpen the image.
+         * When used without parameters, performs a fast, mild sharpen of the output image.
+         * When a sigma is provided, performs a slower, more accurate sharpen of the L channel in the LAB colour space.
+         * Separate control over the level of sharpening in "flat" and "jagged" areas is available.
+         * @param options if present, is an Object with optional attributes
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        sharpen(options?: SharpenOptions): Sharp;
+
+        /**
          * Sharpen the image.
          * When used without parameters, performs a fast, mild sharpen of the output image.
          * When a sigma is provided, performs a slower, more accurate sharpen of the L channel in the LAB colour space.
@@ -341,6 +378,8 @@ declare namespace sharp {
          * @param jagged the level of sharpening to apply to "jagged" areas. (optional, default 2.0)
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
+         *
+         * @deprecated Use the object parameter `sharpen({sigma, m1, m2, x1, y2, y3})` instead
          */
         sharpen(sigma?: number, flat?: number, jagged?: number): Sharp;
 
@@ -729,10 +768,16 @@ declare namespace sharp {
 
     interface SharpOptions {
         /**
+         *  Level of sensitivity to invalid images, one of (in order of sensitivity):
+         *  'none' (least), 'truncated', 'error' or 'warning' (most), highers level imply lower levels. (optional, default 'warning')
+         */
+        failOn?: FailOnOptions | undefined;
+        /**
          * By default halt processing and raise an error when loading invalid images.
          * Set this flag to false if you'd rather apply a "best effort" to decode images,
          * even if the data is corrupt or invalid. (optional, default true)
-         * (optional, default true)
+         *
+         * @deprecated Use `failOn` instead
          */
         failOnError?: boolean | undefined;
         /**
@@ -1023,9 +1068,9 @@ declare namespace sharp {
         /** Write a tiled tiff (optional, default false) */
         tile?: boolean | undefined;
         /** Horizontal tile size (optional, default 256) */
-        tileWidth?: boolean | undefined;
+        tileWidth?: number | undefined;
         /** Vertical tile size (optional, default 256) */
-        tileHeight?: boolean | undefined;
+        tileHeight?: number | undefined;
         /** Horizontal resolution in pixels/mm (optional, default 1.0) */
         xres?: number | undefined;
         /** Vertical resolution in pixels/mm (optional, default 1.0) */
@@ -1230,6 +1275,36 @@ declare namespace sharp {
         delay?: number | number[] | undefined;
     }
 
+    interface SharpenOptions {
+        /** The sigma of the Gaussian mask, where sigma = 1 + radius / 2. */
+        sigma: number;
+        /** The level of sharpening to apply to "flat" areas. (optional, default 1.0) */
+        m1?: number | undefined;
+        /** The level of sharpening to apply to "jagged" areas. (optional, default 2.0) */
+        m2?: number | undefined;
+        /** Threshold between "flat" and "jagged" (optional, default 2.0) */
+        x1?: number | undefined;
+        /** Maximum amount of brightening. (optional, default 10.0) */
+        y2?: number | undefined;
+        /** Maximum amount of darkening. (optional, default 20.0) */
+        y3?: number | undefined;
+    }
+
+    interface AffineOptions {
+        /** Parsed by the color module to extract values for red, green, blue and alpha. (optional, default "#000000") */
+        background?: string | object | undefined;
+        /** Input horizontal offset (optional, default 0) */
+        idx?: number | undefined;
+        /** Input vertical offset (optional, default 0) */
+        idy?: number | undefined;
+        /** Output horizontal offset (optional, default 0) */
+        odx?: number | undefined;
+        /** Output horizontal offset (optional, default 0) */
+        ody?: number | undefined;
+        /** Interpolator (optional, default sharp.interpolators.bicubic) */
+        interpolator?: Interpolators[keyof Interpolators] | undefined;
+    }
+
     interface OutputInfo {
         format: string;
         size: number;
@@ -1284,6 +1359,8 @@ declare namespace sharp {
         srgb: string;
     }
 
+    type FailOnOptions = 'none' | 'truncated' | 'error' | 'warning';
+
     type TileLayout = 'dz' | 'iiif' | 'iiif3' | 'zoomify' | 'google';
 
     type Blend =
@@ -1306,9 +1383,9 @@ declare namespace sharp {
         | 'overlay'
         | 'darken'
         | 'lighten'
+        | 'color-dodge'
         | 'colour-dodge'
-        | 'colour-dodge'
-        | 'colour-burn'
+        | 'color-burn'
         | 'colour-burn'
         | 'hard-light'
         | 'soft-light'
@@ -1363,6 +1440,25 @@ declare namespace sharp {
         items: { current: number; max: number };
     }
 
+    interface Interpolators {
+        /** [Nearest neighbour interpolation](http://en.wikipedia.org/wiki/Nearest-neighbor_interpolation). Suitable for image enlargement only. */
+        nearest: 'nearest';
+        /** [Bilinear interpolation](http://en.wikipedia.org/wiki/Bilinear_interpolation). Faster than bicubic but with less smooth results. */
+        bilinear: 'bilinear';
+        /** [Bicubic interpolation](http://en.wikipedia.org/wiki/Bicubic_interpolation) (the default). */
+        bicubic: 'bicubic';
+        /**
+         * [LBB interpolation](https://github.com/libvips/libvips/blob/master/libvips/resample/lbb.cpp#L100).
+         * Prevents some "[acutance](http://en.wikipedia.org/wiki/Acutance)" but typically reduces performance by a factor of 2.
+         */
+        locallyBoundedBicubic: 'lbb';
+        /** [Nohalo interpolation](http://eprints.soton.ac.uk/268086/). Prevents acutance but typically reduces performance by a factor of 3. */
+        nohalo: 'nohalo';
+        /** [VSQBS interpolation](https://github.com/libvips/libvips/blob/master/libvips/resample/vsqbs.cpp#L48). Prevents "staircasing" when enlarging. */
+        vertexSplitQuadraticBasisSpline: 'vsqbs';
+    }
+
+    type Matrix2x2 = [[number, number], [number, number]];
     type Matrix3x3 = [[number, number, number], [number, number, number], [number, number, number]];
 }
 

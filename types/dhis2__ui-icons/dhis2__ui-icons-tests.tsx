@@ -3,4 +3,5 @@ import * as React from 'react';
 
 const icon = <IconAdd16 />;
 const iconWithColor = <IconAdd16 color={'white'} />;
-const iconWithInvalidProp = <IconAdd16 resize={true} />; // $ExpectError
+// @ts-expect-error
+const iconWithInvalidProp = <IconAdd16 resize={true} />;

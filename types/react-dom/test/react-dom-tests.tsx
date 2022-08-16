@@ -61,6 +61,7 @@ describe('ReactDOM', () => {
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'));
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), null);
         ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), 'key');
+        ReactDOM.createPortal(React.createElement('div'), document.createDocumentFragment());
 
         ReactDOM.render(<ClassComponent />, rootElement);
     });
@@ -74,9 +75,9 @@ describe('ReactDOM', () => {
         ReactDOM.flushSync(() => 42, 'not used');
         // $ExpectType number
         ReactDOM.flushSync((a: string) => 42, 'not used');
-        // $ExpectError
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42);
-        // $ExpectError
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42, 100);
     });
 });
@@ -199,13 +200,13 @@ describe('React dom test utils', () => {
                 ReactTestUtils.act(() => {});
             });
             it('rejects a callback that returns null', () => {
-                // $ExpectError
+                // @ts-expect-error
                 ReactTestUtils.act(() => null);
             });
             it('returns a type that is not Promise-like', () => {
                 // tslint:disable-next-line no-void-expression
                 const result = ReactTestUtils.act(() => {});
-                // $ExpectError
+                // @ts-expect-error
                 result.then(x => {});
             });
         });
@@ -214,7 +215,7 @@ describe('React dom test utils', () => {
                 await ReactTestUtils.act(async () => {});
             });
             it('rejects a callback that returns a value', async () => {
-                // $ExpectError
+                // @ts-expect-error
                 await ReactTestUtils.act(async () => null);
             });
             it('returns a Promise-like', () => {
@@ -232,7 +233,7 @@ function createRoot() {
     root.render(false);
 
     // only makes sense for `hydrateRoot`
-    // $ExpectError
+    // @ts-expect-error
     ReactDOMClient.createRoot(document);
 }
 
@@ -246,7 +247,7 @@ function hydrateRoot() {
     hydrateable.render(<div>render update</div>);
     ReactDOMClient.hydrateRoot(document, {
         // Forgot `initialChildren`
-        // $ExpectError
+        // @ts-expect-error
         identifierPrefix: 'react-18-app',
     });
 

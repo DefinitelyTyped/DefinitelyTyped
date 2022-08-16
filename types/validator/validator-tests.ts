@@ -618,8 +618,14 @@ const any: any = null;
     const isEmailOptions: validator.IsEmailOptions = {
         host_blacklist: ['domain'],
     };
+
+    const isEmailOptionsWithBlacklistedCharacters: validator.IsEmailOptions = {
+        blacklisted_chars: 'sample',
+    };
+
     result = validator.isEmail('sample');
     result = validator.isEmail('sample', isEmailOptions);
+    result = validator.isEmail('sample', isEmailOptionsWithBlacklistedCharacters);
 
     const isEmptyOptions: validator.IsEmptyOptions = {};
     result = validator.isEmpty('sample');
@@ -794,6 +800,7 @@ const any: any = null;
 
     result = validator.isNumeric('sample');
     result = validator.isNumeric('+358', { no_symbols: true });
+    result = validator.isNumeric('358,50', { locale: 'pt-BR' });
 
     result = validator.isOctal('076543210');
 

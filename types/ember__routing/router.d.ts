@@ -1,7 +1,7 @@
 import EmberObject from "@ember/object";
 import Evented from "@ember/object/evented";
 import RouterDSL from "@ember/routing/-private/router-dsl";
-import Transition from "@ember/routing/-private/transition";
+import Transition from "@ember/routing/transition";
 import RouterService from "@ember/routing/router-service";
 
 /**

@@ -122,4 +122,18 @@ import * as fs from 'fs';
         mode: 0o666,
         autoClose: true,
     });
+
+    client.rcopy('/remote/path/from', '/remote/path/to').then(() => null);
+
+    client.createReadStream('/remote/path', {
+        flags: 'r',
+        mode: 0o666,
+        autoClose: true,
+    });
+
+    client.createWriteStream('/remote/path', {
+        flags: 'r',
+        mode: 0o666,
+        autoClose: true,
+    });
 })();

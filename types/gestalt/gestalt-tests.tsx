@@ -42,12 +42,15 @@ import {
     Popover,
     Pulsar,
     RadioButton,
+    RadioGroup,
     Row,
     ScrollBoundaryContainer,
     SearchField,
     SegmentedControl,
     SelectList,
     Sheet,
+    SideNavigation,
+    SlimBanner,
     Spinner,
     Stack,
     Status,
@@ -65,7 +68,7 @@ import {
     Upsell,
     useFocusVisible,
     useReducedMotion,
-    Video
+    Video,
 } from 'gestalt';
 import * as React from 'react';
 
@@ -133,7 +136,6 @@ const CheckUseReducedMotion = () => {
         event.__nonExistentProperty__;
     }}
 />;
-
 // Test Box accepts Ref.
 () => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -142,7 +144,6 @@ const CheckUseReducedMotion = () => {
 // Test BoxProps can be forwarded to Box.
 (props: BoxProps) => <Box {...props} />;
 
-<Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <Button text="" />;
 <ButtonGroup>
     <Button text={'Click me'} />
@@ -155,17 +156,17 @@ const CheckUseReducedMotion = () => {
     label="combobox"
     noResultText="combobox"
     options={[{ label: 'combobox', value: 'combobox' }]}
-    onChange={(args) => {
+    onChange={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: Event = args.event.nativeEvent;
         const value: string = args.value;
     }}
-    onBlur={(args) => {
+    onBlur={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: FocusEvent | Event = args.event.nativeEvent;
         const value: string = args.value;
     }}
-    onFocus={(args) => {
+    onFocus={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: FocusEvent = args.event.nativeEvent;
         const value: string = args.value;
@@ -185,7 +186,9 @@ const CheckUseReducedMotion = () => {
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
 <Collage columns={1} height={1} renderImage={({ height, index, width }) => null} width={1} />;
-<ColorSchemeProvider colorScheme="dark" id="docsExample" />;
+<ColorSchemeProvider colorScheme="dark" id="docsExample">
+    <Box />
+</ColorSchemeProvider>;
 <Column span={1} />;
 <Container />;
 <ScrollBoundaryContainer />;
@@ -204,10 +207,11 @@ const CheckUseReducedMotion = () => {
     </Dropdown.Section>
 </Dropdown>;
 <Fieldset legend="Fieldset Example">
-    <RadioButton id="id1" onChange={() => {}} />;
-    <RadioButton id="id2" onChange={() => {}} />;
-    <RadioButton id="id3" onChange={() => {}} />;
+    <RadioButton id="id1" value="" onChange={() => {}} />;
+    <RadioButton id="id2" value="" onChange={() => {}} />;
+    <RadioButton id="id3" value="" onChange={() => {}} />;
 </Fieldset>;
+
 <Flex>
     <Flex.Item>
         <Text>Flex</Text>
@@ -230,43 +234,49 @@ const CheckUseReducedMotion = () => {
 </Layer>;
 <Letterbox contentAspectRatio={1} height={1} width={1} />;
 <Link href="#" />;
+<Link href="#" externalLinkIcon={{ color: 'light', size: '100' }} />;
 <Mask />;
 <Masonry comp={MasonryComponent} items={[{}]} />;
 <Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
 <Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info" />;
-<Module.Expandable
-    id="ModuleExample1"
-    accessibilityExpandLabel="Expand the module"
-    accessibilityCollapseLabel="Collapse the module"
-    items={[
-        {
-            title: 'Title',
-            summary: ['summary1', 'summary2', 'summary3'],
-            children: <Text size="md">Children1</Text>,
-            iconButton: <IconButton accessibilityLabel="test" />
-        },
-    ]}
-    expandedIndex={1}
-    onExpandedChange={index => {}}
-></Module.Expandable>;
+<Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info">
+    <Flex />
+</Module>;
+<Module id="foo">
+    <Module.Expandable
+        id="ModuleExample1"
+        accessibilityExpandLabel="Expand the module"
+        accessibilityCollapseLabel="Collapse the module"
+        items={[
+            {
+                title: 'Title',
+                summary: ['summary1', 'summary2', 'summary3'],
+                children: <Text size="100">Children1</Text>,
+                iconButton: <IconButton accessibilityLabel="test" />,
+            },
+        ]}
+        expandedIndex={1}
+        onExpandedChange={index => {}}
+    ></Module.Expandable>
+</Module>;
 <NumberField
     id="number"
     step={1}
-    onChange={(args) => {
+    onChange={args => {
         const nativeEvent: Event = args.event.nativeEvent;
         const value: number | undefined = args.value;
     }}
-    onBlur={(args) => {
+    onBlur={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: FocusEvent = args.event.nativeEvent;
         const value: number | undefined = args.value;
     }}
-    onFocus={(args) => {
+    onFocus={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: FocusEvent = args.event.nativeEvent;
         const value: number | undefined = args.value;
     }}
-    onKeyDown={(args) => {
+    onKeyDown={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: KeyboardEvent = args.event.nativeEvent;
         const value: number | undefined = args.value;
@@ -278,29 +288,36 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <PageHeader title="Home" />;
-<Pog />;
-<Popover
-    onDismiss={() => {}}
-    anchor={React.useRef<HTMLAnchorElement>().current}
+<PageHeader
+    title="Posts"
+    primaryAction={{
+        component: <Button color="red" size="lg" text="Create" />,
+        dropdownItems: [<Dropdown.Item onSelect={() => undefined} option={{ value: 'create', label: 'Create' }} />],
+    }}
 />;
+<Pog />;
+<Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current} />;
 
 <Pulsar />;
-<RadioButton id="id" onChange={() => {}} />;
+<RadioButton id="id" value="" onChange={() => {}} />;
+<RadioGroup id="foo" legend="foo" direction="column">
+    <RadioButton id="id3" value="" onChange={() => {}} />;
+</RadioGroup>;
 <Row gap={1}>
     <div />
 </Row>;
 <SearchField
     accessibilityLabel="Demo Search Field"
     id="searchField"
-    onChange={(args) => {
+    onChange={args => {
         const currentTarget: HTMLInputElement = args.syntheticEvent.currentTarget;
         const nativeEvent: Event = args.syntheticEvent.nativeEvent;
-        const value: string  = args.value;
+        const value: string = args.value;
     }}
-    onKeyDown={(args) => {
+    onKeyDown={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: KeyboardEvent = args.event.nativeEvent;
-        const value: string  = args.value;
+        const value: string = args.value;
     }}
 />;
 <SegmentedControl items={[]} selectedItemIndex={1} onChange={() => {}} />;
@@ -317,6 +334,75 @@ const CheckUseReducedMotion = () => {
         </Heading>
     )}
 </Sheet>;
+<SideNavigation accessibilityLabel="Nested items example">
+    <SideNavigation.TopItem
+        href="#"
+        onClick={({ event }) => event.preventDefault()}
+        label="Reporting"
+        icon="ads-stats"
+    />
+    <SideNavigation.TopItem
+        href="#"
+        onClick={({ event }) => event.preventDefault()}
+        label="Conversions"
+        icon="replace"
+    />
+    <SideNavigation.Section label="Audiences">
+        <SideNavigation.TopItem
+            href="#"
+            onClick={({ event }) => event.preventDefault()}
+            label="Thanksgiving"
+            icon="people"
+        />
+        <SideNavigation.Group label="Christmas" icon="people">
+            <SideNavigation.NestedItem
+                href="#"
+                onClick={({ event }) => event.preventDefault()}
+                label="Luxury Christmas"
+            />
+            <SideNavigation.NestedGroup label="Classic Christmas">
+                <SideNavigation.NestedItem
+                    href="#"
+                    onClick={({ event }) => event.preventDefault()}
+                    label="West Coast"
+                />
+                <SideNavigation.NestedItem
+                    href="#"
+                    onClick={({ event }) => event.preventDefault()}
+                    label="East Coast"
+                />
+            </SideNavigation.NestedGroup>
+            <SideNavigation.NestedGroup label="Alternative Christmas">
+                <SideNavigation.NestedItem
+                    href="#"
+                    onClick={({ event }) => event.preventDefault()}
+                    label="West Coast"
+                />
+                <SideNavigation.NestedItem
+                    href="#"
+                    onClick={({ event }) => event.preventDefault()}
+                    label="East Coast"
+                />
+            </SideNavigation.NestedGroup>
+        </SideNavigation.Group>
+        <SideNavigation.Group label="Halloween" icon="people" display="static">
+            <SideNavigation.NestedItem href="#" onClick={({ event }) => event.preventDefault()} label="East Coast" />
+            <SideNavigation.NestedItem href="#" onClick={({ event }) => event.preventDefault()} label="West Coast" />
+        </SideNavigation.Group>
+    </SideNavigation.Section>
+</SideNavigation>;
+<SlimBanner
+    type="errorBare"
+    iconAccessibilityLabel="Info"
+    message="There are issues with your account."
+    helperLink={{
+        text: 'Go to account',
+        accessibilityLabel: 'Go to your account',
+        href: 'http://www.pinterest.com',
+        onClick: () => {},
+        target: 'blank',
+    }}
+/>;
 <Spinner show={true} accessibilityLabel="Example spinner" />;
 <Stack alignItems="center" gap={2}>
     <div />
@@ -415,22 +501,22 @@ const CheckUseReducedMotion = () => {
 <Text color="inverse" />;
 <TextArea
     id="id"
-    onChange={(args) => {
+    onChange={args => {
         const currentTarget: HTMLTextAreaElement = args.event.currentTarget;
         const nativeEvent: Event = args.event.nativeEvent;
         const value: string = args.value;
     }}
-    onBlur={(args) => {
+    onBlur={args => {
         const currentTarget: HTMLTextAreaElement = args.event.currentTarget;
         const nativeEvent: FocusEvent = args.event.nativeEvent;
         const value: string = args.value;
     }}
-    onFocus={(args) => {
+    onFocus={args => {
         const currentTarget: HTMLTextAreaElement = args.event.currentTarget;
         const nativeEvent: FocusEvent = args.event.nativeEvent;
         const value: string = args.value;
     }}
-    onKeyDown={(args) => {
+    onKeyDown={args => {
         const currentTarget: HTMLTextAreaElement = args.event.currentTarget;
         const nativeEvent: KeyboardEvent = args.event.nativeEvent;
         const value: string = args.value;
@@ -439,22 +525,22 @@ const CheckUseReducedMotion = () => {
 <TextField
     id="email"
     tags={[<Tag text="Foo" />, <Tag text="Bar" />]}
-    onChange={(args) => {
+    onChange={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: Event = args.event.nativeEvent;
         const value: string = args.value;
     }}
-    onBlur={(args) => {
+    onBlur={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: FocusEvent = args.event.nativeEvent;
         const value: string = args.value;
     }}
-    onFocus={(args) => {
+    onFocus={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: FocusEvent = args.event.nativeEvent;
         const value: string = args.value;
     }}
-    onKeyDown={(args) => {
+    onKeyDown={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: KeyboardEvent = args.event.nativeEvent;
         const value: string = args.value;

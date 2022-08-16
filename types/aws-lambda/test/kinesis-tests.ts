@@ -32,6 +32,18 @@ const handler: KinesisStreamHandler = async (event, context, callback) => {
     callback(new Error());
 };
 
+const handlerWithResponse: KinesisStreamHandler = async (event, context, callback) => {
+    callback(
+        null,
+        {
+            batchItemFailures: [
+                {
+                    itemIdentifier: event.Records[0].kinesis.sequenceNumber
+                }
+            ]
+        });
+};
+
 const firehoseHandler: FirehoseTransformationHandler = async (event, context, callback) => {
     let firehoseRecordMetadata: FirehoseRecordMetadata | undefined;
 

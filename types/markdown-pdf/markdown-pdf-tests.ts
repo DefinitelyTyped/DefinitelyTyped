@@ -8,4 +8,5 @@ mdPdf().concat.from.strings(['lol', 'lol'], {}).to('path', () => { }); // $Expec
 mdPdf().from('path').to.path('path', () => { }); // $ExpectType void
 mdPdf().from('path').to('path'); // $ExpectType void
 
-mdPdf({ paperFormat: 'wrongFormat' }); // $ExpectError
+// @ts-expect-error
+mdPdf({ paperFormat: 'wrongFormat' });

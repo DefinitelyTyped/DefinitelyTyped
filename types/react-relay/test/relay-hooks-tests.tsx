@@ -746,7 +746,7 @@ function QueryLoader() {
 
     function QueryFetcherExample(): React.ReactElement {
         React.useEffect(() => {
-            loadQuery({ id: 'EXAMPLE' });
+            loadQuery({ id: 'EXAMPLE' }, { fetchPolicy: 'store-only' });
             return disposeQuery;
         });
 

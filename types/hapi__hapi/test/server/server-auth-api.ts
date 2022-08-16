@@ -1,5 +1,6 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverauthapi
 import {
+    Auth,
     Server,
     ServerAuthScheme,
 } from "@hapi/hapi";
@@ -24,6 +25,10 @@ const scheme: ServerAuthScheme = (server, options) => {
             const authorization = request.headers.authorization;
             if (!authorization) {
                 throw Boom.unauthorized(null, 'Custom');
+            }
+            const rejectedAuth: Auth = h.unauthenticated(new Error('test'));
+            if (authorization === 'test') {
+                return rejectedAuth;
             }
             return h.authenticated({ credentials: { user: { a: 1 }, custom: {} } });
         }

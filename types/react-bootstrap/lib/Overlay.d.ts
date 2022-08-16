@@ -3,6 +3,7 @@ import { TransitionCallbacks } from 'react-bootstrap';
 
 declare namespace Overlay {
     export interface OverlayProps extends TransitionCallbacks {
+        children?: React.ReactNode;
         // Optional
         animation?: any; // TODO: Add more specific type
         container?: any; // TODO: Add more specific type
