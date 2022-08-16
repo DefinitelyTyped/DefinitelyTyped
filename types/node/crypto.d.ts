@@ -2309,11 +2309,11 @@ declare module 'crypto' {
          * If `encoding` is specified, a string is returned; otherwise a `Buffer` is
          * returned.
          * @since v0.11.14
-         * @param encoding The `encoding` of the return value.
+         * @param [encoding] The `encoding` of the return value.
          * @param [format='uncompressed']
          * @return The EC Diffie-Hellman public key in the specified `encoding` and `format`.
          */
-        getPublicKey(): Buffer;
+        getPublicKey(encoding?: null, format?: ECDHKeyFormat): Buffer;
         getPublicKey(encoding: BinaryToTextEncoding, format?: ECDHKeyFormat): string;
         /**
          * Sets the EC Diffie-Hellman private key.
