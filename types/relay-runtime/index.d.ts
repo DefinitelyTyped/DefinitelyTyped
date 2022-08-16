@@ -209,11 +209,14 @@ export { default as isPromise } from './lib/util/isPromise';
 
 import * as fetchQueryInternal from './lib/query/fetchQueryInternal';
 
+import * as RelayResolverFragments from './lib/store/ResolverFragments';
+
 interface Internal {
     fetchQuery: typeof fetchQueryInternal.fetchQuery;
     fetchQueryDeduped: typeof fetchQueryInternal.fetchQueryDeduped;
     getPromiseForActiveRequest: typeof fetchQueryInternal.getPromiseForActiveRequest;
     getObservableForActiveRequest: typeof fetchQueryInternal.getObservableForActiveRequest;
+    ResolverFragments: typeof RelayResolverFragments;
 }
 
 export const __internal: Internal;

@@ -552,6 +552,47 @@ function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {
     });
 }
 
+function checkColorEquals() {
+    const color1 = new THREE.Color(255, 127, 39);
+    const color2 = new THREE.Color(255, 127, 39);
+    const color3 = new THREE.Color(128, 128, 255);
+
+    color1.equals(color2); // $ExpectType boolean
+
+    if (!color1.equals(color2))
+        throw new Error("Colors must be equal");
+
+    if (color1.equals(color3))
+        throw new Error("Colors must not be equal");
+}
+
+function checkColorGetHexString() {
+    const color = new THREE.Color(255, 127, 39);
+
+    color.getHexString(); // $ExpectType string
+
+    if (color.getHexString() !== "805827")
+        throw new Error("Failed to get color hex string");
+}
+
+function checkColorAsMaterialCreationParameter() {
+    const color = new THREE.Color(5, 128, 57);
+
+    const materials = [
+        new THREE.MeshBasicMaterial({ color }),
+        new THREE.LineBasicMaterial({ color }),
+        new THREE.LineDashedMaterial({ color }),
+        new THREE.MeshLambertMaterial({ color }),
+        new THREE.MeshPhongMaterial({ color }),
+        new THREE.MeshStandardMaterial({ color })
+    ];
+
+    for (const material of materials) {
+        if (!material.color.equals(color))
+            throw new Error("Failed to instantiate material with color object");
+    }
+}
+
 function checkMeshAllowsBufferGeometry() {
     const boxGeometry = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(10, 10, 10));
     const boxMaterial = new THREE.MeshPhongMaterial({ color: "#ff0000" });

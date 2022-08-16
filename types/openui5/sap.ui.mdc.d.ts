@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.105.0
 
 declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
   import Metadata from "sap/ui/base/Metadata";
@@ -63,6 +63,8 @@ declare namespace sap {
     "sap/ui/mdc/actiontoolbar/ActionToolbarAction": undefined;
 
     "sap/ui/mdc/Chart": undefined;
+
+    "sap/ui/mdc/chart/ChartImplementationContainer": undefined;
 
     "sap/ui/mdc/chart/ChartSelectionDetails": undefined;
 
