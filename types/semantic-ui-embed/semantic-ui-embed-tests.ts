@@ -99,8 +99,10 @@ function test_embed() {
     });
     $(selector).embed(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).embed('foo'); // $ExpectError
-    $(selector).embed({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).embed('foo');
+    // @ts-expect-error
+    $(selector).embed({ foo: 'bar' });
 }
 
 import embed = require('semantic-ui-embed');

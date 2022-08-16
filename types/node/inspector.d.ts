@@ -15,7 +15,7 @@
  * ```js
  * const inspector = require('inspector');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');
@@ -1688,7 +1688,7 @@ declare module 'inspector' {
             /**
              * Controls how the trace buffer stores data.
              */
-            recordMode?: string;
+            recordMode?: string | undefined;
             /**
              * Included category filters.
              */
@@ -1778,12 +1778,6 @@ declare module 'inspector' {
          * @since v8.0.0
          */
         connect(): void;
-        /**
-         * Connects a session to the main thread inspector back-end. An exception will
-         * be thrown if this API was not called on a Worker thread.
-         * @since v12.11.0
-         */
-        connectToMainThread(): void;
         /**
          * Immediately close the session. All pending message callbacks will be called
          * with an error. `session.connect()` will need to be called to be able to send
@@ -2695,7 +2689,7 @@ declare module 'inspector' {
         prependOnceListener(event: 'NodeRuntime.waitingForDisconnect', listener: () => void): this;
     }
     /**
-     * Activate inspector on host and port. Equivalent to `node --inspect=[[host:]port]`, but can be done programmatically after node has
+     * Activate inspector on host and port. Equivalent to`node --inspect=[[host:]port]`, but can be done programmatically after node has
      * started.
      *
      * If wait is `true`, will block until a client has connected to the inspect port
@@ -2717,12 +2711,12 @@ declare module 'inspector' {
      * ```console
      * $ node --inspect -p 'inspector.url()'
      * Debugger listening on ws://127.0.0.1:9229/166e272e-7a30-4d09-97ce-f1c012b43c34
-     * For help see https://nodejs.org/en/docs/inspector
+     * For help, see: https://nodejs.org/en/docs/inspector
      * ws://127.0.0.1:9229/166e272e-7a30-4d09-97ce-f1c012b43c34
      *
      * $ node --inspect=localhost:3000 -p 'inspector.url()'
      * Debugger listening on ws://localhost:3000/51cf8d0e-3c36-4c59-8efd-54519839e56a
-     * For help see https://nodejs.org/en/docs/inspector
+     * For help, see: https://nodejs.org/en/docs/inspector
      * ws://localhost:3000/51cf8d0e-3c36-4c59-8efd-54519839e56a
      *
      * $ node -p 'inspector.url()'
@@ -2738,7 +2732,10 @@ declare module 'inspector' {
      */
     function waitForDebugger(): void;
 }
+/**
+ * The inspector module provides an API for interacting with the V8 inspector.
+ */
 declare module 'node:inspector' {
-    import EventEmitter = require('inspector');
-    export = EventEmitter;
+    import inspector = require('inspector');
+    export = inspector;
 }

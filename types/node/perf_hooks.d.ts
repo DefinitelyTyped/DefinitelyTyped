@@ -26,7 +26,7 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/perf_hooks.js)
  */
 declare module 'perf_hooks' {
     import { AsyncResource } from 'node:async_hooks';
@@ -85,6 +85,14 @@ declare module 'perf_hooks' {
          * @since v16.0.0
          */
         readonly detail?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
+        toJSON(): any;
+    }
+    class PerformanceMark extends PerformanceEntry {
+        readonly duration: 0;
+        readonly entryType: 'mark';
+    }
+    class PerformanceMeasure extends PerformanceEntry {
+        readonly entryType: 'measure';
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
@@ -192,13 +200,43 @@ declare module 'perf_hooks' {
          */
         clearMarks(name?: string): void;
         /**
+         * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
+         * If name is provided, removes only the named measure.
+         * @param name
+         * @since v16.7.0
+         */
+        clearMeasures(name?: string): void;
+        /**
+         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`.
+         * If you are only interested in performance entries of certain types or that have certain names, see
+         * `performance.getEntriesByType()` and `performance.getEntriesByName()`.
+         * @since v16.7.0
+         */
+        getEntries(): PerformanceEntry[];
+        /**
+         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`
+         * whose `performanceEntry.name` is equal to `name`, and optionally, whose `performanceEntry.entryType` is equal to `type`.
+         * @param name
+         * @param type
+         * @since v16.7.0
+         */
+        getEntriesByName(name: string, type?: EntryType): PerformanceEntry[];
+        /**
+         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`
+         * whose `performanceEntry.entryType` is equal to `type`.
+         * @param type
+         * @since v16.7.0
+         */
+        getEntriesByType(type: EntryType): PerformanceEntry[];
+        /**
          * Creates a new PerformanceMark entry in the Performance Timeline.
          * A PerformanceMark is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'mark',
          * and whose performanceEntry.duration is always 0.
          * Performance marks are used to mark specific significant moments in the Performance Timeline.
          * @param name
+         * @return The PerformanceMark entry that was created
          */
-        mark(name?: string, options?: MarkOptions): void;
+        mark(name?: string, options?: MarkOptions): PerformanceMark;
         /**
          * Creates a new PerformanceMeasure entry in the Performance Timeline.
          * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
@@ -213,9 +251,10 @@ declare module 'perf_hooks' {
          * @param name
          * @param startMark
          * @param endMark
+         * @return The PerformanceMeasure entry that was created
          */
-        measure(name: string, startMark?: string, endMark?: string): void;
-        measure(name: string, options: MeasureOptions): void;
+        measure(name: string, startMark?: string, endMark?: string): PerformanceMeasure;
+        measure(name: string, options: MeasureOptions): PerformanceMeasure;
         /**
          * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
          */
@@ -270,6 +309,9 @@ declare module 'perf_hooks' {
          *    *   }
          *    * ]
          *
+         *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
          *   observer.disconnect();
          * });
          * obs.observe({ type: 'mark' });
@@ -317,6 +359,9 @@ declare module 'perf_hooks' {
          *    * ]
          *
          *   console.log(perfObserverList.getEntriesByName('test', 'measure')); // []
+         *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
          *   observer.disconnect();
          * });
          * obs.observe({ entryTypes: ['mark', 'measure'] });
@@ -355,6 +400,8 @@ declare module 'perf_hooks' {
          *    *   }
          *    * ]
          *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
          *   observer.disconnect();
          * });
          * obs.observe({ type: 'mark' });
@@ -384,7 +431,7 @@ declare module 'perf_hooks' {
          * } = require('perf_hooks');
          *
          * const obs = new PerformanceObserver((list, observer) => {
-         *   // Called three times synchronously. `list` contains one item.
+         *   // Called once asynchronously. `list` contains three items.
          * });
          * obs.observe({ type: 'mark' });
          *
@@ -499,6 +546,12 @@ declare module 'perf_hooks' {
          * @since v15.9.0, v14.18.0
          */
         recordDelta(): void;
+        /**
+         * Adds the values from other to this histogram.
+         * @since v17.4.0, v16.14.0
+         * @param other Recordable Histogram to combine with
+         */
+         add(other: RecordableHistogram): void;
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._

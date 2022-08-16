@@ -23,10 +23,10 @@ import {
     Hippy,
     Clipboard,
     ConsoleModule,
-    // ImageBackground,
     NetworkModule,
     PixelRatio,
     WebView,
+    StyleSheet,
 } from '@hippy/react';
 
 function Comp() {
@@ -49,15 +49,26 @@ function Comp() {
     }, []);
 
     return (
-        <View>
+        <View overflow="hidden" style={{ overflow: 'hidden', collapsable: true }}>
+            <View overflow="visible" style={{ overflow: 'visible', collapsable: false }} />
             <Text>
                 'test'
                 <Text>'nested'</Text>
             </Text>
             <TextInput ref={textInput} />
             <ListView numberOfRows={1} bounces={false} />;
-            <ViewPager initialPage={0} keyboardDismissMode="none" horizontal />;
-            <ScrollView keyboardDismissMode="none" />;
+            <ScrollView keyboardDismissMode="none">
+                <View />
+            </ScrollView>
+            <RefreshWrapper>
+                <View />
+            </RefreshWrapper>
+            <Modal visible={true}>
+                <View />
+            </Modal>
+            <ViewPager keyboardDismissMode="none" horizontal>
+                {[<View />, <View />]}
+            </ViewPager>
         </View>
     );
 }
@@ -69,3 +80,10 @@ new Hippy({
     },
     silent: true,
 }).start();
+
+const styles = StyleSheet.create({
+    style1: {
+        borderStyle: 'solid',
+        overflow: 'visible',
+    },
+});

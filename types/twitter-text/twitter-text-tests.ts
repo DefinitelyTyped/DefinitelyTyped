@@ -64,3 +64,5 @@ const tweetWithOptions: twitter.ParsedTweet = twitter.parseTweet('foo', {
     emojiParsingEnabled: true,
 });
 const [start, end]: [number, number] = twitter.standardizeIndices('hello', 0, 3);
+
+const isValidReply = twitter.regexen.validReply.test('@twitter');

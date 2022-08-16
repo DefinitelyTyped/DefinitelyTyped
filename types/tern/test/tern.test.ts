@@ -16,7 +16,7 @@ server.request({
 
 server.request({
 }, (error, response) => {
-    // $ExpectError
+    // @ts-expect-error
     if (response && response.isProperty) {
         //
     }
@@ -48,7 +48,7 @@ server.request({
 server.request({
     query: undefined
 }, (error, response) => {
-    // $ExpectError
+    // @ts-expect-error
     if (response && response.isProperty) {
         //
     }

@@ -201,3 +201,13 @@ const stagedFeatureName: MicrosoftGraph.StagedFeatureName = "seamlessSso";
 const accessReviewExpirationBehavior: MicrosoftGraph.AccessReviewExpirationBehavior = "acceptAccessRecommendation";
 
 const roleEligibilityScheduleFilterByCurrentUserOptions: MicrosoftGraph.RoleEligibilityScheduleFilterByCurrentUserOptions = "principal";
+
+const bookingPriceType: MicrosoftGraph.BookingPriceType = "undefined";
+
+const longRunningOperationStatus: MicrosoftGraph.LongRunningOperationStatus = "succeeded";
+
+const album: MicrosoftGraph.Album = {
+    coverImageItemId: "test",
+};
+
+const bookingsAvailabilityStatus: MicrosoftGraph.BookingsAvailabilityStatus = "available";

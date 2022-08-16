@@ -138,7 +138,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // Card renders a `div` by default:
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 // `div` doesn't support autoFocus:
-// $ExpectError
+// @ts-expect-error
 <C.Card autoFocus />;
 
 <C.CardBody isShady size="extraSmall">
@@ -154,9 +154,9 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 </C.CardFooter>;
 
 // Divider has no children or props except className
-// $ExpectError
+// @ts-expect-error
 <C.CardDivider>Hello world!</C.CardDivider>;
-// $ExpectError
+// @ts-expect-error
 <C.CardDivider isShady />;
 <C.CardDivider />;
 
@@ -327,6 +327,21 @@ const buttonGroupRef = createRef<HTMLDivElement>();
         },
     ]}
 />;
+<C.DropdownMenu
+    icon={<span>icon</span>}
+    label="Select a direction"
+    controls={[
+        {
+            title: 'Up',
+            icon: 'arrow-up-alt',
+            onClick: () => console.log('up'),
+        },
+    ]}
+    menuProps={{ orientation: 'vertical' }}
+    popoverProps={{ animate: true }}
+    toggleProps={{ variant: 'primary' }}
+    disableOpenOnArrowDown={true}
+/>;
 
 //
 // external-link
@@ -474,7 +489,7 @@ const IconFunctionComponent = (props: { foo: number; bar: number }) => (
 // keyboard-shortcuts
 //
 const kbshortcutActionOne = () => console.log('action 1');
-const kbshortcutActionTwo = () => console.log('action 1');
+const kbshortcutActionTwo = (event: KeyboardEvent) => console.log('action 1', event);
 const kbshortcuts = {
     'mod+a': kbshortcutActionOne,
     'ctrl+shift+j': kbshortcutActionTwo,

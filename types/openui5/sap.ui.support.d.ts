@@ -1,4 +1,4 @@
-// For Library Version: 1.101.0
+// For Library Version: 1.102.0
 
 declare module "sap/ui/support/library" {
   /**
@@ -188,6 +188,8 @@ declare module "sap/ui/support/RuleAnalyzer" {
      * @SINCE 1.60
      *
      * Adds new temporary rule when in silent mode
+     *
+     * @returns Rule creation status. Possible values are "success" or description of why adding failed.
      */
     addRule(
       /**
@@ -201,6 +203,8 @@ declare module "sap/ui/support/RuleAnalyzer" {
      *
      * Allows to choose a particular execution scope - desired part of the UI to be checked and a flexible way
      * to specify the list of rules to be used.
+     *
+     * @returns Notifies the finished state by starting the Analyzer
      */
     analyze(
       /**
@@ -235,10 +239,15 @@ declare module "sap/ui/support/RuleAnalyzer" {
     ): Promise<any>;
     /**
      * Returns the history of all executed analyses.
+     *
+     * @returns Array of history objects in the order of analyses performed. The results of the last analysis
+     * are contained in the last element in the array.
      */
     getAnalysisHistory(): AnalysisResult[];
     /**
      * Returns the history of all executed analyses into formatted output depending on the passed format.
+     *
+     * @returns All analysis history objects in the correct format.
      */
     getFormattedAnalysisHistory(
       /**
@@ -248,6 +257,8 @@ declare module "sap/ui/support/RuleAnalyzer" {
     ): any;
     /**
      * Returns the result of the last analysis performed.
+     *
+     * @returns Last analysis history.
      */
     getLastAnalysisHistory(): AnalysisResult;
   }
@@ -275,6 +286,8 @@ declare namespace sap {
       namespace RuleSet {
         /**
          * Adds rules to RuleSet.
+         *
+         * @returns sRuleVerificationStatus Verification status
          */
         function addRule(
           /**
@@ -288,6 +301,8 @@ declare namespace sap {
         function clearAllRuleSets(): void;
         /**
          * Gets all rules from the RuleSet.
+         *
+         * @returns All rules within the current RuleSet
          */
         function getRules(): object;
         /**
@@ -320,6 +335,8 @@ declare namespace sap {
         ): void;
         /**
          * Updates rules from the RuleSet.
+         *
+         * @returns sRuleVerification Rule Verification status
          */
         function updateRule(
           /**
@@ -355,6 +372,10 @@ declare namespace sap {
       class ExecutionScope {
         constructor();
 
+        /**
+         *
+         * @returns Array of matched elements
+         */
         static getElements(
           /**
            * Object with specific filtering options
@@ -376,6 +397,8 @@ declare namespace sap {
         ): any[];
         /**
          * Gets elements by their type
+         *
+         * @returns Array of matched elements
          */
         static getElementsByClassName(
           /**
@@ -385,6 +408,8 @@ declare namespace sap {
         ): any[];
         /**
          * Gets the logged objects by object type
+         *
+         * @returns Array of logged objects
          */
         static getLoggedObjects(
           /**
@@ -394,10 +419,14 @@ declare namespace sap {
         ): any[];
         /**
          * Returns all public elements, i.e. elements that are part of public API aggregations
+         *
+         * @returns Array of matched elements
          */
         static getPublicElements(): any[];
         /**
          * Gets the type of the execution scope
+         *
+         * @returns The type of the execution scope. Possible values are `global`, `subtree` or `components`.
          */
         static getType(): string;
       }

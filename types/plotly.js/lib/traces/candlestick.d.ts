@@ -68,17 +68,21 @@ export interface CandlestickData {
     line: { width?: number | undefined };
 
     increasing: {
-        line?: {
-            color?: string | undefined;
-            width?: number | undefined;
-        } | undefined;
+        line?:
+            | {
+                  color?: string | undefined;
+                  width?: number | undefined;
+              }
+            | undefined;
     };
 
     decreasing: {
-        line?: {
-            color?: string | undefined;
-            width?: number | undefined;
-        } | undefined;
+        line?:
+            | {
+                  color?: string | undefined;
+                  width?: number | undefined;
+              }
+            | undefined;
     };
 
     hoverlabel: OhclData['hoverlabel'];

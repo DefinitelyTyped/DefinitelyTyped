@@ -66,3 +66,5 @@ confetti()!.then(() => {
 confetti()!.then(param => {
     param; // $ExpectType undefined
 });
+
+confetti.create(undefined, undefined);

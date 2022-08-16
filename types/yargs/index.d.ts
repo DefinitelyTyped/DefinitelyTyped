@@ -44,8 +44,7 @@ declare namespace yargs {
      * `Arguments<T>` to simplify the inferred type signature in client code.
      */
     interface Argv<T = {}> {
-        (): { [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }>;
-        (args: ReadonlyArray<string>, cwd?: string): Argv<T>;
+        (args?: ReadonlyArray<string> | string, cwd?: string): Argv<T>;
 
         /**
          * Set key names as equivalent such that updates to a key will propagate to aliases and vice-versa.

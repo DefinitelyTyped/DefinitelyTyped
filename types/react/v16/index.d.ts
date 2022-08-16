@@ -2084,6 +2084,8 @@ declare namespace React {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        onCancel?: ReactEventHandler<T> |  undefined;
+        onClose?: ReactEventHandler<T> |  undefined;
         open?: boolean | undefined;
     }
 
@@ -2109,6 +2111,7 @@ declare namespace React {
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
+        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {

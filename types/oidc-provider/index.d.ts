@@ -1122,6 +1122,8 @@ export interface Configuration {
 
     responseTypes?: ResponseType[] | undefined;
 
+    revokeGrantPolicy?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
+
     pkce?: {
         methods: PKCEMethods[];
         required?: ((ctx: KoaContextWithOIDC, client: Client) => boolean) | undefined;

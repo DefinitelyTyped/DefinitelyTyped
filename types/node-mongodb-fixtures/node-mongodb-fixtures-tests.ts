@@ -11,7 +11,7 @@ const options: Fixtures.Options = {
 
 // $ExpectType Fixtures
 const fixtures0 = new Fixtures();
-// $ExpectError
+// @ts-expect-error
 fixtures0.connect();
 
 // $ExpectType Fixtures

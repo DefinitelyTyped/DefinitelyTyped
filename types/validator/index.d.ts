@@ -571,7 +571,7 @@ declare namespace validator {
      */
     function isRgbColor(str: string, includePercentValues?: boolean): boolean;
 
-    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW';
+    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW' | 'zh-CN';
 
     /**
      * Check if the string is a valid identity card code.
@@ -950,6 +950,7 @@ declare namespace validator {
          * @default false
          */
         no_symbols?: boolean | undefined;
+        locale?: AlphaLocale | undefined;
     }
 
     /**
@@ -985,6 +986,7 @@ declare namespace validator {
         | 'BR'
         | 'CA'
         | 'CH'
+        | 'CN'
         | 'CZ'
         | 'DE'
         | 'DK'

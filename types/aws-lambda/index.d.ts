@@ -53,6 +53,7 @@ export * from "./trigger/alb";
 export * from "./trigger/api-gateway-authorizer";
 export * from "./trigger/api-gateway-proxy";
 export * from "./trigger/appsync-resolver";
+export * from "./trigger/autoscaling";
 // CloudTrail section just describes using S3 to trigger on cloudtrail changes.
 export * from "./trigger/cdk-custom-resource";
 export * from "./trigger/cloudformation-custom-resource";

@@ -357,6 +357,8 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         else
             throw Error("pbkdf2 key derivation fail");
     });
+
+    const key5: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32, 'sha256');
 }
 
 {

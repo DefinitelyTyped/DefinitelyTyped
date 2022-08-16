@@ -17,7 +17,7 @@ function suspenseTest() {
 }
 
 // Unsupported `revealOrder` triggers a runtime warning
-// $ExpectError
+// @ts-expect-error
 <React.SuspenseList revealOrder="something">
     <React.Suspense fallback="Loading">Content</React.Suspense>
 </React.SuspenseList>;

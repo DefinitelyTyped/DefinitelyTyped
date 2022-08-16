@@ -11,7 +11,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 Essa seção acompanha a saúde do respositório e o processo de publicação.
 Ela pode servir de ajuda para contribuidores que estejam passando por problemas com suas PRs e pacotes.
 
-* Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/Microsoft/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Todos os pacotes tem seus tipos checados/são analisadas pelo linter no typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * Todos os pacotes estão sendo [publicados no npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) esteve ativo no Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
@@ -49,11 +49,11 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (3.7 e anteriores)
+#### Versões antigas do TypeScript (3.9 e anteriores)
 
 O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 3.8 e acima são testadas.
-Se você está usando as versões 2.0 a 3.7 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
+Atualmente, as versões 4.0 e acima são testadas.
+Se você está usando as versões 2.0 a 3.9 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
@@ -187,7 +187,7 @@ Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado a
 
 Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
 
-Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+Este script usa o [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
 
 #### Naming
 
@@ -225,7 +225,7 @@ const result = twoslash("//")
 + // Lida com o parâmetro options
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // Quando o parâmetro está incorreto
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -233,17 +233,17 @@ Se você está se perguntando por onde começar os testes em seu código, os exe
 
 Você pode [validar suas mudanças](#verificando) executando `npm test` na raiz deste repositório, que leva em consideração os arquivos alterados.
 
-Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `$ExpectError`.
+Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `@ts-expect-error`.
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("um");
 ```
 
-Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Microsoft/dtslint#write-tests).
+Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests).
 
 #### Linter: `tslint.json`
 
@@ -280,7 +280,8 @@ Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em u
 * Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `npm run prettier -- --write path/to/package/**/*.ts`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
   ```tsx
   // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  // @ts-expect-error
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
   ```
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` se a função não adiciona valores a seus parâmetros.
 * `interface Foo { new(): Foo; }`:
@@ -522,11 +523,6 @@ Quando `dts-gen` for usado para montar um pacote com escopo, a propriedade `path
     }
 }
 ```
-
-
-#### O histórico do arquivo no GitHub parece incompleto.
-
-O GitHub não [suporta](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) histórico de arquivos renomeados. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) ao invés disso.
 
 ## Licença
 

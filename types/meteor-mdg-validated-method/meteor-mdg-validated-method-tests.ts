@@ -104,7 +104,7 @@ plainMethod.call({}, (error, result) => {});
 noArgsMethod.call((error, result) => {});
 
 // can't call methods that have args without those args
-// $ExpectError
+// @ts-expect-error
 methodWithArgs.call({}, (error, result) => {});
 
 // can call them with correct args and a callback
@@ -125,7 +125,7 @@ methodWithArgs.call({
 });
 
 // can't call methods that have args without those args
-// $ExpectError
+// @ts-expect-error
 methodWithSchemaMixin.call({}, (error, result) => {});
 
 // can call them with correct args and a callback
@@ -148,7 +148,7 @@ methodWithSchemaMixin.call({
 // mixin can't return void
 new ValidatedMethod({
     name: 'methodWithFaultySchemaMixin',
-    // $ExpectError
+    // @ts-expect-error
     mixins: [function nonReturningFunction() {}],
     run() {
         return 'result';
@@ -158,7 +158,7 @@ new ValidatedMethod({
 // mixin can't return void, even with multiple mixins
 new ValidatedMethod({
     name: 'methodWithFaultySchemaMixin',
-    // $ExpectError
+    // @ts-expect-error
     mixins: [args => args, () => {}],
     run() {
         return 'result';
@@ -192,7 +192,7 @@ new ValidatedMethod({
 
 new ValidatedMethod({
     name: 'methodWithWrongTypedMixin',
-    // $ExpectError
+    // @ts-expect-error
     mixins: [numberToStringMixin],
     validate: null,
     run(args: { arg: string }) {
@@ -224,4 +224,9 @@ new ValidatedMethod({
         // $ExpectType void
         this.unblock();
     }
+});
+
+methodReturnsName.call((error, result) => {
+    // $ExpectType Error | undefined
+    error;
 });

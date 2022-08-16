@@ -34,7 +34,7 @@ serveStatic('/does-not-assume-express', {
     setHeaders: function(res) {
         // ServerResponse
         res;
-        // $ExpectError
+        // @ts-expect-error
         res.set("foo", "bar");
     }
 });

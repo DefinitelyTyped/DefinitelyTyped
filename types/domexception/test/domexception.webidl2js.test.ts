@@ -24,7 +24,7 @@ if (DOMException.isImpl(any)) {
     any; // $ExpectType DOMExceptionImpl
 }
 
-DOMException.setup<DOMException>(Object.create(global.DOMException.prototype), global, [
+DOMException.setup<import("domexception")>(Object.create(global.DOMException.prototype), global, [
     'foo',
     'SyntaxError',
 ]);
