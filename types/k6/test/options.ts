@@ -89,3 +89,12 @@ const tlsOptions3: Options = {
         },
     ],
 };
+
+const tlsOptions4: Options = {
+    tlsAuth: [
+        {
+            cert: open("mycert.pem"),
+            key: open("mycert-key.pem"),
+        },
+    ],
+};
