@@ -24,6 +24,19 @@ declare namespace postcssPresetEnv {
          * **Stage 2** features.
          */
         stage?: number | undefined;
+        
+        /**
+         * The `minimumVendorImplementations` option determines which CSS
+         * features to polyfill, based their implementation status.
+         * This can be used to enable plugins that are available in browsers
+         * regardless of the {@linkplain pluginOptions.stage|spec status}.
+         *
+         * `minimumVendorImplementations` can be `0` (no vendor has implemented
+         * it) through `3` (all major vendors).
+         *
+         * @default 0
+         */
+        minimumVendorImplementations?: number | undefined;
 
         /**
          * The features option enables or disables specific polyfills by ID.
@@ -104,6 +117,22 @@ declare namespace postcssPresetEnv {
          * CSS, JS, and JSON files, functions, and directly passed objects.
          */
         exportTo?: string | any[] | undefined;
+        
+        /**
+         * The `debug` option enables debugging messages to stdout which
+         * should be useful to help you debug which features have been
+         * enabled/disabled and why.
+         */
+        debug?: boolean | undefined;
+
+        /**
+         * The `enableClientSidePolyfills` option enables any feature that
+         * would need an extra browser library to be loaded into the page
+         * for it to work.
+         *
+         * @default true
+         */
+        enableClientSidePolyfills?: boolean | undefined;
     }
 
     namespace pluginOptions {
