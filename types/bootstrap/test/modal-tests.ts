@@ -22,6 +22,13 @@ element.addEventListener(Modal.Events.show, event => {
     event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
+// Ensure that using a string literal as the event type works the same as using
+// the `Modal.Events` enum.
+element.addEventListener('show.bs.modal', event => {
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
+});
+
 element.addEventListener(Modal.Events.shown, event => {
     event.target; // $ExpectType HTMLElement
     event.relatedTarget; // $ExpectType HTMLElement | undefined
