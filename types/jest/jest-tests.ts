@@ -782,15 +782,15 @@ switch (mockResult.type) {
 expect.setState(true);
 expect.setState({for: 'state'});
 const expectState = expect.getState();
-// $ExpectType string
+// $ExpectType string | undefined
 expectState.currentTestName;
-// $ExpectType string
+// $ExpectType string | undefined
 expectState.testPath;
-// $ExpectType boolean
+// $ExpectType boolean | undefined
 expectState.expand;
 // $ExpectType number
 expectState.assertionCalls;
-// $ExpectType number
+// $ExpectType number | null | undefined
 expectState.expectedAssertionsNumber;
 // $ExpectType boolean | undefined
 expectState.isExpectingAssertions;
@@ -910,7 +910,7 @@ expect.extend({
 expect.extend({
     foo(this: jest.MatcherContext) {
         const isNot: boolean = this.isNot;
-        const expand: boolean = this.expand;
+        const expand: boolean | undefined = this.expand;
 
         const expectedColor = this.utils.EXPECTED_COLOR('blue');
         const receivedColor = this.utils.EXPECTED_COLOR('red');
@@ -953,10 +953,10 @@ expect.extend({
 
         const equals: boolean = this.equals({}, {});
 
-        this.dontThrow();
+        this.dontThrow!();
         this.fromState;
-        const currentTestName: string = this.currentTestName;
-        const testPath: string = this.testPath;
+        const currentTestName: string | undefined = this.currentTestName;
+        const testPath: string | undefined = this.testPath;
 
         return {
             message: () => `Can use ${this.promise} for failure message`,

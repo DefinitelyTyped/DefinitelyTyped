@@ -85,6 +85,14 @@ declare module 'perf_hooks' {
          * @since v16.0.0
          */
         readonly detail?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
+        toJSON(): any;
+    }
+    class PerformanceMark extends PerformanceEntry {
+        readonly duration: 0;
+        readonly entryType: 'mark';
+    }
+    class PerformanceMeasure extends PerformanceEntry {
+        readonly entryType: 'measure';
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
@@ -226,8 +234,9 @@ declare module 'perf_hooks' {
          * and whose performanceEntry.duration is always 0.
          * Performance marks are used to mark specific significant moments in the Performance Timeline.
          * @param name
+         * @return The PerformanceMark entry that was created
          */
-        mark(name?: string, options?: MarkOptions): void;
+        mark(name?: string, options?: MarkOptions): PerformanceMark;
         /**
          * Creates a new PerformanceMeasure entry in the Performance Timeline.
          * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
@@ -242,9 +251,10 @@ declare module 'perf_hooks' {
          * @param name
          * @param startMark
          * @param endMark
+         * @return The PerformanceMeasure entry that was created
          */
-        measure(name: string, startMark?: string, endMark?: string): void;
-        measure(name: string, options: MeasureOptions): void;
+        measure(name: string, startMark?: string, endMark?: string): PerformanceMeasure;
+        measure(name: string, options: MeasureOptions): PerformanceMeasure;
         /**
          * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
          */

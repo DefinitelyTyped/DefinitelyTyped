@@ -2,6 +2,7 @@ import * as fs from 'node:fs';
 import assert = require('node:assert');
 import * as util from 'node:util';
 import * as url from 'node:url';
+import { access, constants, copyFile } from 'node:fs/promises';
 
 {
     fs.writeFile("thebible.txt",
@@ -615,3 +616,9 @@ async function testStat(
     fs.promises.lstat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     fh.stat(opts); // $ExpectType Promise<Stats | BigIntStats>
 }
+
+// constants
+async () => {
+    await copyFile('source.txt', 'destination.txt', constants.COPYFILE_EXCL);
+    await access('/etc/passwd', constants.R_OK | constants.W_OK);
+};

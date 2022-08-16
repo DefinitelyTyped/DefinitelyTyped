@@ -88,7 +88,7 @@ declare namespace googletag {
      * });
      * ```
      */
-    let cmd: CommandArray | Array<(this: typeof globalThis) => void>;
+    let cmd: CommandArray | Array<() => void>;
     /**
      * Flag indicating that `PubAdsService` is enabled, loaded and fully operational.
      * This property will be simply `undefined` until `googletag.enableServices()` is called and `PubAdsService` is loaded and initialized.
@@ -306,7 +306,7 @@ declare namespace googletag {
          * Consider passing an arrow function to retain the this value of the enclosing lexical context.
          * @returns The number of commands processed so far. This is compatible with `Array.push`'s return value (the current length of the array).
          */
-        push(...f: Array<(this: typeof globalThis) => void>): number;
+        push(...f: Array<() => void>): number;
     }
     /**
      * Companion Ads service.
