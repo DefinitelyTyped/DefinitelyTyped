@@ -8,7 +8,9 @@ import MUIDataTable, {
     Popover,
 } from 'mui-datatables';
 import * as React from 'react';
-import { createMuiTheme, Checkbox, Radio } from '@material-ui/core';
+import { Checkbox, Radio } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
+
 
 interface Props extends Omit<MUIDataTableProps, 'columns'> {
     columns?: MUIDataTableColumn[] | undefined;
@@ -265,15 +267,19 @@ const disabledOptions: MUIDataTableOptions = {
 
 <MuiCustomTable title="Disabled Buttons" data={Todos} options={disabledOptions} />;
 
-const MuiTheme = createMuiTheme({
-    overrides: {
+const MuiTheme = createTheme({
+    components: {
         MUIDataTable: {
-            root: {
-                fontWeight: 300,
-            },
+            styleOverrides: {
+                root: {
+                    fontWeight: 300,
+                },
+            }
         },
         MUIDataTableBody: {
-            emptyTitle: {},
+            styleOverrides: {
+                emptyTitle: {},
+            }
         },
     },
 });
