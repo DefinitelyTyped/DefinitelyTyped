@@ -2,6 +2,7 @@
 // Project: https://github.com/kamranahmedse/redux-persist-expire
 // Definitions by: bill <https://github.com/0529bill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Typescript 4.9
 
 import { Transform } from 'redux-persist';
 interface ConfigType {
