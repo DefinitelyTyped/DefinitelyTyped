@@ -183,6 +183,9 @@ export interface Certificate {
 
     /** PEM encoded certificate key. */
     key: string;
+
+    /** PEM passphrase. */
+    password?: string;
 }
 
 export type ExecutorOptions = "shared-iterations" | "per-vu-iterations" | "constant-vus" | "ramping-vus" | "constant-arrival-rate" | "ramping-arrival-rate" | "externally-controlled";

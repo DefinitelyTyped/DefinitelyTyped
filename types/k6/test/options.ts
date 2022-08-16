@@ -59,3 +59,33 @@ const scenarioExample: Options = {
         }
     }
 };
+
+const tlsOptions1: Options = {
+    tlsAuth: [
+        {
+            domains: ["example.com"],
+            cert: open("mycert.pem"),
+            key: open("mycert-key.pem"),
+            password: "mycert-passphrase",
+        },
+    ],
+};
+
+const tlsOptions2: Options = {
+    tlsAuth: [
+        {
+            domains: ["example.com"],
+            cert: open("mycert.pem"),
+            key: open("mycert-key.pem"),
+        },
+    ],
+};
+
+const tlsOptions3: Options = {
+    tlsAuth: [ // @ts-expect-error
+        {
+            domains: ["example.com"],
+            cert: open("mycert.pem"),
+        },
+    ],
+};
