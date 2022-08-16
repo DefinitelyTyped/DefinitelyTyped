@@ -1,6 +1,6 @@
 import expireReducer = require('redux-persist-expire');
 
-expireReducer('preference', {
+const Reducer = expireReducer('preference', {
     persistedAtKey: '__persisted_at',
     expireSeconds: null,
     expiredState: {},
