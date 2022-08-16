@@ -203,10 +203,10 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     const readyState: videojs.ReadyState = this.readyState();
 
-    this.playbackRates([1,1.5,2])
+    this.playbackRates([1,1.5,2]);
 
     // $ExpectType number[]
-    const playbackRates: number[] = this.playbackRates()
+    const playbackRates: number[] = this.playbackRates();
 
     // $ExpectType string
     const currentBreakPoint = this.currentBreakpoint();
