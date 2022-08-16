@@ -12,6 +12,8 @@ import * as stream from 'stream';
 
 export type QRCodeErrorCorrectionLevel = 'low' | 'medium' | 'quartile' | 'high' | 'L' | 'M' | 'Q' | 'H';
 
+export type QRCodeMAskPattern = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | '1' | '2' | '3' | '4' | '5' | '6' | '7';
+
 export interface QRCodeOptions {
     /**
      * QR Code version. If not specified the more suitable value will be calculated.
@@ -23,6 +25,12 @@ export interface QRCodeOptions {
      * Default: M
      */
     errorCorrectionLevel?: QRCodeErrorCorrectionLevel | undefined;
+    /**
+     * maskPattern.
+     * Possible values are numbers 0 to 7 or strings representing numbers 0 to 7.
+     * Default: undefined - most suitable value will be calculated.
+     */
+    maskPattern?: QRCodeMAskPattern;
     /**
      * Helper function used internally to convert a kanji to its Shift JIS value.
      * Provide this function if you need support for Kanji mode.
@@ -164,7 +172,7 @@ export interface QRCode {
     /**
      * Calculated Mask pattern
      */
-    maskPattern: any;
+    maskPattern: QRCodeMAskPattern;
     /**
      * Generated segments
      */
