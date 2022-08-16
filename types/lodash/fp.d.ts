@@ -1922,7 +1922,15 @@ declare namespace _ {
     type LodashIsBuffer = (value: any) => boolean;
     type LodashIsDate = (value: any) => value is Date;
     type LodashIsElement = (value: any) => boolean;
-    type LodashIsEmpty = (value: any) => boolean;
+    interface LodashIsEmpty {
+        <T extends { __trapAny: any }>(value: T): boolean;
+        (value: string | null | undefined): value is '' | null | undefined;
+        (value: any[] | null | undefined): boolean;
+        (value: ReadonlyArray<any> | null | undefined): value is Readonly<[]> | null | undefined;
+        (value: Map<any, any> | Set<any> | lodash.List<any> | null | undefined): boolean;
+        <T extends object>(value: T | null | undefined): value is lodash.EmptyObjectOf<T> | null | undefined;
+        (value?: any): boolean;
+    }
     interface LodashIsEqualWith {
         (customizer: lodash.IsEqualCustomizer): LodashIsEqualWith1x1;
         (customizer: lodash.__, value: any): LodashIsEqualWith1x2;
