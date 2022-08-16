@@ -860,10 +860,7 @@ function interfaceToString(interfaceDef: Interface): string {
     } else if (interfaceDef.overloads.length === 1 && _.isEmpty(interfaceDef.constants)) {
         // Don't create an interface for a single type. Instead use a basic type def.
         const overload = interfaceDef.overloads[0];
-        // HACK: omit jsdoc comments because they cause the build to run out of memory
-        // const jsdoc = overload.jsdoc;
-        const jsdoc = "";
-        overload.jsdoc = "";
+        const jsdoc = overload.jsdoc;
         let overloadString = overloadToString(overload, true);
         overloadString = jsdoc ? lineBreak + tab(jsdoc + lineBreak + overloadString, 1) : " " + overloadString;
         return `type ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} =${overloadString}`;
@@ -876,9 +873,8 @@ function interfaceToString(interfaceDef: Interface): string {
 
 function overloadToString(overload: Overload, arrowSyntax = false): string {
     const joinedParams = overload.params.join(", ");
-    // HACK: omit jsdoc comments because they cause the build to run out of memory
-    // let jsdoc = overload.jsdoc;
-    let jsdoc = "";
+
+    let jsdoc = overload.jsdoc;
     if (jsdoc)
         jsdoc += lineBreak;
     if (overload.tslintDisable)
