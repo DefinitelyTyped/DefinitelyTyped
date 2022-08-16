@@ -1,11 +1,10 @@
 import * as React from 'react';
 import * as Table from '@af-utils/react-table';
-import { useVirtualModel, Model } from '@af-utils/react-virtual-headless';
 
 const basicTable = () => {
     return (
         <Table.Table
-            model={useVirtualModel()}
+            model={Table.useVirtualModel()}
             columns={[
                 {
                     key: 'abc',
@@ -20,7 +19,7 @@ const basicTable = () => {
 const overrideAllExceptComponents = () => {
     return (
         <Table.Table
-            model={useVirtualModel()}
+            model={Table.useVirtualModel()}
             columns={[
                 {
                     key: 'abc',
@@ -47,7 +46,7 @@ const overrideAllExceptComponents = () => {
 const overrideComponentsOnly = () => {
     return (
         <Table.Table
-            model={useVirtualModel()}
+            model={Table.useVirtualModel()}
             columns={[
                 {
                     key: 'abc',
@@ -95,7 +94,7 @@ const components: Table.ComponentMap = {
         return <div className="cell">{props.children}</div>;
     },
 
-    Row: ({ i, i2, model, data }: { i: number; i2: number; model: Model; data: Table.RowProps }) => {
+    Row: ({ i, i2, model, data }: { i: number; i2: number; model: Table.Model; data: Table.RowProps }) => {
         return <div className="row" key={i}></div>;
     },
 

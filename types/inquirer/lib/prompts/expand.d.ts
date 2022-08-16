@@ -1,7 +1,7 @@
 import { Interface as ReadlineInterface } from 'readline';
-import inquirer, { Answers, ExpandQuestionOptions } from '../..';
-import Paginator from '../utils/paginator';
-import Prompt from './base';
+import inquirer, { Answers, ExpandQuestionOptions } from '../../index.js';
+import Paginator from '../utils/paginator.js';
+import Prompt from './base.js';
 
 /**
  * The question-options for the {@link ExpandPrompt `ExpandPrompt<TQuestion>`}.
