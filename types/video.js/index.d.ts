@@ -6746,10 +6746,10 @@ export interface VideoJsPlayer extends videojs.Component {
      * Set or get current playback rates.
      * Takes an array and updates the playback rates menu with the new items.
      * Pass in an empty array to hide the menu.
-     **/
-    playbackRates(rates: number[]): void
+     */
+    playbackRates(rates: number[]): void;
 
-    playbackRates(): number[]
+    playbackRates(): number[];
 
     /**
      * Get a TimeRange object representing the current ranges of time that the user
