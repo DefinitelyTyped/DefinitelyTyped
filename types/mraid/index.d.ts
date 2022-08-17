@@ -1,13 +1,12 @@
-// Type definitions for mraid 0.1
+// Type definitions for mraid 1.0
 // Project: https://github.com/sumn2u/mraid-type-definitions#readme
 // Definitions by: Suman Kunwar <https://github.com/sumn2u>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 interface MRAID1 {
     getVersion(): MRAIDVersion;
-    addEventListener<K extends keyof MRAIDEventHandlers>(name: string, eventHandler: MRAIDEventHandlers[K]): void;
-    removeEventListener<K extends keyof MRAIDEventHandlers>(name: string, eventHandler?: MRAIDEventHandlers[K]): void;
+    addEventListener(name: string, eventHandler: MRAIDEventHandlers): void;
+    removeEventListener(name: string, eventHandler?: MRAIDEventHandlers): void;
     getState(): MRAIDState;
     // For full compatibility, open should be called from inside a DOM interaction event handler
     open(url: string): void;
@@ -49,9 +48,9 @@ interface MRAID3 extends MRAID2 {
     getCurrentAppOrientation(): MRAIDAppOrientationState;
     getLocation(): MRAIDLocationState | undefined;
 }
-declare type MRAID = MRAID1 | MRAID2 | MRAID2VideoAddendum | MRAID3;
-declare type MRAIDVersion = "1.0" | "2.0" | "3.0";
-declare type MRAIDENVDeclaration = Readonly<{
+type MRAID = MRAID1 | MRAID2 | MRAID2VideoAddendum | MRAID3;
+type MRAIDVersion = "1.0" | "2.0" | "3.0";
+type MRAIDENVDeclaration = Readonly<{
     version: MRAIDVersion;
     sdk?: string;
     sdkVersion?: string;
@@ -74,10 +73,10 @@ interface MRAIDEventHandlers {
     audioVolumeChange: (newPercentage: number) => void;
     adAction: (action: keyof MRAID) => void;
 }
-declare type MRAIDFeature = "sms" | "tel" | "calendar" | "storePicture" | "inlineVideo" | "vpaid" | "location"; // Does not include supports features from MRAID 1.0 "Candidates for Future Versions" Addendum
-declare type MRAIDPlacementType = "inline" | "interstitial";
-declare type MRAIDState = "loading" | "default" | "expanded" | "resized" | "hidden";
-declare type MRAIDOrientation = "portrait" | "landscape";
+type MRAIDFeature = "sms" | "tel" | "calendar" | "storePicture" | "inlineVideo" | "vpaid" | "location"; // Does not include supports features from MRAID 1.0 "Candidates for Future Versions" Addendum
+type MRAIDPlacementType = "inline" | "interstitial";
+type MRAIDState = "loading" | "default" | "expanded" | "resized" | "hidden";
+type MRAIDOrientation = "portrait" | "landscape";
 interface MRAIDOrientationProperties {
     allowOrientationChange: boolean;
     forceOrientation: MRAIDOrientation | "none";
@@ -94,20 +93,20 @@ interface MRAIDSize {
     width: number;
     height: number;
 }
-declare type MRAIDRect = MRAIDPosition & MRAIDSize;
-declare type MRAIDExpandProperties = MRAIDSize & {
+type MRAIDRect = MRAIDPosition & MRAIDSize;
+type MRAIDExpandProperties = MRAIDSize & {
     // Deprecated in MRAID 3.0; should still be provided by SDKs for backwards compatibility, but may not be honoured
     useCustomClose: boolean;
     readonly isModal: boolean;
 };
-declare type MRAIDResizeProperties = MRAIDSize & {
+type MRAIDResizeProperties = MRAIDSize & {
     width: number;
     height: number;
     allowOffscreen: boolean;
     // Deprecated in MRAID 3.0; should still be provided by SDKs for backwards compatibility, but may not be honoured
     customClosePosition?: "top-left" | "top-right" | "bottom-right" | "bottom-left";
 };
-declare const enum MRAIDLocationType {
+declare enum MRAIDLocationType {
     LocationServices = 1,
     IPGeoLocation = 2,
     UserProvided = 3
@@ -120,7 +119,7 @@ interface MRAIDLocationState {
     lastfix: number;
     ipservice: string | undefined;
 }
-declare type MRAIDCalendarEvent = {
+interface MRAIDCalendarEvent {
     id?: string;
     description: string;
     location?: string;
@@ -131,13 +130,13 @@ declare type MRAIDCalendarEvent = {
     transparency?: string;
     recurrence?: any;
     reminder?: string;
-};
+}
 // See VPAID 2.0 spec for further method definitions, but only the declared methods are required by MRAID Video Addendum
-declare type MRAIDVPAIDObject = {
+type MRAIDVPAIDObject = {
     [key: string]: any;
 } & {
-    subscribe<K extends keyof MRAIDVPAIDEventHandlers>(fn: MRAIDVPAIDEventHandlers[K], event: string, listenerScope?: any): void;
-    unsubscribe<K extends keyof MRAIDVPAIDEventHandlers>(fn: MRAIDVPAIDEventHandlers[K], event: string): void;
+    subscribe(fn: MRAIDVPAIDEventHandlers, event: string, listenerScope?: any): void;
+    unsubscribe(fn: MRAIDVPAIDEventHandlers, event: string): void;
     startAd(): void;
     getAdDuration(): number;
     getAdRemainingTime(): number;
@@ -154,4 +153,9 @@ interface MRAIDVPAIDEventHandlers {
     AdVideoThirdQuartile: () => void;
     AdVideoComplete: () => void;
 }
-export { MRAID1, MRAID2, MRAID3, MRAIDENVDeclaration, MRAID2VideoAddendum, MRAIDVersion, MRAIDEventHandlers, MRAIDFeature, MRAIDPlacementType, MRAIDState, MRAIDOrientation, MRAIDOrientationProperties, MRAIDAppOrientationState, MRAIDPosition, MRAIDSize, MRAIDRect, MRAIDExpandProperties, MRAIDResizeProperties, MRAIDLocationType, MRAIDLocationState, MRAIDCalendarEvent, MRAIDVPAIDObject, MRAIDVPAIDEventHandlers };
+export { MRAID1, MRAID2, MRAID3, MRAIDENVDeclaration,
+    MRAID2VideoAddendum, MRAIDVersion, MRAIDEventHandlers,
+    MRAIDFeature, MRAIDPlacementType, MRAIDState, MRAIDOrientation, MRAIDOrientationProperties,
+    MRAIDAppOrientationState, MRAIDPosition, MRAIDSize, MRAIDRect, MRAIDExpandProperties,
+    MRAIDResizeProperties, MRAIDLocationType, MRAIDLocationState, MRAIDCalendarEvent,
+    MRAIDVPAIDObject, MRAIDVPAIDEventHandlers };
