@@ -14,7 +14,8 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "node"
     },
     "files": [
         "index.d.ts",
