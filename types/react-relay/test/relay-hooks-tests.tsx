@@ -20,7 +20,7 @@ import {
     useQueryLoader,
     useRefetchableFragment,
     useRelayEnvironment,
-    useSubscription
+    useSubscription,
 } from 'react-relay/hooks';
 
 import {
