@@ -32,9 +32,11 @@ export {
     IEnvironment as Environment,
     GraphQLTaggedNode,
     MutationType,
+    MutationTypes,
     NormalizationSelector,
     OperationDescriptor,
     RangeOperation,
+    RangeOperations,
     ReaderSelector,
     RelayContext,
     Snapshot,
@@ -76,3 +78,4 @@ export { useRefetchableFragment } from './relay-hooks/useRefetchableFragment';
 export { useRelayEnvironment } from './relay-hooks/useRelayEnvironment';
 export { useSubscribeToInvalidationState } from './relay-hooks/useSubscribeToInvalidationState';
 export { useSubscription } from './relay-hooks/useSubscription';
+export { useClientQuery } from './relay-hooks/useClientQuery';
