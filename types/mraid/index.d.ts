@@ -3,7 +3,7 @@
 // Definitions by: Suman Kunwar <https://github.com/sumn2u>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface MRAID1 {
+export interface MRAID1 {
     getVersion(): MRAIDVersion;
     addEventListener(name: string, eventHandler: MRAIDEventHandlers): void;
     removeEventListener(name: string, eventHandler?: MRAIDEventHandlers): void;
@@ -24,7 +24,7 @@ interface MRAID1 {
     // Deprecated in MRAID 3.0; should still be provided by SDKs for backwards compatibility
     isViewable(): boolean;
 }
-interface MRAID2 extends MRAID1 {
+export interface MRAID2 extends MRAID1 {
     supports(feature: MRAIDFeature): boolean;
     resize(): void;
     storePicture(url: string): void;
@@ -40,17 +40,17 @@ interface MRAID2 extends MRAID1 {
     // For full compatibility with all SDKs, clients should shallow copy getResizeProperties result into an empty object, apply changes and then pass into setResizeProperties
     setResizeProperties(newValues: Partial<MRAIDExpandProperties>): void;
 }
-interface MRAID2VideoAddendum extends MRAID2 {
+export interface MRAID2VideoAddendum extends MRAID2 {
     initVpaid(vpaidObject: MRAIDVPAIDObject): void;
 }
-interface MRAID3 extends MRAID2 {
+export interface MRAID3 extends MRAID2 {
     unload(): void;
     getCurrentAppOrientation(): MRAIDAppOrientationState;
     getLocation(): MRAIDLocationState | undefined;
 }
 type MRAID = MRAID1 | MRAID2 | MRAID2VideoAddendum | MRAID3;
 type MRAIDVersion = "1.0" | "2.0" | "3.0";
-type MRAIDENVDeclaration = Readonly<{
+export type MRAIDENVDeclaration = Readonly<{
     version: MRAIDVersion;
     sdk?: string;
     sdkVersion?: string;
@@ -59,7 +59,7 @@ type MRAIDENVDeclaration = Readonly<{
     limitAdTracking?: boolean;
     coppa?: boolean;
 }>;
-interface MRAIDEventHandlers {
+export interface MRAIDEventHandlers {
     // MRAID 1.0
     error: (message: string, action: keyof MRAID) => void;
     ready: () => void;
@@ -77,19 +77,19 @@ type MRAIDFeature = "sms" | "tel" | "calendar" | "storePicture" | "inlineVideo" 
 type MRAIDPlacementType = "inline" | "interstitial";
 type MRAIDState = "loading" | "default" | "expanded" | "resized" | "hidden";
 type MRAIDOrientation = "portrait" | "landscape";
-interface MRAIDOrientationProperties {
+export interface MRAIDOrientationProperties {
     allowOrientationChange: boolean;
     forceOrientation: MRAIDOrientation | "none";
 }
-interface MRAIDAppOrientationState {
+export interface MRAIDAppOrientationState {
     orientation: MRAIDOrientation;
     locked: boolean;
 }
-interface MRAIDPosition {
+export interface MRAIDPosition {
     x: number;
     y: number;
 }
-interface MRAIDSize {
+export interface MRAIDSize {
     width: number;
     height: number;
 }
@@ -111,7 +111,7 @@ declare enum MRAIDLocationType {
     IPGeoLocation = 2,
     UserProvided = 3
 }
-interface MRAIDLocationState {
+export interface MRAIDLocationState {
     lat: number;
     lon: number;
     type: MRAIDLocationType;
@@ -119,7 +119,7 @@ interface MRAIDLocationState {
     lastfix: number;
     ipservice: string | undefined;
 }
-interface MRAIDCalendarEvent {
+export interface MRAIDCalendarEvent {
     id?: string;
     description: string;
     location?: string;
@@ -141,7 +141,7 @@ type MRAIDVPAIDObject = {
     getAdDuration(): number;
     getAdRemainingTime(): number;
 };
-interface MRAIDVPAIDEventHandlers {
+export interface MRAIDVPAIDEventHandlers {
     AdClickThru: (url: string, id: string, playerHandles: boolean) => void;
     AdError: (message: string) => void;
     AdImpression: () => void;
@@ -153,9 +153,5 @@ interface MRAIDVPAIDEventHandlers {
     AdVideoThirdQuartile: () => void;
     AdVideoComplete: () => void;
 }
-export { MRAID1, MRAID2, MRAID3, MRAIDENVDeclaration,
-    MRAID2VideoAddendum, MRAIDVersion, MRAIDEventHandlers,
-    MRAIDFeature, MRAIDPlacementType, MRAIDState, MRAIDOrientation, MRAIDOrientationProperties,
-    MRAIDAppOrientationState, MRAIDPosition, MRAIDSize, MRAIDRect, MRAIDExpandProperties,
-    MRAIDResizeProperties, MRAIDLocationType, MRAIDLocationState, MRAIDCalendarEvent,
-    MRAIDVPAIDObject, MRAIDVPAIDEventHandlers };
+
+export {};
