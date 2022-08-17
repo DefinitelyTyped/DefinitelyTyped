@@ -223,7 +223,7 @@ export namespace marked {
         static parse(src: Token[] | TokensList, options?: MarkedOptions): string;
         static parseInline(src: Token[], options?: MarkedOptions): string;
         parse(src: Token[] | TokensList): string;
-        parseInline(src: Token[], renderer: Renderer): string;
+        parseInline(src: Token[], renderer?: Renderer): string;
         next(): Token;
     }
 
@@ -238,7 +238,7 @@ export namespace marked {
         lex(src: string): TokensList;
         blockTokens(src: string, tokens: Token[]): Token[];
         blockTokens(src: string, tokens: TokensList): TokensList;
-        inline(src: string, tokens: Token[]): void;
+        inline(src: string, tokens?: Token[]): void;
         inlineTokens(src: string, tokens: Token[]): Token[];
         state: {
             inLink: boolean;
