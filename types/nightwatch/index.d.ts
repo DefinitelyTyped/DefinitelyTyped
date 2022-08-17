@@ -1173,7 +1173,7 @@ export interface NightwatchAssertions extends NightwatchCommonAssertions, Nightw
     /**
      * Negates any of assertions following in the chain.
      */
-    not: this;
+    not: Omit<this, "not">;
 }
 
 export interface NightwatchCommonAssertions {
@@ -1277,6 +1277,8 @@ export interface NightwatchCommonAssertions {
      *      browser.assert.title("Nightwatch.js");
      *    };
      * ```
+     *
+     * @deprecated In favour of `titleEquals()`.
      */
     title(expected: string, message?: string): NightwatchAPI;
 
