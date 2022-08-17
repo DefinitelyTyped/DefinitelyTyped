@@ -14,6 +14,7 @@ import {
     useEntryPointLoader,
     useFragment,
     useLazyLoadQuery,
+    useClientQuery,
     useMutation,
     usePaginationFragment,
     usePreloadedQuery,
@@ -167,6 +168,27 @@ function LazyLoadQuery() {
             `,
             { id: '4' },
             { fetchPolicy: 'store-and-network', networkCacheConfig: { force: true } },
+        );
+
+        return <h1>{data.user!.name}</h1>;
+    };
+}
+
+/**
+ * Tests for useClientQuery
+ * see https://relay.dev/docs/en/experimental/api-reference#useClientQuery
+ */
+function ClientQuery() {
+    return function App() {
+        const data = useClientQuery<AppQuery>(
+            graphql`
+                query AppQuery($id: ID!) {
+                    user(id: $id) {
+                        name
+                    }
+                }
+            `,
+            { id: '4' },
         );
 
         return <h1>{data.user!.name}</h1>;
