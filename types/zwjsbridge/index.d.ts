@@ -33,7 +33,7 @@ interface ZWJSBridge {
         /** 是否支持获取 */
         result: boolean;
         /** 票据，可通过此票据获取用户信息 */
-        ticketId?: string
+        ticketId?: string;
     }>;
 
     /***********    缓存     ***********/
@@ -82,17 +82,16 @@ interface ZWJSBridge {
         id?: string;
     }>;
 
-    
     /**
      * 新开窗口
      */
-    openLink(options: { 
+    openLink(options: {
         /** 重新发起单点 适用于微信小程序环境 */
-        type?: 'reload',
+        type?: 'reload';
         /** 重定向地址 */
-        url?: string 
+        url?: string;
     }): Promise<{
-        ticketId?: string
+        ticketId?: string;
     }>;
 
     /**
