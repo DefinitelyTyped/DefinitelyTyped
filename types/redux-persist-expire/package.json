@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "redux-persist": "^5.10.0"
+    }
+}
