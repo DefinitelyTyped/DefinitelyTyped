@@ -104,6 +104,11 @@ export namespace DomUtil {
     let TRANSITION_END: string;
 }
 
+export class PosAnimation extends Evented {
+    run(el: HTMLElement, newPos: Point, duration?: number, easeLinearity?: number): void;
+    stop(): void;
+}
+
 export interface CRS {
     latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
     pointToLatLng(point: PointExpression, zoom: number): LatLng;
@@ -1870,6 +1875,7 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
  * an options object.
  */
 export function geoJSON<P = any>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P>): GeoJSON<P>;
+export function geoJson<P = any>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P>): GeoJSON<P>;
 
 export type Zoom = boolean | 'center';
 
@@ -2560,3 +2566,5 @@ export const extend: typeof Util['extend'];
 export const bind: typeof Util['bind'];
 export const stamp: typeof Util['stamp'];
 export const setOptions: typeof Util['setOptions'];
+
+export function noConflict(): any;
