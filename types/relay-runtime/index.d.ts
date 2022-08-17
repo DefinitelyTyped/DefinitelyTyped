@@ -3,6 +3,7 @@
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Marais Rossouw <https://github.com/maraisr>
 //                 Lorenzo Di Giacomo <https://github.com/morrys>
+//                 Levi Buzolic <https://github.com/levibuzolic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
