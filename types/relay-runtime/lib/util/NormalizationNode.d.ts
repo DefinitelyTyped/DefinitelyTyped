@@ -1,4 +1,4 @@
-import type { ConcreteRequest } from "./RelayConcreteNode";
+import type { ConcreteRequest } from './RelayConcreteNode';
 
 /**
  * Represents a single operation used to processing and normalize runtime
@@ -11,9 +11,7 @@ export interface NormalizationOperation {
     readonly selections: ReadonlyArray<NormalizationSelection>;
 }
 
-export type NormalizationHandle =
-    | NormalizationScalarHandle
-    | NormalizationLinkedHandle;
+export type NormalizationHandle = NormalizationScalarHandle | NormalizationLinkedHandle;
 
 export interface NormalizationLinkedHandle {
     readonly kind: string; // "LinkedHandle";
@@ -59,10 +57,7 @@ export interface NormalizationClientExtension {
     readonly selections: ReadonlyArray<NormalizationSelection>;
 }
 
-export type NormalizationField =
-    | NormalizationFlightField
-    | NormalizationScalarField
-    | NormalizationLinkedField;
+export type NormalizationField = NormalizationFlightField | NormalizationScalarField | NormalizationLinkedField;
 
 export interface NormalizationInlineFragment {
     readonly kind: string; // "InlineFragment";
@@ -214,6 +209,4 @@ export type NormalizationSelectableNode =
     | NormalizationSplitOperation
     | NormalizationStream;
 
-export type NormalizationRootNode =
-    | ConcreteRequest
-    | NormalizationSplitOperation;
+export type NormalizationRootNode = ConcreteRequest | NormalizationSplitOperation;

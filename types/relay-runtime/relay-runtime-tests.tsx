@@ -130,14 +130,14 @@ const environment = new Environment({
                 break;
         }
     },
-    requiredFieldLogger: (arg) => {
+    requiredFieldLogger: arg => {
         if (arg.kind === 'missing_field.log') {
             console.log(arg.fieldPath, arg.owner);
         } else {
             arg.kind; // $ExpectType "missing_field.throw"
             console.log(arg.fieldPath, arg.owner);
         }
-    }
+    },
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -219,9 +219,9 @@ function connectionHandlerWithoutStore() {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 store.publish(source);
-const get_store_recorditem = store.getSource().get("someDataId");
+const get_store_recorditem = store.getSource().get('someDataId');
 // $ExpectType Record<TConversation> | null | undefined
-const get_store_recorditem_typed = store.getSource().get<TConversation>("someDataId");
+const get_store_recorditem_typed = store.getSource().get<TConversation>('someDataId');
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitLocalUpdate
@@ -438,32 +438,28 @@ interface Module_data$key {
     readonly ' $fragmentSpreads': FragmentRefs<'Module_data'>;
 }
 
-function readData(
-  dataRef: Module_data$key,
-) {
-  // $ExpectType Module_data
-  readInlineData(
-    graphql`
-      fragment Module_data on Data @inline {
-        id
-      }
-    `,
-    dataRef,
-  );
+function readData(dataRef: Module_data$key) {
+    // $ExpectType Module_data
+    readInlineData(
+        graphql`
+            fragment Module_data on Data @inline {
+                id
+            }
+        `,
+        dataRef,
+    );
 }
 
-function readNullableData(
-  dataRef: Module_data$key | null,
-) {
-  // $ExpectType Module_data | null
-  readInlineData(
-    graphql`
-      fragment Module_data on Data @inline {
-        id
-      }
-    `,
-    dataRef,
-  );
+function readNullableData(dataRef: Module_data$key | null) {
+    // $ExpectType Module_data | null
+    readInlineData(
+        graphql`
+            fragment Module_data on Data @inline {
+                id
+            }
+        `,
+        dataRef,
+    );
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -480,14 +476,14 @@ const gqlQuery = graphql`
         page(id: $pageID) {
             name
         }
-   }
+    }
 `;
 
 const pageID = '110798995619330';
-const cacheConfig: CacheConfig = { force: true};
+const cacheConfig: CacheConfig = { force: true };
 const request = getRequest(gqlQuery);
-const variables: Variables = {pageID};
-const dataID: DataID = "dataID";
+const variables: Variables = { pageID };
+const dataID: DataID = 'dataID';
 const operation = createOperationDescriptor(request, variables);
 const operationWithCacheConfig = createOperationDescriptor(request, variables, cacheConfig);
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
@@ -499,47 +495,49 @@ const operationWithAll = createOperationDescriptor(request, variables, cacheConf
 
 function multiActors() {
     const environment = new multiActorEnvironment.MultiActorEnvironment({
-       createNetworkForActor(
-           id // $ExpectType string
-       ) {
-           return network;
-       },
-        createStoreForActor(
-            id // $ExpectType string
+        createNetworkForActor(
+            id, // $ExpectType string
         ) {
-           return store;
+            return network;
+        },
+        createStoreForActor(
+            id, // $ExpectType string
+        ) {
+            return store;
         },
     });
 
     // $ExpectType ActorEnvironment
-    const actor = environment.forActor("test");
+    const actor = environment.forActor('test');
 
-    environment.execute(actor, {
-        operation
-    }).toPromise();
+    environment
+        .execute(actor, {
+            operation,
+        })
+        .toPromise();
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // Relay Resolvers
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
-const {readFragment} = __internal.ResolverFragments;
+const { readFragment } = __internal.ResolverFragments;
 
 // Regular fragment.
 interface UserComponent_user {
-  readonly id: string;
-  readonly name: string;
-  readonly profile_picture: {
-      readonly uri: string;
-  };
-  readonly ' $fragmentType': 'UserComponent_user';
+    readonly id: string;
+    readonly name: string;
+    readonly profile_picture: {
+        readonly uri: string;
+    };
+    readonly ' $fragmentType': 'UserComponent_user';
 }
 
 type UserComponent_user$data = UserComponent_user;
 
 interface UserComponent_user$key {
-  readonly ' $data'?: UserComponent_user$data | undefined;
-  readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_user'>;
+    readonly ' $data'?: UserComponent_user$data | undefined;
+    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_user'>;
 }
 
 function NonNullableFragmentResolver(userKey: UserComponent_user$key) {
@@ -576,17 +574,17 @@ function NullableFragmentResolver(userKey: UserComponent_user$key | null) {
 
 // Plural fragment @relay(plural: true)
 type UserComponent_users = ReadonlyArray<{
-  readonly id: string;
-  readonly name: string;
-  readonly profile_picture: {
-      readonly uri: string;
-  };
-  readonly ' $fragmentType': 'UserComponent_users';
+    readonly id: string;
+    readonly name: string;
+    readonly profile_picture: {
+        readonly uri: string;
+    };
+    readonly ' $fragmentType': 'UserComponent_users';
 }>;
 type UserComponent_users$data = UserComponent_users;
 type UserComponent_users$key = ReadonlyArray<{
-  readonly ' $data'?: UserComponent_users$data | undefined;
-  readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_users'>;
+    readonly ' $data'?: UserComponent_users$data | undefined;
+    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_users'>;
 }>;
 
 function NonNullableArrayFragmentResolver(usersKey: UserComponent_users$key) {
@@ -602,7 +600,7 @@ function NonNullableArrayFragmentResolver(usersKey: UserComponent_users$key) {
         usersKey,
     );
 
-    return data.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+    return data.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
 }
 
 function NullableArrayFragmentResolver(usersKey: UserComponent_users$key | null) {
@@ -618,7 +616,7 @@ function NullableArrayFragmentResolver(usersKey: UserComponent_users$key | null)
         usersKey,
     );
 
-    return data?.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+    return data?.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
 }
 
 function ArrayOfNullableFragmentResolver(usersKey: ReadonlyArray<UserComponent_users$key[0] | null>) {
@@ -634,5 +632,5 @@ function ArrayOfNullableFragmentResolver(usersKey: ReadonlyArray<UserComponent_u
         usersKey,
     );
 
-    return data?.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+    return data?.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
 }
