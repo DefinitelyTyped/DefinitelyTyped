@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "jsdoc-format": false,
         "no-padding": false,
         "no-trailing-whitespace": false,
