@@ -133,7 +133,9 @@ export const ReactRelayContext: React.Context<RelayContext | null>;
 
 export type ContainerProps<Props> = MappedFragmentProps<Pick<Props, Exclude<keyof Props, 'relay'>>>;
 
-export type Container<Props> = React.ComponentType<ContainerProps<Props> & { componentRef?: ((ref: any) => void) | undefined }>;
+export type Container<Props> = React.ComponentType<
+    ContainerProps<Props> & { componentRef?: ((ref: any) => void) | undefined }
+>;
 
 export function createFragmentContainer<Props>(
     Component: React.ComponentType<Props & { relay?: RelayProp | undefined }>,

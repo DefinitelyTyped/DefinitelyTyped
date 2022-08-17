@@ -3,7 +3,11 @@ import { KeyType, KeyTypeData } from './helpers';
 import { LoadMoreFn } from './useLoadMoreFunction';
 import { RefetchFnDynamic } from './useRefetchableFragmentNode';
 
-export interface usePaginationFragmentHookType<TQuery extends OperationType, TKey extends KeyType | null, TFragmentData> {
+export interface usePaginationFragmentHookType<
+    TQuery extends OperationType,
+    TKey extends KeyType | null,
+    TFragmentData,
+> {
     data: TFragmentData;
     loadNext: LoadMoreFn<TQuery>;
     loadPrevious: LoadMoreFn<TQuery>;
