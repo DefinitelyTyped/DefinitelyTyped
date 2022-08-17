@@ -685,6 +685,8 @@ export interface PasswordGrantOptions {
     realm?: string | undefined;
     scope?: string | undefined;
     audience?: string | undefined;
+    // additional parameters for auth0 actions flow 
+    [key: string]: string;
 }
 
 export interface PasswordGrantAdditionalOptions {
