@@ -1,9 +1,10 @@
 // Type definitions for @mapbox/mapbox-gl-draw 1.2
 // Project: https://github.com/mapbox/mapbox-gl-draw
 // Definitions by: Tudor Gergely <https://github.com/tudorgergely>
+//                 Shayan Toqraee <https://github.com/Shayan-To>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Feature, GeoJSON, FeatureCollection, Geometry, Point, Position, BBox } from 'geojson';
+import { Feature, GeoJSON, GeoJsonTypes, FeatureCollection, Geometry, Point, Position, BBox } from 'geojson';
 import { IControl, Map, MapMouseEvent, MapTouchEvent } from 'mapbox-gl';
 
 export = MapboxDraw;
@@ -47,19 +48,67 @@ declare namespace MapboxDraw {
         uncombineFeatures: boolean;
     }
 
-    interface DrawFeature {
+    interface DrawFeatureBase<Coordinates> {
+        readonly properties: Readonly<Feature['properties']>;
+        readonly coordinates: Coordinates;
+        readonly id: NonNullable<Feature['id']>;
+        readonly type: GeoJsonTypes;
+
         changed(): void;
-
-        incomingCoords(coords: Position): void;
-
-        setCoordinates(coords: Position): void;
-
-        getCoordinates(): Position;
-
+        isValid(): boolean;
+        incomingCoords: this['setCoordinates'];
+        setCoordinates(coords: Coordinates): void;
+        getCoordinates(): Coordinates;
+        getCoordinate(path: string): Position;
+        updateCoordinate(path: string, lng: number, lat: number): void;
         setProperty(property: string, value: any): void;
-
         toGeoJSON(): GeoJSON;
     }
+
+    interface DrawMultiFeature<Type extends 'MultiPoint' | 'MultiLineString' | 'MultiPolygon'>
+        extends Omit<
+            DrawFeatureBase<
+                | (Type extends 'MultiPoint' ? Array<DrawPoint['coordinates']> : never)
+                | (Type extends 'MultiLineString' ? Array<DrawLineString['coordinates']> : never)
+                | (Type extends 'MultiPolygon' ? Array<DrawPolygon['coordinates']> : never)
+            >,
+            'coordinates'
+        > {
+        readonly type: Type;
+        readonly features: Array<
+            | (Type extends 'MultiPoint' ? DrawPoint : never)
+            | (Type extends 'MultiLineString' ? DrawLineString : never)
+            | (Type extends 'MultiPolygon' ? DrawPolygon : never)
+        >;
+        getFeatures(): this['features'];
+    }
+
+    interface DrawPoint extends DrawFeatureBase<Position> {
+        readonly type: 'Point';
+        getCoordinate(): Position;
+        updateCoordinate(lng: number, lat: number): void;
+        updateCoordinate(path: string, lng: number, lat: number): void;
+    }
+
+    interface DrawLineString extends DrawFeatureBase<Position[]> {
+        readonly type: 'LineString';
+        addCoordinate(path: string | number, lng: number, lat: number): void;
+        removeCoordinate(path: string | number): void;
+    }
+
+    interface DrawPolygon extends DrawFeatureBase<Position[][]> {
+        readonly type: 'Polygon';
+        addCoordinate(path: string, lng: number, lat: number): void;
+        removeCoordinate(path: string): void;
+    }
+
+    type DrawFeature =
+        | DrawPoint
+        | DrawLineString
+        | DrawPolygon
+        | DrawMultiFeature<'MultiPoint'>
+        | DrawMultiFeature<'MultiLineString'>
+        | DrawMultiFeature<'MultiPolygon'>;
 
     interface DrawEvent {
         target: Map;
@@ -117,6 +166,8 @@ declare namespace MapboxDraw {
     }
 
     interface DrawCustomModeThis {
+        map: mapboxgl.Map;
+
         setSelected(features: DrawFeature[]): void;
 
         setSelectedCoordinates(coords: { coord_path: string; feature_id: string }): void;
@@ -143,7 +194,7 @@ declare namespace MapboxDraw {
 
         setActionableState(actionableState: DrawActionableState): void;
 
-        changeMode(mode: DrawMode, opts?: object, eventOpts?: object): void;
+        changeMode(mode: (DrawMode & {}) | string, opts?: object, eventOpts?: object): void;
 
         updateUIClasses(opts: object): void;
 
@@ -203,7 +254,11 @@ declare namespace MapboxDraw {
 }
 
 declare class MapboxDraw implements IControl {
-    static modes: MapboxDraw.DrawModes;
+    static modes: Omit<
+        { [name in MapboxDraw.DrawModes[keyof MapboxDraw.DrawModes]]: MapboxDraw.DrawCustomMode },
+        'static'
+    >;
+    modes: MapboxDraw.DrawModes;
 
     getDefaultPosition: () => string;
 
@@ -247,7 +302,7 @@ declare class MapboxDraw implements IControl {
 
     uncombineFeatures(): this;
 
-    getMode(): MapboxDraw.DrawMode;
+    getMode(): (MapboxDraw.DrawMode & {}) | string;
 
     changeMode(mode: 'simple_select', options?: { featureIds: string[] }): this;
     changeMode(mode: 'direct_select', options: { featureId: string }): this;
@@ -256,6 +311,7 @@ declare class MapboxDraw implements IControl {
         options?: { featureId: string; from: Feature<Point> | Point | number[] },
     ): this;
     changeMode(mode: Exclude<MapboxDraw.DrawMode, 'direct_select' | 'simple_select' | 'draw_line_string'>): this;
+    changeMode(mode: string, options?: {}): this;
 
     setFeatureProperty(featureId: string, property: string, value: any): this;
 
