@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/long": "^4.0.0"
+    },
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
+        }
+    }
+}

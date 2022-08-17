@@ -4132,6 +4132,47 @@ fp.now(); // $ExpectType number
     _({}).isEmpty(); // $ExpectType boolean
     _.chain([]).isEmpty(); // $ExpectType PrimitiveChain<boolean>
     fp.isEmpty(anything); // $ExpectType boolean
+
+    if (_.isEmpty(anything)) {
+        const result: undefined | null | '' | [] | never[] | Record<never, never> = anything;
+    } else {
+        anything; // $ExpectType any
+    }
+
+    let string = 'isEmpty';
+    if (Math.random()) {
+        string = '';
+    }
+    if (_.isEmpty(string)) {
+        string; // $ExpectType ""
+    } else {
+        string; // $ExpectType string
+    }
+
+    const array: Array<{ value: boolean }> = [];
+    if (_.isEmpty(array)) {
+        array.push({ value: true });
+    } else {
+        array.push({ value: false });
+    }
+
+    const obj: { value?: boolean } = {};
+    if (_.isEmpty(obj)) {
+        const result: { value?: undefined } = obj;
+    } else {
+        obj; // $ExpectType { value?: boolean | undefined; }
+    }
+    let obj2: { value: boolean } | null | undefined = { value: true };
+    if (Math.random()) {
+        obj2 = null;
+    } else if (Math.random()) {
+        obj2 = undefined;
+    }
+    if (_.isEmpty(obj2)) {
+        const result: null | undefined = obj2;
+    } else {
+        obj2; // $ExpectType { value: boolean; }
+    }
 }
 
 // _.isEqual
@@ -6661,8 +6702,8 @@ fp.now(); // $ExpectType number
 {
     _.words("fred, barney, & pebbles"); // $ExpectType string[]
     _.words("fred, barney, & pebbles", /[^, ]+/g); // $ExpectType string[]
-    _("fred, barney, & pebbles").words(); // $ExpectType string[]
-    _("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType string[]
+    _("fred, barney, & pebbles").words(); // $ExpectType Collection<string>
+    _("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType Collection<string>
     _.chain("fred, barney, & pebbles").words(); // $ExpectType CollectionChain<string>
     _.chain("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType CollectionChain<string>
     fp.words("fred, barney, & pebbles"); // $ExpectType string[]

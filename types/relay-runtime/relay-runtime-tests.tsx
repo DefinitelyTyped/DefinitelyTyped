@@ -518,3 +518,121 @@ function multiActors() {
         operation
     }).toPromise();
 }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~
+// Relay Resolvers
+// ~~~~~~~~~~~~~~~~~~~~~~~
+
+const {readFragment} = __internal.ResolverFragments;
+
+// Regular fragment.
+interface UserComponent_user {
+  readonly id: string;
+  readonly name: string;
+  readonly profile_picture: {
+      readonly uri: string;
+  };
+  readonly ' $fragmentType': 'UserComponent_user';
+}
+
+type UserComponent_user$data = UserComponent_user;
+
+interface UserComponent_user$key {
+  readonly ' $data'?: UserComponent_user$data | undefined;
+  readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_user'>;
+}
+
+function NonNullableFragmentResolver(userKey: UserComponent_user$key) {
+    // $ExpectType UserComponent_user
+    const data = readFragment(
+        graphql`
+            fragment UserComponent_user on User {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        userKey,
+    );
+
+    return `${data.name}, ${data.profile_picture.uri}`;
+}
+
+function NullableFragmentResolver(userKey: UserComponent_user$key | null) {
+    // $ExpectType UserComponent_user | null
+    readFragment(
+        graphql`
+            fragment UserComponent_user on User {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        userKey,
+    );
+}
+
+// Plural fragment @relay(plural: true)
+type UserComponent_users = ReadonlyArray<{
+  readonly id: string;
+  readonly name: string;
+  readonly profile_picture: {
+      readonly uri: string;
+  };
+  readonly ' $fragmentType': 'UserComponent_users';
+}>;
+type UserComponent_users$data = UserComponent_users;
+type UserComponent_users$key = ReadonlyArray<{
+  readonly ' $data'?: UserComponent_users$data | undefined;
+  readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_users'>;
+}>;
+
+function NonNullableArrayFragmentResolver(usersKey: UserComponent_users$key) {
+    const data = readFragment(
+        graphql`
+            fragment UserComponent_users on User @relay(plural: true) {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        usersKey,
+    );
+
+    return data.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+}
+
+function NullableArrayFragmentResolver(usersKey: UserComponent_users$key | null) {
+    const data = readFragment(
+        graphql`
+            fragment UserComponent_users on User @relay(plural: true) {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        usersKey,
+    );
+
+    return data?.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+}
+
+function ArrayOfNullableFragmentResolver(usersKey: ReadonlyArray<UserComponent_users$key[0] | null>) {
+    const data = readFragment(
+        graphql`
+            fragment UserComponent_users on User @relay(plural: true) {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        usersKey,
+    );
+
+    return data?.map((thing) => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
+}

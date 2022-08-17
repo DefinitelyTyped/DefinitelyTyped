@@ -1,4 +1,4 @@
-import inquirer = require('inquirer');
+import inquirer, { QuestionCollection } from 'inquirer';
 
 /**
  * Recursive prompt example
@@ -6,7 +6,7 @@ import inquirer = require('inquirer');
  */
 const output: any[] = [];
 
-const questions: inquirer.QuestionCollection = [
+const questions: QuestionCollection = [
     {
         type: 'input',
         name: 'tvShow',

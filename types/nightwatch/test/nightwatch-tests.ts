@@ -5,13 +5,6 @@ import {
     NightwatchAPI,
     NightwatchAssertion,
     NightwatchTests,
-    describe,
-    it,
-    before,
-    after,
-    xit,
-    xdescribe,
-    test,
     PageObjectModel,
     ELEMENT_KEY,
 } from 'nightwatch';
@@ -63,8 +56,14 @@ const testGeneral: NightwatchTests = {
         browser.isChrome();
         browser.isAndroid();
         browser.isMobile();
+        const element_id = browser.WEBDRIVER_ELEMENT_ID;
+        console.log(element_id);
         const browserName = browser.browserName;
         console.log(browserName);
+        // @ts-expect-errors
+        browser.WEBDRIVER_ELEMENT_ID = 'some-element-id';
+        // @ts-expect-errors
+        browser.browserName = 'firefox';
     },
 
     'step one: navigate to google': () => {
@@ -141,72 +140,6 @@ const testGeneral: NightwatchTests = {
             }, []);
     },
 };
-
-// TODO: uncomment after fixing async/await issue
-// describe('capture browser exceptions', function () {
-//     it('does', async function () {
-//         await browser.captureBrowserExceptions(event => {
-//             console.log('>>> Exception:', event);
-//         });
-
-//         await browser.navigateTo('https://duckduckgo.com/');
-//         const aboutLink = await browser.findElement('#logo_homepage_link');
-
-//         await browser.executeScript(
-//             function (aboutLink) {
-//                 aboutLink.setAttribute('onclick', 'throw new Error("Hello world!")');
-//             },
-//             [aboutLink],
-//         );
-
-//         await browser.click(aboutLink);
-//     });
-// });
-
-describe('Ecosia', () => {
-    before(browser => browser.url('https://www.ecosia.org/'));
-
-    it('Demo test ecosia.org', () => {
-        // Setting network conditions before the actual test
-        browser.setNetworkConditions({
-            offline: false,
-            latency: 5, // Additional latency (ms).
-            download_throughput: 500 * 1024, // Maximal aggregated download throughput.
-            upload_throughput: 500 * 1024, // Maximal aggregated upload throughput.
-        });
-
-        browser
-            .waitForElementVisible('body')
-            .assert.titleContains('Ecosia')
-            .assert.titleContains('Ecosia')
-            .assert.visible('input[type=search]')
-            .setValue('input[type=search]', 'nightwatch')
-            .assert.visible('button[type=submit]')
-            .click('button[type=submit]');
-    });
-
-    xit('this test will be skipped', () => {
-        browser.waitForElementVisible('body');
-    });
-
-    after(browser => browser.end());
-});
-
-xdescribe('whole describle block will be skipped', () => {
-    test('ecosia', () => {
-        browser.url('https://ecosia.org').end();
-    });
-});
-
-describe('Async Ecosia', () => {
-    before(browser => browser.url('https://www.ecosia.org/'));
-
-    it('Demo test ecosia.org', async () => {
-        browser.waitForElementVisible('body');
-    });
-
-    after(browser => browser.end());
-});
 
 //
 // ./pages/google.ts

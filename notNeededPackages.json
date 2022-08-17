@@ -2645,6 +2645,10 @@
             "libraryName": "loglevel",
             "asOfVersion": "1.6.2"
         },
+        "long": {
+            "libraryName": "long",
+            "asOfVersion": "5.0.0"
+        },
         "looks-same": {
             "libraryName": "looks-same",
             "asOfVersion": "4.1.0"
@@ -2904,6 +2908,10 @@
         "minimist-options": {
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
+        },
+        "minipass": {
+            "libraryName": "minipass",
+            "asOfVersion": "3.3.5"
         },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",

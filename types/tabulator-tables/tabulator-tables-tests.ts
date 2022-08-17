@@ -1053,3 +1053,15 @@ table.on('dataSorting', ([sorter]) => sorter.field);
 table.on('dataSorted', ([sorter]) => sorter.field);
 
 Tabulator.registerModule([TooltipModule]);
+
+// 5.2
+table = new Tabulator('#test', {
+    // test editor of type 'list' supported.
+    columns: [
+        {
+            field: "test_editor",
+            title: "Test Editor",
+            editor: "list"
+        }
+    ]
+});

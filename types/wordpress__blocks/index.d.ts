@@ -10,7 +10,6 @@
 // TypeScript Version: 3.6
 
 import { Dashicon } from '@wordpress/components';
-import { dispatch, select } from '@wordpress/data';
 import { ComponentType, ReactElement } from 'react';
 
 export * from './api';
@@ -89,7 +88,7 @@ export interface ColorProps {
      *
      * @defaultValue true
      */
-    text: string;
+    text: boolean;
 }
 
 export interface TypographyProps {
@@ -634,7 +633,7 @@ export type Transform<T extends Record<string, any> = Record<string, any>> =
 
 export type BlockAttributes = Record<string, any>;
 
-export type InnerBlockTemplate = [string, BlockAttributes | undefined, InnerBlockTemplate[] | undefined];
+export type InnerBlockTemplate = [string, BlockAttributes?, InnerBlockTemplate[]?];
 
 export type BlockVariationScope = 'block' | 'inserter' | 'transform';
 

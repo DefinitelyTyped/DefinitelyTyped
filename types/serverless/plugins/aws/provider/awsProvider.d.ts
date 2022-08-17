@@ -336,7 +336,7 @@ declare namespace Aws {
 
     interface HttpRequestValidation {
         parameters?: HttpRequestParametersValidation | undefined;
-        schema?: { [key: string]: Record<string, unknown> } | undefined;
+        schemas?: { [key: string]: Record<string, unknown> } | undefined;
     }
 
     interface Http {

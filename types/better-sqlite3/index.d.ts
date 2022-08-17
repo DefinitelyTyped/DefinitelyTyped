@@ -1,4 +1,4 @@
-// Type definitions for better-sqlite3 7.5
+// Type definitions for better-sqlite3 7.6
 // Project: https://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
@@ -84,7 +84,7 @@ declare namespace BetterSqlite3 {
     }
 
     interface DatabaseConstructor {
-        new (filename: string, options?: Database.Options): Database;
+        new (filename: string | Buffer, options?: Database.Options): Database;
         (filename: string, options?: Database.Options): Database;
         prototype: Database;
 

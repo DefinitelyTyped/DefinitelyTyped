@@ -17,11 +17,18 @@ export = intlTelInput;
 declare function intlTelInput(node: Element, options?: intlTelInput.Options): intlTelInput.Plugin;
 
 declare namespace intlTelInput {
-    interface Static {
+    // TODO: remove alias at v18
+    type Static = IntlTelInputGlobals;
+    interface IntlTelInputGlobals {
         /**
          * Default options for all instances
          */
-        defaults: Options;
+        readonly defaults: Options;
+
+        /**
+         * Plugin version
+         */
+        readonly version: string;
 
         /**
          * Get all of the plugin's country data - either to re-use elsewhere
@@ -366,7 +373,7 @@ declare global {
     }
 
     interface Window {
-        intlTelInputGlobals: intlTelInput.Static;
+        intlTelInputGlobals: intlTelInput.IntlTelInputGlobals;
 
         /**
          * initialise the plugin with optional options.

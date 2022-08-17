@@ -1337,6 +1337,32 @@ import { promisify } from 'node:util';
 }
 
 {
+    const alice = crypto.createECDH('prime256v1');
+    const bob = crypto.createECDH('prime256v1');
+
+    alice.setPrivateKey('abcd', 'hex');
+    bob.setPrivateKey(Buffer.from('abcd', 'hex'));
+
+    alice.generateKeys();
+
+    let alicePublicKey = alice.getPublicKey(); // $ExpectType Buffer
+    alicePublicKey = alice.getPublicKey(null);
+    alicePublicKey = alice.getPublicKey(null, 'compressed');
+    alicePublicKey = alice.getPublicKey(undefined, 'hybrid');
+
+    let bobPublicKey = bob.getPublicKey('hex'); // $ExpectType string
+    bobPublicKey = bob.getPublicKey('hex', 'compressed');
+
+    let aliceSecret = alice.computeSecret(bobPublicKey, 'hex'); // $ExpectType Buffer
+    aliceSecret = alice.computeSecret(Buffer.from(bobPublicKey, 'hex'));
+
+    let bobSecret = bob.computeSecret(alicePublicKey, 'hex'); // $ExpectType string
+    bobSecret = bob.computeSecret(alicePublicKey.toString('hex'), 'hex', 'hex');
+
+    aliceSecret.toString('hex') === bobSecret;
+}
+
+{
     crypto.setFips(false);
     crypto.setEngine('dynamic');
     crypto.setEngine('dynamic', crypto.constants.ENGINE_METHOD_RSA);

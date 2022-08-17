@@ -1267,7 +1267,7 @@ declare global {
             }
 
             interface Index {
-                [fieldName: string]: TYPE;
+                [fieldName: string]: number | string;
             }
 
             /**
