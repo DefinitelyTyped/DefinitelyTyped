@@ -1,4 +1,5 @@
 import type { ConcreteRequest } from './RelayConcreteNode';
+import type { JSResourceReference } from './JSResourceReference';
 
 /**
  * Represents a single operation used to processing and normalize runtime
@@ -9,6 +10,9 @@ export interface NormalizationOperation {
     readonly name: string;
     readonly argumentDefinitions: ReadonlyArray<NormalizationLocalArgumentDefinition>;
     readonly selections: ReadonlyArray<NormalizationSelection>;
+    readonly clientAbstractTypes?: {
+        readonly [key: string]: ReadonlyArray<string>;
+    };
 }
 
 export type NormalizationHandle = NormalizationScalarHandle | NormalizationLinkedHandle;
@@ -94,6 +98,11 @@ export interface NormalizationModuleImport {
     readonly documentName: string;
     readonly fragmentPropName: string;
     readonly fragmentName: string;
+    readonly componentModuleProvider?: () => unknown | Promise<unknown> | JSResourceReference<unknown>;
+    readonly operationModuleProvider?: () =>
+        | NormalizationRootNode
+        | Promise<NormalizationRootNode>
+        | JSResourceReference<NormalizationRootNode>;
 }
 
 export interface NormalizationListValueArgument {
