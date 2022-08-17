@@ -293,9 +293,9 @@ interface ICollection<T> {
 
     /**
      * Returns object at specified index
-     * @return thisArg
+     * @return object at index
      */
-    item(index: number): T;
+    item(index: number): Object;
 
     /**
      * Returns true if collection contains no objects

@@ -1029,6 +1029,7 @@ function sample10() {
   canvas.add(objG);
   canvas.add(objB);
   const objArray = canvas.getActiveObjects();
+  const topObj = canvas.item(0);
 }
 
 function sample11() {
