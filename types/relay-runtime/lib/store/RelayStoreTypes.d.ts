@@ -1014,3 +1014,36 @@ export interface ReactFlightReachableQuery {
 }
 
 export type ReactFlightPayloadDeserializer = (tree: ReactFlightServerTree) => ReactFlightClientResponse;
+
+interface FieldLocation {
+    path: string;
+    owner: string;
+}
+
+export type MissingRequiredFields =
+    | Readonly<{ action: 'THROW'; field: FieldLocation }>
+    | Readonly<{ action: 'LOG'; fields: FieldLocation[] }>;
+
+export interface RelayResolverError {
+    field: FieldLocation;
+    error: Error;
+}
+
+export type RelayResolverErrors = RelayResolverError[];
+
+/**
+ * The return type of calls to readUpdatableQuery_EXPERIMENTAL and
+ * readUpdatableFragment_EXPERIMENTAL.
+ */
+export interface UpdatableData<TData> {
+    readonly updatableData: TData;
+}
+
+/**
+ * A linked field where an updatable fragment is spread has the type
+ * HasUpdatableSpread.
+ * This type is expected by store.readUpdatableFragment_EXPERIMENTAL.
+ */
+export interface HasUpdatableSpread<TFragmentType> {
+    readonly $updatableFragmentSpreads: TFragmentType;
+}
