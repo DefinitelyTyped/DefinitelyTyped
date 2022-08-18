@@ -173,6 +173,9 @@ export interface HostedFieldsTokenizePayload {
     details: HostedFieldsAccountDetails;
     type: string;
     description: string;
+    authenticationInsight?: {
+      regulationEnvironment?: 'psd2' | 'unregulated' | 'unavailable';
+    };
 }
 
 export interface HostedFields {
