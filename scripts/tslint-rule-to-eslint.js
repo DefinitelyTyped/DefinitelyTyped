@@ -32,6 +32,12 @@ const parseAndReadFileContents = async filePath => {
     for (const typeName of typeNames) {
         const typeDirectory = path.join('types', typeName);
 
+        typeNames.push(
+            ...(await fs.readdir(typeDirectory))
+                .filter(childDirectory => /^(ts|v)(\d+|\.)+$/.test(childDirectory))
+                .map(childDirectory => path.join(typeName, childDirectory)),
+        );
+
         const tslintFilePath = path.join(typeDirectory, 'tslint.json');
         const tslintData = await parseAndReadFileContents(tslintFilePath);
         if (tslintData?.rules?.[tslintRuleName] !== false) {
@@ -43,7 +49,7 @@ const parseAndReadFileContents = async filePath => {
         delete tslintData.rules[tslintRuleName];
         if (Object.keys(tslintData.rules).length === 0) {
             console.log(`\t${tslintFilePath} has no remaining rules; deleting rules property.`);
-            delete tslintFilePath.rules;
+            delete tslintData.rules;
         } else {
             console.log(`\t${tslintFilePath} has remaining rules.`);
         }

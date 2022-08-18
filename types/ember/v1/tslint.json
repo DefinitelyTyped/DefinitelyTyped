@@ -3,7 +3,6 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "ban-types": false,
-        "dt-header": false,
         "jsdoc-format": false,
         "no-any-union": false,
         "no-consecutive-blank-lines": false,
