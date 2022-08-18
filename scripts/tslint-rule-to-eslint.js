@@ -43,11 +43,9 @@ const parseAndReadFileContents = async filePath => {
         delete tslintData.rules[tslintRuleName];
         if (Object.keys(tslintData.rules).length === 0) {
             console.log(`\t${tslintFilePath} has no remaining rules; deleting.`);
-            await fs.rm(tslintFilePath);
-        } else {
-            console.log(`\t${tslintFilePath} has remaining rules; modifying.`);
-            await writeFileFormatted(tslintFilePath, tslintData);
-        }
+            delete tslintFilePath.rules
+        } 
+        await writeFileFormatted(tslintFilePath, tslintData);
 
         const eslintFilePath = path.join(typeDirectory, '.eslintrc.json');
         const eslintData = (await parseAndReadFileContents(eslintFilePath)) ?? emptyObject;
