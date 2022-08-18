@@ -357,6 +357,7 @@ export interface LeafletEventHandlerFnMap {
     tileunload?: TileEventHandlerFn | undefined;
     tileloadstart?: TileEventHandlerFn | undefined;
     tileload?: TileEventHandlerFn | undefined;
+    tileabort?: TileEventHandlerFn | undefined;
 
     tileerror?: TileErrorEventHandlerFn | undefined;
 
@@ -407,7 +408,7 @@ declare class Events {
        fn: ZoomAnimEventHandlerFn, context?: any): this;
     on(type: 'dragend',
        fn: DragEndEventHandlerFn, context?: any): this;
-    on(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    on(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
        fn: TileEventHandlerFn, context?: any): this;
     on(type: 'tileerror',
        fn: TileErrorEventHandlerFn, context?: any): this;
@@ -454,7 +455,7 @@ declare class Events {
         fn?: ZoomAnimEventHandlerFn, context?: any): this;
     off(type: 'dragend',
         fn?: DragEndEventHandlerFn, context?: any): this;
-    off(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    off(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
         fn?: TileEventHandlerFn, context?: any): this;
     off(type: 'tileerror',
         fn?: TileErrorEventHandlerFn, context?: any): this;
@@ -489,7 +490,7 @@ declare class Events {
         'update' | 'down' | 'predrag' | 'resize' | 'popupopen' | 'tooltipopen' | 'tooltipclose' |
         'locationerror' | 'locationfound' | 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mouseover' |
         'mouseout' | 'mousemove' | 'contextmenu' | 'preclick' | 'keypress' | 'keydown' | 'keyup' |
-        'zoomanim' | 'dragend' | 'tileunload' | 'tileloadstart' | 'tileload' | 'tileerror', propagate?: boolean): boolean;
+        'zoomanim' | 'dragend' | 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort' | 'tileerror', propagate?: boolean): boolean;
 
     listens(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
             fn: LayersControlEventHandlerFn, context?: any, propagate?: boolean): boolean;
@@ -519,7 +520,7 @@ declare class Events {
             fn: ZoomAnimEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'dragend',
             fn: DragEndEventHandlerFn, context?: any, propagate?: boolean): boolean;
-    listens(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    listens(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
             fn: TileEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'tileerror',
             fn: TileEventHandlerFn, context?: any, propagate?: boolean): boolean;
@@ -557,7 +558,7 @@ declare class Events {
          fn: ZoomAnimEventHandlerFn, context?: any): this;
     once(type: 'dragend',
          fn: DragEndEventHandlerFn, context?: any): this;
-    once(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    once(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
          fn: TileEventHandlerFn, context?: any): this;
     once(type: 'tileerror',
          fn: TileEventHandlerFn, context?: any): this;
@@ -616,7 +617,7 @@ declare class Events {
                      fn: ZoomAnimEventHandlerFn, context?: any): this;
     addEventListener(type: 'dragend',
                      fn: DragEndEventHandlerFn, context?: any): this;
-    addEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    addEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
                      fn: TileEventHandlerFn, context?: any): this;
     addEventListener(type: 'tileerror',
                      fn: TileErrorEventHandlerFn, context?: any): this;
@@ -667,7 +668,7 @@ declare class Events {
                         fn?: ZoomAnimEventHandlerFn, context?: any): this;
     removeEventListener(type: 'dragend',
                         fn?: DragEndEventHandlerFn, context?: any): this;
-    removeEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    removeEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
                         fn?: TileEventHandlerFn, context?: any): this;
     removeEventListener(type: 'tileerror',
                         fn?: TileErrorEventHandlerFn, context?: any): this;
@@ -722,7 +723,7 @@ declare class Events {
                             fn: ZoomAnimEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'dragend',
                             fn: DragEndEventHandlerFn, context?: any): this;
-    addOneTimeEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    addOneTimeEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
                             fn: TileEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'tileerror',
                             fn: TileErrorEventHandlerFn, context?: any): this;
@@ -799,7 +800,7 @@ export abstract class Evented extends Class {
        fn: ZoomAnimEventHandlerFn, context?: any): this;
     on(type: 'dragend',
        fn: DragEndEventHandlerFn, context?: any): this;
-    on(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    on(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
        fn: TileEventHandlerFn, context?: any): this;
     on(type: 'tileerror',
        fn: TileErrorEventHandlerFn, context?: any): this;
@@ -846,7 +847,7 @@ export abstract class Evented extends Class {
         fn?: ZoomAnimEventHandlerFn, context?: any): this;
     off(type: 'dragend',
         fn?: DragEndEventHandlerFn, context?: any): this;
-    off(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    off(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
         fn?: TileEventHandlerFn, context?: any): this;
     off(type: 'tileerror',
         fn?: TileErrorEventHandlerFn, context?: any): this;
@@ -881,7 +882,7 @@ export abstract class Evented extends Class {
         'update' | 'down' | 'predrag' | 'resize' | 'popupopen' | 'tooltipopen' | 'tooltipclose' |
         'locationerror' | 'locationfound' | 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mouseover' |
         'mouseout' | 'mousemove' | 'contextmenu' | 'preclick' | 'keypress' | 'keydown' | 'keyup' |
-        'zoomanim' | 'dragend' | 'tileunload' | 'tileloadstart' | 'tileload' | 'tileerror', propagate?: boolean): boolean;
+        'zoomanim' | 'dragend' | 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort' | 'tileerror', propagate?: boolean): boolean;
 
     listens(type: 'baselayerchange' | 'overlayadd' | 'overlayremove',
             fn: LayersControlEventHandlerFn, context?: any, propagate?: boolean): boolean;
@@ -911,7 +912,7 @@ export abstract class Evented extends Class {
             fn: ZoomAnimEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'dragend',
             fn: DragEndEventHandlerFn, context?: any, propagate?: boolean): boolean;
-    listens(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    listens(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
             fn: TileEventHandlerFn, context?: any, propagate?: boolean): boolean;
     listens(type: 'tileerror',
             fn: TileEventHandlerFn, context?: any, propagate?: boolean): boolean;
@@ -949,7 +950,7 @@ export abstract class Evented extends Class {
          fn: ZoomAnimEventHandlerFn, context?: any): this;
     once(type: 'dragend',
          fn: DragEndEventHandlerFn, context?: any): this;
-    once(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    once(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
          fn: TileEventHandlerFn, context?: any): this;
     once(type: 'tileerror',
          fn: TileEventHandlerFn, context?: any): this;
@@ -1008,7 +1009,7 @@ export abstract class Evented extends Class {
                      fn: ZoomAnimEventHandlerFn, context?: any): this;
     addEventListener(type: 'dragend',
                      fn: DragEndEventHandlerFn, context?: any): this;
-    addEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    addEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
                      fn: TileEventHandlerFn, context?: any): this;
     addEventListener(type: 'tileerror',
                      fn: TileErrorEventHandlerFn, context?: any): this;
@@ -1059,7 +1060,7 @@ export abstract class Evented extends Class {
                         fn?: ZoomAnimEventHandlerFn, context?: any): this;
     removeEventListener(type: 'dragend',
                         fn?: DragEndEventHandlerFn, context?: any): this;
-    removeEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    removeEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
                         fn?: TileEventHandlerFn, context?: any): this;
     removeEventListener(type: 'tileerror',
                         fn?: TileErrorEventHandlerFn, context?: any): this;
@@ -1114,7 +1115,7 @@ export abstract class Evented extends Class {
                             fn: ZoomAnimEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'dragend',
                             fn: DragEndEventHandlerFn, context?: any): this;
-    addOneTimeEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload',
+    addOneTimeEventListener(type: 'tileunload' | 'tileloadstart' | 'tileload' | 'tileabort',
                             fn: TileEventHandlerFn, context?: any): this;
     addOneTimeEventListener(type: 'tileerror',
                             fn: TileErrorEventHandlerFn, context?: any): this;
