@@ -7,6 +7,7 @@
 // Minimum TypeScript Version: 4.4
 
 import Engine from '@ember/engine';
+import Owner from '@ember/owner';
 import ApplicationInstance from '@ember/application/instance';
 import EventDispatcher from '@ember/application/-private/event-dispatcher';
 import { EventDispatcherEvents } from '@ember/application/types';
@@ -119,12 +120,12 @@ export default class Application extends Engine {
  * objects is the responsibility of an "owner", which handled its
  * instantiation and manages its lifetime.
  */
-export function getOwner(object: unknown): unknown;
+export function getOwner(object: unknown): Owner;
 /**
  * `setOwner` forces a new owner on a given object instance. This is primarily
  * useful in some testing cases.
  */
-export function setOwner(object: unknown, owner: unknown): void;
+export function setOwner(object: unknown, owner: Owner): void;
 
 /**
  * Detects when a specific package of Ember (e.g. 'Ember.Application')
