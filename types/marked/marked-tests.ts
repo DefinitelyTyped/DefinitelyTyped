@@ -83,6 +83,9 @@ const tokens2 = lexer.lex(text);
 console.log(tokens2);
 const tokens3 = lexer.inlineTokens(text, tokens);
 console.log(tokens3);
+// verifying that the second param to inlineTokens can be ignored
+const tokens3a = lexer.inlineTokens(text);
+console.log(tokens3a);
 const re: RegExp | marked.Rules = marked.Lexer.rules['code'];
 const lexerOptions: marked.MarkedOptions = lexer.options;
 
@@ -189,7 +192,7 @@ interface NameToken {
 const tokenizerExtension: marked.TokenizerExtension = {
     name: 'name',
     level: 'block',
-    start: (src: string) => src.indexOf('name'),
+    start: (src: string) => src.match(/name/)?.index,
     tokenizer(src: string): NameToken | void {
         if (src === 'name') {
             const token: NameToken = {
@@ -212,6 +215,8 @@ const rendererExtension: marked.RendererExtension = {
     renderer(t) {
         const token = t as NameToken;
         if (token.text === 'name') {
+            // verifying that the second param to parseInline can be ignored
+            console.log(this.parser.parseInline(token.items));
             return this.parser.parse(token.items);
         }
         return false;

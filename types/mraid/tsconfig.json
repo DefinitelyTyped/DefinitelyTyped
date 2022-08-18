@@ -3,8 +3,7 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom",
-            "esnext.asynciterable"
+            "DOM"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,12 +13,12 @@
         "typeRoots": [
             "../"
         ],
-        "types": [],
+        "types": [ ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "relay-config-tests.ts"
+        "mraid-tests.ts"
     ]
 }
