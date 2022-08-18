@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "dt-header": false,
         "max-line-length": false,
         "no-any-union": false,
         "no-padding": false,

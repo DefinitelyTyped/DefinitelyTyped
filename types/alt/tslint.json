@@ -5,7 +5,6 @@
         "array-type": false,
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "interface-over-type-literal": false,
         "no-declare-current-package": false,
         "no-inferrable-types": false,
