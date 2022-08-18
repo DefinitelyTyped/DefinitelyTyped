@@ -448,3 +448,13 @@ function test_global_request_promise_connection_string() {
             .query('select * from mytable where id = @input_parameter')
     }).then(() => { }).catch(err => { });
 }
+
+function test_connection_options() {
+    sql.connect({
+        options: {
+            useColumnNames: false, // $ExpectError
+        },
+    }).then(() => {
+        // noop
+    });
+}

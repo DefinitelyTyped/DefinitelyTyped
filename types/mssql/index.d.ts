@@ -1,4 +1,4 @@
-// Type definitions for mssql 8.0.0
+// Type definitions for mssql 8.1.0
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
@@ -162,7 +162,7 @@ export declare var ISOLATION_LEVEL: {
     SNAPSHOT: IIsolationLevel
 }
 
-export interface IOptions extends tds.ConnectionOptions {
+export interface IOptions extends Omit<tds.ConnectionOptions, 'useColumnNames'> {
     beforeConnect?: void | undefined;
     connectionString?: string | undefined;
     trustedConnection?: boolean | undefined;
