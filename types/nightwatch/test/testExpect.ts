@@ -118,7 +118,7 @@ describe('expect.element()', () => {
         browser.expect.element('#main').to.not.be.visible;
         browser.expect.element('#main').to.be.visible.before(100);
     });
-    
+
     it('selector element properties - all & required', () => {
         browser.expect.element({
             selector: 'div',
@@ -140,7 +140,7 @@ describe('expect.elements()', () => {
         browser.expect.elements('div').count.to.equal(10);
         browser.expect.elements('p').count.to.not.equal(1);
     });
-    
+
     it('selector element properties - all & required', () => {
         browser.expect.elements({
             selector: 'div',
