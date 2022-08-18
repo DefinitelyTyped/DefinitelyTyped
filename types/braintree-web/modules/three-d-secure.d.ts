@@ -132,6 +132,19 @@ export interface ThreeDSecureVerifyOptions {
     additionalInformation?: ThreeDSecureAdditionalInformation | undefined;
     addFrame?: ((err?: BraintreeError, iframe?: HTMLIFrameElement) => void) | undefined;
     removeFrame?: (() => void) | undefined;
+    onLookupComplete?: (data: ThreeDSecureVerificationData, next: () => void) => void;
+}
+
+export interface ThreeDSecureVerificationData {
+    requiresUserAuthentication: boolean;
+    threeDSecureInfo: {
+        liabilityShiftPossible: boolean;
+        liabilityShifted: boolean;
+    };
+    lookup: {
+        threeDSecureVersion: string;
+    };
+    paymentMethod: ThreeDSecureVerifyPayload;
 }
 
 export interface ThreeDSecure {
