@@ -192,7 +192,7 @@ interface NameToken {
 const tokenizerExtension: marked.TokenizerExtension = {
     name: 'name',
     level: 'block',
-    start: (src: string) => src.indexOf('name'),
+    start: (src: string) => src.match(/name/)?.index,
     tokenizer(src: string): NameToken | void {
         if (src === 'name') {
             const token: NameToken = {

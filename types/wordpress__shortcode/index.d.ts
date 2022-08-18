@@ -62,7 +62,7 @@ export const attrs: {
  * by `regexp()`. `match` can also be set to the `arguments` from a callback
  * passed to `regexp.replace()`.
  */
-export function fromMatch(match: RegExpMatchArray): Shortcode;
+export function fromMatch(match: RegExpExecArray): Shortcode;
 
 /**
  * Find the next matching shortcode.
