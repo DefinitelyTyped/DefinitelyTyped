@@ -3,8 +3,12 @@ import { promises as fs } from 'fs';
 import { format } from 'prettier';
 import * as path from 'path';
 
+/** @type {any} */
 const emptyObject = {};
 
+/**
+ * @param {string} filePath
+ */
 const parseAndReadFileContents = async filePath => {
     try {
         return parse((await fs.readFile(filePath)).toString());
@@ -14,8 +18,12 @@ const parseAndReadFileContents = async filePath => {
 };
 
 (async () => {
-    const prettierConfig = await parseAndReadFileContents('.prettierrc.json');
+    const prettierConfig = /** @type {any} */ (await parseAndReadFileContents('.prettierrc.json'));
 
+    /**
+     * @param {string} filePath
+     * @param {unknown} contents
+     */
     const writeFileFormatted = async (filePath, contents) => {
         await fs.writeFile(
             filePath,
@@ -39,7 +47,7 @@ const parseAndReadFileContents = async filePath => {
         );
 
         const tslintFilePath = path.join(typeDirectory, 'tslint.json');
-        const tslintData = await parseAndReadFileContents(tslintFilePath);
+        const tslintData = /** @type {any} */ (await parseAndReadFileContents(tslintFilePath));
         if (tslintData?.rules?.[tslintRuleName] !== false) {
             continue;
         }

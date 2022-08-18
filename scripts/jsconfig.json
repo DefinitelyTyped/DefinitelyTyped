@@ -1,5 +1,5 @@
 {
-    "exclude": ["close-old-issues.js", "fix-tslint.js", "tslint-rule-to-eslint.js"],
+    "exclude": ["close-old-issues.js", "fix-tslint.js"],
     "compilerOptions": {
         "noUnusedLocals": true,
         "target": "es6",
