@@ -1293,7 +1293,8 @@ export interface TileLayerOptions extends GridLayerOptions {
     tms?: boolean | undefined;
     zoomReverse?: boolean | undefined;
     detectRetina?: boolean | undefined;
-    crossOrigin?: CrossOrigin | undefined;
+    crossOrigin?: CrossOrigin | boolean | undefined;
+    referrerPolicy?: ReferrerPolicy | boolean | undefined;
     // [name: string]: any;
     // You are able add additional properties, but it makes this interface uncheckable.
     // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15313
@@ -1352,14 +1353,23 @@ export namespace tileLayer {
     function wms(baseUrl: string, options?: WMSOptions): TileLayer.WMS;
 }
 
-export type CrossOrigin = boolean | string;
+export type CrossOrigin = 'anonymous' | 'use-credentials' | '';
+export type ReferrerPolicy =
+    'no-referrer'
+    | 'no-referrer-when-downgrade'
+    | 'origin'
+    | 'origin-when-cross-origin'
+    | 'same-origin'
+    | 'strict-origin'
+    | 'strict-origin-when-cross-origin'
+    | 'unsafe-url';
 
 export interface ImageOverlayOptions extends InteractiveLayerOptions {
     opacity?: number | undefined;
     alt?: string | undefined;
     interactive?: boolean | undefined;
     attribution?: string | undefined;
-    crossOrigin?: CrossOrigin | undefined;
+    crossOrigin?: CrossOrigin | boolean | undefined;
     errorOverlayUrl?: string | undefined;
     zIndex?: number | undefined;
     className?: string | undefined;
@@ -1449,6 +1459,7 @@ export interface VideoOverlayOptions extends ImageOverlayOptions {
     keepAspectRatio?: boolean | undefined;
     /** Whether the video starts on mute when loaded. */
     muted?: boolean | undefined;
+    playsInline?: boolean | undefined;
 }
 
 export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageOverlay because VideoOverlay.getElement returns HTMLImageElement */
@@ -2040,9 +2051,9 @@ export namespace control {
 
 export interface DivOverlayOptions {
     offset?: PointExpression | undefined;
-    zoomAnimation?: boolean | undefined;
     className?: string | undefined;
     pane?: string | undefined;
+    interactive?: boolean | undefined;
 }
 
 export abstract class DivOverlay extends Layer {
@@ -2097,7 +2108,6 @@ export interface TooltipOptions extends DivOverlayOptions {
     direction?: Direction | undefined;
     permanent?: boolean | undefined;
     sticky?: boolean | undefined;
-    interactive?: boolean | undefined;
     opacity?: number | undefined;
 }
 
@@ -2257,9 +2267,13 @@ export namespace DomEvent {
 
     function on(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
+    // tslint:disable:unified-signatures
+    function off(el: HTMLElement): typeof DomEvent;
+
     function off(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
     function off(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+    // tslint:enable:unified-signatures
 
     function stopPropagation(ev: PropagableEvent): typeof DomEvent;
 
@@ -2416,6 +2430,7 @@ export interface BaseIconOptions extends LayerOptions {
 
 export interface IconOptions extends BaseIconOptions {
     iconUrl: string;
+    crossOrigin?: CrossOrigin | boolean | undefined;
 }
 
 export class Icon<T extends BaseIconOptions = IconOptions> extends Layer {
@@ -2480,6 +2495,7 @@ export interface MarkerOptions extends InteractiveLayerOptions {
     autoPanPadding?: PointExpression | undefined;
     /** Number of pixels the map should pan by. */
     autoPanSpeed?: number | undefined;
+    autoPanOnFocus?: boolean | undefined;
 }
 
 export class Marker<P = any> extends Layer {
@@ -2548,7 +2564,7 @@ export namespace Util {
     function throttle(fn: () => void, time: number, context: any): () => void;
     function wrapNum(num: number, range: number[], includeMax?: boolean): number;
     function falseFn(): false;
-    function formatNum(num: number, digits?: number): number;
+    function formatNum(num: number, digits?: number | false): number;
     function trim(str: string): string;
     function splitWords(str: string): string[];
     function setOptions(obj: any, options: any): any;
