@@ -1,4 +1,4 @@
-import MapboxDraw, { DrawMode, DrawUpdateEvent } from '@mapbox/mapbox-gl-draw';
+import MapboxDraw, { DrawMode, DrawUpdateEvent, DrawCustomMode } from '@mapbox/mapbox-gl-draw';
 
 const draw = new MapboxDraw({});
 
@@ -36,3 +36,15 @@ function callback(event: DrawUpdateEvent) {
     // $ExpectType "draw.update"
     event.type;
 }
+
+const CustomMode: DrawCustomMode<{}, {}> = {
+  onClick(state, e) {
+    // $ExpectType LngLat
+    e.lngLat;
+  },
+
+  toDisplayFeatures(state, geojson, display) {}
+};
+
+// @ts-expect-error
+const CustomModeMissingDisplayFeatures: DrawCustomMode<{}, {}> = {};

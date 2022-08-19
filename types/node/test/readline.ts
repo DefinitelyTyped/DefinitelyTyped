@@ -1,3 +1,4 @@
+import * as readlinePromises from 'node:readline/promises';
 import * as readline from 'node:readline';
 import * as stream from 'node:stream';
 import * as fs from 'node:fs';
@@ -243,4 +244,112 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
         input: process.stdin,
     });
     const pos: readline.CursorPos = rl.getCursorPos();
+}
+
+const rlPromise = readlinePromises.createInterface(new stream.Readable());
+
+{
+    async () => {
+        const signal = new AbortSignal();
+
+        // @ts-expect-error
+        rlPromise.question();
+        // @ts-expect-error
+        rlPromise.question('test', { signal: 'bad' });
+
+        rlPromise.question('test'); // $ExpectType Promise<string>
+        rlPromise.question('test', { signal }); // $ExpectType Promise<string>
+    };
+}
+
+{
+    // @ts-expect-error
+    new readlinePromises.Readline(new stream.Readable());
+    // @ts-expect-error
+    new readlinePromises.Readline(new stream.Writable(), { autoCommit: 'bad' });
+
+    new readlinePromises.Readline(new stream.Writable(), { autoCommit: true });
+    new readlinePromises.Readline(new stream.Writable(), { autoCommit: false });
+}
+
+const readlineInstance = new readlinePromises.Readline(new stream.Writable());
+
+{
+    // @ts-expect-error
+    readlineInstance.clearLine();
+    // @ts-expect-error
+    readlineInstance.clearLine(2);
+    // @ts-expect-error
+    readlineInstance.clearLine(-2);
+
+    readlineInstance.clearLine(1); // $ExpectType Readline
+    readlineInstance.clearLine(0); // $ExpectType Readline
+    readlineInstance.clearLine(-1); // $ExpectType Readline
+}
+
+{
+    readlineInstance.clearScreenDown(); // $ExpectType Readline
+}
+
+{
+    readlineInstance.commit(); // $ExpectType Promise<void>
+}
+
+{
+    // @ts-expect-error
+    readlineInstance.cursorTo();
+    // @ts-expect-error
+    readlineInstance.cursorTo('bad');
+
+    readlineInstance.cursorTo(1); // $ExpectType Readline
+    readlineInstance.cursorTo(1, 2); // $ExpectType Readline
+}
+
+{
+    // @ts-expect-error
+    readlineInstance.moveCursor();
+    // @ts-expect-error
+    readlineInstance.moveCursor(1);
+    // @ts-expect-error
+    readlineInstance.moveCursor('bad');
+
+    readlineInstance.moveCursor(0, 1); // $ExpectType Readline
+}
+
+{
+    readlineInstance.rollback(); // $ExpectType Readline
+}
+
+{
+    const options: readline.ReadLineOptions = {
+        input: new fs.ReadStream(),
+    };
+    const input: NodeJS.ReadableStream = new stream.Readable();
+    const output: NodeJS.WritableStream = new stream.Writable();
+    const completer: readline.Completer = str => [['asd'], 'asd'];
+    const terminal = false;
+
+    let result: readlinePromises.Interface;
+
+    result = readlinePromises.createInterface(options);
+    result = readlinePromises.createInterface(input);
+    result = readlinePromises.createInterface(input, output);
+    result = readlinePromises.createInterface(input, output, completer);
+    result = readlinePromises.createInterface(input, output, completer, terminal);
+    result = readlinePromises.createInterface({
+        input,
+        completer(str: string): readline.CompleterResult {
+            return [['test'], 'test'];
+        },
+    });
+    result = readlinePromises.createInterface({
+        input,
+        completer(str: string, callback: (err: any, result: readline.CompleterResult) => void): any {
+            callback(null, [['test'], 'test']);
+        },
+    });
+    result = readlinePromises.createInterface({
+        input,
+        tabSize: 4,
+    });
 }

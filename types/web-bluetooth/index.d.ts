@@ -149,7 +149,6 @@ interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, Cha
     readonly id: string;
     readonly name?: string | undefined;
     readonly gatt?: BluetoothRemoteGATTServer | undefined;
-    readonly uuids?: string[] | undefined;
     forget(): Promise<void>;
     watchAdvertisements(options?: WatchAdvertisementsOptions): Promise<void>;
     unwatchAdvertisements(): void;

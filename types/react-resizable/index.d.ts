@@ -33,15 +33,12 @@ export interface ResizeCallbackData {
     handle: ResizeHandle;
 }
 
-export interface ResizableProps {
+export type ResizableProps = {
     children?: React.ReactNode;
     className?: string | undefined;
-    width: number;
-    height: number;
     handle?: React.ReactNode | ((resizeHandle: ResizeHandle, ref: React.RefObject<any>) => React.ReactNode) | undefined;
     handleSize?: [number, number] | undefined;
     lockAspectRatio?: boolean | undefined;
-    axis?: Axis | undefined;
     minConstraints?: [number, number] | undefined;
     maxConstraints?: [number, number] | undefined;
     onResizeStop?: ((e: React.SyntheticEvent, data: ResizeCallbackData) => any) | undefined;
@@ -50,7 +47,23 @@ export interface ResizableProps {
     draggableOpts?: any;
     resizeHandles?: ResizeHandle[] | undefined;
     transformScale?: number;
-}
+} & (
+    | {
+          width: number;
+          height?: number | undefined;
+          axis: 'x';
+      }
+    | {
+          width?: number | undefined;
+          height: number;
+          axis: 'y';
+      }
+    | {
+          width: number;
+          height: number;
+          axis?: 'both';
+      }
+);
 
 export class Resizable extends React.Component<ResizableProps, ResizableState> {}
 

@@ -7,6 +7,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "dt-header": "error",
       "no-dead-reference": "error",
       "no-const-enum": "error"
     }

@@ -8,7 +8,7 @@ import {
 
 export function loadQuery<
     TQuery extends OperationType,
-    TEnvironmentProviderOptions extends EnvironmentProviderOptions = {}
+    TEnvironmentProviderOptions extends EnvironmentProviderOptions = {},
 >(
     environment: IEnvironment,
     preloadableRequest: GraphQLTaggedNode | PreloadableConcreteRequest<TQuery>,

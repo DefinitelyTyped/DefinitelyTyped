@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "max-line-length": false,
         "no-padding": false,
         "no-var-keyword": false,

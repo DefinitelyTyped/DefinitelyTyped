@@ -31,7 +31,7 @@ LinkUI.requires.map(Plugin => new Plugin(editor));
 new LinkUI(editor).init();
 new LinkUI(editor).destroy();
 // $ExpectType LinkFormView
-new LinkUI(editor).formview;
+new LinkUI(editor).formView;
 // $ExpectType LinkActionsView
 new LinkUI(editor).actionsView;
 

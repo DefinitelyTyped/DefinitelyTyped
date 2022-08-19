@@ -200,7 +200,7 @@ export interface MjmlButtonProps {
     containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     fontStyle?: string | undefined;
     fontSize?: string | number | undefined;
-    fontWeight?: number | undefined;
+    fontWeight?: React.CSSProperties['fontWeight'] | undefined;
     fontFamily?: string | undefined;
     color?: React.CSSProperties['color'] | undefined;
     textAlign?: React.CSSProperties['textAlign'] | undefined;

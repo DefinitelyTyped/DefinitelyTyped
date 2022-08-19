@@ -3,12 +3,17 @@ const element: HTMLDivElement = document.createElement("div");
 
 const zoomControl = new ymaps.control.ZoomControl({
     options: {
+        adjustMapMargin: false,
         position: {
             top: 108,
             right: 10,
             bottom: 'auto',
             left: 'auto',
         },
+        size: 'small',
+        visible: true,
+        zoomDuration: 200,
+        zoomStep: 1
     },
 });
 zoomControl.clear();
@@ -175,3 +180,30 @@ ymaps.suggest('Mos', {
 }).then(items => {
     return items.filter(el => el.value.toLowerCase() === 'moscow');
 }).then(console.log);
+
+ymaps.geocode('Moscow'); // $ExpectType Promise<IGeocodeResult>
+ymaps.geocode([55.751244, 37.618423], {
+    boundedBy: [[30, 40], [50, 50]],
+    json: false,
+    kind: 'district',
+    provider: 'yandex#map',
+    results: 5,
+    searchCoordOrder: 'latlong',
+    skip: 0,
+    strictBounds: false
+}).then(result => result.geoObjects.get(0) as ymaps.GeocodeResult)
+.then(result => result.getAddressLine() === 'Moscow');
+
+const geocodeProvider: ymaps.IGeocodeProvider = {
+    suggest: (_request, _options) => {
+        throw new Error('Function not implemented.');
+    },
+    geocode: (_request, _options) => {
+        throw new Error('Function not implemented.');
+    }
+};
+
+geocodeProvider.geocode('Moscow'); // $ExpectType Promise<object>
+
+// @ts-expect-error
+geocodeProvider.geocode([55.751244, 37.618423]);

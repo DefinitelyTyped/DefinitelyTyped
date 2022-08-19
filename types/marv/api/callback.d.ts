@@ -12,11 +12,6 @@ export function migrate(
 
 export function migrate(migrations: ReadonlyArray<ParsedMigration>, driver: Driver, cb: ErrorOnlyCallback): void;
 
-/**
- * @deprecated no-op since 3.1.0
- */
-export function parseDirectives(): EmptyObject;
-
 export function scan(
     directory: PathLike,
     options: ScanOptions,

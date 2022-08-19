@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "dt-header": false,
         "member-access": false,
         "no-any-union": false,
         "no-empty-interface": false,

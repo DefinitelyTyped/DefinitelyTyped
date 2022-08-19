@@ -18,7 +18,7 @@ Copyright (c) Microsoft Corporation
  */
 declare namespace OfficeRuntime {
   /**
-   * Method that enables a pop up web dialog box.
+   * Function that enables a pop up web dialog box.
    *
    * [Api set: SharedRuntime 1.1]
    *
@@ -283,7 +283,7 @@ declare namespace OfficeRuntime {
    */
   const apiInformation: ApiInformation;
   /**
-   * Interface that contains functions for checking API requirement-set support.
+   * Interface that contains methods for checking API requirement-set support.
    */
   interface ApiInformation {
     /**

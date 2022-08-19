@@ -1,9 +1,31 @@
 import codegenNativeComponent, { NativeComponentType } from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
+import {
+    WithDefault,
+    Double,
+    Float,
+    Int32,
+    UnsafeObject,
+    BubblingEventHandler,
+    DirectEventHandler,
+} from 'react-native/Libraries/Types/CodegenTypes';
 import type { ViewProps } from 'react-native';
 
+type Event = Readonly<{
+    value: Double;
+}>;
+
 interface NativeProps extends ViewProps {
-    color?: string;
+    string?: string;
+    number?: number;
+    boolean?: boolean;
+    default?: WithDefault<'option1' | 'option2', 'option1'>;
+    double?: Double;
+    float?: Float;
+    int32?: Int32;
+    unsafeObject?: UnsafeObject;
+    onBubblingEventHandler?: BubblingEventHandler<Event>;
+    onDirectEventHandler?: DirectEventHandler<Event>;
 }
 
 export type SampleViewType = NativeComponentType<NativeProps>;
