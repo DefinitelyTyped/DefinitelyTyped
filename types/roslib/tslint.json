@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "export-just-namespace": false,
         "member-access": false,
         "no-redundant-jsdoc-2": false,
