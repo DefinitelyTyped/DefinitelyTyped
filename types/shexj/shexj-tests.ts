@@ -1,10 +1,10 @@
 import {
-  Schema, shapeExpr, ShapeOr, ShapeAnd, ShapeNot, ShapeExternal, shapeExprRef,
-  shapeExprLabel, NodeConstraint, xsFacet, stringFacet, numericFacet,
+  Schema, shapeExpr, ShapeDecl, ShapeOr, ShapeAnd, ShapeNot, ShapeExternal, shapeDeclRef,
+  shapeDeclLabel, shapeExprOrRef, NodeConstraint, xsFacet, stringFacet, numericFacet,
   numericLiteral, valueSetValue, objectValue, ObjectLiteral, IriStem,
   IriStemRange, LiteralStem, LiteralStemRange, Language, LanguageStem,
   LanguageStemRange, Wildcard, Shape, tripleExpr, EachOf, OneOf,
-  TripleConstraint, tripleExprRef, tripleExprLabel, SemAct, Annotation, IRIREF,
+  TripleConstraint, tripleExprRef, tripleExprLabel, tripleExprOrRef, SemAct, Annotation, IRIREF,
   STRING, LANGTAG
 } from "shexj";
 
@@ -38,6 +38,7 @@ function test_pieces() {
 
     const tel1: tripleExprLabel = i1;
     const ter1: tripleExprRef = tel1;
+    const teor1: tripleExprOrRef = ter1;
 
     const tc1: TripleConstraint = { type: "TripleConstraint", predicate: i1 };
     const tc2: TripleConstraint = { id: i1, type: "TripleConstraint", inverse: true, predicate: i1, min: 1, max: -1, semActs: [semAct1, semAct2], annotations: [anotationIRI, anotationLit] };
@@ -47,7 +48,6 @@ function test_pieces() {
     // @ts-expect-error
     const oo1_e1: OneOf = { type: "OneOf", expressions: [tc1, semAct1] };
 
-    const te1: tripleExpr = ter1;
     const te2: tripleExpr = tc1;
     const te3: tripleExpr = eo1;
     const te4: tripleExpr = oo1;
@@ -55,7 +55,7 @@ function test_pieces() {
     const te_e1: tripleExpr = semAct1;
 
     const sh1: Shape = { type: "Shape" };
-    const sh2: Shape = { type: "Shape", expression: te1, closed: true, extra: [i1, i2], semActs: [semAct1, semAct2], annotations: [anotationIRI, anotationLit] };
+    const sh2: Shape = { type: "Shape", expression: te4, closed: true, extra: [i1, i2], semActs: [semAct1, semAct2], annotations: [anotationIRI, anotationLit] };
 
     const lt1: LANGTAG = "en";
     const lt2: LANGTAG = "en-fr";
@@ -87,16 +87,20 @@ function test_pieces() {
     const nc_e1: NodeConstraint = { type: "NodeConstraint", nodeKind: "iri999" };
     const nc2: NodeConstraint = { type: "NodeConstraint", datatype: i2, values: vsv1, minlength: 2, minexclusive: 99 };
 
-    const sel1: shapeExprLabel = i1;
-    const ser1: shapeExprRef = tel1;
+    const sdl1: shapeDeclLabel = i1;
+    const sdr1: shapeDeclRef = sdl1;
+    const seor1: shapeExprOrRef = sdr1;
 
-    const ext1: ShapeExternal = { type: "ShapeExternal", id: sel1 };
-    const sn1: ShapeNot = { type: "ShapeNot", id: "sn1", shapeExpr: ext1 };
-    const sa1: ShapeAnd = { type: "ShapeAnd", id: "sa1", shapeExprs: [ext1, sn1] };
+    const ext1: ShapeExternal = { type: "ShapeExternal" };
+    const ext1d: ShapeDecl = { type: "ShapeDecl", id: sdl1, shapeExpr: ext1 };
+    const sn1: ShapeNot = { type: "ShapeNot", shapeExpr: ext1 };
+    const sn1d: ShapeDecl = { type: "ShapeDecl", id: "sn1", shapeExpr: sn1 };
+    const sa1: ShapeAnd = { type: "ShapeAnd", shapeExprs: [ext1, sn1] };
+    const sa1d: ShapeDecl = { type: "ShapeDecl", id: "sa1", shapeExpr: sa1 };
     const so1: ShapeOr = { type: "ShapeOr", shapeExprs: [ext1, sn1, sa1] };
 
     const s1: Schema = { type: "Schema" };
-    const s2: Schema = { type: "Schema", "@context": "http://www.w3.org/ns/shex.jsonld", startActs: [semAct1, semAct2], start: so1, imports: [i1, i2], shapes: [ext1, sn1, sa1] };
+    const s2: Schema = { type: "Schema", "@context": "http://www.w3.org/ns/shex.jsonld", startActs: [semAct1, semAct2], start: so1, imports: [i1, i2], shapes: [ext1d, sn1d, sa1d] };
 }
 
 function test_kitchen_sink() {
@@ -112,377 +116,392 @@ function test_kitchen_sink() {
     start: "http://ex.example/S1",
     shapes: [
       {
-        type: "Shape",
+        type: "ShapeDecl",
         id: "_:IDshape",
-        expression: {
-          id: "_:IDshapeE",
-          type: "OneOf",
-          expressions: [
-            {
-              type: "EachOf",
-              expressions: [
-                {
-                  type: "TripleConstraint",
-                  predicate: "http://ex.example/#code",
-                  valueExpr: {
-                    type: "NodeConstraint",
-                    nodeKind: "literal"
+        shapeExpr: {
+          type: "Shape",
+          expression: {
+            id: "_:IDshapeE",
+            type: "OneOf",
+            expressions: [
+              {
+                type: "EachOf",
+                expressions: [
+                  {
+                    type: "TripleConstraint",
+                    predicate: "http://ex.example/#code",
+                    valueExpr: {
+                      type: "NodeConstraint",
+                      nodeKind: "literal"
+                    }
+                  },
+                  {
+                    type: "TripleConstraint",
+                    predicate: "http://ex.example/#system",
+                    valueExpr: {
+                      type: "NodeConstraint",
+                      nodeKind: "iri"
+                    }
+                  },
+                  {
+                    type: "TripleConstraint",
+                    predicate: "http://ex.example/#literal",
+                    valueExpr: {
+                      type: "NodeConstraint",
+                      values: [
+                        {
+                          value: "a"
+                        },
+                        {
+                          value: "b",
+                          type: "http://ex.example/#c"
+                        },
+                        {
+                          value: "c",
+                          language: "en"
+                        },
+                        {
+                          value: "d",
+                          language: "en-fr"
+                        }
+                      ]
+                    },
+                    min: 2,
+                    max: 3
+                  },
+                  {
+                    type: "TripleConstraint",
+                    predicate: "http://ex.example/#misc",
+                    valueExpr: {
+                      type: "NodeConstraint",
+                      nodeKind: "bnode"
+                    },
+                    semActs: [
+                      {
+                        type: "SemAct",
+                        name: "http://ex.example/#foo",
+                        code: " ignored "
+                      },
+                      {
+                        type: "SemAct",
+                        name: "http://ex.example/#bar",
+                        code: " also ignored "
+                      }
+                    ]
                   }
-                },
-                {
-                  type: "TripleConstraint",
-                  predicate: "http://ex.example/#system",
-                  valueExpr: {
-                    type: "NodeConstraint",
-                    nodeKind: "iri"
-                  }
-                },
-                {
-                  type: "TripleConstraint",
-                  predicate: "http://ex.example/#literal",
-                  valueExpr: {
-                    type: "NodeConstraint",
-                    values: [
+                ]
+              },
+              {
+                type: "EachOf",
+                expressions: [
+                  {
+                    type: "EachOf",
+                    expressions: [
                       {
-                        value: "a"
+                        type: "TripleConstraint",
+                        inverse: true,
+                        predicate: "http://ex.example/#ref",
+                        valueExpr: {
+                          type: "NodeConstraint",
+                          values: [
+                            {
+                              value: "true",
+                              type: "http://www.w3.org/2001/XMLSchema#boolean"
+                            },
+                            {
+                              value: "false",
+                              type: "http://www.w3.org/2001/XMLSchema#boolean"
+                            }
+                          ]
+                        }
                       },
                       {
-                        value: "b",
-                        type: "http://ex.example/#c"
-                      },
-                      {
-                        value: "c",
-                        language: "en"
-                      },
-                      {
-                        value: "d",
-                        language: "en-fr"
+                        type: "TripleConstraint",
+                        inverse: true,
+                        predicate: "http://ex.example/#miscRef"
                       }
                     ]
                   },
-                  min: 2,
-                  max: 3
-                },
-                {
-                  type: "TripleConstraint",
-                  predicate: "http://ex.example/#misc",
-                  valueExpr: {
-                    type: "NodeConstraint",
-                    nodeKind: "bnode"
+                  {
+                    type: "TripleConstraint",
+                    predicate: "http://ex.example/#issues",
+                    valueExpr: "http://ex.example/S1",
+                    min: 0,
+                    max: -1
                   },
-                  semActs: [
-                    {
-                      type: "SemAct",
-                      name: "http://ex.example/#foo",
-                      code: " ignored "
-                    },
-                    {
-                      type: "SemAct",
-                      name: "http://ex.example/#bar",
-                      code: " also ignored "
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              type: "EachOf",
-              expressions: [
-                {
-                  type: "EachOf",
-                  expressions: [
-                    {
-                      type: "TripleConstraint",
-                      inverse: true,
-                      predicate: "http://ex.example/#ref",
-                      valueExpr: {
-                        type: "NodeConstraint",
-                        values: [
-                          {
-                            value: "true",
-                            type: "http://www.w3.org/2001/XMLSchema#boolean"
-                          },
-                          {
-                            value: "false",
-                            type: "http://www.w3.org/2001/XMLSchema#boolean"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      type: "TripleConstraint",
-                      inverse: true,
-                      predicate: "http://ex.example/#miscRef"
-                    }
-                  ]
-                },
-                {
-                  type: "TripleConstraint",
-                  predicate: "http://ex.example/#issues",
-                  valueExpr: "http://ex.example/S1",
-                  min: 0,
-                  max: -1
-                },
-                {
-                  type: "TripleConstraint",
-                  predicate: "http://ex.example/#seeAlso",
-                  valueExpr: "http://ex.example/S1",
-                  min: 0,
-                  max: -1
-                },
-                {
-                  type: "TripleConstraint",
-                  predicate: "http://ex.example/#says",
-                  valueExpr: "http://ex.example/#EmployeeShape",
-                  min: 0,
-                  max: -1
-                }
-              ]
-            }
-          ]
+                  {
+                    type: "TripleConstraint",
+                    predicate: "http://ex.example/#seeAlso",
+                    valueExpr: "http://ex.example/S1",
+                    min: 0,
+                    max: -1
+                  },
+                  {
+                    type: "TripleConstraint",
+                    predicate: "http://ex.example/#says",
+                    valueExpr: "http://ex.example/#EmployeeShape",
+                    min: 0,
+                    max: -1
+                  }
+                ]
+              }
+            ]
+          }
         }
       },
       {
-        type: "Shape",
+        type: "ShapeDecl",
         id: "http://ex.example/#EmployeeShape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/givenName",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string"
+        shapeExpr: {
+          type: "Shape",
+          expression: {
+            type: "EachOf",
+            expressions: [
+              {
+                type: "TripleConstraint",
+                predicate: "http://xmlns.com/foaf/givenName",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  datatype: "http://www.w3.org/2001/XMLSchema#string"
+                },
+                min: 1,
+                max: -1
               },
-              min: 1,
-              max: -1
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/familyName",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#string"
+              {
+                type: "TripleConstraint",
+                predicate: "http://xmlns.com/foaf/familyName",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  datatype: "http://www.w3.org/2001/XMLSchema#string"
+                }
+              },
+              {
+                type: "TripleConstraint",
+                predicate: "http://xmlns.com/foaf/phone",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  nodeKind: "iri"
+                },
+                min: 0,
+                max: -1
+              },
+              {
+                type: "TripleConstraint",
+                predicate: "http://xmlns.com/foaf/mbox",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  nodeKind: "iri"
+                },
+                min: 0,
+                max: 1
               }
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/phone",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri"
-              },
-              min: 0,
-              max: -1
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/mbox",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri"
-              },
-              min: 0,
-              max: 1
-            }
+            ]
+          }
+        }
+      },
+      {
+        type: "ShapeDecl",
+        id: "http://ex.example/#FooID",
+        shapeExpr: {
+          type: "Shape",
+          closed: true,
+          expression: "_:IDshapeE",
+          extra: [
+            "http://ex.example/#code",
+            "http://ex.example/#system"
           ]
         }
       },
       {
-        type: "Shape",
-        id: "http://ex.example/#FooID",
-        closed: true,
-        expression: "_:IDshapeE",
-        extra: [
-          "http://ex.example/#code",
-          "http://ex.example/#system"
-        ]
-      },
-      {
-        type: "Shape",
+        type: "ShapeDecl",
         id: "http://ex.example/#UserShape",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "OneOf",
-              expressions: [
-                {
-                  type: "TripleConstraint",
-                  predicate: "http://xmlns.com/foaf/name",
-                  valueExpr: {
-                    type: "NodeConstraint",
-                    datatype: "http://www.w3.org/2001/XMLSchema#string"
-                  }
-                },
-                {
-                  type: "EachOf",
-                  expressions: [
-                    {
-                      type: "TripleConstraint",
-                      predicate: "http://xmlns.com/foaf/givenName",
-                      valueExpr: {
-                        type: "NodeConstraint",
-                        datatype: "http://www.w3.org/2001/XMLSchema#string"
-                      },
-                      min: 1,
-                      max: -1
-                    },
-                    {
-                      type: "TripleConstraint",
-                      predicate: "http://xmlns.com/foaf/familyName",
-                      valueExpr: {
-                        type: "NodeConstraint",
-                        datatype: "http://www.w3.org/2001/XMLSchema#string"
-                      }
+        shapeExpr: {
+          type: "Shape",
+          expression: {
+            type: "EachOf",
+            expressions: [
+              {
+                type: "OneOf",
+                expressions: [
+                  {
+                    type: "TripleConstraint",
+                    predicate: "http://xmlns.com/foaf/name",
+                    valueExpr: {
+                      type: "NodeConstraint",
+                      datatype: "http://www.w3.org/2001/XMLSchema#string"
                     }
+                  },
+                  {
+                    type: "EachOf",
+                    expressions: [
+                      {
+                        type: "TripleConstraint",
+                        predicate: "http://xmlns.com/foaf/givenName",
+                        valueExpr: {
+                          type: "NodeConstraint",
+                          datatype: "http://www.w3.org/2001/XMLSchema#string"
+                        },
+                        min: 1,
+                        max: -1
+                      },
+                      {
+                        type: "TripleConstraint",
+                        predicate: "http://xmlns.com/foaf/familyName",
+                        valueExpr: {
+                          type: "NodeConstraint",
+                          datatype: "http://www.w3.org/2001/XMLSchema#string"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                type: "TripleConstraint",
+                predicate: "http://xmlns.com/foaf/mbox",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  nodeKind: "iri",
+                  pattern: "^mailto:"
+                }
+              },
+              {
+                type: "TripleConstraint",
+                predicate: "http://ex.example/#id",
+                valueExpr: {
+                  type: "ShapeAnd",
+                  shapeExprs: [
+                    {
+                      type: "NodeConstraint",
+                      nodeKind: "bnode"
+                    },
+                    "_:IDshape"
                   ]
                 }
-              ]
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://xmlns.com/foaf/mbox",
-              valueExpr: {
-                type: "NodeConstraint",
-                nodeKind: "iri",
-                pattern: "^mailto:"
               }
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://ex.example/#id",
-              valueExpr: {
-                type: "ShapeAnd",
-                shapeExprs: [
-                  {
-                    type: "NodeConstraint",
-                    nodeKind: "bnode"
-                  },
-                  "_:IDshape"
-                ]
-              }
-            }
-          ]
+            ]
+          }
         }
       },
       {
-        type: "Shape",
+        type: "ShapeDecl",
         id: "http://ex.example/S1",
-        expression: {
-          type: "EachOf",
-          expressions: [
-            {
-              type: "TripleConstraint",
-              predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-              valueExpr: {
-                type: "NodeConstraint",
-                values: [
-                  "http://ex.example/#Issue"
-                ]
-              },
-              min: 0,
-              max: 1
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://ex.example/#state",
-              valueExpr: {
-                type: "NodeConstraint",
-                values: [
-                  {
-                    type: "IriStemRange",
-                    stem: "http://ex.example/#state",
-                    exclusions: [
-                      "http://ex.example/#state_resolved"
-                    ]
-                  }
-                ]
-              },
-              annotations: [
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schem#label",
-                  object: {
-                    value: "State"
-                  }
+        shapeExpr: {
+          type: "Shape",
+          expression: {
+            type: "EachOf",
+            expressions: [
+              {
+                type: "TripleConstraint",
+                predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  values: [
+                    "http://ex.example/#Issue"
+                  ]
                 },
-                {
-                  type: "Annotation",
-                  predicate: "http://www.w3.org/2000/01/rdf-schem#description",
-                  object: {
-                    value: "the sit"
-                  }
-                }
-              ]
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://ex.example/#reportedBy",
-              valueExpr: {
-                type: "ShapeAnd",
-                shapeExprs: [
+                min: 0,
+                max: 1
+              },
+              {
+                type: "TripleConstraint",
+                predicate: "http://ex.example/#state",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  values: [
+                    {
+                      type: "IriStemRange",
+                      stem: "http://ex.example/#state",
+                      exclusions: [
+                        "http://ex.example/#state_resolved"
+                      ]
+                    }
+                  ]
+                },
+                annotations: [
                   {
-                    type: "NodeConstraint",
-                    nodeKind: "iri"
+                    type: "Annotation",
+                    predicate: "http://www.w3.org/2000/01/rdf-schem#label",
+                    object: {
+                      value: "State"
+                    }
                   },
-                  "http://ex.example/#UserShape"
+                  {
+                    type: "Annotation",
+                    predicate: "http://www.w3.org/2000/01/rdf-schem#description",
+                    object: {
+                      value: "the sit"
+                    }
+                  }
                 ]
-              }
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://ex.example/#reportedOn",
-              valueExpr: {
-                type: "NodeConstraint",
-                datatype: "http://www.w3.org/2001/XMLSchema#dateTime"
-              }
-            },
-            {
-              type: "EachOf",
-              expressions: [
-                {
-                  type: "TripleConstraint",
-                  predicate: "http://ex.example/#reproducedBy",
-                  valueExpr: {
-                    type: "ShapeAnd",
-                    shapeExprs: [
-                      {
-                        type: "NodeConstraint",
-                        nodeKind: "nonliteral"
-                      },
-                      "http://ex.example/#EmployeeShape"
-                    ]
-                  }
-                },
-                {
-                  type: "TripleConstraint",
-                  predicate: "http://ex.example/#reproducedOn",
-                  valueExpr: {
-                    type: "NodeConstraint",
-                    datatype: "http://www.w3.org/2001/XMLSchema#dateTime"
-                  }
+              },
+              {
+                type: "TripleConstraint",
+                predicate: "http://ex.example/#reportedBy",
+                valueExpr: {
+                  type: "ShapeAnd",
+                  shapeExprs: [
+                    {
+                      type: "NodeConstraint",
+                      nodeKind: "iri"
+                    },
+                    "http://ex.example/#UserShape"
+                  ]
                 }
-              ],
-              min: 0,
-              max: 1,
-              semActs: [
-                {
-                  type: "SemAct",
-                  name: "http://ex.example/#foo",
-                  code: " asdfasdf "
+              },
+              {
+                type: "TripleConstraint",
+                predicate: "http://ex.example/#reportedOn",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  datatype: "http://www.w3.org/2001/XMLSchema#dateTime"
                 }
-              ]
-            },
-            {
-              type: "TripleConstraint",
-              predicate: "http://ex.example/#related",
-              valueExpr: "http://ex.example/S1",
-              min: 0,
-              max: -1
-            }
-          ]
+              },
+              {
+                type: "EachOf",
+                expressions: [
+                  {
+                    type: "TripleConstraint",
+                    predicate: "http://ex.example/#reproducedBy",
+                    valueExpr: {
+                      type: "ShapeAnd",
+                      shapeExprs: [
+                        {
+                          type: "NodeConstraint",
+                          nodeKind: "nonliteral"
+                        },
+                        "http://ex.example/#EmployeeShape"
+                      ]
+                    }
+                  },
+                  {
+                    type: "TripleConstraint",
+                    predicate: "http://ex.example/#reproducedOn",
+                    valueExpr: {
+                      type: "NodeConstraint",
+                      datatype: "http://www.w3.org/2001/XMLSchema#dateTime"
+                    }
+                  }
+                ],
+                min: 0,
+                max: 1,
+                semActs: [
+                  {
+                    type: "SemAct",
+                    name: "http://ex.example/#foo",
+                    code: " asdfasdf "
+                  }
+                ]
+              },
+              {
+                type: "TripleConstraint",
+                predicate: "http://ex.example/#related",
+                valueExpr: "http://ex.example/S1",
+                min: 0,
+                max: -1
+              }
+            ]
+          }
         }
       }
     ],
