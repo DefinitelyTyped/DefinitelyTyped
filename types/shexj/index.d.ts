@@ -6,6 +6,8 @@
 
 // Conforms to <https://shex.io/shex-semantics/#shexj> and shex-test@2.2.0-alpha.1
 
+export {}; // only export specified symbols (strict-export-declare-modifiers)
+
 /**
  * Structure for expressing a Shape Expression schema.
  * @see <a href="http://shex.io/shex-semantics/#dfn-shapes-schema">ShEx Schema definition</a>
@@ -152,7 +154,7 @@ export type shapeDeclLabel = IRIREF | BNODE;
  * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
  * as expressed in <a href="https://www.w3.org/TR/json-ld11/">JSON-LD 1.1</a>.
  */
-export interface NodeConstraint extends xsFacet {
+export interface NodeConstraint extends xsFacets, semactsAndAnnotations {
     /**
      * Mandatory type "NodeConstraint".
      */
@@ -175,17 +177,17 @@ export interface NodeConstraint extends xsFacet {
 }
 
 /**
- * The set of XML Schema Facets supported in ShEx; defers to {@link stringFacet} and {@link numericFacet}.
+ * The set of XML Schema Facets supported in ShEx; defers to {@link stringFacets} and {@link numericFacets}.
  * @see <a href="http://shex.io/shex-semantics/#xs-string">ShEx String Facet Constraints</a> and <a href="http://shex.io/shex-semantics/#xs-numeric">ShEx Numeric Facet Constraints</a>.
  */
-export interface xsFacet extends stringFacet, numericFacet {
+export interface xsFacets extends stringFacets, numericFacets {
 }
 
 /**
  * The set of <a href="https://www.w3.org/TR/xmlschema-2/#facets">XML Schema Facets</a> applying to <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-lexical-form">lexical forms of RDF terms</a>.
  * @see <a href="http://shex.io/shex-semantics/#xs-string">ShEx String Facet Constraints</a>.
  */
-export interface stringFacet {
+export interface stringFacets {
     /**
      * Expected length of the lexical form of an RDF Term.
      */
@@ -212,7 +214,7 @@ export interface stringFacet {
  * The set of <a href="https://www.w3.org/TR/xmlschema-2/#facets">XML Schema Facets</a> applying to <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-value-space">numeric values of RDF terms</a>.
  * @see <a href="http://shex.io/shex-semantics/#xs-numeric">ShEx Numeric Facet Constraints</a>.
  */
-export interface numericFacet {
+export interface numericFacets {
     /**
      * Conformant <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-literal">RDF Literal</a> has as a numeric value <= {@link mininclusive}.
      */
@@ -241,8 +243,19 @@ export interface numericFacet {
     fractiondigits?: INTEGER | undefined;
 }
 
+export interface semactsAndAnnotations {
+    /**
+     * List of semantic actions to be executed when evaluating conformance.
+     */
+    semActs?: SemAct[] | undefined; // +;
+    /**
+     * List of {@link SemAct#predicate}/{@link SemAct#object} annotations.
+     */
+    annotations?: Annotation[] | undefined; // +
+}
+
 /**
- * Union of numeric types in ShEx used in {@link numericFacet}s.
+ * Union of numeric types in ShEx used in {@link numericFacets}s.
  */
 export type numericLiteral = INTEGER | DECIMAL | DOUBLE;
 
@@ -405,7 +418,7 @@ export interface Wildcard {
 /**
  * A collection of {@link tripleExpr}s which must be matched by <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-triple">RDF Triple</a>s in conformance data.
  */
-export interface Shape {
+export interface Shape extends semactsAndAnnotations {
     /**
      * Mandatory type "Shape".
      */
@@ -422,14 +435,6 @@ export interface Shape {
      * A tree of {@link tripleExpr}s specifying a set triples into or out of conformant <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-node">RDF Nodes</a>.
      */
     expression?: tripleExprOrRef | undefined;
-    /**
-     * List of semantic actions to be executed when evaluating conformance.
-     */
-    semActs?: SemAct[] | undefined; // +;
-    /**
-     * List of {@link SemAct#predicate}/{@link SemAct#object} annotations attached to this {@link Shape}.
-     */
-    annotations?: Annotation[] | undefined; // +
 }
 
 /**
@@ -447,7 +452,7 @@ export type tripleExprOrRef = tripleExpr | tripleExprRef;
 /**
  * Common attributes appearing in every form of {@link tripleExpr}.
  */
-export interface tripleExprBase {
+export interface tripleExprBase extends semactsAndAnnotations {
     /**
      * Optional identifier for {@link tripleExpr}s for reference by {@link tripleExprRef}.
      * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
@@ -462,14 +467,6 @@ export interface tripleExprBase {
      * Maximum number of times matching triples must appear in conformant data.
      */
     max?: INTEGER | undefined;
-    /**
-     * List of semantic actions to be executed when evaluating conformance.
-     */
-    semActs?: SemAct[] | undefined; // +;
-    /**
-     * List of {@link SemAct#predicate}/{@link SemAct#object} annotations attached to this {@link tripleExpr}.
-     */
-    annotations?: Annotation[] | undefined; // +
 }
 
 /**
