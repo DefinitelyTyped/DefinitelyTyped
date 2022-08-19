@@ -907,6 +907,10 @@ braintree.threeDSecure.verifyCard(
             // Remove UI that you added in addFrame.
             document.body.removeChild(my3DSContainer);
         },
+        onLookupComplete(data, next) {
+            console.log('data from lookup', data);
+            next();
+        },
     },
     (err: braintree.BraintreeError, payload: braintree.ThreeDSecureVerifyPayload) => {
         if (err) {
