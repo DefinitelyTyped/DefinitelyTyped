@@ -45,7 +45,7 @@ export interface ReactTagsProps {
 
     inline?: boolean | undefined;
     inputFieldPosition?: 'top' | 'bottom' | 'inline' | undefined;
-    inputProps: React.InputHTMLAttributes<HTMLInputElement>;
+    inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
     allowUnique?: boolean | undefined;
     allowDragDrop?: boolean | undefined;
     renderSuggestion?(tag: Tag, query: string): React.ReactChild | void;
