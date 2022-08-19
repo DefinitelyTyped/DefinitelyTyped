@@ -147,6 +147,13 @@ export interface ThreeDSecureVerificationData {
     paymentMethod: ThreeDSecureVerifyPayload;
 }
 
+export type ThreeDSecureEvent =
+    | 'lookup-complete'
+    | 'customer-canceled'
+    | 'authentication-iframe-available'
+    | 'authentication-modal-render'
+    | 'authentication-modal-close';
+
 export interface ThreeDSecure {
     /**
      * braintree.threeDSecure.create({
@@ -263,11 +270,11 @@ export interface ThreeDSecure {
      * It adds definition for on(event, handler) method
      * Documentation link: https://braintree.github.io/braintree-web/current/ThreeDSecure.html#on
      */
-    on(event: string, handler: (data?: any, next?: () => void) => void): void;
+    on(event: ThreeDSecureEvent, handler: (data?: any, next?: () => void) => void): void;
 
     /**
      * Unsubscribes the handler function to a named event
      * Documentation link: https://braintree.github.io/braintree-web/current/ThreeDSecure.html#off
      */
-     off(event: string, handler: (data?: any, next?: () => void) => void): void;
+     off(event: ThreeDSecureEvent, handler: (data?: any, next?: () => void) => void): void;
 }
