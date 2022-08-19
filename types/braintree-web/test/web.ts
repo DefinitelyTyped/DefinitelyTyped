@@ -205,6 +205,8 @@ braintree.client.create(
                                     return;
                                 }
 
+                                console.log('regulationEnvironment', payload.authenticationInsight.regulationEnvironment);
+
                                 // Put `payload.nonce` into the `payment-method-nonce` input, and then
                                 // submit the form. Alternatively, you could send the nonce to your server
                                 // with AJAX.
