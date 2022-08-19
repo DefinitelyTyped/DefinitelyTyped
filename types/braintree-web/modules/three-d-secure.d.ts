@@ -172,7 +172,8 @@ export interface ThreeDSecureCreateOptions {
      *
      * 2 - A 3D Secure v2.0 integration that uses a modal to host the 3D Secure iframe.
      *
-     * 2-bootstrap3-modal - A 3D Secure v2.0 integration that uses a modal styled with Bootstrap 3 styles to host the 3D Secure iframe. Requires having the Bootstrap 3 script files and stylesheets on your page.
+     * 2-bootstrap3-modal - A 3D Secure v2.0 integration that uses a modal styled with Bootstrap 3 styles
+     * to host the 3D Secure iframe. Requires having the Bootstrap 3 script files and stylesheets on your page.
      *
      * 2-inline-iframe - A 3D Secure v2.0 integration that provides the authentication iframe directly to the merchant.
      *
