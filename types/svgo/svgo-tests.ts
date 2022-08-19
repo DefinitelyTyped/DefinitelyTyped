@@ -134,7 +134,8 @@ optimized = optimize('', {
         { name: 'sortAttrs' },
         { name: 'sortDefsChildren' },
         { name: 'addAttributesToSVGElement' },
-        { name: 'addClassesToSVGElement' },
+        { name: 'addClassesToSVGElement', params: { className: 'myClass'} },
+        { name: 'addClassesToSVGElement', params: { classNames: ['myClass', 'myClass2']} },
 
         { active: true, name: 'addAttributesToSVGElement' },
         { active: false, name: 'addClassesToSVGElement' },

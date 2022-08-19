@@ -15,6 +15,7 @@ declare class GeneralSettings {
     validateSettingName(name: string, key?: DBKey | number): void;
     stringifyValue(value: any, options: SettingOptions): string;
     parseValue(text: string, options: SettingOptions): any;
+    getDefaultValue(id: string | number | DBKey): any;
     version: number;
 }
 declare namespace GeneralSettings {

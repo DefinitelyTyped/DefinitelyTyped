@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 18.0
+// Type definitions for non-npm package Node.js 18.7
 // Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -108,6 +108,7 @@
 /// <reference path="punycode.d.ts" />
 /// <reference path="querystring.d.ts" />
 /// <reference path="readline.d.ts" />
+/// <reference path="readline/promises.d.ts" />
 /// <reference path="repl.d.ts" />
 /// <reference path="stream.d.ts" />
 /// <reference path="stream/promises.d.ts" />

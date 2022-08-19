@@ -3,8 +3,9 @@
 // Definitions by: Jacob Fischer <https://github.com/JacobFischer>
 //                 Zachary Svoboda <https://github.com/zacnomore>
 //                 Lars Kecker <https://github.com/CapOfCave>
+//                 Vicary Archangel <https://github.com/vicary>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
+// Minimum TypeScript Version: 4.2
 
 /**
  * One of the possible squares on a chess board in san format,
@@ -76,6 +77,8 @@ export type Square =
     | 'g1'
     | 'h1';
 
+export type SquareColor = 'light' | 'dark';
+
 /**
  * - "p" for Pawn
  * - "n" for Knight
@@ -85,6 +88,12 @@ export type Square =
  * - "k" for King
  */
 export type PieceType = 'p' | 'n' | 'b' | 'r' | 'q' | 'k';
+
+/**
+ * - "b" for Black
+ * - "w" for White
+ */
+export type PieceColor = 'b' | 'w';
 
 /**
  * Partial data about a chess move including the from and to square, and if a
@@ -118,7 +127,7 @@ export interface Move extends ShortMove {
      * - "b" for Black
      * - "w" for White
      */
-    color: 'b' | 'w';
+    color: PieceColor;
 
     /** Flags indicating what occurred, combined into one string */
     flags: string;
@@ -148,7 +157,7 @@ export interface Piece {
      * - "b" for Black
      * - "w" for White
      */
-    color: 'b' | 'w';
+    color: PieceColor;
 }
 
 export interface Comment {
@@ -503,7 +512,7 @@ export interface ChessInstance {
      * Returns the current side to move.
      * @returns "b" if Black is the side to move, otherwise "w" for White.
      */
-    turn(): 'b' | 'w';
+    turn(): PieceColor;
 
     /**
      * Attempts to make a move on the board, returning a move object if the
@@ -582,7 +591,7 @@ export interface ChessInstance {
      * @returns "light" if a light square, "dark" if a dark square, or null if
      * not a valid square.
      */
-    square_color(square: Square): 'light' | 'dark';
+    square_color(square: Square): SquareColor;
 
     /**
      * Returns the color of the square ('light' or 'dark').
@@ -590,7 +599,7 @@ export interface ChessInstance {
      * @returns "light" if a light square, "dark" if a dark square, or null if
      * not a valid square.
      */
-    square_color(square: string): 'light' | 'dark' | null;
+    square_color(square: string): SquareColor | null;
 
     /**
      * Returns a list containing the moves of the current game.
@@ -640,7 +649,7 @@ export interface ChessInstance {
         verbose?: boolean | undefined;
     }): string[] | Move[];
 
-    board(): Array<Array<{ type: PieceType; color: 'w' | 'b'; square: Square } | null>>;
+    board(): Array<Array<{ type: PieceType; color: PieceColor; square: Square } | null>>;
 
     get_comment(): string | undefined;
 

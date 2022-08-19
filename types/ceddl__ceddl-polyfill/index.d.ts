@@ -112,6 +112,7 @@ export interface ModelConfig {
         [key: string]: {
             type: StringField | BooleanField | ModelField | ListField | NumberField | ArrayField;
             foreignModel?: string;
+            fieldType?: StringField | BooleanField | NumberField; // only used when ArrayField
             required: boolean;
             pattern?: string;
         }

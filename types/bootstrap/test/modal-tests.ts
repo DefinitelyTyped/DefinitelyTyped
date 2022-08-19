@@ -18,23 +18,35 @@ Modal.VERSION;
 Modal.Default;
 
 element.addEventListener(Modal.Events.show, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
+});
+
+// Ensure that using a string literal as the event type works the same as using
+// the `Modal.Events` enum.
+element.addEventListener('show.bs.modal', event => {
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.shown, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.hide, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.hidden, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 element.addEventListener(Modal.Events.hidePrevented, event => {
-    // do something…
+    event.target; // $ExpectType HTMLElement
+    event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
 
 // $ExpectType JQuery<HTMLElement>

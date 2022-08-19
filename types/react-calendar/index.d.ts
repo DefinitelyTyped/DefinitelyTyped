@@ -18,6 +18,7 @@ export type ViewCallback = (props: ViewCallbackProperties) => void;
 export type DrillCallback = (props: DrillCallbackProperties) => void;
 
 export default function Calendar(props: CalendarProps): JSX.Element;
+export function Calendar(props: CalendarProps): JSX.Element;
 
 export interface CalendarProps {
     activeStartDate?: Date | undefined;

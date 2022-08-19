@@ -264,7 +264,7 @@ declare namespace jest {
      * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
      * This only works with jest-circus!
      */
-    function retryTimes(numRetries: number): typeof jest;
+    function retryTimes(numRetries: number, options?: { logErrorsBeforeRetry?: boolean }): typeof jest;
     /**
      * Exhausts tasks queued by setImmediate().
      * > Note: This function is only available when using modern fake timers
@@ -471,6 +471,12 @@ declare namespace jest {
          */
         only: It;
         /**
+         * Mark this test as expecting to fail.
+         *
+         * Only available in the default `jest-circus` runner.
+         */
+        failing: It;
+        /**
          * Skips running this test in the current file.
          */
         skip: It;
@@ -537,27 +543,21 @@ declare namespace jest {
 
     type EqualityTester = (a: any, b: any) => boolean | undefined;
 
-    interface MatcherUtils {
-        readonly isNot: boolean;
-        readonly dontThrow: () => void;
-        readonly promise: string;
-        readonly assertionCalls: number;
-        readonly expectedAssertionsNumber: number | null;
-        readonly isExpectingAssertions: boolean;
-        readonly suppressedErrors: any[];
-        readonly expand: boolean;
-        readonly testPath: string;
-        readonly currentTestName: string;
-        utils: typeof import('jest-matcher-utils') & {
-            iterableEquality: EqualityTester;
-            subsetEquality: EqualityTester;
-        };
-        /**
-         *  This is a deep-equality function that will return true if two objects have the same values (recursively).
-         */
-        equals(a: any, b: any, customTesters?: EqualityTester[], strictCheck?: boolean): boolean;
-        [other: string]: any;
-    }
+    type MatcherUtils = Pick<
+        import('expect').MatcherState,
+        | 'isNot'
+        | 'dontThrow'
+        | 'promise'
+        | 'assertionCalls'
+        | 'expectedAssertionsNumber'
+        | 'isExpectingAssertions'
+        | 'suppressedErrors'
+        | 'expand'
+        | 'testPath'
+        | 'currentTestName'
+        | 'utils'
+        | 'equals'
+    > & { [other: string]: any; };
 
     interface ExpectExtendMap {
         [key: string]: CustomMatcher;
@@ -613,15 +613,16 @@ declare namespace jest {
          */
         stringContaining(str: string): any;
     }
-    interface MatcherState {
-        assertionCalls: number;
-        currentTestName: string;
-        expand: boolean;
-        expectedAssertionsNumber: number;
-        isExpectingAssertions?: boolean | undefined;
-        suppressedErrors: Error[];
-        testPath: string;
-    }
+    type MatcherState = Pick<
+        import('expect').MatcherState,
+        | 'assertionCalls'
+        | 'currentTestName'
+        | 'expand'
+        | 'expectedAssertionsNumber'
+        | 'isExpectingAssertions'
+        | 'suppressedErrors'
+        | 'testPath'
+    >;
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.

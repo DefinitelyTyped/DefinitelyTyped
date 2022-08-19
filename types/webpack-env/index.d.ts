@@ -1,4 +1,4 @@
-// Type definitions for webpack (module API) 1.17
+// Type definitions for webpack (module API) 1.18
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 //                 rhonsby <https://github.com/rhonsby>
@@ -308,6 +308,11 @@ declare var __webpack_hash__: any;
  * Generates a require function that is not parsed by webpack. Can be used to do cool stuff with a global require function if available.
  */
 declare var __non_webpack_require__: any;
+
+/**
+ * Initializes the shared scope. Fills it with known provided modules from this build and all remotes
+ */
+ declare var __webpack_init_sharing__: (scope: string) => Promise<void>;
 
 /**
  * Adds nonce to all scripts that webpack loads.

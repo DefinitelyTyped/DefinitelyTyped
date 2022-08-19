@@ -11,7 +11,7 @@
 Questa sezione tiene traccia della salute della repo e del processo di pubblicazione.
 Può tornare utile per i contributori che stanno avendo problemi con le loro PR e package.
 
-* Ultima build [type-checked/linted](https://github.com/Microsoft/dtslint) pulita: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* Ultima build [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) pulita: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Tutti i package sono sottoposti a controllo dei tipi e linting con typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * Tutti i package vengono [pubblicati su npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * Il [bot di Typescript](https://github.com/typescript-bot) è stato attivo su Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
@@ -202,7 +202,7 @@ Se un package non è mai stato su Definitely Typed, non c'è bisogno che venga a
 
 Testa le tue modifiche eseguendo `npm test <package da testare>` dove `<package da testare>` è il nome del tuo package.
 
-Lo script usa [dtslint](https://github.com/microsoft/dtslint) per eseguire il compilatore TypeScript sui tuoi file dts.
+Lo script usa [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) per eseguire il compilatore TypeScript sui tuoi file dts.
 
 #### Nomenclatura
 
@@ -255,7 +255,7 @@ f(1);
 f("one");
 ```
 
-Per maggiori dettagli, leggi il readme di [dtslint](https://github.com/Microsoft/dtslint#write-tests).
+Per maggiori dettagli, leggi il readme di [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests).
 
 #### Linter: `tslint.json`
 

@@ -717,12 +717,13 @@ requestSubscription(
 ReactRelayContext.Consumer.prototype;
 ReactRelayContext.Provider.prototype;
 
-const MyRelayContextProvider: React.FunctionComponent<{ children?: React.ReactNode }> = ({children}) => {
+const MyRelayContextProvider: React.FunctionComponent<{ children?: React.ReactNode }> = ({ children }) => {
     return (
         <ReactRelayContext.Provider
             value={{
                 environment: modernEnvironment,
-            }}>
+            }}
+        >
             {children}
         </ReactRelayContext.Provider>
     );

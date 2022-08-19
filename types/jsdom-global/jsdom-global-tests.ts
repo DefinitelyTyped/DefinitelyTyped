@@ -7,7 +7,7 @@ jsdomGlobal(undefined, {
     url: 'https://localhost/'
 });
 jsdomGlobal('hello', {
-    contentType: '1',
+    contentType: 'text/html',
     url: 'https://localhost/',
     referrer: 'https://localhost/',
     includeNodeLocations: true,

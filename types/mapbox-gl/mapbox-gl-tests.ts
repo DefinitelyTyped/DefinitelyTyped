@@ -937,6 +937,24 @@ map.getPadding();
 // $ExpectType Map
 map.setPadding({ top: 10, bottom: 20, left: 30, right: 40 }, { myData: 'MY DATA' });
 
+map.setPaintProperty('layerId', 'layerName', null, { validate: true });
+map.setPaintProperty('layerId', 'layerName', null, { validate: false });
+map.setPaintProperty('layerId', 'layerName', null, {});
+// @ts-expect-error
+map.setPaintProperty('layerId', 'layerName', null, { some_option: 'some_string' });
+
+map.setLayoutProperty('layerId', 'layerName', null, { validate: true });
+map.setLayoutProperty('layerId', 'layerName', null, { validate: false });
+map.setLayoutProperty('layerId', 'layerName', null, {});
+// @ts-expect-error
+map.setLayoutProperty('layerId', 'layerName', null, { some_option: 'some_string' });
+
+map.setLight({ anchor: 'viewport', color: 'blue', intensity: 0.5 }, { validate: true });
+map.setLight({ anchor: 'viewport', color: 'blue', intensity: 0.5 }, { validate: false });
+map.setLight({ anchor: 'viewport', color: 'blue', intensity: 0.5 }, {});
+// @ts-expect-error
+map.setLight({ anchor: 'viewport', color: 'blue', intensity: 0.5 }, { some_option: 'some_string' });
+
 // $ExpectType boolean
 map.showPadding;
 map.showPadding = false;
@@ -1366,6 +1384,100 @@ expectType<mapboxgl.Map>(
     }),
 );
 
+expectType<mapboxgl.Map>(
+    map.once('click', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('dblclick', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mousedown', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mouseup', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mousemove', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mouseenter', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mouseleave', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mouseover', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('mouseout', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('contextmenu', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+
+expectType<mapboxgl.Map>(
+    map.once('touchstart', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerTouchEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('touchend', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerTouchEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once('touchcancel', eitherType('text', ['text1', 'text2']), ev => {
+        expectType<mapboxgl.MapLayerTouchEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+
+expectType<mapboxgl.Map>(map.off('click', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('dblclick', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mousedown', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mouseup', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mousemove', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mouseenter', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mouseleave', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mouseover', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('mouseout', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('contextmenu', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('touchstart', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('touchend', eitherType('text', ['text1', 'text2']), () => {}));
+expectType<mapboxgl.Map>(map.off('touchcancel', eitherType('text', ['text1', 'text2']), () => {}));
+
 /*
  * Expression
  */
@@ -1380,7 +1492,7 @@ expectType<mapboxgl.Expression>([
 expectType<mapboxgl.Expression>([
     'number-format',
     ['get', 'quantity'],
-    { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }
+    { 'min-fraction-digits': 1, 'max-fraction-digits': 1 },
 ]);
 const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
 
