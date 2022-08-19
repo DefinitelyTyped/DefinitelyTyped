@@ -1241,14 +1241,16 @@ function testRuntimeSendNativeMessage() {
 
 function testTabsSendMessage() {
     chrome.tabs.sendMessage(1, "Hello World!");
-    chrome.tabs.sendMessage(2, "Hello World!", console.log);
-    chrome.tabs.sendMessage(3, "Hello World!", { }, console.log);
-    chrome.tabs.sendMessage<string>(4, "Hello World!", console.log);
-    chrome.tabs.sendMessage<string, number>(5, "Hello World!", console.log);
+    chrome.tabs.sendMessage(2, "Hello World!").then(() => {});
+    chrome.tabs.sendMessage(3, "Hello World!", console.log);
+    chrome.tabs.sendMessage(4, "Hello World!", { }).then(() => {});
+    chrome.tabs.sendMessage(5, "Hello World!", { }, console.log);
+    chrome.tabs.sendMessage<string>(6, "Hello World!", console.log);
+    chrome.tabs.sendMessage<string, number>(7, "Hello World!", console.log);
     // @ts-expect-error
-    chrome.tabs.sendMessage<number>(6, "Hello World!", console.log);
+    chrome.tabs.sendMessage<number>(8, "Hello World!", console.log);
     // @ts-expect-error
-    chrome.tabs.sendMessage<string, string>(7, "Hello World!", (num: number) => alert(num+1));
+    chrome.tabs.sendMessage<string, string>(9, "Hello World!", (num: number) => alert(num+1));
 }
 
 function testTabsSendRequest() {
