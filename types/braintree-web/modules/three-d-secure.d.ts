@@ -133,7 +133,8 @@ export interface ThreeDSecureVerifyOptions {
     addFrame?: ((err?: BraintreeError, iframe?: HTMLIFrameElement) => void) | undefined;
     removeFrame?: (() => void) | undefined;
     /**
-     * Listens for when the initial lookup request completes.
+     * @deprecated Use on('lookup-complete') instead.
+     * Function to execute when lookup completes. The first argument, `data`, is a ThreeDSecureVerificationData object, and the second argument, `next`, is a callback. `next` must be called to continue.
      * See https://braintree.github.io/braintree-web/current/ThreeDSecure.html#event:lookup-complete,
      * and https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#hosted-fields.
      */
