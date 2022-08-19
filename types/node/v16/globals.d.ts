@@ -1,5 +1,28 @@
+// Error extensions
+interface Error {
+    /**
+     * If present, the `error.cause` property is the underlying cause of the `Error`.
+     * It is used when catching an error and throwing a new one with a different message or code in order to still have access to the original error.
+     * @added v16.9.0
+     */
+    cause?: unknown;
+}
+
+/**
+ * @added v16.9.0
+ */
+interface ErrorOptions {
+    /**
+     * The error that caused the newly created error.
+     * @added v16.9.0
+     */
+    cause?: unknown;
+}
+
 // Declare "static" methods in Error
 interface ErrorConstructor {
+    new(message?: string, options?: ErrorOptions): Error;
+    (message?: string, options?: ErrorOptions): Error;
     /** Create .stack property on a target object */
     captureStackTrace(targetObject: object, constructorOpt?: Function): void;
 
