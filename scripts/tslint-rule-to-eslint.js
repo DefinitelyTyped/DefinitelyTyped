@@ -3,8 +3,13 @@ import { promises as fs } from 'fs';
 import { format } from 'prettier';
 import * as path from 'path';
 
+/** @type {any} */
 const emptyObject = {};
 
+/**
+ * @param {string} filePath
+ * @returns {Promise<any>}
+ */
 const parseAndReadFileContents = async filePath => {
     try {
         return parse((await fs.readFile(filePath)).toString());
@@ -16,6 +21,10 @@ const parseAndReadFileContents = async filePath => {
 (async () => {
     const prettierConfig = await parseAndReadFileContents('.prettierrc.json');
 
+    /**
+     * @param {string} filePath
+     * @param {unknown} contents
+     */
     const writeFileFormatted = async (filePath, contents) => {
         await fs.writeFile(
             filePath,
@@ -32,7 +41,14 @@ const parseAndReadFileContents = async filePath => {
     for (const typeName of typeNames) {
         const typeDirectory = path.join('types', typeName);
 
+        typeNames.push(
+            ...(await fs.readdir(typeDirectory))
+                .filter(childDirectory => /^(ts|v)(\d+|\.)+$/.test(childDirectory))
+                .map(childDirectory => path.join(typeName, childDirectory)),
+        );
+
         const tslintFilePath = path.join(typeDirectory, 'tslint.json');
+        /** @type {{ rules?: { [s:string]: boolean }}} */
         const tslintData = await parseAndReadFileContents(tslintFilePath);
         if (tslintData?.rules?.[tslintRuleName] !== false) {
             continue;
@@ -43,7 +59,7 @@ const parseAndReadFileContents = async filePath => {
         delete tslintData.rules[tslintRuleName];
         if (Object.keys(tslintData.rules).length === 0) {
             console.log(`\t${tslintFilePath} has no remaining rules; deleting rules property.`);
-            delete tslintFilePath.rules;
+            delete tslintData.rules;
         } else {
             console.log(`\t${tslintFilePath} has remaining rules.`);
         }
