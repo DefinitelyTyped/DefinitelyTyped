@@ -299,7 +299,7 @@ const testPage = {
         iFrame.navigate();
         const frame = await browser.findElement(iFrame.elements.iframe);
         console.log(frame.getId());
-        browser.frame(frame);
+        browser.frame(frame.getId());
         iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
 
         browser.end();
