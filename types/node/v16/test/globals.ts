@@ -26,10 +26,3 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
         gc();
     }
 }
-
-{
-    // Error extensions
-    const cause = new Error('The remote HTTP server responded with a 500 status');
-    const symptom = new Error('The message failed to send', { cause });
-    symptom.cause; // $ExpectType unknown
-}

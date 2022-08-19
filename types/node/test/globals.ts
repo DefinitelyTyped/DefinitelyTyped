@@ -37,10 +37,3 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     const arrayBuffer = new ArrayBuffer(0);
     structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
 }
-
-{
-    // Error extensions
-    const cause = new Error('The remote HTTP server responded with a 500 status');
-    const symptom = new Error('The message failed to send', { cause });
-    symptom.cause; // $ExpectType unknown
-}
