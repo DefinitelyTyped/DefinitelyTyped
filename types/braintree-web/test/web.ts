@@ -909,10 +909,6 @@ braintree.threeDSecure.verifyCard(
             // Remove UI that you added in addFrame.
             document.body.removeChild(my3DSContainer);
         },
-        onLookupComplete(data, next) {
-            console.log('data from lookup', data);
-            next();
-        },
     },
     (err: braintree.BraintreeError, payload: braintree.ThreeDSecureVerifyPayload) => {
         if (err) {
@@ -963,6 +959,13 @@ braintree.threeDSecure.cancelVerifyCard(
         verifyPayload.binData.issuingBank; // The issuing bank.
     },
 );
+braintree.threeDSecure.on('lookup-complete', (data, next) => {
+    console.log('data from lookup', data);
+    console.log('version', data.lookup.threeDSecureVersion);
+    console.log('nonce', data.paymentMethod.nonce);
+    console.log('liabilityShifted', data.threeDSecureInfo.liabilityShifted);
+    next();
+})
 
 // Check if 'number' field is optional (#56167)
 braintree.hostedFields.create({
