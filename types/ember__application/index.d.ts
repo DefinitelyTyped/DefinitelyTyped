@@ -18,6 +18,10 @@ import Owner from '@ember/owner';
 import type GlimmerComponent from '@glimmer/component';
 import EmberObject from '@ember/object';
 
+// Shut off default exporting; we don't want anything but the *intended*
+// public API present.
+export {};
+
 /**
  * An instance of Ember.Application is the starting point for every Ember application. It helps to
  * instantiate, initialize and coordinate the many objects that make up your app.
