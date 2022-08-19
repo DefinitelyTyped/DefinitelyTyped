@@ -755,7 +755,13 @@ function testStorage() {
     chrome.storage.sync.clear();
     chrome.storage.sync.clear(doneCallback);
 
-    chrome.storage.onChanged.addListener(function (changes) {
+    chrome.storage.sync.onChanged.addListener(function (changes) {
+        var myNewValue: { x: number } = changes['myKey'].newValue;
+        var myOldValue: { x: number } = changes['myKey'].oldValue;
+    });
+
+    chrome.storage.onChanged.addListener(function (changes, areaName) {
+        var area: string = areaName;
         var myNewValue: { x: number } = changes['myKey'].newValue;
         var myOldValue: { x: number } = changes['myKey'].oldValue;
     });
@@ -797,6 +803,14 @@ chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
 function testDevtools() {
     chrome.devtools.inspectedWindow.eval('1+1', undefined, result => {
         console.log(result);
+    });
+
+    chrome.devtools.inspectedWindow.reload();
+    chrome.devtools.inspectedWindow.reload({});
+    chrome.devtools.inspectedWindow.reload({
+        userAgent: 'Best Browser',
+        ignoreCache: true,
+        injectedScript: 'console.log("Hello World!")',
     });
 }
 
@@ -1241,14 +1255,16 @@ function testRuntimeSendNativeMessage() {
 
 function testTabsSendMessage() {
     chrome.tabs.sendMessage(1, "Hello World!");
-    chrome.tabs.sendMessage(2, "Hello World!", console.log);
-    chrome.tabs.sendMessage(3, "Hello World!", { }, console.log);
-    chrome.tabs.sendMessage<string>(4, "Hello World!", console.log);
-    chrome.tabs.sendMessage<string, number>(5, "Hello World!", console.log);
+    chrome.tabs.sendMessage(2, "Hello World!").then(() => {});
+    chrome.tabs.sendMessage(3, "Hello World!", console.log);
+    chrome.tabs.sendMessage(4, "Hello World!", { }).then(() => {});
+    chrome.tabs.sendMessage(5, "Hello World!", { }, console.log);
+    chrome.tabs.sendMessage<string>(6, "Hello World!", console.log);
+    chrome.tabs.sendMessage<string, number>(7, "Hello World!", console.log);
     // @ts-expect-error
-    chrome.tabs.sendMessage<number>(6, "Hello World!", console.log);
+    chrome.tabs.sendMessage<number>(8, "Hello World!", console.log);
     // @ts-expect-error
-    chrome.tabs.sendMessage<string, string>(7, "Hello World!", (num: number) => alert(num+1));
+    chrome.tabs.sendMessage<string, string>(9, "Hello World!", (num: number) => alert(num+1));
 }
 
 function testTabsSendRequest() {

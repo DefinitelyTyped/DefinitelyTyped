@@ -1,11 +1,9 @@
 {
-    "files": [
-        "index.d.ts",
-        "test/index.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -17,5 +15,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "email-prompt-tests.ts"
+    ]
 }

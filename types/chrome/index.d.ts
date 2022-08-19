@@ -2469,7 +2469,7 @@ declare namespace chrome.devtools.inspectedWindow {
     export var tabId: number;
 
     /** Reloads the inspected page. */
-    export function reload(reloadOptions: ReloadOptions): void;
+    export function reload(reloadOptions?: ReloadOptions): void;
     /**
      * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the result parameter of the callback is undefined. In the case of a DevTools-side error, the isException parameter is non-null and has isError set to true and code set to an error code. In the case of a JavaScript error, isException is set to true and value is set to the string value of thrown object.
      * @param expression An expression to evaluate.
@@ -7854,6 +7854,14 @@ declare namespace chrome.storage {
          * Parameter items: Object with items in their key-value mappings.
          */
         get(keys: string | string[] | { [key: string]: any } | null, callback: (items: { [key: string]: any }) => void): void;
+        /**
+         * Fired when one or more items change within this storage area.
+         * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
+         * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
+         * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
+         * Parameter items: Object with items in their key-value mappings.
+         */
+        onChanged: StorageAreaChangedEvent;
     }
 
     export interface StorageChange {
@@ -7894,6 +7902,9 @@ declare namespace chrome.storage {
         /** The maximum amount (in bytes) of data that can be stored in memory, as measured by estimating the dynamically allocated memory usage of every value and key. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
         QUOTA_BYTES: number;
     }
+
+    export interface StorageAreaChangedEvent
+    extends chrome.events.Event<(changes: { [key: string]: StorageChange }) => void> { }
 
     type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed' | 'session'>;
     export interface StorageChangedEvent
@@ -9565,7 +9576,7 @@ declare namespace chrome.tabs {
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 20.
      */
-    export function sendMessage<M = any, R = any>(tabId: number, message: M, responseCallback?: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(tabId: number, message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 41.
@@ -9576,8 +9587,22 @@ declare namespace chrome.tabs {
         tabId: number,
         message: M,
         options: MessageSendOptions,
-        responseCallback?: (response: R) => void,
+        responseCallback: (response: R) => void,
     ): void;
+    /**
+     * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
+     * @since Chrome 99
+     */
+    export function sendMessage<M = any, R = any>(tabId: number, message: M): Promise<R>;
+    /**
+     * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
+     * @since Chrome 99
+     */
+    export function sendMessage<M = any, R = any>(
+        tabId: number,
+        message: M,
+        options: MessageSendOptions
+    ): Promise<R>;
     /**
      * Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The extension.onRequest event is fired in each content script running in the specified tab for the current extension.
      * @deprecated since Chrome 33. Please use runtime.sendMessage.
