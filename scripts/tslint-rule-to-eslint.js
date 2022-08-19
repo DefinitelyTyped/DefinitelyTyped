@@ -8,6 +8,7 @@ const emptyObject = {};
 
 /**
  * @param {string} filePath
+ * @returns {Promise<any>}
  */
 const parseAndReadFileContents = async filePath => {
     try {
@@ -18,7 +19,7 @@ const parseAndReadFileContents = async filePath => {
 };
 
 (async () => {
-    const prettierConfig = /** @type {any} */ (await parseAndReadFileContents('.prettierrc.json'));
+    const prettierConfig = await parseAndReadFileContents('.prettierrc.json');
 
     /**
      * @param {string} filePath
@@ -47,7 +48,8 @@ const parseAndReadFileContents = async filePath => {
         );
 
         const tslintFilePath = path.join(typeDirectory, 'tslint.json');
-        const tslintData = /** @type {any} */ (await parseAndReadFileContents(tslintFilePath));
+        /** @type {{ rules?: { [s:string]: boolean }}} */
+        const tslintData = await parseAndReadFileContents(tslintFilePath);
         if (tslintData?.rules?.[tslintRuleName] !== false) {
             continue;
         }
