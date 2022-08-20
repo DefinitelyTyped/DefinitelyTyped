@@ -14,9 +14,6 @@ declare function Strategy(options: StrategyOptions, setup: SetupCallback): void;
 declare class Strategy {
     constructor(setup: SetupCallback);
     constructor(options: StrategyOptions, setup: SetupCallback);
-    _codeField: string;
-    _window: number;
-    _setup: SetupCallback;
     name: string;
     /**
      * Authenticate request based on TOTP values.
