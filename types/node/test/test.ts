@@ -10,7 +10,9 @@ test('blank options', {});
 test('options with values', {
     concurrency: 1,
     only: true,
+    signal: new AbortController().signal,
     skip: 'reason for skip',
+    timeout: Infinity,
     todo: 'reason for todo',
 });
 
@@ -74,14 +76,18 @@ it('blank options', {});
 describe('options with values', {
     concurrency: 1,
     only: true,
+    signal: new AbortController().signal,
     skip: 'reason for skip',
+    timeout: Infinity,
     todo: 'reason for todo',
 });
 
 it('options with values', {
     concurrency: 1,
     only: true,
+    signal: new AbortController().signal,
     skip: 'reason for skip',
+    timeout: Infinity,
     todo: 'reason for todo',
 });
 
