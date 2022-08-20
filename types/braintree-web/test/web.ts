@@ -229,9 +229,10 @@ braintree.client.create(
                     }
                 });
                 
-                hostedFieldsInstance.teardown()
-                   .then(console.info('Hosted Fields has been torn down!');)
-                   .catch( (teardownErr) => console.error('Could not tear down Hosted Fields!'); )
+                hostedFieldsInstance
+                    .teardown()
+                    .then(() => console.info('Hosted Fields has been torn down!'))
+                    .catch(teardownErr => console.error('Could not tear down Hosted Fields!')); )
 
                 hostedFieldsInstance.tokenize(
                     {
