@@ -452,7 +452,8 @@ function test_global_request_promise_connection_string() {
 function test_connection_options() {
     sql.connect({
         options: {
-            useColumnNames: false, // $ExpectError
+            // @ts-expect-error
+            useColumnNames: false,
         },
     }).then(() => {
         // noop
