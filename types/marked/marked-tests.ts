@@ -199,7 +199,7 @@ const tokenizerExtension: marked.TokenizerExtension = {
                 type: 'name',
                 raw: src,
                 text: src,
-                tokens: this.lexer.inline(token.text),
+                tokens: this.lexer.inline(src),
                 items: [],
             };
             this.lexer.inline(token.text, token.items);
