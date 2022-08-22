@@ -14,7 +14,8 @@ declare namespace Shippo {
         | 'usps_media_mail'
         | 'usps_priority_mail_international'
         | 'usps_priority_mail_express_international'
-        | 'usps_first_class_package_international_service';
+        | 'usps_first_class_package_international_service'
+        | (string & {});
 
     type FEDEXServiceLevel =
         | 'fedex_ground'
@@ -35,7 +36,8 @@ declare namespace Shippo {
         | 'fedex_international_first'
         | 'fedex_europe_first_international_priority'
         | 'international_economy_freight'
-        | 'international_priority_freight';
+        | 'international_priority_freight'
+        | (string & {});
 
     type UPSServiceLevel =
         | 'ups_standard'
@@ -57,7 +59,8 @@ declare namespace Shippo {
         | 'ups_express_plus'
         | 'ups_expedited'
         | 'ups_express_early'
-        | 'ups_access_point_economy';
+        | 'ups_access_point_economy'
+        | (string & {});
 
     type ServiceLevels = USPSServiceLevel | UPSServiceLevel | FEDEXServiceLevel;
 
@@ -310,10 +313,11 @@ declare namespace Shippo {
         | 'EH'
         | 'YE'
         | 'ZM'
-        | 'ZW';
+        | 'ZW'
+        | (string & {});
 
-    type DistanceUnit = 'cm' | 'in' | 'ft' | 'mm' | 'm' | 'yd';
-    type MassUnit = 'g' | 'oz' | 'lb' | 'kg';
+    type DistanceUnit = 'cm' | 'in' | 'ft' | 'mm' | 'm' | 'yd' | (string & {});
+    type MassUnit = 'g' | 'oz' | 'lb' | 'kg' | (string & {});
 
     interface ValidationError {
         source: string;
@@ -493,7 +497,7 @@ declare namespace Shippo {
 
     interface CreateCustomsItemRequest {
         description: string;
-        mass_unit: 'g' | 'oz' | 'lb' | 'kg';
+        mass_unit: 'g' | 'oz' | 'lb' | 'kg' | (string & {});
         net_weight: number;
         origin_country: Country;
         quantity: number;
@@ -512,11 +516,12 @@ declare namespace Shippo {
             | 'MERCHANDISE'
             | 'HUMANITARIAN_DONATION'
             | 'RETURN_MERCHANDISE'
-            | 'OTHER';
+            | 'OTHER'
+            | (string & {});
         eel_pfc?: 'NOEEI_30_37_a' | 'NOEEI_30_37_h' | 'NOEEI_30_36' | 'AES_ITN' | undefined;
         incoterm?: 'DDP' | 'DDU' | undefined;
         items: CreateCustomsItemRequest[];
-        non_delivery_option: 'ABANDON' | 'RETURN';
+        non_delivery_option: 'ABANDON' | 'RETURN' | (string & {});
     }
 
     // https://goshippo.com/docs/reference#carriers
@@ -563,13 +568,13 @@ declare namespace Shippo {
         carrier_account: string;
         servicelevel_token: ServiceLevels;
         metadata?: string;
-        label_file_type?: 'PNG' | 'PDF' | 'PDF_4x6' | 'ZPLII';
+        label_file_type?: 'PNG' | 'PDF' | 'PDF_4x6' | 'ZPLII' | (string & {});
     }
 
     interface TransactionCreateRateRequest {
         rate: string;
         metadata?: string;
-        label_file_type?: 'PNG' | 'PDF' | 'PDF_4x6' | 'ZPLII';
+        label_file_type?: 'PNG' | 'PDF' | 'PDF_4x6' | 'ZPLII' | (string & {});
         async?: boolean | undefined;
     }
 
