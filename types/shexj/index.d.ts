@@ -432,6 +432,10 @@ export interface Shape extends semactsAndAnnotations {
      */
     extra?: IRIREF[] | undefined;
     /**
+     * List of one or more {@link shapeExprOrRef}s that a neighborhood must satisfy in order to conform to this shape.
+     */
+    extends?: shapeExprOrRef[];
+    /**
      * A tree of {@link tripleExpr}s specifying a set triples into or out of conformant <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-node">RDF Nodes</a>.
      */
     expression?: tripleExprOrRef | undefined;

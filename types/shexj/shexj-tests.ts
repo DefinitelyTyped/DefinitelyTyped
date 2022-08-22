@@ -103,6 +103,13 @@ function test_pieces() {
     const sh1: Shape = { type: "Shape" };
     const sh2: Shape = {
         type: "Shape", expression: te4, closed: true, extra: [i1, i2],
+        extends: [{ type: "Shape" }, "nc1"],
+        ...semAnnot1
+    };
+    const sh_e1: Shape = {
+        type: "Shape", expression: te4, closed: true, extra: [i1, i2],
+        // @ts-expect-error
+        extends: [{ type: "ShapeDecl" }, "nc1"],
         ...semAnnot1
     };
 
@@ -587,5 +594,217 @@ function test_kitchen_sink() {
       }
     ],
     "@context": "http://www.w3.org/ns/shex.jsonld"
+  };
+}
+
+function test_Extend3G() {
+  const s1: Schema = {
+    "@context": "http://www.w3.org/ns/shex.jsonld",
+    type: "Schema",
+    shapes: [
+      {
+        id: "http://a.example/A",
+        type: "ShapeDecl",
+        abstract: true,
+        shapeExpr: {
+          type: "ShapeAnd",
+          shapeExprs: [
+            { type: "NodeConstraint", pattern: "sA..........$" },
+            {
+              type: "Shape",
+              expression: {
+                type: "TripleConstraint",
+                predicate: "http://a.example/p", min: 1, max: -1,
+                valueExpr: {
+                  type: "NodeConstraint",
+                  values: [
+                    { value: "0", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "1", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "2", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "3", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "4", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "5", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "6", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "7", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "8", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "9", type: "http://www.w3.org/2001/XMLSchema#integer" }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        id: "http://a.example/B",
+        type: "ShapeDecl",
+        abstract: true,
+        shapeExpr: {
+          type: "ShapeAnd",
+          shapeExprs: [
+            { type: "Shape", extends: ["http://a.example/A"] },
+            { type: "NodeConstraint", pattern: "s.B.........$" },
+            {
+              type: "Shape",
+              expression: {
+                type: "TripleConstraint",
+                predicate: "http://a.example/p", min: 1, max: -1,
+                valueExpr: {
+                  type: "NodeConstraint",
+                  values: [
+                    { value: "0", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "1", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "3", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "4", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "5", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "6", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "7", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "8", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "9", type: "http://www.w3.org/2001/XMLSchema#integer" }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      { type: "ShapeDecl",
+        id: "http://a.example/C",
+        shapeExpr: {
+          type: "ShapeAnd",
+          shapeExprs: [
+            { type: "NodeConstraint", pattern: "s..C........$" },
+            {
+              type: "Shape",
+              expression: {
+                type: "TripleConstraint",
+                predicate: "http://a.example/p", min: 1, max: -1,
+                valueExpr: {
+                  type: "NodeConstraint",
+                  values: [
+                    { value: "0", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "1", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "2", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "4", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "5", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "6", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "7", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "8", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "9", type: "http://www.w3.org/2001/XMLSchema#integer" }
+                  ]
+                }
+              }
+            }
+          ]
+        } },
+      {
+        id: "http://a.example/D",
+        type: "ShapeDecl",
+        abstract: true,
+        shapeExpr: {
+          type: "ShapeAnd",
+          shapeExprs: [
+            { type: "Shape", extends: ["http://a.example/B"] },
+            "http://a.example/C",
+            { type: "NodeConstraint", pattern: "s...D.......$" },
+            {
+              type: "Shape",
+              expression: {
+                type: "TripleConstraint",
+                predicate: "http://a.example/p", min: 1, max: -1,
+                valueExpr: {
+                  type: "NodeConstraint",
+                  values: [
+                    { value: "0", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "1", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "2", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "3", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "5", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "6", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "7", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "8", type: "http://www.w3.org/2001/XMLSchema#integer" },
+                    { value: "9", type: "http://www.w3.org/2001/XMLSchema#integer" }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        id: "http://a.example/E",
+        type: "ShapeDecl",
+        abstract: true,
+        shapeExpr: {
+          type: "ShapeAnd",
+          shapeExprs: [
+            { type: "NodeConstraint", pattern: "s....E......$" },
+            {
+              type: "Shape",
+              extends: [
+                "http://a.example/D"
+              ],
+              expression: {
+                type: "TripleConstraint",
+                predicate: "http://a.example/p",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  values: [
+                    { value: "2", type: "http://www.w3.org/2001/XMLSchema#integer" }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      { type: "ShapeDecl",
+        id: "http://a.example/F",
+        shapeExpr: {
+          type: "ShapeAnd",
+          shapeExprs: [
+            { type: "NodeConstraint", pattern: "s.....F.....$" },
+            {
+              type: "Shape",
+              expression: {
+                type: "TripleConstraint",
+                predicate: "http://a.example/p",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  values: [
+                    { value: "3", type: "http://www.w3.org/2001/XMLSchema#integer" }
+                  ]
+                }
+              }
+            }
+          ]
+        } },
+      { type: "ShapeDecl",
+        id: "http://a.example/G",
+        shapeExpr: {
+          type: "ShapeAnd",
+          shapeExprs: [
+            { type: "NodeConstraint", pattern: "s......G....$" },
+            {
+              type: "Shape",
+              extends: [
+                "http://a.example/E",
+                "http://a.example/F"
+              ],
+              expression: {
+                type: "TripleConstraint",
+                predicate: "http://a.example/p",
+                valueExpr: {
+                  type: "NodeConstraint",
+                  values: [
+                    { value: "4", type: "http://www.w3.org/2001/XMLSchema#integer" }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
   };
 }
