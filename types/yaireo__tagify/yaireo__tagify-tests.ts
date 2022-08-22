@@ -64,7 +64,7 @@ const settings: TagifySettings = {
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
             // $ExpectType MouseEvent
-            event.detail.originalEvent;
+            event.detail.event;
         },
         dblclick: event => {
             // $ExpectType TagData | undefined
@@ -106,7 +106,7 @@ const settings: TagifySettings = {
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
             // $ExpectType KeyboardEvent
-            event.detail.originalEvent;
+            event.detail.event;
         },
         remove: event => {
             // $ExpectType TagData | undefined
@@ -176,13 +176,13 @@ const settings: TagifySettings = {
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
             // $ExpectType Event
-            event.detail.originalEvent;
+            event.detail.event;
         },
         "edit:keydown": event => {
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
             // $ExpectType KeyboardEvent
-            event.detail.originalEvent;
+            event.detail.event;
         },
         "edit:start": event => {
             // $ExpectType TagData
@@ -583,19 +583,19 @@ tagify.on('click', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
     // $ExpectType MouseEvent
-    event.detail.originalEvent;
+    event.detail.event;
 });
 tagify.on('keydown', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
     // $ExpectType KeyboardEvent
-    event.detail.originalEvent;
+    event.detail.event;
 });
 tagify.on('edit:keydown', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
     // $ExpectType KeyboardEvent
-    event.detail.originalEvent;
+    event.detail.event;
 });
 tagify.on('focus', (event) => {
     // $ExpectType Element
@@ -631,7 +631,7 @@ tagify.on('edit:input', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
     // $ExpectType Event
-    event.detail.originalEvent;
+    event.detail.event;
 });
 tagify.on('dropdown:show', (event) => {
     // $ExpectType HTMLElement | null
@@ -758,19 +758,19 @@ tagify.off('click', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
     // $ExpectType MouseEvent
-    event.detail.originalEvent;
+    event.detail.event;
 });
 tagify.off('keydown', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
     // $ExpectType KeyboardEvent
-    event.detail.originalEvent;
+    event.detail.event;
 });
 tagify.off('edit:keydown', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
     // $ExpectType KeyboardEvent
-    event.detail.originalEvent;
+    event.detail.event;
 });
 tagify.off('focus', (event) => {
     // $ExpectType Element
@@ -806,7 +806,7 @@ tagify.off('edit:input', (event) => {
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
     // $ExpectType Event
-    event.detail.originalEvent;
+    event.detail.event;
 });
 tagify.off('dropdown:show', (event) => {
     // $ExpectType HTMLElement | null

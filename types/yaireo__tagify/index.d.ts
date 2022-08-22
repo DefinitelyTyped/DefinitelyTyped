@@ -1041,7 +1041,7 @@ declare namespace Tagify {
      * @template E Type of the original event wrapped by this event.
      */
     interface DomEventData<T extends BaseTagData = TagData, E extends Event = Event> extends EventData<T> {
-        originalEvent: E;
+        event: E;
     }
 
     /**
@@ -1156,7 +1156,7 @@ declare namespace Tagify {
     interface EditInputEventData<T extends BaseTagData = TagData> extends TagEventData<T> {
         data: T & { newValue: string };
         index: number;
-        originalEvent: Event;
+        event: Event;
     }
 
     /**
