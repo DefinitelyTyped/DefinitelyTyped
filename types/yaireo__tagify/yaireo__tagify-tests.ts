@@ -321,6 +321,7 @@ const settings: TagifySettings = {
         classname: 'form-control',
         fuzzySearch: false,
         accentedSearch: false,
+        includeSelectedTags: true,
         position: 'text',
         highlightFirst: true,
         closeOnSelect: true,

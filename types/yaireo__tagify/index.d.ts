@@ -93,6 +93,12 @@ declare namespace Tagify {
         accentedSearch: boolean;
 
         /**
+         * If `true`, the suggestions list includes already-selected tags (after filtering).
+         * @default false
+         */
+        includeSelectedTags: boolean;
+
+        /**
          * Controls where the dropdown menu is positioned.
          * @default 'all'
          */
