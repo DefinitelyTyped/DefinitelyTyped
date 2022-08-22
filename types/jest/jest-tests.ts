@@ -1371,6 +1371,18 @@ describe('', () => {
 
         fail();
     });
+
+    it('', () => {
+        fail('error');
+    });
+
+    it('', () => {
+        fail(new Error('reason'));
+    });
+
+    it('', () => {
+        fail({});
+    });
 });
 
 /* Jasmine clocks and timing */
