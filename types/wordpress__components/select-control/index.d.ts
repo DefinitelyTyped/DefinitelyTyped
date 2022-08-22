@@ -18,7 +18,7 @@ declare namespace SelectControl {
          *
          * @defaultValue false
          */
-        disabled: boolean;
+        disabled?: boolean;
     }
     type Props<T extends string | readonly string[]> = Omit<
         HTMLProps<HTMLSelectElement>,
