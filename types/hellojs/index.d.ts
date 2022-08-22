@@ -124,7 +124,7 @@ declare namespace hello {
     }
 
     interface HelloJSStatic extends HelloJSEvent {
-        init(serviceAppIds: { [id: string]: string | HelloJSServiceDef; }, options?: HelloJSLoginOptions): void;
+        init(serviceAppIdsOrDefs: { [id: string]: string | HelloJSServiceDef; }, options?: HelloJSLoginOptions): void;
         login(callback: () => void): PromiseLike<HelloJSLoginEventArguement>;
         login(options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
         login(network?: string, options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
