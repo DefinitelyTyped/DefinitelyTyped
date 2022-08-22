@@ -99,8 +99,8 @@ import * as stream from 'stream';
 {
     let _server = createServer({});
     let _boolean: boolean;
-    const _func1 = (err: Error, resp: Buffer) => { };
-    const _func2 = (err: Error, sessionData: Buffer) => { };
+    const _func1 = () => { };
+    const _func2 = (err: Error | null, sessionData: Buffer | null) => { };
     /**
      * events.EventEmitter
      * 1. tlsClientError
