@@ -158,11 +158,25 @@ declare module 'node:test' {
         only?: boolean;
 
         /**
+         * Allows aborting an in-progress test.
+         * @since 8.7.0
+         */
+        signal?: AbortSignal;
+
+        /**
          * If truthy, the test is skipped. If a string is provided, that string is displayed in the
          * test results as the reason for skipping the test.
          * @default false
          */
         skip?: boolean | string;
+
+        /**
+         * A number of milliseconds the test will fail after. If unspecified, subtests inherit this
+         * value from their parent.
+         * @default Infinity
+         * @since 8.7.0
+         */
+        timeout?: number;
 
         /**
          * If truthy, the test marked as `TODO`. If a string is provided, that string is displayed in
