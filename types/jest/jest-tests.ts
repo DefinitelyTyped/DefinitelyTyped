@@ -1689,3 +1689,11 @@ test(`returns a Promise<any> and takes done`, (done) => {
 test(`async function takes done`, async (done) => {
     done();
 });
+
+test('import.meta.jest replaces the global jest in ESM', () => {
+    // @ts-expect-error
+    // ts(1343): The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', or 'nodenext'.
+    const importMetaJest = import .meta.jest;
+
+    importMetaJest.fn();
+});

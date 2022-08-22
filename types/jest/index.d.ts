@@ -1568,3 +1568,7 @@ declare namespace jasmine {
         [n: number]: T;
     }
 }
+
+interface ImportMeta {
+    jest: typeof jest;
+}
