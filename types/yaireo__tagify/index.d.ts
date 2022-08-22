@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.15
+// Type definitions for @yaireo/tagify 4.16
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -91,6 +91,12 @@ declare namespace Tagify {
          * @default true
          */
         accentedSearch: boolean;
+
+        /**
+         * If `true`, the suggestions list includes already-selected tags (after filtering).
+         * @default false
+         */
+        includeSelectedTags: boolean;
 
         /**
          * Controls where the dropdown menu is positioned.
@@ -1035,7 +1041,7 @@ declare namespace Tagify {
      * @template E Type of the original event wrapped by this event.
      */
     interface DomEventData<T extends BaseTagData = TagData, E extends Event = Event> extends EventData<T> {
-        originalEvent: E;
+        event: E;
     }
 
     /**
@@ -1150,7 +1156,7 @@ declare namespace Tagify {
     interface EditInputEventData<T extends BaseTagData = TagData> extends TagEventData<T> {
         data: T & { newValue: string };
         index: number;
-        originalEvent: Event;
+        event: Event;
     }
 
     /**
