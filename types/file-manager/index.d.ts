@@ -26,26 +26,26 @@ declare class FileManager extends EventEmitter {
      * @param filename
      * @param contents - Either a `Buffer`, or some other value that will have `.toString()` called on it, then it will be converted to a `Buffer` by interpreting the string as UTF-8
      */
-    saveFile<T extends WithToString>(filename: string, contents: Buffer | T): Promise<void>;
+    saveFile(filename: string, contents: Buffer | WithToString): Promise<void>;
 
     /**
      * Saves a file. Returns a `Promise` that will be fulfilled once the file is saved, or rejected if there's an error.
      * @param filename
      * @param contents - Either a `Buffer`, or some other value that will have `.toString()` called on it, then it will be converted to a `Buffer` by interpreting the string as UTF-8
      */
-    writeFile<T extends WithToString>(filename: string, contents: Buffer | T): Promise<void>;
+    writeFile(filename: string, contents: Buffer | WithToString): Promise<void>;
 
     /**
      * Saves multiple files. Returns a `Promise` that will be fulfilled once all files are saved, or rejected if there's an error saving any file
      * @param files - An object where keys are filenames and values are file contents
      */
-    saveFiles<T extends WithToString>(files: Record<string, Buffer | T>): Promise<void>;
+    saveFiles(files: Record<string, Buffer | WithToString>): Promise<void>;
 
     /**
      * Saves multiple files. Returns a `Promise` that will be fulfilled once all files are saved, or rejected if there's an error saving any file
      * @param files - An object where keys are filenames and values are file contents
      */
-    writeFiles<T extends WithToString>(files: Record<string, Buffer | T>): Promise<void>;
+    writeFiles(files: Record<string, Buffer | WithToString>): Promise<void>;
 
     /**
      * Reads a single file. Returns a `Promise` that fulfills to its content, as a `Buffer`. Rejects if there's an error or the file doesn't exist.
@@ -66,7 +66,9 @@ declare class FileManager extends EventEmitter {
     removeAllListeners(event?: keyof Events): this;
 }
 
-type WithToString = { toString(): string };
+interface WithToString {
+    toString(): string;
+}
 
 interface ReadFilesResult {
     filename: string;
