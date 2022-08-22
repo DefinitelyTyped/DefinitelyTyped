@@ -118,21 +118,6 @@ describe('expect.element()', () => {
         browser.expect.element('#main').to.not.be.visible;
         browser.expect.element('#main').to.be.visible.before(100);
     });
-
-    it('selector element properties - all & required', () => {
-        browser.expect.element({
-            selector: 'div',
-            locateStrategy: 'css selector',
-            index: 0,
-            timeout: 3000,
-            retryInterval: 1000,
-            suppressNotFoundErrors: false,
-            abortOnFailure: true
-        }).to.be.visible;
-        browser.expect.element({
-            selector: 'div'
-        }).to.be.visible;
-    });
 });
 
 describe('expect.elements()', () => {
