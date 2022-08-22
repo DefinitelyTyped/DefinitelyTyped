@@ -556,9 +556,6 @@ declare module 'crypto' {
          */
         namedCurve?: string | undefined;
     }
-    interface JwkKeyExportOptions {
-        format: 'jwk';
-    }
     /**
      * Node.js uses a `KeyObject` class to represent a symmetric or asymmetric key,
      * and each kind of key exposes different functions. The {@link createSecretKey}, {@link createPublicKey} and {@link createPrivateKey} methods are used to create `KeyObject`instances. `KeyObject`
