@@ -54,6 +54,9 @@ declare module 'net' {
         hints?: number | undefined;
         family?: number | undefined;
         lookup?: LookupFunction | undefined;
+        noDelay?: boolean | undefined;
+        keepAlive?: boolean | undefined;
+        keepAliveInitialDelay?: number | undefined;
     }
     interface IpcSocketConnectOpts extends ConnectOpts {
         path: string;
@@ -399,6 +402,21 @@ declare module 'net' {
          * @default false
          */
         pauseOnConnect?: boolean | undefined;
+        /**
+         * Indicates whether to use nagle's algorithm.
+         * @default false
+         */
+        noDelay?: boolean | undefined;
+        /**
+         * Indicates whether TCP keep-alive is enabled.
+         * @default false
+         */
+        keepAlive?: boolean | undefined;
+        /**
+         * Indicates the initial delay in seconds before keep-alive probes are sent.
+         * @default 0
+         */
+        keepAliveInitialDelay?: number | undefined;
     }
     /**
      * This class is used to create a TCP or `IPC` server.
