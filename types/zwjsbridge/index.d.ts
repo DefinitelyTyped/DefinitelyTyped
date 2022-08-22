@@ -1,5 +1,5 @@
-// Type definitions for non-npm package ZWJSBridge API - zwjsbridge.js 1.0
-// Project: https://assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.0.1/zwjsbridge.js
+// Type definitions for non-npm package ZWJSBridge API - zwjsbridge.js 1.1
+// Project: https://assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.1.0/zwjsbridge.js
 // Definitions by: Yuxiang Ren <https://github.com/shlyren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
@@ -9,7 +9,7 @@
  * This API just for [浙里办](https://apps.apple.com/us/app/zhe-jiang-zheng-wu-fu-wu/id910260096)
  * 1. ZWJSBridge接入方式
  *  ```js
- *      <script type="text/javascript" src="//assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.0.1/zwjsbridge.js"></script>
+ *      <script type="text/javascript" src="//assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.1.0/zwjsbridge.js"></script>
  *  ```
  * 2. 初始化: 通过 `ZWJSBridge.onReady(callback)` 初始化jsapi，初始化完成即onReady之后再调用jsapi
  *  ```js
@@ -25,6 +25,16 @@ interface ZWJSBridge {
      * @param callBack 初始化成功回调
      */
     onReady(callBack: () => void): void;
+
+    /**
+     * 获取单点的路过的票据
+     */
+    ssoTicket(): Promise<{
+        /** 是否支持获取 */
+        result: boolean;
+        /** 票据，可通过此票据获取用户信息 */
+        ticketId?: string;
+    }>;
 
     /***********    缓存     ***********/
     /**
@@ -75,7 +85,14 @@ interface ZWJSBridge {
     /**
      * 新开窗口
      */
-    openLink(options: { url: string }): Promise<{}>;
+    openLink(options: {
+        /** 重新发起单点 适用于微信小程序环境 */
+        type?: 'reload';
+        /** 重定向地址 */
+        url?: string;
+    }): Promise<{
+        ticketId?: string;
+    }>;
 
     /**
      * 关闭当前页面

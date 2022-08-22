@@ -16,26 +16,26 @@
 import { Interface as ReadlineInterface } from 'readline';
 import { Observable } from 'rxjs';
 import { ThroughStream } from 'through';
-import Choice from './lib/objects/choice';
-import Choices from './lib/objects/choices';
-import Separator from './lib/objects/separator';
-import './lib/prompts/base';
-import CheckboxPrompt from './lib/prompts/checkbox';
-import ConfirmPrompt from './lib/prompts/confirm';
-import EditorPrompt from './lib/prompts/editor';
-import ExpandPrompt from './lib/prompts/expand';
-import InputPrompt from './lib/prompts/input';
-import ListPrompt from './lib/prompts/list';
-import NumberPrompt from './lib/prompts/number';
-import PasswordPrompt from './lib/prompts/password';
-import RawListPrompt from './lib/prompts/rawlist';
-import UI from './lib/ui/baseUI';
-import './lib/ui/bottom-bar';
-import './lib/ui/prompt';
-import './lib/utils/events';
-import './lib/utils/paginator';
-import './lib/utils/readline';
-import './lib/utils/screen-manager';
+import Choice from './lib/objects/choice.js';
+import Choices from './lib/objects/choices.js';
+import Separator from './lib/objects/separator.js';
+import './lib/prompts/base.js';
+import CheckboxPrompt from './lib/prompts/checkbox.js';
+import ConfirmPrompt from './lib/prompts/confirm.js';
+import EditorPrompt from './lib/prompts/editor.js';
+import ExpandPrompt from './lib/prompts/expand.js';
+import InputPrompt from './lib/prompts/input.js';
+import ListPrompt from './lib/prompts/list.js';
+import NumberPrompt from './lib/prompts/number.js';
+import PasswordPrompt from './lib/prompts/password.js';
+import RawListPrompt from './lib/prompts/rawlist.js';
+import UI from './lib/ui/baseUI.js';
+import './lib/ui/bottom-bar.js';
+import './lib/ui/prompt.js';
+import './lib/utils/events.js';
+import './lib/utils/paginator.js';
+import './lib/utils/readline.js';
+import './lib/utils/screen-manager.js';
 
 /**
  * Represents a union which preserves autocompletion.
@@ -49,9 +49,19 @@ import './lib/utils/screen-manager';
 type LiteralUnion<T extends F, F = string> = T | (F & {});
 
 /**
+ * Represents a function for prompting questions to the user.
+ */
+export interface PromptFunction {
+    /**
+     * Prompts the questions to the user.
+     */
+    <T extends Answers = Answers>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>): Promise<T>;
+}
+
+/**
  * Provides prompts for answering questions.
  */
-interface PromptModuleBase {
+export interface PromptModuleBase extends PromptFunction {
     /**
      * Registers a new prompt-type.
      *

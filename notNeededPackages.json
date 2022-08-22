@@ -5771,6 +5771,10 @@
             "libraryName": "yoctodelay",
             "asOfVersion": "1.2.0"
         },
+        "yup": {
+            "libraryName": "yup",
+            "asOfVersion": "0.32.0"
+        },
         "z-schema": {
             "libraryName": "z-schema",
             "asOfVersion": "3.24.0"

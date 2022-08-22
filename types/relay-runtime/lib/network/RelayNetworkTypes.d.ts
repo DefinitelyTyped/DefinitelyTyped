@@ -17,10 +17,12 @@ export interface PayloadData {
 
 export interface PayloadError {
     message: string;
-    locations?: Array<{
-        line: number;
-        column: number;
-    }> | undefined;
+    locations?:
+        | Array<{
+              line: number;
+              column: number;
+          }>
+        | undefined;
     severity?: 'CRITICAL' | 'ERROR' | 'WARNING' | undefined; // Not officially part of the spec, but used at Facebook
 }
 

@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
 /// <reference types="jquery" />
 
 interface ToastrOptions {
@@ -76,7 +75,7 @@ interface ToastrOptions {
      * Closing cannot be prevented by ev.stopPropagation() etc.
      * @default undefined
      */
-    onCloseClick?: ((ev: JQueryMouseEventObject) => void) | undefined;
+    onCloseClick?: ((ev: JQuery.ClickEvent) => void) | undefined;
     /**
      * Should clicking on toast dismiss it?
      * @default true
@@ -117,7 +116,7 @@ interface ToastrOptions {
      * @default undefined
      */
     onHidden?: (() => void) | undefined;
-    /**
+     /**
      * Time in milliseconds the toast should be displayed after leaving mouse over.
      * Set timeOut and extendedTimeOut to 0 to make it sticky.
      * @default 1000
@@ -207,7 +206,7 @@ interface ToastrOptions {
      * Function to execute on toast click. Closing cannot be prevented by ev.stopPropagation() etc.
      * @default undefined
      */
-    onclick?: ((ev: JQueryMouseEventObject) => void) | undefined;
+    onclick?: ((ev: JQuery.ClickEvent) => void) | undefined;
     /**
      * Should the title and message text be escaped?
      * @default false
@@ -224,11 +223,11 @@ interface ToastrDisplayMethod {
     /**
      * Create a toast
      *
-     * @param message Message to display in toast
+     * @param message Message to display in toast, or HTML content
      * @param title Title to display on toast
      * @param overrides Option values for toast
      */
-    (message: string, title?: string, overrides?: ToastrOptions): JQuery;
+    (message: string | JQuery, title?: string, overrides?: ToastrOptions): JQuery;
 }
 
 type ToastrType = 'error'|'info'|'success'|'warning';
@@ -302,13 +301,13 @@ interface Toastr {
     remove: {
         /**
          * Removes all toasts (without animation)
-          */
+         */
         (): void;
         /**
          * Removes specific toast (without animation)
          *
          * @param toast Toast to remove
-          */
+         */
         (toast: JQuery): void;
     };
     /**

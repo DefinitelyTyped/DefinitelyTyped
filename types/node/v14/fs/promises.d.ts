@@ -1,21 +1,22 @@
 declare module 'fs/promises' {
     import {
-        Stats,
+        BaseEncodingOptions,
         BigIntStats,
-        StatOptions,
-        WriteVResult,
-        ReadVResult,
+        BufferEncodingOption,
+        constants as fsConstants,
+        Dir,
+        Dirent,
+        MakeDirectoryOptions,
+        Mode,
+        OpenDirOptions,
+        OpenMode,
         PathLike,
+        ReadVResult,
         RmDirOptions,
         RmOptions,
-        MakeDirectoryOptions,
-        Dirent,
-        OpenDirOptions,
-        Dir,
-        BaseEncodingOptions,
-        BufferEncodingOption,
-        OpenMode,
-        Mode,
+        StatOptions,
+        Stats,
+        WriteVResult,
     } from 'fs';
 
     interface FileHandle {
@@ -160,6 +161,8 @@ declare module 'fs/promises' {
          */
         close(): Promise<void>;
     }
+
+    const constants: typeof fsConstants;
 
     /**
      * Asynchronously tests a user's permissions for the file specified by path.
