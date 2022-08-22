@@ -1,6 +1,6 @@
 /**
  * The `node:test` module provides a standalone testing module.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.17.0/lib/test.js)
  */
 declare module 'node:test' {
     /**
@@ -28,7 +28,7 @@ declare module 'node:test' {
      *   });
      * });
      * ```
-     * @since v18.0.0
+     * @since v16.17.0
      * @param name The name of the test, which is displayed when reporting test results.
      *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
      * @param options Configuration options for the test
@@ -43,7 +43,7 @@ declare module 'node:test' {
     function test(fn?: TestFn): Promise<void>;
 
     /*
-     * @since v18.6.0
+     * @since v16.17.0
      * @param name The name of the suite, which is displayed when reporting suite results.
      *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
      * @param options Configuration options for the suite
@@ -55,7 +55,7 @@ declare module 'node:test' {
     function describe(fn?: SuiteFn): void;
 
     /*
-     * @since v18.6.0
+     * @since v16.17.0
      * @param name The name of the test, which is displayed when reporting test results.
      *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
      * @param options Configuration options for the test
@@ -89,14 +89,14 @@ declare module 'node:test' {
     /**
      * An instance of `TestContext` is passed to each test function in order to interact with the
      * test runner. However, the `TestContext` constructor is not exposed as part of the API.
-     * @since v18.0.0
+     * @since v16.17.0
      */
     interface TestContext {
         /**
          * This function is used to write TAP diagnostics to the output. Any diagnostic information is
          * included at the end of the test's results. This function does not return a value.
          * @param message Message to be displayed as a TAP diagnostic.
-         * @since v18.0.0
+         * @since v16.17.0
          */
         diagnostic(message: string): void;
 
@@ -105,7 +105,7 @@ declare module 'node:test' {
          * option set. Otherwise, all tests are run. If Node.js was not started with the `--test-only`
          * command-line option, this function is a no-op.
          * @param shouldRunOnlyTests Whether or not to run `only` tests.
-         * @since v18.0.0
+         * @since v16.17.0
          */
         runOnly(shouldRunOnlyTests: boolean): void;
 
@@ -114,7 +114,7 @@ declare module 'node:test' {
          * provided, it is included in the TAP output. Calling `skip()` does not terminate execution of
          * the test function. This function does not return a value.
          * @param message Optional skip message to be displayed in TAP output.
-         * @since v18.0.0
+         * @since v16.17.0
          */
         skip(message?: string): void;
 
@@ -123,14 +123,14 @@ declare module 'node:test' {
          * included in the TAP output. Calling `todo()` does not terminate execution of the test
          * function. This function does not return a value.
          * @param message Optional `TODO` message to be displayed in TAP output.
-         * @since v18.0.0
+         * @since v16.17.0
          */
         todo(message?: string): void;
 
         /**
          * This function is used to create subtests under the current test. This function behaves in
          * the same fashion as the top level {@link test} function.
-         * @since v18.0.0
+         * @since v16.17.0
          * @param name The name of the test, which is displayed when reporting test results.
          *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
          * @param options Configuration options for the test
