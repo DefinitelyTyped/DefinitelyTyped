@@ -115,7 +115,7 @@ interface SortableGridProps {
      * containing a key transform, which is an array of transformations.
      */
     dragStartAnimation?: {
-        transform: ReadonlyArray<{ [type: string]: Animated.AnimatedInterpolation }>;
+        transform: ReadonlyArray<{ [type: string]: Animated.AnimatedInterpolation<number|string> }>;
     } | undefined;
 
     /**

@@ -8594,8 +8594,45 @@ export namespace Animated {
         // Internal class, no public API.
     }
 
-    class AnimatedInterpolation extends AnimatedWithChildren {
-        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+    type RgbaValue = {
+        readonly r: number,
+        readonly g: number,
+        readonly b: number,
+        readonly a: number,
+      };
+
+    type RgbaAnimatedValue = {
+        readonly r: AnimatedValue,
+        readonly g: AnimatedValue,
+        readonly b: AnimatedValue,
+        readonly a: AnimatedValue,
+    };
+
+    type AnimatedConfig = {
+        readonly useNativeDriver: boolean
+    };
+
+    class AnimatedColor extends AnimatedWithChildren {
+        r: AnimatedValue;
+        g: AnimatedValue;
+        b: AnimatedValue;
+        a: AnimatedValue;
+
+        constructor(valueIn?: RgbaValue | RgbaAnimatedValue | ColorValue | null, config?: AnimatedConfig | null);
+        nativeColor: unknown; // Unsure what to do here
+        setValue: (value: RgbaValue | ColorValue) => void;
+        setOffset: (offset: RgbaValue) => void;
+        flattenOffset: () => void;
+        extractOffset: () => void;
+        addListener: (callback: (value: ColorValue) => unknown) => string;
+        removeListener: (id: string) => void;
+        removeAllListeners: () => void;
+        stopAnimation: (callback: (value: ColorValue) => unknown) => void;
+        resetAnimation: (callback: (value: ColorValue) => unknown) => void;
+    }
+
+    class AnimatedInterpolation<OutputT extends number |string> extends AnimatedWithChildren {
+        interpolate(config: InterpolationConfigType): AnimatedInterpolation<OutputT>;
     }
 
     type ExtrapolateType = 'extend' | 'identity' | 'clamp';
@@ -8618,7 +8655,7 @@ export namespace Animated {
      * or calling `setValue`) will stop any previous ones.
      */
     export class Value extends AnimatedWithChildren {
-        constructor(value: number);
+        constructor(value: number, config?: AnimatedConfig | null);
 
         /**
          * Directly set the value.  This will stop any animations running on the value
@@ -8667,7 +8704,7 @@ export namespace Animated {
          * Interpolates the value before updating the property, e.g. mapping 0-1 to
          * 0-10.
          */
-        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+        interpolate<OutputT extends number | string>(config: InterpolationConfigType): AnimatedInterpolation<OutputT>;
     }
 
     type ValueXYListenerCallback = (value: { x: number; y: number }) => void;
@@ -8681,7 +8718,7 @@ export namespace Animated {
         x: AnimatedValue;
         y: AnimatedValue;
 
-        constructor(valueIn?: { x: number | AnimatedValue; y: number | AnimatedValue });
+        constructor(valueIn?: { x: number | AnimatedValue; y: number | AnimatedValue }, config?: AnimatedConfig | null);
 
         setValue(value: { x: number; y: number }): void;
 
@@ -8771,14 +8808,14 @@ export namespace Animated {
     export const timing: (value: AnimatedValue | AnimatedValueXY, config: TimingAnimationConfig) => CompositeAnimation;
 
     interface TimingAnimationConfig extends AnimationConfig {
-        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY | AnimatedInterpolation;
+        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY | AnimatedInterpolation<number>;
         easing?: ((value: number) => number) | undefined;
         duration?: number | undefined;
         delay?: number | undefined;
     }
 
     interface SpringAnimationConfig extends AnimationConfig {
-        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY;
+        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY | RgbaValue | AnimatedColor | AnimatedInterpolation<number>;
         overshootClamping?: boolean | undefined;
         restDisplacementThreshold?: number | undefined;
         restSpeedThreshold?: number | undefined;
@@ -8805,41 +8842,41 @@ export namespace Animated {
      * Creates a new Animated value composed from two Animated values added
      * together.
      */
-    export function add(a: Animated, b: Animated): AnimatedAddition;
+    export function add<OutputT extends number | string>(a: Animated, b: Animated): AnimatedAddition<OutputT>;
 
-    class AnimatedAddition extends AnimatedInterpolation {}
+    class AnimatedAddition<OutputT extends number|string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Creates a new Animated value composed by subtracting the second Animated
      * value from the first Animated value.
      */
-    export function subtract(a: Animated, b: Animated): AnimatedSubtraction;
+    export function subtract<OutputT extends number | string>(a: Animated, b: Animated): AnimatedSubtraction<OutputT>;
 
-    class AnimatedSubtraction extends AnimatedInterpolation {}
+    class AnimatedSubtraction<OutputT extends number|string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Creates a new Animated value composed by dividing the first Animated
      * value by the second Animated value.
      */
-    export function divide(a: Animated, b: Animated): AnimatedDivision;
+    export function divide<OutputT extends number | string>(a: Animated, b: Animated): AnimatedDivision<OutputT>;
 
-    class AnimatedDivision extends AnimatedInterpolation {}
+    class AnimatedDivision<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Creates a new Animated value composed from two Animated values multiplied
      * together.
      */
-    export function multiply(a: Animated, b: Animated): AnimatedMultiplication;
+    export function multiply<OutputT extends number | string>(a: Animated, b: Animated): AnimatedMultiplication<OutputT>;
 
-    class AnimatedMultiplication extends AnimatedInterpolation {}
+    class AnimatedMultiplication<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Creates a new Animated value that is the (non-negative) modulo of the
      * provided Animated value
      */
-    export function modulo(a: Animated, modulus: number): AnimatedModulo;
+    export function modulo<OutputT extends number | string>(a: Animated, modulus: number): AnimatedModulo<OutputT>;
 
-    class AnimatedModulo extends AnimatedInterpolation {}
+    class AnimatedModulo<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Create a new Animated value that is limited between 2 values. It uses the
@@ -8850,9 +8887,9 @@ export namespace Animated {
      * This is useful with scroll events, for example, to show the navbar when
      * scrolling up and to hide it when scrolling down.
      */
-    export function diffClamp(a: Animated, min: number, max: number): AnimatedDiffClamp;
+    export function diffClamp<OutputT extends number | string>(a: Animated, min: number, max: number): AnimatedDiffClamp<OutputT>;
 
-    class AnimatedDiffClamp extends AnimatedInterpolation {}
+    class AnimatedDiffClamp<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Starts an animation after the given delay.
@@ -8939,7 +8976,7 @@ export namespace Animated {
     export type WithAnimatedValue<T> = T extends Builtin | Nullable
         ? T
         : T extends Primitive
-        ? T | Value | AnimatedInterpolation // add `Value` and `AnimatedInterpolation` but also preserve original T
+        ? T | Value | AnimatedInterpolation<number | string> // add `Value` and `AnimatedInterpolation` but also preserve original T
         : T extends Array<infer P>
         ? WithAnimatedArray<P>
         : T extends {}
