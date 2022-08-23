@@ -107,7 +107,8 @@ declare class DiscPropertiesObject {
     cGroup: number;
 }
 
-declare interface CollisionFlagsObject { 
+interface CollisionFlagsObject {
+    "ball": number;
     "red": number;
     "blue": number;
     "redKO": number;
