@@ -1,6 +1,7 @@
 // Type definitions for file-manager 2.0
 // Project: https://github.com/DoctorMcKay/node-file-manager#readme
-// Definitions by: repistory <https://github.com/repository>
+// Definitions by: repository <https://github.com/repository>
+//                 Joshua Jeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -15,6 +16,11 @@ declare class FileManager extends EventEmitter {
      * @param [storageDirectory] - Directory where files will be stored. No trailing slash. No nesting. Use `null` to disable local disk storage.
      */
     constructor(storageDirectory: string | null);
+
+    /**
+     * The local disk storage directory location can be changed at any time by assigning to this property.
+     */
+    directory: string;
 
     /**
      * Returns `true` if either a storage directory is set, or if save and read handlers have been registered.

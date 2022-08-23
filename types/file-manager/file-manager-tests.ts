@@ -66,3 +66,6 @@ manager1.on('save', (filename, contents, callback) => {
     callback(null);
     callback(new Error('foo'));
 });
+
+manager1.directory = '🤔';
+console.log(manager1.directory.charAt(0));
