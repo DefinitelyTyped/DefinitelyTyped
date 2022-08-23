@@ -1346,7 +1346,6 @@ AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
 const screenReaderChangedListener = (isEnabled: boolean): void => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`);
 AccessibilityInfo.addEventListener('screenReaderChanged', screenReaderChangedListener,
 ).remove();
-AccessibilityInfo.removeEventListener('screenReaderChanged', screenReaderChangedListener);
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 

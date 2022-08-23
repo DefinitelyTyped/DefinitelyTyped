@@ -7063,17 +7063,6 @@ export interface AccessibilityInfoStatic {
     ): EmitterSubscription;
 
     /**
-     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
-     *
-     * Remove an event handler
-     */
-    removeEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
-    removeEventListener(
-        eventName: AccessibilityAnnouncementEventName,
-        handler: AccessibilityAnnouncementFinishedEventHandler,
-    ): void;
-
-    /**
      * Set accessibility focus to a react component.
      */
     setAccessibilityFocus: (reactTag: number) => void;
