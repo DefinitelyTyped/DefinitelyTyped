@@ -3,8 +3,12 @@
 // Definitions by: Tudor Gergely <https://github.com/tudorgergely>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Feature, GeoJSON, FeatureCollection, Geometry, Point, Position, BBox } from 'geojson';
-import { IControl, Map, MapMouseEvent, MapTouchEvent } from 'mapbox-gl';
+import { Feature, GeoJSON, FeatureCollection, Geometry, Point, Position, BBox, GeoJsonProperties } from 'geojson';
+import {
+    IControl, Map,
+    MapMouseEvent as MapboxMapMouseEvent,
+    MapTouchEvent as MapboxMapTouchEvent,
+} from 'mapbox-gl';
 
 export = MapboxDraw;
 export as namespace MapboxDraw;
@@ -48,6 +52,9 @@ declare namespace MapboxDraw {
     }
 
     interface DrawFeature {
+        properties: GeoJsonProperties;
+        coordinates: Position;
+
         changed(): void;
 
         incomingCoords(coords: Position): void;
@@ -59,6 +66,13 @@ declare namespace MapboxDraw {
         setProperty(property: string, value: any): void;
 
         toGeoJSON(): GeoJSON;
+    }
+
+    interface MapMouseEvent extends MapboxMapMouseEvent {
+        featureTarget: DrawFeature;
+    }
+    interface MapTouchEvent extends MapboxMapTouchEvent {
+        featureTarget: DrawFeature;
     }
 
     interface DrawEvent {
@@ -117,9 +131,9 @@ declare namespace MapboxDraw {
     }
 
     interface DrawCustomModeThis {
-        setSelected(features: DrawFeature[]): void;
+        setSelected(features?: string | string[]): void;
 
-        setSelectedCoordinates(coords: { coord_path: string; feature_id: string }): void;
+        setSelectedCoordinates(coords: Array<{ coord_path: string; feature_id: string }>): void;
 
         getSelected(): DrawFeature[];
 
