@@ -489,7 +489,7 @@ const IconFunctionComponent = (props: { foo: number; bar: number }) => (
 // keyboard-shortcuts
 //
 const kbshortcutActionOne = () => console.log('action 1');
-const kbshortcutActionTwo = () => console.log('action 1');
+const kbshortcutActionTwo = (event: KeyboardEvent) => console.log('action 1', event);
 const kbshortcuts = {
     'mod+a': kbshortcutActionOne,
     'ctrl+shift+j': kbshortcutActionTwo,
@@ -778,6 +778,17 @@ const kbshortcuts = {
     multiple
     options={[
         { label: 'Big', value: '100%' },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
+    onChange={size => console.log(size)}
+/>;
+<C.SelectControl
+    label="Size"
+    value={['50%']}
+    multiple
+    options={[
+        { label: 'Big', value: '100%', disabled: true },
         { label: 'Medium', value: '50%' },
         { label: 'Small', value: '25%' },
     ]}

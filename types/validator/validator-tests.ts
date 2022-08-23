@@ -800,6 +800,7 @@ const any: any = null;
 
     result = validator.isNumeric('sample');
     result = validator.isNumeric('+358', { no_symbols: true });
+    result = validator.isNumeric('358,50', { locale: 'pt-BR' });
 
     result = validator.isOctal('076543210');
 

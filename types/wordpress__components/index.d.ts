@@ -6,6 +6,7 @@
 //                 Sara Marcondes <https://github.com/sarayourfriend>
 //                 Michael Thomas <https://github.com/michaelhthomas>
 //                 Manzoor Wani <https://github.com/manzoorwanijk>
+//                 Bas Tolen <https://github.com/bastolen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 

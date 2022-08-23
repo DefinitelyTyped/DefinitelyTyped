@@ -1,4 +1,4 @@
-// Type definitions for @ember/test-helpers 2.6
+// Type definitions for @ember/test-helpers 2.8
 // Project: https://github.com/emberjs/ember-test-helpers
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import ApplicationInstance from '@ember/application/instance';
+import Owner from '@ember/owner';
 import { TemplateFactory } from 'htmlbars-inline-precompile';
 
 export interface TestContext {
@@ -17,12 +17,7 @@ export interface TestContext {
     render(template?: string | string[] | TemplateFactory): Promise<void>;
     clearRender(): void;
     factory(fullName: string): unknown;
-    // NOTE: this uses an intersection instead of something more normal because
-    // it is intentionally causing a collision between the two `factoryFor`
-    // definitions.
-    owner: ApplicationInstance & {
-        factoryFor(fullName: string, options?: {}): unknown;
-    };
+    owner: Owner;
     pauseTest(): Promise<void>;
     resumeTest(): void;
     element: Element | Document;
@@ -57,7 +52,7 @@ export { visit, currentRouteName, currentURL } from '@ember/test-helpers/setup-a
 
 // Rendering Helpers
 
-export { render, clearRender } from '@ember/test-helpers/setup-rendering-context';
+export { render, rerender, clearRender } from '@ember/test-helpers/setup-rendering-context';
 
 // Wait Helpers
 

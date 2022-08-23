@@ -42,5 +42,5 @@ export function usePosition(watch: boolean, settings?: PositionOptions): {
     accuracy: number | undefined,
     speed: number | undefined,
     heading: number | undefined,
-    errorMessage: string | undefined
+    error: string | undefined
 };

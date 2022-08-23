@@ -3842,6 +3842,7 @@ export class Image extends ImageBase {
 }
 
 export interface ImageBackgroundProps extends ImagePropsBase {
+    children?: React.ReactNode;
     imageStyle?: StyleProp<ImageStyle> | undefined;
     style?: StyleProp<ViewStyle> | undefined;
     imageRef?(image: Image): void;

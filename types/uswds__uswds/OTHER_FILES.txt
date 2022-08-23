@@ -1,0 +1,6 @@
+css/index.d.ts
+fonts/index.d.ts
+img/index.d.ts
+scss/index.d.ts
+src/img/index.d.ts
+src/js/components/index.d.ts

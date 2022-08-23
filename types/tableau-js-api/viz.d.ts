@@ -85,7 +85,7 @@ export class Viz {
     showExportPowerPointDialog(): void;
     showExportDataDialog(worksheetInDashboard: Sheet | SheetInfo | string): void;
     showExportCrossTabDialog(worksheetInDashboard: Sheet | SheetInfo | string): void;
-    exportCrossTabToExcel(worksheetInDashboard: Sheet | SheetInfo | string): void;
+    exportCrossTabToExcel(worksheetInDashboard?: Sheet | SheetInfo | string): void;
     showShareDialog(): void;
     setFrameSize(width: number, height: number): void;
     getCurrentUrlAsync(): Promise<string>;

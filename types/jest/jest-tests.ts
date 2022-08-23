@@ -107,6 +107,14 @@ it.only('name', () => {}, 9001);
 it.only('name', async () => {}, 9001);
 it.only('name', (callback: jest.DoneCallback) => {}, 9001);
 
+it.failing('name', () => {});
+it.failing('name', async () => {});
+it.failing('name', () => {}, 9001);
+it.failing('name', async () => {}, 9001);
+it.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+it.only.failing('name', () => {});
+it.skip.failing('name', () => {});
+
 it.skip('name', () => {});
 it.skip('name', async () => {});
 it.skip('name', () => {}, 9001);
@@ -136,6 +144,14 @@ fit.only('name', async () => {});
 fit.only('name', () => {}, 9001);
 fit.only('name', async () => {}, 9001);
 fit.only('name', (callback: jest.DoneCallback) => {}, 9001);
+
+fit.failing('name', () => {});
+fit.failing('name', async () => {});
+fit.failing('name', () => {}, 9001);
+fit.failing('name', async () => {}, 9001);
+fit.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+fit.only.failing('name', () => {});
+fit.skip.failing('name', () => {});
 
 fit.skip('name', () => {});
 fit.skip('name', async () => {});
@@ -167,6 +183,14 @@ xit.only('name', () => {}, 9001);
 xit.only('name', async () => {}, 9001);
 xit.only('name', (callback: jest.DoneCallback) => {}, 9001);
 
+xit.failing('name', () => {});
+xit.failing('name', async () => {});
+xit.failing('name', () => {}, 9001);
+xit.failing('name', async () => {}, 9001);
+xit.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+xit.only.failing('name', () => {});
+xit.skip.failing('name', () => {});
+
 xit.skip('name', () => {});
 xit.skip('name', async () => {});
 xit.skip('name', () => {}, 9001);
@@ -197,6 +221,14 @@ test.only('name', () => {}, 9001);
 test.only('name', async () => {}, 9001);
 test.only('name', (callback: jest.DoneCallback) => {}, 9001);
 
+test.failing('name', () => {});
+test.failing('name', async () => {});
+test.failing('name', () => {}, 9001);
+test.failing('name', async () => {}, 9001);
+test.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+test.only.failing('name', () => {});
+test.skip.failing('name', () => {});
+
 test.skip('name', () => {});
 test.skip('name', async () => {});
 test.skip('name', () => {}, 9001);
@@ -226,6 +258,14 @@ xtest.only('name', async () => {});
 xtest.only('name', () => {}, 9001);
 xtest.only('name', async () => {}, 9001);
 xtest.only('name', (callback: jest.DoneCallback) => {}, 9001);
+
+xtest.failing('name', () => {});
+xtest.failing('name', async () => {});
+xtest.failing('name', () => {}, 9001);
+xtest.failing('name', async () => {}, 9001);
+xtest.failing('name', (callback: jest.DoneCallback) => {}, 9001);
+xtest.only.failing('name', () => {});
+xtest.skip.failing('name', () => {});
 
 xtest.skip('name', () => {});
 xtest.skip('name', async () => {});
@@ -289,7 +329,7 @@ jest.autoMockOff()
     .mock<{animal: string}>('moduleName', () => ({name: 'tom'}))
     .resetModules()
     .isolateModules(() => {})
-    .retryTimes(3)
+    .retryTimes(3, { logErrorsBeforeRetry: true })
     .runAllImmediates()
     .runAllTicks()
     .runAllTimers()
@@ -742,15 +782,15 @@ switch (mockResult.type) {
 expect.setState(true);
 expect.setState({for: 'state'});
 const expectState = expect.getState();
-// $ExpectType string
+// $ExpectType string | undefined
 expectState.currentTestName;
-// $ExpectType string
+// $ExpectType string | undefined
 expectState.testPath;
-// $ExpectType boolean
+// $ExpectType boolean | undefined
 expectState.expand;
 // $ExpectType number
 expectState.assertionCalls;
-// $ExpectType number
+// $ExpectType number | null | undefined
 expectState.expectedAssertionsNumber;
 // $ExpectType boolean | undefined
 expectState.isExpectingAssertions;
@@ -870,7 +910,7 @@ expect.extend({
 expect.extend({
     foo(this: jest.MatcherContext) {
         const isNot: boolean = this.isNot;
-        const expand: boolean = this.expand;
+        const expand: boolean | undefined = this.expand;
 
         const expectedColor = this.utils.EXPECTED_COLOR('blue');
         const receivedColor = this.utils.EXPECTED_COLOR('red');
@@ -913,10 +953,10 @@ expect.extend({
 
         const equals: boolean = this.equals({}, {});
 
-        this.dontThrow();
+        this.dontThrow!();
         this.fromState;
-        const currentTestName: string = this.currentTestName;
-        const testPath: string = this.testPath;
+        const currentTestName: string | undefined = this.currentTestName;
+        const testPath: string | undefined = this.testPath;
 
         return {
             message: () => `Can use ${this.promise} for failure message`,

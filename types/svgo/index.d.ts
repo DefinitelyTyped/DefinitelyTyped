@@ -29,7 +29,10 @@ export type AddAttributesToSVGElementPlugin = DefaultPlugin<
 /**
  * adds classnames to an outer <svg> element
  */
-export type AddClassesToSVGElementPlugin = DefaultPlugin<'addClassesToSVGElement'>;
+export type AddClassesToSVGElementPlugin = DefaultPlugin<
+    'addClassesToSVGElement',
+    { className: string; classNames?: never; } | { className?: never; classNames: string[]; }
+>;
 
 /**
  * cleanups attributes from newlines, trailing and repeating spaces

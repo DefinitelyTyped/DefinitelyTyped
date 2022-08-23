@@ -68,7 +68,7 @@ import EmberHelper from '@ember/component/helper';
 // @ember/routing
 import EmberRoutingRouter from '@ember/routing/router';
 import EmberRoutingRoute from '@ember/routing/route';
-import EmberRoutingTransition from '@ember/routing/-private/transition';
+import EmberRoutingTransition from '@ember/routing/transition';
 import EmberRoutingRouterService from '@ember/routing/router-service';
 import EmberRoutingHashLocation from '@ember/routing/hash-location';
 import EmberRoutingAutoLocation from '@ember/routing/auto-location';

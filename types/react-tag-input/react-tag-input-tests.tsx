@@ -35,7 +35,6 @@ ReactDOM.render(
         removeComponent={null}
         autocomplete={true}
         readOnly={false}
-        resetInputOnDelete={false}
         maxLength={64}
         inputValue="Some input value"
         inputFieldPosition="top"

@@ -1,4 +1,4 @@
-import inquirer = require('inquirer');
+import inquirer from 'inquirer';
 
 /**
  * Nested Inquirer call
