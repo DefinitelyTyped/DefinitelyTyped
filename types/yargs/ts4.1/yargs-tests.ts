@@ -745,8 +745,11 @@ function Argv$getCompletion() {
         .option('foobar', {})
         .option('foobaz', {})
         .completion()
-        .getCompletion(['./test.js', '--foo'], (completions) => {
-            console.log(completions);
+        .getCompletion(['./test.js', '--foo'], (err, completions) => {
+          if (err !== null) {
+            console.error(err.message);
+          }
+          console.log(completions.length);
         })
         .argv;
 }
