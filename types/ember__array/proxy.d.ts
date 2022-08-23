@@ -20,7 +20,7 @@ interface EmberArrayLike<T> {
  * may be used in this case.
  */
 interface ArrayProxy<T> extends MutableArray<T> {}
-declare class ArrayProxy<T> extends EmberObject.extend(MutableArray as {}) {
+declare class ArrayProxy<T> extends EmberObject {
     content: T[] | EmberArrayLike<T>;
 
     /**

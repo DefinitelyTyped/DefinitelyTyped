@@ -44,11 +44,10 @@ export interface ControllerMixin extends ActionHandler {
     target: object;
 }
 export const ControllerMixin: Mixin<ControllerMixin>;
-export default class Controller extends EmberObject.extend(ControllerMixin) {}
+export default class Controller extends EmberObject {}
+export default interface Controller extends ControllerMixin {}
 export function inject(): ComputedProperty<Controller>;
-export function inject<K extends keyof Registry>(
-    name: K
-): ComputedProperty<Registry[K]>;
+export function inject<K extends keyof Registry>(name: K): ComputedProperty<Registry[K]>;
 export function inject(target: object, propertyKey: string | symbol): void;
 
 // A type registry for Ember `Controller`s. Meant to be declaration-merged
