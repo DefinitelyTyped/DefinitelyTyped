@@ -7196,13 +7196,6 @@ export interface AppStateStatic {
      * type and providing the handler
      */
     addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): NativeEventSubscription;
-
-    /**
-     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
-     *
-     * Remove a handler by passing the change event type and the handler
-     */
-    removeEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
 }
 
 /**
