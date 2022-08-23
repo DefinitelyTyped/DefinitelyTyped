@@ -1,7 +1,7 @@
 import Component, { getComponentTemplate } from '@ember/component';
 import Object, { computed, get } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
-import { assertExtendsType, assertType } from './lib/assert';
+import { assertType } from './lib/assert';
 
 Component.extend({
     layout: hbs`
