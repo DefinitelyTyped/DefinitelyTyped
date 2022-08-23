@@ -114,15 +114,14 @@ export function setComponentManager<T>(managerFactory: (owner: unknown) => Compo
 /**
  * Takes a component class and returns the template associated with the given component class,
  * if any, or one of its superclasses, if any, or undefined if no template association was found.
- * 
+ *
  * Prescribed in the Component Templates Co-location RFC
  * https://rfcs.emberjs.com/id/0481-component-templates-co-location/#low-level-primitives
- * 
+ *
  * @param object the component object
  * @return the template factory of the given component
  */
  export function getComponentTemplate(obj: object): TemplateFactory | undefined;
-
 
 // In normal TypeScript, these built-in components are essentially opaque tokens
 // that just need to be importable. Declaring them with unique interfaces

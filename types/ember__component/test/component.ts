@@ -156,6 +156,8 @@ class SigExample extends Component<MySig> {
     }
 }
 
-
 const templateFactory = getComponentTemplate(component1);
-assertExtendsType<object | undefined>(templateFactory)
+assertExtendsType<object | undefined>(templateFactory);
+
+// @ts-expect-error
+getComponentTemplate('foo');
