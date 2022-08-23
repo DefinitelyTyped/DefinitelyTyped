@@ -156,7 +156,7 @@ class SigExample extends Component<MySig> {
     }
 }
 
-// $ExpectType object | undefined
+// $ExpectType TemplateFactory | undefined
 getComponentTemplate(component1);
 
 // @ts-expect-error
