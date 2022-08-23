@@ -49,7 +49,10 @@ declare namespace fileUpload {
     /**
      * @see {@link https://github.com/richardgirges/express-fileupload#available-options}
      */
-    interface Options extends BusboyConfig {
+    // TODO: we need the `Partial<...>` part here because BusboyConfig properties used to be not optional
+    // in @types/busboy@0, users upgrading this type with a lockfile won't receive the update to
+    // newer busboy types this package actually requires
+    interface Options extends Partial<BusboyConfig> {
         /**
          * Automatically creates the directory path specified in `.mv(filePathName)`
          * @default false
