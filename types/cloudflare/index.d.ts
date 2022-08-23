@@ -106,15 +106,6 @@ declare namespace Cloudflare {
         del(account_id: string, id: string): ResponseObjectPromise;
     }
 
-    interface KeyValue {
-        key: string;
-        value: string;
-        expiration?: number;
-        expiration_ttl?: number;
-        metadata?: object;
-        base64?: boolean;
-    }
-
     interface EnterpriseZoneWorkersKV {
         browse(account_id: string, namespace_id: string): ResponseObjectPromise;
         add(account_id: string, namespace_id: string, key_name: string, value: string): ResponseObjectPromise;
@@ -123,7 +114,14 @@ declare namespace Cloudflare {
         addMulti(
             account_id: string,
             namespace_id: string,
-            data: KeyValue[],
+            data: Array<{
+                key: string;
+                value: string;
+                expiration?: number;
+                expiration_ttl?: number;
+                metadata?: object;
+                base64?: boolean;
+            }>,
         ): ResponseObjectPromise;
         delMulti(account_id: string, namespace_id: string, data: string[]): ResponseObjectPromise;
     }
