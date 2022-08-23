@@ -121,4 +121,3 @@ declare interface CollisionFlagsObject {
     "c2": number;
     "c3": number;
 }
-// | "red" | "blue" | "redKO" | "blueKO" | "wall" | "all" | "kick" | "score" | "c0" | "c1" | "c2" | "c3" | "c4";
