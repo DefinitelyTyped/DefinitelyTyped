@@ -15,8 +15,7 @@ export type FeatherIconComponent = ExtendedVue<
   {},
   {},
   {},
-  FeatherIconProps,
-  {}
+  FeatherIconProps
   >;
 export const ActivityIcon: FeatherIconComponent;
 export const AirplayIcon: FeatherIconComponent;
