@@ -1,7 +1,7 @@
-import Component from '@ember/component';
+import Component, { getComponentTemplate } from '@ember/component';
 import Object, { computed, get } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
-import { assertType } from './lib/assert';
+import { assertExtendsType, assertType } from './lib/assert';
 
 Component.extend({
     layout: hbs`
@@ -155,3 +155,7 @@ class SigExample extends Component<MySig> {
         return `${name} is ${age} years old`;
     }
 }
+
+
+const templateFactory = getComponentTemplate(component1);
+assertExtendsType<object | undefined>(templateFactory)
