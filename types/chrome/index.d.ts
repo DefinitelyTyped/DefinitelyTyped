@@ -21,6 +21,7 @@
 /// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
 /// <reference path="./chrome-cast/index.d.ts" />
+import type {Step, UserFlow} from '@puppeteer/replay'
 
 ////////////////////
 // Global object
@@ -2753,6 +2754,42 @@ declare namespace chrome.devtools.panels {
      * The name of the color theme set in user's DevTools settings.
      */
     export var themeName: 'default' | 'dark';
+}
+
+///////////////////////
+// Dev Tools - Recorder
+///////////////////////
+/**
+ * Use the chrome.devtools.recorder API to customize the Recorder panel in DevTools.
+ * Availability: Since Chrome 104.
+ */
+declare namespace chrome.devtools.recorder {
+    /** A plugin interface that the Recorder panel invokes to customize the Recorder panel. */
+    interface RecorderExtensionPlugin {
+        /**
+         * Converts a recording from the Recorder panel format into a string.
+         * @param recording A recording of the user interaction with the page.
+         */
+        stringify(recording: UserFlow): Promise<string>
+
+        /**
+         * Converts a step of the recording from the Recorder panel format into a string.
+         * @param step A step of the recording of a user interaction with the page.
+         */
+        stringifyStep?(step: Step): Promise<string>
+    }
+
+    /**
+     * Registers a Recorder extension plugin.
+     * @param plugin An instance implementing the `RecorderExtensionPlugin` interface.
+     * @param [name] The name of the plugin.
+     * @param [mediaType="text/plain"] The media type of the string content that the plugin produces.
+     */
+    function registerRecorderExtensionPlugin(
+        plugin: RecorderExtensionPlugin,
+        name?: string,
+        mediaType?: string,
+    ): void
 }
 
 ////////////////////

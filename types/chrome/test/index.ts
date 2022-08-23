@@ -814,6 +814,24 @@ function testDevtools() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/devtools_recorder/
+function testRecorder() {
+    class MyPlugin {
+        stringify(recording) {
+            return Promise.resolve(JSON.stringify(recording));
+        }
+        stringifyStep(step) {
+            return Promise.resolve(JSON.stringify(step));
+        }
+    }
+
+    chrome.devtools.recorder.registerRecorderExtensionPlugin(
+        new MyPlugin(),
+        'MyPlugin',
+        'application/json',
+    );
+}
+
 function testAssistiveWindow() {
     chrome.input.ime.setAssistiveWindowProperties({
         contextID: 0,

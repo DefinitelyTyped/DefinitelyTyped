@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "@puppeteer/replay": "^1.0.0"
+  }
+}

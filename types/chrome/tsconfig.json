@@ -15,7 +15,8 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "target": "ES2015"
     },
     "files": [
         "index.d.ts",
