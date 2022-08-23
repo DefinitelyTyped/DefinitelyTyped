@@ -63,7 +63,7 @@ declare namespace clownface {
     readonly _context: Array<Context<D, Term>>;
     any(): AnyPointer<AnyContext, D>;
     list(): Iterable<Iteratee<T, D>> | null;
-    isList(): boolean;
+    isList(): this is ListPointer<T, D>;
     toArray(): Array<AnyPointer<ExtractContext<T>, D>>;
     filter<S extends T>(cb: FilterCallback<T, D, S>): AnyPointer<S, D>;
     filter(cb: (ptr: Iteratee<T, D>, index: number, pointers: Array<GraphPointer<ExtractContext<T>>>) => boolean): AnyPointer<T, D>;
@@ -114,6 +114,10 @@ declare namespace clownface {
     deleteIn(predicates?: SingleOrArrayOfTerms<Term>, subjects?: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
     deleteOut(predicates?: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
     deleteList(predicates: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
+  }
+
+  interface ListPointer<T extends Term = Term, D extends DatasetCore = DatasetCore> extends GraphPointer<T, D> {
+    list(): Iterable<Iteratee<T, D>>
   }
 
   type MultiPointer<T extends Term = Term, D extends DatasetCore = DatasetCore> = AnyPointer<T | T[], D>;

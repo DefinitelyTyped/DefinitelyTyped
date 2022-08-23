@@ -290,8 +290,13 @@ function testList() {
 }
 
 function testIsList() {
-    const cf: clownface.AnyPointer<NamedNode, Dataset> = <any> {};
-    const listNodes: boolean = cf.isList();
+    const anyPtr: clownface.AnyPointer<NamedNode, Dataset> = <any> {};
+    const isList: boolean = anyPtr.isList();
+
+    if (anyPtr.isList()) {
+        const graphPtr: clownface.GraphPointer<NamedNode, Dataset> = anyPtr;
+        const listNodes: Iterable<clownface.AnyPointer<NamedNode, Dataset>> = anyPtr.list();
+    }
 }
 
 function testLiteral() {
