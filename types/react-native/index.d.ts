@@ -7104,6 +7104,7 @@ export interface AlertButton {
 interface AlertOptions {
     /** @platform android */
     cancelable?: boolean | undefined;
+    userInterfaceStyle?: 'unspecified' | 'light' | 'dark';
     /** @platform android */
     onDismiss?: (() => void) | undefined;
 }
