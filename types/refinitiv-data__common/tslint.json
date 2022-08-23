@@ -1,0 +1,9 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "no-redundant-jsdoc-2": false,
+        "no-useless-files": false,
+        "strict-export-declare-modifiers": false
+    }
+}
