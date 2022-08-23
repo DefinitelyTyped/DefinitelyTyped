@@ -286,7 +286,7 @@ function testIn() {
 
 function testList() {
     const cf: clownface.AnyPointer<NamedNode, Dataset> = <any> {};
-    const listNodes: Iterable<clownface.AnyPointer<NamedNode, Dataset>> | null = cf.list();
+    const listNodes: Iterable<clownface.AnyPointer<Term, Dataset>> | null = cf.list();
 }
 
 function testIsList() {
@@ -295,7 +295,7 @@ function testIsList() {
 
     if (anyPtr.isList()) {
         const graphPtr: clownface.GraphPointer<NamedNode, Dataset> = anyPtr;
-        const listNodes: Iterable<clownface.AnyPointer<NamedNode, Dataset>> = anyPtr.list();
+        const listNodes: Iterable<clownface.AnyPointer<Term, Dataset>> = anyPtr.list();
     }
 }
 
