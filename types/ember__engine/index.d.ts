@@ -45,6 +45,7 @@ export default class Engine extends EmberObject {
     buildInstance(options?: object): EngineInstance;
 }
 
+// tslint:disable-next-line:no-empty-interface -- used for declaration merge
 export default interface Engine extends RegistryProxyMixin {}
 
 /**
