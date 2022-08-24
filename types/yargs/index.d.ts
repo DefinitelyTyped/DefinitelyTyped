@@ -339,6 +339,7 @@ declare namespace yargs {
          * @param done The callback to be called with the resulting completions.
          */
         getCompletion(args: ReadonlyArray<string>, done: (err: Error|null, completions: ReadonlyArray<string>) => void): Argv<T>;
+        getCompletion(args: ReadonlyArray<string>, done?: never): Promise<ReadonlyArray<string>>;
 
         /**
          * Returns a promise which resolves to a string containing the help text.

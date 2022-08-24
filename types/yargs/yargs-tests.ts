@@ -786,6 +786,17 @@ function Argv$getCompletion() {
         .argv;
 }
 
+function Argv$getCompletionPromise() {
+    const ya = yargs
+        .option('foobar', {})
+        .option('foobaz', {})
+        .completion()
+        .getCompletion(['./test.js', '--foo'])
+        .then(completions => {
+          console.log(completions.length);
+        });
+}
+
 function Argv$getHelp() {
 	const ya = yargs.getHelp().then((help: string) => {
             console.log(help);
